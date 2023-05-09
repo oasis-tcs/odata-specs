@@ -1,0 +1,4 @@
+.example { font-size: smaller; }
+.example p { font-style: italic; }
+mjx-container { font-size: unset !important; }
+mjx-container[display=true] { text-align: left !important; margin-left: 40px !important; }

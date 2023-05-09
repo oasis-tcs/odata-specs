@@ -1,0 +1,14 @@
+{
+  "name": "odata-specs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "number.js",
+  "scripts": {
+    "build": "node lib/number"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
