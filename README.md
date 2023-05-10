@@ -14,3 +14,5 @@ See [example ##_aggregation]. Reference to an example showing its number.
 Long mathematical formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
 
 This additional syntax is resolved with the Node.js module [`lib/number.js`](lib/number.js).
+
+Run `node lib/server` to start a Node.js server and access the HTML pages at, for example, `http://localhost/odata-aggr`.
