@@ -1,8 +1,8 @@
-# ##sec Hierarchical Transformations
+# 1<a name="HierarchicalTransformations"></a> Hierarchical Transformations
 
-## ##subsec Hierarchical Transformations Preserving the Input Set Structure
+## 1.1<a name="HierarchicalTransformationsPreservingtheInputSetStructure"></a> Hierarchical Transformations Preserving the Input Set Structure
 
-### ##subsubsec Transformation `traverse`
+### 1.1.1<a name="Transformationtraverse"></a> Transformation `traverse`
 
 The traverse transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
@@ -40,7 +40,7 @@ The function $a(u,v,x)$ takes an instance, a path and another instance as argume
 7. If $v_1$ is collection-valued, let $u[v_1]=a$ collection consisting of one item $x'$.
 8. Return $u$.
 
-(See [Example ##_traversecoll].)
+(See [Example UNRESOLVED traversecoll].)
 
 Let $r_1,\ldots,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ preserving the order of $H'$ stable-sorted by $o$. Then the transformation $\hbox{\tt{traverse}}(H,Q,p,h,S,o)$ is defined as equivalent to
 $$\hbox{\tt{concat}}(R(r_1),\ldots,R(r_n)).$$
@@ -57,23 +57,11 @@ If $p$ contains only single-valued segments, then
 $$F(x)=\hbox{\tt{filter}}(p\hbox{\tt{ eq }}x[q]).$$
 
 Otherwise $p=p_1/\ldots/p_k/s$ with $k\ge 1$ and
-$$\matrix{ 
-F(x)=\hbox{\tt{filter}}(\hfill\\ 
-\hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ 
-\hskip5pc y_k/s\hbox{\tt{ eq }}x[q]\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
-}$$
+$$\matrix{ F(x)=\hbox{\tt{filter}}(\hfill\\ \hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc y_k/s\hbox{\tt{ eq }}x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,\ldots,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent.
 
 ::: example
-Example ##ex: Based on the `SalesOrgHierarchy` defined in Hierarchy Examples
+Example 1: Based on the `SalesOrgHierarchy` defined in Hierarchy Examples
 ```
 GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
@@ -115,21 +103,12 @@ Given a path-to-the-root $x$ and a child $c$ of $x$, let $\rho(c,x)$ be the path
 Paths-to-the-root need not have an `Aggregation.UpNode` annotation if they are themselves roots, such as the roots $r_1,\ldots,r_n$ defined above. The transformation $\hbox{\tt{traverse}}(H,Q,p,h,S,o)$ is defined as equivalent to
 $$\hbox{\tt{concat}}(R(\rho(r_1,\hbox{\tt{null}})), \ldots, R(\rho(r_n,\hbox{\tt{null}}))$$
 where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,\ldots,c_m$ as above, if $h=\hbox{\tt{preorder}}$, then
-$$\matrix{ 
-R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad F(x)/\Pi_G (\sigma(x)),\hfill\\ 
-\quad R(\rho(c_1,x)),\ldots,R(\rho(c_m,x))\hfill\\ 
-).\hfill 
-}$$
+$$\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad F(x)/\Pi_G (\sigma(x)),\hfill\\ \quad R(\rho(c_1,x)),\ldots,R(\rho(c_m,x))\hfill\\ ).\hfill }$$
 
 If $h=\hbox{\tt{postorder}}$, then
-$$\matrix{R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad R(\rho(c_1,x)),\ldots,R(\rho(c_m,x)),\hfill\\ 
-\quad F(x)/\Pi_G (\sigma(x))\hfill\\ 
-).\hfill 
-}$$
+$$\matrix{R(x)=\hbox{\tt{concat}}(\hfill\\ \quad R(\rho(c_1,x)),\ldots,R(\rho(c_m,x)),\hfill\\ \quad F(x)/\Pi_G (\sigma(x))\hfill\\ ).\hfill }$$
 
-## ##subsec Grouping with rolluprecursive
+## 1.2<a name="Groupingwithrolluprecursive"></a> Grouping with rolluprecursive
 
 Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a recursive hierarchy. The transformation $F(x)$, defined below, outputs the portion with node identifiers among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(\sigma(x))$ defined in the [`traverse`](#Transformationtraverse) section.
 
@@ -150,53 +129,24 @@ with no order defined on the output set.
 $R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,\ldots,c_m$ be the children of $x$ in $(H',Q)$:
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ 
-R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(\sigma(x))),\hfill&\qquad(1)\\ 
-\quad R(c_1),\ldots,R(c_m)\hfill&\qquad(2)\\ 
-).\hfill 
-}$$
+$$\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(\sigma(x))),\hfill&\qquad(1)\\ \quad R(c_1),\ldots,R(c_m)\hfill&\qquad(2)\\ ).\hfill }$$
 
 The property $\chi_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of row (1) involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if P_1 and P_2 are empty, then
-$$\matrix{ 
-R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/T/Z_N/\Pi_G(\sigma(x)),\hfill&\qquad(1)\\ 
-\quad R(c_1),\ldots,R(c_m)\hfill&\qquad(2)\\ 
-).\hfill 
-}$$
+$$\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/T/Z_N/\Pi_G(\sigma(x)),\hfill&\qquad(1)\\ \quad R(c_1),\ldots,R(c_m)\hfill&\qquad(2)\\ ).\hfill }$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ 
-F(x)=\hbox{\tt{filter}}(\hbox{\tt{Aggregation.isdescendant}}(\hfill\\ 
-\quad \hbox{\tt{HierarchyNodes}}=H',\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad\hbox{\tt{Node}}=p,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}})).\hfill 
-}$$
+$$\matrix{ F(x)=\hbox{\tt{filter}}(\hbox{\tt{Aggregation.isdescendant}}(\hfill\\ \quad \hbox{\tt{HierarchyNodes}}=H',\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{'$Q$'}},\hfill\\ \quad\hbox{\tt{Node}}=p,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}})).\hfill }$$
 
 Otherwise $p=p_1/\ldots/p_k/s$ with $k\ge 1$ and
-$$\matrix{ 
-F(x)=\hbox{\tt{filter}}(\hfill\\ 
-\hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt{Aggregation.isdescendant}}(\hfill\\ 
-\hskip6pc \hbox{\tt{HierarchyNodes}}=H',\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc \hbox{\tt{Node}}=y_k/s,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
-}$$
+$$\matrix{ F(x)=\hbox{\tt{filter}}(\hfill\\ \hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc \hbox{\tt{Aggregation.isdescendant}}(\hfill\\ \hskip6pc \hbox{\tt{HierarchyNodes}}=H',\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc \hbox{\tt{Node}}=y_k/s,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,\ldots,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent. (See Example 111 for a case with $k=1$.)
 
 Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M\ge 1$ and $\hat F _N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(\chi_1),\ldots,\hat F_M(\chi_M)$, as $\chi_N$ runs over all nodes of the $N$-th recursive hierarchy for $1\le N\le M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $\chi_1,\ldots,\chi_M$.
 
 ::: example
-Example ##ex: Total number of sub-organizations for all organizations in the hierarchy defined in Hierarchy Examples with $p=q=\hbox{\tt{ID}}$ (case 1 of the definition of $\sigma(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
+Example 2: Total number of sub-organizations for all organizations in the hierarchy defined in Hierarchy Examples with $p=q=\hbox{\tt{ID}}$ (case 1 of the definition of $\sigma(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
 ```
 GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
@@ -231,7 +181,7 @@ results in
 The value of the property $\chi_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $\chi_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function $\hbox{\tt{rollupnode}}(\hbox{\tt{Position}}=N)$ defined in the Aggregation vocabulary, with $1\le N\le M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the Position parameter can be omitted.
 
 ::: example
-⚠ Example ##ex: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in Hierarchy Examples with $p=p'/q=\hbox{\tt{SalesOrganization}}/\hbox{\tt{ID}}$ and $p'=\hbox{\tt{SalesOrganization}}$ (case 2 of the definition of $\sigma(x)$). The Boolean expression $p'\hbox{\tt{ eq Aggregation.rollupnode}}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
+⚠ Example 3: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in Hierarchy Examples with $p=p'/q=\hbox{\tt{SalesOrganization}}/\hbox{\tt{ID}}$ and $p'=\hbox{\tt{SalesOrganization}}$ (case 2 of the definition of $\sigma(x)$). The Boolean expression $p'\hbox{\tt{ eq Aggregation.rollupnode}}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -264,7 +214,7 @@ results in
 :::
 
 ::: example
-⚠ Example ##ex: Although $p=\hbox{\tt{ID}}$ and $q=\hbox{\tt{ID}}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the definition of $\sigma(x)$, where no $$\hbox{\tt{Sales}}/\hbox{\tt{ID}}$ matches a $\hbox{\tt{SalesOrganizations}}\hbox{\tt{/ID}}$, that is, all $F(x)$ have empty output sets.
+⚠ Example 4: Although $p=\hbox{\tt{ID}}$ and $q=\hbox{\tt{ID}}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the definition of $\sigma(x)$, where no $$\hbox{\tt{Sales}}/\hbox{\tt{ID}}$ matches a $\hbox{\tt{SalesOrganizations}}\hbox{\tt{/ID}}$, that is, all $F(x)$ have empty output sets.
 ```
 GET /service/Sales?$apply=
     groupby((rolluprecursive(
@@ -291,17 +241,7 @@ With $r_1,\ldots,r_n$ as above, $\hbox{\tt{groupby}}((P_1,\hbox{\tt{rolluprecurs
 $$\hbox{\tt{concat}}(R(\rho(r_1,\hbox{\tt{null}}),\ldots, R(\rho(r_n,\hbox{\tt{null}}))).$$
 
 With $F(x)$ and $c_1,\ldots,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ 
-R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(\sigma(x))),\hfill\\ 
-\quad R(\rho(c_1,r)),\ldots,R(\rho(c_m,r))\hfill\\ 
-),\hfill 
-}$$
+$$\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(\sigma(x))),\hfill\\ \quad R(\rho(c_1,r)),\ldots,R(\rho(c_m,r))\hfill\\ ),\hfill }$$
 otherwise
-$$\matrix{ 
-R(x)=\hbox{\tt{concat}}(\hfill\\ 
-\quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/T/Z_N/\Pi_G(\sigma(x)),\hfill\\ 
-\quad R(\rho(c_1,r)),\ldots,R(\rho(c_m,r))\hfill\\ 
-),\hfill 
-}$$
+$$\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as }}\chi_N)/T/Z_N/\Pi_G(\sigma(x)),\hfill\\ \quad R(\rho(c_1,r)),\ldots,R(\rho(c_m,r))\hfill\\ ),\hfill }$$
 where $\chi_N$ is the path-to-the-root $x$.

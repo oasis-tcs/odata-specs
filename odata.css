@@ -1,4 +1,5 @@
 .example { font-size: smaller; }
 .example p { font-style: italic; }
+code { font-family: MJXZERO, MJXTEX-T; font-size: 12pt; }
 mjx-container { font-size: unset !important; }
 mjx-container[display=true] { text-align: left !important; margin-left: 40px !important; }
