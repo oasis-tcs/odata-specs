@@ -89,7 +89,7 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/UpNodeNavigationProperty`. The remainder of this section describes the case where it is collection-valued.
+The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued.
 
 Multiple parents of a node $x$ lead to multiple output set instances that include $\sigma(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $\sigma(x)$ by annotating $x$ differently before each $\sigma(x)$ is computed.
 
