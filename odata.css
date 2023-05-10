@@ -1,5 +1,32 @@
-.example { font-size: smaller; }
-.example p { font-style: italic; }
-code { font-family: MJXZERO, MJXTEX-T; font-size: 12pt; }
-mjx-container { font-size: unset !important; }
-mjx-container[display=true] { text-align: left !important; margin-left: 40px !important; }
+.example {
+	font-size: smaller;
+}
+
+.example p {
+	font-style: italic;
+}
+
+code {
+	font-family: MJXZERO, MJXTEX-T;
+	font-size: 12pt;
+}
+
+pre code {
+	font-family: unset;
+	font-size: unset;
+}
+
+mjx-container {
+	font-size: unset !important;
+}
+
+mjx-container[display=true] {
+	text-align: left !important;
+	margin-left: 40px !important;
+}
+
+mjx-c.mjx-c2019::before {
+	content: "\27" !important;
+	padding-right: 0.525em !important;
+	font-family: MJXZERO, MJXTEX-T;
+}
