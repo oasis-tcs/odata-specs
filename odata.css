@@ -2,6 +2,14 @@ a:target {
 	background-color: yellow;
 }
 
+a[href^="#OData"]::before {
+	content: "[";
+}
+
+a[href^="#OData"]::after {
+	content: "]";
+}
+
 .example {
 	font-size: smaller;
 }
@@ -12,7 +20,16 @@ a:target {
 
 code {
 	font-family: MJXZERO, MJXTEX-T;
-	font-size: 12pt;
+	font-size: 1em;
+}
+
+pre code {
+	font-family: unset;
+	font-size: unset;
+}
+
+.example p code {
+	font-style: initial;
 }
 
 h1 code,
@@ -21,11 +38,6 @@ h3 code,
 h4 code,
 h5 code,
 h6 code {
-	font-size: unset;
-}
-
-pre code {
-	font-family: unset;
 	font-size: unset;
 }
 
@@ -38,6 +50,7 @@ mjx-container[display=true] {
 	margin-left: 40px !important;
 }
 
+/* The following rule enables typewriter single quotes in maths, like $\hbox{\tt{'$Q$'}}$ */
 mjx-c.mjx-c2019::before {
 	content: "\27" !important;
 	padding-right: 0.525em !important;
