@@ -10,6 +10,10 @@ a[href^="#OData"]::after {
 	content: "]";
 }
 
+ol ol li {
+	list-style-type: lower-alpha;
+}
+
 .example {
 	font-size: smaller;
 }
