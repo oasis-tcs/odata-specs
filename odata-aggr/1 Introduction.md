@@ -16,7 +16,7 @@ This specification defines the following terms:
 - $A,I,U$ – collections of instances
 - $H$ – hierarchical collection
 - $u,w$ – instances in a collection
-- $x,y$ – instances in a hierachical collection, called nodes
+- $x,y$ – instances in a hierarchical collection, called nodes
 - $p,q,v$ – paths
 - $S,T$ – transformation sequences
 - $\Gamma(A,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)

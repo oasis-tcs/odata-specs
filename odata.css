@@ -10,10 +10,6 @@ a[href^="#OData"]::after {
 	content: "]";
 }
 
-ol ol li {
-	list-style-type: lower-alpha;
-}
-
 .example {
 	font-size: smaller;
 }
@@ -34,6 +30,10 @@ pre code {
 
 .example p code {
 	font-style: initial;
+}
+
+.example pre {
+	margin-left: 40px;
 }
 
 h1 code,
