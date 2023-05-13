@@ -21,6 +21,7 @@ a[href^="#OData"]::after {
 code {
 	font-family: MJXZERO, MJXTEX-T;
 	font-size: 1em;
+	line-height: 0;
 }
 
 pre code {
