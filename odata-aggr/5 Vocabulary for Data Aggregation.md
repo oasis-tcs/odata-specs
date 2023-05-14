@@ -10,7 +10,6 @@ The term `ApplySupported` can be applied to an entity set, entity type or to a c
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
 - A non-empty `GroupableProperties` indicates that only the listed properties of the annotated target can be used in `groupby`.
 - A non-empty `AggregatableProperties` indicates that only the listed properties of the annotated target can be used in [`aggregate`](#Transformationaggregate), optionally restricted to the specified aggregation methods.
-- If `IsRecursiveHierarchy` is false, the annotation target cannot be used as a [`recursive hierarchy`](#RecursiveHierarchies), even if the entity type carries the `RecursiveHierarchy` annotation.
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
@@ -368,10 +367,3 @@ results in
 :::
 
 Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
-
-## ##subsec Functions on Aggregated Entities
-
-Service-defined bound functions that serve as transformations MAY be annotated with the term `AvailableOnAggregates` to indicate that they are applicable to aggregated entities under specific conditions:
-- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function or action will be inapplicable.
-
-For example, assume the product is an implicit input for a function bindable to Sales, then aggregating away the product makes this function inapplicable.
