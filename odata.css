@@ -27,6 +27,32 @@ table {
 	width: auto;
 }
 
+.example-data {
+	position: relative;
+}
+
+.example-data div {
+	position: absolute;
+}
+
+.example-data p {
+	font-style: unset !important;
+}
+
+.example-data svg {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+svg>path {
+	fill: none;
+	stroke: black;
+	stroke-width: 2;
+}
+
 .example,
 .example table {
 	font-size: smaller;

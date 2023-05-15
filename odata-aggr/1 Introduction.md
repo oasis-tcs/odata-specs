@@ -166,7 +166,115 @@ Example ##ex: The following diagram depicts a denormalized schema for the simple
 ::: example
 Example ##ex: The following entity sets and sample data will be used to further illustrate the capabilities introduced by this extension.
 
-![example data](odata-aggr/example-data.png)
+:::: {.example-data style=width:600px;height:920px}
+<svg viewBox="0 0 600 920">
+  <defs>
+    <marker id="begin" viewBox="0 0 10 10" refX="0" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M10,0 L0,5 L10,10 z" />
+    </marker>
+    <marker id="end" viewBox="0 0 10 10" refX="10" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M0,0 L10,5 L0,10 z" />
+    </marker>
+  </defs>
+  <path d="M310,200 l45,50" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M50,625 l0,-35" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M160,625 l30,-235" fill="none" marker-end="url(#end)" />
+  <path d="M215,625 l45,-425" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M300,625 l55,-225" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+</svg>
+
+::::: {style=left:250px}
+Products
+
+ID|Category|Name|Color|TaxRate
+--|--------|----|-----|------:
+P1|PG1|Sugar|White|0.06
+P2|PG1|Coffee|Brown|0.06
+P3|PG2|Paper|White|0.14
+P4|PG2|Pencil|Black|0.14
+:::::
+
+::::: {style=left:510px}
+Food
+
+|Rating|
+|------|
+|5|
+|&nbsp;|
+|n/a|
+|n/a|
+:::::
+
+::::: {style=left:570px}
+Non-Food
+
+|RatingClass|
+|------|
+|n/a|
+|n/a|
+|average|
+|&nbsp;|
+:::::
+
+::::: {style=top:190px}
+Time
+
+Date|Month|Quarter|Year
+----|-----|-------|----
+2022-01-01|2022-01|2022-1|2022
+2022-04-01|2022-04|2022-2|2022
+2022-04-10|2022-04|2022-2|2022
+...|||
+:::::
+
+::::: {style=top:190px;left:360px}
+Categories
+
+ID|Name
+--|----
+PG1|Food
+PG2|Non-Food
+:::::
+
+::::: {style=top:330px;left:360px}
+Sales Organizations
+
+ID|Superordinate|Name
+--|-------------|----
+Sales||Corporate Sales
+US|Sales|US
+US West|US|US West
+US East|US|US East
+EMEA|Sales|EMEA
+EMEA Central|EMEA|EMEA Central
+:::::
+
+::::: {style=top:390px}
+Customers
+
+ID|Name|Country
+--|----|-------
+C1|Joe|USA
+C2|Sue|USA
+C3|Sue|Netherlands
+C4|Luc|France
+:::::
+
+::::: {style=top:590px}
+Sales
+
+ID|Customer|Time|Product|Sales Organization|Amount
+--|--------|----|-------|------------------|-----:
+1|C1|2022-01-03|P3|US West|1
+2|C1|2022-04-10|P1|US West|2
+3|C1|2022-08-07|P2|US West|4
+4|C2|2022-01-03|P2|US East|8
+5|C2|2022-11-09|P3|US East|4
+6|C3|2022-04-01|P1|EMEA Central|2
+7|C3|2022-08-06|P3|EMEA Central|1
+8|C3|2022-11-22|P1|EMEA Central|2
+:::::
+::::
 :::
 
 ## ##subsec Example Use Cases
