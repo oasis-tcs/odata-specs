@@ -166,8 +166,8 @@ Example ##ex: The following diagram depicts a denormalized schema for the simple
 ::: example
 Example ##ex: The following entity sets and sample data will be used to further illustrate the capabilities introduced by this extension.
 
-:::: {.example-data style=width:600px;height:920px}
-<svg viewBox="0 0 600 920">
+:::: {.example-data style=width:600px;height:700px}
+<svg viewBox="0 0 600 700">
   <defs>
     <marker id="begin" viewBox="0 0 10 10" refX="0" refY="5" orient="auto" markerWidth="5" markerHeight="5">
       <path d="M10,0 L0,5 L10,10 z" />
@@ -176,11 +176,11 @@ Example ##ex: The following entity sets and sample data will be used to further 
       <path d="M0,0 L10,5 L0,10 z" />
     </marker>
   </defs>
-  <path d="M310,200 l45,50" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
-  <path d="M50,625 l0,-35" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
-  <path d="M160,625 l30,-235" fill="none" marker-end="url(#end)" />
-  <path d="M215,625 l45,-425" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
-  <path d="M300,625 l55,-225" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M310,150 l45,50" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M50,485 l0,-35" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M160,485 l30,-185" fill="none" marker-end="url(#end)" />
+  <path d="M215,485 l45,-335" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
+  <path d="M300,485 l55,-165" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
 </svg>
 
 ::::: {.nav style=left:250px}
@@ -216,7 +216,7 @@ Non-Food
 |&nbsp;|
 :::::
 
-::::: {style=top:190px}
+::::: {style=top:150px}
 Time
 
 Date|Month|Quarter|Year
@@ -227,7 +227,7 @@ Date|Month|Quarter|Year
 ...|||
 :::::
 
-::::: {style=top:190px;left:360px}
+::::: {style=top:150px;left:360px}
 Categories
 
 ID|Name
@@ -236,7 +236,7 @@ PG1|Food
 PG2|Non-Food
 :::::
 
-::::: {.nav style=top:330px;left:360px}
+::::: {.nav style=top:260px;left:360px}
 Sales Organizations
 
 ID|Superordinate|Name
@@ -249,7 +249,7 @@ EMEA|Sales|EMEA
 EMEA Central|EMEA|EMEA Central
 :::::
 
-::::: {style=top:390px}
+::::: {style=top:300px}
 Customers
 
 ID|Name|Country
@@ -260,7 +260,7 @@ C3|Sue|Netherlands
 C4|Luc|France
 :::::
 
-::::: {.nav .nav-2 style=top:590px}
+::::: {.nav .nav-2 style=top:450px}
 Sales
 
 ID|Customer|Time|Product|Sales Organization|Amount
@@ -275,7 +275,7 @@ ID|Customer|Time|Product|Sales Organization|Amount
 8|C3|2022-11-22|P1|EMEA Central|2
 :::::
 
-::::: {.legend style=top:630px;left:500px}
+::::: {.legend style=top:470px;left:500px}
 Legend
 
 |Property|

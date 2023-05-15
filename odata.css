@@ -27,6 +27,12 @@ table {
 	width: auto;
 }
 
+table,
+th,
+td {
+	padding: 2pt 6pt;
+}
+
 .example-data {
 	position: relative;
 }
