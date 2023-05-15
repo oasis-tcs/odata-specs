@@ -47,6 +47,24 @@ table {
 	bottom: 0;
 }
 
+.example-data th:first-of-type:not(:last-of-type),
+.legend tbody tr:first-of-type {
+	background-color: green;
+}
+
+.nav th:nth-of-type(2),
+.nav-2 th:nth-of-type(3),
+.nav-2 th:nth-of-type(4),
+.nav-2 th:nth-of-type(5),
+.legend tbody tr:last-of-type {
+	background-color: rgb(255, 128, 0);
+}
+
+.legend td {
+	font-weight: bold;
+	color: white;
+}
+
 svg>path {
 	fill: none;
 	stroke: black;

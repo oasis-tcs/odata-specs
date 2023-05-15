@@ -183,7 +183,7 @@ Example ##ex: The following entity sets and sample data will be used to further 
   <path d="M300,625 l55,-225" fill="none" marker-start="url(#begin)" marker-end="url(#end)" />
 </svg>
 
-::::: {style=left:250px}
+::::: {.nav style=left:250px}
 Products
 
 ID|Category|Name|Color|TaxRate
@@ -236,7 +236,7 @@ PG1|Food
 PG2|Non-Food
 :::::
 
-::::: {style=top:330px;left:360px}
+::::: {.nav style=top:330px;left:360px}
 Sales Organizations
 
 ID|Superordinate|Name
@@ -260,7 +260,7 @@ C3|Sue|Netherlands
 C4|Luc|France
 :::::
 
-::::: {style=top:590px}
+::::: {.nav .nav-2 style=top:590px}
 Sales
 
 ID|Customer|Time|Product|Sales Organization|Amount
@@ -273,6 +273,15 @@ ID|Customer|Time|Product|Sales Organization|Amount
 6|C3|2022-04-01|P1|EMEA Central|2
 7|C3|2022-08-06|P3|EMEA Central|1
 8|C3|2022-11-22|P1|EMEA Central|2
+:::::
+
+::::: {.legend style=top:630px;left:500px}
+Legend
+
+|Property|
+|------|
+|Key|
+|Navigation Property|
 :::::
 ::::
 :::
