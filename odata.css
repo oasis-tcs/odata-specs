@@ -2,12 +2,21 @@ a:target {
 	background-color: yellow;
 }
 
-a[href^="#OData"]::before {
-	content: "[";
+a[href^="#OData"],
+a[href^="#RFC"] {
+	font-weight: bold;
 }
 
-a[href^="#OData"]::after {
+a[href^="#OData"]::before,
+a[href^="#RFC"]::before {
+	content: "[";
+	font-weight: bold;
+}
+
+a[href^="#OData"]::after,
+a[href^="#RFC"]::after {
 	content: "]";
+	font-weight: bold;
 }
 
 img {

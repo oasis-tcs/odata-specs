@@ -331,7 +331,7 @@ F(x)=\hbox{\tt{filter}}(\hfill\\
 \hskip1pc )\hfill\\ 
 )\hfill 
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent. (See Example 111 for a case with $k=1$.)
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent. (See [example ##rollupcoll] for a case with $k=1$.)
 
 Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
