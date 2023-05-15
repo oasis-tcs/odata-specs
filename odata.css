@@ -10,11 +10,21 @@ a[href^="#OData"]::after {
 	content: "]";
 }
 
-.example {
+img {
+	width: 100%;
+}
+
+table {
+	width: auto;
+}
+
+.example,
+.example table {
 	font-size: smaller;
 }
 
-.example p {
+.example p,
+.example li {
 	font-style: italic;
 }
 
