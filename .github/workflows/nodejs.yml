@@ -23,6 +23,6 @@ jobs:
           cache: 'npm'
       - name: Setup pandoc
         uses: siacodelabs/setup-pandoc@v1
-      - run: npm install
+      - run: npm ci
       - run: npm run build --if-present
       - run: git diff --exit-code docs
