@@ -1,6 +1,6 @@
 ## Committee Specification Draft 04
 
-## 28 October 2022
+## 16 May 2023
 
 **This stage:**  
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md (Authoritative)  
