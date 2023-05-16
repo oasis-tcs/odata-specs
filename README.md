@@ -1,3 +1,5 @@
+# PoC for Markdown as Authoritative specification source
+
 Section and example numbers and references to them are expressed in the Markdown source as follows:
 ```
 # ##sec Section Heading
@@ -16,3 +18,8 @@ Long mathematical formulas, especially multi-row ones such as `$$\matrix(...)$$`
 This additional syntax is resolved with the Node.js module [`lib/number.js`](lib/number.js).
 
 Run `npm start` to start a Node.js server and access the HTML pages at, for example, `http://localhost/odata-aggr`.
+
+## To Do
+
+- Auto-generate table of content with links to sections
+- Make section headlines self-links as in the [Core specifications](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ServiceModel)
