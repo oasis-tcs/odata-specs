@@ -4,7 +4,8 @@
   "description": "",
   "main": "number.js",
   "scripts": {
-    "build": "node lib/number",
+    "build": "node lib/build",
+    "build-md": "node lib/number",
     "start": "node lib/server"
   },
   "author": "",

@@ -23,14 +23,25 @@ img {
 	width: 100%;
 }
 
-table {
+.example,
+.example table {
+	font-size: smaller;
+}
+
+.example p,
+.example li {
+	font-style: italic;
+}
+
+.example table {
 	width: auto;
 }
 
-table,
-th,
-td {
+.example table,
+.example th,
+.example td {
 	padding: 2pt 6pt;
+	white-space: nowrap;
 }
 
 .example-data {
@@ -71,20 +82,10 @@ td {
 	color: white;
 }
 
-svg>path {
+.example-data svg>path {
 	fill: none;
 	stroke: black;
 	stroke-width: 2;
-}
-
-.example,
-.example table {
-	font-size: smaller;
-}
-
-.example p,
-.example li {
-	font-style: italic;
 }
 
 code {
