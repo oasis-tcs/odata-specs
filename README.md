@@ -34,3 +34,5 @@ Run `npm start` to start a Node.js server and access the HTML pages at, for exam
   - [Part 4: Work Product Preparation](https://docs.google.com/document/d/10lt8f2pn_ebZTsWJiGYiWYzyo6NbjuTskvDcS2tSyPw/edit#heading=h.bi4fdsq13pue): How do you actually craft the work product? What steps do you need to take to move it forward?
 - Check MD/HTML for broken and inconsistent links (similar to what we currently do with the `ExtractHyperlinksToExcel` Word macro
 - Request starter Markdown document and align our MD files with it
+- Check diagram sources (Visio, PowerPoint) into repository
+- Describe export process for diagrams to SVG
