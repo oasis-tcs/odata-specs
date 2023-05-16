@@ -23,3 +23,4 @@ Run `npm start` to start a Node.js server and access the HTML pages at, for exam
 
 - Auto-generate table of content with links to sections
 - Make section headlines self-links as in the [Core specifications](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ServiceModel)
+- Use same anchor naming convention `sec_CondensedHeadlineText` as in Core specifications?
