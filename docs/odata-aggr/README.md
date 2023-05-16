@@ -651,7 +651,7 @@ Query extensions and descriptive annotations can both be applied to normalized a
 ::: example
 Example 3: The following diagram depicts a denormalized schema for the simple model.
 
-![example data model denormalized](example-data-model-denormalized.png)
+![example data model denormalized](images/example-data-model-denormalized.png)
 :::
 
 ## <a name="ExampleData">2.2</a> Example Data
