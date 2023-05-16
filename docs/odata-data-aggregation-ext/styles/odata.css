@@ -23,6 +23,10 @@ img {
 	width: 100%;
 }
 
+.toc li {
+	list-style-type: none;
+}
+
 .example,
 .example table {
 	font-size: smaller;

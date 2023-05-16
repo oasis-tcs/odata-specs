@@ -17,7 +17,7 @@ Long mathematical formulas, especially multi-row ones such as `$$\matrix(...)$$`
 
 This additional syntax is resolved with the Node.js module [`lib/number.js`](lib/number.js).
 
-Run `npm start` to start a Node.js server and access the HTML pages at, for example, `http://localhost/odata-aggr`.
+Run `npm start` to start a Node.js server and access the HTML pages at, for example, `http://localhost/odata-data-aggregation-ext`.
 
 ## To Do
 
