@@ -25,3 +25,6 @@ Run `npm start` to start a Node.js server and access the HTML pages at, for exam
 - Make section headlines self-links as in the [Core specifications](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ServiceModel)
 - Use same anchor naming convention `sec_CondensedHeadlineText` as in Core specifications?
 - Fixed scaling of pictures instead of auto-scaling to page witdh?
+- Align structure of `/docs` subfolders with OASIS publication folder structure, see https://docs.oasis-open.org/openc2/oc2ls/v1.0/cs02/
+  - OASIS filenames for `.md` and `.html` instead of constant `README.md` and `index.html`
+  - include OASIS CSS file in `styles` subfolder to have snapshot of styles at point of document production
