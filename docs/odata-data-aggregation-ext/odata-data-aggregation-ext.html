@@ -367,6 +367,11 @@ Recursive Hierarchies</li>
 Sequences</li>
 </ul></li>
 <li><a href="#Conformance">8</a> Conformance</li>
+<li><a href="#References">A</a> References
+<ul>
+<li><a href="#NormativeReferences">A.1</a> Normative References</li>
+</ul></li>
+<li><a href="#Acknowledgments">B</a> Acknowledgments</li>
 </ul>
 </div>
 <h1
@@ -1400,6 +1405,7 @@ be asked is: "Which customers bought which products?"</p>
 much of what?"</p>
 <p>The answer to the second question typically is visualized as a
 cross-table:</p>
+<div class="cross">
 <table>
 <tbody>
 <tr class="odd">
@@ -1467,6 +1473,7 @@ cross-table:</p>
 </tr>
 </tbody>
 </table>
+</div>
 <p>The data in this cross-table can be written down in a shape that more
 closely resembles the structure of the data model, leaving cells empty
 that have been aggregated away:</p>
@@ -3132,7 +3139,8 @@ nor is the order of instances changed.</p>
 <p>Example 36:</p>
 <pre><code>GET /service/Sales?$apply=compute(Amount mul Product/TaxRate as Tax)</code></pre>
 <p>results in</p>
-<pre><code>{   &quot;@odata.context&quot;: &quot;$metadata#Sales(*,Tax)&quot;,
+<pre><code>{
+  &quot;@odata.context&quot;: &quot;$metadata#Sales(*,Tax)&quot;,
   &quot;value&quot;: [
     { &quot;ID&quot;: 1, &quot;Amount&quot;: 1, &quot;Tax@odata.type&quot;: &quot;Decimal&quot;, &quot;Tax&quot;: 0.14 },
     { &quot;ID&quot;: 2, &quot;Amount&quot;: 2, &quot;Tax@odata.type&quot;: &quot;Decimal&quot;, &quot;Tax&quot;: 0.12 },
@@ -5387,7 +5395,8 @@ property:</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Categories(FilteredProducts()&quot;,
   &quot;value&quot;: [
-    { &quot;ID&quot;: &quot;PG1&quot;, &quot;Name&quot;: &quot;Food&quot;,       &quot;FilteredProducts@odata.context&quot;: &quot;#Products(FilteredSales())&quot;,
+    { &quot;ID&quot;: &quot;PG1&quot;, &quot;Name&quot;: &quot;Food&quot;,
+      &quot;FilteredProducts@odata.context&quot;: &quot;#Products(FilteredSales())&quot;,
       &quot;FilteredProducts&quot;: [
         { &quot;ID&quot;: &quot;P1&quot;, &quot;Name&quot;: &quot;Sugar&quot;,  &quot;Color&quot;: &quot;White&quot;,
           &quot;FilteredSales@odata.context&quot;: &quot;#Sales&quot;,
@@ -5398,7 +5407,8 @@ property:</p>
                              { &quot;ID&quot;: 4, &quot;Amount&quot;: 8 } ] }
       ]
     },
-    { &quot;ID&quot;: &quot;PG2&quot;, &quot;Name&quot;: &quot;Non-Food&quot;,       &quot;FilteredProducts@odata.context&quot;: &quot;#Products(FilteredSales())&quot;,
+    { &quot;ID&quot;: &quot;PG2&quot;, &quot;Name&quot;: &quot;Non-Food&quot;,
+      &quot;FilteredProducts@odata.context&quot;: &quot;#Products(FilteredSales())&quot;,
       &quot;FilteredProducts&quot;: [
         { &quot;ID&quot;: &quot;P3&quot;, &quot;Name&quot;: &quot;Paper&quot;,  &quot;Color&quot;: &quot;White&quot;,
           &quot;FilteredSales@odata.context&quot;: &quot;#Sales&quot;,
@@ -5470,13 +5480,17 @@ navigation properties for grouping</p>
     { &quot;Country&quot;: &quot;Netherlands&quot;,
       &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
       &quot;ProductSales&quot;: { &quot;Product&quot;: { &quot;Name&quot;: &quot;Paper&quot;  } } },
-    { &quot;Country&quot;: &quot;Netherlands&quot;,       &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
+    { &quot;Country&quot;: &quot;Netherlands&quot;,
+      &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
       &quot;ProductSales&quot;: { &quot;Product&quot;: { &quot;Name&quot;: &quot;Sugar&quot;  } } },
-    { &quot;Country&quot;: &quot;USA&quot;,       &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
+    { &quot;Country&quot;: &quot;USA&quot;,
+      &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
       &quot;ProductSales&quot;: { &quot;Product&quot;: { &quot;Name&quot;: &quot;Coffee&quot; } } },
-    { &quot;Country&quot;: &quot;USA&quot;,       &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
+    { &quot;Country&quot;: &quot;USA&quot;,
+      &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
       &quot;ProductSales&quot;: { &quot;Product&quot;: { &quot;Name&quot;: &quot;Paper&quot;  } } },
-    { &quot;Country&quot;: &quot;USA&quot;,       &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
+    { &quot;Country&quot;: &quot;USA&quot;,
+      &quot;ProductSales@odata.context&quot;: &quot;#Sales(Product(Name))/$entity&quot;,
       &quot;ProductSales&quot;: { &quot;Product&quot;: { &quot;Name&quot;: &quot;Sugar&quot;  } } },
     { &quot;Country&quot;: &quot;France&quot;, &quot;ProductSales&quot;: null }
   ]
@@ -5738,7 +5752,8 @@ top entities in the given input set not to be considered for the
 balance:</p>
 <pre><code>&lt;edm:Function Name=&quot;TopCountAndBalance&quot;
               IsBound=&quot;true&quot;&gt;
-    &lt;edm:Parameter  Name=&quot;EntityCollection&quot;                     Type=&quot;Collection(Edm.EntityType)&quot;/&gt;
+    &lt;edm:Parameter  Name=&quot;EntityCollection&quot;
+                    Type=&quot;Collection(Edm.EntityType)&quot;/&gt;
     &lt;edm:Parameter  Name=&quot;Count&quot; Type=&quot;Edm.Int16&quot;/&gt;
     &lt;edm:Parameter  Name=&quot;Property&quot; Type=&quot;Edm.String&quot;/&gt;
     &lt;edm:ReturnType Type=&quot;Collection(Edm.EntityType)&quot;/&gt;
@@ -6197,10 +6212,9 @@ between them.</p>
   &quot;@odata.context&quot;: &quot;$metadata#Cities(Continent(Name),Country(Name),
                                       TotalPopulation)&quot;,
   &quot;value&quot;: [
-    { &quot;Continent&quot;: { &quot;Name&quot;: &quot;Asia&quot; },       &quot;Country&quot;: { &quot;Name&quot;: &quot;China&quot; },
+    { &quot;Continent&quot;: { &quot;Name&quot;: &quot;Asia&quot; }, &quot;Country&quot;: { &quot;Name&quot;: &quot;China&quot; },
       &quot;TotalPopulation@odata.type&quot;: &quot;Int32&quot;, &quot;TotalPopulation&quot;: 692.580.000 },
-    { &quot;Continent&quot;: { &quot;Name&quot;: &quot;Asia&quot; },
-      &quot;Country&quot;: { &quot;Name&quot;: &quot;India&quot; },
+    { &quot;Continent&quot;: { &quot;Name&quot;: &quot;Asia&quot; }, &quot;Country&quot;: { &quot;Name&quot;: &quot;India&quot; },
       &quot;TotalPopulation@odata.type&quot;: &quot;Int32&quot;, &quot;TotalPopulation&quot;: 390.600.000 },
     ...
   ]
@@ -6301,12 +6315,15 @@ href="#AggregationCapabilities"><code>ApplySupported</code></a>.</p>
 or all of the constructs defined in this specification, including custom
 aggregation methods defined by the service, and MUST ignore any
 constructs not defined in this version of the specification.</p>
-<h1 id="appendix-a-references">Appendix A. References</h1>
+<h1 id="appendix-a-references">Appendix
+<a name="References" href="#References">A</a> References</h1>
 <p>This appendix contains the normative and informative references that
 are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time
 of publication, OASIS cannot guarantee their long-term validity.</p>
-<h2 id="a1-normative-references">A.1 Normative References</h2>
+<h2
+id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1</a>
+Normative References</h2>
 <p>The following documents are referenced in such a way that some or all
 of their content constitutes requirements of this document.</p>
 <p><a name="ODataABNF">[OData-ABNF]</a><br />
@@ -6366,5 +6383,11 @@ href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/r
 Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a
 href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h1 id="appendix-b-acknowledgments">Appendix
+<a name="Acknowledgments" href="#Acknowledgments">B</a>
+Acknowledgments</h1>
+<p>The contributions of the OASIS OData Technical Committee members,
+enumerated in <a href="#ODataProtocol">OData-Protocol</a>, are
+gratefully acknowledged.</p>
 </body>
 </html>

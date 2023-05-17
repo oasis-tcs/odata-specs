@@ -729,6 +729,7 @@ This leads to the second more quantitative question: "Who bought how much of wha
 
 The answer to the second question typically is visualized as a cross-table:
 
+:::: cross
 |           |   |    |     |      |        |     |
 |-----------|---|---:|----:|-----:|-------:|----:|
 |           |   |Food|     |      |Non-Food|     |
@@ -738,6 +739,7 @@ The answer to the second question typically is visualized as a cross-table:
 |           |Sue|   8|     |     8|       4|    4|
 |Netherlands|   |   2|    2|      |       3|    3|
 |           |Sue|   2|    2|      |       3|    3|
+::::
 
 The data in this cross-table can be written down in a shape that more closely resembles the structure of the data model, leaving cells empty that have been aggregated away:
 

@@ -160,6 +160,9 @@ Distributed under the terms of the OASIS IPR Policy, [https://www.oasis-open.org
   - [7.8](#AggregationinRecursiveHierarchies) Aggregation in Recursive Hierarchies
   - [7.9](#TransformationSequences) Transformation Sequences
 - [8](#Conformance) Conformance
+- [A](#References) References
+  - [A.1](#NormativeReferences) Normative References
+- [B](#Acknowledgments) Acknowledgments
 :::
 
 # <a name="Introduction" href="#Introduction">1</a> Introduction
@@ -893,6 +896,7 @@ This leads to the second more quantitative question: "Who bought how much of wha
 
 The answer to the second question typically is visualized as a cross-table:
 
+:::: cross
 |           |   |    |     |      |        |     |
 |-----------|---|---:|----:|-----:|-------:|----:|
 |           |   |Food|     |      |Non-Food|     |
@@ -902,6 +906,7 @@ The answer to the second question typically is visualized as a cross-table:
 |           |Sue|   8|     |     8|       4|    4|
 |Netherlands|   |   2|    2|      |       3|    3|
 |           |Sue|   2|    2|      |       3|    3|
+::::
 
 The data in this cross-table can be written down in a shape that more closely resembles the structure of the data model, leaving cells empty that have been aggregated away:
 
@@ -1829,7 +1834,8 @@ GET /service/Sales?$apply=compute(Amount mul Product/TaxRate as Tax)
 ```
 results in
 ```
-{   "@odata.context": "$metadata#Sales(*,Tax)",
+{
+  "@odata.context": "$metadata#Sales(*,Tax)",
   "value": [
     { "ID": 1, "Amount": 1, "Tax@odata.type": "Decimal", "Tax": 0.14 },
     { "ID": 2, "Amount": 2, "Tax@odata.type": "Decimal", "Tax": 0.12 },
@@ -3440,7 +3446,8 @@ results in
 {
   "@odata.context": "$metadata#Categories(FilteredProducts()",
   "value": [
-    { "ID": "PG1", "Name": "Food",       "FilteredProducts@odata.context": "#Products(FilteredSales())",
+    { "ID": "PG1", "Name": "Food",
+      "FilteredProducts@odata.context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P1", "Name": "Sugar",  "Color": "White",
           "FilteredSales@odata.context": "#Sales",
@@ -3451,7 +3458,8 @@ results in
                              { "ID": 4, "Amount": 8 } ] }
       ]
     },
-    { "ID": "PG2", "Name": "Non-Food",       "FilteredProducts@odata.context": "#Products(FilteredSales())",
+    { "ID": "PG2", "Name": "Non-Food",
+      "FilteredProducts@odata.context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P3", "Name": "Paper",  "Color": "White",
           "FilteredSales@odata.context": "#Sales",
@@ -3529,13 +3537,17 @@ returns the different combinations of products sold per country:
     { "Country": "Netherlands",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
-    { "Country": "Netherlands",       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+    { "Country": "Netherlands",
+      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
-    { "Country": "USA",       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+    { "Country": "USA",
+      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Coffee" } } },
-    { "Country": "USA",       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+    { "Country": "USA",
+      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
-    { "Country": "USA",       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+    { "Country": "USA",
+      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
     { "Country": "France", "ProductSales": null }
   ]
@@ -3823,7 +3835,8 @@ For this purpose, the model includes a definition of a `TopCountAndBalance` func
 ```
 <edm:Function Name="TopCountAndBalance"
               IsBound="true">
-    <edm:Parameter  Name="EntityCollection"                     Type="Collection(Edm.EntityType)"/>
+    <edm:Parameter  Name="EntityCollection"
+                    Type="Collection(Edm.EntityType)"/>
     <edm:Parameter  Name="Count" Type="Edm.Int16"/>
     <edm:Parameter  Name="Property" Type="Edm.String"/>
     <edm:ReturnType Type="Collection(Edm.EntityType)"/>
@@ -4310,10 +4323,9 @@ results in
   "@odata.context": "$metadata#Cities(Continent(Name),Country(Name),
                                       TotalPopulation)",
   "value": [
-    { "Continent": { "Name": "Asia" },       "Country": { "Name": "China" },
+    { "Continent": { "Name": "Asia" }, "Country": { "Name": "China" },
       "TotalPopulation@odata.type": "Int32", "TotalPopulation": 692.580.000 },
-    { "Continent": { "Name": "Asia" },
-      "Country": { "Name": "India" },
+    { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
       "TotalPopulation@odata.type": "Int32", "TotalPopulation": 390.600.000 },
     ...
   ]
@@ -4425,13 +4437,13 @@ Conforming services MUST follow all rules of this specification for the set tran
 
 Conforming clients MUST be prepared to consume a model that uses any or all of the constructs defined in this specification, including custom aggregation methods defined by the service, and MUST ignore any constructs not defined in this version of the specification.
 
-# Appendix A. References
+# Appendix <a name="References" href="#References">A</a> References
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## A.1 Normative References
+## <a name="NormativeReferences" href="#NormativeReferences">A.1</a> Normative References
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
@@ -4478,3 +4490,7 @@ https://www.rfc-editor.org/info/rfc2119.
 <a name="RFC8174">[RFC8174]</a>  
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
+
+# Appendix <a name="Acknowledgments" href="#Acknowledgments">B</a> Acknowledgments
+
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.

@@ -78,6 +78,23 @@ img {
 	bottom: 0;
 }
 
+.cross tbody tr:first-of-type,
+.cross tbody tr:nth-of-type(2),
+.cross td:first-of-type,
+.cross td:nth-of-type(2) {
+	font-weight: bold;
+	color: white;
+	background-color: #446CAA
+}
+
+.cross tbody tr:first-of-type td:first-of-type,
+.cross tbody tr:nth-of-type(2) td:first-of-type,
+.cross tbody tr:first-of-type td:nth-of-type(2),
+.cross tbody tr:nth-of-type(2) td:nth-of-type(2) {
+	border: none;
+	background-color: white;
+}
+
 .example-data th:first-of-type:not(:last-of-type),
 .legend tbody tr:first-of-type {
 	background-color: green;

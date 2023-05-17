@@ -4,13 +4,13 @@ Conforming services MUST follow all rules of this specification for the set tran
 
 Conforming clients MUST be prepared to consume a model that uses any or all of the constructs defined in this specification, including custom aggregation methods defined by the service, and MUST ignore any constructs not defined in this version of the specification.
 
-# Appendix A. References
+# Appendix ##asec References
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## A.1 Normative References
+## ##subasec Normative References
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
@@ -57,3 +57,7 @@ https://www.rfc-editor.org/info/rfc2119.
 <a name="RFC8174">[RFC8174]</a>  
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
+
+# Appendix ##asec Acknowledgments
+
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.

@@ -530,7 +530,7 @@ results in
 {
   "@odata.context": "$metadata#Categories(FilteredProducts()",
   "value": [
-    { "ID": "PG1", "Name": "Food", 
+    { "ID": "PG1", "Name": "Food",
       "FilteredProducts@odata.context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P1", "Name": "Sugar",  "Color": "White",
@@ -542,7 +542,7 @@ results in
                              { "ID": 4, "Amount": 8 } ] }
       ]
     },
-    { "ID": "PG2", "Name": "Non-Food", 
+    { "ID": "PG2", "Name": "Non-Food",
       "FilteredProducts@odata.context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P3", "Name": "Paper",  "Color": "White",
@@ -621,16 +621,16 @@ returns the different combinations of products sold per country:
     { "Country": "Netherlands",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
-    { "Country": "Netherlands", 
+    { "Country": "Netherlands",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
-    { "Country": "USA", 
+    { "Country": "USA",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Coffee" } } },
-    { "Country": "USA", 
+    { "Country": "USA",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
-    { "Country": "USA", 
+    { "Country": "USA",
       "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
     { "Country": "France", "ProductSales": null }
@@ -919,7 +919,7 @@ For this purpose, the model includes a definition of a `TopCountAndBalance` func
 ```
 <edm:Function Name="TopCountAndBalance"
               IsBound="true">
-    <edm:Parameter  Name="EntityCollection" 
+    <edm:Parameter  Name="EntityCollection"
                     Type="Collection(Edm.EntityType)"/>
     <edm:Parameter  Name="Count" Type="Edm.Int16"/>
     <edm:Parameter  Name="Property" Type="Edm.String"/>
@@ -1407,11 +1407,9 @@ results in
   "@odata.context": "$metadata#Cities(Continent(Name),Country(Name),
                                       TotalPopulation)",
   "value": [
-    { "Continent": { "Name": "Asia" }, 
-      "Country": { "Name": "China" },
+    { "Continent": { "Name": "Asia" }, "Country": { "Name": "China" },
       "TotalPopulation@odata.type": "Int32", "TotalPopulation": 692.580.000 },
-    { "Continent": { "Name": "Asia" },
-      "Country": { "Name": "India" },
+    { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
       "TotalPopulation@odata.type": "Int32", "TotalPopulation": 390.600.000 },
     ...
   ]
