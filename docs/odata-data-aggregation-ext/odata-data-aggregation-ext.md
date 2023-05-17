@@ -318,8 +318,6 @@ Example 2: The following diagram depicts a simple model that is used throughout 
         class="st1" />
     </g>
     <g id="shape1009-23">
-      <desc>Date: Edm.Date {id} Month: Edm.String Quarter: Edm.String
-        Yea...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
@@ -413,8 +411,6 @@ Example 2: The following diagram depicts a simple model that is used throughout 
         class="st1" />
     </g>
     <g id="shape1037-83">
-      <desc>ID: Edm.String {id} Name: Edm.String Color: Edm.String
-        TaxRat...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
@@ -962,7 +958,7 @@ On resource paths ending in `/$count` the system query option `$apply` is evalua
 
 During serialization of the result of `$apply`, declared properties and dynamic properties are represented as defined by the response format. Other properties have been aggregated away and are not represented in the response.
 
-The entities returned in the request examples in the following sections that involve aggregation are transient. For brevity, the examples replace with ellipses (…) the type control information required to disambiguate represented dynamic property values of type `Edm.Decimal`.
+The entities returned in the request examples in the following sections that involve aggregation are transient.
 
 ## <a name="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1</a> Fundamentals of Input and Output Sets
 
@@ -2075,8 +2071,8 @@ results in 2 (a third of 8, rounded down) entities. (This differs from `topperce
 {
   "@odata.context": "$metadata#Sales",
   "value": [
-    { "ID": 3, "Amount": 4, ... },
-    { "ID": 4, "Amount": 8, ... }
+    { "ID": 3, "Amount": 4 },
+    { "ID": 4, "Amount": 8 }
   ]
 }
 ```

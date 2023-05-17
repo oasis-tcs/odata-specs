@@ -583,8 +583,6 @@ throughout this document.</p>
         class="st1" />
     </g>
     <g id="shape1009-23">
-      <desc>Date: Edm.Date {id} Month: Edm.String Quarter: Edm.String
-        Yea...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
@@ -678,8 +676,6 @@ throughout this document.</p>
         class="st1" />
     </g>
     <g id="shape1037-83">
-      <desc>ID: Edm.String {id} Name: Edm.String Color: Edm.String
-        TaxRat...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
@@ -1714,10 +1710,7 @@ properties and dynamic properties are represented as defined by the
 response format. Other properties have been aggregated away and are not
 represented in the response.</p>
 <p>The entities returned in the request examples in the following
-sections that involve aggregation are transient. For brevity, the
-examples replace with ellipses (…) the type control information required
-to disambiguate represented dynamic property values of type
-<code>Edm.Decimal</code>.</p>
+sections that involve aggregation are transient.</p>
 <h2
 id="31-fundamentals-of-input-and-output-sets"><a name="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1</a>
 Fundamentals of Input and Output Sets</h2>
@@ -3523,8 +3516,8 @@ the total amount.)</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Sales&quot;,
   &quot;value&quot;: [
-    { &quot;ID&quot;: 3, &quot;Amount&quot;: 4, ... },
-    { &quot;ID&quot;: 4, &quot;Amount&quot;: 8, ... }
+    { &quot;ID&quot;: 3, &quot;Amount&quot;: 4 },
+    { &quot;ID&quot;: 4, &quot;Amount&quot;: 8 }
   ]
 }</code></pre>
 </div>

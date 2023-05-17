@@ -154,8 +154,6 @@ Example ##ex: The following diagram depicts a simple model that is used througho
         class="st1" />
     </g>
     <g id="shape1009-23">
-      <desc>Date: Edm.Date {id} Month: Edm.String Quarter: Edm.String
-        Yea...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
@@ -249,8 +247,6 @@ Example ##ex: The following diagram depicts a simple model that is used througho
         class="st1" />
     </g>
     <g id="shape1037-83">
-      <desc>ID: Edm.String {id} Name: Edm.String Color: Edm.String
-        TaxRat...</desc>
       <rect x="0" y="793.134" width="110.551" height="48.7559"
         class="st2" />
       <text x="4" y="805.51" class="st3">
