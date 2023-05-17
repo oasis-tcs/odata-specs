@@ -7,8 +7,8 @@ Section and example numbers and references to them are expressed in the Markdown
 ### ##subsubsec Subsubsection Heading
 Example ##ex: Example
 Example ##ex_aggregation: Referenceable example
-See [here](##SubsectionHeading). Reference to a subsection.
-See [subsection ##SubsectionHeading]. Reference to a subsection showing its number.
+See [here](#SubsectionHeading). Reference to a subsection.
+See [subsection #SubsectionHeading]. Reference to a subsection showing its number.
 See [this example](##aggregation). Reference to an example.
 See [example ##aggregation]. Reference to an example showing its number.
 ```
