@@ -48,6 +48,16 @@ img {
 	white-space: nowrap;
 }
 
+.example td[rowspan] {
+	text-align: right;
+	vertical-align: middle;
+	border-style: dotted;
+}
+
+.example th[colspan] {
+	text-align: center;
+}
+
 .example-data {
 	position: relative;
 }

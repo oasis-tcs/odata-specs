@@ -64,7 +64,7 @@ Implementing any of these two aspects is valuable in itself independent of the o
 ::: example
 Example ##ex: The following diagram depicts a simple model that is used throughout this document.
 
-<svg class="st20" viewBox="0 200 600 350" style="width:100%">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:100%">
   <style type="text/css">
   <![CDATA[
     .st1 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
@@ -573,137 +573,29 @@ Query extensions and descriptive annotations can both be applied to normalized a
 ::: example
 Example ##ex: The following diagram depicts a denormalized schema for the simple model.
 
-<svg viewBox="100 150 600 250" class="dst11" style="width:100%">
-  <style type="text/css">
-  <![CDATA[
-    .dst1 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
-    .dst2 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.7}
-    .dst3 {fill:#000000;font-family:Arial;font-size:0.666664em}
-    .dst4 {font-size:1em}
-    .dst5 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
-    .dst6 {fill:none;visibility:hidden}
-    .dst7 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.4}
-    .dst8 {fill:#000000;font-family:Arial;font-size:0.833336em}
-    .dst9 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
-    .dst10 {fill:#000000;font-family:Calibri;font-size:0.666664em}
-    .dst11 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
-  ]]>
-  </style>
-  <g id="group1000-1" transform="translate(164.409,-456.378)">
-    <g id="shape1001-2" transform="translate(0,-198.425)">
-      <rect x="0" y="819.213" width="178.583" height="22.6772"
-        class="dst1" />
-    </g>
-    <g id="shape1002-4">
-      <rect x="0" y="643.465" width="178.583" height="198.425"
-        class="dst2" />
-      <text x="4" y="653.88" class="dst3">
-        ID: Edm.String {id}
-        <tspan x="4" dy="1.2em" class="dst4">Amount: Edm.Decimal </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">CategoryID: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">CategoryName: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">ProductID: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">ProductName: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">ProductColor: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">ProductTaxRate: Edm.Decimal </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">FoodProductRating: Edm.Byte </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">NonFoodProductRatingClass:
-          Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">SalesOrganizationID: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">SalesOrganizationName:
-          Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">SalesOrganizationSuperordinateID:
-          Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">TimeDate: Edm.Date </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">TimeMonth: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">TimeQuarter: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">TimeYear: Edm.Int16 </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">CustomerID: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">CustomerName: Edm.String </tspan>
-        <tspan x="4" dy="1.2em" class="dst4">CustomerCountry: Edm.String</tspan>
-      </text>
-    </g>
-    <g id="shape1003-26">
-    </g>
-    <g id="shape1004-28" transform="translate(-1.43885E-13,-198.425)">
-      <path d="M0 841.89 L178.58 841.89" class="dst5" />
-    </g>
-    <g id="shape1005-31">
-    </g>
-    <g id="shape1006-33">
-      <rect x="0" y="620.787" width="178.583" height="221.102"
-        class="dst6" />
-      <rect x="0" y="620.787" width="178.583" height="221.102"
-        class="dst7" />
-    </g>
-    <g id="shape1000-36">
-      <text x="79.28" y="635.13" class="dst8">Sale</text>
-    </g>
-  </g>
-  <g id="shape1011-38" transform="translate(987.52,192.756) rotate(90)">
-    <path
-      d="M0 827.01 L0 838.35 A3.54325 3.54325 -180 0 0 3.54 841.89 A3.54325 3.54325 0 0 1 7.09 845.43 A3.54325 3.54325
-             0 0 1 10.63 841.89 A3.54325 3.54325 -180 0 0 14.17 838.35 L14.17 827.01"
-      class="dst9" />
-    <text x="-865.89" y="9.49" transform="rotate(-90)" class="dst10">Sales</text>
-  </g>
-  <g id="shape1012-42"
-    transform="translate(994.961,211.181) rotate(90)">
-    <path
-      d="M0 834.45 L0 838.35 A3.54325 3.54325 -180 0 0 3.54 841.89 A3.54325 3.54325 0 0 1 7.09 845.43 A3.54325 3.54325
-             0 0 1 10.63 841.89 A3.54325 3.54325 -180 0 0 14.17 838.35 L14.17 834.45"
-      class="dst9" />
-    <text x="-878.59" y="9.49" transform="rotate(-90)" class="dst10">Category</text>
-  </g>
-  <g id="shape1013-46"
-    transform="translate(994.961,229.606) rotate(90)">
-    <path
-      d="M0 834.45 L0 837.99 A3.89757 3.89757 -180 0 0 3.9 841.89 L13.11 841.89 A3.89757 3.89757 0 0 1 17.01 845.79 A3.89757
-             3.89757 0 0 1 20.91 841.89 L30.12 841.89 A3.89757 3.89757 -180 0 0 34.02 837.99 L34.02 834.45"
-      class="dst9" />
-    <text x="-875.4" y="19.41" transform="rotate(-90)" class="dst10">Product</text>
-  </g>
-  <g id="shape1014-50"
-    transform="translate(994.961,267.874) rotate(90)">
-    <path
-      d="M0 834.45 L0 840.12 A1.77162 1.77162 -180 0 0 1.77 841.89 A1.77162 1.77162 0 0 1 3.54 843.66 A1.77162 1.77162
-             0 0 1 5.31 841.89 A1.77162 1.77162 -180 0 0 7.09 840.12 L7.09 834.45"
-      class="dst9" />
-    <text x="-863.98" y="5.94" transform="rotate(-90)" class="dst10">Food</text>
-  </g>
-  <g id="shape1015-54"
-    transform="translate(994.961,276.378) rotate(90)">
-    <path
-      d="M0 834.45 L0 840.12 A1.77162 1.77162 -180 0 0 1.77 841.89 A1.77162 1.77162 0 0 1 3.54 843.66 A1.77162 1.77162
-             0 0 1 5.31 841.89 A1.77162 1.77162 -180 0 0 7.09 840.12 L7.09 834.45"
-      class="dst9" />
-    <text x="-879.37" y="5.94" transform="rotate(-90)" class="dst10">Non Food</text>
-  </g>
-  <g id="shape1016-58"
-    transform="translate(994.961,289.134) rotate(90)">
-    <path
-      d="M0 834.45 L0 837.99 A3.89757 3.89757 -180 0 0 3.9 841.89 L7.44 841.89 A3.89757 3.89757 0 0 1 11.34 845.79 A3.89757
-             3.89757 0 0 1 15.24 841.89 L18.78 841.89 A3.89757 3.89757 -180 0 0 22.68 837.99 L22.68 834.45"
-      class="dst9" />
-    <text x="-879.9" y="13.74" transform="rotate(-90)" class="dst10">Sales
-      Org</text>
-  </g>
-  <g id="shape1018-62" transform="translate(994.961,317.48) rotate(90)">
-    <path
-      d="M0 834.45 L0 837.99 A3.89757 3.89757 -180 0 0 3.9 841.89 L13.11 841.89 A3.89757 3.89757 0 0 1 17.01 845.79 A3.89757
-             3.89757 0 0 1 20.91 841.89 L30.12 841.89 A3.89757 3.89757 -180 0 0 34.02 837.99 L34.02 834.45"
-      class="dst9" />
-    <text x="-865.89" y="19.41" transform="rotate(-90)" class="dst10">Time</text>
-  </g>
-  <g id="shape1019-66"
-    transform="translate(994.961,357.165) rotate(90)">
-    <path
-      d="M0 834.45 L0 839.06 A2.8346 2.8346 -180 0 0 2.83 841.89 L8.5 841.89 A2.8346 2.8346 0 0 1 11.34 844.72 A2.8346
-             2.8346 0 0 1 14.17 841.89 L19.84 841.89 A2.8346 2.8346 -180 0 0 22.68 839.06 L22.68 834.45"
-      class="dst9" />
-    <text x="-880.38" y="13.74" transform="rotate(-90)" class="dst10">Customer</text>
-  </g>
-</svg>
+<table>
+  <tr><th colspan="2">Sale</th></tr>
+  <tr><td rowspan="2">Sales</td><td>ID: Edm.String {id}</td></tr>
+  <tr><td>Amount: Edm.Decimal</td></tr>
+  <tr><td rowspan="2">Category</td><td>CategoryID: Edm.String</td></tr>
+  <tr><td>CategoryName: Edm.String</td></tr>
+  <tr><td rowspan="4">Product</td><td>ProductID: Edm.String</td></tr>
+  <tr><td>ProductName: Edm.String</td></tr>
+  <tr><td>ProductColor: Edm.String</td></tr>
+  <tr><td>ProductTaxRate: Edm.Decimal</td></tr>
+  <tr><td rowspan="1">Food</td><td>FoodProductRating: Edm.Byte</td></tr>
+  <tr><td rowspan="1">Non-Food</td><td>NonFoodProductRatingClass: Edm.String</td></tr>
+  <tr><td rowspan="3">Sales Organization</td><td>SalesOrganizationID: Edm.String</td></tr>
+  <tr><td>SalesOrganizationName: Edm.String</td></tr>
+  <tr><td>SalesOrganizationSuperordinateID: Edm.String</td></tr>
+  <tr><td rowspan="4">Time</td><td>TimeDate: Edm.Date</td></tr>
+  <tr><td>TimeMonth: Edm.String</td></tr>
+  <tr><td>TimeQuarter: Edm.String</td></tr>
+  <tr><td>TimeYear: Edm.Int16</td></tr>
+  <tr><td rowspan="3">Customer</td><td>CustomerID: Edm.String</td></tr>
+  <tr><td>CustomerName: Edm.String</td></tr>
+  <tr><td>CustomerCountry: Edm.String</td></tr>
+</table>
 :::
 
 ## ##subsec Example Data
