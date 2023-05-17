@@ -4192,7 +4192,7 @@ with <code>$root</code> that has no multiple occurrences of the same
 entity. <span class="math inline">\(H\)</span> identifies the collection
 of node entities forming a recursive hierarchy based on an annotation of
 their common entity type with term <code>RecursiveHierarchy</code> with
-a Qualifier attribute whose value MUST be provided in <span
+a <code>Qualifier</code> attribute whose value MUST be provided in <span
 class="math inline">\(Q\)</span>. The property paths referenced by
 <code>NodeProperty</code> and <code>ParentNavigationProperty</code> in
 the <code>RecursiveHierarchy</code> annotation must be evaluable for the
@@ -4202,10 +4202,12 @@ class="math inline">\(q\)</span> in this section.</p>
 <p>The third parameter MUST be a data aggregation path <span
 class="math inline">\(p\)</span> with single- or collection-valued
 segments whose last segment MUST be a primitive property. The node
-identifier(s) of an instance in the input set are the primitive values
-in <span class="math inline">\(γ(\hbox{instance},p)\)</span> reached via
-<span class="math inline">\(p\)</span> starting from the instance. Let
-<span class="math inline">\(p=p_1/…/p_k/s\)</span> with <span
+identifier(s) of an instance <span class="math inline">\(u\)</span> in
+the input set are the primitive values in <span
+class="math inline">\(γ(u,p)\)</span> reached via <span
+class="math inline">\(p\)</span> starting from <span
+class="math inline">\(u\)</span>. Let <span
+class="math inline">\(p=p_1/…/p_k/s\)</span> with <span
 class="math inline">\(k≥0\)</span> be the concatenation where each
 sub-path <span class="math inline">\(p_1,…,p_k\)</span> consists of a
 collection-valued segment that is optionally followed by a type-cast
@@ -4264,7 +4266,7 @@ with descendants.</p>
 <p><span class="math inline">\(H\)</span>, <span
 class="math inline">\(Q\)</span> and <span
 class="math inline">\(p\)</span> are the first three parameters defined
-above.</p>
+<a href="#CommonParametersforHierarchicalTransformations">above</a>,</p>
 <p>The fourth parameter is a transformation sequence <span
 class="math inline">\(T\)</span> composed of transformations listed in
 the section on <a
@@ -4276,84 +4278,79 @@ service-defined bound functions whose output set is a subset of the
 input set. <span class="math inline">\(U\)</span> is the output set of
 this sequence applied to the input set.</p>
 <p><span class="math inline">\(S\)</span> is an optional fifth parameter
-that restricts <span class="math inline">\(H\)</span> to a subset <span
+as defined <a
+href="#CommonParametersforHierarchicalTransformations">above</a> that
+restricts <span class="math inline">\(H\)</span> to a subset <span
 class="math inline">\(H&#39;\)</span>. The following parameter <span
 class="math inline">\(d\)</span> is optional and takes an integer
 greater than or equal to 1 that specifies the maximum distance between
 start nodes and ancestors or descendants to be considered. An optional
 final <code>keep start</code> parameter drives the optional inclusion of
 the subset or start nodes.</p>
-<p>The output set of the transformation <span
-class="math inline">\(\hbox{\tt{ancestors}}(H,Q,p,T,S,d,\hbox{\tt{keep
-start}})\)</span> or <span
-class="math inline">\(\hbox{\tt{descendants}}(H,Q,p,T,S,d,\hbox{\tt{keep
-start}})\)</span> is defined as the <a
-href="##_HierarchicalTransformations">union</a> of the output sets of
-transformations <span class="math inline">\(F(a)\)</span> applied to the
-input set for all <span class="math inline">\(a\)</span> in <span
+<p>The output set of the transformation <span class="math inline">\({\tt
+ancestors}(H,Q,p,T,S,d,{\tt keep\ start})\)</span> or <span
+class="math inline">\({\tt descendants}(H,Q,p,T,S,d,{\tt keep\
+start})\)</span> is defined as the <a
+href="#HierarchicalTransformations">union</a> of the output sets of
+transformations <span class="math inline">\(F(u)\)</span> applied to the
+input set for all <span class="math inline">\(u\)</span> in <span
 class="math inline">\(U\)</span>. For a given instance <span
-class="math inline">\(a\)</span>, the transformation <span
-class="math inline">\(F(a)\)</span> determines all instances of the
+class="math inline">\(u\)</span>, the transformation <span
+class="math inline">\(F(u)\)</span> determines all instances of the
 input set whose node identifier is an ancestor or descendant of the node
-identifier of <span class="math inline">\(a\)</span>:</p>
+identifier of <span class="math inline">\(u\)</span>:</p>
 <p>If <span class="math inline">\(p\)</span> contains only single-valued
 segments, then, for <code>ancestors</code>, <span
-class="math display">\[\matrix{
-F(a)=\hbox{\tt{filter}}(\hbox{\tt{Aggregation.isancestor}}(\hfill\\
-\quad
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\quad
-\hbox{\tt{Node}}=p,\;\hbox{\tt{Descendant}}=a[p],\;\hbox{\tt{MaxDistance}}=d,\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}))\hfill
-}\]</span> or, for <code>descendants</code>, <span
-class="math display">\[\matrix{
-F(a)=\hbox{\tt{filter}}(\hbox{\tt{Aggregation.isdescendant}}(\hfill\\
-\quad
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\quad
-\hbox{\tt{Node}}=p,\;\hbox{\tt{Ancestor}}=a[p],\;\hbox{\tt{MaxDistance}}=d,\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}})).\hfill
-}\]</span></p>
+class="math display">\[\matrix{ F(u)={\tt filter}(\hbox{\tt
+Aggregation.isancestor}(\hfill\\ \quad {\tt
+HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt
+Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt
+IncludeSelf}={\tt true}))\hfill }\]</span> or, for
+<code>descendants</code>, <span class="math display">\[\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad
+{\tt HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt
+Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt
+IncludeSelf}={\tt true})).\hfill }\]</span></p>
 <p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
 <span class="math inline">\(k≥1\)</span>, in this case the output set of
-the transformation <span class="math inline">\(F(a)\)</span> is defined
-as the <a href="##_HierarchicalTransformations">union</a> of the output
+the transformation <span class="math inline">\(F(u)\)</span> is defined
+as the <a href="#HierarchicalTransformations">union</a> of the output
 sets of transformations <span class="math inline">\(G(n)\)</span>
 applied to the input set for all <span class="math inline">\(n\)</span>
-in <span class="math inline">\(γ(a,p)\)</span>. The output set of <span
+in <span class="math inline">\(γ(u,p)\)</span>. The output set of <span
 class="math inline">\(G(n)\)</span> consists of the instances of the
 input set whose node identifier is an ancestor or descendant of the node
 identifier <span class="math inline">\(n\)</span>:</p>
 <p>For <code>ancestors</code>, <span class="math display">\[\matrix{
-G(n)=\hbox{\tt{filter}}(\hfill\\ \hskip1pc
-p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc
-y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc
-y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc
-\hbox{\tt{Aggregation.isancestor}}(\hfill\\  
-\hskip6pc
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\hskip6pc
-\hbox{\tt{Node}}=y_k/s,\;\hbox{\tt{Descendant}}=n,\;\hbox{\tt{MaxDistance}}=d,\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\hfill\\
-\hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc
-)\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> or, for
-<code>descendants</code>, <span class="math display">\[\matrix{
-G(n)=\hbox{\tt{filter}}(\hfill\\ \hskip1pc
-p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc
-y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc
-y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc
-\hbox{\tt{Aggregation.isdescendant}}(\hfill\\  
-\hskip6pc
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\hskip6pc
-\hbox{\tt{Node}}=y_k/s,\;\hbox{\tt{Ancestor}}=n,\;\hbox{\tt{MaxDistance}}=d,\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\hfill\\
-\hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc
-)\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span
-class="math inline">\(y_1,…,y_k\)</span> denote
+G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc
+y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt
+Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt
+HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
+Node}=y_k/s,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt
+IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill
+}\]</span> or, for <code>descendants</code>, <span
+class="math display">\[\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc
+p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt
+HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
+Node}=y_k/s,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt
+IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill
+}\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote
 <code>lambdaVariableExpr</code>s and <span
 class="math inline">\({}/s\)</span> may be absent.</p>
 <p>If parameter <span class="math inline">\(d\)</span> is absent, the
-parameter <span class="math inline">\(\hbox{\tt{MaxDistance}}=d\)</span>
-is omitted. If <code>keep start</code> is absent, the parameter <span
-class="math inline">\(\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\)</span>
-is omitted.</p>
+parameter <span class="math inline">\({\tt MaxDistance}=d\)</span> is
+omitted. If <code>keep start</code> is absent, the parameter <span
+class="math inline">\({\tt IncludeSelf}={\tt true}\)</span> is
+omitted.</p>
 <p>Since the output set of <code>ancestors</code> is constructed as a
 union, no instance from the input set will occur more than once in it,
 even if, for example, a sale is related to both a sales organization and
@@ -4361,49 +4358,45 @@ one of its ancestor organizations. For <code>descendants</code>,
 analogously.</p>
 <div class="example">
 <p>Example 57: Request based on the <code>SalesOrgHierarchy</code>
-defined in Hierarchy Examples, with <code>Accept</code> header parameter
-<code>metadata=full</code> to include navigation links illustrating the
-hierarchy relation</p>
-<pre><code>GET /service/SalesOrganizations?
-$apply=ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
-                 filter(contains(Name,&#39;East&#39;) or contains(Name,&#39;Central&#39;)))</code></pre>
+defined in <a href="#HierarchyExamples">Hierarchy Examples</a>, with
+<code>Superordinate/$ref</code> expanded to illustrate the hierarchy
+relation</p>
+<pre><code>GET /service/SalesOrganizations?$apply=
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(contains(Name,&#39;East&#39;) or contains(Name,&#39;Central&#39;)))
+  &amp;$expand=Superordinate/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#SalesOrganizations&quot;,
   &quot;value&quot;: [
-    { &quot;ID&quot;: &quot;EMEA&quot;,
-      &quot;Superordinate@navigationLink&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot;,
-      &quot;Name&quot;: &quot;EMEA&quot;, ... },
-    { &quot;ID&quot;: &quot;US&quot;,
-      &quot;Superordinate@navigationLink&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot;,
-      &quot;Name&quot;: &quot;US&quot;, ... },
-    { &quot;ID&quot;: &quot;Sales&quot;,
-      &quot;Superordinate@navigationLink&quot;: null,
-      &quot;Name&quot;: &quot;Sales&quot;, ... }
+    { &quot;ID&quot;: &quot;EMEA&quot;,  &quot;Name&quot;: &quot;EMEA&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
+    { &quot;ID&quot;: &quot;US&quot;,    &quot;Name&quot;: &quot;US&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
+    { &quot;ID&quot;: &quot;Sales&quot;, &quot;Name&quot;: &quot;Sales&quot;,
+      &quot;Superordinate&quot;: null }
   ]
 }</code></pre>
 </div>
 <div class="example">
 <p>Example 58: Request based on the <code>SalesOrgHierarchy</code>
-defined in Hierarchy Examples, with <code>Accept</code> header parameter
-<code>metadata=full</code> to include navigation links illustrating the
-hierarchy relation</p>
+defined in <a href="#HierarchyExamples">Hierarchy Examples</a>, with
+<code>Superordinate/$ref</code> expanded to illustrate the hierarchy
+relation</p>
 <pre><code>GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
-                filter(Name eq &#39;US&#39;),keep start)</code></pre>
+                filter(Name eq &#39;US&#39;),keep start)
+  &amp;$expand=Superordinate/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#SalesOrganizations&quot;,
   &quot;value&quot;: [
-    { &quot;ID&quot;: &quot;US West&quot;,
-      &quot;Superordinate@navigationLink&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot;,
-      &quot;Name&quot;: &quot;US West&quot;, ... },
-    { &quot;ID&quot;: &quot;US&quot;,
-      &quot;Superordinate@navigationLink&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot;,
-      &quot;Name&quot;: &quot;US&quot;, ... },
-    { &quot;ID&quot;: &quot;US East&quot;,
-      &quot;Superordinate@navigationLink&quot;: &quot;SalesOrganizations(&#39;US&#39;) &quot;,
-      &quot;Name&quot;: &quot;US East&quot;, ... }
+    { &quot;ID&quot;: &quot;US West&quot;, &quot;Name&quot;: &quot;US West&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } },
+    { &quot;ID&quot;: &quot;US&quot;,      &quot;Name&quot;: &quot;US&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
+    { &quot;ID&quot;: &quot;US East&quot;, &quot;Name&quot;: &quot;US East&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } }
   ]
 }</code></pre>
 </div>
@@ -4416,17 +4409,20 @@ specified tree order.</p>
 <p><span class="math inline">\(H\)</span>, <span
 class="math inline">\(Q\)</span> and <span
 class="math inline">\(p\)</span> are the first three parameters defined
-above. The fourth parameter <span class="math inline">\(h\)</span> of
-the <code>traverse</code> transformation is either <code>preorder</code>
-or <code>postorder</code>. <span class="math inline">\(S\)</span> is an
-optional fifth parameter that restricts <span
-class="math inline">\(H\)</span> to a subset <span
+<a href="#CommonParametersforHierarchicalTransformations">above</a>.</p>
+<p>The fourth parameter <span class="math inline">\(h\)</span> of the
+<code>traverse</code> transformation is either <code>preorder</code> or
+<code>postorder</code>. <span class="math inline">\(S\)</span> is an
+optional fifth parameter as defined <a
+href="#CommonParametersforHierarchicalTransformations">above</a> that
+restricts <span class="math inline">\(H\)</span> to a subset <span
 class="math inline">\(H&#39;\)</span>. All following parameters are
 optional and form a list <span class="math inline">\(o\)</span> of
 expressions that could also be passed as a <code>$orderby</code> system
 query option. If <span class="math inline">\(o\)</span> is present, the
-transformation stable-sorts <span class="math inline">\(H&#39;\)</span>
-by <span class="math inline">\(o\)</span>.</p>
+transformation <a href="#SamenessandPrecedence">stable-sorts</a> <span
+class="math inline">\(H&#39;\)</span> by <span
+class="math inline">\(o\)</span>.</p>
 <p>The instances in the input set are related to one node (if <span
 class="math inline">\(p\)</span> is single-valued) or multiple nodes (if
 <span class="math inline">\(p\)</span> is collection-valued) in the
@@ -4461,16 +4457,18 @@ class="math inline">\(\Pi_G(σ(x))\)</span> in order to inject the
 properties of <span class="math inline">\(σ(x)\)</span> into the
 instances in <span class="math inline">\(\hat F(x)\)</span>; this uses
 the function <span class="math inline">\(\Pi_G\)</span> that is defined
-in the simple grouping section. Further, <span
-class="math inline">\(G\)</span> is a list of data aggregation paths
-that shall be present in the output set, and <span
-class="math inline">\(σ\)</span> is a function that maps each hierarchy
-node <span class="math inline">\(x\)</span> to an instance of the input
-type containing the paths from <span class="math inline">\(G\)</span>.
-As a consequence of the following definitions, only single-valued
-properties or collections of cardinality 1 are nested into <span
-class="math inline">\(σ(x)\)</span>, apart from "final segments from
-<span class="math inline">\(G\)</span>", therefore <span
+in the <a href="#SimpleGrouping">simple grouping</a> section. Further,
+<span class="math inline">\(G\)</span> is a list of <a
+href="#DataAggregationPath">data aggregation paths</a> that shall be
+present in the output set, and <span class="math inline">\(σ\)</span> is
+a function that maps each hierarchy node <span
+class="math inline">\(x\)</span> to an instance of the <a
+href="#TypeStructureandContextURL">input type</a> containing the paths
+from <span class="math inline">\(G\)</span>. As a consequence of the
+following definitions, only single-valued properties, collections of
+cardinality 1, and "final segments from <span
+class="math inline">\(G\)</span>" are nested into <span
+class="math inline">\(σ(x)\)</span>, therefore <span
 class="math inline">\(\Pi_G(σ(x))\)</span> is well-defined.</p>
 <p>The definition of <span class="math inline">\(σ(x)\)</span> makes use
 of a function <span class="math inline">\(a(ε,v,x)\)</span>, which
@@ -4490,7 +4488,8 @@ navigation properties of the entity type of <span
 class="math inline">\(H\)</span>.<br />
 In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects
 all properties of <span class="math inline">\(x\)</span> into the
-instances of the output set.</li>
+instances of the output set. (See <a href="#caseone">Example
+60</a>.)</li>
 <li><em>Case where the recursive hierarchy is defined on the related
 entity type addressed by a navigation property path</em><br />
 This case applies if <span class="math inline">\(p&#39;\)</span> is a
@@ -4503,7 +4502,8 @@ let <span class="math inline">\(G=(p&#39;)\)</span>.<br />
 In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects
 the whole related entity <span class="math inline">\(x\)</span> into the
 instances of the output set. The navigation property path <span
-class="math inline">\(p&#39;\)</span> is expanded by default.</li>
+class="math inline">\(p&#39;\)</span> is expanded by default. (See <a
+href="#rollupnode">Example 61</a>.)</li>
 <li><em>Case where the recursive hierarchy is related to the input set
 only through equality of node identifiers, not through
 navigation</em><br />
@@ -4516,15 +4516,16 @@ the instances of the output set.</li>
 </ol>
 <p>Here paths are considered equal if their non-type-cast segments refer
 to the same model elements when evaluated relative to the input set (see
-[Example ##_pathequals]).</p>
+<a href="#pathequals">Example 62</a>).</p>
 <p>The function <span class="math inline">\(a(u,v,x)\)</span> takes an
 instance, a path and another instance as arguments and is defined
 recursively as follows:</p>
 <ol type="1">
 <li>If <span class="math inline">\(u\)</span> equals the special symbol
 <span class="math inline">\(ε\)</span>, set <span
-class="math inline">\(u\)</span> to a new instance of the input type
-without properties and without entity-id.</li>
+class="math inline">\(u\)</span> to a new instance of the <a
+href="#TypeStructureandContextURL">input type</a> without properties and
+without entity-id.</li>
 <li>If <span class="math inline">\(v\)</span> contains only one segment
 other than a type cast, let <span class="math inline">\(v_1=v\)</span>,
 and let <span class="math inline">\(x&#39;=x\)</span>, then go to step
@@ -4545,91 +4546,93 @@ class="math inline">\(x&#39;=a(u&#39;,v_3,x)\)</span>.</li>
 <li>If <span class="math inline">\(v_1\)</span> is single-valued, let
 <span class="math inline">\(u[v_1]=x&#39;\)</span>.</li>
 <li>If <span class="math inline">\(v_1\)</span> is collection-valued,
-let <span class="math inline">\(u[v_1]=a\)</span> collection consisting
-of one item <span class="math inline">\(x&#39;\)</span>.</li>
+let <span class="math inline">\(u[v_1]\)</span> be a collection
+consisting of one item <span class="math inline">\(x&#39;\)</span>.</li>
 <li>Return <span class="math inline">\(u\)</span>.</li>
 </ol>
-<p>(See [Example ##_traversecoll].)</p>
+<p>(See <a href="#traversecoll">Example 107</a>.)</p>
 <p>Let <span class="math inline">\(r_1,…,r_n\)</span> be a sequence of
 the root nodes of the recursive hierarchy <span
-class="math inline">\((H&#39;,Q)\)</span> preserving the order of <span
+class="math inline">\((H&#39;,Q)\)</span> <a
+href="#SamenessandPrecedence">preserving the order</a> of <span
 class="math inline">\(H&#39;\)</span> stable-sorted by <span
 class="math inline">\(o\)</span>. Then the transformation <span
-class="math inline">\(\hbox{\tt{traverse}}(H,Q,p,h,S,o)\)</span> is
-defined as equivalent to <span
-class="math display">\[\hbox{\tt{concat}}(R(r_1),…,R(r_n)).\]</span>
-<span class="math inline">\(R(x)\)</span> is a transformation producing
-the specified tree order for a sub-hierarchy of <span
+class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as
+equivalent to <span class="math display">\[{\tt
+concat}(R(r_1),…,R(r_n)).\]</span> <span
+class="math inline">\(R(x)\)</span> is a transformation producing the
+specified tree order for a sub-hierarchy of <span
 class="math inline">\(H&#39;\)</span> with root node <span
 class="math inline">\(x\)</span>. Let <span
 class="math inline">\(c_1,…,c_m\)</span> with <span
-class="math inline">\(m≥ 0\)</span> be an order-preserving sequence of
-the children of <span class="math inline">\(x\)</span> in <span
-class="math inline">\((H&#39;,Q)\)</span>.</p>
-<p>If <span class="math inline">\(h=\hbox{\tt{preorder}}\)</span>, then
-<span
-class="math display">\[R(x)=\hbox{\tt{concat}}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).\]</span></p>
-<p>If <span class="math inline">\(h=\hbox{\tt{postorder}}\)</span>, then
-<span
-class="math display">\[R(x)=\hbox{\tt{concat}}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).\]</span>
-<span class="math inline">\(F(x)\)</span> is a transformation that
-determines for the specified node <span class="math inline">\(x\)</span>
-the instances of the input set having the same node identifier as <span
+class="math inline">\(m≥0\)</span> be an <a
+href="#SamenessandPrecedence">order-preserving sequence</a> of the
+children of <span class="math inline">\(x\)</span> in <span
+class="math inline">\((H&#39;,Q)\)</span>. The <em>recursive formula for
+<span class="math inline">\(R(x)\)</span></em> is as follows:</p>
+<p>If <span class="math inline">\(h={\tt preorder}\)</span>, then <span
+class="math display">\[R(x)={\tt
+concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).\]</span></p>
+<p>If <span class="math inline">\(h={\tt postorder}\)</span>, then <span
+class="math display">\[R(x)={\tt
+concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).\]</span> <span
+class="math inline">\(F(x)\)</span> is a transformation that determines
+for the specified node <span class="math inline">\(x\)</span> the
+instances of the input set having the same node identifier as <span
 class="math inline">\(x\)</span>.</p>
 <p>If <span class="math inline">\(p\)</span> contains only single-valued
-segments, then <span
-class="math display">\[F(x)=\hbox{\tt{filter}}(p\hbox{\tt{ eq
-}}x[q]).\]</span></p>
+segments, then <span class="math display">\[F(x)={\tt filter}(p{\tt\ eq\
+}x[q]).\]</span></p>
 <p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
-<span class="math inline">\(k≥ 1\)</span> and <span
-class="math display">\[\matrix{ F(x)=\hbox{\tt{filter}}(\hfill\\
-\hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc
-y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc
-y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc y_k/s\hbox{\tt{ eq
-}}x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc
-)\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span
-class="math inline">\(y_1,…,y_k\)</span> denote
+<span class="math inline">\(k≥1\)</span> and <span
+class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc
+p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc y_k/s{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc
+⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span>
+where <span class="math inline">\(y_1,…,y_k\)</span> denote
 <code>lambdaVariableExpr</code>s and <span
 class="math inline">\({}/s\)</span> may be absent.</p>
 <div class="example">
-<p>Example 59: Based on the <code>SalesOrgHierarchy</code> defined in
-Hierarchy Examples</p>
+<p>Example 59: Based on the <code>SalesOrgHierarchy</code> defined in <a
+href="#HierarchyExamples">Hierarchy Examples</a></p>
 <pre><code>GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
                 Name eq &#39;US&#39;,keep start)
     /ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
                 contains(Name,&#39;East&#39;),keep start)
-    /traverse($root/SalesOrganizations,SalesOrgHierarchy,ID,preorder)</code></pre>
+    /traverse($root/SalesOrganizations,SalesOrgHierarchy,ID,preorder)
+  &amp;$expand=Superordinate/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#SalesOrganizations&quot;,
   &quot;value&quot;: [
-    
-    { &quot;ID&quot;: &quot;US&quot;,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;US&#39;)/Superordinate&quot;,
-      &quot;Name&quot;: &quot;US&quot;, ... },
-    { &quot;ID&quot;: &quot;US East&quot;,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;US East&#39;)/Superordinate&quot;,
-      &quot;Name&quot;: &quot;US East&quot;, ... }
+    { &quot;ID&quot;: &quot;US&quot;,      &quot;Name&quot;: &quot;US&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
+    { &quot;ID&quot;: &quot;US East&quot;, &quot;Name&quot;: &quot;US East&quot;,
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } }
   ]
 }</code></pre>
 </div>
 <p>The algorithm given so far is valid for a single-valued
 <code>RecursiveHierarchy/ParentNavigationProperty</code>. The remainder
 of this section describes the case where it is collection-valued.</p>
-<p>Multiple parents of a node <span class="math inline">\(x\)</span>
-lead to multiple output set instances that include <span
-class="math inline">\(σ(x)\)</span>. In order to distinguish these,
-information about the ancestors up to the root is injected into each
-<span class="math inline">\(σ(x)\)</span> by annotating <span
-class="math inline">\(x\)</span> differently per parent before each
-<span class="math inline">\(σ(x)\)</span> is computed.</p>
+<p>If the recursive algorithm reaches a node <span
+class="math inline">\(x\)</span> multiple times, via different parents
+or ancestors, then the output set contains multiple instances that
+include <span class="math inline">\(σ(x)\)</span>. In order to
+distinguish these, information about the ancestors up to the root is
+injected into each <span class="math inline">\(σ(x)\)</span> by
+annotating <span class="math inline">\(x\)</span> differently before
+each <span class="math inline">\(σ(x)\)</span> is computed.</p>
 <p>More precisely, a <em>path-to-the-root</em> is a node <span
 class="math inline">\(x\)</span> that is annotated with the term
-<code>UpNode</code> from the <a href="#ODataVocAggr">Aggregation
-vocabulary</a> with one parent node as annotation value, which is again
+<code>UpNode</code> from the <code>Aggregation</code> vocabulary <a
+href="#ODataVocAggr">OData-VocAggr</a> where the annotation value is the
+parent node <span class="math inline">\(y\)</span> such that <span
+class="math inline">\(R(x)\)</span> appears on the right-hand side of
+the recursive formula for <span class="math inline">\(R(y)\)</span>. The
+annotation value <span class="math inline">\(y\)</span> is again
 annotated with <code>Aggregation.UpNode</code> and so on until a root is
 reached. Every instance in the output set of <code>traverse</code> is
 related to one path-to-the-root.</p>
@@ -4651,19 +4654,19 @@ of the node <span class="math inline">\(c\)</span> annotated with
 class="math inline">\(x\)</span>.</p>
 <p>The <code>Aggregation.UpNode</code> annotation of a root has value
 null. With <span class="math inline">\(r_1,…,r_n\)</span> as above, the
-transformation <span
-class="math inline">\(\hbox{\tt{traverse}}(H,Q,p,h,S,o)\)</span> is
-defined as equivalent to <span
-class="math display">\[\hbox{\tt{concat}}(R(ρ(r_1,\hbox{\tt{null}})),…,R(ρ(r_n,\hbox{\tt{null}}))\]</span>
-where the function <span class="math inline">\(R(x)\)</span> takes as
-argument a path-to-the-root. With <span
-class="math inline">\(F(x)\)</span> and <span
-class="math inline">\(c_1,…,c_m\)</span> as above, if <span
-class="math inline">\(h=\hbox{\tt{preorder}}\)</span>, then <span
-class="math display">\[R(x)=\hbox{\tt{concat}}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).\]</span></p>
-<p>If <span class="math inline">\(h=\hbox{\tt{postorder}}\)</span>, then
-<span
-class="math display">\[R(x)=\hbox{\tt{concat}}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
+transformation <span class="math inline">\({\tt
+traverse}(H,Q,p,h,S,o)\)</span> is defined as equivalent to <span
+class="math display">\[{\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt
+null}))\]</span> where the function <span
+class="math inline">\(R(x)\)</span> takes as argument a
+path-to-the-root. With <span class="math inline">\(F(x)\)</span> and
+<span class="math inline">\(c_1,…,c_m\)</span> as above, if <span
+class="math inline">\(h={\tt preorder}\)</span>, then <span
+class="math display">\[R(x)={\tt
+concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).\]</span></p>
+<p>If <span class="math inline">\(h={\tt postorder}\)</span>, then <span
+class="math display">\[R(x)={\tt
+concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
 <p>If there is only one parent, the result is the same as in the
 single-parent case, except for the presence of the
 <code>Aggregation.UpNode</code> annotations.</p>
@@ -4674,10 +4677,11 @@ Grouping with <code>rolluprecursive</code></h2>
 transformation sequence to each partition. By contrast, grouping with
 <code>rolluprecursive</code>, informally speaking, transforms the input
 set into overlapping portions (like "US" and "US East"), one for each
-node <span class="math inline">\(x\)</span> of a recursive hierarchy.
-The transformation <span class="math inline">\(F(x)\)</span>, defined
-below, outputs the portion with node identifiers among the descendants
-of <span class="math inline">\(x\)</span> (including <span
+node <span class="math inline">\(x\)</span> of a <a
+href="#RecursiveHierarchy">recursive hierarchy</a>. The transformation
+<span class="math inline">\(F(x)\)</span>, defined below, outputs the
+portion with node identifiers among the descendants of <span
+class="math inline">\(x\)</span> (including <span
 class="math inline">\(x\)</span> itself). A transformation sequence is
 then applied to each portion, and they are made distinguishable in the
 output set through injection of information about the node <span
@@ -4685,11 +4689,11 @@ class="math inline">\(x\)</span>, which is achieved through the
 transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> defined
 in the <a href="#Transformationtraverse"><code>traverse</code></a>
 section.</p>
-<p><span class="math inline">\(H\)</span>, <span
-class="math inline">\(Q\)</span> and <span
-class="math inline">\(p\)</span> are the first three parameters of
-<code>rolluprecursive</code>, defined <a
+<p>As defined <a
 href="#CommonParametersforHierarchicalTransformations">above</a>, <span
+class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span>
+and <span class="math inline">\(p\)</span> are the first three
+parameters of <code>rolluprecursive</code>, and <span
 class="math inline">\(S\)</span> is an optional fourth parameter that
 restricts <span class="math inline">\(H\)</span> to a subset <span
 class="math inline">\(H&#39;\)</span>.</p>
@@ -4700,25 +4704,27 @@ sequence, <span class="math inline">\(P_1\)</span> stand in for zero or
 more property paths and <span class="math inline">\(P_2\)</span> for
 zero or more <code>rollup</code> or <code>rolluprecursive</code>
 operators or property paths. The transformation <span
-class="math inline">\(\hbox{\tt{groupby}}((P_1,\hbox{\tt{rolluprecursive}}(H,Q,p,S),P_2),T)\)</span>
-is computed by the following algorithm, which invokes itself recursively
-if the number of <code>rolluprecursive</code> operators in first
-argument of the <code>groupby</code> transformation, which is called
-<span class="math inline">\(M\)</span>, is greater than one. Let <span
+class="math inline">\({\tt groupby}((P_1,{\tt
+rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is computed by the following
+algorithm, which invokes itself recursively if the number of
+<code>rolluprecursive</code> operators in first argument of the
+<code>groupby</code> transformation, which is called <span
+class="math inline">\(M\)</span>, is greater than one. Let <span
 class="math inline">\(N\)</span> be the recursion depth of the
 algorithm, starting with 1.</p>
 <p><em>The <code>rolluprecursive</code> algorithm:</em></p>
 <p>A property <span class="math inline">\(χ_N\)</span> appears in the
 algorithm, but is not present in the output set. It is explained later
-(see [Example ##_rollupnode]). <span class="math inline">\(Z_N\)</span>
-is a transformation whose output set is its input set with property
-<span class="math inline">\(χ_N\)</span> removed.</p>
+(see <a href="#rollupnode">Example 61</a>). <span
+class="math inline">\(Z_N\)</span> is a transformation whose output set
+is its input set with property <span class="math inline">\(χ_N\)</span>
+removed.</p>
 <p>If <span class="math inline">\(r_1,…,r_n\)</span> are the root nodes
 of the recursive hierarchy <span
 class="math inline">\((H&#39;,Q)\)</span>, the transformation <span
-class="math inline">\(\hbox{\tt{groupby}}((P_1,\hbox{\tt{rolluprecursive}}(H,Q,p,S),P_2),T)\)</span>
-is defined as equivalent to <span
-class="math display">\[\hbox{\tt{concat}}(R(r_1),…,R(r_n))\]</span> with
+class="math inline">\({\tt groupby}((P_1,{\tt
+rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is defined as equivalent to
+<span class="math display">\[{\tt concat}(R(r_1),…,R(r_n))\]</span> with
 no order defined on the output set.</p>
 <p><span class="math inline">\(R(x)\)</span> is a transformation that
 processes the entire sub-hierarchy <span
@@ -4731,10 +4737,10 @@ children of <span class="math inline">\(x\)</span> in <span
 class="math inline">\((H&#39;,Q)\)</span>:</p>
 <p>If at least one of <span class="math inline">\(P_1\)</span> or <span
 class="math inline">\(P_2\)</span> is non-empty, then <span
-class="math display">\[\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad
-F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as
-}}χ_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&amp;\qquad(1)\\
-\quad R(c_1),…,R(c_m)\hfill&amp;\qquad(2)\\ ).\hfill }\]</span></p>
+class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad
+F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt
+groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&amp;\tt(1)\\ \quad
+R(c_1),…,R(c_m)\hfill&amp;\tt(2)\\ ).\hskip25pc }\]</span></p>
 <p>The property <span class="math inline">\(χ_N=x\)</span> is present
 during the evaluation of <span class="math inline">\(T\)</span>, but not
 afterwards. If <span class="math inline">\(P_2\)</span> contains a
@@ -4744,28 +4750,27 @@ class="math inline">\(N\)</span> increased by 1) of the
 <code>rolluprecursive</code> algorithm.</p>
 <p>Otherwise if <span class="math inline">\(P_1\)</span> and <span
 class="math inline">\(P_2\)</span> are empty, then <span
-class="math display">\[\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad
-F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as
-}}χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&amp;\qquad(1)\\ \quad
-R(c_1),…,R(c_m)\hfill&amp;\qquad(2)\\ ).\hfill }\]</span></p>
+class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad
+F(x)/{\tt compute}(x{\tt\ as\
+}χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&amp;\tt(1)\\ \quad
+R(c_1),…,R(c_m)\hfill&amp;\tt(2)\\ ).\hskip25pc }\]</span></p>
 <p><span class="math inline">\(F(x)\)</span> is defined as follows: If
 <span class="math inline">\(p\)</span> contains only single-valued
-segments, then <span class="math display">\[\matrix{
-F(x)=\hbox{\tt{filter}}(\hbox{\tt{Aggregation.isdescendant}}(\hfill\\
-\quad
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\quad\hbox{\tt{Node}}=p,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}})).\hfill
+segments, then <span class="math display">\[\matrix{ F(x)={\tt
+filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt
+HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt
+Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
 }\]</span></p>
 <p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
-<span class="math inline">\(k≥ 1\)</span> and <span
-class="math display">\[\matrix{ F(x)=\hbox{\tt{filter}}(\hfill\\
-\hskip1pc p_1/\hbox{\tt{any}}(y_1:\hfill\\ \hskip2pc
-y_1/p_2/\hbox{\tt{any}}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc
-y_{k-1}/p_k/\hbox{\tt{any}}(y_k:\hfill\\ \hskip5pc
-\hbox{\tt{Aggregation.isdescendant}}(\hfill\\ \hskip6pc
-\hbox{\tt{HierarchyNodes}}=H&#39;,\;\hbox{\tt{HierarchyQualifier}}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
-\hskip6pc
-\hbox{\tt{Node}}=y_k/s,\;\hbox{\tt{Ancestor}}=x[q],\;\hbox{\tt{IncludeSelf}}=\hbox{\tt{true}}\hfill\\
+<span class="math inline">\(k≥1\)</span> and <span
+class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc
+p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt
+HierarchyNodes}=H&#39;,\;{\tt
+HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
+Node}=y_k/s,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
 \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc
 )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span
 class="math inline">\(y_1,…,y_k\)</span> denote
@@ -4788,11 +4793,13 @@ instances of the resulting output sets the <span
 class="math inline">\(\Pi_G\)</span> transformations inject information
 about the nodes <span class="math inline">\(χ_1,…,χ_M\)</span>.</p>
 <div class="example">
-<p>Example 60: Total number of sub-organizations for all organizations
-in the hierarchy defined in Hierarchy Examples with <span
-class="math inline">\(p=q=\hbox{\tt{ID}}\)</span> (case 1 of the
-definition of <span class="math inline">\(σ(x)\)</span>). In this case,
-the entire node is written back into the output set of <span
+<p>Example <a name="caseone" href="#caseone">60</a>: Total number of
+sub-organizations for all organizations in the hierarchy defined in <a
+href="#HierarchyExamples">Hierarchy Examples</a> with <span
+class="math inline">\(p=q={\tt ID}\)</span> (case 1 of the <a
+href="#Transformationtraverse">definition</a> of <span
+class="math inline">\(σ(x)\)</span>). In this case, the entire node is
+written back into the output set of <span
 class="math inline">\(T\)</span>, aggregates must have an alias to avoid
 overwriting.</p>
 <pre><code>GET /service/SalesOrganizations?$apply=
@@ -4826,9 +4833,10 @@ the algorithm is the node <span class="math inline">\(x\)</span> at
 recursion level <span class="math inline">\(N\)</span>. In a common
 expression, <span class="math inline">\(χ_N\)</span> cannot be accessed
 by its name, but can only be read as the return value of the
-instance-bound function <span
-class="math inline">\(\hbox{\tt{rollupnode}}(\hbox{\tt{Position}}=N)\)</span>
-defined in the Aggregation vocabulary, with <span
+instance-bound function <span class="math inline">\({\tt
+rollupnode}({\tt Position}=N)\)</span> defined in the
+<code>Aggregation</code> vocabulary <a
+href="#ODataVocAggr">OData-VocAggr</a>, with <span
 class="math inline">\(1≤N≤M\)</span>, and only during the application of
 the transformation sequence <span class="math inline">\(T\)</span> in
 the row labeled (1) in the formula <span
@@ -4838,15 +4846,16 @@ parameter can be omitted.</p>
 <div class="example">
 <p>⚠ Example <a name="rollupnode" href="#rollupnode">61</a>: Total sales
 amounts per organization, both including and excluding
-sub-organizations, in the US sub-hierarchy defined in Hierarchy Examples
-with <span
-class="math inline">\(p=p&#39;/q=\hbox{\tt{SalesOrganization}}/\hbox{\tt{ID}}\)</span>
-and <span
-class="math inline">\(p&#39;=\hbox{\tt{SalesOrganization}}\)</span>
-(case 2 of the definition of <span class="math inline">\(σ(x)\)</span>).
-The Boolean expression <span class="math inline">\(p&#39;\hbox{\tt{ eq
-Aggregation.rollupnode}}()\)</span> is true for sales in the
-organization for which the aggregate is computed, but not for sales in
+sub-organizations, in the US sub-hierarchy defined in <a
+href="#HierarchyExamples">Hierarchy Examples</a> with <span
+class="math inline">\(p=p&#39;/q={\tt SalesOrganization}/{\tt
+ID}\)</span> and <span class="math inline">\(p&#39;={\tt
+SalesOrganization}\)</span> (case 2 of the <a
+href="#Transformationtraverse">definition</a> of <span
+class="math inline">\(σ(x)\)</span>). The Boolean expression <span
+class="math inline">\(p&#39;\hbox{\tt\ eq
+Aggregation.rollupnode}()\)</span> is true for sales in the organization
+for which the aggregate is computed, but not for sales in
 sub-organizations.</p>
 <pre><code>GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -4862,69 +4871,71 @@ sub-organizations.</p>
                AmountExcl with sum as TotalAmountExcl))</code></pre>
 <p>results in</p>
 <pre><code>{
-  &quot;@odata.context&quot;: &quot;$metadata#Sales(SalesOrganization(ID),
+  &quot;@odata.context&quot;: &quot;$metadata#Sales(SalesOrganization,
                                      TotalAmountIncl,TotalAmountExcl)&quot;,
   &quot;value&quot;: [
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US&quot; },
-      &quot;TotalAmountIncl&quot;: 19, &quot;TotalAmountExcl&quot;: null, ... },
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US West&quot; },
-      &quot;TotalAmountIncl&quot;:  7, &quot;TotalAmountExcl&quot;:  7, ... },
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US East&quot; },
-      &quot;TotalAmountIncl&quot;: 12, &quot;TotalAmountExcl&quot;: 12, ... }
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US&quot;,      &quot;Name&quot;: &quot;US&quot; },
+      &quot;TotalAmountIncl@odata.type&quot;: &quot;Decimal&quot;,&quot;TotalAmountIncl&quot;: 19,
+      &quot;TotalAmountExcl&quot;: null },
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US West&quot;, &quot;Name&quot;: &quot;US West&quot; },
+      &quot;TotalAmountIncl@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmountIncl&quot;:  7,
+      &quot;TotalAmountExcl@odata.type&quot;: &quot;Decimal&quot; ,&quot;TotalAmountExcl&quot;:  7 },
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US East&quot;, &quot;Name&quot;: &quot;US East&quot; },
+      &quot;TotalAmountIncl@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmountIncl&quot;: 12,
+      &quot;TotalAmountExcl@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmountExcl&quot;: 12 }
   ]
 }</code></pre>
 </div>
 <div class="example">
 <p>⚠ Example <a name="pathequals" href="#pathequals">62</a>: Although
-<span class="math inline">\(p=\hbox{\tt{ID}}\)</span> and <span
-class="math inline">\(q=\hbox{\tt{ID}}\)</span>, they are not equal in
-the sense of case 1, because they are evaluated relative to different
-entity sets. Hence, this is an example of case 3 of the definition of
-<span class="math inline">\(σ(x)\)</span>, where no <span
-class="math inline">\(\hbox{\tt{Sales}}/\hbox{\tt{ID}}\)</span> matches
-a <span
-class="math inline">\(\hbox{\tt{SalesOrganizations}}/\hbox{\tt{ID}}\)</span>,
-that is, all <span class="math inline">\(F(x)\)</span> have empty output
-sets.</p>
+<span class="math inline">\(p={\tt ID}\)</span> and <span
+class="math inline">\(q={\tt ID}\)</span>, they are not equal in the
+sense of case 1, because they are evaluated relative to different entity
+sets. Hence, this is an example of case 3 of the <a
+href="#Transformationtraverse">definition</a> of <span
+class="math inline">\(σ(x)\)</span>, where no <code>Sales/ID</code>
+matches a <code>SalesOrganizations/ID</code>, that is, all <span
+class="math inline">\(F(x)\)</span> have empty output sets.</p>
 <pre><code>GET /service/Sales?$apply=
     groupby((rolluprecursive(
                  $root/SalesOrganizations,SalesOrgHierarchy,ID))),
              aggregate(Amount with sum as TotalAmount))</code></pre>
 <p>results in</p>
 <pre><code>{
-  &quot;@odata.context&quot;: &quot;$metadata#Sales(SalesOrganization(ID),TotalAmount)&quot;,
+  &quot;@odata.context&quot;: &quot;$metadata#Sales(SalesOrganization,TotalAmount)&quot;,
   &quot;value&quot;: [
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;Sales&quot; }, &quot;TotalAmount&quot;: null },
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;EMEA&quot;  }, &quot;TotalAmount&quot;: null },
-    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US&quot;    }, &quot;TotalAmount&quot;: null },
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;Sales&quot;, &quot;Name&quot;: &quot;Corporate Sales&quot; },
+      &quot;TotalAmount&quot;: null },
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;EMEA&quot;,  &quot;Name&quot;: &quot;EMEA&quot; },
+      &quot;TotalAmount&quot;: null },
+    { &quot;SalesOrganization&quot;: { &quot;ID&quot;: &quot;US&quot;,    &quot;Name&quot;: &quot;US&quot; },
+      &quot;TotalAmount&quot;: null },
     ...
   ]
 }</code></pre>
 </div>
-<p>The algorithm given so far is valid for a single-valued <span
-class="math inline">\(\hbox{\tt{RecursiveHierarchy}}/\hbox{\tt{ParentNavigationProperty}}\)</span>.
-The remainder of this section describes the case where it is
-collection-valued. The function <span
-class="math inline">\(ρ(c,x)\)</span> used below constructs a
-path-to-the-root and was defined in the <a
+<p>The algorithm given so far is valid for a single-valued
+<code>RecursiveHierarchy/ParentNavigationProperty</code>. The remainder
+of this section describes the case where it is collection-valued. The
+function <span class="math inline">\(ρ(c,x)\)</span> used below
+constructs a path-to-the-root and was defined in the <a
 href="#Transformationtraverse"><code>traverse</code></a> section.</p>
 <p>With <span class="math inline">\(r_1,…,r_n\)</span> as above, <span
-class="math inline">\(\hbox{\tt{groupby}}((P_1,\hbox{\tt{rolluprecursive}}(H,Q,p,S),P_2),T)\)</span>
-is defined as equivalent to <span
-class="math display">\[\hbox{\tt{concat}}(R(ρ(r_1,\hbox{\tt{null}}),…,
-R(ρ(r_n,\hbox{\tt{null}}))),\]</span> where the function <span
+class="math inline">\({\tt groupby}((P_1,{\tt
+rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is defined as equivalent to
+<span class="math display">\[{\tt concat}(R(ρ(r_1,{\tt
+null}),…,R(ρ(r_n,{\tt null}))),\]</span> where the function <span
 class="math inline">\(R(x)\)</span> takes as argument a
 path-to-the-root. With <span class="math inline">\(F(x)\)</span> and
 <span class="math inline">\(c_1,…,c_m\)</span> as above, if at least one
 of <span class="math inline">\(P_1\)</span> or <span
 class="math inline">\(P_2\)</span> is non-empty, then <span
-class="math display">\[\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad
-F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as
-}}χ_N)/\hbox{\tt{groupby}}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ \quad
+class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad
+F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt
+groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ \quad
 R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }\]</span> otherwise <span
-class="math display">\[\matrix{ R(x)=\hbox{\tt{concat}}(\hfill\\ \quad
-F(x)/\hbox{\tt{compute}}(x\hbox{\tt{ as
-}}χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ \quad
+class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad
+F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ \quad
 R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }\]</span> where <span
 class="math inline">\(χ_N\)</span> is the path-to-the-root <span
 class="math inline">\(x\)</span>.</p>
@@ -5273,7 +5284,8 @@ volume</p>
 <div class="example">
 <p>Example 79: Contribution of each sales to grand total sales
 amount</p>
-<pre><code>GET /service/Sales?$compute=Amount divby aggregate(Amount with sum)                             as Contribution</code></pre>
+<pre><code>GET /service/Sales?$compute=Amount divby aggregate(Amount with sum)
+                            as Contribution</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Sales(*,Contribution)&quot;,
@@ -5285,7 +5297,7 @@ amount</p>
     { &quot;ID&quot;: 3, &quot;Amount&quot;: 4, &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;,
                             &quot;Contribution&quot;: 0.1666666666666667 },
     { &quot;ID&quot;: 4, &quot;Amount&quot;: 8, &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;,
-                            &quot;Contribution&quot;: 0.3333333333333333 }
+                            &quot;Contribution&quot;: 0.3333333333333333 },
     { &quot;ID&quot;: 5, &quot;Amount&quot;: 4, &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;,
                             &quot;Contribution&quot;: 0.1666666666666667 },
     { &quot;ID&quot;: 6, &quot;Amount&quot;: 2, &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;,
@@ -5317,13 +5329,15 @@ $apply:</p>
 <p>Example 81: Sales volume per customer in relation to total volume</p>
 <pre><code>GET /service/Sales?$apply=
          groupby((Customer),aggregate(Amount with sum as CustomerAmount))
-        /compute(CustomerAmount divby aggregate(CustomerAmount with sum)                  as Contribution)
+        /compute(CustomerAmount divby aggregate(CustomerAmount with sum)
+                 as Contribution)
     &amp;$expand=Customer/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Sales(Customer(),CustomerAmount,Contribution)&quot;,
   &quot;value&quot;: [
-    { &quot;Customer&quot;:    { &quot;@odata.id&quot;: &quot;Customers(&#39;C1&#39;)&quot; },       &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;, &quot;Contribution&quot;: 0.2916667 },
+    { &quot;Customer&quot;:    { &quot;@odata.id&quot;: &quot;Customers(&#39;C1&#39;)&quot; },
+      &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;, &quot;Contribution&quot;: 0.2916667 },
     { &quot;Customer&quot;:    { &quot;@odata.id&quot;: &quot;Customers(&#39;C2&#39;)&quot; } },
       &quot;Contribution@odata.type&quot;: &quot;Decimal&quot;, &quot;Contribution&quot;: 0.5 },
     { &quot;Customer&quot;:    { &quot;@odata.id&quot;: &quot;Customers(&#39;C3&#39;)&quot; } }
@@ -5654,9 +5668,10 @@ Combining Transformations per Group</h2>
 <p>Dynamic property names may be reused in different transformation
 sequences passed to <code>concat</code>.</p>
 <div class="example">
-<p>Example 95: to get the best-selling product per country with
-sub-totals for every country, the partial results of a transformation
-sequence and a <code>groupby</code> transformation are concatenated:</p>
+<p>Example <a name="bestselling" href="#bestselling">95</a>: to get the
+best-selling product per country with sub-totals for every country, the
+partial results of a transformation sequence and a <code>groupby</code>
+transformation are concatenated:</p>
 <pre><code>GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
                              aggregate(Amount with sum as Total))
@@ -5684,8 +5699,8 @@ sequence and a <code>groupby</code> transformation are concatenated:</p>
 </div>
 <div class="example">
 <p>Example 96: transformation sequences are also useful inside
-<code>groupby</code>: To get the aggregated amount by only considering
-the top two sales amounts per product and country:</p>
+<code>groupby</code>: Aggregate the amount by only considering the top
+two sales amounts per product and country:</p>
 <pre><code>GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))</code></pre>
 <p>results in</p>
@@ -5721,7 +5736,8 @@ per product", made distinguishable by a dynamic property:</p>
 <p>In the result, <code>Sales</code> entities 4 and 6 occur twice each
 with contradictory values of the dynamic property <code>per</code>. If a
 UI consuming the response presents the two groupings in separate columns
-based on the per property, no contradiction effectively arises.</p>
+based on the <code>per</code> property, no contradiction effectively
+arises.</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Sales(*,per,Customer(ID),Product(ID))&quot;,
   &quot;value&quot;: [
@@ -5744,15 +5760,14 @@ based on the per property, no contradiction effectively arises.</p>
 id="76-model-functions-as-set-transformations"><a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.6</a>
 Model Functions as Set Transformations</h2>
 <div class="example">
-<p>Example 98: As a variation of the example shown in the previous
-section, a query for returning the best-selling product per country and
-the total amount of the remaining products can be formulated with the
-help of a model function.</p>
+<p>Example 98: As a variation of <a href="#bestselling">example 95</a>,
+a query for returning the best-selling product per country and the total
+amount of the remaining products can be formulated with the help of a
+model function.</p>
 <p>For this purpose, the model includes a definition of a
-<code>TopCountAndBalance</code> function that accepts the count for the
-top entities in the given input set not to be considered for the
-balance:</p>
-<pre><code>&lt;edm:Function Name=&quot;TopCountAndBalance&quot;
+<code>TopCountAndRemainder</code> function that accepts a count and a
+numeric property for the top entities:</p>
+<pre><code>&lt;edm:Function Name=&quot;TopCountAndRemainder&quot;
               IsBound=&quot;true&quot;&gt;
     &lt;edm:Parameter  Name=&quot;EntityCollection&quot;
                     Type=&quot;Collection(Edm.EntityType)&quot;/&gt;
@@ -5760,15 +5775,14 @@ balance:</p>
     &lt;edm:Parameter  Name=&quot;Property&quot; Type=&quot;Edm.String&quot;/&gt;
     &lt;edm:ReturnType Type=&quot;Collection(Edm.EntityType)&quot;/&gt;
 &lt;/edm:Function&gt;</code></pre>
-<p>The function takes the name of a numeric property as a parameter,
-retains those entities that topcount also would retain, and replaces the
-remaining entities by a single aggregated entity, where only the numeric
-property has a defined value being the aggregated value over those
-remaining entities:</p>
+<p>The function retains those entities that <code>topcount</code> also
+would retain, and replaces the remaining entities by a single aggregated
+entity, where only the numeric property has a value, which is the sum
+over those remaining entities:</p>
 <pre><code>GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                          aggregate(Amount with sum as Total))
                   /groupby((Customer/Country),
-                           Self.TopCountAndBalance(Count=1,Property=&#39;Total&#39;))</code></pre>
+                           Self.TopCountAndRemainder(Count=1,Property=&#39;Total&#39;))</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#Sales(Customer(Country),Total)&quot;,
@@ -5803,8 +5817,8 @@ product.</p>
 <pre><code>GET /service/Sales?$apply=groupby((Product/ID,Product/Name,Time/Month),
                            aggregate(Amount with sum) as Total))
                   /groupby((Product/ID,Product/Name),
-                           aggregate(Total with average as AverageAmount))</code></pre>
-<p>Using from:</p>
+                           aggregate(Total with average as MonthlyAverage))</code></pre>
+<p>Using <code>from</code>:</p>
 <pre><code>GET /service/Sales?$apply=groupby((Product/ID,Product/Name),
                       aggregate(Amount with sum
                                        from Time/Month with average
@@ -5846,8 +5860,9 @@ averages</p>
       &quot;CustomerCountryAverage&quot;: 7.25 }
   ]
 }</code></pre>
-<p>Note that this example extends the result of rollup with concat and
-aggregate to append the overall average.</p>
+<p>Note that this example extends the result of <code>rollup</code> with
+<code>concat</code> and <code>aggregate</code> to append the overall
+average.</p>
 </div>
 <h2
 id="78-aggregation-in-recursive-hierarchies"><a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.8</a>
@@ -5863,23 +5878,21 @@ href="#HierarchyExamples">Hierarchy Examples</a></p>
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
                 filter(Name eq &#39;US&#39;),keep start)
     /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
-             aggregate(Sales/Amount with sum as TotalAmount))</code></pre>
+             aggregate(Sales/Amount with sum as TotalAmount))
+  &amp;$expand=Superordinate/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#SalesOrganizations(*,TotalAmount)&quot;,
   &quot;value&quot;: [
     { &quot;ID&quot;: &quot;US&quot;,      &quot;Name&quot;: &quot;US&quot;,
       &quot;Total@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmount&quot;: 19,
-      &quot;Superordinate@navigationLink&quot;:
-                       &quot;SalesOrganization(&#39;US&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
     { &quot;ID&quot;: &quot;US East&quot;, &quot;Name&quot;: &quot;US East&quot;,
       &quot;Total@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmount&quot;: 12,
-      &quot;Superordinate@navigationLink&quot;:
-                       &quot;SalesOrganization(&#39;US East&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } },
     { &quot;ID&quot;: &quot;US West&quot;, &quot;Name&quot;: &quot;US West&quot;,
       &quot;Total@odata.type&quot;: &quot;Decimal&quot;, &quot;TotalAmount&quot;:  7,
-      &quot;Superordinate@navigationLink&quot;:
-                       &quot;SalesOrganization(&#39;US West&#39;)/Superordinate&quot; }
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } }
   ]
 }</code></pre>
 <p>Note that this example returns the actual total sums regardless of
@@ -5896,35 +5909,30 @@ href="#HierarchyExamples">Hierarchy Examples</a></p>
 <pre><code>GET /service/SalesOrganizations?$apply=
     addnested(Sales,filter(Product/Name eq &#39;Paper&#39;) as FilteredSales)
     /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
-             aggregate(FilteredSales/$count as PaperSalesCount))</code></pre>
+             aggregate(FilteredSales/$count as PaperSalesCount))
+  &amp;$expand=Superordinate/$ref</code></pre>
 <p>results in</p>
 <pre><code>{
   &quot;@odata.context&quot;: &quot;$metadata#SalesOrganizations(*,PaperSalesCount)&quot;,
   &quot;value&quot;: [
     { &quot;ID&quot;: &quot;US&quot;,           &quot;Name&quot;: &quot;US&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 2,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;US&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
     { &quot;ID&quot;: &quot;US East&quot;,      &quot;Name&quot;: &quot;US East&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 1,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;US East&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } },
     { &quot;ID&quot;: &quot;US West&quot;,      &quot;Name&quot;: &quot;US West&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 1,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;US West&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;US&#39;)&quot; } },
     { &quot;ID&quot;: &quot;EMEA&quot;,         &quot;Name&quot;: &quot;EMEA&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 2,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;EMEA&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;Sales&#39;)&quot; } },
     { &quot;ID&quot;: &quot;EMEA Central&quot;, &quot;Name&quot;: &quot;EMEA Central&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 2,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;EMEA Central&#39;)/Superordinate&quot; },
+      &quot;Superordinate&quot;: { &quot;@odata.id&quot;: &quot;SalesOrganizations(&#39;EMEA&#39;)&quot; } },
     { &quot;ID&quot;: &quot;Sales&quot;,        &quot;Name&quot;: &quot;Sales&quot;,
       &quot;PaperSalesCount@odata.type&quot;: &quot;Decimal&quot;, &quot;PaperSalesCount&quot;: 4,
-      &quot;Superordinate@navigationLink&quot;:
-                      &quot;SalesOrganization(&#39;Sales&#39;)/Superordinate&quot; }
+      &quot;Superordinate&quot;: null }
   ]
 }</code></pre>
 </div>

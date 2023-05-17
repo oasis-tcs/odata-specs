@@ -384,7 +384,7 @@ results in
 ::: example
 Example ##ex: Contribution of each sales to grand total sales amount
 ```
-GET /service/Sales?$compute=Amount divby aggregate(Amount with sum) 
+GET /service/Sales?$compute=Amount divby aggregate(Amount with sum)
                             as Contribution
 ```
 results in
@@ -399,7 +399,7 @@ results in
     { "ID": 3, "Amount": 4, "Contribution@odata.type": "Decimal",
                             "Contribution": 0.1666666666666667 },
     { "ID": 4, "Amount": 8, "Contribution@odata.type": "Decimal",
-                            "Contribution": 0.3333333333333333 }
+                            "Contribution": 0.3333333333333333 },
     { "ID": 5, "Amount": 4, "Contribution@odata.type": "Decimal",
                             "Contribution": 0.1666666666666667 },
     { "ID": 6, "Amount": 2, "Contribution@odata.type": "Decimal",
@@ -437,7 +437,7 @@ Example ##ex: Sales volume per customer in relation to total volume
 ```
 GET /service/Sales?$apply=
          groupby((Customer),aggregate(Amount with sum as CustomerAmount))
-        /compute(CustomerAmount divby aggregate(CustomerAmount with sum) 
+        /compute(CustomerAmount divby aggregate(CustomerAmount with sum)
                  as Contribution)
     &$expand=Customer/$ref
 ```
@@ -446,7 +446,7 @@ results in
 {
   "@odata.context": "$metadata#Sales(Customer(),CustomerAmount,Contribution)",
   "value": [
-    { "Customer":    { "@odata.id": "Customers('C1')" }, 
+    { "Customer":    { "@odata.id": "Customers('C1')" },
       "Contribution@odata.type": "Decimal", "Contribution": 0.2916667 },
     { "Customer":    { "@odata.id": "Customers('C2')" } },
       "Contribution@odata.type": "Decimal", "Contribution": 0.5 },
@@ -818,7 +818,7 @@ will return all distinct amounts appearing in sales orders and how much money wa
 Dynamic property names may be reused in different transformation sequences passed to `concat`.
 
 ::: example
-Example ##ex: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
+Example ##ex_bestselling: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
 ```
 GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
@@ -850,7 +850,7 @@ results in
 :::
 
 ::: example
-Example ##ex: transformation sequences are also useful inside `groupby`: To get the aggregated amount by only considering the top two sales amounts per product and country:
+Example ##ex: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))
@@ -888,7 +888,7 @@ GET /service/Sales?$apply=concat(
     groupby((Product),topcount(1,Amount))/compute('Product' as per))
   &$expand=Customer($select=ID),Product($select=ID)
 ```
-In the result, `Sales` entities 4 and 6 occur twice each with contradictory values of the dynamic property `per`. If a UI consuming the response presents the two groupings in separate columns based on the per property, no contradiction effectively arises.
+In the result, `Sales` entities 4 and 6 occur twice each with contradictory values of the dynamic property `per`. If a UI consuming the response presents the two groupings in separate columns based on the `per` property, no contradiction effectively arises.
 ```
 {
   "@odata.context": "$metadata#Sales(*,per,Customer(ID),Product(ID))",
@@ -913,11 +913,11 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 ## ##subsec Model Functions as Set Transformations
 
 ::: example
-Example ##ex: As a variation of the example shown in the previous section, a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
+Example ##ex: As a variation of [example ##bestselling], a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
 
-For this purpose, the model includes a definition of a `TopCountAndBalance` function that accepts the count for the top entities in the given input set not to be considered for the balance:
+For this purpose, the model includes a definition of a `TopCountAndRemainder` function that accepts a count and a numeric property for the top entities:
 ```
-<edm:Function Name="TopCountAndBalance"
+<edm:Function Name="TopCountAndRemainder"
               IsBound="true">
     <edm:Parameter  Name="EntityCollection"
                     Type="Collection(Edm.EntityType)"/>
@@ -926,12 +926,12 @@ For this purpose, the model includes a definition of a `TopCountAndBalance` func
     <edm:ReturnType Type="Collection(Edm.EntityType)"/>
 </edm:Function>
 ```
-The function takes the name of a numeric property as a parameter, retains those entities that topcount also would retain, and replaces the remaining entities by a single aggregated entity, where only the numeric property has a defined value being the aggregated value over those remaining entities:
+The function retains those entities that `topcount` also would retain, and replaces the remaining entities by a single aggregated entity, where only the numeric property has a value, which is the sum over those remaining entities:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                          aggregate(Amount with sum as Total))
                   /groupby((Customer/Country),
-                           Self.TopCountAndBalance(Count=1,Property='Total'))
+                           Self.TopCountAndRemainder(Count=1,Property='Total'))
 ```
 results in
 ```
@@ -967,10 +967,10 @@ Using a transformation sequence:
 GET /service/Sales?$apply=groupby((Product/ID,Product/Name,Time/Month),
                            aggregate(Amount with sum) as Total))
                   /groupby((Product/ID,Product/Name),
-                           aggregate(Total with average as AverageAmount))
+                           aggregate(Total with average as MonthlyAverage))
 ```
 
-Using from:
+Using `from`:
 ```
 GET /service/Sales?$apply=groupby((Product/ID,Product/Name),
                       aggregate(Amount with sum
@@ -1018,7 +1018,7 @@ results in
 }
 ```
 
-Note that this example extends the result of rollup with concat and aggregate to append the overall
+Note that this example extends the result of `rollup` with `concat` and `aggregate` to append the overall
 average.
 :::
 
@@ -1034,6 +1034,7 @@ GET /service/SalesOrganizations?$apply=
                 filter(Name eq 'US'),keep start)
     /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
              aggregate(Sales/Amount with sum as TotalAmount))
+  &$expand=Superordinate/$ref
 ```
 results in
 ```
@@ -1042,16 +1043,13 @@ results in
   "value": [
     { "ID": "US",      "Name": "US",
       "Total@odata.type": "Decimal", "TotalAmount": 19,
-      "Superordinate@navigationLink":
-                       "SalesOrganization('US')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
       "Total@odata.type": "Decimal", "TotalAmount": 12,
-      "Superordinate@navigationLink":
-                       "SalesOrganization('US East')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
     { "ID": "US West", "Name": "US West",
       "Total@odata.type": "Decimal", "TotalAmount":  7,
-      "Superordinate@navigationLink":
-                       "SalesOrganization('US West')/Superordinate" }
+      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
   ]
 }
 ```
@@ -1068,6 +1066,7 @@ GET /service/SalesOrganizations?$apply=
     addnested(Sales,filter(Product/Name eq 'Paper') as FilteredSales)
     /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
              aggregate(FilteredSales/$count as PaperSalesCount))
+  &$expand=Superordinate/$ref
 ```
 results in
 ```
@@ -1076,28 +1075,22 @@ results in
   "value": [
     { "ID": "US",           "Name": "US",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('US')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
     { "ID": "US East",      "Name": "US East",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('US East')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
     { "ID": "US West",      "Name": "US West",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('US West')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
     { "ID": "EMEA",         "Name": "EMEA",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('EMEA')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
     { "ID": "EMEA Central", "Name": "EMEA Central",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('EMEA Central')/Superordinate" },
+      "Superordinate": { "@odata.id": "SalesOrganizations('EMEA')" } },
     { "ID": "Sales",        "Name": "Sales",
       "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 4,
-      "Superordinate@navigationLink":
-                      "SalesOrganization('Sales')/Superordinate" }
+      "Superordinate": null }
   ]
 }
 ```
