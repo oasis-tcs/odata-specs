@@ -2008,8 +2008,8 @@ The `aggregate` function allows to use aggregated values in [expressions](#Expre
 An aggregate-function expression offers the same capabilities as an aggregate expression defined for the `aggregate` transformation except that it never includes an alias for introducing a dynamic property containing the aggregated value. More precisely, the function `aggregate` can be defined in terms of the transformation [`aggregate`](#AggregationAlgorithm) applied to an input set $I$:
 
 Let $A$ be an aggregate expression of type 1, 3 or 4, and let $\hat A$ be one of the following:
-- Let $\hat A=z/A$ where $z$ is a `lambdaVariableExpr`, then let $I$ be the collection consisting of the instance addressed by $z$ (see [example ~~aggrzA~~]).
-- Let $\hat A={\tt\$it}/A$, then let $I$ be the collection consisting of the instance addressed by `$it` (see [example ~~aggritA~~]).
+- Let $\hat A=z/A$ where $z$ is a `lambdaVariableExpr`, then let $I$ be the collection consisting of the instance addressed by $z$ (see [example 80](#aggrzA)).
+- Let $\hat A={\tt\$it}/A$, then let $I$ be the collection consisting of the instance addressed by `$it` (see [example 77](#aggritA)).
 - Let $\hat A=A$, then let $I$ be the current collection (see [example 40](#aggrA)).
 
 Then the function ${\tt aggregate}(\hat A)$ MUST NOT be prepended with a collection-valued path. It evaluates to the value of the property $D$ in the single instance of the output set that is produced when the transformation ${\tt aggregate}(A{\tt\ as\ }D)$ is applied with $I$ as input set.
@@ -3265,7 +3265,7 @@ results in
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example 77: Products with an aggregated sales volume of ten or more
+Example <a name="aggritA" href="#aggritA">77</a>: Products with an aggregated sales volume of ten or more
 ```
 GET /service/Products?$filter=aggregate($it/Sales/Amount with sum) ge 10
 ```
@@ -3332,7 +3332,7 @@ results in
 :::
 
 ::: example
-Example 80: Product categories with at least one product having an aggregated sales amount greater than 10
+Example <a name="aggrzA" href="#aggrzA">80</a>: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
                               p:aggregate(p/Sales/Amount with sum) gt 10)

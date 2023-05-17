@@ -346,7 +346,7 @@ results in
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example ##ex: Products with an aggregated sales volume of ten or more
+Example ##ex_aggritA: Products with an aggregated sales volume of ten or more
 ```
 GET /service/Products?$filter=aggregate($it/Sales/Amount with sum) ge 10
 ```
@@ -414,7 +414,7 @@ results in
 :::
 
 ::: example
-Example ##ex: Product categories with at least one product having an aggregated sales amount greater than 10
+Example ##ex_aggrzA: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
                               p:aggregate(p/Sales/Amount with sum) gt 10)

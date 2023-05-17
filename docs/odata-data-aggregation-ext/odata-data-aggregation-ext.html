@@ -3425,11 +3425,12 @@ be one of the following:</p>
 class="math inline">\(z\)</span> is a <code>lambdaVariableExpr</code>,
 then let <span class="math inline">\(I\)</span> be the collection
 consisting of the instance addressed by <span
-class="math inline">\(z\)</span> (see [example <del>aggrzA</del>]).</li>
+class="math inline">\(z\)</span> (see <a href="#aggrzA">example
+80</a>).</li>
 <li>Let <span class="math inline">\(\hat A={\tt\$it}/A\)</span>, then
 let <span class="math inline">\(I\)</span> be the collection consisting
-of the instance addressed by <code>$it</code> (see [example
-<del>aggritA</del>]).</li>
+of the instance addressed by <code>$it</code> (see <a
+href="#aggritA">example 77</a>).</li>
 <li>Let <span class="math inline">\(\hat A=A\)</span>, then let <span
 class="math inline">\(I\)</span> be the current collection (see <a
 href="#aggrA">example 40</a>).</li>
@@ -5242,8 +5243,8 @@ than <code>Name</code>.</p>
 <code>$compute</code> but also in <code>$filter</code> and
 <code>$orderby</code>:</p>
 <div class="example">
-<p>Example 77: Products with an aggregated sales volume of ten or
-more</p>
+<p>Example <a name="aggritA" href="#aggritA">77</a>: Products with an
+aggregated sales volume of ten or more</p>
 <pre><code>GET /service/Products?$filter=aggregate($it/Sales/Amount with sum) ge 10</code></pre>
 <p>results in</p>
 <pre><code>{
@@ -5297,8 +5298,9 @@ amount</p>
 }</code></pre>
 </div>
 <div class="example">
-<p>Example 80: Product categories with at least one product having an
-aggregated sales amount greater than 10</p>
+<p>Example <a name="aggrzA" href="#aggrzA">80</a>: Product categories
+with at least one product having an aggregated sales amount greater than
+10</p>
 <pre><code>GET /service/Categories?$filter=Products/any(
                               p:aggregate(p/Sales/Amount with sum) gt 10)</code></pre>
 <p>results in</p>
