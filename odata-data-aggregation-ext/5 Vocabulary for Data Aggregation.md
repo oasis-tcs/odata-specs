@@ -167,13 +167,13 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 A recursive hierarchy organizes entities of a collection as nodes of one or more tree structures. This structure does not need to be as uniform as a leveled hierarchy. It is described by a complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy.
-- The `ParentNavigationProperty` allows navigation to the instance representing the parent node. It MUST be a nullable single- or collection-valued navigation property path that addresses the entity type annotated with this term.
+- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a nullable single- or collection-valued navigation property path that addresses the entity type annotated with this term.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions).
 
-A _node_ is an instance of an entity type annotated with `RecursiveHierarchy`. It may have a `parent node` that is the target instance reached via the `ParentNavigationProperty`. A `recursive hierarchy` is a collection of such nodes with unique node identifiers and no cycles in the traversal of parent links.
+A _node_ is an instance of an entity type annotated with `RecursiveHierarchy` and a given qualifier. The same entity can be different nodes, given different qualifiers. A node may have one or more _parent nodes_ that are the target instances reached via the `ParentNavigationProperty`. A _recursive hierarchy_ for a given qualifier is a collection of such nodes with unique node identifiers and no cycles in the traversal of parent links.
 
-A node without parent node is a _root node_, a node is a _child node_ of its parent node, a node without child nodes is a _leaf node_. Nodes with the same parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent node, the parent of its parent node, and so on, up to and including a root node that can be reached. A recursive hierarchy can have one or more root nodes.
+A node without parent node or with null as parent node is a _root node_, a node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Nodes with a common parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including root nodes that can be reached. A recursive hierarchy can have one or more root nodes.
 
 The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to the root is constructed.
 
@@ -189,7 +189,7 @@ The following functions are defined:
 - `isroot` tests if the given entity is a root of the hierarchy
 - `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true
 - `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true
-- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) have the same parent node or both are roots, but are not the same
+- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) have a common parent node or both are roots, but are not the same
 - `isleaf` tests if the given entity is without descendants.
 
 ### ##subsubsec Hierarchy Examples

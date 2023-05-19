@@ -3925,9 +3925,9 @@ uniform as a leveled hierarchy. It is described by a complex term
 segments ending in a primitive property. This path points to the
 property holding the node identifier of the node in the hierarchy.</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
-instance representing the parent node. It MUST be a nullable single- or
-collection-valued navigation property path that addresses the entity
-type annotated with this term.</li>
+instance or instances representing the parent nodes. It MUST be a
+nullable single- or collection-valued navigation property path that
+addresses the entity type annotated with this term.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to
 entity types, and MUST be applied with a qualifier, which is used to
@@ -3936,22 +3936,24 @@ hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with
 <code>rolluprecursive</code></a>, and in <a
 href="#HierarchyFunctions">hierarchy functions</a>.</p>
 <p>A <em>node</em> is an instance of an entity type annotated with
-<code>RecursiveHierarchy</code>. It may have a <code>parent node</code>
-that is the target instance reached via the
-<code>ParentNavigationProperty</code>. A
-<code>recursive hierarchy</code> is a collection of such nodes with
+<code>RecursiveHierarchy</code> and a given qualifier. The same entity
+can be different nodes, given different qualifiers. A node may have one
+or more <em>parent nodes</em> that are the target instances reached via
+the <code>ParentNavigationProperty</code>. A <em>recursive
+hierarchy</em> for a given qualifier is a collection of such nodes with
 unique node identifiers and no cycles in the traversal of parent
 links.</p>
-<p>A node without parent node is a <em>root node</em>, a node is a
-<em>child node</em> of its parent node, a node without child nodes is a
-<em>leaf node</em>. Nodes with the same parent node are <em>sibling
-nodes</em> and so are root nodes. The <em>descendants</em> of a node are
-its child nodes, their child nodes, and so on, up to and including all
-leaf nodes that can be reached. A node together with its descendants
-forms a <em>sub-hierarchy</em> of the hierarchy. The <em>ancestors</em>
-of a node are its parent node, the parent of its parent node, and so on,
-up to and including a root node that can be reached. A recursive
-hierarchy can have one or more root nodes.</p>
+<p>A node without parent node or with null as parent node is a <em>root
+node</em>, a node is a <em>child node</em> of its parent nodes, a node
+without child nodes is a <em>leaf node</em>. Nodes with a common parent
+node are <em>sibling nodes</em> and so are root nodes. The
+<em>descendants</em> of a node are its child nodes, their child nodes,
+and so on, up to and including all leaf nodes that can be reached. A
+node together with its descendants forms a <em>sub-hierarchy</em> of the
+hierarchy. The <em>ancestors</em> of a node are its parent nodes, the
+parents of its parent nodes, and so on, up to and including root nodes
+that can be reached. A recursive hierarchy can have one or more root
+nodes.</p>
 <p>The term <code>UpNode</code> can be used in hierarchical result sets
 to associate with each instance one of its ancestors, which is again
 annotated with <code>UpNode</code> and so on until a path to the root is
@@ -3991,7 +3993,7 @@ a descendant node (whose node identifier is given in a parameter
 <code>IncludeSelf</code> is true</li>
 <li><code>issibling</code> tests if the given entity and another entity
 (whose node identifier is given in a parameter <code>Other</code>) have
-the same parent node or both are roots, but are not the same</li>
+a common parent node or both are roots, but are not the same</li>
 <li><code>isleaf</code> tests if the given entity is without
 descendants.</li>
 </ul>
