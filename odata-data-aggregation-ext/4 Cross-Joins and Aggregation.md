@@ -1,3 +1,5 @@
+-------
+
 # ##sec Cross-Joins and Aggregation
 
 OData supports querying related entities through defining navigation properties in the data model. These navigation paths help guide simple consumers in understanding and navigating relationships.

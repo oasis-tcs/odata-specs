@@ -19,10 +19,6 @@ a[href^="#RFC"]::after {
 	font-weight: bold;
 }
 
-img {
-	width: 100%;
-}
-
 .toc li {
 	list-style-type: none;
 }
@@ -37,7 +33,7 @@ img {
 	font-style: italic;
 }
 
-.example table {
+table {
 	width: auto;
 }
 

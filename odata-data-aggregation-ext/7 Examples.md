@@ -1,3 +1,5 @@
+-------
+
 # ##sec Examples
 
 The following examples show some common aggregation-related questions that can be answered by combining the transformations defined in [sections ##SystemQueryOptionapply] and [##HierarchicalTransformations].

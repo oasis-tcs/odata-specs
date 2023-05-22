@@ -1,3 +1,5 @@
+-------
+
 # ##sec Introduction
 
 This specification adds aggregation functionality to the Open Data Protocol (OData) without changing any of the base principles of OData. It defines semantics and a representation for aggregation of data, especially:
@@ -32,8 +34,6 @@ This specification defines the following terms:
 
 Keywords defined by this specification use `this monospaced font`.
 
-$$\hbox{\tt Normative source code uses this paragraph style.}$$
-
 Some sections of this specification are illustrated with non-normative examples.
 
 ::: example
@@ -46,6 +46,27 @@ Non-normative examples use this paragraph style.
 All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
 
 All other text is normative unless otherwise labeled.
+
+::: example
+Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext.md`). Line breaks are added for readability only:
+
+```
+pandoc -f gfm
+       -t html
+       -o odata-data-aggregation-ext.html
+       -c styles/markdown-styles-v1.7.3a.css
+       -c styles/odata.css
+       -s
+       --mathjax
+       --eol=lf
+       --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
+       odata-data-aggregation-ext.md
+```
+
+This uses pandoc 3.0.1 from https://github.com/jgm/pandoc/releases/tag/3.0.1.
+:::
+
+-------
 
 # ##sec Overview
 

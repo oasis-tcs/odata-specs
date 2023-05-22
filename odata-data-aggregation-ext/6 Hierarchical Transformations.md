@@ -1,3 +1,5 @@
+-------
+
 # ##sec Hierarchical Transformations
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.

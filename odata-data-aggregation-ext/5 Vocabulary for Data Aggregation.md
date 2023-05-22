@@ -1,3 +1,5 @@
+-------
+
 # ##sec Vocabulary for Data Aggregation
 
 The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr).
