@@ -3933,9 +3933,9 @@ segments ending in a primitive property. This path points to the
 property holding the node identifier of the node in the hierarchy.</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
-nullable single- or collection-valued navigation property path that
-addresses the entity type annotated with this term. There MUST NOT be
-any cycles in the traversal of parent links.</li>
+collection-valued or nullable single-valued navigation property path
+that addresses the entity type annotated with this term. There MUST NOT
+be any cycles in the traversal of parent links.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to
 entity types, and MUST be applied with a qualifier, which is used to
@@ -3945,17 +3945,16 @@ hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with
 href="#HierarchyFunctions">hierarchy functions</a>. The same entity can
 serve as different nodes in different recursive hierarchies, given
 different qualifiers.</p>
-<p>A node without parent node or with null as parent node is a <em>root
-node</em>, a node is a <em>child node</em> of its parent nodes, a node
-without child nodes is a <em>leaf node</em>. Nodes with a common parent
-node are <em>sibling nodes</em> and so are root nodes. The
-<em>descendants</em> of a node are its child nodes, their child nodes,
-and so on, up to and including all leaf nodes that can be reached. A
-node together with its descendants forms a <em>sub-hierarchy</em> of the
-hierarchy. The <em>ancestors</em> of a node are its parent nodes, the
-parents of its parent nodes, and so on, up to and including root nodes
-that can be reached. A recursive hierarchy can have one or more root
-nodes.</p>
+<p>A node without parent node is a <em>root node</em>, a node is a
+<em>child node</em> of its parent nodes, a node without child nodes is a
+<em>leaf node</em>. Two nodes with a common parent node are <em>sibling
+nodes</em> and so are two root nodes. The <em>descendants</em> of a node
+are its child nodes, their child nodes, and so on, up to and including
+all leaf nodes that can be reached. A node together with its descendants
+forms a <em>sub-hierarchy</em> of the hierarchy. The <em>ancestors</em>
+of a node are its parent nodes, the parents of its parent nodes, and so
+on, up to and including root nodes that can be reached. A recursive
+hierarchy can have one or more root nodes.</p>
 <p>The term <code>UpNode</code> can be used in hierarchical result sets
 to associate with each instance one of its ancestors, which is again
 annotated with <code>UpNode</code> and so on until a path to the root is
