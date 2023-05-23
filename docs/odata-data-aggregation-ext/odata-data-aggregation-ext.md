@@ -2367,7 +2367,7 @@ A recursive hierarchy is defined on a collection of entities by associating with
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy.
+- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy (sometimes called "orphans").
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. There MUST NOT be any cycles in the traversal of parent links.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.

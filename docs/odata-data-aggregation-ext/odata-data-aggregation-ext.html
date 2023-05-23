@@ -3930,7 +3930,9 @@ with these properties:</p>
 <ul>
 <li>The <code>NodeProperty</code> contains a path with single-valued
 segments ending in a primitive property. This path points to the
-property holding the node identifier of the node in the hierarchy.</li>
+property holding the node identifier of the node in the hierarchy.
+Entities for which this path evaluates to null are not nodes of the
+hierarchy (sometimes called "orphans").</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
 collection-valued or nullable single-valued navigation property path
