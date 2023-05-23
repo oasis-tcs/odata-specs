@@ -3916,10 +3916,17 @@ href="#Groupingwithrollup">grouping with <code>rollup</code></a>.</p>
 <h3
 id="552-recursive-hierarchy"><a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2</a>
 Recursive Hierarchy</h3>
-<p>A recursive hierarchy organizes entities of a collection as nodes of
-one or more tree structures. This structure does not need to be as
-uniform as a leveled hierarchy. It is described by a complex term
-<code>RecursiveHierarchy</code> with these properties:</p>
+<p>A recursive hierarchy is defined on a collection of entities by
+associating with every entity zero or more other entities from the same
+collection, called its <em>parents</em>. The entities are called
+<em>nodes</em> and each node within the collection must be identifiable
+through a single primitive property called the <em>node
+identifier</em>.</p>
+<p>A recursive hierarchy does not need to be as uniform as a leveled
+hierarchy.</p>
+<p>The recursive hierarchy is described in the model by an annotation of
+the entity type with the complex term <code>RecursiveHierarchy</code>
+with these properties:</p>
 <ul>
 <li>The <code>NodeProperty</code> contains a path with single-valued
 segments ending in a primitive property. This path points to the
@@ -3927,22 +3934,17 @@ property holding the node identifier of the node in the hierarchy.</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
 nullable single- or collection-valued navigation property path that
-addresses the entity type annotated with this term.</li>
+addresses the entity type annotated with this term. There MUST NOT be
+any cycles in the traversal of parent links.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to
 entity types, and MUST be applied with a qualifier, which is used to
 reference the hierarchy in transformations operating on recursive
 hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with
 <code>rolluprecursive</code></a>, and in <a
-href="#HierarchyFunctions">hierarchy functions</a>.</p>
-<p>A <em>node</em> is an instance of an entity type annotated with
-<code>RecursiveHierarchy</code> and a given qualifier. The same entity
-can be different nodes, given different qualifiers. A node may have one
-or more <em>parent nodes</em> that are the target instances reached via
-the <code>ParentNavigationProperty</code>. A <em>recursive
-hierarchy</em> for a given qualifier is a collection of such nodes with
-unique node identifiers and no cycles in the traversal of parent
-links.</p>
+href="#HierarchyFunctions">hierarchy functions</a>. The same entity can
+serve as different nodes in different recursive hierarchies, given
+different qualifiers.</p>
 <p>A node without parent node or with null as parent node is a <em>root
 node</em>, a node is a <em>child node</em> of its parent nodes, a node
 without child nodes is a <em>leaf node</em>. Nodes with a common parent

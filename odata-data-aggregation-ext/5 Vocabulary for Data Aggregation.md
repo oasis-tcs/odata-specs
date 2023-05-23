@@ -165,13 +165,15 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 ### ##subsubsec Recursive Hierarchy
 
-A recursive hierarchy organizes entities of a collection as nodes of one or more tree structures. This structure does not need to be as uniform as a leveled hierarchy. It is described by a complex term `RecursiveHierarchy` with these properties:
+A recursive hierarchy is defined on a collection of entities by associating with every entity zero or more other entities from the same collection, called its _parents_. The entities are called _nodes_ and each node within the collection must be identifiable through a single primitive property called the _node identifier_.
+
+A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
+
+The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy.
-- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a nullable single- or collection-valued navigation property path that addresses the entity type annotated with this term.
+- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a nullable single- or collection-valued navigation property path that addresses the entity type annotated with this term. There MUST NOT be any cycles in the traversal of parent links.
 
-The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions).
-
-A _node_ is an instance of an entity type annotated with `RecursiveHierarchy` and a given qualifier. The same entity can be different nodes, given different qualifiers. A node may have one or more _parent nodes_ that are the target instances reached via the `ParentNavigationProperty`. A _recursive hierarchy_ for a given qualifier is a collection of such nodes with unique node identifiers and no cycles in the traversal of parent links.
+The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
 A node without parent node or with null as parent node is a _root node_, a node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Nodes with a common parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including root nodes that can be reached. A recursive hierarchy can have one or more root nodes.
 
