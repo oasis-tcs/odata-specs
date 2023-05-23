@@ -3936,8 +3936,8 @@ hierarchy (sometimes called "orphans").</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
 collection-valued or nullable single-valued navigation property path
-that addresses the entity type annotated with this term. There MUST NOT
-be any cycles in the traversal of parent links.</li>
+that addresses the entity type annotated with this term. Nodes MUST NOT
+form cycles when following parent navigation properties.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to
 entity types, and MUST be applied with a qualifier, which is used to
