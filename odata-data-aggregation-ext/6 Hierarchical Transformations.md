@@ -108,7 +108,7 @@ GET /service/SalesOrganizations?$apply=
   &$expand=Superordinate/$ref
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
@@ -132,7 +132,7 @@ GET /service/SalesOrganizations?$apply=
   &$expand=Superordinate/$ref
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
@@ -142,6 +142,37 @@ results in
       "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
       "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example ##ex: Input set and recursive hierarchy from two different entity sets
+```
+GET /service/Sales?$apply=
+    ancestors($root/SalesOrganizations,
+              SalesOrgHierarchy,
+              SalesOrganization/ID,
+              filter(contains(SalesOrganization/Name,'East')
+                  or contains(SalesOrganization/Name,'Central')),
+              keep start)
+```
+results in
+```json
+{
+  "@odata.context": "$metadata#Sales",
+  "value": [
+    { "ID": "4", "Amount": 8,
+      "SalesOrganization": { "ID": "US East",      "Name": "US East" } },
+    { "ID": "5", "Amount": 4,
+      "SalesOrganization": { "ID": "US East",      "Name": "US East" } },
+    { "ID": "6", "Amount": 2,
+      "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central" } },
+    { "ID": "7", "Amount": 1,
+      "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central" } },
+    { "ID": "8", "Amount": 2,
+      "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central" } }
   ]
 }
 ```
@@ -159,7 +190,7 @@ The instances in the input set are related to one node (if $p$ is single-valued)
 
 A transformation $F(x)$ is defined below such that $\hat F(x)$ is the output set of $F(x)$ applied to the input set of the `traverse` transformation.
 
-Given a node $x$, the formulas below contain the transformation $\Pi_G(σ(x))$ in order to inject the properties of $σ(x)$ into the instances in $\hat F(x)$; this uses the function $\Pi_G$ that is defined in the [simple grouping](#SimpleGrouping) section. Further, $G$ is a list of [data aggregation paths](#DataAggregationPath) that shall be present in the output set, and $σ$ is a function that maps each hierarchy node $x$ to an instance of the [input type](#TypeStructureandContextURL) containing the paths from $G$. As a consequence of the following definitions, only single-valued properties, collections of cardinality 1, and "final segments from $G$" are nested into $σ(x)$, therefore $\Pi_G(σ(x))$ is well-defined.
+Given a node $x$, the formulas below contain the transformation $\Pi_G(σ(x))$ in order to inject the properties of $σ(x)$ into the instances in $\hat F(x)$; this uses the function $\Pi_G$ that is defined in the [simple grouping](#SimpleGrouping) section. Further, $G$ is a list of [data aggregation paths](#DataAggregationPath) that shall be present in the output set, and $σ$ is a function that maps each hierarchy node $x$ to an instance of the [input type](#TypeStructureandContextURL) containing the paths from $G$. As a consequence of the following definitions, only single-valued properties and "final segments from $G$" are nested into $σ(x)$, therefore $\Pi_G(σ(x))$ is well-defined.
 
 The definition of $σ(x)$ makes use of a function $a(ε,v,x)$, which returns a sparsely populated instance $u$ in which only the path $v$ has a value, namely $u[v]=x$.
 
@@ -230,7 +261,7 @@ GET /service/SalesOrganizations?$apply=
   &$expand=Superordinate/$ref
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
@@ -249,8 +280,8 @@ If the recursive algorithm reaches a node $x$ multiple times, via different pare
 
 More precisely, a _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
 
-The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(x,s,p)$:
-- If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $x$.
+The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
 
 Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
 
@@ -341,7 +372,7 @@ GET /service/SalesOrganizations?$apply=
   &$expand=Superordinate($select=ID)
 ```
 results in
-```
+```json
 {
   "@odata.context":
       "$metadata#SalesOrganizations(ID,Name,SubOrgCnt,Superordinate(ID))",
@@ -382,17 +413,17 @@ GET /service/Sales?$apply=groupby(
                AmountExcl with sum as TotalAmountExcl))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(SalesOrganization,
                                      TotalAmountIncl,TotalAmountExcl)",
   "value": [
-    { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@odata.type": "Decimal","TotalAmountIncl": 19,
-      "TotalAmountExcl": null },
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
       "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl":  7,
       "TotalAmountExcl@odata.type": "Decimal" ,"TotalAmountExcl":  7 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 19,
+      "TotalAmountExcl": null },
     { "SalesOrganization": { "ID": "US East", "Name": "US East" },
       "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 12,
       "TotalAmountExcl@odata.type": "Decimal", "TotalAmountExcl": 12 }
@@ -410,7 +441,7 @@ GET /service/Sales?$apply=
              aggregate(Amount with sum as TotalAmount))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(SalesOrganization,TotalAmount)",
   "value": [
