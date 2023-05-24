@@ -158,11 +158,3 @@ mjx-c.mjx-c2019::before {
 	padding-right: 0.525em !important;
 	font-family: MJXZERO, MJXTEX-T;
 }
-
-code .er {
-	color: unset !important;
-}
-
-hr:first-of-type {
-	page-break-before: avoid;
-}

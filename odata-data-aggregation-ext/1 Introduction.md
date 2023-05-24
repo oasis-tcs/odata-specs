@@ -13,9 +13,9 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
-- <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
+- <a name="AggregatablePrimtiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments separated by a forward slash. Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
-- <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
+- <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF)). Certain expressions are evaluated relative to a "current instance", while other expressions introduced in this document are evaluated to a "current collection", see [example ##collexpr].
 - <a name="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
 
 ### ##subsubsec Acronyms and Abbreviations
@@ -26,11 +26,9 @@ This specification defines the following terms:
 - $x,y$ – instances in a hierarchical collection, called nodes
 - $p,q,v$ – paths
 - $S,T$ – transformation sequences
-- $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
 - $\Gamma(A,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
 - $γ(u,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
-- $σ(x)$ – instance containing a grouping property that represents a node $x$, defined [below](#Transformationtraverse)
 
 ### ##subsubsec Document Conventions
 
@@ -61,18 +59,18 @@ pandoc -f gfm
        -s
        --mathjax
        --eol=lf
-       --metadata pagetitle="$$$pagetitle$$$"
+       --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
        odata-data-aggregation-ext.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.0.1 from https://github.com/jgm/pandoc/releases/tag/3.0.1.
 :::
 
 -------
 
 # ##sec Overview
 
-Open Data (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
+Open Data (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCDSL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
 
 Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled "aggregation level entities" or else restricting the consumer to a small subset of predefined aggregations.
 
@@ -655,7 +653,7 @@ P4|PG2|Pencil|Black|0.14
 Food
 
 |Rating|
-|-----:|
+|------|
 |5|
 |&nbsp;|
 |n/a|
