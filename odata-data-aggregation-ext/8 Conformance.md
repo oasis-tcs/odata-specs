@@ -26,10 +26,6 @@ See the link in "[Related work](#RelatedWork)" section on cover page.
 _OData Aggregation ABNF Construction Rules Version 4.0._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCore">[OData-Core]</a>
-_OData Core Vocabulary._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 11 May 2020. OASIS Standard._  
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/os/odata-csdl-json-v4.01-os.html.  
@@ -54,11 +50,15 @@ Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-ur
 _OData Aggregation Vocabulary._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="RFC2119">[RFC2119]</a>
+###### <a name="ODataVocCore">[OData-VocCore]</a>
+_OData Core Vocabulary._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="RFC8174">[RFC8174]</a>
+###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 

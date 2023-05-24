@@ -3,9 +3,9 @@
 
 -------
 
-# OData Extension for Data Aggregation Version 4.0
+# $$$pagetitle$$$
 
-## Committee Specification Draft 04
+## $$$subtitle$$$
 
 ## $$$pubdate$$$
 
@@ -81,7 +81,7 @@ When referencing this specification the following citation format should be used
 
 **[OData-Data-Agg-v4.0]**
 
-_OData Extension for Data Aggregation Version 4.0_.
+_$$$pagetitle$$$_.
 Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. $$$pubdate$$$. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.

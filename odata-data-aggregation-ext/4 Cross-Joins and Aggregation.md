@@ -16,7 +16,7 @@ GET /service/$crossjoin(Products,Sales)
                          &$filter=Products/ID eq Sales/ProductID
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
@@ -38,7 +38,7 @@ GET /service/$crossjoin(Products,Sales)
                       as AggregatedSales))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Collection(Edm.ComplexType)",
   "value": [

@@ -14,7 +14,7 @@ Example ##ex:
 GET /service/Customers?$apply=groupby((Name))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Customers(Name)",
   "value": [
@@ -27,7 +27,7 @@ results in
 
 Note that "Sue" appears only once although the customer base contains two different Sues.
 :::
- 
+
 Aggregation is also possible across related entities.
 
 ::: example
@@ -36,7 +36,7 @@ Example ##ex: customers that bought something
 GET /service/Sales?$apply=groupby((Customer/Name))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Name))",
   "value": [
@@ -59,7 +59,7 @@ Example ##ex:
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Name,ID))",
   "value": [
@@ -83,7 +83,7 @@ Example ##ex_groupbynav: Grouping by navigation property `Customer`
 GET /service/Sales?$apply=groupby((Customer))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer())",
   "value": [
@@ -101,23 +101,23 @@ Example ##ex: the first question in the motivating example in [section ##Example
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID,Product/Name))
 ```
 and results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Name,ID),Product(Name))",
   "value": [
-    { "Customer": { "Name": "Joe", "ID": "C1" }, 
+    { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product": { "Name": "Coffee"} },
-    { "Customer": { "Name": "Joe", "ID": "C1" }, 
+    { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product": { "Name": "Paper" } },
-    { "Customer": { "Name": "Joe", "ID": "C1" },  
+    { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product: { "Name: "Sugar" } },
-    { "Customer": { "Name": "Sue", "ID": "C2" },  
+    { "Customer": { "Name": "Sue", "ID": "C2" },
       "Product: { "Name": "Coffee"} },
-    { "Customer": { "Name": "Sue", "ID": "C2" },  
+    { "Customer": { "Name": "Sue", "ID": "C2" },
       "Product": { "Name": "Paper" } },
-    { "Customer": { "Name": "Sue", "ID": "C3" },  
+    { "Customer": { "Name": "Sue", "ID": "C3" },
       "Product": { "Name": "Paper" } },
-    { "Customer": { "Name": "Sue", "ID": "C3" },  
+    { "Customer": { "Name": "Sue", "ID": "C3" },
       "Product": { "Name": "Sugar" } }
   ]
 }
@@ -131,7 +131,7 @@ GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating,
                                       SalesModel.NonFoodProduct/RatingClass))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(SalesModel.FoodProduct/Rating,
                                      SalesModel.NonFoodProduct/RatingClass)",
@@ -150,8 +150,8 @@ results in
 ```
 GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating))
 ```
-results in a third group representing entities with no `SalesModel.FoodProduct/Rating`, which include `SalesModel.NonFoodProducts`:
-```
+results in a third group representing entities with no `SalesModel.FoodProduct/Rating`, including the `SalesModel.NonFoodProduct`s:
+```json
 {
   "@odata.context": "$metadata#Products(@Core.AnyStructure)",
   "value": [
@@ -165,7 +165,7 @@ results in a third group representing entities with no `SalesModel.FoodProduct/R
 
 ## ##subsec Standard Aggregation Methods
 
-The client may specify one of the predefined aggregation methods [`min`](#StandardAggregationMethodmin), [`max`](#StandardAggregationMethodmax), [`sum`](#StandardAggregationMethodsum), [`average`](#StandardAggregationMethodaverage), and [`countdistinct`](#StandardAggregationMethodcountdistinct), or a [custom aggregation method](#CustomAggregationMethods), to aggregate an [aggregatable property](#AggregatableProperty). Expressions defining an aggregate method specify an [alias](#Keywordas). The aggregated values are returned in a dynamic property whose name is determined by the alias.
+The client may specify one of the predefined aggregation methods [`min`](#StandardAggregationMethodmin), [`max`](#StandardAggregationMethodmax), [`sum`](#StandardAggregationMethodsum), [`average`](#StandardAggregationMethodaverage), and [`countdistinct`](#StandardAggregationMethodcountdistinct), or a [custom aggregation method](#CustomAggregationMethods), to aggregate an [aggregatable expression](#AggregatableExpression). Expressions defining an aggregate method specify an [alias](#Keywordas). The aggregated values are returned in a dynamic property whose name is determined by the alias.
 
 ::: example
 Example ##ex_aggr:
@@ -174,7 +174,7 @@ GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Name,Total)",
   "value": [
@@ -196,7 +196,7 @@ GET /service/Products?$apply=addnested(Sales,
     aggregate(Amount with sum as Total) as AggregatedSales)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(AggregatedSales())",
   "value": [
@@ -220,10 +220,10 @@ results in
 ::: example
 Example ##ex: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
 ```
-GET /service/Products?$compute=aggregate($it/Sales/Amount with sum) as Total
+GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(*,Total)",
   "value": [
@@ -250,7 +250,7 @@ GET /service/Products?$apply=
     /groupby((Name,TotalSales/Total))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Name,TotalSales())
   "value": [
@@ -277,13 +277,13 @@ GET /service/Sales?$apply=groupby((Customer/Country),
                             aggregate(Amount with average as AverageAmount))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),AverageAmount)",
   "value": [
-    { "Customer": { "Country": "Netherlands" }, 
+    { "Customer": { "Country": "Netherlands" },
       "AverageAmount": 1.6666666666666667 },
-    { "Customer": { "Country": "USA" }, 
+    { "Customer": { "Country": "USA" },
       "AverageAmount": 3.8 }
   ]
 }
@@ -298,7 +298,7 @@ GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/$count as SalesCount))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Name,SalesCount)",
   "value": [
@@ -321,25 +321,25 @@ GET /service/Products?$apply=groupby((Name),addnested(Sales,
                 Amount with sum as TotalAmount) as AggregatedSales))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Name,AggregatedSales())",
   "value": [
-    { "Name": "Coffee", 
+    { "Name": "Coffee",
       "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 2,
-          "Total@odata.type": "Decimal", "TotalAmount": 12 } ] },
-    { "Name": "Paper",  
+          "TotalAmount@odata.type": "Decimal", "TotalAmount": 12 } ] },
+    { "Name": "Paper",
       "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 4,
-          "Total@odata.type": "Decimal", "TotalAmount":  8 } ] },
-    { "Name": "Pencil", 
+          "TotalAmount@odata.type": "Decimal", "TotalAmount":  8 } ] },
+    { "Name": "Pencil",
       "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 0, "TotalAmount":  null } ] },
     { "Name": "Sugar",
       "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 2,
-          "Total@odata.type": "Decimal",  "TotalAmount":  4 } ] }
+          "TotalAmount@odata.type": "Decimal",  "TotalAmount":  4 } ] }
   ]
 }
 ```
@@ -348,12 +348,12 @@ results in
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example ##ex_aggritA: Products with an aggregated sales volume of ten or more
+Example ##ex: Products with an aggregated sales volume of ten or more
 ```
-GET /service/Products?$filter=aggregate($it/Sales/Amount with sum) ge 10
+GET /service/Products?$filter=Sales/aggregate(Amount with sum) ge 10
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products",
   "value": [
@@ -367,10 +367,10 @@ results in
 ::: example
 Example ##ex: Customers in descending order of their aggregated sales volume
 ```
-GET /service/Customers?$orderby=aggregate($it/Sales/Amount with sum) desc
+GET /service/Customers?$orderby=Sales/aggregate(Amount with sum) desc
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Customers",
   "value": [
@@ -386,11 +386,11 @@ results in
 ::: example
 Example ##ex: Contribution of each sales to grand total sales amount
 ```
-GET /service/Sales?$compute=Amount divby aggregate(Amount with sum)
+GET /service/Sales?$compute=Amount divby $these/aggregate(Amount with sum)
                             as Contribution
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(*,Contribution)",
   "value": [
@@ -416,13 +416,13 @@ results in
 :::
 
 ::: example
-Example ##ex_aggrzA: Product categories with at least one product having an aggregated sales amount greater than 10
+Example ##ex: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
-                              p:aggregate(p/Sales/Amount with sum) gt 10)
+                                p:p/Sales/aggregate(Amount with sum) gt 10)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Categories",
   "value": [
@@ -438,13 +438,13 @@ The `aggregate` function can also be applied inside $apply:
 Example ##ex: Sales volume per customer in relation to total volume
 ```
 GET /service/Sales?$apply=
-         groupby((Customer),aggregate(Amount with sum as CustomerAmount))
-        /compute(CustomerAmount divby aggregate(CustomerAmount with sum)
-                 as Contribution)
-    &$expand=Customer/$ref
+    groupby((Customer),aggregate(Amount with sum as CustomerAmount))
+    /compute(CustomerAmount divby $these/aggregate(CustomerAmount with sum)
+             as Contribution)
+  &$expand=Customer/$ref
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(),CustomerAmount,Contribution)",
   "value": [
@@ -495,7 +495,7 @@ GET /service/Customers?$apply=
               as AugmentedSalesOrganization)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Customers(
                                Addresses(AugmentedSalesOrganization())",
@@ -528,7 +528,7 @@ GET /service/Categories?$apply=
     as FilteredProducts)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Categories(FilteredProducts()",
   "value": [
@@ -578,28 +578,28 @@ GET /service/Customers?$apply=addnested(Sales,
   &$expand=GroupedSales
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Customers(GroupedSales())",
   "value": [
     { "ID": "C1", "Name": "Joe", "Country": "USA",
       "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
-        {  },
-        {  },
-        {  }
+        { },
+        { },
+        { }
       ] },
     { "ID": "C2", "Name": "Sue", "Country": "USA",
       "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
-        {  },
-        {  }
+        { },
+        { }
       ] },
     { "ID": "C3", "Name": "Joe", "Country": "Netherlands",
       "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
-        {  },
-        {  }
+        { },
+        { }
       ] },
     { "ID": "C4", "Name": "Luc", "Country": "France",
       "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
@@ -653,7 +653,7 @@ GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Actual,Forecast))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Actual,Forecast)",
   "value": [
@@ -676,7 +676,7 @@ Example ##ex: A custom aggregate can be defined with the same name as a property
 GET /service/Sales?$apply=groupby((Customer/Country),aggregate(Amount))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Amount)",
   "value": [
@@ -743,7 +743,7 @@ GET /service/Sales?$apply=groupby((Customer/Country),
                                      Amount with average as AvgAmt))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Total,AvgAmt)",
   "value": [
@@ -770,7 +770,7 @@ GET /service/Products?$apply=groupby((Name),
                as AggregatedSales))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Name,Total,AggregatedSales())",
   "value": [
@@ -830,7 +830,7 @@ GET /service/Sales?$apply=concat(
                              aggregate(Amount with sum as Total)))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Total)",
   "value": [
@@ -858,7 +858,7 @@ GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Product(Name),Total)",
   "value": [
@@ -918,25 +918,26 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 Example ##ex: As a variation of [example ##bestselling], a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
 
 For this purpose, the model includes a definition of a `TopCountAndRemainder` function that accepts a count and a numeric property for the top entities:
-```
+```xml
 <edm:Function Name="TopCountAndRemainder"
               IsBound="true">
     <edm:Parameter  Name="EntityCollection"
-                    Type="Collection(Edm.EntityType)"/>
-    <edm:Parameter  Name="Count" Type="Edm.Int16"/>
-    <edm:Parameter  Name="Property" Type="Edm.String"/>
-    <edm:ReturnType Type="Collection(Edm.EntityType)"/>
+                    Type="Collection(Edm.EntityType)" />
+    <edm:Parameter  Name="Count" Type="Edm.Int16" />
+    <edm:Parameter  Name="Property" Type="Edm.String" />
+    <edm:ReturnType Type="Collection(Edm.EntityType)" />
 </edm:Function>
 ```
 The function retains those entities that `topcount` also would retain, and replaces the remaining entities by a single aggregated entity, where only the numeric property has a value, which is the sum over those remaining entities:
 ```
-GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
-                         aggregate(Amount with sum as Total))
-                  /groupby((Customer/Country),
-                           Self.TopCountAndRemainder(Count=1,Property='Total'))
+GET /service/Sales?$apply=
+  groupby((Customer/Country,Product/Name),
+          aggregate(Amount with sum as Total))
+  /groupby((Customer/Country),
+           Self.TopCountAndRemainder(Count=1,Property='Total'))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Customer(Country),Total)",
   "value": [
@@ -995,7 +996,7 @@ GET /service/Sales?$apply=concat(
                               as CustomerCountryAverage)))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
@@ -1034,24 +1035,25 @@ Example ##ex: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarc
 GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
                 filter(Name eq 'US'),keep start)
-    /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
-             aggregate(Sales/Amount with sum as TotalAmount))
-  &$expand=Superordinate/$ref
+    /groupby((rolluprecursive(
+        $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID)),
+      aggregate(Amount with sum as TotalAmount))
+  &$expand=SalesOrganization($expand=Superordinate/$ref)
 ```
 results in
-```
+```json
 {
-  "@odata.context": "$metadata#SalesOrganizations(*,TotalAmount)",
+  "@odata.context": "$metadata#Sales(TotalAmount,SalesOrganization())",
   "value": [
-    { "ID": "US",      "Name": "US",
-      "Total@odata.type": "Decimal", "TotalAmount": 19,
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
-    { "ID": "US East", "Name": "US East",
-      "Total@odata.type": "Decimal", "TotalAmount": 12,
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
-    { "ID": "US West", "Name": "US West",
-      "Total@odata.type": "Decimal", "TotalAmount":  7,
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+    { "TotalAmount@odata.type": "Decimal", "TotalAmount": 19,
+      "SalesOrganization": { "ID": "US",      "Name": "US",
+        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } } },
+    { "TotalAmount@odata.type": "Decimal", "TotalAmount": 12,
+      "SalesOrganization": { "ID": "US East", "Name": "US East",
+        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } },
+    { "TotalAmount@odata.type": "Decimal", "TotalAmount":  7,
+      "SalesOrganization": { "ID": "US West", "Name": "US West",
+        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } }
   ]
 }
 ```
@@ -1064,35 +1066,36 @@ The order of transformations becomes relevant if `groupby` with `rollup` shall a
 ::: example
 Example ##ex: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
-GET /service/SalesOrganizations?$apply=
-    addnested(Sales,filter(Product/Name eq 'Paper') as FilteredSales)
-    /groupby((rollup(($root/SalesOrganizations,SalesOrgHierarchy,ID))),
-             aggregate(FilteredSales/$count as PaperSalesCount))
-  &$expand=Superordinate/$ref
+GET /service/Sales?$apply=
+    filter(Product/Name eq 'Paper')
+    /groupby((rolluprecursive((
+        $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID)),
+      aggregate($count as PaperSalesCount))
+  &$expand=SalesOrganization($expand=Superordinate/$ref)
 ```
 results in
-```
+```json
 {
-  "@odata.context": "$metadata#SalesOrganizations(*,PaperSalesCount)",
+  "@odata.context": "$metadata#Sales(PaperSalesCount,SalesOrganization())",
   "value": [
-    { "ID": "US",           "Name": "US",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
-    { "ID": "US East",      "Name": "US East",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
-    { "ID": "US West",      "Name": "US West",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
-    { "ID": "EMEA",         "Name": "EMEA",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
-    { "ID": "EMEA Central", "Name": "EMEA Central",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
-      "Superordinate": { "@odata.id": "SalesOrganizations('EMEA')" } },
-    { "ID": "Sales",        "Name": "Sales",
-      "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 4,
-      "Superordinate": null }
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+      "SalesOrganization": { "ID": "US",           "Name": "US",
+        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } } },
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
+      "SalesOrganization": { "ID": "US East",      "Name": "US East",
+        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
+      "SalesOrganization": { "ID": "US West",      "Name": "US West",
+        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+      "SalesOrganization": { "ID": "EMEA",         "Name": "EMEA",
+        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+      "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central",
+        "Superordinate": { "@odata.id": "SalesOrganizations('EMEA')" } },
+    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 4,
+      "SalesOrganization": { "ID": "Sales",        "Name": "Sales",
+        "Superordinate": null }
   ]
 }
 ```
@@ -1110,7 +1113,7 @@ $apply=ancestors($root/SalesOrganizations,
                  keep start)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales",
   "value": [
@@ -1141,7 +1144,7 @@ GET /service/Sales?$apply=
   /aggregate(Amount with sum as TotalAmount)
 ```
 
-The same aggregate value is computed if the input set is the hierarchical entity SalesOrganizations and the partner navigation property Sales of SalesOrganization appears in the aggregate transformation
+The same aggregate value is computed if the input set is the hierarchical entity `SalesOrganizations` and an assumed partner navigation property `Sales` of `SalesOrganization` appears in the `aggregate` transformation
 ```
 GET /service/SalesOrganizations?$apply=
   descendants($root/SalesOrganizations,
@@ -1215,7 +1218,7 @@ GET /service/Sales?$apply=groupby(
               Name asc)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(SalesOrganization(ID),
                                      TotalAmountIncl,TotalAmountExcl)",
@@ -1275,7 +1278,7 @@ The result contains multiple instances of the same `Product` that differ in thei
 :::
 
 ::: example
-Example ##ex_rollupcoll: Aggregation along a hierarchy with $1:N$ relationship: Sold products per sales organization
+Example ##ex_rollupcoll: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
 ```
 GET /service/Products?$apply=
     groupby((rolluprecursive(
@@ -1285,7 +1288,7 @@ GET /service/Products?$apply=
              aggregate(ID with Custom.concat as SoldProducts)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Products(Sales(SalesOrganization(ID)),
                                         SoldProducts)",
@@ -1340,10 +1343,11 @@ Applying aggregation first covers the most prominent use cases. The slightly mor
 ::: example
 Example ##ex:
 ```
-GET /service/Sales?$apply=filter(Amount le 1)/aggregate(Amount with sum as Total)
+GET /service/Sales?$apply=filter(Amount le 1)
+    /aggregate(Amount with sum as Total)
 ```
 means "filter first, then aggregate", and results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Total)",
   "value": [
@@ -1363,7 +1367,7 @@ GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
            &$filter=Total ge 4
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Product(Name),Total)",
   "value": [
@@ -1397,7 +1401,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Cities(Continent(Name),Country(Name),
                                       TotalPopulation)",
@@ -1493,10 +1497,10 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))
 ```
 results in
-```
+```json
 {
   "@odata.context":"$metadata#Sales(Product(Category(ID)),Customers())",
-  "value": [ 
+  "value": [
     { "Product": { "Category": { "ID": "PG1" } },
       "Customers@odata.context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
