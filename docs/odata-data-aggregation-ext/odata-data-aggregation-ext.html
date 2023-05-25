@@ -497,28 +497,30 @@ complex, or navigation property</li>
 <h3
 id="112-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2
 Acronyms and Abbreviations</a></h3>
+<p>The following non-exhaustive list contains variables that are used
+throughout this document:</p>
 <ul>
-<li><span class="math inline">\(A,I,U\)</span> – collections of
+<li><span class="math inline">\(A,B,C\)</span> – collections of
 instances</li>
 <li><span class="math inline">\(H\)</span> – hierarchical
 collection</li>
-<li><span class="math inline">\(u,w\)</span> – instances in a
+<li><span class="math inline">\(u,v,w\)</span> – instances in a
 collection</li>
 <li><span class="math inline">\(x,y\)</span> – instances in a
 hierarchical collection, called nodes</li>
-<li><span class="math inline">\(p,q,v\)</span> – paths</li>
+<li><span class="math inline">\(p,q,r\)</span> – paths</li>
 <li><span class="math inline">\(S,T\)</span> – transformation
 sequences</li>
 <li><span class="math inline">\(α\)</span> – aggregate expression,
 defined <a href="#AggregationAlgorithm">below</a></li>
-<li><span class="math inline">\(\Gamma(A,v)\)</span> – the collection
+<li><span class="math inline">\(\Gamma(A,p)\)</span> – the collection
 that results from evaluating a <a href="#DataAggregationPath">data
-aggregation path</a> <span class="math inline">\(v\)</span> relative to
+aggregation path</a> <span class="math inline">\(p\)</span> relative to
 a collection <span class="math inline">\(A\)</span>, defined <a
 href="#EvaluationofDataAggregationPaths">below</a></li>
-<li><span class="math inline">\(γ(u,v)\)</span> – the collection that
+<li><span class="math inline">\(γ(u,p)\)</span> – the collection that
 results from evaluating a <a href="#DataAggregationPath">data
-aggregation path</a> <span class="math inline">\(v\)</span> relative to
+aggregation path</a> <span class="math inline">\(p\)</span> relative to
 an instance <span class="math inline">\(u\)</span>, defined <a
 href="#EvaluationofDataAggregationPaths">below</a></li>
 <li><span class="math inline">\(\Pi_G(s)\)</span> – a transformation of
@@ -2069,68 +2071,68 @@ relative to a collection <span class="math inline">\(A\)</span>, even if
 it has arbitrary collection-valued segments itself.</p>
 <p>To this end, the following notation is used in the subsequent
 sections: If <span class="math inline">\(A\)</span> is a collection and
-<span class="math inline">\(v\)</span> a data aggregation path,
+<span class="math inline">\(p\)</span> a data aggregation path,
 optionally followed by a type-cast segment, the result of such a path
 evaluation is denoted by <span
-class="math inline">\(\Gamma(A,v)\)</span> and defined as the unordered
+class="math inline">\(\Gamma(A,p)\)</span> and defined as the unordered
 concatenation, possibly containing repetitions, of the collections <span
-class="math inline">\(γ(u,v)\)</span> for each <span
+class="math inline">\(γ(u,p)\)</span> for each <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(A\)</span> that is not null. The function <span
-class="math inline">\(γ(u,v)\)</span> takes a non-null value and a path
+class="math inline">\(γ(u,p)\)</span> takes a non-null value and a path
 as arguments and is recursively defined as follows:</p>
 <ol type="1">
-<li>If <span class="math inline">\(v\)</span> is an empty path, let
+<li>If <span class="math inline">\(p\)</span> is an empty path, let
 <span class="math inline">\(B\)</span> be a collection with <span
 class="math inline">\(u\)</span> as its single member and continue with
 step 9.</li>
-<li>Let <span class="math inline">\(v_1\)</span> be the first segment of
-<span class="math inline">\(v\)</span> and <span
-class="math inline">\(v_2\)</span> the remainder, if any, such that
-<span class="math inline">\(v\)</span> equals the concatenated path
-<span class="math inline">\(v_1/v_2\)</span>.</li>
-<li>If <span class="math inline">\(v_1\)</span> is a type-cast segment
+<li>Let <span class="math inline">\(p_1\)</span> be the first segment of
+<span class="math inline">\(p\)</span> and <span
+class="math inline">\(p_2\)</span> the remainder, if any, such that
+<span class="math inline">\(p\)</span> equals the concatenated path
+<span class="math inline">\(p_1/p_2\)</span>.</li>
+<li>If <span class="math inline">\(p_1\)</span> is a type-cast segment
 and <span class="math inline">\(u\)</span> is of its type or a subtype
-thereof, let <span class="math inline">\(w=u\)</span> and continue with
+thereof, let <span class="math inline">\(v=u\)</span> and continue with
 step 8.</li>
-<li>If <span class="math inline">\(v_1\)</span> is a type-cast segment
+<li>If <span class="math inline">\(p_1\)</span> is a type-cast segment
 and <span class="math inline">\(u\)</span> is not of its type or a
 subtype thereof, let <span class="math inline">\(B\)</span> be an empty
 collection and continue with step 9. (This rule follows <a
 href="#ODataURL">OData-URL, section 4.11</a> rather than <a
 href="#ODataCSDL">OData-CSDL, section 14.4.1.1</a>.)</li>
-<li>Otherwise, <span class="math inline">\(v_1\)</span> is a
+<li>Otherwise, <span class="math inline">\(p_1\)</span> is a
 non-type-cast segment. If <span class="math inline">\(u\)</span> does
 not contain a structural or navigation property <span
-class="math inline">\(v_1\)</span>, let <span
+class="math inline">\(p_1\)</span>, let <span
 class="math inline">\(B\)</span> be an empty collection and continue
 with step 9.</li>
-<li>If <span class="math inline">\(v_1\)</span> is single-valued, let
-<span class="math inline">\(w\)</span> be the value of the structural or
-navigation property <span class="math inline">\(v_1\)</span> in <span
+<li>If <span class="math inline">\(p_1\)</span> is single-valued, let
+<span class="math inline">\(v\)</span> be the value of the structural or
+navigation property <span class="math inline">\(p_1\)</span> in <span
 class="math inline">\(u\)</span>. If <span
-class="math inline">\(w\)</span> is null, let <span
+class="math inline">\(v\)</span> is null, let <span
 class="math inline">\(B\)</span> be an empty collection and continue
 with step 9; otherwise continue with step 8.</li>
-<li>Otherwise, <span class="math inline">\(v_1\)</span> is
+<li>Otherwise, <span class="math inline">\(p_1\)</span> is
 collection-valued. Let <span class="math inline">\(C\)</span> be the
 collection addressed by the structural or navigation property <span
-class="math inline">\(v_1\)</span> in <span
+class="math inline">\(p_1\)</span> in <span
 class="math inline">\(u\)</span>, and let <span
-class="math inline">\(B=\Gamma(C,v_2)\)</span>. Then continue with step
+class="math inline">\(B=\Gamma(C,p_2)\)</span>. Then continue with step
 9.</li>
-<li>Let <span class="math inline">\(B=γ(w,v_2)\)</span>.</li>
+<li>Let <span class="math inline">\(B=γ(v,p_2)\)</span>.</li>
 <li>Return <span class="math inline">\(B\)</span>.</li>
 </ol>
 <p>This notation is extended to the case of an empty path <span
 class="math inline">\(e\)</span> by setting <span
 class="math inline">\(\Gamma(A,e)=A\)</span>. Note every <span
 class="math inline">\(u\)</span> in <span
-class="math inline">\(\Gamma(A,v)\)</span> occurs also in <span
+class="math inline">\(\Gamma(A,p)\)</span> occurs also in <span
 class="math inline">\(A\)</span> or nested into <span
 class="math inline">\(A\)</span>, therefore an algorithmic step like
 "Add a dynamic property to each <span class="math inline">\(u\)</span>
-in <span class="math inline">\(\Gamma(A,v)\)</span>" effectively changes
+in <span class="math inline">\(\Gamma(A,p)\)</span>" effectively changes
 <span class="math inline">\(A\)</span>.</p>
 <h2
 id="32-basic-aggregation"><a name="BasicAggregation" href="#BasicAggregation">3.2
@@ -2150,7 +2152,7 @@ aggregated value of the input set.</p>
 <p>An aggregate expression MUST have one of the types listed below. To
 compute the value of the property for a given aggregate expression, the
 <code>aggregate</code> transformation first determines a collection
-<span class="math inline">\(U\)</span> of instances or primitive values,
+<span class="math inline">\(A\)</span> of instances or primitive values,
 based on the input set of the <code>aggregate</code> transformation, and
 a path <span class="math inline">\(p\)</span> that occurs in the
 aggregate expression. Let <span class="math inline">\(p_1\)</span>
@@ -2160,7 +2162,7 @@ class="math inline">\(p_2\)</span> a type-cast segment. Depending on the
 type of aggregate expression, <span class="math inline">\(p=p_1\)</span>
 or <span class="math inline">\(p=p_2\)</span> or <span
 class="math inline">\(p=p_1/p_2\)</span>. Each type of aggregate
-expression defines a function <span class="math inline">\(f(U)\)</span>
+expression defines a function <span class="math inline">\(f(A)\)</span>
 which the aggregate transformation evaluates to obtain the property
 value.</p>
 <p>The property is a dynamic property, except for a special case in type
@@ -2186,14 +2188,14 @@ class="math inline">\(g\)</span>, or <span
 class="math inline">\(p=p_2\)</span> if the input set can be aggregated
 using the <a href="#CustomAggregationMethods">custom aggregation
 method</a> <span class="math inline">\(g\)</span>.<br />
-Let <span class="math inline">\(f(U)=g(U)\)</span>.</li>
+Let <span class="math inline">\(f(A)=g(A)\)</span>.</li>
 <li>An <a href="#AggregatableExpression">aggregatable
 expression</a>.<br />
-Let <span class="math inline">\(f(U)=g(V)\)</span> where <span
-class="math inline">\(V\)</span> is the collection consisting of the
+Let <span class="math inline">\(f(A)=g(B)\)</span> where <span
+class="math inline">\(B\)</span> is the collection consisting of the
 aggregatable expression evaluated relative to each member of <span
-class="math inline">\(U\)</span> with null values removed from <span
-class="math inline">\(V\)</span>. In this type, <span
+class="math inline">\(A\)</span> with null values removed from <span
+class="math inline">\(B\)</span>. In this type, <span
 class="math inline">\(p\)</span> is absent.</li>
 <li>A path <span class="math inline">\(p/{\tt\$count}\)</span> (see <a
 href="#AggregateExpressioncount">section 3.2.1.4</a>) with optional
@@ -2201,9 +2203,9 @@ prefix <span class="math inline">\(p/{}\)</span> where <span
 class="math inline">\(p=p_1\)</span> or <span
 class="math inline">\(p=p_2\)</span> or <span
 class="math inline">\(p=p_1/p_2\)</span>.<br />
-Let <span class="math inline">\(f(U)\)</span> be the <a
+Let <span class="math inline">\(f(A)\)</span> be the <a
 href="#SamenessandPrecedence">cardinality</a> of <span
-class="math inline">\(U\)</span>.</li>
+class="math inline">\(A\)</span>.</li>
 <li>A path <span class="math inline">\(p/c\)</span> consisting of an
 optional prefix <span class="math inline">\(p/{}\)</span> with <span
 class="math inline">\(p=p_1\)</span> or <span
@@ -2213,7 +2215,7 @@ class="math inline">\(p=p_2\)</span>, and a <a
 href="#CustomAggregates">custom aggregate</a> <span
 class="math inline">\(c\)</span> defined on the collection addressed by
 <span class="math inline">\(p\)</span>.<br />
-Let <span class="math inline">\(f(U)=c(U)\)</span>, if computation of
+Let <span class="math inline">\(f(A)=c(A)\)</span>, if computation of
 the custom aggregate fails, the service MUST reject the request. In the
 absence of an alias, the name of the property MUST be the name of the
 custom aggregate, this is a dynamic property unless there is a declared
@@ -2221,10 +2223,10 @@ property with that name, which is allowed by the
 <code>CustomAggregate</code> annotation. The custom aggregate also
 determines the type of the dynamic property.</li>
 </ol>
-<p><em>Determination of <span class="math inline">\(U\)</span>:</em></p>
+<p><em>Determination of <span class="math inline">\(A\)</span>:</em></p>
 <p>Let <span class="math inline">\(I\)</span> be the input set. If <span
 class="math inline">\(p\)</span> is absent, let <span
-class="math inline">\(U=I\)</span> with null values removed.</p>
+class="math inline">\(A=I\)</span> with null values removed.</p>
 <p>Otherwise, let <span class="math inline">\(q\)</span> be the portion
 of <span class="math inline">\(p\)</span> up to and including the last
 navigation property, if any, and any type-cast segment that immediately
@@ -2253,8 +2255,8 @@ entity</a> are reached, the service MUST keep only one occurrence in
 class="math inline">\(E=I\)</span>.</li>
 </ul>
 <p>Then, if <span class="math inline">\(r\)</span> is empty, let <span
-class="math inline">\(U=E\)</span>, otherwise let <span
-class="math inline">\(U=\Gamma(E,r)\)</span>, this consists of instances
+class="math inline">\(A=E\)</span>, otherwise let <span
+class="math inline">\(A=\Gamma(E,r)\)</span>, this consists of instances
 or primitive values, possibly with repetitions.</p>
 <h4 id="3212-keyword-as"><a name="Keywordas" href="#Keywordas">3.2.1.2
 Keyword <code>as</code></a></h4>
@@ -2616,7 +2618,7 @@ class="math inline">\(s_G(u,p)\)</span> takes an instance and a path
 relative to the input set as arguments and is computed recursively as
 follows:
 <ul>
-<li>Let <span class="math inline">\(w\)</span> be an instance of the
+<li>Let <span class="math inline">\(v\)</span> be an instance of the
 type of <span class="math inline">\(u\)</span> without properties and
 without entity-id.</li>
 <li>For each structural or navigation property <span
@@ -2632,12 +2634,12 @@ subtype, otherwise let <span
 class="math inline">\(p&#39;=p/q\)</span>.</li>
 <li>If <span class="math inline">\(p&#39;\)</span> occurs in <span
 class="math inline">\(G\)</span>, let <span
-class="math inline">\(w[q]=u[q]\)</span>.</li>
+class="math inline">\(v[q]=u[q]\)</span>.</li>
 <li>Otherwise, if <span class="math inline">\(p&#39;\)</span> is a
 prefix of a path in <span class="math inline">\(G\)</span>, let <span
-class="math inline">\(w[q]=s_G(u[q],p&#39;)\)</span>.</li>
+class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
 </ul></li>
-<li>Return <span class="math inline">\(w\)</span>.</li>
+<li>Return <span class="math inline">\(v\)</span>.</li>
 </ul></li>
 <li>The input set is split into subsets where two instances are in the
 same subset if their projections are <a
@@ -3293,31 +3295,31 @@ class="math inline">\(u\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over the input
 set</p>
 <ol type="1">
-<li>the instance collection <span class="math inline">\(U\)</span>
+<li>the instance collection <span class="math inline">\(A\)</span>
 addressed by <span class="math inline">\(p\)</span> is identified.</li>
 <li>If <span class="math inline">\(T\)</span> is provided, <span
-class="math inline">\(U\)</span> is replaced with the result of applying
+class="math inline">\(A\)</span> is replaced with the result of applying
 <span class="math inline">\(T\)</span> to <span
-class="math inline">\(U\)</span>.</li>
+class="math inline">\(A\)</span>.</li>
 <li>In case of an <code>outerjoin</code>, if <span
-class="math inline">\(U\)</span> is empty, a null instance is added to
+class="math inline">\(A\)</span> is empty, a null instance is added to
 it.</li>
 <li><a href="#SamenessandPrecedence">For each</a> instance <span
-class="math inline">\(w\)</span> in an <a
+class="math inline">\(v\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over <span
-class="math inline">\(U\)</span>
+class="math inline">\(A\)</span>
 <ul>
-<li>an instance <span class="math inline">\(x\)</span> is appended to
+<li>an instance <span class="math inline">\(w\)</span> is appended to
 the output set of the transformation.</li>
-<li>The instance <span class="math inline">\(x\)</span> is a clone of
+<li>The instance <span class="math inline">\(w\)</span> is a clone of
 <span class="math inline">\(u\)</span> with an additional dynamic
 property whose name is the given alias and whose value is <span
-class="math inline">\(w\)</span>.</li>
-<li>The property <span class="math inline">\(x\)</span> is a navigation
+class="math inline">\(v\)</span>.</li>
+<li>The property <span class="math inline">\(w\)</span> is a navigation
 property if <span class="math inline">\(p\)</span> is a
 collection-valued navigation property, otherwise it is a complex
 property.</li>
-<li>The property <span class="math inline">\(x\)</span> carries as
+<li>The property <span class="math inline">\(w\)</span> carries as
 control information the context URL of <span
 class="math inline">\(u\)</span>.</li>
 </ul></li>
@@ -3449,18 +3451,18 @@ result the single instance from the output set.</p>
 <p><a href="#SamenessandPrecedence">For each</a> instance <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p_1/…/p_{k-1})\)</span>, let <span
-class="math inline">\(U=γ(u,p_k/q)\)</span> and let the resource <span
-class="math inline">\(w\)</span> be</p>
+class="math inline">\(B=γ(u,p_k/q)\)</span> and let the resource <span
+class="math inline">\(v\)</span> be</p>
 <ul>
-<li>the collection <span class="math inline">\(U\)</span> if <span
+<li>the collection <span class="math inline">\(B\)</span> if <span
 class="math inline">\(p_k\)</span> is collection-valued</li>
-<li>the single instance in <span class="math inline">\(U\)</span> if
+<li>the single instance in <span class="math inline">\(B\)</span> if
 <span class="math inline">\(p_k\)</span> is single-valued and <span
-class="math inline">\(U\)</span> is non-empty</li>
+class="math inline">\(B\)</span> is non-empty</li>
 <li>undefined if <span class="math inline">\(p_k\)</span> is
-single-valued and <span class="math inline">\(U\)</span> is empty.</li>
+single-valued and <span class="math inline">\(B\)</span> is empty.</li>
 </ul>
-<p>If <span class="math inline">\(w\)</span> is defined, then for each
+<p>If <span class="math inline">\(v\)</span> is defined, then for each
 transformation sequence, a dynamic property is added to <span
 class="math inline">\(u\)</span> as follows: If <span
 class="math inline">\(p_k\)</span> is a navigation property, the added
@@ -3468,9 +3470,9 @@ property is a dynamic navigation property, which is expanded by default,
 otherwise it is a dynamic structural property. Its name is the alias of
 the transformation sequence. The value of the added property is the
 result of the transformation sequence applied to <span
-class="math inline">\(w\)</span>. The dynamic property carries as
+class="math inline">\(v\)</span>. The dynamic property carries as
 control information the context URL of <span
-class="math inline">\(w\)</span>.</p>
+class="math inline">\(v\)</span>.</p>
 <div class="example">
 <p>Example 39:</p>
 <pre><code>GET /service/Customers?$apply=addnested(Sales,
@@ -4296,14 +4298,14 @@ the input set are the primitive values in <span
 class="math inline">\(γ(u,p)\)</span> reached via <span
 class="math inline">\(p\)</span> starting from <span
 class="math inline">\(u\)</span>. Let <span
-class="math inline">\(p=p_1/…/p_k/s\)</span> with <span
+class="math inline">\(p=p_1/…/p_k/r\)</span> with <span
 class="math inline">\(k≥0\)</span> be the concatenation where each
 sub-path <span class="math inline">\(p_1,…,p_k\)</span> consists of a
 collection-valued segment that is optionally followed by a type-cast
 segment and preceded by zero or more single-valued segments, and either
-<span class="math inline">\(s\)</span> consists of one or more
+<span class="math inline">\(r\)</span> consists of one or more
 single-valued segments or <span class="math inline">\(k≥1\)</span> and
-<span class="math inline">\({}/s\)</span> is absent.</p>
+<span class="math inline">\({}/r\)</span> is absent.</p>
 <p>The recursive hierarchy to be processed can also be a subset <span
 class="math inline">\(H&#39;\)</span> of <span
 class="math inline">\(H\)</span>. For this case a non-empty sequence
@@ -4403,7 +4405,7 @@ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad
 HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt
 Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt
 IncludeSelf}={\tt true})).\hfill }\]</span></p>
-<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
+<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with
 <span class="math inline">\(k≥1\)</span>, in this case the output set of
 the transformation <span class="math inline">\(F(u)\)</span> is defined
 as the <a href="#HierarchicalTransformations">union</a> of the output
@@ -4420,7 +4422,7 @@ y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt
 Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt
 HierarchyNodes}=H&#39;,\;{\tt
 HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
-Node}=y_k/s,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt
+Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt
 IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\
 \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill
 }\]</span> or, for <code>descendants</code>, <span
@@ -4430,12 +4432,12 @@ p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt
 HierarchyNodes}=H&#39;,\;{\tt
 HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
-Node}=y_k/s,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt
+Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt
 IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\
 \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill
 }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote
 <code>lambdaVariableExpr</code>s and <span
-class="math inline">\({}/s\)</span> may be absent.</p>
+class="math inline">\({}/r\)</span> may be absent.</p>
 <p>If parameter <span class="math inline">\(d\)</span> is absent, the
 parameter <span class="math inline">\({\tt MaxDistance}=d\)</span> is
 omitted. If <code>keep start</code> is absent, the parameter <span
@@ -4702,16 +4704,16 @@ class="math inline">\(x\)</span>.</p>
 <p>If <span class="math inline">\(p\)</span> contains only single-valued
 segments, then <span class="math display">\[F(x)={\tt filter}(p{\tt\ eq\
 }x[q]).\]</span></p>
-<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
+<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with
 <span class="math inline">\(k≥1\)</span> and <span
 class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc
 p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
 \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
-\hskip5pc y_k/s{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc
 ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span>
 where <span class="math inline">\(y_1,…,y_k\)</span> denote
 <code>lambdaVariableExpr</code>s and <span
-class="math inline">\({}/s\)</span> may be absent.</p>
+class="math inline">\({}/r\)</span> may be absent.</p>
 <div class="example">
 <p>Example 60: Based on the <code>SalesOrgHierarchy</code> defined in <a
 href="#HierarchyExamples">Hierarchy Examples</a></p>
@@ -4883,7 +4885,7 @@ HierarchyNodes}=H&#39;,\;{\tt
 HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt
 Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
 }\]</span></p>
-<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/s\)</span> with
+<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with
 <span class="math inline">\(k≥1\)</span> and <span
 class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc
 p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
@@ -4891,12 +4893,12 @@ p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt
 HierarchyNodes}=H&#39;,\;{\tt
 HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt
-Node}=y_k/s,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
+Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
 \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc
 )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span
 class="math inline">\(y_1,…,y_k\)</span> denote
 <code>lambdaVariableExpr</code>s and <span
-class="math inline">\({}/s\)</span> may be absent. (See <a
+class="math inline">\({}/r\)</span> may be absent. (See <a
 href="#rollupcoll">example 108</a> for a case with <span
 class="math inline">\(k=1\)</span>.)</p>
 <p>Non-normatively speaking, the effect of the algorithm can be
@@ -5247,7 +5249,7 @@ are no sales items. The input set for the aggregation in the third row
 is <span class="math inline">\(I\)</span> consisting of the pencil,
 <span class="math inline">\(p=q/r={\tt Sales}/{\tt Amount}\)</span>,
 <span class="math inline">\(E=\Gamma(I,q)\)</span> is empty and <span
-class="math inline">\(U=\Gamma(E,r)\)</span> is also empty. The sum over
+class="math inline">\(A=\Gamma(E,r)\)</span> is also empty. The sum over
 the empty collection is null.</p>
 </div>
 <div class="example">
@@ -6208,7 +6210,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb205-1"><a href
 <p>Example <a name="traversecoll" href="#traversecoll">107</a>: Preorder
 traversal of a hierarchy with 1:N relationship with collection-valued
 segment <span class="math inline">\(p_1={\tt Sales}\)</span> and <span
-class="math inline">\(s={\tt SalesOrganization}/{\tt ID}\)</span>.</p>
+class="math inline">\(r={\tt SalesOrganization}/{\tt ID}\)</span>.</p>
 <pre><code>GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
       SalesOrgHierarchy,

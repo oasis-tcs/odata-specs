@@ -186,7 +186,7 @@ results in
 }
 ```
 
-Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $U=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
+Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $A=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
 :::
 
 ::: example
@@ -1208,7 +1208,7 @@ results in
 :::
 
 ::: example
-Example ##ex_traversecoll: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $s={\tt SalesOrganization}/{\tt ID}$.
+Example ##ex_traversecoll: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,

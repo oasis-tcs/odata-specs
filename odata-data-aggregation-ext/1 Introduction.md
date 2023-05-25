@@ -20,15 +20,16 @@ This specification defines the following terms:
 
 ### ##subsubsec Acronyms and Abbreviations
 
-- $A,I,U$ – collections of instances
+The following non-exhaustive list contains variables that are used throughout this document:
+- $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
-- $u,w$ – instances in a collection
+- $u,v,w$ – instances in a collection
 - $x,y$ – instances in a hierarchical collection, called nodes
-- $p,q,v$ – paths
+- $p,q,r$ – paths
 - $S,T$ – transformation sequences
 - $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
-- $\Gamma(A,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
-- $γ(u,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
+- $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
+- $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
 - $σ(x)$ – instance containing a grouping property that represents a node $x$, defined [below](#Transformationtraverse)
 

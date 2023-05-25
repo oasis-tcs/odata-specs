@@ -211,15 +211,16 @@ This specification defines the following terms:
 
 ### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a>
 
-- $A,I,U$ – collections of instances
+The following non-exhaustive list contains variables that are used throughout this document:
+- $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
-- $u,w$ – instances in a collection
+- $u,v,w$ – instances in a collection
 - $x,y$ – instances in a hierarchical collection, called nodes
-- $p,q,v$ – paths
+- $p,q,r$ – paths
 - $S,T$ – transformation sequences
 - $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
-- $\Gamma(A,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
-- $γ(u,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
+- $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
+- $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
 - $σ(x)$ – instance containing a grouping property that represents a node $x$, defined [below](#Transformationtraverse)
 
@@ -1082,18 +1083,18 @@ This document specifies when a [data aggregation path](#DataAggregationPath) tha
 
 For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 
-To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $v$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,v)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,v)$ for each $u$ in $A$ that is not null. The function $γ(u,v)$ takes a non-null value and a path as arguments and is recursively defined as follows:
-1. If $v$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
-2. Let $v_1$ be the first segment of $v$ and $v_2$ the remainder, if any, such that $v$ equals the concatenated path $v_1/v_2$.
-3. If $v_1$ is a type-cast segment and $u$ is of its type or a subtype thereof, let $w=u$ and continue with step 8.
-4. If $v_1$ is a type-cast segment and $u$ is not of its type or a subtype thereof, let $B$ be an empty collection and continue with step 9. (This rule follows [OData-URL, section 4.11](#ODataURL) rather than [OData-CSDL, section 14.4.1.1](#ODataCSDL).)
-5. Otherwise, $v_1$ is a non-type-cast segment. If $u$ does not contain a structural or navigation property $v_1$, let $B$ be an empty collection and continue with step 9.
-6. If $v_1$ is single-valued, let $w$ be the value of the structural or navigation property $v_1$ in $u$. If $w$ is null, let $B$ be an empty collection and continue with step 9; otherwise continue with step 8.
-7. Otherwise, $v_1$ is collection-valued. Let $C$ be the collection addressed by the structural or navigation property $v_1$ in $u$, and let $B=\Gamma(C,v_2)$. Then continue with step 9.
-8. Let $B=γ(w,v_2)$.
+To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and is recursively defined as follows:
+1. If $p$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
+2. Let $p_1$ be the first segment of $p$ and $p_2$ the remainder, if any, such that $p$ equals the concatenated path $p_1/p_2$.
+3. If $p_1$ is a type-cast segment and $u$ is of its type or a subtype thereof, let $v=u$ and continue with step 8.
+4. If $p_1$ is a type-cast segment and $u$ is not of its type or a subtype thereof, let $B$ be an empty collection and continue with step 9. (This rule follows [OData-URL, section 4.11](#ODataURL) rather than [OData-CSDL, section 14.4.1.1](#ODataCSDL).)
+5. Otherwise, $p_1$ is a non-type-cast segment. If $u$ does not contain a structural or navigation property $p_1$, let $B$ be an empty collection and continue with step 9.
+6. If $p_1$ is single-valued, let $v$ be the value of the structural or navigation property $p_1$ in $u$. If $v$ is null, let $B$ be an empty collection and continue with step 9; otherwise continue with step 8.
+7. Otherwise, $p_1$ is collection-valued. Let $C$ be the collection addressed by the structural or navigation property $p_1$ in $u$, and let $B=\Gamma(C,p_2)$. Then continue with step 9.
+8. Let $B=γ(v,p_2)$.
 9. Return $B$.
 
-This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$. Note every $u$ in $\Gamma(A,v)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,v)$" effectively changes $A$.
+This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$. Note every $u$ in $\Gamma(A,p)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,p)$" effectively changes $A$.
 
 ## <a name="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a>
 
@@ -1103,29 +1104,29 @@ This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,
 
 The `aggregate` transformation takes a comma-separated list of one or more _aggregate expressions_ as parameters and returns an output set with a single instance of the [input type](#TypeStructureandContextURL) without entity-id containing one property per aggregate expression, representing the aggregated value of the input set.
 
-An aggregate expression MUST have one of the types listed below. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $U$ of instances or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on the type of aggregate expression, $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(U)$ which the aggregate transformation evaluates to obtain the property value.
+An aggregate expression MUST have one of the types listed below. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $A$ of instances or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on the type of aggregate expression, $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(A)$ which the aggregate transformation evaluates to obtain the property value.
 
 The property is a dynamic property, except for a special case in type 4. In types 1 and 2, the aggregate expression MUST end with the keyword `with` and an aggregation method $g$. The aggregation method also determines the type of the dynamic property. In types 1, 2 and 3 the aggregate expression MUST, and in type 4 it MAY, be followed by the keyword [`as`](#Keywordas) and an [alias](#TypeStructureandContextURL), which is then the name of the dynamic property. More aggregate expressions can be constructed with the [`from`](#Keywordfrom) keyword, see later section.
 
 _Types of aggregate expressions:_
 1. A path $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a complex or entity or [aggregatable primitive type](#AggregatablePrimitiveType) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$, or $p=p_2$ if the input set can be aggregated using the [custom aggregation method](#CustomAggregationMethods) $g$.  
-Let $f(U)=g(U)$.
+Let $f(A)=g(A)$.
 2. An [aggregatable expression](#AggregatableExpression).  
-Let $f(U)=g(V)$ where $V$ is the collection consisting of the aggregatable expression evaluated relative to each member of $U$ with null values removed from $V$. In this type, $p$ is absent.
+Let $f(A)=g(B)$ where $B$ is the collection consisting of the aggregatable expression evaluated relative to each member of $A$ with null values removed from $B$. In this type, $p$ is absent.
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
-Let $f(U)$ be the [cardinality](#SamenessandPrecedence) of $U$.
+Let $f(A)$ be the [cardinality](#SamenessandPrecedence) of $A$.
 4. A path $p/c$ consisting of an optional prefix $p/{}$ with $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a structured type or $p=p_2$, and a [custom aggregate](#CustomAggregates) $c$ defined on the collection addressed by $p$.  
-Let $f(U)=c(U)$, if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
+Let $f(A)=c(A)$, if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
 
-_Determination of $U$:_
+_Determination of $A$:_
 
-Let $I$ be the input set. If $p$ is absent, let $U=I$ with null values removed.
+Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
 - If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 119](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
-Then, if $r$ is empty, let $U=E$, otherwise let $U=\Gamma(E,r)$, this consists of instances or primitive values, possibly with repetitions.
+Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances or primitive values, possibly with repetitions.
 
 #### <a name="Keywordas" href="#Keywordas">3.2.1.2 Keyword `as`</a>
 
@@ -1426,12 +1427,12 @@ The algorithmic description of this transformation makes use of the following de
 
 The output set of the groupby transformation is constructed in five steps.
 1. [For each](#SamenessandPrecedence) instance $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
-   - Let $w$ be an instance of the type of $u$ without properties and without entity-id.
+   - Let $v$ be an instance of the type of $u$ without properties and without entity-id.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
-     - If $p'$ occurs in $G$, let $w[q]=u[q]$.
-     - Otherwise, if $p'$ is a prefix of a path in $G$, let $w[q]=s_G(u[q],p')$.
-   - Return $w$.
+     - If $p'$ occurs in $G$, let $v[q]=u[q]$.
+     - Otherwise, if $p'$ is a prefix of a path in $G$, let $v[q]=s_G(u[q],p')$.
+   - Return $v$.
 2. The input set is split into subsets where two instances are in the same subset if their projections are [the same](#SamenessandPrecedence). If [representations of the same non-transient entity](#SamenessandPrecedence) are encountered during the comparison of two projections, the service MUST assign them to one subset with the merged representation if they are complementary and MUST reject the request if they are contradictory.
 3. The set transformations from the second parameter are applied to each subset, resulting in a new set of potentially different structure and cardinality. Associated with each resulting set is the common projection of the instances in the subset from which the resulting set was computed.
 4. Each set resulting from the previous step is transformed to contain the associated common projection $s$. This transformation is denoted by $\Pi_G(s)$ and is defined below.
@@ -1911,14 +1912,14 @@ results in
 The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex property or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
 
 [For each](#SamenessandPrecedence) instance $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
-1. the instance collection $U$ addressed by $p$ is identified.
-2. If $T$ is provided, $U$ is replaced with the result of applying $T$ to $U$.
-3. In case of an `outerjoin`, if $U$ is empty, a null instance is added to it.
-4. [For each](#SamenessandPrecedence) instance $w$ in an [order-preserving loop](#SamenessandPrecedence) over $U$
-   - an instance $x$ is appended to the output set of the transformation.
-   - The instance $x$ is a clone of $u$ with an additional dynamic property whose name is the given alias and whose value is $w$.
-   - The property $x$ is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
-   - The property $x$ carries as control information the context URL of $u$.
+1. the instance collection $A$ addressed by $p$ is identified.
+2. If $T$ is provided, $A$ is replaced with the result of applying $T$ to $A$.
+3. In case of an `outerjoin`, if $A$ is empty, a null instance is added to it.
+4. [For each](#SamenessandPrecedence) instance $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
+   - an instance $w$ is appended to the output set of the transformation.
+   - The instance $w$ is a clone of $u$ with an additional dynamic property whose name is the given alias and whose value is $v$.
+   - The property $w$ is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
+   - The property $w$ carries as control information the context URL of $u$.
 
 ::: example
 Example 37: all links between products and sales instances
@@ -2006,12 +2007,12 @@ Further parameters are one or more transformation sequences followed by the as k
 
 If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
 
-[For each](#SamenessandPrecedence) instance $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $U=γ(u,p_k/q)$ and let the resource $w$ be
-- the collection $U$ if $p_k$ is collection-valued
-- the single instance in $U$ if $p_k$ is single-valued and $U$ is non-empty
-- undefined if $p_k$ is single-valued and $U$ is empty.
+[For each](#SamenessandPrecedence) instance $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
+- the collection $B$ if $p_k$ is collection-valued
+- the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
+- undefined if $p_k$ is single-valued and $B$ is empty.
 
-If $w$ is defined, then for each transformation sequence, a dynamic property is added to $u$ as follows: If $p_k$ is a navigation property, the added property is a dynamic navigation property, which is expanded by default, otherwise it is a dynamic structural property. Its name is the alias of the transformation sequence. The value of the added property is the result of the transformation sequence applied to $w$. The dynamic property carries as control information the context URL of $w$.
+If $v$ is defined, then for each transformation sequence, a dynamic property is added to $u$ as follows: If $p_k$ is a navigation property, the added property is a dynamic navigation property, which is expanded by default, otherwise it is a dynamic structural property. Its name is the alias of the transformation sequence. The value of the added property is the result of the transformation sequence applied to $v$. The dynamic property carries as control information the context URL of $v$.
 
 ::: example
 Example 39:
@@ -2630,7 +2631,7 @@ The parameter lists defined in the following subsections have three mandatory pa
 
 The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
 
-The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/s$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $s$ consists of one or more single-valued segments or $k≥1$ and ${}/s$ is absent.
+The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent.
 
 The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in the section on [Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure) or in the section on [Hierarchical Transformations Preserving the Input Set Structure](#HierarchicalTransformationsPreservingtheInputSetStructure) or be service-defined bound functions whose output set is a subset of the input set.
 
@@ -2661,13 +2662,13 @@ $$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\
 or, for `descendants`,
 $$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/s,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 or, for `descendants`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/s,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent.
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
 
@@ -2807,9 +2808,9 @@ $F(x)$ is a transformation that determines for the specified node $x$ the instan
 If $p$ contains only single-valued segments, then
 $$F(x)={\tt filter}(p{\tt\ eq\ }x[q]).$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc y_k/s{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent.
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
+$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 ::: example
 Example 60: Based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
@@ -2888,9 +2889,9 @@ $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
 $$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/s,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent. (See [example 108](#rollupcoll) for a case with $k=1$.)
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
+$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 108](#rollupcoll) for a case with $k=1$.)
 
 Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
@@ -3188,7 +3189,7 @@ results in
 }
 ```
 
-Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $U=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
+Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $A=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
 :::
 
 ::: example
@@ -4210,7 +4211,7 @@ results in
 :::
 
 ::: example
-Example <a name="traversecoll" href="#traversecoll">107</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $s={\tt SalesOrganization}/{\tt ID}$.
+Example <a name="traversecoll" href="#traversecoll">107</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
