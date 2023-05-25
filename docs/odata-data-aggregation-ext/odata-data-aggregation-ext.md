@@ -46,8 +46,10 @@ Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](http://www.sap.com/)
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
 * OData Aggregation ABNF Construction Rules Version 4.0: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-abnf.txt
-* OData Aggregation ABNF Test Cases: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.xml
-* OData Aggregation Vocabulary: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
+* OData Aggregation ABNF Test Cases: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.yaml
+* OData Aggregation Vocabulary:
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
@@ -205,7 +207,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
-- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments separated by a forward slash. Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
+- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
 - <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
 - <a name="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
 
@@ -264,7 +266,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 # <a name="Overview" href="#Overview">2 Overview</a>
 
-Open Data (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
+Open Data Protocol (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
 
 Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled "aggregation level entities" or else restricting the consumer to a small subset of predefined aggregations.
 
@@ -770,16 +772,16 @@ Example 2: The following diagram depicts a simple model that is used throughout 
   </g>
 </svg>
 
-The Amount property in the Sale entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
-- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the Category and Product entity types
-- Customer [hierarchy](#LeveledHierarchy) based on Country and Customer
-- Time [hierarchy](#LeveledHierarchy) based on Year, Month and Date
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
+- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
+- Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
+- Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
 - SalesOrganization [hierarchy](#RecursiveHierarchy) based on the recursive association to itself
 
 In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.
 :::
 
-Query extensions and descriptive annotations can both be applied to normalized as well as partly or fully denormalized schemas.
+Query extensions and descriptive annotations can be applied to normalized schemas as well as partly or fully denormalized schemas.
 
 ::: example
 Example 3: The following diagram depicts a denormalized schema for the simple model.
@@ -990,7 +992,7 @@ Note that this result contains seven fully qualified aggregate values, followed 
 
 # <a name="SystemQueryOptionapply" href="#SystemQueryOptionapply">3 System Query Option `$apply`</a>
 
-A _set transformation_ (_transformation_ for short) is an operation on an input set that produces an output set. A _transformation sequence_ is a sequence of set transformations, separated by forward slashes to express that they are consecutively applied. A transformation sequence is invoked using the system query option `$apply` or they appear as a parameter of certain set transformations defined below. The input set of the first set transformation is the collection addressed by the resource path. The output set of each set transformation is the input set for the next set transformation. The output set of the last set transformation in the transformation sequence invoked by the system query option `$apply` is the result of `$apply`. This is consistent with the use of service-defined bindable and composable functions in path segments.
+A _set transformation_ (_transformation_ for short) is an operation on an input set that produces an output set. A _transformation sequence_ is a sequence of set transformations, separated by forward slashes to express that they are consecutively applied. A transformation sequence is invoked using the system query option `$apply` or they appear as a parameter of certain set transformations defined below. The input set of the first set transformation is the collection addressed by the resource path. The output set of each set transformation is the input set for the next set transformation. The output set of the last set transformation in the transformation sequence invoked by the system query option `$apply` is the result of `$apply`. This is consistent with the use of service-defined bound and composable functions in path segments.
 
 The system query option `$apply` MUST NOT be used if the resource path addresses a single instance.
 
@@ -1012,11 +1014,11 @@ If a data service that supports `$apply` does not support it on the collection i
 
 On resource paths ending in `/$count` the system query option `$apply` is evaluated on the set identified by the resource path without the `/$count` segment, the result is the plain-text number of items in the result of `$apply`. This is similar to the combination of `/$count` and `$filter`.
 
-During serialization of the result of `$apply`, declared properties and dynamic properties are represented as defined by the response format. Other properties have been aggregated away and are not represented in the response. The entities returned in the request examples in the following sections that involve aggregation are therefore transient.
+During serialization of the result of `$apply` declared properties and dynamic properties are represented as defined by the response format. Other properties have been aggregated away and are not represented in the response. The entities returned in the request examples in the following sections that involve aggregation are therefore transient.
 
 ## <a name="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1 Fundamentals of Input and Output Sets</a>
 
-(The definitions of italicized terms made in this section are used throughout this text, always with a hyperlink to this section.)
+The definitions of italicized terms made in this section are used throughout this text, always with a hyperlink to this section.
 
 ### <a name="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1 Type, Structure and Context URL</a>
 
@@ -1026,7 +1028,7 @@ The _structure_ of an instance that occurs in an input or output set is defined 
 - Declared properties of the input type or a nested or related type thereof or of a subtype of one of these MUST have their declared type and meaning when they occur in an input or output set.
 - Single- or collection-valued primitive properties addressed by a property path starting at a non-transient entity MUST keep their values from the addressed resource path collection throughout the transformation sequence. Likewise, single- or collection-valued navigation property paths starting at a non-transient entity MUST keep addressing the same non-transient entities as in the addressed resource path collection.
 - Instances in an output set need not have all declared or dynamic properties that occurred in the input set.
-- Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an alias, it is a SimpleIdentifier (see [OData-CSDL, section 17.2](#ODataCSDL)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
+- Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an alias, it is a simple identifier (see [OData-CSDL, section 17.2](#ODataCSDL)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
 
 Here is an overview of the structural changes made by different transformations:
 - During [aggregation](#BasicAggregation) or [nest](#Transformationnest), many instances are replaced by one instance, properties that represent the aggregation level are retained, and others are replaced by dynamic properties holding the aggregate value of the many instances or a transformed copy of them.
@@ -1079,7 +1081,7 @@ Collections are _the same_ if there is a one-to-one correspondence $f$ between t
 
 ### <a name="EvaluationofDataAggregationPaths" href="#EvaluationofDataAggregationPaths">3.1.3 Evaluation of Data Aggregation Paths</a>
 
-This document specifies when a [data aggregation path](#DataAggregationPath) that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.
+This document specifies how a [data aggregation path](#DataAggregationPath) that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.
 
 For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 

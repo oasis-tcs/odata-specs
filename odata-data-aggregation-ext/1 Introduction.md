@@ -14,7 +14,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
-- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments separated by a forward slash. Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
+- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
 - <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
 - <a name="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
 
@@ -73,7 +73,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 # ##sec Overview
 
-Open Data (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
+Open Data Protocol (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
 
 Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled "aggregation level entities" or else restricting the consumer to a small subset of predefined aggregations.
 
@@ -579,16 +579,16 @@ Example ##ex: The following diagram depicts a simple model that is used througho
   </g>
 </svg>
 
-The Amount property in the Sale entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
-- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the Category and Product entity types
-- Customer [hierarchy](#LeveledHierarchy) based on Country and Customer
-- Time [hierarchy](#LeveledHierarchy) based on Year, Month and Date
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
+- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
+- Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
+- Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
 - SalesOrganization [hierarchy](#RecursiveHierarchy) based on the recursive association to itself
 
 In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.
 :::
 
-Query extensions and descriptive annotations can both be applied to normalized as well as partly or fully denormalized schemas.
+Query extensions and descriptive annotations can be applied to normalized schemas as well as partly or fully denormalized schemas.
 
 ::: example
 Example ##ex: The following diagram depicts a denormalized schema for the simple model.
