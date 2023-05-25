@@ -110,9 +110,9 @@ and results in
     { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product": { "Name": "Paper" } },
     { "Customer": { "Name": "Joe", "ID": "C1" },
-      "Product: { "Name": "Sugar" } },
+      "Product": { "Name": "Sugar" } },
     { "Customer": { "Name": "Sue", "ID": "C2" },
-      "Product: { "Name": "Coffee"} },
+      "Product": { "Name": "Coffee"} },
     { "Customer": { "Name": "Sue", "ID": "C2" },
       "Product": { "Name": "Paper" } },
     { "Customer": { "Name": "Sue", "ID": "C3" },
@@ -432,7 +432,7 @@ results in
 ```
 :::
 
-The `aggregate` function can also be applied inside $apply:
+The `aggregate` function can also be applied inside `$apply`:
 
 ::: example
 Example ##ex: Sales volume per customer in relation to total volume
@@ -451,9 +451,9 @@ results in
     { "Customer":    { "@odata.id": "Customers('C1')" },
       "Contribution@odata.type": "Decimal", "Contribution": 0.2916667 },
     { "Customer":    { "@odata.id": "Customers('C2')" },
-      "Contribution@odata.type": "Decimal", "Contribution": 0.5 } },
+      "Contribution@odata.type": "Decimal", "Contribution": 0.5 },
     { "Customer":    { "@odata.id": "Customers('C3')" },
-      "Contribution@odata.type": "Decimal", "Contribution": 0.2083333 } }
+      "Contribution@odata.type": "Decimal", "Contribution": 0.2083333 }
   ]
 }
 ```
@@ -504,11 +504,11 @@ results in
       "Addresses": [
         { "Locality": "Seattle",
           "AugmentedSalesOrganization":
-          { "@odata.context": "#SalesOrganizations/$entity"
+          { "@odata.context": "#SalesOrganizations/$entity",
             "ID": "US West", "SalesRegion": "US" } },
         { "Locality": "DC",
           "AugmentedSalesOrganization":
-          { "@odata.context": "#SalesOrganizations/$entity"
+          { "@odata.context": "#SalesOrganizations/$entity",
             "ID": "US",      "SalesRegion": "Corporate Sales" } },
       ]
     }, ...
@@ -616,7 +616,7 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
                        /groupby((Country,ProductSales/Product/Name))
 ```
 returns the different combinations of products sold per country:
-```
+```json
 {
   "@odata.context":"$metadata#Customers(Country,ProductSales())",
   "value": [
@@ -802,7 +802,7 @@ Example ##ex:
 GET /service/Sales?$apply=groupby((Amount),aggregate(Amount with sum as Total))
 ```
 will return all distinct amounts appearing in sales orders and how much money was made with deals of this amount
-```
+```json
 {
   "@odata.context": "$metadata#Sales(Amount,Total)",
   "value": [
@@ -891,7 +891,7 @@ GET /service/Sales?$apply=concat(
   &$expand=Customer($select=ID),Product($select=ID)
 ```
 In the result, `Sales` entities 4 and 6 occur twice each with contradictory values of the dynamic property `per`. If a UI consuming the response presents the two groupings in separate columns based on the `per` property, no contradiction effectively arises.
-```
+```json
 {
   "@odata.context": "$metadata#Sales(*,per,Customer(ID),Product(ID))",
   "value": [
@@ -1263,17 +1263,17 @@ results in
   "@odata.context": "$metadata#Products(Sales(SalesOrganization(ID)),
                                         SoldProducts)",
   "value": [
-    { "Sales": [ "SalesOrganization": { "ID": "Sales" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "Sales" } } ],
       "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "EMEA" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "EMEA" } } ],
       "SoldProducts": "P1,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "EMEA Central" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "EMEA Central" } } ],
       "SoldProducts": "P1,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US" } } ],
       "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US East" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US East" } } ],
       "SoldProducts": "P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US West" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US West" } } ],
       "SoldProducts": "P1,P2,P3" }
   ]
 }
