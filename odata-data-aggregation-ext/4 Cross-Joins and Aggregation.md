@@ -1,3 +1,5 @@
+-------
+
 # ##sec Cross-Joins and Aggregation
 
 OData supports querying related entities through defining navigation properties in the data model. These navigation paths help guide simple consumers in understanding and navigating relationships.
@@ -14,7 +16,7 @@ GET /service/$crossjoin(Products,Sales)
                          &$filter=Products/ID eq Sales/ProductID
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
@@ -36,7 +38,7 @@ GET /service/$crossjoin(Products,Sales)
                       as AggregatedSales))
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Collection(Edm.ComplexType)",
   "value": [

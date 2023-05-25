@@ -1,3 +1,5 @@
+-------
+
 # ##sec Vocabulary for Data Aggregation
 
 The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr).
@@ -20,7 +22,7 @@ The term `ApplySupportedDefaults` can be applied to an entity container. It allo
 
 ::: example
 Example ##ex: an entity container with default support for everything defined in this specification
-```
+```xml
 <EntityContainer Name="SalesData">
   <Annotation Term="Aggregation.ApplySupportedDefaults" />
   ...
@@ -44,7 +46,7 @@ If the custom aggregate is associated with an entity container, the value of the
 
 ::: example
 Example ##ex: Sales forecasts are modeled as a custom aggregate of the Sale entity type because it belongs there. For the budget, there is no appropriate structured type, so it is modeled as a custom aggregate of the `SalesData` entity container.
-```
+```xml
 <Annotations Target="SalesModel.SalesData/Sales">
   <Annotation Term="Aggregation.CustomAggregate" Qualifier="Forecast"
               String="Edm.Decimal" />
@@ -74,7 +76,7 @@ If present, the context-defining properties SHOULD be used as grouping propertie
 
 ::: example
 Example ##ex: This simplified `Sales` entity set has a single aggregatable property `Amount` whose context is defined by the `Code` property of the related `Currency`, and a custom aggregate `Forecast` with the same context. The `Code` property of `Currencies` is groupable. All other properties are neither groupable nor aggregatable.
-```
+```xml
 <EntityType Name="Currency">
   <Key>
     <PropertyRef Name="Code" />
@@ -181,7 +183,7 @@ The term `UpNode` can be used in hierarchical result sets to associate with each
 
 #### ##subsubsubsec Hierarchy Functions
 
-For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-Aggr](#ODataAggr) defines unbound functions. These have
+For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
 - a parameter pair `HierarchyNodes`, `HierarchyQualifier` where `HierarchyNodes` is a collection and `HierarchyQualifier` is the qualifier of a `RecursiveHierarchy` annotation on its common entity type. The node identifiers in this collection define the recursive hierarchy.
 - a parameter `Node` that contains the node identifier of the entity to be tested. Note that the test result depends only on this node identifier, not on any other property of the given entity
 - additional parameters, depending on the type of test (see below).
@@ -200,7 +202,7 @@ The hierarchy terms can be applied to the Example Data Model.
 
 ::: example
 Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
-```
+```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/vocabularies/Org.OData.Aggregation.V1.xml">
@@ -260,16 +262,16 @@ GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
   Ancestor='EMEA')
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
-    { "ID": "EMEA Central",     "Name": "EMEA Central" },
-    { "ID": "Sales Netherland", "Name": "Sales Netherland" },
-    { "ID": "Sales Germany",    "Name": "Sales Germany" },
-    { "ID": "EMEA South",       "Name": "EMEA South" },
+    { "ID": "EMEA Central",      "Name": "EMEA Central" },
+    { "ID": "Sales Netherlands", "Name": "Sales Netherlands" },
+    { "ID": "Sales Germany",     "Name": "Sales Germany" },
+    { "ID": "EMEA South",        "Name": "EMEA South" },
     ...
-    { "ID": "EMEA North",       "Name": "EMEA North" },
+    { "ID": "EMEA North",        "Name": "EMEA North" },
     ...
   ]
 }
@@ -287,7 +289,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
   MaxDistance=1)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
@@ -309,7 +311,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
   Node=ID)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations",
   "value": [
@@ -331,7 +333,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
 &$expand=Superordinate($select=ID)
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#SalesOrganizations(*,Superordinate(ID))",
   "value": [
@@ -356,7 +358,7 @@ GET /service/Sales?$select=ID&$filter=Aggregation.isdescendant(
   Ancestor='EMEA')
 ```
 results in
-```
+```json
 {
   "@odata.context": "$metadata#Sales(ID)",
   "value": [
