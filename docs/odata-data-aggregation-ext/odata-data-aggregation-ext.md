@@ -2446,7 +2446,8 @@ Example <a name="salesorghier" href="#salesorghier">51</a>: leveled hierarchies 
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
- <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/vocabularies/Org.OData.Aggregation.V1.xml">
+ <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-
+                 ext/v4.0/cs01/vocabularies/Org.OData.Aggregation.V1.xml">
   <edmx:Include Alias="Aggregation"
                 Namespace="Org.OData.Aggregation.V1" />
  </edmx:Reference>
