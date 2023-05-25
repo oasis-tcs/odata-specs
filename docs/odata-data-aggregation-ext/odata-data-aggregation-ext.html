@@ -4013,12 +4013,21 @@ with these properties:</p>
 segments ending in a primitive property. This path points to the
 property holding the node identifier of the node in the hierarchy.
 Entities for which this path evaluates to null are not nodes of the
-hierarchy (sometimes called "orphans").</li>
+hierarchy.</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
 collection-valued or nullable single-valued navigation property path
 that addresses the entity type annotated with this term. Nodes MUST NOT
 form cycles when following parent navigation properties.</li>
+<li><code>IsRoot</code> is a Boolean value and nodes in the hierarchy
+for which this is true are called <em>root nodes</em>. A recursive
+hierarchy can have one or more root nodes. The <em>standard definition
+for root</em> is "node without parents", which for a single-valued
+<code>ParentNavigationProperty</code> is expressed by giving the
+<code>IsRoot</code> property a dynamic annotation value <a
+href="#ODataCSDL">OData-CSDL, section 14.4</a> like in <a
+href="#salesorghier">example 51</a>. The standard definition for root is
+also implied if the <code>IsRoot</code> property is null or absent.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to
 entity types, and MUST be applied with a qualifier, which is used to
@@ -4028,19 +4037,18 @@ hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with
 href="#HierarchyFunctions">hierarchy functions</a>. The same entity can
 serve as different nodes in different recursive hierarchies, given
 different qualifiers.</p>
-<p>A node without parent node is a <em>root node</em>, a node is a
-<em>child node</em> of its parent nodes, a node without child nodes is a
-<em>leaf node</em>. Two nodes with a common parent node are <em>sibling
-nodes</em> and so are two root nodes. The <em>descendants</em> of a node
-are its child nodes, their child nodes, and so on, up to and including
-all leaf nodes that can be reached. A node together with its descendants
-forms a <em>sub-hierarchy</em> of the hierarchy. The <em>ancestors</em>
-of a node are its parent nodes, the parents of its parent nodes, and so
-on, up to and including root nodes that can be reached. A recursive
-hierarchy can have one or more root nodes.</p>
+<p>A node is a <em>child node</em> of its parent nodes, a node without
+child nodes is a <em>leaf node</em>. Two nodes with a common parent node
+are <em>sibling nodes</em> and so are two root nodes. The
+<em>descendants</em> of a node are its child nodes, their child nodes,
+and so on, up to and including all leaf nodes that can be reached. A
+node together with its descendants forms a <em>sub-hierarchy</em> of the
+hierarchy. The <em>ancestors</em> of a node are its parent nodes, the
+parents of its parent nodes, and so on, until no more parent nodes
+exist.</p>
 <p>The term <code>UpNode</code> can be used in hierarchical result sets
 to associate with each instance one of its ancestors, which is again
-annotated with <code>UpNode</code> and so on until a path to the root is
+annotated with <code>UpNode</code> and so on until a path to a root is
 constructed.</p>
 <h4
 id="5521-hierarchy-functions"><a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1
@@ -4086,8 +4094,9 @@ id="553-hierarchy-examples"><a name="HierarchyExamples" href="#HierarchyExamples
 Hierarchy Examples</a></h3>
 <p>The hierarchy terms can be applied to the Example Data Model.</p>
 <div class="example">
-<p>Example 51: leveled hierarchies for products and time, and a
-recursive hierarchy for the sales organizations</p>
+<p>Example <a name="salesorghier" href="#salesorghier">51</a>: leveled
+hierarchies for products and time, and a recursive hierarchy for the
+sales organizations</p>
 <div class="sourceCode" id="cb91"><pre
 class="sourceCode xml"><code class="sourceCode xml"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
@@ -4127,12 +4136,18 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb91-1"><a href="#
 <span id="cb91-36"><a href="#cb91-36" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb91-37"><a href="#cb91-37" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
 <span id="cb91-38"><a href="#cb91-38" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;Superordinate&quot;</span> /&gt;</span>
-<span id="cb91-39"><a href="#cb91-39" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb91-40"><a href="#cb91-40" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb91-41"><a href="#cb91-41" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb91-42"><a href="#cb91-42" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Schema</span>&gt;</span>
-<span id="cb91-43"><a href="#cb91-43" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb91-44"><a href="#cb91-44" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
+<span id="cb91-39"><a href="#cb91-39" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;IsRoot&quot;</span>&gt;</span>
+<span id="cb91-40"><a href="#cb91-40" aria-hidden="true" tabindex="-1"></a>       &lt;<span class="kw">Eq</span>&gt;</span>
+<span id="cb91-41"><a href="#cb91-41" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Path</span>&gt;Superordinate&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb91-42"><a href="#cb91-42" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Null</span> /&gt;</span>
+<span id="cb91-43"><a href="#cb91-43" aria-hidden="true" tabindex="-1"></a>       &lt;/<span class="kw">Eq</span>&gt;</span>
+<span id="cb91-44"><a href="#cb91-44" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb91-45"><a href="#cb91-45" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb91-46"><a href="#cb91-46" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb91-47"><a href="#cb91-47" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb91-48"><a href="#cb91-48" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Schema</span>&gt;</span>
+<span id="cb91-49"><a href="#cb91-49" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb91-50"><a href="#cb91-50" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <p>The recursive hierarchy <code>SalesOrgHierarchy</code> can be used in
 functions with the <code>$filter</code> system query option.</p>
@@ -4677,8 +4692,8 @@ consisting of one item <span class="math inline">\(x&#39;\)</span>.</li>
 </ol>
 <p>(See <a href="#traversecoll">Example 107</a>.)</p>
 <p>Let <span class="math inline">\(r_1,…,r_n\)</span> be a sequence of
-the root nodes of the recursive hierarchy <span
-class="math inline">\((H&#39;,Q)\)</span> <a
+the <a href="#RecursiveHierarchy">root nodes</a> of the recursive
+hierarchy <span class="math inline">\((H&#39;,Q)\)</span> <a
 href="#SamenessandPrecedence">preserving the order</a> of <span
 class="math inline">\(H&#39;\)</span> stable-sorted by <span
 class="math inline">\(o\)</span>. Then the transformation <span
@@ -4691,8 +4706,9 @@ class="math inline">\(H&#39;\)</span> with root node <span
 class="math inline">\(x\)</span>. Let <span
 class="math inline">\(c_1,…,c_m\)</span> with <span
 class="math inline">\(m≥0\)</span> be an <a
-href="#SamenessandPrecedence">order-preserving sequence</a> of the
-children of <span class="math inline">\(x\)</span> in <span
+href="#SamenessandPrecedence">order-preserving sequence</a> of the <a
+href="#RecursiveHierarchy">children</a> of <span
+class="math inline">\(x\)</span> in <span
 class="math inline">\((H&#39;,Q)\)</span>. The <em>recursive formula for
 <span class="math inline">\(R(x)\)</span></em> is as follows:</p>
 <p>If <span class="math inline">\(h={\tt preorder}\)</span>, then <span
@@ -4741,17 +4757,19 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb109-1"><a href
 <span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The algorithm given so far is valid for a single-valued
-<code>RecursiveHierarchy/ParentNavigationProperty</code>. The remainder
-of this section describes the case where it is collection-valued.</p>
-<p>If the recursive algorithm reaches a node <span
+<code>RecursiveHierarchy/ParentNavigationProperty</code> with the <a
+href="#RecursiveHierarchy">standard definition for root</a>. The
+remainder of this section describes the general case.</p>
+<p>In the general case, the recursive algorithm can reach a node <span
 class="math inline">\(x\)</span> multiple times, via different parents
-or ancestors, then the output set contains multiple instances that
-include <span class="math inline">\(σ(x)\)</span>. In order to
-distinguish these, information about the ancestors up to the root is
-injected into each <span class="math inline">\(σ(x)\)</span> by
+or ancestors, or because <span class="math inline">\(x\)</span> is a
+root and a child at the same time. Then the output set contains multiple
+instances that include <span class="math inline">\(σ(x)\)</span>. In
+order to distinguish these, information about the ancestors up to the
+root is injected into each <span class="math inline">\(σ(x)\)</span> by
 annotating <span class="math inline">\(x\)</span> differently before
 each <span class="math inline">\(σ(x)\)</span> is computed.</p>
-<p>More precisely, a <em>path-to-the-root</em> is a node <span
+<p>More precisely, an <em>path-to-the-root</em> is a node <span
 class="math inline">\(x\)</span> that is annotated with the term
 <code>UpNode</code> from the <code>Aggregation</code> vocabulary <a
 href="#ODataVocAggr">OData-VocAggr</a> where the annotation value is the
@@ -4794,9 +4812,9 @@ concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).\]</span></p>
 <p>If <span class="math inline">\(h={\tt postorder}\)</span>, then <span
 class="math display">\[R(x)={\tt
 concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
-<p>If there is only one parent, the result is the same as in the
-single-parent case, except for the presence of the
-<code>Aggregation.UpNode</code> annotations.</p>
+<p>If there is only one parent and the standard definition for root is
+in force, the result is the same as in the single-parent case, except
+for the presence of the <code>Aggregation.UpNode</code> annotations.</p>
 <h2
 id="63-grouping-with-rolluprecursive"><a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3
 Grouping with <code>rolluprecursive</code></a></h2>
@@ -4846,10 +4864,10 @@ algorithm, but is not present in the output set. It is explained later
 class="math inline">\(Z_N\)</span> is a transformation whose output set
 is its input set with property <span class="math inline">\(χ_N\)</span>
 removed.</p>
-<p>If <span class="math inline">\(r_1,…,r_n\)</span> are the root nodes
-of the recursive hierarchy <span
-class="math inline">\((H&#39;,Q)\)</span>, the transformation <span
-class="math inline">\({\tt groupby}((P_1,{\tt
+<p>If <span class="math inline">\(r_1,…,r_n\)</span> are the <a
+href="#RecursiveHierarchy">root nodes</a> of the recursive hierarchy
+<span class="math inline">\((H&#39;,Q)\)</span>, the transformation
+<span class="math inline">\({\tt groupby}((P_1,{\tt
 rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is defined as equivalent to
 <span class="math display">\[{\tt concat}(R(r_1),…,R(r_n))\]</span> with
 no order defined on the output set.</p>
@@ -4859,8 +4877,9 @@ class="math inline">\(F(x)\)</span> rooted at <span
 class="math inline">\(x\)</span> (see (1) below) and then recurs for all
 children of <span class="math inline">\(x\)</span> (see (2) below). Its
 output set is a collection of aggregated instances for all rollup
-results. Let <span class="math inline">\(c_1,…,c_m\)</span> be the
-children of <span class="math inline">\(x\)</span> in <span
+results. Let <span class="math inline">\(c_1,…,c_m\)</span> be the <a
+href="#RecursiveHierarchy">children</a> of <span
+class="math inline">\(x\)</span> in <span
 class="math inline">\((H&#39;,Q)\)</span>:</p>
 <p>If at least one of <span class="math inline">\(P_1\)</span> or <span
 class="math inline">\(P_2\)</span> is non-empty, then <span
@@ -5045,10 +5064,11 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb115-1"><a href
 <span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The algorithm given so far is valid for a single-valued
-<code>RecursiveHierarchy/ParentNavigationProperty</code>. The remainder
-of this section describes the case where it is collection-valued. The
-function <span class="math inline">\(ρ(c,x)\)</span> used below
-constructs a path-to-the-root and was defined in the <a
+<code>RecursiveHierarchy/ParentNavigationProperty</code> with the <a
+href="#RecursiveHierarchy">standard definition for root</a>. The
+remainder of this section describes the general case. The function <span
+class="math inline">\(ρ(c,x)\)</span> used below constructs a
+path-to-the-root and was defined in the <a
 href="#Transformationtraverse"><code>traverse</code></a> section.</p>
 <p>With <span class="math inline">\(r_1,…,r_n\)</span> as above, <span
 class="math inline">\({\tt groupby}((P_1,{\tt

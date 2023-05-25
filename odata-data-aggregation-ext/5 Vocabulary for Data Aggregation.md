@@ -172,14 +172,15 @@ A recursive hierarchy is defined on a collection of entities by associating with
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy (sometimes called "orphans").
+- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
+- `IsRoot` is a Boolean value and nodes in the hierarchy for which this is true are called _root nodes_. A recursive hierarchy can have one or more root nodes. The _standard definition for root_ is "node without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsRoot` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example ##salesorghier]. The standard definition for root is also implied if the `IsRoot` property is null or absent.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parent node is a _root node_, a node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including root nodes that can be reached. A recursive hierarchy can have one or more root nodes.
+A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, until no more parent nodes exist.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to the root is constructed.
+The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed.
 
 #### ##subsubsubsec Hierarchy Functions
 
@@ -201,7 +202,7 @@ The following functions are defined:
 The hierarchy terms can be applied to the Example Data Model.
 
 ::: example
-Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+Example ##ex_salesorghier: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -241,6 +242,12 @@ Example ##ex: leveled hierarchies for products and time, and a recursive hierarc
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Superordinate" />
+      <PropertyValue Property="IsRoot">
+       <Eq>
+        <Path>Superordinate</Path>
+        <Null />
+       </Eq>
+      </PropertyValue>
      </Record>
     </Annotation>
    </Annotations>

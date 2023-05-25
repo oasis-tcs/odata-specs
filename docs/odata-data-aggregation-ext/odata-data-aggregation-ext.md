@@ -2412,14 +2412,15 @@ A recursive hierarchy is defined on a collection of entities by associating with
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy (sometimes called "orphans").
+- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
+- `IsRoot` is a Boolean value and nodes in the hierarchy for which this is true are called _root nodes_. A recursive hierarchy can have one or more root nodes. The _standard definition for root_ is "node without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsRoot` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 51](#salesorghier). The standard definition for root is also implied if the `IsRoot` property is null or absent.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parent node is a _root node_, a node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including root nodes that can be reached. A recursive hierarchy can have one or more root nodes.
+A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, until no more parent nodes exist.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to the root is constructed.
+The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed.
 
 #### <a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a>
 
@@ -2441,7 +2442,7 @@ The following functions are defined:
 The hierarchy terms can be applied to the Example Data Model.
 
 ::: example
-Example 51: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+Example <a name="salesorghier" href="#salesorghier">51</a>: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -2481,6 +2482,12 @@ Example 51: leveled hierarchies for products and time, and a recursive hierarchy
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Superordinate" />
+      <PropertyValue Property="IsRoot">
+       <Eq>
+        <Path>Superordinate</Path>
+        <Null />
+       </Eq>
+      </PropertyValue>
      </Record>
     </Annotation>
    </Annotations>
@@ -2795,9 +2802,9 @@ The function $a(u,v,x)$ takes an instance, a path and another instance as argume
 
 (See [Example 107](#traversecoll).)
 
-Let $r_1,…,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandPrecedence) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandPrecedence) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
-$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandPrecedence) of the children of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
+$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandPrecedence) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
@@ -2838,11 +2845,11 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued.
+The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case.
 
-If the recursive algorithm reaches a node $x$ multiple times, via different parents or ancestors, then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, a _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, an _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
 
 The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
 - If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
@@ -2857,7 +2864,7 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).$$
 If $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+If there is only one parent and the standard definition for root is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
@@ -2873,11 +2880,11 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [Example 62](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-If $r_1,…,r_n$ are the root nodes of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+If $r_1,…,r_n$ are the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n))$$
 with no order defined on the output set.
 
-$R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,…,c_m$ be the children of $x$ in $(H',Q)$:
+$R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,…,c_m$ be the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$:
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
 $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ ).\hskip25pc }$$
@@ -2992,7 +2999,7 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
