@@ -161,6 +161,7 @@ mjx-c.mjx-c2019::before {
 
 code .er {
 	color: unset !important;
+	font-weight: unset !important;
 }
 
 hr:first-of-type {
