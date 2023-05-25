@@ -163,9 +163,14 @@ includes:</p>
 <li>OData Aggregation ABNF Construction Rules Version 4.0: <a
 href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-abnf.txt">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-abnf.txt</a></li>
 <li>OData Aggregation ABNF Test Cases: <a
-href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.xml</a></li>
-<li>OData Aggregation Vocabulary: <a
+href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.yaml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.yaml</a></li>
+<li>OData Aggregation Vocabulary:
+<ul>
+<li><a
+href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json</a></li>
+<li><a
 href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml</a></li>
+</ul></li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification is related to:</p>
@@ -481,12 +486,12 @@ primitive type</a></li>
 Type</em></a> – a primitive type other than <code>Edm.Stream</code> or
 subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
 <li><a name="DataAggregationPath"><em>Data Aggregation Path</em></a> – a
-path that consists of one or more segments separated by a forward slash.
-Segments are names of declared or dynamic structural or navigation
-properties, or type-cast segments consisting of the (optionally
-qualified) name of a structured type that is derived from the type
-identified by the preceding path segment to reach properties declared by
-the derived type.</li>
+path that consists of one or more segments joined together by forward
+slashes (<code>/</code>). Segments are names of declared or dynamic
+structural or navigation properties, or type-cast segments consisting of
+the (optionally qualified) name of a structured type that is derived
+from the type identified by the preceding path segment to reach
+properties declared by the derived type.</li>
 <li><a name="Expression"><em>Expression</em></a> – derived from the
 <code>commonExpr</code> rule (see <a
 href="#ODataABNF">OData-ABNF</a>)</li>
@@ -567,12 +572,12 @@ href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/p
 <hr />
 <h1 id="2-overview"><a name="Overview" href="#Overview">2
 Overview</a></h1>
-<p>Open Data (OData) services expose a data model that describes the
-schema of the service in terms of the Entity Data Model (EDM, see <a
-href="#ODataCSDL">OData-CSDL</a>) and then allows for querying data in
-terms of this model. The responses returned by an OData service are
-based on that data model and retain the relationships between the
-entities in the model.</p>
+<p>Open Data Protocol (OData) services expose a data model that
+describes the schema of the service in terms of the Entity Data Model
+(EDM, see <a href="#ODataCSDL">OData-CSDL</a>) and then allows for
+querying data in terms of this model. The responses returned by an OData
+service are based on that data model and retain the relationships
+between the entities in the model.</p>
 <p>Extending the OData query features with simple aggregation
 capabilities avoids cluttering OData services with an exponential number
 of explicitly modeled "aggregation level entities" or else restricting
@@ -1091,18 +1096,18 @@ throughout this document.</p>
   </g>
 </svg>
 
-<p>The Amount property in the Sale entity type is an <a
-href="#AggregationCapabilities">aggregatable property</a>, and the
-properties of the related entity types are groupable. These can be
+<p>The <code>Amount</code> property in the <code>Sale</code> entity type
+is an <a href="#AggregationCapabilities">aggregatable property</a>, and
+the properties of the related entity types are groupable. These can be
 arranged in four hierarchies:</p>
 <ul>
 <li>Product hierarchy based on <a
-href="#AggregationCapabilities">groupable</a> properties of the Category
-and Product entity types</li>
-<li>Customer <a href="#LeveledHierarchy">hierarchy</a> based on Country
-and Customer</li>
-<li>Time <a href="#LeveledHierarchy">hierarchy</a> based on Year, Month
-and Date</li>
+href="#AggregationCapabilities">groupable</a> properties of the
+<code>Category</code> and <code>Product</code> entity types</li>
+<li>Customer <a href="#LeveledHierarchy">hierarchy</a> based on
+<code>Country</code> and <code>Customer</code></li>
+<li>Time <a href="#LeveledHierarchy">hierarchy</a> based on
+<code>Year</code>, <code>Month</code>, and <code>Date</code></li>
 <li>SalesOrganization <a href="#RecursiveHierarchy">hierarchy</a> based
 on the recursive association to itself</li>
 </ul>
@@ -1111,8 +1116,8 @@ might be described in terms of a Sales "cube" with an Amount "measure"
 and three "dimensions". This document will avoid such terms, as they are
 heavily overloaded.</p>
 </div>
-<p>Query extensions and descriptive annotations can both be applied to
-normalized as well as partly or fully denormalized schemas.</p>
+<p>Query extensions and descriptive annotations can be applied to
+normalized schemas as well as partly or fully denormalized schemas.</p>
 <div class="example">
 <p>Example 3: The following diagram depicts a denormalized schema for
 the simple model.</p>
@@ -1764,7 +1769,7 @@ output set of each set transformation is the input set for the next set
 transformation. The output set of the last set transformation in the
 transformation sequence invoked by the system query option
 <code>$apply</code> is the result of <code>$apply</code>. This is
-consistent with the use of service-defined bindable and composable
+consistent with the use of service-defined bound and composable
 functions in path segments.</p>
 <p>The system query option <code>$apply</code> MUST NOT be used if the
 resource path addresses a single instance.</p>
@@ -1814,7 +1819,7 @@ resource path without the <code>/$count</code> segment, the result is
 the plain-text number of items in the result of <code>$apply</code>.
 This is similar to the combination of <code>/$count</code> and
 <code>$filter</code>.</p>
-<p>During serialization of the result of <code>$apply</code>, declared
+<p>During serialization of the result of <code>$apply</code> declared
 properties and dynamic properties are represented as defined by the
 response format. Other properties have been aggregated away and are not
 represented in the response. The entities returned in the request
@@ -1823,8 +1828,8 @@ therefore transient.</p>
 <h2
 id="31-fundamentals-of-input-and-output-sets"><a name="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1
 Fundamentals of Input and Output Sets</a></h2>
-<p>(The definitions of italicized terms made in this section are used
-throughout this text, always with a hyperlink to this section.)</p>
+<p>The definitions of italicized terms made in this section are used
+throughout this text, always with a hyperlink to this section.</p>
 <h3
 id="311-type-structure-and-context-url"><a name="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1
 Type, Structure and Context URL</a></h3>
@@ -1861,11 +1866,12 @@ path collection.</li>
 properties that occurred in the input set.</li>
 <li>Instances in an output set can have dynamic properties that did not
 occur in the input set. The name for such a dynamic property is called
-an alias, it is a SimpleIdentifier (see <a href="#ODataCSDL">OData-CSDL,
-section 17.2</a>). Aliases MUST differ from names of declared properties
-in the input type, from names of properties in the first input set, and
-from names of properties in the current input set. Aliases in one
-collection MUST also differ from each other.</li>
+an alias, it is a simple identifier (see <a
+href="#ODataCSDL">OData-CSDL, section 17.2</a>). Aliases MUST differ
+from names of declared properties in the input type, from names of
+properties in the first input set, and from names of properties in the
+current input set. Aliases in one collection MUST also differ from each
+other.</li>
 </ul>
 <p>Here is an overview of the structural changes made by different
 transformations:</p>
@@ -2058,7 +2064,7 @@ is called <em>order-preserving</em>.)</li>
 <h3
 id="313-evaluation-of-data-aggregation-paths"><a name="EvaluationofDataAggregationPaths" href="#EvaluationofDataAggregationPaths">3.1.3
 Evaluation of Data Aggregation Paths</a></h3>
-<p>This document specifies when a <a href="#DataAggregationPath">data
+<p>This document specifies how a <a href="#DataAggregationPath">data
 aggregation path</a> that occurs in a request is evaluated by the
 service. If such an evaluation fails, the service MUST reject the
 request.</p>
