@@ -20,7 +20,7 @@ This specification defines the following terms:
 
 ### ##subsubsec Acronyms and Abbreviations
 
-The following non-exhaustive list contains variables that are used throughout this document:
+The following non-exhaustive list contains variable names that are used throughout this document:
 - $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
 - $u,v,w$ – instances in a collection

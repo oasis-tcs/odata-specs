@@ -1341,7 +1341,7 @@ ancestors(
     keep start),
   keep start)
 ```
-would determine descendants of sales organizations for "Cereals" and their ancestors, so US East would appear in the result.
+would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## ##subsec Transformation Sequences

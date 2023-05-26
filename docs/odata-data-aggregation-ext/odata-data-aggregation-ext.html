@@ -322,7 +322,8 @@ Methods</a></li>
 </ul></li>
 <li><a href="#Transformationconcat">3.2.2 Transformation
 <code>concat</code></a></li>
-<li><a href="#Transformationgroupby">3.2.3 Transformation groupby</a>
+<li><a href="#Transformationgroupby">3.2.3 Transformation
+<code>groupby</code></a>
 <ul>
 <li><a href="#SimpleGrouping">3.2.3.1 Simple Grouping</a></li>
 <li><a href="#Groupingwithrollup">3.2.3.2 Grouping with
@@ -502,8 +503,8 @@ complex, or navigation property</li>
 <h3
 id="112-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2
 Acronyms and Abbreviations</a></h3>
-<p>The following non-exhaustive list contains variables that are used
-throughout this document:</p>
+<p>The following non-exhaustive list contains variable names that are
+used throughout this document:</p>
 <ul>
 <li><span class="math inline">\(A,B,C\)</span> – collections of
 instances</li>
@@ -2086,7 +2087,10 @@ class="math inline">\(γ(u,p)\)</span> for each <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(A\)</span> that is not null. The function <span
 class="math inline">\(γ(u,p)\)</span> takes a non-null value and a path
-as arguments and is recursively defined as follows:</p>
+as arguments and returns a collection of structured instances or
+primitive values, depending on the type of the final segment of <span
+class="math inline">\(p\)</span>. It is recursively defined as
+follows:</p>
 <ol type="1">
 <li>If <span class="math inline">\(p\)</span> is an empty path, let
 <span class="math inline">\(B\)</span> be a collection with <span
@@ -2132,7 +2136,7 @@ class="math inline">\(B=\Gamma(C,p_2)\)</span>. Then continue with step
 </ol>
 <p>This notation is extended to the case of an empty path <span
 class="math inline">\(e\)</span> by setting <span
-class="math inline">\(\Gamma(A,e)=A\)</span>. Note every <span
+class="math inline">\(\Gamma(A,e)=A\)</span>. Note every instance <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p)\)</span> occurs also in <span
 class="math inline">\(A\)</span> or nested into <span
@@ -2582,7 +2586,7 @@ for imposing a stable ordering.</p>
 the structures imposed by the two transformation sequences.</p>
 <h3
 id="323-transformation-groupby"><a name="Transformationgroupby" href="#Transformationgroupby">3.2.3
-Transformation groupby</a></h3>
+Transformation <code>groupby</code></a></h3>
 <p>The <code>groupby</code> transformation takes one or two parameters
 where the second is a list of set transformations, separated by forward
 slashes to express that they are consecutively applied. If the second
@@ -6369,7 +6373,8 @@ transformation</p>
     keep start),
   keep start)</code></pre>
 <p>would determine descendants of sales organizations for "Cereals" and
-their ancestors, so US East would appear in the result.</p>
+their ancestor sales organizations, so US East would appear in the
+result.</p>
 </div>
 <h2
 id="79-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.9

@@ -128,7 +128,7 @@ For complete copyright information please see the full Notices section in an App
       - [3.2.1.4 Aggregate Expression `$count`](#AggregateExpressioncount)
       - [3.2.1.5 Keyword `from`](#Keywordfrom)
     - [3.2.2 Transformation `concat`](#Transformationconcat)
-    - [3.2.3 Transformation groupby](#Transformationgroupby)
+    - [3.2.3 Transformation `groupby`](#Transformationgroupby)
       - [3.2.3.1 Simple Grouping](#SimpleGrouping)
       - [3.2.3.2 Grouping with `rollup`](#Groupingwithrollup)
   - [3.3 Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure)
@@ -213,7 +213,7 @@ This specification defines the following terms:
 
 ### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a>
 
-The following non-exhaustive list contains variables that are used throughout this document:
+The following non-exhaustive list contains variable names that are used throughout this document:
 - $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
 - $u,v,w$ – instances in a collection
@@ -1085,7 +1085,7 @@ This document specifies how a [data aggregation path](#DataAggregationPath) that
 
 For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 
-To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and is recursively defined as follows:
+To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and returns a collection of structured instances or primitive values, depending on the type of the final segment of $p$. It is recursively defined as follows:
 1. If $p$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
 2. Let $p_1$ be the first segment of $p$ and $p_2$ the remainder, if any, such that $p$ equals the concatenated path $p_1/p_2$.
 3. If $p_1$ is a type-cast segment and $u$ is of its type or a subtype thereof, let $v=u$ and continue with step 8.
@@ -1096,7 +1096,7 @@ To this end, the following notation is used in the subsequent sections: If $A$ i
 8. Let $B=γ(v,p_2)$.
 9. Return $B$.
 
-This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$. Note every $u$ in $\Gamma(A,p)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,p)$" effectively changes $A$.
+This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$. Note every instance $u$ in $\Gamma(A,p)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,p)$" effectively changes $A$.
 
 ## <a name="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a>
 
@@ -1417,7 +1417,7 @@ Note that two Sales entities with the second highest amount 4 exist in the input
 
 The output set of `concat` has a mixed form consisting of the structures imposed by the two transformation sequences.
 
-### <a name="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation groupby</a>
+### <a name="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation `groupby`</a>
 
 The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
 
@@ -4346,7 +4346,7 @@ ancestors(
     keep start),
   keep start)
 ```
-would determine descendants of sales organizations for "Cereals" and their ancestors, so US East would appear in the result.
+would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## <a name="TransformationSequences" href="#TransformationSequences">7.9 Transformation Sequences</a>
