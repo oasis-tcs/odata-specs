@@ -18,7 +18,7 @@ The parameter lists defined in the following subsections have three mandatory pa
 
 The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
 
-The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/s$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $s$ consists of one or more single-valued segments or $k≥1$ and ${}/s$ is absent.
+The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent.
 
 The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in the section on [Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure) or in the section on [Hierarchical Transformations Preserving the Input Set Structure](#HierarchicalTransformationsPreservingtheInputSetStructure) or be service-defined bound functions whose output set is a subset of the input set. The hierarchy $(H',Q)$ can have different [roots](#RecursiveHierarchy) than the hierarchy $(H,Q)$.
 
@@ -57,7 +57,7 @@ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
 \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill 
 }$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
 $$\matrix{ 
@@ -68,7 +68,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ 
 \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/s,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
 \hskip3pc ⋰\hfill\\ 
@@ -85,7 +85,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
 \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/s,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
 \hskip3pc ⋰\hfill\\ 
@@ -93,7 +93,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip1pc )\hfill\\ 
 )\hfill 
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent.
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
 
@@ -110,12 +110,12 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "EMEA",  "Name": "EMEA",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US",    "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "Sales", "Name": "Sales",
       "Superordinate": null }
   ]
@@ -134,14 +134,14 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "US West", "Name": "US West",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
+      "Superordinate": { "@id": "SalesOrganizations('US')" } },
     { "ID": "US",      "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+      "Superordinate": { "@id": "SalesOrganizations('US')" } }
   ]
 }
 ```
@@ -161,7 +161,7 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales",
+  "@context": "$metadata#Sales",
   "value": [
     { "ID": "4", "Amount": 8,
       "SalesOrganization": { "ID": "US East",      "Name": "US East" } },
@@ -208,10 +208,10 @@ Three cases are distinguished:
 Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [Example ##pathequals]).
 
 The function $a(u,v,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
-1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
+1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
 2. If $v$ contains only one segment other than a type cast, let $v_1=v$, and let $x'=x$, then go to step 6.
 3. Otherwise, let $v_1$ be the first property segment in $v$, possibly together with a preceding type-cast segment, let $v_2$ be any type-cast segment that immediately follows, and let $v_3$ be the remainder such that $v$ equals the concatenated path $v_1/v_2/v_3$ where ${}/v_2$ may be absent.
-4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity-id.
+4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity id.
 5. Let $x'=a(u',v_3,x)$.
 6. If $v_1$ is single-valued, let $u[v_1]=x'$.
 7. If $v_1$ is collection-valued, let $u[v_1]$ be a collection consisting of one item $x'$.
@@ -233,21 +233,21 @@ $F(x)$ is a transformation that determines for the specified node $x$ the instan
 If $p$ contains only single-valued segments, then
 $$F(x)={\tt filter}(p{\tt\ eq\ }x[q]).$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$ and
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
 $$\matrix{ 
 F(x)={\tt filter}(\hfill\\ 
 \hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
 \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
 \hskip3pc ⋱\hfill\\ 
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc y_k/s{\tt\ eq\ }x[q]\hfill\\ 
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ 
 \hskip4pc )\hfill\\ 
 \hskip3pc ⋰\hfill\\ 
 \hskip2pc )\hfill\\ 
 \hskip1pc )\hfill\\ 
 )\hfill 
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent.
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 ::: example
 Example ##ex: Based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
@@ -263,12 +263,12 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "US",      "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+      "Superordinate": { "@id": "SalesOrganizations('US')" } }
   ]
 }
 ```
@@ -340,7 +340,7 @@ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
 \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill 
 }$$
 
-Otherwise $p=p_1/…/p_k/s$ with $k≥1$ and
+Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
 $$\matrix{ 
 F(x)={\tt filter}(\hfill\\ 
 \hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
@@ -349,7 +349,7 @@ F(x)={\tt filter}(\hfill\\
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
 \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/s,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ 
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
 \hskip3pc ⋰\hfill\\ 
@@ -357,7 +357,7 @@ F(x)={\tt filter}(\hfill\\
 \hskip1pc )\hfill\\ 
 )\hfill 
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/s$ may be absent. (See [example ##rollupcoll] for a case with $k=1$.)
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example ##rollupcoll] for a case with $k=1$.)
 
 Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
@@ -374,7 +374,7 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context":
+  "@context":
       "$metadata#SalesOrganizations(ID,Name,SubOrgCnt,Superordinate(ID))",
   "value": [
     { "ID": "US West",      "Name": "US West",
@@ -415,18 +415,18 @@ GET /service/Sales?$apply=groupby(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization,
-                                     TotalAmountIncl,TotalAmountExcl)",
+  "@context": "$metadata#Sales(SalesOrganization(),
+                               TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl":  7,
-      "TotalAmountExcl@odata.type": "Decimal" ,"TotalAmountExcl":  7 },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
+      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 },
     { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 19,
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
       "TotalAmountExcl": null },
     { "SalesOrganization": { "ID": "US East", "Name": "US East" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 12,
-      "TotalAmountExcl@odata.type": "Decimal", "TotalAmountExcl": 12 }
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
+      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 }
   ]
 }
 ```
@@ -443,7 +443,7 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization,TotalAmount)",
+  "@context": "$metadata#Sales(SalesOrganization(),TotalAmount)",
   "value": [
     { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales" },
       "TotalAmount": null },

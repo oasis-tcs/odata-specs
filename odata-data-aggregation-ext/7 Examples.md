@@ -16,7 +16,7 @@ GET /service/Customers?$apply=groupby((Name))
 results in
 ```json
 {
-  "@odata.context": "$metadata#Customers(Name)",
+  "@context": "$metadata#Customers(Name)",
   "value": [
     { "Name": "Luc" },
     { "Name": "Joe" },
@@ -38,7 +38,7 @@ GET /service/Sales?$apply=groupby((Customer/Name))
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Name))",
+  "@context": "$metadata#Sales(Customer(Name))",
   "value": [
     { "Customer": { "Name": "Joe" } },
     { "Customer": { "Name": "Sue" } }
@@ -61,7 +61,7 @@ GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID))
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Name,ID))",
+  "@context": "$metadata#Sales(Customer(Name,ID))",
   "value": [
     { "Customer": { "Name": "Joe", "ID": "C1" } },
     { "Customer": { "Name": "Sue", "ID": "C2" } },
@@ -85,7 +85,7 @@ GET /service/Sales?$apply=groupby((Customer))
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer())",
+  "@context": "$metadata#Sales(Customer())",
   "value": [
     { "Customer": { "ID": "C1", "Name": "Joe", "Country": "USA" } },
     { "Customer": { "ID": "C2", "Name": "Sue", "Country": "USA" } },
@@ -103,16 +103,16 @@ GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID,Product/Name))
 and results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Name,ID),Product(Name))",
+  "@context": "$metadata#Sales(Customer(Name,ID),Product(Name))",
   "value": [
     { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product": { "Name": "Coffee"} },
     { "Customer": { "Name": "Joe", "ID": "C1" },
       "Product": { "Name": "Paper" } },
     { "Customer": { "Name": "Joe", "ID": "C1" },
-      "Product: { "Name": "Sugar" } },
+      "Product": { "Name": "Sugar" } },
     { "Customer": { "Name": "Sue", "ID": "C2" },
-      "Product: { "Name": "Coffee"} },
+      "Product": { "Name": "Coffee"} },
     { "Customer": { "Name": "Sue", "ID": "C2" },
       "Product": { "Name": "Paper" } },
     { "Customer": { "Name": "Sue", "ID": "C3" },
@@ -133,13 +133,13 @@ GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating,
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(SalesModel.FoodProduct/Rating,
-                                     SalesModel.NonFoodProduct/RatingClass)",
+  "@context": "$metadata#Products(SalesModel.FoodProduct/Rating,
+                                  SalesModel.NonFoodProduct/RatingClass)",
   "value": [
-    { "@odata.type": "#SalesModel.FoodProduct", "Rating": 5 },
-    { "@odata.type": "#SalesModel.FoodProduct", "Rating": null },
-    { "@odata.type": "#SalesModel.NonFoodProduct", "RatingClass": "average" },
-    { "@odata.type": "#SalesModel.NonFoodProduct", "RatingClass": null }
+    { "@type": "#SalesModel.FoodProduct", "Rating": 5 },
+    { "@type": "#SalesModel.FoodProduct", "Rating": null },
+    { "@type": "#SalesModel.NonFoodProduct", "RatingClass": "average" },
+    { "@type": "#SalesModel.NonFoodProduct", "RatingClass": null }
   ]
 }
 ```
@@ -153,10 +153,10 @@ GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating))
 results in a third group representing entities with no `SalesModel.FoodProduct/Rating`, including the `SalesModel.NonFoodProduct`s:
 ```json
 {
-  "@odata.context": "$metadata#Products(@Core.AnyStructure)",
+  "@context": "$metadata#Products(@Core.AnyStructure)",
   "value": [
-    { "@odata.type": "#SalesModel.FoodProduct", "Rating": 5 },
-    { "@odata.type": "#SalesModel.FoodProduct", "Rating": null },
+    { "@type": "#SalesModel.FoodProduct", "Rating": 5 },
+    { "@type": "#SalesModel.FoodProduct", "Rating": null },
     { }
   ]
 }
@@ -176,17 +176,17 @@ GET /service/Products?$apply=groupby((Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Name,Total)",
+  "@context": "$metadata#Products(Name,Total)",
   "value": [
-    { "Name": "Coffee", "Total@odata.type": "Decimal", "Total":   12 },
-    { "Name": "Paper",  "Total@odata.type": "Decimal", "Total":    8 },
+    { "Name": "Coffee", "Total@type": "Decimal", "Total":   12 },
+    { "Name": "Paper",  "Total@type": "Decimal", "Total":    8 },
     { "Name": "Pencil",                                "Total": null },
-    { "Name": "Sugar",  "Total@odata.type": "Decimal", "Total":    4 }
+    { "Name": "Sugar",  "Total@type": "Decimal", "Total":    4 }
   ]
 }
 ```
 
-Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $U=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
+Note that the base set of the request is `Products`, so there is a result item for product `Pencil` even though there are no sales items. The input set for the aggregation in the third row is $I$ consisting of the pencil, $p=q/r={\tt Sales}/{\tt Amount}$, $E=\Gamma(I,q)$ is empty and $A=\Gamma(E,r)$ is also empty. The sum over the empty collection is null.
 :::
 
 ::: example
@@ -198,20 +198,20 @@ GET /service/Products?$apply=addnested(Sales,
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(AggregatedSales())",
+  "@context": "$metadata#Products(AggregatedSales())",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@odata.type": "Decimal", "Total": 12 } ] },
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": [ { "Total@type": "Decimal", "Total": 12 } ] },
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@odata.type": "Decimal", "Total":  8 } ] },
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  8 } ] },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-      "AggregatedSales@odata.context": "#Sales(Total)",
+      "AggregatedSales@context": "#Sales(Total)",
       "AggregatedSales": [ {                              "Total": null } ] },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@odata.type": "Decimal", "Total":  4 } ] }
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  4 } ] }
   ]
 }
 ```
@@ -225,16 +225,16 @@ GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(*,Total)",
+  "@context": "$metadata#Products(*,Total)",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
-      "Total@odata.type": "Decimal", "Total": 12 },
+      "Total@type": "Decimal", "Total": 12 },
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
-      "Total@odata.type": "Decimal", "Total":  8 },
+      "Total@type": "Decimal", "Total":  8 },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
                                      "Total": null },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
-      "Total@odata.type": "Decimal", "Total":  4 }
+      "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
@@ -252,17 +252,17 @@ GET /service/Products?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Name,TotalSales())",
+  "@context": "$metadata#Products(Name,TotalSales())",
   "value": [
     { "Name": "Coffee",
-      "TotalSales@odata.context": "#Sales(Total)/$entity",
-      "TotalSales": { "Total@odata.type": "Decimal", "Total": 12 } },
+      "TotalSales@context": "#Sales(Total)/$entity",
+      "TotalSales": { "Total@type": "Decimal", "Total": 12 } },
     { "Name": "Paper",
-      "TotalSales@odata.context": "#Sales(Total)/$entity",
-      "TotalSales": { "Total@odata.type": "Decimal", "Total":  8 } },
+      "TotalSales@context": "#Sales(Total)/$entity",
+      "TotalSales": { "Total@type": "Decimal", "Total":  8 } },
     { "Name": "Sugar",
-      "TotalSales@odata.context": "#Sales(Total)/$entity",
-      "TotalSales": { "Total@odata.type": "Decimal", "Total":  4 } }
+      "TotalSales@context": "#Sales(Total)/$entity",
+      "TotalSales": { "Total@type": "Decimal", "Total":  4 } }
   ]
 }
 ```
@@ -279,7 +279,7 @@ GET /service/Sales?$apply=groupby((Customer/Country),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),AverageAmount)",
+  "@context": "$metadata#Sales(Customer(Country),AverageAmount)",
   "value": [
     { "Customer": { "Country": "Netherlands" },
       "AverageAmount": 1.6666666666666667 },
@@ -300,12 +300,12 @@ GET /service/Products?$apply=groupby((Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Name,SalesCount)",
+  "@context": "$metadata#Products(Name,SalesCount)",
   "value": [
-    { "Name": "Coffee", "SalesCount@odata.type": "Decimal", "SalesCount": 2 },
-    { "Name": "Paper",  "SalesCount@odata.type": "Decimal", "SalesCount": 4 },
-    { "Name": "Pencil", "SalesCount@odata.type": "Decimal", "SalesCount": 0 },
-    { "Name": "Sugar",  "SalesCount@odata.type": "Decimal", "SalesCount": 2 }
+    { "Name": "Coffee", "SalesCount@type": "Decimal", "SalesCount": 2 },
+    { "Name": "Paper",  "SalesCount@type": "Decimal", "SalesCount": 4 },
+    { "Name": "Pencil", "SalesCount@type": "Decimal", "SalesCount": 0 },
+    { "Name": "Sugar",  "SalesCount@type": "Decimal", "SalesCount": 2 }
   ]
 }
 ```
@@ -323,23 +323,23 @@ GET /service/Products?$apply=groupby((Name),addnested(Sales,
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Name,AggregatedSales())",
+  "@context": "$metadata#Products(Name,AggregatedSales())",
   "value": [
     { "Name": "Coffee",
-      "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
+      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@odata.type": "Decimal", "TotalAmount": 12 } ] },
+          "TotalAmount@type": "Decimal", "TotalAmount": 12 } ] },
     { "Name": "Paper",
-      "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
+      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 4,
-          "TotalAmount@odata.type": "Decimal", "TotalAmount":  8 } ] },
+          "TotalAmount@type": "Decimal", "TotalAmount":  8 } ] },
     { "Name": "Pencil",
-      "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
+      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 0, "TotalAmount":  null } ] },
     { "Name": "Sugar",
-      "AggregatedSales@odata.context": "#Sales(SalesCount,TotalAmount)",
+      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@odata.type": "Decimal",  "TotalAmount":  4 } ] }
+          "TotalAmount@type": "Decimal",  "TotalAmount":  4 } ] }
   ]
 }
 ```
@@ -355,7 +355,7 @@ GET /service/Products?$filter=Sales/aggregate(Amount with sum) ge 10
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products",
+  "@context": "$metadata#Products",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06 },
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14 }
@@ -372,7 +372,7 @@ GET /service/Customers?$orderby=Sales/aggregate(Amount with sum) desc
 results in
 ```json
 {
-  "@odata.context": "$metadata#Customers",
+  "@context": "$metadata#Customers",
   "value": [
     { "ID": "C2", "Name": "Sue", "Country": "USA" },
     { "ID": "C1", "Name": "Joe", "Country": "USA" },
@@ -392,23 +392,23 @@ GET /service/Sales?$compute=Amount divby $these/aggregate(Amount with sum)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(*,Contribution)",
+  "@context": "$metadata#Sales(*,Contribution)",
   "value": [
-    { "ID": 1, "Amount": 1, "Contribution@odata.type": "Decimal",
+    { "ID": 1, "Amount": 1, "Contribution@type": "Decimal",
                             "Contribution": 0.0416666666666667 },
-    { "ID": 2, "Amount": 2, "Contribution@odata.type": "Decimal",
+    { "ID": 2, "Amount": 2, "Contribution@type": "Decimal",
                             "Contribution": 0.0833333333333333 },
-    { "ID": 3, "Amount": 4, "Contribution@odata.type": "Decimal",
+    { "ID": 3, "Amount": 4, "Contribution@type": "Decimal",
                             "Contribution": 0.1666666666666667 },
-    { "ID": 4, "Amount": 8, "Contribution@odata.type": "Decimal",
+    { "ID": 4, "Amount": 8, "Contribution@type": "Decimal",
                             "Contribution": 0.3333333333333333 },
-    { "ID": 5, "Amount": 4, "Contribution@odata.type": "Decimal",
+    { "ID": 5, "Amount": 4, "Contribution@type": "Decimal",
                             "Contribution": 0.1666666666666667 },
-    { "ID": 6, "Amount": 2, "Contribution@odata.type": "Decimal",
+    { "ID": 6, "Amount": 2, "Contribution@type": "Decimal",
                             "Contribution": 0.0833333333333333 },
-    { "ID": 7, "Amount": 1, "Contribution@odata.type": "Decimal",
+    { "ID": 7, "Amount": 1, "Contribution@type": "Decimal",
                             "Contribution": 0.0416666666666667 },
-    { "ID": 8, "Amount": 2, "Contribution@odata.type": "Decimal",
+    { "ID": 8, "Amount": 2, "Contribution@type": "Decimal",
                             "Contribution": 0.0833333333333333 }
   ]
 }
@@ -424,7 +424,7 @@ GET /service/Categories?$filter=Products/any(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Categories",
+  "@context": "$metadata#Categories",
   "value": [
     { "ID": "PG1", "Name": "Food" }
   ]
@@ -432,7 +432,7 @@ results in
 ```
 :::
 
-The `aggregate` function can also be applied inside $apply:
+The `aggregate` function can also be applied inside `$apply`:
 
 ::: example
 Example ##ex: Sales volume per customer in relation to total volume
@@ -446,14 +446,14 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(),CustomerAmount,Contribution)",
+  "@context": "$metadata#Sales(Customer(),CustomerAmount,Contribution)",
   "value": [
-    { "Customer":    { "@odata.id": "Customers('C1')" },
-      "Contribution@odata.type": "Decimal", "Contribution": 0.2916667 },
-    { "Customer":    { "@odata.id": "Customers('C2')" },
-      "Contribution@odata.type": "Decimal", "Contribution": 0.5 } },
-    { "Customer":    { "@odata.id": "Customers('C3')" },
-      "Contribution@odata.type": "Decimal", "Contribution": 0.2083333 } }
+    { "Customer":    { "@id": "Customers('C1')" },
+      "Contribution@type": "Decimal", "Contribution": 0.2916667 },
+    { "Customer":    { "@id": "Customers('C2')" },
+      "Contribution@type": "Decimal", "Contribution": 0.5 },
+    { "Customer":    { "@id": "Customers('C3')" },
+      "Contribution@type": "Decimal", "Contribution": 0.2083333 }
   ]
 }
 ```
@@ -471,16 +471,16 @@ is equivalent to (with nested `groupby` transformations)
 ```
 GET /service/Sales?$apply=
   groupby((Customer/Country),
-    groupby((Time),aggregate(Amount with sum as A1))
-    /aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+    groupby((Time),aggregate(Amount with sum as D1))
+    /aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 and is equivalent to (with consecutive `groupby` transformations)
 ```
 GET /service/Sales?$apply=
-  groupby((Customer/Country,Time),aggregate(Amount with sum as A1))
-  /groupby((Customer/Country),aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+  groupby((Customer/Country,Time),aggregate(Amount with sum as D1))
+  /groupby((Customer/Country),aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 :::
 
@@ -497,18 +497,17 @@ GET /service/Customers?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Customers(
-                               Addresses(AugmentedSalesOrganization())",
+  "@context": "$metadata#Customers(Addresses(AugmentedSalesOrganization())",
   "value": [
     { "ID": "C1", "Name": "Joe", "Country": "US",
       "Addresses": [
         { "Locality": "Seattle",
           "AugmentedSalesOrganization":
-          { "@odata.context": "#SalesOrganizations/$entity"
+          { "@context": "#SalesOrganizations/$entity",
             "ID": "US West", "SalesRegion": "US" } },
         { "Locality": "DC",
           "AugmentedSalesOrganization":
-          { "@odata.context": "#SalesOrganizations/$entity"
+          { "@context": "#SalesOrganizations/$entity",
             "ID": "US",      "SalesRegion": "Corporate Sales" } },
       ]
     }, ...
@@ -530,28 +529,28 @@ GET /service/Categories?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Categories(FilteredProducts()",
+  "@context": "$metadata#Categories(FilteredProducts()",
   "value": [
     { "ID": "PG1", "Name": "Food",
-      "FilteredProducts@odata.context": "#Products(FilteredSales())",
+      "FilteredProducts@context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P1", "Name": "Sugar",  "Color": "White",
-          "FilteredSales@odata.context": "#Sales",
+          "FilteredSales@context": "#Sales",
           "FilteredSales": [] },
         { "ID": "P2", "Name": "Coffee", "Color": "Brown",
-          "FilteredSales@odata.context": "#Sales",
+          "FilteredSales@context": "#Sales",
           "FilteredSales": [ { "ID": 3, "Amount": 4 },
                              { "ID": 4, "Amount": 8 } ] }
       ]
     },
     { "ID": "PG2", "Name": "Non-Food",
-      "FilteredProducts@odata.context": "#Products(FilteredSales())",
+      "FilteredProducts@context": "#Products(FilteredSales())",
       "FilteredProducts": [
         { "ID": "P3", "Name": "Paper",  "Color": "White",
-          "FilteredSales@odata.context": "#Sales",
+          "FilteredSales@context": "#Sales",
           "FilteredSales": [ { "ID": 5, "Amount": 4 } ] },
         { "ID": "P4", "Name": "Pencil", "Color": "Black",
-          "FilteredSales@odata.context": "#Sales",
+          "FilteredSales@context": "#Sales",
           "FilteredSales": [] }
       ]
     }
@@ -580,29 +579,29 @@ GET /service/Customers?$apply=addnested(Sales,
 results in
 ```json
 {
-  "@odata.context": "$metadata#Customers(GroupedSales())",
+  "@context": "$metadata#Customers(GroupedSales())",
   "value": [
     { "ID": "C1", "Name": "Joe", "Country": "USA",
-      "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
+      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
         { },
         { },
         { }
       ] },
     { "ID": "C2", "Name": "Sue", "Country": "USA",
-      "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
+      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
         { },
         { }
       ] },
     { "ID": "C3", "Name": "Joe", "Country": "Netherlands",
-      "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
+      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [
         { },
         { }
       ] },
     { "ID": "C4", "Name": "Luc", "Country": "France",
-      "GroupedSales@odata.context": "#Sales(@Core.AnyStructure)",
+      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
       "GroupedSales": [ ] }
   ]
 }
@@ -616,24 +615,24 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
                        /groupby((Country,ProductSales/Product/Name))
 ```
 returns the different combinations of products sold per country:
-```
+```json
 {
-  "@odata.context":"$metadata#Customers(Country,ProductSales())",
+  "@context":"$metadata#Customers(Country,ProductSales())",
   "value": [
     { "Country": "Netherlands",
-      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+      "ProductSales@context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
     { "Country": "Netherlands",
-      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+      "ProductSales@context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
     { "Country": "USA",
-      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+      "ProductSales@context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Coffee" } } },
     { "Country": "USA",
-      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+      "ProductSales@context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Paper"  } } },
     { "Country": "USA",
-      "ProductSales@odata.context": "#Sales(Product(Name))/$entity",
+      "ProductSales@context": "#Sales(Product(Name))/$entity",
       "ProductSales": { "Product": { "Name": "Sugar"  } } },
     { "Country": "France", "ProductSales": null }
   ]
@@ -655,14 +654,14 @@ GET /service/Sales?$apply=groupby((Customer/Country),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Actual,Forecast)",
+  "@context": "$metadata#Sales(Customer(Country),Actual,Forecast)",
   "value": [
     { "Customer": { "Country": "Netherlands" },
-      "Actual@odata.type": "Decimal", "Actual":  5,
-      "Forecast@odata.type": "Decimal", "Forecast": 4 },
+      "Actual@type": "Decimal", "Actual":  5,
+      "Forecast@type": "Decimal", "Forecast": 4 },
     { "Customer": { "Country": "USA" },
-      "Actual@odata.type": "Decimal", "Actual": 19,
-      "Forecast@odata.type": "Decimal", "Forecast": 21 }
+      "Actual@type": "Decimal", "Actual": 19,
+      "Forecast@type": "Decimal", "Forecast": 21 }
   ]
 }
 ```
@@ -678,7 +677,7 @@ GET /service/Sales?$apply=groupby((Customer/Country),aggregate(Amount))
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Amount)",
+  "@context": "$metadata#Sales(Customer(Country),Amount)",
   "value": [
     { "Customer": { "Country": "Netherlands" }, "Amount":  5 },
     { "Customer": { "Country": "USA" },         "Amount": 19 }
@@ -726,7 +725,7 @@ is equivalent to the following (except that the property name is `Forecast` inst
 GET /service/Sales?$apply=
   groupby((Customer/Country),
     groupby((Time),aggregate(Forecast))
-    /aggregate(Forecast with average as A1))
+    /aggregate(Forecast with average as D1))
   /aggregate(Forecast)
 ```
 :::
@@ -745,14 +744,14 @@ GET /service/Sales?$apply=groupby((Customer/Country),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Total,AvgAmt)",
+  "@context": "$metadata#Sales(Customer(Country),Total,AvgAmt)",
   "value": [
     { "Customer": { "Country": "Netherlands" },
-      "Total@odata.type": "Decimal", "Total":  5,
-      "AvgAmt@odata.type": "Decimal", "AvgAmt": 1.6666667 },
+      "Total@type": "Decimal", "Total":  5,
+      "AvgAmt@type": "Decimal", "AvgAmt": 1.6666667 },
     { "Customer": { "Country": "USA" },
-      "Total@odata.type": "Decimal", "Total": 19,
-      "AvgAmt@odata.type": "Decimal", "AvgAmt": 3.8 }
+      "Total@type": "Decimal", "Total": 19,
+      "AvgAmt@type": "Decimal", "AvgAmt": 3.8 }
   ]
 }
 ```
@@ -772,22 +771,22 @@ GET /service/Products?$apply=groupby((Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Name,Total,AggregatedSales())",
+  "@context": "$metadata#Products(Name,Total,AggregatedSales())",
   "value": [
     { "Name": "Coffee", "Total":   12,
-      "AggregatedSales@odata.context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@odata.type": "Decimal",
+      "AggregatedSales@context": "#Sales(AvgAmt)",
+      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
                              "AvgAmt": 6 } ] },
     { "Name": "Paper",  "Total":    8,
-      "AggregatedSales@odata.context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@odata.type": "Decimal",
+      "AggregatedSales@context": "#Sales(AvgAmt)",
+      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
                              "AvgAmt": 2 } ] },
     { "Name": "Pencil", "Total": null,
-      "AggregatedSales@odata.context": "#Sales(AvgAmt)",
+      "AggregatedSales@context": "#Sales(AvgAmt)",
       "AggregatedSales": [ { "AvgAmt": null } ] },
     { "Name": "Sugar",  "Total":    4,
-      "AggregatedSales@odata.context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@odata.type": "Decimal",
+      "AggregatedSales@context": "#Sales(AvgAmt)",
+      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
                              "AvgAmt": 2 } ] }
   ]
 }
@@ -802,14 +801,14 @@ Example ##ex:
 GET /service/Sales?$apply=groupby((Amount),aggregate(Amount with sum as Total))
 ```
 will return all distinct amounts appearing in sales orders and how much money was made with deals of this amount
-```
+```json
 {
-  "@odata.context": "$metadata#Sales(Amount,Total)",
+  "@context": "$metadata#Sales(Amount,Total)",
   "value": [
-    { "Amount": 1, "Total@odata.type": "Decimal", "Total": 2 },
-    { "Amount": 2, "Total@odata.type": "Decimal", "Total": 6 },
-    { "Amount": 4, "Total@odata.type": "Decimal", "Total": 8 },
-    { "Amount": 8, "Total@odata.type": "Decimal", "Total": 8 }
+    { "Amount": 1, "Total@type": "Decimal", "Total": 2 },
+    { "Amount": 2, "Total@type": "Decimal", "Total": 6 },
+    { "Amount": 4, "Total@type": "Decimal", "Total": 8 },
+    { "Amount": 8, "Total@type": "Decimal", "Total": 8 }
   ]
 }
 ```
@@ -832,19 +831,19 @@ GET /service/Sales?$apply=concat(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Total)",
+  "@context": "$metadata#Sales(Customer(Country),Total)",
   "value": [
     { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Coffee" },
-      "Total@odata.type": "Decimal", "Total": 12
+      "Total@type": "Decimal", "Total": 12
     },
     { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Paper" },
-      "Total@odata.type": "Decimal", "Total":  3
+      "Total@type": "Decimal", "Total":  3
     },
     { "Customer":{ "Country": "USA" },
-      "Total@odata.type": "Decimal", "Total": 19
+      "Total@type": "Decimal", "Total": 19
     },
     { "Customer":{ "Country": "Netherlands" },
-      "Total@odata.type": "Decimal", "Total":  5
+      "Total@type": "Decimal", "Total":  5
     }
   ]
 }
@@ -860,22 +859,22 @@ GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Product(Name),Total)",
+  "@context": "$metadata#Sales(Customer(Country),Product(Name),Total)",
   "value": [
     { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Paper" },
-      "Total@odata.type": "Decimal", "Total":  3
+      "Total@type": "Decimal", "Total":  3
     },
     { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Sugar" },
-      "Total@odata.type": "Decimal", "Total":  2
+      "Total@type": "Decimal", "Total":  2
     },
     { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Sugar" },
-      "Total@odata.type": "Decimal", "Total":  2
+      "Total@type": "Decimal", "Total":  2
     },
     { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Coffee" },
-      "Total@odata.type": "Decimal", "Total": 12
+      "Total@type": "Decimal", "Total": 12
     },
     { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Paper" },
-      "Total@odata.type": "Decimal", "Total":  5
+      "Total@type": "Decimal", "Total":  5
     }
   ]
 }
@@ -891,9 +890,9 @@ GET /service/Sales?$apply=concat(
   &$expand=Customer($select=ID),Product($select=ID)
 ```
 In the result, `Sales` entities 4 and 6 occur twice each with contradictory values of the dynamic property `per`. If a UI consuming the response presents the two groupings in separate columns based on the `per` property, no contradiction effectively arises.
-```
+```json
 {
-  "@odata.context": "$metadata#Sales(*,per,Customer(ID),Product(ID))",
+  "@context": "$metadata#Sales(*,per,Customer(ID),Product(ID))",
   "value": [
     { "Customer": { "ID": "C1" }, "Product": { "ID": "P2" },
       "ID": "3", "Amount": 4, "per": "Customer" },
@@ -939,18 +938,18 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Customer(Country),Total)",
+  "@context": "$metadata#Sales(Customer(Country),Total)",
   "value": [
     { "Customer": { "Country": "Netherlands" },
       "Product": { "Name": "Paper" },
-      "Total@odata.type": "Decimal", "Total":  3 },
+      "Total@type": "Decimal", "Total":  3 },
     { "Customer": { "Country": "Netherlands" },
-      "Total@odata.type": "Decimal", "Total":  2 },
+      "Total@type": "Decimal", "Total":  2 },
     { "Customer": { "Country": "USA" },
       "Product": { "Name": "Coffee" },
-      "Total@odata.type": "Decimal", "Total": 12 },
+      "Total@type": "Decimal", "Total": 12 },
     { "Customer": { "Country": "USA" },
-      "Total@odata.type": "Decimal", "Total":  7 }
+      "Total@type": "Decimal", "Total":  7 }
   ]
 }
 ```
@@ -998,24 +997,24 @@ GET /service/Sales?$apply=concat(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(CustomerCountryAverage)",
+  "@context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
     { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@odata.type":"Decimal",
+      "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage":   7 },
     { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@odata.type":"Decimal",
+      "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage":  12 },
     { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@odata.type":"Decimal",
+      "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage": 9.5 },
     { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@odata.type":"Decimal",
+      "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage": 5 },
     { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@odata.type":"Decimal",
+      "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@odata.type":"Decimal",
+    { "CustomerCountryAverage@type":"Decimal",
       "CustomerCountryAverage": 7.25 }
   ]
 }
@@ -1044,17 +1043,17 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(TotalAmount,SalesOrganization())",
+  "@context": "$metadata#Sales(TotalAmount,SalesOrganization())",
   "value": [
-    { "TotalAmount@odata.type": "Decimal", "TotalAmount": 19,
+    { "TotalAmount@type": "Decimal", "TotalAmount": 19,
       "SalesOrganization": { "ID": "US",      "Name": "US",
-        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } } },
-    { "TotalAmount@odata.type": "Decimal", "TotalAmount": 12,
+        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
+    { "TotalAmount@type": "Decimal", "TotalAmount": 12,
       "SalesOrganization": { "ID": "US East", "Name": "US East",
-        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } },
-    { "TotalAmount@odata.type": "Decimal", "TotalAmount":  7,
+        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
+    { "TotalAmount@type": "Decimal", "TotalAmount":  7,
       "SalesOrganization": { "ID": "US West", "Name": "US West",
-        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } }
+        "Superordinate": { "@id": "SalesOrganizations('US')" } } }
   ]
 }
 ```
@@ -1077,24 +1076,24 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(PaperSalesCount,SalesOrganization())",
+  "@context": "$metadata#Sales(PaperSalesCount,SalesOrganization())",
   "value": [
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
       "SalesOrganization": { "ID": "US",           "Name": "US",
-        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } } },
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
+        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 1,
       "SalesOrganization": { "ID": "US East",      "Name": "US East",
-        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } },
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 1,
+        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 1,
       "SalesOrganization": { "ID": "US West",      "Name": "US West",
-        "Superordinate": { "@odata.id": "SalesOrganizations('US')" } } },
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
       "SalesOrganization": { "ID": "EMEA",         "Name": "EMEA",
-        "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } } },
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 2,
+        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
       "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central",
-        "Superordinate": { "@odata.id": "SalesOrganizations('EMEA')" } } },
-    { "PaperSalesCount@odata.type": "Decimal", "PaperSalesCount": 4,
+        "Superordinate": { "@id": "SalesOrganizations('EMEA')" } } },
+    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 4,
       "SalesOrganization": { "ID": "Sales",        "Name": "Sales",
         "Superordinate": null } }
   ]
@@ -1190,25 +1189,25 @@ GET /service/Sales?$apply=groupby(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization(ID),
-                                     TotalAmountIncl,TotalAmountExcl)",
+  "@context": "$metadata#Sales(SalesOrganization(ID),
+                               TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 19,
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
       "TotalAmountExcl": null },
     { "SalesOrganization": { "ID": "US East", "Name": "US East" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 12,
-      "TotalAmountExcl@odata.type": "Decimal", "TotalAmountExcl": 12 },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
+      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 },
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl":  7,
-      "TotalAmountExcl@odata.type": "Decimal" ,"TotalAmountExcl":  7 }
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
+      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 }
   ]
 }
 ```
 :::
 
 ::: example
-Example ##ex_traversecoll: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $s={\tt SalesOrganization}/{\tt ID}$.
+Example ##ex_traversecoll: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
@@ -1222,7 +1221,7 @@ GET /service/Products?$apply=traverse(
 The result contains multiple instances of the same `Product` that differ in their `Sales` navigation property even though they agree in their `ID` key property. The node $x$ with $x/{\tt ID}={}$`"US"` has $σ(x)={}$`{"Sales": [{"SalesOrganization": {"ID": "US"}}]}`.
 ```json
 {
-  "@odata.context":
+  "@context":
       "$metadata#Products(ID,Sales(SalesOrganization(ID)))",
   "value": [
     { "ID": "P1", "Sales": [ { "SalesOrganization": { "ID": "Sales" } } ] },
@@ -1260,20 +1259,19 @@ GET /service/Products?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Products(Sales(SalesOrganization(ID)),
-                                        SoldProducts)",
+  "@context": "$metadata#Products(Sales(SalesOrganization(ID)),SoldProducts)",
   "value": [
-    { "Sales": [ "SalesOrganization": { "ID": "Sales" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "Sales" } } ],
       "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "EMEA" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "EMEA" } } ],
       "SoldProducts": "P1,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "EMEA Central" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "EMEA Central" } } ],
       "SoldProducts": "P1,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US" } } ],
       "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US East" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US East" } } ],
       "SoldProducts": "P2,P3" },
-    { "Sales": [ "SalesOrganization": { "ID": "US West" } ],
+    { "Sales": [ { "SalesOrganization": { "ID": "US West" } } ],
       "SoldProducts": "P1,P2,P3" }
   ]
 }
@@ -1281,7 +1279,15 @@ results in
 :::
 
 ::: example
-⚠ Example ##ex: Assuming an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy, aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Car" or a descendant of it:
+⚠ Example ##ex: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
+
+ProductCategory|parent ProductCategory|associated SalesOrganizations
+---------------|----------------------|-----------------------------
+Food||US, EMEA
+Cereals|Food|US
+Organic cereals|Cereals|US West
+
+Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1296,14 +1302,44 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
       descendants(
         $root/ProductCategories,ProductCategoryHierarchy,
         ID,
-        filter(Name eq 'Car'),
+        filter(Name eq 'Cereals'),
         keep start)),
     keep start)
   )),
   aggregate(Amount with sum as TotalAmount))
+  &$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(ID),TotalAmount)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales",   "ProductCategories": [ ] },
+      "TotalAmount@type": "Decimal", "TotalAmount": 24 },
+    { "SalesOrganization": { "ID": "US",      "ProductCategories": [
+      { "@id": "ProductCategories('Food')" },
+      { "@id": "ProductCategories('Cereals')" } ] },
+      "TotalAmount@type": "Decimal", "TotalAmount": 19 },
+    { "SalesOrganization": { "ID": "US West", "ProductCategories": [
+      { "@id": "ProductCategories('Organic cereals')" } ] },
+      "TotalAmount@type": "Decimal", "TotalAmount":  7 }
+  ]
+}
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result.
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. If `traverse` was omitted, the transformation
+```
+ancestors(
+  $root/SalesOrganizations,SalesOrgHierarchy,
+  ID,
+  descendants(
+    $root/ProductCategories,ProductCategoryHierarchy,
+    ProductCategories/ID,
+    filter(ProductCategories/any(c:c/Name eq 'Cereals')),
+    keep start),
+  keep start)
+```
+would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## ##subsec Maintaining Recursive Hierarchies
@@ -1387,9 +1423,9 @@ GET /service/Sales?$apply=filter(Amount le 1)
 means "filter first, then aggregate", and results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Total)",
+  "@context": "$metadata#Sales(Total)",
   "value": [
-    { "Total@odata.type": "Decimal", "Total": 2 }
+    { "Total@type": "Decimal", "Total": 2 }
   ]
 }
 ```
@@ -1407,12 +1443,12 @@ GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(Product(Name),Total)",
+  "@context": "$metadata#Sales(Product(Name),Total)",
   "value": [
     { "Product": { "Name": "Paper" },
-      "Total@odata.type": "Decimal", "Total": 4 },
+      "Total@type": "Decimal", "Total": 4 },
     { "Product": { "Name": "Sugar" },
-      "Total@odata.type": "Decimal", "Total": 4 }
+      "Total@type": "Decimal", "Total": 4 }
   ]
 }
 ```
@@ -1441,13 +1477,13 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 results in
 ```json
 {
-  "@odata.context": "$metadata#Cities(Continent(Name),Country(Name),
-                                      TotalPopulation)",
+  "@context": "$metadata#Cities(Continent(Name),Country(Name),
+                                TotalPopulation)",
   "value": [
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "China" },
-      "TotalPopulation@odata.type": "Int32", "TotalPopulation": 1412000000 },
+      "TotalPopulation@type": "Int32", "TotalPopulation": 1412000000 },
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
-      "TotalPopulation@odata.type": "Int32", "TotalPopulation": 1408000000 },
+      "TotalPopulation@type": "Int32", "TotalPopulation": 1408000000 },
     ...
   ]
 }
@@ -1537,15 +1573,15 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
 results in
 ```json
 {
-  "@odata.context":"$metadata#Sales(Product(Category(ID)),Customers())",
+  "@context":"$metadata#Sales(Product(Category(ID)),Customers())",
   "value": [
     { "Product": { "Category": { "ID": "PG1" } },
-      "Customers@odata.context": "#Sales(Customer(ID))",
+      "Customers@context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
                      { "Customer": { "ID": "C2" } },
                      { "Customer": { "ID": "C3" } } ] },
     { "Product": { "Category": { "ID": "PG2" } },
-      "Customers@odata.context": "#Sales(Customer(ID))",
+      "Customers@context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
                      { "Customer": { "ID": "C2" } },
                      { "Customer": { "ID": "C3" } } ] }
