@@ -178,7 +178,8 @@ For complete copyright information please see the full Notices section in an App
   - [7.6 Model Functions as Set Transformations](#ModelFunctionsasSetTransformations)
   - [7.7 Controlling Aggregation per Rollup Level](#ControllingAggregationperRollupLevel)
   - [7.8 Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies)
-  - [7.9 Transformation Sequences](#TransformationSequences)
+  - [7.9 Maintaining Recursive Hierarchies](#MaintainingRecursiveHierarchies)
+  - [7.10 Transformation Sequences](#TransformationSequences)
 - [8 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
@@ -1122,7 +1123,7 @@ _Determination of $U$:_
 Let $I$ be the input set. If $p$ is absent, let $U=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 119](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 122](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
 Then, if $r$ is empty, let $U=E$, otherwise let $U=\Gamma(E,r)$, this consists of instances or primitive values, possibly with repetitions.
@@ -4317,12 +4318,100 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
 `traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result.
 :::
 
-## <a name="TransformationSequences" href="#TransformationSequences">7.9 Transformation Sequences</a>
+## <a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.9 Maintaining Recursive Hierarchies</a>
+
+Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
+
+::: example
+Example 110: Move a sales organization Switzerland under the parent EMEA Central by setting the reference [OData-Protocol section 11.4.6.3](#ODataProtocol) of the parent navigation property target [OData-URL, section 4.4](#ODataURL) to a reference to EMEA Central [OData-JSON, section 14](#ODataJSON):
+```json
+PUT /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+Content-Type: application/json
+
+{ "@odata.id": "SalesOrganizations('EMEA Central')" }
+```
+results in `204 No Content`.
+:::
+
+::: example
+Example 111: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+```xml
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <Property Name="SuperordinateID" Type="Edm.String" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization">
+    <ReferentialConstraint Property="SuperordinateID"
+                           ReferencedProperty="ID" />
+  </NavigationProperty>
+</EntityType>
+```
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "SuperordinateID": "EMEA Central" }
+```
+:::
+
+An entity set where the key property `ID` differs from the node identfier property `NodeID` can contain entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+
+::: example
+⚠ Example 112: Given the following types of `SalesOrganizations` and if only Sales is a root,
+
+Type|ID|NodeID|SuperordinateID
+----|--|------|---------------
+root node|Sales|Sales|
+parent node|EMEA|EMEA|Sales
+child node|EMEA Central|EMEA Central|EMEA
+not a node|Mars||Sales
+true orphan|Phobos|Phobos|Mars
+true orphan|Phobos South Pole|Phobos South Pole|Phobos
+unreachable orphan|Venus|Venus|
+island orphan|Atlantis|Atlantis|Atlantis
+
+the orphans can appear as descendants:
+```
+GET /service/SalesOrganizations?$apply=descendants(
+    $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
+    filter(ID eq 'Phobos'),keep start)
+  &$select=ID
+```
+results in
+```json
+{
+  "@odata.context": "$metadata#SalesOrganizations(ID)",
+  "value": [
+    { "ID": "Phobos" },
+    { "ID": "Phobos South Pole" }
+  ]
+}
+```
+
+An analogous request for the descendants of Atlantis would fail because of the cycle.
+
+Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
+```json
+PATCH /service/SalesOrganizations('Mars')
+Content-Type: application/json
+
+{ "NodeID": "Mars" }
+```
+
+An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.
+:::
+
+## <a name="TransformationSequences" href="#TransformationSequences">7.10 Transformation Sequences</a>
 
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 
 ::: example
-Example 110:
+Example 113:
 ```
 GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)
@@ -4341,7 +4430,7 @@ means "filter first, then aggregate", and results in
 Using `filter` within `$apply` does not preclude using it as a normal system query option.
 
 ::: example
-Example 111:
+Example 114:
 ```
 GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
@@ -4362,7 +4451,7 @@ results in
 :::
 
 ::: example
-Example 112: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
+Example 115: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
 ```
 GET /service/Sales?$apply=aggregate(Amount from Time with average
                                     as DailyAverage)
@@ -4376,7 +4465,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Amount with sum as Total))
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
-Example 113: getting the population per country with
+Example 116: getting the population per country with
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
@@ -4398,7 +4487,7 @@ results in
 :::
 
 ::: example
-Example 114: all countries with megacities and their continents
+Example 117: all countries with megacities and their continents
 ```
 GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
@@ -4407,7 +4496,7 @@ GET /service/Cities?$apply=filter(Population ge 10000000)
 :::
 
 ::: example
-Example 115: all countries with tens of millions of city dwellers and the continents only for these countries
+Example 118: all countries with tens of millions of city dwellers and the continents only for these countries
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4429,7 +4518,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 116: all countries with tens of millions of city dwellers and all continents with cities independent of their size
+Example 119: all countries with tens of millions of city dwellers and all continents with cities independent of their size
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4441,7 +4530,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 117: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
+Example 120: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
 ```
 GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
     /addnested(Items,filter(not Shipped) as FilteredItems)
@@ -4451,7 +4540,7 @@ GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
 :::
 
 ::: example
-Example 118: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
+Example 121: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
@@ -4461,7 +4550,7 @@ GET /service/SalesOrders?$apply=
 :::
 
 ::: example
-Example <a name="aggrconflict" href="#aggrconflict">119</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
+Example <a name="aggrconflict" href="#aggrconflict">122</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
 ```
 GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
@@ -4472,7 +4561,7 @@ results in an error.
 :::
 
 ::: example
-Example 120: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
+Example 123: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
 ```
 GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))
