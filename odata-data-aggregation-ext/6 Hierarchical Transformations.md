@@ -415,7 +415,7 @@ GET /service/Sales?$apply=groupby(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization,
+  "@odata.context": "$metadata#Sales(SalesOrganization(),
                                      TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
@@ -443,7 +443,7 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization,TotalAmount)",
+  "@odata.context": "$metadata#Sales(SalesOrganization(),TotalAmount)",
   "value": [
     { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales" },
       "TotalAmount": null },

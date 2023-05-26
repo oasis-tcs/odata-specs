@@ -1281,7 +1281,15 @@ results in
 :::
 
 ::: example
-⚠ Example ##ex: Assuming an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy, aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Car" or a descendant of it:
+⚠ Example ##ex: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
+
+ProductCategory|parent ProductCategory|associated SalesOrganizations
+---------------|----------------------|-----------------------------
+Food||US, EMEA
+Cereals|Food|US
+Organic cereals|Cereals|US West
+
+Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1296,11 +1304,28 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
       descendants(
         $root/ProductCategories,ProductCategoryHierarchy,
         ID,
-        filter(Name eq 'Car'),
+        filter(Name eq 'Cereals'),
         keep start)),
     keep start)
   )),
   aggregate(Amount with sum as TotalAmount))
+  &$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)
+```
+results in
+```json
+{
+  "@odata.context": "$metadata#Sales(SalesOrganization(ID),TotalAmount)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales",   "ProductCategories": [ ] },
+      "TotalAmount@odata.type": "Decimal", "TotalAmount": 24 },
+    { "SalesOrganization": { "ID": "US",      "ProductCategories": [
+      { "@odata.id": "ProductCategories('Cereals')" } ] },
+      "TotalAmount@odata.type": "Decimal", "TotalAmount": 19 },
+    { "SalesOrganization": { "ID": "US West", "ProductCategories": [
+      { "@odata.id": "ProductCategories('Organic cereals')" } ] },
+      "TotalAmount@odata.type": "Decimal", "TotalAmount":  7 }
+  ]
+}
 ```
 
 `traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result.
