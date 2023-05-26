@@ -208,7 +208,7 @@ results in
       "AggregatedSales": [ { "Total@type": "Decimal", "Total":  8 } ] },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
       "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ {                              "Total": null } ] },
+      "AggregatedSales": [ {                          "Total": null } ] },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
       "AggregatedSales@context": "#Sales(Total)",
       "AggregatedSales": [ { "Total@type": "Decimal", "Total":  4 } ] }
@@ -335,7 +335,7 @@ results in
           "TotalAmount@type": "Decimal", "TotalAmount":  8 } ] },
     { "Name": "Pencil",
       "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 0, "TotalAmount":  null } ] },
+      "AggregatedSales": [ { "SalesCount": 0, "TotalAmount": null } ] },
     { "Name": "Sugar",
       "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
       "AggregatedSales": [ { "SalesCount": 2,

@@ -80,7 +80,7 @@ Extending the OData query features with simple aggregation capabilities avoids c
 
 Adding the notion of aggregation to OData without changing any of the base principles in OData has two aspects:
 1. Means for the consumer to query aggregated data on top of any given data model (for sufficiently capable data providers)
-2. Means for the provider to annotate what data can be aggregated, and in which way, allowing consumers to avoid asking questions that the provider cannot answer.
+2. Means for the provider to annotate what data can be aggregated, and in which way, allowing consumers to avoid asking questions that the provider cannot answer
 
 Implementing any of these two aspects is valuable in itself independent of the other, and implementing both provides additional value for consumers. The provided aggregation annotations help a consumer understand more of the data structure looking at the service's exposed data model. The query extensions allow the consumers to explicitly express the desired aggregation behavior for a particular query. They also allow consumers to formulate queries that utilize the aggregation annotations.
 
@@ -89,7 +89,7 @@ Implementing any of these two aspects is valuable in itself independent of the o
 ::: example
 Example ##ex: The following diagram depicts a simple model that is used throughout this document.
 
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:100%">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:75em">
   <style type="text/css">
   <![CDATA[
     .st1 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
@@ -580,7 +580,7 @@ Example ##ex: The following diagram depicts a simple model that is used througho
   </g>
 </svg>
 
-The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies:
 - Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
 - Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
 - Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
