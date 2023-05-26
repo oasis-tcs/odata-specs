@@ -208,10 +208,10 @@ Three cases are distinguished:
 Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [Example ##pathequals]).
 
 The function $a(u,v,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
-1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
+1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
 2. If $v$ contains only one segment other than a type cast, let $v_1=v$, and let $x'=x$, then go to step 6.
 3. Otherwise, let $v_1$ be the first property segment in $v$, possibly together with a preceding type-cast segment, let $v_2$ be any type-cast segment that immediately follows, and let $v_3$ be the remainder such that $v$ equals the concatenated path $v_1/v_2/v_3$ where ${}/v_2$ may be absent.
-4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity-id.
+4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity id.
 5. Let $x'=a(u',v_3,x)$.
 6. If $v_1$ is single-valued, let $u[v_1]=x'$.
 7. If $v_1$ is collection-valued, let $u[v_1]$ be a collection consisting of one item $x'$.

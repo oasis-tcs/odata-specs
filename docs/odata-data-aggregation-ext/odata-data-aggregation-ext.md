@@ -206,6 +206,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
 - <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
@@ -220,7 +221,7 @@ The following non-exhaustive list contains variable names that are used througho
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
 - $S,T$ – transformation sequences
-- $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
+- $α$ – aggregate expression, defined in [section 3.2.1.1](#AggregationAlgorithm)
 - $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
 - $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
@@ -1022,7 +1023,7 @@ The definitions of italicized terms made in this section are used throughout thi
 
 ### <a name="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1 Type, Structure and Context URL</a>
 
-All input sets and output sets in one transformation sequence are collections of the _input type_, that is the entity type or complex type of the first input set, or in other words, of the resource to which the transformation sequence is applied. The input type is determined by the entity model element identified within the metadata document by the context URL of that resource [OData-Protocol, section 10](#ODataProtocol). Individual instances in an input or output set can have a subtype of the input type. (See [example 69](#subinputtype).) The transformation sequence given as the `$apply` system query option is applied to the resource addressed by the resource path. The transformations defined below can have nested transformation sequences as parameters, these are then applied to resources that can differ from the current input set.
+All input sets and output sets in one transformation sequence are collections of the _input type_, that is the entity type or complex type of the first input set, or in other words, of the resource to which the transformation sequence is applied. The input type is determined by the entity model element identified within the metadata document by the context URL of that resource [OData-Protocol, section 10](#ODataProtocol). Individual structured instances in an input or output set can have a subtype of the input type. (See [example 70](#subinputtype).) The transformation sequence given as the `$apply` system query option is applied to the resource addressed by the resource path. The transformations defined below can have nested transformation sequences as parameters, these are then applied to resources that can differ from the current input set.
 
 The _structure_ of an instance that occurs in an input or output set is defined by the names of the structural and navigation properties that the instance contains. Instances of an input type can have different structures, subject to the following rules:
 - Declared properties of the input type or a nested or related type thereof or of a subtype of one of these MUST have their declared type and meaning when they occur in an input or output set.
@@ -1039,11 +1040,11 @@ Here is an overview of the structural changes made by different transformations:
 
 An output set thus consists of instances with different structures, this is the same situation as with a collection of an open type [OData-CSDL, sections 6.3 and 9.3](#ODataCSDL) and it is handled in the same way.
 
-If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The `{select-list}` in the context URL [OData-Protocol, section 10](#ODataProtocol) MUST describe only properties that are present or annotated as absent (for example, if `Core.Permissions` is `None` [OData-Protocol, section 11.2.2](#ODataProtocol)) in all instances of the collection, after applying any `$select` and `$expand` system query options. The `{select-list}` SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the `{select-list}` MUST consist of just the instance annotation `AnyStructure` defined in the `Core` vocabulary [OData-VocCore](#ODataVocCore). (See [example 70](#anystructure).)
+If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The `{select-list}` in the context URL [OData-Protocol, section 10](#ODataProtocol) MUST describe only properties that are present or annotated as absent (for example, if `Core.Permissions` is `None` [OData-Protocol, section 11.2.2](#ODataProtocol)) in all instances of the collection, after applying any `$select` and `$expand` system query options. The `{select-list}` SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the `{select-list}` MUST consist of just the instance annotation `AnyStructure` defined in the `Core` vocabulary [OData-VocCore](#ODataVocCore). (See [example 71](#anystructure).)
 
 ### <a name="SamenessandPrecedence" href="#SamenessandPrecedence">3.1.2 Sameness and Precedence</a>
 
-Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances or primitive values), possibly with repetitions. The occurrences in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each_ instance in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
+Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each_ instance in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
 
 A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](#ODataProtocol) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
@@ -1068,12 +1069,12 @@ The transformation [`orderby`](#Transformationorderby) defined below carries out
 
 A stable-sort does not necessarily produce a total order, the sorted collection may still contain two occurrences whose relative order does not matter.
 
-The output set of a [basic aggregation](#BasicAggregation) transformation can contain instances of an entity type without entity-id. After a [`concat`](#Transformationconcat) transformation, different occurrences of the same entity can differ in individual non-declared properties. To account for such cases, the definition of sameness given in [OData-URL, section 5.1.1.1.1](#ODataURL) is refined here. Instances are _the same_ if
+The output set of a [basic aggregation](#BasicAggregation) transformation can contain instances of an entity type without entity id. After a [`concat`](#Transformationconcat) transformation, different occurrences of the same entity can differ in individual non-declared properties. To account for such cases, the definition of sameness given in [OData-URL, section 5.1.1.1.1](#ODataURL) is refined here. Instances are _the same_ if
 - both are instances of complex types and both are null or both have the same structure and same values with null considered different from absent or
-- both are instances of entity types without entity-id (transient entities, see [OData-Protocol, section 4.3](#ODataProtocol)) and both are null or both have the same structure and same values with null considered different from absent (informally speaking, they are compared like complex instances) or
-- (1) both are instances of the same entity type with the same entity-id (non-transient entities, see [OData-Protocol, section 4.1](#ODataProtocol)) and (2) the structural and navigation properties contained in both have the same values (for non-primitive properties the sameness of values is decided by a recursive invocation of this definition).
+- both are instances of entity types without entity id (transient entities, see [OData-Protocol, section 4.3](#ODataProtocol)) and both are null or both have the same structure and same values with null considered different from absent (informally speaking, they are compared like complex instances) or
+- (1) both are instances of the same entity type with the same entity id (non-transient entities, see [OData-Protocol, section 4.1](#ODataProtocol)) and (2) the structural and navigation properties contained in both have the same values (for non-primitive properties the sameness of values is decided by a recursive invocation of this definition).
   - If this is fulfilled, the instances are called _complementary representations of the same non-transient entity_. If this case is encountered at some recursion level while the sameness of non-transient entities $u_1$ and $u_2$ is established, a merged representation of the entity $u_1=u_2$ exists that contains all properties of $u_1$ and $u_2$. But if the instances both occur in the last output set, services MUST represent each with its own structure in the response payload.
-  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 98](#contradict) describes a use case for this.)
+  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 99](#contradict) describes a use case for this.)
 
 Collections are _the same_ if there is a one-to-one correspondence $f$ between them such that
 - corresponding occurrences are of the same value and
@@ -1083,7 +1084,7 @@ Collections are _the same_ if there is a one-to-one correspondence $f$ between t
 
 This document specifies how a [data aggregation path](#DataAggregationPath) that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.
 
-For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
+For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to a structured instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 
 To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and returns a collection of structured instances or primitive values, depending on the type of the final segment of $p$. It is recursively defined as follows:
 1. If $p$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
@@ -1104,11 +1105,11 @@ This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,
 
 #### <a name="AggregationAlgorithm" href="#AggregationAlgorithm">3.2.1.1 Aggregation Algorithm</a>
 
-The `aggregate` transformation takes a comma-separated list of one or more _aggregate expressions_ as parameters and returns an output set with a single instance of the [input type](#TypeStructureandContextURL) without entity-id containing one property per aggregate expression, representing the aggregated value of the input set.
+The `aggregate` transformation takes a comma-separated list of one or more [_aggregate expressions_](#AggregateExpression) as parameters and returns an output set with a single instance of the [input type](#TypeStructureandContextURL) without entity id containing one property per aggregate expression, representing the aggregated value of the input set.
 
-An aggregate expression MUST have one of the types listed below. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $A$ of instances or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on the type of aggregate expression, $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(A)$ which the aggregate transformation evaluates to obtain the property value.
+An aggregate expression MUST have one of the types listed below or be constructed with the [`from`](#Keywordfrom) keyword. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $A$ of structured instances or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on its type, the aggregate expression contains a path $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(A)$ which the aggregate transformation evaluates to obtain the property value.
 
-The property is a dynamic property, except for a special case in type 4. In types 1 and 2, the aggregate expression MUST end with the keyword `with` and an aggregation method $g$. The aggregation method also determines the type of the dynamic property. In types 1, 2 and 3 the aggregate expression MUST, and in type 4 it MAY, be followed by the keyword [`as`](#Keywordas) and an [alias](#TypeStructureandContextURL), which is then the name of the dynamic property. More aggregate expressions can be constructed with the [`from`](#Keywordfrom) keyword, see later section.
+The property is a dynamic property, except for a special case in type 4. In types 1 and 2, the aggregate expression MUST end with the keyword `with` and an aggregation method $g$. The aggregation method also determines the type of the dynamic property. In types 1, 2, and 3 the aggregate expression MUST, and in type 4 it MAY, be followed by the keyword [`as`](#Keywordas) and an [alias](#TypeStructureandContextURL), which is then the name of the dynamic property.
 
 _Types of aggregate expressions:_
 1. A path $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a complex or entity or [aggregatable primitive type](#AggregatablePrimitiveType) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$, or $p=p_2$ if the input set can be aggregated using the [custom aggregation method](#CustomAggregationMethods) $g$.  
@@ -1118,17 +1119,17 @@ Let $f(A)=g(B)$ where $B$ is the collection consisting of the aggregatable expre
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
 Let $f(A)$ be the [cardinality](#SamenessandPrecedence) of $A$.
 4. A path $p/c$ consisting of an optional prefix $p/{}$ with $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a structured type or $p=p_2$, and a [custom aggregate](#CustomAggregates) $c$ defined on the collection addressed by $p$.  
-Let $f(A)=c(A)$, if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
+Let $f(A)=c(A)$, and if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
 
 _Determination of $A$:_
 
 Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 119](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 120](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
-Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances or primitive values, possibly with repetitions.
+Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of structured instances or primitive values, possibly with repetitions.
 
 #### <a name="Keywordas" href="#Keywordas">3.2.1.2 Keyword `as`</a>
 
@@ -1221,7 +1222,7 @@ results in
 
 The standard aggregation method `max` can be applied to values with a totally ordered domain to return the largest of the values, or null if there are no values to be aggregated.
 
-The result property will have the same type as the input property
+The result property will have the same type as the input property.
 
 ::: example
 Example 11:
@@ -1241,7 +1242,7 @@ results in
 
 ##### <a name="StandardAggregationMethodaverage" href="#StandardAggregationMethodaverage">3.2.1.3.4 Standard Aggregation Method `average`</a>
 
-The standard aggregation method `average` can be applied to numeric values to return the sum of the non-null values divided by the count of the values, or null if there are no values to be aggregated.
+The standard aggregation method `average` can be applied to numeric values to return the sum of the values divided by the count of the values, or null if there are no values to be aggregated.
 
 The provider MUST choose a single type for the property across all instances of that type in the result that is capable of representing the aggregated values; either `Edm.Double` or `Edm.Decimal` with sufficient `Precision` and `Scale`.
 
@@ -1339,18 +1340,18 @@ results in
 
 #### <a name="Keywordfrom" href="#Keywordfrom">3.2.1.5 Keyword `from`</a>
 
-The `from` keyword offers a shortcut for a sequence of [`groupby`](Transformationgroupby) and [`aggregate`](#Transformationaggregate) transformations with the pattern ${\tt groupby}(…,{\tt aggregate}(…{\tt\ as\ }A_1))/{\tt aggregate}(A_1{\tt\ with\ }…)$.
+The `from` keyword offers a shortcut for a sequence of [`groupby`](Transformationgroupby) and [`aggregate`](#Transformationaggregate) transformations with the pattern ${\tt groupby}(…,{\tt aggregate}(…{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }…)$.
 
 In the following $p_1,…,p_n$ are [data aggregation paths](#DataAggregationPath) that are allowed in `groupby` for [simple grouping](#SimpleGrouping).
 
 1. If $α$ is an aggregate expression and $g$ is an aggregation method, then
    $$α{\tt\ from\ }p_1,…,p_n{\tt\ with\ }g$$
    is an aggregate expression which evaluates to the value of property $D$ in the single instance in the output set of the following transformation sequence:
-   $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }A_1))/{\tt aggregate}(A_1{\tt\ with\ }g{\tt\ as\ }D).$$
+   $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }g{\tt\ as\ }D).$$
 2. If $α=p/c{\tt\ from\ }…$ is an aggregate expression that starts with a custom aggregate $c$, optionally prefixed with a path $p$ as in type 4 in the [aggregation algorithm](#AggregationAlgorithm), and that optionally continues with `from` and `with` clauses, then
    $$α{\tt\ from\ }p_1,…,p_n$$
    is an aggregate expression which evaluates to the value of property $c$ in the single instance in the output set of the following transformation sequence:
-   $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }A_1))/{\tt aggregate}(p/c).$$
+   $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }D_1))/{\tt aggregate}(p/c).$$
 
 Aggregate expressions constructed by these rules MUST be followed in the `aggregate` transformation by the keyword `as` and an [alias](#TypeStructureandContextURL). These rules can be applied repeatedly and lead to multiple `from` clauses in one aggregate expression.
 
@@ -1389,6 +1390,23 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Forecast))
 ```
 :::
 
+::: example
+⚠ Example 18: the maximal daily average for sales of a product
+```
+GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
+                                           with max as MaxDailyAverage)
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(MaxDailyAverage)",
+  "value": [
+    { "MaxDailyAverage@type": "Decimal", "MaxDailyAverage": 8 }
+  ]
+}
+```
+:::
+
 ### <a name="Transformationconcat" href="#Transformationconcat">3.2.2 Transformation `concat`</a>
 
 The `concat` transformation takes two or more parameters, each of which is a sequence of set transformations.
@@ -1396,7 +1414,7 @@ The `concat` transformation takes two or more parameters, each of which is a seq
 It applies each transformation sequence to the input set and concatenates the intermediate output sets in the order of the parameters into the output set, preserving the ordering of the individual output sets as well as the structure of each instance in these sets, potentially leading to a non-homogeneously structured output set. If different intermediate output sets contain dynamic properties with the same alias, clients SHOULD ensure they have the same type and meaning in each intermediate output set.
 
 ::: example
-⚠ Example 18:
+⚠ Example 19:
 ```
 GET /service/Sales?$apply=concat(topcount(2,Amount),
                                  aggregate(Amount))
@@ -1419,17 +1437,17 @@ The output set of `concat` has a mixed form consisting of the structures imposed
 
 ### <a name="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation `groupby`</a>
 
-The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
+The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
 
 #### <a name="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a>
 
-In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 67](#groupbynav)).
+In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 68](#groupbynav)).
 
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
 The output set of the groupby transformation is constructed in five steps.
 1. [For each](#SamenessandPrecedence) instance $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
-   - Let $v$ be an instance of the type of $u$ without properties and without entity-id.
+   - Let $v$ be an instance of the type of $u$ without properties and without entity id.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
      - If $p'$ occurs in $G$, let $v[q]=u[q]$.
@@ -1454,7 +1472,7 @@ The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence 
 3. Return $u$.
 
 ::: example
-Example 19:
+Example 20:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                                   aggregate(Amount with sum as Total))
@@ -1487,7 +1505,7 @@ results in
 If the second parameter is omitted, steps 2 and 3 above produce one instance containing only the grouping properties per distinct value combination.
 
 ::: example
-⚠ Example 20:
+⚠ Example 21:
 ```
 GET /service/Sales?$apply=groupby((Product/Name,Amount))
 ```
@@ -1529,7 +1547,7 @@ Such a grouping with `rollup` for a leveled hierarchy is processed using the fol
   $$\matrix{   {\tt concat}(\hfill&\tt (3)\\   \quad {\tt groupby}((P_1,p_1,p_2,P_2),T),\hfill\\   \quad {\tt groupby}((P_1,p_1,P_2),T)\hfill\\   ).\hskip25pc\\   }$$
 
 ::: example
-Example 21: rolling up two hierarchies, the first with two levels, the second with three levels:
+Example 22: rolling up two hierarchies, the first with two levels, the second with three levels:
 $$({\tt rollup}(p_{1,1},p_{1,2}),{\tt rollup}(p_{2,1},p_{2,2},p_{2,3}))$$
 will result in the six groupings
 $$\matrix{ (p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2})\hfill\\ (p_{1,1},p_{1,2},\hfill&p_{2,1})\hfill\\ (p_{1,1},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},\hfill&p_{2,1},p_{2,2})\hfill\\ (p_{1,1},\hfill&p_{2,1})\hfill }$$
@@ -1537,11 +1555,11 @@ The leveled hierarchy of the first rollup has 2 levels, the one of the second ha
 :::
 
 ::: example
-Example 22: answering the second question in [section 2.3](#ExampleUseCases)
+Example 23: answering the second question in [section 2.3](#ExampleUseCases)
 ```
 GET /service/Sales?$apply=groupby((rollup(Customer/Country,Customer/Name),
-                            rollup(Product/Category/Name,Product/Name)),
-                           aggregate(Amount with sum as Total))
+                                   rollup(Product/Category/Name,Product/Name)),
+                                  aggregate(Amount with sum as Total))
 ```
 results in seven entities for the finest grouping level
 ```json
@@ -1590,7 +1608,7 @@ Another grouping operator [`rolluprecursive`](#Groupingwithrolluprecursive) whic
 These transformations produce an output set that is a subset of their input set. Some of the algorithmic descriptions that follow make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
 
 ::: example
-⚠ Example 23: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The following request constructs that input set by executing the `Sales` resource path and the `groupby` transformation, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. In other words, the request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
+⚠ Example 24: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The following request constructs that input set by executing the `Sales` resource path and the `groupby` transformation, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. In other words, the request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
 ```
 GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
@@ -1612,7 +1630,7 @@ The output set is constructed as follows:
 6. Insert the current item of the loop into the output set in the order of $A$.
 7. Continue the loop.
 
-For example, if the input set consists of non-transient entities and the datastore contains an index ordered by the second parameter and then the entity-id, a service may implement this algorithm with $A=B$ ordered like this index.
+For example, if the input set consists of non-transient entities and the datastore contains an index ordered by the second parameter and then the entity id, a service may implement this algorithm with $A=B$ ordered like this index.
 
 The order of the output set can be influenced with a subsequent [`orderby`](#Transformationorderby) transformation.
 
@@ -1621,7 +1639,7 @@ The order of the output set can be influenced with a subsequent [`orderby`](#Tra
 The first parameter MUST evaluate to a positive integer $c$. The second parameter MUST evaluate to a primitive type whose values are totally ordered. In step 5, exit the loop if the cardinality of the output set equals $c$.
 
 ::: example
-Example 24:
+Example 25:
 ```
 GET /service/Sales?$apply=bottomcount(2,Amount)
 ```
@@ -1638,7 +1656,7 @@ results in
 :::
 
 ::: example
-Example 25:
+Example 26:
 ```
 GET /service/Sales?$apply=topcount(2,Amount)
 ```
@@ -1660,7 +1678,7 @@ Note that two `Sales` entities with the second highest amount 4 exist in the inp
 The first parameter MUST evaluate to a positive number $p$ less than or equal to 100. The second parameter MUST evaluate to a number. In step 5, exit the loop if the ratio of the sum of the numbers addressed by the second parameter in the output set to their sum in the input set equals or exceeds $p$%.
 
 ::: example
-Example 26:
+Example 27:
 ```
 GET /service/Sales?$apply=bottompercent(50,Amount)
 ```
@@ -1681,7 +1699,7 @@ results in
 :::
 
 ::: example
-Example 27:
+Example 28:
 ```
 GET /service/Sales?$apply=toppercent(50,Amount)
 ```
@@ -1702,7 +1720,7 @@ results in
 The first parameter MUST evaluate to a number $s$. The second parameter MUST be an [aggregatable expression](#AggregatableExpression) that evaluates to a number. In step 5, exit the loop if the sum of the numbers addressed by the second parameter in the output set is greater than or equal to a non-negative $s$ or is less than or equal to a negative $s$.
 
 ::: example
-Example 28:
+Example 29:
 ```
 GET /service/Sales?$apply=bottomsum(7,Amount)
 ```
@@ -1722,7 +1740,7 @@ results in
 :::
 
 ::: example
-Example 29:
+Example 30:
 ```
 GET /service/Sales?$apply=topsum(15,Amount)
 ```
@@ -1744,7 +1762,7 @@ results in
 The `filter` transformation takes a Boolean expression that could also be passed as a `$filter` system query option. Its output set is the subset of the input set containing all instances (possibly with repetitions) for which this expression, evaluated relative to the instance, yields true. No order is defined on the output set.
 
 ::: example
-Example 30:
+Example 31:
 ```
 GET /service/Sales?$apply=filter(Amount gt 3)
 ```
@@ -1766,7 +1784,7 @@ results in
 The output set of the `identity` transformation is its input set in unchanged order.
 
 ::: example
-Example 31: Add a grand total row to the `Sales` result set
+Example 32: Add a grand total row to the `Sales` result set
 ```
 GET /service/Sales?$apply=concat(identity,aggregate(Amount with sum as Total))
 ```
@@ -1777,7 +1795,7 @@ GET /service/Sales?$apply=concat(identity,aggregate(Amount with sum as Total))
 The `orderby` transformation takes a list of expressions that could also be passed as a `$orderby` system query option. Its output set consists of the instances of the input set in the same order `$orderby` would produce for the given expressions, but keeping the relative order from the input set if the given expressions do not distinguish between two instances. The orderby transformation thereby performs a [stable-sort](#SamenessandPrecedence). A service supporting this transformation MUST at least offer sorting by values addressed by property paths, including dynamic properties, with both suffixes `asc` and `desc`.
 
 ::: example
-Example 32:
+Example 33:
 ```
 GET /service/Sales?$apply=groupby((Product/Name),
                            aggregate(Amount with sum as Total))
@@ -1804,7 +1822,7 @@ results in
 The `search` transformation takes a search expression that could also be passed as a `$search` system query option. Its output set is the subset of the input set containing all instances (possibly with repetitions) that match this search expression. Closing parentheses in search expressions must be within single or double quotes in order to avoid syntax errors like `search())`. No order is defined on the output set.
 
 ::: example
-Example 33: assuming that free-text search on `Sales` takes the related product name into account,
+Example 34: assuming that free-text search on `Sales` takes the related product name into account,
 ```
 GET /service/Sales?$apply=search(coffee)
 ```
@@ -1827,7 +1845,7 @@ The `skip` transformation takes a non-negative integer $c$ as argument. Let $A$ 
 The transformation excludes from the output set the first $c$ instances of $A$. It keeps all remaining instances in the same order as they occur in $A$.
 
 ::: example
-Example 34:
+Example 35:
 ```
 GET /service/Sales?$apply=orderby(Customer/Name desc)/skip(2)/top(2)
 ```
@@ -1852,7 +1870,7 @@ If $A$ contains more than $c$ instances, the output set consists of the first $c
 Note the transformation `top(0)` produces an empty output set.
 
 ::: example
-Example 35:
+Example 36:
 ```
 GET /service/Sales?$apply=orderby(Customer/Name desc)/top(2)
 ```
@@ -1887,7 +1905,7 @@ The output set is constructed by copying the instances of the input set and addi
 The values of properties copied from the input set are not changed, nor is the order of instances changed.
 
 ::: example
-Example 36:
+Example 37:
 ```
 GET /service/Sales?$apply=compute(Amount mul Product/TaxRate as Tax)
 ```
@@ -1924,7 +1942,7 @@ The `join` and `outerjoin` transformations take as their first parameter $p$ a c
    - The property $w$ carries as control information the context URL of $u$.
 
 ::: example
-Example 37: all links between products and sales instances
+Example 38: all links between products and sales instances
 ```
 GET /service/Products?$apply=join(Sales as Sale)&$select=ID&$expand=Sale
 ```
@@ -1978,10 +1996,10 @@ Applying `outerjoin` instead would return an additional instance for product wit
 
 The `nest` transformation takes as parameters one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL). These aliases MUST NOT collide with names of properties in the input set or with other aliases introduced in the same nest transformation.
 
-The output set consists of a single instance of the [input type](#TypeStructureandContextURL) without entity-id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.
+The output set consists of a single instance of the [input type](#TypeStructureandContextURL) without entity id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.
 
 ::: example
-Example 38:
+Example 39:
 ```
 GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
 ```
@@ -2017,7 +2035,7 @@ If $p_k$ is single-valued, the transformation sequences MUST consist of only `id
 If $v$ is defined, then for each transformation sequence, a dynamic property is added to $u$ as follows: If $p_k$ is a navigation property, the added property is a dynamic navigation property, which is expanded by default, otherwise it is a dynamic structural property. Its name is the alias of the transformation sequence. The value of the added property is the result of the transformation sequence applied to $v$. The dynamic property carries as control information the context URL of $v$.
 
 ::: example
-Example 39:
+Example 40:
 ```
 GET /service/Customers?$apply=addnested(Sales,
                                         filter(Amount gt 3) as FilteredSales)
@@ -2060,12 +2078,12 @@ These expressions are
 
 ### <a name="Functionaggregate" href="#Functionaggregate">3.5.1 Function `aggregate`</a>
 
-The `aggregate` function allows to use aggregated values in [expressions](#Expression). It takes a single parameter accepting an aggregate-function expression and returns the aggregated value of type `Edm.PrimitiveType` as the result from applying the aggregate-function expression on its input collection.
+The `aggregate` function allows to use aggregated values in [expressions](#Expression). It takes a single parameter accepting an [aggregate expression](#AggregateExpression) and returns the aggregated value of type `Edm.PrimitiveType` as the result from applying the aggregate expression on its input collection.
 
-An aggregate-function expression offers the same capabilities as an aggregate expression defined for the `aggregate` transformation except that it never includes an alias for introducing a dynamic property containing the aggregated value. More precisely, if $α$ is an aggregate expression, the function $p/{\tt aggregate}(α)$ or ${\tt\$these}/{\tt aggregate}(α)$ evaluates to the value of the property $D$ in the single instance of the output set that is produced when the transformation ${\tt aggregate}(α{\tt\ as\ }D)$ is applied with the input collection as input set.
+More precisely, if $α$ is an aggregate expression, the function $p/{\tt aggregate}(α)$ or ${\tt\$these}/{\tt aggregate}(α)$ evaluates to the value of the property $D$ in the single instance of the output set that is produced when the transformation ${\tt aggregate}(α{\tt\ as\ }D)$ is applied with the input collection as input set.
 
 ::: example
-Example 40: Sales making up at least a third of the total sales amount.
+Example 41: Sales making up at least a third of the total sales amount.
 ```
 GET /service/Sales?$filter=Amount mul 3 ge $these/aggregate(Amount with sum)
 ```
@@ -2081,7 +2099,7 @@ results in
 :::
 
 ::: example
-Example 41: Products with more than 1.00 sales tax. The aggregate expression of type 2 combines paths with and without `$it` prefix (compare this with [example 8](#aggrmul)).
+Example 42: Products with more than 1.00 sales tax. The aggregate expression of type 2 combines paths with and without `$it` prefix (compare this with [example 8](#aggrmul)).
 ```
 GET /service/Products?$filter=Sales/aggregate(Amount mul $it/TaxRate with sum)
                               gt 1
@@ -2089,7 +2107,7 @@ GET /service/Products?$filter=Sales/aggregate(Amount mul $it/TaxRate with sum)
 :::
 
 ::: example
-⚠ Example 42: products with a single sale of at least twice the average sales amount
+⚠ Example 43: products with a single sale of at least twice the average sales amount
 ```
 GET /service/Products?$filter=Sales/any(s:s/Amount ge
                               Sales/aggregate(Amount with average) mul 2)
@@ -2110,7 +2128,7 @@ Both examples result in
 The expression `$count` evaluates to the cardinality of the input collection.
 
 ::: example
-Example <a name="collexpr" href="#collexpr">43</a>: The input collection for `$count` consists of all sales entities, the top third of sales entities by amount form the result.
+Example <a name="collexpr" href="#collexpr">44</a>: The input collection for `$count` consists of all sales entities, the top third of sales entities by amount form the result.
 ```
 GET /service/Sales?$apply=topcount($these/$count div 3,Amount)
 ```
@@ -2135,7 +2153,7 @@ Properties that are not explicitly mentioned in [`aggregate`](#Transformationagg
 The function `isdefined` can be used to determine whether a property is present or absent in an instance. It takes a [single-valued property path](#SingleValuedPropertyPath) as its only parameter and returns true if the property is present in the instance for which the expression containing the `isdefined` function call is evaluated. A present property can still have the null value; it can represent a grouping of null values, or an aggregation that results in a null value.
 
 ::: example
-Example 44: `Product` has been aggregated away, causing an empty result
+Example 45: `Product` has been aggregated away, causing an empty result
 ```
 GET /service/Sales?$apply=aggregate(Amount with sum as Total)
            &$filter=isdefined(Product)
@@ -2154,7 +2172,7 @@ results in
 The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded navigation or the selected collection of instances, i.e. `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
 
 ::: example
-Example 45: products with aggregated sales
+Example 46: products with aggregated sales
 ```
 GET /service/Products
   ?$expand=Sales($apply=aggregate(Amount with sum as Total))
@@ -2192,7 +2210,7 @@ In some cases, however, requests need to span entity sets with no predefined ass
 Where useful navigations exist it is beneficial to expose those as explicit navigation properties in the model, but the ability to pose queries that span entity sets not related by an association provides a mechanism for advanced consumers to use more flexible join conditions.
 
 ::: example
-Example 46: if `Sale` had a string property `ProductID` instead of the navigation property `Product`, a "join" between `Sales` and `Products` could be accessed via the `$crossjoin` resource
+Example 47: if `Sale` had a string property `ProductID` instead of the navigation property `Product`, a "join" between `Sales` and `Products` could be accessed via the `$crossjoin` resource
 ```
 GET /service/$crossjoin(Products,Sales)
                          ?$expand=Products($select=Name),Sales($select=Amount)
@@ -2212,7 +2230,7 @@ results in
 :::
 
 ::: example
-Example 47: using the `$crossjoin` resource for aggregate queries
+Example 48: using the `$crossjoin` resource for aggregate queries
 ```
 GET /service/$crossjoin(Products,Sales)
     ?$apply=filter(Products/ID eq Sales/ProductID)
@@ -2264,7 +2282,7 @@ The term `ApplySupportedDefaults` can be applied to an entity container. It allo
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
 
 ::: example
-Example 48: an entity container with default support for everything defined in this specification
+Example 49: an entity container with default support for everything defined in this specification
 ```xml
 <EntityContainer Name="SalesData">
   <Annotation Term="Aggregation.ApplySupportedDefaults" />
@@ -2288,7 +2306,7 @@ If the custom aggregate is associated with an entity set, entity type or collect
 If the custom aggregate is associated with an entity container, the value of the `Qualifier` attribute MUST NOT collide with the names of any entity container children.
 
 ::: example
-Example 49: Sales forecasts are modeled as a custom aggregate of the Sale entity type because it belongs there. For the budget, there is no appropriate structured type, so it is modeled as a custom aggregate of the `SalesData` entity container.
+Example 50: Sales forecasts are modeled as a custom aggregate of the Sale entity type because it belongs there. For the budget, there is no appropriate structured type, so it is modeled as a custom aggregate of the `SalesData` entity container.
 ```xml
 <Annotations Target="SalesModel.SalesData/Sales">
   <Annotation Term="Aggregation.CustomAggregate" Qualifier="Forecast"
@@ -2318,7 +2336,7 @@ If present, the context-defining properties SHOULD be used as grouping propertie
 ## <a name="AnnotationExample" href="#AnnotationExample">5.4 Annotation Example</a>
 
 ::: example
-Example 50: This simplified `Sales` entity set has a single aggregatable property `Amount` whose context is defined by the `Code` property of the related `Currency`, and a custom aggregate `Forecast` with the same context. The `Code` property of `Currencies` is groupable. All other properties are neither groupable nor aggregatable.
+Example 51: This simplified `Sales` entity set has a single aggregatable property `Amount` whose context is defined by the `Code` property of the related `Currency`, and a custom aggregate `Forecast` with the same context. The `Code` property of `Currencies` is groupable. All other properties are neither groupable nor aggregatable.
 ```xml
 <EntityType Name="Currency">
   <Key>
@@ -2442,7 +2460,7 @@ The following functions are defined:
 The hierarchy terms can be applied to the Example Data Model.
 
 ::: example
-Example 51: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+Example 52: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -2494,7 +2512,7 @@ Example 51: leveled hierarchies for products and time, and a recursive hierarchy
 The recursive hierarchy `SalesOrgHierarchy` can be used in functions with the `$filter` system query option.
 
 ::: example
-Example 52: requesting all organizations below EMEA
+Example 53: requesting all organizations below EMEA
 ```
 GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
   HierarchyNodes=$root/SalesOrganizations,
@@ -2520,7 +2538,7 @@ results in
 :::
 
 ::: example
-Example 53: requesting just those organizations directly below EMEA
+Example 54: requesting just those organizations directly below EMEA
 ```
 GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
   HierarchyNodes=$root/SalesOrganizations,
@@ -2544,7 +2562,7 @@ results in
 :::
 
 ::: example
-Example 54: just the lowest-level organizations
+Example 55: just the lowest-level organizations
 ```
 GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
   HierarchyNodes=$root/SalesOrganizations,
@@ -2565,7 +2583,7 @@ results in
 :::
 
 ::: example
-Example 55: the lowest-level organizations including their superordinate's `ID`
+Example 56: the lowest-level organizations including their superordinate's `ID`
 ```
 GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
   HierarchyNodes=$root/SalesOrganizations,
@@ -2589,7 +2607,7 @@ results in
 :::
 
 ::: example
-Example 56: retrieving the sales `ID`s involving sales organizations from EMEA can be requested by
+Example 57: retrieving the sales `ID`s involving sales organizations from EMEA can be requested by
 ```
 
 GET /service/Sales?$select=ID&$filter=Aggregation.isdescendant(
@@ -2677,7 +2695,7 @@ If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `
 Since the output set of `ancestors` is constructed as a union, no instance from the input set will occur more than once in it, even if, for example, a sale is related to both a sales organization and one of its ancestor organizations. For `descendants`, analogously.
 
 ::: example
-Example 57: Request based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples), with `Superordinate/$ref` expanded to illustrate the hierarchy relation
+Example 58: Request based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples), with `Superordinate/$ref` expanded to illustrate the hierarchy relation
 ```
 GET /service/SalesOrganizations?$apply=
     ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
@@ -2701,7 +2719,7 @@ results in
 :::
 
 ::: example
-Example 58: Request based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples), with `Superordinate/$ref` expanded to illustrate the hierarchy relation
+Example 59: Request based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples), with `Superordinate/$ref` expanded to illustrate the hierarchy relation
 ```
 GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
@@ -2725,7 +2743,7 @@ results in
 :::
 
 ::: example
-⚠ Example 59: Input set and recursive hierarchy from two different entity sets
+⚠ Example 60: Input set and recursive hierarchy from two different entity sets
 ```
 GET /service/Sales?$apply=
     ancestors($root/SalesOrganizations,
@@ -2774,27 +2792,27 @@ The definition of $σ(x)$ makes use of a function $a(ε,v,x)$, which returns a s
 Three cases are distinguished:
 1. _Case where the recursive hierarchy is defined on the input set_  
    This case applies if the paths $p$ and $q$ are equal. Let $σ(x)=x$ and let $G$ be a list containing all structural and navigation properties of the entity type of $H$.  
-   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [Example 61](#caseone).)
+   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [Example 62](#caseone).)
 2. _Case where the recursive hierarchy is defined on the related entity type addressed by a navigation property path_  
    This case applies if $p'$ is a non-empty navigation property path and $p''$ an optional type-cast segment such that $p$ equals the concatenated path $p'/p''/q$. Let $σ(x)=a(ε,p'/p'',x)$ and let $G=(p')$.  
-   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [Example 62](#rollupnode).)
+   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [Example 63](#rollupnode).)
 3. _Case where the recursive hierarchy is related to the input set only through equality of node identifiers, not through navigation_  
    If neither case 1 nor case 2 applies, let $σ(x)=a(ε,p,x[q])$ and let $G=(p)$.  
    In this case $\Pi_G(σ(x))$ injects only the node identifier of $x$ into the instances of the output set.
 
-Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [Example 63](#pathequals)).
+Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [Example 64](#pathequals)).
 
 The function $a(u,v,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
-1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
+1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
 2. If $v$ contains only one segment other than a type cast, let $v_1=v$, and let $x'=x$, then go to step 6.
 3. Otherwise, let $v_1$ be the first property segment in $v$, possibly together with a preceding type-cast segment, let $v_2$ be any type-cast segment that immediately follows, and let $v_3$ be the remainder such that $v$ equals the concatenated path $v_1/v_2/v_3$ where ${}/v_2$ may be absent.
-4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity-id.
+4. Let $u'$ be an instance of the type of $v_1/v_2$ without properties and without entity id.
 5. Let $x'=a(u',v_3,x)$.
 6. If $v_1$ is single-valued, let $u[v_1]=x'$.
 7. If $v_1$ is collection-valued, let $u[v_1]$ be a collection consisting of one item $x'$.
 8. Return $u$.
 
-(See [Example 107](#traversecoll).)
+(See [Example 108](#traversecoll).)
 
 Let $r_1,…,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandPrecedence) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
@@ -2815,7 +2833,7 @@ $$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hski
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 ::: example
-Example 60: Based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
+Example 61: Based on the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
 GET /service/SalesOrganizations?$apply=
     descendants($root/SalesOrganizations,SalesOrgHierarchy,ID,
@@ -2872,7 +2890,7 @@ Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property p
 
 _The `rolluprecursive` algorithm:_
 
-A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [Example 62](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
+A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [Example 63](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
 If $r_1,…,r_n$ are the root nodes of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n))$$
@@ -2893,12 +2911,12 @@ $$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad 
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
 $$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 108](#rollupcoll) for a case with $k=1$.)
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 109](#rollupcoll) for a case with $k=1$.)
 
 Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
 ::: example
-Example <a name="caseone" href="#caseone">61</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
+Example <a name="caseone" href="#caseone">62</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
 ```
 GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
@@ -2933,7 +2951,7 @@ results in
 The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the Position parameter can be omitted.
 
 ::: example
-⚠ Example <a name="rollupnode" href="#rollupnode">62</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
+⚠ Example <a name="rollupnode" href="#rollupnode">63</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -2969,7 +2987,7 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="pathequals" href="#pathequals">63</a>: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
+⚠ Example <a name="pathequals" href="#pathequals">64</a>: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
 ```
 GET /service/Sales?$apply=
     groupby((rolluprecursive(
@@ -3014,7 +3032,7 @@ The following examples show some common aggregation-related questions that can b
 Grouping without specifying a set transformation returns the distinct combination of the grouping properties.
 
 ::: example
-Example 64:
+Example 65:
 ```
 GET /service/Customers?$apply=groupby((Name))
 ```
@@ -3036,7 +3054,7 @@ Note that "Sue" appears only once although the customer base contains two differ
 Aggregation is also possible across related entities.
 
 ::: example
-Example 65: customers that bought something
+Example 66: customers that bought something
 ```
 GET /service/Sales?$apply=groupby((Customer/Name))
 ```
@@ -3059,7 +3077,7 @@ However, even though both Sues bought products, only one "Sue" appears in the ag
 :::
 
 ::: example
-Example 66:
+Example 67:
 ```
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID))
 ```
@@ -3082,7 +3100,7 @@ GET /service/Sales?$apply=groupby((Customer))
 :::
 
 ::: example
-Example <a name="groupbynav" href="#groupbynav">67</a>: Grouping by navigation property `Customer`
+Example <a name="groupbynav" href="#groupbynav">68</a>: Grouping by navigation property `Customer`
 ```
 
 GET /service/Sales?$apply=groupby((Customer))
@@ -3101,7 +3119,7 @@ results in
 :::
 
 ::: example
-Example 68: the first question in the motivating example in [section 2.3](#ExampleUseCases), which customers bought which products, can now be expressed as
+Example 69: the first question in the motivating example in [section 2.3](#ExampleUseCases), which customers bought which products, can now be expressed as
 ```
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID,Product/Name))
 ```
@@ -3130,7 +3148,7 @@ and results in
 :::
 
 ::: example
-⚠ Example <a name="subinputtype" href="#subinputtype">69</a>: grouping by properties of subtypes
+⚠ Example <a name="subinputtype" href="#subinputtype">70</a>: grouping by properties of subtypes
 ```
 GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating,
                                       SalesModel.NonFoodProduct/RatingClass))
@@ -3151,7 +3169,7 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="anystructure" href="#anystructure">70</a>: grouping by a property of a subtype
+⚠ Example <a name="anystructure" href="#anystructure">71</a>: grouping by a property of a subtype
 ```
 GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating))
 ```
@@ -3173,7 +3191,7 @@ results in a third group representing entities with no `SalesModel.FoodProduct/R
 The client may specify one of the predefined aggregation methods [`min`](#StandardAggregationMethodmin), [`max`](#StandardAggregationMethodmax), [`sum`](#StandardAggregationMethodsum), [`average`](#StandardAggregationMethodaverage), and [`countdistinct`](#StandardAggregationMethodcountdistinct), or a [custom aggregation method](#CustomAggregationMethods), to aggregate an [aggregatable expression](#AggregatableExpression). Expressions defining an aggregate method specify an [alias](#Keywordas). The aggregated values are returned in a dynamic property whose name is determined by the alias.
 
 ::: example
-Example <a name="aggr" href="#aggr">71</a>:
+Example <a name="aggr" href="#aggr">72</a>:
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))
@@ -3195,7 +3213,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example <a name="nest" href="#nest">72</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
+Example <a name="nest" href="#nest">73</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
 ```
 GET /service/Products?$apply=addnested(Sales,
     aggregate(Amount with sum as Total) as AggregatedSales)
@@ -3223,7 +3241,7 @@ results in
 :::
 
 ::: example
-Example 73: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example 74: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
@@ -3248,7 +3266,7 @@ The expression `$it/Sales` refers to the sales of the current product. Without `
 :::
 
 ::: example
-Example 74: Alternatively, `join` could be applied to yield a flat structure:
+Example 75: Alternatively, `join` could be applied to yield a flat structure:
 ```
 GET /service/Products?$apply=
     join(Sales as TotalSales,aggregate(Amount with sum as Total))
@@ -3276,7 +3294,7 @@ Applying `outerjoin` instead would return an additional entity for product with 
 :::
 
 ::: example
-Example 75:
+Example 76:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                             aggregate(Amount with average as AverageAmount))
@@ -3297,7 +3315,7 @@ Here the `AverageAmount` is of type `Edm.Double`.
 :::
 
 ::: example
-Example 76: `$count` after navigation property
+Example 77: `$count` after navigation property
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/$count as SalesCount))
@@ -3319,7 +3337,7 @@ results in
 To place the number of instances in a group next to other aggregated values, the aggregate expression [`$count`](#AggregateExpressioncount) can be used:
 
 ::: example
-⚠ Example 77: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
+⚠ Example 78: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
 ```
 GET /service/Products?$apply=groupby((Name),addnested(Sales,
       aggregate($count as SalesCount,
@@ -3353,7 +3371,7 @@ results in
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example 78: Products with an aggregated sales volume of ten or more
+Example 79: Products with an aggregated sales volume of ten or more
 ```
 GET /service/Products?$filter=Sales/aggregate(Amount with sum) ge 10
 ```
@@ -3370,7 +3388,7 @@ results in
 :::
 
 ::: example
-Example 79: Customers in descending order of their aggregated sales volume
+Example 80: Customers in descending order of their aggregated sales volume
 ```
 GET /service/Customers?$orderby=Sales/aggregate(Amount with sum) desc
 ```
@@ -3389,7 +3407,7 @@ results in
 :::
 
 ::: example
-Example 80: Contribution of each sales to grand total sales amount
+Example 81: Contribution of each sales to grand total sales amount
 ```
 GET /service/Sales?$compute=Amount divby $these/aggregate(Amount with sum)
                             as Contribution
@@ -3421,7 +3439,7 @@ results in
 :::
 
 ::: example
-Example 81: Product categories with at least one product having an aggregated sales amount greater than 10
+Example 82: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
                                 p:p/Sales/aggregate(Amount with sum) gt 10)
@@ -3440,7 +3458,7 @@ results in
 The `aggregate` function can also be applied inside `$apply`:
 
 ::: example
-Example 82: Sales volume per customer in relation to total volume
+Example 83: Sales volume per customer in relation to total volume
 ```
 GET /service/Sales?$apply=
     groupby((Customer),aggregate(Amount with sum as CustomerAmount))
@@ -3465,7 +3483,7 @@ results in
 :::
 
 ::: example
-Example 83: rule 1 for [keyword `from`](#Keywordfrom) applied repeatedly
+Example 84: rule 1 for [keyword `from`](#Keywordfrom) applied repeatedly
 ```
 GET /service/Sales?$apply=aggregate(Amount with sum
                                     from Time with average
@@ -3476,23 +3494,23 @@ is equivalent to (with nested `groupby` transformations)
 ```
 GET /service/Sales?$apply=
   groupby((Customer/Country),
-    groupby((Time),aggregate(Amount with sum as A1))
-    /aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+    groupby((Time),aggregate(Amount with sum as D1))
+    /aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 and is equivalent to (with consecutive `groupby` transformations)
 ```
 GET /service/Sales?$apply=
-  groupby((Customer/Country,Time),aggregate(Amount with sum as A1))
-  /groupby((Customer/Country),aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+  groupby((Customer/Country,Time),aggregate(Amount with sum as D1))
+  /groupby((Customer/Country),aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 :::
 
 ## <a name="RequestingExpandedResults" href="#RequestingExpandedResults">7.3 Requesting Expanded Results</a>
 
 ::: example
-Example 84: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
+Example 85: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
 ```
 GET /service/Customers?$apply=
     addnested(Addresses/ResponsibleSalesOrganization,
@@ -3524,7 +3542,7 @@ results in
 `addnested` transformations can be nested.
 
 ::: example
-Example 85: nested `addnested` transformations
+Example 86: nested `addnested` transformations
 ```
 GET /service/Categories?$apply=
     addnested(Products,
@@ -3575,7 +3593,7 @@ results in the response before without the FilteredSales dynamic navigation prop
 :::
 
 ::: example
-Example 86: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
+Example 87: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
 ```
 GET /service/Customers?$apply=addnested(Sales,
     groupby((Product/Name)) as GroupedSales)
@@ -3614,7 +3632,7 @@ results in
 :::
 
 ::: example
-Example 87: use `outerjoin` to split up collection-valued navigation properties for grouping
+Example 88: use `outerjoin` to split up collection-valued navigation properties for grouping
 ```
 GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
                        /groupby((Country,ProductSales/Product/Name))
@@ -3651,7 +3669,7 @@ Custom aggregates are defined through the [`CustomAggregate`](#CustomAggregates)
 A custom aggregate can be used by specifying the name of the custom aggregate in the [`aggregate`](#Transformationaggregate) clause.
 
 ::: example
-Example 88:
+Example 89:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Actual,Forecast))
@@ -3675,7 +3693,7 @@ results in
 When associated with an entity set a custom aggregate MAY have the same name as a property of the underlying entity type with the same type as the type returned by the custom aggregate. This is typically done when the aggregate is used as a default aggregate for that property.
 
 ::: example
-Example 89: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
+Example 90: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),aggregate(Amount))
 ```
@@ -3692,7 +3710,7 @@ results in
 :::
 
 ::: example
-Example 90: illustrates rule 1 for [keyword `from`](#Keywordfrom): maximal sales forecast for a product
+Example 91: illustrates rule 1 for [keyword `from`](#Keywordfrom): maximal sales forecast for a product
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Product with max
                                     as MaxProductForecast)
@@ -3706,7 +3724,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 91: illustrates rule 2 for [keyword `from`](#Keywordfrom): the forecast is computed in two steps
+Example 92: illustrates rule 2 for [keyword `from`](#Keywordfrom): the forecast is computed in two steps
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Product as ProductForecast)
 ```
@@ -3719,7 +3737,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 92: illustrates rule 1 followed by rule 2 for [keyword `from`](#Keywordfrom): a forecast based on the average daily forecasts per country
+Example 93: illustrates rule 1 followed by rule 2 for [keyword `from`](#Keywordfrom): a forecast based on the average daily forecasts per country
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Time with average
                                     from Customer/Country
@@ -3730,7 +3748,7 @@ is equivalent to the following (except that the property name is `Forecast` inst
 GET /service/Sales?$apply=
   groupby((Customer/Country),
     groupby((Time),aggregate(Forecast))
-    /aggregate(Forecast with average as A1))
+    /aggregate(Forecast with average as D1))
   /aggregate(Forecast)
 ```
 :::
@@ -3740,7 +3758,7 @@ GET /service/Sales?$apply=
 A property can be aggregated in multiple ways, each with a different alias.
 
 ::: example
-Example 93:
+Example 94:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Total,
@@ -3765,7 +3783,7 @@ results in
 The introduced dynamic property is added to the context where the aggregate expression is applied to:
 
 ::: example
-Example 94:
+Example 95:
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))
@@ -3801,7 +3819,7 @@ results in
 There is no hard distinction between groupable and aggregatable properties: the same property can be aggregated and used to group the aggregated results.
 
 ::: example
-Example 95:
+Example 96:
 ```
 GET /service/Sales?$apply=groupby((Amount),aggregate(Amount with sum as Total))
 ```
@@ -3824,7 +3842,7 @@ will return all distinct amounts appearing in sales orders and how much money wa
 Dynamic property names may be reused in different transformation sequences passed to `concat`.
 
 ::: example
-Example <a name="bestselling" href="#bestselling">96</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
+Example <a name="bestselling" href="#bestselling">97</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
 ```
 GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
@@ -3856,7 +3874,7 @@ results in
 :::
 
 ::: example
-Example 97: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
+Example 98: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))
@@ -3887,7 +3905,7 @@ results in
 :::
 
 ::: example
-Example <a name="contradict" href="#contradict">98</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
+Example <a name="contradict" href="#contradict">99</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
 ```
 GET /service/Sales?$apply=concat(
     groupby((Customer),topcount(1,Amount))/compute('Customer' as per),
@@ -3919,7 +3937,7 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 ## <a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.6 Model Functions as Set Transformations</a>
 
 ::: example
-Example 99: As a variation of [example 96](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
+Example 100: As a variation of [example 97](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
 
 For this purpose, the model includes a definition of a `TopCountAndRemainder` function that accepts a count and a numeric property for the top entities:
 ```xml
@@ -3967,7 +3985,7 @@ Note that these two entities get their values for the Country property from the 
 For a leveled hierarchy, consumers may specify a different aggregation method per level for every property passed to [`rollup`](#Groupingwithrollup) as a hierarchy level below the root level.
 
 ::: example
-Example 100: get the average of the overall amount by month per product.
+Example 101: get the average of the overall amount by month per product.
 
 Using a transformation sequence:
 ```
@@ -3987,7 +4005,7 @@ GET /service/Sales?$apply=groupby((Product/ID,Product/Name),
 :::
 
 ::: example
-Example 101:  get the total amount per customer, the average of the total customer amounts per country, and the overall average of these averages
+Example 102:  get the total amount per customer, the average of the total customer amounts per country, and the overall average of these averages
 ```
 GET /service/Sales?$apply=concat(
                     groupby((rollup(Customer/Country,Customer/ID)),
@@ -4034,7 +4052,7 @@ average.
 If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations `ancestors` and `descendants` may be used to restrict it as needed.
 
 ::: example
-Example 102: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
+Example 103: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
 GET /service/Sales?$apply=
     descendants(
@@ -4069,7 +4087,7 @@ Note that this example returns the actual total sums regardless of whether the `
 The order of transformations becomes relevant if `groupby` with `rolluprecursive` shall aggregate over a thinned-out hierarchy, like here:
 
 ::: example
-Example 103: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
+Example 104: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
 GET /service/Sales?$apply=
     filter(Product/Name eq 'Paper')
@@ -4107,7 +4125,7 @@ results in
 :::
 
 ::: example
-⚠ Example 104: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
+⚠ Example 105: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
 ```
 GET /service/Sales?$apply=
   descendants($root/SalesOrganizations,
@@ -4131,7 +4149,7 @@ GET /service/SalesOrganizations?$apply=
 :::
 
 ::: example
-⚠ Example 105: total sales amount aggregated along the sales organization subhierarchy with root EMEA restricted to 3 levels
+⚠ Example 106: total sales amount aggregated along the sales organization subhierarchy with root EMEA restricted to 3 levels
 ```
 GET /service/Sales?$apply=
   groupby((rolluprecursive($root/SalesOrganizations,
@@ -4170,7 +4188,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 106: Return the result of [example 62](#rollupnode) in preorder
+Example 107: Return the result of [example 63](#rollupnode) in preorder
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -4212,7 +4230,7 @@ results in
 :::
 
 ::: example
-Example <a name="traversecoll" href="#traversecoll">107</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
+Example <a name="traversecoll" href="#traversecoll">108</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
@@ -4252,7 +4270,7 @@ The result contains multiple instances of the same `Product` that differ in thei
 :::
 
 ::: example
-Example <a name="rollupcoll" href="#rollupcoll">108</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
+Example <a name="rollupcoll" href="#rollupcoll">109</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
 ```
 GET /service/Products?$apply=
     groupby((rolluprecursive(
@@ -4284,7 +4302,7 @@ results in
 :::
 
 ::: example
-⚠ Example 109: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
+⚠ Example 110: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
 
 ProductCategory|parent ProductCategory|associated SalesOrganizations
 ---------------|----------------------|-----------------------------
@@ -4352,7 +4370,7 @@ would determine descendants of sales organizations for "Cereals" and their ances
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 
 ::: example
-Example 110:
+Example 111:
 ```
 GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)
@@ -4371,7 +4389,7 @@ means "filter first, then aggregate", and results in
 Using `filter` within `$apply` does not preclude using it as a normal system query option.
 
 ::: example
-Example 111:
+Example 112:
 ```
 GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
@@ -4392,7 +4410,7 @@ results in
 :::
 
 ::: example
-Example 112: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
+Example 113: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
 ```
 GET /service/Sales?$apply=aggregate(Amount from Time with average
                                     as DailyAverage)
@@ -4406,7 +4424,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Amount with sum as Total))
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
-Example 113: getting the population per country with
+Example 114: getting the population per country with
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
@@ -4428,7 +4446,7 @@ results in
 :::
 
 ::: example
-Example 114: all countries with megacities and their continents
+Example 115: all countries with megacities and their continents
 ```
 GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
@@ -4437,7 +4455,7 @@ GET /service/Cities?$apply=filter(Population ge 10000000)
 :::
 
 ::: example
-Example 115: all countries with tens of millions of city dwellers and the continents only for these countries
+Example 116: all countries with tens of millions of city dwellers and the continents only for these countries
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4459,7 +4477,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 116: all countries with tens of millions of city dwellers and all continents with cities independent of their size
+Example 117: all countries with tens of millions of city dwellers and all continents with cities independent of their size
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4471,7 +4489,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 117: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
+Example 118: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
 ```
 GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
     /addnested(Items,filter(not Shipped) as FilteredItems)
@@ -4481,7 +4499,7 @@ GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
 :::
 
 ::: example
-Example 118: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
+Example 119: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
@@ -4491,7 +4509,7 @@ GET /service/SalesOrders?$apply=
 :::
 
 ::: example
-Example <a name="aggrconflict" href="#aggrconflict">119</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
+Example <a name="aggrconflict" href="#aggrconflict">120</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
 ```
 GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
@@ -4502,7 +4520,7 @@ results in an error.
 :::
 
 ::: example
-Example 120: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
+Example 121: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
 ```
 GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))
@@ -4549,34 +4567,30 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
-See the link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataAggABNF">[OData-Agg-ABNF]</a>
 _OData Aggregation ABNF Construction Rules Version 4.0._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/os/odata-csdl-json-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html.  
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/odata-csdl-xml-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html.
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Mark Biamonte. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-json-format/v4.01/os/odata-json-format-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html.
+_OData JSON Format Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01. Part 1: Protocol. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 23 April 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
+_OData Version 4.01. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01. Part 2: URL Conventions. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 23 April 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata/v4.01/os/part2-url-conventions/odata-v4.01-os-part2-url-conventions.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html.
+_OData Version 4.01. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocAggr">[OData-VocAggr]</a>
 _OData Aggregation Vocabulary._  

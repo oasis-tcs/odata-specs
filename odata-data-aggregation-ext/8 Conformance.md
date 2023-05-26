@@ -20,34 +20,30 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
-See the link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataAggABNF">[OData-Agg-ABNF]</a>
 _OData Aggregation ABNF Construction Rules Version 4.0._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/os/odata-csdl-json-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html.  
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/odata-csdl-xml-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html.
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Mark Biamonte. 11 May 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata-json-format/v4.01/os/odata-json-format-v4.01-os.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html.
+_OData JSON Format Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01. Part 1: Protocol. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 23 April 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
+_OData Version 4.01. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01. Part 2: URL Conventions. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 23 April 2020. OASIS Standard._  
-https://docs.oasis-open.org/odata/odata/v4.01/os/part2-url-conventions/odata-v4.01-os-part2-url-conventions.html.  
-Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html.
+_OData Version 4.01. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocAggr">[OData-VocAggr]</a>
 _OData Aggregation Vocabulary._  
