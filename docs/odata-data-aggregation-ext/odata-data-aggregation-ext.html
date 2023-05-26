@@ -4772,17 +4772,24 @@ order to distinguish these, information about the ancestors up to the
 root is injected into each <span class="math inline">\(σ(x)\)</span> by
 annotating <span class="math inline">\(x\)</span> differently before
 each <span class="math inline">\(σ(x)\)</span> is computed.</p>
-<p>More precisely, an <em>path-to-the-root</em> is a node <span
-class="math inline">\(x\)</span> that is annotated with the term
+<p>More precisely, a <em>path-to-the-root</em> is a node <span
+class="math inline">\(y\)</span> that is annotated with the term
 <code>UpNode</code> from the <code>Aggregation</code> vocabulary <a
 href="#ODataVocAggr">OData-VocAggr</a> where the annotation value is the
-parent node <span class="math inline">\(y\)</span> such that <span
-class="math inline">\(R(x)\)</span> appears on the right-hand side of
-the recursive formula for <span class="math inline">\(R(y)\)</span>. The
-annotation value <span class="math inline">\(y\)</span> is again
+parent node <span class="math inline">\(x\)</span> such that <span
+class="math inline">\(R(y)\)</span> appears on the right-hand side of
+the recursive formula for <span class="math inline">\(R(x)\)</span>. The
+annotation value <span class="math inline">\(x\)</span> is again
 annotated with <code>Aggregation.UpNode</code> and so on until a root is
 reached. Every instance in the output set of <code>traverse</code> is
 related to one path-to-the-root.</p>
+<p>Given a path-to-the-root <span class="math inline">\(x\)</span> and a
+child <span class="math inline">\(c\)</span> of <span
+class="math inline">\(x\)</span>, let <span
+class="math inline">\(ρ(c,x)\)</span> be the path-to-the-root consisting
+of the node <span class="math inline">\(c\)</span> annotated with
+<code>Aggregation.UpNode</code> and value <span
+class="math inline">\(x\)</span>.</p>
 <p>The transformation <span class="math inline">\(\Pi_G(σ(x))\)</span>
 is extended with an additional step between steps 2 and 3 of the
 function <span class="math inline">\(a_G(u,s,p)\)</span> as defined in
@@ -4793,13 +4800,6 @@ the <a href="#SimpleGrouping">simple grouping section</a>:</p>
 class="math inline">\(s\)</span> to <span
 class="math inline">\(u\)</span>.</li>
 </ul>
-<p>Given a path-to-the-root <span class="math inline">\(x\)</span> and a
-child <span class="math inline">\(c\)</span> of <span
-class="math inline">\(x\)</span>, let <span
-class="math inline">\(ρ(c,x)\)</span> be the path-to-the-root consisting
-of the node <span class="math inline">\(c\)</span> annotated with
-<code>Aggregation.UpNode</code> and value <span
-class="math inline">\(x\)</span>.</p>
 <p>The <code>Aggregation.UpNode</code> annotation of a root has value
 null. With <span class="math inline">\(r_1,…,r_n\)</span> as above, the
 transformation <span class="math inline">\({\tt
@@ -6389,7 +6389,7 @@ with node identifier can be unreachable from any root, these are called
 orphans.</p>
 <div class="example">
 <p>⚠ Example 112: Given the following types of
-<code>SalesOrganizations</code> and if only Sales is a root,</p>
+<code>SalesOrganizations</code> where only Sales is a root,</p>
 <table>
 <thead>
 <tr class="header">
@@ -6450,10 +6450,10 @@ orphans.</p>
 </tr>
 </tbody>
 </table>
-<p>the orphans can appear as descendants:</p>
-<pre><code>GET /service/SalesOrganizations?$apply=descendants(
+<p>the orphan nodes can appear as ancestors:</p>
+<pre><code>GET /service/SalesOrganizations?$apply=ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
-    filter(ID eq &#39;Phobos&#39;),keep start)
+    filter(ID eq &#39;Phobos South Pole&#39;),keep start)
   &amp;$select=ID</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb215"><pre
@@ -6464,8 +6464,8 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb215-1"><a href
 <span id="cb215-5"><a href="#cb215-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Phobos South Pole&quot;</span> <span class="fu">}</span></span>
 <span id="cb215-6"><a href="#cb215-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb215-7"><a href="#cb215-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>An analogous request for the descendants of Atlantis would fail
-because of the cycle.</p>
+<p>An analogous request for the ancestors of Atlantis would fail because
+of the cycle.</p>
 <p>Mars, Phobos and Phobos South Pole can be made descendants of the
 root node by giving Mars a node identifier:</p>
 <div class="sourceCode" id="cb216"><pre

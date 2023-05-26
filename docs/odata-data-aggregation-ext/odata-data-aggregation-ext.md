@@ -2851,12 +2851,12 @@ The algorithm given so far is valid for a single-valued `RecursiveHierarchy/Pare
 
 In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, an _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation value $x$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+
+Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
 
 The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
 - If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
-
-Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
 
 The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
@@ -4363,7 +4363,7 @@ Content-Type: application/json
 An entity set where the key property `ID` differs from the node identfier property `NodeID` can contain entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example 112: Given the following types of `SalesOrganizations` and if only Sales is a root,
+⚠ Example 112: Given the following types of `SalesOrganizations` where only Sales is a root,
 
 Type|ID|NodeID|SuperordinateID
 ----|--|------|---------------
@@ -4376,11 +4376,11 @@ true orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
 island orphan|Atlantis|Atlantis|Atlantis
 
-the orphans can appear as descendants:
+the orphan nodes can appear as ancestors:
 ```
-GET /service/SalesOrganizations?$apply=descendants(
+GET /service/SalesOrganizations?$apply=ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
-    filter(ID eq 'Phobos'),keep start)
+    filter(ID eq 'Phobos South Pole'),keep start)
   &$select=ID
 ```
 results in
@@ -4394,7 +4394,7 @@ results in
 }
 ```
 
-An analogous request for the descendants of Atlantis would fail because of the cycle.
+An analogous request for the ancestors of Atlantis would fail because of the cycle.
 
 Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
 ```json

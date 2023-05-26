@@ -1350,7 +1350,7 @@ Content-Type: application/json
 An entity set where the key property `ID` differs from the node identfier property `NodeID` can contain entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Given the following types of `SalesOrganizations` and if only Sales is a root,
+⚠ Example ##ex: Given the following types of `SalesOrganizations` where only Sales is a root,
 
 Type|ID|NodeID|SuperordinateID
 ----|--|------|---------------
@@ -1363,11 +1363,11 @@ true orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
 island orphan|Atlantis|Atlantis|Atlantis
 
-the orphans can appear as descendants:
+the orphan nodes can appear as ancestors:
 ```
-GET /service/SalesOrganizations?$apply=descendants(
+GET /service/SalesOrganizations?$apply=ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
-    filter(ID eq 'Phobos'),keep start)
+    filter(ID eq 'Phobos South Pole'),keep start)
   &$select=ID
 ```
 results in
@@ -1381,7 +1381,7 @@ results in
 }
 ```
 
-An analogous request for the descendants of Atlantis would fail because of the cycle.
+An analogous request for the ancestors of Atlantis would fail because of the cycle.
 
 Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
 ```json
