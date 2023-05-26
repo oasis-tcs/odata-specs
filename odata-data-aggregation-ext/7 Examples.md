@@ -1363,26 +1363,6 @@ true orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
 island orphan|Atlantis|Atlantis|Atlantis
 
-the orphan nodes can appear as ancestors:
-```
-GET /service/SalesOrganizations?$apply=ancestors(
-    $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
-    filter(ID eq 'Phobos South Pole'),keep start)
-  &$select=ID
-```
-results in
-```json
-{
-  "@odata.context": "$metadata#SalesOrganizations(ID)",
-  "value": [
-    { "ID": "Phobos" },
-    { "ID": "Phobos South Pole" }
-  ]
-}
-```
-
-An analogous request for the ancestors of Atlantis would fail because of the cycle.
-
 Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
 ```json
 PATCH /service/SalesOrganizations('Mars')

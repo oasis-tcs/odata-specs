@@ -2419,7 +2419,7 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, until no more parent nodes exist.
+A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are a descendant of a root node.
 
 The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed.
 
@@ -4375,26 +4375,6 @@ true orphan|Phobos|Phobos|Mars
 true orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
 island orphan|Atlantis|Atlantis|Atlantis
-
-the orphan nodes can appear as ancestors:
-```
-GET /service/SalesOrganizations?$apply=ancestors(
-    $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
-    filter(ID eq 'Phobos South Pole'),keep start)
-  &$select=ID
-```
-results in
-```json
-{
-  "@odata.context": "$metadata#SalesOrganizations(ID)",
-  "value": [
-    { "ID": "Phobos" },
-    { "ID": "Phobos South Pole" }
-  ]
-}
-```
-
-An analogous request for the ancestors of Atlantis would fail because of the cycle.
 
 Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
 ```json
