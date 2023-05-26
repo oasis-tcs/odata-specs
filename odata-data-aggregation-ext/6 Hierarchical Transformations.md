@@ -110,12 +110,12 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "EMEA",  "Name": "EMEA",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US",    "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "Sales", "Name": "Sales",
       "Superordinate": null }
   ]
@@ -134,14 +134,14 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "US West", "Name": "US West",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } },
+      "Superordinate": { "@id": "SalesOrganizations('US')" } },
     { "ID": "US",      "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+      "Superordinate": { "@id": "SalesOrganizations('US')" } }
   ]
 }
 ```
@@ -161,7 +161,7 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales",
+  "@context": "$metadata#Sales",
   "value": [
     { "ID": "4", "Amount": 8,
       "SalesOrganization": { "ID": "US East",      "Name": "US East" } },
@@ -263,12 +263,12 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "US",      "Name": "US",
-      "Superordinate": { "@odata.id": "SalesOrganizations('Sales')" } },
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } },
     { "ID": "US East", "Name": "US East",
-      "Superordinate": { "@odata.id": "SalesOrganizations('US')" } }
+      "Superordinate": { "@id": "SalesOrganizations('US')" } }
   ]
 }
 ```
@@ -374,7 +374,7 @@ GET /service/SalesOrganizations?$apply=
 results in
 ```json
 {
-  "@odata.context":
+  "@context":
       "$metadata#SalesOrganizations(ID,Name,SubOrgCnt,Superordinate(ID))",
   "value": [
     { "ID": "US West",      "Name": "US West",
@@ -415,18 +415,18 @@ GET /service/Sales?$apply=groupby(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization(),
+  "@context": "$metadata#Sales(SalesOrganization(),
                                      TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl":  7,
-      "TotalAmountExcl@odata.type": "Decimal" ,"TotalAmountExcl":  7 },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
+      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 },
     { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 19,
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
       "TotalAmountExcl": null },
     { "SalesOrganization": { "ID": "US East", "Name": "US East" },
-      "TotalAmountIncl@odata.type": "Decimal", "TotalAmountIncl": 12,
-      "TotalAmountExcl@odata.type": "Decimal", "TotalAmountExcl": 12 }
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
+      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 }
   ]
 }
 ```
@@ -443,7 +443,7 @@ GET /service/Sales?$apply=
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(SalesOrganization(),TotalAmount)",
+  "@context": "$metadata#Sales(SalesOrganization(),TotalAmount)",
   "value": [
     { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales" },
       "TotalAmount": null },

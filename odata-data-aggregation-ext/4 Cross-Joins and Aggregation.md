@@ -18,7 +18,7 @@ GET /service/$crossjoin(Products,Sales)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Collection(Edm.ComplexType)",
+  "@context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
     { "Products": { "Name": "Paper" }, "Sales": { "Amount": 1 } },
     { "Products": { "Name": "Sugar" }, "Sales": { "Amount": 2 } },
@@ -40,17 +40,17 @@ GET /service/$crossjoin(Products,Sales)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Collection(Edm.ComplexType)",
+  "@context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
     { "Products": { "Name": "Coffee" },
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": { "Total@odata.type": "Decimal", "Total": 12 } },
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": { "Total@type": "Decimal", "Total": 12 } },
     { "Products": { "Name": "Paper"  },
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": { "Total@odata.type": "Decimal", "Total":  8 } },
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": { "Total@type": "Decimal", "Total":  8 } },
     { "Products": { "Name": "Sugar"  },
-      "AggregatedSales@odata.context": "#Sales(Total)",
-      "AggregatedSales": { "Total@odata.type": "Decimal", "Total":  4 } }
+      "AggregatedSales@context": "#Sales(Total)",
+      "AggregatedSales": { "Total@type": "Decimal", "Total":  4 } }
   ]
 }
 ```

@@ -262,7 +262,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "EMEA Central",      "Name": "EMEA Central" },
     { "ID": "Sales Netherlands", "Name": "Sales Netherlands" },
@@ -289,7 +289,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isdescendant(
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "EMEA Central", "Name": "EMEA Central" },
     { "ID": "EMEA South",   "Name": "EMEA South" },
@@ -311,7 +311,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations",
+  "@context": "$metadata#SalesOrganizations",
   "value": [
     { "ID": "Sales Office London",   "Name": "Sales Office London" },
     { "ID": "Sales Office New York", "Name": "Sales Office New York" },
@@ -333,7 +333,7 @@ GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
 results in
 ```json
 {
-  "@odata.context": "$metadata#SalesOrganizations(*,Superordinate(ID))",
+  "@context": "$metadata#SalesOrganizations(*,Superordinate(ID))",
   "value": [
     { "ID": "Sales Office London",   "Name": "Sales Office London",
       "Superordinate": { "ID": "EMEA United Kingdom" } },
@@ -358,7 +358,7 @@ GET /service/Sales?$select=ID&$filter=Aggregation.isdescendant(
 results in
 ```json
 {
-  "@odata.context": "$metadata#Sales(ID)",
+  "@context": "$metadata#Sales(ID)",
   "value": [
     { "ID": 6 },
     { "ID": 7 },
