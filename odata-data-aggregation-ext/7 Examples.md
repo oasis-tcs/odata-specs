@@ -1319,6 +1319,7 @@ results in
     { "SalesOrganization": { "ID": "Sales",   "ProductCategories": [ ] },
       "TotalAmount@odata.type": "Decimal", "TotalAmount": 24 },
     { "SalesOrganization": { "ID": "US",      "ProductCategories": [
+      { "@odata.id": "ProductCategories('Food')" },
       { "@odata.id": "ProductCategories('Cereals')" } ] },
       "TotalAmount@odata.type": "Decimal", "TotalAmount": 19 },
     { "SalesOrganization": { "ID": "US West", "ProductCategories": [
@@ -1328,7 +1329,19 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result.
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. If `traverse` was omitted, the transformation
+```
+ancestors(
+  $root/SalesOrganizations,SalesOrgHierarchy,
+  ID,
+  descendants(
+    $root/ProductCategories,ProductCategoryHierarchy,
+    ProductCategories/ID,
+    filter(ProductCategories/any(c:c/Name eq 'Cereals')),
+    keep start),
+  keep start)
+```
+would determine descendants of sales organizations for "Cereals" and their ancestors, so US East would appear in the result.
 :::
 
 ## ##subsec Transformation Sequences
