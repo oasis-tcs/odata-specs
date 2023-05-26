@@ -437,7 +437,9 @@ Set Transformations</a></li>
 Aggregation per Rollup Level</a></li>
 <li><a href="#AggregationinRecursiveHierarchies">7.8 Aggregation in
 Recursive Hierarchies</a></li>
-<li><a href="#TransformationSequences">7.9 Transformation
+<li><a href="#MaintainingRecursiveHierarchies">7.9 Maintaining Recursive
+Hierarchies</a></li>
+<li><a href="#TransformationSequences">7.10 Transformation
 Sequences</a></li>
 </ul></li>
 <li><a href="#Conformance">8 Conformance</a></li>
@@ -2245,7 +2247,7 @@ representations of the same non-transient entity</a> are reached, the
 service MUST merge them into one occurrence in <span
 class="math inline">\(E\)</span> if they are complementary and MUST
 reject the request if they are contradictory. (See <a
-href="#aggrconflict">example 119</a>.) If <a
+href="#aggrconflict">example 122</a>.) If <a
 href="#SamenessandPrecedence">multiple occurrences of the same transient
 entity</a> are reached, the service MUST keep only one occurrence in
 <span class="math inline">\(E\)</span>.</li>
@@ -6333,7 +6335,149 @@ of it:</p>
 changing the result.</p>
 </div>
 <h2
-id="79-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.9
+id="79-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.9
+Maintaining Recursive Hierarchies</a></h2>
+<p>Besides changes to the structural properties of the entities in a
+hierarchical collection, hierarchy maintenance involves changes to the
+parent-child relationships.</p>
+<div class="example">
+<p>Example 110: Move a sales organization Switzerland under the parent
+EMEA Central by setting the reference <a
+href="#ODataProtocol">OData-Protocol section 11.4.6.3</a> of the parent
+navigation property target <a href="#ODataURL">OData-URL, section
+4.4</a> to a reference to EMEA Central <a href="#ODataJSON">OData-JSON,
+section 14</a>:</p>
+<div class="sourceCode" id="cb211"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="er">PUT</span> <span class="er">/service/SalesOrganizations(&#39;Switzerland&#39;)/Superordinate/$ref</span></span>
+<span id="cb211-2"><a href="#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb211-3"><a href="#cb211-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-4"><a href="#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;SalesOrganizations(&#39;EMEA Central&#39;)&quot;</span> <span class="fu">}</span></span></code></pre></div>
+<p>results in <code>204 No Content</code>.</p>
+</div>
+<div class="example">
+<p>Example 111: If the parent navigation property contained a
+referential constraint for the key of the target <a
+href="#ODataCSDL">OData-CSDL, section 8.5</a>,</p>
+<div class="sourceCode" id="cb212"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
+<span id="cb212-2"><a href="#cb212-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb212-3"><a href="#cb212-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb212-4"><a href="#cb212-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb212-5"><a href="#cb212-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb212-6"><a href="#cb212-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb212-7"><a href="#cb212-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;SuperordinateID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb212-8"><a href="#cb212-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
+<span id="cb212-9"><a href="#cb212-9" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
+<span id="cb212-10"><a href="#cb212-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ReferentialConstraint</span><span class="ot"> Property=</span><span class="st">&quot;SuperordinateID&quot;</span></span>
+<span id="cb212-11"><a href="#cb212-11" aria-hidden="true" tabindex="-1"></a><span class="ot">                           ReferencedProperty=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb212-12"><a href="#cb212-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
+<span id="cb212-13"><a href="#cb212-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
+<p>then alternatively the property taking part in the referential
+constraint <a href="#ODataProtocol">OData-Protocol, section 11.4.9.1</a>
+could be changed to EMEA Central:</p>
+<div class="sourceCode" id="cb213"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb213-1"><a href="#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/SalesOrganizations(&#39;Switzerland&#39;)</span></span>
+<span id="cb213-2"><a href="#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb213-3"><a href="#cb213-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-4"><a href="#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;SuperordinateID&quot;</span><span class="fu">:</span> <span class="st">&quot;EMEA Central&quot;</span> <span class="fu">}</span></span></code></pre></div>
+</div>
+<p>An entity set where the key property <code>ID</code> differs from the
+node identfier property <code>NodeID</code> can contain entities without
+node identifier. And by using a non-<a
+href="#RecursiveHierarchy">standard definition of root</a>, even nodes
+with node identifier can be unreachable from any root, these are called
+orphans.</p>
+<div class="example">
+<p>⚠ Example 112: Given the following types of
+<code>SalesOrganizations</code> and if only Sales is a root,</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>ID</th>
+<th>NodeID</th>
+<th>SuperordinateID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>root node</td>
+<td>Sales</td>
+<td>Sales</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>parent node</td>
+<td>EMEA</td>
+<td>EMEA</td>
+<td>Sales</td>
+</tr>
+<tr class="odd">
+<td>child node</td>
+<td>EMEA Central</td>
+<td>EMEA Central</td>
+<td>EMEA</td>
+</tr>
+<tr class="even">
+<td>not a node</td>
+<td>Mars</td>
+<td></td>
+<td>Sales</td>
+</tr>
+<tr class="odd">
+<td>true orphan</td>
+<td>Phobos</td>
+<td>Phobos</td>
+<td>Mars</td>
+</tr>
+<tr class="even">
+<td>true orphan</td>
+<td>Phobos South Pole</td>
+<td>Phobos South Pole</td>
+<td>Phobos</td>
+</tr>
+<tr class="odd">
+<td>unreachable orphan</td>
+<td>Venus</td>
+<td>Venus</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>island orphan</td>
+<td>Atlantis</td>
+<td>Atlantis</td>
+<td>Atlantis</td>
+</tr>
+</tbody>
+</table>
+<p>the orphans can appear as descendants:</p>
+<pre><code>GET /service/SalesOrganizations?$apply=descendants(
+    $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
+    filter(ID eq &#39;Phobos&#39;),keep start)
+  &amp;$select=ID</code></pre>
+<p>results in</p>
+<div class="sourceCode" id="cb215"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb215-2"><a href="#cb215-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#SalesOrganizations(ID)&quot;</span><span class="fu">,</span></span>
+<span id="cb215-3"><a href="#cb215-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb215-4"><a href="#cb215-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Phobos&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb215-5"><a href="#cb215-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Phobos South Pole&quot;</span> <span class="fu">}</span></span>
+<span id="cb215-6"><a href="#cb215-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb215-7"><a href="#cb215-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>An analogous request for the descendants of Atlantis would fail
+because of the cycle.</p>
+<p>Mars, Phobos and Phobos South Pole can be made descendants of the
+root node by giving Mars a node identifier:</p>
+<div class="sourceCode" id="cb216"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)</span></span>
+<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb216-3"><a href="#cb216-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-4"><a href="#cb216-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;NodeID&quot;</span><span class="fu">:</span> <span class="st">&quot;Mars&quot;</span> <span class="fu">}</span></span></code></pre></div>
+<p>An attempt to make the island orphan Atlantis a child of the root
+node fails, because it would introduce cycles into the hierarchy.</p>
+</div>
+<h2
+id="710-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.10
 Transformation Sequences</a></h2>
 <p>Applying aggregation first covers the most prominent use cases. The
 slightly more sophisticated question "how much money is earned with
@@ -6342,39 +6486,39 @@ aggregation. To enable this type of question several transformations can
 be specified in <code>$apply</code> in the order they are to be applied,
 separated by a forward slash.</p>
 <div class="example">
-<p>Example 110:</p>
+<p>Example 113:</p>
 <pre><code>GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)</code></pre>
 <p>means "filter first, then aggregate", and results in</p>
-<div class="sourceCode" id="cb212"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb212-2"><a href="#cb212-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb212-3"><a href="#cb212-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb212-4"><a href="#cb212-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span></span>
-<span id="cb212-5"><a href="#cb212-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb212-6"><a href="#cb212-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Total)&quot;</span><span class="fu">,</span></span>
+<span id="cb218-3"><a href="#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb218-4"><a href="#cb218-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span></span>
+<span id="cb218-5"><a href="#cb218-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb218-6"><a href="#cb218-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Using <code>filter</code> within <code>$apply</code> does not
 preclude using it as a normal system query option.</p>
 <div class="example">
-<p>Example 111:</p>
+<p>Example 114:</p>
 <pre><code>GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
            &amp;$filter=Total ge 4</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb214"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb214-2"><a href="#cb214-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Product(Name),Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb214-3"><a href="#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb214-4"><a href="#cb214-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span> <span class="fu">},</span></span>
-<span id="cb214-5"><a href="#cb214-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb214-6"><a href="#cb214-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span> <span class="fu">},</span></span>
-<span id="cb214-7"><a href="#cb214-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span></span>
-<span id="cb214-8"><a href="#cb214-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb214-9"><a href="#cb214-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Product(Name),Total)&quot;</span><span class="fu">,</span></span>
+<span id="cb220-3"><a href="#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb220-4"><a href="#cb220-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span> <span class="fu">},</span></span>
+<span id="cb220-5"><a href="#cb220-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb220-6"><a href="#cb220-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span> <span class="fu">},</span></span>
+<span id="cb220-7"><a href="#cb220-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span></span>
+<span id="cb220-8"><a href="#cb220-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb220-9"><a href="#cb220-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 112: Revisiting <a href="#from">example 16</a> for using the
+<p>Example 115: Revisiting <a href="#from">example 16</a> for using the
 <code>from</code> keyword with the <code>aggregate</code> function, the
 request</p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount from Time with average
@@ -6388,31 +6532,31 @@ sequence returning the same result</p>
 sets for cities, countries and continents and the obvious associations
 between them.</p>
 <div class="example">
-<p>Example 113: getting the population per country with</p>
+<p>Example 116: getting the population per country with</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb218"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Cities(Continent(Name),Country(Name),</span></span>
-<span id="cb218-3"><a href="#cb218-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                      TotalPopulation)&quot;</span><span class="fu">,</span></span>
-<span id="cb218-4"><a href="#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb218-5"><a href="#cb218-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;China&quot;</span> <span class="fu">},</span></span>
-<span id="cb218-6"><a href="#cb218-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1412000000</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb218-7"><a href="#cb218-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;India&quot;</span> <span class="fu">},</span></span>
-<span id="cb218-8"><a href="#cb218-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1408000000</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb218-9"><a href="#cb218-9" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb218-10"><a href="#cb218-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb218-11"><a href="#cb218-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Cities(Continent(Name),Country(Name),</span></span>
+<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                      TotalPopulation)&quot;</span><span class="fu">,</span></span>
+<span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;China&quot;</span> <span class="fu">},</span></span>
+<span id="cb224-6"><a href="#cb224-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1412000000</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb224-7"><a href="#cb224-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;India&quot;</span> <span class="fu">},</span></span>
+<span id="cb224-8"><a href="#cb224-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1408000000</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb224-9"><a href="#cb224-9" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb224-10"><a href="#cb224-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb224-11"><a href="#cb224-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 114: all countries with megacities and their continents</p>
+<p>Example 117: all countries with megacities and their continents</p>
 <pre><code>GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))</code></pre>
 </div>
 <div class="example">
-<p>Example 115: all countries with tens of millions of city dwellers and
+<p>Example 118: all countries with tens of millions of city dwellers and
 the continents only for these countries</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -6430,7 +6574,7 @@ the continents only for these countries</p>
                                        as TotalPopulation))</code></pre>
 </div>
 <div class="example">
-<p>Example 116: all countries with tens of millions of city dwellers and
+<p>Example 119: all countries with tens of millions of city dwellers and
 all continents with cities independent of their size</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -6440,7 +6584,7 @@ all continents with cities independent of their size</p>
                                        as TotalPopulation)))</code></pre>
 </div>
 <div class="example">
-<p>Example 117: assuming the data model includes a sales order entity
+<p>Example 120: assuming the data model includes a sales order entity
 set with related sets for order items and customers, the base set as
 well as the related items can be filtered before aggregation</p>
 <pre><code>GET /service/SalesOrders?$apply=filter(Status eq &#39;incomplete&#39;)
@@ -6449,7 +6593,7 @@ well as the related items can be filtered before aggregation</p>
      aggregate(FilteredItems/Amount with sum as ItemAmount))</code></pre>
 </div>
 <div class="example">
-<p>Example 118: assuming that <code>Amount</code> is a custom aggregate
+<p>Example 121: assuming that <code>Amount</code> is a custom aggregate
 in addition to the property, determine the total for countries with an
 <code>Amount</code> greater than 1000</p>
 <pre><code>GET /service/SalesOrders?$apply=
@@ -6458,7 +6602,7 @@ in addition to the property, determine the total for countries with an
   /aggregate(Amount)</code></pre>
 </div>
 <div class="example">
-<p>Example <a name="aggrconflict" href="#aggrconflict">119</a>: The
+<p>Example <a name="aggrconflict" href="#aggrconflict">122</a>: The
 output set of the <code>concat</code> transformation contains
 <code>Sales</code> entities multiple times with conflicting related
 <code>AugmentedProduct</code> entities that cannot be aggregated by the
@@ -6470,28 +6614,28 @@ second transformation.</p>
 <p>results in an error.</p>
 </div>
 <div class="example">
-<p>Example 120: The <code>nest</code> transformation can be used inside
+<p>Example 123: The <code>nest</code> transformation can be used inside
 <code>groupby</code> to produce one or more collection-valued properties
 per group.</p>
 <pre><code>GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb227"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb227-1"><a href="#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb227-2"><a href="#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
-<span id="cb227-3"><a href="#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb227-4"><a href="#cb227-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG1&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
-<span id="cb227-5"><a href="#cb227-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb227-6"><a href="#cb227-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb227-7"><a href="#cb227-7" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb227-8"><a href="#cb227-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb227-9"><a href="#cb227-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG2&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
-<span id="cb227-10"><a href="#cb227-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb227-11"><a href="#cb227-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb227-12"><a href="#cb227-12" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb227-13"><a href="#cb227-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
-<span id="cb227-14"><a href="#cb227-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb227-15"><a href="#cb227-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb233-1"><a href="#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb233-2"><a href="#cb233-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
+<span id="cb233-3"><a href="#cb233-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb233-4"><a href="#cb233-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG1&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
+<span id="cb233-5"><a href="#cb233-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb233-6"><a href="#cb233-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb233-7"><a href="#cb233-7" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb233-8"><a href="#cb233-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb233-9"><a href="#cb233-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG2&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
+<span id="cb233-10"><a href="#cb233-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb233-11"><a href="#cb233-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb233-12"><a href="#cb233-12" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb233-13"><a href="#cb233-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb233-14"><a href="#cb233-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb233-15"><a href="#cb233-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="8-conformance"><a name="Conformance" href="#Conformance">8

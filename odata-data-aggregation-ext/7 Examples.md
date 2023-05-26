@@ -1306,6 +1306,94 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
 `traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result.
 :::
 
+## ##subsec Maintaining Recursive Hierarchies
+
+Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
+
+::: example
+Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by setting the reference [OData-Protocol section 11.4.6.3](#ODataProtocol) of the parent navigation property target [OData-URL, section 4.4](#ODataURL) to a reference to EMEA Central [OData-JSON, section 14](#ODataJSON):
+```json
+PUT /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+Content-Type: application/json
+
+{ "@odata.id": "SalesOrganizations('EMEA Central')" }
+```
+results in `204 No Content`.
+:::
+
+::: example
+Example ##ex: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+```xml
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <Property Name="SuperordinateID" Type="Edm.String" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization">
+    <ReferentialConstraint Property="SuperordinateID"
+                           ReferencedProperty="ID" />
+  </NavigationProperty>
+</EntityType>
+```
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "SuperordinateID": "EMEA Central" }
+```
+:::
+
+An entity set where the key property `ID` differs from the node identfier property `NodeID` can contain entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+
+::: example
+⚠ Example ##ex: Given the following types of `SalesOrganizations` and if only Sales is a root,
+
+Type|ID|NodeID|SuperordinateID
+----|--|------|---------------
+root node|Sales|Sales|
+parent node|EMEA|EMEA|Sales
+child node|EMEA Central|EMEA Central|EMEA
+not a node|Mars||Sales
+true orphan|Phobos|Phobos|Mars
+true orphan|Phobos South Pole|Phobos South Pole|Phobos
+unreachable orphan|Venus|Venus|
+island orphan|Atlantis|Atlantis|Atlantis
+
+the orphans can appear as descendants:
+```
+GET /service/SalesOrganizations?$apply=descendants(
+    $root/SalesOrganizations,SalesOrgHierarchy,NodeID,
+    filter(ID eq 'Phobos'),keep start)
+  &$select=ID
+```
+results in
+```json
+{
+  "@odata.context": "$metadata#SalesOrganizations(ID)",
+  "value": [
+    { "ID": "Phobos" },
+    { "ID": "Phobos South Pole" }
+  ]
+}
+```
+
+An analogous request for the descendants of Atlantis would fail because of the cycle.
+
+Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
+```json
+PATCH /service/SalesOrganizations('Mars')
+Content-Type: application/json
+
+{ "NodeID": "Mars" }
+```
+
+An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.
+:::
+
 ## ##subsec Transformation Sequences
 
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
