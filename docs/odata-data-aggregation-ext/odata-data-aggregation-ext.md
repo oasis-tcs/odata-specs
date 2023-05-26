@@ -4386,7 +4386,7 @@ Example 111: Move a sales organization Switzerland under the parent EMEA Central
 PUT /service/SalesOrganizations('Switzerland')/Superordinate/$ref
 Content-Type: application/json
 
-{ "@odata.id": "SalesOrganizations('EMEA Central')" }
+{ "@id": "SalesOrganizations('EMEA Central')" }
 ```
 results in `204 No Content`.
 :::
