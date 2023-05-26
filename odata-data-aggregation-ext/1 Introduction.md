@@ -24,7 +24,7 @@ The following non-exhaustive list contains variables that are used throughout th
 - $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
 - $u,v,w$ – instances in a collection
-- $x,y$ – instances in a hierarchical collection, called nodes
+- $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
 - $S,T$ – transformation sequences
 - $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
