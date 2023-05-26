@@ -471,16 +471,16 @@ is equivalent to (with nested `groupby` transformations)
 ```
 GET /service/Sales?$apply=
   groupby((Customer/Country),
-    groupby((Time),aggregate(Amount with sum as A1))
-    /aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+    groupby((Time),aggregate(Amount with sum as D1))
+    /aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 and is equivalent to (with consecutive `groupby` transformations)
 ```
 GET /service/Sales?$apply=
-  groupby((Customer/Country,Time),aggregate(Amount with sum as A1))
-  /groupby((Customer/Country),aggregate(A1 with average as A2))
-  /aggregate(A2 with max as MaxDailyAveragePerCountry)
+  groupby((Customer/Country,Time),aggregate(Amount with sum as D1))
+  /groupby((Customer/Country),aggregate(D1 with average as D2))
+  /aggregate(D2 with max as MaxDailyAveragePerCountry)
 ```
 :::
 
@@ -725,7 +725,7 @@ is equivalent to the following (except that the property name is `Forecast` inst
 GET /service/Sales?$apply=
   groupby((Customer/Country),
     groupby((Time),aggregate(Forecast))
-    /aggregate(Forecast with average as A1))
+    /aggregate(Forecast with average as D1))
   /aggregate(Forecast)
 ```
 :::

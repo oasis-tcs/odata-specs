@@ -13,6 +13,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section ##AggregationAlgorithm]
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
 - <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
@@ -27,7 +28,7 @@ The following non-exhaustive list contains variable names that are used througho
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
 - $S,T$ – transformation sequences
-- $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
+- $α$ – aggregate expression, defined in [section ##AggregationAlgorithm]
 - $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
 - $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
