@@ -29,10 +29,10 @@ The following non-exhaustive list contains variable names that are used througho
 - $p,q,r$ – paths
 - $S,T$ – transformation sequences
 - $α$ – aggregate expression, defined in [section ##AggregationAlgorithm]
-- $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
-- $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
-- $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
-- $σ(x)$ – instance containing a grouping property that represents a node $x$, defined [below](#Transformationtraverse)
+- $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined in [section ##EvaluationofDataAggregationPaths]
+- $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined in [section ##EvaluationofDataAggregationPaths]
+- $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined in [section ##SimpleGrouping]
+- $σ(x)$ – instance containing a grouping property that represents a node $x$, defined in [section ##Transformationtraverse]
 
 ### ##subsubsec Document Conventions
 
