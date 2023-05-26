@@ -416,7 +416,7 @@ results in
 ```json
 {
   "@context": "$metadata#Sales(SalesOrganization(),
-                                     TotalAmountIncl,TotalAmountExcl)",
+                               TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US West", "Name": "US West" },
       "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,

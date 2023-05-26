@@ -134,7 +134,7 @@ results in
 ```json
 {
   "@context": "$metadata#Products(SalesModel.FoodProduct/Rating,
-                                     SalesModel.NonFoodProduct/RatingClass)",
+                                  SalesModel.NonFoodProduct/RatingClass)",
   "value": [
     { "@type": "#SalesModel.FoodProduct", "Rating": 5 },
     { "@type": "#SalesModel.FoodProduct", "Rating": null },
@@ -497,8 +497,7 @@ GET /service/Customers?$apply=
 results in
 ```json
 {
-  "@context": "$metadata#Customers(
-                               Addresses(AugmentedSalesOrganization())",
+  "@context": "$metadata#Customers(Addresses(AugmentedSalesOrganization())",
   "value": [
     { "ID": "C1", "Name": "Joe", "Country": "US",
       "Addresses": [
@@ -1191,7 +1190,7 @@ results in
 ```json
 {
   "@context": "$metadata#Sales(SalesOrganization(ID),
-                                     TotalAmountIncl,TotalAmountExcl)",
+                               TotalAmountIncl,TotalAmountExcl)",
   "value": [
     { "SalesOrganization": { "ID": "US",      "Name": "US" },
       "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
@@ -1260,8 +1259,7 @@ GET /service/Products?$apply=
 results in
 ```json
 {
-  "@context": "$metadata#Products(Sales(SalesOrganization(ID)),
-                                        SoldProducts)",
+  "@context": "$metadata#Products(Sales(SalesOrganization(ID)),SoldProducts)",
   "value": [
     { "Sales": [ { "SalesOrganization": { "ID": "Sales" } } ],
       "SoldProducts": "P1,P2,P3" },
@@ -1412,7 +1410,7 @@ results in
 ```json
 {
   "@context": "$metadata#Cities(Continent(Name),Country(Name),
-                                      TotalPopulation)",
+                                TotalPopulation)",
   "value": [
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "China" },
       "TotalPopulation@type": "Int32", "TotalPopulation": 1412000000 },
