@@ -1446,7 +1446,7 @@ In its simplest form the first parameter of `groupby` specifies the _grouping pr
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
 The output set of the groupby transformation is constructed in five steps.
-1. [For each](#SamenessandPrecedence) instance $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
+1. [For each occurrence](#SamenessandPrecedence) $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
    - Let $v$ be an instance of the type of $u$ without properties and without entity id.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
@@ -1900,7 +1900,7 @@ The `compute` transformation takes a comma-separated list of one or more _comput
 
 A compute expression is a common expression followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL).
 
-The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each](#SamenessandPrecedence) instance of the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating `$filter` expressions and numeric promotion defined in [OData-URL](#ODataURL).
+The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandPrecedence) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating `$filter` expressions and numeric promotion defined in [OData-URL](#ODataURL).
 
 The values of properties copied from the input set are not changed, nor is the order of instances changed.
 
@@ -1931,11 +1931,11 @@ results in
 
 The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
 
-[For each instance](#SamenessandPrecedence) $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
+[For each occurrence](#SamenessandPrecedence) $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
 1. the instance collection $A$ addressed by $p$ is identified.
 2. If $T$ is provided, $A$ is replaced with the result of applying $T$ to $A$.
 3. In case of an `outerjoin`, if $A$ is empty, a null instance is added to it.
-4. [For each instance](#SamenessandPrecedence) $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
+4. [For each occurrence](#SamenessandPrecedence) $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
    - an instance $w$ is appended to the output set of the transformation.
    - The instance $w$ is a clone of $u$ with an additional dynamic property whose name is the given alias and whose value is $v$.
    - The dynamic property is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
@@ -2027,7 +2027,7 @@ Further parameters are one or more transformation sequences followed by the `as`
 
 If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
 
-[For each instance](#SamenessandPrecedence) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
+[For each occurrence](#SamenessandPrecedence) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
 - the collection $B$ if $p_k$ is collection-valued
 - the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
 - undefined if $p_k$ is single-valued and $B$ is empty.

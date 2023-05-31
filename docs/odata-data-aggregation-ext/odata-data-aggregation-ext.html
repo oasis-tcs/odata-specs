@@ -2639,7 +2639,7 @@ class="math inline">\(e\)</span> denote the empty path.</p>
 <p>The output set of the groupby transformation is constructed in five
 steps.</p>
 <ol type="1">
-<li><a href="#SamenessandPrecedence">For each</a> instance <span
+<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in the input set, a projection is
 computed that contains only the grouping properties. This projection is
 <span class="math inline">\(s_G(u,e)\)</span> and the function <span
@@ -3276,7 +3276,7 @@ of one or more <em>compute expressions</em> as parameters.</p>
 href="#TypeStructureandContextURL">alias</a>.</p>
 <p>The output set is constructed by copying the instances of the input
 set and adding one dynamic property per compute expression to <a
-href="#SamenessandPrecedence">each</a> instance of the output set. The
+href="#SamenessandPrecedence">each occurrence</a> in the output set. The
 name of each added dynamic property is the alias of the corresponding
 compute expression. The value of each added dynamic property is computed
 relative to the corresponding instance. Services MAY support expressions
@@ -3317,7 +3317,7 @@ one of its sub-types, followed by the <code>as</code> keyword, followed
 by an <a href="#TypeStructureandContextURL">alias</a>. The optional
 second parameter specifies a transformation sequence <span
 class="math inline">\(T\)</span>.</p>
-<p><a href="#SamenessandPrecedence">For each instance</a> <span
+<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over the input
 set</p>
@@ -3331,7 +3331,7 @@ class="math inline">\(A\)</span>.</li>
 <li>In case of an <code>outerjoin</code>, if <span
 class="math inline">\(A\)</span> is empty, a null instance is added to
 it.</li>
-<li><a href="#SamenessandPrecedence">For each instance</a> <span
+<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(v\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over <span
 class="math inline">\(A\)</span>
@@ -3473,7 +3473,7 @@ This makes it meaningful to speak (in this section only) of a
 transformation sequence applied to a single instance; this means
 applying it to a collection containing the single instance and taking as
 result the single instance from the output set.</p>
-<p><a href="#SamenessandPrecedence">For each instance</a> <span
+<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p_1/…/p_{k-1})\)</span>, let <span
 class="math inline">\(B=γ(u,p_k/q)\)</span> and let the resource <span
