@@ -1,6 +1,6 @@
 <h2>Repository Contributions, Participation, and Public Access</h2>
 
-<p><b>Who may Contribute?</b> Contributors to <a href="https://github.com/oasis-tcs/odata-vocabularies/">this repository</a> are expected to be <a href="https://www.oasis-open.org/policies-guidelines/tc-process#dMember">Members</a> of the
+<p><b>Who may Contribute?</b> Contributors to <a href="https://github.com/oasis-tcs/odata-specs/">this repository</a> are expected to be <a href="https://www.oasis-open.org/policies-guidelines/tc-process#dMember">Members</a> of the
 <a href="https://www.oasis-open.org/committees/odata/">OASIS Open Data Protocol (OData) Technical Committee</a>, for any
 substantive contributions.  Anyone wishing to <a href="https://www.oasis-open.org/org/faq#committee-participation">participate</a>
 in the TC's technical activity is invited to <a href="https://www.oasis-open.org/committees/join">join</a> as a TC Member.
