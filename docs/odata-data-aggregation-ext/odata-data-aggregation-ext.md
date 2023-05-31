@@ -1044,7 +1044,7 @@ If the first input set is a collection of entities from a given entity set, then
 
 ### <a name="SamenessandPrecedence" href="#SamenessandPrecedence">3.1.2 Sameness and Precedence</a>
 
-Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each_ instance in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
+Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
 
 A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](#ODataProtocol) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
@@ -1605,7 +1605,7 @@ Another grouping operator [`rolluprecursive`](#Groupingwithrolluprecursive) whic
 
 ## <a name="TransformationsPreservingtheInputSetStructure" href="#TransformationsPreservingtheInputSetStructure">3.3 Transformations Preserving the Input Set Structure</a>
 
-These transformations produce an output set that is a subset of their input set. Some of the algorithmic descriptions that follow make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
+These transformations produce an output set that is a subset of their input set. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
 
 ::: example
 ⚠ Example 24: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The service constructs that input set by executing the `Sales` resource path and the `groupby` transformation, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. Then the following request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
@@ -1622,8 +1622,8 @@ where the number in `skip` is $M=(i-1)⋅N$.
 These transformations take two parameters. The first parameter MUST be an [expression](#Expression) that is [evaluable on the input set as a collection](#ExpressionsEvaluableonaCollection), without reference to an individual instance (and which therefore cannot be a property path). The second parameter MUST be an expression that is evaluated on each instance of the input set in turn.
 
 The output set is constructed as follows:
-1. Let $A$ be a copy of the input set with a total order that need not extend any existing order but is completely chosen by the service. The total order MUST be stable across requests. ($A$'s is the order of the eventual output set of this transformation.)
-2. Let $B$ be a copy of $A$ that is [stable-sorted](#SamenessandPrecedence) in ascending (for transformations starting with `bottom`) or descending (for transformations starting with `top`) order of the value specified in the second parameter. ($B$'s is the order in which contributions to the output set are considered.)
+1. Let $A$ be a copy of the input set with a total order that need not extend any existing order but is completely chosen by the service. The total order MUST be stable across requests. (This is the order of the eventual output set of this transformation.)
+2. Let $B$ be a copy of $A$ that is [stable-sorted](#SamenessandPrecedence) in ascending (for transformations starting with `bottom`) or descending (for transformations starting with `top`) order of the value specified in the second parameter. (This is the order in which contributions to the output set are considered.)
 3. Start with an empty output set.
 4. Loop over $B$ in its total order.
 5. Exit the loop if a condition is met. This condition depends on the transformation being executed and is given in the subsections below.
@@ -1675,7 +1675,7 @@ Note that two `Sales` entities with the second highest amount 4 exist in the inp
 
 #### <a name="Transformationsbottompercentandtoppercent" href="#Transformationsbottompercentandtoppercent">3.3.1.2 Transformations `bottompercent` and `toppercent`</a>
 
-The first parameter MUST evaluate to a positive number $p$ less than or equal to 100. The second parameter MUST evaluate to a number. In step 5, exit the loop if the ratio of the sum of the numbers addressed by the second parameter in the output set to their sum in the input set equals or exceeds $p$%.
+The first parameter MUST evaluate to a positive number $p$ less than or equal to 100. The second parameter MUST evaluate to a number. In step 5, exit the loop if the ratio of the sum of the numbers addressed by the second parameter in the output set to their sum in the input set equals or exceeds $p$ percent.
 
 ::: example
 Example 27:
@@ -1929,17 +1929,17 @@ results in
 
 ### <a name="Transformationsjoinandouterjoin" href="#Transformationsjoinandouterjoin">3.4.2 Transformations `join` and `outerjoin`</a>
 
-The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex property or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
+The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
 
-[For each](#SamenessandPrecedence) instance $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
+[For each instance](#SamenessandPrecedence) $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
 1. the instance collection $A$ addressed by $p$ is identified.
 2. If $T$ is provided, $A$ is replaced with the result of applying $T$ to $A$.
 3. In case of an `outerjoin`, if $A$ is empty, a null instance is added to it.
-4. [For each](#SamenessandPrecedence) instance $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
+4. [For each instance](#SamenessandPrecedence) $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
    - an instance $w$ is appended to the output set of the transformation.
    - The instance $w$ is a clone of $u$ with an additional dynamic property whose name is the given alias and whose value is $v$.
-   - The property $w$ is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
-   - The property $w$ carries as control information the context URL of $u$.
+   - The dynamic property is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
+   - The dynamic property carries as control information the context URL of $v$.
 
 ::: example
 Example 38: all links between products and sales instances
@@ -2023,11 +2023,11 @@ The `addnested` transformation expands a path relative to the input set, applies
 
 The first parameter of the `addnested` transformation is a path $p$ or a concatenated path $p/q$. Here, $p=p_1/…/p_k$ with $k≥1$ is a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments. The path $p$ MUST NOT contain any navigation properties prior to the last segment $p_k$, which MUST either be a navigation or a complex structural property. If the optional $q$ is present, it MUST be a type-cast segment. This is an extension of the definition in [OData-URL, section 5.1.3](#ODataURL) in that the first parameter need not contain a navigation property.
 
-Further parameters are one or more transformation sequences followed by the as keyword followed by an [alias](#TypeStructureandContextURL) whose name need not differ from names in the input set but MUST differ from names already in $\Gamma(A,p_1/…/p_{k-1})$ (using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths)) as well as from aliases for other transformation sequences.
+Further parameters are one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL) whose name need not differ from names in the input set but MUST differ from names already in $\Gamma(A,p_1/…/p_{k-1})$ (using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths)) as well as from aliases for other transformation sequences.
 
 If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
 
-[For each](#SamenessandPrecedence) instance $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
+[For each instance](#SamenessandPrecedence) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
 - the collection $B$ if $p_k$ is collection-valued
 - the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
 - undefined if $p_k$ is single-valued and $B$ is empty.
@@ -2267,7 +2267,7 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 
 ## <a name="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a>
 
-The term `ApplySupported` can be applied to an entity set, entity type or to a collection rooted in an entity container. It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the OpenType attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
+The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container. It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
@@ -2276,9 +2276,9 @@ The term `ApplySupported` can be applied to an entity set, entity type or to a c
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating term `ApplySupported` for a specific collection-valued resource overrides the default support with the specified properties using PATCH semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
-- Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using PATCH semantics recursively.
+- Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
 
 ::: example
@@ -2295,13 +2295,13 @@ Example 49: an entity container with default support for everything defined in t
 
 The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, and which input values are used.
 
-When applied to an entity set, entity type or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
+When applied to an entity set, an entity type, or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
 
 A custom aggregate is identified by the value of the `Qualifier` attribute when applying the term. The value of the `Qualifier` attribute is the name of the dynamic property. The name MUST NOT collide with the names of other custom aggregates of the same model element.
 
 The value of the annotation is a string with the qualified name of a primitive type or type definition in scope that specifies the type returned by the custom aggregate.
 
-If the custom aggregate is associated with an entity set, entity type or collection, the value of the `Qualifier` attribute MAY be identical to the name of a declared property of the instances in this set or collection. In these cases, the value of the annotation MUST have the same value as the Type attribute of the declared property. This is typically done when the custom aggregate is used as a default aggregate for that property. In this case, the name refers to the custom aggregate within an aggregate expression without a `with` clause, and to the property in all other cases.
+If the custom aggregate is associated with an entity set, entity type, or collection, the value of the `Qualifier` attribute MAY be identical to the name of a declared property of the instances in this set or collection. In these cases, the value of the annotation MUST have the same value as the `Type` attribute of the declared property. This is typically done when the custom aggregate is used as a default aggregate for that property. In this case the name refers to the custom aggregate within an aggregate expression without a `with` clause, and to the property in all other cases.
 
 If the custom aggregate is associated with an entity container, the value of the `Qualifier` attribute MUST NOT collide with the names of any entity container children.
 
@@ -2377,9 +2377,7 @@ Example 51: This simplified `Sales` entity set has a single aggregatable propert
         </PropertyValue>
         <PropertyValue Property="GroupableProperties">
           <Collection>
-            <Record>
-              <PropertyValue Property="Property" PropertyPath="Currency" />
-            </Record>
+            <PropertyPath>Currency</PropertyPath>
           </Collection>
         </PropertyValue>
       </Record>
@@ -2400,9 +2398,7 @@ Example 51: This simplified `Sales` entity set has a single aggregatable propert
       <Record>
         <PropertyValue Property="GroupableProperties">
           <Collection>
-            <Record>
-              <PropertyValue Property="Property" PropertyPath="Code" />
-            </Record>
+            <PropertyPath>Code</PropertyPath>
           </Collection>
         </PropertyValue>
       </Record>
@@ -2422,19 +2418,19 @@ A _leveled hierarchy_ has a fixed number of levels each of which is represented 
 
 A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
 
-The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest level of the hierarchy. A leveled hierarchy is defined by an ordered list of groupable properties of the entity or complex type that represent the root level and the consecutively finer-grained levels of the hierarchy.
+The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
 
 The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
 
 ### <a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a>
 
 A recursive hierarchy organizes entities of a collection as nodes of one or more tree structures. This structure does not need to be as uniform as a leveled hierarchy. It is described by a complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy.
-- The `ParentNavigationProperty` allows navigation to the instance representing the parent node. It MUST be a nullable single- or collection-valued navigation property path that addresses the entity type annotated with this term.
+- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property.
+- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions).
 
-A _node_ is an instance of an entity type annotated with `RecursiveHierarchy`. It may have a `parent node` that is the target instance reached via the `ParentNavigationProperty`. A `recursive hierarchy` is a collection of such nodes with unique node identifiers and no cycles in the traversal of parent links.
+A _node_ is an instance of an entity type annotated with `RecursiveHierarchy`. It may have a _parent node_ that is the instance reached via the `ParentNavigationProperty`. A _recursive hierarchy_ is a collection of such nodes with unique node identifiers and no cycles in the traversal of parent links.
 
 A node without parent node is a _root node_, a node is a _child node_ of its parent node, a node without child nodes is a _leaf node_. Nodes with the same parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent node, the parent of its parent node, and so on, up to and including a root node that can be reached. A recursive hierarchy can have one or more root nodes.
 
@@ -2457,7 +2453,7 @@ The following functions are defined:
 
 ### <a name="HierarchyExamples" href="#HierarchyExamples">5.5.3 Hierarchy Examples</a>
 
-The hierarchy terms can be applied to the Example Data Model.
+The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
 Example 52: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
@@ -2607,7 +2603,7 @@ results in
 :::
 
 ::: example
-Example 57: retrieving the sales `ID`s involving sales organizations from EMEA can be requested by
+Example 57: the sales `ID`s involving sales organizations from EMEA
 ```
 
 GET /service/Sales?$select=ID&$filter=Aggregation.isdescendant(
@@ -2629,7 +2625,7 @@ results in
 ```
 :::
 
-Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
+Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in section [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
 
 -------
 
