@@ -1614,7 +1614,7 @@ GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)
 ```
-where the number in `skip` is $M=(i-1)⋅N$.
+where the number in `skip` is $M=(i-1)⋅N$. Other values of $M$ can be used to skip, for example, half a page.
 :::
 
 ### <a name="Topbottomtransformations" href="#Topbottomtransformations">3.3.1 Top/bottom transformations</a>

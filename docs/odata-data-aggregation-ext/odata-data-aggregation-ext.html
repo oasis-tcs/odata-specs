@@ -2933,7 +2933,9 @@ manner (as long as the underlying data do not change).</p>
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)</code></pre>
 <p>where the number in <code>skip</code> is <span
-class="math inline">\(M=(i-1)⋅N\)</span>.</p>
+class="math inline">\(M=(i-1)⋅N\)</span>. Other values of <span
+class="math inline">\(M\)</span> can be used to skip, for example, half
+a page.</p>
 </div>
 <h3
 id="331-topbottom-transformations"><a name="Topbottomtransformations" href="#Topbottomtransformations">3.3.1
