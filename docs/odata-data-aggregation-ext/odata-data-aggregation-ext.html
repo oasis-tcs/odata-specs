@@ -2921,15 +2921,14 @@ transformations, possibly nested, on the same underlying data.</p>
 <div class="example">
 <p>⚠ Example 24: A stable total order is required for the input set of a
 <a href="#Transformationskip"><code>skip</code></a> transformation. The
-following request constructs that input set by executing the
-<code>Sales</code> resource path and the <code>groupby</code>
-transformation, computing the total sales per customer. Because of the
-subsequent <code>skip</code> transformation, the service must endow this
-with a stable total order. In other words, the request divides the total
-sales per customer into pages of <span class="math inline">\(N\)</span>
-customers and returns page number <span class="math inline">\(i\)</span>
-in a reproducible manner (as long as the underlying data do not
-change).</p>
+service constructs that input set by executing the <code>Sales</code>
+resource path and the <code>groupby</code> transformation, computing the
+total sales per customer. Because of the subsequent <code>skip</code>
+transformation, the service must endow this with a stable total order.
+Then the following request divides the total sales per customer into
+pages of <span class="math inline">\(N\)</span> customers and returns
+page number <span class="math inline">\(i\)</span> in a reproducible
+manner (as long as the underlying data do not change).</p>
 <pre><code>GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)</code></pre>
