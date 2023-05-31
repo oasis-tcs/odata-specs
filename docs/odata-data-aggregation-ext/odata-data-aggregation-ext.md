@@ -112,7 +112,7 @@ For complete copyright information please see the full Notices section in an App
 - [3 System Query Option `$apply`](#SystemQueryOptionapply)
   - [3.1 Fundamentals of Input and Output Sets](#FundamentalsofInputandOutputSets)
     - [3.1.1 Type, Structure and Context URL](#TypeStructureandContextURL)
-    - [3.1.2 Sameness and Precedence](#SamenessandPrecedence)
+    - [3.1.2 Sameness and Order](#SamenessandOrder)
     - [3.1.3 Evaluation of Data Aggregation Paths](#EvaluationofDataAggregationPaths)
   - [3.2 Basic Aggregation](#BasicAggregation)
     - [3.2.1 Transformation `aggregate`](#Transformationaggregate)
@@ -131,7 +131,7 @@ For complete copyright information please see the full Notices section in an App
     - [3.2.3 Transformation `groupby`](#Transformationgroupby)
       - [3.2.3.1 Simple Grouping](#SimpleGrouping)
       - [3.2.3.2 Grouping with `rollup`](#Groupingwithrollup)
-  - [3.3 Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure)
+  - [3.3 Transformations Producing a Subset](#TransformationsProducingaSubset)
     - [3.3.1 Top/bottom transformations](#Topbottomtransformations)
       - [3.3.1.1 Transformations `bottomcount` and `topcount`](#Transformationsbottomcountandtopcount)
       - [3.3.1.2 Transformations `bottompercent` and `toppercent`](#Transformationsbottompercentandtoppercent)
@@ -167,7 +167,7 @@ For complete copyright information please see the full Notices section in an App
     - [5.5.3 Hierarchy Examples](#HierarchyExamples)
 - [6 Hierarchical Transformations](#HierarchicalTransformations)
   - [6.1 Common Parameters for Hierarchical Transformations](#CommonParametersforHierarchicalTransformations)
-  - [6.2 Hierarchical Transformations Preserving the Input Set Structure](#HierarchicalTransformationsPreservingtheInputSetStructure)
+  - [6.2 Hierarchical Transformations Producing a Subset](#HierarchicalTransformationsProducingaSubset)
     - [6.2.1 Transformations `ancestors` and `descendants`](#Transformationsancestorsanddescendants)
     - [6.2.2 Transformation `traverse`](#Transformationtraverse)
   - [6.3 Grouping with `rolluprecursive`](#Groupingwithrolluprecursive)
@@ -175,13 +175,14 @@ For complete copyright information please see the full Notices section in an App
   - [7.1 Requesting Distinct Values](#RequestingDistinctValues)
   - [7.2 Standard Aggregation Methods](#StandardAggregationMethods)
   - [7.3 Requesting Expanded Results](#RequestingExpandedResults)
-  - [7.4 Aliasing](#Aliasing)
-  - [7.5 Combining Transformations per Group](#CombiningTransformationsperGroup)
-  - [7.6 Model Functions as Set Transformations](#ModelFunctionsasSetTransformations)
-  - [7.7 Controlling Aggregation per Rollup Level](#ControllingAggregationperRollupLevel)
-  - [7.8 Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies)
-  - [7.9 Maintaining Recursive Hierarchies](#MaintainingRecursiveHierarchies)
-  - [7.10 Transformation Sequences](#TransformationSequences)
+  - [7.4 Requesting Custom Aggregates](#RequestingCustomAggregates)
+  - [7.5 Aliasing](#Aliasing)
+  - [7.6 Combining Transformations per Group](#CombiningTransformationsperGroup)
+  - [7.7 Model Functions as Set Transformations](#ModelFunctionsasSetTransformations)
+  - [7.8 Controlling Aggregation per Rollup Level](#ControllingAggregationperRollupLevel)
+  - [7.9 Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies)
+  - [7.10 Maintaining Recursive Hierarchies](#MaintainingRecursiveHierarchies)
+  - [7.11 Transformation Sequences](#TransformationSequences)
 - [8 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
@@ -1010,7 +1011,7 @@ Instances of an output set can contain structural and navigation properties, whi
 
 The allowed set transformations are defined in this section as well as in the section on [Hierarchical Transformations](#HierarchicalTransformations).
 
-Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within `$apply`. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or `$filter` expressions. See [section 7.6](#ModelFunctionsasSetTransformations) for an example.
+Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within `$apply`. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or `$filter` expressions. See [section 7.7](#ModelFunctionsasSetTransformations) for an example.
 
 If a data service that supports `$apply` does not support it on the collection identified by the request resource path, it MUST fail with `501 Not Implemented` and a meaningful human-readable error message.
 
@@ -1039,13 +1040,13 @@ Here is an overview of the structural changes made by different transformations:
 - During [join](#Transformationsjoinandouterjoin), one instance with a collection of related instances is replaced by many copies, each of which is related via a dynamic property to one of the related instances.
 - During [concatenation](#Transformationconcat), the same instances are transformed multiple times and the output sets with their potentially different structures are concatenated.
 
-An output set thus consists of instances with different structures, this is the same situation as with a collection of an open type [OData-CSDL, sections 6.3 and 9.3](#ODataCSDL) and it is handled in the same way.
+An output set thus consists of instances with different structures. This is the same situation as with a collection of an open type [OData-CSDL, sections 6.3 and 9.3](#ODataCSDL) and it is handled in the same way.
 
 If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The `{select-list}` in the context URL [OData-Protocol, section 10](#ODataProtocol) MUST describe only properties that are present or annotated as absent (for example, if `Core.Permissions` is `None` [OData-Protocol, section 11.2.2](#ODataProtocol)) in all instances of the collection, after applying any `$select` and `$expand` system query options. The `{select-list}` SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the `{select-list}` MUST consist of just the instance annotation `AnyStructure` defined in the `Core` vocabulary [OData-VocCore](#ODataVocCore). (See [example 72](#anystructure).)
 
-### <a name="SamenessandPrecedence" href="#SamenessandPrecedence">3.1.2 Sameness and Precedence</a>
+### <a name="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a>
 
-Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
+Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
 
 A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](#ODataProtocol) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
@@ -1064,11 +1065,11 @@ An order of a collection is more precisely defined as follows: Given two differe
 
 When transformations are defined in the following sections, the algorithmic description sometimes contains an _order-preserving loop_ over a collection. Such a loop processes the occurrences in an order chosen by the service in such a way that $u_1$ is processed before $u_2$ whenever $u_1$ precedes $u_2$. Likewise, in an _order-preserving sequence_ $u_1,…,u_n$ we have $i<j$ whenever $u_i$ precedes $u_j$.
 
-The transformation [`orderby`](#Transformationorderby) defined below carries out a _stable-sort_ by a list of expressions. This is a sorting operation on an ordered collection that sorts it into another ordered collection. In the sorted collection, $u_1$ precedes $u_2$ if and only if either
+A collection can be _stable-sorted_ by a list of expressions. In the stable-sorted collection an occurrence $u_1$ precedes $u_2$ if and only if either
 - $u_1$ precedes $u_2$ according to the rules of [OData-Protocol, section 11.2.6.2](#ODataProtocol) or
 - these rules do not determine a precedence in either direction between $u_1$ and $u_2$ but $u_1$ preceded $u_2$ in the collection before the sort.
 
-A stable-sort does not necessarily produce a total order, the sorted collection may still contain two occurrences whose relative order does not matter.
+Stable-sorting of an ordered collection produces another ordered collection. A stable-sort does not necessarily produce a total order, the sorted collection may still contain two occurrences whose relative order does not matter. The transformation [`orderby`](#Transformationorderby) performs a stable-sort.
 
 The output set of a [basic aggregation](#BasicAggregation) transformation can contain instances of an entity type without entity id. After a [`concat`](#Transformationconcat) transformation, different occurrences of the same entity can differ in individual non-declared properties. To account for such cases, the definition of sameness given in [OData-URL, section 5.1.1.1.1](#ODataURL) is refined here. Instances are _the same_ if
 - both are instances of complex types and both are null or both have the same structure and same values with null considered different from absent or
@@ -1118,7 +1119,7 @@ Let $f(A)=g(A)$.
 2. An [aggregatable expression](#AggregatableExpression).  
 Let $f(A)=g(B)$ where $B$ is the collection consisting of the aggregatable expression evaluated relative to each member of $A$ with null values removed from $B$. In this type, $p$ is absent.
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
-Let $f(A)$ be the [cardinality](#SamenessandPrecedence) of $A$.
+Let $f(A)$ be the [cardinality](#SamenessandOrder) of $A$.
 4. A path $p/c$ consisting of an optional prefix $p/{}$ with $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a structured type or $p=p_2$, and a [custom aggregate](#CustomAggregates) $c$ defined on the collection addressed by $p$.  
 Let $f(A)=c(A)$, and if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
 
@@ -1127,7 +1128,7 @@ _Determination of $A$:_
 Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandPrecedence) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 124](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandPrecedence) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 124](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
 Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of structured instances or primitive values, possibly with repetitions.
@@ -1447,23 +1448,23 @@ In its simplest form the first parameter of `groupby` specifies the _grouping pr
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
 The output set of the groupby transformation is constructed in five steps.
-1. [For each occurrence](#SamenessandPrecedence) $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
+1. [For each occurrence](#SamenessandOrder) $u$ in the input set, a projection is computed that contains only the grouping properties. This projection is $s_G(u,e)$ and the function $s_G(u,p)$ takes an instance and a path relative to the input set as arguments and is computed recursively as follows:
    - Let $v$ be an instance of the type of $u$ without properties and without entity id.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
      - If $p'$ occurs in $G$, let $v[q]=u[q]$.
      - Otherwise, if $p'$ is a prefix of a path in $G$, let $v[q]=s_G(u[q],p')$.
    - Return $v$.
-2. The input set is split into subsets where two instances are in the same subset if their projections are [the same](#SamenessandPrecedence). If [representations of the same non-transient entity](#SamenessandPrecedence) are encountered during the comparison of two projections, the service MUST assign them to one subset with the merged representation if they are complementary and MUST reject the request if they are contradictory.
+2. The input set is split into subsets where two instances are in the same subset if their projections are [the same](#SamenessandOrder). If [representations of the same non-transient entity](#SamenessandOrder) are encountered during the comparison of two projections, the service MUST assign them to one subset with the merged representation if they are complementary and MUST reject the request if they are contradictory.
 3. The set transformations from the second parameter are applied to each subset, resulting in a new set of potentially different structure and cardinality. Associated with each resulting set is the common projection of the instances in the subset from which the resulting set was computed.
 4. Each set resulting from the previous step is transformed to contain the associated common projection $s$. This transformation is denoted by $\Pi_G(s)$ and is defined below.
-5. The output set is the concatenation of the transformed sets from the previous step. Precedence between occurrences from the same transformed set remains the same, and no precedence is defined between occurrences from different transformed sets.
+5. The output set is the concatenation of the transformed sets from the previous step. The order of occurrences from the same transformed set remains the same, and no order is defined between occurrences from different transformed sets.
 
 _Definition of $\Pi_G(s)$:_
 
 _Prerequisites:_ $G$ is a list of data aggregation paths and $s$ is an instance of the [input type](#TypeStructureandContextURL).
 
-The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence with its input set via the [order-preserving](#SamenessandPrecedence) mapping $u↦a_G(u,s,e)$. The function $a_G(u,s,p)$ takes two instances and a path relative to the input set as arguments and is computed recursively as follows:
+The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence with its input set via the [order-preserving](#SamenessandOrder) mapping $u↦a_G(u,s,e)$. The function $a_G(u,s,p)$ takes two instances and a path relative to the input set as arguments and is computed recursively as follows:
 1. If necessary, cast $u$ to a subtype so that its type contains all structural and navigation properties of $s$.
 2. For each structural or navigation property $q$ of $s$:
    - If $s$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
@@ -1604,7 +1605,7 @@ If `rollup` is used with one parameter, the parameter references a named leveled
 
 Another grouping operator [`rolluprecursive`](#Groupingwithrolluprecursive) which similarly works with a [recursive hierarchy](#RecursiveHierarchy) is defined later.
 
-## <a name="TransformationsPreservingtheInputSetStructure" href="#TransformationsPreservingtheInputSetStructure">3.3 Transformations Preserving the Input Set Structure</a>
+## <a name="TransformationsProducingaSubset" href="#TransformationsProducingaSubset">3.3 Transformations Producing a Subset</a>
 
 These transformations produce an output set that is a subset of their input set. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
 
@@ -1615,7 +1616,7 @@ GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)
 ```
-where the number in `skip` is $M=(i-1)⋅N$.
+where the number in `skip` is $M=(i-1)⋅N$. Other values of $M$ can be used to skip, for example, half a page.
 :::
 
 ### <a name="Topbottomtransformations" href="#Topbottomtransformations">3.3.1 Top/bottom transformations</a>
@@ -1624,7 +1625,7 @@ These transformations take two parameters. The first parameter MUST be an [expre
 
 The output set is constructed as follows:
 1. Let $A$ be a copy of the input set with a total order that need not extend any existing order but is completely chosen by the service. The total order MUST be stable across requests. (This is the order of the eventual output set of this transformation.)
-2. Let $B$ be a copy of $A$ that is [stable-sorted](#SamenessandPrecedence) in ascending (for transformations starting with `bottom`) or descending (for transformations starting with `top`) order of the value specified in the second parameter. (This is the order in which contributions to the output set are considered.)
+2. Let $B$ be a copy of $A$ that is [stable-sorted](#SamenessandOrder) in ascending (for transformations starting with `bottom`) or descending (for transformations starting with `top`) order of the value specified in the second parameter. (This is the order in which contributions to the output set are considered.)
 3. Start with an empty output set.
 4. Loop over $B$ in its total order.
 5. Exit the loop if a condition is met. This condition depends on the transformation being executed and is given in the subsections below.
@@ -1793,7 +1794,7 @@ GET /service/Sales?$apply=concat(identity,aggregate(Amount with sum as Total))
 
 ### <a name="Transformationorderby" href="#Transformationorderby">3.3.4 Transformation `orderby`</a>
 
-The `orderby` transformation takes a list of expressions that could also be passed as a `$orderby` system query option. Its output set consists of the instances of the input set in the same order `$orderby` would produce for the given expressions, but keeping the relative order from the input set if the given expressions do not distinguish between two instances. The orderby transformation thereby performs a [stable-sort](#SamenessandPrecedence). A service supporting this transformation MUST at least offer sorting by values addressed by property paths, including dynamic properties, with both suffixes `asc` and `desc`.
+The `orderby` transformation takes a list of expressions that could also be passed as a `$orderby` system query option. Its output set consists of the instances of the input set in the same order `$orderby` would produce for the given expressions, but keeping the relative order from the input set if the given expressions do not distinguish between two instances. The orderby transformation thereby performs a [stable-sort](#SamenessandOrder). A service supporting this transformation MUST at least offer sorting by values addressed by property paths, including dynamic properties, with both suffixes `asc` and `desc`.
 
 ::: example
 Example 33:
@@ -1901,7 +1902,7 @@ The `compute` transformation takes a comma-separated list of one or more _comput
 
 A compute expression is a common expression followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL).
 
-The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandPrecedence) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating `$filter` expressions and numeric promotion defined in [OData-URL](#ODataURL).
+The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating `$filter` expressions and numeric promotion defined in [OData-URL](#ODataURL).
 
 The values of properties copied from the input set are not changed, nor is the order of instances changed.
 
@@ -1932,11 +1933,11 @@ results in
 
 The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
 
-[For each occurrence](#SamenessandPrecedence) $u$ in an [order-preserving loop](#SamenessandPrecedence) over the input set
+[For each occurrence](#SamenessandOrder) $u$ in an [order-preserving loop](#SamenessandOrder) over the input set
 1. the instance collection $A$ addressed by $p$ is identified.
 2. If $T$ is provided, $A$ is replaced with the result of applying $T$ to $A$.
 3. In case of an `outerjoin`, if $A$ is empty, a null instance is added to it.
-4. [For each occurrence](#SamenessandPrecedence) $v$ in an [order-preserving loop](#SamenessandPrecedence) over $A$
+4. [For each occurrence](#SamenessandOrder) $v$ in an [order-preserving loop](#SamenessandOrder) over $A$
    - an instance $w$ is appended to the output set of the transformation.
    - The instance $w$ is a clone of $u$ with an additional dynamic property whose name is the given alias and whose value is $v$.
    - The dynamic property is a navigation property if $p$ is a collection-valued navigation property, otherwise it is a complex property.
@@ -2028,7 +2029,7 @@ Further parameters are one or more transformation sequences followed by the `as`
 
 If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
 
-[For each occurrence](#SamenessandPrecedence) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
+[For each occurrence](#SamenessandOrder) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
 - the collection $B$ if $p_k$ is collection-valued
 - the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
 - undefined if $p_k$ is single-valued and $B$ is empty.
@@ -2704,29 +2705,27 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent.
 
-The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in the section on [Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure) or in the section on [Hierarchical Transformations Preserving the Input Set Structure](#HierarchicalTransformationsPreservingtheInputSetStructure) or be service-defined bound functions whose output set is a subset of the input set. The hierarchy $(H',Q)$ can have different [roots](#RecursiveHierarchy) than the hierarchy $(H,Q)$.
+The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) or be service-defined bound functions whose output set is a subset of the input set. The hierarchy $(H',Q)$ can have different [roots](#RecursiveHierarchy) than the hierarchy $(H,Q)$.
 
-## <a name="HierarchicalTransformationsPreservingtheInputSetStructure" href="#HierarchicalTransformationsPreservingtheInputSetStructure">6.2 Hierarchical Transformations Preserving the Input Set Structure</a>
+## <a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a>
 
-These transformations produce an output set that is a subset of their input set.
-
-Using the mechanism explained in the preamble of the `$apply` section, services can define bound functions that serve as additional hierarchical transformations preserving the input set structure.
+These transformations produce an output set that consists of certain instances from their input set, possibly with repetitions or in a different order.
 
 ### <a name="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1 Transformations `ancestors` and `descendants`</a>
 
-In the simple case, the `ancestors` transformation takes an input set whose members belong to a recursive hierarchy $(H',Q)$. It determines a subset $U$ of the input set and then determines the set of ancestors of $U$ that were already contained in the input set. Its output set is the ancestors set, optionally including $U$.
+In the simple case, the `ancestors` transformation takes an input set whose members belong to a recursive hierarchy $(H',Q)$. It determines a subset $A$ of the input set and then determines the set of ancestors of $A$ that were already contained in the input set. Its output set is the ancestors set, optionally including $A$.
 
-In the more complex case, the members of the input set are instead related to nodes in a recursive hierarchy. Then the `ancestors` transformation determines a subset $U$ of the input set, whose members are related to certain nodes in the hierarchy, called start nodes. The ancestors of these start nodes are then determined, and the output set consists of instances of the input set that are related to the ancestors, or optionally to the start nodes.
+In the more complex case, the members of the input set are instead related to nodes in a recursive hierarchy. Then the `ancestors` transformation determines a subset $A$ of the input set, whose members are related to certain nodes in the hierarchy, called start nodes. The ancestors of these start nodes are then determined, and the output set consists of instances of the input set that are related to the ancestors, or optionally to the start nodes.
 
 The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed in the section on [Transformations Preserving the Input Set Structure](#TransformationsPreservingtheInputSetStructure) or in the section on [Hierarchical Transformations Preserving the Input Set Structure](#HierarchicalTransformationsPreservingtheInputSetStructure) and of service-defined bound functions whose output set is a subset of the input set. $U$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) and of service-defined bound functions whose output set is a subset of the input set. $A$ is the output set of this sequence applied to the input set.
 
 $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
-The output set of the transformation ${\tt ancestors}(H,Q,p,T,S,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,S,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $U$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
+The output set of the transformation ${\tt ancestors}(H,Q,p,T,S,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,S,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
 $$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
@@ -2830,7 +2829,7 @@ The traverse transformation returns instances of the input set that are or are r
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandPrecedence) $H'$ by $o$.
+The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
 The instances in the input set are related to one node (if $p$ is single-valued) or multiple nodes (if $p$ is collection-valued) in the recursive hierarchy. Given a node $x$, denote by $\hat F(x)$ the collection of all instances in the input set that are related to $x$; these collections can overlap. For each $w$ in $\hat F(x)$, the output set contains one instance that comprises the properties of $w$ and additional properties that identify the node $x$. These additional properties are independent of $w$ and are bundled into an instance called $σ(x)$. For example, if a sale $w$ is related to two sales organizations and hence contained in both $\hat F(x_1)$ and $\hat F(x_2)$, the output set will contain two instances $(w,σ(x_1))$ and $(w,σ(x_2))$ and $σ(x_i)$ contributes a navigation property `SalesOrganization`.
 
@@ -2865,9 +2864,9 @@ The function $a(u,v,x)$ takes an instance, a path and another instance as argume
 
 (See [Example 109](#traversecoll).)
 
-Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandPrecedence) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
-$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandPrecedence) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
+$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
@@ -3714,7 +3713,8 @@ returns the different combinations of products sold per country:
 ```
 :::
 
-Requesting Custom Aggregates
+## <a name="RequestingCustomAggregates" href="#RequestingCustomAggregates">7.4 Requesting Custom Aggregates</a>
+
 Custom aggregates are defined through the [`CustomAggregate`](#CustomAggregates) annotation. They can be associated with an entity set, a collection or an entity container.
 
 A custom aggregate can be used by specifying the name of the custom aggregate in the [`aggregate`](#Transformationaggregate) clause.
@@ -3804,7 +3804,7 @@ GET /service/Sales?$apply=
 ```
 :::
 
-## <a name="Aliasing" href="#Aliasing">7.4 Aliasing</a>
+## <a name="Aliasing" href="#Aliasing">7.5 Aliasing</a>
 
 A property can be aggregated in multiple ways, each with a different alias.
 
@@ -3888,7 +3888,7 @@ will return all distinct amounts appearing in sales orders and how much money wa
 ```
 :::
 
-## <a name="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.5 Combining Transformations per Group</a>
+## <a name="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.6 Combining Transformations per Group</a>
 
 Dynamic property names may be reused in different transformation sequences passed to `concat`.
 
@@ -3985,7 +3985,7 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 ```
 :::
 
-## <a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.6 Model Functions as Set Transformations</a>
+## <a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7 Model Functions as Set Transformations</a>
 
 ::: example
 Example 101: As a variation of [example 98](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
@@ -4031,7 +4031,7 @@ results in
 Note that these two entities get their values for the Country property from the groupby transformation, which ensures that they contain all grouping properties with the correct values.
 :::
 
-## <a name="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.7 Controlling Aggregation per Rollup Level</a>
+## <a name="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.8 Controlling Aggregation per Rollup Level</a>
 
 For a leveled hierarchy, consumers may specify a different aggregation method per level for every property passed to [`rollup`](#Groupingwithrollup) as a hierarchy level below the root level.
 
@@ -4098,7 +4098,7 @@ Note that this example extends the result of `rollup` with `concat` and `aggrega
 average.
 :::
 
-## <a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.8 Aggregation in Recursive Hierarchies</a>
+## <a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9 Aggregation in Recursive Hierarchies</a>
 
 If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations `ancestors` and `descendants` may be used to restrict it as needed.
 
@@ -4416,7 +4416,7 @@ ancestors(
 would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
-## <a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.9 Maintaining Recursive Hierarchies</a>
+## <a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a>
 
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
@@ -4483,7 +4483,7 @@ Content-Type: application/json
 An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.
 :::
 
-## <a name="TransformationSequences" href="#TransformationSequences">7.10 Transformation Sequences</a>
+## <a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a>
 
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 

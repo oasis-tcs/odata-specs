@@ -288,8 +288,7 @@ Input and Output Sets</a>
 <ul>
 <li><a href="#TypeStructureandContextURL">3.1.1 Type, Structure and
 Context URL</a></li>
-<li><a href="#SamenessandPrecedence">3.1.2 Sameness and
-Precedence</a></li>
+<li><a href="#SamenessandOrder">3.1.2 Sameness and Order</a></li>
 <li><a href="#EvaluationofDataAggregationPaths">3.1.3 Evaluation of Data
 Aggregation Paths</a></li>
 </ul></li>
@@ -330,8 +329,8 @@ Methods</a></li>
 <code>rollup</code></a></li>
 </ul></li>
 </ul></li>
-<li><a href="#TransformationsPreservingtheInputSetStructure">3.3
-Transformations Preserving the Input Set Structure</a>
+<li><a href="#TransformationsProducingaSubset">3.3 Transformations
+Producing a Subset</a>
 <ul>
 <li><a href="#Topbottomtransformations">3.3.1 Top/bottom
 transformations</a>
@@ -413,9 +412,8 @@ Transformations</a>
 <ul>
 <li><a href="#CommonParametersforHierarchicalTransformations">6.1 Common
 Parameters for Hierarchical Transformations</a></li>
-<li><a
-href="#HierarchicalTransformationsPreservingtheInputSetStructure">6.2
-Hierarchical Transformations Preserving the Input Set Structure</a>
+<li><a href="#HierarchicalTransformationsProducingaSubset">6.2
+Hierarchical Transformations Producing a Subset</a>
 <ul>
 <li><a href="#Transformationsancestorsanddescendants">6.2.1
 Transformations <code>ancestors</code> and
@@ -434,18 +432,20 @@ Values</a></li>
 Methods</a></li>
 <li><a href="#RequestingExpandedResults">7.3 Requesting Expanded
 Results</a></li>
-<li><a href="#Aliasing">7.4 Aliasing</a></li>
-<li><a href="#CombiningTransformationsperGroup">7.5 Combining
+<li><a href="#RequestingCustomAggregates">7.4 Requesting Custom
+Aggregates</a></li>
+<li><a href="#Aliasing">7.5 Aliasing</a></li>
+<li><a href="#CombiningTransformationsperGroup">7.6 Combining
 Transformations per Group</a></li>
-<li><a href="#ModelFunctionsasSetTransformations">7.6 Model Functions as
+<li><a href="#ModelFunctionsasSetTransformations">7.7 Model Functions as
 Set Transformations</a></li>
-<li><a href="#ControllingAggregationperRollupLevel">7.7 Controlling
+<li><a href="#ControllingAggregationperRollupLevel">7.8 Controlling
 Aggregation per Rollup Level</a></li>
-<li><a href="#AggregationinRecursiveHierarchies">7.8 Aggregation in
+<li><a href="#AggregationinRecursiveHierarchies">7.9 Aggregation in
 Recursive Hierarchies</a></li>
-<li><a href="#MaintainingRecursiveHierarchies">7.9 Maintaining Recursive
-Hierarchies</a></li>
-<li><a href="#TransformationSequences">7.10 Transformation
+<li><a href="#MaintainingRecursiveHierarchies">7.10 Maintaining
+Recursive Hierarchies</a></li>
+<li><a href="#TransformationSequences">7.11 Transformation
 Sequences</a></li>
 </ul></li>
 <li><a href="#Conformance">8 Conformance</a></li>
@@ -1816,7 +1816,7 @@ within <code>$apply</code>. Further transformations can follow the bound
 function. The parameter syntax for bound function segments is identical
 to the parameter syntax for bound functions in resource path segments or
 <code>$filter</code> expressions. See <a
-href="#ModelFunctionsasSetTransformations">section 7.6</a> for an
+href="#ModelFunctionsasSetTransformations">section 7.7</a> for an
 example.</p>
 <p>If a data service that supports <code>$apply</code> does not support
 it on the collection identified by the request resource path, it MUST
@@ -1902,8 +1902,8 @@ related instances.</li>
 instances are transformed multiple times and the output sets with their
 potentially different structures are concatenated.</li>
 </ul>
-<p>An output set thus consists of instances with different structures,
-this is the same situation as with a collection of an open type <a
+<p>An output set thus consists of instances with different structures.
+This is the same situation as with a collection of an open type <a
 href="#ODataCSDL">OData-CSDL, sections 6.3 and 9.3</a> and it is handled
 in the same way.</p>
 <p>If the first input set is a collection of entities from a given
@@ -1923,15 +1923,15 @@ instance annotation <code>AnyStructure</code> defined in the
 <code>Core</code> vocabulary <a href="#ODataVocCore">OData-VocCore</a>.
 (See <a href="#anystructure">example 72</a>.)</p>
 <h3
-id="312-sameness-and-precedence"><a name="SamenessandPrecedence" href="#SamenessandPrecedence">3.1.2
-Sameness and Precedence</a></h3>
+id="312-sameness-and-order"><a name="SamenessandOrder" href="#SamenessandOrder">3.1.2
+Sameness and Order</a></h3>
 <p>Input sets and output sets are not sets of instances in the
 mathematical sense but collections, because the same instance can occur
 multiple times in them. In other words: A collection contains values
 (which can be structured instances or primitive values), possibly with
-repetitions. The occurrences in the collection form a set in the
-mathematical sense. The <em>cardinality</em> of a collection is the
-total number of occurrences in it. When this text describes a
+repetitions. The occurrences of the values in the collection form a set
+in the mathematical sense. The <em>cardinality</em> of a collection is
+the total number of occurrences in it. When this text describes a
 transformation algorithmically and stipulates that certain steps are
 carried out <em>for each occurrence</em> in a collection, this means
 that the steps are carried out multiple times for the same instance if
@@ -1994,11 +1994,8 @@ sequence</em> <span class="math inline">\(u_1,…,u_n\)</span> we have
 <span class="math inline">\(i&lt;j\)</span> whenever <span
 class="math inline">\(u_i\)</span> precedes <span
 class="math inline">\(u_j\)</span>.</p>
-<p>The transformation <a
-href="#Transformationorderby"><code>orderby</code></a> defined below
-carries out a <em>stable-sort</em> by a list of expressions. This is a
-sorting operation on an ordered collection that sorts it into another
-ordered collection. In the sorted collection, <span
+<p>A collection can be <em>stable-sorted</em> by a list of expressions.
+In the stable-sorted collection an occurrence <span
 class="math inline">\(u_1\)</span> precedes <span
 class="math inline">\(u_2\)</span> if and only if either</p>
 <ul>
@@ -2012,9 +2009,12 @@ class="math inline">\(u_1\)</span> preceded <span
 class="math inline">\(u_2\)</span> in the collection before the
 sort.</li>
 </ul>
-<p>A stable-sort does not necessarily produce a total order, the sorted
-collection may still contain two occurrences whose relative order does
-not matter.</p>
+<p>Stable-sorting of an ordered collection produces another ordered
+collection. A stable-sort does not necessarily produce a total order,
+the sorted collection may still contain two occurrences whose relative
+order does not matter. The transformation <a
+href="#Transformationorderby"><code>orderby</code></a> performs a
+stable-sort.</p>
 <p>The output set of a <a href="#BasicAggregation">basic aggregation</a>
 transformation can contain instances of an entity type without entity
 id. After a <a href="#Transformationconcat"><code>concat</code></a>
@@ -2222,7 +2222,7 @@ class="math inline">\(p=p_1\)</span> or <span
 class="math inline">\(p=p_2\)</span> or <span
 class="math inline">\(p=p_1/p_2\)</span>.<br />
 Let <span class="math inline">\(f(A)\)</span> be the <a
-href="#SamenessandPrecedence">cardinality</a> of <span
+href="#SamenessandOrder">cardinality</a> of <span
 class="math inline">\(A\)</span>.</li>
 <li>A path <span class="math inline">\(p/c\)</span> consisting of an
 optional prefix <span class="math inline">\(p/{}\)</span> with <span
@@ -2260,13 +2260,13 @@ class="math inline">\(\Gamma\)</span> notation</a>:</p>
 <ul>
 <li>If <span class="math inline">\(q\)</span> is non-empty, let <span
 class="math inline">\(E=\Gamma(I,q)\)</span> and remove duplicates from
-that entity collection: If <a href="#SamenessandPrecedence">multiple
+that entity collection: If <a href="#SamenessandOrder">multiple
 representations of the same non-transient entity</a> are reached, the
 service MUST merge them into one occurrence in <span
 class="math inline">\(E\)</span> if they are complementary and MUST
 reject the request if they are contradictory. (See <a
 href="#aggrconflict">example 124</a>.) If <a
-href="#SamenessandPrecedence">multiple occurrences of the same transient
+href="#SamenessandOrder">multiple occurrences of the same transient
 entity</a> are reached, the service MUST keep only one occurrence in
 <span class="math inline">\(E\)</span>.</li>
 <li>If <span class="math inline">\(q\)</span> is empty, let <span
@@ -2641,7 +2641,7 @@ class="math inline">\(e\)</span> denote the empty path.</p>
 <p>The output set of the groupby transformation is constructed in five
 steps.</p>
 <ol type="1">
-<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
+<li><a href="#SamenessandOrder">For each occurrence</a> <span
 class="math inline">\(u\)</span> in the input set, a projection is
 computed that contains only the grouping properties. This projection is
 <span class="math inline">\(s_G(u,e)\)</span> and the function <span
@@ -2673,13 +2673,12 @@ class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
 <li>Return <span class="math inline">\(v\)</span>.</li>
 </ul></li>
 <li>The input set is split into subsets where two instances are in the
-same subset if their projections are <a
-href="#SamenessandPrecedence">the same</a>. If <a
-href="#SamenessandPrecedence">representations of the same non-transient
-entity</a> are encountered during the comparison of two projections, the
-service MUST assign them to one subset with the merged representation if
-they are complementary and MUST reject the request if they are
-contradictory.</li>
+same subset if their projections are <a href="#SamenessandOrder">the
+same</a>. If <a href="#SamenessandOrder">representations of the same
+non-transient entity</a> are encountered during the comparison of two
+projections, the service MUST assign them to one subset with the merged
+representation if they are complementary and MUST reject the request if
+they are contradictory.</li>
 <li>The set transformations from the second parameter are applied to
 each subset, resulting in a new set of potentially different structure
 and cardinality. Associated with each resulting set is the common
@@ -2690,9 +2689,9 @@ the associated common projection <span class="math inline">\(s\)</span>.
 This transformation is denoted by <span
 class="math inline">\(\Pi_G(s)\)</span> and is defined below.</li>
 <li>The output set is the concatenation of the transformed sets from the
-previous step. Precedence between occurrences from the same transformed
-set remains the same, and no precedence is defined between occurrences
-from different transformed sets.</li>
+previous step. The order of occurrences from the same transformed set
+remains the same, and no order is defined between occurrences from
+different transformed sets.</li>
 </ol>
 <p><em>Definition of <span
 class="math inline">\(\Pi_G(s)\)</span>:</em></p>
@@ -2703,7 +2702,7 @@ href="#TypeStructureandContextURL">input type</a>.</p>
 <p>The output set of the transformation <span
 class="math inline">\(\Pi_G(s)\)</span> is in one-to-one correspondence
 with its input set via the <a
-href="#SamenessandPrecedence">order-preserving</a> mapping <span
+href="#SamenessandOrder">order-preserving</a> mapping <span
 class="math inline">\(u↦a_G(u,s,e)\)</span>. The function <span
 class="math inline">\(a_G(u,s,p)\)</span> takes two instances and a path
 relative to the input set as arguments and is computed recursively as
@@ -2912,8 +2911,8 @@ href="#Groupingwithrolluprecursive"><code>rolluprecursive</code></a>
 which similarly works with a <a href="#RecursiveHierarchy">recursive
 hierarchy</a> is defined later.</p>
 <h2
-id="33-transformations-preserving-the-input-set-structure"><a name="TransformationsPreservingtheInputSetStructure" href="#TransformationsPreservingtheInputSetStructure">3.3
-Transformations Preserving the Input Set Structure</a></h2>
+id="33-transformations-producing-a-subset"><a name="TransformationsProducingaSubset" href="#TransformationsProducingaSubset">3.3
+Transformations Producing a Subset</a></h2>
 <p>These transformations produce an output set that is a subset of their
 input set. Some of the algorithmic descriptions below make use of the
 following definition: A total order of a collection is called <em>stable
@@ -2935,7 +2934,9 @@ manner (as long as the underlying data do not change).</p>
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)</code></pre>
 <p>where the number in <code>skip</code> is <span
-class="math inline">\(M=(i-1)⋅N\)</span>.</p>
+class="math inline">\(M=(i-1)⋅N\)</span>. Other values of <span
+class="math inline">\(M\)</span> can be used to skip, for example, half
+a page.</p>
 </div>
 <h3
 id="331-topbottom-transformations"><a name="Topbottomtransformations" href="#Topbottomtransformations">3.3.1
@@ -2956,7 +2957,7 @@ requests. (This is the order of the eventual output set of this
 transformation.)</li>
 <li>Let <span class="math inline">\(B\)</span> be a copy of <span
 class="math inline">\(A\)</span> that is <a
-href="#SamenessandPrecedence">stable-sorted</a> in ascending (for
+href="#SamenessandOrder">stable-sorted</a> in ascending (for
 transformations starting with <code>bottom</code>) or descending (for
 transformations starting with <code>top</code>) order of the value
 specified in the second parameter. (This is the order in which
@@ -3144,7 +3145,7 @@ same order <code>$orderby</code> would produce for the given
 expressions, but keeping the relative order from the input set if the
 given expressions do not distinguish between two instances. The orderby
 transformation thereby performs a <a
-href="#SamenessandPrecedence">stable-sort</a>. A service supporting this
+href="#SamenessandOrder">stable-sort</a>. A service supporting this
 transformation MUST at least offer sorting by values addressed by
 property paths, including dynamic properties, with both suffixes
 <code>asc</code> and <code>desc</code>.</p>
@@ -3278,9 +3279,9 @@ of one or more <em>compute expressions</em> as parameters.</p>
 href="#TypeStructureandContextURL">alias</a>.</p>
 <p>The output set is constructed by copying the instances of the input
 set and adding one dynamic property per compute expression to <a
-href="#SamenessandPrecedence">each occurrence</a> in the output set. The
-name of each added dynamic property is the alias of the corresponding
-compute expression. The value of each added dynamic property is computed
+href="#SamenessandOrder">each occurrence</a> in the output set. The name
+of each added dynamic property is the alias of the corresponding compute
+expression. The value of each added dynamic property is computed
 relative to the corresponding instance. Services MAY support expressions
 that address dynamic properties added by other expressions within the
 same compute transformation, provided that the service can determine an
@@ -3319,9 +3320,9 @@ one of its sub-types, followed by the <code>as</code> keyword, followed
 by an <a href="#TypeStructureandContextURL">alias</a>. The optional
 second parameter specifies a transformation sequence <span
 class="math inline">\(T\)</span>.</p>
-<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
+<p><a href="#SamenessandOrder">For each occurrence</a> <span
 class="math inline">\(u\)</span> in an <a
-href="#SamenessandPrecedence">order-preserving loop</a> over the input
+href="#SamenessandOrder">order-preserving loop</a> over the input
 set</p>
 <ol type="1">
 <li>the instance collection <span class="math inline">\(A\)</span>
@@ -3333,9 +3334,9 @@ class="math inline">\(A\)</span>.</li>
 <li>In case of an <code>outerjoin</code>, if <span
 class="math inline">\(A\)</span> is empty, a null instance is added to
 it.</li>
-<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
+<li><a href="#SamenessandOrder">For each occurrence</a> <span
 class="math inline">\(v\)</span> in an <a
-href="#SamenessandPrecedence">order-preserving loop</a> over <span
+href="#SamenessandOrder">order-preserving loop</a> over <span
 class="math inline">\(A\)</span>
 <ul>
 <li>an instance <span class="math inline">\(w\)</span> is appended to
@@ -3475,7 +3476,7 @@ This makes it meaningful to speak (in this section only) of a
 transformation sequence applied to a single instance; this means
 applying it to a collection containing the single instance and taking as
 result the single instance from the output set.</p>
-<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
+<p><a href="#SamenessandOrder">For each occurrence</a> <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p_1/…/p_{k-1})\)</span>, let <span
 class="math inline">\(B=γ(u,p_k/q)\)</span> and let the resource <span
@@ -4402,25 +4403,19 @@ transformation sequence <span class="math inline">\(S\)</span> applied
 to <span class="math inline">\(H\)</span>, or <span
 class="math inline">\(H&#39;=H\)</span> if <span
 class="math inline">\(S\)</span> is not specified. The transformations
-in <span class="math inline">\(S\)</span> MUST be listed in the section
-on <a
-href="#TransformationsPreservingtheInputSetStructure">Transformations
-Preserving the Input Set Structure</a> or in the section on <a
-href="#HierarchicalTransformationsPreservingtheInputSetStructure">Hierarchical
-Transformations Preserving the Input Set Structure</a> or be
-service-defined bound functions whose output set is a subset of the
+in <span class="math inline">\(S\)</span> MUST be listed in <a
+href="#TransformationsProducingaSubset">section 3.3</a> or <a
+href="#HierarchicalTransformationsProducingaSubset">section 6.2</a> or
+be service-defined bound functions whose output set is a subset of the
 input set. The hierarchy <span class="math inline">\((H&#39;,Q)\)</span>
 can have different <a href="#RecursiveHierarchy">roots</a> than the
 hierarchy <span class="math inline">\((H,Q)\)</span>.</p>
 <h2
-id="62-hierarchical-transformations-preserving-the-input-set-structure"><a name="HierarchicalTransformationsPreservingtheInputSetStructure" href="#HierarchicalTransformationsPreservingtheInputSetStructure">6.2
-Hierarchical Transformations Preserving the Input Set Structure</a></h2>
-<p>These transformations produce an output set that is a subset of their
-input set.</p>
-<p>Using the mechanism explained in the preamble of the
-<code>$apply</code> section, services can define bound functions that
-serve as additional hierarchical transformations preserving the input
-set structure.</p>
+id="62-hierarchical-transformations-producing-a-subset"><a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2
+Hierarchical Transformations Producing a Subset</a></h2>
+<p>These transformations produce an output set that consists of certain
+instances from their input set, possibly with repetitions or in a
+different order.</p>
 <h3
 id="621-transformations-ancestors-and-descendants"><a name="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1
 Transformations <code>ancestors</code> and
@@ -4428,14 +4423,14 @@ Transformations <code>ancestors</code> and
 <p>In the simple case, the <code>ancestors</code> transformation takes
 an input set whose members belong to a recursive hierarchy <span
 class="math inline">\((H&#39;,Q)\)</span>. It determines a subset <span
-class="math inline">\(U\)</span> of the input set and then determines
-the set of ancestors of <span class="math inline">\(U\)</span> that were
+class="math inline">\(A\)</span> of the input set and then determines
+the set of ancestors of <span class="math inline">\(A\)</span> that were
 already contained in the input set. Its output set is the ancestors set,
-optionally including <span class="math inline">\(U\)</span>.</p>
+optionally including <span class="math inline">\(A\)</span>.</p>
 <p>In the more complex case, the members of the input set are instead
 related to nodes in a recursive hierarchy. Then the
 <code>ancestors</code> transformation determines a subset <span
-class="math inline">\(U\)</span> of the input set, whose members are
+class="math inline">\(A\)</span> of the input set, whose members are
 related to certain nodes in the hierarchy, called start nodes. The
 ancestors of these start nodes are then determined, and the output set
 consists of instances of the input set that are related to the
@@ -4447,14 +4442,11 @@ class="math inline">\(Q\)</span> and <span
 class="math inline">\(p\)</span> are the first three parameters defined
 <a href="#CommonParametersforHierarchicalTransformations">above</a>,</p>
 <p>The fourth parameter is a transformation sequence <span
-class="math inline">\(T\)</span> composed of transformations listed in
-the section on <a
-href="#TransformationsPreservingtheInputSetStructure">Transformations
-Preserving the Input Set Structure</a> or in the section on <a
-href="#HierarchicalTransformationsPreservingtheInputSetStructure">Hierarchical
-Transformations Preserving the Input Set Structure</a> and of
-service-defined bound functions whose output set is a subset of the
-input set. <span class="math inline">\(U\)</span> is the output set of
+class="math inline">\(T\)</span> composed of transformations listed <a
+href="#TransformationsProducingaSubset">section 3.3</a> or <a
+href="#HierarchicalTransformationsProducingaSubset">section 6.2</a> and
+of service-defined bound functions whose output set is a subset of the
+input set. <span class="math inline">\(A\)</span> is the output set of
 this sequence applied to the input set.</p>
 <p><span class="math inline">\(S\)</span> is an optional fifth parameter
 as defined <a
@@ -4473,7 +4465,7 @@ start})\)</span> is defined as the <a
 href="#HierarchicalTransformations">union</a> of the output sets of
 transformations <span class="math inline">\(F(u)\)</span> applied to the
 input set for all <span class="math inline">\(u\)</span> in <span
-class="math inline">\(U\)</span>. For a given instance <span
+class="math inline">\(A\)</span>. For a given instance <span
 class="math inline">\(u\)</span>, the transformation <span
 class="math inline">\(F(u)\)</span> determines all instances of the
 input set whose node identifier is an ancestor or descendant of the node
@@ -4629,7 +4621,7 @@ class="math inline">\(H&#39;\)</span>. All following parameters are
 optional and form a list <span class="math inline">\(o\)</span> of
 expressions that could also be passed as a <code>$orderby</code> system
 query option. If <span class="math inline">\(o\)</span> is present, the
-transformation <a href="#SamenessandPrecedence">stable-sorts</a> <span
+transformation <a href="#SamenessandOrder">stable-sorts</a> <span
 class="math inline">\(H&#39;\)</span> by <span
 class="math inline">\(o\)</span>.</p>
 <p>The instances in the input set are related to one node (if <span
@@ -4762,7 +4754,7 @@ consisting of one item <span class="math inline">\(x&#39;\)</span>.</li>
 <p>Let <span class="math inline">\(r_1,…,r_n\)</span> be a sequence of
 the <a href="#RecursiveHierarchy">root nodes</a> of the recursive
 hierarchy <span class="math inline">\((H&#39;,Q)\)</span> <a
-href="#SamenessandPrecedence">preserving the order</a> of <span
+href="#SamenessandOrder">preserving the order</a> of <span
 class="math inline">\(H&#39;\)</span> stable-sorted by <span
 class="math inline">\(o\)</span>. Then the transformation <span
 class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as
@@ -4774,7 +4766,7 @@ class="math inline">\(H&#39;\)</span> with root node <span
 class="math inline">\(x\)</span>. Let <span
 class="math inline">\(c_1,…,c_m\)</span> with <span
 class="math inline">\(m≥0\)</span> be an <a
-href="#SamenessandPrecedence">order-preserving sequence</a> of the <a
+href="#SamenessandOrder">order-preserving sequence</a> of the <a
 href="#RecursiveHierarchy">children</a> of <span
 class="math inline">\(x\)</span> in <span
 class="math inline">\((H&#39;,Q)\)</span>. The <em>recursive formula for
@@ -5758,10 +5750,13 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb171-1"><a href
 <span id="cb171-20"><a href="#cb171-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb171-21"><a href="#cb171-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>Requesting Custom Aggregates Custom aggregates are defined through
-the <a href="#CustomAggregates"><code>CustomAggregate</code></a>
-annotation. They can be associated with an entity set, a collection or
-an entity container.</p>
+<h2
+id="74-requesting-custom-aggregates"><a name="RequestingCustomAggregates" href="#RequestingCustomAggregates">7.4
+Requesting Custom Aggregates</a></h2>
+<p>Custom aggregates are defined through the <a
+href="#CustomAggregates"><code>CustomAggregate</code></a> annotation.
+They can be associated with an entity set, a collection or an entity
+container.</p>
 <p>A custom aggregate can be used by specifying the name of the custom
 aggregate in the <a
 href="#Transformationaggregate"><code>aggregate</code></a> clause.</p>
@@ -5839,7 +5834,7 @@ aggregate.</p>
     /aggregate(Forecast with average as D1))
   /aggregate(Forecast)</code></pre>
 </div>
-<h2 id="74-aliasing"><a name="Aliasing" href="#Aliasing">7.4
+<h2 id="75-aliasing"><a name="Aliasing" href="#Aliasing">7.5
 Aliasing</a></h2>
 <p>A property can be aggregated in multiple ways, each with a different
 alias.</p>
@@ -5914,7 +5909,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb187-1"><a href
 <span id="cb187-9"><a href="#cb187-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2
-id="75-combining-transformations-per-group"><a name="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.5
+id="76-combining-transformations-per-group"><a name="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.6
 Combining Transformations per Group</a></h2>
 <p>Dynamic property names may be reused in different transformation
 sequences passed to <code>concat</code>.</p>
@@ -6012,7 +6007,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb193-1"><a href
 <span id="cb193-17"><a href="#cb193-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2
-id="76-model-functions-as-set-transformations"><a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.6
+id="77-model-functions-as-set-transformations"><a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7
 Model Functions as Set Transformations</a></h2>
 <div class="example">
 <p>Example 101: As a variation of <a href="#bestselling">example 98</a>,
@@ -6062,7 +6057,7 @@ property from the groupby transformation, which ensures that they
 contain all grouping properties with the correct values.</p>
 </div>
 <h2
-id="77-controlling-aggregation-per-rollup-level"><a name="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.7
+id="78-controlling-aggregation-per-rollup-level"><a name="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.8
 Controlling Aggregation per Rollup Level</a></h2>
 <p>For a leveled hierarchy, consumers may specify a different
 aggregation method per level for every property passed to <a
@@ -6124,7 +6119,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb200-1"><a href
 average.</p>
 </div>
 <h2
-id="78-aggregation-in-recursive-hierarchies"><a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.8
+id="79-aggregation-in-recursive-hierarchies"><a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9
 Aggregation in Recursive Hierarchies</a></h2>
 <p>If aggregation along a recursive hierarchy does not apply to the
 entire hierarchy, transformations <code>ancestors</code> and
@@ -6458,7 +6453,7 @@ their ancestor sales organizations, so US East would appear in the
 result.</p>
 </div>
 <h2
-id="79-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.9
+id="710-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10
 Maintaining Recursive Hierarchies</a></h2>
 <p>Besides changes to the structural properties of the entities in a
 hierarchical collection, hierarchy maintenance involves changes to the
@@ -6578,7 +6573,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb221-1"><a href
 node fails, because it would introduce cycles into the hierarchy.</p>
 </div>
 <h2
-id="710-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.10
+id="711-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.11
 Transformation Sequences</a></h2>
 <p>Applying aggregation first covers the most prominent use cases. The
 slightly more sophisticated question "how much money is earned with
