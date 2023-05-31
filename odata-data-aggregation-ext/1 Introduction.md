@@ -13,24 +13,26 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 
 This specification defines the following terms:
 - <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section ##AggregationAlgorithm]
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
-- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments separated by a forward slash. Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
+- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
 - <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
 - <a name="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
 
 ### ##subsubsec Acronyms and Abbreviations
 
-- $A,I,U$ – collections of instances
+The following non-exhaustive list contains variable names that are used throughout this document:
+- $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
-- $u,w$ – instances in a collection
-- $x,y$ – instances in a hierarchical collection, called nodes
-- $p,q,v$ – paths
+- $u,v,w$ – instances in a collection
+- $x$ – an instance in a hierarchical collection, called a node
+- $p,q,r$ – paths
 - $S,T$ – transformation sequences
-- $α$ – aggregate expression, defined [below](#AggregationAlgorithm)
-- $\Gamma(A,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to a collection $A$, defined [below](#EvaluationofDataAggregationPaths)
-- $γ(u,v)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $v$ relative to an instance $u$, defined [below](#EvaluationofDataAggregationPaths)
-- $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined [below](#SimpleGrouping)
-- $σ(x)$ – instance containing a grouping property that represents a node $x$, defined [below](#Transformationtraverse)
+- $α$ – aggregate expression, defined in [section ##AggregationAlgorithm]
+- $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined in [section ##EvaluationofDataAggregationPaths]
+- $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined in [section ##EvaluationofDataAggregationPaths]
+- $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined in [section ##SimpleGrouping]
+- $σ(x)$ – instance containing a grouping property that represents a node $x$, defined in [section ##Transformationtraverse]
 
 ### ##subsubsec Document Conventions
 
@@ -72,13 +74,13 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 # ##sec Overview
 
-Open Data (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
+Open Data Protocol (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see [OData-CSDL](#ODataCSDL)) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.
 
 Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled "aggregation level entities" or else restricting the consumer to a small subset of predefined aggregations.
 
 Adding the notion of aggregation to OData without changing any of the base principles in OData has two aspects:
 1. Means for the consumer to query aggregated data on top of any given data model (for sufficiently capable data providers)
-2. Means for the provider to annotate what data can be aggregated, and in which way, allowing consumers to avoid asking questions that the provider cannot answer.
+2. Means for the provider to annotate what data can be aggregated, and in which way, allowing consumers to avoid asking questions that the provider cannot answer
 
 Implementing any of these two aspects is valuable in itself independent of the other, and implementing both provides additional value for consumers. The provided aggregation annotations help a consumer understand more of the data structure looking at the service's exposed data model. The query extensions allow the consumers to explicitly express the desired aggregation behavior for a particular query. They also allow consumers to formulate queries that utilize the aggregation annotations.
 
@@ -87,7 +89,7 @@ Implementing any of these two aspects is valuable in itself independent of the o
 ::: example
 Example ##ex: The following diagram depicts a simple model that is used throughout this document.
 
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:100%">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:75em">
   <style type="text/css">
   <![CDATA[
     .st1 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
@@ -578,16 +580,16 @@ Example ##ex: The following diagram depicts a simple model that is used througho
   </g>
 </svg>
 
-The Amount property in the Sale entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in four hierarchies:
-- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the Category and Product entity types
-- Customer [hierarchy](#LeveledHierarchy) based on Country and Customer
-- Time [hierarchy](#LeveledHierarchy) based on Year, Month and Date
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies, for example:
+- Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
+- Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
+- Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
 - SalesOrganization [hierarchy](#RecursiveHierarchy) based on the recursive association to itself
 
 In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.
 :::
 
-Query extensions and descriptive annotations can both be applied to normalized as well as partly or fully denormalized schemas.
+Query extensions and descriptive annotations can be applied to normalized schemas as well as partly or fully denormalized schemas.
 
 ::: example
 Example ##ex: The following diagram depicts a denormalized schema for the simple model.
