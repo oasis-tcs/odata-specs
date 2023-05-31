@@ -4469,11 +4469,10 @@ parent node|EMEA|EMEA|Sales
 child node|EMEA Central|EMEA Central|EMEA
 not a node|Mars||Sales
 true orphan|Phobos|Phobos|Mars
-true orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
 island orphan|Atlantis|Atlantis|Atlantis
 
-Mars, Phobos and Phobos South Pole can be made descendants of the root node by giving Mars a node identifier:
+Mars and Phobos can be made descendants of the root node by giving Mars a node identifier:
 ```json
 PATCH /service/SalesOrganizations('Mars')
 Content-Type: application/json
