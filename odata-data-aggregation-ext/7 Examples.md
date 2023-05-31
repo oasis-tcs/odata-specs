@@ -640,7 +640,8 @@ returns the different combinations of products sold per country:
 ```
 :::
 
-Requesting Custom Aggregates
+## ##subsec Requesting Custom Aggregates
+
 Custom aggregates are defined through the [`CustomAggregate`](#CustomAggregates) annotation. They can be associated with an entity set, a collection or an entity container.
 
 A custom aggregate can be used by specifying the name of the custom aggregate in the [`aggregate`](#Transformationaggregate) clause.
