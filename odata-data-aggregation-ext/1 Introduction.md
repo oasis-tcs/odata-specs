@@ -580,7 +580,8 @@ Example ##ex: The following diagram depicts a simple model that is used througho
   </g>
 </svg>
 
-The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies:
+
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies, for example:
 - Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
 - Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
 - Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`

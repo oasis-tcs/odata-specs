@@ -1328,7 +1328,9 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. If `traverse` was omitted, the transformation
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `descendants` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
+
+If `traverse` was omitted, the transformation
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1340,7 +1342,7 @@ ancestors(
     keep start),
   keep start)
 ```
-would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
+works differently: `descendants` is the parameter $T$ of `ancestors` and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## ##subsec Maintaining Recursive Hierarchies

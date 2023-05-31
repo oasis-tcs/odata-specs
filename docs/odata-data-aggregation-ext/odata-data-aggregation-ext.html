@@ -1108,7 +1108,7 @@ throughout this document.</p>
 <p>The <code>Amount</code> property in the <code>Sale</code> entity type
 is an <a href="#AggregationCapabilities">aggregatable property</a>, and
 the properties of the related entity types are groupable. These can be
-arranged in hierarchies:</p>
+arranged in hierarchies, for example:</p>
 <ul>
 <li>Product hierarchy based on <a
 href="#AggregationCapabilities">groupable</a> properties of the
@@ -1928,14 +1928,15 @@ Sameness and Order</a></h3>
 <p>Input sets and output sets are not sets of instances in the
 mathematical sense but collections, because the same instance can occur
 multiple times in them. In other words: A collection contains values
-(which can be structured instances or primitive values), possibly with
-repetitions. The occurrences of the values in the collection form a set
-in the mathematical sense. The <em>cardinality</em> of a collection is
-the total number of occurrences in it. When this text describes a
-transformation algorithmically and stipulates that certain steps are
-carried out <em>for each occurrence</em> in a collection, this means
-that the steps are carried out multiple times for the same instance if
-it occurs multiple times in the collection.</p>
+(which can be instances of structured types or primitive values),
+possibly with repetitions. The occurrences of the values in the
+collection form a set in the mathematical sense. The
+<em>cardinality</em> of a collection is the total number of occurrences
+in it. When this text describes a transformation algorithmically and
+stipulates that certain steps are carried out <em>for each
+occurrence</em> in a collection, this means that the steps are carried
+out multiple times for the same instance if it occurs multiple times in
+the collection.</p>
 <p>A collection addressed by the resource path is returned by the
 service either as an ordered collection <a
 href="#ODataProtocol">OData-Protocol, section 11.4.10</a> or as an
@@ -1945,8 +1946,8 @@ the result of evaluating an expression starting with <code>$root</code>,
 which occur, for example, as the first parameter of a <a
 href="#HierarchicalTransformations">hierarchical transformation</a>.</p>
 <p>But when such a collection is transformed by the <code>$apply</code>
-system query option, halfway cases between ordered and unordered can
-arise. For example, the <a
+system query option, additional cases can arise that are neither ordered
+nor totally unordered. For example, the <a
 href="#Transformationgroupby"><code>groupby</code></a> transformation
 retains any order within a group but not between groups.</p>
 <div class="example">
@@ -2079,9 +2080,9 @@ request.</p>
 <p>For a data aggregation path to be a common expression according to <a
 href="#ODataURL">OData-URL, section 5.1.1</a>, its segments must be
 single-valued with the possible exception of the last segment, and it
-can then be evaluated relative to a structured instance. For the
-transformations defined in this document, a data aggregation path can
-also be evaluated relative to a collection <span
+can then be evaluated relative to an instance of a structured type. For
+the transformations defined in this document, a data aggregation path
+can also be evaluated relative to a collection <span
 class="math inline">\(A\)</span>, even if it has arbitrary
 collection-valued segments itself.</p>
 <p>To this end, the following notation is used in the subsequent
@@ -2095,8 +2096,8 @@ class="math inline">\(γ(u,p)\)</span> for each <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(A\)</span> that is not null. The function <span
 class="math inline">\(γ(u,p)\)</span> takes a non-null value and a path
-as arguments and returns a collection of structured instances or
-primitive values, depending on the type of the final segment of <span
+as arguments and returns a collection of instances of structured types
+or primitive values, depending on the type of the final segment of <span
 class="math inline">\(p\)</span>. It is recursively defined as
 follows:</p>
 <ol type="1">
@@ -2144,8 +2145,11 @@ class="math inline">\(B=\Gamma(C,p_2)\)</span>. Then continue with step
 </ol>
 <p>This notation is extended to the case of an empty path <span
 class="math inline">\(e\)</span> by setting <span
-class="math inline">\(\Gamma(A,e)=A\)</span>. Note every instance <span
-class="math inline">\(u\)</span> in <span
+class="math inline">\(\Gamma(A,e)=A\)</span> with null values removed.
+Note the collections returned by <span
+class="math inline">\(\Gamma\)</span> and <span
+class="math inline">\(γ\)</span> never contain the null value. Also,
+every instance <span class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p)\)</span> occurs also in <span
 class="math inline">\(A\)</span> or nested into <span
 class="math inline">\(A\)</span>, therefore an algorithmic step like
@@ -2171,8 +2175,8 @@ expression, representing the aggregated value of the input set.</p>
 constructed with the <a href="#Keywordfrom"><code>from</code></a>
 keyword. To compute the value of the property for a given aggregate
 expression, the <code>aggregate</code> transformation first determines a
-collection <span class="math inline">\(A\)</span> of structured
-instances or primitive values, based on the input set of the
+collection <span class="math inline">\(A\)</span> of instances of
+structured types or primitive values, based on the input set of the
 <code>aggregate</code> transformation, and a path <span
 class="math inline">\(p\)</span> that occurs in the aggregate
 expression. Let <span class="math inline">\(p_1\)</span> denote a <a
@@ -2211,7 +2215,8 @@ Let <span class="math inline">\(f(A)=g(A)\)</span>.</li>
 expression</a>.<br />
 Let <span class="math inline">\(f(A)=g(B)\)</span> where <span
 class="math inline">\(B\)</span> is the collection consisting of the
-aggregatable expression evaluated relative to each member of <span
+values of the aggregatable expression evaluated relative to <a
+href="#SamenessandOrder">each occurrence</a> in <span
 class="math inline">\(A\)</span> with null values removed from <span
 class="math inline">\(B\)</span>. In this type, <span
 class="math inline">\(p\)</span> is absent.</li>
@@ -2233,13 +2238,16 @@ class="math inline">\(p=p_2\)</span>, and a <a
 href="#CustomAggregates">custom aggregate</a> <span
 class="math inline">\(c\)</span> defined on the collection addressed by
 <span class="math inline">\(p\)</span>.<br />
-Let <span class="math inline">\(f(A)=c(A)\)</span>, and if computation
-of the custom aggregate fails, the service MUST reject the request. In
-the absence of an alias, the name of the property MUST be the name of
-the custom aggregate, this is a dynamic property unless there is a
-declared property with that name, which is allowed by the
-<code>CustomAggregate</code> annotation. The custom aggregate also
-determines the type of the dynamic property.</li>
+Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of
+the custom aggregate fails, the service MUST reject the request. In the
+absence of an alias:
+<ul>
+<li>The name of the property is the name of the custom aggregate.</li>
+<li>The property is a dynamic property whose type is determined by the
+custom aggregate, unless there is a declared property with that name.
+The latter case is allowed by the <code>CustomAggregate</code>
+annotation.</li>
+</ul></li>
 </ol>
 <p><em>Determination of <span class="math inline">\(A\)</span>:</em></p>
 <p>Let <span class="math inline">\(I\)</span> be the input set. If <span
@@ -2274,8 +2282,8 @@ class="math inline">\(E=I\)</span>.</li>
 </ul>
 <p>Then, if <span class="math inline">\(r\)</span> is empty, let <span
 class="math inline">\(A=E\)</span>, otherwise let <span
-class="math inline">\(A=\Gamma(E,r)\)</span>, this consists of
-structured instances or primitive values, possibly with repetitions.</p>
+class="math inline">\(A=\Gamma(E,r)\)</span>, this consists of instances
+of structured types or primitive values, possibly with repetitions.</p>
 <h4 id="3212-keyword-as"><a name="Keywordas" href="#Keywordas">3.2.1.2
 Keyword <code>as</code></a></h4>
 <p>Aggregate expressions can define an <a
@@ -2501,12 +2509,13 @@ with\ }…)\)</span>.</p>
 allowed in <code>groupby</code> for <a href="#SimpleGrouping">simple
 grouping</a>.</p>
 <ol type="1">
-<li>If <span class="math inline">\(α\)</span> is an aggregate expression
-and <span class="math inline">\(g\)</span> is an aggregation method,
-then <span class="math display">\[α{\tt\ from\ }p_1,…,p_n{\tt\ with\
-}g\]</span> is an aggregate expression which evaluates to the value of
-property <span class="math inline">\(D\)</span> in the single instance
-in the output set of the following transformation sequence: <span
+<li>If <span class="math inline">\(α\)</span> is an <a
+href="#AggregateExpression">aggregate expression</a> and <span
+class="math inline">\(g\)</span> is an aggregation method, then <span
+class="math display">\[α{\tt\ from\ }p_1,…,p_n{\tt\ with\ }g\]</span> is
+an aggregate expression which evaluates to the value of property <span
+class="math inline">\(D\)</span> in the single instance in the output
+set of the following transformation sequence: <span
 class="math display">\[{\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\
 as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }g{\tt\ as\ }D).\]</span></li>
 <li>If <span class="math inline">\(α=p/c{\tt\ from\ }…\)</span> is an
@@ -2515,18 +2524,19 @@ class="math inline">\(c\)</span>, optionally prefixed with a path <span
 class="math inline">\(p\)</span> as in type 4 in the <a
 href="#AggregationAlgorithm">aggregation algorithm</a>, and that
 optionally continues with <code>from</code> and <code>with</code>
-clauses, then <span class="math display">\[α{\tt\ from\
-}p_1,…,p_n\]</span> is an aggregate expression which evaluates to the
-value of property <span class="math inline">\(c\)</span> in the single
-instance in the output set of the following transformation sequence:
-<span class="math display">\[{\tt groupby}((p_1,…,p_n),{\tt
-aggregate}(α{\tt\ as\ }D_1))/{\tt aggregate}(p/c).\]</span></li>
+clauses that were introduced through application of these rules, then
+<span class="math display">\[α{\tt\ from\ }p_1,…,p_n\]</span> is an
+aggregate expression which evaluates to the value of property <span
+class="math inline">\(c\)</span> in the single instance in the output
+set of the following transformation sequence: <span
+class="math display">\[{\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\
+as\ }D_1))/{\tt aggregate}(p/c).\]</span></li>
 </ol>
 <p>Aggregate expressions constructed by these rules MUST be followed in
 the <code>aggregate</code> transformation by the keyword <code>as</code>
 and an <a href="#TypeStructureandContextURL">alias</a>. These rules can
-be applied repeatedly and lead to multiple <code>from</code> clauses in
-one aggregate expression.</p>
+be applied repeatedly and lead to multiple <code>from</code> and
+<code>with</code> clauses in an aggregate expression.</p>
 <div class="example">
 <p>⚠ Example <a name="from" href="#from">16</a>: illustrates rule 1
 where <span class="math inline">\(α={\tt Amount\ with\ sum}\)</span>,
@@ -3069,9 +3079,7 @@ class="math inline">\(s\)</span>. The second parameter MUST be an <a
 href="#AggregatableExpression">aggregatable expression</a> that
 evaluates to a number. In step 5, exit the loop if the sum of the
 numbers addressed by the second parameter in the output set is greater
-than or equal to a non-negative <span class="math inline">\(s\)</span>
-or is less than or equal to a negative <span
-class="math inline">\(s\)</span>.</p>
+than or equal to <span class="math inline">\(s\)</span>.</p>
 <div class="example">
 <p>Example 29:</p>
 <pre><code>GET /service/Sales?$apply=bottomsum(7,Amount)</code></pre>
@@ -3560,12 +3568,12 @@ the input set of the transformation.</li>
 <h3
 id="351-function-aggregate"><a name="Functionaggregate" href="#Functionaggregate">3.5.1
 Function <code>aggregate</code></a></h3>
-<p>The <code>aggregate</code> function allows to use aggregated values
-in <a href="#Expression">expressions</a>. It takes a single parameter
-accepting an <a href="#AggregateExpression">aggregate expression</a> and
-returns the aggregated value of type <code>Edm.PrimitiveType</code> as
-the result from applying the aggregate expression on its input
-collection.</p>
+<p>The <code>aggregate</code> function allows the use of aggregated
+values in <a href="#Expression">expressions</a>. It takes a single
+parameter accepting an <a href="#AggregateExpression">aggregate
+expression</a> and returns the aggregated value of type
+<code>Edm.PrimitiveType</code> as the result from applying the aggregate
+expression on its input collection.</p>
 <p>More precisely, if <span class="math inline">\(α\)</span> is an
 aggregate expression, the function <span class="math inline">\(p/{\tt
 aggregate}(α)\)</span> or <span class="math inline">\({\tt\$these}/{\tt
@@ -3823,7 +3831,7 @@ entity container. It allows to specify default support for aggregation
 capabilities <code>Transformations</code>,
 <code>CustomAggregationMethods</code> and <code>Rollup</code> that
 propagate to all collection-valued resources in the container.
-Annotating a specific collection-valued resource with term
+Annotating a specific collection-valued resource with the term
 <code>ApplySupported</code> overrides the default support with the
 specified properties using <code>PATCH</code> semantics:</p>
 <ul>
@@ -3853,13 +3861,14 @@ Custom Aggregates</a></h2>
 properties that can be used in <a
 href="#Transformationaggregate"><code>aggregate</code></a>. No
 assumptions can be made on how the values of these custom aggregates are
-calculated, and which input values are used.</p>
-<p>When applied to an entity set, an entity type, or a collection rooted
-in an entity container, the annotation specifies custom aggregates that
-are available for its instances and for aggregated instances resulting
-from these instances. When applied to an entity container, the
-annotation specifies custom aggregates whose input set may span multiple
-entity sets within the container.</p>
+calculated, whether they are null, and which input values are used.</p>
+<p>When applied to an entity set, an entity type, or a collection if the
+target path of the annotation starts with an entity container, the
+annotation specifies custom aggregates that are available for its
+instances and for aggregated instances resulting from these instances.
+When applied to an entity container, the annotation specifies custom
+aggregates whose input set may span multiple entity sets within the
+container.</p>
 <p>A custom aggregate is identified by the value of the
 <code>Qualifier</code> attribute when applying the term. The value of
 the <code>Qualifier</code> attribute is the name of the dynamic
@@ -4011,7 +4020,8 @@ property value of the level above.</p>
 an entity or complex type and is described with the term
 <code>LeveledHierarchy</code> that lists the properties used to form the
 hierarchy.</p>
-<p>The order of the collection is significant: it lists the properties
+<p>The order of the collection is significant: it lists paths from the
+entity or complex type where the term is applied to groupable properties
 representing the levels, starting with the root level (coarsest
 granularity) down to the lowest (finest-grained) level of the
 hierarchy.</p>
@@ -4322,9 +4332,8 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb106-1"><a href
 <span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Further examples for recursive hierarchies using transformations
-operating on the hierarchy structure are provided in section <a
-href="#AggregationinRecursiveHierarchies">Aggregation in Recursive
-Hierarchies</a>.</p>
+operating on the hierarchy structure are provided in <a
+href="#AggregationinRecursiveHierarchies">section 7.9</a>.</p>
 <hr />
 <h1
 id="6-hierarchical-transformations"><a name="HierarchicalTransformations" href="#HierarchicalTransformations">6
@@ -4445,7 +4454,7 @@ class="math inline">\(p\)</span> are the first three parameters defined
 class="math inline">\(T\)</span> composed of transformations listed <a
 href="#TransformationsProducingaSubset">section 3.3</a> or <a
 href="#HierarchicalTransformationsProducingaSubset">section 6.2</a> and
-of service-defined bound functions whose output set is a subset of the
+of service-defined bound functions whose output set is a subset of their
 input set. <span class="math inline">\(A\)</span> is the output set of
 this sequence applied to the input set.</p>
 <p><span class="math inline">\(S\)</span> is an optional fifth parameter
@@ -4759,9 +4768,9 @@ class="math inline">\(H&#39;\)</span> stable-sorted by <span
 class="math inline">\(o\)</span>. Then the transformation <span
 class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as
 equivalent to <span class="math display">\[{\tt
-concat}(R(r_1),…,R(r_n)).\]</span> <span
-class="math inline">\(R(x)\)</span> is a transformation producing the
-specified tree order for a sub-hierarchy of <span
+concat}(R(r_1),…,R(r_n)).\]</span></p>
+<p><span class="math inline">\(R(x)\)</span> is a transformation
+producing the specified tree order for a sub-hierarchy of <span
 class="math inline">\(H&#39;\)</span> with root node <span
 class="math inline">\(x\)</span>. Let <span
 class="math inline">\(c_1,…,c_m\)</span> with <span
@@ -6437,8 +6446,10 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb216-1"><a href
 <span id="cb216-14"><a href="#cb216-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p><code>traverse</code> acts here as a filter, hence
 <code>preorder</code> could be changed to <code>postorder</code> without
-changing the result. If <code>traverse</code> was omitted, the
-transformation</p>
+changing the result. <code>descendants</code> is the parameter <span
+class="math inline">\(S\)</span> of <code>traverse</code> and operates
+on the product category hierarchy being traversed.</p>
+<p>If <code>traverse</code> was omitted, the transformation</p>
 <pre><code>ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
   ID,
@@ -6448,9 +6459,11 @@ transformation</p>
     filter(ProductCategories/any(c:c/Name eq &#39;Cereals&#39;)),
     keep start),
   keep start)</code></pre>
-<p>would determine descendants of sales organizations for "Cereals" and
-their ancestor sales organizations, so US East would appear in the
-result.</p>
+<p>works differently: <code>descendants</code> is the parameter <span
+class="math inline">\(T\)</span> of <code>ancestors</code> and operates
+on its input set of sales organizations. This would determine
+descendants of sales organizations for "Cereals" and their ancestor
+sales organizations, so US East would appear in the result.</p>
 </div>
 <h2
 id="710-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10

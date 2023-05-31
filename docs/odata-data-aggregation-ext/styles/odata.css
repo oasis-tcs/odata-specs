@@ -126,7 +126,8 @@ pre code {
 	font-size: unset;
 }
 
-.example p code {
+.example p code,
+.example li code {
 	font-style: initial;
 }
 

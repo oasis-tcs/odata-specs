@@ -775,7 +775,8 @@ Example 2: The following diagram depicts a simple model that is used throughout 
   </g>
 </svg>
 
-The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies:
+
+The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies, for example:
 - Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
 - Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
 - Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
@@ -1046,11 +1047,11 @@ If the first input set is a collection of entities from a given entity set, then
 
 ### <a name="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a>
 
-Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be structured instances or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
+Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances of structured types or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same instance if it occurs multiple times in the collection.
 
 A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](#ODataProtocol) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
-But when such a collection is transformed by the `$apply` system query option, halfway cases between ordered and unordered can arise. For example, the [`groupby`](#Transformationgroupby) transformation retains any order within a group but not between groups.
+But when such a collection is transformed by the `$apply` system query option, additional cases can arise that are neither ordered nor totally unordered. For example, the [`groupby`](#Transformationgroupby) transformation retains any order within a group but not between groups.
 
 ::: example
 ⚠ Example 6: Request the top 10 sales per customer. The processing of the request can be parallelized per customer and the responses per customer can be interleaved in the overall response. This means that for any given customer, their top 10 sales appear in the desired order, though not consecutively.
@@ -1086,9 +1087,9 @@ Collections are _the same_ if there is a one-to-one correspondence $f$ between t
 
 This document specifies how a [data aggregation path](#DataAggregationPath) that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.
 
-For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to a structured instance. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
+For a data aggregation path to be a common expression according to [OData-URL, section 5.1.1](#ODataURL), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance of a structured type. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 
-To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and returns a collection of structured instances or primitive values, depending on the type of the final segment of $p$. It is recursively defined as follows:
+To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and returns a collection of instances of structured types or primitive values, depending on the type of the final segment of $p$. It is recursively defined as follows:
 1. If $p$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
 2. Let $p_1$ be the first segment of $p$ and $p_2$ the remainder, if any, such that $p$ equals the concatenated path $p_1/p_2$.
 3. If $p_1$ is a type-cast segment and $u$ is of its type or a subtype thereof, let $v=u$ and continue with step 8.
@@ -1099,7 +1100,7 @@ To this end, the following notation is used in the subsequent sections: If $A$ i
 8. Let $B=γ(v,p_2)$.
 9. Return $B$.
 
-This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$. Note every instance $u$ in $\Gamma(A,p)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,p)$" effectively changes $A$.
+This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,e)=A$ with null values removed. Note the collections returned by $\Gamma$ and $γ$ never contain the null value. Also, every instance $u$ in $\Gamma(A,p)$ occurs also in $A$ or nested into $A$, therefore an algorithmic step like "Add a dynamic property to each $u$ in $\Gamma(A,p)$" effectively changes $A$.
 
 ## <a name="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a>
 
@@ -1109,7 +1110,7 @@ This notation is extended to the case of an empty path $e$ by setting $\Gamma(A,
 
 The `aggregate` transformation takes a comma-separated list of one or more [_aggregate expressions_](#AggregateExpression) as parameters and returns an output set with a single instance of the [input type](#TypeStructureandContextURL) without entity id containing one property per aggregate expression, representing the aggregated value of the input set.
 
-An aggregate expression MUST have one of the types listed below or be constructed with the [`from`](#Keywordfrom) keyword. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $A$ of structured instances or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on its type, the aggregate expression contains a path $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(A)$ which the aggregate transformation evaluates to obtain the property value.
+An aggregate expression MUST have one of the types listed below or be constructed with the [`from`](#Keywordfrom) keyword. To compute the value of the property for a given aggregate expression, the `aggregate` transformation first determines a collection $A$ of instances of structured types or primitive values, based on the input set of the `aggregate` transformation, and a path $p$ that occurs in the aggregate expression. Let $p_1$ denote a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments and $p_2$ a type-cast segment. Depending on its type, the aggregate expression contains a path $p=p_1$ or $p=p_2$ or $p=p_1/p_2$. Each type of aggregate expression defines a function $f(A)$ which the aggregate transformation evaluates to obtain the property value.
 
 The property is a dynamic property, except for a special case in type 4. In types 1 and 2, the aggregate expression MUST end with the keyword `with` and an aggregation method $g$. The aggregation method also determines the type of the dynamic property. In types 1, 2, and 3 the aggregate expression MUST, and in type 4 it MAY, be followed by the keyword [`as`](#Keywordas) and an [alias](#TypeStructureandContextURL), which is then the name of the dynamic property.
 
@@ -1117,11 +1118,13 @@ _Types of aggregate expressions:_
 1. A path $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a complex or entity or [aggregatable primitive type](#AggregatablePrimitiveType) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$, or $p=p_2$ if the input set can be aggregated using the [custom aggregation method](#CustomAggregationMethods) $g$.  
 Let $f(A)=g(A)$.
 2. An [aggregatable expression](#AggregatableExpression).  
-Let $f(A)=g(B)$ where $B$ is the collection consisting of the aggregatable expression evaluated relative to each member of $A$ with null values removed from $B$. In this type, $p$ is absent.
+Let $f(A)=g(B)$ where $B$ is the collection consisting of the values of the aggregatable expression evaluated relative to [each occurrence](#SamenessandOrder) in $A$ with null values removed from $B$. In this type, $p$ is absent.
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
 Let $f(A)$ be the [cardinality](#SamenessandOrder) of $A$.
 4. A path $p/c$ consisting of an optional prefix $p/{}$ with $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a structured type or $p=p_2$, and a [custom aggregate](#CustomAggregates) $c$ defined on the collection addressed by $p$.  
-Let $f(A)=c(A)$, and if computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias, the name of the property MUST be the name of the custom aggregate, this is a dynamic property unless there is a declared property with that name, which is allowed by the `CustomAggregate` annotation. The custom aggregate also determines the type of the dynamic property.
+Let $f(A)=c(A)$. If computation of the custom aggregate fails, the service MUST reject the request. In the absence of an alias:
+   - The name of the property is the name of the custom aggregate.
+   - The property is a dynamic property whose type is determined by the custom aggregate, unless there is a declared property with that name. The latter case is allowed by the `CustomAggregate` annotation.
 
 _Determination of $A$:_
 
@@ -1131,7 +1134,7 @@ Otherwise, let $q$ be the portion of $p$ up to and including the last navigation
 - If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 124](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
-Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of structured instances or primitive values, possibly with repetitions.
+Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances of structured types or primitive values, possibly with repetitions.
 
 #### <a name="Keywordas" href="#Keywordas">3.2.1.2 Keyword `as`</a>
 
@@ -1346,16 +1349,16 @@ The `from` keyword offers a shortcut for a sequence of [`groupby`](Transformatio
 
 In the following $p_1,…,p_n$ are [data aggregation paths](#DataAggregationPath) that are allowed in `groupby` for [simple grouping](#SimpleGrouping).
 
-1. If $α$ is an aggregate expression and $g$ is an aggregation method, then
+1. If $α$ is an [aggregate expression](#AggregateExpression) and $g$ is an aggregation method, then
    $$α{\tt\ from\ }p_1,…,p_n{\tt\ with\ }g$$
    is an aggregate expression which evaluates to the value of property $D$ in the single instance in the output set of the following transformation sequence:
    $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }g{\tt\ as\ }D).$$
-2. If $α=p/c{\tt\ from\ }…$ is an aggregate expression that starts with a custom aggregate $c$, optionally prefixed with a path $p$ as in type 4 in the [aggregation algorithm](#AggregationAlgorithm), and that optionally continues with `from` and `with` clauses, then
+2. If $α=p/c{\tt\ from\ }…$ is an aggregate expression that starts with a custom aggregate $c$, optionally prefixed with a path $p$ as in type 4 in the [aggregation algorithm](#AggregationAlgorithm), and that optionally continues with `from` and `with` clauses that were introduced through application of these rules, then
    $$α{\tt\ from\ }p_1,…,p_n$$
    is an aggregate expression which evaluates to the value of property $c$ in the single instance in the output set of the following transformation sequence:
    $${\tt groupby}((p_1,…,p_n),{\tt aggregate}(α{\tt\ as\ }D_1))/{\tt aggregate}(p/c).$$
 
-Aggregate expressions constructed by these rules MUST be followed in the `aggregate` transformation by the keyword `as` and an [alias](#TypeStructureandContextURL). These rules can be applied repeatedly and lead to multiple `from` clauses in one aggregate expression.
+Aggregate expressions constructed by these rules MUST be followed in the `aggregate` transformation by the keyword `as` and an [alias](#TypeStructureandContextURL). These rules can be applied repeatedly and lead to multiple `from` and `with` clauses in an aggregate expression.
 
 ::: example
 ⚠ Example <a name="from" href="#from">16</a>: illustrates rule 1 where $α={\tt Amount\ with\ sum}$, $p_1={\tt Time}$, $g={\tt average}$
@@ -1719,7 +1722,7 @@ results in
 
 #### <a name="Transformationsbottomsumandtopsum" href="#Transformationsbottomsumandtopsum">3.3.1.3 Transformations `bottomsum` and `topsum`</a>
 
-The first parameter MUST evaluate to a number $s$. The second parameter MUST be an [aggregatable expression](#AggregatableExpression) that evaluates to a number. In step 5, exit the loop if the sum of the numbers addressed by the second parameter in the output set is greater than or equal to a non-negative $s$ or is less than or equal to a negative $s$.
+The first parameter MUST evaluate to a number $s$. The second parameter MUST be an [aggregatable expression](#AggregatableExpression) that evaluates to a number. In step 5, exit the loop if the sum of the numbers addressed by the second parameter in the output set is greater than or equal to $s$.
 
 ::: example
 Example 29:
@@ -2080,7 +2083,7 @@ These expressions are
 
 ### <a name="Functionaggregate" href="#Functionaggregate">3.5.1 Function `aggregate`</a>
 
-The `aggregate` function allows to use aggregated values in [expressions](#Expression). It takes a single parameter accepting an [aggregate expression](#AggregateExpression) and returns the aggregated value of type `Edm.PrimitiveType` as the result from applying the aggregate expression on its input collection.
+The `aggregate` function allows the use of aggregated values in [expressions](#Expression). It takes a single parameter accepting an [aggregate expression](#AggregateExpression) and returns the aggregated value of type `Edm.PrimitiveType` as the result from applying the aggregate expression on its input collection.
 
 More precisely, if $α$ is an aggregate expression, the function $p/{\tt aggregate}(α)$ or ${\tt\$these}/{\tt aggregate}(α)$ evaluates to the value of the property $D$ in the single instance of the output set that is produced when the transformation ${\tt aggregate}(α{\tt\ as\ }D)$ is applied with the input collection as input set.
 
@@ -2278,7 +2281,7 @@ The term `ApplySupported` can be applied to an entity set, an entity type, or a 
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
 - Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
@@ -2295,9 +2298,9 @@ Example 49: an entity container with default support for everything defined in t
 
 ## <a name="CustomAggregates" href="#CustomAggregates">5.2 Custom Aggregates</a>
 
-The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, and which input values are used.
+The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, whether they are null, and which input values are used.
 
-When applied to an entity set, an entity type, or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
+When applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
 
 A custom aggregate is identified by the value of the `Qualifier` attribute when applying the term. The value of the `Qualifier` attribute is the name of the dynamic property. The name MUST NOT collide with the names of other custom aggregates of the same model element.
 
@@ -2420,7 +2423,7 @@ A _leveled hierarchy_ has a fixed number of levels each of which is represented 
 
 A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
 
-The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
+The order of the collection is significant: it lists paths from the entity or complex type where the term is applied to groupable properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
 
 The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
 
@@ -2681,7 +2684,7 @@ results in
 ```
 :::
 
-Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in section [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
+Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [section 7.9](#AggregationinRecursiveHierarchies).
 
 -------
 
@@ -2721,7 +2724,7 @@ The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) and of service-defined bound functions whose output set is a subset of the input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
 $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
@@ -2866,6 +2869,7 @@ The function $a(u,v,x)$ takes an instance, a path and another instance as argume
 
 Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
+
 $R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
@@ -4401,7 +4405,9 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. If `traverse` was omitted, the transformation
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `descendants` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
+
+If `traverse` was omitted, the transformation
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -4413,7 +4419,7 @@ ancestors(
     keep start),
   keep start)
 ```
-would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
+works differently: `descendants` is the parameter $T$ of `ancestors` and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## <a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a>

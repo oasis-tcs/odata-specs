@@ -15,7 +15,7 @@ The term `ApplySupported` can be applied to an entity set, an entity type, or a 
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
 - Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
@@ -32,9 +32,9 @@ Example ##ex: an entity container with default support for everything defined in
 
 ## ##subsec Custom Aggregates
 
-The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, and which input values are used.
+The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, whether they are null, and which input values are used.
 
-When applied to an entity set, an entity type, or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
+When applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
 
 A custom aggregate is identified by the value of the `Qualifier` attribute when applying the term. The value of the `Qualifier` attribute is the name of the dynamic property. The name MUST NOT collide with the names of other custom aggregates of the same model element.
 
@@ -157,7 +157,7 @@ A _leveled hierarchy_ has a fixed number of levels each of which is represented 
 
 A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
 
-The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
+The order of the collection is significant: it lists paths from the entity or complex type where the term is applied to groupable properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
 
 The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
 
@@ -418,4 +418,4 @@ results in
 ```
 :::
 
-Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in section [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
+Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [section ##AggregationinRecursiveHierarchies].

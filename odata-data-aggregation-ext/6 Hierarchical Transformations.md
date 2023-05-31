@@ -36,7 +36,7 @@ The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] and of service-defined bound functions whose output set is a subset of the input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
 $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
@@ -219,6 +219,7 @@ The function $a(u,v,x)$ takes an instance, a path and another instance as argume
 
 Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
+
 $R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then

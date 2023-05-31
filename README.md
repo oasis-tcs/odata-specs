@@ -19,6 +19,8 @@ This additional syntax is resolved with the Node.js module [`lib/number.js`](lib
 
 ## How to view the documents
 
+To view mathematical formulas, install pandoc as explained in the section on [Document Conventions](odata-data-aggregation-ext/1%20Introduction.md).
+
 Clone this repository, run `npm install` and `npm start` to start a Node.js server and access the HTML pages at, for example, `http://localhost:8080/odata-data-aggregation-ext`.
 
 Run `npm run build` to build HTML and Markdown files for publication on github.io.
