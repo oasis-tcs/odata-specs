@@ -6,7 +6,7 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 
 ## ##subsec Aggregation Capabilities
 
-The term `ApplySupported` can be applied to an entity set, entity type or to a collection rooted in an entity container. It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the OpenType attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
+The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container. It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
@@ -15,9 +15,9 @@ The term `ApplySupported` can be applied to an entity set, entity type or to a c
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating term `ApplySupported` for a specific collection-valued resource overrides the default support with the specified properties using PATCH semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
-- Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using PATCH semantics recursively.
+- Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
 
 ::: example
@@ -34,13 +34,13 @@ Example ##ex: an entity container with default support for everything defined in
 
 The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, and which input values are used.
 
-When applied to an entity set, entity type or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
+When applied to an entity set, an entity type, or a collection rooted in an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
 
 A custom aggregate is identified by the value of the `Qualifier` attribute when applying the term. The value of the `Qualifier` attribute is the name of the dynamic property. The name MUST NOT collide with the names of other custom aggregates of the same model element.
 
 The value of the annotation is a string with the qualified name of a primitive type or type definition in scope that specifies the type returned by the custom aggregate.
 
-If the custom aggregate is associated with an entity set, entity type or collection, the value of the `Qualifier` attribute MAY be identical to the name of a declared property of the instances in this set or collection. In these cases, the value of the annotation MUST have the same value as the Type attribute of the declared property. This is typically done when the custom aggregate is used as a default aggregate for that property. In this case, the name refers to the custom aggregate within an aggregate expression without a `with` clause, and to the property in all other cases.
+If the custom aggregate is associated with an entity set, entity type, or collection, the value of the `Qualifier` attribute MAY be identical to the name of a declared property of the instances in this set or collection. In these cases, the value of the annotation MUST have the same value as the `Type` attribute of the declared property. This is typically done when the custom aggregate is used as a default aggregate for that property. In this case the name refers to the custom aggregate within an aggregate expression without a `with` clause, and to the property in all other cases.
 
 If the custom aggregate is associated with an entity container, the value of the `Qualifier` attribute MUST NOT collide with the names of any entity container children.
 
@@ -116,9 +116,7 @@ Example ##ex: This simplified `Sales` entity set has a single aggregatable prope
         </PropertyValue>
         <PropertyValue Property="GroupableProperties">
           <Collection>
-            <Record>
-              <PropertyValue Property="Property" PropertyPath="Currency" />
-            </Record>
+            <PropertyPath>Currency</PropertyPath>
           </Collection>
         </PropertyValue>
       </Record>
@@ -139,9 +137,7 @@ Example ##ex: This simplified `Sales` entity set has a single aggregatable prope
       <Record>
         <PropertyValue Property="GroupableProperties">
           <Collection>
-            <Record>
-              <PropertyValue Property="Property" PropertyPath="Code" />
-            </Record>
+            <PropertyPath>Code</PropertyPath>
           </Collection>
         </PropertyValue>
       </Record>
@@ -161,7 +157,7 @@ A _leveled hierarchy_ has a fixed number of levels each of which is represented 
 
 A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
 
-The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest level of the hierarchy. A leveled hierarchy is defined by an ordered list of groupable properties of the entity or complex type that represent the root level and the consecutively finer-grained levels of the hierarchy.
+The order of the collection is significant: it lists the properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
 
 The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
 
@@ -172,7 +168,7 @@ A recursive hierarchy is defined on a collection of entities by associating with
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` contains a path with single-valued segments ending in a primitive property. This path points to the property holding the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
+- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
 - `IsRoot` is a Boolean value and nodes in the hierarchy for which this is true are called _root nodes_. A recursive hierarchy can have one or more root nodes. The _standard definition for root_ is "node without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsRoot` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example ##salesorghier]. The standard definition for root is also implied if the `IsRoot` property is null or absent.
 
@@ -199,7 +195,7 @@ The following functions are defined:
 
 ### ##subsubsec Hierarchy Examples
 
-The hierarchy terms can be applied to the Example Data Model.
+The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
 Example ##ex_salesorghier: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
@@ -356,7 +352,7 @@ results in
 :::
 
 ::: example
-Example ##ex: retrieving the sales `ID`s involving sales organizations from EMEA can be requested by
+Example ##ex: the sales `ID`s involving sales organizations from EMEA
 ```
 
 GET /service/Sales?$select=ID&$filter=Aggregation.isdescendant(
@@ -378,4 +374,4 @@ results in
 ```
 :::
 
-Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).
+Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in section [Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies).

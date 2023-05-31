@@ -598,7 +598,7 @@ base principles in OData has two aspects:</p>
 data model (for sufficiently capable data providers)</li>
 <li>Means for the provider to annotate what data can be aggregated, and
 in which way, allowing consumers to avoid asking questions that the
-provider cannot answer.</li>
+provider cannot answer</li>
 </ol>
 <p>Implementing any of these two aspects is valuable in itself
 independent of the other, and implementing both provides additional
@@ -614,7 +614,7 @@ Example Data Model</a></h2>
 <div class="example">
 <p>Example 2: The following diagram depicts a simple model that is used
 throughout this document.</p>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:100%">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="st20" viewBox="0 200 600 350" style="width:75em">
   <style type="text/css">
   <![CDATA[
     .st1 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
@@ -1108,7 +1108,7 @@ throughout this document.</p>
 <p>The <code>Amount</code> property in the <code>Sale</code> entity type
 is an <a href="#AggregationCapabilities">aggregatable property</a>, and
 the properties of the related entity types are groupable. These can be
-arranged in four hierarchies:</p>
+arranged in hierarchies:</p>
 <ul>
 <li>Product hierarchy based on <a
 href="#AggregationCapabilities">groupable</a> properties of the
@@ -1933,9 +1933,9 @@ repetitions. The occurrences in the collection form a set in the
 mathematical sense. The <em>cardinality</em> of a collection is the
 total number of occurrences in it. When this text describes a
 transformation algorithmically and stipulates that certain steps are
-carried out <em>for each</em> instance in a collection, this means that
-the steps are carried out multiple times for the same instance if it
-occurs multiple times in the collection.</p>
+carried out <em>for each occurrence</em> in a collection, this means
+that the steps are carried out multiple times for the same instance if
+it occurs multiple times in the collection.</p>
 <p>A collection addressed by the resource path is returned by the
 service either as an ordered collection <a
 href="#ODataProtocol">OData-Protocol, section 11.4.10</a> or as an
@@ -2641,7 +2641,7 @@ class="math inline">\(e\)</span> denote the empty path.</p>
 <p>The output set of the groupby transformation is constructed in five
 steps.</p>
 <ol type="1">
-<li><a href="#SamenessandPrecedence">For each</a> instance <span
+<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in the input set, a projection is
 computed that contains only the grouping properties. This projection is
 <span class="math inline">\(s_G(u,e)\)</span> and the function <span
@@ -2915,23 +2915,22 @@ hierarchy</a> is defined later.</p>
 id="33-transformations-preserving-the-input-set-structure"><a name="TransformationsPreservingtheInputSetStructure" href="#TransformationsPreservingtheInputSetStructure">3.3
 Transformations Preserving the Input Set Structure</a></h2>
 <p>These transformations produce an output set that is a subset of their
-input set. Some of the algorithmic descriptions that follow make use of
-the following definition: A total order of a collection is called
-<em>stable across requests</em> if it is the same for all requests that
-construct the collection by executing the same resource path and
-transformations, possibly nested, on the same underlying data.</p>
+input set. Some of the algorithmic descriptions below make use of the
+following definition: A total order of a collection is called <em>stable
+across requests</em> if it is the same for all requests that construct
+the collection by executing the same resource path and transformations,
+possibly nested, on the same underlying data.</p>
 <div class="example">
 <p>⚠ Example 24: A stable total order is required for the input set of a
 <a href="#Transformationskip"><code>skip</code></a> transformation. The
-following request constructs that input set by executing the
-<code>Sales</code> resource path and the <code>groupby</code>
-transformation, computing the total sales per customer. Because of the
-subsequent <code>skip</code> transformation, the service must endow this
-with a stable total order. In other words, the request divides the total
-sales per customer into pages of <span class="math inline">\(N\)</span>
-customers and returns page number <span class="math inline">\(i\)</span>
-in a reproducible manner (as long as the underlying data do not
-change).</p>
+service constructs that input set by executing the <code>Sales</code>
+resource path and the <code>groupby</code> transformation, computing the
+total sales per customer. Because of the subsequent <code>skip</code>
+transformation, the service must endow this with a stable total order.
+Then the following request divides the total sales per customer into
+pages of <span class="math inline">\(N\)</span> customers and returns
+page number <span class="math inline">\(i\)</span> in a reproducible
+manner (as long as the underlying data do not change).</p>
 <pre><code>GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
   /skip(M)/top(N)</code></pre>
@@ -2953,16 +2952,15 @@ turn.</p>
 <li>Let <span class="math inline">\(A\)</span> be a copy of the input
 set with a total order that need not extend any existing order but is
 completely chosen by the service. The total order MUST be stable across
-requests. (<span class="math inline">\(A\)</span>'s is the order of the
-eventual output set of this transformation.)</li>
+requests. (This is the order of the eventual output set of this
+transformation.)</li>
 <li>Let <span class="math inline">\(B\)</span> be a copy of <span
 class="math inline">\(A\)</span> that is <a
 href="#SamenessandPrecedence">stable-sorted</a> in ascending (for
 transformations starting with <code>bottom</code>) or descending (for
 transformations starting with <code>top</code>) order of the value
-specified in the second parameter. (<span
-class="math inline">\(B\)</span>'s is the order in which contributions
-to the output set are considered.)</li>
+specified in the second parameter. (This is the order in which
+contributions to the output set are considered.)</li>
 <li>Start with an empty output set.</li>
 <li>Loop over <span class="math inline">\(B\)</span> in its total
 order.</li>
@@ -3031,7 +3029,7 @@ class="math inline">\(p\)</span> less than or equal to 100. The second
 parameter MUST evaluate to a number. In step 5, exit the loop if the
 ratio of the sum of the numbers addressed by the second parameter in the
 output set to their sum in the input set equals or exceeds <span
-class="math inline">\(p\)</span>%.</p>
+class="math inline">\(p\)</span> percent.</p>
 <div class="example">
 <p>Example 27:</p>
 <pre><code>GET /service/Sales?$apply=bottompercent(50,Amount)</code></pre>
@@ -3280,7 +3278,7 @@ of one or more <em>compute expressions</em> as parameters.</p>
 href="#TypeStructureandContextURL">alias</a>.</p>
 <p>The output set is constructed by copying the instances of the input
 set and adding one dynamic property per compute expression to <a
-href="#SamenessandPrecedence">each</a> instance of the output set. The
+href="#SamenessandPrecedence">each occurrence</a> in the output set. The
 name of each added dynamic property is the alias of the corresponding
 compute expression. The value of each added dynamic property is computed
 relative to the corresponding instance. Services MAY support expressions
@@ -3315,13 +3313,13 @@ id="342-transformations-join-and-outerjoin"><a name="Transformationsjoinandouter
 Transformations <code>join</code> and <code>outerjoin</code></a></h3>
 <p>The <code>join</code> and <code>outerjoin</code> transformations take
 as their first parameter <span class="math inline">\(p\)</span> a
-collection-valued complex property or navigation property, optionally
-followed by a type-cast segment to address only instances of that
-derived type or one of its sub-types, followed by the <code>as</code>
-keyword, followed by an <a href="#TypeStructureandContextURL">alias</a>.
-The optional second parameter specifies a transformation sequence <span
+collection-valued complex or navigation property, optionally followed by
+a type-cast segment to address only instances of that derived type or
+one of its sub-types, followed by the <code>as</code> keyword, followed
+by an <a href="#TypeStructureandContextURL">alias</a>. The optional
+second parameter specifies a transformation sequence <span
 class="math inline">\(T\)</span>.</p>
-<p><a href="#SamenessandPrecedence">For each</a> instance <span
+<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over the input
 set</p>
@@ -3335,7 +3333,7 @@ class="math inline">\(A\)</span>.</li>
 <li>In case of an <code>outerjoin</code>, if <span
 class="math inline">\(A\)</span> is empty, a null instance is added to
 it.</li>
-<li><a href="#SamenessandPrecedence">For each</a> instance <span
+<li><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(v\)</span> in an <a
 href="#SamenessandPrecedence">order-preserving loop</a> over <span
 class="math inline">\(A\)</span>
@@ -3346,13 +3344,11 @@ the output set of the transformation.</li>
 <span class="math inline">\(u\)</span> with an additional dynamic
 property whose name is the given alias and whose value is <span
 class="math inline">\(v\)</span>.</li>
-<li>The property <span class="math inline">\(w\)</span> is a navigation
-property if <span class="math inline">\(p\)</span> is a
-collection-valued navigation property, otherwise it is a complex
-property.</li>
-<li>The property <span class="math inline">\(w\)</span> carries as
-control information the context URL of <span
-class="math inline">\(u\)</span>.</li>
+<li>The dynamic property is a navigation property if <span
+class="math inline">\(p\)</span> is a collection-valued navigation
+property, otherwise it is a complex property.</li>
+<li>The dynamic property carries as control information the context URL
+of <span class="math inline">\(v\)</span>.</li>
 </ul></li>
 </ol>
 <div class="example">
@@ -3464,7 +3460,7 @@ segment. This is an extension of the definition in <a
 href="#ODataURL">OData-URL, section 5.1.3</a> in that the first
 parameter need not contain a navigation property.</p>
 <p>Further parameters are one or more transformation sequences followed
-by the as keyword followed by an <a
+by the <code>as</code> keyword followed by an <a
 href="#TypeStructureandContextURL">alias</a> whose name need not differ
 from names in the input set but MUST differ from names already in <span
 class="math inline">\(\Gamma(A,p_1/…/p_{k-1})\)</span> (using the <a
@@ -3479,7 +3475,7 @@ This makes it meaningful to speak (in this section only) of a
 transformation sequence applied to a single instance; this means
 applying it to a collection containing the single instance and taking as
 result the single instance from the output set.</p>
-<p><a href="#SamenessandPrecedence">For each</a> instance <span
+<p><a href="#SamenessandPrecedence">For each occurrence</a> <span
 class="math inline">\(u\)</span> in <span
 class="math inline">\(\Gamma(A,p_1/…/p_{k-1})\)</span>, let <span
 class="math inline">\(B=γ(u,p_k/q)\)</span> and let the resource <span
@@ -3786,11 +3782,12 @@ aggregation <a href="#ODataVocAggr">OData-VocAggr</a>.</p>
 id="51-aggregation-capabilities"><a name="AggregationCapabilities" href="#AggregationCapabilities">5.1
 Aggregation Capabilities</a></h2>
 <p>The term <code>ApplySupported</code> can be applied to an entity set,
-entity type or to a collection rooted in an entity container. It
-describes the aggregation capabilities of the annotated target. If
-present, it implies that instances of the annotated target can contain
-dynamic properties as an effect of <code>$apply</code> even if they do
-not specify the OpenType attribute, see <a
+an entity type, or a collection if the target path of the annotation
+starts with an entity container. It describes the aggregation
+capabilities of the annotated target. If present, it implies that
+instances of the annotated target can contain dynamic properties as an
+effect of <code>$apply</code> even if they do not specify the
+<code>OpenType</code> attribute, see <a
 href="#ODataCSDL">OData-CSDL</a>. The term has a complex type with the
 following properties:</p>
 <ul>
@@ -3825,16 +3822,17 @@ entity container. It allows to specify default support for aggregation
 capabilities <code>Transformations</code>,
 <code>CustomAggregationMethods</code> and <code>Rollup</code> that
 propagate to all collection-valued resources in the container.
-Annotating term <code>ApplySupported</code> for a specific
-collection-valued resource overrides the default support with the
-specified properties using PATCH semantics:</p>
+Annotating a specific collection-valued resource with term
+<code>ApplySupported</code> overrides the default support with the
+specified properties using <code>PATCH</code> semantics:</p>
 <ul>
 <li>Primitive or collection-valued properties specified in
 <code>ApplySupported</code> replace the corresponding properties
 specified in <code>ApplySupportedDefaults</code>.</li>
 <li>Complex-valued properties specified in <code>ApplySupported</code>
 override the corresponding properties specified in
-ApplySupportedDefaults using PATCH semantics recursively.</li>
+ApplySupportedDefaults using <code>PATCH</code> semantics
+recursively.</li>
 <li>Properties specified neither in <code>ApplySupported</code> nor in
 <code>ApplySupportedDefault</code> have their default value.</li>
 </ul>
@@ -3855,12 +3853,12 @@ properties that can be used in <a
 href="#Transformationaggregate"><code>aggregate</code></a>. No
 assumptions can be made on how the values of these custom aggregates are
 calculated, and which input values are used.</p>
-<p>When applied to an entity set, entity type or a collection rooted in
-an entity container, the annotation specifies custom aggregates that are
-available for its instances and for aggregated instances resulting from
-these instances. When applied to an entity container, the annotation
-specifies custom aggregates whose input set may span multiple entity
-sets within the container.</p>
+<p>When applied to an entity set, an entity type, or a collection rooted
+in an entity container, the annotation specifies custom aggregates that
+are available for its instances and for aggregated instances resulting
+from these instances. When applied to an entity container, the
+annotation specifies custom aggregates whose input set may span multiple
+entity sets within the container.</p>
 <p>A custom aggregate is identified by the value of the
 <code>Qualifier</code> attribute when applying the term. The value of
 the <code>Qualifier</code> attribute is the name of the dynamic
@@ -3869,15 +3867,15 @@ aggregates of the same model element.</p>
 <p>The value of the annotation is a string with the qualified name of a
 primitive type or type definition in scope that specifies the type
 returned by the custom aggregate.</p>
-<p>If the custom aggregate is associated with an entity set, entity type
-or collection, the value of the <code>Qualifier</code> attribute MAY be
-identical to the name of a declared property of the instances in this
-set or collection. In these cases, the value of the annotation MUST have
-the same value as the Type attribute of the declared property. This is
-typically done when the custom aggregate is used as a default aggregate
-for that property. In this case, the name refers to the custom aggregate
-within an aggregate expression without a <code>with</code> clause, and
-to the property in all other cases.</p>
+<p>If the custom aggregate is associated with an entity set, entity
+type, or collection, the value of the <code>Qualifier</code> attribute
+MAY be identical to the name of a declared property of the instances in
+this set or collection. In these cases, the value of the annotation MUST
+have the same value as the <code>Type</code> attribute of the declared
+property. This is typically done when the custom aggregate is used as a
+default aggregate for that property. In this case the name refers to the
+custom aggregate within an aggregate expression without a
+<code>with</code> clause, and to the property in all other cases.</p>
 <p>If the custom aggregate is associated with an entity container, the
 value of the <code>Qualifier</code> attribute MUST NOT collide with the
 names of any entity container children.</p>
@@ -3967,38 +3965,34 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb92-1"><a href="#
 <span id="cb92-37"><a href="#cb92-37" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
 <span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
 <span id="cb92-39"><a href="#cb92-39" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Property&quot;</span><span class="ot"> PropertyPath=</span><span class="st">&quot;Currency&quot;</span> /&gt;</span>
-<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
-<span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a><span class="ot">                String=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
-<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
-<span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyPath</span>&gt;Currency/Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntitySet</span>&gt;</span>
-<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Currencies&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;SalesModel.Currency&quot;</span>&gt;</span>
-<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
-<span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
-<span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-63"><a href="#cb92-63" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-64"><a href="#cb92-64" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Property&quot;</span><span class="ot"> PropertyPath=</span><span class="st">&quot;Code&quot;</span> /&gt;</span>
-<span id="cb92-65"><a href="#cb92-65" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb92-66"><a href="#cb92-66" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-67"><a href="#cb92-67" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb92-68"><a href="#cb92-68" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb92-69"><a href="#cb92-69" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb92-70"><a href="#cb92-70" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntitySet</span>&gt;</span>
-<span id="cb92-71"><a href="#cb92-71" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityContainer</span>&gt;</span></code></pre></div>
+<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Currency&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
+<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a><span class="ot">                String=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
+<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
+<span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyPath</span>&gt;Currency/Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Currencies&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;SalesModel.Currency&quot;</span>&gt;</span>
+<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
+<span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Record</span>&gt;</span>
+<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
+<span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb92-63"><a href="#cb92-63" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb92-64"><a href="#cb92-64" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb92-65"><a href="#cb92-65" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb92-66"><a href="#cb92-66" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb92-67"><a href="#cb92-67" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityContainer</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="55-hierarchies"><a name="Hierarchies" href="#Hierarchies">5.5
 Hierarchies</a></h2>
@@ -4018,10 +4012,8 @@ an entity or complex type and is described with the term
 hierarchy.</p>
 <p>The order of the collection is significant: it lists the properties
 representing the levels, starting with the root level (coarsest
-granularity) down to the lowest level of the hierarchy. A leveled
-hierarchy is defined by an ordered list of groupable properties of the
-entity or complex type that represent the root level and the
-consecutively finer-grained levels of the hierarchy.</p>
+granularity) down to the lowest (finest-grained) level of the
+hierarchy.</p>
 <p>The term <code>LeveledHierarchy</code> MUST be applied with a
 qualifier that can be used to reference the hierarchy in <a
 href="#Groupingwithrollup">grouping with <code>rollup</code></a>.</p>
@@ -4040,11 +4032,11 @@ hierarchy.</p>
 the entity type with the complex term <code>RecursiveHierarchy</code>
 with these properties:</p>
 <ul>
-<li>The <code>NodeProperty</code> contains a path with single-valued
-segments ending in a primitive property. This path points to the
-property holding the node identifier of the node in the hierarchy.
-Entities for which this path evaluates to null are not nodes of the
-hierarchy.</li>
+<li>The <code>NodeProperty</code> allows identifying a node in the
+hierarchy. It MUST be a path with single-valued segments ending in a
+primitive property. This property holds the node identifier of the node
+in the hierarchy. Entities for which this path evaluates to null are not
+nodes of the hierarchy.</li>
 <li>The <code>ParentNavigationProperty</code> allows navigation to the
 instance or instances representing the parent nodes. It MUST be a
 collection-valued or nullable single-valued navigation property path
@@ -4124,7 +4116,8 @@ descendants.</li>
 <h3
 id="553-hierarchy-examples"><a name="HierarchyExamples" href="#HierarchyExamples">5.5.3
 Hierarchy Examples</a></h3>
-<p>The hierarchy terms can be applied to the Example Data Model.</p>
+<p>The hierarchy terms can be applied to the <a
+href="#ExampleDataModel">Example Data Model</a>.</p>
 <div class="example">
 <p>Example <a name="salesorghier" href="#salesorghier">52</a>: leveled
 hierarchies for products and time, and a recursive hierarchy for the
@@ -4266,8 +4259,8 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb101-1"><a href
 <span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 57: retrieving the sales <code>ID</code>s involving sales
-organizations from EMEA can be requested by</p>
+<p>Example 57: the sales <code>ID</code>s involving sales organizations
+from EMEA</p>
 <pre><code>
 GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
   HierarchyNodes=$root/SalesOrganizations,
@@ -4286,7 +4279,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb103-1"><a href
 <span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Further examples for recursive hierarchies using transformations
-operating on the hierarchy structure are provided in <a
+operating on the hierarchy structure are provided in section <a
 href="#AggregationinRecursiveHierarchies">Aggregation in Recursive
 Hierarchies</a>.</p>
 <hr />
