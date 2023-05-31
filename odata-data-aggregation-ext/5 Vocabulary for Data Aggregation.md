@@ -174,7 +174,7 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are a descendant of a root node.
+A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are a descendant of a root node (see [example ##nonstandardroot]).
 
 The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed.
 
@@ -369,6 +369,50 @@ results in
     { "ID": 6 },
     { "ID": 7 },
     { "ID": 8 }
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example ##ex_nonstandardroot: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy if only the US sales organization is designated as a root node.
+
+```xml
+<Annotations Target="SalesModel.SalesOrganization">
+ <Annotation Term="Aggregation.RecursiveHierarchy"
+             Qualifier="USSalesHierarchy">
+  <Record>
+   <PropertyValue Property="NodeProperty"
+                  PropertyPath="ID" />
+   <PropertyValue Property="ParentNavigationProperty"
+                  PropertyPath="Superordinate" />
+   <PropertyValue Property="IsRoot">
+    <Eq>
+     <Path>ID</Path>
+     <String>US</String>
+    </Eq>
+   </PropertyValue>
+  </Record>
+ </Annotation>
+</Annotations>
+```
+
+In this hierarchy, the `Superordinate` of the US sales organization is not an ancestor:
+```
+GET /service/SalesOrganizations?$apply=ancestors(
+    $root/SalesOrganizations,USSalesHierarchy,ID,
+    filter(ID eq 'US East'),keep start)
+  &$expand=Superordinate/$ref
+```
+results in
+```json
+{
+  "@context": "$metadata#SalesOrganizations",
+  "value": [
+    { "ID": "US East", "Name": "US East",
+      "Superordinate": { "@id": "SalesOrganizations('US')" } },
+    { "ID": "US",      "Name": "US",
+      "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
   ]
 }
 ```
