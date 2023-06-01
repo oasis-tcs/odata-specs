@@ -1437,8 +1437,6 @@ results in
 Note that two Sales entities with the second highest amount 4 exist in the input set; the entity with `ID` 3 is included in the result, because the service chose to use the `ID` property for imposing a stable ordering.
 :::
 
-The output set of `concat` has a mixed form consisting of the structures imposed by the two transformation sequences.
-
 ### <a name="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation `groupby`</a>
 
 The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
