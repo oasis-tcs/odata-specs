@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 04
 
-## 24 May 2023
+## 07 June 2023
 
 &nbsp;
 
@@ -84,7 +84,7 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 24 May 2023. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 07 June 2023. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
@@ -4311,23 +4311,23 @@ Organic cereals|Cereals|US West
 Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
-  $root/SalesOrganizations,SalesOrgHierarchy,
-  SalesOrganization/ID,
-  ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,
-    ID,
-    traverse(
-      $root/ProductCategories,ProductCategoryHierarchy,
-      ProductCategories/ID,
-      preorder,
-      descendants(
+    SalesOrganization/ID,
+    ancestors(
+      $root/SalesOrganizations,SalesOrgHierarchy,
+      ID,
+      traverse(
         $root/ProductCategories,ProductCategoryHierarchy,
-        ID,
-        filter(Name eq 'Cereals'),
-        keep start)),
-    keep start)
-  )),
-  aggregate(Amount with sum as TotalAmount))
+        ProductCategories/ID,
+        preorder,
+        descendants(
+          $root/ProductCategories,ProductCategoryHierarchy,
+          ID,
+          filter(Name eq 'Cereals'),
+          keep start)),
+      keep start)
+    )),
+    aggregate(Amount with sum as TotalAmount))
   &$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)
 ```
 results in
@@ -4643,7 +4643,7 @@ Working Draft 01|2012-11-12|Ralf Handl|Translated contribution into OASIS format
 Committee Specification Draft 01|2013-07-25| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Switched to pipe-and-filter-style query language based on composable set transformations<br> Fleshed out examples and addressed numerous editorial and technical issues processed through the TC<br> Added Conformance section
 Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
-Committee Specification Draft 04|2023-05-24| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of several transformations<br> Added functions evaluable on a collection, introduced keyword $these<br> Added join and outerjoin transformations, renamed expand as nest<br> Added hierarchical transformations
+Committee Specification Draft 04|2023-06-07| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of several transformations<br> Added functions evaluable on a collection, introduced keyword $these<br> Added join and outerjoin transformations, renamed expand as nest<br> Added hierarchical transformations
 
 -------
 

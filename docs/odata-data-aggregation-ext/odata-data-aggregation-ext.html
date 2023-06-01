@@ -100,7 +100,7 @@ alt="OASIS Logo" /></p>
 for Data Aggregation Version 4.0</h1>
 <h2 id="committee-specification-draft-04">Committee Specification Draft
 04</h2>
-<h2 id="24-may-2023">24 May 2023</h2>
+<h2 id="07-june-2023">07 June 2023</h2>
 <p> </p>
 <h4 id="this-stage">This stage:</h4>
 <p><a
@@ -245,8 +245,8 @@ should be used:</p>
 <p><strong>[OData-Data-Agg-v4.0]</strong></p>
 <p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by
 Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko
-Theißen, and Martin Zurmuehl. 24 May 2023. OASIS Committee Specification
-Draft 01. <a
+Theißen, and Martin Zurmuehl. 07 June 2023. OASIS Committee
+Specification Draft 01. <a
 href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html</a>.
 Latest stage: <a
 href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
@@ -6335,23 +6335,23 @@ organizes categories in a recursive hierarchy:</p>
 could be restricted to those organizations linked with product category
 "Cereals" or a descendant of it:</p>
 <pre><code>GET /service/Sales?$apply=groupby((rolluprecursive(
-  $root/SalesOrganizations,SalesOrgHierarchy,
-  SalesOrganization/ID,
-  ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,
-    ID,
-    traverse(
-      $root/ProductCategories,ProductCategoryHierarchy,
-      ProductCategories/ID,
-      preorder,
-      descendants(
+    SalesOrganization/ID,
+    ancestors(
+      $root/SalesOrganizations,SalesOrgHierarchy,
+      ID,
+      traverse(
         $root/ProductCategories,ProductCategoryHierarchy,
-        ID,
-        filter(Name eq &#39;Cereals&#39;),
-        keep start)),
-    keep start)
-  )),
-  aggregate(Amount with sum as TotalAmount))
+        ProductCategories/ID,
+        preorder,
+        descendants(
+          $root/ProductCategories,ProductCategoryHierarchy,
+          ID,
+          filter(Name eq &#39;Cereals&#39;),
+          keep start)),
+      keep start)
+    )),
+    aggregate(Amount with sum as TotalAmount))
   &amp;$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb213"><pre
@@ -6746,7 +6746,7 @@ Pizzo<br> Martin Zurmuehl</td>
 </tr>
 <tr class="odd">
 <td>Committee Specification Draft 04</td>
-<td>2023-05-24</td>
+<td>2023-06-07</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael
 Pizzo<br> Heiko Theißen</td>
 <td>Added section about fundamentals of input and output sets<br>
