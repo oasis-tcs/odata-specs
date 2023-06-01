@@ -17,7 +17,7 @@
 <h3>Contact</h3>
 <p>Please send questions or comments about <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">OASIS TC GitHub repositories</a> to <a href="mailto:tc-administration@oasis-open.org">Project Administration</a>.  For questions about content in this repository, please contact the TC Chair or Co-Chairs as listed on the the OData TC's <a href="https://www.oasis-open.org/committees/odata/">home page</a>.</p>
 
-# PoC for Markdown as Authoritative specification source
+## Extensions to Markdown
 
 Section and example numbers and references to them are expressed in the Markdown source as follows:
 ```
