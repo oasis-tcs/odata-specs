@@ -5146,9 +5146,9 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb121-1"><a href
 <span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Since <code>groupby</code> expands navigation properties in grouping
 properties by default, this is the same result as if the request would
-include a <code>$expand=Customer($select=Name)</code>. Here
-<code>$select</code> is not needed, because <code>groupby</code> removes
-all other properties.</p>
+include a <code>$expand=Customer($select=Name)</code>. After
+<code>groupby</code>, a <code>$select</code> query option is not needed,
+because <code>groupby</code> removes all other properties.</p>
 <p>Note that "Luc" does not appear in the aggregated result as he hasn't
 bought anything and therefore there are no sales entities that
 refer/navigate to Luc.</p>
