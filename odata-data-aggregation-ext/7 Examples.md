@@ -46,7 +46,7 @@ results in
 }
 ```
 
-Since `groupby` expands navigation properties in grouping properties by default, this is the same result as if the request would include a `$expand=Customer($select=Name)`. With the use of `groupby` the `$select` is not needed, because `groupby` removes all other properties.
+Since `groupby` expands navigation properties in grouping properties by default, this is the same result as if the request would include a `$expand=Customer($select=Name)`. Here `$select` is not needed, because `groupby` removes all other properties.
 
 Note that "Luc" does not appear in the aggregated result as he hasn't bought anything and therefore there are no sales entities that refer/navigate to Luc.
 
