@@ -2,7 +2,7 @@
 
 # ##sec Vocabulary for Data Aggregation
 
-The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr).
+The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr) together with the `UpNode` instance annotation introduced in [section ##Transformationtraverse].
 
 ## ##subsec Aggregation Capabilities
 
@@ -365,3 +365,12 @@ results in
 :::
 
 Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [section ##AggregationinRecursiveHierarchies].
+
+## ##subsec Functions on Aggregated Entities
+
+Bound functions that serve as set transformations may or may not be applicable to aggregated entities. Functions annotated with the term `AvailableOnAggregates` are applicable to (a subset of the) aggregated entities under specific conditions:
+- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function or action will be inapplicable.
+
+::: example
+Example ##ex: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.
+:::
