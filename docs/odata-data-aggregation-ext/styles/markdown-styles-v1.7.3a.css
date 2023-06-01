@@ -16,7 +16,7 @@
 body {
     margin-left: 3pc;
     margin-right: 3pc;
-    font-family: LiberationSans, Arial, Helvetica, sans-serif;
+    font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
 	font-size:12pt;
 	line-height:1.2;
      }
@@ -26,10 +26,10 @@ html{overflow-x:auto}
 	 /* styles for section headings - levels 1-5 (maybe include heading1, etc. later) */
 h1{font-size:18pt}h2{font-size:14pt}h3{font-size:13pt}h4{font-size:12pt}h5{font-size:11pt}
 h1big{font-size: 24pt}
-h1,h2,h3,h4,h5,h1big{font-family: LiberationSans, Arial, Helvetica, sans-serif;font-weight: bold;margin:8pt 0;color: #446CAA}
+h1,h2,h3,h4,h5,h1big{font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;font-weight: bold;margin:8pt 0;color: #446CAA}
 	/* style for h6, for use as Reference tag */
 h6{font-size:12pt; line-height:1.0}
-h6{font-family: LiberationSans, Arial, Helvetica, sans-serif;font-weight: bold;margin:0pt;}
+h6{font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;font-weight: bold;margin:0pt;}
 	/* not needed - can just use brackets in the label itself */
 	/* h6::before {content: "["} */
 	/* h6::after {content: "]"} */
