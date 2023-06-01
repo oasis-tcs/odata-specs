@@ -2,12 +2,12 @@
 	"HeadersAndFooters" : {
 		"Items" : [
 			{
-				"ID" : "{5AA62718-998B-4EA8-BE256124771056E6}",
+				"ID" : "{AFC0F1F9-DF61-47F8-91B7864F7C5D59C7}",
 				"Data" : {
 					"Font" : {
 						"S" : 0,
 						"W" : 0,
-						"Name" : "ArialMT",
+						"Name" : "LiberationSans-Regular",
 						"Size" : {
 							".type" : "double",
 							".value" : 8
@@ -18,7 +18,7 @@
 							".type" : "double",
 							".value" : 100
 						},
-						"SColor" : "N",
+						"SColor" : "",
 						"TextRise" : {
 							".type" : "double",
 							".value" : 0
