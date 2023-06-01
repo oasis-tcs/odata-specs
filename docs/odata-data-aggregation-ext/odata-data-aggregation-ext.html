@@ -524,8 +524,9 @@ hierarchical collection, called a node</li>
 <li><span class="math inline">\(p,q,r\)</span> – paths</li>
 <li><span class="math inline">\(S,T\)</span> – transformation
 sequences</li>
-<li><span class="math inline">\(α\)</span> – aggregate expression,
-defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
+<li><span class="math inline">\(α\)</span> – <a
+href="#AggregateExpression">aggregate expression</a>, defined in <a
+href="#AggregationAlgorithm">section 3.2.1.1</a></li>
 <li><span class="math inline">\(\Gamma(A,p)\)</span> – the collection
 that results from evaluating a <a href="#DataAggregationPath">data
 aggregation path</a> <span class="math inline">\(p\)</span> relative to
@@ -1935,8 +1936,8 @@ collection form a set in the mathematical sense. The
 in it. When this text describes a transformation algorithmically and
 stipulates that certain steps are carried out <em>for each
 occurrence</em> in a collection, this means that the steps are carried
-out multiple times for the same instance if it occurs multiple times in
-the collection.</p>
+out multiple times for the same value if it occurs multiple times in the
+collection.</p>
 <p>A collection addressed by the resource path is returned by the
 service either as an ordered collection <a
 href="#ODataProtocol">OData-Protocol, section 11.4.10</a> or as an
@@ -2022,7 +2023,8 @@ id. After a <a href="#Transformationconcat"><code>concat</code></a>
 transformation, different occurrences of the same entity can differ in
 individual non-declared properties. To account for such cases, the
 definition of sameness given in <a href="#ODataURL">OData-URL, section
-5.1.1.1.1</a> is refined here. Instances are <em>the same</em> if</p>
+5.1.1.1.1</a> is refined here. Instances of structured types are <em>the
+same</em> if</p>
 <ul>
 <li>both are instances of complex types and both are null or both have
 the same structure and same values with null considered different from
