@@ -2633,8 +2633,8 @@ Further examples for recursive hierarchies using transformations operating on th
 
 ## <a name="FunctionsonAggregatedEntities" href="#FunctionsonAggregatedEntities">5.6 Functions on Aggregated Entities</a>
 
-Bound functions that serve as set transformations may or may not be applicable to aggregated entities. Functions annotated with the term `AvailableOnAggregates` are applicable to (a subset of the) aggregated entities under specific conditions:
-- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function or action will be inapplicable.
+Service-defined bound functions that serve as set transformations MAY be annotated with the term `AvailableOnAggregates` to indicate that they are applicable to aggregated entities under specific conditions:
+- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function will be inapplicable.
 
 ::: example
 Example 58: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.
@@ -4653,7 +4653,7 @@ Working Draft 01|2012-11-12|Ralf Handl|Translated contribution into OASIS format
 Committee Specification Draft 01|2013-07-25| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Switched to pipe-and-filter-style query language based on composable set transformations<br> Fleshed out examples and addressed numerous editorial and technical issues processed through the TC<br> Added Conformance section
 Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
-Committee Specification Draft 04|2023-06-07| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of several transformations<br> Added functions evaluable on a collection, introduced keyword $these<br> Added join and outerjoin transformations, renamed expand as nest<br> Added hierarchical transformations
+Committee Specification Draft 04|2023-06-07| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Merged section 4 into section 3<br> Algorithmic descriptions of several transformations<br> Added functions evaluable on a collection, introduced keyword $these<br> Added join and outerjoin transformations, renamed expand as nest<br> Added hierarchical transformations<br> Abolished actions and functions (except set transformations) on aggregated entities
 
 -------
 

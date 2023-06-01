@@ -368,8 +368,8 @@ Further examples for recursive hierarchies using transformations operating on th
 
 ## ##subsec Functions on Aggregated Entities
 
-Bound functions that serve as set transformations may or may not be applicable to aggregated entities. Functions annotated with the term `AvailableOnAggregates` are applicable to (a subset of the) aggregated entities under specific conditions:
-- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function or action will be inapplicable.
+Service-defined bound functions that serve as set transformations MAY be annotated with the term `AvailableOnAggregates` to indicate that they are applicable to aggregated entities under specific conditions:
+- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function will be inapplicable.
 
 ::: example
 Example ##ex: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.

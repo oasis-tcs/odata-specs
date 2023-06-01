@@ -4274,14 +4274,14 @@ href="#AggregationinRecursiveHierarchies">section 7.9</a>.</p>
 <h2
 id="56-functions-on-aggregated-entities"><a name="FunctionsonAggregatedEntities" href="#FunctionsonAggregatedEntities">5.6
 Functions on Aggregated Entities</a></h2>
-<p>Bound functions that serve as set transformations may or may not be
-applicable to aggregated entities. Functions annotated with the term
-<code>AvailableOnAggregates</code> are applicable to (a subset of the)
-aggregated entities under specific conditions:</p>
+<p>Service-defined bound functions that serve as set transformations MAY
+be annotated with the term <code>AvailableOnAggregates</code> to
+indicate that they are applicable to aggregated entities under specific
+conditions:</p>
 <ul>
 <li>The <code>RequiredProperties</code> collection lists all properties
 that must be available in the aggregated entities; otherwise, the
-annotated function or action will be inapplicable.</li>
+annotated function will be inapplicable.</li>
 </ul>
 <div class="example">
 <p>Example 58: assume the product is an implicit input for a function
@@ -6771,11 +6771,13 @@ Pizzo<br> Martin Zurmuehl</td>
 <td>2023-06-07</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael
 Pizzo<br> Heiko Theißen</td>
-<td>Added section about fundamentals of input and output sets<br>
-Algorithmic descriptions of several transformations<br> Added functions
-evaluable on a collection, introduced keyword $these<br> Added join and
-outerjoin transformations, renamed expand as nest<br> Added hierarchical
-transformations</td>
+<td>Added section about fundamentals of input and output sets<br> Merged
+section 4 into section 3<br> Algorithmic descriptions of several
+transformations<br> Added functions evaluable on a collection,
+introduced keyword $these<br> Added join and outerjoin transformations,
+renamed expand as nest<br> Added hierarchical transformations<br>
+Abolished actions and functions (except set transformations) on
+aggregated entities</td>
 </tr>
 </tbody>
 </table>
