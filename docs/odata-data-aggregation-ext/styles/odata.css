@@ -115,15 +115,17 @@ table {
 	stroke-width: 2;
 }
 
-code {
+p code,
+li code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
 	font-family: MJXZERO, MJXTEX-T;
 	font-size: 1em;
 	line-height: 0;
-}
-
-pre code {
-	font-family: unset;
-	font-size: unset;
 }
 
 .example p code,
