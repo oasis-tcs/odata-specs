@@ -5,7 +5,7 @@
   "main": "number.js",
   "scripts": {
     "build": "node lib/build",
-    "pdf": "node lib/pdf",
+    "pdf": "node lib/build-pdf.mjs",
     "start": "node lib/server"
   },
   "author": "",
