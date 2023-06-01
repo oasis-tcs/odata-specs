@@ -1,0 +1,71 @@
+{
+	"HeadersAndFooters" : {
+		"Items" : [
+			{
+				"ID" : "{5AA62718-998B-4EA8-BE256124771056E6}",
+				"Data" : {
+					"Font" : {
+						"S" : 0,
+						"W" : 0,
+						"Name" : "ArialMT",
+						"Size" : {
+							".type" : "double",
+							".value" : 8
+						},
+						"FColor" : "RGB(0,0,0)",
+						"FontID" : 0,
+						"HScale" : {
+							".type" : "double",
+							".value" : 100
+						},
+						"SColor" : "N",
+						"TextRise" : {
+							".type" : "double",
+							".value" : 0
+						},
+						"StrikeOut" : 0,
+						"Underline" : 0,
+						"StrokeWidth" : {
+							".type" : "double",
+							".value" : 0
+						}
+					},
+					"Margins" : {
+						"top" : {
+							".type" : "double",
+							".value" : 36
+						},
+						"left" : {
+							".type" : "double",
+							".value" : 36
+						},
+						"right" : {
+							".type" : "double",
+							".value" : 36
+						},
+						"bottom" : {
+							".type" : "double",
+							".value" : 22.677166
+						}
+					},
+					"DateStyle" : "dd\/MM\/yyyy",
+					"DateFormat" : "m\/d",
+					"ShrinkContent" : false,
+					"LeftFooterText" : "odata-data-aggregation-ext\r\nStandards Track Work Product",
+					"LeftHeaderText" : "",
+					"RightFooterText" : "07 June 2023\r\nPage %[Page] of %[Pages]",
+					"RightHeaderText" : "",
+					"StartPageNumber" : 1,
+					"CenterFooterText" : "\r\nCopyright \u00A9 OASIS Open 2023. All Rights Reserved.",
+					"CenterHeaderText" : "",
+					"PageNumberFormat" : "1",
+					"PageCountIncrement" : 0,
+					"PageNumberingStyle" : "1"
+				},
+				"Desc" : "",
+				"Name" : "OASIS footer",
+				"Flags" : 0
+			}
+		]
+	}
+}
