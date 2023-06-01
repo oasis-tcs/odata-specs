@@ -137,23 +137,24 @@ For complete copyright information please see the full Notices section in an App
       - [3.3.1.2 Transformations `bottompercent` and `toppercent`](#Transformationsbottompercentandtoppercent)
       - [3.3.1.3 Transformations `bottomsum` and `topsum`](#Transformationsbottomsumandtopsum)
     - [3.3.2 Transformation `filter`](#Transformationfilter)
-    - [3.3.3 Transformation `identity`](#Transformationidentity)
-    - [3.3.4 Transformation `orderby`](#Transformationorderby)
-    - [3.3.5 Transformation `search`](#Transformationsearch)
-    - [3.3.6 Transformation `skip`](#Transformationskip)
-    - [3.3.7 Transformation `top`](#Transformationtop)
-    - [3.3.8 Stable Total Order Before `$skip` and `$top`](#StableTotalOrderBeforeskipandtop)
-  - [3.4 Transformations Changing the Input Set Structure](#TransformationsChangingtheInputSetStructure)
-    - [3.4.1 Transformation `compute`](#Transformationcompute)
-    - [3.4.2 Transformations `join` and `outerjoin`](#Transformationsjoinandouterjoin)
-    - [3.4.3 Transformation `nest`](#Transformationnest)
-    - [3.4.4 Transformation `addnested`](#Transformationaddnested)
-  - [3.5 Expressions Evaluable on a Collection](#ExpressionsEvaluableonaCollection)
-    - [3.5.1 Function `aggregate`](#Functionaggregate)
-    - [3.5.2 Expression `$count`](#Expressioncount)
-  - [3.6 Function `isdefined`](#Functionisdefined)
-  - [3.7 Evaluating `$apply` as an Expand and Select Option](#EvaluatingapplyasanExpandandSelectOption)
-  - [3.8 ABNF for Extended URL Conventions](#ABNFforExtendedURLConventions)
+    - [3.3.3 Transformation `orderby`](#Transformationorderby)
+    - [3.3.4 Transformation `search`](#Transformationsearch)
+    - [3.3.5 Transformation `skip`](#Transformationskip)
+    - [3.3.6 Transformation `top`](#Transformationtop)
+    - [3.3.7 Stable Total Order Before `$skip` and `$top`](#StableTotalOrderBeforeskipandtop)
+  - [3.4 One-to-One Transformations](#OnetoOneTransformations)
+    - [3.4.1 Transformation `identity`](#Transformationidentity)
+    - [3.4.2 Transformation `compute`](#Transformationcompute)
+    - [3.4.3 Transformation `addnested`](#Transformationaddnested)
+  - [3.5 Transformations Changing the Input Set Structure](#TransformationsChangingtheInputSetStructure)
+    - [3.5.1 Transformations `join` and `outerjoin`](#Transformationsjoinandouterjoin)
+    - [3.5.2 Transformation `nest`](#Transformationnest)
+  - [3.6 Expressions Evaluable on a Collection](#ExpressionsEvaluableonaCollection)
+    - [3.6.1 Function `aggregate`](#Functionaggregate)
+    - [3.6.2 Expression `$count`](#Expressioncount)
+  - [3.7 Function `isdefined`](#Functionisdefined)
+  - [3.8 Evaluating `$apply` as an Expand and Select Option](#EvaluatingapplyasanExpandandSelectOption)
+  - [3.9 ABNF for Extended URL Conventions](#ABNFforExtendedURLConventions)
 - [4 Cross-Joins and Aggregation](#CrossJoinsandAggregation)
 - [5 Vocabulary for Data Aggregation](#VocabularyforDataAggregation)
   - [5.1 Aggregation Capabilities](#AggregationCapabilities)
@@ -998,7 +999,7 @@ A _set transformation_ (_transformation_ for short) is an operation on an input 
 
 The system query option `$apply` MUST NOT be used if the resource path addresses a single instance.
 
-The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section 11.2.1](#ODataProtocol). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, sections 11.2.6.3 and 11.2.6.4](#ODataProtocol) is defined in [section 3.3.8](#StableTotalOrderBeforeskipandtop).
+The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section 11.2.1](#ODataProtocol). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, sections 11.2.6.3 and 11.2.6.4](#ODataProtocol) is defined in [section 3.3.7](#StableTotalOrderBeforeskipandtop).
 
 Each set transformation:
 - carries over the input type to the output set such that it fits into the data model of the service.
@@ -1608,7 +1609,7 @@ Another grouping operator [`rolluprecursive`](#Groupingwithrolluprecursive) whic
 
 ## <a name="TransformationsProducingaSubset" href="#TransformationsProducingaSubset">3.3 Transformations Producing a Subset</a>
 
-These transformations produce an output set that is a subset of their input set. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
+These transformations produce an output set that is a subset of their input set, possibly in a different order. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
 
 ::: example
 ⚠ Example 24: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The service constructs that input set by executing the `Sales` resource path and the `groupby` transformation, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. Then the following request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
@@ -1782,23 +1783,12 @@ results in
 ```
 :::
 
-### <a name="Transformationidentity" href="#Transformationidentity">3.3.3 Transformation `identity`</a>
-
-The output set of the `identity` transformation is its input set in unchanged order.
-
-::: example
-Example 32: Add a grand total row to the `Sales` result set
-```
-GET /service/Sales?$apply=concat(identity,aggregate(Amount with sum as Total))
-```
-:::
-
-### <a name="Transformationorderby" href="#Transformationorderby">3.3.4 Transformation `orderby`</a>
+### <a name="Transformationorderby" href="#Transformationorderby">3.3.3 Transformation `orderby`</a>
 
 The `orderby` transformation takes a list of expressions that could also be passed as a `$orderby` system query option. Its output set consists of the instances of the input set in the same order `$orderby` would produce for the given expressions, but keeping the relative order from the input set if the given expressions do not distinguish between two instances. The orderby transformation thereby performs a [stable-sort](#SamenessandOrder). A service supporting this transformation MUST at least offer sorting by values addressed by property paths, including dynamic properties, with both suffixes `asc` and `desc`.
 
 ::: example
-Example 33:
+Example 32:
 ```
 GET /service/Sales?$apply=groupby((Product/Name),
                            aggregate(Amount with sum as Total))
@@ -1820,12 +1810,12 @@ results in
 ```
 :::
 
-### <a name="Transformationsearch" href="#Transformationsearch">3.3.5 Transformation `search`</a>
+### <a name="Transformationsearch" href="#Transformationsearch">3.3.4 Transformation `search`</a>
 
 The `search` transformation takes a search expression that could also be passed as a `$search` system query option. Its output set is the subset of the input set containing all instances (possibly with repetitions) that match this search expression. Closing parentheses in search expressions must be within single or double quotes in order to avoid syntax errors like `search())`. No order is defined on the output set.
 
 ::: example
-Example 34: assuming that free-text search on `Sales` takes the related product name into account,
+Example 33: assuming that free-text search on `Sales` takes the related product name into account,
 ```
 GET /service/Sales?$apply=search(coffee)
 ```
@@ -1841,14 +1831,14 @@ results in
 ```
 :::
 
-### <a name="Transformationskip" href="#Transformationskip">3.3.6 Transformation `skip`</a>
+### <a name="Transformationskip" href="#Transformationskip">3.3.5 Transformation `skip`</a>
 
 The `skip` transformation takes a non-negative integer $c$ as argument. Let $A$ be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.
 
 The transformation excludes from the output set the first $c$ instances of $A$. It keeps all remaining instances in the same order as they occur in $A$.
 
 ::: example
-Example 35:
+Example 34:
 ```
 GET /service/Sales?$apply=orderby(Customer/Name desc)/skip(2)/top(2)
 ```
@@ -1864,7 +1854,7 @@ results in
 ```
 :::
 
-### <a name="Transformationtop" href="#Transformationtop">3.3.7 Transformation `top`</a>
+### <a name="Transformationtop" href="#Transformationtop">3.3.6 Transformation `top`</a>
 
 The `top` transformation takes a non-negative integer $c$ as argument. Let $A$ be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.
 
@@ -1873,7 +1863,7 @@ If $A$ contains more than $c$ instances, the output set consists of the first $c
 Note the transformation `top(0)` produces an empty output set.
 
 ::: example
-Example 36:
+Example 35:
 ```
 GET /service/Sales?$apply=orderby(Customer/Name desc)/top(2)
 ```
@@ -1889,23 +1879,32 @@ results in
 ```
 :::
 
-### <a name="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.8 Stable Total Order Before `$skip` and `$top`</a>
+### <a name="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.7 Stable Total Order Before `$skip` and `$top`</a>
 
 When the system query options `$top` and `$skip` [OData-Protocol, sections 11.2.6.3 and 11.2.6.4](#ODataProtocol) are executed after the system query option `$apply` and after `$filter` and `$orderby`, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.
 
-## <a name="TransformationsChangingtheInputSetStructure" href="#TransformationsChangingtheInputSetStructure">3.4 Transformations Changing the Input Set Structure</a>
+## <a name="OnetoOneTransformations" href="#OnetoOneTransformations">3.4 One-to-One Transformations</a>
 
-Transformation [`nest`](#Transformationnest) produces a one-instance output set, [join](#Transformationsjoinandouterjoin) transformations respect the order and the others in this section add dynamic properties to the output set but do not change the number of instances or their order.
+These transformations produce an output set in one-to-one correspondence with their input set. The output set is initially a clone of the input set, then dynamic properties are added to the output set. The values of properties copied from the input set are not changed, nor is the order of instances changed.
 
-### <a name="Transformationcompute" href="#Transformationcompute">3.4.1 Transformation `compute`</a>
+### <a name="Transformationidentity" href="#Transformationidentity">3.4.1 Transformation `identity`</a>
+
+The output set of the `identity` transformation is its input set in unchanged order.
+
+::: example
+Example 36: Add a grand total row to the `Sales` result set
+```
+GET /service/Sales?$apply=concat(identity,aggregate(Amount with sum as Total))
+```
+:::
+
+### <a name="Transformationcompute" href="#Transformationcompute">3.4.2 Transformation `compute`</a>
 
 The `compute` transformation takes a comma-separated list of one or more _compute expressions_ as parameters.
 
 A compute expression is a common expression followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL).
 
 The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating `$filter` expressions and numeric promotion defined in [OData-URL](#ODataURL).
-
-The values of properties copied from the input set are not changed, nor is the order of instances changed.
 
 ::: example
 Example 37:
@@ -1930,7 +1929,59 @@ results in
 ```
 :::
 
-### <a name="Transformationsjoinandouterjoin" href="#Transformationsjoinandouterjoin">3.4.2 Transformations `join` and `outerjoin`</a>
+### <a name="Transformationaddnested" href="#Transformationaddnested">3.4.3 Transformation `addnested`</a>
+
+The `addnested` transformation expands a path relative to the input set, applies one or more transformation sequences to the addressed resources, and adds the transformed resources as dynamic (navigation) properties to the output set. The output set $A$ is initially a clone of the input set.
+
+The first parameter of the `addnested` transformation is a path $p$ or a concatenated path $p/q$. Here, $p=p_1/…/p_k$ with $k≥1$ is a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments. The path $p$ MUST NOT contain any navigation properties prior to the last segment $p_k$, which MUST either be a navigation or a complex structural property. If the optional $q$ is present, it MUST be a type-cast segment. This is an extension of the definition in [OData-URL, section 5.1.3](#ODataURL) in that the first parameter need not contain a navigation property.
+
+Further parameters are one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL) whose name need not differ from names in the input set but MUST differ from names already in $\Gamma(A,p_1/…/p_{k-1})$ (using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths)) as well as from aliases for other transformation sequences.
+
+If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
+
+[For each occurrence](#SamenessandOrder) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
+- the collection $B$ if $p_k$ is collection-valued
+- the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
+- undefined if $p_k$ is single-valued and $B$ is empty.
+
+If $v$ is defined, then for each transformation sequence, a dynamic property is added to $u$ as follows: If $p_k$ is a navigation property, the added property is a dynamic navigation property, which is expanded by default, otherwise it is a dynamic structural property. Its name is the alias of the transformation sequence. The value of the added property is the result of the transformation sequence applied to $v$. The dynamic property carries as control information the context URL of $v$.
+
+::: example
+Example 38:
+```
+GET /service/Customers?$apply=addnested(Sales,
+                                        filter(Amount gt 3) as FilteredSales)
+```
+results in
+```json
+{
+  "@context": "$metadata#Customers(FilteredSales())",
+  "value": [
+    { "ID": "C1", "Name": "Joe", "Country": "USA",
+      "FilteredSales@context": "#Sales",
+      "FilteredSales": [{ "ID": "3", "Amount": 4 }]},
+    { "ID": "C2", "Name": "Sue", "Country": "USA",
+      "FilteredSales@context": "#Sales",
+      "FilteredSales": [{ "ID": "4", "Amount": 8 },
+                        { "ID": "5", "Amount": 4 }]},
+    { "ID": "C3", "Name": "Sue", "Country": "Netherlands",
+      "FilteredSales@context": "#Sales",
+      "FilteredSales": []},
+    { "ID": "C4", "Name": "Luc", "Country": "France",
+      "FilteredSales@context": "#Sales",
+      "FilteredSales": []}
+  ]
+}
+```
+
+If `Sales` was a collection-valued complex property of type `SalesModel.SalesComplexType`, the context would be `"FilteredSales@context": "#Collection(SalesModel.SalesComplexType)"`.
+:::
+
+## <a name="TransformationsChangingtheInputSetStructure" href="#TransformationsChangingtheInputSetStructure">3.5 Transformations Changing the Input Set Structure</a>
+
+The output set of the [join](#Transformationsjoinandouterjoin) transformations differs from their input set in the number of instances as well as in their structure, but reflects the order of the input set. Transformation [`nest`](#Transformationnest) produces a one-instance output set.
+
+### <a name="Transformationsjoinandouterjoin" href="#Transformationsjoinandouterjoin">3.5.1 Transformations `join` and `outerjoin`</a>
 
 The `join` and `outerjoin` transformations take as their first parameter $p$ a collection-valued complex or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL). The optional second parameter specifies a transformation sequence $T$.
 
@@ -1945,7 +1996,7 @@ The `join` and `outerjoin` transformations take as their first parameter $p$ a c
    - The dynamic property carries as control information the context URL of $v$.
 
 ::: example
-Example 38: all links between products and sales instances
+Example 39: all links between products and sales instances
 ```
 GET /service/Products?$apply=join(Sales as Sale)&$select=ID&$expand=Sale
 ```
@@ -1995,14 +2046,14 @@ In this example, `$expand=Sale` is used to include the target entities in the re
 Applying `outerjoin` instead would return an additional instance for product with `"ID": "P4"` and `Sale` having a null value.
 :::
 
-### <a name="Transformationnest" href="#Transformationnest">3.4.3 Transformation `nest`</a>
+### <a name="Transformationnest" href="#Transformationnest">3.5.2 Transformation `nest`</a>
 
 The `nest` transformation takes as parameters one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL). These aliases MUST NOT collide with names of properties in the input set or with other aliases introduced in the same nest transformation.
 
 The output set consists of a single instance of the [input type](#TypeStructureandContextURL) without entity id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.
 
 ::: example
-Example 39:
+Example 40:
 ```
 GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
 ```
@@ -2020,55 +2071,7 @@ results in
 ```
 :::
 
-### <a name="Transformationaddnested" href="#Transformationaddnested">3.4.4 Transformation `addnested`</a>
-
-The `addnested` transformation expands a path relative to the input set, applies one or more transformation sequences to the addressed resources, and adds the transformed resources as dynamic (navigation) properties to the output set. The output set A is initially a clone of the input set.
-
-The first parameter of the `addnested` transformation is a path $p$ or a concatenated path $p/q$. Here, $p=p_1/…/p_k$ with $k≥1$ is a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments. The path $p$ MUST NOT contain any navigation properties prior to the last segment $p_k$, which MUST either be a navigation or a complex structural property. If the optional $q$ is present, it MUST be a type-cast segment. This is an extension of the definition in [OData-URL, section 5.1.3](#ODataURL) in that the first parameter need not contain a navigation property.
-
-Further parameters are one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL) whose name need not differ from names in the input set but MUST differ from names already in $\Gamma(A,p_1/…/p_{k-1})$ (using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths)) as well as from aliases for other transformation sequences.
-
-If $p_k$ is single-valued, the transformation sequences MUST consist of only `identity` or `compute` or `addnested` transformations, because these transform one-element collections into one-element collections. This makes it meaningful to speak (in this section only) of a transformation sequence applied to a single instance; this means applying it to a collection containing the single instance and taking as result the single instance from the output set.
-
-[For each occurrence](#SamenessandOrder) $u$ in $\Gamma(A,p_1/…/p_{k-1})$, let $B=γ(u,p_k/q)$ and let the resource $v$ be
-- the collection $B$ if $p_k$ is collection-valued
-- the single instance in $B$ if $p_k$ is single-valued and $B$ is non-empty
-- undefined if $p_k$ is single-valued and $B$ is empty.
-
-If $v$ is defined, then for each transformation sequence, a dynamic property is added to $u$ as follows: If $p_k$ is a navigation property, the added property is a dynamic navigation property, which is expanded by default, otherwise it is a dynamic structural property. Its name is the alias of the transformation sequence. The value of the added property is the result of the transformation sequence applied to $v$. The dynamic property carries as control information the context URL of $v$.
-
-::: example
-Example 40:
-```
-GET /service/Customers?$apply=addnested(Sales,
-                                        filter(Amount gt 3) as FilteredSales)
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(FilteredSales())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "USA",
-      "FilteredSales@context": "#Sales",
-      "FilteredSales": [{ "ID": "3", "Amount": 4 }]},
-    { "ID": "C2", "Name": "Sue", "Country": "USA",
-      "FilteredSales@context": "#Sales",
-      "FilteredSales": [{ "ID": "4", "Amount": 8 },
-                        { "ID": "5", "Amount": 4 }]},
-    { "ID": "C3", "Name": "Sue", "Country": "Netherlands",
-      "FilteredSales@context": "#Sales",
-      "FilteredSales": []},
-    { "ID": "C4", "Name": "Luc", "Country": "France",
-      "FilteredSales@context": "#Sales",
-      "FilteredSales": []}
-  ]
-}
-```
-
-If `Sales` was a collection-valued complex property of type `SalesModel.SalesComplexType`, the context would be `"FilteredSales@context": "#Collection(SalesModel.SalesComplexType)"`.
-:::
-
-## <a name="ExpressionsEvaluableonaCollection" href="#ExpressionsEvaluableonaCollection">3.5 Expressions Evaluable on a Collection</a>
+## <a name="ExpressionsEvaluableonaCollection" href="#ExpressionsEvaluableonaCollection">3.6 Expressions Evaluable on a Collection</a>
 
 The following two subsections introduce two new types of [expression](#Expression) that are evaluated relative to a collection, called the input collection.
 
@@ -2079,7 +2082,7 @@ These expressions are
   - In a path segment that addresses a subset of a collection [OData-URL, section 4.12](#ODataURL), the current collection is the collection that is the subject of the path segment.
   - In an `$apply` transformation, the current collection is the input set of the transformation.
 
-### <a name="Functionaggregate" href="#Functionaggregate">3.5.1 Function `aggregate`</a>
+### <a name="Functionaggregate" href="#Functionaggregate">3.6.1 Function `aggregate`</a>
 
 The `aggregate` function allows the use of aggregated values in [expressions](#Expression). It takes a single parameter accepting an [aggregate expression](#AggregateExpression) and returns the aggregated value of type `Edm.PrimitiveType` as the result from applying the aggregate expression on its input collection.
 
@@ -2126,7 +2129,7 @@ Both examples result in
 ```
 :::
 
-### <a name="Expressioncount" href="#Expressioncount">3.5.2 Expression `$count`</a>
+### <a name="Expressioncount" href="#Expressioncount">3.6.2 Expression `$count`</a>
 
 The expression `$count` evaluates to the cardinality of the input collection.
 
@@ -2149,7 +2152,7 @@ results in 2 (a third of 8, rounded down) entities. (This differs from `topperce
 
 A definition that is equivalent to a `$count` expression after a collection-valued path was made in [OData-URL, section 4.8](#ODataURL).
 
-## <a name="Functionisdefined" href="#Functionisdefined">3.6 Function `isdefined`</a>
+## <a name="Functionisdefined" href="#Functionisdefined">3.7 Function `isdefined`</a>
 
 Properties that are not explicitly mentioned in [`aggregate`](#Transformationaggregate) or [`groupby`](#Transformationgroupby) are considered to have been _aggregated away_. Since they are treated as having the null value in `$filter` expressions, the `$filter` expression `Product eq null` cannot distinguish between an instance containing the value for the null product and the instance containing the aggregated value across all products (where the `Product` has been aggregated away).
 
@@ -2170,7 +2173,7 @@ results in
 ```
 :::
 
-## <a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.7 Evaluating `$apply` as an Expand and Select Option</a>
+## <a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.8 Evaluating `$apply` as an Expand and Select Option</a>
 
 The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded navigation or the selected collection of instances, i.e. `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
 
@@ -2198,7 +2201,7 @@ results in
 ```
 :::
 
-## <a name="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.8 ABNF for Extended URL Conventions</a>
+## <a name="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.9 ABNF for Extended URL Conventions</a>
 
 The normative ABNF construction rules for this specification are defined in [OData-Agg-ABNF](#ODataAggABNF). They incrementally extend the rules defined in [OData-ABNF](#ODataABNF).
 
