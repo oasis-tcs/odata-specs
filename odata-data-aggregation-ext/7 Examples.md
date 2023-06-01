@@ -46,7 +46,7 @@ results in
 }
 ```
 
-Since `groupby` expands navigation properties in grouping properties by default, this is the same result as if the request would include a `$expand=Customer($select=Name)`. With the use of `groupby` the `$select` is not needed, because `groupby` removes all other properties.
+Since `groupby` expands navigation properties in grouping properties by default, this is the same result as if the request would include a `$expand=Customer($select=Name)`. After `groupby`, a `$select` query option is not needed, because `groupby` removes all other properties.
 
 Note that "Luc" does not appear in the aggregated result as he hasn't bought anything and therefore there are no sales entities that refer/navigate to Luc.
 
@@ -1291,23 +1291,23 @@ Organic cereals|Cereals|US West
 Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
-  $root/SalesOrganizations,SalesOrgHierarchy,
-  SalesOrganization/ID,
-  ancestors(
     $root/SalesOrganizations,SalesOrgHierarchy,
-    ID,
-    traverse(
-      $root/ProductCategories,ProductCategoryHierarchy,
-      ProductCategories/ID,
-      preorder,
-      descendants(
+    SalesOrganization/ID,
+    ancestors(
+      $root/SalesOrganizations,SalesOrgHierarchy,
+      ID,
+      traverse(
         $root/ProductCategories,ProductCategoryHierarchy,
-        ID,
-        filter(Name eq 'Cereals'),
-        keep start)),
-    keep start)
-  )),
-  aggregate(Amount with sum as TotalAmount))
+        ProductCategories/ID,
+        preorder,
+        descendants(
+          $root/ProductCategories,ProductCategoryHierarchy,
+          ID,
+          filter(Name eq 'Cereals'),
+          keep start)),
+      keep start)
+    )),
+    aggregate(Amount with sum as TotalAmount))
   &$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)
 ```
 results in

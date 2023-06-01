@@ -2,11 +2,11 @@
 
 # ##sec Vocabulary for Data Aggregation
 
-The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr).
+The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr) together with the `UpNode` instance annotation introduced in [section ##Transformationtraverse].
 
 ## ##subsec Aggregation Capabilities
 
-The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container. It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
+The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container (see [example ##containerrooted]). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
@@ -27,6 +27,17 @@ Example ##ex: an entity container with default support for everything defined in
   <Annotation Term="Aggregation.ApplySupportedDefaults" />
   ...
 </EntityContainer>
+```
+:::
+
+::: example
+Example ##ex_containerrooted: Define aggregation support only for the products of a given category
+```xml
+<Annotations Target="SalesModel.SalesData/Categories/Products">
+  <Annotation Term="Aggregation.ApplySupported">
+    ...
+  </Annotation>
+</Annotations>
 ```
 :::
 
@@ -202,54 +213,54 @@ Example ##ex_salesorghier: leveled hierarchies for products and time, and a recu
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
- <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-
-                 ext/v4.0/cs01/vocabularies/Org.OData.Aggregation.V1.xml">
-  <edmx:Include Alias="Aggregation"
-                Namespace="Org.OData.Aggregation.V1" />
- </edmx:Reference>
- <edmx:DataServices>
-  <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"
-          Alias="SalesModel" Namespace="org.example.odata.salesservice">
-   <Annotations Target="SalesModel.Product">
-    <Annotation Term="Aggregation.LeveledHierarchy"
-                Qualifier="ProductHierarchy">
-        <Collection>
-          <PropertyPath>Category/Name</PropertyPath>
-          <PropertyPath>Name</PropertyPath>
-        </Collection>
-    </Annotation>
-   </Annotations>
+  <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
+    aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">
+    <edmx:Include Alias="Aggregation"
+                  Namespace="Org.OData.Aggregation.V1" />
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"
+            Alias="SalesModel" Namespace="org.example.odata.salesservice">
+      <Annotations Target="SalesModel.Product">
+        <Annotation Term="Aggregation.LeveledHierarchy"
+                    Qualifier="ProductHierarchy">
+          <Collection>
+            <PropertyPath>Category/Name</PropertyPath>
+            <PropertyPath>Name</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
 
-   <Annotations Target="SalesModel.Time">
-    <Annotation Term="Aggregation.LeveledHierarchy"
-                Qualifier="TimeHierarchy">
-       <Collection>
-         <PropertyPath>Year</PropertyPath>
-         <PropertyPath>Quarter</PropertyPath>
-         <PropertyPath>Month</PropertyPath>
-       </Collection>
-    </Annotation>
-   </Annotations>
+      <Annotations Target="SalesModel.Time">
+        <Annotation Term="Aggregation.LeveledHierarchy"
+                    Qualifier="TimeHierarchy">
+          <Collection>
+            <PropertyPath>Year</PropertyPath>
+            <PropertyPath>Quarter</PropertyPath>
+            <PropertyPath>Month</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
 
-   <Annotations Target="SalesModel.SalesOrganization">
-    <Annotation Term="Aggregation.RecursiveHierarchy"
-                Qualifier="SalesOrgHierarchy">
-     <Record>
-      <PropertyValue Property="NodeProperty"
-                     PropertyPath="ID" />
-      <PropertyValue Property="ParentNavigationProperty"
-                     PropertyPath="Superordinate" />
-      <PropertyValue Property="IsRoot">
-       <Eq>
-        <Path>Superordinate</Path>
-        <Null />
-       </Eq>
-      </PropertyValue>
-     </Record>
-    </Annotation>
-   </Annotations>
-  </Schema>
- </edmx:DataServices>
+      <Annotations Target="SalesModel.SalesOrganization">
+        <Annotation Term="Aggregation.RecursiveHierarchy"
+                    Qualifier="SalesOrgHierarchy">
+          <Record>
+            <PropertyValue Property="NodeProperty"
+                           PropertyPath="ID" />
+            <PropertyValue Property="ParentNavigationProperty"
+                           PropertyPath="Superordinate" />
+            <PropertyValue Property="IsRoot">
+              <Eq>
+                <Path>Superordinate</Path>
+                <Null />
+              </Eq>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -419,3 +430,12 @@ results in
 :::
 
 Further examples for recursive hierarchies using transformations operating on the hierarchy structure are provided in [section ##AggregationinRecursiveHierarchies].
+
+## ##subsec Functions on Aggregated Entities
+
+Service-defined bound functions that serve as set transformations MAY be annotated with the term `AvailableOnAggregates` to indicate that they are applicable to aggregated entities under specific conditions:
+- The `RequiredProperties` collection lists all properties that must be available in the aggregated entities; otherwise, the annotated function will be inapplicable.
+
+::: example
+Example ##ex: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.
+:::
