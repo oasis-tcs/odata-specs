@@ -28,7 +28,7 @@ The following non-exhaustive list contains variable names that are used througho
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
 - $S,T$ – transformation sequences
-- $α$ – aggregate expression, defined in [section ##AggregationAlgorithm]
+- $α$ – [aggregate expression](#AggregateExpression), defined in [section ##AggregationAlgorithm]
 - $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined in [section ##EvaluationofDataAggregationPaths]
 - $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined in [section ##EvaluationofDataAggregationPaths]
 - $\Pi_G(s)$ – a transformation of a collection that injects grouping properties into every instance of the collection, defined in [section ##SimpleGrouping]
