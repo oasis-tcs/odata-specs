@@ -82,7 +82,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="styles/markdown-styles-v1.7.3a.css" />
+  <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script
@@ -2648,8 +2648,8 @@ class="math inline">\(p_1\)</span> is called a <em>prefix</em> of a path
 class="math inline">\(p\)</span> equals the concatenated path <span
 class="math inline">\(p_1/p_2\)</span>. Let <span
 class="math inline">\(e\)</span> denote the empty path.</p>
-<p>The output set of the groupby transformation is constructed in five
-steps.</p>
+<p>The output set of the <code>groupby</code> transformation is
+constructed in five steps.</p>
 <ol type="1">
 <li><a href="#SamenessandOrder">For each occurrence</a> <span
 class="math inline">\(u\)</span> in the input set, a projection is
@@ -4489,7 +4489,8 @@ Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt
 IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\
 \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill
 }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote
-<code>lambdaVariableExpr</code>s and <span
+<code>lambdaVariableExpr</code>s as defined in <a
+href="#ODataABNF">OData-ABNF</a> and <span
 class="math inline">\({}/r\)</span> may be absent.</p>
 <p>If parameter <span class="math inline">\(d\)</span> is absent, the
 parameter <span class="math inline">\({\tt MaxDistance}=d\)</span> is
@@ -4642,7 +4643,7 @@ href="#TypeStructureandContextURL">input type</a> containing the paths
 from <span class="math inline">\(G\)</span>. As a consequence of the
 following definitions, only single-valued properties and "final segments
 from <span class="math inline">\(G\)</span>" are nested into <span
-class="math inline">\(σ(x)\)</span>, therefore <span
+class="math inline">\(σ(x)\)</span>, therefore the behavior of <span
 class="math inline">\(\Pi_G(σ(x))\)</span> is well-defined.</p>
 <p>The definition of <span class="math inline">\(σ(x)\)</span> makes use
 of a function <span class="math inline">\(a(ε,v,x)\)</span>, which
@@ -4749,10 +4750,10 @@ class="math display">\[R(x)={\tt
 concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).\]</span></p>
 <p>If <span class="math inline">\(h={\tt postorder}\)</span>, then <span
 class="math display">\[R(x)={\tt
-concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).\]</span> <span
-class="math inline">\(F(x)\)</span> is a transformation that determines
-for the specified node <span class="math inline">\(x\)</span> the
-instances of the input set having the same node identifier as <span
+concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).\]</span></p>
+<p><span class="math inline">\(F(x)\)</span> is a transformation that
+determines for the specified node <span class="math inline">\(x\)</span>
+the instances of the input set having the same node identifier as <span
 class="math inline">\(x\)</span>.</p>
 <p>If <span class="math inline">\(p\)</span> contains only single-valued
 segments, then <span class="math display">\[F(x)={\tt filter}(p{\tt\ eq\
