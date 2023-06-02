@@ -2266,7 +2266,7 @@ The entity container may be annotated in the same way as entity sets to express 
 
 # <a name="VocabularyforDataAggregation" href="#VocabularyforDataAggregation">5 Vocabulary for Data Aggregation</a>
 
-The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr) together with the `UpNode` instance annotation introduced in [section 6.2.2](#Transformationtraverse).
+The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr) together with the `UpNode` and `CycleNode` instance annotations introduced in [section 6.2.2](#Transformationtraverse).
 
 ## <a name="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a>
 
@@ -2444,7 +2444,7 @@ A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
-- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
+- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
 - `IsRoot` is a Boolean value and nodes in the hierarchy for which this is true are called _root nodes_. A recursive hierarchy can have one or more root nodes. The _standard definition for root_ is "node without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsRoot` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 53](#salesorghier). The standard definition for root is also implied if the `IsRoot` property is null or absent.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
@@ -2930,23 +2930,25 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case.
+The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case.
 
 In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
 More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation value $x$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
 
-Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
+Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$. If the node $c$ has been encountered before during the recursive algorithm, a cycle has been detected and $ρ(c,x)$ is additionally annotated with `Aggregation.CycleNode` and value true. The algorithm does then not process the children of this node again.
 
 The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
 - If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
 
 The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
-$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).$$
+where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
+$$R(x)=F(x)/\Pi_G(σ(x)).$$
 
-If $h={\tt postorder}$, then
+Otherwise, with $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
+$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
+and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
 If there is only one parent and the standard definition for root is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
@@ -3084,15 +3086,15 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
 where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }$$
+$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
 otherwise
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }$$
-where $χ_N$ is the path-to-the-root $x$.
+$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
+where $χ_N$ is the path-to-the-root $x$. But row (2) is omitted if $x$ is annotated with `Aggregation.CycleNode` as true.
 
 -------
 
@@ -4492,20 +4494,18 @@ Type|ID|NodeID|SuperordinateID
 root node|Sales|Sales|
 parent node|EMEA|EMEA|Sales
 child node|EMEA Central|EMEA Central|EMEA
-not a node|Mars||Sales
+not a node|Mars||
 true orphan|Phobos|Phobos|Mars
+child of orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
-island orphan|Atlantis|Atlantis|Atlantis
 
-Mars and Phobos can be made descendants of the root node by giving Mars a node identifier:
+Mars and Phobos can be made descendants of the root node by giving Mars a node identifier and a parent node identifier:
 ```json
 PATCH /service/SalesOrganizations('Mars')
 Content-Type: application/json
 
-{ "NodeID": "Mars" }
+{ "NodeID": "Mars", "SuperordinateID": "Sales" }
 ```
-
-An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.
 :::
 
 ## <a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a>

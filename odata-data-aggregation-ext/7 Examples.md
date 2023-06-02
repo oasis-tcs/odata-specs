@@ -1396,20 +1396,18 @@ Type|ID|NodeID|SuperordinateID
 root node|Sales|Sales|
 parent node|EMEA|EMEA|Sales
 child node|EMEA Central|EMEA Central|EMEA
-not a node|Mars||Sales
+not a node|Mars||
 true orphan|Phobos|Phobos|Mars
+child of orphan|Phobos South Pole|Phobos South Pole|Phobos
 unreachable orphan|Venus|Venus|
-island orphan|Atlantis|Atlantis|Atlantis
 
-Mars and Phobos can be made descendants of the root node by giving Mars a node identifier:
+Mars and Phobos can be made descendants of the root node by giving Mars a node identifier and a parent node identifier:
 ```json
 PATCH /service/SalesOrganizations('Mars')
 Content-Type: application/json
 
-{ "NodeID": "Mars" }
+{ "NodeID": "Mars", "SuperordinateID": "Sales" }
 ```
-
-An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.
 :::
 
 ## ##subsec Transformation Sequences

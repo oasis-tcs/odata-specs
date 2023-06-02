@@ -2417,7 +2417,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The entity container may be annotated in the same way as entity sets to express which aggregate queries are supported, see <a href="#VocabularyforDataAggregation">section 5</a>.</p>
 <hr />
 <h1 id="5-vocabulary-for-data-aggregation"><a name="VocabularyforDataAggregation" href="#VocabularyforDataAggregation">5 Vocabulary for Data Aggregation</a></h1>
-<p>The following terms are defined in the vocabulary for data aggregation <a href="#ODataVocAggr">OData-VocAggr</a> together with the <code>UpNode</code> instance annotation introduced in <a href="#Transformationtraverse">section 6.2.2</a>.</p>
+<p>The following terms are defined in the vocabulary for data aggregation <a href="#ODataVocAggr">OData-VocAggr</a> together with the <code>UpNode</code> and <code>CycleNode</code> instance annotations introduced in <a href="#Transformationtraverse">section 6.2.2</a>.</p>
 <h2 id="51-aggregation-capabilities"><a name="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a></h2>
 <p>The term <code>ApplySupported</code> can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container (see <a href="#containerrooted">example 50</a>). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of <code>$apply</code> even if they do not specify the <code>OpenType</code> attribute, see <a href="#ODataCSDL">OData-CSDL</a>. The term has a complex type with the following properties:</p>
 <ul>
@@ -2558,7 +2558,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The recursive hierarchy is described in the model by an annotation of the entity type with the complex term <code>RecursiveHierarchy</code> with these properties:</p>
 <ul>
 <li>The <code>NodeProperty</code> allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.</li>
-<li>The <code>ParentNavigationProperty</code> allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.</li>
+<li>The <code>ParentNavigationProperty</code> allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.</li>
 <li><code>IsRoot</code> is a Boolean value and nodes in the hierarchy for which this is true are called <em>root nodes</em>. A recursive hierarchy can have one or more root nodes. The <em>standard definition for root</em> is "node without parents", which for a single-valued <code>ParentNavigationProperty</code> is expressed by giving the <code>IsRoot</code> property a dynamic annotation value <a href="#ODataCSDL">OData-CSDL, section 14.4</a> like in <a href="#salesorghier">example 53</a>. The standard definition for root is also implied if the <code>IsRoot</code> property is null or absent.</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with <code>rolluprecursive</code></a>, and in <a href="#HierarchyFunctions">hierarchy functions</a>. The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.</p>
@@ -2925,16 +2925,16 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>The algorithm given so far is valid for a single-valued <code>RecursiveHierarchy/ParentNavigationProperty</code> with the <a href="#RecursiveHierarchy">standard definition for root</a>. The remainder of this section describes the general case.</p>
+<p>The algorithm given so far is valid for a single-valued <code>RecursiveHierarchy/ParentNavigationProperty</code> that does not lead to cycles and with the <a href="#RecursiveHierarchy">standard definition for root</a>. The remainder of this section describes the general case.</p>
 <p>In the general case, the recursive algorithm can reach a node <span class="math inline">\(x\)</span> multiple times, via different parents or ancestors, or because <span class="math inline">\(x\)</span> is a root and a child at the same time. Then the output set contains multiple instances that include <span class="math inline">\(σ(x)\)</span>. In order to distinguish these, information about the ancestors up to the root is injected into each <span class="math inline">\(σ(x)\)</span> by annotating <span class="math inline">\(x\)</span> differently before each <span class="math inline">\(σ(x)\)</span> is computed.</p>
 <p>More precisely, a <em>path-to-the-root</em> is a node <span class="math inline">\(y\)</span> that is annotated with the term <code>UpNode</code> from the <code>Aggregation</code> vocabulary <a href="#ODataVocAggr">OData-VocAggr</a> where the annotation value is the parent node <span class="math inline">\(x\)</span> such that <span class="math inline">\(R(y)\)</span> appears on the right-hand side of the recursive formula for <span class="math inline">\(R(x)\)</span>. The annotation value <span class="math inline">\(x\)</span> is again annotated with <code>Aggregation.UpNode</code> and so on until a root is reached. Every instance in the output set of <code>traverse</code> is related to one path-to-the-root.</p>
-<p>Given a path-to-the-root <span class="math inline">\(x\)</span> and a child <span class="math inline">\(c\)</span> of <span class="math inline">\(x\)</span>, let <span class="math inline">\(ρ(c,x)\)</span> be the path-to-the-root consisting of the node <span class="math inline">\(c\)</span> annotated with <code>Aggregation.UpNode</code> and value <span class="math inline">\(x\)</span>.</p>
+<p>Given a path-to-the-root <span class="math inline">\(x\)</span> and a child <span class="math inline">\(c\)</span> of <span class="math inline">\(x\)</span>, let <span class="math inline">\(ρ(c,x)\)</span> be the path-to-the-root consisting of the node <span class="math inline">\(c\)</span> annotated with <code>Aggregation.UpNode</code> and value <span class="math inline">\(x\)</span>. If the node <span class="math inline">\(c\)</span> has been encountered before during the recursive algorithm, a cycle has been detected and <span class="math inline">\(ρ(c,x)\)</span> is additionally annotated with <code>Aggregation.CycleNode</code> and value true. The algorithm does then not process the children of this node again.</p>
 <p>The transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> is extended with an additional step between steps 2 and 3 of the function <span class="math inline">\(a_G(u,s,p)\)</span> as defined in the <a href="#SimpleGrouping">simple grouping section</a>:</p>
 <ul>
 <li>If <span class="math inline">\(s\)</span> is annotated with <code>Aggregation.UpNode</code>, copy the annotation from <span class="math inline">\(s\)</span> to <span class="math inline">\(u\)</span>.</li>
 </ul>
-<p>The <code>Aggregation.UpNode</code> annotation of a root has value null. With <span class="math inline">\(r_1,…,r_n\)</span> as above, the transformation <span class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a path-to-the-root. With <span class="math inline">\(F(x)\)</span> and <span class="math inline">\(c_1,…,c_m\)</span> as above, if <span class="math inline">\(h={\tt preorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).\]</span></p>
-<p>If <span class="math inline">\(h={\tt postorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
+<p>The <code>Aggregation.UpNode</code> annotation of a root has value null. With <span class="math inline">\(r_1,…,r_n\)</span> as above, the transformation <span class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a path-to-the-root. With <span class="math inline">\(F(x)\)</span> as above, if <span class="math inline">\(x\)</span> is annotated with <code>Aggregation.CycleNode</code> as true, then <span class="math display">\[R(x)=F(x)/\Pi_G(σ(x)).\]</span></p>
+<p>Otherwise, with <span class="math inline">\(c_1,…,c_m\)</span> as above, if <span class="math inline">\(h={\tt preorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),\]</span> and if <span class="math inline">\(h={\tt postorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
 <p>If there is only one parent and the standard definition for root is in force, the result is the same as in the single-parent case, except for the presence of the <code>Aggregation.UpNode</code> annotations.</p>
 <h2 id="63-grouping-with-rolluprecursive"><a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with <code>rolluprecursive</code></a></h2>
 <p>Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with <code>rolluprecursive</code>, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node <span class="math inline">\(x\)</span> of a <a href="#RecursiveHierarchy">recursive hierarchy</a>. The transformation <span class="math inline">\(F(x)\)</span>, defined below, outputs the portion with node identifiers among the descendants of <span class="math inline">\(x\)</span> (including <span class="math inline">\(x\)</span> itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node <span class="math inline">\(x\)</span>, which is achieved through the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
@@ -3031,8 +3031,8 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb121-11"><a href="#cb121-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb121-12"><a href="#cb121-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>The algorithm given so far is valid for a single-valued <code>RecursiveHierarchy/ParentNavigationProperty</code> with the <a href="#RecursiveHierarchy">standard definition for root</a>. The remainder of this section describes the general case. The function <span class="math inline">\(ρ(c,x)\)</span> used below constructs a path-to-the-root and was defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
-<p>With <span class="math inline">\(r_1,…,r_n\)</span> as above, <span class="math inline">\({\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a path-to-the-root. With <span class="math inline">\(F(x)\)</span> and <span class="math inline">\(c_1,…,c_m\)</span> as above, if at least one of <span class="math inline">\(P_1\)</span> or <span class="math inline">\(P_2\)</span> is non-empty, then <span class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }\]</span> otherwise <span class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }\]</span> where <span class="math inline">\(χ_N\)</span> is the path-to-the-root <span class="math inline">\(x\)</span>.</p>
+<p>The algorithm given so far is valid for a single-valued <code>RecursiveHierarchy/ParentNavigationProperty</code> that does not lead to cycles and with the <a href="#RecursiveHierarchy">standard definition for root</a>. The remainder of this section describes the general case. The function <span class="math inline">\(ρ(c,x)\)</span> used below constructs a path-to-the-root and was defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
+<p>With <span class="math inline">\(r_1,…,r_n\)</span> as above, <span class="math inline">\({\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a path-to-the-root. With <span class="math inline">\(F(x)\)</span> and <span class="math inline">\(c_1,…,c_m\)</span> as above, if at least one of <span class="math inline">\(P_1\)</span> or <span class="math inline">\(P_2\)</span> is non-empty, then <span class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&amp;\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&amp;\tt(2)\\ ),\hskip25pc }\]</span> otherwise <span class="math display">\[\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&amp;\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&amp;\tt(2)\\ ),\hskip25pc }\]</span> where <span class="math inline">\(χ_N\)</span> is the path-to-the-root <span class="math inline">\(x\)</span>. But row (2) is omitted if <span class="math inline">\(x\)</span> is annotated with <code>Aggregation.CycleNode</code> as true.</p>
 <hr />
 <h1 id="7-examples"><a name="Examples" href="#Examples">7 Examples</a></h1>
 <p>The following examples show some common aggregation-related questions that can be answered by combining the transformations defined in <a href="#SystemQueryOptionapply">sections 3</a> and <a href="#HierarchicalTransformations">6</a>.</p>
@@ -4177,7 +4177,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <td>not a node</td>
 <td>Mars</td>
 <td></td>
-<td>Sales</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>true orphan</td>
@@ -4186,25 +4186,24 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <td>Mars</td>
 </tr>
 <tr class="even">
+<td>child of orphan</td>
+<td>Phobos South Pole</td>
+<td>Phobos South Pole</td>
+<td>Phobos</td>
+</tr>
+<tr class="odd">
 <td>unreachable orphan</td>
 <td>Venus</td>
 <td>Venus</td>
 <td></td>
 </tr>
-<tr class="odd">
-<td>island orphan</td>
-<td>Atlantis</td>
-<td>Atlantis</td>
-<td>Atlantis</td>
-</tr>
 </tbody>
 </table>
-<p>Mars and Phobos can be made descendants of the root node by giving Mars a node identifier:</p>
+<p>Mars and Phobos can be made descendants of the root node by giving Mars a node identifier and a parent node identifier:</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)</span></span>
 <span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb222-3"><a href="#cb222-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-4"><a href="#cb222-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;NodeID&quot;</span><span class="fu">:</span> <span class="st">&quot;Mars&quot;</span> <span class="fu">}</span></span></code></pre></div>
-<p>An attempt to make the island orphan Atlantis a child of the root node fails, because it would introduce cycles into the hierarchy.</p>
+<span id="cb222-4"><a href="#cb222-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;NodeID&quot;</span><span class="fu">:</span> <span class="st">&quot;Mars&quot;</span><span class="fu">,</span> <span class="dt">&quot;SuperordinateID&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales&quot;</span> <span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="711-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a></h2>
 <p>Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in <code>$apply</code> in the order they are to be applied, separated by a forward slash.</p>
