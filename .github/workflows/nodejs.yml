@@ -28,7 +28,7 @@ jobs:
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
           git add docs/*/*.html docs/*/*.md
-          git diff-index --quiet HEAD || git commit -m "auto-refreshed"
+          git diff-index --quiet HEAD || (npm run pdf --if-present && git add docs/*/*.pdf && git commit -m "auto-refreshed")
           git push
         env:
           PUSHER_EMAIL: ${{ github.event.pusher.email }}
