@@ -12,11 +12,12 @@
 /* pk 2019-05-23 - v1.7.2 (based on 1.7.1) changed monospace "code" font to Courier New */
 /* pk 2019-08-01 - v1.7.3 substitute PostScript name for fonts (LiberationSans for "Liberation Sans" and CourierNew for "Courier New") to address a flaw in "wkhtmltopdf" which rendered all text as bold. Changed "bigtitle" to "h1big"*/
 /* dk 2020-10-21 - v1.7.3a (unofficial for jadn, based on 1.7.3) update block quotes and code blocks */
+/* Heiko Theißen 2023-06-02 - v1.7.3b (unofficial for odata-data-aggregation-ext, based on v1.7.3a) include local font names "Liberation Sans" and "Courier New" */
 
 body {
     margin-left: 3pc;
     margin-right: 3pc;
-    font-family: LiberationSans, Arial, Helvetica, sans-serif;
+    font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
 	font-size:12pt;
 	line-height:1.2;
      }
@@ -26,10 +27,10 @@ html{overflow-x:auto}
 	 /* styles for section headings - levels 1-5 (maybe include heading1, etc. later) */
 h1{font-size:18pt}h2{font-size:14pt}h3{font-size:13pt}h4{font-size:12pt}h5{font-size:11pt}
 h1big{font-size: 24pt}
-h1,h2,h3,h4,h5,h1big{font-family: LiberationSans, Arial, Helvetica, sans-serif;font-weight: bold;margin:8pt 0;color: #446CAA}
+h1,h2,h3,h4,h5,h1big{font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;font-weight: bold;margin:8pt 0;color: #446CAA}
 	/* style for h6, for use as Reference tag */
 h6{font-size:12pt; line-height:1.0}
-h6{font-family: LiberationSans, Arial, Helvetica, sans-serif;font-weight: bold;margin:0pt;}
+h6{font-family: LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;font-weight: bold;margin:0pt;}
 	/* not needed - can just use brackets in the label itself */
 	/* h6::before {content: "["} */
 	/* h6::after {content: "]"} */
@@ -72,7 +73,7 @@ pre {
 }
 
 code,kbd,samp{
-    font-family:CourierNew, monospace;
+    font-family:CourierNew, "Courier New", monospace;
     white-space: pre-wrap;
     font-size: 10pt;
 }
