@@ -20,7 +20,7 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent.
 
-The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set. The hierarchy $(H',Q)$ can have different [roots](#RecursiveHierarchy) than the hierarchy $(H,Q)$.
+The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set. Applying the definition for [root](#RecursiveHierarchy) to the hierarchy $(H',Q)$ can lead to different results than for the hierarchy $(H,Q)$.
 
 ## ##subsec Hierarchical Transformations Producing a Subset
 
@@ -217,6 +217,8 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 
 (See [Example ##traversecoll].)
 
+The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The general case follows later.
+
 Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
 
@@ -274,16 +276,98 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case.
+In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
 
-More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation value $x$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+::: example
+⚠ Example ##ex: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
+```
+GET /service/SalesOrganizations?$apply=
+    /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+```
+results in
+```json
+{
+  "@context": "$metadata#SalesOrganizations",
+  "value": [
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpNode": "US",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpNode": "EMEA",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    ...
+  ]
+}
+```
+:::
 
-Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$. If the node $c$ has been encountered before during the recursive algorithm, a cycle has been detected and $ρ(c,x)$ is additionally annotated with `Aggregation.CycleNode` and value true. The algorithm does then not process the children of this node again.
+Given a path-to-the-root $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the path-to-the-root consisting of the node $y$ with the following annotations:
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}=x[q]$
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}/\hbox{\tt @Aggregation.UpNode}=x/\hbox{\tt @Aggregation.UpNode}$
 
-Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
+If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with `Aggregation.CycleNode` and value true. The algorithm does then not process the children of this node again.
+
+::: example
+⚠ Example ##ex: If the child of Atlantis was also its parent:
+```
+GET /service/SalesOrganizations?$apply=
+    /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+```
+results in
+```json
+{
+  "@context": "$metadata#SalesOrganizations",
+  "value": [
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpNode": "US",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.CycleNode": true,
+      "@Aggregation.UpNode": "AtlantisChild",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "US" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
+       @Aggregation.UpNode": "Sales" },
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpNode": "EMEA",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.CycleNode": true,
+      "@Aggregation.UpNode": "AtlantisChild",
+      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
+      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
+       @Aggregation.UpNode": "Sales" },
+    ...
+  ]
+}
+```
+:::
+
+Like structural and navigation properties, these instance annotations are considered part of a path-to-the-root $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpNode` or `Annotation.CycleNode`, copy these annotations from $s$ to $u$.
 
 The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
@@ -304,6 +388,8 @@ Recall that simple grouping partitions the input set and applies a transformatio
 As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, and $S$ is an optional fourth parameter that restricts $H$ to a subset $H'$.
 
 Navigation properties specified in $p$ are expanded by default.
+
+The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The general case follows later.
 
 Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
 
@@ -459,7 +545,9 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The remainder of this section describes the general case. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+_General case_
+
+The function $ρ(y,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
@@ -477,4 +565,4 @@ R(x)={\tt concat}(\hfill\\
 \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ 
 ),\hskip25pc 
 }$$
-where $χ_N$ is the path-to-the-root $x$. But row (2) is omitted if $x$ is annotated with `Aggregation.CycleNode` as true.
+where $χ_N$ is the path-to-the-root $x$. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.CycleNode` as true.

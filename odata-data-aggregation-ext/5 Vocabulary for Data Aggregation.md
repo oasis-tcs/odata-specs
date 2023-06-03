@@ -2,7 +2,7 @@
 
 # ##sec Vocabulary for Data Aggregation
 
-The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr) together with the `UpNode` and `CycleNode` instance annotations introduced in [section ##Transformationtraverse].
+The following terms are defined in the vocabulary for data aggregation [OData-VocAggr](#ODataVocAggr).
 
 ## ##subsec Aggregation Capabilities
 
@@ -185,24 +185,24 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are a descendant of a root node (see [example ##nonstandardroot]).
+A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two nodes without parents. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are root nodes or descendants of root nodes (see [example ##nonstandardroot]). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed.
+The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a cycle of ancestors. These instance annotations are introduced in [section ##Transformationtraverse].
 
 #### ##subsubsubsec Hierarchy Functions
 
 For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
 - a parameter pair `HierarchyNodes`, `HierarchyQualifier` where `HierarchyNodes` is a collection and `HierarchyQualifier` is the qualifier of a `RecursiveHierarchy` annotation on its common entity type. The node identifiers in this collection define the recursive hierarchy.
 - a parameter `Node` that contains the node identifier of the entity to be tested. Note that the test result depends only on this node identifier, not on any other property of the given entity
-- additional parameters, depending on the type of test (see below).
+- additional parameters, depending on the type of test (see below)
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
-- `isroot` tests if the given entity is a root of the hierarchy
-- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true
-- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true
-- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) have a common parent node or both are roots, but are not the same
-- `isleaf` tests if the given entity is without descendants.
+- `isroot` tests if the given entity is a root node of the hierarchy.
+- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true.
+- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true.
+- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
+- `isleaf` tests if the given entity is a leaf node.
 
 ### ##subsubsec Hierarchy Examples
 
