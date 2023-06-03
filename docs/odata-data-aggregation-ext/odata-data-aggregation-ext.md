@@ -1845,7 +1845,7 @@ results in
 
 The `skip` transformation takes a non-negative integer $c$ as argument. Let $A$ be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.
 
-The transformation excludes from the output set the first $c$ instances in $A$ (possibly with repetitions). It keeps all remaining instances in the same order as they occur in $A$.
+The transformation excludes from the output set the first $c$ occurrences in $A$. It keeps all remaining instances in the same order as they occur in $A$.
 
 ::: example
 Example 35:
@@ -1868,7 +1868,7 @@ results in
 
 The `top` transformation takes a non-negative integer $c$ as argument. Let $A$ be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.
 
-If $A$ contains more than $c$ instances, the output set consists of the first $c$ instances in $A$ (possibly with repetitions). Otherwise, the output set equals $A$. The instances in the output set are in the same order as they occur in $A$.
+If $A$ contains more than $c$ instances, the output set consists of the first $c$ occurrences in $A$. Otherwise, the output set equals $A$. The instances in the output set are in the same order as they occur in $A$.
 
 Note the transformation `top(0)` produces an empty output set.
 
@@ -2171,7 +2171,7 @@ results in
 
 ## <a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.7 Evaluating `$apply` as an Expand and Select Option</a>
 
-The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded navigation or the selected collection of instances, in other words: this context defines the input set of the first transformation. Furthermore, `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
+The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded navigation or the selected collection of instances, meaning this context defines the input set of the first transformation. Furthermore, `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
 
 ::: example
 Example 46: products with aggregated sales

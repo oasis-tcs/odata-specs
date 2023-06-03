@@ -2108,7 +2108,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 <h3 id="336-transformation-skip"><a name="Transformationskip" href="#Transformationskip">3.3.6 Transformation <code>skip</code></a></h3>
 <p>The <code>skip</code> transformation takes a non-negative integer <span class="math inline">\(c\)</span> as argument. Let <span class="math inline">\(A\)</span> be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
-<p>The transformation excludes from the output set the first <span class="math inline">\(c\)</span> instances in <span class="math inline">\(A\)</span> (possibly with repetitions). It keeps all remaining instances in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
+<p>The transformation excludes from the output set the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. It keeps all remaining instances in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 35:</p>
 <pre><code>GET /service/Sales?$apply=orderby(Customer/Name desc)/skip(2)/top(2)</code></pre>
@@ -2123,7 +2123,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 <h3 id="337-transformation-top"><a name="Transformationtop" href="#Transformationtop">3.3.7 Transformation <code>top</code></a></h3>
 <p>The <code>top</code> transformation takes a non-negative integer <span class="math inline">\(c\)</span> as argument. Let <span class="math inline">\(A\)</span> be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
-<p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(c\)</span> instances, the output set consists of the first <span class="math inline">\(c\)</span> instances in <span class="math inline">\(A\)</span> (possibly with repetitions). Otherwise, the output set equals <span class="math inline">\(A\)</span>. The instances in the output set are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
+<p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(c\)</span> instances, the output set consists of the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. Otherwise, the output set equals <span class="math inline">\(A\)</span>. The instances in the output set are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <p>Note the transformation <code>top(0)</code> produces an empty output set.</p>
 <div class="example">
 <p>Example 36:</p>
@@ -2348,7 +2348,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="37-evaluating-apply-as-an-expand-and-select-option"><a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.7 Evaluating <code>$apply</code> as an Expand and Select Option</a></h2>
-<p>The new system query option <code>$apply</code> can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for <a href="#SystemQueryOptionapply">evaluating <code>$apply</code></a> are applied in the context of the expanded navigation or the selected collection of instances, in other words: this context defines the input set of the first transformation. Furthermore, <code>$apply</code> is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of <code>$apply</code>.</p>
+<p>The new system query option <code>$apply</code> can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for <a href="#SystemQueryOptionapply">evaluating <code>$apply</code></a> are applied in the context of the expanded navigation or the selected collection of instances, meaning this context defines the input set of the first transformation. Furthermore, <code>$apply</code> is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of <code>$apply</code>.</p>
 <div class="example">
 <p>Example 46: products with aggregated sales</p>
 <pre><code>GET /service/Products
