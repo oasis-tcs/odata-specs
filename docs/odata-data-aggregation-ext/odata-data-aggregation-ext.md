@@ -59,7 +59,7 @@ This specification is related to:
   * _OData Version 4.0 Part 3: Common Schema Definition Language (CSDL)_. Latest version. http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html
   * OData ABNF Construction Rules Version 4.0. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt
   * OData ABNF Test Cases. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/
-  * OData Core Vocabulary. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml.
+  * OData Core Vocabulary. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml
   * OData Measures Vocabulary. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Measures.V1.xml
 * _OData JSON Format Version 4.0_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest version. http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html
 
