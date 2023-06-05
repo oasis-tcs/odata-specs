@@ -545,9 +545,7 @@ results in
 ```
 :::
 
-_General case_
-
-The function $ρ(y,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+For the _general case_, the function $ρ(y,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
