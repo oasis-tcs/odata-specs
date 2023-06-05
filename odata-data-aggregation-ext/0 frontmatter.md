@@ -31,17 +31,17 @@ https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-agg
 
 #### Chairs:
 
-Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
+Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/)
 
 #### Editors:
 
-Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/) \
-Gerald Krause (gerald.krause@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
-Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/) \
-Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](http://www.sap.com/)
+Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
+Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
+Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
+Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
+Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
+Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
@@ -53,13 +53,13 @@ This document is one component of a Work Product that also includes:
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
 * _OData Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product which includes:
-  * _OData Version 4.01 Part 1: Protocol_. Latest stage: http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
-  * _OData Version 4.01 Part 2: URL Conventions_. Latest stage: http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
+  * _OData Version 4.01 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
+  * _OData Version 4.01 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
   * _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/
-* _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: http://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
+* _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html
-* _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: http://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
+* _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
 
 #### Abstract:
 This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.
