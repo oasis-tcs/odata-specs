@@ -5,12 +5,14 @@
   "main": "number.js",
   "scripts": {
     "build": "node lib/build",
+    "pdf": "node lib/build-pdf.mjs",
     "start": "node lib/server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "puppeteer": "^20.5.0"
   }
 }
