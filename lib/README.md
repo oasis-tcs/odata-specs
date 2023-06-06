@@ -15,7 +15,7 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [example ##aggregation]. Reference to an example showing its number.
   ```
 - Long tables or MathML formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
-- The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8 Conformance.md).
+- The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
 
 The [`number.js`](number.js) module generates a single Markdown document by preprocessing all `.md` files in a given folder:
 - Generate section and example numbers
@@ -76,4 +76,4 @@ Mermaid has not been used, instead the diagrams in section 2 have been produced
 - in section 2.1 with Visio and exported as SVG (as described [here](../odata-data-aggregation-ext/diagrams))
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.
 
-See the source code [here](../odata-data-aggregation-ext/1 Introduction.md).
+See the source code [here](../odata-data-aggregation-ext/1%20Introduction.md).
