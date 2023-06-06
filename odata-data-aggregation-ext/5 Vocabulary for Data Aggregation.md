@@ -390,21 +390,21 @@ results in
 
 ```xml
 <Annotations Target="SalesModel.SalesOrganization">
- <Annotation Term="Aggregation.RecursiveHierarchy"
-             Qualifier="USSalesHierarchy">
-  <Record>
-   <PropertyValue Property="NodeProperty"
-                  PropertyPath="ID" />
-   <PropertyValue Property="ParentNavigationProperty"
-                  PropertyPath="Superordinate" />
-   <PropertyValue Property="IsRoot">
-    <Eq>
-     <Path>ID</Path>
-     <String>US</String>
-    </Eq>
-   </PropertyValue>
-  </Record>
- </Annotation>
+  <Annotation Term="Aggregation.RecursiveHierarchy"
+              Qualifier="USSalesHierarchy">
+    <Record>
+      <PropertyValue Property="NodeProperty"
+                     PropertyPath="ID" />
+      <PropertyValue Property="ParentNavigationProperty"
+                     PropertyPath="Superordinate" />
+      <PropertyValue Property="IsRoot">
+        <Eq>
+          <Path>ID</Path>
+          <String>US</String>
+        </Eq>
+      </PropertyValue>
+    </Record>
+  </Annotation>
 </Annotations>
 ```
 

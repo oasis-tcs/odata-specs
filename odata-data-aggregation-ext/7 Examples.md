@@ -1386,24 +1386,70 @@ Content-Type: application/json
 ```
 :::
 
-An entity set where the key property `ID` differs from the node identfier property `NodeID` can contain entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set,
+the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Given the following types of `SalesOrganizations` where only Sales is a root,
+⚠ Example ##ex: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a root:
+```xml
+<EntityType Name="SalesOrganizationRelation">
+  <Key>
+    <PropertyRef Name="NodeID" />
+    <PropertyRef Name="SuperordinateID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="SuperordinateID" Type="Edm.String" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization">
+    <ReferentialConstraint Property="SuperordinateID"
+                           ReferencedProperty="ID" />
+  </NavigationProperty>
+</EntityType>
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <Property Name="NodeID" Type="Edm.String" />
+  <NavigationProperty Name="Relations"
+                      Type="Collection(SalesModel.SalesOrganizationRelation)">
+    <ReferentialConstraint Property="NodeID"
+                           ReferencedProperty="NodeID" />
+  </NavigationProperty>
+  <Annotation Term="Aggregation.RecursiveHierarchy"
+              Qualifier="MultiParentHierarchy">
+    <Record>
+      <PropertyValue Property="NodeProperty"
+                     PropertyPath="NodeID" />
+      <PropertyValue Property="ParentNavigationProperty"
+                     PropertyPath="Relations/Superordinate" />
+      <PropertyValue Property="IsRoot">
+        <Eq>
+          <Path>ID</Path>
+          <String>Sales</String>
+        </Eq>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</EntityType>
+```
 
-Type|ID|NodeID|SuperordinateID
-----|--|------|---------------
-root node|Sales|Sales|
-parent node|EMEA|EMEA|Sales
-child node|EMEA Central|EMEA Central|EMEA
-not a node|Mars||
-true orphan|Phobos|Phobos|Mars
-child of orphan|Phobos South Pole|Phobos South Pole|Phobos
-unreachable orphan|Venus|Venus|
+Further assume the following relationships between sales organizations:
 
-Mars and Phobos can be made descendants of the root node by giving Mars a node identifier and a parent node identifier:
+NodeID|SuperordinateID
+------|---------------
+Sales|
+EMEA|Sales
+EMEA Central|EMEA
+Phobos|Mars
+Venus|
+
+Then the entity Mars has no node identifier and hence is no node in the hierarchy, even though it occurs as a parent. Its child Phobos cannot be reached from the root Sales and hence is an orphan, as is Venus.
+
+Mars and Phobos can be made descendants of the root node by adding a relationship:
 ```json
-PATCH /service/SalesOrganizations('Mars')
+PATCH /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
 { "NodeID": "Mars", "SuperordinateID": "Sales" }
