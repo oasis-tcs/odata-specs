@@ -1,3 +1,12 @@
+Front matter
+
+# Table of Contents
+
+::: toc
+- [1 First section](#Firstsection)
+  - [1.1 First subsection](#Firstsubsection)
+:::
+
 # <a name="Firstsection" href="#Firstsection">1 First section</a>
 ## <a name="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a>
 

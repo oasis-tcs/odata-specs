@@ -56,8 +56,8 @@ The Markdown-to-HTML conversion happens in a child process into which the Markdo
 import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
-proc.pipe(«HTML file»);
-new Number("odata-data-aggregation-ext").build(proc);
+proc.stdout.pipe(«HTML file»);
+new Number("odata-data-aggregation-ext").build(proc.stdin);
 ```
 
 The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odata-data-aggregation-ext/styles) subfolder in order to display keywords in the same font (MathJax Typewriter) whether they occur inline (as `` `aggregate` ``) or in MathML formulas together with variables (as `${\tt aggregate}(α{\tt\ as\ }D)$`). A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
