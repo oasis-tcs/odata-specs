@@ -22,7 +22,7 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Generate a table of contents
 - Resolve references
 - Replace placeholders like `$$$pagetitle$$$` with values from a [`meta.yaml`](../odata-data-aggregation-ext/meta.yaml) file
-- Join multiple lines that end with a single space into one line`
+- Join multiple lines that end with a single space into one line
 
 The single Markdown document is output into a writable stream:
 ```js
