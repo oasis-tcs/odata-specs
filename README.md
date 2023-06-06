@@ -17,25 +17,6 @@
 <h3>Contact</h3>
 <p>Please send questions or comments about <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">OASIS TC GitHub repositories</a> to <a href="mailto:tc-administration@oasis-open.org">Project Administration</a>.  For questions about content in this repository, please contact the TC Chair or Co-Chairs as listed on the the OData TC's <a href="https://www.oasis-open.org/committees/odata/">home page</a>.</p>
 
-## Extensions to Markdown
-
-Section and example numbers and references to them are expressed in the Markdown source as follows:
-```
-# ##sec Section Heading
-## ##subsec Subsection Heading
-### ##subsubsec Subsubsection Heading
-Example ##ex: Example
-Example ##ex_aggregation: Referenceable example
-See [here](#SubsectionHeading). Reference to a subsection.
-See [subsection #SubsectionHeading]. Reference to a subsection showing its number.
-See [this example](##aggregation). Reference to an example.
-See [example ##aggregation]. Reference to an example showing its number.
-```
-
-Long mathematical formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
-
-This additional syntax is resolved with the Node.js module [`lib/number.js`](lib/number.js).
-
 ## How to view the documents
 
 To view mathematical formulas, install pandoc as explained in the section on [Document Conventions](odata-data-aggregation-ext/1%20Introduction.md). This is invoked by the Node.js module [`lib/pandoc.js`](lib/pandoc.js).
