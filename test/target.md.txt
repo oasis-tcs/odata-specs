@@ -1,0 +1,13 @@
+# <a name="Firstsection" href="#Firstsection">1 First section</a>
+## <a name="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a>
+
+Test document
+
+Example <a name="ref" href="#ref">1</a>: [Section 1.1](#Firstsubsection) contains [example 1](#ref).
+
+$$\matrix{ A&B\hfill\\ C&D\hfill }$$
+
+A|B
+-|-
+C|D
+
