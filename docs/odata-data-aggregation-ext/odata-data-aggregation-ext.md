@@ -3077,7 +3077,7 @@ where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See 
 Informatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ as determined by $F(x)$ in the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
 ::: example
-Example <a name="caseone" href="#caseone">67</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
+Example <a name="caseone" href="#caseone">67</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case $\Pi_G(σ(x))$ writes back the entire node into the output set of $T$, aggregates must have an alias to avoid overwriting by a property of the node with the same name.
 ```
 GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
@@ -3109,7 +3109,7 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the Position parameter can be omitted.
+The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example <a name="rollupnode" href="#rollupnode">68</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
