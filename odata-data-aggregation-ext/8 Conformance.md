@@ -131,7 +131,7 @@ Added transformations orderby, skip, top, nest<br>
 Added transformations for recursive hierarchies, updated related filter functions<br> 
 Added functions evaluable on a collection, introduced keyword $these<br> 
 Merged section 4 "Representation of Aggregated Instances" into section 3<br> 
-Abolished actions and functions (except set transformations) on aggregated entities, removed section 6.4
+Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 
 -------
 
