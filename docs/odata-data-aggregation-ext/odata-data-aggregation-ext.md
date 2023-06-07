@@ -2658,7 +2658,7 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="nonstandardstart" href="#nonstandardstart">59</a>: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy if only the US sales organization is designated as a start node.
+⚠ Example <a name="nonstandardstart" href="#nonstandardstart">59</a>: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy where only the US sales organization is designated as a start node.
 
 ```xml
 <Annotations Target="SalesModel.SalesOrganization">

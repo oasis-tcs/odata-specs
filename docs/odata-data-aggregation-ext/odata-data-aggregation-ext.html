@@ -2735,7 +2735,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>⚠ Example <a name="nonstandardstart" href="#nonstandardstart">59</a>: The <a href="#ExampleData">example data</a> can be used to define a restricted US sales hierarchy if only the US sales organization is designated as a start node.</p>
+<p>⚠ Example <a name="nonstandardstart" href="#nonstandardstart">59</a>: The <a href="#ExampleData">example data</a> can be used to define a restricted US sales hierarchy where only the US sales organization is designated as a start node.</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
 <span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="ot">              Qualifier=</span><span class="st">&quot;USSalesHierarchy&quot;</span>&gt;</span>
