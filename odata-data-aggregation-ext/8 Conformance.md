@@ -125,10 +125,13 @@ Gerald Krause<br>
 Michael Pizzo<br> 
 Heiko Theißen| 
 Added section about fundamentals of input and output sets<br> 
-Algorithmic descriptions of several transformations<br> 
+Algorithmic descriptions of transformations<br> 
+Added join and outerjoin transformations, replaced expand by addnested<br> 
+Added transformations orderby, skip, top, nest<br> 
+Added transformations for recursive hierarchies, updated related filter functions<br> 
 Added functions evaluable on a collection, introduced keyword $these<br> 
-Added join and outerjoin transformations, renamed expand as nest<br> 
-Added hierarchical transformations
+Merged section 4 "Representation of Aggregated Instances" into section 3<br> 
+Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 
 -------
 
