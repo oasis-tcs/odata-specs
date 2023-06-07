@@ -18,6 +18,7 @@ This folder contains several Node.js modules that generate OASIS specification d
 - The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
 
 The [`number.js`](number.js) module generates a single Markdown document by preprocessing all `.md` files in a given folder:
+
 - Generate section and example numbers
 - Generate a table of contents
 - Resolve references
@@ -25,19 +26,23 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Join multiple lines that end with a single space into one line
 
 The single Markdown document is output into a writable stream:
+
 ```js
 import * as Number from './lib/number.js';
 new Number("odata-data-aggregation-ext").build(«writable stream»);
 ```
 
 The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects [pandoc 3.1.2](https://github.com/jgm/pandoc/releases/tag/3.1.2) to be set up, for example in a GitHub Action with the step
+
 ```yaml
 - name: Setup pandoc
   uses: nikeee/setup-pandoc@v1
   with:
     pandoc-version: 3.1.2
 ```
+
 and effectively executes
+
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs
        -t html
@@ -52,6 +57,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 ```
 
 The Markdown-to-HTML conversion happens in a child process into which the Markdown is written and from which the HTML is read:
+
 ```js
 import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
@@ -62,10 +68,10 @@ new Number("odata-data-aggregation-ext").build(proc.stdin);
 
 The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odata-data-aggregation-ext/styles) subfolder in order to display keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
 
-Keyword occurs|Markdown source|Rendered result
---------------|---------------|---------------
-standalone|``The `aggregate` transformation``|The ${\tt aggregate}$ transformation
-in MathJax formula|`${\tt aggregate}(α{\tt\ as\ }D)$`|${\tt aggregate}(α{\tt\ as\ }D)$
+| Keyword occurs     | Markdown source                      | Rendered result                      |
+| ------------------ | ------------------------------------ | ------------------------------------ |
+| standalone         | `` The `aggregate` transformation `` | The ${\tt aggregate}$ transformation |
+| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$`   | ${\tt aggregate}(α{\tt\ as\ }D)$     |
 
 A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
 
@@ -74,6 +80,7 @@ A monospaced font (Courier New) is used for OData requests and their JSON or XML
 The [`pdf.js`](pdf.js) module uses an embedded browser ([`puppeteer`](https://github.com/puppeteer/puppeteer#puppeteer)) to convert the HTML file into a PDF file with OASIS headers and footers.
 
 The following scripts can be executed manually or as part of a GitHub Action:
+
 - [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`doc/*`](../doc/odata-data-aggregation-ext) folder.
 - [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`doc/*`](../doc/odata-data-aggregation-ext) folder.
 - [`npm test`](../test) runs a test suite.
@@ -81,6 +88,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
 ## A note on diagrams
 
 Mermaid has not been used, instead the diagrams in section 2 have been produced
+
 - in section 2.1 with Visio and exported as SVG (as described [here](../odata-data-aggregation-ext/diagrams))
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.
 
