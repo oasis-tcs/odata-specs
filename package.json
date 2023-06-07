@@ -6,13 +6,16 @@
   "scripts": {
     "build": "node lib/build",
     "pdf": "node lib/build-pdf.mjs",
-    "start": "node lib/server"
+    "start": "node lib/server",
+    "test": "c8 -r html -r text mocha --timeout 10000"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "c8": "^7.14.0",
     "express": "^4",
     "js-yaml": "^4.1.0",
+    "mocha": "^10.2.0",
     "puppeteer": "^20.5.0"
   }
 }

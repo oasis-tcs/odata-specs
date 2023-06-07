@@ -170,3 +170,7 @@ code .er {
 hr:first-of-type {
 	page-break-before: avoid;
 }
+
+h2[id="22-example-data"] {
+	page-break-before: always;
+}

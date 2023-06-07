@@ -31,37 +31,35 @@ https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-agg
 
 #### Chairs:
 
-Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
+Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/)
 
 #### Editors:
 
-Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/) \
-Gerald Krause (gerald.krause@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
-Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/) \
-Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](http://www.sap.com/)
+Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
+Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
+Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
+Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
+Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
+Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
-* OData Aggregation ABNF Construction Rules Version 4.0: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-abnf.txt
-* OData Aggregation ABNF Test Cases: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/odata-aggregation-testcases.yaml
+* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/
 * OData Aggregation Vocabulary:
   * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json
   * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
-* _OData Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product that includes:
-  * _OData Version 4.0 Part 1: Protocol_. Latest version. http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html
-  * _OData Version 4.0 Part 2: URL Conventions_. Latest version. http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html
-  * _OData Version 4.0 Part 3: Common Schema Definition Language (CSDL)_. Latest version. http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html
-  * OData ABNF Construction Rules Version 4.0. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt
-  * OData ABNF Test Cases. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/
-  * OData Core Vocabulary. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml.
-  * OData Measures Vocabulary. 30 October 2014. http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Measures.V1.xml
-* _OData JSON Format Version 4.0_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest version. http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html
+* _OData Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product which includes:
+  * _OData Version 4.01 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
+  * _OData Version 4.01 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
+  * _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/
+* _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
+* _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
+* _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html
+* _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
 
 #### Abstract:
 This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.
@@ -96,6 +94,8 @@ Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
 
 For complete copyright information please see the full Notices section in an Appendix [below](#Notices).
+
+-------
 
 # Table of Contents
 
@@ -997,7 +997,7 @@ Note that this result contains seven fully qualified aggregate values, followed 
 
 # <a name="SystemQueryOptionapply" href="#SystemQueryOptionapply">3 System Query Option `$apply`</a>
 
-A _set transformation_ (_transformation_ for short) is an operation on an input set that produces an output set. A _transformation sequence_ is a sequence of set transformations, separated by forward slashes to express that they are consecutively applied. A transformation sequence is invoked using the system query option `$apply` or they appear as a parameter of certain set transformations defined below. The input set of the first set transformation is the collection addressed by the resource path. The output set of each set transformation is the input set for the next set transformation. The output set of the last set transformation in the transformation sequence invoked by the system query option `$apply` is the result of `$apply`. This is consistent with the use of service-defined bound and composable functions in path segments.
+A _set transformation_ (_transformation_ for short) is an operation on an input set that produces an output set. A _transformation sequence_ is a sequence of set transformations, separated by forward slashes to express that they are consecutively applied. A transformation sequence is invoked using the system query option `$apply`. The input set of the first set transformation is the collection addressed by the resource path. The output set of each set transformation is the input set for the next set transformation. The output set of the last set transformation in the transformation sequence invoked by the system query option `$apply` is the result of `$apply`. This is consistent with the use of service-defined bound and composable functions in path segments. Set transformations also appear as a parameter of certain other set transformations defined below.
 
 The system query option `$apply` MUST NOT be used if the resource path addresses a single instance.
 
@@ -1612,7 +1612,7 @@ Another grouping operator [`rolluprecursive`](#Groupingwithrolluprecursive) whic
 These transformations produce an output set that is a subset of their input set, possibly in a different order. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called _stable across requests_ if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.
 
 ::: example
-⚠ Example 24: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The service constructs that input set by executing the `groupby` transformation on the `Sales` entity collection, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. Then the following request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
+⚠ Example 24: A stable total order is required for the input set of a [`skip`](#Transformationskip) transformation. The following request constructs that input set by executing the `groupby` transformation on the `Sales` entity collection, computing the total sales per customer. Because of the subsequent `skip` transformation, the service must endow this with a stable total order. Then the request divides the total sales per customer into pages of $N$ customers and returns page number $i$ in a reproducible manner (as long as the underlying data do not change).
 ```
 GET /service/Sales?$apply=
   groupby((Customer),aggregate(Amount with sum as Total))
@@ -2812,15 +2812,15 @@ The definition of $σ(x)$ makes use of a function $a(ε,t,x)$, which returns a s
 Three cases are distinguished:
 1. _Case where the recursive hierarchy is defined on the input set_  
    This case applies if the paths $p$ and $q$ are equal. Let $σ(x)=x$ and let $G$ be a list containing all structural and navigation properties of the entity type of $H$.  
-   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [Example 64](#caseone).)
+   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [example 64](#caseone).)
 2. _Case where the recursive hierarchy is defined on the related entity type addressed by a navigation property path_  
    This case applies if $p'$ is a non-empty navigation property path and $p''$ an optional type-cast segment such that $p$ equals the concatenated path $p'/p''/q$. Let $σ(x)=a(ε,p'/p'',x)$ and let $G=(p')$.  
-   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [Example 65](#rollupnode).)
+   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example 65](#rollupnode).)
 3. _Case where the recursive hierarchy is related to the input set only through equality of node identifiers, not through navigation_  
    If neither case 1 nor case 2 applies, let $σ(x)=a(ε,p,x[q])$ and let $G=(p)$.  
    In this case $\Pi_G(σ(x))$ injects only the node identifier of $x$ into the instances of the output set.
 
-Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [Example 66](#pathequals)).
+Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [example 66](#pathequals)).
 
 The function $a(u,t,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
 1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
@@ -2832,7 +2832,7 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 7. If $t_1$ is collection-valued, let $u[t_1]$ be a collection consisting of one item $x'$.
 8. Return $u$.
 
-(See [Example 110](#traversecoll).)
+(See [example 110](#traversecoll).)
 
 Let $r_1,…,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
@@ -2901,17 +2901,17 @@ If there is only one parent, the result is the same as in the single-parent case
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
-Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a [recursive hierarchy](#RecursiveHierarchy). The transformation $F(x)$, defined below, outputs the portion with node identifiers among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(σ(x))$ defined in the [`traverse`](#Transformationtraverse) section.
+Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a [recursive hierarchy](#RecursiveHierarchy). The transformation $F(x)$, defined below, outputs the portion whose node identifiers are among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(σ(x))$ defined in the [`traverse`](#Transformationtraverse) section.
 
 As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, and $S$ is an optional fourth parameter that restricts $H$ to a subset $H'$.
 
 Navigation properties specified in $p$ are expanded by default.
 
-Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
+Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in the first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
 
 _The `rolluprecursive` algorithm:_
 
-A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [Example 65](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
+A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 65](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
 If $r_1,…,r_n$ are the root nodes of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n))$$
@@ -2934,10 +2934,10 @@ Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
 $$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 111](#rollupcoll) for a case with $k=1$.)
 
-Non-normatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ from the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
+Informatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ as determined by $F(x)$ in the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
 ::: example
-Example <a name="caseone" href="#caseone">64</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case, the entire node is written back into the output set of $T$, aggregates must have an alias to avoid overwriting.
+Example <a name="caseone" href="#caseone">64</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case $\Pi_G(σ(x))$ writes back the entire node into the output set of $T$, aggregates must have an alias to avoid overwriting by a property of the node with the same name.
 ```
 GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
@@ -2969,7 +2969,7 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the Position parameter can be omitted.
+The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example <a name="rollupnode" href="#rollupnode">65</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
