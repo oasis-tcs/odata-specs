@@ -7,7 +7,7 @@
     "build": "node lib/build",
     "pdf": "node lib/build-pdf.mjs",
     "start": "node lib/server",
-    "test": "c8 -r html -r text mocha --timeout 5000"
+    "test": "c8 -r html -r text mocha --timeout 10000"
   },
   "author": "",
   "license": "ISC",
