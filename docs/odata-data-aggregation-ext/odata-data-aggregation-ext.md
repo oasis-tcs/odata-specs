@@ -4571,7 +4571,7 @@ Content-Type: application/json
 :::
 
 If the parent-child relationship between sales organizations is maintained in a separate entity set,
-the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a non-[standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
 ⚠ Example 118: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a root:
@@ -4586,7 +4586,7 @@ the entity key may differ from the node identifier property and there can be ent
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization">
     <ReferentialConstraint Property="SuperordinateID"
-                           ReferencedProperty="ID" />
+                           ReferencedProperty="NodeID" />
   </NavigationProperty>
 </EntityType>
 <EntityType Name="SalesOrganization">
