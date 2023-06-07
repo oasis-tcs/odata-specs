@@ -1,6 +1,6 @@
 # Node.js modules for generation of OASIS documents
 
-This folder contains several Node.js modules that generate OASIS specification documents (in Markdown, HTML and PDF) from a plain-text source. The source documents are Markdown files with MathJax formulas (in TeX-like notation like `$p_1,…,p_n$`) and additional preprocessing (see [this folder](../odata-data-aggregation-ext) for an example:
+This folder contains several Node.js modules that generate OASIS specification documents (in Markdown, HTML and PDF) from a plain-text source. The source documents are Markdown files with MathJax formulas (in TeX-like notation like `$p_1,…,p_n$`) and additional preprocessing (see [this folder](../odata-data-aggregation-ext) for an example):
 
 - Section and example numbers and references to them are expressed in the Markdown source as follows:
   ```
