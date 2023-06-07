@@ -2174,7 +2174,7 @@ results in
 
 ## <a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.8 Evaluating `$apply` as an Expand and Select Option</a>
 
-The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded collection-valued navigation or the selected collection of instances, meaning this context defines the input set of the first transformation. Furthermore, navigation or the selected collection of instances, i.e. `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
+The new system query option `$apply` can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for [evaluating `$apply`](#SystemQueryOptionapply) are applied in the context of the expanded collection-valued navigation or the selected collection of instances, meaning this context defines the input set of the first transformation. Furthermore, i.e. `$apply` is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of `$apply`.
 
 ::: example
 Example 46: products with aggregated sales
