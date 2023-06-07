@@ -1,0 +1,22 @@
+Front matter
+
+# Table of Contents
+
+::: toc
+- [1 First section](#Firstsection)
+  - [1.1 First subsection](#Firstsubsection)
+:::
+
+# <a name="Firstsection" href="#Firstsection">1 First section</a>
+## <a name="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a>
+
+Test document
+
+Example <a name="ref" href="#ref">1</a>: [Section 1.1](#Firstsubsection) contains [example 1](#ref).
+
+$$\matrix{ {\tt concat}(T,\hfill&\tt (1)\\ \quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2) }$$
+
+A|B
+-|-
+C| D
+
