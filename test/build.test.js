@@ -42,7 +42,7 @@ describe("OASIS doc build", function () {
     await page.goto(__dirname + "/test-data/test.html", {
       waitUntil: "networkidle2",
     });
-    var box = await (await page.$(".mjx-c1D6FC.TEX-I")).boxModel();
+    var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();
     assert.equal(box.width, 10);
     assert.equal(box.height, 7);
     await browser.close();
