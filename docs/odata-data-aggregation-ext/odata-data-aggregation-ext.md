@@ -2438,18 +2438,18 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 ### <a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a>
 
-A recursive hierarchy is defined on a collection of entities by associating with every entity zero or more other entities from the same collection, called its _parents_. The entities are called _nodes_ and each node within the collection must be identifiable through a single primitive property called the _node identifier_.
+A recursive hierarchy is defined on a collection of entities by associating with every entity zero or more other entities from the same collection, called its _parents_. Entities that belong to a hierarchy are called _nodes_, they must be identifiable through a single primitive property called the _node identifier_.
 
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
-- `IsRoot` is a Boolean value and nodes in the hierarchy for which this is true are called _root nodes_. A recursive hierarchy can have one or more root nodes. The _standard definition for root_ is "node without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsRoot` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 53](#salesorghier). The standard definition for root is also implied if the `IsRoot` property is null or absent.
+- `IsStartNode` is a Boolean value and entities for which this is true are called _start nodes_ of the hierarchy. The _standard definition of start node_ is "entity without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsStartNode` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 53](#salesorghier). The standard definition of start node is also implied if the `IsStartNode` property is null or absent.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two nodes without parents. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. With a non-standard definition for root, not every node is necessarily a descendant of a root node. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, as long as they are root nodes or descendants of root nodes (see [example 59](#nonstandardroot)). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
+An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. A node without parents is a _root node_ (and is then necessarily also a start node, but not vice versa). A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including all root nodes that can be reached (see [example 59](#nonstandardstart)). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
 
 The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a cycle of ancestors. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
 
@@ -2514,7 +2514,7 @@ Example <a name="salesorghier" href="#salesorghier">53</a>: leveled hierarchies 
                            PropertyPath="ID" />
             <PropertyValue Property="ParentNavigationProperty"
                            PropertyPath="Superordinate" />
-            <PropertyValue Property="IsRoot">
+            <PropertyValue Property="IsStartNode">
               <Eq>
                 <Path>Superordinate</Path>
                 <Null />
@@ -2526,6 +2526,14 @@ Example <a name="salesorghier" href="#salesorghier">53</a>: leveled hierarchies 
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
+```
+
+If `Superordinate` was collection-valued, the standard definition of start node would be the dynamic expression
+```xml
+<Eq>
+  <Path>Superordinate/$count</Path>
+  <Int>0</Int>
+</Eq>
 ```
 :::
 
@@ -2650,7 +2658,7 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="nonstandardroot" href="#nonstandardroot">59</a>: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy if only the US sales organization is designated as a root node.
+⚠ Example <a name="nonstandardstart" href="#nonstandardstart">59</a>: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy if only the US sales organization is designated as a start node.
 
 ```xml
 <Annotations Target="SalesModel.SalesOrganization">
@@ -2661,7 +2669,7 @@ results in
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Superordinate" />
-      <PropertyValue Property="IsRoot">
+      <PropertyValue Property="IsStartNode">
         <Eq>
           <Path>ID</Path>
           <String>US</String>
@@ -2885,9 +2893,9 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 
 (See [example 113](#traversecoll).)
 
-The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The general case follows later.
+The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition of start node](#RecursiveHierarchy). The general case follows later.
 
-Let $r_1,…,r_n$ be a sequence of the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Let $r_1,…,r_n$ be a sequence of the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
 
 $R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
@@ -3035,7 +3043,7 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent and the standard definition for root is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+If there is only one parent and the standard definition of start node is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
@@ -3045,7 +3053,7 @@ As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ an
 
 Navigation properties specified in $p$ are expanded by default.
 
-The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition for root](#RecursiveHierarchy). The general case follows later.
+The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition of start node](#RecursiveHierarchy). The general case follows later.
 
 Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in the first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
 
@@ -3053,7 +3061,7 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 68](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-If $r_1,…,r_n$ are the [root nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+If $r_1,…,r_n$ are the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n))$$
 with no order defined on the output set.
 
@@ -4571,10 +4579,10 @@ Content-Type: application/json
 :::
 
 If the parent-child relationship between sales organizations is maintained in a separate entity set,
-the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of root](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of start node](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example 118: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a root:
+⚠ Example 118: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
@@ -4608,7 +4616,7 @@ the entity key may differ from the node identifier property and there can be ent
                      PropertyPath="NodeID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Relations/Superordinate" />
-      <PropertyValue Property="IsRoot">
+      <PropertyValue Property="IsStartNode">
         <Eq>
           <Path>ID</Path>
           <String>Sales</String>
