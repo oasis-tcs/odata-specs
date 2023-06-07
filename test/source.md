@@ -6,10 +6,11 @@ $$$pagetitle$$$
 Example ##ex_ref: [Section ##Firstsubsection] contains [example ##ref].
 
 $$\matrix{ 
-A&B\hfill\\ 
-C&D\hfill 
+{\tt concat}(T,\hfill&\tt (1)\\ 
+\quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2) 
 }$$
 
 A|B
 -|-
-C|D
+C| 
+D

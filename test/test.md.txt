@@ -14,9 +14,9 @@ Test document
 
 Example <a name="ref" href="#ref">1</a>: [Section 1.1](#Firstsubsection) contains [example 1](#ref).
 
-$$\matrix{ A&B\hfill\\ C&D\hfill }$$
+$$\matrix{ {\tt concat}(T,\hfill&\tt (1)\\ \quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2) }$$
 
 A|B
 -|-
-C|D
+C| D
 
