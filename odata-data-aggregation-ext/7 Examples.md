@@ -1449,7 +1449,7 @@ Then the entity Mars has no node identifier and hence is no node in the hierarch
 
 Mars and Phobos can be made descendants of the root node by adding a relationship:
 ```json
-PATCH /service/SalesOrganizations('Mars')/Relations
+POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
 { "NodeID": "Mars", "SuperordinateID": "Sales" }
