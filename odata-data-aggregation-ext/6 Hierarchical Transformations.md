@@ -276,9 +276,9 @@ results in
 ```
 :::
 
-In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, an _upwards path_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a start node is reached. Every instance in the output set of `traverse` is related to one upwards path.
 
 ::: example
 ⚠ Example ##ex: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
@@ -293,31 +293,39 @@ results in
   "value": [
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "US",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "EMEA",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
   ]
 }
 ```
 :::
 
-Given a path-to-the-root $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the path-to-the-root consisting of the node $y$ with the following annotations:
-- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}=x[q]$
-- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}/\hbox{\tt @Aggregation.UpNode}=x/\hbox{\tt @Aggregation.UpNode}$
+Given an upwards path $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the upwards path consisting of the node $y$ with the following annotations:
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q=x[q]$
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q/\hbox{\tt @Aggregation.UpNode}\#Q=x/\hbox{\tt @Aggregation.UpNode}\#Q$
 
-If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with `Aggregation.CycleNode` and value true. The algorithm does then not process the children of this node again.
+If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 
 ::: example
 ⚠ Example ##ex: If the child of Atlantis was also its parent:
@@ -332,46 +340,66 @@ results in
   "value": [
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "US",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.CycleNode": true,
-      "@Aggregation.UpNode": "AtlantisChild",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
-       @Aggregation.UpNode": "Sales" },
+      "@Aggregation.CycleNode#MultiParentHierarchy": true,
+      "@Aggregation.UpNode#MultiParentHierarchy": "AtlantisChild",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "EMEA",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.CycleNode": true,
-      "@Aggregation.UpNode": "AtlantisChild",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
-       @Aggregation.UpNode": "Sales" },
+      "@Aggregation.CycleNode#MultiParentHierarchy": true,
+      "@Aggregation.UpNode#MultiParentHierarchy": "AtlantisChild",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
   ]
 }
 ```
 :::
 
-Like structural and navigation properties, these instance annotations are considered part of a path-to-the-root $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpNode` or `Annotation.CycleNode`, copy these annotations from $s$ to $u$.
+Like structural and navigation properties, these instance annotations are considered part of an upwards path $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpNode` or `Annotation.CycleNode`, copy these annotations and their nested annotations from $s$ to $u$.
 
-The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
+
+The `Aggregation.UpNode` annotation of a start node has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
+where the function $R(x)$ takes as argument an upwards path. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
 $$R(x)=F(x)/\Pi_G(σ(x)).$$
 
 Otherwise, with $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
@@ -379,7 +407,7 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent and the standard definition of start node is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+If the parent collection contains only one parent, there are no cycles, and the standard definition of start node is in force, the result is the same as in the special case, except for the presence of the `Aggregation.UpNode` annotations.
 
 ## ##subsec Grouping with `rolluprecursive`
 
@@ -545,11 +573,11 @@ results in
 ```
 :::
 
-For the _general case_, the function $ρ(y,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+For the _general case_, the function $ρ(y,x)$ used below constructs an upwards path and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
+where the function $R(x)$ takes as argument an upwards path. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
 $$\matrix{ 
 R(x)={\tt concat}(\hfill\\ 
 \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ 
@@ -563,4 +591,4 @@ R(x)={\tt concat}(\hfill\\
 \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ 
 ),\hskip25pc 
 }$$
-where $χ_N$ is the path-to-the-root $x$. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.CycleNode` as true.
+where $χ_N$ is the upwards path $x$. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.CycleNode` as true.

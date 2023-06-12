@@ -2441,20 +2441,24 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 ### <a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a>
 
-A recursive hierarchy is defined on a collection of entities by associating with every entity zero or more other entities from the same collection, called its _parents_. Entities that belong to a hierarchy are called _nodes_, they must be identifiable through a single primitive property called the _node identifier_.
+A recursive hierarchy is defined on a collection of entities by
+- associating with every entity zero or more entities from the same collection, called its _parents_, and
+- designating certain entities as _start nodes_.
+
+An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. Nodes must be identifiable through a single primitive property called the _node identifier_.
 
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
+- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy (see [example 118](#orphan)).
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
-- `IsStartNode` is a Boolean value and entities for which this is true are called _start nodes_ of the hierarchy. The _standard definition of start node_ is "entity without parents", which for a single-valued `ParentNavigationProperty` is expressed by giving the `IsStartNode` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 53](#salesorghier). The standard definition of start node is also implied if the `IsStartNode` property is null or absent.
+- `IsStartNode` is a Boolean value that indicates whether an entity is a start node. The _standard definition of start node_ is "entity without parents", which is expressed by giving the `IsStartNode` property a dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) like in [example 53](#salesorghier). The standard definition of start node is also implied if the `IsStartNode` property is null or absent.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
-An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. A node without parents is a _root node_ (and is then necessarily also a start node, but not vice versa). A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including all root nodes that can be reached (see [example 59](#nonstandardstart)). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
+A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including all root nodes that can be reached (see [example 59](#nonstandardstart)). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a cycle of ancestors. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
+The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
 
 #### <a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a>
 
@@ -2943,9 +2947,9 @@ results in
 ```
 :::
 
-In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, a _path-to-the-root_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, an _upwards path_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a start node is reached. Every instance in the output set of `traverse` is related to one upwards path.
 
 ::: example
 ⚠ Example 65: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
@@ -2960,31 +2964,39 @@ results in
   "value": [
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "US",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "EMEA",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
   ]
 }
 ```
 :::
 
-Given a path-to-the-root $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the path-to-the-root consisting of the node $y$ with the following annotations:
-- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}=x[q]$
-- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}/\hbox{\tt @Aggregation.UpNode}=x/\hbox{\tt @Aggregation.UpNode}$
+Given an upwards path $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the upwards path consisting of the node $y$ with the following annotations:
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q=x[q]$
+- $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q/\hbox{\tt @Aggregation.UpNode}\#Q=x/\hbox{\tt @Aggregation.UpNode}\#Q$
 
-If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with `Aggregation.CycleNode` and value true. The algorithm does then not process the children of this node again.
+If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 
 ::: example
 ⚠ Example 66: If the child of Atlantis was also its parent:
@@ -2999,46 +3011,66 @@ results in
   "value": [
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "US",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.CycleNode": true,
-      "@Aggregation.UpNode": "AtlantisChild",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "US" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
-       @Aggregation.UpNode": "Sales" },
+      "@Aggregation.CycleNode#MultiParentHierarchy": true,
+      "@Aggregation.UpNode#MultiParentHierarchy": "AtlantisChild",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "US",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpNode": "EMEA",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "Sales" },
+      "@Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.CycleNode": true,
-      "@Aggregation.UpNode": "AtlantisChild",
-      "@Aggregation.UpNode@Aggregation.UpNode": "Atlantis",
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode": "EMEA" },
-      "@Aggregation.UpNode@Aggregation.UpNode@Aggregation.UpNode
-       @Aggregation.UpNode": "Sales" },
+      "@Aggregation.CycleNode#MultiParentHierarchy": true,
+      "@Aggregation.UpNode#MultiParentHierarchy": "AtlantisChild",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Atlantis",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "EMEA",
+      "@Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy
+       @Aggregation.UpNode#MultiParentHierarchy": "Sales" },
     ...
   ]
 }
 ```
 :::
 
-Like structural and navigation properties, these instance annotations are considered part of a path-to-the-root $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpNode` or `Annotation.CycleNode`, copy these annotations from $s$ to $u$.
+Like structural and navigation properties, these instance annotations are considered part of an upwards path $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpNode` or `Annotation.CycleNode`, copy these annotations and their nested annotations from $s$ to $u$.
 
-The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
+
+The `Aggregation.UpNode` annotation of a start node has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
+where the function $R(x)$ takes as argument an upwards path. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
 $$R(x)=F(x)/\Pi_G(σ(x)).$$
 
 Otherwise, with $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
@@ -3046,7 +3078,7 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent and the standard definition of start node is in force, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+If the parent collection contains only one parent, there are no cycles, and the standard definition of start node is in force, the result is the same as in the special case, except for the presence of the `Aggregation.UpNode` annotations.
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
@@ -3183,15 +3215,15 @@ results in
 ```
 :::
 
-For the _general case_, the function $ρ(y,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
+For the _general case_, the function $ρ(y,x)$ used below constructs an upwards path and was defined in the [`traverse`](#Transformationtraverse) section.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
+where the function $R(x)$ takes as argument an upwards path. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
 $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
 otherwise
 $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
-where $χ_N$ is the path-to-the-root $x$. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.CycleNode` as true.
+where $χ_N$ is the upwards path $x$. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.CycleNode` as true.
 
 -------
 
@@ -4585,7 +4617,7 @@ If the parent-child relationship between sales organizations is maintained in a 
 the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of start node](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example 118: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example <a name="orphan" href="#orphan">118</a>: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>

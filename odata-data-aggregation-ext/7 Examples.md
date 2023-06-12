@@ -1390,7 +1390,7 @@ If the parent-child relationship between sales organizations is maintained in a 
 the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of start node](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example ##ex_orphan: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
