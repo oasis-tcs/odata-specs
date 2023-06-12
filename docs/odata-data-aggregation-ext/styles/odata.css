@@ -171,6 +171,15 @@ hr:first-of-type {
 	page-break-before: avoid;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	page-break-after: avoid;
+}
+
 h2[id="22-example-data"] {
 	page-break-before: always;
 }
