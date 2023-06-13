@@ -325,7 +325,7 @@ Given an upwards path $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the upwards p
 - $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q=x[q]$
 - $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q/\hbox{\tt @Aggregation.UpNode}\#Q=x/\hbox{\tt @Aggregation.UpNode}\#Q$
 
-where the annotation in the second row may contain further `Aggregation.UpNode` annotations. If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
+where the annotation in the second row may contain nested `Aggregation.UpNode` annotations. If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 
 ::: example
 ⚠ Example ##ex: If the child of Atlantis was also its parent:

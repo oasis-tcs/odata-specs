@@ -2983,7 +2983,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <li><span class="math inline">\(ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q=x[q]\)</span></li>
 <li><span class="math inline">\(ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q/\hbox{\tt @Aggregation.UpNode}\#Q=x/\hbox{\tt @Aggregation.UpNode}\#Q\)</span></li>
 </ul>
-<p>where the annotation in the second row may contain further <code>Aggregation.UpNode</code> annotations. If the <code>Aggregation.UpNode</code> annotation of <span class="math inline">\(y\)</span> or one of its nested <code>Aggregation.UpNode</code> annotations has as value the node identifier of <span class="math inline">\(y\)</span>, a cycle has been detected and <span class="math inline">\(ρ(y,x)\)</span> is additionally annotated with term <code>Aggregation.CycleNode</code>, qualifier <span class="math inline">\(Q\)</span> and value true. The algorithm does then not process the children of this node again.</p>
+<p>where the annotation in the second row may contain nested <code>Aggregation.UpNode</code> annotations. If the <code>Aggregation.UpNode</code> annotation of <span class="math inline">\(y\)</span> or one of its nested <code>Aggregation.UpNode</code> annotations has as value the node identifier of <span class="math inline">\(y\)</span>, a cycle has been detected and <span class="math inline">\(ρ(y,x)\)</span> is additionally annotated with term <code>Aggregation.CycleNode</code>, qualifier <span class="math inline">\(Q\)</span> and value true. The algorithm does then not process the children of this node again.</p>
 <div class="example">
 <p>⚠ Example 66: If the child of Atlantis was also its parent:</p>
 <pre><code>GET /service/SalesOrganizations?$apply=
