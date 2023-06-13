@@ -1127,7 +1127,7 @@ GET /service/SalesOrganizations?$apply=
 :::
 
 ::: example
-⚠ Example ##ex: total sales amount aggregated along the sales organization subhierarchy with root EMEA restricted to 3 levels
+⚠ Example ##ex: total sales amount aggregated along the sales organization sub-hierarchy with root EMEA restricted to 3 levels
 ```
 GET /service/Sales?$apply=
   groupby((rolluprecursive($root/SalesOrganizations,

@@ -20,7 +20,7 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$ reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is optionally followed by a type-cast segment and preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent.
 
-The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set. Applying the definition for [root](#RecursiveHierarchy) to the hierarchy $(H',Q)$ can lead to different results than for the hierarchy $(H,Q)$.
+The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set. Applying the [standard definition of start node](#RecursiveHierarchy) to the hierarchy $(H',Q)$ can lead to different results than for the hierarchy $(H,Q)$, because a node in $H'$ whose parent exists in $H$ but lies outside $H'$ counts as a start node in $(H',Q)$.
 
 ## ##subsec Hierarchical Transformations Producing a Subset
 
@@ -325,7 +325,7 @@ Given an upwards path $x$ and a child $y$ of $x$, let $ρ(y,x)$ be the upwards p
 - $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q=x[q]$
 - $ρ(y,x)/\hbox{\tt @Aggregation.UpNode}\#Q/\hbox{\tt @Aggregation.UpNode}\#Q=x/\hbox{\tt @Aggregation.UpNode}\#Q$
 
-If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
+where the annotation in the second row may contain further `Aggregation.UpNode` annotations. If the `Aggregation.UpNode` annotation of $y$ or one of its nested `Aggregation.UpNode` annotations has as value the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.CycleNode`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 
 ::: example
 ⚠ Example ##ex: If the child of Atlantis was also its parent:
@@ -510,7 +510,58 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+::: example
+⚠ Example ##ex: When displaying a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").
+
+Actual totals are computed when `rolluprecursive` is restricted to the sub-hierarchy by setting the optional parameter $S$ to an `ancestors` transformation:
+```
+GET /service/Sales?$apply=groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(ID eq 'US East'),keep start))),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 19 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 24 }
+  ]
+}
+```
+
+Visual totals are computed when the `ancestors` transformation is carried out before the `rolluprecursive`:
+```
+GET /service/Sales?$apply=
+  ancestors($root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    filter(SalesOrganization/ID eq 'US East'),keep start))),
+  /groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID)),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 12 }
+  ]
+}
+```
+:::
+
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example ##ex_rollupnode: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
