@@ -185,13 +185,13 @@ A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy (see [example ##orphan]).
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
-- `IsStartNode` is a Boolean value that indicates whether an entity is a start node. If this is null or absent, the _standard definition of start node_ is implied, which is "entity without parents".
+- `IsStartNode` is a Boolean value that indicates whether an entity is a start node. If this is null or absent, the _standard definition of start node_ is implied, which is "entity without parent nodes in the hierarchy".
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as different nodes in different recursive hierarchies, given different qualifiers.
 
 A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including all root nodes that can be reached (see [example ##nonstandardstart]). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a start node is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
+The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
 
 #### ##subsubsubsec Hierarchy Functions
 
@@ -217,7 +217,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 ::: example
 Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
 
-This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsStartNode` property is equivalent to the [standard definition of start node](#RecursiveHierarchy), but only as long as the full hierarchy collection is considered. The hierarchical transformations in [section ##HierarchicalTransformations] could also be executed on the US sub-hierarchy, which does not contain the `Superordinate` of the US sales organization. Hence, the US sales organization has no parent in that sub-hierarchy and is its start node.
+This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsStartNode` property is equivalent to the [standard definition of start node](#RecursiveHierarchy), but only as long as the full hierarchy collection is considered. The hierarchical transformations in [section ##HierarchicalTransformations] could also be executed on the US sub-hierarchy, which does not contain the `Superordinate` of the US sales organization. Hence, the US sales organization has no parent in that sub-hierarchy and is its start node according to the standard definition.
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
