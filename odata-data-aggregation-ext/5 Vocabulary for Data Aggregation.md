@@ -215,9 +215,9 @@ Another function `rollupnode` is defined that can only be used in connection wit
 The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
-Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+⚠ Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
 
-This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsStartNode` property is equivalent to the [standard definition of start node](#RecursiveHierarchy), but only as long as the full hierarchy collection is considered. The hierarchical transformations in [section ##HierarchicalTransformations] could also be executed on the US sub-hierarchy, which does not contain the `Superordinate` of the US sales organization. Hence, the US sales organization has no parent in that sub-hierarchy and is its start node according to the standard definition.
+This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsStartNode` property below is equivalent to the [standard definition of start node](#RecursiveHierarchy), but only as long as the full hierarchy collection is considered. The hierarchical transformations in [section ##HierarchicalTransformations] could also be executed on the US sub-hierarchy, which does not contain the `Superordinate` of the US sales organization. Since the US sales organization has no parent in that sub-hierarchy, it is its start node according to the standard definition but not according to the `Superordinate eq null` rule given below.
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
