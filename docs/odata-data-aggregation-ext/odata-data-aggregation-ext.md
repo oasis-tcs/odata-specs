@@ -2458,7 +2458,7 @@ The term `RecursiveHierarchy` can only be applied to entity types, and MUST be a
 
 A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent nodes, the parents of its parent nodes, and so on, up to and including all root nodes that can be reached (see [example 59](#nonstandardstart)). The _distance_ of an ancestor or descendant relationship is the number of times a `ParentNavigationProperty` is traversed while navigating from the descendant to the ancestor.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a root is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
+The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to a start node is constructed. The term `CycleNode` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
 
 #### <a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a>
 
@@ -2474,6 +2474,8 @@ The following functions are defined:
 - `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true.
 - `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
 - `isleaf` tests if the given entity is a leaf node.
+
+Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 
 ### <a name="HierarchyExamples" href="#HierarchyExamples">5.5.3 Hierarchy Examples</a>
 
@@ -2883,7 +2885,7 @@ Three cases are distinguished:
    In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [example 67](#caseone).)
 2. _Case where the recursive hierarchy is defined on the related entity type addressed by a navigation property path_  
    This case applies if $p'$ is a non-empty navigation property path and $p''$ an optional type-cast segment such that $p$ equals the concatenated path $p'/p''/q$. Let $σ(x)=a(ε,p'/p'',x)$ and let $G=(p')$.  
-   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example 69](#rollupnode).)
+   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example 68](#rollupnode).)
 3. _Case where the recursive hierarchy is related to the input set only through equality of node identifiers, not through navigation_  
    If neither case 1 nor case 2 applies, let $σ(x)=a(ε,p,x[q])$ and let $G=(p)$.  
    In this case $\Pi_G(σ(x))$ injects only the node identifier of $x$ into the instances of the output set.
@@ -2949,7 +2951,7 @@ results in
 ```
 :::
 
-In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a root and a child at the same time. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
 More precisely, an _upwards path_ is a node $y$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The annotation is again annotated with `Aggregation.UpNode` and so on until a start node is reached. Every instance in the output set of `traverse` is related to one upwards path.
 
@@ -3070,7 +3072,7 @@ Like structural and navigation properties, these instance annotations are consid
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
-The `Aggregation.UpNode` annotation of a start node has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Start nodes appear in the output set with null as their `Aggregation.UpNode` annotation. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
 where the function $R(x)$ takes as argument an upwards path. With $F(x)$ as above, if $x$ is annotated with `Aggregation.CycleNode` as true, then
 $$R(x)=F(x)/\Pi_G(σ(x)).$$
@@ -3096,7 +3098,7 @@ Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property p
 
 _The `rolluprecursive` algorithm:_
 
-A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 69](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
+A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 68](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
 If $r_1,…,r_n$ are the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n))$$
@@ -3154,8 +3156,46 @@ results in
 ```
 :::
 
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+
 ::: example
-⚠ Example 68: When displaying a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").
+⚠ Example <a name="rollupnode" href="#rollupnode">68</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      SalesOrgHierarchy,
+      SalesOrganization/ID,
+      descendants($root/SalesOrganizations,
+                  SalesOrgHierarchy,
+                  ID, filter(ID eq 'US'), keep start))),
+    compute(case(SalesOrganization eq Aggregation.rollupnode():Amount)
+            as AmountExcl)
+    /aggregate(Amount with sum as TotalAmountIncl,
+               AmountExcl with sum as TotalAmountExcl))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),
+                               TotalAmountIncl,TotalAmountExcl)",
+  "value": [
+    { "SalesOrganization": { "ID": "US West", "Name": "US West" },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
+      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
+      "TotalAmountExcl": null },
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
+      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 }
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example 69: When requesting a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").
 
 Actual totals are computed when `rolluprecursive` is restricted to the sub-hierarchy by setting the optional parameter $S$ to an `ancestors` transformation:
 ```
@@ -3200,44 +3240,6 @@ results in
       "Total@type": "Decimal", "Total": 12 },
     { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
       "Total@type": "Decimal", "Total": 12 }
-  ]
-}
-```
-:::
-
-The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
-
-::: example
-⚠ Example <a name="rollupnode" href="#rollupnode">69</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
-```
-GET /service/Sales?$apply=groupby(
-    (rolluprecursive(
-      $root/SalesOrganizations,
-      SalesOrgHierarchy,
-      SalesOrganization/ID,
-      descendants($root/SalesOrganizations,
-                  SalesOrgHierarchy,
-                  ID, filter(ID eq 'US'), keep start))),
-    compute(case(SalesOrganization eq Aggregation.rollupnode():Amount)
-            as AmountExcl)
-    /aggregate(Amount with sum as TotalAmountIncl,
-               AmountExcl with sum as TotalAmountExcl))
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(SalesOrganization(),
-                               TotalAmountIncl,TotalAmountExcl)",
-  "value": [
-    { "SalesOrganization": { "ID": "US West", "Name": "US West" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
-      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 },
-    { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
-      "TotalAmountExcl": null },
-    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
-      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 }
   ]
 }
 ```
@@ -3460,7 +3462,7 @@ results in
   "value": [
     { "Name": "Coffee", "Total@type": "Decimal", "Total":   12 },
     { "Name": "Paper",  "Total@type": "Decimal", "Total":    8 },
-    { "Name": "Pencil",                                "Total": null },
+    { "Name": "Pencil",                          "Total": null },
     { "Name": "Sugar",  "Total@type": "Decimal", "Total":    4 }
   ]
 }
@@ -4446,7 +4448,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 113: Return the result of [example 69](#rollupnode) in preorder
+Example 113: Return the result of [example 68](#rollupnode) in preorder
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(

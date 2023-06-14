@@ -180,7 +180,7 @@ results in
   "value": [
     { "Name": "Coffee", "Total@type": "Decimal", "Total":   12 },
     { "Name": "Paper",  "Total@type": "Decimal", "Total":    8 },
-    { "Name": "Pencil",                                "Total": null },
+    { "Name": "Pencil",                          "Total": null },
     { "Name": "Sugar",  "Total@type": "Decimal", "Total":    4 }
   ]
 }
