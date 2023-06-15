@@ -378,7 +378,7 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-Servers SHOULD omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued. This is because in this case duplicate nodes in the output set can only occur only if a start node is its own descendant. If that happens, such a node is annotated with `Aggregation.Cycle` as true but not with `Aggregation.UpNode`.
+Servers MAY omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued. If in this case a start node is its own descendant, it is annotated with `Aggregation.Cycle` as true but not with `Aggregation.UpNode`.
 
 If `RecursiveHierarchy/ParentNavigationProperty` is collection-valued but the parent collection never contains more than one parent and the standard definition of start node is in force, then the result is effectively like in the special case, except for the presence of the `Aggregation.UpPath` annotations.
 
@@ -621,4 +621,4 @@ R(x)={\tt concat}(\hfill\\
 }$$
 where $χ_N$ is the node $x$ with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.Cycle` as true.
 
-Servers SHOULD omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
+Servers MAY omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
