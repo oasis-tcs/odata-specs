@@ -172,7 +172,11 @@ For complete copyright information please see the full Notices section in an App
   - [6.2 Hierarchical Transformations Producing a Subset](#HierarchicalTransformationsProducingaSubset)
     - [6.2.1 Transformations `ancestors` and `descendants`](#Transformationsancestorsanddescendants)
     - [6.2.2 Transformation `traverse`](#Transformationtraverse)
+      - [6.2.2.1 Special Case of `traverse`](#SpecialCaseoftraverse)
+      - [6.2.2.2 General Case of `traverse`](#GeneralCaseoftraverse)
   - [6.3 Grouping with `rolluprecursive`](#Groupingwithrolluprecursive)
+    - [6.3.1 Special Case of `rolluprecursive`](#SpecialCaseofrolluprecursive)
+    - [6.3.2 General Case of `rolluprecursive`](#GeneralCaseofrolluprecursive)
 - [7 Examples](#Examples)
   - [7.1 Requesting Distinct Values](#RequestingDistinctValues)
   - [7.2 Standard Aggregation Methods](#StandardAggregationMethods)
@@ -2908,7 +2912,9 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 
 (See [example 114](#traversecoll).)
 
-The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition of start node](#RecursiveHierarchy). The general case follows later.
+#### <a name="SpecialCaseoftraverse" href="#SpecialCaseoftraverse">6.2.2.1 Special Case of `traverse`</a>
+
+The algorithm is first given for the special case where `RecursiveHierarchy/ParentNavigationProperty` is single-valued and `RecursiveHierarchy/IsStartNode` is null or absent (and hence the [standard definition of start node](#RecursiveHierarchy) in force). In this special case, $σ(x)$ is computed exactly once for every node $x$, as part of the recursive formula for $R(x)$ given below. The general case follows [later](#GeneralCaseoftraverse).
 
 Let $r_1,…,r_n$ be a sequence of the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
@@ -2955,7 +2961,9 @@ results in
 ```
 :::
 
-In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+#### <a name="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of `traverse`</a>
+
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
@@ -2990,12 +2998,14 @@ results in
 ```
 :::
 
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q$ set to an empty collection.
+
 Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
 $$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q$ set to an empty collection.
-
-If the `Aggregation.UpPath` annotation of $y$ contains the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.Cycle`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
+If the string value of the node identifier of $y$ is among the values on the right-hand side of the previous equation, a cycle has been detected and $ρ(y,x)$ is additionally annotated with
+$$ρ(y,x)/@\hbox{\tt Aggregation.Cycle}\#Q={\tt true}.$$
+The algorithm does then not process the children of this node again.
 
 ::: example
 ⚠ Example 66: If the child of Atlantis is also its parent:
@@ -3037,13 +3047,13 @@ results in
 :::
 
 Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpPath` and optionally also with `Aggregation.Cycle`, copy these annotations and their nested annotations from $s$ to $u$.
+- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle`, copy these annotations and their nested annotations from $s$ to $u$.
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
 With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
-where the function $R(x)$ takes as argument a node with `Aggregation.UpPath` annotation. With $F(x)$ as above, if $x$ is annotated with `Aggregation.Cycle` as true, then
+where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. With $F(x)$ as above, if $x$ is annotated with `Aggregation.Cycle` as true, then
 $$R(x)=F(x)/\Pi_G(σ(x)).$$
 
 Otherwise, with $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
@@ -3051,7 +3061,9 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If the parent collection contains only one parent, there are no cycles, and the standard definition of start node is in force, the result is the same as in the special case, except for the presence of the `Aggregation.UpPath` annotations.
+Servers SHOULD omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued. This is because in this case duplicate nodes in the output set can only occur only if a start node is its own descendant. If that happens, such a node is annotated with `Aggregation.Cycle` as true but not with `Aggregation.UpNode`.
+
+If `RecursiveHierarchy/ParentNavigationProperty` is collection-valued but the parent collection never contains more than one parent and the standard definition of start node is in force, then the result is effectively like in the special case, except for the presence of the `Aggregation.UpPath` annotations.
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
@@ -3061,7 +3073,9 @@ As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ an
 
 Navigation properties specified in $p$ are expanded by default.
 
-The algorithm is first given for the _special case_ of a single-valued `RecursiveHierarchy/ParentNavigationProperty` that does not lead to cycles and with the [standard definition of start node](#RecursiveHierarchy). The general case follows later.
+### <a name="SpecialCaseofrolluprecursive" href="#SpecialCaseofrolluprecursive">6.3.1 Special Case of `rolluprecursive`</a>
+
+The `rolluprecursive` algorithm is first given for the same special case as for the [`traverse`](#SpecialCaseoftraverse) transformation. The general case follows [later](#GeneralCaseofrolluprecursive).
 
 Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in the first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
 
@@ -3239,15 +3253,19 @@ results in
 ```
 :::
 
-The _general case_ uses the functions $ρ(y,x)$ and $ρ_0(x)$ defined in the [`traverse`](#Transformationtraverse) section.
+### <a name="GeneralCaseofrolluprecursive" href="#GeneralCaseofrolluprecursive">6.3.2 General Case of `rolluprecursive`</a>
+
+The general case again uses the functions $ρ_0(x)$ and $ρ(y,x)$ defined for the [`traverse`](#GeneralCaseoftraverse) transformation.
 
 With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1),…,R(ρ_0(r_n))),$$
-where the function $R(x)$ takes as argument a node with `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
+where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
 $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
 otherwise
 $$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
-where $χ_N$ is the node $x$ with `Aggregation.UpPath` annotation. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.Cycle` as true.
+where $χ_N$ is the node $x$ with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.Cycle` as true.
+
+Servers SHOULD omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
 
 -------
 
