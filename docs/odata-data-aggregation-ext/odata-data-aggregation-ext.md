@@ -213,7 +213,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a>
 
 This specification defines the following terms:
-- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
 - <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
@@ -3049,7 +3049,7 @@ results in
 Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
 - If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle`, copy these annotations and their nested annotations from $s$ to $u$.
 
-Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
+Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
 With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
