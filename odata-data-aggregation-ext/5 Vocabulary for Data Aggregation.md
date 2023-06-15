@@ -189,7 +189,11 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ (with maximum distance $d≥1$) of a node are its child nodes and (if $d>1$) their descendants (with maximum distance $d-1$), up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ (with maximum distance $d≥1$) of a node are its parent nodes and (if $d>1$) their ancestors (with maximum distance $d-1$), up to and including all root nodes that can be reached (see [example ##nonstandardstart]).
+A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
+
+The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, their descendants with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
+
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ their ancestors with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$. (See [example ##nonstandardstart].)
 
 The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
 
@@ -203,8 +207,8 @@ For testing the position of a given entity in a recursive hierarchy, the Aggrega
 
 The following functions are defined:
 - `isroot` tests if the given entity is a root node of the hierarchy.
-- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true.
-- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true.
+- `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
 - `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
 - `isleaf` tests if the given entity is a leaf node.
 

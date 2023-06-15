@@ -2456,7 +2456,11 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes. The _descendants_ (with maximum distance $d≥1$) of a node are its child nodes and (if $d>1$) their descendants (with maximum distance $d-1$), up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ (with maximum distance $d≥1$) of a node are its parent nodes and (if $d>1$) their ancestors (with maximum distance $d-1$), up to and including all root nodes that can be reached (see [example 59](#nonstandardstart)).
+A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
+
+The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, their descendants with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
+
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ their ancestors with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$. (See [example 59](#nonstandardstart).)
 
 The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section 6.2.2](#Transformationtraverse).
 
@@ -2470,8 +2474,8 @@ For testing the position of a given entity in a recursive hierarchy, the Aggrega
 
 The following functions are defined:
 - `isroot` tests if the given entity is a root node of the hierarchy.
-- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true.
-- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true.
+- `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
 - `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
 - `isleaf` tests if the given entity is a leaf node.
 
@@ -2953,7 +2957,7 @@ results in
 
 In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, a node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
+More precisely, a node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
 ::: example
 ⚠ Example 65: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
@@ -2986,10 +2990,10 @@ results in
 ```
 :::
 
-Given a node $x$ annotated with $x/\hbox{\tt @Aggregation.UpPath}\#Q=[x_1,...,x_l]$, where $l≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
-$$ρ(y,x)/\hbox{\tt @Aggregation.UpPath}\#Q=[x[q],x_1,...,x_l].$$
+Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
+$$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/\hbox{\tt @Aggregation.UpPath}\#Q$ set to an empty collection.
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q$ set to an empty collection.
 
 If the `Aggregation.UpPath` annotation of $y$ contains the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.Cycle`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 

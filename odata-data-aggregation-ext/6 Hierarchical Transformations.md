@@ -278,7 +278,7 @@ results in
 
 In the _general case_, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
-More precisely, a node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
+More precisely, a node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
 ::: example
 ⚠ Example ##ex: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
@@ -311,10 +311,10 @@ results in
 ```
 :::
 
-Given a node $x$ annotated with $x/\hbox{\tt @Aggregation.UpPath}\#Q=[x_1,...,x_l]$, where $l≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
-$$ρ(y,x)/\hbox{\tt @Aggregation.UpPath}\#Q=[x[q],x_1,...,x_l].$$
+Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
+$$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/\hbox{\tt @Aggregation.UpPath}\#Q$ set to an empty collection.
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q$ set to an empty collection.
 
 If the `Aggregation.UpPath` annotation of $y$ contains the node identifier of $y$, a cycle has been detected and $ρ(y,x)$ is additionally annotated with term `Aggregation.Cycle`, qualifier $Q$ and value true. The algorithm does then not process the children of this node again.
 
