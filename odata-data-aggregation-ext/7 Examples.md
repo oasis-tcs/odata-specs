@@ -1398,7 +1398,7 @@ the entity key may differ from the node identifier property and there can be ent
     <PropertyRef Name="SuperordinateID" />
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
-  <Property Name="SuperordinateID" Type="Edm.String" />
+  <Property Name="SuperordinateID" Type="Edm.String" Nullable="false" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization">
     <ReferentialConstraint Property="SuperordinateID"
