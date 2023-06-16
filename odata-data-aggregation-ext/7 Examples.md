@@ -1452,7 +1452,7 @@ Mars and Phobos can be made descendants of the root node by adding a relationshi
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
-{ "NodeID": "Mars", "SuperordinateID": "Sales" }
+{ "SuperordinateID": "Sales" }
 ```
 :::
 
