@@ -14,7 +14,7 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [this example](#aggregation). Reference to an example.
   See [example ##aggregation]. Reference to an example showing its number.
   ```
-- Long tables or MathJax formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
+- Long MathJax formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
 - The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
 
 The [`number.js`](number.js) module generates a single Markdown document by preprocessing all `.md` files in a given folder:
@@ -66,7 +66,7 @@ proc.stdout.pipe(«HTML file»);
 new Number("odata-data-aggregation-ext").build(proc.stdin);
 ```
 
-The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odata-data-aggregation-ext/styles) subfolder in order to display keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
+The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
 
 | Keyword occurs     | Markdown source                      | Rendered result                      |
 | ------------------ | ------------------------------------ | ------------------------------------ |
