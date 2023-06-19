@@ -18,10 +18,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Setup pandoc
-        uses: nikeee/setup-pandoc@v1
-        with:
-          pandoc-version: 3.1.2
+      - name: Puppeteer Container
+        uses: ianwalter/puppeteer-container@v4.0.0
       - name: Generate PDF
         run: |
           npm ci
