@@ -1,4 +1,4 @@
-name: Manually triggered PDF generation
+name: Trigger PDF generation
 
 on:
   workflow_dispatch:
@@ -23,9 +23,7 @@ jobs:
           npm ci
           npm run pdf --if-present
           git config user.name ${GITHUB_ACTOR}
-          git config user.email ${PUSHER_EMAIL}
+          git config user.email github-actions@github.com
           git add docs/*/*.pdf
           git diff-index --quiet HEAD || git commit -m "PDF generation"
           git push
-        env:
-          PUSHER_EMAIL: ${{ github.event.pusher.email }}
