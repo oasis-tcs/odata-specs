@@ -1361,7 +1361,7 @@ results in `204 No Content`.
 :::
 
 ::: example
-Example ##ex: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
 ```xml
 <EntityType Name="SalesOrganization">
   <Key>
@@ -1393,14 +1393,10 @@ If the parent-child relationship between sales organizations is maintained in a 
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
-    <PropertyRef Name="SuperordinateID" />
+    <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
   </Key>
-  <Property Name="SuperordinateID" Type="Edm.String" Nullable="false" />
   <NavigationProperty Name="Superordinate"
-                      Type="SalesModel.SalesOrganization">
-    <ReferentialConstraint Property="SuperordinateID"
-                           ReferencedProperty="ID" />
-  </NavigationProperty>
+                      Type="SalesModel.SalesOrganization" Nullable="false" />
 </EntityType>
 <EntityType Name="SalesOrganization">
   <Key>
@@ -1449,7 +1445,7 @@ Content-Type: application/json
 { "Superordinate@bind": "SalesOrganizations('Sales')" }
 ```
 
-Alternatively, the property taking part in the referential constraint can be named:
+Since this example contains no referential constraint, there is no analogy to [example ##refconstr]. The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json

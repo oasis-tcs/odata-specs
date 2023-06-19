@@ -4257,7 +4257,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>results in <code>204 No Content</code>.</p>
 </div>
 <div class="example">
-<p>Example 118: If the parent navigation property contained a referential constraint for the key of the target <a href="#ODataCSDL">OData-CSDL, section 8.5</a>,</p>
+<p>Example <a name="refconstr" href="#refconstr">118</a>: If the parent navigation property contained a referential constraint for the key of the target <a href="#ODataCSDL">OData-CSDL, section 8.5</a>,</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
 <span id="cb229-2"><a href="#cb229-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
 <span id="cb229-3"><a href="#cb229-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
@@ -4282,40 +4282,36 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>⚠ Example 119: Assume additional <code>SalesOrganizations</code> Mars, Phobos and Venus, and that only Sales is a start node:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganizationRelation&quot;</span>&gt;</span>
 <span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
+<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate/ID&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
 <span id="cb231-4"><a href="#cb231-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb231-5"><a href="#cb231-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;SuperordinateID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb231-6"><a href="#cb231-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
-<span id="cb231-7"><a href="#cb231-7" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
-<span id="cb231-8"><a href="#cb231-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ReferentialConstraint</span><span class="ot"> Property=</span><span class="st">&quot;SuperordinateID&quot;</span></span>
-<span id="cb231-9"><a href="#cb231-9" aria-hidden="true" tabindex="-1"></a><span class="ot">                           ReferencedProperty=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb231-10"><a href="#cb231-10" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
-<span id="cb231-11"><a href="#cb231-11" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb231-12"><a href="#cb231-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
-<span id="cb231-13"><a href="#cb231-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb231-14"><a href="#cb231-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb231-15"><a href="#cb231-15" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb231-16"><a href="#cb231-16" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb231-17"><a href="#cb231-17" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb231-18"><a href="#cb231-18" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Relations&quot;</span></span>
-<span id="cb231-19"><a href="#cb231-19" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;Collection(SalesModel.SalesOrganizationRelation)&quot;</span></span>
-<span id="cb231-20"><a href="#cb231-20" aria-hidden="true" tabindex="-1"></a><span class="ot">                      ContainsTarget=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
-<span id="cb231-21"><a href="#cb231-21" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
-<span id="cb231-22"><a href="#cb231-22" aria-hidden="true" tabindex="-1"></a><span class="ot">              Qualifier=</span><span class="st">&quot;MultiParentHierarchy&quot;</span>&gt;</span>
-<span id="cb231-23"><a href="#cb231-23" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb231-24"><a href="#cb231-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
-<span id="cb231-25"><a href="#cb231-25" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb231-26"><a href="#cb231-26" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
-<span id="cb231-27"><a href="#cb231-27" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;Relations/Superordinate&quot;</span> /&gt;</span>
-<span id="cb231-28"><a href="#cb231-28" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;IsStartNode&quot;</span>&gt;</span>
-<span id="cb231-29"><a href="#cb231-29" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Eq</span>&gt;</span>
-<span id="cb231-30"><a href="#cb231-30" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Path</span>&gt;ID&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb231-31"><a href="#cb231-31" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;Sales&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb231-32"><a href="#cb231-32" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Eq</span>&gt;</span>
-<span id="cb231-33"><a href="#cb231-33" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb231-34"><a href="#cb231-34" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb231-35"><a href="#cb231-35" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb231-36"><a href="#cb231-36" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
+<span id="cb231-5"><a href="#cb231-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
+<span id="cb231-6"><a href="#cb231-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb231-7"><a href="#cb231-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb231-8"><a href="#cb231-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
+<span id="cb231-9"><a href="#cb231-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb231-10"><a href="#cb231-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb231-11"><a href="#cb231-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb231-12"><a href="#cb231-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb231-13"><a href="#cb231-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb231-14"><a href="#cb231-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Relations&quot;</span></span>
+<span id="cb231-15"><a href="#cb231-15" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;Collection(SalesModel.SalesOrganizationRelation)&quot;</span></span>
+<span id="cb231-16"><a href="#cb231-16" aria-hidden="true" tabindex="-1"></a><span class="ot">                      ContainsTarget=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb231-17"><a href="#cb231-17" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
+<span id="cb231-18"><a href="#cb231-18" aria-hidden="true" tabindex="-1"></a><span class="ot">              Qualifier=</span><span class="st">&quot;MultiParentHierarchy&quot;</span>&gt;</span>
+<span id="cb231-19"><a href="#cb231-19" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Record</span>&gt;</span>
+<span id="cb231-20"><a href="#cb231-20" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
+<span id="cb231-21"><a href="#cb231-21" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb231-22"><a href="#cb231-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
+<span id="cb231-23"><a href="#cb231-23" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;Relations/Superordinate&quot;</span> /&gt;</span>
+<span id="cb231-24"><a href="#cb231-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;IsStartNode&quot;</span>&gt;</span>
+<span id="cb231-25"><a href="#cb231-25" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Eq</span>&gt;</span>
+<span id="cb231-26"><a href="#cb231-26" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Path</span>&gt;ID&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb231-27"><a href="#cb231-27" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;Sales&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb231-28"><a href="#cb231-28" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Eq</span>&gt;</span>
+<span id="cb231-29"><a href="#cb231-29" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb231-30"><a href="#cb231-30" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb231-31"><a href="#cb231-31" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb231-32"><a href="#cb231-32" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 <p>Further assume the following relationships between sales organizations:</p>
 <table>
 <thead>
@@ -4353,7 +4349,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb232-2"><a href="#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb232-3"><a href="#cb232-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb232-4"><a href="#cb232-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;Superordinate@bind&quot;</span><span class="fu">:</span> <span class="st">&quot;SalesOrganizations(&#39;Sales&#39;)&quot;</span> <span class="fu">}</span></span></code></pre></div>
-<p>Alternatively, the property taking part in the referential constraint can be named:</p>
+<p>Since this example contains no referential constraint, there is no analogy to <a href="#refconstr">example 118</a>. The alias <code>SuperordinateID</code> cannot be used in the payload, the following request is invalid:</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb233-1"><a href="#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)/Relations</span></span>
 <span id="cb233-2"><a href="#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb233-3"><a href="#cb233-3" aria-hidden="true" tabindex="-1"></a></span>
