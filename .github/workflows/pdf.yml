@@ -1,4 +1,4 @@
-name: Manually triggered PDF generation
+name: Trigger PDF generation
 
 on:
   workflow_dispatch:
