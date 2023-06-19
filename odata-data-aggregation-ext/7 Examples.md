@@ -1350,12 +1350,12 @@ works differently: `descendants` is the parameter $T$ of `ancestors` and operate
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
 ::: example
-Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by setting the reference [OData-Protocol section 11.4.6.3](#ODataProtocol) of the parent navigation property target [OData-URL, section 4.4](#ODataURL) to a reference to EMEA Central [OData-JSON, section 14](#ODataJSON):
+Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
 ```json
-PUT /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+PUT /service/SalesOrganizations('Switzerland')/Superordinate
 Content-Type: application/json
 
-{ "@id": "SalesOrganizations('EMEA Central')" }
+{ "@bind": "SalesOrganizations('EMEA Central')" }
 ```
 results in `204 No Content`.
 :::
@@ -1447,12 +1447,12 @@ Venus|
 
 Then the entity Mars has no node identifier and hence is no node in the hierarchy, even though it occurs as a parent. Its child Phobos cannot be reached from the root Sales and hence is an orphan, as is Venus.
 
-Mars and Phobos can be made descendants of the root node by adding a relationship:
+Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first segment of the `ParentNavigationProperty` appears at the end of the resource path and the second segment appears in the payload before the `@bind`:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
-{ "SuperordinateID": "Sales" }
+{ "Superordinate@bind": "SalesOrganizations('Sales')" }
 ```
 :::
 
