@@ -1386,23 +1386,20 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set,
-the entity key may differ from the node identifier property and there can be entities without node identifier. And by using a [non-standard definition of start node](#RecursiveHierarchy), even nodes with node identifier can be unreachable from any root, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set and a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
 
 ::: example
-⚠ Example ##ex_orphan: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example ##ex: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
-    <PropertyRef Name="NodeID" />
     <PropertyRef Name="SuperordinateID" />
   </Key>
-  <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="SuperordinateID" Type="Edm.String" Nullable="false" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization">
     <ReferentialConstraint Property="SuperordinateID"
-                           ReferencedProperty="NodeID" />
+                           ReferencedProperty="ID" />
   </NavigationProperty>
 </EntityType>
 <EntityType Name="SalesOrganization">
@@ -1411,17 +1408,14 @@ the entity key may differ from the node identifier property and there can be ent
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="Name" Type="Edm.String" />
-  <Property Name="NodeID" Type="Edm.String" />
   <NavigationProperty Name="Relations"
-                      Type="Collection(SalesModel.SalesOrganizationRelation)">
-    <ReferentialConstraint Property="NodeID"
-                           ReferencedProperty="NodeID" />
-  </NavigationProperty>
+                      Type="Collection(SalesModel.SalesOrganizationRelation)"
+                      ContainsTarget="true" />
   <Annotation Term="Aggregation.RecursiveHierarchy"
               Qualifier="MultiParentHierarchy">
     <Record>
       <PropertyValue Property="NodeProperty"
-                     PropertyPath="NodeID" />
+                     PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Relations/Superordinate" />
       <PropertyValue Property="IsStartNode">
@@ -1437,15 +1431,15 @@ the entity key may differ from the node identifier property and there can be ent
 
 Further assume the following relationships between sales organizations:
 
-NodeID|SuperordinateID
-------|---------------
+`ID`|`Relations/SuperordinateID`
+----|---------------------------
 Sales|
 EMEA|Sales
 EMEA Central|EMEA
 Phobos|Mars
 Venus|
 
-Then the entity Mars has no node identifier and hence is no node in the hierarchy, even though it occurs as a parent. Its child Phobos cannot be reached from the root Sales and hence is an orphan, as is Venus.
+Then the entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first segment of the `ParentNavigationProperty` appears at the end of the resource path and the second segment appears in the payload before the `@bind`:
 ```json
@@ -1453,6 +1447,14 @@ POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
 { "Superordinate@bind": "SalesOrganizations('Sales')" }
+```
+
+Alternatively, the property taking part in the referential constraint can be named:
+```json
+POST /service/SalesOrganizations('Mars')/Relations
+Content-Type: application/json
+
+{ "SuperordinateID": "Sales" }
 ```
 :::
 
