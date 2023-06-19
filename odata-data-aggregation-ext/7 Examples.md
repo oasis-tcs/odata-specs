@@ -1437,7 +1437,7 @@ Venus|
 
 Then the entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
 
-Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first segment of the `ParentNavigationProperty` appears at the end of the resource path and the second segment appears in the payload before the `@bind`:
+Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first, collection-valued, segment of the `ParentNavigationProperty` appears at the end of the resource path and the second, single-valued, segment appears in the payload before the `@bind`:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json

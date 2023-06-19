@@ -4344,7 +4344,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </tbody>
 </table>
 <p>Then the entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.</p>
-<p>Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first segment of the <code>ParentNavigationProperty</code> appears at the end of the resource path and the second segment appears in the payload before the <code>@bind</code>:</p>
+<p>Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first, collection-valued, segment of the <code>ParentNavigationProperty</code> appears at the end of the resource path and the second, single-valued, segment appears in the payload before the <code>@bind</code>:</p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)/Relations</span></span>
 <span id="cb232-2"><a href="#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb232-3"><a href="#cb232-3" aria-hidden="true" tabindex="-1"></a></span>
