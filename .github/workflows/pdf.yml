@@ -1,0 +1,31 @@
+name: Manually triggered PDF generation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Generate PDF
+        run: |
+          npm ci
+          npm run pdf --if-present
+          git config user.name ${GITHUB_ACTOR}
+          git config user.email ${PUSHER_EMAIL}
+          git add docs/*/*.pdf
+          git diff-index --quiet HEAD || git commit -m "PDF generation"
+          git push
+        env:
+          PUSHER_EMAIL: ${{ github.event.pusher.email }}
