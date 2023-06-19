@@ -3,7 +3,7 @@
 
 -------
 
-# OData Extension for Data Aggregation Version 4.0
+# OData Extension for Data Aggregation Version 4.0 - dummy change
 
 ## Committee Specification Draft 04
 
