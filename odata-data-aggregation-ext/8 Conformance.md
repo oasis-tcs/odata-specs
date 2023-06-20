@@ -61,6 +61,12 @@ https://www.rfc-editor.org/info/rfc2119.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
+## ##subasec Informative References
+
+###### <a name="SQLInformix">[SQL-Informix]</a>
+IBM Informix V14.10 documentation  
+https://www.ibm.com/docs/en/informix-servers/14.10?topic=clause-start#ids_sqs_2034.
+
 -------
 
 # Appendix ##asec Acknowledgments

@@ -304,6 +304,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="#References">A References</a>
 <ul>
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
+<li><a href="#InformativeReferences">A.2 Informative References</a></li>
 </ul></li>
 <li><a href="#Acknowledgments">B Acknowledgments</a>
 <ul>
@@ -2567,9 +2568,9 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>A recursive hierarchy is defined on a collection of entities by</p>
 <ul>
 <li>associating with every entity zero or more entities from the same collection, called its <em>parents</em>, and</li>
-<li>designating certain entities as <em>start nodes</em>.</li>
+<li>designating certain entities as <em>start nodes</em>. The concept of start nodes generalizes the notion of a "root" in graph theory and is analogous to the <code>start with</code> clause of SQL Hierarchical Queries <a href="#SQLInformix">SQL-Informix</a>.</li>
 </ul>
-<p>An entity is a <em>node</em> of the hierarchy if it is a start node or has a parent that is a node. Nodes must be identifiable through a single primitive property called the <em>node identifier</em>.</p>
+<p>An entity is a <em>node</em> of the hierarchy if it is a start node or has a parent that is a node. The recursion in this definition, which defines "node" in terms of "node", is typical of many definitions in the context of recursive hierarchies. Nodes must be identifiable through a single primitive property called the <em>node identifier</em>.</p>
 <p>A recursive hierarchy does not need to be as uniform as a leveled hierarchy.</p>
 <p>The recursive hierarchy is described in the model by an annotation of the entity type with the complex term <code>RecursiveHierarchy</code> with these properties:</p>
 <ul>
@@ -2578,9 +2579,9 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <li><code>IsStartNode</code> is a Boolean value that indicates whether an entity is a start node. If this is null or absent, the <em>standard definition of start node</em> is implied, which is "entity without parent nodes in the hierarchy".</li>
 </ul>
 <p>The term <code>RecursiveHierarchy</code> can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in <a href="#Groupingwithrolluprecursive">grouping with <code>rolluprecursive</code></a>, and in <a href="#HierarchyFunctions">hierarchy functions</a>. The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.</p>
-<p>A node without parents is a <em>root node</em>. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a <em>child node</em> of its parent nodes, a node without child nodes is a <em>leaf node</em>. Two nodes with a common parent node are <em>sibling nodes</em> and so are two root nodes.</p>
-<p>The <em>descendants with maximum distance <span class="math inline">\(d≥1\)</span></em> of a node are its child nodes and, if <span class="math inline">\(d&gt;1\)</span>, their descendants with maximum distance <span class="math inline">\(d-1\)</span>, up to and including all leaf nodes that can be reached. The <em>descendants</em> are the descendants with maximum distance <span class="math inline">\(d=∞\)</span>. A node together with its descendants forms a <em>sub-hierarchy</em> of the hierarchy.</p>
-<p>The <em>ancestors with maximum distance <span class="math inline">\(d≥1\)</span></em> of a node are its parent nodes and, if <span class="math inline">\(d&gt;1\)</span> their ancestors with maximum distance <span class="math inline">\(d-1\)</span>, up to and including all root nodes that can be reached. The <em>ancestors</em> are the ancestors with maximum distance <span class="math inline">\(d=∞\)</span>. (See <a href="#nonstandardstart">example 59</a>.)</p>
+<p>A <em>root node</em> is a node without parent nodes, that is, without parents that are also nodes of the hierarchy. A root node is necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a <em>child node</em> of its parent nodes, a node without child nodes is a <em>leaf node</em>. Two nodes with a common parent node are <em>sibling nodes</em> and so are two root nodes.</p>
+<p>The <em>descendants with maximum distance <span class="math inline">\(d≥1\)</span></em> of a node are its child nodes and, if <span class="math inline">\(d&gt;1\)</span>, the descendants of these child nodes with maximum distance <span class="math inline">\(d-1\)</span>, up to and including all leaf nodes that can be reached. The <em>descendants</em> are the descendants with maximum distance <span class="math inline">\(d=∞\)</span>. A node together with its descendants forms a <em>sub-hierarchy</em> of the hierarchy.</p>
+<p>The <em>ancestors with maximum distance <span class="math inline">\(d≥1\)</span></em> of a node are its parent nodes and, if <span class="math inline">\(d&gt;1\)</span> the ancestors of these parent nodes with maximum distance <span class="math inline">\(d-1\)</span>, up to and including all root nodes that can be reached. The <em>ancestors</em> are the ancestors with maximum distance <span class="math inline">\(d=∞\)</span>. (See <a href="#nonstandardstart">example 59</a>.)</p>
 <p>The term <code>UpPath</code> can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term <code>Cycle</code> is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a <em>cycle</em>. These instance annotations are introduced in <a href="#Transformationtraverse">section 6.2.2</a>.</p>
 <h4 id="5521-hierarchy-functions"><a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a></h4>
 <p>For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary <a href="#ODataVocAggr">OData-VocAggr</a> defines unbound functions. These have</p>
@@ -4541,6 +4542,10 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+<h6 id="sql-informix"><a name="SQLInformix">[SQL-Informix]</a></h6>
+<p>IBM Informix V14.10 documentation<br />
+<a href="https://www.ibm.com/docs/en/informix-servers/14.10?topic=clause-start#ids_sqs_2034">https://www.ibm.com/docs/en/informix-servers/14.10?topic=clause-start#ids_sqs_2034</a>.</p>
 <hr />
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
 <h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>

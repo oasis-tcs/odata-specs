@@ -176,9 +176,9 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 A recursive hierarchy is defined on a collection of entities by
 - associating with every entity zero or more entities from the same collection, called its _parents_, and
-- designating certain entities as _start nodes_.
+- designating certain entities as _start nodes_. The concept of start nodes generalizes the notion of a "root" in graph theory and is analogous to the `start with` clause of SQL Hierarchical Queries [SQL-Informix](#SQLInformix).
 
-An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. Nodes must be identifiable through a single primitive property called the _node identifier_.
+An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. The recursion in this definition, which defines "node" in terms of "node", is typical of many definitions in the context of recursive hierarchies. Nodes must be identifiable through a single primitive property called the _node identifier_.
 
 A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
@@ -189,11 +189,11 @@ The recursive hierarchy is described in the model by an annotation of the entity
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parents is a _root node_. It is then necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
+A _root node_ is a node without parent nodes, that is, without parents that are also nodes of the hierarchy. A root node is necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
-The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, their descendants with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
+The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
-The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ their ancestors with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$. (See [example ##nonstandardstart].)
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ the ancestors of these parent nodes with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$. (See [example ##nonstandardstart].)
 
 The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
 
