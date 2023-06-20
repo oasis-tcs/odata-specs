@@ -2968,7 +2968,7 @@ In the general case, the recursive algorithm can reach a node $x$ multiple times
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
 ::: example
-⚠ Example 65: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
+⚠ Example <a name="atlantis" href="#atlantis">65</a>: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
 ```
 GET /service/SalesOrganizations?$apply=
     /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
@@ -4655,10 +4655,10 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set and a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
 
 ::: example
-⚠ Example 119: Assume additional `SalesOrganizations` Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example 119: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars, Phobos and Venus, and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
@@ -4675,7 +4675,7 @@ If the parent-child relationship between sales organizations is maintained in a 
   <Property Name="Name" Type="Edm.String" />
   <NavigationProperty Name="Relations"
                       Type="Collection(SalesModel.SalesOrganizationRelation)"
-                      ContainsTarget="true" />
+                      Nullable="false" ContainsTarget="true" />
   <Annotation Term="Aggregation.RecursiveHierarchy"
               Qualifier="MultiParentHierarchy">
     <Record>
@@ -4699,14 +4699,17 @@ Further assume the following relationships between sales organizations:
 `ID`|`Relations/SuperordinateID`
 ----|---------------------------
 Sales|
+US|Sales
 EMEA|Sales
 EMEA Central|EMEA
+Atlantis|US
+Atlantis|EMEA
 Phobos|Mars
 Venus|
 
-Then the entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
+Then Atlantis is a node with two parents. The entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
 
-Mars and Phobos can be made descendants of the root node by adding a relationship. Note the first, collection-valued, segment of the `ParentNavigationProperty` appears at the end of the resource path and the second, single-valued, segment appears in the payload before the `@bind`:
+Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
