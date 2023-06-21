@@ -363,8 +363,10 @@ results in
 ```
 :::
 
-Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle`, copy these annotations and their nested annotations from $s$ to $u$.
+Further instance annotations with service-specific terms and qualifier $Q$ MAY be added to $ρ_0(x)$ and $ρ(y,x)$, for example, that reflect a weight or a validity of a parent-child relationship (see [example ##weight]).
+
+Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle` or a service-specific term with qualifier $Q$, copy these annotations from $s$ to $u$.
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 

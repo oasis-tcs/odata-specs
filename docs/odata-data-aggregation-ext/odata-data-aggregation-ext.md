@@ -1138,7 +1138,7 @@ _Determination of $A$:_
 Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 129](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 130](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
 Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances of structured types or primitive values, possibly with repetitions.
@@ -3047,8 +3047,10 @@ results in
 ```
 :::
 
-Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle`, copy these annotations and their nested annotations from $s$ to $u$.
+Further instance annotations with service-specific terms and qualifier $Q$ MAY be added to $ρ_0(x)$ and $ρ(y,x)$, for example, that reflect a weight or a validity of a parent-child relationship (see [example 120](#weight)).
+
+Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle` or a service-specific term with qualifier $Q$, copy these annotations from $s$ to $u$.
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
@@ -4656,15 +4658,17 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents with different weights. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
 
 ::: example
-⚠ Example 119: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example 119: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars and Phobos and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
     <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
   </Key>
+  <Property Name="Weight" Type="Edm.Decimal"
+                          Nullable="false" DefaultValue="1" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization" Nullable="false" />
 </EntityType>
@@ -4697,18 +4701,16 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`
-----|---------------------------
-Sales|
-US|Sales
-EMEA|Sales
-EMEA Central|EMEA
-Atlantis|US
-Atlantis|EMEA
-Phobos|Mars
-Venus|
+`ID`|`Relations/SuperordinateID`|`Relations/Weight`
+----|---------------------------|-----------------:
+US|Sales|1
+EMEA|Sales|1
+EMEA Central|EMEA|1
+Atlantis|US|0.6
+Atlantis|EMEA|0.4
+Phobos|Mars|1
 
-Then Atlantis is a node with two parents. The entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
+Then Atlantis is a node with two parents. The entities Mars and Phobos cannot be reached from the start node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
@@ -4725,6 +4727,64 @@ Content-Type: application/json
 
 { "SuperordinateID": "Sales" }
 ```
+
+The `SuperordinateID` alias is used in the request to delete the added relationship again:
+```
+DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
+```
+:::
+
+::: example
+⚠ Example <a name="weight" href="#weight">120</a>: Assume that nodes with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
+```xml
+<Term Name="Weight" Type="Edm.Decimal" AppliesTo="EntityType">
+  <Annotation Term="Core.Description"
+    String="Weight of a node along its Aggregation.UpPath" />
+</Term>
+```
+
+Then `rolluprecursive` can be used to aggregate the weighted sales volume:
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID)),
+    aggregate(Amount mul
+      Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
+      with sum as WeightedTotal))
+```
+
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),WeightedTotal)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 34 },
+    { "SalesOrganization": { "ID": "US", "Name": "US",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 25 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 0.6 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 6 },
+    ...
+    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 9 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 0.4 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 4 },
+    ...
+  ]
+}
+```
 :::
 
 ## <a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a>
@@ -4732,7 +4792,7 @@ Content-Type: application/json
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 
 ::: example
-Example 120:
+Example 121:
 ```
 GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)
@@ -4751,7 +4811,7 @@ means "filter first, then aggregate", and results in
 Using `filter` within `$apply` does not preclude using it as a normal system query option.
 
 ::: example
-Example 121:
+Example 122:
 ```
 GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
@@ -4772,7 +4832,7 @@ results in
 :::
 
 ::: example
-Example 122: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
+Example 123: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
 ```
 GET /service/Sales?$apply=aggregate(Amount from Time with average
                                     as DailyAverage)
@@ -4786,7 +4846,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Amount with sum as Total))
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
-Example 123: getting the population per country with
+Example 124: getting the population per country with
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
@@ -4808,7 +4868,7 @@ results in
 :::
 
 ::: example
-Example 124: all countries with megacities and their continents
+Example 125: all countries with megacities and their continents
 ```
 GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
@@ -4817,7 +4877,7 @@ GET /service/Cities?$apply=filter(Population ge 10000000)
 :::
 
 ::: example
-Example 125: all countries with tens of millions of city dwellers and the continents only for these countries
+Example 126: all countries with tens of millions of city dwellers and the continents only for these countries
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4839,7 +4899,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 126: all countries with tens of millions of city dwellers and all continents with cities independent of their size
+Example 127: all countries with tens of millions of city dwellers and all continents with cities independent of their size
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4851,7 +4911,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 127: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
+Example 128: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
 ```
 GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
     /addnested(Items,filter(not Shipped) as FilteredItems)
@@ -4861,7 +4921,7 @@ GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
 :::
 
 ::: example
-Example 128: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
+Example 129: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
@@ -4871,7 +4931,7 @@ GET /service/SalesOrders?$apply=
 :::
 
 ::: example
-Example <a name="aggrconflict" href="#aggrconflict">129</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
+Example <a name="aggrconflict" href="#aggrconflict">130</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
 ```
 GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
@@ -4882,7 +4942,7 @@ results in an error.
 :::
 
 ::: example
-Example 130: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
+Example 131: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
 ```
 GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))

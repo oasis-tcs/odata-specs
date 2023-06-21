@@ -1386,15 +1386,17 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents with different weights. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars, Phobos and Venus, and that only Sales is a start node:
+⚠ Example ##ex: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars and Phobos and that only Sales is a start node:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
     <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
   </Key>
+  <Property Name="Weight" Type="Edm.Decimal"
+                          Nullable="false" DefaultValue="1" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization" Nullable="false" />
 </EntityType>
@@ -1427,18 +1429,16 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`
-----|---------------------------
-Sales|
-US|Sales
-EMEA|Sales
-EMEA Central|EMEA
-Atlantis|US
-Atlantis|EMEA
-Phobos|Mars
-Venus|
+`ID`|`Relations/SuperordinateID`|`Relations/Weight`
+----|---------------------------|-----------------:
+US|Sales|1
+EMEA|Sales|1
+EMEA Central|EMEA|1
+Atlantis|US|0.6
+Atlantis|EMEA|0.4
+Phobos|Mars|1
 
-Then Atlantis is a node with two parents. The entities Mars, Phobos and Venus cannot be reached from the start node Sales and hence are orphans.
+Then Atlantis is a node with two parents. The entities Mars and Phobos cannot be reached from the start node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
@@ -1454,6 +1454,64 @@ POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
 { "SuperordinateID": "Sales" }
+```
+
+The `SuperordinateID` alias is used in the request to delete the added relationship again:
+```
+DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
+```
+:::
+
+::: example
+⚠ Example ##ex_weight: Assume that nodes with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
+```xml
+<Term Name="Weight" Type="Edm.Decimal" AppliesTo="EntityType">
+  <Annotation Term="Core.Description"
+    String="Weight of a node along its Aggregation.UpPath" />
+</Term>
+```
+
+Then `rolluprecursive` can be used to aggregate the weighted sales volume:
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID)),
+    aggregate(Amount mul
+      Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
+      with sum as WeightedTotal))
+```
+
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),WeightedTotal)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 34 },
+    { "SalesOrganization": { "ID": "US", "Name": "US",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 25 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 0.6 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 6 },
+    ...
+    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 1 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 9 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ],
+        "@SalesModel.Weight#MultiParentHierarchy": 0.4 },
+      "WeightedTotal@type": "Decimal", "WeightedTotal": 4 },
+    ...
+  ]
+}
 ```
 :::
 
