@@ -175,8 +175,6 @@ For complete copyright information please see the full Notices section in an App
       - [6.2.2.1 Special Case of `traverse`](#SpecialCaseoftraverse)
       - [6.2.2.2 General Case of `traverse`](#GeneralCaseoftraverse)
   - [6.3 Grouping with `rolluprecursive`](#Groupingwithrolluprecursive)
-    - [6.3.1 Special Case of `rolluprecursive`](#SpecialCaseofrolluprecursive)
-    - [6.3.2 General Case of `rolluprecursive`](#GeneralCaseofrolluprecursive)
 - [7 Examples](#Examples)
   - [7.1 Requesting Distinct Values](#RequestingDistinctValues)
   - [7.2 Standard Aggregation Methods](#StandardAggregationMethods)
@@ -2752,7 +2750,7 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
-The recursive hierarchy to be processed can also be defined on a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) or be service-defined bound functions whose output set is a subset of their input set. The start nodes of the hierarchies $(H',Q)$ and $(H,Q)$ may differ. For example, if the [standard definition of start node](#RecursiveHierarchy) is in force, a node in $H'$ whose parent exists in $H$ but lies outside $H'$ counts as a start node in $(H',Q)$.
+Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2.1](#Transformationsancestorsanddescendants) or be service-defined bound functions whose output set is a subset of their input set.
 
 ## <a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a>
 
@@ -2768,23 +2766,23 @@ The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2.1](#Transformationsancestorsanddescendants) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
-$S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
+The fifth parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
-The output set of the transformation ${\tt ancestors}(H,Q,p,T,S,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,S,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
+The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
+$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
 or, for `descendants`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 or, for `descendants`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
@@ -2915,7 +2913,7 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 
 The algorithm is first given for the special case where `RecursiveHierarchy/ParentNavigationProperty` is single-valued and `RecursiveHierarchy/IsStartNode` is null or absent (and hence the [standard definition of start node](#RecursiveHierarchy) in force). In this special case, $σ(x)$ is computed exactly once for every node $x$, as part of the recursive formula for $R(x)$ given below. The general case follows [later](#GeneralCaseoftraverse).
 
-Let $r_1,…,r_n$ be a sequence of the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Let $r_1,…,r_n$ be a sequence of the nodes in $H'$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
 
 $R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
@@ -3070,13 +3068,9 @@ If `RecursiveHierarchy/ParentNavigationProperty` is collection-valued but the pa
 
 Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a [recursive hierarchy](#RecursiveHierarchy). The transformation $F(x)$, defined below, outputs the portion whose node identifiers are among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(σ(x))$ defined in the [`traverse`](#Transformationtraverse) section.
 
-As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, and $S$ is an optional fourth parameter that restricts $H$ to a subset $H'$.
+As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, $S$ is an optional fourth parameter that determines $H'$.
 
 Navigation properties specified in $p$ are expanded by default.
-
-### <a name="SpecialCaseofrolluprecursive" href="#SpecialCaseofrolluprecursive">6.3.1 Special Case of `rolluprecursive`</a>
-
-The `rolluprecursive` algorithm is first given for the same special case as for the [`traverse`](#SpecialCaseoftraverse) transformation. The general case follows [later](#GeneralCaseofrolluprecursive).
 
 Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property paths and $P_2$ for zero or more `rollup` or `rolluprecursive` operators or property paths. The transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is computed by the following algorithm, which invokes itself recursively if the number of `rolluprecursive` operators in the first argument of the `groupby` transformation, which is called $M$, is greater than one. Let $N$ be the recursion depth of the algorithm, starting with 1.
 
@@ -3084,25 +3078,25 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 68](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-If $r_1,…,r_n$ are the [start nodes](#RecursiveHierarchy) of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(r_1),…,R(r_n))$$
+If $H'$ consists of the nodes $x_1,…,x_n$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+$${\tt concat}(R(x_1),…,R(x_n))$$
 with no order defined on the output set.
 
-$R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,…,c_m$ be the [children](#RecursiveHierarchy) of $x$ in $(H',Q)$:
+$R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ ).\hskip25pc }$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))).$$
 
-The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of row (1) involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
+The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of the formula involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if $P_1$ and $P_2$ are empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ ).\hskip25pc }$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 115](#rollupcoll) for a case with $k=1$.)
 
 Informatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ as determined by $F(x)$ in the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
@@ -3254,19 +3248,6 @@ results in
 ```
 :::
 
-### <a name="GeneralCaseofrolluprecursive" href="#GeneralCaseofrolluprecursive">6.3.2 General Case of `rolluprecursive`</a>
-
-The general case again uses the functions $ρ_0(x)$ and $ρ(y,x)$ defined for the [`traverse`](#GeneralCaseoftraverse) transformation.
-
-With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(ρ_0(r_1),…,R(ρ_0(r_n))),$$
-where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
-otherwise
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill&\tt(2)\\ ),\hskip25pc }$$
-where $χ_N$ is the node $x$ with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. But row (2) is omitted and the `concat` avoided if $x$ is annotated with `Aggregation.Cycle` as true.
-
-Servers MAY omit the `Aggregation.UpNode` annotation from the result of `$apply` if `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
 
 -------
 
@@ -4745,7 +4726,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 :::
 
 ::: example
-⚠ Example <a name="weight" href="#weight">120</a>: Assume that nodes with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
+⚠ Example <a name="weight" href="#weight">120</a>: Assume that sales organizations with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
 ```xml
 <Term Name="Weight" Type="Edm.Decimal" AppliesTo="EntityType">
   <Annotation Term="Core.Description"
@@ -4753,17 +4734,23 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 </Term>
 ```
 
-Then `rolluprecursive` can be used to aggregate the weighted sales volume:
+Then `rolluprecursive` can be used to aggregate the weighted sales volume. The aggregation with `rolluprecursive` produces one instance per sales organization, the subsequent `traverse` transformation duplicates instances for sales organizations with multiple parents and thereby introduces the `SalesModel.Weight` instance annotation. Finally, a `compute` transformation multiplies the value of this instance annotation with the aggregate value from `rolluprecursive`:
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
       $root/SalesOrganizations,
       MultiParentHierarchy,
       SalesOrganization/ID)),
-    compute(Amount mul
-      Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
-      as WeightedAmount)
-    /aggregate(WeightedAmount with sum as WeightedTotal))
+    aggregate(Amount with sum as Total))
+    /traverse(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID,
+      preorder)
+    /compute(Total mul
+      SalesOrganization/@SalesModel.Weight#MultiParentHierarchy
+      as WeightedTotal)
+  &$select=WeightedTotal
 ```
 
 Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:

@@ -1475,7 +1475,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 :::
 
 ::: example
-⚠ Example ##ex_weight: Assume that nodes with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
+⚠ Example ##ex_weight: Assume that sales organizations with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
 ```xml
 <Term Name="Weight" Type="Edm.Decimal" AppliesTo="EntityType">
   <Annotation Term="Core.Description"
@@ -1483,17 +1483,23 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 </Term>
 ```
 
-Then `rolluprecursive` can be used to aggregate the weighted sales volume:
+Then `rolluprecursive` can be used to aggregate the weighted sales volume. The aggregation with `rolluprecursive` produces one instance per sales organization, the subsequent `traverse` transformation duplicates instances for sales organizations with multiple parents and thereby introduces the `SalesModel.Weight` instance annotation. Finally, a `compute` transformation multiplies the value of this instance annotation with the aggregate value from `rolluprecursive`:
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
       $root/SalesOrganizations,
       MultiParentHierarchy,
       SalesOrganization/ID)),
-    compute(Amount mul
-      Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
-      as WeightedAmount)
-    /aggregate(WeightedAmount with sum as WeightedTotal))
+    aggregate(Amount with sum as Total))
+    /traverse(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID,
+      preorder)
+    /compute(Total mul
+      SalesOrganization/@SalesModel.Weight#MultiParentHierarchy
+      as WeightedTotal)
+  &$select=WeightedTotal
 ```
 
 Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:
