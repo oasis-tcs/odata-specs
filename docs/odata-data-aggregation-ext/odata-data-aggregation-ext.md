@@ -4630,6 +4630,18 @@ Content-Type: application/json
 { "@bind": "SalesOrganizations('EMEA Central')" }
 ```
 results in `204 No Content`.
+
+Deleting the parent from the sales organization Switzerland (making it a root) can be achieved either with:
+```json
+PUT /service/SalesOrganizations('Switzerland')/Superordinate
+Content-Type: application/json
+
+{ "@bind": null }
+```
+or with:
+```
+DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+```
 :::
 
 ::: example
