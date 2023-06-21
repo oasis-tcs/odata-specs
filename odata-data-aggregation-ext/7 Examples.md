@@ -1468,7 +1468,7 @@ Content-Type: application/json
 { "SuperordinateID": "Sales" }
 ```
 
-The `SuperordinateID` alias is used in the request to delete the added relationship again:
+The alias `SuperordinateID` is used in the request to delete the added relationship again:
 ```
 DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 ```
@@ -1490,9 +1490,10 @@ GET /service/Sales?$apply=groupby(
       $root/SalesOrganizations,
       MultiParentHierarchy,
       SalesOrganization/ID)),
-    aggregate(Amount mul
+    compute(Amount mul
       Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
-      with sum as WeightedTotal))
+      as WeightedAmount)
+    /aggregate(WeightedAmount with sum as WeightedTotal))
 ```
 
 Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:

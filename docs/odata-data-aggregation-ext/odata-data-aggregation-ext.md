@@ -214,7 +214,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a>
 
 This specification defines the following terms:
-- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of a complex or entity or an [aggregatable primitive type](#AggregatablePrimitiveType)
 - <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
@@ -1124,7 +1124,7 @@ The property is a dynamic property, except for a special case in type 4. In type
 _Types of aggregate expressions:_
 1. A path $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a complex or entity or [aggregatable primitive type](#AggregatablePrimitiveType) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$, or $p=p_2$ if the input set can be aggregated using the [custom aggregation method](#CustomAggregationMethods) $g$.  
 Let $f(A)=g(A)$.
-2. An [aggregatable expression](#AggregatableExpression).  
+2. An [aggregatable expression](#AggregatableExpression) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$.  
 Let $f(A)=g(B)$ where $B$ is the collection consisting of the values of the aggregatable expression evaluated relative to [each occurrence](#SamenessandOrder) in $A$ with null values removed from $B$. In this type, $p$ is absent.
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
 Let $f(A)$ be the [cardinality](#SamenessandOrder) of $A$.
@@ -2451,8 +2451,6 @@ A recursive hierarchy is defined on a collection of entities by
 - designating certain entities as _start nodes_. The concept of start nodes generalizes the notion of a "root" in graph theory and is analogous to the `start with` clause of SQL Hierarchical Queries [SQL-Informix](#SQLInformix).
 
 An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. The recursion in this definition, which defines "node" in terms of "node", is typical of many definitions in the context of recursive hierarchies. Nodes must be identifiable through a single primitive property called the _node identifier_.
-
-A recursive hierarchy does not need to be as uniform as a leveled hierarchy.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
@@ -4740,7 +4738,7 @@ Content-Type: application/json
 { "SuperordinateID": "Sales" }
 ```
 
-The `SuperordinateID` alias is used in the request to delete the added relationship again:
+The alias `SuperordinateID` is used in the request to delete the added relationship again:
 ```
 DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 ```
@@ -4762,9 +4760,10 @@ GET /service/Sales?$apply=groupby(
       $root/SalesOrganizations,
       MultiParentHierarchy,
       SalesOrganization/ID)),
-    aggregate(Amount mul
+    compute(Amount mul
       Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
-      with sum as WeightedTotal))
+      as WeightedAmount)
+    /aggregate(WeightedAmount with sum as WeightedTotal))
 ```
 
 Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:

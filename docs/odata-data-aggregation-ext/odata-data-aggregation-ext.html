@@ -327,7 +327,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h3 id="111-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></h3>
 <p>This specification defines the following terms:</p>
 <ul>
-<li><a name="AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
+<li><a name="AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of a complex or entity or an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
 <li><a name="AggregateExpression"><em>Aggregate Expression</em></a> – argument of the <code>aggregate</code> <a href="#Transformationaggregate">transformation</a> or <a href="#Functionaggregate">function</a> defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
 <li><a name="AggregatablePrimitiveType"><em>Aggregatable Primitive Type</em></a> – a primitive type other than <code>Edm.Stream</code> or subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
 <li><a name="DataAggregationPath"><em>Data Aggregation Path</em></a> – a path that consists of one or more segments joined together by forward slashes (<code>/</code>). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.</li>
@@ -1607,7 +1607,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <ol type="1">
 <li>A path <span class="math inline">\(p=p_1\)</span> or <span class="math inline">\(p=p_1/p_2\)</span> where the last segment of <span class="math inline">\(p_1\)</span> has a complex or entity or <a href="#AggregatablePrimitiveType">aggregatable primitive type</a> whose values can be aggregated using the specified <a href="#AggregationMethods">aggregation method</a> <span class="math inline">\(g\)</span>, or <span class="math inline">\(p=p_2\)</span> if the input set can be aggregated using the <a href="#CustomAggregationMethods">custom aggregation method</a> <span class="math inline">\(g\)</span>.<br />
 Let <span class="math inline">\(f(A)=g(A)\)</span>.</li>
-<li>An <a href="#AggregatableExpression">aggregatable expression</a>.<br />
+<li>An <a href="#AggregatableExpression">aggregatable expression</a> whose values can be aggregated using the specified <a href="#AggregationMethods">aggregation method</a> <span class="math inline">\(g\)</span>.<br />
 Let <span class="math inline">\(f(A)=g(B)\)</span> where <span class="math inline">\(B\)</span> is the collection consisting of the values of the aggregatable expression evaluated relative to <a href="#SamenessandOrder">each occurrence</a> in <span class="math inline">\(A\)</span> with null values removed from <span class="math inline">\(B\)</span>. In this type, <span class="math inline">\(p\)</span> is absent.</li>
 <li>A path <span class="math inline">\(p/{\tt\$count}\)</span> (see <a href="#AggregateExpressioncount">section 3.2.1.4</a>) with optional prefix <span class="math inline">\(p/{}\)</span> where <span class="math inline">\(p=p_1\)</span> or <span class="math inline">\(p=p_2\)</span> or <span class="math inline">\(p=p_1/p_2\)</span>.<br />
 Let <span class="math inline">\(f(A)\)</span> be the <a href="#SamenessandOrder">cardinality</a> of <span class="math inline">\(A\)</span>.</li>
@@ -2571,7 +2571,6 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <li>designating certain entities as <em>start nodes</em>. The concept of start nodes generalizes the notion of a "root" in graph theory and is analogous to the <code>start with</code> clause of SQL Hierarchical Queries <a href="#SQLInformix">SQL-Informix</a>.</li>
 </ul>
 <p>An entity is a <em>node</em> of the hierarchy if it is a start node or has a parent that is a node. The recursion in this definition, which defines "node" in terms of "node", is typical of many definitions in the context of recursive hierarchies. Nodes must be identifiable through a single primitive property called the <em>node identifier</em>.</p>
-<p>A recursive hierarchy does not need to be as uniform as a leveled hierarchy.</p>
 <p>The recursive hierarchy is described in the model by an annotation of the entity type with the complex term <code>RecursiveHierarchy</code> with these properties:</p>
 <ul>
 <li>The <code>NodeProperty</code> allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.</li>
@@ -4376,7 +4375,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb235-2"><a href="#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb235-3"><a href="#cb235-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb235-4"><a href="#cb235-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;SuperordinateID&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales&quot;</span> <span class="fu">}</span></span></code></pre></div>
-<p>The <code>SuperordinateID</code> alias is used in the request to delete the added relationship again:</p>
+<p>The alias <code>SuperordinateID</code> is used in the request to delete the added relationship again:</p>
 <pre><code>DELETE /service/SalesOrganizations(&#39;Mars&#39;)/Relations(&#39;Sales&#39;)</code></pre>
 </div>
 <div class="example">
@@ -4391,9 +4390,10 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
       $root/SalesOrganizations,
       MultiParentHierarchy,
       SalesOrganization/ID)),
-    aggregate(Amount mul
+    compute(Amount mul
       Aggregation.rollupnode()/@SalesModel.Weight#MultiParentHierarchy
-      with sum as WeightedTotal))</code></pre>
+      as WeightedAmount)
+    /aggregate(WeightedAmount with sum as WeightedTotal))</code></pre>
 <p>Assume that in addition to the sales in the <a href="#ExampleData">example data</a> there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb239-2"><a href="#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(SalesOrganization(),WeightedTotal)&quot;</span><span class="fu">,</span></span>
