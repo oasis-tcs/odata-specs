@@ -4489,11 +4489,7 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
         $root/ProductCategories,ProductCategoryHierarchy,
         ProductCategories/ID,
         preorder,
-        descendants(
-          $root/ProductCategories,ProductCategoryHierarchy,
-          ID,
-          filter(Name eq 'Cereals'),
-          keep start)),
+        filter(Name eq 'Cereals')),
       keep start)
     )),
     aggregate(Amount with sum as TotalAmount))
@@ -4517,9 +4513,9 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `descendants` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `filter` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
 
-If `traverse` was omitted, the transformation
+If `traverse` is omitted, the transformation
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -4633,7 +4629,7 @@ Atlantis|US|2000-01-01|2023-04-30
 Atlantis|EMEA|2023-05-01|2099-12-31
 Phobos|Mars|2000-01-01|2099-12-31
 
-Then [Atlantis](#atlantis) is a node with two parents and the standard hierarchical transformations disregarding the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
+Then [Atlantis](#atlantis) is a node with two parents. The standard hierarchical transformations disregard the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json

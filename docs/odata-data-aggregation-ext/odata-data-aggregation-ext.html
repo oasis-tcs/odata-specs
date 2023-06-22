@@ -4152,11 +4152,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
         $root/ProductCategories,ProductCategoryHierarchy,
         ProductCategories/ID,
         preorder,
-        descendants(
-          $root/ProductCategories,ProductCategoryHierarchy,
-          ID,
-          filter(Name eq &#39;Cereals&#39;),
-          keep start)),
+        filter(Name eq &#39;Cereals&#39;)),
       keep start)
     )),
     aggregate(Amount with sum as TotalAmount))
@@ -4176,8 +4172,8 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb222-12"><a href="#cb222-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalAmount@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalAmount&quot;</span><span class="fu">:</span>  <span class="dv">7</span> <span class="fu">}</span></span>
 <span id="cb222-13"><a href="#cb222-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb222-14"><a href="#cb222-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p><code>traverse</code> acts here as a filter, hence <code>preorder</code> could be changed to <code>postorder</code> without changing the result. <code>descendants</code> is the parameter <span class="math inline">\(S\)</span> of <code>traverse</code> and operates on the product category hierarchy being traversed.</p>
-<p>If <code>traverse</code> was omitted, the transformation</p>
+<p><code>traverse</code> acts here as a filter, hence <code>preorder</code> could be changed to <code>postorder</code> without changing the result. <code>filter</code> is the parameter <span class="math inline">\(S\)</span> of <code>traverse</code> and operates on the product category hierarchy being traversed.</p>
+<p>If <code>traverse</code> is omitted, the transformation</p>
 <pre><code>ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
   ID,
@@ -4307,7 +4303,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Then <a href="#atlantis">Atlantis</a> is a node with two parents and the standard hierarchical transformations disregarding the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.</p>
+<p>Then <a href="#atlantis">Atlantis</a> is a node with two parents. The standard hierarchical transformations disregard the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.</p>
 <p>Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the <code>ParentNavigationProperty</code> appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the <code>@bind</code>:</p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)/Relations</span></span>
 <span id="cb230-2"><a href="#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
