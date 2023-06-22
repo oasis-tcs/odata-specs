@@ -24,6 +24,7 @@ This specification defines the following terms:
 The following non-exhaustive list contains variable names that are used throughout this document:
 - $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
+- $H'$ – subset of nodes from a hierarchical collection
 - $u,v,w$ – instances in a collection
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
