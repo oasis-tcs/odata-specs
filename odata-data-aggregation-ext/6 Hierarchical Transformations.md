@@ -20,7 +20,7 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
-Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##Transformationsancestorsanddescendants] or be service-defined bound functions whose output set is a subset of their input set.
+Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformations in $S$ will be applied to the node collection $H$, they MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set.
 
 ## ##subsec Hierarchical Transformations Producing a Subset
 
@@ -282,7 +282,7 @@ results in
 
 #### ##subsubsubsec General Case of `traverse`
 
-In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
 
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
@@ -365,14 +365,12 @@ results in
 ```
 :::
 
-Further instance annotations with service-specific terms and qualifier $Q$ MAY be added to $ρ_0(x)$ and $ρ(y,x)$, for example, that reflect a weight or a validity of a parent-child relationship (see [example ##weight]).
-
 Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle` or a service-specific term with qualifier $Q$, copy these annotations from $s$ to $u$.
+- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle` and qualifier $Q$, copy these annotations from $s$ to $u$.
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
-Let $r_1,…,r_n$ be the start nodes as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+Let $r_1,…,r_n$ be the start nodes in $H'$ as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
 where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. With $F(x)$ as above, if $x$ is annotated with `Aggregation.Cycle` as true, then
 $$R(x)=F(x)/\Pi_G(σ(x)).$$

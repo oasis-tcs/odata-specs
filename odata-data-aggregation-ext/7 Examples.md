@@ -1398,17 +1398,17 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents with different weights. Furthermore, if a [non-standard definition of start node](#RecursiveHierarchy) is used, certain nodes can be unreachable from any start node, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship. Furthermore, certain nodes can be unreachable from any root node, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Assume additional `SalesOrganizations` [Atlantis](#atlantis), Mars and Phobos and that only Sales is a start node:
+⚠ Example ##ex: Assume the relation from a node to its parent nodes is time-dependent:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
     <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
   </Key>
-  <Property Name="Weight" Type="Edm.Decimal"
-                          Nullable="false" DefaultValue="1" />
+  <Property Name="ValidFrom" Type="Edm.Date" Nullable="false" />
+  <Property Name="ValidTo" Type="Edm.Date" Nullable="false" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization" Nullable="false" />
 </EntityType>
@@ -1428,12 +1428,6 @@ If the parent-child relationship between sales organizations is maintained in a 
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
                      PropertyPath="Relations/Superordinate" />
-      <PropertyValue Property="IsStartNode">
-        <Eq>
-          <Path>ID</Path>
-          <String>Sales</String>
-        </Eq>
-      </PropertyValue>
     </Record>
   </Annotation>
 </EntityType>
@@ -1441,16 +1435,16 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`|`Relations/Weight`
-----|---------------------------|-----------------:
-US|Sales|1
-EMEA|Sales|1
-EMEA Central|EMEA|1
-Atlantis|US|0.6
-Atlantis|EMEA|0.4
-Phobos|Mars|1
+`ID`|`Relations/SuperordinateID`|`Relations/ValidFrom`|`Relations/ValidTo`
+----|---------------------------|---------------------|------------------|
+US|Sales|2000-01-01|2099-12-31
+EMEA|Sales|2000-01-01|2099-12-31
+EMEA Central|EMEA|2000-01-01|2099-12-31
+Atlantis|US|2000-01-01|2023-04-30
+Atlantis|EMEA|2023-05-01|2099-12-31
+Phobos|Mars|2000-01-01|2099-12-31
 
-Then Atlantis is a node with two parents. The entities Mars and Phobos cannot be reached from the start node Sales and hence are orphans.
+Then [Atlantis](#atlantis) is a node with two parents and the standard hierarchical transformations disregarding the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
@@ -1471,66 +1465,6 @@ Content-Type: application/json
 The alias `SuperordinateID` is used in the request to delete the added relationship again:
 ```
 DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
-```
-:::
-
-::: example
-⚠ Example ##ex_weight: Assume that sales organizations with `Aggregation.UpPath` are annotated with an additional service-specific term `SalesModel.Weight`:
-```xml
-<Term Name="Weight" Type="Edm.Decimal" AppliesTo="EntityType">
-  <Annotation Term="Core.Description"
-    String="Weight of a node along its Aggregation.UpPath" />
-</Term>
-```
-
-Then `rolluprecursive` can be used to aggregate the weighted sales volume. The aggregation with `rolluprecursive` produces one instance per sales organization, the subsequent `traverse` transformation duplicates instances for sales organizations with multiple parents and thereby introduces the `SalesModel.Weight` instance annotation. Finally, a `compute` transformation multiplies the value of this instance annotation with the aggregate value from `rolluprecursive`:
-```
-GET /service/Sales?$apply=groupby(
-    (rolluprecursive(
-      $root/SalesOrganizations,
-      MultiParentHierarchy,
-      SalesOrganization/ID)),
-    aggregate(Amount with sum as Total))
-    /traverse(
-      $root/SalesOrganizations,
-      MultiParentHierarchy,
-      SalesOrganization/ID,
-      preorder)
-    /compute(Total mul
-      SalesOrganization/@SalesModel.Weight#MultiParentHierarchy
-      as WeightedTotal)
-  &$select=WeightedTotal
-```
-
-Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:
-```json
-{
-  "@context": "$metadata#Sales(SalesOrganization(),WeightedTotal)",
-  "value": [
-    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ ],
-        "@SalesModel.Weight#MultiParentHierarchy": 1 },
-      "WeightedTotal@type": "Decimal", "WeightedTotal": 34 },
-    { "SalesOrganization": { "ID": "US", "Name": "US",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
-        "@SalesModel.Weight#MultiParentHierarchy": 1 },
-      "WeightedTotal@type": "Decimal", "WeightedTotal": 25 },
-    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ],
-        "@SalesModel.Weight#MultiParentHierarchy": 0.6 },
-      "WeightedTotal@type": "Decimal", "WeightedTotal": 6 },
-    ...
-    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ],
-        "@SalesModel.Weight#MultiParentHierarchy": 1 },
-      "WeightedTotal@type": "Decimal", "WeightedTotal": 9 },
-    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ],
-        "@SalesModel.Weight#MultiParentHierarchy": 0.4 },
-      "WeightedTotal@type": "Decimal", "WeightedTotal": 4 },
-    ...
-  ]
-}
 ```
 :::
 

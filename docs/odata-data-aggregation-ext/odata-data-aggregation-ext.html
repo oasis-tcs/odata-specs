@@ -1619,7 +1619,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>Let <span class="math inline">\(I\)</span> be the input set. If <span class="math inline">\(p\)</span> is absent, let <span class="math inline">\(A=I\)</span> with null values removed.</p>
 <p>Otherwise, let <span class="math inline">\(q\)</span> be the portion of <span class="math inline">\(p\)</span> up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let <span class="math inline">\(r\)</span> be the remainder, if any, of <span class="math inline">\(p\)</span> that contains no navigation properties, such that <span class="math inline">\(p\)</span> equals the concatenated path <span class="math inline">\(q⁄r\)</span>. The aggregate transformation considers each entity reached via the path <span class="math inline">\(q\)</span> exactly once. To this end, using the <a href="#EvaluationofDataAggregationPaths"><span class="math inline">\(\Gamma\)</span> notation</a>:</p>
 <ul>
-<li>If <span class="math inline">\(q\)</span> is non-empty, let <span class="math inline">\(E=\Gamma(I,q)\)</span> and remove duplicates from that entity collection: If <a href="#SamenessandOrder">multiple representations of the same non-transient entity</a> are reached, the service MUST merge them into one occurrence in <span class="math inline">\(E\)</span> if they are complementary and MUST reject the request if they are contradictory. (See <a href="#aggrconflict">example 129</a>.) If <a href="#SamenessandOrder">multiple occurrences of the same transient entity</a> are reached, the service MUST keep only one occurrence in <span class="math inline">\(E\)</span>.</li>
+<li>If <span class="math inline">\(q\)</span> is non-empty, let <span class="math inline">\(E=\Gamma(I,q)\)</span> and remove duplicates from that entity collection: If <a href="#SamenessandOrder">multiple representations of the same non-transient entity</a> are reached, the service MUST merge them into one occurrence in <span class="math inline">\(E\)</span> if they are complementary and MUST reject the request if they are contradictory. (See <a href="#aggrconflict">example 128</a>.) If <a href="#SamenessandOrder">multiple occurrences of the same transient entity</a> are reached, the service MUST keep only one occurrence in <span class="math inline">\(E\)</span>.</li>
 <li>If <span class="math inline">\(q\)</span> is empty, let <span class="math inline">\(E=I\)</span>.</li>
 </ul>
 <p>Then, if <span class="math inline">\(r\)</span> is empty, let <span class="math inline">\(A=E\)</span>, otherwise let <span class="math inline">\(A=\Gamma(E,r)\)</span>, this consists of instances of structured types or primitive values, possibly with repetitions.</p>
@@ -2565,7 +2565,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>A recursive hierarchy is defined on a collection of entities by</p>
 <ul>
 <li>associating with every entity zero or more entities from the same collection, called its <em>parents</em>, and</li>
-<li>identifying entities that a part of the recursive hierarchy through a single primitive property called the <em>node identifier</em>. The entities in the hierarchy are called <em>nodes</em>.</li>
+<li>identifying entities that are part of the recursive hierarchy through a single primitive property called the <em>node identifier</em>. The entities in the hierarchy are called <em>nodes</em>.</li>
 </ul>
 <p>The recursive hierarchy is described in the model by an annotation of the entity type with the complex term <code>RecursiveHierarchy</code> with these properties:</p>
 <ul>
@@ -2758,7 +2758,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <p>The parameter lists defined in the following subsections have three mandatory parameters in common.</p>
 <p>The recursive hierarchy is defined by a parameter pair <span class="math inline">\((H,Q)\)</span>, where <span class="math inline">\(H\)</span> and <span class="math inline">\(Q\)</span> MUST be specified as the first and second parameter. Here, <span class="math inline">\(H\)</span> MUST be an expression of type <code>Collection(Edm.EntityType)</code> starting with <code>$root</code> that has no multiple occurrences of the same entity. <span class="math inline">\(H\)</span> identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term <code>RecursiveHierarchy</code> with a <code>Qualifier</code> attribute whose value MUST be provided in <span class="math inline">\(Q\)</span>. The property paths referenced by <code>NodeProperty</code> and <code>ParentNavigationProperty</code> in the <code>RecursiveHierarchy</code> annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The <code>NodeProperty</code> is denoted by <span class="math inline">\(q\)</span> in this section.</p>
 <p>The third parameter MUST be a data aggregation path <span class="math inline">\(p\)</span> with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance <span class="math inline">\(u\)</span> in the input set are the primitive values in <span class="math inline">\(γ(u,p)\)</span>, they are reached via <span class="math inline">\(p\)</span> starting from <span class="math inline">\(u\)</span>. Let <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥0\)</span> be the concatenation where each sub-path <span class="math inline">\(p_1,…,p_k\)</span> consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either <span class="math inline">\(r\)</span> consists of one or more single-valued segments or <span class="math inline">\(k≥1\)</span> and <span class="math inline">\({}/r\)</span> is absent. Each segment can be prefixed with a type cast.</p>
-<p>Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence <span class="math inline">\(S\)</span> of transformations. The transformations in <span class="math inline">\(S\)</span> MUST be listed in <a href="#TransformationsProducingaSubset">section 3.3</a> or <a href="#Transformationsancestorsanddescendants">section 6.2.1</a> or be service-defined bound functions whose output set is a subset of their input set.</p>
+<p>Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence <span class="math inline">\(S\)</span> of transformations. The transformations in <span class="math inline">\(S\)</span> will be applied to the node collection <span class="math inline">\(H\)</span>, they MUST be listed in <a href="#TransformationsProducingaSubset">section 3.3</a> or <a href="#HierarchicalTransformationsProducingaSubset">section 6.2</a> or be service-defined bound functions whose output set is a subset of their input set.</p>
 <h2 id="62-hierarchical-transformations-producing-a-subset"><a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a></h2>
 <p>These transformations produce an output set that consists of certain instances from their input set, possibly with repetitions or in a different order.</p>
 <h3 id="621-transformations-ancestors-and-descendants"><a name="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1 Transformations <code>ancestors</code> and <code>descendants</code></a></h3>
@@ -2902,7 +2902,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="6222-general-case-of-traverse"><a name="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of <code>traverse</code></a></h4>
-<p>In the general case, the recursive algorithm can reach a node <span class="math inline">\(x\)</span> multiple times, via different parents or ancestors, or because <span class="math inline">\(x\)</span> is a start node and a descendant of another start node. Then the algorithm computes <span class="math inline">\(R(x)\)</span> and hence <span class="math inline">\(σ(x)\)</span> multiple times. In order to distinguish these, information about the ancestors up to the start node is injected into each <span class="math inline">\(σ(x)\)</span> by annotating <span class="math inline">\(x\)</span> differently before each <span class="math inline">\(σ(x)\)</span> is computed.</p>
+<p>In the general case, the recursive algorithm can reach a node <span class="math inline">\(x\)</span> multiple times, via different parents or ancestors, or because <span class="math inline">\(x\)</span> is a start node and a descendant of another start node. Then the algorithm computes <span class="math inline">\(R(x)\)</span> and hence <span class="math inline">\(σ(x)\)</span> multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each <span class="math inline">\(σ(x)\)</span> by annotating <span class="math inline">\(x\)</span> differently before each <span class="math inline">\(σ(x)\)</span> is computed.</p>
 <p>More precisely, in the general case every node <span class="math inline">\(y\)</span> is annotated with the term <code>UpPath</code> from the <code>Aggregation</code> vocabulary <a href="#ODataVocAggr">OData-VocAggr</a>. The annotation has <span class="math inline">\(Q\)</span> as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node <span class="math inline">\(x\)</span> such that <span class="math inline">\(R(y)\)</span> appears on the right-hand side of the recursive formula for <span class="math inline">\(R(x)\)</span>. The following members are the members of the <code>Aggregation.UpPath</code> collection of <span class="math inline">\(x\)</span>. Every instance in the output set of <code>traverse</code> is related to one node with <code>Aggregation.UpPath</code> annotation. Start nodes appear annotated with an empty collection.</p>
 <div class="example">
 <p>⚠ Example <a name="atlantis" href="#atlantis">64</a>: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a <code>traverse</code> transformation:</p>
@@ -2967,13 +2967,12 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb116-27"><a href="#cb116-27" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb116-28"><a href="#cb116-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>Further instance annotations with service-specific terms and qualifier <span class="math inline">\(Q\)</span> MAY be added to <span class="math inline">\(ρ_0(x)\)</span> and <span class="math inline">\(ρ(y,x)\)</span>, for example, that reflect a weight or a validity of a parent-child relationship (see <a href="#weight">example 119</a>).</p>
 <p>Like structural and navigation properties, these instance annotations are considered part of the node <span class="math inline">\(x\)</span> and are copied over to <span class="math inline">\(σ(x)\)</span>. For them to be included in the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span>, an additional step is inserted between steps 2 and 3 of the function <span class="math inline">\(a_G(u,s,p)\)</span> as defined in the <a href="#SimpleGrouping">simple grouping section</a>:</p>
 <ul>
-<li>If <span class="math inline">\(s\)</span> is annotated with <code>Aggregation.UpPath</code> or <code>Aggregation.Cycle</code> or a service-specific term with qualifier <span class="math inline">\(Q\)</span>, copy these annotations from <span class="math inline">\(s\)</span> to <span class="math inline">\(u\)</span>.</li>
+<li>If <span class="math inline">\(s\)</span> is annotated with <code>Aggregation.UpPath</code> or <code>Aggregation.Cycle</code> and qualifier <span class="math inline">\(Q\)</span>, copy these annotations from <span class="math inline">\(s\)</span> to <span class="math inline">\(u\)</span>.</li>
 </ul>
 <p>Recall that instance annotations never appear in <a href="#DataAggregationPath">data aggregation paths</a> or <a href="#AggregatableExpression">aggregatable expressions</a>. They are not considered when determining whether instances of structured types are <a href="#SamenessandOrder">the same</a>, they do not cause conflicting representations and are absent from merged representations.</p>
-<p>Let <span class="math inline">\(r_1,…,r_n\)</span> be the start nodes as above, then the transformation <span class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a node with optional <code>Aggregation.UpPath</code> and <code>Aggregation.Cycle</code> annotations. With <span class="math inline">\(F(x)\)</span> as above, if <span class="math inline">\(x\)</span> is annotated with <code>Aggregation.Cycle</code> as true, then <span class="math display">\[R(x)=F(x)/\Pi_G(σ(x)).\]</span></p>
+<p>Let <span class="math inline">\(r_1,…,r_n\)</span> be the start nodes in <span class="math inline">\(H&#39;\)</span> as above, then the transformation <span class="math inline">\({\tt traverse}(H,Q,p,h,S,o)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))\]</span> where the function <span class="math inline">\(R(x)\)</span> takes as argument a node with optional <code>Aggregation.UpPath</code> and <code>Aggregation.Cycle</code> annotations. With <span class="math inline">\(F(x)\)</span> as above, if <span class="math inline">\(x\)</span> is annotated with <code>Aggregation.Cycle</code> as true, then <span class="math display">\[R(x)=F(x)/\Pi_G(σ(x)).\]</span></p>
 <p>Otherwise, with <span class="math inline">\(c_1,…,c_m\)</span> as above, if <span class="math inline">\(h={\tt preorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),\]</span> and if <span class="math inline">\(h={\tt postorder}\)</span>, then <span class="math display">\[R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).\]</span></p>
 <p>Servers MAY omit the <code>Aggregation.UpNode</code> annotation from the result of <code>$apply</code> if <code>RecursiveHierarchy/ParentNavigationProperty</code> is single-valued. If in this case a start node is its own descendant, it is annotated with <code>Aggregation.Cycle</code> as true but not with <code>Aggregation.UpNode</code>.</p>
 <p>If <code>RecursiveHierarchy/ParentNavigationProperty</code> is collection-valued but the parent collection never contains more than one parent and the optional parameter <span class="math inline">\(S\)</span> is not specified, then the result is effectively like in the special case, except for the presence of the <code>Aggregation.UpPath</code> annotations.</p>
@@ -4228,15 +4227,15 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb228-4"><a href="#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;SuperordinateID&quot;</span><span class="fu">:</span> <span class="st">&quot;EMEA Central&quot;</span> <span class="fu">}</span></span></code></pre></div>
 </div>
-<p>If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents with different weights. Furthermore, if a <a href="#RecursiveHierarchy">non-standard definition of start node</a> is used, certain nodes can be unreachable from any start node, these are called orphans.</p>
+<p>If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship. Furthermore, certain nodes can be unreachable from any root node, these are called orphans.</p>
 <div class="example">
-<p>⚠ Example 118: Assume additional <code>SalesOrganizations</code> <a href="#atlantis">Atlantis</a>, Mars and Phobos and that only Sales is a start node:</p>
+<p>⚠ Example 118: Assume the relation from a node to its parent nodes is time-dependent:</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganizationRelation&quot;</span>&gt;</span>
 <span id="cb229-2"><a href="#cb229-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
 <span id="cb229-3"><a href="#cb229-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate/ID&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
 <span id="cb229-4"><a href="#cb229-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb229-5"><a href="#cb229-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Weight&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span></span>
-<span id="cb229-6"><a href="#cb229-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                          Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> DefaultValue=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb229-5"><a href="#cb229-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ValidFrom&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb229-6"><a href="#cb229-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ValidTo&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
 <span id="cb229-7"><a href="#cb229-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
 <span id="cb229-8"><a href="#cb229-8" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
 <span id="cb229-9"><a href="#cb229-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
@@ -4256,58 +4255,59 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb229-23"><a href="#cb229-23" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb229-24"><a href="#cb229-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
 <span id="cb229-25"><a href="#cb229-25" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;Relations/Superordinate&quot;</span> /&gt;</span>
-<span id="cb229-26"><a href="#cb229-26" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;IsStartNode&quot;</span>&gt;</span>
-<span id="cb229-27"><a href="#cb229-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Eq</span>&gt;</span>
-<span id="cb229-28"><a href="#cb229-28" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Path</span>&gt;ID&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb229-29"><a href="#cb229-29" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;Sales&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb229-30"><a href="#cb229-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Eq</span>&gt;</span>
-<span id="cb229-31"><a href="#cb229-31" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb229-32"><a href="#cb229-32" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb229-33"><a href="#cb229-33" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb229-34"><a href="#cb229-34" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
+<span id="cb229-26"><a href="#cb229-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb229-27"><a href="#cb229-27" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb229-28"><a href="#cb229-28" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 <p>Further assume the following relationships between sales organizations:</p>
 <table>
 <thead>
 <tr class="header">
 <th><code>ID</code></th>
 <th><code>Relations/SuperordinateID</code></th>
-<th style="text-align: right;"><code>Relations/Weight</code></th>
+<th><code>Relations/ValidFrom</code></th>
+<th><code>Relations/ValidTo</code></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>US</td>
 <td>Sales</td>
-<td style="text-align: right;">1</td>
+<td>2000-01-01</td>
+<td>2099-12-31</td>
 </tr>
 <tr class="even">
 <td>EMEA</td>
 <td>Sales</td>
-<td style="text-align: right;">1</td>
+<td>2000-01-01</td>
+<td>2099-12-31</td>
 </tr>
 <tr class="odd">
 <td>EMEA Central</td>
 <td>EMEA</td>
-<td style="text-align: right;">1</td>
+<td>2000-01-01</td>
+<td>2099-12-31</td>
 </tr>
 <tr class="even">
 <td>Atlantis</td>
 <td>US</td>
-<td style="text-align: right;">0.6</td>
+<td>2000-01-01</td>
+<td>2023-04-30</td>
 </tr>
 <tr class="odd">
 <td>Atlantis</td>
 <td>EMEA</td>
-<td style="text-align: right;">0.4</td>
+<td>2023-05-01</td>
+<td>2099-12-31</td>
 </tr>
 <tr class="even">
 <td>Phobos</td>
 <td>Mars</td>
-<td style="text-align: right;">1</td>
+<td>2000-01-01</td>
+<td>2099-12-31</td>
 </tr>
 </tbody>
 </table>
-<p>Then Atlantis is a node with two parents. The entities Mars and Phobos cannot be reached from the start node Sales and hence are orphans.</p>
+<p>Then <a href="#atlantis">Atlantis</a> is a node with two parents and the standard hierarchical transformations disregarding the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.</p>
 <p>Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the <code>ParentNavigationProperty</code> appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the <code>@bind</code>:</p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/SalesOrganizations(&#39;Mars&#39;)/Relations</span></span>
 <span id="cb230-2"><a href="#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
@@ -4321,90 +4321,39 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>The alias <code>SuperordinateID</code> is used in the request to delete the added relationship again:</p>
 <pre><code>DELETE /service/SalesOrganizations(&#39;Mars&#39;)/Relations(&#39;Sales&#39;)</code></pre>
 </div>
-<div class="example">
-<p>⚠ Example <a name="weight" href="#weight">119</a>: Assume that sales organizations with <code>Aggregation.UpPath</code> are annotated with an additional service-specific term <code>SalesModel.Weight</code>:</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb233-1"><a href="#cb233-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Term</span><span class="ot"> Name=</span><span class="st">&quot;Weight&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> AppliesTo=</span><span class="st">&quot;EntityType&quot;</span>&gt;</span>
-<span id="cb233-2"><a href="#cb233-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
-<span id="cb233-3"><a href="#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    String=</span><span class="st">&quot;Weight of a node along its Aggregation.UpPath&quot;</span> /&gt;</span>
-<span id="cb233-4"><a href="#cb233-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Term</span>&gt;</span></code></pre></div>
-<p>Then <code>rolluprecursive</code> can be used to aggregate the weighted sales volume. The aggregation with <code>rolluprecursive</code> produces one instance per sales organization, the subsequent <code>traverse</code> transformation duplicates instances for sales organizations with multiple parents and thereby introduces the <code>SalesModel.Weight</code> instance annotation. Finally, a <code>compute</code> transformation multiplies the value of this instance annotation with the aggregate value from <code>rolluprecursive</code>:</p>
-<pre><code>GET /service/Sales?$apply=groupby(
-    (rolluprecursive(
-      $root/SalesOrganizations,
-      MultiParentHierarchy,
-      SalesOrganization/ID)),
-    aggregate(Amount with sum as Total))
-    /traverse(
-      $root/SalesOrganizations,
-      MultiParentHierarchy,
-      SalesOrganization/ID,
-      preorder)
-    /compute(Total mul
-      SalesOrganization/@SalesModel.Weight#MultiParentHierarchy
-      as WeightedTotal)
-  &amp;$select=WeightedTotal</code></pre>
-<p>Assume that in addition to the sales in the <a href="#ExampleData">example data</a> there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization:</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb235-1"><a href="#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb235-2"><a href="#cb235-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(SalesOrganization(),WeightedTotal)&quot;</span><span class="fu">,</span></span>
-<span id="cb235-3"><a href="#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb235-4"><a href="#cb235-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;SalesOrganization&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Corporate Sales&quot;</span><span class="fu">,</span></span>
-<span id="cb235-5"><a href="#cb235-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Aggregation.UpPath#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb235-6"><a href="#cb235-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@SalesModel.Weight#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">},</span></span>
-<span id="cb235-7"><a href="#cb235-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;WeightedTotal@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;WeightedTotal&quot;</span><span class="fu">:</span> <span class="dv">34</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb235-8"><a href="#cb235-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;SalesOrganization&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;US&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;US&quot;</span><span class="fu">,</span></span>
-<span id="cb235-9"><a href="#cb235-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Aggregation.UpPath#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;Sales&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb235-10"><a href="#cb235-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@SalesModel.Weight#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">},</span></span>
-<span id="cb235-11"><a href="#cb235-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;WeightedTotal@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;WeightedTotal&quot;</span><span class="fu">:</span> <span class="dv">25</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb235-12"><a href="#cb235-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;SalesOrganization&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Atlantis&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Atlantis&quot;</span><span class="fu">,</span></span>
-<span id="cb235-13"><a href="#cb235-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Aggregation.UpPath#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;US&quot;</span><span class="ot">,</span> <span class="st">&quot;Sales&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb235-14"><a href="#cb235-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@SalesModel.Weight#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="fl">0.6</span> <span class="fu">},</span></span>
-<span id="cb235-15"><a href="#cb235-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;WeightedTotal@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;WeightedTotal&quot;</span><span class="fu">:</span> <span class="dv">6</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb235-16"><a href="#cb235-16" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb235-17"><a href="#cb235-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;SalesOrganization&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;EMEA&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;EMEA&quot;</span><span class="fu">,</span></span>
-<span id="cb235-18"><a href="#cb235-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Aggregation.UpPath#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;Sales&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb235-19"><a href="#cb235-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@SalesModel.Weight#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">},</span></span>
-<span id="cb235-20"><a href="#cb235-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;WeightedTotal@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;WeightedTotal&quot;</span><span class="fu">:</span> <span class="dv">9</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb235-21"><a href="#cb235-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;SalesOrganization&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;Atlantis&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Atlantis&quot;</span><span class="fu">,</span></span>
-<span id="cb235-22"><a href="#cb235-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Aggregation.UpPath#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;EMEA&quot;</span><span class="ot">,</span> <span class="st">&quot;Sales&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb235-23"><a href="#cb235-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@SalesModel.Weight#MultiParentHierarchy&quot;</span><span class="fu">:</span> <span class="fl">0.4</span> <span class="fu">},</span></span>
-<span id="cb235-24"><a href="#cb235-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;WeightedTotal@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;WeightedTotal&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb235-25"><a href="#cb235-25" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb235-26"><a href="#cb235-26" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb235-27"><a href="#cb235-27" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-</div>
 <h2 id="711-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a></h2>
 <p>Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in <code>$apply</code> in the order they are to be applied, separated by a forward slash.</p>
 <div class="example">
-<p>Example 120:</p>
+<p>Example 119:</p>
 <pre><code>GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)</code></pre>
 <p>means "filter first, then aggregate", and results in</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb237-1"><a href="#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb237-2"><a href="#cb237-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb237-3"><a href="#cb237-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb237-4"><a href="#cb237-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span></span>
-<span id="cb237-5"><a href="#cb237-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb237-6"><a href="#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb234-1"><a href="#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb234-2"><a href="#cb234-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Total)&quot;</span><span class="fu">,</span></span>
+<span id="cb234-3"><a href="#cb234-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb234-4"><a href="#cb234-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span></span>
+<span id="cb234-5"><a href="#cb234-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb234-6"><a href="#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Using <code>filter</code> within <code>$apply</code> does not preclude using it as a normal system query option.</p>
 <div class="example">
-<p>Example 121:</p>
+<p>Example 120:</p>
 <pre><code>GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
            &amp;$filter=Total ge 4</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb239-2"><a href="#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Product(Name),Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb239-3"><a href="#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb239-4"><a href="#cb239-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span> <span class="fu">},</span></span>
-<span id="cb239-5"><a href="#cb239-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb239-6"><a href="#cb239-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span> <span class="fu">},</span></span>
-<span id="cb239-7"><a href="#cb239-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span></span>
-<span id="cb239-8"><a href="#cb239-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb239-9"><a href="#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb236-2"><a href="#cb236-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Product(Name),Total)&quot;</span><span class="fu">,</span></span>
+<span id="cb236-3"><a href="#cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb236-4"><a href="#cb236-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span> <span class="fu">},</span></span>
+<span id="cb236-5"><a href="#cb236-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb236-6"><a href="#cb236-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span> <span class="fu">},</span></span>
+<span id="cb236-7"><a href="#cb236-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">4</span> <span class="fu">}</span></span>
+<span id="cb236-8"><a href="#cb236-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb236-9"><a href="#cb236-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 122: Revisiting <a href="#from">example 16</a> for using the <code>from</code> keyword with the <code>aggregate</code> function, the request</p>
+<p>Example 121: Revisiting <a href="#from">example 16</a> for using the <code>from</code> keyword with the <code>aggregate</code> function, the request</p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount from Time with average
                                     as DailyAverage)</code></pre>
 <p>could be rewritten in a more procedural way using a transformation sequence returning the same result</p>
@@ -4413,30 +4362,30 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 <p>For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.</p>
 <div class="example">
-<p>Example 123: getting the population per country with</p>
+<p>Example 122: getting the population per country with</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb243-2"><a href="#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Cities(Continent(Name),Country(Name),</span></span>
-<span id="cb243-3"><a href="#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                TotalPopulation)&quot;</span><span class="fu">,</span></span>
-<span id="cb243-4"><a href="#cb243-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb243-5"><a href="#cb243-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;China&quot;</span> <span class="fu">},</span></span>
-<span id="cb243-6"><a href="#cb243-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1412000000</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb243-7"><a href="#cb243-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;India&quot;</span> <span class="fu">},</span></span>
-<span id="cb243-8"><a href="#cb243-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1408000000</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb243-9"><a href="#cb243-9" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb243-10"><a href="#cb243-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb243-11"><a href="#cb243-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb240-1"><a href="#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb240-2"><a href="#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Cities(Continent(Name),Country(Name),</span></span>
+<span id="cb240-3"><a href="#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                TotalPopulation)&quot;</span><span class="fu">,</span></span>
+<span id="cb240-4"><a href="#cb240-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb240-5"><a href="#cb240-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;China&quot;</span> <span class="fu">},</span></span>
+<span id="cb240-6"><a href="#cb240-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1412000000</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb240-7"><a href="#cb240-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Continent&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Asia&quot;</span> <span class="fu">},</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;India&quot;</span> <span class="fu">},</span></span>
+<span id="cb240-8"><a href="#cb240-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalPopulation@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Int32&quot;</span><span class="fu">,</span> <span class="dt">&quot;TotalPopulation&quot;</span><span class="fu">:</span> <span class="dv">1408000000</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb240-9"><a href="#cb240-9" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb240-10"><a href="#cb240-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb240-11"><a href="#cb240-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 124: all countries with megacities and their continents</p>
+<p>Example 123: all countries with megacities and their continents</p>
 <pre><code>GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))</code></pre>
 </div>
 <div class="example">
-<p>Example 125: all countries with tens of millions of city dwellers and the continents only for these countries</p>
+<p>Example 124: all countries with tens of millions of city dwellers and the continents only for these countries</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
                    /filter(CountryPopulation ge 10000000)
@@ -4453,7 +4402,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
                                        as TotalPopulation))</code></pre>
 </div>
 <div class="example">
-<p>Example 126: all countries with tens of millions of city dwellers and all continents with cities independent of their size</p>
+<p>Example 125: all countries with tens of millions of city dwellers and all continents with cities independent of their size</p>
 <pre><code>GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
                    /concat(filter(CountryPopulation ge 10000000),
@@ -4462,21 +4411,21 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
                                        as TotalPopulation)))</code></pre>
 </div>
 <div class="example">
-<p>Example 127: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation</p>
+<p>Example 126: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation</p>
 <pre><code>GET /service/SalesOrders?$apply=filter(Status eq &#39;incomplete&#39;)
     /addnested(Items,filter(not Shipped) as FilteredItems)
     /groupby((Customer/Country),
      aggregate(FilteredItems/Amount with sum as ItemAmount))</code></pre>
 </div>
 <div class="example">
-<p>Example 128: assuming that <code>Amount</code> is a custom aggregate in addition to the property, determine the total for countries with an <code>Amount</code> greater than 1000</p>
+<p>Example 127: assuming that <code>Amount</code> is a custom aggregate in addition to the property, determine the total for countries with an <code>Amount</code> greater than 1000</p>
 <pre><code>GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
   /filter(Amount gt 1000)
   /aggregate(Amount)</code></pre>
 </div>
 <div class="example">
-<p>Example <a name="aggrconflict" href="#aggrconflict">129</a>: The output set of the <code>concat</code> transformation contains <code>Sales</code> entities multiple times with conflicting related <code>AugmentedProduct</code> entities that cannot be aggregated by the second transformation.</p>
+<p>Example <a name="aggrconflict" href="#aggrconflict">128</a>: The output set of the <code>concat</code> transformation contains <code>Sales</code> entities multiple times with conflicting related <code>AugmentedProduct</code> entities that cannot be aggregated by the second transformation.</p>
 <pre><code>GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
          addnested(Product,compute(0.2 as Discount) as AugmentedProduct))
@@ -4484,25 +4433,25 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>results in an error.</p>
 </div>
 <div class="example">
-<p>Example 130: The <code>nest</code> transformation can be used inside <code>groupby</code> to produce one or more collection-valued properties per group.</p>
+<p>Example 129: The <code>nest</code> transformation can be used inside <code>groupby</code> to produce one or more collection-valued properties per group.</p>
 <pre><code>GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))</code></pre>
 <p>results in</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb252-1"><a href="#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb252-2"><a href="#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
-<span id="cb252-3"><a href="#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb252-4"><a href="#cb252-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG1&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
-<span id="cb252-5"><a href="#cb252-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb252-6"><a href="#cb252-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb252-7"><a href="#cb252-7" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb252-8"><a href="#cb252-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb252-9"><a href="#cb252-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG2&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
-<span id="cb252-10"><a href="#cb252-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb252-11"><a href="#cb252-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb252-12"><a href="#cb252-12" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb252-13"><a href="#cb252-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
-<span id="cb252-14"><a href="#cb252-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb252-15"><a href="#cb252-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb249-1"><a href="#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb249-2"><a href="#cb249-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
+<span id="cb249-3"><a href="#cb249-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb249-4"><a href="#cb249-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG1&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
+<span id="cb249-5"><a href="#cb249-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb249-6"><a href="#cb249-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb249-7"><a href="#cb249-7" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb249-8"><a href="#cb249-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb249-9"><a href="#cb249-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG2&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
+<span id="cb249-10"><a href="#cb249-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb249-11"><a href="#cb249-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb249-12"><a href="#cb249-12" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb249-13"><a href="#cb249-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">}</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb249-14"><a href="#cb249-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb249-15"><a href="#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="8-conformance"><a name="Conformance" href="#Conformance">8 Conformance</a></h1>
