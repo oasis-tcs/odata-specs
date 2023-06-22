@@ -3072,7 +3072,7 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the unbound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example <a name="rollupnode" href="#rollupnode">67</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
