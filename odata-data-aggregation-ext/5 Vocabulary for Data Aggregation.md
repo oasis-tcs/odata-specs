@@ -176,24 +176,21 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 A recursive hierarchy is defined on a collection of entities by
 - associating with every entity zero or more entities from the same collection, called its _parents_, and
-- designating certain entities as _start nodes_. The concept of start nodes generalizes the notion of a "root" in graph theory and is analogous to the `start with` clause of SQL Hierarchical Queries [SQL-Informix](#SQLInformix).
-
-An entity is a _node_ of the hierarchy if it is a start node or has a parent that is a node. The recursion in this definition, which defines "node" in terms of "node", is typical of many definitions in the context of recursive hierarchies. Nodes must be identifiable through a single primitive property called the _node identifier_.
+- identifying entities that are part of the recursive hierarchy through a single primitive property called the _node identifier_. The entities in the hierarchy are called _nodes_.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy. Entities for which this path evaluates to null are not nodes of the hierarchy.
 - The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
-- `IsStartNode` is a Boolean value that indicates whether an entity is a start node. If this is null or absent, the _standard definition of start node_ is implied, which is "entity without parent nodes in the hierarchy".
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A _root node_ is a node without parent nodes, that is, without parents that are also nodes of the hierarchy. A root node is necessarily also a start node, but the converse is true only if the standard definition of start node is in force. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
+A _root node_ is a node without parent nodes, that is, without parents that are also nodes of the hierarchy. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
 The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
-The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ the ancestors of these parent nodes with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$. (See [example ##nonstandardstart].)
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$ the ancestors of these parent nodes with maximum distance $d-1$, up to and including all root nodes that can be reached. The _ancestors_ are the ancestors with maximum distance $d=∞$.
 
-The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on until a path to a start node is constructed. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
+The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. The term `Cycle` is used to tag instances in hierarchical result sets that are their own ancestor and therefore part of a _cycle_. These instance annotations are introduced in [section ##Transformationtraverse].
 
 #### ##subsubsubsec Hierarchy Functions
 
@@ -217,9 +214,7 @@ Another function `rollupnode` is defined that can only be used in connection wit
 The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
-⚠ Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
-
-This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsStartNode` property below is equivalent to the [standard definition of start node](#RecursiveHierarchy), but only as long as the full hierarchy collection is considered. The hierarchical transformations in [section ##HierarchicalTransformations] could also be executed on the US sub-hierarchy, which does not contain the `Superordinate` of the US sales organization. Since the US sales organization has no parent in that sub-hierarchy, it is its start node according to the standard definition but not according to the `Superordinate eq null` rule given below.
+⚠ Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -260,26 +255,12 @@ This dynamic annotation value [OData-CSDL, section 14.4](#ODataCSDL) of the `IsS
                            PropertyPath="ID" />
             <PropertyValue Property="ParentNavigationProperty"
                            PropertyPath="Superordinate" />
-            <PropertyValue Property="IsStartNode">
-              <Eq>
-                <Path>Superordinate</Path>
-                <Null />
-              </Eq>
-            </PropertyValue>
           </Record>
         </Annotation>
       </Annotations>
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
-```
-
-If `Superordinate` was collection-valued, the standard definition of start node would be the dynamic expression
-```xml
-<Eq>
-  <Path>Superordinate/$count</Path>
-  <Int>0</Int>
-</Eq>
 ```
 :::
 
@@ -398,50 +379,6 @@ results in
     { "ID": 6 },
     { "ID": 7 },
     { "ID": 8 }
-  ]
-}
-```
-:::
-
-::: example
-⚠ Example ##ex_nonstandardstart: The [example data](#ExampleData) can be used to define a restricted US sales hierarchy where only the US sales organization is designated as a start node.
-
-```xml
-<Annotations Target="SalesModel.SalesOrganization">
-  <Annotation Term="Aggregation.RecursiveHierarchy"
-              Qualifier="USSalesHierarchy">
-    <Record>
-      <PropertyValue Property="NodeProperty"
-                     PropertyPath="ID" />
-      <PropertyValue Property="ParentNavigationProperty"
-                     PropertyPath="Superordinate" />
-      <PropertyValue Property="IsStartNode">
-        <Eq>
-          <Path>ID</Path>
-          <String>US</String>
-        </Eq>
-      </PropertyValue>
-    </Record>
-  </Annotation>
-</Annotations>
-```
-
-In this hierarchy, the `Superordinate` of the US sales organization is not an ancestor:
-```
-GET /service/SalesOrganizations?$apply=ancestors(
-    $root/SalesOrganizations,USSalesHierarchy,ID,
-    filter(ID eq 'US East'),keep start)
-  &$expand=Superordinate/$ref
-```
-results in
-```json
-{
-  "@context": "$metadata#SalesOrganizations",
-  "value": [
-    { "ID": "US East", "Name": "US East",
-      "Superordinate": { "@id": "SalesOrganizations('US')" } },
-    { "ID": "US",      "Name": "US",
-      "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
   ]
 }
 ```
