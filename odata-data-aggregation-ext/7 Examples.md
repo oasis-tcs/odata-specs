@@ -1423,7 +1423,7 @@ If the parent-child relationship between sales organizations is maintained in a 
       <PropertyValue Property="NodeProperty"
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
-                     PropertyPath="Relations/Superordinate" />
+                     NavigationPropertyPath="Relations/Superordinate" />
     </Record>
   </Annotation>
 </EntityType>
@@ -1465,7 +1465,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 :::
 
 ::: example
-⚠ Example ##ex_weighted: Continuing [example ##weight], assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
+⚠ Example ##ex_weighted: Continuing [example ##weight], assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `SalesOrganizationRelation/Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
 ```xml
 <Annotations Target="SalesData.Sales">
   <Annotation Term="Aggregation.CustomAggregate"
@@ -1488,7 +1488,9 @@ GET /service/Sales?$apply=groupby(
     aggregate(MultiParentWeightedTotal))
 ```
 
-Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Note that `rolluprecursive` must preserve the preorder established by `traverse`:
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Without the weights, all duplicate nodes would contribute the same aggregate result, therefore this example only makes sense in connection with a custom aggregate that considers the weights.
+
+Note that `rolluprecursive` must preserve the preorder established by `traverse`:
 ```json
 {
   "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",

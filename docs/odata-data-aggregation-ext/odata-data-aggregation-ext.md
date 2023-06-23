@@ -3016,9 +3016,9 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 67](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-Let $x_1,…,x_n$ be the nodes in $H'$. If the optional parameter $S$ is a [`traverse`](#Transformationtraverse) transformation, as in [example 119](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+Let $x_1,…,x_n$ be the nodes in $H'$. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 119](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
 $${\tt concat}(R(x_1),…,R(x_n))$$
-with no order defined on the output set unless $S$ is a `traverse` transformation.
+with no order defined on the output set unless $S$ ends with a `traverse` transformation.
 
 $R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
@@ -4614,7 +4614,7 @@ If the parent-child relationship between sales organizations is maintained in a 
       <PropertyValue Property="NodeProperty"
                      PropertyPath="ID" />
       <PropertyValue Property="ParentNavigationProperty"
-                     PropertyPath="Relations/Superordinate" />
+                     NavigationPropertyPath="Relations/Superordinate" />
     </Record>
   </Annotation>
 </EntityType>
@@ -4656,7 +4656,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 :::
 
 ::: example
-⚠ Example <a name="weighted" href="#weighted">119</a>: Continuing [example 118](#weight), assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
+⚠ Example <a name="weighted" href="#weighted">119</a>: Continuing [example 118](#weight), assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `SalesOrganizationRelation/Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
 ```xml
 <Annotations Target="SalesData.Sales">
   <Annotation Term="Aggregation.CustomAggregate"
@@ -4679,7 +4679,9 @@ GET /service/Sales?$apply=groupby(
     aggregate(MultiParentWeightedTotal))
 ```
 
-Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Note that `rolluprecursive` must preserve the preorder established by `traverse`:
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Without the weights, all duplicate nodes would contribute the same aggregate result, therefore this example only makes sense in connection with a custom aggregate that considers the weights.
+
+Note that `rolluprecursive` must preserve the preorder established by `traverse`:
 ```json
 {
   "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",
