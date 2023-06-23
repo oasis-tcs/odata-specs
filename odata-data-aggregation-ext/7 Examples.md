@@ -1326,7 +1326,7 @@ results in
 
 `traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `filter` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
 
-If `traverse` is omitted, the transformation
+Replacing the `traverse` transformation with a `descendants` transformation, as in
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1397,14 +1397,14 @@ Content-Type: application/json
 If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship. Furthermore, certain nodes can be unreachable from any root node, these are called orphans.
 
 ::: example
-⚠ Example ##ex: Assume the relation from a node to its parent nodes is time-dependent:
+⚠ Example ##ex_weight: Assume the relation from a node to its parent nodes contains a weight:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
     <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
   </Key>
-  <Property Name="ValidFrom" Type="Edm.Date" Nullable="false" />
-  <Property Name="ValidTo" Type="Edm.Date" Nullable="false" />
+  <Property Name="Weight" Type="Edm.Decimal"
+                          Nullable="false" DefaultValue="1" />
   <NavigationProperty Name="Superordinate"
                       Type="SalesModel.SalesOrganization" Nullable="false" />
 </EntityType>
@@ -1431,16 +1431,16 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`|`Relations/ValidFrom`|`Relations/ValidTo`
-----|---------------------------|---------------------|------------------|
-US|Sales|2000-01-01|2099-12-31
-EMEA|Sales|2000-01-01|2099-12-31
-EMEA Central|EMEA|2000-01-01|2099-12-31
-Atlantis|US|2000-01-01|2023-04-30
-Atlantis|EMEA|2023-05-01|2099-12-31
-Phobos|Mars|2000-01-01|2099-12-31
+`ID`|`Relations/SuperordinateID`|`Relations/Weight`
+----|---------------------------|-----------------:
+US|Sales|1
+EMEA|Sales|1
+EMEA Central|EMEA|1
+Atlantis|US|0.6
+Atlantis|EMEA|0.4
+Phobos|Mars|1
 
-Then [Atlantis](#atlantis) is a node with two parents. The standard hierarchical transformations disregard the validity properties and consider both equally valid. The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
+Then [Atlantis](#atlantis) is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]). The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
 
 Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
@@ -1461,6 +1461,57 @@ Content-Type: application/json
 The alias `SuperordinateID` is used in the request to delete the added relationship again:
 ```
 DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
+```
+:::
+
+::: example
+⚠ Example ##ex_weighted: Continuing [example ##weight], assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
+```xml
+<Annotations Target="SalesData.Sales">
+  <Annotation Term="Aggregation.CustomAggregate"
+    Qualifier="MultiParentWeightedTotal" String="Edm.Decimal" />
+</Annotations>
+```
+
+Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evalutes the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID,
+      traverse(
+        $root/SalesOrganizations,
+        MultiParentHierarchy,
+        SalesOrganization/ID,
+        preorder))),
+    aggregate(MultiParentWeightedTotal))
+```
+
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Note that `rolluprecursive` must preserve the preorder established by `traverse`:
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ ] },
+      "MultiParentWeightedTotal": 34 },
+    { "SalesOrganization": { "ID": "US", "Name": "US",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 25 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
+      "MultiParentWeightedTotal": 6 },
+    ...
+    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 9 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
+      "MultiParentWeightedTotal": 4 },
+    ...
+  ]
+}
 ```
 :::
 
