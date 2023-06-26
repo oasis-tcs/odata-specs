@@ -4539,19 +4539,19 @@ Besides changes to the structural properties of the entities in a hierarchical c
 ::: example
 Example 116: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
 ```json
-PUT /service/SalesOrganizations('Switzerland')/Superordinate
+PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
 
-{ "@bind": "SalesOrganizations('EMEA Central')" }
+{ "Superordinate": { "@id": "SalesOrganizations('EMEA Central')" } }
 ```
 results in `204 No Content`.
 
 Deleting the parent from the sales organization Switzerland (making it a root) can be achieved either with:
 ```json
-PUT /service/SalesOrganizations('Switzerland')/Superordinate
+PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
 
-{ "@bind": null }
+{ "Superordinate": { "@id": null } }
 ```
 or with:
 ```
@@ -4633,12 +4633,12 @@ Phobos|Mars|1
 
 Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example 119](#weighted)).
 
-In a traversal with start node Sales only (where the fifth parameter of [`traverse`](#Transformationtraverse) is $S={}$`filter(ID eq 'Sales')`), Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
+In a traversal with start node Sales only (where the fifth parameter of [`traverse`](#Transformationtraverse) is $S={}$`filter(ID eq 'Sales')`), Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
 
-{ "Superordinate@bind": "SalesOrganizations('Sales')" }
+{ "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
 ```
 
 Since this example contains no referential constraint, there is no analogy to [example 117](#refconstr). The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
