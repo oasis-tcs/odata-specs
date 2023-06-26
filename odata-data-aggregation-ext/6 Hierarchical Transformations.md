@@ -4,7 +4,7 @@
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.
 
-With the exception of `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
+With the exceptions of `traverse` and `rolluprecursive` with `traverse` as fourth parameter, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
 
 The algorithmic descriptions of the transformations make use of a _union_ of collections, this is defined as an unordered collection containing the items from all these collections and from which duplicates have been removed.
 
@@ -20,7 +20,7 @@ The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
-Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformations in $S$ will be applied to the node collection $H$, they MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set.
+Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformations sequence $S$ will be applied to the node collection $H$, it MUST consist of transformations listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or service-defined bound functions whose output set is a subset of their input set.
 
 ## ##subsec Hierarchical Transformations Producing a Subset
 
@@ -34,7 +34,7 @@ In the more complex case, the instances in the input set are instead related to 
 
 The `descendants` transformation works analogously, but with descendants.
 
-$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
+$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
 The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##Transformationsancestorsanddescendants] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
@@ -282,12 +282,12 @@ results in
 
 #### ##subsubsubsec General Case of `traverse`
 
-In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans (see [example ##weight]).
 
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
 ::: example
-⚠ Example ##ex_atlantis: A sales organization Atlantis with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
+⚠ Example ##ex: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
 ```
 GET /service/SalesOrganizations?$apply=
     /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)

@@ -1394,7 +1394,7 @@ Content-Type: application/json
 ```
 :::
 
-If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship. Furthermore, certain nodes can be unreachable from any root node, these are called orphans.
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.
 
 ::: example
 ⚠ Example ##ex_weight: Assume the relation from a node to its parent nodes contains a weight:
@@ -1440,9 +1440,9 @@ Atlantis|US|0.6
 Atlantis|EMEA|0.4
 Phobos|Mars|1
 
-Then [Atlantis](#atlantis) is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]). The entities Mars and Phobos cannot be reached from the root node Sales and hence are orphans.
+Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]).
 
-Mars and Phobos can be made descendants of the root node by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
+In a traversal with start node Sales only (where the fifth parameter of [`traverse`](#Transformationtraverse) is $S={}$`filter(ID eq 'Sales')`), Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload before the `@bind`:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
