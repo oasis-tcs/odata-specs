@@ -2447,7 +2447,7 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 A recursive hierarchy is defined on a collection of entities by
 - associating with every entity zero or more entities from the same collection, called its _parents_, and
-- identifying entities that are part of the recursive hierarchy through a single primitive non-null value called the _node identifier_. These entities that are part of the hierarchy are called _nodes_.
+- giving every entity that is part of the recursive hierarchy a single primitive non-null value that uniquely identifies it within the hierarchy. This value is called the _node identifier_, and the entities that are part of the hierarchy are called _nodes_.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
 - The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy and null if the entity is not in the hierarchy.
