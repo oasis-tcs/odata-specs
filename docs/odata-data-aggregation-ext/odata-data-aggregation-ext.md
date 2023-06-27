@@ -190,7 +190,6 @@ For complete copyright information please see the full Notices section in an App
 - [8 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References](#InformativeReferences)
 - [B Acknowledgments](#Acknowledgments)
   - [B.1 Special Thanks](#SpecialThanks)
   - [B.2 Particpants](#Particpants)
@@ -4900,7 +4899,7 @@ Conforming clients MUST be prepared to consume a model that uses any or all of t
 
 # <a name="References" href="#References">Appendix A. References</a>
 
-This appendix contains the normative and informative references that are used in this document.
+This appendix contains the normative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
@@ -4950,12 +4949,6 @@ https://www.rfc-editor.org/info/rfc2119.
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
-
-###### <a name="SQLInformix">[SQL-Informix]</a>
-IBM Informix V14.10 documentation  
-https://www.ibm.com/docs/en/informix-servers/14.10?topic=clause-start#ids_sqs_2034.
 
 -------
 
