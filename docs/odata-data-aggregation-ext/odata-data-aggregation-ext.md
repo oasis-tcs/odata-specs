@@ -2447,15 +2447,15 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 A recursive hierarchy is defined on a collection of entities by
 - determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called _nodes_, and
-- associating with every entity zero or more entities from the same collection, called its _parent nodes_.
+- associating with every node zero or more nodes from the same collection, called its _parent nodes_.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy and null if the entity is not in the hierarchy.
-- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term.
+- The `NodeProperty` MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of the node in the hierarchy and null if the entity is not in the hierarchy.
+- The `ParentNavigationProperty` MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. It navigates from a node to its parent nodes, and from an entity not in the hierarchy to an empty collection or null.
 
 The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A _root node_ is a node without parent nodes, that is, without parents that are also nodes of the hierarchy. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
+A _root node_ is a node without parent nodes. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
 The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$, up to and including all leaf nodes that can be reached. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
@@ -2900,7 +2900,7 @@ results in
 
 #### <a name="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of `traverse`</a>
 
-In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans (see [example 118](#weight)).
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see [example 118](#weight)).
 
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
@@ -2945,7 +2945,7 @@ $$ρ(y,x)/@\hbox{\tt Aggregation.Cycle}\#Q={\tt true}.$$
 The algorithm does then not process the children of this node again.
 
 ::: example
-⚠ Example 65: If the child of Atlantis is also its parent:
+⚠ Example 65: If the child of Atlantis is also a parent of Atlantis:
 ```
 GET /service/SalesOrganizations?$apply=
     /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)

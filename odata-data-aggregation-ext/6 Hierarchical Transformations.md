@@ -282,7 +282,7 @@ results in
 
 #### ##subsubsubsec General Case of `traverse`
 
-In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans (see [example ##weight]).
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see [example ##weight]).
 
 More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
@@ -327,7 +327,7 @@ $$ρ(y,x)/@\hbox{\tt Aggregation.Cycle}\#Q={\tt true}.$$
 The algorithm does then not process the children of this node again.
 
 ::: example
-⚠ Example ##ex: If the child of Atlantis is also its parent:
+⚠ Example ##ex: If the child of Atlantis is also a parent of Atlantis:
 ```
 GET /service/SalesOrganizations?$apply=
     /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
