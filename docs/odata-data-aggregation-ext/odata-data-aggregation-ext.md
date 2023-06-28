@@ -2812,7 +2812,7 @@ The traverse transformation returns instances of the input set that are or are r
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations). Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$ if $S$ is not specified. Nodes in $H'$ are called start nodes in this subsection.
+The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations). Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$ if $S$ is not specified. Nodes in $H'$ are called start nodes in this subsection (see [example 117](#weight)).
 
 All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
@@ -4582,8 +4582,8 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`|`Relations/Weight`
-----|---------------------------|-----------------:
+ID|Relations/SuperordinateID|Relations/Weight
+--|-------------------------|---------------:
 US|Sales|1
 EMEA|Sales|1
 EMEA Central|EMEA|1

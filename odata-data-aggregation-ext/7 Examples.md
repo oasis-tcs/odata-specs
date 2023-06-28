@@ -1431,8 +1431,8 @@ If the parent-child relationship between sales organizations is maintained in a 
 
 Further assume the following relationships between sales organizations:
 
-`ID`|`Relations/SuperordinateID`|`Relations/Weight`
-----|---------------------------|-----------------:
+ID|Relations/SuperordinateID|Relations/Weight
+--|-------------------------|---------------:
 US|Sales|1
 EMEA|Sales|1
 EMEA Central|EMEA|1
