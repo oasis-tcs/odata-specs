@@ -192,7 +192,7 @@ For complete copyright information please see the full Notices section in an App
   - [A.1 Normative References](#NormativeReferences)
 - [B Acknowledgments](#Acknowledgments)
   - [B.1 Special Thanks](#SpecialThanks)
-  - [B.2 Particpants](#Particpants)
+  - [B.2 Participants](#Participants)
 - [C Revision History](#RevisionHistory)
 - [D Notices](#Notices)
 :::
@@ -2458,7 +2458,7 @@ A _root node_ is a node without parent nodes. A recursive hierarchy can have one
 
 The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
-The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself.
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
 
 The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section 6.2.2](#Transformationtraverse).
 
@@ -2471,6 +2471,7 @@ For testing the position of a given entity in a recursive hierarchy, the Aggrega
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
+- `isnode` tests if the given entity is a node of the hierarchy.
 - `isroot` tests if the given entity is a root node of the hierarchy.
 - `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
 - `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
@@ -2863,6 +2864,8 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
 If $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).$$
 
+The absence of cycles guarantees that the recursion terminates.
+
 $F(x)$ is a transformation that determines for the specified node $x$ the instances of the input set having the same node identifier as $x$.
 
 If $p$ contains only single-valued segments, then
@@ -2907,7 +2910,7 @@ More precisely, in the general case every node $y$ is annotated with the term `U
 ⚠ Example 64: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
 ```
 GET /service/SalesOrganizations?$apply=
-    /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
 ```
 results in
 ```json
@@ -2950,6 +2953,8 @@ where the function $R(x)$ takes as argument a node with optional `Aggregation.Up
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
+
+The absence of cycles guarantees that the recursion terminates.
 
 In the general case, servers MUST include the `Aggregation.UpPath` annotations in the result of `$apply` but MAY omit them if `RecursiveHierarchy/ParentNavigationProperty` is single-valued and all start nodes are root nodes.
 
@@ -4588,14 +4593,13 @@ Phobos|Mars|1
 
 Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example 118](#weighted)).
 
-In a traversal with start node Sales only, Mars and Phobos cannot be reached and hence are orphans:
+In a traversal with start node Sales only:
 ```
 GET /service/SalesOrganizations?$apply=
-  traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
-           filter(ID eq 'Sales'))
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
+             filter(ID eq 'Sales'))
 ```
-
-But Mars and Phobos can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
+Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
@@ -4921,7 +4925,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## <a name="Particpants" href="#Particpants">B.2 Particpants</a>
+## <a name="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 

@@ -188,7 +188,7 @@ A _root node_ is a node without parent nodes. A recursive hierarchy can have one
 
 The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
-The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself.
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
 
 The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section ##Transformationtraverse].
 
@@ -201,6 +201,7 @@ For testing the position of a given entity in a recursive hierarchy, the Aggrega
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
+- `isnode` tests if the given entity is a node of the hierarchy.
 - `isroot` tests if the given entity is a root node of the hierarchy.
 - `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
 - `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.

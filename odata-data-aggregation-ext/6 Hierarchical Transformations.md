@@ -234,6 +234,8 @@ $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
 If $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).$$
 
+The absence of cycles guarantees that the recursion terminates.
+
 $F(x)$ is a transformation that determines for the specified node $x$ the instances of the input set having the same node identifier as $x$.
 
 If $p$ contains only single-valued segments, then
@@ -290,7 +292,7 @@ More precisely, in the general case every node $y$ is annotated with the term `U
 ⚠ Example ##ex: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
 ```
 GET /service/SalesOrganizations?$apply=
-    /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
 ```
 results in
 ```json
@@ -333,6 +335,8 @@ where the function $R(x)$ takes as argument a node with optional `Aggregation.Up
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
+
+The absence of cycles guarantees that the recursion terminates.
 
 In the general case, servers MUST include the `Aggregation.UpPath` annotations in the result of `$apply` but MAY omit them if `RecursiveHierarchy/ParentNavigationProperty` is single-valued and all start nodes are root nodes.
 

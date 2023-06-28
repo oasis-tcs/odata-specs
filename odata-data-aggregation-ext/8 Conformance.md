@@ -69,7 +69,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## ##subasec Particpants
+## ##subasec Participants
 
 **OData TC Members:**
 

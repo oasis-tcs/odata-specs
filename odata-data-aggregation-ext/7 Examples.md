@@ -1442,14 +1442,13 @@ Phobos|Mars|1
 
 Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]).
 
-In a traversal with start node Sales only, Mars and Phobos cannot be reached and hence are orphans:
+In a traversal with start node Sales only:
 ```
 GET /service/SalesOrganizations?$apply=
-  traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
-           filter(ID eq 'Sales'))
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
+             filter(ID eq 'Sales'))
 ```
-
-But Mars and Phobos can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
+Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
