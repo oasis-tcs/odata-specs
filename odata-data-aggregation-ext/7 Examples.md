@@ -1442,7 +1442,14 @@ Phobos|Mars|1
 
 Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]).
 
-In a traversal with start node Sales only (where the fifth parameter of [`traverse`](#Transformationtraverse) is $S={}$`filter(ID eq 'Sales')`), Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
+In a traversal with start node Sales only, Mars and Phobos cannot be reached and hence are orphans:
+```
+GET /service/SalesOrganizations?$apply=
+  traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
+           filter(ID eq 'Sales'))
+```
+
+But Mars and Phobos can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
@@ -1473,7 +1480,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 </Annotations>
 ```
 
-Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evalutes the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
+Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evaluates the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
