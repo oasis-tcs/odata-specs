@@ -322,60 +322,14 @@ Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(
 Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
 $$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-If the string value of the node identifier of $y$ is among the values on the right-hand side of the previous equation, a cycle has been detected and $ρ(y,x)$ is additionally annotated with
-$$ρ(y,x)/@\hbox{\tt Aggregation.Cycle}\#Q={\tt true}.$$
-The algorithm does then not process the children of this node again.
-
-::: example
-⚠ Example ##ex: If the child of Atlantis is also a parent of Atlantis:
-```
-GET /service/SalesOrganizations?$apply=
-    /traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
-```
-results in
-```json
-{
-  "@context": "$metadata#SalesOrganizations",
-  "value": [
-    ...
-    { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpPath#MultiParentHierarchy":
-        [ "US", "Sales" ] },
-    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpPath#MultiParentHierarchy":
-         [ "Atlantis", "US", "Sales" ] },
-    { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.Cycle#MultiParentHierarchy": true,
-      "@Aggregation.UpPath#MultiParentHierarchy":
-         [ "AtlantisChild", "Atlantis", "US", "Sales" ] },
-    ...
-    { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.UpPath#MultiParentHierarchy":
-        [ "EMEA", "Sales" ] },
-    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
-      "@Aggregation.UpPath#MultiParentHierarchy":
-         [ "Atlantis", "EMEA", "Sales" ] },
-    { "ID": "Atlantis", "Name": "Atlantis",
-      "@Aggregation.Cycle#MultiParentHierarchy": true,
-      "@Aggregation.UpPath#MultiParentHierarchy":
-         [ "AtlantisChild", "Atlantis", "EMEA", "Sales" ] },
-    ...
-  ]
-}
-```
-:::
-
 Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpPath` or `Aggregation.Cycle` and qualifier $Q$, copy these annotations from $s$ to $u$.
+- If $s$ is annotated with `Aggregation.UpPath` and qualifier $Q$, copy this annotation from $s$ to $u$.
 
 Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
 
 Let $r_1,…,r_n$ be the start nodes in $H'$ as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
-where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` and `Aggregation.Cycle` annotations. With $F(x)$ as above, if $x$ is annotated with `Aggregation.Cycle` as true, then
-$$R(x)=F(x)/\Pi_G(σ(x)).$$
-
-Otherwise, with $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
+where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
