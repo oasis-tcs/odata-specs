@@ -1288,7 +1288,7 @@ Food||US, EMEA
 Cereals|Food|US
 Organic cereals|Cereals|US West
 
-Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
+Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it, and the ancestors of those organizations:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
     $root/SalesOrganizations,SalesOrgHierarchy,

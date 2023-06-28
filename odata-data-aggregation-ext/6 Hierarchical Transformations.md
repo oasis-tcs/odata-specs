@@ -226,7 +226,7 @@ The algorithm is first given for the standard case where `RecursiveHierarchy/Par
 Let $r_1,…,r_n$ be a sequence of the start nodes in $H'$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
 
-$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H,Q)$. The _recursive formula for $R(x)$_ is as follows:
+$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H,Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
@@ -319,7 +319,7 @@ results in
 ```
 :::
 
-Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q$ set to an empty collection.
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q=[]$ set to an empty collection.
 
 Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
 $$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
@@ -331,7 +331,7 @@ Recall that instance annotations never appear in [data aggregation paths](#DataA
 
 Let $r_1,…,r_n$ be the start nodes in $H'$ as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
 $${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
-where the function $R(x)$ takes as argument a node with optional `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
+where the function $R(x)$ takes as argument a node with `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
 and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
