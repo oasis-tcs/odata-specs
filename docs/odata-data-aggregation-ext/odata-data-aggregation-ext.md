@@ -2974,21 +2974,20 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 66](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 118](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(x_1),…,R(x_n))$$
-with no order defined on the output set unless $S$ ends with a `traverse` transformation.
+Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 118](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, and the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+$${\tt concat}(R(x_1),…,R(x_n)).$$
+
+Otherwise, if $S$ is not specified or does not end with a `traverse` transformation, the output set of the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is the concatenation of $R(x_1),…,R(x_n)$. The order of occurrences from the same $R(x_i)$ remains the same, and no order is defined between occurrences from different $R(x_i)$ and $R(x_j)$.
 
 $R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x)))$$
-with no order defined on the output set.
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))).$$
 
 The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of the formula involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if $P_1$ and $P_2$ are empty, then
-$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x))$$
-with no order defined on the output set.
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
 $$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
