@@ -1350,7 +1350,7 @@ results in
 
 #### <a name="Keywordfrom" href="#Keywordfrom">3.2.1.5 Keyword `from`</a>
 
-The `from` keyword offers a shortcut for a sequence of [`groupby`](Transformationgroupby) and [`aggregate`](#Transformationaggregate) transformations with the pattern ${\tt groupby}(…,{\tt aggregate}(…{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }…)$.
+The `from` keyword offers a shortcut for a sequence of [`groupby`](#Transformationgroupby) and [`aggregate`](#Transformationaggregate) transformations with the pattern ${\tt groupby}(…,{\tt aggregate}(…{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }…)$.
 
 In the following $p_1,…,p_n$ are [data aggregation paths](#DataAggregationPath) that are allowed in `groupby` for [simple grouping](#SimpleGrouping).
 
