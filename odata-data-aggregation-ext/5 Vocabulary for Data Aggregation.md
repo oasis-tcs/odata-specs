@@ -174,39 +174,48 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 ### ##subsubsec Recursive Hierarchy
 
-A recursive hierarchy organizes entities of a collection as nodes of one or more tree structures. This structure does not need to be as uniform as a leveled hierarchy. It is described by a complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property.
-- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
+A recursive hierarchy is defined on a collection of entities by
+- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called _nodes_, and the primitive value is called the _node identifier_, and
+- associating with every node zero or more nodes from the same collection, called its _parent nodes_.
 
-The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions).
+The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
+- The `NodeProperty` MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of an entity that is a node in the hierarchy.
+- The `ParentNavigationProperty` MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. It navigates from an entity that is a node in the hierarchy to its parent nodes.
 
-A _node_ is an instance of an entity type annotated with `RecursiveHierarchy`. It may have a _parent node_ that is the instance reached via the `ParentNavigationProperty`. A _recursive hierarchy_ is a collection of such nodes with unique node identifiers.
+The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parent node is a _root node_, a node is a _child node_ of its parent node, a node without child nodes is a _leaf node_. Nodes with the same parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent node, the parent of its parent node, and so on, up to and including a root node that can be reached. A recursive hierarchy can have one or more root nodes.
+A _root node_ is a node without parent nodes. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to the root is constructed.
+The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
+
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
+
+The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section ##Transformationtraverse].
 
 #### ##subsubsubsec Hierarchy Functions
 
 For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
 - a parameter pair `HierarchyNodes`, `HierarchyQualifier` where `HierarchyNodes` is a collection and `HierarchyQualifier` is the qualifier of a `RecursiveHierarchy` annotation on its common entity type. The node identifiers in this collection define the recursive hierarchy.
 - a parameter `Node` that contains the node identifier of the entity to be tested. Note that the test result depends only on this node identifier, not on any other property of the given entity
-- additional parameters, depending on the type of test (see below).
+- additional parameters, depending on the type of test (see below)
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
-- `isroot` tests if the given entity is a root of the hierarchy
-- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true
-- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true
-- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) have the same parent node or both are roots, but are not the same
-- `isleaf` tests if the given entity is without descendants.
+- `isnode` tests if the given entity is a node of the hierarchy.
+- `isroot` tests if the given entity is a root node of the hierarchy.
+- `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
+- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
+- `isleaf` tests if the given entity is a leaf node.
+
+Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 
 ### ##subsubsec Hierarchy Examples
 
 The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
-Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+⚠ Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -228,28 +237,28 @@ Example ##ex: leveled hierarchies for products and time, and a recursive hierarc
         </Annotation>
       </Annotations>
 
-     <Annotations Target="SalesModel.Time">
-       <Annotation Term="Aggregation.LeveledHierarchy"
-                   Qualifier="TimeHierarchy">
-         <Collection>
-           <PropertyPath>Year</PropertyPath>
-           <PropertyPath>Quarter</PropertyPath>
-           <PropertyPath>Month</PropertyPath>
-         </Collection>
-       </Annotation>
-     </Annotations>
+      <Annotations Target="SalesModel.Time">
+        <Annotation Term="Aggregation.LeveledHierarchy"
+                    Qualifier="TimeHierarchy">
+          <Collection>
+            <PropertyPath>Year</PropertyPath>
+            <PropertyPath>Quarter</PropertyPath>
+            <PropertyPath>Month</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
 
-     <Annotations Target="SalesModel.SalesOrganization">
-       <Annotation Term="Aggregation.RecursiveHierarchy"
-                   Qualifier="SalesOrgHierarchy">
-         <Record>
-           <PropertyValue Property="NodeProperty"
-                          PropertyPath="ID" />
-           <PropertyValue Property="ParentNavigationProperty"
-                          PropertyPath="Superordinate" />
-         </Record>
-       </Annotation>
-     </Annotations>
+      <Annotations Target="SalesModel.SalesOrganization">
+        <Annotation Term="Aggregation.RecursiveHierarchy"
+                    Qualifier="SalesOrgHierarchy">
+          <Record>
+            <PropertyValue Property="NodeProperty"
+                           PropertyPath="ID" />
+            <PropertyValue Property="ParentNavigationProperty"
+                           PropertyPath="Superordinate" />
+          </Record>
+        </Annotation>
+      </Annotations>
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>

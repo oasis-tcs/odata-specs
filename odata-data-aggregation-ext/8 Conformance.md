@@ -10,7 +10,7 @@ Conforming clients MUST be prepared to consume a model that uses any or all of t
 
 # Appendix ##asec References
 
-This appendix contains the normative and informative references that are used in this document.
+This appendix contains the normative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
@@ -69,7 +69,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## ##subasec Particpants
+## ##subasec Participants
 
 **OData TC Members:**
 

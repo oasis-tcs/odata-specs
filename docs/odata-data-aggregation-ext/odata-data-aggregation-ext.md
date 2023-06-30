@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 04
 
-## 14 June 2023
+## 28 June 2023
 
 &nbsp;
 
@@ -82,7 +82,7 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 14 June 2023. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 28 June 2023. OASIS Committee Specification Draft 04.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
@@ -172,6 +172,8 @@ For complete copyright information please see the full Notices section in an App
   - [6.2 Hierarchical Transformations Producing a Subset](#HierarchicalTransformationsProducingaSubset)
     - [6.2.1 Transformations `ancestors` and `descendants`](#Transformationsancestorsanddescendants)
     - [6.2.2 Transformation `traverse`](#Transformationtraverse)
+      - [6.2.2.1 Standard Case of `traverse`](#StandardCaseoftraverse)
+      - [6.2.2.2 General Case of `traverse`](#GeneralCaseoftraverse)
   - [6.3 Grouping with `rolluprecursive`](#Groupingwithrolluprecursive)
 - [7 Examples](#Examples)
   - [7.1 Requesting Distinct Values](#RequestingDistinctValues)
@@ -183,13 +185,14 @@ For complete copyright information please see the full Notices section in an App
   - [7.7 Model Functions as Set Transformations](#ModelFunctionsasSetTransformations)
   - [7.8 Controlling Aggregation per Rollup Level](#ControllingAggregationperRollupLevel)
   - [7.9 Aggregation in Recursive Hierarchies](#AggregationinRecursiveHierarchies)
-  - [7.10 Transformation Sequences](#TransformationSequences)
+  - [7.10 Maintaining Recursive Hierarchies](#MaintainingRecursiveHierarchies)
+  - [7.11 Transformation Sequences](#TransformationSequences)
 - [8 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
 - [B Acknowledgments](#Acknowledgments)
   - [B.1 Special Thanks](#SpecialThanks)
-  - [B.2 Particpants](#Particpants)
+  - [B.2 Participants](#Participants)
 - [C Revision History](#RevisionHistory)
 - [D Notices](#Notices)
 :::
@@ -208,7 +211,7 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a>
 
 This specification defines the following terms:
-- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) resulting in a value of an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of a complex or entity or an [aggregatable primitive type](#AggregatablePrimitiveType)
 - <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
@@ -220,6 +223,7 @@ This specification defines the following terms:
 The following non-exhaustive list contains variable names that are used throughout this document:
 - $A,B,C$ – collections of instances
 - $H$ – hierarchical collection
+- $H'$ – subset of nodes from a hierarchical collection
 - $u,v,w$ – instances in a collection
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
@@ -1027,7 +1031,7 @@ The definitions of italicized terms made in this section are used throughout thi
 
 ### <a name="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1 Type, Structure and Context URL</a>
 
-All input sets and output sets in one transformation sequence are collections of the _input type_, that is the entity type or complex type of the first input set, or in other words, of the resource to which the transformation sequence is applied. The input type is determined by the entity model element identified within the metadata document by the context URL of that resource [OData-Protocol, section 10](#ODataProtocol). Individual instances in an input or output set can have a subtype of the input type. (See [example 72](#subinputtype).) The transformation sequence given as the `$apply` system query option is applied to the resource addressed by the resource path. The transformations defined below can have nested transformation sequences as parameters, these are then applied to resources that can differ from the current input set.
+All input sets and output sets in one transformation sequence are collections of the _input type_, that is the entity type or complex type of the first input set, or in other words, of the resource to which the transformation sequence is applied. The input type is determined by the entity model element identified within the metadata document by the context URL of that resource [OData-Protocol, section 10](#ODataProtocol). Individual instances in an input or output set can have a subtype of the input type. (See [example 74](#subinputtype).) The transformation sequence given as the `$apply` system query option is applied to the resource addressed by the resource path. The transformations defined below can have nested transformation sequences as parameters, these are then applied to resources that can differ from the current input set.
 
 The _structure_ of an instance that occurs in an input or output set is defined by the names of the structural and navigation properties that the instance contains. Instances of an input type can have different structures, subject to the following rules:
 - Declared properties of the input type or a nested or related type thereof or of a subtype of one of these MUST have their declared type and meaning when they occur in an input or output set.
@@ -1044,7 +1048,7 @@ Here is an overview of the structural changes made by different transformations:
 
 An output set thus consists of instances with different structures. This is the same situation as with a collection of an open type [OData-CSDL, sections 6.3 and 9.3](#ODataCSDL) and it is handled in the same way.
 
-If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The `{select-list}` in the context URL [OData-Protocol, section 10](#ODataProtocol) MUST describe only properties that are present or annotated as absent (for example, if `Core.Permissions` is `None` [OData-Protocol, section 11.2.2](#ODataProtocol)) in all instances of the collection, after applying any `$select` and `$expand` system query options. The `{select-list}` SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the `{select-list}` MUST consist of just the instance annotation `AnyStructure` defined in the `Core` vocabulary [OData-VocCore](#ODataVocCore). (See [example 73](#anystructure).)
+If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The `{select-list}` in the context URL [OData-Protocol, section 10](#ODataProtocol) MUST describe only properties that are present or annotated as absent (for example, if `Core.Permissions` is `None` [OData-Protocol, section 11.2.2](#ODataProtocol)) in all instances of the collection, after applying any `$select` and `$expand` system query options. The `{select-list}` SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the `{select-list}` MUST consist of just the instance annotation `AnyStructure` defined in the `Core` vocabulary [OData-VocCore](#ODataVocCore). (See [example 75](#anystructure).)
 
 ### <a name="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a>
 
@@ -1078,7 +1082,7 @@ The output set of a [basic aggregation](#BasicAggregation) transformation can co
 - both are instances of entity types without entity id (transient entities, see [OData-Protocol, section 4.3](#ODataProtocol)) and both are null or both have the same structure and same values with null considered different from absent (informally speaking, they are compared like complex instances) or
 - (1) both are instances of the same entity type with the same entity id (non-transient entities, see [OData-Protocol, section 4.1](#ODataProtocol)) and (2) the structural and navigation properties contained in both have the same values (for non-primitive properties the sameness of values is decided by a recursive invocation of this definition).
   - If this is fulfilled, the instances are called _complementary representations of the same non-transient entity_. If this case is encountered at some recursion level while the sameness of non-transient entities $u_1$ and $u_2$ is established, a merged representation of the entity $u_1=u_2$ exists that contains all properties of $u_1$ and $u_2$. But if the instances both occur in the last output set, services MUST represent each with its own structure in the response payload.
-  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 101](#contradict) describes a use case for this.)
+  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 103](#contradict) describes a use case for this.)
 
 Collections are _the same_ if there is a one-to-one correspondence $f$ between them such that
 - corresponding occurrences are of the same value and
@@ -1118,7 +1122,7 @@ The property is a dynamic property, except for a special case in type 4. In type
 _Types of aggregate expressions:_
 1. A path $p=p_1$ or $p=p_1/p_2$ where the last segment of $p_1$ has a complex or entity or [aggregatable primitive type](#AggregatablePrimitiveType) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$, or $p=p_2$ if the input set can be aggregated using the [custom aggregation method](#CustomAggregationMethods) $g$.  
 Let $f(A)=g(A)$.
-2. An [aggregatable expression](#AggregatableExpression).  
+2. An [aggregatable expression](#AggregatableExpression) whose values can be aggregated using the specified [aggregation method](#AggregationMethods) $g$.  
 Let $f(A)=g(B)$ where $B$ is the collection consisting of the values of the aggregatable expression evaluated relative to [each occurrence](#SamenessandOrder) in $A$ with null values removed from $B$. In this type, $p$ is absent.
 3. A path $p/{\tt\$count}$ (see [section 3.2.1.4](#AggregateExpressioncount)) with optional prefix $p/{}$ where $p=p_1$ or $p=p_2$ or $p=p_1/p_2$.  
 Let $f(A)$ be the [cardinality](#SamenessandOrder) of $A$.
@@ -1132,7 +1136,7 @@ _Determination of $A$:_
 Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 122](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 128](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
 Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances of structured types or primitive values, possibly with repetitions.
@@ -1445,7 +1449,7 @@ The `groupby` transformation takes one or two parameters where the second is a l
 
 #### <a name="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a>
 
-In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 70](#groupbynav)).
+In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 72](#groupbynav)).
 
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
@@ -2440,39 +2444,48 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 
 ### <a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a>
 
-A recursive hierarchy organizes entities of a collection as nodes of one or more tree structures. This structure does not need to be as uniform as a leveled hierarchy. It is described by a complex term `RecursiveHierarchy` with these properties:
-- The `NodeProperty` allows identifying a node in the hierarchy. It MUST be a path with single-valued segments ending in a primitive property.
-- The `ParentNavigationProperty` allows navigation to the instance or instances representing the parent nodes. It MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. Nodes MUST NOT form cycles when following parent navigation properties.
+A recursive hierarchy is defined on a collection of entities by
+- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called _nodes_, and the primitive value is called the _node identifier_, and
+- associating with every node zero or more nodes from the same collection, called its _parent nodes_.
 
-The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions).
+The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
+- The `NodeProperty` MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of an entity that is a node in the hierarchy.
+- The `ParentNavigationProperty` MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. It navigates from an entity that is a node in the hierarchy to its parent nodes.
 
-A _node_ is an instance of an entity type annotated with `RecursiveHierarchy`. It may have a _parent node_ that is the instance reached via the `ParentNavigationProperty`. A _recursive hierarchy_ is a collection of such nodes with unique node identifiers.
+The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
-A node without parent node is a _root node_, a node is a _child node_ of its parent node, a node without child nodes is a _leaf node_. Nodes with the same parent node are _sibling nodes_ and so are root nodes. The _descendants_ of a node are its child nodes, their child nodes, and so on, up to and including all leaf nodes that can be reached. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy. The _ancestors_ of a node are its parent node, the parent of its parent node, and so on, up to and including a root node that can be reached. A recursive hierarchy can have one or more root nodes.
+A _root node_ is a node without parent nodes. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
-The term `UpNode` can be used in hierarchical result sets to associate with each instance one of its ancestors, which is again annotated with `UpNode` and so on until a path to the root is constructed.
+The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
+
+The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
+
+The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section 6.2.2](#Transformationtraverse).
 
 #### <a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a>
 
 For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
 - a parameter pair `HierarchyNodes`, `HierarchyQualifier` where `HierarchyNodes` is a collection and `HierarchyQualifier` is the qualifier of a `RecursiveHierarchy` annotation on its common entity type. The node identifiers in this collection define the recursive hierarchy.
 - a parameter `Node` that contains the node identifier of the entity to be tested. Note that the test result depends only on this node identifier, not on any other property of the given entity
-- additional parameters, depending on the type of test (see below).
+- additional parameters, depending on the type of test (see below)
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
-- `isroot` tests if the given entity is a root of the hierarchy
-- `isdescendant` tests if the given entity is a descendant of an ancestor node (whose node identifier is given in a parameter `Ancestor`) with a maximum distance `MaxDistance`, or equals the ancestor if `IncludeSelf` is true
-- `isancestor` tests if the given entity is an ancestor of a descendant node (whose node identifier is given in a parameter `Descendant`) with a maximum distance `MaxDistance`, or equals the descendant if `IncludeSelf` is true
-- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) have the same parent node or both are roots, but are not the same
-- `isleaf` tests if the given entity is without descendants.
+- `isnode` tests if the given entity is a node of the hierarchy.
+- `isroot` tests if the given entity is a root node of the hierarchy.
+- `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
+- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
+- `isleaf` tests if the given entity is a leaf node.
+
+Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 
 ### <a name="HierarchyExamples" href="#HierarchyExamples">5.5.3 Hierarchy Examples</a>
 
 The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
 
 ::: example
-Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations
+⚠ Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
@@ -2494,28 +2507,28 @@ Example 53: leveled hierarchies for products and time, and a recursive hierarchy
         </Annotation>
       </Annotations>
 
-     <Annotations Target="SalesModel.Time">
-       <Annotation Term="Aggregation.LeveledHierarchy"
-                   Qualifier="TimeHierarchy">
-         <Collection>
-           <PropertyPath>Year</PropertyPath>
-           <PropertyPath>Quarter</PropertyPath>
-           <PropertyPath>Month</PropertyPath>
-         </Collection>
-       </Annotation>
-     </Annotations>
+      <Annotations Target="SalesModel.Time">
+        <Annotation Term="Aggregation.LeveledHierarchy"
+                    Qualifier="TimeHierarchy">
+          <Collection>
+            <PropertyPath>Year</PropertyPath>
+            <PropertyPath>Quarter</PropertyPath>
+            <PropertyPath>Month</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
 
-     <Annotations Target="SalesModel.SalesOrganization">
-       <Annotation Term="Aggregation.RecursiveHierarchy"
-                   Qualifier="SalesOrgHierarchy">
-         <Record>
-           <PropertyValue Property="NodeProperty"
-                          PropertyPath="ID" />
-           <PropertyValue Property="ParentNavigationProperty"
-                          PropertyPath="Superordinate" />
-         </Record>
-       </Annotation>
-     </Annotations>
+      <Annotations Target="SalesModel.SalesOrganization">
+        <Annotation Term="Aggregation.RecursiveHierarchy"
+                    Qualifier="SalesOrgHierarchy">
+          <Record>
+            <PropertyValue Property="NodeProperty"
+                           PropertyPath="ID" />
+            <PropertyValue Property="ParentNavigationProperty"
+                           PropertyPath="Superordinate" />
+          </Record>
+        </Annotation>
+      </Annotations>
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
@@ -2659,7 +2672,7 @@ Example 59: assume the product is an implicit input for a function bound to a co
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.
 
-With the exception of `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
+With the exceptions of `traverse` and `rolluprecursive` whose fourth parameter ends with `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
 
 The algorithmic descriptions of the transformations make use of a _union_ of collections, this is defined as an unordered collection containing the items from all these collections and from which duplicates have been removed.
 
@@ -2669,13 +2682,13 @@ The notations introduced here are used throughout the following subsections.
 
 ## <a name="CommonParametersforHierarchicalTransformations" href="#CommonParametersforHierarchicalTransformations">6.1 Common Parameters for Hierarchical Transformations</a>
 
-The parameter lists defined in the following subsections have three mandatory parameters and one optional parameter in common.
+The parameter lists defined in the following subsections have three mandatory parameters in common.
 
 The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
-The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) or be service-defined bound functions whose output set is a subset of their input set.
+Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformation sequence $S$ will be applied to the node collection $H$. It MUST consist of transformations listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) or service-defined bound functions whose output set is a subset of their input set.
 
 ## <a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a>
 
@@ -2683,31 +2696,31 @@ These transformations produce an output set that consists of certain instances f
 
 ### <a name="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1 Transformations `ancestors` and `descendants`</a>
 
-In the simple case, the `ancestors` transformation takes an input set consisting of instances that belong to a recursive hierarchy $(H',Q)$. It determines a subset $A$ of the input set and then determines the set of ancestors of $A$ that were already contained in the input set. Its output set is the ancestors set, optionally including $A$.
+In the simple case, the `ancestors` transformation takes an input set consisting of instances that belong to a recursive hierarchy $(H,Q)$. It determines a subset $A$ of the input set and then determines the set of ancestors of $A$ that were already contained in the input set. Its output set is the ancestors set, optionally including $A$.
 
 In the more complex case, the instances in the input set are instead related to nodes in a recursive hierarchy. Then the `ancestors` transformation determines a subset $A$ of the input set consisting of instances that are related to certain nodes in the hierarchy, called start nodes. The ancestors of these start nodes are then determined, and the output set consists of instances of the input set that are related to the ancestors, or optionally to the start nodes.
 
 The `descendants` transformation works analogously, but with descendants.
 
-$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
+$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2](#HierarchicalTransformationsProducingaSubset) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2.1](#Transformationsancestorsanddescendants) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
-$S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
+The fifth parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
-The output set of the transformation ${\tt ancestors}(H,Q,p,T,S,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,S,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
+The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
+$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
 or, for `descendants`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 or, for `descendants`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
@@ -2799,7 +2812,9 @@ The traverse transformation returns instances of the input set that are or are r
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
+The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations). Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$ if $S$ is not specified. Nodes in $H'$ are called start nodes in this subsection (see [example 117](#weight)).
+
+All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
 The instances in the input set are related to one node (if $p$ is single-valued) or multiple nodes (if $p$ is collection-valued) in the recursive hierarchy. Given a node $x$, denote by $\hat F(x)$ the collection of all instances in the input set that are related to $x$; these collections can overlap. For each $u$ in $\hat F(x)$, the output set contains one instance that comprises the properties of $u$ and additional properties that identify the node $x$. These additional properties are independent of $u$ and are bundled into an instance called $σ(x)$. For example, if a sale $u$ is related to two sales organizations and hence contained in both $\hat F(x_1)$ and $\hat F(x_2)$, the output set will contain two instances $(u,σ(x_1))$ and $(u,σ(x_2))$ and $σ(x_i)$ contributes a navigation property `SalesOrganization`.
 
@@ -2812,15 +2827,15 @@ The definition of $σ(x)$ makes use of a function $a(ε,t,x)$, which returns a s
 Three cases are distinguished:
 1. _Case where the recursive hierarchy is defined on the input set_  
    This case applies if the paths $p$ and $q$ are equal. Let $σ(x)=x$ and let $G$ be a list containing all structural and navigation properties of the entity type of $H$.  
-   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [example 64](#caseone).)
+   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [example 65](#caseone).)
 2. _Case where the recursive hierarchy is defined on the related entity type addressed by a navigation property path_  
    This case applies if $p'$ is a non-empty navigation property path and $p''$ an optional type-cast segment such that $p$ equals the concatenated path $p'/p''/q$. Let $σ(x)=a(ε,p'/p'',x)$ and let $G=(p')$.  
-   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example 65](#rollupnode).)
+   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example 66](#rollupnode).)
 3. _Case where the recursive hierarchy is related to the input set only through equality of node identifiers, not through navigation_  
    If neither case 1 nor case 2 applies, let $σ(x)=a(ε,p,x[q])$ and let $G=(p)$.  
    In this case $\Pi_G(σ(x))$ injects only the node identifier of $x$ into the instances of the output set.
 
-Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [example 66](#pathequals)).
+Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [example 68](#pathequals)).
 
 The function $a(u,t,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
 1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity id.
@@ -2832,17 +2847,24 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 7. If $t_1$ is collection-valued, let $u[t_1]$ be a collection consisting of one item $x'$.
 8. Return $u$.
 
-(See [example 110](#traversecoll).)
+(See [example 112](#traversecoll).)
 
-Let $r_1,…,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+#### <a name="StandardCaseoftraverse" href="#StandardCaseoftraverse">6.2.2.1 Standard Case of `traverse`</a>
+
+The algorithm is first given for the standard case where `RecursiveHierarchy/ParentNavigationProperty` is single-valued and the optional parameter $S$ is not specified. In this standard case, start nodes are root nodes and $σ(x)$ is computed exactly once for every node $x$, as part of the recursive formula for $R(x)$ given below. The general case follows [later](#GeneralCaseoftraverse).
+
+Let $r_1,…,r_n$ be a sequence of the start nodes in $H'$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
-$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the children of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
+
+$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H,Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
 
 If $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).$$
+
+The absence of cycles guarantees that the recursion terminates.
 
 $F(x)$ is a transformation that determines for the specified node $x$ the instances of the input set having the same node identifier as $x$.
 
@@ -2878,32 +2900,71 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued.
+#### <a name="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of `traverse`</a>
 
-If the recursive algorithm reaches a node $x$ multiple times, via different parents or ancestors, then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see [example 117](#weight)).
 
-More precisely, a _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
-Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
+::: example
+⚠ Example 64: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
+```
+GET /service/SalesOrganizations?$apply=
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+```
+results in
+```json
+{
+  "@context": "$metadata#SalesOrganizations",
+  "value": [
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "US", "Sales" ] },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+         [ "Atlantis", "US", "Sales" ] },
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "EMEA", "Sales" ] },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "Atlantis", "EMEA", "Sales" ] },
+    ...
+  ]
+}
+```
+:::
 
-Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q=[]$ set to an empty collection.
 
-The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
-$${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
-$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).$$
+Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
+$$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-If $h={\tt postorder}$, then
+Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpPath` and qualifier $Q$, copy this annotation from $s$ to $u$.
+
+Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
+
+Let $r_1,…,r_n$ be the start nodes in $H'$ as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+$${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
+where the function $R(x)$ takes as argument a node with `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
+$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
+and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+The absence of cycles guarantees that the recursion terminates.
+
+In the general case, servers MUST include the `Aggregation.UpPath` annotations in the result of `$apply` but MAY omit them if `RecursiveHierarchy/ParentNavigationProperty` is single-valued and all start nodes are root nodes.
+
+If `RecursiveHierarchy/ParentNavigationProperty` is collection-valued but the parent collection never contains more than one parent and the optional parameter $S$ is not specified, then the result is effectively like in the standard case, except for the presence of the `Aggregation.UpPath` annotations.
 
 ## <a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with `rolluprecursive`</a>
 
 Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a [recursive hierarchy](#RecursiveHierarchy). The transformation $F(x)$, defined below, outputs the portion whose node identifiers are among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(σ(x))$ defined in the [`traverse`](#Transformationtraverse) section.
 
-As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, and $S$ is an optional fourth parameter that restricts $H$ to a subset $H'$.
+As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, $S$ is an optional fourth parameter. Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified.
 
 Navigation properties specified in $p$ are expanded by default.
 
@@ -2911,33 +2972,35 @@ Let $T$ be a transformation sequence, $P_1$ stand in for zero or more property p
 
 _The `rolluprecursive` algorithm:_
 
-A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 65](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
+A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 66](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-If $r_1,…,r_n$ are the root nodes of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(r_1),…,R(r_n))$$
-with no order defined on the output set.
+Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 118](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+$${\tt concat}(R(x_1),…,R(x_n))$$
+with no order defined on the output set unless $S$ ends with a `traverse` transformation.
 
-$R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,…,c_m$ be the children of $x$ in $(H',Q)$:
+$R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ \quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ ).\hskip25pc }$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x)))$$
+with no order defined on the output set.
 
-The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of row (1) involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
+The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of the formula involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if $P_1$ and $P_2$ are empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ \quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ ).\hskip25pc }$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x))$$
+with no order defined on the output set.
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 111](#rollupcoll) for a case with $k=1$.)
+$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 113](#rollupcoll) for a case with $k=1$.)
 
 Informatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ as determined by $F(x)$ in the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.
 
 ::: example
-Example <a name="caseone" href="#caseone">64</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case $\Pi_G(σ(x))$ writes back the entire node into the output set of $T$, aggregates must have an alias to avoid overwriting by a property of the node with the same name.
+Example <a name="caseone" href="#caseone">65</a>: Total number of sub-organizations for all organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case $\Pi_G(σ(x))$ writes back the entire node into the output set of $T$, aggregates must have an alias to avoid overwriting by a property of the node with the same name.
 ```
 GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
@@ -2969,10 +3032,10 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the unbound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
-⚠ Example <a name="rollupnode" href="#rollupnode">65</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
+⚠ Example <a name="rollupnode" href="#rollupnode">66</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -3008,7 +3071,60 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="pathequals" href="#pathequals">66</a>: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
+⚠ Example 67: When requesting a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").
+
+Actual totals are computed when `rolluprecursive` is restricted to the sub-hierarchy by setting the optional parameter $S$ to an `ancestors` transformation:
+```
+GET /service/Sales?$apply=groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(ID eq 'US East'),keep start))),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 19 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 24 }
+  ]
+}
+```
+
+Visual totals are computed when the `ancestors` transformation is additionally carried out before the `rolluprecursive`:
+```
+GET /service/Sales?$apply=
+  ancestors($root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    filter(SalesOrganization/ID eq 'US East'),keep start))),
+  /groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(ID eq 'US East'),keep start))),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 12 }
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example <a name="pathequals" href="#pathequals">68</a>: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
 ```
 GET /service/Sales?$apply=
     groupby((rolluprecursive(
@@ -3032,15 +3148,6 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
-
-With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }$$
-otherwise
-$$\matrix{ R(x)={\tt concat}(\hfill\\ \quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ \quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ ),\hfill }$$
-where $χ_N$ is the path-to-the-root $x$.
 
 -------
 
@@ -3053,7 +3160,7 @@ The following examples show some common aggregation-related questions that can b
 Grouping without specifying a set transformation returns the distinct combination of the grouping properties.
 
 ::: example
-Example 67:
+Example 69:
 ```
 GET /service/Customers?$apply=groupby((Name))
 ```
@@ -3075,7 +3182,7 @@ Note that "Sue" appears only once although the customer base contains two differ
 Aggregation is also possible across related entities.
 
 ::: example
-Example 68: customers that bought something
+Example 70: customers that bought something
 ```
 GET /service/Sales?$apply=groupby((Customer/Name))
 ```
@@ -3098,7 +3205,7 @@ However, even though both Sues bought products, only one "Sue" appears in the ag
 :::
 
 ::: example
-Example 69:
+Example 71:
 ```
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID))
 ```
@@ -3121,7 +3228,7 @@ GET /service/Sales?$apply=groupby((Customer))
 :::
 
 ::: example
-Example <a name="groupbynav" href="#groupbynav">70</a>: Grouping by navigation property `Customer`
+Example <a name="groupbynav" href="#groupbynav">72</a>: Grouping by navigation property `Customer`
 ```
 
 GET /service/Sales?$apply=groupby((Customer))
@@ -3140,7 +3247,7 @@ results in
 :::
 
 ::: example
-Example 71: the first question in the motivating example in [section 2.3](#ExampleUseCases), which customers bought which products, can now be expressed as
+Example 73: the first question in the motivating example in [section 2.3](#ExampleUseCases), which customers bought which products, can now be expressed as
 ```
 GET /service/Sales?$apply=groupby((Customer/Name,Customer/ID,Product/Name))
 ```
@@ -3169,7 +3276,7 @@ and results in
 :::
 
 ::: example
-⚠ Example <a name="subinputtype" href="#subinputtype">72</a>: grouping by properties of subtypes
+⚠ Example <a name="subinputtype" href="#subinputtype">74</a>: grouping by properties of subtypes
 ```
 GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating,
                                       SalesModel.NonFoodProduct/RatingClass))
@@ -3190,7 +3297,7 @@ results in
 :::
 
 ::: example
-⚠ Example <a name="anystructure" href="#anystructure">73</a>: grouping by a property of a subtype
+⚠ Example <a name="anystructure" href="#anystructure">75</a>: grouping by a property of a subtype
 ```
 GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating))
 ```
@@ -3212,7 +3319,7 @@ results in a third group representing entities with no `SalesModel.FoodProduct/R
 The client may specify one of the predefined aggregation methods [`min`](#StandardAggregationMethodmin), [`max`](#StandardAggregationMethodmax), [`sum`](#StandardAggregationMethodsum), [`average`](#StandardAggregationMethodaverage), and [`countdistinct`](#StandardAggregationMethodcountdistinct), or a [custom aggregation method](#CustomAggregationMethods), to aggregate an [aggregatable expression](#AggregatableExpression). Expressions defining an aggregate method specify an [alias](#Keywordas). The aggregated values are returned in a dynamic property whose name is determined by the alias.
 
 ::: example
-Example <a name="aggr" href="#aggr">74</a>:
+Example <a name="aggr" href="#aggr">76</a>:
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))
@@ -3224,7 +3331,7 @@ results in
   "value": [
     { "Name": "Coffee", "Total@type": "Decimal", "Total":   12 },
     { "Name": "Paper",  "Total@type": "Decimal", "Total":    8 },
-    { "Name": "Pencil",                                "Total": null },
+    { "Name": "Pencil",                          "Total": null },
     { "Name": "Sugar",  "Total@type": "Decimal", "Total":    4 }
   ]
 }
@@ -3234,7 +3341,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example <a name="nest" href="#nest">75</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
+Example <a name="nest" href="#nest">77</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
 ```
 GET /service/Products?$apply=addnested(Sales,
     aggregate(Amount with sum as Total) as AggregatedSales)
@@ -3262,7 +3369,7 @@ results in
 :::
 
 ::: example
-Example 76: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example 78: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
@@ -3287,7 +3394,7 @@ The expression `$it/Sales` refers to the sales of the current product. Without `
 :::
 
 ::: example
-Example 77: Alternatively, `join` could be applied to yield a flat structure:
+Example 79: Alternatively, `join` could be applied to yield a flat structure:
 ```
 GET /service/Products?$apply=
     join(Sales as TotalSales,aggregate(Amount with sum as Total))
@@ -3315,7 +3422,7 @@ Applying `outerjoin` instead would return an additional entity for product with 
 :::
 
 ::: example
-Example 78:
+Example 80:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                             aggregate(Amount with average as AverageAmount))
@@ -3336,7 +3443,7 @@ Here the `AverageAmount` is of type `Edm.Double`.
 :::
 
 ::: example
-Example 79: `$count` after navigation property
+Example 81: `$count` after navigation property
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/$count as SalesCount))
@@ -3358,7 +3465,7 @@ results in
 To place the number of instances in a group next to other aggregated values, the aggregate expression [`$count`](#AggregateExpressioncount) can be used:
 
 ::: example
-⚠ Example 80: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
+⚠ Example 82: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
 ```
 GET /service/Products?$apply=groupby((Name),addnested(Sales,
       aggregate($count as SalesCount,
@@ -3392,7 +3499,7 @@ results in
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example 81: Products with an aggregated sales volume of ten or more
+Example 83: Products with an aggregated sales volume of ten or more
 ```
 GET /service/Products?$filter=Sales/aggregate(Amount with sum) ge 10
 ```
@@ -3409,7 +3516,7 @@ results in
 :::
 
 ::: example
-Example 82: Customers in descending order of their aggregated sales volume
+Example 84: Customers in descending order of their aggregated sales volume
 ```
 GET /service/Customers?$orderby=Sales/aggregate(Amount with sum) desc
 ```
@@ -3428,7 +3535,7 @@ results in
 :::
 
 ::: example
-Example 83: Contribution of each sales to grand total sales amount
+Example 85: Contribution of each sales to grand total sales amount
 ```
 GET /service/Sales?$compute=Amount divby $these/aggregate(Amount with sum)
                             as Contribution
@@ -3460,7 +3567,7 @@ results in
 :::
 
 ::: example
-Example 84: Product categories with at least one product having an aggregated sales amount greater than 10
+Example 86: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
                                 p:p/Sales/aggregate(Amount with sum) gt 10)
@@ -3479,7 +3586,7 @@ results in
 The `aggregate` function can also be applied inside `$apply`:
 
 ::: example
-Example 85: Sales volume per customer in relation to total volume
+Example 87: Sales volume per customer in relation to total volume
 ```
 GET /service/Sales?$apply=
     groupby((Customer),aggregate(Amount with sum as CustomerAmount))
@@ -3504,7 +3611,7 @@ results in
 :::
 
 ::: example
-Example 86: rule 1 for [keyword `from`](#Keywordfrom) applied repeatedly
+Example 88: rule 1 for [keyword `from`](#Keywordfrom) applied repeatedly
 ```
 GET /service/Sales?$apply=aggregate(Amount with sum
                                     from Time with average
@@ -3531,7 +3638,7 @@ GET /service/Sales?$apply=
 ## <a name="RequestingExpandedResults" href="#RequestingExpandedResults">7.3 Requesting Expanded Results</a>
 
 ::: example
-Example 87: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
+Example 89: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
 ```
 GET /service/Customers?$apply=
     addnested(Addresses/ResponsibleSalesOrganization,
@@ -3563,7 +3670,7 @@ results in
 `addnested` transformations can be nested.
 
 ::: example
-Example 88: nested `addnested` transformations
+Example 90: nested `addnested` transformations
 ```
 GET /service/Categories?$apply=
     addnested(Products,
@@ -3614,7 +3721,7 @@ results in the response before without the FilteredSales dynamic navigation prop
 :::
 
 ::: example
-Example 89: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
+Example 91: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
 ```
 GET /service/Customers?$apply=addnested(Sales,
     groupby((Product/Name)) as GroupedSales)
@@ -3653,7 +3760,7 @@ results in
 :::
 
 ::: example
-Example 90: use `outerjoin` to split up collection-valued navigation properties for grouping
+Example 92: use `outerjoin` to split up collection-valued navigation properties for grouping
 ```
 GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
                        /groupby((Country,ProductSales/Product/Name))
@@ -3691,7 +3798,7 @@ Custom aggregates are defined through the [`CustomAggregate`](#CustomAggregates)
 A custom aggregate can be used by specifying the name of the custom aggregate in the [`aggregate`](#Transformationaggregate) clause.
 
 ::: example
-Example 91:
+Example 93:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Actual,Forecast))
@@ -3715,7 +3822,7 @@ results in
 When associated with an entity set a custom aggregate MAY have the same name as a property of the underlying entity type with the same type as the type returned by the custom aggregate. This is typically done when the aggregate is used as a default aggregate for that property.
 
 ::: example
-Example 92: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
+Example 94: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),aggregate(Amount))
 ```
@@ -3732,7 +3839,7 @@ results in
 :::
 
 ::: example
-Example 93: illustrates rule 1 for [keyword `from`](#Keywordfrom): maximal sales forecast for a product
+Example 95: illustrates rule 1 for [keyword `from`](#Keywordfrom): maximal sales forecast for a product
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Product with max
                                     as MaxProductForecast)
@@ -3746,7 +3853,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 94: illustrates rule 2 for [keyword `from`](#Keywordfrom): the forecast is computed in two steps
+Example 96: illustrates rule 2 for [keyword `from`](#Keywordfrom): the forecast is computed in two steps
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Product as ProductForecast)
 ```
@@ -3759,7 +3866,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 95: illustrates rule 1 followed by rule 2 for [keyword `from`](#Keywordfrom): a forecast based on the average daily forecasts per country
+Example 97: illustrates rule 1 followed by rule 2 for [keyword `from`](#Keywordfrom): a forecast based on the average daily forecasts per country
 ```
 GET /service/Sales?$apply=aggregate(Forecast from Time with average
                                     from Customer/Country
@@ -3780,7 +3887,7 @@ GET /service/Sales?$apply=
 A property can be aggregated in multiple ways, each with a different alias.
 
 ::: example
-Example 96:
+Example 98:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Total,
@@ -3805,7 +3912,7 @@ results in
 The introduced dynamic property is added to the context where the aggregate expression is applied to:
 
 ::: example
-Example 97:
+Example 99:
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))
@@ -3841,7 +3948,7 @@ results in
 There is no hard distinction between groupable and aggregatable properties: the same property can be aggregated and used to group the aggregated results.
 
 ::: example
-Example 98:
+Example 100:
 ```
 GET /service/Sales?$apply=groupby((Amount),aggregate(Amount with sum as Total))
 ```
@@ -3864,7 +3971,7 @@ will return all distinct amounts appearing in sales orders and how much money wa
 Dynamic property names may be reused in different transformation sequences passed to `concat`.
 
 ::: example
-Example <a name="bestselling" href="#bestselling">99</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
+Example <a name="bestselling" href="#bestselling">101</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
 ```
 GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
@@ -3896,7 +4003,7 @@ results in
 :::
 
 ::: example
-Example 100: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
+Example 102: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))
@@ -3927,7 +4034,7 @@ results in
 :::
 
 ::: example
-Example <a name="contradict" href="#contradict">101</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
+Example <a name="contradict" href="#contradict">103</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
 ```
 GET /service/Sales?$apply=concat(
     groupby((Customer),topcount(1,Amount))/compute('Customer' as per),
@@ -3959,7 +4066,7 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 ## <a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7 Model Functions as Set Transformations</a>
 
 ::: example
-Example 102: As a variation of [example 99](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
+Example 104: As a variation of [example 101](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
 
 For this purpose, the model includes a definition of a `TopCountAndRemainder` function that accepts a count and a numeric property for the top entities:
 ```xml
@@ -4007,7 +4114,7 @@ Note that these two entities get their values for the Country property from the 
 For a leveled hierarchy, consumers may specify a different aggregation method per level for every property passed to [`rollup`](#Groupingwithrollup) as a hierarchy level below the root level.
 
 ::: example
-Example 103: get the average of the overall amount by month per product.
+Example 105: get the average of the overall amount by month per product.
 
 Using a transformation sequence:
 ```
@@ -4027,7 +4134,7 @@ GET /service/Sales?$apply=groupby((Product/ID,Product/Name),
 :::
 
 ::: example
-Example 104:  get the total amount per customer, the average of the total customer amounts per country, and the overall average of these averages
+Example 106:  get the total amount per customer, the average of the total customer amounts per country, and the overall average of these averages
 ```
 GET /service/Sales?$apply=concat(
                     groupby((rollup(Customer/Country,Customer/ID)),
@@ -4074,7 +4181,7 @@ average.
 If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations `ancestors` and `descendants` may be used to restrict it as needed.
 
 ::: example
-Example 105: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
+Example 107: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
 GET /service/Sales?$apply=
     descendants(
@@ -4109,7 +4216,7 @@ Note that this example returns the actual total sums regardless of whether the `
 The order of transformations becomes relevant if `groupby` with `rolluprecursive` shall aggregate over a thinned-out hierarchy, like here:
 
 ::: example
-Example 106: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
+Example 108: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
 ```
 GET /service/Sales?$apply=
     filter(Product/Name eq 'Paper')
@@ -4147,7 +4254,7 @@ results in
 :::
 
 ::: example
-⚠ Example 107: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
+⚠ Example 109: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
 ```
 GET /service/Sales?$apply=
   descendants($root/SalesOrganizations,
@@ -4171,7 +4278,7 @@ GET /service/SalesOrganizations?$apply=
 :::
 
 ::: example
-⚠ Example 108: total sales amount aggregated along the sales organization subhierarchy with root EMEA restricted to 3 levels
+⚠ Example 110: total sales amount aggregated along the sales organization sub-hierarchy with root EMEA restricted to 3 levels
 ```
 GET /service/Sales?$apply=
   groupby((rolluprecursive($root/SalesOrganizations,
@@ -4210,7 +4317,7 @@ GET /service/Sales?$apply=
 :::
 
 ::: example
-Example 109: Return the result of [example 65](#rollupnode) in preorder
+Example 111: Return the result of [example 66](#rollupnode) in preorder
 ```
 GET /service/Sales?$apply=groupby(
     (rolluprecursive(
@@ -4252,7 +4359,7 @@ results in
 :::
 
 ::: example
-Example <a name="traversecoll" href="#traversecoll">110</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
+Example <a name="traversecoll" href="#traversecoll">112</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
@@ -4292,7 +4399,7 @@ The result contains multiple instances of the same `Product` that differ in thei
 :::
 
 ::: example
-Example <a name="rollupcoll" href="#rollupcoll">111</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
+Example <a name="rollupcoll" href="#rollupcoll">113</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
 ```
 GET /service/Products?$apply=
     groupby((rolluprecursive(
@@ -4324,7 +4431,7 @@ results in
 :::
 
 ::: example
-⚠ Example 112: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
+⚠ Example 114: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
 
 ProductCategory|parent ProductCategory|associated SalesOrganizations
 ---------------|----------------------|-----------------------------
@@ -4332,7 +4439,7 @@ Food||US, EMEA
 Cereals|Food|US
 Organic cereals|Cereals|US West
 
-Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
+Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it, and the ancestors of those organizations:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
     $root/SalesOrganizations,SalesOrgHierarchy,
@@ -4344,11 +4451,7 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
         $root/ProductCategories,ProductCategoryHierarchy,
         ProductCategories/ID,
         preorder,
-        descendants(
-          $root/ProductCategories,ProductCategoryHierarchy,
-          ID,
-          filter(Name eq 'Cereals'),
-          keep start)),
+        filter(Name eq 'Cereals')),
       keep start)
     )),
     aggregate(Amount with sum as TotalAmount))
@@ -4372,9 +4475,9 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `descendants` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `filter` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
 
-If `traverse` was omitted, the transformation
+Replacing the `traverse` transformation with a `descendants` transformation, as in
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -4389,12 +4492,194 @@ ancestors(
 works differently: `descendants` is the parameter $T$ of `ancestors` and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
-## <a name="TransformationSequences" href="#TransformationSequences">7.10 Transformation Sequences</a>
+## <a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a>
+
+Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
+
+::: example
+Example 115: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "Superordinate": { "@id": "SalesOrganizations('EMEA Central')" } }
+```
+results in `204 No Content`.
+
+Deleting the parent from the sales organization Switzerland (making it a root) can be achieved either with:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "Superordinate": { "@id": null } }
+```
+or with:
+```
+DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+```
+:::
+
+::: example
+Example <a name="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+```xml
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <Property Name="SuperordinateID" Type="Edm.String" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization">
+    <ReferentialConstraint Property="SuperordinateID"
+                           ReferencedProperty="ID" />
+  </NavigationProperty>
+</EntityType>
+```
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "SuperordinateID": "EMEA Central" }
+```
+:::
+
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.
+
+::: example
+⚠ Example <a name="weight" href="#weight">117</a>: Assume the relation from a node to its parent nodes contains a weight:
+```xml
+<EntityType Name="SalesOrganizationRelation">
+  <Key>
+    <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
+  </Key>
+  <Property Name="Weight" Type="Edm.Decimal"
+                          Nullable="false" DefaultValue="1" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization" Nullable="false" />
+</EntityType>
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <NavigationProperty Name="Relations"
+                      Type="Collection(SalesModel.SalesOrganizationRelation)"
+                      Nullable="false" ContainsTarget="true" />
+  <Annotation Term="Aggregation.RecursiveHierarchy"
+              Qualifier="MultiParentHierarchy">
+    <Record>
+      <PropertyValue Property="NodeProperty"
+                     PropertyPath="ID" />
+      <PropertyValue Property="ParentNavigationProperty"
+                     NavigationPropertyPath="Relations/Superordinate" />
+    </Record>
+  </Annotation>
+</EntityType>
+```
+
+Further assume the following relationships between sales organizations:
+
+ID|Relations/SuperordinateID|Relations/Weight
+--|-------------------------|---------------:
+US|Sales|1
+EMEA|Sales|1
+EMEA Central|EMEA|1
+Atlantis|US|0.6
+Atlantis|EMEA|0.4
+Phobos|Mars|1
+
+Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example 118](#weighted)).
+
+In a traversal with start node Sales only:
+```
+GET /service/SalesOrganizations?$apply=
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
+             filter(ID eq 'Sales'))
+```
+Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
+```json
+POST /service/SalesOrganizations('Mars')/Relations
+Content-Type: application/json
+
+{ "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
+```
+
+Since this example contains no referential constraint, there is no analogy to [example 116](#refconstr). The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
+```json
+POST /service/SalesOrganizations('Mars')/Relations
+Content-Type: application/json
+
+{ "SuperordinateID": "Sales" }
+```
+
+The alias `SuperordinateID` is used in the request to delete the added relationship again:
+```
+DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
+```
+:::
+
+::: example
+⚠ Example <a name="weighted" href="#weighted">118</a>: Continuing [example 117](#weight), assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `SalesOrganizationRelation/Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
+```xml
+<Annotations Target="SalesData.Sales">
+  <Annotation Term="Aggregation.CustomAggregate"
+    Qualifier="MultiParentWeightedTotal" String="Edm.Decimal" />
+</Annotations>
+```
+
+Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evaluates the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID,
+      traverse(
+        $root/SalesOrganizations,
+        MultiParentHierarchy,
+        SalesOrganization/ID,
+        preorder))),
+    aggregate(MultiParentWeightedTotal))
+```
+
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Without the weights, all duplicate nodes would contribute the same aggregate result, therefore this example only makes sense in connection with a custom aggregate that considers the weights.
+
+Note that `rolluprecursive` must preserve the preorder established by `traverse`:
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ ] },
+      "MultiParentWeightedTotal": 34 },
+    { "SalesOrganization": { "ID": "US", "Name": "US",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 25 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
+      "MultiParentWeightedTotal": 6 },
+    ...
+    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 9 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
+      "MultiParentWeightedTotal": 4 },
+    ...
+  ]
+}
+```
+:::
+
+## <a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a>
 
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 
 ::: example
-Example 113:
+Example 119:
 ```
 GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)
@@ -4413,7 +4698,7 @@ means "filter first, then aggregate", and results in
 Using `filter` within `$apply` does not preclude using it as a normal system query option.
 
 ::: example
-Example 114:
+Example 120:
 ```
 GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
@@ -4434,7 +4719,7 @@ results in
 :::
 
 ::: example
-Example 115: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
+Example 121: Revisiting [example 16](#from) for using the `from` keyword with the `aggregate` function, the request
 ```
 GET /service/Sales?$apply=aggregate(Amount from Time with average
                                     as DailyAverage)
@@ -4448,7 +4733,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Amount with sum as Total))
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
-Example 116: getting the population per country with
+Example 122: getting the population per country with
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
@@ -4470,7 +4755,7 @@ results in
 :::
 
 ::: example
-Example 117: all countries with megacities and their continents
+Example 123: all countries with megacities and their continents
 ```
 GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
@@ -4479,7 +4764,7 @@ GET /service/Cities?$apply=filter(Population ge 10000000)
 :::
 
 ::: example
-Example 118: all countries with tens of millions of city dwellers and the continents only for these countries
+Example 124: all countries with tens of millions of city dwellers and the continents only for these countries
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4501,7 +4786,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 119: all countries with tens of millions of city dwellers and all continents with cities independent of their size
+Example 125: all countries with tens of millions of city dwellers and all continents with cities independent of their size
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -4513,7 +4798,7 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 120: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
+Example 126: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
 ```
 GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
     /addnested(Items,filter(not Shipped) as FilteredItems)
@@ -4523,7 +4808,7 @@ GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
 :::
 
 ::: example
-Example 121: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
+Example 127: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
@@ -4533,7 +4818,7 @@ GET /service/SalesOrders?$apply=
 :::
 
 ::: example
-Example <a name="aggrconflict" href="#aggrconflict">122</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
+Example <a name="aggrconflict" href="#aggrconflict">128</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
 ```
 GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
@@ -4544,7 +4829,7 @@ results in an error.
 :::
 
 ::: example
-Example 123: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
+Example 129: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
 ```
 GET /service/Sales?$apply=groupby((Product/Category/ID),
                       nest(groupby((Customer/ID)) as Customers))
@@ -4581,7 +4866,7 @@ Conforming clients MUST be prepared to consume a model that uses any or all of t
 
 # <a name="References" href="#References">Appendix A. References</a>
 
-This appendix contains the normative and informative references that are used in this document.
+This appendix contains the normative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
@@ -4640,7 +4925,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## <a name="Particpants" href="#Particpants">B.2 Particpants</a>
+## <a name="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 
@@ -4667,7 +4952,7 @@ Working Draft 01|2012-11-12|Ralf Handl|Translated contribution into OASIS format
 Committee Specification Draft 01|2013-07-25| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Switched to pipe-and-filter-style query language based on composable set transformations<br> Fleshed out examples and addressed numerous editorial and technical issues processed through the TC<br> Added Conformance section
 Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
-Committee Specification Draft 04|2023-06-14| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
+Committee Specification Draft 04|2023-06-28| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 
 -------
 

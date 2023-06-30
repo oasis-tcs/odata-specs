@@ -4,7 +4,7 @@
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.
 
-With the exception of `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
+With the exceptions of `traverse` and `rolluprecursive` whose fourth parameter ends with `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
 
 The algorithmic descriptions of the transformations make use of a _union_ of collections, this is defined as an unordered collection containing the items from all these collections and from which duplicates have been removed.
 
@@ -14,13 +14,13 @@ The notations introduced here are used throughout the following subsections.
 
 ## ##subsec Common Parameters for Hierarchical Transformations
 
-The parameter lists defined in the following subsections have three mandatory parameters and one optional parameter in common.
+The parameter lists defined in the following subsections have three mandatory parameters in common.
 
 The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
-The recursive hierarchy to be processed can also be a subset $H'$ of $H$. For this case a non-empty sequence $S$ of transformations MAY be specified as an optional parameter whose position varies from transformation to transformation and is given below. In general, let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified. The transformations in $S$ MUST be listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or be service-defined bound functions whose output set is a subset of their input set.
+Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence $S$ of transformations. The transformation sequence $S$ will be applied to the node collection $H$. It MUST consist of transformations listed in [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] or service-defined bound functions whose output set is a subset of their input set.
 
 ## ##subsec Hierarchical Transformations Producing a Subset
 
@@ -28,30 +28,30 @@ These transformations produce an output set that consists of certain instances f
 
 ### ##subsubsec Transformations `ancestors` and `descendants`
 
-In the simple case, the `ancestors` transformation takes an input set consisting of instances that belong to a recursive hierarchy $(H',Q)$. It determines a subset $A$ of the input set and then determines the set of ancestors of $A$ that were already contained in the input set. Its output set is the ancestors set, optionally including $A$.
+In the simple case, the `ancestors` transformation takes an input set consisting of instances that belong to a recursive hierarchy $(H,Q)$. It determines a subset $A$ of the input set and then determines the set of ancestors of $A$ that were already contained in the input set. Its output set is the ancestors set, optionally including $A$.
 
 In the more complex case, the instances in the input set are instead related to nodes in a recursive hierarchy. Then the `ancestors` transformation determines a subset $A$ of the input set consisting of instances that are related to certain nodes in the hierarchy, called start nodes. The ancestors of these start nodes are then determined, and the output set consists of instances of the input set that are related to the ancestors, or optionally to the start nodes.
 
 The `descendants` transformation works analogously, but with descendants.
 
-$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations),
+$H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##HierarchicalTransformationsProducingaSubset] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##Transformationsancestorsanddescendants] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
-$S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. The following parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
+The fifth parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
-The output set of the transformation ${\tt ancestors}(H,Q,p,T,S,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,S,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
+The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
 $$\matrix{ 
 F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill 
 }$$
 or, for `descendants`,
 $$\matrix{ 
 F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill 
 }$$
 
@@ -65,7 +65,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip3pc ⋱\hfill\\ 
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
@@ -82,7 +82,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip3pc ⋱\hfill\\ 
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
@@ -182,7 +182,9 @@ The traverse transformation returns instances of the input set that are or are r
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations) that restricts $H$ to a subset $H'$. All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
+The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. $S$ is an optional fifth parameter as defined [above](#CommonParametersforHierarchicalTransformations). Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$ if $S$ is not specified. Nodes in $H'$ are called start nodes in this subsection (see [example ##weight]).
+
+All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
 The instances in the input set are related to one node (if $p$ is single-valued) or multiple nodes (if $p$ is collection-valued) in the recursive hierarchy. Given a node $x$, denote by $\hat F(x)$ the collection of all instances in the input set that are related to $x$; these collections can overlap. For each $u$ in $\hat F(x)$, the output set contains one instance that comprises the properties of $u$ and additional properties that identify the node $x$. These additional properties are independent of $u$ and are bundled into an instance called $σ(x)$. For example, if a sale $u$ is related to two sales organizations and hence contained in both $\hat F(x_1)$ and $\hat F(x_2)$, the output set will contain two instances $(u,σ(x_1))$ and $(u,σ(x_2))$ and $σ(x_i)$ contributes a navigation property `SalesOrganization`.
 
@@ -217,15 +219,22 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 
 (See [example ##traversecoll].)
 
-Let $r_1,…,r_n$ be a sequence of the root nodes of the recursive hierarchy $(H',Q)$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+#### ##subsubsubsec Standard Case of `traverse`
+
+The algorithm is first given for the standard case where `RecursiveHierarchy/ParentNavigationProperty` is single-valued and the optional parameter $S$ is not specified. In this standard case, start nodes are root nodes and $σ(x)$ is computed exactly once for every node $x$, as part of the recursive formula for $R(x)$ given below. The general case follows [later](#GeneralCaseoftraverse).
+
+Let $r_1,…,r_n$ be a sequence of the start nodes in $H'$ [preserving the order](#SamenessandOrder) of $H'$ stable-sorted by $o$. Then the transformation ${\tt traverse}(H,Q,p,h,o)$ is defined as equivalent to
 $${\tt concat}(R(r_1),…,R(r_n)).$$
-$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H'$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the children of $x$ in $(H',Q)$. The _recursive formula for $R(x)$_ is as follows:
+
+$R(x)$ is a transformation producing the specified tree order for a sub-hierarchy of $H$ with root node $x$. Let $c_1,…,c_m$ with $m≥0$ be an [order-preserving sequence](#SamenessandOrder) of the [children](#RecursiveHierarchy) of $x$ in $(H,Q)$. The _recursive formula for $R(x)$_ is as follows:
 
 If $h={\tt preorder}$, then
 $$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(c_1),…,R(c_m)).$$
 
 If $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(c_1),…,R(c_m),F(x)/\Pi_G(σ(x))).$$
+
+The absence of cycles guarantees that the recursion terminates.
 
 $F(x)$ is a transformation that determines for the specified node $x$ the instances of the input set having the same node identifier as $x$.
 
@@ -273,32 +282,71 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued.
+#### ##subsubsubsec General Case of `traverse`
 
-If the recursive algorithm reaches a node $x$ multiple times, via different parents or ancestors, then the output set contains multiple instances that include $σ(x)$. In order to distinguish these, information about the ancestors up to the root is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed.
+In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see [example ##weight]).
 
-More precisely, a _path-to-the-root_ is a node $x$ that is annotated with the term `UpNode` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) where the annotation value is the parent node $y$ such that $R(x)$ appears on the right-hand side of the recursive formula for $R(y)$. The annotation value $y$ is again annotated with `Aggregation.UpNode` and so on until a root is reached. Every instance in the output set of `traverse` is related to one path-to-the-root.
+More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
-Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. The transformation $\Pi_G(σ(x))$ is extended with an additional step between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
-- If $s$ is annotated with `Aggregation.UpNode`, copy the annotation from $s$ to $u$.
+::: example
+⚠ Example ##ex: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
+```
+GET /service/SalesOrganizations?$apply=
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder)
+```
+results in
+```json
+{
+  "@context": "$metadata#SalesOrganizations",
+  "value": [
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "US", "Sales" ] },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+         [ "Atlantis", "US", "Sales" ] },
+    ...
+    { "ID": "Atlantis", "Name": "Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "EMEA", "Sales" ] },
+    { "ID": "AtlantisChild", "Name": "Child of Atlantis",
+      "@Aggregation.UpPath#MultiParentHierarchy":
+        [ "Atlantis", "EMEA", "Sales" ] },
+    ...
+  ]
+}
+```
+:::
 
-Given a path-to-the-root $x$ and a child $c$ of $x$, let $ρ(c,x)$ be the path-to-the-root consisting of the node $c$ annotated with `Aggregation.UpNode` and value $x$.
+Given a start node $x$, let $ρ_0(x)$ be the node $x$ with the annotation $ρ_0(x)/@\hbox{\tt Aggregation.UpPath}\#Q=[]$ set to an empty collection.
 
-The `Aggregation.UpNode` annotation of a root has value null. With $r_1,…,r_n$ as above, the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
-$${\tt concat}(R(ρ(r_1,{\tt null})),…,R(ρ(r_n,{\tt null}))$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
-$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))).$$
+Given a node $x$ annotated with $x/@\hbox{\tt Aggregation.UpPath}\#Q=[x_1,…,x_d]$, where $d≥0$, and given a child $y$ of $x$, let $ρ(y,x)$ be the node $y$ with the annotation
+$$ρ(y,x)/@\hbox{\tt Aggregation.UpPath}\#Q=[{\tt cast}(x[q],\hbox{\tt Edm.String}),x_1,…,x_d].$$
 
-If $h={\tt postorder}$, then
+Like structural and navigation properties, these instance annotations are considered part of the node $x$ and are copied over to $σ(x)$. For them to be included in the transformation $\Pi_G(σ(x))$, an additional step is inserted between steps 2 and 3 of the function $a_G(u,s,p)$ as defined in the [simple grouping section](#SimpleGrouping):
+- If $s$ is annotated with `Aggregation.UpPath` and qualifier $Q$, copy this annotation from $s$ to $u$.
+
+Recall that instance annotations never appear in [data aggregation paths](#DataAggregationPath) or [aggregatable expressions](#AggregatableExpression). They are not considered when determining whether instances of structured types are [the same](#SamenessandOrder), they do not cause conflicting representations and are absent from merged representations.
+
+Let $r_1,…,r_n$ be the start nodes in $H'$ as above, then the transformation ${\tt traverse}(H,Q,p,h,S,o)$ is defined as equivalent to
+$${\tt concat}(R(ρ_0(r_1)),…,R(ρ_0(r_n))$$
+where the function $R(x)$ takes as argument a node with `Aggregation.UpPath` annotation. With $F(x)$ and $c_1,…,c_m$ as above, if $h={\tt preorder}$, then
+$$R(x)={\tt concat}(F(x)/\Pi_G(σ(x)),R(ρ(c_1,x)),…,R(ρ(c_m,x))),$$
+and if $h={\tt postorder}$, then
 $$R(x)={\tt concat}(R(ρ(c_1,x)),…,R(ρ(c_m,x)),F(x)/\Pi_G(σ(x))).$$
 
-If there is only one parent, the result is the same as in the single-parent case, except for the presence of the `Aggregation.UpNode` annotations.
+The absence of cycles guarantees that the recursion terminates.
+
+In the general case, servers MUST include the `Aggregation.UpPath` annotations in the result of `$apply` but MAY omit them if `RecursiveHierarchy/ParentNavigationProperty` is single-valued and all start nodes are root nodes.
+
+If `RecursiveHierarchy/ParentNavigationProperty` is collection-valued but the parent collection never contains more than one parent and the optional parameter $S$ is not specified, then the result is effectively like in the standard case, except for the presence of the `Aggregation.UpPath` annotations.
 
 ## ##subsec Grouping with `rolluprecursive`
 
 Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with `rolluprecursive`, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node $x$ of a [recursive hierarchy](#RecursiveHierarchy). The transformation $F(x)$, defined below, outputs the portion whose node identifiers are among the descendants of $x$ (including $x$ itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node $x$, which is achieved through the transformation $\Pi_G(σ(x))$ defined in the [`traverse`](#Transformationtraverse) section.
 
-As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, and $S$ is an optional fourth parameter that restricts $H$ to a subset $H'$.
+As defined [above](#CommonParametersforHierarchicalTransformations), $H$, $Q$ and $p$ are the first three parameters of `rolluprecursive`, $S$ is an optional fourth parameter. Let $H'$ be the output set of the transformation sequence $S$ applied to $H$, or $H'=H$ if $S$ is not specified.
 
 Navigation properties specified in $p$ are expanded by default.
 
@@ -308,34 +356,26 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example ##rollupnode]). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-If $r_1,…,r_n$ are the root nodes of the recursive hierarchy $(H',Q)$, the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(r_1),…,R(r_n))$$
-with no order defined on the output set.
+Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example ##weighted], the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+$${\tt concat}(R(x_1),…,R(x_n))$$
+with no order defined on the output set unless $S$ ends with a `traverse` transformation.
 
-$R(x)$ is a transformation that processes the entire sub-hierarchy $F(x)$ rooted at $x$ (see (1) below) and then recurs for all children of $x$ (see (2) below). Its output set is a collection of aggregated instances for all rollup results. Let $c_1,…,c_m$ be the children of $x$ in $(H',Q)$:
+$R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ 
-R(x)={\tt concat}(\hfill\\ 
-\quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill&\tt(1)\\ 
-\quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ 
-).\hskip25pc 
-}$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x)))$$
+with no order defined on the output set.
 
-The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of row (1) involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
+The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of the formula involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if $P_1$ and $P_2$ are empty, then
-$$\matrix{ 
-R(x)={\tt concat}(\hfill\\ 
-\quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill&\tt(1)\\ 
-\quad R(c_1),…,R(c_m)\hfill&\tt(2)\\ 
-).\hskip25pc 
-}$$
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x))$$
+with no order defined on the output set.
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
 $$\matrix{ 
 F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill 
 }$$
 
@@ -347,7 +387,7 @@ F(x)={\tt filter}(\hfill\\
 \hskip3pc ⋱\hfill\\ 
 \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
 \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H',\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
 \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ 
 \hskip5pc )\hfill\\ 
 \hskip4pc )\hfill\\ 
@@ -393,7 +433,7 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the instance-bound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the row labeled (1) in the formula $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the unbound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example ##ex_rollupnode: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.
@@ -432,6 +472,59 @@ results in
 :::
 
 ::: example
+⚠ Example ##ex: When requesting a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").
+
+Actual totals are computed when `rolluprecursive` is restricted to the sub-hierarchy by setting the optional parameter $S$ to an `ancestors` transformation:
+```
+GET /service/Sales?$apply=groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(ID eq 'US East'),keep start))),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 19 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 24 }
+  ]
+}
+```
+
+Visual totals are computed when the `ancestors` transformation is additionally carried out before the `rolluprecursive`:
+```
+GET /service/Sales?$apply=
+  ancestors($root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    filter(SalesOrganization/ID eq 'US East'),keep start))),
+  /groupby((rolluprecursive(
+    $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
+    ancestors($root/SalesOrganizations,SalesOrgHierarchy,ID,
+              filter(ID eq 'US East'),keep start))),
+  aggregate(Amount with sum as Total))
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),Total)",
+  "value": [
+    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "US",      "Name": "US" },
+      "Total@type": "Decimal", "Total": 12 },
+    { "SalesOrganization": { "ID": "Sales",   "Name": "Sales" },
+      "Total@type": "Decimal", "Total": 12 }
+  ]
+}
+```
+:::
+
+::: example
 ⚠ Example ##ex_pathequals: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
 ```
 GET /service/Sales?$apply=
@@ -456,22 +549,3 @@ results in
 ```
 :::
 
-The algorithm given so far is valid for a single-valued `RecursiveHierarchy/ParentNavigationProperty`. The remainder of this section describes the case where it is collection-valued. The function $ρ(c,x)$ used below constructs a path-to-the-root and was defined in the [`traverse`](#Transformationtraverse) section.
-
-With $r_1,…,r_n$ as above, ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(ρ(r_1,{\tt null}),…,R(ρ(r_n,{\tt null}))),$$
-where the function $R(x)$ takes as argument a path-to-the-root. With $F(x)$ and $c_1,…,c_m$ as above, if at least one of $P_1$ or $P_2$ is non-empty, then
-$$\matrix{ 
-R(x)={\tt concat}(\hfill\\ 
-\quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))),\hfill\\ 
-\quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ 
-),\hfill 
-}$$
-otherwise
-$$\matrix{ 
-R(x)={\tt concat}(\hfill\\ 
-\quad F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)),\hfill\\ 
-\quad R(ρ(c_1,x)),…,R(ρ(c_m,x))\hfill\\ 
-),\hfill 
-}$$
-where $χ_N$ is the path-to-the-root $x$.

@@ -180,7 +180,7 @@ results in
   "value": [
     { "Name": "Coffee", "Total@type": "Decimal", "Total":   12 },
     { "Name": "Paper",  "Total@type": "Decimal", "Total":    8 },
-    { "Name": "Pencil",                                "Total": null },
+    { "Name": "Pencil",                          "Total": null },
     { "Name": "Sugar",  "Total@type": "Decimal", "Total":    4 }
   ]
 }
@@ -1127,7 +1127,7 @@ GET /service/SalesOrganizations?$apply=
 :::
 
 ::: example
-⚠ Example ##ex: total sales amount aggregated along the sales organization subhierarchy with root EMEA restricted to 3 levels
+⚠ Example ##ex: total sales amount aggregated along the sales organization sub-hierarchy with root EMEA restricted to 3 levels
 ```
 GET /service/Sales?$apply=
   groupby((rolluprecursive($root/SalesOrganizations,
@@ -1288,7 +1288,7 @@ Food||US, EMEA
 Cereals|Food|US
 Organic cereals|Cereals|US West
 
-Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it:
+Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it, and the ancestors of those organizations:
 ```
 GET /service/Sales?$apply=groupby((rolluprecursive(
     $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1300,11 +1300,7 @@ GET /service/Sales?$apply=groupby((rolluprecursive(
         $root/ProductCategories,ProductCategoryHierarchy,
         ProductCategories/ID,
         preorder,
-        descendants(
-          $root/ProductCategories,ProductCategoryHierarchy,
-          ID,
-          filter(Name eq 'Cereals'),
-          keep start)),
+        filter(Name eq 'Cereals')),
       keep start)
     )),
     aggregate(Amount with sum as TotalAmount))
@@ -1328,9 +1324,9 @@ results in
 }
 ```
 
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `descendants` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
+`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `filter` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
 
-If `traverse` was omitted, the transformation
+Replacing the `traverse` transformation with a `descendants` transformation, as in
 ```
 ancestors(
   $root/SalesOrganizations,SalesOrgHierarchy,
@@ -1343,6 +1339,188 @@ ancestors(
   keep start)
 ```
 works differently: `descendants` is the parameter $T$ of `ancestors` and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
+:::
+
+## ##subsec Maintaining Recursive Hierarchies
+
+Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
+
+::: example
+Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "Superordinate": { "@id": "SalesOrganizations('EMEA Central')" } }
+```
+results in `204 No Content`.
+
+Deleting the parent from the sales organization Switzerland (making it a root) can be achieved either with:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "Superordinate": { "@id": null } }
+```
+or with:
+```
+DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
+```
+:::
+
+::: example
+Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+```xml
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <Property Name="SuperordinateID" Type="Edm.String" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization">
+    <ReferentialConstraint Property="SuperordinateID"
+                           ReferencedProperty="ID" />
+  </NavigationProperty>
+</EntityType>
+```
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+```json
+PATCH /service/SalesOrganizations('Switzerland')
+Content-Type: application/json
+
+{ "SuperordinateID": "EMEA Central" }
+```
+:::
+
+If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.
+
+::: example
+⚠ Example ##ex_weight: Assume the relation from a node to its parent nodes contains a weight:
+```xml
+<EntityType Name="SalesOrganizationRelation">
+  <Key>
+    <PropertyRef Name="Superordinate/ID" Alias="SuperordinateID" />
+  </Key>
+  <Property Name="Weight" Type="Edm.Decimal"
+                          Nullable="false" DefaultValue="1" />
+  <NavigationProperty Name="Superordinate"
+                      Type="SalesModel.SalesOrganization" Nullable="false" />
+</EntityType>
+<EntityType Name="SalesOrganization">
+  <Key>
+    <PropertyRef Name="ID" />
+  </Key>
+  <Property Name="ID" Type="Edm.String" Nullable="false" />
+  <Property Name="Name" Type="Edm.String" />
+  <NavigationProperty Name="Relations"
+                      Type="Collection(SalesModel.SalesOrganizationRelation)"
+                      Nullable="false" ContainsTarget="true" />
+  <Annotation Term="Aggregation.RecursiveHierarchy"
+              Qualifier="MultiParentHierarchy">
+    <Record>
+      <PropertyValue Property="NodeProperty"
+                     PropertyPath="ID" />
+      <PropertyValue Property="ParentNavigationProperty"
+                     NavigationPropertyPath="Relations/Superordinate" />
+    </Record>
+  </Annotation>
+</EntityType>
+```
+
+Further assume the following relationships between sales organizations:
+
+ID|Relations/SuperordinateID|Relations/Weight
+--|-------------------------|---------------:
+US|Sales|1
+EMEA|Sales|1
+EMEA Central|EMEA|1
+Atlantis|US|0.6
+Atlantis|EMEA|0.4
+Phobos|Mars|1
+
+Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]).
+
+In a traversal with start node Sales only:
+```
+GET /service/SalesOrganizations?$apply=
+    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
+             filter(ID eq 'Sales'))
+```
+Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
+```json
+POST /service/SalesOrganizations('Mars')/Relations
+Content-Type: application/json
+
+{ "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
+```
+
+Since this example contains no referential constraint, there is no analogy to [example ##refconstr]. The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
+```json
+POST /service/SalesOrganizations('Mars')/Relations
+Content-Type: application/json
+
+{ "SuperordinateID": "Sales" }
+```
+
+The alias `SuperordinateID` is used in the request to delete the added relationship again:
+```
+DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
+```
+:::
+
+::: example
+⚠ Example ##ex_weighted: Continuing [example ##weight], assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `SalesOrganizationRelation/Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
+```xml
+<Annotations Target="SalesData.Sales">
+  <Annotation Term="Aggregation.CustomAggregate"
+    Qualifier="MultiParentWeightedTotal" String="Edm.Decimal" />
+</Annotations>
+```
+
+Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evaluates the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
+```
+GET /service/Sales?$apply=groupby(
+    (rolluprecursive(
+      $root/SalesOrganizations,
+      MultiParentHierarchy,
+      SalesOrganization/ID,
+      traverse(
+        $root/SalesOrganizations,
+        MultiParentHierarchy,
+        SalesOrganization/ID,
+        preorder))),
+    aggregate(MultiParentWeightedTotal))
+```
+
+Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Without the weights, all duplicate nodes would contribute the same aggregate result, therefore this example only makes sense in connection with a custom aggregate that considers the weights.
+
+Note that `rolluprecursive` must preserve the preorder established by `traverse`:
+```json
+{
+  "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",
+  "value": [
+    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ ] },
+      "MultiParentWeightedTotal": 34 },
+    { "SalesOrganization": { "ID": "US", "Name": "US",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 25 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
+      "MultiParentWeightedTotal": 6 },
+    ...
+    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
+      "MultiParentWeightedTotal": 9 },
+    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
+        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
+      "MultiParentWeightedTotal": 4 },
+    ...
+  ]
+}
+```
 :::
 
 ## ##subsec Transformation Sequences
