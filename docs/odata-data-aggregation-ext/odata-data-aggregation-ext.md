@@ -2672,7 +2672,7 @@ Example 59: assume the product is an implicit input for a function bound to a co
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.
 
-With the exceptions of `traverse` and `rolluprecursive` whose fourth parameter ends with `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
+The transformations `ancestors` and `descendants` do not define an order on the output set. An order can be imposed by a subsequent `orderby` or `traverse` transformation or a `$orderby`. The output set of `traverse` is in preorder order post order, and grouping with `rolluprecursive` orders its output set in analogy with [simple grouping](#SimpleGrouping).
 
 The algorithmic descriptions of the transformations make use of a _union_ of collections, this is defined as an unordered collection containing the items from all these collections and from which duplicates have been removed.
 
