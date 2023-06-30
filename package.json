@@ -16,6 +16,6 @@
     "express": "^4",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",
-    "puppeteer": "^20.5.0"
+    "puppeteer": "^20.7.4"
   }
 }
