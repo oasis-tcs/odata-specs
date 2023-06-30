@@ -175,7 +175,7 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 ### ##subsubsec Recursive Hierarchy
 
 A recursive hierarchy is defined on a collection of entities by
-- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called _nodes_, and the primitive value is called the _node identifier_, and
+- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. Addressed entities that are part of the hierarchy are called _nodes_, and the primitive value is called the _node identifier_. In the case of a temporal collection [OData-Temporal, section 2.1.3](#ODataTemporal), a node therefore always refers to a point in time or a time slice.
 - associating with every node zero or more nodes from the same collection, called its _parent nodes_.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:

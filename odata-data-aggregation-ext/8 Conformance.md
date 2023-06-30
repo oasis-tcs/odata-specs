@@ -41,6 +41,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Version 4.01. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataTemporal">[OData-Temporal]</a>
+_OData Extension for Temporal Data Version 4.0._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="ODataURL">[OData-URL]</a>
 _OData Version 4.01. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.

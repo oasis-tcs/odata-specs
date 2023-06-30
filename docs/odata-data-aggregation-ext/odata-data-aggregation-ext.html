@@ -95,7 +95,7 @@
 <hr />
 <h1 id="odata-extension-for-data-aggregation-version-40">OData Extension for Data Aggregation Version 4.0</h1>
 <h2 id="committee-specification-draft-04">Committee Specification Draft 04</h2>
-<h2 id="28-june-2023">28 June 2023</h2>
+<h2 id="05-july-2023">05 July 2023</h2>
 <p> </p>
 <h4 id="this-stage">This stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md</a> (Authoritative)<br />
@@ -144,6 +144,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html</a></li>
 <li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html</a></li>
 <li><em>OData JSON Format Version 4.01</em>. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html">https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html</a></li>
+<li><em>OData Extension for Temporal Data Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmühl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html</a></li>
 </ul>
 <h4 id="abstract">Abstract:</h4>
 <p>This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.</p>
@@ -157,7 +158,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-Data-Agg-v4.0]</strong></p>
-<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 28 June 2023. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
+<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 05 July 2023. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
 <h4 id="notices">Notices</h4>
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
@@ -2563,7 +2564,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <h3 id="552-recursive-hierarchy"><a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a></h3>
 <p>A recursive hierarchy is defined on a collection of entities by</p>
 <ul>
-<li>determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called <em>nodes</em>, and the primitive value is called the <em>node identifier</em>, and</li>
+<li>determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. Addressed entities that are part of the hierarchy are called <em>nodes</em>, and the primitive value is called the <em>node identifier</em>. In the case of a temporal collection <a href="#ODataTemporal">OData-Temporal, section 2.1.3</a>, a node therefore always refers to a point in time or a time slice.</li>
 <li>associating with every node zero or more nodes from the same collection, called its <em>parent nodes</em>.</li>
 </ul>
 <p>The recursive hierarchy is described in the model by an annotation of the entity type with the complex term <code>RecursiveHierarchy</code> with these properties:</p>
@@ -4484,6 +4485,9 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
 <p><em>OData Version 4.01. Part 1: Protocol.</em><br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-temporal"><a name="ODataTemporal">[OData-Temporal]</a></h6>
+<p><em>OData Extension for Temporal Data Version 4.0.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
 <p><em>OData Version 4.01. Part 2: URL Conventions.</em><br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
@@ -4604,7 +4608,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </tr>
 <tr class="odd">
 <td>Committee Specification Draft 04</td>
-<td>2023-06-28</td>
+<td>2023-07-05</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen</td>
 <td>Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"</td>
 </tr>
