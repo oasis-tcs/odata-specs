@@ -82,7 +82,7 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 28 June 2023. OASIS Committee Specification Draft 04.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 28 June 2023. Committee Specification Draft 04.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
@@ -2672,7 +2672,7 @@ Example 59: assume the product is an implicit input for a function bound to a co
 
 The transformations and the `rolluprecursive` operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.
 
-With the exceptions of `traverse` and `rolluprecursive` whose fourth parameter ends with `traverse`, the hierarchical transformations do not define an order on the output set. An order can be reinstated by a subsequent `orderby` or `traverse` transformation or a `$orderby`.
+The transformations `ancestors` and `descendants` do not define an order on the output set. An order can be imposed by a subsequent `orderby` or `traverse` transformation or a `$orderby`. The output set of `traverse` is in preorder or postorder, and grouping with `rolluprecursive` orders its output set in analogy with [simple grouping](#SimpleGrouping).
 
 The algorithmic descriptions of the transformations make use of a _union_ of collections, this is defined as an unordered collection containing the items from all these collections and from which duplicates have been removed.
 
@@ -2974,21 +2974,20 @@ _The `rolluprecursive` algorithm:_
 
 A property $χ_N$ appears in the algorithm, but is not present in the output set. It is explained later (see [example 66](#rollupnode)). $Z_N$ is a transformation whose output set is its input set with property $χ_N$ removed.
 
-Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 118](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, otherwise its order is arbitrary. Then the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
-$${\tt concat}(R(x_1),…,R(x_n))$$
-with no order defined on the output set unless $S$ ends with a `traverse` transformation.
+Let $x_1,…,x_n$ be the nodes in $H'$, possibly with repetitions. If the optional transformation sequence $S$ ends with a [`traverse`](#Transformationtraverse) transformation, as in [example 118](#weighted), the sequence $x_1,…,x_n$ MUST have the preorder or postorder established by that traversal, and the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is defined as equivalent to
+$${\tt concat}(R(x_1),…,R(x_n)).$$
+
+Otherwise, if $S$ is not specified or does not end with a `traverse` transformation, the output set of the transformation ${\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)$ is the concatenation of $R(x_1),…,R(x_n)$. The order of occurrences from the same $R(x_i)$ remains the same, and no order is defined between occurrences from different $R(x_i)$ and $R(x_j)$.
 
 $R(x)$ is a transformation that processes the entire sub-hierarchy rooted at $x$, which is the output set of $F(x)$. The output set of $R(x)$ is a collection of aggregated instances for all rollup results.
 
 If at least one of $P_1$ or $P_2$ is non-empty, then
-$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x)))$$
-with no order defined on the output set.
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))).$$
 
 The property $χ_N=x$ is present during the evaluation of $T$, but not afterwards. If $P_2$ contains a `rolluprecursive` operator, the evaluation of the formula involves a recursive invocation (with $N$ increased by 1) of the `rolluprecursive` algorithm.
 
 Otherwise if $P_1$ and $P_2$ are empty, then
-$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x))$$
-with no order defined on the output set.
+$$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
 $$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
