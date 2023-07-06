@@ -122,7 +122,7 @@ Michael Pizzo<br>
 Martin Zurmuehl| 
 Added compute transformation<br> 
 Minor clean-up
-Committee Specification Draft 04|$$$pubdateISO$$$| 
+$$$subtitle$$$|$$$pubdateISO$$$| 
 Ralf Handl<br> 
 Hubert Heijkers<br> 
 Gerald Krause<br> 
