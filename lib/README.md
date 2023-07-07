@@ -81,7 +81,7 @@ The [`pdf.js`](pdf.js) module uses an embedded browser ([`puppeteer`](https://gi
 
 The following scripts can be executed manually or as part of a GitHub Action:
 
-- [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`doc/*`](../doc/odata-data-aggregation-ext) folder.
+- [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`doc/*`](../doc/odata-data-aggregation-ext) folder. The Markdown file starts with a byte-order mark (`EF BB BF`) so that it is recognized as UTF-8 when loaded from github.io.
 - [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`doc/*`](../doc/odata-data-aggregation-ext) folder.
 - [`npm test`](../test) runs a test suite.
 
