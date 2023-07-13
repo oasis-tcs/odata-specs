@@ -60,6 +60,7 @@ This specification is related to:
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html
 * _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
+* _OData Extension for Temporal Data Version 4.0_. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmühl. Latest stage: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html
 
 #### Abstract:
 This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.
@@ -2445,7 +2446,7 @@ The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to
 ### <a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a>
 
 A recursive hierarchy is defined on a collection of entities by
-- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. These entities are called _nodes_, and the primitive value is called the _node identifier_, and
+- determining which entities are part of the hierarchy and giving every such entity a single primitive non-null value that uniquely identifies it within the hierarchy. Addressed entities that are part of the hierarchy are called _nodes_, and the primitive value is called the _node identifier_. In the case of a temporal collection [OData-Temporal, section 2.1.3](#ODataTemporal), a node therefore always refers to a point in time or a time slice.
 - associating with every node zero or more nodes from the same collection, called its _parent nodes_.
 
 The recursive hierarchy is described in the model by an annotation of the entity type with the complex term `RecursiveHierarchy` with these properties:
@@ -2684,7 +2685,7 @@ The notations introduced here are used throughout the following subsections.
 
 The parameter lists defined in the following subsections have three mandatory parameters in common.
 
-The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
+The recursive hierarchy is defined by a parameter pair $(H,Q)$, where $H$ and $Q$ MUST be specified as the first and second parameter. Here, $H$ MUST be an expression of type `Collection(Edm.EntityType)` starting with `$root` that has no multiple occurrences of the same entity. $H$ identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term `RecursiveHierarchy` with a `Qualifier` attribute whose value MUST be provided in $Q$. If $H$ is a temporal collection [OData-Temporal, section 2.1.3](#ODataTemporal), temporal query options are propagated [OData-Temporal, section 4.2.1](#ODataTemporal) to it so that the nodes in $H$ always refer to a point in time or a time slice. The property paths referenced by `NodeProperty` and `ParentNavigationProperty` in the `RecursiveHierarchy` annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The `NodeProperty` is denoted by $q$ in this section.
 
 The third parameter MUST be a data aggregation path $p$ with single- or collection-valued segments whose last segment MUST be a primitive property. The node identifier(s) of an instance $u$ in the input set are the primitive values in $γ(u,p)$, they are reached via $p$ starting from $u$. Let $p=p_1/…/p_k/r$ with $k≥0$ be the concatenation where each sub-path $p_1,…,p_k$ consists of a collection-valued segment that is preceded by zero or more single-valued segments, and either $r$ consists of one or more single-valued segments or $k≥1$ and ${}/r$ is absent. Each segment can be prefixed with a type cast.
 
@@ -4894,6 +4895,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
 _OData Version 4.01. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataTemporal">[OData-Temporal]</a>
+_OData Extension for Temporal Data Version 4.0._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
