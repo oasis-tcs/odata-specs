@@ -13,25 +13,45 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-`(Reference sources:
-For references to IETF RFCs, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.  
-For references to W3C Recommendations, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.  
-Remove this note before submitting for publication.)`
+###### <a name="ODataABNF">[OData-ABNF]</a>
+_ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OpenC2-HTTPS-v1.0]
-_Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest stage: https://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html
-###### [OpenC2-SLPF-v1.0]
-_Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0_. Edited by Joe Brule, Duncan Sparrell, and Alex Everett. Latest stage: https://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html
-###### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
-###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-## ##subasec Informative References
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [RFC3552]
+###### <a name="ODataJSON">[OData-JSON]</a>
+_OData JSON Format Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataProtocol">[OData-Protocol]</a>
+_OData Version 4.01. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataURL">[OData-URL]</a>
+_OData Version 4.01. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataVocCore">[OData-VocCore]</a>
+_OData Core Vocabulary._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
+https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc8174">[RFC8174]</a>
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+https://www.rfc-editor.org/info/rfc8174.
+
+## ##subasec Informative References 
+
+<!--TODO: remove -->
+###### <a name="rfc3552">[RFC3552]
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 
 -------
@@ -101,7 +121,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# Appendix F. Notices
+# Appendix ##asec Notices
 
 <!-- Required section. Do not modify. -->
 

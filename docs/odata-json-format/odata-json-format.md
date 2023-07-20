@@ -97,17 +97,6 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.1 Definitions of terms](#Definitionsofterms)
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
     - [1.2.3 Document conventions](#Documentconventions)
-  - [1.3 Some markdown usage examples](#Somemarkdownusageexamples)
-    - [1.3.1 Figures and Captions](#FiguresandCaptions)
-    - [1.3.2 Tables](#Tables)
-      - [1.3.2.1 Basic Table](#BasicTable)
-      - [1.3.2.2 Table with Three Columns and Some Bold Text](#TablewithThreeColumnsandSomeBoldText)
-      - [1.3.2.3 Table with a caption which can be referenced](#Tablewithacaptionwhichcanbereferenced)
-    - [1.3.3 Lists](#Lists)
-    - [1.3.4 Reference Label Construction](#ReferenceLabelConstruction)
-    - [1.3.5 Code Blocks](#CodeBlocks)
-    - [1.3.6 Blockquotes](#Blockquotes)
-  - [1.4 Page Breaks](#PageBreaks)
 - [2 Section Heading](#SectionHeading)
   - [2.1 Level 2 Heading](#LevelHeading)
     - [2.1.1 Level 3 Heading](#LevelHeading)
@@ -117,7 +106,7 @@ For complete copyright information please see the full Notices section in an App
 - [3 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References](#InformativeReferences)
+  - [A.2 Informative References ](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
 - [C Acknowledgments](#Acknowledgments)
   - [C.1 Special Thanks](#SpecialThanks)
@@ -126,6 +115,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Example Appendix with subsections](#ExampleAppendixwithsubsections)
   - [E.1 Subsection title](#Subsectiontitle)
     - [E.1.1 Sub-subsection](#Subsubsection)
+- [F Notices](#Notices)
 :::
 
 -------
@@ -153,6 +143,7 @@ A TC may use other ways to generate HTML from markdown, which may generate a TOC
 
 <!-- Optional section -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
 <!-- Optional section with suggested subsections -->
@@ -166,145 +157,6 @@ A TC may use other ways to generate HTML from markdown, which may generate a TOC
 - Naming conventions
 - Font colors and styles
 - Typographic conventions
-
-## <a name="Somemarkdownusageexamples" href="#Somemarkdownusageexamples">1.3 Some markdown usage examples</a>
-
-**Text.**
-
-Note that text paragraphs in markdown should be separated by a blank line between them -
-
-Otherwise the separate paragraphs will be joined together when the HTML is generated.
-Even if the text appears to be separate lines in the markdown source.
-
-To avoid having the usual vertical space between paragraphs,  
-append two or more space characters (or space-backslash) to the end of the lines  
-which will generate an HTML break tag instead of a new paragraph tag \
-(as demonstrated here).
-
-### <a name="FiguresandCaptions" href="#FiguresandCaptions">1.3.1 Figures and Captions</a>
-
-FIGURE EXAMPLE:
-<note caption is best placed ABOVE figure, so a hyperlink to it will actually display the figure, instead of rendering the figure off the screen above the caption. The same placement should be used for table captions>
-
-###### Figure 1 -- Title of Figure
-![image-label should be meaningful](images/image_0.png) (this image is missing)
-
-###### Figure 2 -- OpenC2 Message Exchange
-![message exchange](images/image_1.png)
-
-
-### <a name="Tables" href="#Tables">1.3.2 Tables</a>
-
-#### <a name="BasicTable" href="#BasicTable">1.3.2.1 Basic Table</a>
-**Table 1-1. Table Label**
-
-| Item | Description |
-| :--- | :--- |
-| Item 1 | Something<br>(second line) |
-| Item 2 | Something |
-| Item 3 | Something<br>(second line) |
-| Item 4 | text |
-
-#### <a name="TablewithThreeColumnsandSomeBoldText" href="#TablewithThreeColumnsandSomeBoldText">1.3.2.2 Table with Three Columns and Some Bold Text</a>
-text.
-
-| Title 1 | Title 2 | title 3 |
-| :--- | :--- | :--- |
-| something | something | something else that is a long string of text that **might** need to wrap around inside the table box and will just continue until the column divider is reached |
-| something | something | something |
-
-#### <a name="Tablewithacaptionwhichcanbereferenced" href="#Tablewithacaptionwhichcanbereferenced">1.3.2.3 Table with a caption which can be referenced</a>
-
-###### Table 1-5. See reference label construction
-
-<table caption uses six ####### to become a linkable element; positioned above table so table is readable after jumping to it> 
-| Name | Description |
-| :--- | :--- |
-| **content** | Message body as specified by content_type and msg_type. |
-
-Here is a reference to the table caption:
-Please see [Table 1-5 or other meaningful label](#table-1-5-see-reference-label-construction) 
-
-### <a name="Lists" href="#Lists">1.3.3 Lists</a>
-
-Bulleted list:
-* bullet item 1.
-* **Bold** bullet item 2.
-* bullet item 3.
-* bullet item 4.
-
-Indented or multi-level bullet list - add two spaces per level before bullet character (* or -):
-* main bullet type
-  * Example second bullet
-    * See third level
-      * fourth level
-
-Numbered list:
-1. item 1
-2. item 2
-3. item 3
-
-Left-justified list without bullets or numbers:
-To list multiple items without full paragraph breaks between items, add space-backslash after each item except the last.
-
-### <a name="ReferenceLabelConstruction" href="#ReferenceLabelConstruction">1.3.4 Reference Label Construction</a>
-
-REFERENCES and ANCHORS
-- in markdown source, format the Reference tags as level 6 headings like: `###### [RFC2119]`
-###### [RFC2119]
-Bradner, S., "Key words ..."
-
-- reference text has to be on a separate line below the tag
-
-- format cross-references (citations of the references) like: `see [[RFC2119](#rfc2119)]`  
-"see [[RFC2119](#rfc2119)]"  
-(note the outer square brackets in markdown will appear in the visible HTML text)
-
-- The text in the Reference tag (following ###### ) will become an HTML anchor using the following conversion rules:  
-  - punctuation marks will be dropped (including "[" )  
-  - leading white spaces will be dropped  
-  - upper case will be converted to lower  
-  - spaces between letters will be converted to a single hyphen
-
-- The same HTML anchor construction rules apply to cross-references and to section headings.  
-  - Thus, a section heading like "## 1.2 Glossary"  
-  - becomes an anchor in HTML like `<a href="#12-glossary">`  
-  - referenced in the markdown like: see [Section 1.2](#12-glossary)  
-  - in markdown: `"see [Section 1.2](#12-glossary)"`  
-  - similar HTML anchors are also used in constructing the TOC
-
-### <a name="CodeBlocks" href="#CodeBlocks">1.3.5 Code Blocks</a>
-
-Text to appear as an indented code block with grey background and monospace font - use three back-ticks before and after the code block.
-
-Note the actual backticks will not appear in the HTML format. If it's necessary to display visible backticks, place a back-slash before them like: \``` .
-
-```
-{   
-    "target": {
-        "x_kmip_2.0": {
-            {"kmip_type": "json"},
-            {"operation": "RekeyKeyPair"},
-            {"name": "publicWebKey11DEC2017"}
-        }
-    }
-}
-```
-
-Text to be highlighted as code can also be surrounded by a single "backtick" character: `code text`
-
-### <a name="Blockquotes" href="#Blockquotes">1.3.6 Blockquotes</a>
-
-To create a blockquote, start a line with greater than (>) followed by an optional space.
-
-Blockquotes can be nested, and can also contain other formatting.
-
-The stylesheet https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css results in an indented block with a left-side bar.
-
-## <a name="PageBreaks" href="#PageBreaks">1.4 Page Breaks</a>
-Add horizontal rule lines where page breaks are desired in the PDF - before each major section
-- insert the line rules in markdown by inserting 3 or more hyphens on a line by themselves:  ---
-- place these before each main section in markdown (usually "#" - which generates the HTML `<h1>` tag)
 
 -------
 
@@ -355,25 +207,45 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-`(Reference sources:
-For references to IETF RFCs, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.  
-For references to W3C Recommendations, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.  
-Remove this note before submitting for publication.)`
+###### <a name="ODataABNF">[OData-ABNF]</a>
+_ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OpenC2-HTTPS-v1.0]
-_Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest stage: https://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html
-###### [OpenC2-SLPF-v1.0]
-_Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0_. Edited by Joe Brule, Duncan Sparrell, and Alex Everett. Latest stage: https://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html
-###### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
-###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [RFC3552]
+###### <a name="ODataJSON">[OData-JSON]</a>
+_OData JSON Format Version 4.01._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataProtocol">[OData-Protocol]</a>
+_OData Version 4.01. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataURL">[OData-URL]</a>
+_OData Version 4.01. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataVocCore">[OData-VocCore]</a>
+_OData Core Vocabulary._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
+https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc8174">[RFC8174]</a>
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+https://www.rfc-editor.org/info/rfc8174.
+
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
+
+<!--TODO: remove -->
+###### <a name="rfc3552">[RFC3552]
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 
 -------
@@ -443,7 +315,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# Appendix F. Notices
+# <a name="Notices" href="#Notices">Appendix F. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
@@ -466,3 +338,4 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 \[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
+
