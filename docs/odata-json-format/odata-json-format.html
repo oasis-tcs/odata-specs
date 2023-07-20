@@ -200,11 +200,93 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>text.</p>
 <hr />
 <h1 id="3-conformance"><a name="Conformance" href="#Conformance">3 Conformance</a></h1>
-<!-- Required section -->
+<p>Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.</p>
+<!--TODO: section references, V4.02 conformance -->
 
-<p><code>(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.</code> <code>For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dConformanceClause).</code></p>
-<p><code>See "Guidelines to Writing Conformance Clauses":   https://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.</code></p>
-<p><code>Remove this note before submitting for publication.)</code></p>
+<p>In order to be a conforming consumer of the OData JSON format, a client or service:</p>
+<ol type="1">
+<li><p>MUST either:</p>
+<ol type="1">
+<li>understand <code>metadata=minimal</code> (section 3.1.1) or</li>
+<li>explicitly specify <code>metadata=none</code> (section 3.1.3) or <code>metadata=full</code> (section 3.1.2) in the request (client)</li>
+</ol></li>
+<li><p>MUST be prepared to consume a response with full metadata</p></li>
+<li><p>MUST be prepared to receive all data types (section 7.1)</p>
+<ol type="1">
+<li>defined in this specification (client)</li>
+<li>exposed by the service (service)</li>
+</ol></li>
+<li><p>MUST interpret all <code>odata</code> control information defined according to the <code>OData-Version</code> header of the payload (section 4.5)</p></li>
+<li><p>MUST be prepared to receive any annotations and control information not defined in the <code>OData-Version</code> header of the payload (section 21.2)</p></li>
+<li><p>MUST NOT require <code>streaming=true</code> in the <code>Content-Type</code> header (section 4.4)</p></li>
+<li><p>MUST be a conforming consumer of the OData 4.0 JSON format, for payloads with an <code>OData-Version</code> header value of <code>4.0</code>.</p>
+<ol type="1">
+<li><p>MUST accept the <code>odata.</code> prefix, where defined, on format parameters and control information</p></li>
+<li><p>MUST accept the <code>#</code> prefix in <code>@odata.type</code> values</p></li>
+<li><p>MUST be prepared to handle binding through the use of the <code>@odata.bind</code> property in payloads to a <code>PATCH</code>, <code>PUT</code>, or <code>POST</code> request</p></li>
+<li><p>MUST accept <code>TargetId</code> within in a deleted link for a relationship with a maximum cardinality of one</p></li>
+<li><p>MUST accept the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code> for single and double values</p></li>
+<li><p>MUST support property annotations that appear immediately before or after the property they annotate</p></li>
+</ol></li>
+<li><p>MAY be a conforming consumer of the OData 4.01 JSON format, for payloads with an <code>OData-Version</code> header value of <code>4.01</code>.</p>
+<ol type="1">
+<li><p>MUST be prepared to interpret control information with or without the <code>odata.</code> prefix</p></li>
+<li><p>MUST be prepared for <code>@odata.type</code> primitive values with or without the <code>#</code> prefix</p></li>
+<li><p>MUST be prepared to handle binding through inclusion of an entity reference within a collection-valued navigation property in the body of a <code>PATCH</code>, <code>PUT</code>, or <code>POST</code> request</p></li>
+<li><p>MUST be prepared for <code>TargetId</code> to be included or omitted in a deleted link for a relationship with a maximum cardinality of one</p></li>
+<li><p>MUST accept the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code> for decimal values with floating scale</p></li>
+<li><p>MUST be prepared to handle related entities inline within a delta payload as well as a nested delta representation for the collection</p></li>
+<li><p>MUST be prepared to handle decimal values written in exponential notation</p></li>
+</ol></li>
+</ol>
+<p>In order to be a conforming producer of the OData JSON format, a client or service:</p>
+<ol start="9" type="1">
+<li><p>MUST support generating OData 4.0 JSON compliant payloads with an <code>OData-Version</code> header value of <code>4.0</code>.</p>
+<ol type="1">
+<li><p>MUST NOT omit the <code>odata.</code> prefix from format parameters or control information</p></li>
+<li><p>MUST NOT omit the <code>#</code> prefix from <code>@odata.type</code> values</p></li>
+<li><p>MUST NOT include entity values or entity references within a collection-valued navigation property in the body of a <code>PATCH</code>, <code>PUT</code>, or <code>POST</code> request</p></li>
+<li><p>MUST NOT return decimal values written in exponential notation unless the ExponentialDecimals format parameter is specified.</p></li>
+<li><p>MUST NOT advertise available actions or functions using name/value pairs prefixed with a property name</p></li>
+<li><p>MUST NOT return a null value for name/value pairs representing actions or functions that are not available</p></li>
+<li><p>MUST NOT represent numeric value exceptions for values other than single and double values using the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code></p></li>
+</ol></li>
+<li><p>MAY support generating OData 4.01 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.01</code>.</p>
+<ol type="1">
+<li><p>MUST return property annotations immediately before the property they annotate</p></li>
+<li><p>SHOULD omit the <code>odata.</code> prefix from format parameters and control information</p></li>
+<li><p>SHOULD omit the <code>#</code> prefix from <code>@type</code> primitive values</p></li>
+<li><p>MAY include inline related entities or nested delta collections within a delta payload</p></li>
+<li><p>MAY include <code>TargetId</code> within a deleted link for a relationship with a maximum cardinality of 1</p></li>
+<li><p>MAY return decimal values written in exponential notation</p></li>
+<li><p>MAY represent numeric value exceptions for decimal values with floating scale using the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code></p></li>
+</ol></li>
+</ol>
+<p>In addition, in order to conform to the OData JSON format, a service:</p>
+<ol start="11" type="1">
+<li><p>MUST comply with one of the conformance levels defined in <a href="#ODataProtocol">OData-Protocol</a></p></li>
+<li><p>MUST support the <code>application/json</code> media type in the <code>Accept</code> header (section 3)</p></li>
+<li><p>MUST return well-formed JSON payloads</p></li>
+<li><p>MUST support <code>odata.metadata=full</code> (section 3.1.2)</p></li>
+<li><p>MUST include the <code>odata.nextLink</code> control information in partial results for entity collections (section 4.5.5)</p></li>
+<li><p>MUST support entity instances with external metadata (section 4.5.1)</p></li>
+<li><p>MUST support properties with externally defined data types (section 4.5.3)</p></li>
+<li><p>MUST NOT violate any other aspects of this OData JSON specification</p></li>
+<li><p>SHOULD support the <code>$format</code> system query option (section 3)</p></li>
+<li><p>MAY support the <code>odata.streaming=true</code> parameter in the <code>Accept</code> header (section 4.4)</p></li>
+<li><p>MAY return full metadata regardless of <code>odata.metadata</code> (section 3.1.2)</p></li>
+<li><p>MUST NOT omit null or default values unless the <code>omit-values</code> preference is specified in the <code>Prefer</code> request header and the <code>omit-values</code> preference is included in the <code>Preference-Applied</code> response header</p></li>
+<li><p>MUST return OData JSON 4.0-compliant responses for requests with an <code>OData-MaxVersion</code> header value of <code>4.0</code></p></li>
+<li><p>MUST support OData JSON 4.0-compliant payloads in requests with an <code>OData-Version</code> header value of <code>4.0</code></p></li>
+<li><p>MUST support returning, in the final response to an asynchronous request, the <code>application/json</code> payload that would have been returned had the operation completed synchronously, wrapped in an <code>application/http</code> message</p></li>
+</ol>
+<p>In addition, in order to comply with the OData 4.01 JSON format, a service:</p>
+<ol start="26" type="1">
+<li><p>SHOULD return the OData JSON 4.01 format for requests with an <code>OData-MaxVersion</code> header value of <code>4.01</code></p></li>
+<li><p>MUST support the OData JSON 4.01 format in request payloads for requests with an <code>OData-Version</code> header value of <code>4.01</code></p></li>
+<li><p>MUST honor the <code>odata.etag</code> control information within <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code> payloads, if specified</p></li>
+<li><p>MUST support returning, in the final response to an asynchronous request, the <code>application/json</code> payload that would have been returned had the operation completed synchronously</p></li>
+</ol>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
@@ -239,7 +321,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="rfc3987"><a name="rfc3987">[RFC3987]</a></h6>
 <p><em>Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005</em> <a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>.</p>
 <h6 id="rfc4648"><a name="rfc4648">[RFC4648]</a></h6>
-<p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> _<a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
+<p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> <a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
 <h6 id="rfc5646"><a name="rfc5646">[RFC5646]</a></h6>
 <p><em>Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009</em> <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.org/html/rfc5646</a>.</p>
 <h6 id="a-namerfc74932rfc7493">&lt;a name="rfc74932&gt;[RFC7493]</a></h6>
@@ -250,7 +332,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 <h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
-<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em> _<a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
+<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em> <a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
 <h2 id="a2-informative-references-"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>

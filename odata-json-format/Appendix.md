@@ -52,7 +52,7 @@ https://tools.ietf.org/html/rfc3987.
 
 ###### <a name="rfc4648">[RFC4648]</a>
 _Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-_https://tools.ietf.org/html/rfc4648.
+https://tools.ietf.org/html/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
@@ -72,7 +72,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc8259">[RFC8259]</a>
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-_http://tools.ietf.org/html/rfc8259.
+http://tools.ietf.org/html/rfc8259.
 
 ## ##subasec Informative References 
 
