@@ -2,43 +2,76 @@
 
 # ##sec Introduction
 
-<!-- All text is normative unless otherwise labeled -->
-*The content in this section is non-normative, except where it is marked
-normative.*
+The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in [OData-Protocol](#ODataProtocol); this document is an extension of the core protocol. This document defines representations for the OData requests and responses using the JavaScript Object Notation (JSON), see [RFC8259].
 
-Here is a customized command line which will generate HTML from this markdown file (named odata-json-format-v4.02-csd01.md):
+An OData JSON payload may represent:
 
-pandoc -f gfm -t html odata-json-format-v4.02-csd01.md -c styles/markdown-styles-v1.7.3b.css --toc --toc-depth=5 -s -o odata-json-format-v4.02-csd01.html --metadata title="OData JSON Format Version 4.02"
-
-OASIS staff are currently using pandoc 3.0 from https://github.com/jgm/pandoc/releases/tag/3.0.
-
-Generating HTML in OASIS style requires a reference to a .css file containing the HTML styles. The .css file may be either included with the markdown file (like styles/markdown-styles-v1.7.3b.css) or a reference to one of the online stylesheets:
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3.css
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css (this one produces HTML that resembles the github display more closely, especially for blocks of code)
-
-Note this command generates a Table of Contents (TOC) in HTML which is located at the top of the HTML document, and which requires additional editing in order to be published in the expected OASIS style. This editing can be handled by OASIS staff during publication.
-A TC may use other ways to generate HTML from markdown, which may generate a TOC in a different way.
+<!--TODO: insert links to sections -->
+- a single primitive value
+- a collection of primitive values
+- a single complex type value
+- a collection of complex type values
+- a single entity or entity reference
+- a collection of entities or entity references
+- a collection of changes
+- a service document describing the top-level resources exposed by the service
+- an error.
 
 ## ##subsec Changes from earlier Versions
 
-<!-- Optional section -->
+<!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## ##subsec Glossary
 
-<!-- Optional section with suggested subsections -->
-
 ### ##subsubsec Definitions of terms
+
+<!-- TODO -->
 
 ### ##subsubsec Acronyms and abbreviations
 
+<!-- TODO -->
+
 ### ##subsubsec Document conventions
 
-- Naming conventions
-- Font colors and styles
-- Typographic conventions
+Keywords defined by this specification use `this monospaced font`.
+
+Some sections of this specification are illustrated with non-normative examples.
+
+::: example
+Example ##ex: text describing an example uses this paragraph style
+```
+Non-normative examples use this paragraph style.
+```
+:::
+
+All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+
+All other text is normative unless otherwise labeled.
+
+::: example
+Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+
+```
+pandoc -f gfm+tex_math_dollars+fenced_divs
+       -t html
+       -o $$$filename$$$.html
+       -c styles/markdown-styles-v1.7.3b.css
+       -c styles/odata.css
+       -s
+       --mathjax
+       --eol=lf
+       --wrap=none
+       --metadata pagetitle="$$$pagetitle$$$"
+       $$$filename$$$.md
+```
+
+This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+:::
 
 -------
+
+<!--TODO from here -->
 
 # ##sec Section Heading
 text.

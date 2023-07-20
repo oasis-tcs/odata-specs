@@ -3,8 +3,6 @@
 
 # Appendix ##asec References
 
-<!-- Required section -->
-
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
@@ -14,92 +12,109 @@ While any hyperlinks included in this appendix were valid at the time of publica
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
-_ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
+_ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01._  
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01. Part 1: Protocol._  
+_OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01. Part 2: URL Conventions._  
+_OData Version 4.02. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataVocCap">[OData-VocCap]</a>
+_OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocCore">[OData-VocCore]</a>
-_OData Core Vocabulary._  
+_OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
+###### <a name="rfc3986">[RFC3986]</a>
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
+https://tools.ietf.org/html/rfc3986.
+
+###### <a name="rfc3987">[RFC3987]</a>
+_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
+https://tools.ietf.org/html/rfc3987.
+
+###### <a name="rfc4648">[RFC4648]</a>
+_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
+_https://tools.ietf.org/html/rfc4648.
+
+###### <a name="rfc5646">[RFC5646]</a>
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
+http://tools.ietf.org/html/rfc5646.
+
+###### <a name="rfc74932>[RFC7493]</a>
+_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
+https://tools.ietf.org/html/rfc7493.
+
+###### <a name="rfc7946">[RFC7946]</a>
+_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016._
+http://tools.ietf.org/html/rfc7946.
+
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="rfc8259">[RFC8259]</a>
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
+_http://tools.ietf.org/html/rfc8259.
+
 ## ##subasec Informative References 
 
-<!--TODO: remove -->
-###### <a name="rfc3552">[RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+###### <a name="ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. 
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 
 # Appendix ##asec Safety, Security and Privacy Considerations
 
-<!-- Optional section -->
+This specification raises no security issues.
 
-`(Note: OASIS strongly recommends that Technical Committees consider issues that might affect safety, security, privacy, and/or data protection in implementations of their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.`
+This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.
 
-`While it may not be immediately obvious how your specification might make systems vulnerable to attack, most specifications, because they involve communications between systems, message formats, or system settings, open potential channels for exploit. For example, IETF [[RFC3552](#rfc3552)] lists “eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle” as well as potential denial of service attacks as threats that must be considered and, if appropriate, addressed in IETF RFCs.`
-
-`In addition to considering and describing foreseeable risks, this section should include guidance on how implementers and adopters can protect against these risks.`
-
-`We encourage editors and TC members concerned with this subject to read _Guidelines for Writing RFC Text on Security Considerations_, IETF [[RFC3552](#rfc3552)], for more information.`
-
-`Remove this note before submitting for publication.)`
+For JSON-relevant security implications please cf. at least the relevant subsections of [RFC8259](#rfc8259) as starting point.
 
 -------
 
 # Appendix ##asec Acknowledgments
 
-<!-- Required section -->
-
-`Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.`
-
 ## ##subasec Special Thanks
 
-<!-- This is an optional subsection to call out contributions from TC members. If a TC wants to thank non-TC members then they should avoid using the term "contribution" and instead thank them for their "expertise" or "assistance". -->
-
-Substantial contributions to this document from the following individuals are gratefully acknowledged:
-
-Participant Name, Affiliation or "Individual Member"
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
 
 ## ##subasec Participants
 
-<!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
-
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
-
-**OpenC2 TC Members:**
+**OData TC Members:**
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alman | Something Networks
-Alex | Amirnovman | Company B
-Kris | Anderman | Mini Micro
-Darren | Anstman | Big Networks
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Mark | Biamonte | Progress Software |
+| Martin | Zurmühl | SAP SE |
 
 -------
 
@@ -109,15 +124,7 @@ Darren | Anstman | Big Networks
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| specname-v1.0-wd01 | yyyy-mm-dd | Editor Name | Initial working draft |
-
--------
-
-# Appendix ##asec Example Appendix with subsections
-
-## ##subasec Subsection title
-
-### ##subsubasec Sub-subsection
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
 
 -------
 

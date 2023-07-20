@@ -112,53 +112,83 @@ For complete copyright information please see the full Notices section in an App
   - [C.1 Special Thanks](#SpecialThanks)
   - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
-- [E Example Appendix with subsections](#ExampleAppendixwithsubsections)
-  - [E.1 Subsection title](#Subsectiontitle)
-    - [E.1.1 Sub-subsection](#Subsubsection)
-- [F Notices](#Notices)
+- [E Notices](#Notices)
 :::
 
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
 
-<!-- All text is normative unless otherwise labeled -->
-*The content in this section is non-normative, except where it is marked
-normative.*
+The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in [OData-Protocol](#ODataProtocol); this document is an extension of the core protocol. This document defines representations for the OData requests and responses using the JavaScript Object Notation (JSON), see [RFC8259].
 
-Here is a customized command line which will generate HTML from this markdown file (named odata-json-format-v4.02-csd01.md):
+An OData JSON payload may represent:
 
-pandoc -f gfm -t html odata-json-format-v4.02-csd01.md -c styles/markdown-styles-v1.7.3b.css --toc --toc-depth=5 -s -o odata-json-format-v4.02-csd01.html --metadata title="OData JSON Format Version 4.02"
-
-OASIS staff are currently using pandoc 3.0 from https://github.com/jgm/pandoc/releases/tag/3.0.
-
-Generating HTML in OASIS style requires a reference to a .css file containing the HTML styles. The .css file may be either included with the markdown file (like styles/markdown-styles-v1.7.3b.css) or a reference to one of the online stylesheets:
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3.css
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css (this one produces HTML that resembles the github display more closely, especially for blocks of code)
-
-Note this command generates a Table of Contents (TOC) in HTML which is located at the top of the HTML document, and which requires additional editing in order to be published in the expected OASIS style. This editing can be handled by OASIS staff during publication.
-A TC may use other ways to generate HTML from markdown, which may generate a TOC in a different way.
+<!--TODO: insert links to sections -->
+- a single primitive value
+- a collection of primitive values
+- a single complex type value
+- a collection of complex type values
+- a single entity or entity reference
+- a collection of entities or entity references
+- a collection of changes
+- a service document describing the top-level resources exposed by the service
+- an error.
 
 ## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
 
-<!-- Optional section -->
+<!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-<!-- Optional section with suggested subsections -->
-
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+
+<!-- TODO -->
 
 ### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
 
+<!-- TODO -->
+
 ### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
 
-- Naming conventions
-- Font colors and styles
-- Typographic conventions
+Keywords defined by this specification use `this monospaced font`.
+
+Some sections of this specification are illustrated with non-normative examples.
+
+::: example
+Example 1: text describing an example uses this paragraph style
+```
+Non-normative examples use this paragraph style.
+```
+:::
+
+All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+
+All other text is normative unless otherwise labeled.
+
+::: example
+Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
+
+```
+pandoc -f gfm+tex_math_dollars+fenced_divs
+       -t html
+       -o odata-json-format-v4.02-csd01.html
+       -c styles/markdown-styles-v1.7.3b.css
+       -c styles/odata.css
+       -s
+       --mathjax
+       --eol=lf
+       --wrap=none
+       --metadata pagetitle="OData JSON Format Version 4.02"
+       odata-json-format-v4.02-csd01.md
+```
+
+This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+:::
 
 -------
+
+<!--TODO from here -->
 
 # <a name="SectionHeading" href="#SectionHeading">2 Section Heading</a>
 text.
@@ -197,8 +227,6 @@ https://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.`
 
 # <a name="References" href="#References">Appendix A. References</a>
 
-<!-- Required section -->
-
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
@@ -208,92 +236,108 @@ While any hyperlinks included in this appendix were valid at the time of publica
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
-_ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
+_ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01._  
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01. Part 1: Protocol._  
+_OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01. Part 2: URL Conventions._  
+_OData Version 4.02. Part 2: URL Conventions._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataVocCap">[OData-VocCap]</a>
+_OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocCore">[OData-VocCore]</a>
-_OData Core Vocabulary._  
+_OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
+###### <a name="rfc3986">[RFC3986]</a>
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
+https://tools.ietf.org/html/rfc3986.
+
+###### <a name="rfc3987">[RFC3987]</a>
+_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
+https://tools.ietf.org/html/rfc3987.
+
+###### <a name="rfc4648">[RFC4648]</a>
+_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
+_https://tools.ietf.org/html/rfc4648.
+
+###### <a name="rfc5646">[RFC5646]</a>
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
+http://tools.ietf.org/html/rfc5646.
+
+###### <a name="rfc74932>[RFC7493]</a>
+_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
+https://tools.ietf.org/html/rfc7493.
+
+###### <a name="rfc7946">[RFC7946]</a>
+_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016._
+http://tools.ietf.org/html/rfc7946.
+
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="rfc8259">[RFC8259]</a>
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
+_http://tools.ietf.org/html/rfc8259.
+
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
 
-<!--TODO: remove -->
-###### <a name="rfc3552">[RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+###### <a name="ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-<!-- Optional section -->
+This specification raises no security issues.
 
-`(Note: OASIS strongly recommends that Technical Committees consider issues that might affect safety, security, privacy, and/or data protection in implementations of their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.`
+This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.
 
-`While it may not be immediately obvious how your specification might make systems vulnerable to attack, most specifications, because they involve communications between systems, message formats, or system settings, open potential channels for exploit. For example, IETF [[RFC3552](#rfc3552)] lists “eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle” as well as potential denial of service attacks as threats that must be considered and, if appropriate, addressed in IETF RFCs.`
-
-`In addition to considering and describing foreseeable risks, this section should include guidance on how implementers and adopters can protect against these risks.`
-
-`We encourage editors and TC members concerned with this subject to read _Guidelines for Writing RFC Text on Security Considerations_, IETF [[RFC3552](#rfc3552)], for more information.`
-
-`Remove this note before submitting for publication.)`
+For JSON-relevant security implications please cf. at least the relevant subsections of [RFC8259](#rfc8259) as starting point.
 
 -------
 
 # <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-<!-- Required section -->
-
-`Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.`
-
 ## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
-<!-- This is an optional subsection to call out contributions from TC members. If a TC wants to thank non-TC members then they should avoid using the term "contribution" and instead thank them for their "expertise" or "assistance". -->
-
-Substantial contributions to this document from the following individuals are gratefully acknowledged:
-
-Participant Name, Affiliation or "Individual Member"
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
 
 ## <a name="Participants" href="#Participants">C.2 Participants</a>
 
-<!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
-
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
-
-**OpenC2 TC Members:**
+**OData TC Members:**
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alman | Something Networks
-Alex | Amirnovman | Company B
-Kris | Anderman | Mini Micro
-Darren | Anstman | Big Networks
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Mark | Biamonte | Progress Software |
+| Martin | Zurmühl | SAP SE |
 
 -------
 
@@ -303,19 +347,11 @@ Darren | Anstman | Big Networks
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| specname-v1.0-wd01 | yyyy-mm-dd | Editor Name | Initial working draft |
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
 
 -------
 
-# <a name="ExampleAppendixwithsubsections" href="#ExampleAppendixwithsubsections">Appendix E. Example Appendix with subsections</a>
-
-## <a name="Subsectiontitle" href="#Subsectiontitle">E.1 Subsection title</a>
-
-### <a name="Subsubsection" href="#Subsubsection">E.1.1 Sub-subsection</a>
-
--------
-
-# <a name="Notices" href="#Notices">Appendix F. Notices</a>
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
