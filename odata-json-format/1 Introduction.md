@@ -7,15 +7,15 @@ The OData protocol is comprised of a set of specifications for representing and 
 An OData JSON payload may represent:
 
 <!--TODO: insert links to sections -->
-- a single primitive value
-- a collection of primitive values
-- a single complex type value
-- a collection of complex type values
-- a single entity or entity reference
-- a collection of entities or entity references
-- a collection of changes
-- a service document describing the top-level resources exposed by the service
-- an error.
+- a [single primitive value](#PrimitiveValue)
+- a [collection of primitive values](#CollectionofPrimitiveValues)
+- a [single complex type value](#ComplexValue)
+- a [collection of complex type values](#CollectionofComplexValues)
+- a [single entity](#Entity) or [entity reference](#EntityReference)
+- a [collection of entities](#CollectionofEntities) or [entity references](#EntityReference)
+- a [collection of changes](#DeltaPayload)
+- a [service document](#ServiceDocument) describing the top-level resources exposed by the service
+- an [error](#ErrorResponse).
 
 ## ##subsec Changes from earlier Versions
 
@@ -27,6 +27,7 @@ An OData JSON payload may represent:
 ### ##subsubsec Definitions of terms
 
 <!-- TODO -->
+TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
 
 ### ##subsubsec Acronyms and abbreviations
 
@@ -73,24 +74,237 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 <!--TODO from here -->
 
-# ##sec Section Heading
-text.
+# ##sec JSON Format Design
 
-## ##subsec Level 2 Heading
-text.
+JSON, as described in [RFC8259](#rfc8259) defines
+a text format for serializing structured data. Objects are serialized as
+an unordered collection of name/value pairs.
 
-### ##subsubsec Level 3 Heading
-text.
+JSON does not define any semantics around the name/value pairs that make
+up an object, nor does it define an extensibility mechanism for adding
+control information to a payload.
 
-#### ##subsubsubsec Level 4 Heading
-text.
+OData's JSON format extends JSON by defining general conventions for
+name/value pairs that annotate a JSON object, property or array. OData
+defines a set of canonical name/value pairs for control information such
+as ids, types, and links, and [instance
+annotations](#InstanceAnnotations) MAY be used to add
+domain-specific information to the payload.
 
-##### ##subsubsubsubsec Level 5 Heading
-This is the deepest level, because six # gets transformed into a Reference tag.
+A key feature of OData's JSON format is to allow omitting predictable
+parts of the wire format from the actual payload. To reconstitute this
+data on the receiving end, expressions are used to compute missing
+links, type information, and other control data. These expressions
+(together with the data on the wire) can be used by the client to
+compute predictable payload pieces as if they had been included on the
+wire directly.
 
+Control information is used in JSON to capture instance metadata that
+cannot be predicted (e.g. the next link of a collection) as well as a
+mechanism to provide values where a computed value would be wrong (e.g.
+if the media read link of one particular entity does not follow the
+standard URL conventions). Computing values from metadata expressions is
+compute intensive and some clients might opt for a larger payload size
+to avoid computational complexity; to accommodate for this the
+`Accept` header allows the client to control the amount of
+control information added to the response.
 
-## ##subsec Next Heading
-text.
+To optimize streaming scenarios, there are a few restrictions that MAY
+be imposed on the sequence in which name/value pairs appear within JSON
+objects. For details on the ordering requirements see [Payload Ordering
+Constraints](#PayloadOrderingConstraints).
+
+-------
+
+# ##sec Requesting the JSON Format
+
+## ##subsec Controlling the Amount of Control Information in Responses
+
+### ##subsubsec `metadata=minimal` (`odata.metadata=minimal`)
+
+### ##subsubsec `metadata=full` (`odata.metadata=full`)
+
+### ##subsubsec `metadata=none` (`odata.metadata=none`)
+
+## ##subsec Controlling the Representation of Numbers
+
+-------
+
+# ##sec Common Characteristics
+
+# ##subsec Header Content-Type
+
+# ##subsec Message Body
+
+# ##subsec Relative URLs
+
+# ##subsec Payload Ordering Constraints
+
+# ##subsec Control Information
+
+# ##subsubsec Control Information: `context` (`odata.context`)
+
+# ##subsubsec Control Information: `metadataEtag` (`odata.metadataEtag`)
+
+# ##subsubsec Control Information: `type` (`odata.type`)
+
+# ##subsubsec Control Information: `count` (`odata.count`)
+
+# ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
+
+# ##subsubsec Control Information: `delta` (`odata.delta`)
+
+# ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
+
+# ##subsubsec Control Information: `id` (`odata.id`)
+
+# ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
+
+# ##subsubsec Control Information: `etag` (`odata.etag`)
+
+# ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
+
+# ##subsubsec Control Information: `media*` (`odata.media*`)
+
+# ##subsubsec Control Information: `removed` (`odata.removed`)
+
+# ##subsubsec Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)
+
+-------
+
+# ##sec Service Document
+
+-------
+
+# ##sec Entity
+
+-------
+
+# ##sec Structural Property
+
+# ##subsec Primitive Value
+
+# ##subsec Complex Value
+
+# ##subsec Collection of Primitive Values
+
+# ##subsec Collection of Complex Values
+
+# ##subsec Untyped Value
+
+-------
+
+# ##sec Navigation Property
+
+# ##subsec Navigation Link
+
+# ##subsec Association Link
+
+# ##subsec Expanded Navigation Property
+
+# ##subsec Deep Insert
+
+# ##subsec Bind Operation
+
+# ##subsec Collection ETag
+
+-------
+
+# ##sec Stream Property
+
+-------
+
+# ##sec Media Entity
+
+-------
+
+# ##sec Individual Property or Operation Response
+
+-------
+
+# ##sec Collection of Operation Responses
+
+-------
+
+# ##sec Collection of Entities
+
+-------
+
+# ##sec Entity Reference
+
+-------
+
+# ##sec Delta Payload
+
+# ##subsec Delta Responses
+
+# ##subsec Added/Changed Entity
+
+# ##subsec Deleted Entity
+
+# ##subsec Added Link
+
+# ##subsec Deleted Link
+
+# ##subsec Update a Collection of Entities
+
+-------
+
+# ##sec Bound Function
+
+-------
+
+# ##sec Bound Action
+
+-------
+
+# ##sec Action Invocation
+
+-------
+
+# ##sec Batch Requests and Responses
+
+# ##subsec Batch Request
+
+# ##subsec Referencing New Entities
+
+# ##subsec Referencing an ETag
+
+# ##subsec Processing a Batch Request
+
+# ##subsec Batch Response
+
+# ##subsec Asynchronous Batch Requests
+
+-------
+
+# ##sec Instance Annotations
+
+# ##subsec Annotate a JSON Object
+
+# ##subsec Annotate a JSON Array or Primitive
+
+# ##subsec Annotate a Primitive Value within a JSON Array
+
+-------
+
+# ##sec Error Handling
+
+# ##subsec Error Response
+
+# ##subsec In-Stream Error
+
+# ##subsec Error Information in a Success Payload
+
+# ##subsubsec Primitive Value Errors
+
+# ##subsubsec Structured Type Errors
+
+# ##subsubsec Collection Errors
+
+-------
+
+# ##sec Extensibility
 
 -------
 

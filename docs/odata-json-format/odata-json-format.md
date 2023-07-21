@@ -97,13 +97,84 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.1 Definitions of terms](#Definitionsofterms)
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
     - [1.2.3 Document conventions](#Documentconventions)
-- [2 Section Heading](#SectionHeading)
-  - [2.1 Level 2 Heading](#LevelHeading)
-    - [2.1.1 Level 3 Heading](#LevelHeading)
-      - [2.1.1.1 Level 4 Heading](#LevelHeading)
-        - [2.1.1.1.1 Level 5 Heading](#LevelHeading)
-  - [2.2 Next Heading](#NextHeading)
-- [3 Conformance](#Conformance)
+- [2 JSON Format Design](#JSONFormatDesign)
+- [3 Requesting the JSON Format](#RequestingtheJSONFormat)
+  - [3.1 Controlling the Amount of Control Information in Responses](#ControllingtheAmountofControlInformationinResponses)
+    - [3.1.1 `metadata=minimal` (`odata.metadata=minimal`)](#metadataminimalodatametadataminimal)
+    - [3.1.2 `metadata=full` (`odata.metadata=full`)](#metadatafullodatametadatafull)
+    - [3.1.3 `metadata=none` (`odata.metadata=none`)](#metadatanoneodatametadatanone)
+  - [3.2 Controlling the Representation of Numbers](#ControllingtheRepresentationofNumbers)
+- [4 Common Characteristics](#CommonCharacteristics)
+  - [4.1 Header Content-Type](#HeaderContentType)
+  - [4.2 Message Body](#MessageBody)
+  - [4.3 Relative URLs](#RelativeURLs)
+  - [4.4 Payload Ordering Constraints](#PayloadOrderingConstraints)
+  - [4.5 Control Information](#ControlInformation)
+    - [4.5.1 Control Information: `context` (`odata.context`)](#ControlInformationcontextodatacontext)
+    - [4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)](#ControlInformationmetadataEtagodatametadataEtag)
+    - [4.5.3 Control Information: `type` (`odata.type`)](#ControlInformationtypeodatatype)
+    - [4.5.4 Control Information: `count` (`odata.count`)](#ControlInformationcountodatacount)
+    - [4.5.5 Control Information: `nextLink` (`odata.nextLink`)](#ControlInformationnextLinkodatanextLink)
+    - [4.5.6 Control Information: `delta` (`odata.delta`)](#ControlInformationdeltaodatadelta)
+    - [4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)](#ControlInformationdeltaLinkodatadeltaLink)
+    - [4.5.8 Control Information: `id` (`odata.id`)](#ControlInformationidodataid)
+    - [4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
+    - [4.5.10 Control Information: `etag` (`odata.etag`)](#ControlInformationetagodataetag)
+    - [4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+    - [4.5.12 Control Information: `media*` (`odata.media*`)](#ControlInformationmediaodatamedia)
+    - [4.5.13 Control Information: `removed` (`odata.removed`)](#ControlInformationremovedodataremoved)
+    - [4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+- [5 Service Document](#ServiceDocument)
+- [6 Entity](#Entity)
+- [7 Structural Property](#StructuralProperty)
+  - [7.1 Primitive Value](#PrimitiveValue)
+  - [7.2 Complex Value](#ComplexValue)
+  - [7.3 Collection of Primitive Values](#CollectionofPrimitiveValues)
+  - [7.4 Collection of Complex Values](#CollectionofComplexValues)
+  - [7.5 Untyped Value](#UntypedValue)
+- [8 Navigation Property](#NavigationProperty)
+  - [8.1 Navigation Link](#NavigationLink)
+  - [8.2 Association Link](#AssociationLink)
+  - [8.3 Expanded Navigation Property](#ExpandedNavigationProperty)
+  - [8.4 Deep Insert](#DeepInsert)
+  - [8.5 Bind Operation](#BindOperation)
+  - [8.6 Collection ETag](#CollectionETag)
+- [9 Stream Property](#StreamProperty)
+- [10 Media Entity](#MediaEntity)
+- [11 Individual Property or Operation Response](#IndividualPropertyorOperationResponse)
+- [12 Collection of Operation Responses](#CollectionofOperationResponses)
+- [13 Collection of Entities](#CollectionofEntities)
+- [14 Entity Reference](#EntityReference)
+- [15 Delta Payload](#DeltaPayload)
+  - [15.1 Delta Responses](#DeltaResponses)
+  - [15.2 Added/Changed Entity](#AddedChangedEntity)
+  - [15.3 Deleted Entity](#DeletedEntity)
+  - [15.4 Added Link](#AddedLink)
+  - [15.5 Deleted Link](#DeletedLink)
+  - [15.6 Update a Collection of Entities](#UpdateaCollectionofEntities)
+- [16 Bound Function](#BoundFunction)
+- [17 Bound Action](#BoundAction)
+- [18 Action Invocation](#ActionInvocation)
+- [19 Batch Requests and Responses](#BatchRequestsandResponses)
+  - [19.1 Batch Request](#BatchRequest)
+  - [19.2 Referencing New Entities](#ReferencingNewEntities)
+  - [19.3 Referencing an ETag](#ReferencinganETag)
+  - [19.4 Processing a Batch Request](#ProcessingaBatchRequest)
+  - [19.5 Batch Response](#BatchResponse)
+  - [19.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+- [20 Instance Annotations](#InstanceAnnotations)
+  - [20.1 Annotate a JSON Object](#AnnotateaJSONObject)
+  - [20.2 Annotate a JSON Array or Primitive](#AnnotateaJSONArrayorPrimitive)
+  - [20.3 Annotate a Primitive Value within a JSON Array](#AnnotateaPrimitiveValuewithinaJSONArray)
+- [21 Error Handling](#ErrorHandling)
+  - [21.1 Error Response](#ErrorResponse)
+  - [21.2 In-Stream Error](#InStreamError)
+  - [21.3 Error Information in a Success Payload](#ErrorInformationinaSuccessPayload)
+    - [21.3.1 Primitive Value Errors](#PrimitiveValueErrors)
+    - [21.3.2 Structured Type Errors](#StructuredTypeErrors)
+    - [21.3.3 Collection Errors](#CollectionErrors)
+- [22 Extensibility](#Extensibility)
+- [23 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References ](#InformativeReferences)
@@ -124,15 +195,15 @@ The OData protocol is comprised of a set of specifications for representing and 
 An OData JSON payload may represent:
 
 <!--TODO: insert links to sections -->
-- a single primitive value
-- a collection of primitive values
-- a single complex type value
-- a collection of complex type values
-- a single entity or entity reference
-- a collection of entities or entity references
-- a collection of changes
-- a service document describing the top-level resources exposed by the service
-- an error.
+- a [single primitive value](#PrimitiveValue)
+- a [collection of primitive values](#CollectionofPrimitiveValues)
+- a [single complex type value](#ComplexValue)
+- a [collection of complex type values](#CollectionofComplexValues)
+- a [single entity](#Entity) or [entity reference](#EntityReference)
+- a [collection of entities](#CollectionofEntities) or [entity references](#EntityReference)
+- a [collection of changes](#DeltaPayload)
+- a [service document](#ServiceDocument) describing the top-level resources exposed by the service
+- an [error](#ErrorResponse).
 
 ## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
 
@@ -144,6 +215,7 @@ An OData JSON payload may represent:
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
 
 <!-- TODO -->
+TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
 
 ### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
 
@@ -190,28 +262,241 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 <!--TODO from here -->
 
-# <a name="SectionHeading" href="#SectionHeading">2 Section Heading</a>
-text.
+# <a name="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a>
 
-## <a name="LevelHeading" href="#LevelHeading">2.1 Level 2 Heading</a>
-text.
+JSON, as described in [RFC8259](#rfc8259) defines
+a text format for serializing structured data. Objects are serialized as
+an unordered collection of name/value pairs.
 
-### <a name="LevelHeading" href="#LevelHeading">2.1.1 Level 3 Heading</a>
-text.
+JSON does not define any semantics around the name/value pairs that make
+up an object, nor does it define an extensibility mechanism for adding
+control information to a payload.
 
-#### <a name="LevelHeading" href="#LevelHeading">2.1.1.1 Level 4 Heading</a>
-text.
+OData's JSON format extends JSON by defining general conventions for
+name/value pairs that annotate a JSON object, property or array. OData
+defines a set of canonical name/value pairs for control information such
+as ids, types, and links, and [instance
+annotations](#InstanceAnnotations) MAY be used to add
+domain-specific information to the payload.
 
-##### <a name="LevelHeading" href="#LevelHeading">2.1.1.1.1 Level 5 Heading</a>
-This is the deepest level, because six # gets transformed into a Reference tag.
+A key feature of OData's JSON format is to allow omitting predictable
+parts of the wire format from the actual payload. To reconstitute this
+data on the receiving end, expressions are used to compute missing
+links, type information, and other control data. These expressions
+(together with the data on the wire) can be used by the client to
+compute predictable payload pieces as if they had been included on the
+wire directly.
 
+Control information is used in JSON to capture instance metadata that
+cannot be predicted (e.g. the next link of a collection) as well as a
+mechanism to provide values where a computed value would be wrong (e.g.
+if the media read link of one particular entity does not follow the
+standard URL conventions). Computing values from metadata expressions is
+compute intensive and some clients might opt for a larger payload size
+to avoid computational complexity; to accommodate for this the
+`Accept` header allows the client to control the amount of
+control information added to the response.
 
-## <a name="NextHeading" href="#NextHeading">2.2 Next Heading</a>
-text.
+To optimize streaming scenarios, there are a few restrictions that MAY
+be imposed on the sequence in which name/value pairs appear within JSON
+objects. For details on the ordering requirements see [Payload Ordering
+Constraints](#PayloadOrderingConstraints).
 
 -------
 
-# <a name="Conformance" href="#Conformance">3 Conformance</a>
+# <a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a>
+
+## <a name="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a>
+
+### <a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 `metadata=minimal` (`odata.metadata=minimal`)</a>
+
+### <a name="metadatafullodatametadatafull" href="#metadatafullodatametadatafull">3.1.2 `metadata=full` (`odata.metadata=full`)</a>
+
+### <a name="metadatanoneodatametadatanone" href="#metadatanoneodatametadatanone">3.1.3 `metadata=none` (`odata.metadata=none`)</a>
+
+## <a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a>
+
+-------
+
+# <a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a>
+
+# <a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a>
+
+# <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
+
+# <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
+
+# <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
+
+# <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
+
+# <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
+
+# <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
+
+# <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
+
+# <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
+
+# <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
+
+# <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
+
+# <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
+
+# <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
+
+# <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
+
+# <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
+
+# <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
+
+# <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
+
+# <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
+
+# <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
+
+-------
+
+# <a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a>
+
+-------
+
+# <a name="Entity" href="#Entity">6 Entity</a>
+
+-------
+
+# <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
+
+# <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
+
+# <a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
+
+# <a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a>
+
+# <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
+
+# <a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a>
+
+-------
+
+# <a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
+
+# <a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a>
+
+# <a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a>
+
+# <a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a>
+
+# <a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a>
+
+# <a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a>
+
+# <a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a>
+
+-------
+
+# <a name="StreamProperty" href="#StreamProperty">9 Stream Property</a>
+
+-------
+
+# <a name="MediaEntity" href="#MediaEntity">10 Media Entity</a>
+
+-------
+
+# <a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a>
+
+-------
+
+# <a name="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a>
+
+-------
+
+# <a name="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a>
+
+-------
+
+# <a name="EntityReference" href="#EntityReference">14 Entity Reference</a>
+
+-------
+
+# <a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a>
+
+# <a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
+
+# <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
+
+# <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
+
+# <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
+
+# <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
+
+# <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
+
+-------
+
+# <a name="BoundFunction" href="#BoundFunction">16 Bound Function</a>
+
+-------
+
+# <a name="BoundAction" href="#BoundAction">17 Bound Action</a>
+
+-------
+
+# <a name="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a>
+
+-------
+
+# <a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a>
+
+# <a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a>
+
+# <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
+
+# <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
+
+# <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+
+# <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+
+# <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+
+-------
+
+# <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
+
+# <a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a>
+
+# <a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a>
+
+# <a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a>
+
+-------
+
+# <a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a>
+
+# <a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a>
+
+# <a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a>
+
+# <a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a>
+
+# <a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a>
+
+# <a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a>
+
+# <a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a>
+
+-------
+
+# <a name="Extensibility" href="#Extensibility">22 Extensibility</a>
+
+-------
+
+# <a name="Conformance" href="#Conformance">23 Conformance</a>
 
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
