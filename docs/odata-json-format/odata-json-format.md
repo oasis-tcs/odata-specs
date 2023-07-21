@@ -260,8 +260,6 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 -------
 
-<!--TODO from here -->
-
 # <a name="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a>
 
 JSON, as described in [RFC8259](#rfc8259) defines
@@ -303,6 +301,8 @@ objects. For details on the ordering requirements see [Payload Ordering
 Constraints](#PayloadOrderingConstraints).
 
 -------
+
+<!--TODO from here -->
 
 # <a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a>
 

@@ -272,8 +272,6 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
 </div>
 <hr />
-<!--TODO from here -->
-
 <h1 id="2-json-format-design"><a name="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a></h1>
 <p>JSON, as described in <a href="#rfc8259">RFC8259</a> defines a text format for serializing structured data. Objects are serialized as an unordered collection of name/value pairs.</p>
 <p>JSON does not define any semantics around the name/value pairs that make up an object, nor does it define an extensibility mechanism for adding control information to a payload.</p>
@@ -282,6 +280,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Control information is used in JSON to capture instance metadata that cannot be predicted (e.g. the next link of a collection) as well as a mechanism to provide values where a computed value would be wrong (e.g. if the media read link of one particular entity does not follow the standard URL conventions). Computing values from metadata expressions is compute intensive and some clients might opt for a larger payload size to avoid computational complexity; to accommodate for this the <code>Accept</code> header allows the client to control the amount of control information added to the response.</p>
 <p>To optimize streaming scenarios, there are a few restrictions that MAY be imposed on the sequence in which name/value pairs appear within JSON objects. For details on the ordering requirements see <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
 <hr />
+<!--TODO from here -->
+
 <h1 id="3-requesting-the-json-format"><a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a></h1>
 <h2 id="31-controlling-the-amount-of-control-information-in-responses"><a name="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
 <h3 id="311-metadataminimal-odatametadataminimal"><a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 <code>metadata=minimal</code> (<code>odata.metadata=minimal</code>)</a></h3>
