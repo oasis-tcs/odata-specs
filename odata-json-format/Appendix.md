@@ -58,7 +58,7 @@ https://tools.ietf.org/html/rfc4648.
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
 http://tools.ietf.org/html/rfc5646.
 
-###### <a name="rfc74932>[RFC7493]</a>
+###### <a name="rfc7493">[RFC7493]</a>
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
 https://tools.ietf.org/html/rfc7493.
 

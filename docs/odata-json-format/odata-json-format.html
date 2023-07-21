@@ -278,17 +278,86 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Control information is used in JSON to capture instance metadata that cannot be predicted (e.g. the next link of a collection) as well as a mechanism to provide values where a computed value would be wrong (e.g. if the media read link of one particular entity does not follow the standard URL conventions). Computing values from metadata expressions is compute intensive and some clients might opt for a larger payload size to avoid computational complexity; to accommodate for this the <code>Accept</code> header allows the client to control the amount of control information added to the response.</p>
 <p>To optimize streaming scenarios, there are a few restrictions that MAY be imposed on the sequence in which name/value pairs appear within JSON objects. For details on the ordering requirements see <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
 <hr />
-<!--TODO from here -->
-
 <h1 id="3-requesting-the-json-format"><a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a></h1>
+<p>The OData JSON format can be requested using the <code>$format</code> query option in the request URL with the media type <code>application/json</code>, optionally followed by format parameters, or the case-insensitive abbreviation <code>json</code> which MUST NOT be followed by format parameters.</p>
+<p>Alternatively, this format can be requested using the <code>Accept</code> header with the media type <code>application/json</code>, optionally followed by format parameters.</p>
+<p>If specified, <code>$format</code> overrides any value specified in the <code>Accept</code> header.</p>
+<p>Possible format parameters are:</p>
+<ul>
+<li><a href="#ControllingtheRepresentationofNumbers"><code>ExponentialDecimals</code></a></li>
+<li><a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a></li>
+<li><a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a></li>
+<li><a href="#PayloadOrderingConstraints"><code>streaming</code></a></li>
+</ul>
+<p>The names and values of these format parameters are case-insensitive.</p>
+<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
 <h2 id="31-controlling-the-amount-of-control-information-in-responses"><a name="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
+<p>The amount of <a href="#ControlInformation">control information</a> needed (or desired) in the payload depends on the client application and device. The <code>metadata</code> parameter can be applied to the <code>Accept</code> header of an OData request to influence how much control information will be included in the response.</p>
+<p>Other <code>Accept</code> header parameters (e.g., <code>streaming</code>) are orthogonal to the <code>metadata</code> parameter and are therefore not mentioned in this section.</p>
+<p>If a client prefers a very small wire size and is intelligent enough to compute data using metadata expressions, the <code>Accept</code> header should include <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a>. If computation is more critical than wire size or the client is incapable of computing control information, <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> directs the service to inline the control information that normally would be computed from metadata expressions in the payload. <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is an option for clients that have out-of-band knowledge or don't require control information.</p>
+<p>In addition, the client may use the <code>include-annotations</code> preference in the <code>Prefer</code> header to request additional control information. Services supporting this MUST NOT omit control information required by the chosen <code>metadata</code> parameter, and services MUST NOT exclude the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a>, and <a href="#ControlInformationcountodatacount"><code>count</code></a> if they are required by the response type.</p>
+<p>If the client includes the <code>OData-MaxVersion</code> header in a request and does not specify the <code>metadata</code> format parameter in either the <code>Accept</code> header or <code>$format</code> query option, the service MUST return at least the <a href="#metadataminimalodatametadataminimal">minimal control information</a>.</p>
+<p>Note that in OData 4.0 the <code>metadata</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version </code>header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 <h3 id="311-metadataminimal-odatametadataminimal"><a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 <code>metadata=minimal</code> (<code>odata.metadata=minimal</code>)</a></h3>
+<p>The <code>metadata=minimal</code> format parameter indicates that the service SHOULD remove computable control information from the payload wherever possible. The response payload MUST contain at least the following <a href="#ControlInformation">control information</a>:</p>
+<ul>
+<li><p><a href="#ControlInformationcontextodatacontext"><code>context</code></a>: the root context URL of the payload and the context URL for any deleted entries or added or deleted links in a delta response, or for entities or entity collections whose set cannot be determined from the root context URL</p></li>
+<li><p><a href="#ControlInformationetagodataetag"><code>etag</code></a>: the ETag of the entity or collection, as appropriate</p></li>
+<li><p><a href="#ControlInformationcountodatacount"><code>count</code></a>: the total count of a collection of entities or collection of entity references, if requested</p></li>
+<li><p><a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>: the next link of a collection with partial results</p></li>
+<li><p><a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a>: the delta link for obtaining changes to the result, if requested</p></li>
+</ul>
+<p>In addition, control information MUST appear in the payload for cases where actual values are not the same as the computed values and MAY appear otherwise. When control information appears in the payload, it is treated as exceptions to the computed values.</p>
+<p>Media entities and stream properties MAY in addition contain the following control information:</p>
+<ul>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaEtag</code></a>: the ETag of the stream, as appropriate</p></li>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a>: the media type of the stream</p></li>
+</ul>
 <h3 id="312-metadatafull-odatametadatafull"><a name="metadatafullodatametadatafull" href="#metadatafullodatametadatafull">3.1.2 <code>metadata=full</code> (<code>odata.metadata=full</code>)</a></h3>
+<p>The <code>metadata=full</code> format parameter indicates that the service MUST include all control information explicitly in the payload.</p>
+<p>The full list of control information that may appear in a <code>metadata=full</code> response is as follows:</p>
+<ul>
+<li><p><a href="#ControlInformationcontextodatacontext"><code>context</code></a>: the context URL for a collection, entity, primitive value, or service document.</p></li>
+<li><p><a href="#ControlInformationcountodatacount"><code>count</code></a>: the total count of a collection of entities or collection of entity references, if requested.</p></li>
+<li><p><a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>: the next link of a collection with partial results</p></li>
+<li><p><a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a>: the delta link for obtaining changes to the result, if requested</p></li>
+<li><p><a href="#ControlInformationidodataid"><code>id</code></a>: the ID of the entity</p></li>
+<li><p><a href="#ControlInformationetagodataetag"><code>etag</code></a>: the ETag of the entity or collection, as appropriate</p></li>
+<li><p><a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink"><code>readLink</code></a>: the link used to read the entity, if the edit link cannot be used to read the entity</p></li>
+<li><p><a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink"><code>editLink</code></a>: the link used to edit/update the entity, if the entity is updatable and the <code>id</code> does not represent a URL that can be used to edit the entity</p></li>
+<li><p><a href="#NavigationLink"><code>navigationLink</code></a>: the link used to retrieve the values of a navigation property</p></li>
+<li><p><a href="#AssociationLink"><code>associationLink</code></a>: the link used to describe the relationship between this entity and related entities</p></li>
+<li><p><a href="#ControlInformationtypeodatatype"><code>type</code></a>: the type of the containing object or targeted property if the type of the object or targeted property cannot be heuristically determined from the data value, see section <a href="#ControlInformationtypeodatatype">Control Information: type (odata.type)</a>.</p></li>
+</ul>
+<p>Media entities and stream properties may in addition contain the following control information:</p>
+<ul>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaReadLink</code></a>: the link used to read the stream</p></li>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaEditLink</code></a>: the link used to edit/update the stream</p></li>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaEtag</code></a>: the ETag of the stream, as appropriate</p></li>
+<li><p><a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a>: the media type of the stream</p></li>
+</ul>
 <h3 id="313-metadatanone-odatametadatanone"><a name="metadatanoneodatametadatanone" href="#metadatanoneodatametadatanone">3.1.3 <code>metadata=none</code> (<code>odata.metadata=none</code>)</a></h3>
+<p>The <code>metadata=none</code> format parameter indicates that the service SHOULD omit control information other than <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> and <a href="#ControlInformationcountodatacount"><code>count</code></a>. This control information MUST continue to be included, as applicable, even in the <code>metadata=none</code> case.</p>
+<p>It is not valid to specify <code>metadata=none</code> on a <a href="#DeltaPayload">delta request</a>.</p>
 <h2 id="32-controlling-the-representation-of-numbers"><a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
+<p>The <code>IEEE754Compatible=true</code> format parameter indicates that the service MUST serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers (including the <a href="#ControlInformationcountodatacount"><code>count</code></a>, if requested) as strings. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
+<p>If not specified, or specified as <code>IEEE754Compatible=false</code>, all numbers MUST be serialized as JSON numbers.</p>
+<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <strong>[<a href="#ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>]</strong>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
+<p>OData JSON request and response payloads that format <code>Edm.Int64</code> and <code>Edm.Decimal</code> values as strings MUST specify this format parameter in the media type sent in the <a href="#HeaderContentType"><code>Content-Type</code></a> header.</p>
+<p>Services producing responses without format parameter <code>IEEE754Compatible=true</code> which are unable to produce exact JSON numbers MAY serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers with a rounded/inexact value as a JSON number and annotate that value with an instance annotation with term <code>Core.ValueException</code> defined in <a href="#ODataVocCore">OData-VocCore</a> containing the exact value as a string. This situation can for example happen if the client only accepts <code>application/json</code> without any format parameters and the service is written in JavaScript.</p>
+<p>For payloads with an <code>OData-Version</code> header equal to <code>4.0</code> the <code>ExponentialDecimals=true</code> format parameter indicates that the service MAY serialize <code>Edm.Decimal</code> numbers in exponential notation (e.g. <code>1e-6</code> instead of <code>0.000001</code>).</p>
+<p>The sender of a request MUST specify <code>ExponentialDecimals=true</code> in the <code>Content-Type</code> header if the request body contains <code>Edm.Decimal</code> values in exponential notation.</p>
+<p>If not specified, or specified as <code>ExponentialDecimals=false</code>, all <code>Edm.Decimal</code> values MUST be serialized in long notation, using only an optional sign, digits, and an optional decimal point followed by digits.</p>
+<p>Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater always allow exponential notation for numbers and the <code>ExponentialDecimals</code> format parameter is not needed or used.</p>
 <hr />
 <h1 id="4-common-characteristics"><a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
+<p>This section describes common characteristics of the representation for OData values in JSON. A request or response body consists of several parts. It contains OData values as part of a larger document. Requests and responses are structured almost identical; the few existing differences will be explicitly called out in the respective subsections.</p>
 <h1 id="41-header-content-type"><a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h1>
+<p>Requests and responses with a JSON message body MUST have a <code>Content-Type</code> header value of <code>application/json</code>.</p>
+<p>Requests MAY add the <code>charset</code> parameter to the content type. Allowed values are <code>UTF-8</code>,<code> UTF-16</code>, and <code>UTF-32</code>. If no <code>charset</code> parameter is present, <code>UTF-8</code> MUST be assumed.</p>
+<p>Responses MUST include the <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> parameter to specify the amount of metadata included in the response.</p>
+<p>Requests and responses MUST include the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> parameter if <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers are represented as strings.</p>
+<p>Requests and responses MAY add the <code>streaming</code> parameter with a value of <code>true</code> or <code>false</code>, see section <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
 <h1 id="42-message-body"><a name="MessageBody" href="#MessageBody">4.2 Message Body</a></h1>
 <h1 id="43-relative-urls"><a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a></h1>
 <h1 id="44-payload-ordering-constraints"><a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a></h1>
@@ -501,7 +570,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> <a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
 <h6 id="rfc5646"><a name="rfc5646">[RFC5646]</a></h6>
 <p><em>Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009</em> <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.org/html/rfc5646</a>.</p>
-<h6 id="a-namerfc74932rfc7493">&lt;a name="rfc74932&gt;[RFC7493]</a></h6>
+<h6 id="rfc7493"><a name="rfc7493">[RFC7493]</a></h6>
 <p><em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em> <a href="https://tools.ietf.org/html/rfc7493">https://tools.ietf.org/html/rfc7493</a>.</p>
 <h6 id="rfc7946"><a name="rfc7946">[RFC7946]</a></h6>
 <p><em>Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016.</em> <a href="http://tools.ietf.org/html/rfc7946">http://tools.ietf.org/html/rfc7946</a>.</p>
