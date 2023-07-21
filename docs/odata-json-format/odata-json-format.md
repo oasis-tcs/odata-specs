@@ -499,7 +499,7 @@ Constraints](#PayloadOrderingConstraints).
 
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
-<!--TODO: section references, V4.02 conformance -->
+<!--TODO: V4.02 conformance -->
  
 In order to be a conforming consumer of the OData JSON format, a client or service:
 
@@ -510,9 +510,9 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
 3. MUST be prepared to receive all data types ([section 7.1](#PrimitiveValue))
    1. defined in this specification (client)
    2. exposed by the service (service)
-4. MUST interpret all `odata` control information defined according to the `OData-Version` header of the payload ([section ##4.5])
-5. MUST be prepared to receive any annotations and control information not defined in the `OData-Version` header of the payload ([section ##21.2])
-6. MUST NOT require `streaming=true` in the `Content-Type` header ([section ##4.4])
+4. MUST interpret all `odata` control information defined according to the `OData-Version` header of the payload ([section 4.5](#ControlInformation))
+5. MUST be prepared to receive any annotations and control information not defined in the `OData-Version` header of the payload ([section 20](#InstanceAnnotations))
+6. MUST NOT require `streaming=true` in the `Content-Type` header ([section 4.4](#PayloadOrderingConstraints))
 7. MUST be a conforming consumer of the OData 4.0 JSON format, for payloads with an `OData-Version` header value of `4.0`.
    1. MUST accept the `odata.` prefix, where defined, on format parameters and control information
    2. MUST accept the `#` prefix in `@odata.type` values
@@ -551,16 +551,16 @@ In order to be a conforming producer of the OData JSON format, a client or servi
 In addition, in order to conform to the OData JSON format, a service:
 
 11. MUST comply with one of the conformance levels defined in [OData-Protocol](#ODataProtocol)
-12. MUST support the `application/json` media type in the `Accept` header ([section ##3])
+12. MUST support the `application/json` media type in the `Accept` header ([section 3](#RequestingtheJSONFormat))
 13. MUST return well-formed JSON payloads
-14. MUST support `odata.metadata=full` ([section ##3.1.2])
-15. MUST include the `odata.nextLink` control information in partial results for entity collections ([section ##4.5.5])
-16. MUST support entity instances with external metadata ([section ##4.5.1])
-17. MUST support properties with externally defined data types ([section ##4.5.3])
+14. MUST support `odata.metadata=full` ([section 3.1.2](#metadatafullodatametadatafull))
+15. MUST include the `odata.nextLink` control information in partial results for entity collections ([section 4.5.5](#ControlInformationnextLinkodatanextLink))
+16. MUST support entity instances with external metadata ([section 4.5.1](#ControlInformationcontextodatacontext))
+17. MUST support properties with externally defined data types ([section 4.5.3](#ControlInformationtypeodatatype))
 18. MUST NOT violate any other aspects of this OData JSON specification
-19. SHOULD support the `$format` system query option ([section ##3])
-20. MAY support the `odata.streaming=true` parameter in the `Accept` header ([section ##4.4])
-21. MAY return full metadata regardless of `odata.metadata` ([section ##3.1.2])
+19. SHOULD support the `$format` system query option ([section 3](#RequestingtheJSONFormat))
+20. MAY support the `odata.streaming=true` parameter in the `Accept` header ([section 4.4](#PayloadOrderingConstraints))
+21. MAY return full metadata regardless of `odata.metadata` ([section 3.1.2](#metadatafullodatametadatafull))
 22. MUST NOT omit null or default values unless the `omit-values` preference is specified in the `Prefer` request header and the `omit-values` preference is included in the `Preference-Applied` response header
 23. MUST return OData JSON 4.0-compliant responses for requests with an `OData-MaxVersion` header value of `4.0`
 24. MUST support OData JSON 4.0-compliant payloads in requests with an `OData-Version` header value of `4.0`

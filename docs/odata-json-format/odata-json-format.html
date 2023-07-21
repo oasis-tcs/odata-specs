@@ -378,7 +378,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <hr />
 <h1 id="23-conformance"><a name="Conformance" href="#Conformance">23 Conformance</a></h1>
 <p>Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.</p>
-<!--TODO: section references, V4.02 conformance -->
+<!--TODO: V4.02 conformance -->
 
 <p>In order to be a conforming consumer of the OData JSON format, a client or service:</p>
 <ol type="1">
@@ -393,9 +393,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>defined in this specification (client)</li>
 <li>exposed by the service (service)</li>
 </ol></li>
-<li>MUST interpret all <code>odata</code> control information defined according to the <code>OData-Version</code> header of the payload ([section ##4.5])</li>
-<li>MUST be prepared to receive any annotations and control information not defined in the <code>OData-Version</code> header of the payload ([section ##21.2])</li>
-<li>MUST NOT require <code>streaming=true</code> in the <code>Content-Type</code> header ([section ##4.4])</li>
+<li>MUST interpret all <code>odata</code> control information defined according to the <code>OData-Version</code> header of the payload (<a href="#ControlInformation">section 4.5</a>)</li>
+<li>MUST be prepared to receive any annotations and control information not defined in the <code>OData-Version</code> header of the payload (<a href="#InstanceAnnotations">section 20</a>)</li>
+<li>MUST NOT require <code>streaming=true</code> in the <code>Content-Type</code> header (<a href="#PayloadOrderingConstraints">section 4.4</a>)</li>
 <li>MUST be a conforming consumer of the OData 4.0 JSON format, for payloads with an <code>OData-Version</code> header value of <code>4.0</code>.
 <ol type="1">
 <li>MUST accept the <code>odata.</code> prefix, where defined, on format parameters and control information</li>
@@ -442,16 +442,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In addition, in order to conform to the OData JSON format, a service:</p>
 <ol start="11" type="1">
 <li>MUST comply with one of the conformance levels defined in <a href="#ODataProtocol">OData-Protocol</a></li>
-<li>MUST support the <code>application/json</code> media type in the <code>Accept</code> header ([section ##3])</li>
+<li>MUST support the <code>application/json</code> media type in the <code>Accept</code> header (<a href="#RequestingtheJSONFormat">section 3</a>)</li>
 <li>MUST return well-formed JSON payloads</li>
-<li>MUST support <code>odata.metadata=full</code> ([section ##3.1.2])</li>
-<li>MUST include the <code>odata.nextLink</code> control information in partial results for entity collections ([section ##4.5.5])</li>
-<li>MUST support entity instances with external metadata ([section ##4.5.1])</li>
-<li>MUST support properties with externally defined data types ([section ##4.5.3])</li>
+<li>MUST support <code>odata.metadata=full</code> (<a href="#metadatafullodatametadatafull">section 3.1.2</a>)</li>
+<li>MUST include the <code>odata.nextLink</code> control information in partial results for entity collections (<a href="#ControlInformationnextLinkodatanextLink">section 4.5.5</a>)</li>
+<li>MUST support entity instances with external metadata (<a href="#ControlInformationcontextodatacontext">section 4.5.1</a>)</li>
+<li>MUST support properties with externally defined data types (<a href="#ControlInformationtypeodatatype">section 4.5.3</a>)</li>
 <li>MUST NOT violate any other aspects of this OData JSON specification</li>
-<li>SHOULD support the <code>$format</code> system query option ([section ##3])</li>
-<li>MAY support the <code>odata.streaming=true</code> parameter in the <code>Accept</code> header ([section ##4.4])</li>
-<li>MAY return full metadata regardless of <code>odata.metadata</code> ([section ##3.1.2])</li>
+<li>SHOULD support the <code>$format</code> system query option (<a href="#RequestingtheJSONFormat">section 3</a>)</li>
+<li>MAY support the <code>odata.streaming=true</code> parameter in the <code>Accept</code> header (<a href="#PayloadOrderingConstraints">section 4.4</a>)</li>
+<li>MAY return full metadata regardless of <code>odata.metadata</code> (<a href="#metadatafullodatametadatafull">section 3.1.2</a>)</li>
 <li>MUST NOT omit null or default values unless the <code>omit-values</code> preference is specified in the <code>Prefer</code> request header and the <code>omit-values</code> preference is included in the <code>Preference-Applied</code> response header</li>
 <li>MUST return OData JSON 4.0-compliant responses for requests with an <code>OData-MaxVersion</code> header value of <code>4.0</code></li>
 <li>MUST support OData JSON 4.0-compliant payloads in requests with an <code>OData-Version</code> header value of <code>4.0</code></li>
