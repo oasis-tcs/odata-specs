@@ -17,5 +17,9 @@
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",
     "puppeteer": "^20.7.4"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3"
   }
 }
