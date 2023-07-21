@@ -12,9 +12,9 @@
 &nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html \
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.pdf
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
 N/A
@@ -74,7 +74,7 @@ When referencing this specification the following citation format should be used
 
 _$$$pagetitle$$$_.
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/$$$filename$$$.html.
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
 #### Notices
