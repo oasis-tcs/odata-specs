@@ -252,12 +252,12 @@ All examples in this document are non-normative and informative only. Examples l
 All other text is normative unless otherwise labeled.
 
 ::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-csd04.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs
        -t html
-       -o odata-data-aggregation-ext.html
+       -o odata-data-aggregation-ext-v4.0-csd04.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -265,7 +265,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
-       odata-data-aggregation-ext.md
+       odata-data-aggregation-ext-v4.0-csd04.md
 ```
 
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
