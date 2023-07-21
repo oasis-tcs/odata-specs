@@ -393,17 +393,13 @@ following [control information](#ControlInformation):
   entries or added or deleted links in a delta response, or for entities
   or entity collections whose set cannot be determined from the root
   context URL
-
 - [`etag`](#ControlInformationetagodataetag):
   the ETag of the entity or collection, as appropriate
-
 - [`count`](#ControlInformationcountodatacount):
   the total count of a collection of entities or collection of entity
   references, if requested
-
 - [`nextLink`](#ControlInformationnextLinkodatanextLink):
   the next link of a collection with partial results
-
 - [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink):
   the delta link for obtaining changes to the result, if requested
 
@@ -417,7 +413,6 @@ following control information:
 
 - [`mediaEtag`](#ControlInformationmediaodatamedia):
   the ETag of the stream, as appropriate
-
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
@@ -432,39 +427,29 @@ The full list of control information that may appear in a
 - [`context`](#ControlInformationcontextodatacontext):
   the context URL for a collection, entity, primitive value, or service
   document.
-
 - [`count`](#ControlInformationcountodatacount):
   the total count of a collection of entities or collection of entity
   references, if requested.
-
 - [`nextLink`](#ControlInformationnextLinkodatanextLink):
   the next link of a collection with partial results
-
 - [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink):
   the delta link for obtaining changes to the result, if requested
-
 - [`id`](#ControlInformationidodataid):
   the ID of the entity
-
 - [`etag`](#ControlInformationetagodataetag):
   the ETag of the entity or collection, as appropriate
-
 - [`readLink`](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink):
   the link used to read the entity, if the edit link cannot be used to
   read the entity
-
 - [`editLink`](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink):
   the link used to edit/update the entity, if the entity is updatable and
   the `id` does not represent a URL that can be used to edit the
   entity
-
 - [`navigationLink`](#NavigationLink):
   the link used to retrieve the values of a navigation property
-
 - [`associationLink`](#AssociationLink):
   the link used to describe the relationship between this entity and
   related entities
-
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
@@ -476,13 +461,10 @@ following control information:
 
 - [`mediaReadLink`](#ControlInformationmediaodatamedia):
   the link used to read the stream
-
 - [`mediaEditLink`](#ControlInformationmediaodatamedia):
   the link used to edit/update the stream
-
 - [`mediaEtag`](#ControlInformationmediaodatamedia):
   the ETag of the stream, as appropriate
-
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
@@ -588,17 +570,328 @@ Ordering Constraints](#PayloadOrderingConstraints).
 
 # <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
+Each message body is represented as a single JSON object. This object is
+either the representation of an [entity](#Entity),
+an [entity reference](#EntityReference) or a
+[complex type instance](#ComplexValue), or it contains a name/value
+pair whose name MUST be `value` and whose value is the correct
+representation for a [primitive value](#PrimitiveValue), a
+[collection of primitive values](#CollectionofPrimitiveValues), a
+[collection of complex values](#CollectionofComplexValues), a
+[collection of entities](#CollectionofEntities), or a collection of
+objects that represent [changes to a previous
+result](#DeltaPayload).
+
+Client libraries MUST retain the
+order of objects within an array in JSON responses.
+
 # <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
+
+URLs present in a payload (whether request or response) MAY be
+represented as relative URLs.
+
+Relative URLs, other than those in
+[`type`](#ControlInformationtypeodatatype),
+are relative to their base URL, which is
+
+- the [context URL](#ControlInformationcontextodatacontext) of the same
+  JSON object, if one exists, otherwise
+- the context URL of the enclosing object, if one exists, otherwise
+- the context URL of the next enclosing object, if one exists, etc. until the
+  document root, otherwise
+- the request URL.
+
+For context URLs, these rules apply starting with the second bullet
+point.
+
+Within the
+[`type`](#ControlInformationtypeodatatype)
+control information, relative URLs are relative to the base type URL,
+which is
+
+- the `type` of the enclosing object, if one exists, otherwise
+- the `type` of the next enclosing object, if one exists, etc.
+  until the document root, otherwise
+- the context URL of the document root, if one exists, otherwise
+- the request URL.
+
+Processors expanding the URLs MUST use normal URL expansion rules as
+defined in [RFC3986](#rfc3986). This means that if the base URL is a
+context URL, the part starting with `$metadata#` is ignored
+when resolving the relative URL.
+
+Clients that receive relative URLs in response payloads SHOULD use the
+same relative URLs, where appropriate, in request payloads (such as
+[bind operations](#BindOperation) and batch requests) and in system
+query options (such as `$id`).
+
+URLs represented as a string within a JSON payload, including [batch
+requests](#BatchRequest), must follow standard OData encoding rules.
+For relative URLs this means that colons in the path part, especially
+within key values, MUST be percent-encoded to avoid confusion with the
+scheme separator. Colons within the query part, i.e. after the question
+mark character (`?`), need not be percent-encoded.
+
+::: example
+Example 2:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "@editLink": "Customers('ALFKI')",
+  ...
+  "Orders@navigationLink": "Customers('ALFKI')/Orders",
+  ...
+}
+```
+:::
+
+The resulting absolute URLs are
+`http://host/service/Customers('ALFKI')` and
+`http://host/service/Customers('ALFKI')/Orders`.
 
 # <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
 
+Ordering constraints MAY be imposed on the JSON payload in order to
+support streaming scenarios. These ordering constraints MUST only be
+assumed if explicitly specified as some clients (and services) might not
+be able to control, or might not care about, the order of the JSON
+properties in the payload.
+
+Clients can request that a JSON response conform to these ordering
+constraints by specifying a media type of
+[application/json]{style="font-family:
+\"Courier New\""} with the `streaming=true` parameter in the
+`Accept` header or
+`$format` query option. Services
+MUST return `406 Not Acceptable` if
+the client only requests streaming and the service does not support it.
+
+Clients may specify the `streaming=true` parameter in the
+`Content-Type` header of requests
+to indicate that the request body follows the payload ordering
+constraints. In the absence of this parameter, the service must assume
+that the JSON properties in the request are unordered.
+
+Processors MUST only assume streaming support if it is explicitly
+indicated in the `Content-Type` header via the
+`streaming=true` parameter.
+
+::: example
+Example 3: a payload with
+```
+Content-Type: application/json;metadata=minimal;streaming=true
+```
+can be assumed to support streaming, whereas a payload with
+```
+Content-Type: application/json;metadata=minimal
+```
+cannot be assumed to support streaming.
+:::
+
+JSON producers are encouraged to follow the payload ordering constraints
+whenever possible (and include the `streaming=true`
+content-type parameter) to support the maximum set of client scenarios.
+
+To support streaming scenarios the following payload ordering
+constraints have to be met:
+
+- If present, the `context` control information MUST be the first
+  property in the JSON object.
+- The
+  `type` control information, if present, MUST appear next in
+  the JSON object.
+- The `id` and `etag` control information MUST appear
+  before any property, property annotation, or property control
+  information.
+- All annotations or control information for a structural or navigation
+  property MUST appear as a group immediately before the property itself.
+  The one exception is the
+  [`nextLink`](#ControlInformationnextLinkodatanextLink)
+  of a collection which MAY appear after the collection it annotates.
+- All other control information can
+  appear anywhere in the payload as long as it does not violate any of the
+  above rules.
+- For 4.0 payloads, annotations and control information for navigation
+  properties MUST appear after all structural properties. 4.01 clients
+  MUST NOT assume this ordering.
+
+Note that in OData 4.0 the `streaming` format parameter was prefixed with
+`odata.`. Payloads with an `OData-Version` header equal to
+`4.0` MUST include the `odata.` prefix. Payloads with an
+`OData-Version `header equal to `4.01` or greater SHOULD NOT
+include the `odata.` prefix.
+
 # <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
+
+In addition to the "pure data" a message body MAY contain
+[annotations](#InstanceAnnotations) and control information that is
+represented as name/value pairs whose names start with `@`.
+
+In requests and responses with an `OData-Version` header with a value of `4.0` control
+information names are prefixed with `@odata.`, e.g.
+`@odata.context`. In requests and responses without such a
+header the `odata.` prefix SHOULD
+be omitted, e.g `@context`.
+
+In some cases, control information is required in request payloads; this
+is called out in the following subsections.
+
+Receivers that encounter unknown
+annotations in any namespace or unknown control information MUST NOT
+stop processing and MUST NOT signal an error.
 
 # <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
 
+The `context` control information
+returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
+payload. This URL can be absolute or [relative](#RelativeURLs).
+
+The `context` control information
+is not returned if
+[`metadata=none`](#metadatanoneodatametadatanone)[
+]{.MsoHyperlink}is requested. Otherwise[ ]{.MsoHyperlink}it MUST be the
+first property of any JSON response[. ]{.MsoHyperlink}
+
+The `context` control information
+MUST also be included in requests and responses for entities whose
+entity set cannot be determined from the context URL[ ]{.MsoHyperlink}of
+the collection.
+
+For more information on the format of the context URL, see
+[OData-Protocol](#ODataProtocol).
+
+Request payloads MAY include a context URL as a base URL for [relative
+URLs](#RelativeURLs) in the request payload.
+
+::: example
+Example 4:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "@metadataEtag": "W/\"A1FF3E230954908F\"",
+  ...
+}
+```
+:::
+
 # <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
 
+The `metadataEtag` control information MAY appear in a
+response in order to specify the entity tag (ETag) that can be used to
+determine the version of the metadata of the response. If an ETag is
+returned when requesting the metadata document, then the service SHOULD
+set the `metadataEtag` control information to the metadata
+document\'s ETag in all responses when using
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+or
+[`metadata=full`](#metadatafullodatametadatafull).
+If no ETag is returned when requesting the metadata document, then the
+service SHOULD NOT set the `metadataEtag` control information
+in any responses.
+
+For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+
 # <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
+
+The `type` control information specifies the type of a JSON
+object or name/value pair. Its value is a URI that identifies the type
+of the property or object. For built-in primitive types the value is the
+unqualified name of the primitive type. For payloads described by an
+`OData-Version` header with a value
+of `4.0`, this name MUST be prefixed with the hash symbol
+(`#`); for non-OData 4.0 payloads,
+built-in primitive type values SHOULD be represented without the hash
+symbol, but consumers of 4.01 or greater payloads MUST support values
+with or without the hash symbol. For all other types, the URI may be
+absolute or relative to the `type` of the containing object.
+The root `type` may be absolute or relative to the root
+[context URL](#ControlInformationcontextodatacontext).
+
+If the URI references a metadata document (that is, it's not just a
+fragment), it MAY refer to a specific version of that metadata document
+using the `$schemaversion` system query option
+defined in [OData-Protocol](#ODataProtocol).
+
+For non-built in primitive types, the URI contains the
+namespace-qualified or alias-qualified type, specified as a URI
+fragment. For properties that represent a collection of values, the
+fragment is the namespace-qualified or alias-qualified element type
+enclosed in parentheses and prefixed with `Collection`. The
+namespace or alias MUST be defined or the namespace referenced in the
+metadata document of the service, see
+[OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML](#ODataCSDL).
+
+The `type` control information MUST appear in requests and in
+responses with [minimal](#metadataminimalodatametadataminimal) or
+[full](#metadatafullodatametadatafull) metadata, if the type cannot
+be heuristically determined, as described below, and one of the
+following is true:
+
+- The type is derived from the type specified for the (collection of) entities
+  or (collection of) complex type instances, or
+- The type is for a property whose type is not declared in
+  `$metadata`.
+
+The following heuristics are used to determine the primitive type of a
+dynamic property in the absence of the `type` control
+information:
+
+- Boolean values have a first-class representation in JSON and do not need any
+  additional control information.
+- Numeric values have a first-class representation in JSON but are not further
+  distinguished, so they include a
+  [`type`](#ControlInformationtypeodatatype)
+  control information unless their type is `Double`.
+- The special floating-point values `-INF`, `INF`, and
+  `NaN `are serialized as strings and MUST have a
+  [`type`](#ControlInformationtypeodatatype)
+  control information to specify the numeric type of the property.
+- String  values do have a first class representation in JSON, but there is an
+  obvious collision: OData also encodes a number of other primitive types
+  as strings, e.g. `DateTimeOffset`, `Int64` in the
+  presence of the
+  [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+  format parameter etc. If a property appears in JSON string format, it
+  should be treated as a string value unless the property is known (from
+  the metadata document) to have a different type.
+
+For more information on namespace- and alias-qualified names, see
+[OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML](#ODataCSDL).
+
+::: example
+Example 5: entity of type
+`Model.VipCustomer` defined in the
+metadata document of the same service with a dynamic property of type
+`Edm.Date`
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "@type": "#Model.VipCustomer",
+  "ID": 2,
+  "DynamicValue@type": "Date",
+  "DynamicValue": "2016-09-22",
+  ...
+}
+```
+:::
+
+::: example
+Example 6: entity of type
+`Model.VipCustomer` defined in the
+metadata` `document of a different
+service
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "@type": "http://host/alternate/$metadata#Model.VipCustomer",
+  "ID": 2,
+  ...
+}
+```
+:::
 
 # <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
 

@@ -92,17 +92,13 @@ following [control information](#ControlInformation):
   entries or added or deleted links in a delta response, or for entities
   or entity collections whose set cannot be determined from the root
   context URL
-
 - [`etag`](#ControlInformationetagodataetag):
   the ETag of the entity or collection, as appropriate
-
 - [`count`](#ControlInformationcountodatacount):
   the total count of a collection of entities or collection of entity
   references, if requested
-
 - [`nextLink`](#ControlInformationnextLinkodatanextLink):
   the next link of a collection with partial results
-
 - [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink):
   the delta link for obtaining changes to the result, if requested
 
@@ -116,7 +112,6 @@ following control information:
 
 - [`mediaEtag`](#ControlInformationmediaodatamedia):
   the ETag of the stream, as appropriate
-
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
@@ -131,39 +126,29 @@ The full list of control information that may appear in a
 - [`context`](#ControlInformationcontextodatacontext):
   the context URL for a collection, entity, primitive value, or service
   document.
-
 - [`count`](#ControlInformationcountodatacount):
   the total count of a collection of entities or collection of entity
   references, if requested.
-
 - [`nextLink`](#ControlInformationnextLinkodatanextLink):
   the next link of a collection with partial results
-
 - [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink):
   the delta link for obtaining changes to the result, if requested
-
 - [`id`](#ControlInformationidodataid):
   the ID of the entity
-
 - [`etag`](#ControlInformationetagodataetag):
   the ETag of the entity or collection, as appropriate
-
 - [`readLink`](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink):
   the link used to read the entity, if the edit link cannot be used to
   read the entity
-
 - [`editLink`](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink):
   the link used to edit/update the entity, if the entity is updatable and
   the `id` does not represent a URL that can be used to edit the
   entity
-
 - [`navigationLink`](#NavigationLink):
   the link used to retrieve the values of a navigation property
-
 - [`associationLink`](#AssociationLink):
   the link used to describe the relationship between this entity and
   related entities
-
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
@@ -175,13 +160,10 @@ following control information:
 
 - [`mediaReadLink`](#ControlInformationmediaodatamedia):
   the link used to read the stream
-
 - [`mediaEditLink`](#ControlInformationmediaodatamedia):
   the link used to edit/update the stream
-
 - [`mediaEtag`](#ControlInformationmediaodatamedia):
   the ETag of the stream, as appropriate
-
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
