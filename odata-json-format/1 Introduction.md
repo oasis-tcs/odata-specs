@@ -6,7 +6,6 @@ The OData protocol is comprised of a set of specifications for representing and 
 
 An OData JSON payload may represent:
 
-<!--TODO: insert links to sections -->
 - a [single primitive value](#PrimitiveValue)
 - a [collection of primitive values](#CollectionofPrimitiveValues)
 - a [single complex type value](#ComplexValue)
