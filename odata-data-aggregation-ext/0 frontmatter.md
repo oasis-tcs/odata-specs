@@ -12,14 +12,14 @@
 &nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.pdf
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-cs02.docx (Authoritative) \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-cs02.html \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-cs02.pdf
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.html \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.md (Authoritative) \
@@ -45,10 +45,10 @@ Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
-* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/
+* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/abnf/
 * OData Aggregation Vocabulary:
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Aggregation.V1.json
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
@@ -83,7 +83,7 @@ When referencing this specification the following citation format should be used
 
 _$$$pagetitle$$$_.
 Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. $$$pubdate$$$. OASIS $$$subtitle$$$.
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/$$$filename$$$.html.
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
 #### Notices
