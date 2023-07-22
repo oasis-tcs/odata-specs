@@ -94,180 +94,62 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# 1 Introduction
+# ##sec Introduction
 
 <!-- All text is normative unless otherwise labeled -->
 
-Here is a customized command line which will generate HTML from this markdown file (named odata-csdl-xml-v4.02-csd01.md):
+## ##subsec Changes from earlier Versions
 
-pandoc -f gfm -t html odata-csdl-xml-v4.02-csd01.md -c styles/markdown-styles-v1.7.3b.css --toc --toc-depth=5 -s -o odata-csdl-xml-v4.02-csd01.html --metadata title="OData Common Schema Definition Language (CSDL) XML Representation Version 4.02"
-
-Generating HTML in OASIS style requires a reference to a .css file containing the HTML styles. The .css file may be either included with the markdown file (like styles/markdown-styles-v1.7.3b.css) or a reference to one of the online stylesheets:
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3.css
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css (this one produces HTML that resembles the github display more closely, especially for blocks of code)
-
-Note this command generates a Table of Contents (TOC) in HTML which is located at the top of the HTML document, and which requires additional editing in order to be published in the expected OASIS style. This editing can be handled by OASIS staff during publication.
-A TC may use other ways to generate HTML from markdown, which may generate a TOC in a different way.
-
-## 1.1 Changes from earlier Versions
-
-<!-- Optional section -->
+<!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-## 1.2 Glossary
 
-<!-- Optional section with suggested subsections -->
+## ##subsec Glossary
 
-### 1.2.1 Definitions of terms
+### ##subsubsec Definitions of terms
 
-### 1.2.2 Acronyms and abbreviations
+<!-- TODO -->
+TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
 
-### 1.2.3 Document conventions
+### ##subsubsec Acronyms and abbreviations
 
-- Naming conventions
-- Font colors and styles
-- Typographic conventions
+<!-- TODO -->
 
-## 1.3 Some markdown usage examples
+### ##subsubsec Document conventions
 
-**Text.**
+Keywords defined by this specification use `this monospaced font`.
 
-Note that text paragraphs in markdown should be separated by a blank line between them -
+Some sections of this specification are illustrated with non-normative examples.
 
-Otherwise the separate paragraphs will be joined together when the HTML is generated.
-Even if the text appears to be separate lines in the markdown source.
+::: example
+Example ##ex: text describing an example uses this paragraph style
+```
+Non-normative examples use this paragraph style.
+```
+:::
 
-To avoid having the usual vertical space between paragraphs,  
-append two or more space characters (or space-backslash) to the end of the lines  
-which will generate an HTML break tag instead of a new paragraph tag \
-(as demonstrated here).
+All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
 
-### 1.3.1 Figures and Captions
+All other text is normative unless otherwise labeled.
 
-FIGURE EXAMPLE:
-<note caption is best placed ABOVE figure, so a hyperlink to it will actually display the figure, instead of rendering the figure off the screen above the caption. The same placement should be used for table captions>
-
-###### Figure 1 -- Title of Figure
-![image-label should be meaningful](images/image_0.png) (this image is missing)
-
-###### Figure 2 -- OpenC2 Message Exchange
-![message exchange](images/image_1.png)
-
-
-### 1.3.2 Tables
-
-#### 1.3.2.1 Basic Table
-**Table 1-1. Table Label**
-
-| Item | Description |
-| :--- | :--- |
-| Item 1 | Something<br>(second line) |
-| Item 2 | Something |
-| Item 3 | Something<br>(second line) |
-| Item 4 | text |
-
-#### 1.3.2.2 Table with Three Columns and Some Bold Text
-text.
-
-| Title 1 | Title 2 | title 3 |
-| :--- | :--- | :--- |
-| something | something | something else that is a long string of text that **might** need to wrap around inside the table box and will just continue until the column divider is reached |
-| something | something | something |
-
-#### 1.3.2.3 Table with a caption which can be referenced
-
-###### Table 1-5. See reference label construction
-
-<table caption uses six ####### to become a linkable element; positioned above table so table is readable after jumping to it> 
-
-| Name | Description |
-| :--- | :--- |
-| **content** | Message body as specified by content_type and msg_type. |
-
-Here is a reference to the table caption:
-Please see [Table 1-5 or other meaningful label](#table-1-5-see-reference-label-construction) 
-
-
-### 1.3.3 Lists
-
-Bulleted list:
-* bullet item 1.
-* **Bold** bullet item 2.
-* bullet item 3.
-* bullet item 4.
-
-Indented or multi-level bullet list - add two spaces per level before bullet character (* or -):
-* main bullet type
-  * Example second bullet
-    * See third level
-      * fourth level
-
-Numbered list:
-1. item 1
-2. item 2
-3. item 3
-
-Left-justified list without bullets or numbers:
-To list multiple items without full paragraph breaks between items, add space-backslash after each item except the last.
-
-### 1.3.4 Reference Label Construction
-
-REFERENCES and ANCHORS
-- in markdown source, format the Reference tags as level 6 headings like: `###### [RFC2119]`
-###### [RFC2119]
-Bradner, S., "Key words ..."
-
-- reference text has to be on a separate line below the tag
-
-- format cross-references (citations of the references) like: `see [[RFC2119](#rfc2119)]`  
-"see [[RFC2119](#rfc2119)]"  
-(note the outer square brackets in markdown will appear in the visible HTML text)
-
-- The text in the Reference tag (following ###### ) will become an HTML anchor using the following conversion rules:  
-  - punctuation marks will be dropped (including "[" )  
-  - leading white spaces will be dropped  
-  - upper case will be converted to lower  
-  - spaces between letters will be converted to a single hyphen
-
-- The same HTML anchor construction rules apply to cross-references and to section headings.  
-  - Thus, a section heading like "## 1.2 Glossary"  
-  - becomes an anchor in HTML like `<a href="#12-glossary">`  
-  - referenced in the markdown like: see [Section 1.2](#12-glossary)  
-  - in markdown: `"see [Section 1.2](#12-glossary)"`  
-  - similar HTML anchors are also used in constructing the TOC
-
-### 1.3.5 Code Blocks
-
-Text to appear as an indented code block with grey background and monospace font - use three back-ticks before and after the code block.
-
-Note the actual backticks will not appear in the HTML format. If it's necessary to display visible backticks, place a back-slash before them like: \``` .
+::: example
+Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-{   
-    "target": {
-        "x_kmip_2.0": {
-            {"kmip_type": "json"},
-            {"operation": "RekeyKeyPair"},
-            {"name": "publicWebKey11DEC2017"}
-        }
-    }
-}
+pandoc -f gfm+tex_math_dollars+fenced_divs
+       -t html
+       -o $$$filename$$$.html
+       -c styles/markdown-styles-v1.7.3b.css
+       -c styles/odata.css
+       -s
+       --mathjax
+       --eol=lf
+       --wrap=none
+       --metadata pagetitle="$$$pagetitle$$$"
+       $$$filename$$$.md
 ```
 
-Text to be highlighted as code can also be surrounded by a single "backtick" character: 
-`code text`
-
-### 1.3.6 Blockquotes
-
-To create a blockquote, start a line with greater than (>) followed by an optional space.
-
-Blockquotes can be nested, and can also contain other formatting.
-
-The stylesheet https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css results in an indented block with a left-side bar.
-
-## 1.4 Page Breaks
-Add horizontal rule lines where page breaks are desired in the PDF - before each major section
-- insert the line rules in markdown by inserting 3 or more hyphens on a line by themselves:  ---
-- place these before each main section in markdown (usually "#" - which generates the HTML `<h1>` tag)
+This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+:::
 
 -------
 
@@ -329,15 +211,21 @@ Remove this note before submitting for publication.)`
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-##### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
-###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+
+##### <a name="rfc2119">[RFC2119]
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_
+http://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc8174">[RFC8174]
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_
+http://www.rfc-editor.org/info/rfc8174.
 
 ## A.2 Informative References
 
-###### [RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+###### <a name="rfc3552">[RFC3552]
+_Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
+https://www.rfc-editor.org/info/rfc3552.
+
 
 -------
 
