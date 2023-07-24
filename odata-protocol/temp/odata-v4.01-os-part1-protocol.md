@@ -1074,8 +1074,7 @@ background:white"}[[https://tools.ietf.org/html/]{style="background:white"}rfc76
 
 ## []{#sec_TypographicalConventions}[1.3]{#_Toc477876544} [Typographical Conventions](#sec_TypographicalConventions)
 
-Keywords defined by this specification use this [monospaced]{.Datatype}
-font.
+Keywords defined by this specification use this `monospaced` font.
 
 Normative source code uses this paragraph style.
 
@@ -1174,16 +1173,16 @@ service\'s data model exposed for client consumption.
 The central concepts in the EDM are entities, relationships, entity
 sets, actions, and functions.
 
-*Entities* are instances of entity types (e.g. [Customer]{.Datatype},
-[Employee]{.Datatype}, etc.).
+*Entities* are instances of entity types (e.g. `Customer`, `Employee`,
+etc.).
 
 *Entity types* are named structured types with a key. They define the
 named properties and relationships of an entity. Entity types may derive
 by single inheritance from other entity types.
 
 The *key* of an entity type is formed from a subset of the primitive
-properties (e.g. [CustomerId]{.Datatype}, [OrderId]{.Datatype},
-[LineId]{.Datatype}, etc.) of the entity type.
+properties (e.g. `CustomerId`, `OrderId`, `LineId`, etc.) of the entity
+type.
 
 *Complex types* are keyless named structured types consisting of a set
 of properties. These are value types whose instances cannot be
@@ -1211,15 +1210,14 @@ such as maximum length or precision. Type definitions can be used in
 place of primitive typed properties, for example, within property
 definitions.
 
-*Entity sets* are named collections of entities (e.g.
-[Customers]{.Datatype} is an entity set containing [Customer]{.Datatype}
-entities). An entity\'s key uniquely identifies the entity within an
-entity set. If multiple entity sets use the same entity type, the same
-combination of key values can appear in more than one entity set and
-identifies different entities, one per entity set where this key
-combination appears. Each of these entities has a different
-[entity-id](#sec_EntityIdsandEntityReferences). Entity sets provide
-entry points into the data model.
+*Entity sets* are named collections of entities (e.g. `Customers` is an
+entity set containing `Customer` entities). An entity\'s key uniquely
+identifies the entity within an entity set. If multiple entity sets use
+the same entity type, the same combination of key values can appear in
+more than one entity set and identifies different entities, one per
+entity set where this key combination appears. Each of these entities
+has a different [entity-id](#sec_EntityIdsandEntityReferences). Entity
+sets provide entry points into the data model.
 
 *Operations* allow the execution of custom logic on parts of a data
 model. [*Functions*](#sec_Functions)[ ]{.MsoHyperlink}are operations
@@ -1309,7 +1307,7 @@ the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
-[\$entity]{.Datatype} provides a general mechanism for [resolving an
+`$entity` provides a general mechanism for [resolving an
 entity-id](#sec_ResolvinganEntityId) into an entity representation.
 
 Services that use the standard URL conventions for entity-ids annotate
@@ -1402,18 +1400,17 @@ OData clients include the
 [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)` `header in requests in
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
-the requested [OData-MaxVersion]{.Datatype}, using decimal comparison.
-[The syntax of the ]{style="color:black"}[OData-Version]{.Datatype} and
-[OData-MaxVersion]{.Datatype} header fields is defined in
-[**\[OData-ABNF\]**](#ABNF).
+the requested `OData-MaxVersion`, using decimal comparison. [The syntax
+of the ]{style="color:black"}`OData-Version` and `OData-MaxVersion`
+header fields is defined in [**\[OData-ABNF\]**](#ABNF).
 
 Services SHOULD advertise supported versions of OData through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 term, defined in [**\[OData-VocCore\]**](#VocCore).
 
-This version of the specification defines OData version values
-[4.0]{.Datatype} and [4.01]{.Datatype}. Content that applies only to one
-version or another is explicitly called out in the text.
+This version of the specification defines OData version values `4.0` and
+`4.01`. Content that applies only to one version or another is
+explicitly called out in the text.
 
 ## []{#sec_ModelVersioning}[]{#_Model_Versioning}5.2 [Model Versioning](#sec_ModelVersioning)
 
@@ -1514,12 +1511,11 @@ points.
 Query options within the request URL can control how a particular
 request is processed by the service.
 
-OData-defined system query options are optionally prefixed with
-\"[\$]{.Datatype}\". Services may support additional custom query
-options not defined in the OData specification, but they MUST NOT begin
-with the \"[\$]{.Datatype}\" or \"[@]{.Datatype}\" character and MUST
-NOT conflict with any OData-defined system query options defined in the
-OData version supported by the service.
+OData-defined system query options are optionally prefixed with \"`$`\".
+Services may support additional custom query options not defined in the
+OData specification, but they MUST NOT begin with the \"`$`\" or \"`@`\"
+character and MUST NOT conflict with any OData-defined system query
+options defined in the OData version supported by the service.
 
 OData services SHOULD NOT require any query options to be specified in a
 request. Services SHOULD fail any request that contains query options
@@ -1560,8 +1556,8 @@ a [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) system query option.
 
 Fully qualified action and function names include a namespace or alias
-prefix. The [Edm]{.Datatype}, [odata]{.Datatype} and [geo]{.Datatype}
-namespaces are reserved for the use of this specification.
+prefix. The `Edm`, `odata` and `geo` namespaces are reserved for the use
+of this specification.
 
 An OData service MUST fail any request that contains actions or
 functions that it does not understand.
@@ -1591,9 +1587,9 @@ overrides the one specified at the metadata level.
 A service MUST NOT require the client to understand custom annotations
 in order to accurately interpret a response.
 
-OData defines a [Core]{.Datatype} vocabulary with a set of basic terms
-describing behavioral aspects along with terms that can be used in
-defining other vocabularies; see [**\[OData-VocCore\]**](#VocCore).
+OData defines a `Core` vocabulary with a set of basic terms describing
+behavioral aspects along with terms that can be used in defining other
+vocabularies; see [**\[OData-VocCore\]**](#VocCore).
 
 ## []{#sec_HeaderFieldExtensibility}[]{#_Header_Field_Extensibility}6.5 [Header Field Extensibility](#sec_HeaderFieldExtensibility)
 
@@ -1603,8 +1599,8 @@ processing requirements for the headers defined by this specification
 for that version.
 
 Individual services may define custom headers. These headers MUST NOT
-begin with [OData]{.Datatype}. Custom headers SHOULD be optional when
-making requests to the service. A service MUST NOT require the client to
+begin with `OData`. Custom headers SHOULD be optional when making
+requests to the service. A service MUST NOT require the client to
 understand custom headers to accurately interpret the response.
 
 ## []{#sec_FormatExtensibility}[6.6]{#_Toc477876562} [Format Extensibility](#sec_FormatExtensibility)
@@ -1621,11 +1617,10 @@ The client MAY request a particular response format through the
 [**\[RFC7231\]**](#HTTPSemantic), or through the system query option
 [\$format](#sec_SystemQueryOptionformat)[.]{.MsoHyperlink}
 
-In the case that both the [Accept]{.Datatype} header and the
-[\$format]{.Datatype}[[ system
+In the case that both the `Accept` header and the `$format`[[ system
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}query option are
-specified on a request, the value specified in the [\$format]{.Datatype}
-query option MUST be used.
+specified on a request, the value specified in the `$format` query
+option MUST be used.
 
 If the service does not support the requested format, it replies with a
 [`406 Not Acceptable`](#sec_ResponseCode406NotAcceptable) error
@@ -1646,11 +1641,10 @@ the media type and the format parameters for non-metadata requests and
 responses.
 
 [For non-metadata requests, if]{style="color:#333333;background:white"}
-[neither the
-]{style="color:#333333;background:white"}[Accept]{.Datatype}[ header nor
-the ]{style="color:#333333;
-background:white"}[\$format]{.Datatype}[ query option are specified, the
-service MAY respond to requests in any format.
+[neither the ]{style="color:#333333;background:white"}`Accept`[ header
+nor the ]{style="color:#333333;
+background:white"}`$format`[ query option are specified, the service MAY
+respond to requests in any format.
 ]{style="color:#333333;background:white"}
 
 Client libraries MUST retain the order of objects within an array in
@@ -1672,12 +1666,12 @@ The following headers are common between OData requests and responses.
 ### []{#sec_HeaderContentType}[]{#_The_DataServiceVersion_Header}[]{#_The_Content-Type_Header}[]{#_Header_Content-Type}8.1.1 [Header `Content-Type`](#sec_HeaderContentType)
 
 The format of a non-empty individual request or response body, alone or
-within a batch, MUST be specified in the [Content-Type]{.Datatype}
-header of a request or response. The exception to this is if the body
-represents the media stream of a [media
+within a batch, MUST be specified in the `Content-Type` header of a
+request or response. The exception to this is if the body represents the
+media stream of a [media
 entity](#sec_RequestingtheMediaStreamofaMediaEnti) or [stream
 property](#sec_ManagingStreamProperties), in which case the
-[Content-Type]{.Datatype} header SHOULD be present.
+`Content-Type` header SHOULD be present.
 
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
@@ -1687,7 +1681,7 @@ services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
 See [**\[OData-JSON\]**](#ODataJSONRef) for format-specific details
-about format parameters within the [Content-Type]{.Datatype} header.
+about format parameters within the `Content-Type` header.
 
 ### []{#sec_HeaderContentEncoding}[8.1.2]{#_Toc477876567} [Header `Content-Encoding`](#sec_HeaderContentEncoding)
 
@@ -1710,67 +1704,67 @@ overall batch request or response.
 
 As defined in
 [**\[RFC7231\]**](#HTTPSemantic)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
-a request or response can include a [Content-Language]{.Datatype} header
-to indicate the natural language of the intended audience for the
-enclosed [message body]{style="color:black"}. OData does not add any
-additional [requirements over HTTP]{style="color:black"} [for including
-]{style="color:black"}[Content-Language]{.Datatype}[. OData services can
-annotate model elements whose content depends on the content language
-with the term
+a request or response can include a `Content-Language` header to
+indicate the natural language of the intended audience for the enclosed
+[message body]{style="color:black"}. OData does not add any additional
+[requirements over HTTP]{style="color:black"} [for including
+]{style="color:black"}`Content-Language`[. OData services can annotate
+model elements whose content depends on the content language with the
+term
 ]{style="color:black"}[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent)[,
 see
 ]{style="color:black"}[**\[OData-VocCore\]**](#VocCore)[.]{style="color:black"}
 
-If the [Content-Language]{.Datatype} header is specified on an
-individual request or response within a batch, then it specifies the
-language for that individual request or response. Individual requests or
-responses that don't include the [Content-Language]{.Datatype} header
-inherit the language of the overall batch request or response.
+If the `Content-Language` header is specified on an individual request
+or response within a batch, then it specifies the language for that
+individual request or response. Individual requests or responses that
+don't include the `Content-Language` header inherit the language of the
+overall batch request or response.
 
 ### []{#sec_HeaderContentLength}[8.1.4]{#_Toc477876569} [Header `Content-Length`](#sec_HeaderContentLength)
 
 As defined in
 [**\[RFC7230\]**](#HTTPMessage)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
-a request or response SHOULD include a [Content-Length]{.Datatype}
-header [when the message\'s length can be determined prior to being
+a request or response SHOULD include a `Content-Length` header [when the
+message\'s length can be determined prior to being
 transferred]{style="color:black"}. OData does not add any additional
 [requirements over HTTP for writing
-]{style="color:black"}[Content-Length]{.Datatype}[.]{style="color:black"}
+]{style="color:black"}`Content-Length`[.]{style="color:black"}
 
-If the [Content-Length]{.Datatype} header is specified on an individual
-request or response within a batch, then it specifies the length for
-that individual request or response.
+If the `Content-Length` header is specified on an individual request or
+response within a batch, then it specifies the length for that
+individual request or response.
 
 ### []{#sec_HeaderODataVersion}[]{#_The_OData-Version_Header}[]{#_Header_OData-Version}8.1.5 [Header `OData-Version`](#sec_HeaderODataVersion)
 
-OData clients SHOULD use the [OData-Version]{.Datatype} header on a
-request to specify the version of the protocol used to generate the
-request payload.
+OData clients SHOULD use the `OData-Version` header on a request to
+specify the version of the protocol used to generate the request
+payload.
 
 If present on a request, the service MUST interpret the request payload
 according to the rules defined in the specified version of the protocol
-or fail the request with a [4xx]{.Datatype} response code.
+or fail the request with a `4xx` response code.
 
 If not specified in a request, the service MUST assume the request
 payload is generated using the minimum of the
 [`OData-MaxVersion`](#sec_HeaderODataMaxVersion), if specified, and the
 maximum version of the protocol that the service understands.
 
-OData services MUST include the [OData-Version]{.Datatype} header on a
-response to specify the version of the protocol used to generate the
-response payload. The client MUST interpret the response payload
-according to the rules defined in the specified version of the protocol.
-Request and response payloads are independent and may have different
-[OData-Version]{.Datatype} headers according to the above rules.
+OData services MUST include the `OData-Version` header on a response to
+specify the version of the protocol used to generate the response
+payload. The client MUST interpret the response payload according to the
+rules defined in the specified version of the protocol. Request and
+response payloads are independent and may have different `OData-Version`
+headers according to the above rules.
 
 For more details, see [Versioning](#sec_Versioning).
 
-[If the]{#_Toc477876571} [OData-Version]{.Datatype} header is specified
-on an individual request or response within a batch, then it specifies
-the OData version for that individual request or response. Individual
-requests or responses that don't include the [OData-Version]{.Datatype}
-header inherit the OData version of the overall batch request or
-response. This OData version does not typically vary within a batch.
+[If the]{#_Toc477876571} `OData-Version` header is specified on an
+individual request or response within a batch, then it specifies the
+OData version for that individual request or response. Individual
+requests or responses that don't include the `OData-Version` header
+inherit the OData version of the overall batch request or response. This
+OData version does not typically vary within a batch.
 
 ## [8.2]{#sec_RequestHeaders} [Request Headers](#sec_RequestHeaders)
 
@@ -1780,8 +1774,7 @@ specify any combination of the following request headers.
 ### []{#sec_HeaderAccept}[]{#_The_MaxDataServiceVersion_Request}[]{#_The_MinDataServiceVersion_Request}[]{#_The_Accept_Request}[]{#_Header_Accept}8.2.1 [Header `Accept`](#sec_HeaderAccept)
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted [formats](#sec_Formats) with the [Accept]{.Datatype}
-Header.
+the set of accepted [formats](#sec_Formats) with the `Accept` Header.
 
 Services MUST reject formats that specify unknown or unsupported format
 parameters.
@@ -1807,51 +1800,48 @@ inherit the acceptable formats of the overall batch request.
 ### []{#sec_HeaderAcceptCharset}[]{#_The_If-Match_Request}[]{#_The_Accept-Charset_Request}8.2.2 [Header `Accept-Charset`](#sec_HeaderAcceptCharset)
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted character sets with the [Accept-Charset]{.Datatype}
-header.
+the set of accepted character sets with the `Accept-Charset` header.
 
-If the [Accept-Charset]{.Datatype} header is specified on an individual
-request within a batch, then it specifies the acceptable character sets
-for that individual request. Requests within a batch that don't include
-the [Accept-Charset]{.Datatype} header inherit the acceptable character
-sets of the overall batch request.
+If the `Accept-Charset` header is specified on an individual request
+within a batch, then it specifies the acceptable character sets for that
+individual request. Requests within a batch that don't include the
+`Accept-Charset` header inherit the acceptable character sets of the
+overall batch request.
 
 ### []{#sec_HeaderAcceptLanguage}[]{#_Header_If-Match}8.2.3 [Header `Accept-Language`](#sec_HeaderAcceptLanguage)
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted natural languages with the
-[Accept-Language]{.Datatype} header.
+the set of accepted natural languages with the `Accept-Language` header.
 
-If the [Accept-Language]{.Datatype} header is specified on an individual
-request within a batch, then it specifies the acceptable languages for
-that individual request. Requests within a batch that don't include the
-[Accept-Language]{.Datatype} header inherit the acceptable languages of
-the overall batch request.
+If the `Accept-Language` header is specified on an individual request
+within a batch, then it specifies the acceptable languages for that
+individual request. Requests within a batch that don't include the
+`Accept-Language` header inherit the acceptable languages of the overall
+batch request.
 
 ### []{#sec_HeaderIfMatch}[]{#_Header_If-Match_1}8.2.4 [Header `If-Match`](#sec_HeaderIfMatch)
 
 As defined in [**\[RFC7232\]**](#HTTPConditional)[,]{.MsoHyperlink} a
-client MAY include an [If-Match]{.Datatype} header in a request to
-[GET]{.Datatype}, [POST]{.Datatype}, [PUT]{.Datatype},
-[PATCH]{.Datatype} or [DELETE]{.Datatype}. The value of the
-[If-Match]{.Datatype} request header MUST be an ETag value previously
-retrieved for the resource, or [\*]{.Datatype} to match any value.
+client MAY include an `If-Match` header in a request to `GET`, `POST`,
+`PUT`, `PATCH` or `DELETE`. The value of the `If-Match` request header
+MUST be an ETag value previously retrieved for the resource, or `*` to
+match any value.
 
 If an operation on an existing resource requires an ETag, (see term
 [`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
 [**\[OData-VocCore\]**](#VocCore)[ and property
-]{style="color:black"}[OptimisticConcurrencyControl]{.Datatype}[ of type
+]{style="color:black"}`OptimisticConcurrencyControl`[ of type
 ]{style="color:black"}[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)[
 in ]{style="color:black"}** **[**\[OData-VocCap\]**](#VocCapabilities)[)
-and the client does not specify an
-]{style="color:black"}[If-Match]{.Datatype}[ request header in a
-]{style="color:black"}[Data Modification
+and the client does not specify an ]{style="color:black"}`If-Match`[
+request header in a ]{style="color:black"}[Data Modification
 Request](#sec_DataModification)[ or ]{style="color:black"}in an [Action
 Request](#sec_Actions)[ invoking an action bound to the resource, the
-service responds with a ]{style="color:black"}[428 Precondition
-Required]{.Datatype}[ and MUST ensure that no observable change occurs
-as a result of the request.]{style="color:black"}
+service responds with a
+]{style="color:black"}`428 Precondition Required`[ and MUST ensure that
+no observable change occurs as a result of the
+request.]{style="color:black"}
 
 If present, the request MUST only be processed if the specified ETag
 value matches the current ETag value of the target resource. Services
@@ -1872,29 +1862,26 @@ request.[ In the case of an
 entity does not exist the provided ETag value is considered not to
 match.]{style="color:black"}
 
-An [If-Match]{.Datatype} header with a value of [\*]{.Datatype} in a
-[PUT]{.Datatype} or [PATCH]{.Datatype} request results in an [upsert
-request](#sec_UpsertanEntity) being processed as an update and not an
-insert.
+An `If-Match` header with a value of `*` in a `PUT` or `PATCH` request
+results in an [upsert request](#sec_UpsertanEntity) being processed as
+an update and not an insert.
 
-The [If-Match]{.Datatype} header MUST NOT be specified on a batch
-request, but MAY be specified on individual requests within the batch.
+The `If-Match` header MUST NOT be specified on a batch request, but MAY
+be specified on individual requests within the batch.
 
 ### []{#sec_HeaderIfNoneMatch}[]{#_The_If-None-Match_Request}[]{#_Header_If-None-Match}8.2.5 [Header `If-None-Match`](#sec_HeaderIfNoneMatch)
 
 As defined in [**\[RFC7232\]**](#HTTPConditional), a client MAY include
-an [If-None-Match]{.Datatype} header in a request to [GET]{.Datatype},
-[POST]{.Datatype}, [PUT]{.Datatype}, [PATCH]{.Datatype} or
-[DELETE]{.Datatype}. The value of the [If-None-Match ]{.Datatype}request
-header MUST be an ETag value previously retrieved for the resource, or
-[\*]{.Datatype}.
+an `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH`
+or `DELETE`. The value of the `If-None-Match `request header MUST be an
+ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
 weak comparison function (see[
 ]{.MsoHyperlink}[**\[RFC7232\]**](#HTTPConditional)). If the value
-matches the current ETag value of the resource, then for a
-[GET]{.Datatype} request, the service SHOULD respond with
+matches the current ETag value of the resource, then for a `GET`
+request, the service SHOULD respond with
 [`304 Not Modified`](#sec_ResponseCode304NotModified), and for a [Data
 Modification Request[
 ]{style="color:windowtext"}](#sec_DataModification)or [Action
@@ -1902,25 +1889,25 @@ Request](#sec_Actions)[,]{.MsoHyperlink} the service MUST respond with
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) and
 MUST ensure that no observable change occurs as a result of the request.
 
-An [If-None-Match]{.Datatype} header with a value of [\*]{.Datatype} in
-a [PUT]{.Datatype} or [PATCH]{.Datatype} request results in an [upsert
-request](#sec_UpsertanEntity) being processed as an
-[insert](#sec_CreateanEntity) and not an [update](#sec_UpdateanEntity).
+An `If-None-Match` header with a value of `*` in a `PUT` or `PATCH`
+request results in an [upsert request](#sec_UpsertanEntity) being
+processed as an [insert](#sec_CreateanEntity) and not an
+[update](#sec_UpdateanEntity).
 
-The [If-None-Match]{.Datatype} header MUST NOT be specified on a batch
-request, but MAY be specified on individual requests within the batch.
+The `If-None-Match` header MUST NOT be specified on a batch request, but
+MAY be specified on individual requests within the batch.
 
 ### []{#_Ref356812046}[]{#_Ref356809484}[]{#sec_HeaderIsolationODataIsolation}[]{#_The_Prefer_Header_1}[]{#_Header_OData-MaxVersion}[]{#_Header_OData-Isolation}8.2.6 [Header `Isolation` (`OData-Isolation`)](#sec_HeaderIsolationODataIsolation)
 
 The [Isolation]{style="font-family:\"Courier New\";color:black;
 background:white"} header specifies the isolation of the current request
 from external changes. The only supported value for this header is
-[snapshot]{.Datatype}.
+`snapshot`.
 
 If the service doesn't support [Isolation:snapshot ]{style="font-family:
 \"Courier New\";color:black;background:white"}and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with [412 Precondition Failed.]{.Datatype}
+MUST respond with `412 Precondition Failed.`
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#sec_BatchRequests)[
@@ -1941,9 +1928,9 @@ snapshot as the initial request;]{style="color:black;background:white"}
 the client is not required to repeat the header on each individual page
 request.
 
-[The ]{style="color:black;background:white"}[Isolation]{.Datatype}
-header[ has no effect on links other than the next link. Navigation
-links, read links, and edit links return the current version of the
+[The ]{style="color:black;background:white"}`Isolation` header[ has no
+effect on links other than the next link. Navigation links, read links,
+and edit links return the current version of the
 data.]{style="color:black;background:white"}
 
 [A service returns
@@ -1985,41 +1972,39 @@ color:black;background:white"} header SHOULD be used.
 
 ### []{#sec_HeaderODataMaxVersion}[]{#_Header_OData-MaxVersion_1}8.2.7 [Header `OData-MaxVersion`](#sec_HeaderODataMaxVersion)
 
-Clients SHOULD specify an [OData-MaxVersion]{.Datatype} request header.
+Clients SHOULD specify an `OData-MaxVersion` request header.
 
 If specified, the service MUST generate a response with the greatest
 supported [`OData-Version`](#sec_HeaderODataVersion) less than or equal
-to the specified [OData-MaxVersion]{.Datatype}.
+to the specified `OData-MaxVersion`.
 
-If [OData-MaxVersion]{.Datatype} is not specified, then the service
-SHOULD return responses with the same OData version over time and
-interpret the request as having an [OData-MaxVersion]{.Datatype} equal
-to the maximum OData version supported by the service at its initial
-publication.
+If `OData-MaxVersion` is not specified, then the service SHOULD return
+responses with the same OData version over time and interpret the
+request as having an `OData-MaxVersion` equal to the maximum OData
+version supported by the service at its initial publication.
 
-If the [OData-MaxVersion]{.Datatype} header is specified on an
-individual request within a batch, then it specifies the maximum OData
-version for that individual request. Individual requests that don't
-include the [OData-MaxVersion]{.Datatype} header inherit the maximum
-OData version of the overall batch request or response. The maximum
-OData version does not typically vary within a batch.
+If the `OData-MaxVersion` header is specified on an individual request
+within a batch, then it specifies the maximum OData version for that
+individual request. Individual requests that don't include the
+`OData-MaxVersion` header inherit the maximum OData version of the
+overall batch request or response. The maximum OData version does not
+typically vary within a batch.
 
 For more details, see [Versioning](#sec_Versioning).
 
 ### []{#sec_HeaderPrefer}[]{#_Header_Prefer}8.2.8 [Header `Prefer`](#sec_HeaderPrefer)
 
-The [Prefer]{.Datatype} header, as defined in
-[**\[RFC7240\]**](#HTTPPREFER), allows clients to request certain
-behavior from the service. The service MUST ignore preference values
-that are either not supported or not known by the service.
+The `Prefer` header, as defined in [**\[RFC7240\]**](#HTTPPREFER),
+allows clients to request certain behavior from the service. The service
+MUST ignore preference values that are either not supported or not known
+by the service.
 
-The value of the [Prefer]{.Datatype} header is a comma-separated list of
+The value of the `Prefer` header is a comma-separated list of
 *preferences*. The following subsections describe preferences whose
 meaning in OData is defined by this specification.
 
-In response to a request containing a [Prefer]{.Datatype} header, the
-service MAY return the
-[`Preference-Applied`](#sec_HeaderPreferenceApplied) and
+In response to a request containing a `Prefer` header, the service MAY
+return the [`Preference-Applied`](#sec_HeaderPreferenceApplied) and
 [`Vary`](#sec_HeaderVary) headers.
 
 #### []{#sec_Preferenceallowentityreferencesodata}[8.2.8.1]{#_Toc477876580} [Preference `allow-entityreferences` (`odata.allow-entityreferences`)](#sec_Preferenceallowentityreferencesodata)
@@ -2035,10 +2020,9 @@ explicitly defined by other rules in this document`.`[ The syntax of the
 ]{style="color:black"}`allow-entityreferences `preference is defined in
 [**\[OData-ABNF\]**](#ABNF).
 
-In the case the service applies the [allow-entityreferences]{.Datatype}
-preference it MUST include a
-[`Preference-Applied`](#sec_HeaderPreferenceApplied) response header
-containing the [allow-entityreferences]{.Datatype} preference to
+In the case the service applies the `allow-entityreferences` preference
+it MUST include a [`Preference-Applied`](#sec_HeaderPreferenceApplied)
+response header containing the `allow-entityreferences` preference to
 indicate that entity references MAY be returned in place of entities
 that have previously been
 returned[.]{style="font-family:\"Calibri\",sans-serif"}
@@ -2073,7 +2057,7 @@ The `callback` preference can be specified:
 -   when requesting asynchronous processing of a request with the
     [`respond-async`](#sec_Preferencerespondasync)[` `]{.MsoHyperlink}preference,
     or
--   on a [GET]{.Datatype} request to a [delta
+-   on a `GET` request to a [delta
     link](#sec_DeltaLinks)[.]{.MsoHyperlink}
 
 The `callback` preference MUST include the parameter `url` whose value
@@ -2082,11 +2066,11 @@ when data is available.[ The syntax of the
 ]{style="color:black"}`callback` preference is defined in
 [**\[OData-ABNF\]**](#ABNF).
 
-For HTTP based callbacks, the OData service executes an HTTP
-[GET]{.Datatype} request against the specified URL.
+For HTTP based callbacks, the OData service executes an HTTP `GET`
+request against the specified URL.
 
-Services that support [callback]{.Datatype} SHOULD support notifying the
-client through HTTP. Services can advertise callback support using the
+Services that support `callback` SHOULD support notifying the client
+through HTTP. Services can advertise callback support using the
 [`Capabilities`.`CallbackSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#CallbackSupported)
 annotation term defined in [**\[OData-VocCap\]**](#VocCapabilities).
 
@@ -2101,22 +2085,21 @@ processing the request. The status monitor resource, returned in the
 [`202 Accepted`](#sec_ResponseCode202Accepted) response, can then be
 used to retrieve the results of the asynchronously executed request.
 
-When the `callback` preference is specified on a [GET]{.Datatype}
-request to a delta link and there are no changes available, the OData
-service returns a [`202 Accepted`](#sec_ResponseCode202Accepted)
-response with a [`Location` header](#sec_HeaderLocation) specifying the
-delta link to be used to check for future updates. The OData service
-then invokes the specified callback endpoint once new changes become
-available.
+When the `callback` preference is specified on a `GET` request to a
+delta link and there are no changes available, the OData service returns
+a [`202 Accepted`](#sec_ResponseCode202Accepted) response with a
+[`Location` header](#sec_HeaderLocation) specifying the delta link to be
+used to check for future updates. The OData service then invokes the
+specified callback endpoint once new changes become available.
 
 Combining [`respond-async`](#sec_Preferencerespondasync), `callback` and
 [`track-changes`](#sec_Preferencetrackchangesodatatrackchan) preferences
-on a [GET]{.Datatype} request to a delta-link might influence the
-response in a couple of ways.
+on a `GET` request to a delta-link might influence the response in a
+couple of ways.
 
 -   [[If the service processes the request synchronously, and no updates
     are available, then the response is the same as if the
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[respond-async]{.Datatype}[[
+    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`respond-async`[[
     hadn't been specified and results in a response as described above.
     ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 -   [[If the service processes the request asynchronously, then it
@@ -2129,7 +2112,7 @@ response in a couple of ways.
     endpoint. If no changes are available, the service SHOULD wait to
     notify the client until changes are available. Once notified, the
     client uses the status monitor resource from the
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Location]{.Datatype}[[
+    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`Location`[[
     header of the previously returned
     ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[202
     Accepted]{style="font-family:\"Courier New\""}](#sec_ResponseCode202Accepted)[[
@@ -2188,10 +2171,10 @@ request](#sec_BatchRequests) is used to request whether, upon
 encountering a request within the batch that returns an error, the
 service return the error for that request and continue processing
 additional requests within the batch (if specified with an implicit or
-explicit value of [true]{.Datatype}), or rather stop further processing
-(if specified with an explicit value of [false]{.Datatype}).[ The syntax
-of the ]{style="color:black"}`continue-on-error` preference is defined
-in [**\[OData-ABNF\]**](#ABNF).
+explicit value of `true`), or rather stop further processing (if
+specified with an explicit value of `false`).[ The syntax of the
+]{style="color:black"}`continue-on-error` preference is defined in
+[**\[OData-ABNF\]**](#ABNF).
 
 The `continue-on-error` preference can also be used on a [delta
 update](#sec_UpdateaCollectionofEntities), [set-based
@@ -2230,10 +2213,10 @@ included, where applicable, in the response.
 
 The value of the `include-annotations` preference is [a comma-separated
 list of namespace-qualified term names or term name patterns to include
-or exclude, with ]{style="color:black"}[\*]{.Datatype}[ as a wildcard
-for name segments. Term names and term name patterns can optionally be
-followed by a hash (]{style="color:black"}[\#]{.Datatype}[) character
-and an annotation qualifier. The full syntax of the
+or exclude, with ]{style="color:black"}`*`[ as a wildcard for name
+segments. Term names and term name patterns can optionally be followed
+by a hash (]{style="color:black"}`#`[) character and an annotation
+qualifier. The full syntax of the
 ]{style="color:black"}`include-annotations` preference is defined in
 [**\[OData-ABNF\]**](#ABNF).
 
@@ -2271,8 +2254,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 Example 6: a `Prefer` header requesting that the annotation with the
-term name [subject]{.Datatype} within the [display]{.Datatype} namespace
-be returned
+term name `subject` within the `display` namespace be returned
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -2296,20 +2278,20 @@ to decide whether or not to return annotations not specified in the
 ]{style="color:black"}`include-annotations`[ preference.
 ]{style="color:black"}
 
-In the case that the client has specified the
-[include-annotations]{.Datatype} preference in the request, the service
-SHOULD include a [`Preference-Applied`](#sec_HeaderPreferenceApplied)
-response header containing the [include-annotations]{.Datatype}
-preference[ to specify the annotations actually included, where
-applicable, in the response. This value may differ from the annotations
-requested in the ]{style="color:black"}[`Prefer`](#sec_HeaderPrefer)[
-header of the request. ]{style="color:black"}
+In the case that the client has specified the `include-annotations`
+preference in the request, the service SHOULD include a
+[`Preference-Applied`](#sec_HeaderPreferenceApplied) response header
+containing the `include-annotations` preference[ to specify the
+annotations actually included, where applicable, in the response. This
+value may differ from the annotations requested in the
+]{style="color:black"}[`Prefer`](#sec_HeaderPrefer)[ header of the
+request. ]{style="color:black"}
 
-If the [include-annotations]{.Datatype} preference is specified on an
-individual request within a batch, then it specifies the preference for
-that individual request. Individual requests within a batch that don't
-include the [include-annotations]{.Datatype} preference inherit the
-preference of the overall batch request.
+If the `include-annotations` preference is specified on an individual
+request within a batch, then it specifies the preference for that
+individual request. Individual requests within a batch that don't
+include the `include-annotations` preference inherit the preference of
+the overall batch request.
 
 Note: The [include-annotations
 ]{style="font-family:\"Courier New\";color:black;
@@ -2359,10 +2341,9 @@ If the client has specified the `maxpagesize` preference in the request,
 and the service limits the number of items in collections within the
 response through [server-driven paging](#sec_ServerDrivenPaging), the
 service MAY include a
-[`Preference-Applied`](#sec_HeaderPreferenceApplied)[
-]{.Datatype}response header containing the `maxpagesize` preference and
-the maximum page size applied. This value may differ from the value
-requested by the client.
+[`Preference-Applied`](#sec_HeaderPreferenceApplied)` `response header
+containing the `maxpagesize` preference and the maximum page size
+applied. This value may differ from the value requested by the client.
 
 The `maxpagesize` preference SHOULD NOT be applied to a batch request,
 but MAY be applied to individual requests within a batch.
@@ -2384,22 +2365,19 @@ used.
 
 #### []{#sec_Preferenceomitvalues}[]{#_Preference_odata.track-changes}8.2.8.6 [Preference `omit-values`](#sec_Preferenceomitvalues)
 
-The [omit-values]{.Datatype} preference specifies values that MAY be
-omitted from a response payload. Valid values are [nulls]{.Datatype} or
-[defaults]{.Datatype}.
+The `omit-values` preference specifies values that MAY be omitted from a
+response payload. Valid values are `nulls` or `defaults`.
 
-If [nulls]{.Datatype} is specified, then the service MAY omit properties
-containing null values from the response, in which case it MUST specify
-the [Preference-Applied]{.Datatype} response header with
-[omit-values=nulls]{.Datatype}.
+If `nulls` is specified, then the service MAY omit properties containing
+null values from the response, in which case it MUST specify the
+`Preference-Applied` response header with `omit-values=nulls`.
 
-If [defaults]{.Datatype} is specified, then the service MAY omit
-properties containing default values from the response, including nulls
-for properties that have no other defined default value. Nulls MUST be
+If `defaults` is specified, then the service MAY omit properties
+containing default values from the response, including nulls for
+properties that have no other defined default value. Nulls MUST be
 included for properties that have a non-null default value defined. If
 the service omits default values, it MUST specify the
-[Preference-Applied]{.Datatype} response header with
-[omit-values=defaults]{.Datatype}.
+`Preference-Applied` response header with `omit-values=defaults`.
 
 Properties with instance annotations are not affected by this preference
 and MUST be included in the payload if they would be included without
@@ -2407,7 +2385,7 @@ this preference. Clients MUST NOT try to reconstruct a null or default
 value for properties for which an instance annotation is present and no
 property value is present, for example if the property is omitted due to
 permissions and has been replaced with the instance annotation
-[Core.Permissions]{.Datatype} and a value of [None]{.Datatype}, see
+`Core.Permissions` and a value of `None`, see
  [**\[OData-VocCore\]**](#VocCore).
 
 Properties with null or default values MUST be included in delta
@@ -2418,82 +2396,76 @@ their default value, and the response to a PUT/PATCH operation MUST
 include any properties whose values were changed as part of the
 operation.
 
-The [omit-values]{.Datatype} preference does not affect a request
-payload.
+The `omit-values` preference does not affect a request payload.
 
 #### []{#sec_Preferencereturnrepresentationandret}8.2.8.7 [Preference `return=representation` and `return=minimal`](#sec_Preferencereturnrepresentationandret)
 
-The [return=representation]{.Datatype}[ and
-]{style="color:black"}[return=minimal]{.Datatype} preferences are
-defined in [**\[RFC7240\]**](#HTTPPREFER).
+The `return=representation`[ and ]{style="color:black"}`return=minimal`
+preferences are defined in [**\[RFC7240\]**](#HTTPPREFER).
 
-[In OData, ]{style="color:black"}[return=representation]{.Datatype}[ or
-]{style="color:black"}[return=minimal]{.Datatype}[ is defined for use
-with a ]{style="color:black"}[POST]{.Datatype}[,
-]{style="color:black"}[PUT]{.Datatype}[, or
-]{style="color:black"}[PATCH]{.Datatype}[ ]{style="color:black"}[Data
-Modification Request](#sec_DataModification)[, or with an
+[In OData, ]{style="color:black"}`return=representation`[ or
+]{style="color:black"}`return=minimal`[ is defined for use with a
+]{style="color:black"}`POST`[, ]{style="color:black"}`PUT`[, or
+]{style="color:black"}`PATCH`[ ]{style="color:black"}[Data Modification
+Request](#sec_DataModification)[, or with an
 ]{style="color:black"}[Action Request](#sec_Actions)[. Specifying a
-preference of ]{style="color:black"}[return=representation]{.Datatype}[
-or ]{style="color:black"}[return=minimal]{.Datatype}[ in a
-]{style="color:black"}[GET]{.Datatype}[ or
-]{style="color:black"}[DELETE]{.Datatype}[ request does not have any
-effect. ]{style="color:black"}
+preference of ]{style="color:black"}`return=representation`[ or
+]{style="color:black"}`return=minimal`[ in a
+]{style="color:black"}`GET`[ or ]{style="color:black"}`DELETE`[ request
+does not have any effect. ]{style="color:black"}
 
-[A preference of
-]{style="color:black"}[return=representation]{.Datatype}[ or
-]{style="color:black"}[return=minimal]{.Datatype}[ is allowed on an
-individual ]{style="color:black"}[Data Modification
+[A preference of ]{style="color:black"}`return=representation`[ or
+]{style="color:black"}`return=minimal`[ is allowed on an individual
+]{style="color:black"}[Data Modification
 Request](#sec_DataModification)[ or ]{style="color:black"}[Action
 Request](#sec_Actions)[ ]{.MsoHyperlink}[within a batch, subject to the
-same restrictions, but SHOULD return a ]{style="color:black"}[4xx Client
-Error]{.Datatype}[ if specified on the batch request itself.
-]{style="color:black"}
+same restrictions, but SHOULD return a
+]{style="color:black"}`4xx Client Error`[ if specified on the batch
+request itself. ]{style="color:black"}
 
-A preference of [return=minimal]{.Datatype} requests that the service
-invoke the request but does not return content in the response. The
-service MAY apply this preference by returning
+A preference of `return=minimal` requests that the service invoke the
+request but does not return content in the response. The service MAY
+apply this preference by returning
 [`204 No Content`](#sec_ResponseCode204NoContent)` `in which case it MAY
 include a [`Preference-Applied`](#sec_HeaderPreferenceApplied)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}response header
-containing the [return=minimal
-]{.Datatype}preference[.]{style="font-family:\"Calibri\",sans-serif"}
+containing the
+`return=minimal `preference[.]{style="font-family:\"Calibri\",sans-serif"}
 
 A preference of[
-]{style="font-family:\"Calibri\",sans-serif"}[return=representation]{.Datatype}
+]{style="font-family:\"Calibri\",sans-serif"}`return=representation`
 requests that the service invokes the request and returns the modified
 resource. The service MAY apply this preference by returning the
 representation of the successfully modified resource in the body of the
 response, formatted according to the rules specified for the requested
 [format](#sec_Formats)[. In this case the service]{.Hyperlink1} MAY
 include a [`Preference-Applied`](#sec_HeaderPreferenceApplied) response
-header containing the [return=representation]{.Datatype} preference.
+header containing the `return=representation` preference.
 
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
 
 #### []{#sec_Preferencerespondasync}[]{#_The_respond-async_Preference}[]{#_Preference_respond-async}8.2.8.8 [Preference `respond-async`](#sec_Preferencerespondasync)
 
-The [respond-async ]{.Datatype}preference, as defined in
+The `respond-async `preference, as defined in
 [**\[RFC7240\]**](#HTTPPREFER), allows clients to request that the
 service process the request asynchronously.
 
-If the client has specified[ respond-async]{.Datatype} in the request,
-the service MAY process the request asynchronously and return a
+If the client has specified` respond-async` in the request, the service
+MAY process the request asynchronously and return a
 [`202 Accepted`](#sec_ResponseCode202Accepted) response.
 
-The [respond-async]{.Datatype} preference MAY be used for batch
-requests, in which case it applies to the batch request as a whole and
-not to individual requests within the batch request.
+The `respond-async` preference MAY be used for batch requests, in which
+case it applies to the batch request as a whole and not to individual
+requests within the batch request.
 
-In the case that the service applies the [respond-async]{.Datatype}
-preference it MUST include a
-[`Preference-Applied`](#sec_HeaderPreferenceApplied)[
-]{.Datatype}response header containing the [respond-async]{.Datatype}
-preference.
+In the case that the service applies the `respond-async` preference it
+MUST include a
+[`Preference-Applied`](#sec_HeaderPreferenceApplied)` `response header
+containing the `respond-async` preference.
 
-A service MAY specify the support for the [respond-async]{.Datatype}
-preference using an annotation with term
+A service MAY specify the support for the `respond-async` preference
+using an annotation with term
 [`Capabilities.AsynchronousRequestsSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AsynchronousRequestsSupported),
 see [**\[OData-VocCap\]**](#VocCapabilities).
 
@@ -2515,7 +2487,7 @@ after 5 seconds
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}synchronously
-after 15 seconds (ignoring [respond-]{.Datatype}async preference and the
+after 15 seconds (ignoring `respond-`async preference and the
 [`wait`](#sec_Preferencewait) preference)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -2544,36 +2516,34 @@ place of the next link.
 The service includes a
 [`Preference-Applied`](#sec_HeaderPreferenceApplied)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}response header
-in the first page of the response containing the
-[track-changes]{.Datatype} preference to signal that changes are being
-tracked.
+in the first page of the response containing the `track-changes`
+preference to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
 [`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking),
 see [**\[OData-VocCap\]**](#VocCapabilities).
 
-The [track-changes]{.Datatype} preference SHOULD NOT be applied to a
-batch request, but MAY be applied to individual requests within a batch.
+The `track-changes` preference SHOULD NOT be applied to a batch request,
+but MAY be applied to individual requests within a batch.
 
-Note: The [track-changes]{.Datatype} preference was named
+Note: The `track-changes` preference was named
 [odata]{style="font-family:\"Courier New\";color:black;
-background:white"}[.track-changes]{.Datatype} in OData version 4.0.
-Services that support the[ ]{style="font-family:\"Courier New\";
-color:black;background:white"}[track-changes]{.Datatype} preference
-SHOULD also support [odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}[track-changes]{.Datatype} for OData 4.0
-clients and clients SHOULD use
-[odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}[track-changes]{.Datatype} for
-compatibility with OData 4.0 services.
+background:white"}`.track-changes` in OData version 4.0. Services that
+support the[ ]{style="font-family:\"Courier New\";
+color:black;background:white"}`track-changes` preference SHOULD also
+support [odata.]{style="font-family:\"Courier New\";
+color:black;background:white"}`track-changes` for OData 4.0 clients and
+clients SHOULD use [odata.]{style="font-family:\"Courier New\";
+color:black;background:white"}`track-changes` for compatibility with
+OData 4.0 services.
 
 #### []{#sec_Preferencewait}[8.2.8.10]{#_Toc477876589} [Preference `wait`](#sec_Preferencewait)
 
-The [wait]{.Datatype} preference, as defined in
-[**\[RFC7240\]**](#HTTPPREFER), is used to establish an upper bound on
-the length of time, in seconds, the client is prepared to wait for the
-service to process the request synchronously once it has been received.
+The `wait` preference, as defined in [**\[RFC7240\]**](#HTTPPREFER), is
+used to establish an upper bound on the length of time, in seconds, the
+client is prepared to wait for the service to process the request
+synchronously once it has been received.
 
 If the [`respond-async`](#sec_Preferencerespondasync) preference is also
 specified, the client requests that the service respond asynchronously
@@ -2599,18 +2569,18 @@ response headers have defined meaning in OData.
 ### []{#sec_HeaderAsyncResult}[]{#_The_ETag_Header}8.3.1 [Header `AsyncResult`](#sec_HeaderAsyncResult)
 
 A [[4.01]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} service
-MUST include the [AsyncResult]{.Datatype} header in
+MUST include the `AsyncResult` header in
 [`200 OK`](#sec_ResponseCode200OK)[` `]{.MsoHyperlink}response from a
 status monitor resource in order to indicate the final [HTTP Response
 Status Code](#sec_CommonResponseStatusCodes) of an [asynchronously
 executed request](#sec_AsynchronousRequests).
 
-The [AsyncResult]{.Datatype} header SHOULD NOT be applied to individual
-responses within a batch.
+The `AsyncResult` header SHOULD NOT be applied to individual responses
+within a batch.
 
 ### [8.3.2]{#sec_HeaderETag} [Header `ETag`](#sec_HeaderETag)
 
-A response MAY include an [ETag]{.Datatype} header, see
+A response MAY include an `ETag` header, see
 [**\[RFC7232\]**](#HTTPConditional). Services MUST include this header
 if they require an ETag to be specified when modifying the resource.
 
@@ -2618,9 +2588,9 @@ Services MUST support specifying the value returned in the
 [ETag]{.VerbatimChar} header in an
 [`If-None-Match`](#sec_HeaderIfNoneMatch) header of a subsequent [Data
 Request](#sec_RequestingData) for the resource. Clients MUST specify the
-value returned in the [ETag]{.VerbatimChar} header, or star
-([\*]{.Datatype}), in an [`If-Match`](#sec_HeaderIfMatch) header of a
-subsequent [Data Modification Request](#sec_DataModification) or [Action
+value returned in the [ETag]{.VerbatimChar} header, or star (`*`), in an
+[`If-Match`](#sec_HeaderIfMatch) header of a subsequent [Data
+Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions) in order to apply [optimistic
 concurrency](#sec_UseofETagsforAvoidingUpdateConflicts) control in
 updating, deleting, or invoking an action bound to the resource.
@@ -2633,18 +2603,17 @@ the [`Content-Type`](#sec_HeaderContentType), the
 [`Content-Encoding`](#sec_HeaderContentEncoding), and potentially other
 characteristics of the response.
 
-[]{#_The_Location_Header}An [ETag]{.Datatype} header MAY also be
-returned on a [metadata document request](#sec_MetadataDocumentRequest)
-or [service document request](#sec_ServiceDocumentRequest) to allow the
-client subsequently to make a conditional request for the metadata or
-service document. Clients can also compare the value of the
-[ETag]{.Datatype} header returned from a metadata document request to
-the metadata ETag returned in a response in order to verify the version
-of the metadata used to generate that response.
+[]{#_The_Location_Header}An `ETag` header MAY also be returned on a
+[metadata document request](#sec_MetadataDocumentRequest) or [service
+document request](#sec_ServiceDocumentRequest) to allow the client
+subsequently to make a conditional request for the metadata or service
+document. Clients can also compare the value of the `ETag` header
+returned from a metadata document request to the metadata ETag returned
+in a response in order to verify the version of the metadata used to
+generate that response.
 
-The [ETag]{.Datatype} header SHOULD NOT be included for the overall
-batch response, but MAY be included in individual responses within a
-batch.
+The `ETag` header SHOULD NOT be included for the overall batch response,
+but MAY be included in individual responses within a batch.
 
 ### []{#sec_HeaderLocation}[]{#_Header_Location}8.3.3 [Header `Location`](#sec_HeaderLocation)
 
@@ -2656,9 +2625,8 @@ returning [`202 Accepted`](#sec_ResponseCode202Accepted) to specify the
 URL that the client can use to request the status of an asynchronous
 request.
 
-The [Location]{.Datatype} header SHOULD NOT be included for the overall
-batch response, but MAY be included in individual responses within a
-batch.
+The `Location` header SHOULD NOT be included for the overall batch
+response, but MAY be included in individual responses within a batch.
 
 ### []{#sec_HeaderODataEntityId}[]{#_The_Preference-Applied_Header}[]{#_Header_OData-EntityId}[]{#_Header_Preference-Applied}8.3.4 [Header `OData-EntityId`](#sec_HeaderODataEntityId)
 
@@ -2667,24 +2635,24 @@ A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[[or
 operation]{.MsoHyperlink} that returns
 [`204 ``No Content`](#sec_ResponseCode204NoContent)[
 ]{style="font-family:\"Calibri\",sans-serif"}MUST include an
-[OData-]{style="font-family:\"Courier New\";color:black;background:white"}[EntityId]{.Datatype}
+[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
 response header. The value of the header is the
 [entity-id](#sec_EntityIdsandEntityReferences) of the entity that was
 acted on by the request. [The syntax of the
-]{style="color:black"}[OData-]{style="font-family:\"Courier New\";color:black;background:white"}[EntityId]{.Datatype}
+]{style="color:black"}[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
 header is defined in [**\[OData-ABNF\]**](#ABNF).
 
 The [OData-]{style="font-family:\"Courier New\";color:black;
-background:white"}[EntityID]{.Datatype} header SHOULD NOT be included
-for the overall batch response, but MAY be included in individual
-responses within a batch.
+background:white"}`EntityID` header SHOULD NOT be included for the
+overall batch response, but MAY be included in individual responses
+within a batch.
 
 ### [8.3.5]{#sec_HeaderODataError} [Header `OData-Error`](#sec_HeaderODataError)
 
 A response with an [in-stream error](#sec_InStreamErrors) MAY include an
-[OData-Error]{.Datatype} trailing header if the transport protocol
-supports trailing headers (e.g. HTTP/1.1 with chunked transfer encoding,
-or HTTP/2).
+`OData-Error` trailing header if the transport protocol supports
+trailing headers (e.g. HTTP/1.1 with chunked transfer encoding, or
+HTTP/2).
 
 The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
@@ -2713,21 +2681,21 @@ then it specifies the preferences applied to the overall batch.
 
 ### []{#sec_HeaderRetryAfter}[]{#_The_Prefer_Header}[]{#_The_Retry-After_Header}8.3.7 [Header `Retry-After`](#sec_HeaderRetryAfter)
 
-A service MAY include a [Retry-After]{.Datatype} header, as defined in
+A service MAY include a `Retry-After` header, as defined in
 [**\[RFC7231\]**](#HTTPSemantic)[**,**]{.MsoHyperlink} in
 [`202 Accepted`](#sec_ResponseCode202Accepted) and in
 [`3xx Redirect`](#sec_ResponseCode3xxRedirection) responses
 
-The [Retry-After]{.Datatype} header specifies the duration of time, in
-seconds, that the client is asked to wait before retrying the request or
-issuing a request to the resource returned as the value of the
-[`Location` header](#sec_HeaderLocation).
+The `Retry-After` header specifies the duration of time, in seconds,
+that the client is asked to wait before retrying the request or issuing
+a request to the resource returned as the value of the [`Location`
+header](#sec_HeaderLocation).
 
 ### [8.3.8]{#sec_HeaderVary} [Header `Vary`](#sec_HeaderVary)
 
 If a response varies depending on the
 [`OData-Version`](#sec_HeaderODataVersion) of the response, the service
-MUST include a [Vary]{.Datatype} header listing the
+MUST include a `Vary` header listing the
 [`OData-MaxVersion`](#sec_HeaderODataMaxVersion) request header field to
 allow correct caching of the response.
 
@@ -2736,15 +2704,14 @@ If a response varies depending on the applied preferences
 [`include-annotations`](#sec_Preferenceincludeannotationsodatainc),
 [`omit-values`](#sec_Preferenceomitvalues)[[,
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`return`](#sec_Preferencereturnrepresentationandret)),
-the service MUST include a [Vary]{.Datatype} header listing the
+the service MUST include a `Vary` header listing the
 [`Prefer`](#sec_HeaderPrefer) request header field to allow correct
 caching of the response.
 
-Alternatively, the server MAY include a [Vary]{.Datatype} header with
-the special value [\*]{.Datatype} as defined by
-[**\[RFC7231\]**](#HTTPSemantic), Section 8.2.1. Note that this will
-make it impossible for a proxy to cache the response, see
-[**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
+Alternatively, the server MAY include a `Vary` header with the special
+value `*` as defined by [**\[RFC7231\]**](#HTTPSemantic), Section 8.2.1.
+Note that this will make it impossible for a proxy to cache the
+response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # []{#sec_CommonResponseStatusCodes}[]{#_AsyncResult}[]{#_Header_AsyncResult}[]{#_Common_Response_Status}9[     ]{style="font:7.0pt \"Times New Roman\""}[Common Response Status Codes](#sec_CommonResponseStatusCodes) {#common-response-status-codes style="margin-left:19.85pt;text-indent:-19.85pt"}
@@ -2763,22 +2730,22 @@ The following response codes represent successful requests.
 
 ### []{#sec_ResponseCode200OK}[]{#_200_OK_Response}[]{#_Response_Code_200}9.1.1 [Response Code `200 OK`` `](#sec_ResponseCode200OK) 
 
-A request that does not create a resource returns [200 OK]{.Datatype} if
-it is completed successfully and the value of the resource is not
-[null]{.Datatype}. In this case, the response body MUST contain the
-value of the resource specified in the request URL.
+A request that does not create a resource returns `200 OK` if it is
+completed successfully and the value of the resource is not `null`. In
+this case, the response body MUST contain the value of the resource
+specified in the request URL.
 
 ### []{#sec_ResponseCode201Created}[]{#_201_Created_Response}[]{#_Response_Code_201}9.1.2 [Response Code `201 Created`](#sec_ResponseCode201Created)
 
 A [Create Entity](#sec_CreateanEntity), [Create Media
 Entity](#sec_CreateaMediaEntity), or [Invoke
 Action](#sec_InvokinganAction) request that successfully creates a
-resource returns [201 Created]{.Datatype}. In this case, the response
-body MUST contain the resource created.
+resource returns `201 Created`. In this case, the response body MUST
+contain the resource created.
 
 ### []{#sec_ResponseCode202Accepted}[]{#_202_Accepted_Response}[]{#_Response_Code_202}9.1.3 [Response Code `202 Accepted`](#sec_ResponseCode202Accepted)
 
-[202 Accepted]{.Datatype} indicates that the [Data Service
+`202 Accepted` indicates that the [Data Service
 Request](#sec_DataServiceRequests) has been accepted and has not yet
 completed executing asynchronously. The asynchronous handling of
 requests is defined in the sections on [Asynchronous
@@ -2787,58 +2754,53 @@ Requests](#sec_AsynchronousBatchRequests)..
 
 ### []{#sec_ResponseCode204NoContent}[]{#_204_No_Content}[]{#_Response_Code_204}9.1.4 [Response Code `204 No Content`](#sec_ResponseCode204NoContent)
 
-A request returns [204 No Content]{.Datatype} if the requested resource
-has the [null]{.Datatype} value, or if the service applies a
-[`return=minimal`
+A request returns `204 No Content` if the requested resource has the
+`null` value, or if the service applies a [`return=minimal`
 preference](#sec_Preferencereturnrepresentationandret). In this case,
 the response body MUST be empty.
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), a [Data Modification
-Request](#sec_DataModification) that responds with [204 No
-Content]{.Datatype}[[ MAY
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include an
-[ETag]{.Datatype} header with a value reflecting the result of the data
+Request](#sec_DataModification) that responds with `204 No Content`[[
+MAY ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include an
+`ETag` header with a value reflecting the result of the data
 modification if and only if the client can reasonably "know" the new
 representation of the resource without actually receiving it. For a
-[PUT]{.Datatype} request this means that the response body of a
-corresponding [200 OK]{.Datatype} or [201 Created]{.Datatype} response
-would have been identical to the request body, i.e. no server-side
-modification of values sent in the request body, no server-calculated
-values etc. For a [PATCH]{.Datatype} request this means that the
-response body of a corresponding [200 OK]{.Datatype} or [201
-Created]{.Datatype} response would have consisted of all values sent in
-the request body, plus (for values not sent in the request body)
-server-side values corresponding to the [ETag]{.Datatype} value sent in
-the [If-Match]{.Datatype} header of the [PATCH]{.Datatype} request, i.e.
-the previous values "known" to the client.
+`PUT` request this means that the response body of a corresponding
+`200 OK` or `201 Created` response would have been identical to the
+request body, i.e. no server-side modification of values sent in the
+request body, no server-calculated values etc. For a `PATCH` request
+this means that the response body of a corresponding `200 OK` or
+`201 Created` response would have consisted of all values sent in the
+request body, plus (for values not sent in the request body) server-side
+values corresponding to the `ETag` value sent in the `If-Match` header
+of the `PATCH` request, i.e. the previous values "known" to the client.
 
 ### []{#sec_ResponseCode3xxRedirection}[]{#_3xx_Redirect_Response}[]{#_Response_Code_3xx}9.1.5 [Response Code `3xx Redirection`](#sec_ResponseCode3xxRedirection)
 
-As per [**\[RFC7231\]**](#HTTPSemantic), a [3xx Redirection]{.Datatype}
-indicates that further action needs to be taken by the client in order
-to fulfill the request. In this case, the response SHOULD include a
-[`Location` header](#sec_HeaderLocation)[, ]{.MsoHyperlink}as
-appropriate, with the URL from which the result can be obtained; it MAY
-include a [`Retry-After` header](#sec_HeaderRetryAfter).
+As per [**\[RFC7231\]**](#HTTPSemantic), a `3xx Redirection` indicates
+that further action needs to be taken by the client in order to fulfill
+the request. In this case, the response SHOULD include a [`Location`
+header](#sec_HeaderLocation)[, ]{.MsoHyperlink}as appropriate, with the
+URL from which the result can be obtained; it MAY include a
+[`Retry-After` header](#sec_HeaderRetryAfter).
 
 ### []{#sec_ResponseCode304NotModified}[]{#_4xx_Client_Error}[]{#_304_Not_Modified}9.1.6 [Response Code `304 Not Modified`](#sec_ResponseCode304NotModified)
 
 As per [**\[RFC7232\]**](#HTTPConditional), a `304 Not Modified` is
-returned when the client performs a [GET]{.Datatype} request containing
-an
+returned when the client performs a `GET` request containing an
 [[[If-None-Match]{style="color:windowtext"}]{.Datatype}](#sec_HeaderIfNoneMatch)
 header and the content has not changed. In this case the response SHOULD
 NOT include other headers in order to prevent inconsistencies between
 cached entity-bodies and updated headers.
 
 The service MUST ensure that no observable change has occurred to the
-state of the service as a result of any request that returns a [304 Not
-Modified]{.Datatype}.
+state of the service as a result of any request that returns a
+`304 Not Modified`.
 
 ## []{#sec_ClientErrorResponses}[]{#_Client_Error_Responses}9.2 [Client Error Responses](#sec_ClientErrorResponses)  
 
-Error codes in the [4xx]{.Datatype} range indicate a client error, such
-as a malformed request.
+Error codes in the `4xx` range indicate a client error, such as a
+malformed request.
 
 The service MUST ensure that no observable change has occurred to the
 state of the service as a result of any request that returns an error
@@ -2849,22 +2811,21 @@ of the error is as defined for the appropriate [format](#sec_Formats).
 
 ### []{#sec_ResponseCode404NotFound}[]{#_404_Not_Found}[]{#_Response_Code_404}9.2.1 [Response Code `404 Not Found`](#sec_ResponseCode404NotFound)
 
-[404 Not Found ]{.Datatype}indicates that the resource specified by the
-request URL does not exist. The response body MAY provide additional
-information.
+`404 Not Found `indicates that the resource specified by the request URL
+does not exist. The response body MAY provide additional information.
 
 ### []{#sec_ResponseCode405MethodNotAllowed}[]{#_Response_Code_405}9.2.2 [Response Code `405 Method Not Allowed`](#sec_ResponseCode405MethodNotAllowed)
 
-[405 Method Not Allowed]{.Datatype} indicates that the resource
-specified by the request URL does not support the request method. In
-this case the response MUST include an [Allow]{.Datatype} header
-containing a list of valid request methods for the requested resource as
-defined in [**\[RFC7231\]**](#HTTPSemantic).
+`405 Method Not Allowed` indicates that the resource specified by the
+request URL does not support the request method. In this case the
+response MUST include an `Allow` header containing a list of valid
+request methods for the requested resource as defined in
+[**\[RFC7231\]**](#HTTPSemantic).
 
 ### []{#sec_ResponseCode406NotAcceptable}[]{#_501_Not_Implemented}[]{#_Response_code_410}9.2.3 [Response Code `406 Not Acceptable`](#sec_ResponseCode406NotAcceptable)
 
-[[406 Not Acceptable]{.Datatype} indicates that the resource specified
-by the request URL does not have a current representation that would be
+[`406 Not Acceptable` indicates that the resource specified by the
+request URL does not have a current representation that would be
 acceptable for the client according to the request
 headers]{#_Toc477876608} [`Accept`](#sec_HeaderAccept),
 [`Accept-Charset`](#sec_HeaderAcceptCharset), and
@@ -2873,25 +2834,26 @@ unwilling to supply a default representation.
 
 ### [9.2.4]{#sec_ResponseCode410Gone} [Response Code `410 Gone`](#sec_ResponseCode410Gone)
 
-[410 Gone]{.Datatype} indicates that the requested resource is no longer
-available. This can happen if a client has waited too long to follow a
-[delta link](#sec_DeltaLinks) or a
+`410 Gone` indicates that the requested resource is no longer available.
+This can happen if a client has waited too long to follow a [delta
+link](#sec_DeltaLinks) or a
 [status-monitor-resource](#sec_AsynchronousRequests) link, or a next
 link on a collection that was requested with [snapshot
 isolation](#sec_HeaderIsolationODataIsolation).
 
 ### []{#sec_ResponseCode412PreconditionFailed}[]{#_Response_Code_412}9.2.5 [Response Code `412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed)
 
-As defined in [**\[RFC7232\]**](#HTTPConditional)[, ]{.MsoHyperlink}[412
-Precondition Failed]{.Datatype} indicates that the client has performed
-a conditional request and the resource fails the condition. The service
-MUST ensure that no observable change occurs as a result of the request.
+As defined in [**\[RFC7232\]**](#HTTPConditional)[,
+]{.MsoHyperlink}`412 Precondition Failed` indicates that the client has
+performed a conditional request and the resource fails the condition.
+The service MUST ensure that no observable change occurs as a result of
+the request.
 
 ### [9.2.6]{#sec_ResponseCode424FailedDependency} [Response Code `424 Failed Dependency`](#sec_ResponseCode424FailedDependency)
 
-[424 Failed Dependency]{.Datatype} indicates that a request was not
-performed due to a failed dependency; for example, a request within a
-batch that depended upon a request that failed.
+`424 Failed Dependency` indicates that a request was not performed due
+to a failed dependency; for example, a request within a batch that
+depended upon a request that failed.
 
 ## []{#sec_ServerErrorResponses}[9.3]{#_Toc477876610} [Server Error Responses](#sec_ServerErrorResponses)
 
@@ -2901,9 +2863,8 @@ codes in the `5xx` range indicate service errors[.]{.MsoHyperlink}
 ### []{#sec_ResponseCode501NotImplemented}[]{#_501_Not_Implemented_1}[]{#_Response_Code_501}9.3.1 [Response Code `501 Not Implemented`](#sec_ResponseCode501NotImplemented)
 
 If the client requests functionality not implemented by the OData
-Service, the service responds with [501 Not Implemented]{.Datatype} and
-SHOULD include a response body describing the functionality not
-implemented.
+Service, the service responds with `501 Not Implemented` and SHOULD
+include a response body describing the functionality not implemented.
 
 ## []{#sec_ErrorResponseBody}[]{#_Not_Implemented_Error}9.4 [Error Response Body](#sec_ErrorResponseBody)
 
@@ -2911,13 +2872,13 @@ The representation of an error response body is format-specific. It
 consists at least of the following information:
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[code]{.Datatype}:
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`code`:
 required non-null, non-empty, language-independent string. Its value is
 a service-defined error code. This code serves as a sub-status for the
 HTTP error code specified in the response.
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[message]{.Datatype}:
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`message`:
 required non-null, non-empty, language-dependent, human-readable string
 describing the error.
 [The ]{style="color:black"}[`Content-Language`](#sec_HeaderContentLanguage)[ header
@@ -2926,18 +2887,17 @@ MUST contain the language code ]{style="color:black"}from
 value for message is written.]{style="color:black"}
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[target]{.Datatype}:
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`target`:
 optional nullable, potentially empty string indicating the target of the
 error, for example, the name of the property in error.
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[details]{.Datatype}:
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`details`:
 optional, potentially empty collection of structured instances with
-[code]{.Datatype}, [message]{.Datatype}, and [target]{.Datatype}
-following the rules above.
+`code`, `message`, and `target` following the rules above.
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[innererror]{.Datatype}:
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`innererror`:
 optional structured instance with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
@@ -2978,37 +2938,37 @@ for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{context-url}]{.Datatype}
-is the canonical resource path to the [\$metadata]{.Datatype} document,
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{context-url}`
+is the canonical resource path to the `$metadata` document,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{entity-set}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{entity-set}`
 is the name of an entity set or path to a containment navigation
 property,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{entity}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{entity}`
 is the canonical URL for an entity,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{singleton}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{singleton}`
 is the canonical URL for a singleton entity,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{select-list}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{select-list}`
 is an optional parenthesized comma-separated list of selected
 properties, instance annotations, functions, and actions,
 
 [[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[{property-path}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}`{property-path}`
 is the path to a structural property of the entity,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{type-name}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{type-name}`
 is a qualified type name,
 
 [·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[{/type-name}]{.Datatype}
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{/type-name}`
 is an optional type-cast segment containing the qualified name of a
 derived or implemented type prefixed with a forward slash.
 
@@ -3021,7 +2981,7 @@ individual entities.
 
 Context URL template:
 
-[{context-url}]{.Datatype}
+`{context-url}`
 
 The context URL of the service document is the metadata document URL of
 the service.
@@ -3040,7 +3000,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{entity-set}]{.Datatype}
+`{context-url}#{entity-set}`
 
 {context-url}#Collection({type-name})
 
@@ -3057,9 +3017,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers]{style="color:black"}
 :::
 
-If the entities are contained, then [entity-set]{.Datatype} is the
-top-level entity set or singleton followed by the path to the
-containment navigation property of the containing entity.
+If the entities are contained, then `entity-set` is the top-level entity
+set or singleton followed by the path to the containment navigation
+property of the containing entity.
 
 Example 12: resource URL and corresponding context URL for contained
 entities
@@ -3082,12 +3042,12 @@ the type of the returned entity collection.
 
 Context URL template:
 
-[{context-url}#{entity-set}/\$entity]{.Datatype}
+`{context-url}#{entity-set}/$entity`
 
 {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
-of an entity set, [/\$entity]{.Datatype} is appended to the context URL.
+of an entity set, `/$entity` is appended to the context URL.
 
 Example 13: resource URL and corresponding context URL
 
@@ -3099,9 +3059,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers/\$entity]{style="color:black"}
 :::
 
-If the entity is contained, then [entity-set]{.Datatype} is the
-canonical URL for the containment navigation property of the containing
-entity, e.g. Orders(4711)/Items.
+If the entity is contained, then `entity-set` is the canonical URL for
+the containment navigation property of the containing entity, e.g.
+Orders(4711)/Items.
 
 Example 14: resource URL and corresponding context URL for contained
 entity
@@ -3124,7 +3084,7 @@ the type of the returned entity.
 
 Context URL template:
 
-[{context-url}#{singleton}]{.Datatype}
+`{context-url}#{singleton}`
 
 If a response or response part is a singleton, its name is the context
 URL fragment.
@@ -3136,14 +3096,14 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/MainSupplier]{style="color:black"}]{.Datatype}
 
-[http://host/service/\$metadata#[MainSupplier]{.Datatype}]{style="color:black"}
+[http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
 :::
 
 ## []{#sec_CollectionofDerivedEntities}[10.5]{#_Toc477876618} [Collection of Derived Entities](#sec_CollectionofDerivedEntities)
 
 Context URL template:
 
-[{context-url}#{entity-set}{/type-name}]{.Datatype}
+`{context-url}#{entity-set}{/type-name}`
 
 If an entity set consists exclusively of derived entities, a type-cast
 segment is added to the context URL.
@@ -3162,7 +3122,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{entity-set}{/type-name}/\$entity]{.Datatype}
+`{context-url}#{entity-set}{/type-name}/$entity`
 
 If a response or response part is a single entity of a type derived from
 the declared type of an entity set, a type-cast segment is appended to
@@ -3182,9 +3142,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL templates:
 
-[{context-url}#{entity-set}{/type-name}{select-list}]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}`
 
-[{context-url}#Collection({type-name}){select-list}]{.Datatype}
+`{context-url}#Collection({type-name}){select-list}`
 
 If a result contains only a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
@@ -3196,11 +3156,11 @@ Regardless of how contained structural properties are represented in the
 request URL (as paths or as select options) they are represented in the
 context URL using path syntax, as defined in OData 4.0.
 
-The shortcut [\*]{.Datatype} represents the list of all structural
-properties. Properties defined on types derived from the declared type
-of the entity set (or type specified in the type-cast segment if
-specified) are prefixed with the qualified name of the derived type as
-defined in [**\[OData-ABNF\]**](#ABNF).
+The shortcut `*` represents the list of all structural properties.
+Properties defined on types derived from the declared type of the entity
+set (or type specified in the type-cast segment if specified) are
+prefixed with the qualified name of the derived type as defined in
+[**\[OData-ABNF\]**](#ABNF).
 
 The list also contains explicitly selected or expanded instance
 annotations. It is possible to select or expand only instance
@@ -3215,10 +3175,10 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern
-[{namespace}.\*]{.Datatype} to represent the list of all bound actions
-or functions available for entities in the collection, see system query
-option [`$select`](#sec_SystemQueryOptionselect).
+OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+represent the list of all bound actions or functions available for
+entities in the collection, see system query option
+[`$select`](#sec_SystemQueryOptionselect).
 
 Example 18: resource URL and corresponding context URL
 
@@ -3234,29 +3194,28 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL templates:
 
-[{context-url}#{entity-set}{/type-name}{select-list}/\$entity]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}/$entity`
 
-[{context-url}#{singleton}{select-list}]{.Datatype}
+`{context-url}#{singleton}{select-list}`
 
 {context-url}#{type-name}{select-list}
 
 If a single entity contains a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
 instance annotations, navigation properties, functions, and actions is
-appended to the [{entity-set}]{.Datatype} after an optional type-cast
-segment and prior to appending [/\$entity]{.Datatype}. If the response
-is not a subset of a single entity set, the [{select-list}]{.Datatype}
-is instead appended to the [{type-name}]{.Datatype} of the returned
-entity.
+appended to the `{entity-set}` after an optional type-cast segment and
+prior to appending `/$entity`. If the response is not a subset of a
+single entity set, the `{select-list}` is instead appended to the
+`{type-name}` of the returned entity.
 
 Regardless of how contained structural properties are represented in the
 request URL (as paths or as select options) they are represented in the
 context URL using path syntax, as defined in OData 4.0.
 
-The shortcut [\*]{.Datatype} represents the list of all structural
-properties. Properties defined on types derived from the type of the
-entity set (or type specified in the type-cast segment if specified) are
-prefixed with the qualified name of the derived type as defined in
+The shortcut `*` represents the list of all structural properties.
+Properties defined on types derived from the type of the entity set (or
+type specified in the type-cast segment if specified) are prefixed with
+the qualified name of the derived type as defined in
 [**\[OData-ABNF\]**](#ABNF). Note that expanded properties are
 automatically included in the response.
 
@@ -3273,9 +3232,9 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern
-[{namespace}.\*]{.Datatype} to represent the list of all bound actions
-or functions available for the returned entity, see system query option
+OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+represent the list of all bound actions or functions available for the
+returned entity, see system query option
 [`$select`](#sec_SystemQueryOptionselect).
 
 Example 19: resource URL and corresponding context URL
@@ -3292,9 +3251,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{entity-set}{/type-name}{select-list}]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}`
 
-[{context-url}#Collection({type-name}){select-list}]{.Datatype}
+`{context-url}#Collection({type-name}){select-list}`
 
 For a 4.01 response, if a navigation property is explicitly expanded,
 then in addition to any non-suffixed names of any selected properties,
@@ -3302,16 +3261,15 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested [\$select ]{.Datatype}or[
-\$expand]{.Datatype}, then the expanded property is suffixed with empty
-parentheses. If the expansion is recursive for nested children, a plus
-sign ([+]{.Datatype}) is infixed between the navigation property name
-and the opening parenthesis.
+navigation property does not contain a nested `$select `or` $expand`,
+then the expanded property is suffixed with empty parentheses. If the
+expansion is recursive for nested children, a plus sign (`+`) is infixed
+between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested [\$select ]{.Datatype}or[ \$expand]{.Datatype}, but MUST still be
-present, without a suffix, if it is explicitly selected.
+nested `$select `or` $expand`, but MUST still be present, without a
+suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -3332,8 +3290,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers(Name,Address/Country())]{style="color:black"}
 :::
 
-Example 21: resource URL and corresponding context URL -- expand
-[\$ref]{.Datatype}
+Example 21: resource URL and corresponding context URL -- expand `$ref`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3344,7 +3301,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 Example 22: resource URL and corresponding context URL -- expand with
-[\$levels]{.Datatype}
+`$levels`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3363,11 +3320,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{entity-set}{/type-name}{select-list}/\$entity]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}/$entity`
 
-[{context-url}#{singleton}{select-list}]{.Datatype}
+`{context-url}#{singleton}{select-list}`
 
-[{context-url}#{type-name}{select-list}]{.Datatype}
+`{context-url}#{type-name}{select-list}`
 
 For a 4.01 response, if a navigation property is explicitly expanded,
 then in addition to the non-suffixed names of any selected properties,
@@ -3375,18 +3332,16 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested [\$select ]{.Datatype}or[
-\$expand]{.Datatype}, then the expanded property is suffixed with empty
-parentheses. If the expansion is recursive for nested children, a plus
-sign ([+]{.Datatype}) is infixed between the navigation property name
-and the opening parenthesis.
+navigation property does not contain a nested `$select `or` $expand`,
+then the expanded property is suffixed with empty parentheses. If the
+expansion is recursive for nested children, a plus sign (`+`) is infixed
+between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested [\$select]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}or
-[\$expand]{.Datatype}, but MUST still be present, without a suffix, if
-it is explicitly selected.
+nested `$select`[[
+]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}or `$expand`, but
+MUST still be present, without a suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -3414,7 +3369,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#Collection(\$ref)]{.Datatype}
+`{context-url}#Collection($ref)`
 
 If a response is a collection of entity references, the context URL does
 not contain the type of the referenced entities.
@@ -3434,10 +3389,10 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#\$ref]{.Datatype}
+`{context-url}#$ref`
 
-If a response is a single entity reference, [\$ref]{.Datatype} is the
-context URL fragment.
+If a response is a single entity reference, `$ref` is the context URL
+fragment.
 
 Example 25: resource URL and corresponding context URL for a single
 entity reference
@@ -3454,9 +3409,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL templates:
 
-[{context-url}#{entity}/{property-path}{select-list}]{.Datatype}
+`{context-url}#{entity}/{property-path}{select-list}`
 
-[{context-url}#{type-name}{select-list}]{.Datatype}
+`{context-url}#{type-name}{select-list}`
 
 If a response represents an [individual
 property](#sec_RequestingIndividualProperties)[ ]{.MsoHyperlink}of an
@@ -3483,7 +3438,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#Collection({type-name}){select-list}]{.Datatype}
+`{context-url}#Collection({type-name}){select-list}`
 
 If a response is a collection of complex types or primitive types that
 do not represent an individual property of an entity with a canonical
@@ -3504,7 +3459,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{type-name}{select-list}]{.Datatype}
+`{context-url}#{type-name}{select-list}`
 
 If a response is a complex type or primitive type that does not
 represent an individual property of an entity with a canonical URL, the
@@ -3524,15 +3479,15 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL templates:
 
-[{context-url}#{entity-set}{/type-name}{select-list}]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}`
 
-[{context-url}#{entity-set}{/type-name}{select-list}/\$entity]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}/$entity`
 
-{context-url}#{entity}/{property-path}[{select-list}]{.Datatype}
+{context-url}#{entity}/{property-path}`{select-list}`
 
-[{context-url}#Collection({type-name}){select-list}]{.Datatype}
+`{context-url}#Collection({type-name}){select-list}`
 
-[{context-url}#{type-name}{select-list}]{.Datatype}
+`{context-url}#{type-name}{select-list}`
 
 If the response from an action or function is a collection of entities
 or a single entity that is a member of an entity set, the context URL
@@ -3556,29 +3511,29 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Context URL template:
 
-[{context-url}#{entity-set}{/type-name}{select-list}/\$delta]{.Datatype}
+`{context-url}#{entity-set}{/type-name}{select-list}/$delta`
 
-[{context-url}#{entity}{select-list}/\$delta]{.Datatype}
+`{context-url}#{entity}{select-list}/$delta`
 
-[{context-url}#{entity}/{property-path}{select-list}/\$delta]{.Datatype}
+`{context-url}#{entity}/{property-path}{select-list}/$delta`
 
-[#\$delta]{.Datatype}
+`#$delta`
 
 The context URL of a [delta response](#sec_RequestingChanges)[
 ]{.MsoHyperlink}is the context URL of the response to the defining
 query, followed by `/$delta`. This includes singletons, single-valued
 navigation properties, and collection-valued navigation properties.
 
-If the entities are contained, then [{entity-set}]{.Datatype} is the
-top-level entity set followed by the path to the containment navigation
-property of the containing entity.
+If the entities are contained, then `{entity-set}` is the top-level
+entity set followed by the path to the containment navigation property
+of the containing entity.
 
 Example 30: resource URL and corresponding context URL
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers[?\$deltatoken=1234]{.Datatype}]{style="color:black"}
+[http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
 
 [[http://host/service/\$metadata#Customers/\$delta]{style="color:black"}]{.Datatype}
 :::
@@ -3590,25 +3545,25 @@ is simply the fragment]{#_Toc370126063} `#$delta`.
 
 Context URL templates:
 
-[{context-url}#{entity-set}/\$deletedEntity]{.Datatype}
+`{context-url}#{entity-set}/$deletedEntity`
 
-[{context-url}#{entity-set}/\$link]{.Datatype}
+`{context-url}#{entity-set}/$link`
 
-[{context-url}#{entity-set}/\$deletedLink ]{.Datatype}
+`{context-url}#{entity-set}/$deletedLink `
 
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
 links, and deleted links. They are identified by the corresponding
-context URL fragment. [{entity-set}]{.Datatype} corresponds to the set
-of the deleted entity, or source entity for an added or deleted link.
+context URL fragment. `{entity-set}` corresponds to the set of the
+deleted entity, or source entity for an added or deleted link.
 
 ## []{#sec_allResponse}[10.19]{#_Toc477876632} [\$all Response](#sec_allResponse)
 
 Context URL template:
 
-[{context-url}#Collection(Edm.EntityType)]{.Datatype}
+`{context-url}#Collection(Edm.EntityType)`
 
-Responses to requests to the virtual collection [\$all]{.Datatype} (see
+Responses to requests to the virtual collection `$all` (see
 [**\[OData‑URL\]**](#ODataURLRef)) use the built-in abstract entity
 type. Each single entity in such a response has its individual context
 URL that identifies the entity set or singleton.
@@ -3617,22 +3572,20 @@ URL that identifies the entity set or singleton.
 
 Context URL template:
 
-[{context-url}#Collection(Edm.ComplexType)]{.Datatype}
+`{context-url}#Collection(Edm.ComplexType)`
 
-Responses to requests to the virtual collections
-[\$crossjoin(\...)]{.Datatype} (see [**\[OData‑URL\]**](#ODataURLRef))
-use the built-in abstract complex type. Single instances in these
-responses do not have a context URL.
+Responses to requests to the virtual collections `$crossjoin(...)` (see
+[**\[OData‑URL\]**](#ODataURLRef)) use the built-in abstract complex
+type. Single instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[    ]{style="font:7.0pt \"Times New Roman\""}[Data Service Requests](#sec_DataServiceRequests) {#data-service-requests style="margin-left:19.85pt;text-indent:-19.85pt"}
 :::
 
-This chapter describes the semantics of the HTTP verbs [GET]{.Datatype},
-[POST]{.Datatype}, [PATCH]{.Datatype}, [PUT]{.Datatype}, and
-[DELETE]{.Datatype} for OData resources.
+This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
+`PATCH`, `PUT`, and `DELETE` for OData resources.
 
-[GET]{.Datatype} requests:
+`GET` requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.1
@@ -3650,7 +3603,7 @@ This chapter describes the semantics of the HTTP verbs [GET]{.Datatype},
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.5.4
 [Functions](#sec_Functions) and subsections
 
-[POST]{.Datatype} requests:
+`POST` requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.2
@@ -3672,7 +3625,7 @@ This chapter describes the semantics of the HTTP verbs [GET]{.Datatype},
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.7
 [Batch Requests](#sec_BatchRequests) and subsections
 
-[PATCH]{.Datatype} and [PUT]{.Datatype} requests:
+`PATCH` and `PUT` requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.3
@@ -3723,7 +3676,7 @@ Collection](#sec_ManagingMembersofanOrderedCollection)
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update Members of a Collection](#sec_UpdateMembersofaCollection)
 
-[DELETE]{.Datatype} requests:
+`DELETE` requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.5
@@ -3771,18 +3724,17 @@ operations exposed by an OData service.
 [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) describes a JSON
 representation for OData metadata documents and provides a JSON schema
 to validate their contents. The media type of the JSON representation of
-an OData metadata document is [application/json]{.Datatype}.
+an OData metadata document is `application/json`.
 
 [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) describes an XML
 representation for OData metadata documents and provides an XML schema
 to validate their contents. The media type of the XML representation of
-an OData metadata document is [application/xml]{.Datatype}.
+an OData metadata document is `application/xml`.
 
 OData services can expose a metadata document that describes the data
 model exposed by the service. The *metadata document URL* MUST be the
-root URL of the service with [\$metadata]{.Datatype} appended. To
-retrieve this document the client issues a [GET]{.Datatype} request to
-the metadata document URL.
+root URL of the service with `$metadata` appended. To retrieve this
+document the client issues a `GET` request to the metadata document URL.
 
 If a request for metadata does not specify a format preference (via
 [`Accept` header](#sec_HeaderAccept) or
@@ -3791,8 +3743,7 @@ MUST be returned.
 
 ## []{#sec_RequestingData}[]{#_Ref484615549}[]{#_10.2._Requesting_Data}[]{#_Requesting_Data}[]{#_Requesting_Data_1}11.2 [Requesting Data](#sec_RequestingData)
 
-OData services support requests for data via HTTP [GET]{.Datatype}
-requests.
+OData services support requests for data via HTTP `GET` requests.
 
 The path of the URL specifies the target of the request (for example;
 the collection of entities, entity, navigation property, structural
@@ -3824,14 +3775,13 @@ format.[]{#_Ref356918808}
 
 [OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar
-(]{style="color:black;background:white"}[\$]{.Datatype}[) character,
-which is optional in OData 4.01.
-]{style="color:black;background:white"}4.01 services MUST support
-case-insensitive system query option names specified with or without the
-[\$]{.Datatype}[[
+(]{style="color:black;background:white"}`$`[) character, which is
+optional in OData 4.01. ]{style="color:black;background:white"}4.01
+services MUST support case-insensitive system query option names
+specified with or without the `$`[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}prefix.\
 Clients that want to work with 4.0 services MUST use lower case names
-and specify the [\$]{.Datatype} prefix.
+and specify the `$` prefix.
 
 [The result of the request MUST be as if the system query options were
 evaluated in the following order.]{style="color:black;background:white"}
@@ -3846,7 +3796,7 @@ processing.]{style="color:black;background:white"}
 ]{style="color:black;background:white"}[[server-driven
 paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
 
--   [\$appl]{.Datatype}[y]{style="font-family:
+-   `$appl`[y]{style="font-family:
          \"Courier New\""} -- defined in
     [**\[OData-Aggregation\]**](#ODataAggregationRef)
 -   [[\$compute]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptioncompute)
@@ -3867,15 +3817,15 @@ paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:blac
 
 ### []{#sec_RequestingIndividualEntities}[11.2.2]{#_Toc477876640} [Requesting Individual Entities](#sec_RequestingIndividualEntities)
 
-To retrieve an individual entity, the client makes a [GET]{.Datatype}
-request to a URL that identifies the entity, e.g. its read URL.
+To retrieve an individual entity, the client makes a `GET` request to a
+URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
-instance, for example as a [readLink]{.Datatype} or
-[editLink]{.Datatype} in an [**\[OData-JSON\]**](#ODataJSONRef)[
-payload]{.Hyperlink1}. In addition, services MAY support conventions for
-constructing a read URL using the entity\'s key value(s), as described
-in [**\[OData‑URL\]**](#ODataURLRef).
+instance, for example as a `readLink` or `editLink` in an
+[**\[OData-JSON\]**](#ODataJSONRef)[ payload]{.Hyperlink1}. In addition,
+services MAY support conventions for constructing a read URL using the
+entity\'s key value(s), as described in
+[**\[OData‑URL\]**](#ODataURLRef).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#sec_SystemQueryOptionselect) or
@@ -3891,7 +3841,7 @@ not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [**\[OData-VocCore\]**](#VocCore) MUST be
 returned for the property with a value of
-[None]{.Datatype}[[.]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+`None`[[.]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#sec_ResponseCode404NotFound).
@@ -3909,13 +3859,12 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append [/\$value]{.Datatype} to the resource path of the media entity
-URL. Services may redirect from this canonical URL to the source URL of
-the media stream.
+append `/$value` to the resource path of the media entity URL. Services
+may redirect from this canonical URL to the source URL of the media
+stream.
 
-Appending [/\$value]{.Datatype} to an entity that is not a media entity
-returns [400 Bad
-Request[.]{.MsoHyperlink}]{style="font-family:\"Courier New\""}
+Appending `/$value` to an entity that is not a media entity returns [400
+Bad Request[.]{.MsoHyperlink}]{style="font-family:\"Courier New\""}
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
@@ -3923,19 +3872,18 @@ property referencing a media entity whose value is null returns
 
 ### []{#sec_RequestingIndividualProperties}[11.2.4]{#_Toc477876642} [Requesting Individual Properties](#sec_RequestingIndividualProperties)
 
-To retrieve an individual property, the client issues a [GET]{.Datatype}
-request to the property URL. The property URL is the entity read URL
-with [\"/\"]{style="font-family:\"Calibri\",sans-serif"} and the
-property name appended.
+To retrieve an individual property, the client issues a `GET` request to
+the property URL. The property URL is the entity read URL with
+[\"/\"]{style="font-family:\"Calibri\",sans-serif"} and the property
+name appended.
 
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
 See [**\[OData‑URL\]**](#ODataURLRef) for details.
 
-If the property is single-valued and has the [null]{.Datatype} value,
-the service responds with
-[`204 No Content`](#sec_ResponseCode204NoContent).
+If the property is single-valued and has the `null` value, the service
+responds with [`204 No Content`](#sec_ResponseCode204NoContent).
 
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
@@ -3951,16 +3899,16 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 #### []{#sec_RequestingaPropertysRawValueusingval}[]{#_Requesting_a_Property's}11.2.4.1 [Requesting a Property\'s Raw Value using `$value`](#sec_RequestingaPropertysRawValueusingval)
 
 To retrieve the raw value of a primitive type property, the client sends
-a [GET]{.Datatype} request to the property value URL. See the
+a `GET` request to the property value URL. See the
 [**\[OData‑URL\]**](#ODataURLRef) document for details.
 
-The [Content-Type]{.Datatype} of the response is determined using the
-[Accept]{.Datatype} header and the
-[`$format`](#sec_SystemQueryOptionformat) system query option.
+The `Content-Type` of the response is determined using the `Accept`
+header and the [`$format`](#sec_SystemQueryOptionformat) system query
+option.
 
 [The default format for
-]{style="color:black;background:white"}[Edm.Binary]{.Datatype}[ is the
-format specified by the ]{style="color:
+]{style="color:black;background:white"}`Edm.Binary`[ is the format
+specified by the ]{style="color:
 black;background:white"}[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)[
 annotation of this property (]{style="color:black;background:white"}see
 [**\[OData-VocCore\]**](#VocCore)) [if this annotation is present. If
@@ -3968,31 +3916,25 @@ not annotated, the format cannot be predicted by the
 client.]{style="color:black;
 background:white"}
 
-The default format for [Edm.Geo]{.Datatype} types is
-[text/plain]{.Datatype} using the WKT (well-known text) format, see
-rules [fullCollectionLiteral]{.Datatype},
-[fullLineStringLiteral]{.Datatype}, [fullMultiPointLiteral]{.Datatype},
-[fullMultiLineStringLiteral]{.Datatype},
-[fullMultiPolygonLiteral]{.Datatype}, [fullPointLiteral]{.Datatype}, and
-[fullPolygonLiteral]{.Datatype} in [**\[OData-ABNF\]**](#ABNF).
+The default format for `Edm.Geo` types is `text/plain` using the WKT
+(well-known text) format, see rules `fullCollectionLiteral`,
+`fullLineStringLiteral`, `fullMultiPointLiteral`,
+`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
+`fullPointLiteral`, and `fullPolygonLiteral` in
+[**\[OData-ABNF\]**](#ABNF).
 
-The default format for single primitive values except
-[Edm.Binary]{.Datatype} and the [Edm.Geo]{.Datatype} types is
-[text/plain]{.Datatype}. Responses for properties of type
-[Edm.String]{.Datatype} can use the [charset]{.Datatype} format
-parameter to specify the character set used for representing the string
-value. Responses for the other primitive types follow the rules
-[booleanValue]{.Datatype}, [byteValue]{.Datatype},
-[dateValue]{.Datatype}, [dateTimeOffsetValue]{.Datatype},
-[decimalValue]{.Datatype}, [doubleValue]{.Datatype},
-[durationValue]{.Datatype}, [enumValue]{.Datatype},
-[guidValue]{.Datatype}, [int16Value]{.Datatype},
-[int32Value]{.Datatype}, [int64Value]{.Datatype},
-[sbyteValue]{.Datatype}, [singleValue]{.Datatype}, and
-[timeOfDayValue]{.Datatype} in [**\[OData-ABNF\]**](#ABNF).
+The default format for single primitive values except `Edm.Binary` and
+the `Edm.Geo` types is `text/plain`. Responses for properties of type
+`Edm.String` can use the `charset` format parameter to specify the
+character set used for representing the string value. Responses for the
+other primitive types follow the rules `booleanValue`, `byteValue`,
+`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
+`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
+`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+[**\[OData-ABNF\]**](#ABNF).
 
-A [\$value]{.Datatype} request for a property that is [null]{.Datatype}
-results in a [`204 No Content`](#sec_ResponseCode204NoContent) response.
+A `$value` request for a property that is `null` results in a
+[`204 No Content`](#sec_ResponseCode204NoContent) response.
 
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
@@ -4018,22 +3960,22 @@ document](#sec_MetadataDocumentRequest)[.]{.MsoHyperlink}
 
 #### []{#sec_SystemQueryOptionselect}[]{#_System_Query_Option_3}11.2.5.1 [System Query Option `$select`](#sec_SystemQueryOptionselect)
 
-The [\$select]{.Datatype} system query option requests that the service
-return only the properties, dynamic properties, [actions](#sec_Actions)
-and [functions](#sec_Functions)[ ]{.MsoHyperlink}explicitly requested by
-the client. The service returns the specified content, if available,
-along with any available [expanded](#sec_SystemQueryOptionexpand)
-navigation or stream properties, and MAY return additional information.
+The `$select` system query option requests that the service return only
+the properties, dynamic properties, [actions](#sec_Actions) and
+[functions](#sec_Functions)[ ]{.MsoHyperlink}explicitly requested by the
+client. The service returns the specified content, if available, along
+with any available [expanded](#sec_SystemQueryOptionexpand) navigation
+or stream properties, and MAY return additional information.
 
-The value of the [\$select]{.Datatype} query option is a comma-separated
-list of properties, qualified action names, qualified function names,
-the star operator ([\*]{.Datatype}), or the star operator prefixed with
-the namespace or alias of the schema in order to specify all operations
-defined in the schema. Only aliases defined in the metadata document of
-the service can be used in URLs.
+The value of the `$select` query option is a comma-separated list of
+properties, qualified action names, qualified function names, the star
+operator (`*`), or the star operator prefixed with the namespace or
+alias of the schema in order to specify all operations defined in the
+schema. Only aliases defined in the metadata document of the service can
+be used in URLs.
 
-Example 33: request only the [Rating]{.Datatype} and
-[ReleaseDate]{.Datatype} for the matching Products
+Example 33: request only the `Rating` and `ReleaseDate` for the matching
+Products
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4056,7 +3998,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 Properties of related entities can be specified by including the
-[\$select]{.Datatype} query option within the [\$expand]{.Datatype}.
+`$select` query option within the `$expand`.
 
 Example 35:
 
@@ -4067,12 +4009,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products?\$expand=Category(\$select=Name)]{style="color:black"}
 :::
 
-The properties specified in [\$select]{.Datatype} are represented in
-addition to any expanded navigation or stream properties. If a
-navigation property is specified in [\$select,]{.Datatype} then the
-corresponding navigation link is represented in the response. If the
-navigation property also appears in an
-[`$expand`](#sec_SystemQueryOptionexpand) query option, then it is
+The properties specified in `$select` are represented in addition to any
+expanded navigation or stream properties. If a navigation property is
+specified in `$select,` then the corresponding navigation link is
+represented in the response. If the navigation property also appears in
+an [`$expand`](#sec_SystemQueryOptionexpand) query option, then it is
 additionally represented as inline content.
 
 Example 36: for each category, return the `CategoryName` and the
@@ -4113,8 +4054,8 @@ in a request and MUST NOT have both select options and expand options
 specified.
 
 If the
-[\$]{.Datatype}[[select]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-query option is not specified, [[the service returns the full set of
+`$`[[select]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} query
+option is not specified, [[the service returns the full set of
 properties or a default set of properties. The default set of properties
 MUST include all key
 properties[.]{.apple-converted-space}]{style="color:black;background:white"}
@@ -4123,9 +4064,9 @@ includes returning new properties by default and omitting properties
 previously returned by
 default.]{style="color:black;background:white"}]{.apple-converted-space}]{#_Ref358202018}
 [[Clients that rely on specific properties in the response MUST use
-]{style="color:black;background:white"}]{.apple-converted-space}[\$select]{.Datatype}[[
+]{style="color:black;background:white"}]{.apple-converted-space}`$select`[[
 with the required properties or with
-]{style="color:black;background:white"}]{.apple-converted-space}[\*]{.Datatype}[[.]{style="color:black;background:white"}]{.apple-converted-space}
+]{style="color:black;background:white"}]{.apple-converted-space}`*`[[.]{style="color:black;background:white"}]{.apple-converted-space}
 
 [[If t]{style="font-size:
 9.0pt;color:black;background:white"}]{.apple-converted-space}[he service
@@ -4141,20 +4082,19 @@ background:white"}
 
 #### []{#sec_SystemQueryOptionexpand}[]{#_System_Query_Option_6}11.2.5.2 [System Query Option `$expand`](#sec_SystemQueryOptionexpand)
 
-The [\$expand]{.Datatype} system query option indicates the related
-entities and stream values that MUST be represented inline. The service
-MUST return the specified content, and MAY choose to return additional
-information.
+The `$expand` system query option indicates the related entities and
+stream values that MUST be represented inline. The service MUST return
+the specified content, and MAY choose to return additional information.
 
-The value of the [\$expand]{.Datatype} query option is a comma-separated
-list of navigation property names, stream property names, or
-[\$value]{.Datatype} indicating the stream content of a media-entity.
+The value of the `$expand` query option is a comma-separated list of
+navigation property names, stream property names, or `$value` indicating
+the stream content of a media-entity.
 
 For navigation properties, the navigation property name is optionally
-followed by a [/\$ref]{.Datatype} path segment or a
-[/\$count]{.Datatype} path segment, and optionally a parenthesized set
-of [expand options](#sec_ExpandOptions) (for filtering, sorting,
-selecting, paging, or expanding the related entities).
+followed by a `/$ref` path segment or a `/$count` path segment, and
+optionally a parenthesized set of [expand options](#sec_ExpandOptions)
+(for filtering, sorting, selecting, paging, or expanding the related
+entities).
 
 For a full description of the syntax used when building requests, see
 [**\[OData‑URL\]**](#ODataURLRef).
@@ -4241,10 +4181,9 @@ http://host/service.svc/Orders?\$expand=Items(\$expand=Product),Customer]{style=
 Example 43: for each customer entity in the Customers entity set, the
 value of all related InHouseStaff will be represented inline if the
 entity is of type VipCustomer or a subtype of that. For entities that
-are not of type [VipCustomer]{.Datatype}, or any of its subtypes, that
-entity may be returned with no inline representation for the expanded
-navigation property[ InHouseStaff ]{.Datatype}[[(the service can always
-send more than
+are not of type `VipCustomer`, or any of its subtypes, that entity may
+be returned with no inline representation for the expanded navigation
+property` InHouseStaff `[[(the service can always send more than
 requested)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -4256,25 +4195,22 @@ http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff]
 
 ###### []{#sec_ExpandOptionlevels}[]{#_Expand_Option_$levels}11.2.5.2.1.1[   ]{style="font:7.0pt \"Times New Roman\""}[Expand Option `$levels`](#sec_ExpandOptionlevels)
 
-The [\$levels]{.Datatype}[
-]{style="font-family:\"Calibri\",sans-serif"}expand option can be used
-to specify the number of levels of recursion for a hierarchy in which
-the related entity type is the same as, or can be cast to, the source
-entity type. A [\$levels]{.Datatype} option with a value of 1 specifies
-a single expand with no recursion. The same expand options are applied
-at each level of the hierarchy.
+The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
+option can be used to specify the number of levels of recursion for a
+hierarchy in which the related entity type is the same as, or can be
+cast to, the source entity type. A `$levels` option with a value of 1
+specifies a single expand with no recursion. The same expand options are
+applied at each level of the hierarchy.
 
-Services MAY support the symbolic value [max]{.Datatype} in addition to
-numeric values. In that case they MUST solve circular dependencies by
-injecting an entity reference somewhere in the circular dependency.
+Services MAY support the symbolic value `max` in addition to numeric
+values. In that case they MUST solve circular dependencies by injecting
+an entity reference somewhere in the circular dependency.
 
-Clients using [\$levels=max]{.Datatype} MUST be prepared to handle
-entity references in cases were a circular reference would occur
-otherwise.
+Clients using `$levels=max` MUST be prepared to handle entity references
+in cases were a circular reference would occur otherwise.
 
-4.01 services that support [max]{.Datatype} SHOULD do so in a
-case-insensitive manner. Clients that want to work with 4.0 services
-MUST use lower case.
+4.01 services that support `max` SHOULD do so in a case-insensitive
+manner. Clients that want to work with 4.0 services MUST use lower case.
 
 Example 44: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
@@ -4289,15 +4225,15 @@ http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)]{
 
 #### []{#sec_SystemQueryOptioncompute}[]{#_System_Query_Option_2}11.2.5.3 [System Query Option `$compute`](#sec_SystemQueryOptioncompute)
 
-The [\$compute]{.Datatype} system query option allows clients to define
-computed properties that can be used in a
+The `$compute` system query option allows clients to define computed
+properties that can be used in a
 [`$select`](#sec_SystemQueryOptionselect) or within a
 [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) expression.
 
 Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if [\$select]{.Datatype} is specified with
-the computed property name, or star ([\*]{.Datatype}).
+result and MUST be included if `$select` is specified with the computed
+property name, or star (`*`).
 
 Example 45: compute total price for order items (line breaks only for
 readability)
@@ -4322,10 +4258,10 @@ instances, and primitive values.
 The target collection is specified through a URL, and query operations
 such as filter, sort, paging, and projection are specified as [*system
 query options*](#sec_SystemQueryOptions) optionally prefixed with a
-dollar ([\$]{.Datatype}) character. 4.01 Services MUST support
-case-insensitive system query option names specified with or without the
-[\$ ]{.Datatype}prefix. Clients that want to work with 4.0 services MUST
-use lower case names and specify the [\$]{.Datatype} prefix.
+dollar (`$`) character. 4.01 Services MUST support case-insensitive
+system query option names specified with or without the `$ `prefix.
+Clients that want to work with 4.0 services MUST use lower case names
+and specify the `$` prefix.
 
 The same system query option MUST NOT be specified more than once for
 any resource.
@@ -4338,10 +4274,9 @@ Implemented]{style="color:windowtext"}]{.Datatype}](#sec_ResponseCode501NotImple
 
 #### []{#sec_SystemQueryOptionfilter}[]{#_The_$filter_System}11.2.6.1 [System Query Option `$filter`](#sec_SystemQueryOptionfilter)
 
-The [\$filter]{.Datatype} system query option restricts the set of items
-returned.
+The `$filter` system query option restricts the set of items returned.
 
-Example 46: return all Products whose [Price]{.Datatype} is less than
+Example 46: return all Products whose `Price` is less than
 [\$10.00]{style="font-family:\"Calibri\",sans-serif"}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -4352,9 +4287,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 The [`$count`](#sec_SystemQueryOptioncount) segment may be used within a
-[\$filter ]{.Datatype}expression to limit the items returned based on
-the exact count of related entities or items within a collection-valued
-property.
+`$filter `expression to limit the items returned based on the exact
+count of related entities or items within a collection-valued property.
 
 Example 47: return all Categories with less than 10 products
 
@@ -4365,8 +4299,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 10]{style="color:black"}
 :::
 
-The value of the [\$filter]{.Datatype} option is a Boolean expression as
-defined in [**\[OData-ABNF\]**](#ABNF).
+The value of the `$filter` option is a Boolean expression as defined in
+[**\[OData-ABNF\]**](#ABNF).
 
 ##### []{#sec_BuiltinFilterOperations}[]{#_Built-in_Filter_Operations}11.2.6.1.1 [Built-in Filter Operations](#sec_BuiltinFilterOperations)
 
@@ -4415,8 +4349,7 @@ For a full description of the syntax used when building requests, see
 ##### []{#sec_BuiltinQueryFunctions}[]{#_Built-in_Query_Functions}11.2.6.1.2 [Built-in Query Functions](#sec_BuiltinQueryFunctions)
 
 OData supports a set of built-in functions that can be used within
-[\$filter]{.Datatype} operations. The following table lists the
-available functions.
+`$filter` operations. The following table lists the available functions.
 
 4.01 services MUST support case-insensitive built-in function names.
 Clients that want to work with 4.0 services MUST use lower case names.
@@ -4425,7 +4358,7 @@ For a full description of the syntax used when building requests, see
 [**\[OData‑URL\]**](#ODataURLRef).
 
 OData does not define an ISNULL or COALESCE operator. Instead, there is
-a [null]{.Datatype} literal that can be used in comparisons.
+a `null` literal that can be used in comparisons.
 
   **Function**                                                **[Example]{style="color:black"}**
   ----------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------
@@ -4491,7 +4424,7 @@ within a
 [`$compute`](#sec_SystemQueryOptioncompute)[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) expression. Parameters
-aliases are names beginning with an at sign ([@]{.Datatype}).
+aliases are names beginning with an at sign (`@`).
 
 Actual parameter values are specified as query options in the query part
 of the request URL. The query option name is the name of the parameter
@@ -4519,22 +4452,22 @@ request URL, the value MUST be assumed to be null. A parameter alias can
 be used in multiple places within a request URL, but its value MUST NOT
 be specified more than once.
 
-Parameter alias values used in [/\$filter]{.Datatype} path segments are
-always passed as expressions (because that is the expected type of the
+Parameter alias values used in `/$filter` path segments are always
+passed as expressions (because that is the expected type of the
 parameter).
 
 All other parameter alias values are evaluated in the context of the
 resource identified by the path segment in which they are assigned and
 passed as values into the expression. Parameter alias value assignments
-MAY be nested within [\$expand]{.Datatype} and [\$select]{.Datatype}[[,
-in which case they are evaluated relative to the resource context of the
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[\$expand]{.Datatype}
-or [\$select]{.Datatype}.
+MAY be nested within `$expand` and `$select`[[, in which case they are
+evaluated relative to the resource context of the
+]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand` or
+`$select`.
 
 Example 49: returns all employees, expands their manager, and expands
 all direct reports with the same first name as the manager, using a
-parameter alias for [\$this]{.Datatype} to pass the manager into the
-filter on the expanded direct reports
+parameter alias for `$this` to pass the manager into the filter on the
+expanded direct reports
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4547,10 +4480,10 @@ black"}]{.VerbatimChar}
 
 #### []{#sec_SystemQueryOptionorderby}[]{#_The_$select_System_1}[]{#_The_$orderby_System}11.2.6.2 [System Query Option `$orderby`](#sec_SystemQueryOptionorderby)
 
-The [\$orderby]{.Datatype} System Query option specifies the order in
-which items are returned from the service.
+The `$orderby` System Query option specifies the order in which items
+are returned from the service.
 
-The value of the [\$orderby]{.Datatype} System Query option contains a
+The value of the `$orderby` System Query option contains a
 comma-separated list of expressions whose primitive result values are
 used to sort the items. A special case of such an expression is a
 property path terminating on a primitive property. A type cast using the
@@ -4558,13 +4491,12 @@ qualified entity type name is required to order by a property defined on
 a derived type. Only aliases defined in the metadata document of the
 service can be used in URLs.
 
-The expression can include the suffix [asc]{.Datatype} for ascending or
-[desc]{.Datatype} for descending, separated from the property name by
-one or more spaces. If [asc]{.Datatype} or [desc]{.Datatype} is not
-specified, the service MUST order by the specified property in ascending
-order. 4.01 services MUST support case-insensitive values for
-[asc]{.Datatype} and [desc]{.Datatype}. Clients that want to work with
-4.0 services MUST use lower case values.
+The expression can include the suffix `asc` for ascending or `desc` for
+descending, separated from the property name by one or more spaces. If
+`asc` or `desc` is not specified, the service MUST order by the
+specified property in ascending order. 4.01 services MUST support
+case-insensitive values for `asc` and `desc`. Clients that want to work
+with 4.0 services MUST use lower case values.
 
 Null values come before non-null values when sorting in ascending order
 and after non-null values when sorting in descending order.
@@ -4583,8 +4515,7 @@ SHOULD annotate string properties with language-dependent order with the
 see
 ]{style="color:black"}[**\[OData-VocCore\]**](#VocCore)[.]{style="color:black"}
 
-Values of type [Edm.Stream]{.Datatype} or any of the [Geo]{.Datatype}
-types cannot be sorted.
+Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
 
 Example 50: return all Products ordered by release date in ascending
 order, then by rating in descending order
@@ -4597,7 +4528,7 @@ desc]{style="color:black"}
 :::
 
 []{#_The_$top_System}Related entities may be ordered by specifying
-[\$orderby]{.Datatype} within the [\$expand]{.Datatype} clause.
+`$orderby` within the `$expand` clause.
 
 Example 51: return all Categories, and their Products ordered according
 to release date and in descending order of rating
@@ -4610,9 +4541,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 desc)]{style="color:black"}
 :::
 
-[\$count]{.Datatype} may be used within a [\$orderby]{.Datatype}
-expression to order the returned items according to the exact count of
-related entities or items within a collection-valued property.
+`$count` may be used within a `$orderby` expression to order the
+returned items according to the exact count of related entities or items
+within a collection-valued property.
 
 Example 52: return all Categories ordered by the number of Products
 within each category
@@ -4626,10 +4557,10 @@ http://host/service/Categories?\$orderby=Products/\$count]{style="color:black"}
 
 #### []{#sec_SystemQueryOptiontop}[]{#_The_$top_System_1}11.2.6.3 [System Query Option `$top`](#sec_SystemQueryOptiontop)
 
-The [\$top]{.Datatype} system query option specifies a non-negative
-integer n that limits the number of items returned from a collection.
-The service returns the number of available items up to but not greater
-than the specified value n.
+The `$top` system query option specifies a non-negative integer n that
+limits the number of items returned from a collection. The service
+returns the number of available items up to but not greater than the
+specified value n.
 
 Example 53: return only the first five products of the Products entity
 set
@@ -4642,14 +4573,13 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 If no unique ordering is imposed through an
 [`$orderby`](#sec_SystemQueryOptionorderby) query option, the service
-MUST impose a stable ordering across requests that include
-[\$top]{.Datatype}.
+MUST impose a stable ordering across requests that include `$top`.
 
 #### []{#sec_SystemQueryOptionskip}[]{#_The_$skip_System}11.2.6.4 [System Query Option `$skip`](#sec_SystemQueryOptionskip)
 
-The [\$skip]{.Datatype} system query option specifies a non-negative
-integer n that excludes the first n items of the queried collection from
-the result. The service returns items starting at position n+1.
+The `$skip` system query option specifies a non-negative integer n that
+excludes the first n items of the queried collection from the result.
+The service returns items starting at position n+1.
 
 Example 54: return products starting with the 6th product of the
 `Products` entity set
@@ -4662,9 +4592,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Where [`$top`[
 ]{style="font-family:\"Calibri\",sans-serif"}](#sec_SystemQueryOptiontop)and
-[\$skip]{.Datatype} are used together, [\$skip]{.Datatype} MUST be
-applied before [\$top]{.Datatype}, regardless of the order in which they
-appear in the request.
+`$skip` are used together, `$skip` MUST be applied before `$top`,
+regardless of the order in which they appear in the request.
 
 Example 55: return the third through seventh products of the `Products`
 entity set
@@ -4695,7 +4624,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 The count of related entities can be requested by specifying
-the` ``$count` query option within the [\$expand]{.Datatype} clause.
+the` ``$count` query option within the `$expand` clause.
 
 Example 57:
 
@@ -4706,14 +4635,13 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Categories?\$expand=Products(\$count=true)]{style="color:black"}
 :::
 
-A `$count` query option with a value of [false]{.Datatype} (or not
-specified) hints that the service SHOULD NOT return a count.
+A `$count` query option with a value of `false` (or not specified) hints
+that the service SHOULD NOT return a count.
 
-The service returns an HTTP Status code of [400 Bad Request]{.Datatype}
-if a value other than [true]{.Datatype} or [false]{.Datatype} is
-specified.
+The service returns an HTTP Status code of `400 Bad Request` if a value
+other than `true` or `false` is specified.
 
-The [\$count]{.Datatype} system query option ignores any
+The `$count` system query option ignores any
 [`$top`](#sec_SystemQueryOptiontop),
 [`$skip`](#sec_SystemQueryOptionskip), or
 [`$expand`](#sec_SystemQueryOptionexpand) query options, and returns the
@@ -4730,10 +4658,9 @@ selected format.
 
 #### []{#sec_SystemQueryOptionsearch}[]{#_The_$format_System}[]{#_The_$search_System}11.2.6.6 [System Query Option `$search`](#sec_SystemQueryOptionsearch)
 
-The [\$search]{.Datatype} system query option restricts the result to
-include only those items *matching* the specified search expression. The
-definition of what it means to match is dependent upon the
-implementation.
+The `$search` system query option restricts the result to include only
+those items *matching* the specified search expression. The definition
+of what it means to match is dependent upon the implementation.
 
 Example 58: return all Products that match the search term \"bike\"
 
@@ -4754,8 +4681,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 bike\"]{style="color:black"}
 :::
 
-The upper-case keyword [NOT]{.Datatype} restricts the set of entities to
-those that do not match the specified term.
+The upper-case keyword `NOT` restricts the set of entities to those that
+do not match the specified term.
 
 Example 60: return all Products that do not match \"clothing\"
 
@@ -4767,8 +4694,8 @@ clothing]{style="color:black"}
 :::
 
 Multiple terms within a search expression are separated by a space
-(implicit [AND]{.Datatype}) or the upper-case keyword [AND]{.Datatype},
-indicating that all such terms must be matched.
+(implicit `AND`) or the upper-case keyword `AND`, indicating that all
+such terms must be matched.
 
 Example 61: return all Products that match both \"mountain\" and
 \"bike\"
@@ -4780,8 +4707,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 bike]{style="color:black"}
 :::
 
-The upper-case keyword [OR]{.Datatype} is used to return entities that
-satisfy either the immediately preceding or subsequent expression.
+The upper-case keyword `OR` is used to return entities that satisfy
+either the immediately preceding or subsequent expression.
 
 Example 62: return all Products that match either \"mountain\" or
 \"bike\"
@@ -4808,15 +4735,15 @@ OR bike) AND NOT clothing ]{style="color:black"}
 :::
 
 The operations within a search expression MUST be evaluated in the
-following order: grouping operator, [NOT]{.Datatype} operator,
-[AND]{.Datatype} operator, [OR]{.Datatype} operator
+following order: grouping operator, `NOT` operator, `AND` operator, `OR`
+operator
 
-If both [\$search]{.Datatype} and
-[`$filter`](#sec_SystemQueryOptionfilter) are specified in the same
-request, only those items satisfying both criteria are returned.
+If both `$search` and [`$filter`](#sec_SystemQueryOptionfilter) are
+specified in the same request, only those items satisfying both criteria
+are returned.
 
-The value of the [\$search]{.Datatype} option is a search expression as
-defined in [**\[OData-ABNF\]**](#ABNF).
+The value of the `$search` option is a search expression as defined in
+[**\[OData-ABNF\]**](#ABNF).
 
 #### []{#sec_ServerDrivenPaging}[]{#_Server-Driven_Paging}11.2.6.7 [Server-Driven Paging](#sec_ServerDrivenPaging)
 
@@ -4835,14 +4762,13 @@ OData clients MUST treat the URL of the next link as opaque, and MUST
 NOT append system query options to the URL of a next link. Services may
 not allow a change of format on requests for subsequent pages using the
 next link. Clients therefore SHOULD request the same format on
-subsequent page requests using a compatible [Accept]{.Datatype} header.
-OData services may use the reserved system query option
-[\$skiptoken]{.Datatype} when building next links. Its content is
-opaque, service-specific, and must only follow the rules for URL query
-parts.
+subsequent page requests using a compatible `Accept` header. OData
+services may use the reserved system query option `$skiptoken` when
+building next links. Its content is opaque, service-specific, and must
+only follow the rules for URL query parts.
 
-OData clients MUST NOT use the system query option
-[\$skiptoken]{.Datatype} when constructing requests.
+OData clients MUST NOT use the system query option `$skiptoken` when
+constructing requests.
 
 #### []{#sec_RequestinganIndividualMemberofanOrde}[]{#_Requesting_an_Individual}11.2.6.8 [Requesting an Individual Member of an Ordered Collection](#sec_RequestinganIndividualMemberofanOrde)
 
@@ -4868,8 +4794,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 ### []{#sec_RequestingRelatedEntities}[11.2.7]{#_Toc477876662} [Requesting Related Entities](#sec_RequestingRelatedEntities)
 
 To request related entities according to a particular relationship, the
-client issues a [GET]{.Datatype} request to the source entity's request
-URL, followed by a forward slash and the name of the navigation property
+client issues a `GET` request to the source entity's request URL,
+followed by a forward slash and the name of the navigation property
 representing the relationship.
 
 If the navigation property does not exist on the entity indicated by the
@@ -4886,8 +4812,8 @@ the format-specific representation of the related single entity. If no
 entity is related, the service returns
 [`204 No Content`](#sec_ResponseCode204NoContent).
 
-Example 65: return the supplier of the product with [ID=1 ]{.Datatype}in
-the Products entity set
+Example 65: return the supplier of the product with `ID=1 `in the
+Products entity set
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4898,11 +4824,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 ### []{#sec_RequestingEntityReferences}[11.2.8]{#_Toc477876663} [Requesting Entity References](#sec_RequestingEntityReferences)
 
 To request [entity references](#sec_EntityIdsandEntityReferences) in
-place of the actual entities, the client issues a [GET]{.Datatype}
-request with [/\$ref]{.Datatype} appended to the resource path.
+place of the actual entities, the client issues a `GET` request with
+`/$ref` appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns [404 Not Found]{.Datatype}.
+entities, the service returns `404 Not Found`.
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -4927,7 +4853,7 @@ exists, the service returns either
 [`404 Not Found`](#sec_ResponseCode404NotFound).
 
 Example 66: collection with an entity reference for each Order related
-to the Product with [ID=0]{.Datatype}
+to the Product with `ID=0`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4939,10 +4865,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 To resolve an [entity-id](#sec_EntityIdsandEntityReferences), e.g.
 obtained in an entity reference, into a representation of the identified
-entity, the client issues a [GET]{.Datatype} request to the
-[\$entity]{.Datatype} resource located at the URL [\$entity]{.Datatype}
-relative to the service root. The entity-id MUST be specified using the
-system query option [\$id]{.Datatype}.
+entity, the client issues a `GET` request to the `$entity` resource
+located at the URL `$entity` relative to the service root. The entity-id
+MUST be specified using the system query option `$id`.
 
 Example 67: return the entity representation for a given entity-id
 
@@ -4953,15 +4878,15 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/\$entity?\$id=http://host/service/Products(0)]{style="color:black"}
 :::
 
-A type segment following the [\$entity]{.Datatype} resource casts the
-resource to the specified type. If the identified entity is not of the
-specified type, or a type derived from the specified type, the service
-returns [404 Not Found]{.Datatype}.
+A type segment following the `$entity` resource casts the resource to
+the specified type. If the identified entity is not of the specified
+type, or a type derived from the specified type, the service returns
+`404 Not Found`.
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#sec_SystemQueryOptionselect) and
-[`$expand`](#sec_SystemQueryOptionexpand) can be specified in
-[GET]{.Datatype} requests to the [\$entity]{.Datatype} resource.
+[`$expand`](#sec_SystemQueryOptionexpand) can be specified in `GET`
+requests to the `$entity` resource.
 
 Example 68: return the entity representation for a given entity-id and
 specify properties to return
@@ -4982,23 +4907,21 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 ### []{#sec_RequestingtheNumberofItemsinaCollect}[11.2.10]{#_Toc477876665} [Requesting the Number of Items in a Collection](#sec_RequestingtheNumberofItemsinaCollect)
 
 To request only the number of items of a collection of entities or items
-of a collection-valued property, the client issues a [GET]{.Datatype}
-request with [/\$count]{.Datatype} appended to the resource path of the
-collection.
+of a collection-valued property, the client issues a `GET` request with
+`/$count` appended to the resource path of the collection.
 
 On success, the response body MUST contain the exact count of items
 matching the request after applying any
 [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$search`](#sec_SystemQueryOptionsearch) system query options,
 formatted as a simple primitive integer value with media type
-[text/plain]{.Datatype}. Clients SHOULD NOT combine the system query
-options
+`text/plain`. Clients SHOULD NOT combine the system query options
 [[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#sec_SystemQueryOptiontop),
 [`$skip`](#sec_SystemQueryOptionskip),
 [`$orderby`](#sec_SystemQueryOptionorderby),
 [`$expand`](#sec_SystemQueryOptionexpand), and
 [`$format`](#sec_SystemQueryOptionformat) with the path suffix
-[/\$count]{.Datatype}. The result of such a request is undefined.
+`/$count`. The result of such a request is undefined.
 
 Example 69: return the number of
 product[[s]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
@@ -5012,12 +4935,12 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the [/\$filter]{.Datatype}[[
+the `/$filter`[[
 path]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} segment to
 count the items in the filtered collection.
 
-Example 70: return the number of products whose [Price]{.Datatype} is
-less than [\$10.00]{style="font-family:\"Calibri\",sans-serif"}
+Example 70: return the number of products whose `Price` is less than
+[\$10.00]{style="font-family:\"Calibri\",sans-serif"}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5030,8 +4953,8 @@ For backwards compatibility, the `/$count` suffix MAY be used in
 combination with the [`$filter`](#sec_SystemQueryOptionfilter) system
 query option.
 
-Example 71: return the number of products whose [Price]{.Datatype} is
-less than [\$10.00]{style="font-family:\"Calibri\",sans-serif"}
+Example 71: return the number of products whose `Price` is less than
+[\$10.00]{style="font-family:\"Calibri\",sans-serif"}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5041,8 +4964,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 The [`$filter`](#sec_SystemQueryOptionfilter) system query option MUST
-NOT be used in conjunction with a both a [/\$count]{.Datatype} path
-segment and a [/\$filter]{.Datatype} path segment.
+NOT be used in conjunction with a both a `/$count` path segment and a
+`/$filter` path segment.
 
 The `/$count` suffix can also be used in path expressions within system
 query options, e.g. [`$filter`](#sec_SystemQueryOptionfilter).
@@ -5069,20 +4992,19 @@ gt 1]{style="color:black"}
 
 ### []{#sec_SystemQueryOptionformat}[11.2.11]{#_Toc477876666} [System Query Option `$format`](#sec_SystemQueryOptionformat)
 
-The [\$format]{.Datatype} system query option specifies the media type
-of the response.
+The `$format` system query option specifies the media type of the
+response.
 
-The [\$format]{.Datatype} query option, if present in a request, MUST
-take precedence over the value(s) specified in the
+The `$format` query option, if present in a request, MUST take
+precedence over the value(s) specified in the
 [`Accept`](#sec_HeaderAccept) request header.
 
-The value of the [\$format]{.Datatype} system query option is a valid
-internet media type, optionally including parameters.
+The value of the `$format` system query option is a valid internet media
+type, optionally including parameters.
 
-In addition, format-specific abbreviations may be used, e.g.
-[json]{.Datatype} for [application/json]{.Datatype}, see
-[**\[OData-JSON\]**](#ODataJSONRef), but format parameters MUST NOT be
-appended to the format abbreviations.
+In addition, format-specific abbreviations may be used, e.g. `json` for
+`application/json`, see [**\[OData-JSON\]**](#ODataJSONRef), but format
+parameters MUST NOT be appended to the format abbreviations.
 
 Example 74: the request
 
@@ -5093,9 +5015,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Orders?\$format=application/json;metadata=full]{style="color:black"}
 :::
 
-is equivalent to a request with an [Accept]{.Datatype} header using the
-same media type; it requests the set of Order entities represented using
-the JSON media type including full metadata, as defined in
+is equivalent to a request with an `Accept` header using the same media
+type; it requests the set of Order entities represented using the JSON
+media type including full metadata, as defined in
 [**\[OData-JSON\]**](#ODataJSONRef).
 
 Example 75: the request
@@ -5106,17 +5028,16 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [GET http://host/service/Orders?\$format=json]{style="color:black"}
 :::
 
-is equivalent to a request with the [Accept]{.Datatype} header set to
-[application/json]{.Datatype}; it requests the set of Order entities
-represented using the JSON media type with minimal metadata, as defined
-in [**\[OData-JSON\]**](#ODataJSONRef).
+is equivalent to a request with the `Accept` header set to
+`application/json`; it requests the set of Order entities represented
+using the JSON media type with minimal metadata, as defined in
+[**\[OData-JSON\]**](#ODataJSONRef).
 
 []{#_Requesting_Changes_1}In [metadata document
 requests](#sec_MetadataDocumentRequest)[,]{.MsoHyperlink} the values
-[application/xml]{.Datatype} and [application/json]{.Datatype}, along
-with their subtypes and parameterized variants, as well as the
-format-specific abbreviations [xml]{.Datatype} and [json,]{.Datatype}
-are reserved for this specification.
+`application/xml` and `application/json`, along with their subtypes and
+parameterized variants, as well as the format-specific abbreviations
+`xml` and `json,` are reserved for this specification.
 
 ### []{#sec_SystemQueryOptionschemaversion}[11.2.12]{#_Toc477876667} [System Query Option `$schemaversion`](#sec_SystemQueryOptionschemaversion)
 
@@ -5175,17 +5096,16 @@ entity sets with the
 [`Capabilities`.`ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [**\[OData-VocCap\]**](#VocCapabilities).
 
-Any [GET]{.Datatype} request to retrieve one or more entities MAY allow
+Any `GET` request to retrieve one or more entities MAY allow
 change-tracking.
 
 Clients request that the service track changes to a result by specifying
 the [`track-changes`](#sec_Preferencetrackchangesodatatrackchan)
 preference on a request. If supported for the request, the service
-includes a [`Preference-Applied`](#sec_HeaderPreferenceApplied)[
-]{.Datatype}header in the response containing the
-[track-changes]{.Datatype} preference and includes a *delta link* in a
-result for a single entity, and on the last page of results for a
-collection of entities in place of the next link.
+includes a [`Preference-Applied`](#sec_HeaderPreferenceApplied)` `header
+in the response containing the `track-changes` preference and includes a
+*delta link* in a result for a single entity, and on the last page of
+results for a collection of entities in place of the next link.
 
 ### []{#sec_DeltaLinks}[]{#_Delta_Link_URL}[]{#_Delta_Links}11.3.1 [Delta Links](#sec_DeltaLinks)
 
@@ -5197,9 +5117,9 @@ results for which changes are being tracked; for example, the request
 that generated the results containing the delta link. The delta link
 encodes the collection of entities for which changes are being tracked,
 along with a starting point from which to track changes. OData services
-may use the reserved system query option [\$deltatoken]{.Datatype} when
-building delta links. Its content is opaque, service-specific, and must
-only follow the rules for URL query parts.
+may use the reserved system query option `$deltatoken` when building
+delta links. Its content is opaque, service-specific, and must only
+follow the rules for URL query parts.
 
 If the defining query contains a
 [`$schemaversion`](#sec_SystemQueryOptionschemaversion) system query
@@ -5230,7 +5150,7 @@ the membership in the set of expanded references. 
 Navigation properties specified in the
 [[[\$select]{style="color:windowtext"}]{.Datatype}](#sec_SystemQueryOptionselect)
 list of a defining query are not used to define the scope or contents of
-the items being tracked. Clients can specify [/\$ref]{.Datatype} in
+the items being tracked. Clients can specify `/$ref` in
 [`$expand`](#sec_SystemQueryOptionexpand) in order to specify interest
 in the set of related entities without interest in changes to the
 content of those related entities.
@@ -5259,11 +5179,10 @@ the projection.
 
 ### []{#sec_UsingDeltaLinks}[11.3.2]{#_Toc477876670} [Using Delta Links](#sec_UsingDeltaLinks)
 
-The client requests changes by invoking the [GET]{.Datatype} method on
-the [delta link](#sec_DeltaLinks). The client MUST NOT attempt to append
-system query options to the delta link. The
-[`Accept`](#sec_HeaderAccept) header MAY be used to specify the desired
-response format.
+The client requests changes by invoking the `GET` method on the [delta
+link](#sec_DeltaLinks). The client MUST NOT attempt to append system
+query options to the delta link. The [`Accept`](#sec_HeaderAccept)
+header MAY be used to specify the desired response format.
 
 Clients SHOULD specify the same
 [`Accept-Language`](#sec_HeaderAcceptLanguage) header when querying the
@@ -5357,21 +5276,20 @@ annotations with the terms
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
 [**\[OData-VocCore\]**](#VocCore)[ and
 ]{style="color:black"}[`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)[
-(nested property
-]{style="color:black"}[OptimisticConcurrencyControl]{.Datatype}[)
+(nested property ]{style="color:black"}`OptimisticConcurrencyControl`[)
 in]{style="color:black"}
 [**\[OData-VocCap\]**](#VocCapabilities)[.]{style="color:black"}
 
 [If optimistic concurrency control is required for a resource, the
 service MUST include ]{style="color:black"}an [ETag
-header](#sec_HeaderETag) in a response to a [GET]{.Datatype} request to
-the resource, and MAY include the ETag in a format-specific manner in
+header](#sec_HeaderETag) in a response to a `GET` request to the
+resource, and MAY include the ETag in a format-specific manner in
 responses containing that resource.
 
 The presence of an [ETag header](#sec_HeaderETag) in a response does not
 imply in itself that the resource requires optimistic concurrency
-control; the ETag may just be used for caching and/or conditional
-[GET]{.Datatype} requests.
+control; the ETag may just be used for caching and/or conditional `GET`
+requests.
 
 If an ETag value is specified in an [`If-Match`](#sec_HeaderIfMatch) or
 [`If-None-Match`](#sec_HeaderIfNoneMatch) header of a [Data Modification
@@ -5385,11 +5303,11 @@ in a ]{style="color:black"}[Data Modification
 Request](#sec_DataModification)[ or ]{style="color:black"}[Action
 Request](#sec_Actions)[ on a resource that requires optimistic
 concurrency control, the service responds with a
-]{style="color:black"}[428 Precondition Required]{.Datatype}[ and MUST
-ensure that no observable change occurs as a result of the request.
+]{style="color:black"}`428 Precondition Required`[ and MUST ensure that
+no observable change occurs as a result of the request.
 ]{style="color:black"}Clients can attempt to disable optimistic
-concurrency control by specifying [If-Match]{.Datatype} with a value of
-[\*]{.Datatype}. Services MAY reject such requests.
+concurrency control by specifying `If-Match` with a value of `*`.
+Services MAY reject such requests.
 
 For requests including an [`OData-Version`](#sec_HeaderODataVersion)
 header value of `4.01`, any ETag values specified in the request body of
@@ -5398,20 +5316,20 @@ current value for the record being updated.
 
 #### []{#sec_HandlingofDateTimeOffsetValues}[]{#_Differential_Update}[]{#_Create_an_Entity}11.4.1.2 [Handling of DateTimeOffset Values](#sec_HandlingofDateTimeOffsetValues)
 
-Services SHOULD preserve the offset of [Edm.DateTimeOffset]{.Datatype}
-values, if possible. However, where the underlying storage does not
-support offset services may be forced to normalize the value to some
-common time zone (i.e. UTC) in which case the result would be returned
-with that time zone offset. If the service normalizes values, it [MUST
-fail evaluation of the ]{style="color:black;
+Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
+possible. However, where the underlying storage does not support offset
+services may be forced to normalize the value to some common time zone
+(i.e. UTC) in which case the result would be returned with that time
+zone offset. If the service normalizes values, it [MUST fail evaluation
+of the ]{style="color:black;
 background:white"}[[query functions
-]{style="background:white"}](#sec_BuiltinQueryFunctions)[year]{.Datatype}[,
+]{style="background:white"}](#sec_BuiltinQueryFunctions)`year`[,
 ]{style="color:black;
-background:white"}[month]{.Datatype}[,
-]{style="color:black;background:white"}[day]{.Datatype}[,
-]{style="color:black;background:white"}[hour]{.Datatype}[, and
-]{style="color:black;background:white"}[time]{.Datatype}[ for literal
-values that are not stated in the time zone of the normalized
+background:white"}`month`[,
+]{style="color:black;background:white"}`day`[,
+]{style="color:black;background:white"}`hour`[, and
+]{style="color:black;background:white"}`time`[ for literal values that
+are not stated in the time zone of the normalized
 values.]{style="color:black;background:white"}
 
 #### []{#sec_HandlingofPropertiesNotAdvertisedinM}[11.4.1.3]{#_Toc477876675} [Handling of Properties Not Advertised in Metadata](#sec_HandlingofPropertiesNotAdvertisedinM)
@@ -5474,9 +5392,9 @@ Content]{.Keyword}.
 
 ### []{#sec_CreateanEntity}[]{#_Ref484615789}[]{#_Ref484615791}[]{#_Create_an_Entity_2}11.4.2 [Create an Entity](#sec_CreateanEntity)
 
-To create an entity in a collection, the client sends a
-[POST]{.Datatype} request to that collection\'s URL. The `POST` body
-MUST contain a single valid entity representation.
+To create an entity in a collection, the client sends a `POST` request
+to that collection\'s URL. The `POST` body MUST contain a single valid
+entity representation.
 
 The entity representation MAY include [references to existing
 entities](#sec_LinktoRelatedEntitiesWhenCreatinganE) as well as content
@@ -5543,9 +5461,8 @@ request body.
 The representation for referencing related entities is format-specific.
 
 Example 76: using the JSON format, 4.0 clients can create a new manager
-entity with links to two existing employees by applying the
-[odata.bind]{.Datatype} annotation to the [DirectReports]{.Datatype}
-navigation property
+entity with links to two existing employees by applying the `odata.bind`
+annotation to the `DirectReports` navigation property
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5575,7 +5492,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 Example 77: using the JSON format, 4.01 clients can create a new manager
 entity with links to two existing employees by including the entity-ids
-within the [DirectReports]{.Datatype} navigation property
+within the `DirectReports` navigation property
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5605,10 +5522,9 @@ Upon successful completion of the operation, the service creates the
 requested entity and relates it to the requested existing entities.
 
 If the target URL for the collection the entity is created in and
-binding information provided in the [POST]{.Datatype} body contradicts
-the implicit binding information provided by the request URL, the
-request MUST fail, and the service responds with [400 Bad
-Request]{.Datatype}.
+binding information provided in the `POST` body contradicts the implicit
+binding information provided by the request URL, the request MUST fail,
+and the service responds with `400 Bad Request`.
 
 Upon failure of the operation, the service MUST NOT create the new
 entity. In particular, the service MUST never create an entity in a
@@ -5621,8 +5537,8 @@ represented using the appropriate inline representation, is referred to
 as a "deep insert".
 
 Media entities MUST contain the base64url-encoded representation of
-their media stream as a virtual property [\$value]{.Datatype} when
-nested within a deep insert.
+their media stream as a virtual property `$value` when nested within a
+deep insert.
 
 Each included related entity is processed observing the rules for
 [creating an entity](#sec_CreateanEntity) as if it was posted against
@@ -5630,16 +5546,15 @@ the original target URL extended with the navigation path to this
 related entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with [201 Created]{.Datatype}, the response MUST be
-expanded to at least the level that was present in the deep-insert
-request.
+service responds with `201 Created`, the response MUST be expanded to at
+least the level that was present in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [**\[OData-VocCore\]**](#VocCore)[.
-]{.MsoHyperlink}Services that respond with [201 Created]{.Datatype}
-SHOULD annotate the entities in the response using the same
+]{.MsoHyperlink}Services that respond with `201 Created` SHOULD annotate
+the entities in the response using the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
 deep inserts, including support for returning the
@@ -5661,9 +5576,9 @@ On failure, the service MUST NOT create any of the entities.
 
 ### []{#_Ref356810287}[]{#sec_UpdateanEntity}[]{#_Ref484615816}[]{#_Update_an_Entity}[]{#_Delete_an_Entity}[]{#_Upsert_an_Entity}11.4.3 [Update an Entity](#sec_UpdateanEntity)
 
-To update an individual entity, the client makes a [PATCH]{.Datatype} or
-[PUT]{.Datatype} request to a URL that identifies the entity. Services
-MAY restrict updates only to requests addressing the [edit
+To update an individual entity, the client makes a `PATCH` or `PUT`
+request to a URL that identifies the entity. Services MAY restrict
+updates only to requests addressing the [edit
 URL](#sec_ReadURLsandEditURLs) of the entity.
 
 Services SHOULD support `PATCH` as the preferred means of updating an
@@ -5688,14 +5603,14 @@ replace all values of structural properties with those specified in the
 request body. Missing non-key, updatable structural properties not
 defined as dependent properties within a referential constraint MUST be
 set to their default values. Omitting a non-nullable property with no
-service-generated or default value from a [PUT]{.Datatype} request
-results in a [400 Bad Request]{.Datatype} error. Missing dynamic
-structural properties MUST be removed or set to [null]{.Datatype}.
+service-generated or default value from a `PUT` request results in a
+`400 Bad Request` error. Missing dynamic structural properties MUST be
+removed or set to `null`.
 
-For requests with an [OData-Version]{.Datatype} header with a value of
-`4.01 `or greater, the media stream of a media entity can be updated by
-specifying the base64url-encoded representation of the media stream as a
-virtual property [\$value]{.Datatype}.
+For requests with an `OData-Version` header with a value of `4.01 `or
+greater, the media stream of a media entity can be updated by specifying
+the base64url-encoded representation of the media stream as a virtual
+property `$value`.
 
 Updating a dependent property that is tied to a key property of the
 principal entity through a referential constraint updates the
@@ -5723,15 +5638,13 @@ However, format-specific rules might in some cases require providing
 entity id and entity type values in the payload when applying the
 update.
 
-For requests with an [OData-Version]{.Datatype} header with a value of
-`4.01 `or greater, if the entity representation in the request body
-includes an ETag value, the update MUST NOT be performed and SHOULD
-return
+For requests with an `OData-Version` header with a value of `4.01 `or
+greater, if the entity representation in the request body includes an
+ETag value, the update MUST NOT be performed and SHOULD return
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) if
-the supplied ETag value is not [\*]{.Datatype} and does not match the
-current ETag value for the entity. ETag values in request bodies MUST be
-ignored for requests containing an OData-Version header with a value of
-`4.0`.
+the supplied ETag value is not `*` and does not match the current ETag
+value for the entity. ETag values in request bodies MUST be ignored for
+requests containing an OData-Version header with a value of `4.0`.
 
 If an update specifies both a binding to a single-valued navigation
 property and a dependent property that is tied to a key property of the
@@ -5833,13 +5746,13 @@ If the nested collection is represented as a delta annotation on the
 navigation property, then the collection contains members to be added or
 changed and MAY include deleted entities for entities that are no longer
 part of the collection, using the [delta payload](#sec_DeltaPayloads)
-format. If the deleted entity specifies a [reason]{.Datatype} as
-[deleted]{.Datatype}, then the entity is both removed from the
-collection and deleted, otherwise it is removed from the collection and
-only deleted if the relationship is contained. Non-key properties of the
-deleted entity are ignored. Nested collections MUST NOT contain added or
-deleted links. If the request contains nested delta collections, then
-the PATCH verb must be specified.
+format. If the deleted entity specifies a `reason` as `deleted`, then
+the entity is both removed from the collection and deleted, otherwise it
+is removed from the collection and only deleted if the relationship is
+contained. Non-key properties of the deleted entity are ignored. Nested
+collections MUST NOT contain added or deleted links. If the request
+contains nested delta collections, then the PATCH verb must be
+specified.
 
 If a nested entity has the same id or key fields as an existing entity,
 the existing entity is updated according to the semantics of the PUT or
@@ -5946,8 +5859,8 @@ style="color:black"}]{.CODEtemp}
 nested entities in the request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [**\[OData-VocCore\]**](#VocCore)[.
-]{.MsoHyperlink}Services that respond with [200 OK]{.Datatype} SHOULD
-annotate the entities in the response using the same
+]{.MsoHyperlink}Services that respond with `200 OK` SHOULD annotate the
+entities in the response using the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
 deep updates, including support for returning the
@@ -5978,10 +5891,10 @@ that would identify such an entity and the entity does not yet exist.
 
 Singleton entities can be upserted if they are nullable. Services
 supporting this SHOULD advertise it by annotating the singleton with the
-term [Capabilities.UpdateRestrictions]{.Datatype} [(nested property
-]{style="color:black"}[Upsertable]{.Datatype}[ with value
-]{style="color:black"}[true]{.Datatype}[) ]{style="color:black"}defined
-in [**\[OData-VocCap\]**](#VocCapabilities).
+term `Capabilities.UpdateRestrictions` [(nested property
+]{style="color:black"}`Upsertable`[ with value
+]{style="color:black"}`true`[) ]{style="color:black"}defined in
+[**\[OData-VocCap\]**](#VocCapabilities).
 
 Key and other non-updatable properties, as well as dependent properties
 that are not tied to key properties of the principal entity, MUST be
@@ -5992,24 +5905,23 @@ MAY specify an [`If-Match` header](#sec_HeaderIfMatch) in the update
 request. The service MUST NOT treat an update request containing an
 `If-Match` header as an insert.
 
-A [PUT]{.Datatype} or [PATCH]{.Datatype} request MUST NOT be treated as
-an update if an [`If-None-Match` header](#sec_HeaderIfNoneMatch) is
-specified with a value of [\*]{.Datatype}.
+A `PUT` or `PATCH` request MUST NOT be treated as an update if an
+[`If-None-Match` header](#sec_HeaderIfNoneMatch) is specified with a
+value of `*`.
 
 ### []{#sec_DeleteanEntity}[]{#_Ref484615875}[]{#_Delete_an_Entity_1}11.4.5 [Delete an Entity](#sec_DeleteanEntity)
 
-To delete an individual entity, the client makes a [DELETE]{.Datatype}
-request to a URL that identifies the entity. Services MAY restrict
-deletes only to requests addressing the [edit
-URL](#sec_ReadURLsandEditURLs) of the entity.
+To delete an individual entity, the client makes a `DELETE` request to a
+URL that identifies the entity. Services MAY restrict deletes only to
+requests addressing the [edit URL](#sec_ReadURLsandEditURLs) of the
+entity.
 
 The request body SHOULD be empty. Singleton entities can be deleted if
 they are nullable. Services supporting this SHOULD advertise it by
-annotating the singleton with the term
-[Capabilities.DeleteRestrictions]{.Datatype} [(nested property
-]{style="color:black"}[Deletable]{.Datatype}[ with value
-]{style="color:black"}[true]{.Datatype}[) ]{style="color:black"}defined
-in [**\[OData-VocCap\]**](#VocCapabilities).
+annotating the singleton with the term `Capabilities.DeleteRestrictions`
+[(nested property ]{style="color:black"}`Deletable`[ with value
+]{style="color:black"}`true`[) ]{style="color:black"}defined in
+[**\[OData-VocCap\]**](#VocCapabilities).
 
 On successful completion of the delete, the response MUST be
 [`204 No Content`](#sec_ResponseCode204NoContent) and contain an empty
@@ -6020,12 +5932,12 @@ deleting it; clients need not delete the relations explicitly.
 
 Services MAY implicitly delete or modify related entities if required by
 [integrity constraints](#sec_HandlingofIntegrityConstraints). If
-integrity constraints are declared in [\$metadata]{.Datatype}[
+integrity constraints are declared in `$metadata`[
 ]{style="font-family:\"Calibri\",sans-serif"}using a
-[ReferentialConstraint]{.Datatype} element, services MUST modify
-affected related entities according to the declared integrity
-constraints, e.g. by deleting dependent entities, or setting dependent
-properties to [null]{.Datatype} or their default value.
+`ReferentialConstraint` element, services MUST modify affected related
+entities according to the declared integrity constraints, e.g. by
+deleting dependent entities, or setting dependent properties to `null`
+or their default value.
 
 One such integrity constraint results from using a navigation property
 in a key definition of an entity type. If the related "key" entity is
@@ -6040,10 +5952,10 @@ navigation properties are described in
 
 #### []{#sec_AddaReferencetoaCollectionValuedNavi}[]{#_Create_a_New}11.4.6.1 [Add a Reference to a Collection-Valued Navigation Property](#sec_AddaReferencetoaCollectionValuedNavi)
 
-A successful [POST]{.Datatype} request to a navigation property\'s
-references collection adds a relationship to an existing entity. The
-request body MUST contain a single entity reference that identifies the
-entity to be added. See the appropriate format document for details.
+A successful `POST` request to a navigation property\'s references
+collection adds a relationship to an existing entity. The request body
+MUST contain a single entity reference that identifies the entity to be
+added. See the appropriate format document for details.
 
 On successful completion, the response MUST be
 [`204 No Content`](#sec_ResponseCode204NoContent) and contain an empty
@@ -6054,8 +5966,8 @@ the request is completed successfully.
 
 #### []{#sec_RemoveaReferencetoanEntity}[]{#_Remove_a_Reference}11.4.6.2 [Remove a Reference to an Entity](#sec_RemoveaReferencetoanEntity)
 
-A successful [DELETE]{.Datatype} request to the URL that represents a
-reference to a related entity removes the relationship to that entity.
+A successful `DELETE` request to the URL that represents a reference to
+a related entity removes the relationship to that entity.
 
 In OData 4.0, the entity reference to be removed within a
 collection-valued navigation property is the URL that represents the
@@ -6068,7 +5980,7 @@ described in [**\[OData‑URL\]**](#ODataURLRef).
 For single-valued navigation properties, the
 [`$id`](#sec_ResolvinganEntityId) query option MUST NOT be specified.
 
-The [DELETE]{.Datatype} request MUST NOT violate any [integrity
+The `DELETE` request MUST NOT violate any [integrity
 constraints](#sec_HandlingofIntegrityConstraints) in the data model.
 
 On successful completion, the response MUST be
@@ -6077,10 +5989,10 @@ body.
 
 #### []{#sec_ChangetheReferenceinaSingleValuedNav}[11.4.6.3]{#_Toc477876688} [Change the Reference in a Single-Valued Navigation Property](#sec_ChangetheReferenceinaSingleValuedNav)
 
-A successful [PUT]{.Datatype} request to a single-valued navigation
-property's reference resource changes the related entity. The request
-body MUST contain a single entity reference that identifies the existing
-entity to be related. See the appropriate format document for details.
+A successful `PUT` request to a single-valued navigation property's
+reference resource changes the related entity. The request body MUST
+contain a single entity reference that identifies the existing entity to
+be related. See the appropriate format document for details.
 
 On successful completion, the response MUST be
 [`204 No Content`](#sec_ResponseCode204NoContent) and contain an empty
@@ -6098,15 +6010,15 @@ other appropriate error.
 
 #### []{#sec_ReplaceallReferencesinaCollectionval}[11.4.6.4]{#_Toc477876689} [Replace all References in a Collection-valued Navigation Property](#sec_ReplaceallReferencesinaCollectionval)
 
-A successful [PUT]{.Datatype} request to a collection-valued navigation
-property's reference resource replaces the set of related entities. The
-request body MUST contain a collection of entity references in the same
-format as returned by a [GET]{.Datatype} request to the navigation
-property's reference resource.
+A successful `PUT` request to a collection-valued navigation property's
+reference resource replaces the set of related entities. The request
+body MUST contain a collection of entity references in the same format
+as returned by a `GET` request to the navigation property's reference
+resource.
 
-A successful [DELETE]{.Datatype} request to a collection-valued
-navigation property's reference resource removes all related references
-from the collection.[]{#_Managing_Media_Entities}
+A successful `DELETE` request to a collection-valued navigation
+property's reference resource removes all related references from the
+collection.[]{#_Managing_Media_Entities}
 
 ### []{#sec_ManagingMediaEntities}[11.4.7]{#_Toc477876690} [Managing Media Entities](#sec_ManagingMediaEntities)
 
@@ -6119,9 +6031,9 @@ properties special handling is required.
 
 #### []{#sec_CreateaMediaEntity}[]{#_Ref484615906}[]{#_Creating_a_Media}11.4.7.1 [Create a Media Entity](#sec_CreateaMediaEntity)
 
-A [POST]{.Datatype} request to a media entity\'s entity set creates a
-new media entity. The request body MUST contain the media value (for
-example, the photograph) whose media type MUST be specified in a
+A `POST` request to a media entity\'s entity set creates a new media
+entity. The request body MUST contain the media value (for example, the
+photograph) whose media type MUST be specified in a
 [`Content-Type`](#sec_HeaderContentType) header. The request body is
 always interpreted as the media value, even if it has the media type of
 an OData format supported by the service. It is not possible to set the
@@ -6141,8 +6053,8 @@ header](#sec_Preferencereturnrepresentationandret) with a value of
 
 #### []{#sec_UpdateaMediaEntityStream}[]{#_Ref484619355}[]{#_Editing_a_Media}11.4.7.2 [Update a Media Entity Stream](#sec_UpdateaMediaEntityStream)
 
-A successful [PUT]{.Datatype} request to the media edit URL of a media
-entity changes the media stream of the entity.
+A successful `PUT` request to the media edit URL of a media entity
+changes the media stream of the entity.
 
 If the entity includes an ETag value for the media stream, the client
 MUST include an [`If-Match`](#sec_HeaderIfMatch) header with the ETag
@@ -6172,7 +6084,7 @@ entity.
 ### []{#sec_ManagingStreamProperties}[]{#_Managing_Stream_Properties}11.4.8 [Managing Stream Properties](#sec_ManagingStreamProperties)
 
 An entity may have one or more *stream properties*. Stream properties
-are properties of type [Edm.Stream]{.Datatype}.
+are properties of type `Edm.Stream`.
 
 The values for stream properties do not usually appear in the entity
 payload. Instead, the values are generally read or written through URLs.
@@ -6188,7 +6100,7 @@ an [`If-Match`](#sec_HeaderIfMatch) header with the ETag value.
 The request body MUST contain the new media value for the stream whose
 media type MUST be specified in a
 [`Content-Type`](#sec_HeaderContentType) header. It may have a
-[Content-Length]{.Datatype} of zero to set the stream data to empty.
+`Content-Length` of zero to set the stream data to empty.
 
 Stream properties MAY specify a list of acceptable media types using an
 annotation with term
@@ -6207,9 +6119,8 @@ the stream]{style="color:black"}.
 Clients MAY change the association between a stream property and a media
 stream by modifying the edit URL or read URL of the stream property.
 Services supporting this SHOULD advertise it by annotating the stream
-property with the term
-[Capabilities.MediaLocationUpdateSupported]{.Datatype} defined in
-[**\[OData-VocCap\]**](#VocCapabilities).
+property with the term `Capabilities.MediaLocationUpdateSupported`
+defined in [**\[OData-VocCap\]**](#VocCapabilities).
 
 #### [11.4.8.2]{#sec_DeleteStreamValues} [Delete Stream Values](#sec_DeleteStreamValues)
 
@@ -6255,23 +6166,22 @@ Services MUST return an error if the property is not updatable.
 
 #### []{#sec_SetaValuetoNull}[]{#_Ref484616017}[]{#_Set_a_Value}11.4.9.2 [Set a Value to Null](#sec_SetaValuetoNull)
 
-A successful [DELETE]{.Datatype} request to the edit URL for a
-structural property, or to the edit URL of the [raw
+A successful `DELETE` request to the edit URL for a structural property,
+or to the edit URL of the [raw
 value](#sec_RequestingaPropertysRawValueusingval) of a primitive
 property, sets the property to null. The request body is ignored and
 should be empty.
 
-A [DELETE]{.Datatype} request to a non-nullable value MUST fail and the
-service respond with [400 Bad Request]{.Datatype} or other appropriate
-error.
+A `DELETE` request to a non-nullable value MUST fail and the service
+respond with `400 Bad Request` or other appropriate error.
 
 The same rules apply whether the target is the value of a regular
 property or the value of a dynamic property. A missing dynamic property
-is defined to be the same as a dynamic property with value
-[null]{.Datatype}. All dynamic properties are nullable.
+is defined to be the same as a dynamic property with value `null`. All
+dynamic properties are nullable.
 
-On success, the service MUST respond with [204 No Content]{.Datatype}
-and an empty body.
+On success, the service MUST respond with `204 No Content` and an empty
+body.
 
 Services MUST return an error if the property is not updatable.
 
@@ -6281,9 +6191,9 @@ sets the property to null.
 
 #### []{#sec_UpdateaComplexProperty}[]{#_Ref484617915}[]{#_Update_a_Complex}11.4.9.3 [Update a Complex Property](#sec_UpdateaComplexProperty)
 
-A successful [PATCH]{.Datatype} request to the edit URL for a complex
-typed property updates that property. The request body MUST contain a
-single valid representation for the target complex type.
+A successful `PATCH` request to the edit URL for a complex typed
+property updates that property. The request body MUST contain a single
+valid representation for the target complex type.
 
 The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
@@ -6304,25 +6214,25 @@ Services MUST return an error if the property is not updatable.
 
 #### []{#sec_UpdateaCollectionProperty}[]{#_Ref484617922}[]{#_Ref484616032}[11.4.9.4]{#_Toc477876701} [Update a Collection Property](#sec_UpdateaCollectionProperty)
 
-A successful [PUT]{.Datatype} request to the edit URL of a collection
-property updates that collection. The message body MUST contain the
-desired new value, formatted as a collection property according to the
-specified format.
+A successful `PUT` request to the edit URL of a collection property
+updates that collection. The message body MUST contain the desired new
+value, formatted as a collection property according to the specified
+format.
 
 The service MUST replace the entire value with the value supplied in the
 request body.
 
-A successful [POST]{.Datatype} request to the edit URL of a collection
-property adds an item to the collection. The body of the request MUST be
-a single item to be added to the collection. If the collection is
-ordered, the item is added to the end of the collection, and
+A successful `POST` request to the edit URL of a collection property
+adds an item to the collection. The body of the request MUST be a single
+item to be added to the collection. If the collection is ordered, the
+item is added to the end of the collection, and
 [`$index`](#sec_RequestinganIndividualMemberofanOrde) MAY be used to
 specify a zero-based ordinal position to insert the new value, with a
 negative value indicating an ordinal position from the end of the
 collection.
 
-A successful [DELETE]{.Datatype} request to the edit URL of a collection
-property deletes all items in that collection.
+A successful `DELETE` request to the edit URL of a collection property
+deletes all items in that collection.
 
 Since collection members have no individual identity, `PATCH` is not
 supported for collection properties.
@@ -6356,9 +6266,9 @@ using an index.
 Collections of entity, complex, or primitive types annotated with the
 [`Core.``PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [**\[OData-VocCore\]**](#VocCore)) support inserting items at
-a specific location via [POST]{.Datatype} requests to the collection URL
-using the `$index` system query option. The value of the `$index` system
-query option is the zero-based ordinal position where the item is to be
+a specific location via `POST` requests to the collection URL using the
+`$index` system query option. The value of the `$index` system query
+option is the zero-based ordinal position where the item is to be
 inserted. The ordinal positions of items within the collection greater
 than or equal to the inserted position are increased by one. A negative
 ordinal number indexes from the end of the collection, with -1
@@ -6387,12 +6297,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 ### []{#sec_UpdateaCollectionofEntities}[11.4.12]{#_Ref484619408} [Update a Collection of Entities](#sec_UpdateaCollectionofEntities)
 
-Collections of entities can be updated by submitting a
-[PATCH]{.Datatype} request to the resource path of the collection. The
-body of the request MUST be a [delta payload](#sec_DeltaPayloads), and
-the resource path of the collection MUST NOT contain type cast or filter
-segments, and MUST NOT contain any system query options that affect the
-shape of the result.
+Collections of entities can be updated by submitting a `PATCH` request
+to the resource path of the collection. The body of the request MUST be
+a [delta payload](#sec_DeltaPayloads), and the resource path of the
+collection MUST NOT contain type cast or filter segments, and MUST NOT
+contain any system query options that affect the shape of the result.
 
 Added/changed entities are applied as [upserts,](#sec_UpsertanEntity)
 and deleted entities as [deletions](#sec_DeleteanEntity). Non-key
@@ -6405,18 +6314,17 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [**\[OData-VocCore\]**](#VocCore)[.
-]{.MsoHyperlink}Services that respond with [200 OK]{.Datatype} SHOULD
-annotate the entities in the response using the same
+]{.MsoHyperlink}Services that respond with `200 OK` SHOULD annotate the
+entities in the response using the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request.
 
 Services SHOULD advertise support for updating a collection using a
-delta payload through the [DeltaUpdateSupported]{.Datatype} property of
-the
+delta payload through the `DeltaUpdateSupported` property of the
 [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType)
 term, and SHOULD advertise support for returning the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
-through the [ContentIDSupported]{.Datatype} property of the
+through the `ContentIDSupported` property of the
 [`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
 term, both defined in [**\[OData-VocCap\]**](#VocCapabilities).
 
@@ -6434,8 +6342,8 @@ represents failed changes in the delta response as follows:
 deletes in the request MUST be represented in the response as either
 entities or entity references, annotated with term
 `Core.DataModificationException`, see [**\[OData-VocCore\]**](#VocCore).
-If the deleted entity specified a reason of [deleted]{.Datatype}, the
-value of `failedOperation` MUST be `delete`, otherwise `unlink`.
+If the deleted entity specified a reason of `deleted`, the value of
+`failedOperation` MUST be `delete`, otherwise `unlink`.
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
@@ -6471,9 +6379,9 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with term `Core.DataModificationException` and SHOULD specify
 a `responseCode` of `424` (Failed Dependency).
 
-Alternatively, the verb [PUT]{.Datatype} can be used, in which case the
-request body MUST be the representation of a collection of entities. In
-this case all entities provided in the request are applied as
+Alternatively, the verb `PUT` can be used, in which case the request
+body MUST be the representation of a collection of entities. In this
+case all entities provided in the request are applied as
 [upserts,](#sec_UpsertanEntity) and any entities not provided in the
 request are deleted. In this case, if the `continue-on-error` preference
 has been specified, and the request returns a success response code,
@@ -6490,10 +6398,10 @@ specified in the request payload.
 ### []{#sec_UpdateMembersofaCollection}[11.4.13]{#_Ref484616099} [Update Members of a Collection](#sec_UpdateMembersofaCollection)
 
 Members of a collection can be updated by submitting a [PATCH]{.Keyword}
-request to the URL constructed by appending [/\$each]{.Datatype} to the
-resource path of the collection. The additional path segment expresses
-that the request body describes an update to each member of the
-collection, not an update to the collection itself.
+request to the URL constructed by appending `/$each` to the resource
+path of the collection. The additional path segment expresses that the
+request body describes an update to each member of the collection, not
+an update to the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
 segments to subset the collection, see
@@ -6555,10 +6463,9 @@ updates.
 ### []{#sec_DeleteMembersofaCollection}[11.4.14]{#_Ref484616106} [Delete Members of a Collection](#sec_DeleteMembersofaCollection)
 
 Members of a collection can be deleted by submitting a
-[DELETE]{.Keyword} request to the URL constructed by appending
-[/\$each]{.Datatype} to the resource path of the collection. The
-additional path segment expresses that the collection itself is not
-deleted.
+[DELETE]{.Keyword} request to the URL constructed by appending `/$each`
+to the resource path of the collection. The additional path segment
+expresses that the collection itself is not deleted.
 
 The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
@@ -6599,10 +6506,8 @@ changes.
 Custom operations ([Actions](#sec_Actions)[ ]{.MsoHyperlink}and
 [Functions](#sec_Functions)) allow encapsulating logic for modifying or
 requesting data that goes beyond simple CRUD described in the preceding
-sections of this chapter. See [Action]{.Datatype},
-[ActionImport]{.Datatype}, [Function]{.Datatype}, and
-[FunctionImport]{.Datatype} in
-[**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) or[
+sections of this chapter. See `Action`, `ActionImport`, `Function`, and
+`FunctionImport` in [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) or[
 ]{style="color:black;background:white"}[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef).
 
 ### []{#sec_BindinganOperationtoaResource}[11.5.1]{#_Toc477876707} [Binding an Operation to a Resource](#sec_BindinganOperationtoaResource)
@@ -6619,8 +6524,8 @@ derived from, the type of the binding parameter. The resource identified
 by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
-Example 83: the function [MostRecentOrder]{.Datatype} can be bound to
-any URL that identifies a [SampleModel.Customer]{.Datatype}
+Example 83: the function `MostRecentOrder` can be bound to any URL that
+identifies a `SampleModel.Customer`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6631,9 +6536,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 \</Function\>]{style="color:black"}
 :::
 
-Example 84: invoke the [MostRecentOrder]{.Datatype} function with the
-value of the binding parameter [customer]{.Datatype} being the entity
-identified by [http://host/service/Customers(6)]{.Datatype}
+Example 84: invoke the `MostRecentOrder` function with the value of the
+binding parameter `customer` being the entity identified by
+`http://host/service/Customers(6)`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6643,8 +6548,8 @@ http://host/service/Customers(6)/SampleModel.MostRecentOrder()]{style="color:bla
 :::
 
 []{#_Advertising_Available_Operations}Example 85: the function
-[Comparison]{.Datatype} can be bound to any URL that identifies a
-collection of entities
+`Comparison` can be bound to any URL that identifies a collection of
+entities
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6655,8 +6560,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 \</Function\>]{style="color:black"}
 :::
 
-Example 86: invoke the [Comparison]{.Datatype} function on the set of
-red products
+Example 86: invoke the `Comparison` function on the set of red products
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6668,11 +6572,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 ### [11.5.2 Applying an Action to Members of a Collection]{#_Toc12019608}
 
 A bound operation with a single-valued binding parameter can be applied
-to each member of a collection by appending the path segment
-[/\$each]{.Datatype} to the resource path of the collection, followed by
-a forward slash and the namespace- or alias-qualified name of the bound
-operation. In this case the type of the collection members MUST match or
-be derived from the type of the binding parameter.
+to each member of a collection by appending the path segment `/$each` to
+the resource path of the collection, followed by a forward slash and the
+namespace- or alias-qualified name of the bound operation. In this case
+the type of the collection members MUST match or be derived from the
+type of the binding parameter.
 
 The resource path of the collection MAY contain type-cast or filter
 segments to subset the collection.
@@ -6681,8 +6585,8 @@ The response is a collection with members that are instances of the
 result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
-Example 87: invoke the [MostRecentOrder]{.Datatype} function on each
-entity in the entity set [Customers]{.Datatype}
+Example 87: invoke the `MostRecentOrder` function on each entity in the
+entity set `Customers`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6712,10 +6616,10 @@ entity or entity collection as part of the representation of the entity
 or entity collection within the payload. The representation of an action
 or function depends on the [format](#sec_Formats).
 
-Example 88: given a [GET]{.Datatype} request to
-[http://host/service/]{.Datatype}[Customers(\'ALFKI\')]{.VerbatimChar},
-the service might respond with a Customer that includes the
-[SampleEntities.MostRecentOrder]{.Datatype} function bound to the entity
+Example 88: given a `GET` request to
+`http://host/service/`[Customers(\'ALFKI\')]{.VerbatimChar}, the service
+might respond with a Customer that includes the
+`SampleEntities.MostRecentOrder` function bound to the entity
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6741,8 +6645,8 @@ in [**\[OData‑URL\]**](#ODataURLRef).
 Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
-Example 89: the [SampleEntities.MostRecentOrder]{.Datatype} function is
-not available for customer \'ALFKI\'
+Example 89: the `SampleEntities.MostRecentOrder` function is not
+available for customer \'ALFKI\'
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6776,10 +6680,10 @@ the function name, and additional parameter values are specified using
 URL is [obtained](#sec_AdvertisingAvailableOperationswithin) from a
 previously returned entity representation, [parameter
 aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}that are identical to
-the parameter name preceded by an at ([@]{.Datatype}) sign MUST be used.
-Clients MUST check if the obtained URL already contains a query part and
-appropriately precede the parameters either with an ampersand
-([&]{.Datatype}) or a question mark ([?]{.Datatype}).
+the parameter name preceded by an at (`@`) sign MUST be used. Clients
+MUST check if the obtained URL already contains a query part and
+appropriately precede the parameters either with an ampersand (`&`) or a
+question mark (`?`).
 
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
@@ -6811,11 +6715,11 @@ to the URL that identifies the composable function (or function import)
 as appropriate for the type returned by the function (or function
 import). The last path segment determines the system query options and
 HTTP verbs that can be used with this this URL, e.g. if the last path
-segment is a multi-valued navigation property, a [POST]{.Datatype}
-request may be used to create a new entity in the identified collection.
+segment is a multi-valued navigation property, a `POST` request may be
+used to create a new entity in the identified collection.
 
 Example 90: add a new item to the list of items of the shopping cart
-returned by the composable [MyShoppingCart]{.Datatype} function import
+returned by the composable `MyShoppingCart` function import
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6842,15 +6746,15 @@ return-type has no result, the service returns
 [`204 No Content`](#sec_ResponseCode204NoContent).
 
 If a single-valued function with a non-nullable return type has no
-result, the service returns [4xx]{.Datatype}. For functions that return
-a single entity [`404 Not Found`](#sec_ResponseCode404NotFound) is the
+result, the service returns `4xx`. For functions that return a single
+entity [`404 Not Found`](#sec_ResponseCode404NotFound) is the
 appropriate response code.
 
 For a composable function the processing is stopped when the function
-result requires a [4xx]{.Datatype} response, and continues otherwise.
+result requires a `4xx` response, and continues otherwise.
 
-Function imports preceded by the [\$root]{.Datatype} literal MAY be used
-in the [`$filter`](#sec_SystemQueryOptionfilter) or
+Function imports preceded by the `$root` literal MAY be used in the
+[`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) system query options, see
 [**\[OData‑URL\]**](#ODataURLRef).
 
@@ -6860,12 +6764,12 @@ Parameter values are specified inline by appending a comma-separated
 list of parameter values, enclosed by parenthesis to the function name.
 
 Each parameter value is represented as a name/value pair in the format
-[Name=Value]{.Datatype}, where [Name]{.Datatype} is the name of the
-parameter to the function and [Value]{.Datatype} is the parameter value.
+`Name=Value`, where `Name` is the name of the parameter to the function
+and `Value` is the parameter value.
 
-Example 91: invoke a [Sales.EmployeesByManager]{.Datatype} function
-which takes a single [ManagerID]{.Datatype} parameter via the function
-import [EmployeesByManager]{.Datatype}
+Example 91: invoke a `Sales.EmployeesByManager` function which takes a
+single `ManagerID` parameter via the function import
+`EmployeesByManager`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6874,9 +6778,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/EmployeesByManager(ManagerID=3)]{style="color:black"}]{.VerbatimChar}
 :::
 
-Example 92: return all [Customers]{.Datatype} whose City property
-returns \"Western\" when passed to the [Sales.SalesRegion]{.Datatype}
-function
+Example 92: return all `Customers` whose City property returns
+\"Western\" when passed to the `Sales.SalesRegion` function
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6891,9 +6794,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 value for the alias is specified as a separate query option using the
 name of the parameter alias.
 
-Example 93: invoke a [Sales.EmployeesByManager]{.Datatype} function via
-the function import [EmployeesByManager]{.Datatype}, passing 3 for the
-[ManagerID]{.Datatype} parameter
+Example 93: invoke a `Sales.EmployeesByManager` function via the
+function import `EmployeesByManager`, passing 3 for the `ManagerID`
+parameter
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6913,13 +6816,13 @@ the function (import) name. The
 ]{style="color:windowtext"}]{.MsoHyperlink}value for each parameter MUST
 be specified as a separate query option with the name of the parameter
 alias. If a parameter name is identical to a system query option name
-(without the optional [\$]{.Datatype} prefix), the parameter name MUST
-be prefixed with an at ([@]{.Keyword}[[)
+(without the optional `$` prefix), the parameter name MUST be prefixed
+with an at ([@]{.Keyword}[[)
 sign.]{style="color:windowtext"}]{.MsoHyperlink}
 
-Example 94: invoke a [Sales.EmployeesByManager]{.Datatype} function via
-the function import [EmployeesByManager]{.Datatype}, passing 3 for the
-[ManagerID]{.Datatype} parameter using the implicit parameter alias
+Example 94: invoke a `Sales.EmployeesByManager` function via the
+function import `EmployeesByManager`, passing 3 for the `ManagerID`
+parameter using the implicit parameter alias
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6932,10 +6835,10 @@ http://host/service/EmployeesByManager?ManagerID=3]{style="color:black"}]{.Verba
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}defined in
 [**\[OData-VocCore\]**](#VocCore) MAY be omitted. If it is annotated and
-the annotation specifies a [DefaultValue]{.Datatype}, the omitted
-parameter is interpreted as having that default value. If omitted and
-the annotation does not specify a default value, the service is free on
-how to interpret the omitted parameter.
+the annotation specifies a `DefaultValue`, the omitted parameter is
+interpreted as having that default value. If omitted and the annotation
+does not specify a default value, the service is free on how to
+interpret the omitted parameter.
 
 #### [11.5.4.2]{#sec_Functionoverloadresolution} [Function overload resolution](#sec_Functionoverloadresolution)
 
@@ -6979,8 +6882,8 @@ Services SHOULD avoid ambiguity, i.e. the combination of the function
 name, the unordered set of *non-optional* non-binding parameter names,
 plus the binding parameter type for bound overloads SHOULD identify a
 particular function overload. If there is ambiguity, then services MAY
-return [400 Bad Request]{.Datatype} with an error response body stating
-that the request was ambiguous.
+return `400 Bad Request` with an error response body stating that the
+request was ambiguous.
 
 ### []{#sec_Actions}[]{#_Ref484616119}[]{#_Actions_1}11.5.5 [Actions](#sec_Actions)
 
@@ -7020,13 +6923,13 @@ Non-binding parameters that are nullable or annotated with the term
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}defined in
 [**\[OData-VocCore\]**](#VocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
-interpreted as having the [null]{.Datatype} value. If it is annotated
-and the annotation specifies a [DefaultValue]{.Datatype}, the omitted
-parameter is interpreted as having that default value. If omitted and
-the annotation does not specify a default value, the service is free on
-how to interpret the omitted parameter. Note: a nullable non-binding
-parameter is equivalent to being annotated as optional with a default
-value of [null]{.Datatype}.
+interpreted as having the `null` value. If it is annotated and the
+annotation specifies a `DefaultValue`, the omitted parameter is
+interpreted as having that default value. If omitted and the annotation
+does not specify a default value, the service is free on how to
+interpret the omitted parameter. Note: a nullable non-binding parameter
+is equivalent to being annotated as optional with a default value of
+`null`.
 
 4.01 services MUST support invoking actions with no non-binding
 parameters and parameterless action imports both without a request body
@@ -7055,16 +6958,16 @@ To request processing of the action only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
 the [`If-Match`](#sec_HeaderIfMatch) header with the latest known ETag
 value for the entity or collection of entities. The ETag value for a
-collection as a whole is transported in the [ETag]{.Datatype} header of
-a collection response.
+collection as a whole is transported in the `ETag` header of a
+collection response.
 
-Example 95: invoke the [SampleEntities.CreateOrder]{.Datatype} action
-using [/Customers(\'ALFKI\']{.Datatype}[[)
+Example 95: invoke the `SampleEntities.CreateOrder` action using
+`/Customers('ALFKI'`[[)
 ]{style="font-family:\"Calibri\",sans-serif"}]{.VerbatimChar}as the
-customer (or binding parameter). The values [2]{.Datatype} for the
-[quantity]{.Datatype} parameter and [BLACKFRIDAY]{.Datatype} for the
-[discountCode]{.Datatype} parameter are passed in the body of the
-request. Invoke the action only if the customer's ETag still matches.
+customer (or binding parameter). The values `2` for the `quantity`
+parameter and `BLACKFRIDAY` for the `discountCode` parameter are passed
+in the body of the request. Invoke the action only if the customer's
+ETag still matches.
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7103,70 +7006,65 @@ see [**\[OData‑URL\]**](#ODataURLRef).
 ## []{#_Ref356811917}[]{#sec_AsynchronousRequests}[]{#_Functions}[]{#_Batch_Requests}[]{#_Asynchronous_Requests}11.6 [Asynchronous Requests](#sec_AsynchronousRequests)
 
 A [Prefer](#sec_HeaderPrefer) header with a
-[`respond-async`](#sec_Preferencerespondasync)[ ]{.Datatype}preference
-allows clients to request that the service process a [Data Service
+[`respond-async`](#sec_Preferencerespondasync)` `preference allows
+clients to request that the service process a [Data Service
 Request](#sec_DataServiceRequests) asynchronously.
 
-If the client has specified[ respond-async]{.Datatype} in the request,
-the service MAY process the request asynchronously and return a
-[`202 Accepted`](#sec_ResponseCode202Accepted)[ ]{.Datatype}response. A
-service MUST NOT reply to a [Data Service
-Request](#sec_DataServiceRequests) with [202 Accepted]{.Datatype}[[
-]{style="font-family:
+If the client has specified` respond-async` in the request, the service
+MAY process the request asynchronously and return a
+[`202 Accepted`](#sec_ResponseCode202Accepted)` `response. A service
+MUST NOT reply to a [Data Service Request](#sec_DataServiceRequests)
+with `202 Accepted`[[ ]{style="font-family:
 \"Arial\",sans-serif"}]{.Datatype}if the request has not included the
-[respond-async]{.Datatype} preference.
+`respond-async` preference.
 
-Responses that return [202 Accepted]{.Datatype} MUST include a
-[`Location` header](#sec_HeaderLocation) pointing to a *status monitor
-resource* that represents the current state of the asynchronous
-processing in addition to an optional [`Retry-After`
-header](#sec_HeaderRetryAfter)[ ]{.MsoHyperlink}indicating the time, in
-seconds, the client should wait before querying the service for status.
-Services MAY include a response body, for example, to provide additional
-status information.
+Responses that return `202 Accepted` MUST include a [`Location`
+header](#sec_HeaderLocation) pointing to a *status monitor resource*
+that represents the current state of the asynchronous processing in
+addition to an optional [`Retry-After` header](#sec_HeaderRetryAfter)[
+]{.MsoHyperlink}indicating the time, in seconds, the client should wait
+before querying the service for status. Services MAY include a response
+body, for example, to provide additional status information.
 
-A [GET]{.Datatype} request to the status monitor resource again returns
-[202 Accepted ]{.Datatype}response if the asynchronous processing has
-not finished. This response MUST again[[
+A `GET` request to the status monitor resource again returns
+`202 Accepted `response if the asynchronous processing has not finished.
+This response MUST again[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include a
 [`Location` header](#sec_HeaderLocation)[ ]{.MsoHyperlink}and MAY
 include a [`Retry-After` header](#sec_HeaderRetryAfter) to be used for a
-subsequent request. The `Location` header and optional
-[Retry-After]{.Datatype} header may or may not contain the same values
-as returned by the previous request.
+subsequent request. The `Location` header and optional `Retry-After`
+header may or may not contain the same values as returned by the
+previous request.
 
-A [GET]{.Datatype} request to the status monitor resource returns [200
-OK]{.Datatype} once the asynchronous processing has completed. For OData
-4.01 and greater responses, or OData 4.0 requests that include an
-[Accept ]{.Datatype}header that does not specify
-[application/http]{.Datatype}[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+A `GET` request to the status monitor resource returns `200 OK` once the
+asynchronous processing has completed. For OData 4.01 and greater
+responses, or OData 4.0 requests that include an `Accept `header that
+does not specify
+`application/http`[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 the response MUST include the [`AsyncResult`](#sec_HeaderAsyncResult)
 [[response header. Any other headers, along with the response body,
 represent the result of the completed asynchronous operation.
-]{style="color:windowtext"}]{.MsoHyperlink}If the [GET]{.Datatype}
-request to the status monitor includes an [OData-MaxVersion
-]{.Datatype}header with a value of [4.0]{.Datatype} and no
-[Accept]{.Datatype}[[
+]{style="color:windowtext"}]{.MsoHyperlink}If the `GET` request to the
+status monitor includes an `OData-MaxVersion `header with a value of
+`4.0` and no `Accept`[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header, or an
-[Accept]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header that
-includes [application/http]{.Datatype}, then the body of the final [200
-OK]{.Datatype} response MUST be represented as an HTTP message, as
-described in [**\[RFC7230\]**](#HTTPMessage)[**,** ]{.MsoHyperlink}which
-is the full HTTP response to the completed asynchronous operation.
+`Accept`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header
+that includes `application/http`, then the body of the final `200 OK`
+response MUST be represented as an HTTP message, as described in
+[**\[RFC7230\]**](#HTTPMessage)[**,** ]{.MsoHyperlink}which is the full
+HTTP response to the completed asynchronous operation.
 
-A [DELETE]{.Datatype} request sent to the status monitor resource
-requests that the asynchronous processing be canceled. A [200
-OK]{.Datatype} or a [204 No Content ]{.Datatype}response indicates that
-the asynchronous processing has been successfully canceled. A client can
-request that the [DELETE]{.Datatype} should be executed asynchronously.
-A [202 Accepted]{.Datatype} response indicates that the cancellation is
-being processed asynchronously; the client can use the returned
-[`Location` header](#sec_HeaderLocation) (which MUST be different from
-the status monitor resource of the initial request) to query for the
-status of the cancellation. If a delete request is not supported by the
-service, the service returns
-[`405 Method Not Allowed`](#sec_ResponseCode405MethodNotAllowed)[.]{.Datatype}
+A `DELETE` request sent to the status monitor resource requests that the
+asynchronous processing be canceled. A `200 OK` or a
+`204 No Content `response indicates that the asynchronous processing has
+been successfully canceled. A client can request that the `DELETE`
+should be executed asynchronously. A `202 Accepted` response indicates
+that the cancellation is being processed asynchronously; the client can
+use the returned [`Location` header](#sec_HeaderLocation) (which MUST be
+different from the status monitor resource of the initial request) to
+query for the status of the cancellation. If a delete request is not
+supported by the service, the service returns
+[`405 Method Not Allowed`](#sec_ResponseCode405MethodNotAllowed)`.`
 
 After a successful `DELETE` request against the status monitor resource,
 any subsequent `GET` requests for the same status monitor resource
@@ -7200,9 +7098,9 @@ invocation](#sec_InvokinganAction)[ ]{.MsoHyperlink}request,[
 ]{.MsoHyperlink}or [Function invocation](#sec_InvokingaFunction)
 request.
 
-Batch requests are submitted as a single HTTP [POST]{.Datatype} request
-to the batch endpoint of a service, located at the URL
-[\$batch]{.Datatype} relative to the service root.
+Batch requests are submitted as a single HTTP `POST` request to the
+batch endpoint of a service, located at the URL `$batch` relative to the
+service root.
 
 Individual requests within a batch request are evaluated according to
 the same semantics used when the request appears outside the context of
@@ -7218,8 +7116,8 @@ batch format defined in
 A batch request using the [multipart batch
 format](#sec_MultipartBatchFormat) MUST contain a
 [`Content-Type`](#sec_HeaderContentType) header specifying a content
-type of [multipart/mixed]{.Datatype} and a [boundary]{.Datatype}
-parameter as defined in [**\[RFC2046\]**](#RFC2046).
+type of `multipart/mixed` and a `boundary` parameter as defined in
+[**\[RFC2046\]**](#RFC2046).
 
 Example 96: multipart batch request
 
@@ -7239,8 +7137,7 @@ body\>]{style="color:black"}]{.VerbatimChar}
 :::
 
 A batch request using the JSON batch format MUST contain a
-[Content-Type]{.Datatype} header specifying a content type of
-[application/json]{.Datatype}.
+`Content-Type` header specifying a content type of `application/json`.
 
  Example 97: JSON batch request
 
@@ -7259,14 +7156,12 @@ application/json]{style="color:black"}]{.VerbatimChar}[\
 body\>]{style="color:black"}]{.VerbatimChar}
 :::
 
-Batch requests SHOULD contain the applicable [OData-Version]{.Datatype}
-header.
+Batch requests SHOULD contain the applicable `OData-Version` header.
 
 Batch requests SHOULD contain an [`Accept`](#sec_HeaderAccept) header
-specifying the desired batch response format, either
-[multipart/mixed]{.Datatype} or [application/json]{.Datatype}. If no
-[Accept]{.Datatype} header is provided, services SHOULD respond with the
-content type of the request.
+specifying the desired batch response format, either `multipart/mixed`
+or `application/json`. If no `Accept` header is provided, services
+SHOULD respond with the content type of the request.
 
 [If the set of request headers of a batch request are valid the service
 MUST return a]{#_Toc370126141} [`200 OK`](#sec_ResponseCode200OK) HTTP
@@ -7302,8 +7197,8 @@ may be executed in any order.
 
 Each individual request within a batch request MAY have a request
 identifier assigned. The request identifier is case-sensitive, MUST be
-unique within the batch request, and MUST satisfy the rule
-[request-id]{.Datatype} in [**\[OData-ABNF\]**](#ABNF).
+unique within the batch request, and MUST satisfy the rule `request-id`
+in [**\[OData-ABNF\]**](#ABNF).
 
 The representation of the request identifier is format-specific, as are
 the rules for which individual requests require an identifier.
@@ -7312,22 +7207,20 @@ the rules for which individual requests require an identifier.
 
 Entities created by an [insert](#sec_CreateanEntity) request can be
 referenced in the request URL of subsequent requests by using the
-request identifier prefixed with a [\$]{.Datatype} character as the
-first segment of the request URL.
+request identifier prefixed with a `$` character as the first segment of
+the request URL.
 
-If the [\$]{.Datatype}-prefixed request identifier is identical to the
-name of a top-level system resource ([\$batch]{.Datatype},
-[\$crossjoin,]{.Datatype} [\$all,]{.Datatype} [\$entity]{.Datatype},
-[\$root]{.Datatype}, [\$id]{.Datatype}, [\$metadata]{.Datatype}, or
-other system resources defined according to the
-[`OData-Version`](#sec_HeaderODataVersion) of the protocol specified in
-the request), then the reference to the top-level system resource is
-used. This collision can be avoided by e.g. using only numeric request
-identifiers.
+If the `$`-prefixed request identifier is identical to the name of a
+top-level system resource (`$batch`, `$crossjoin,` `$all,` `$entity`,
+`$root`, `$id`, `$metadata`, or other system resources defined according
+to the [`OData-Version`](#sec_HeaderODataVersion) of the protocol
+specified in the request), then the reference to the top-level system
+resource is used. This collision can be avoided by e.g. using only
+numeric request identifiers.
 
 Services MAY also support referencing within request bodies, in which
 case they SHOULD advertise this support by specifying the
-[ReferencesInRequestBodiesSupported]{.Datatype} property in the
+`ReferencesInRequestBodiesSupported` property in the
 [`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 term applied to the entity container, see
 [**\[OData-VocCap\]**](#VocCapabilities).
@@ -7338,26 +7231,26 @@ Services MAY support the use of an ETag returned from a previous
 operation in an [`If-Match`](#sec_HeaderIfMatch) or
 [`If-None-Match`](#sec_HeaderIfNoneMatch) header of a subsequent
 statement. Services SHOULD advertise this support by specifying the
-[EtagReferencesSupported ]{.Datatype}property in the
+`EtagReferencesSupported `property in the
 [`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 annotation term applied to the entity container, see
 [**\[OData-VocCap\]**](#VocCapabilities).
 
 The ETag for a previous operation can be referenced by using the request
-identifier prefixed with a [\$]{.Datatype} character as the unquoted
-value of the [If-Match]{.Datatype} or [If-None-Match]{.Datatype} header.
+identifier prefixed with a `$` character as the unquoted value of the
+`If-Match` or `If-None-Match` header.
 
 ### []{#sec_ReferencingValuesfromResponseBodies}[11.7.6]{#_Toc477876723} [Referencing Values from Response Bodies](#sec_ReferencingValuesfromResponseBodies)
 
 Services MAY support using values from a response body in the query part
 of the URL or in the request body of subsequent requests. Value
-references consist of a [\$]{.Datatype} character, followed by the
-request identifier of the preceding request, and optionally followed by
-a valid OData path.
+references consist of a `$` character, followed by the request
+identifier of the preceding request, and optionally followed by a valid
+OData path.
 
-If the [\$]{.Datatype}-prefixed request identifier is identical to the
-name of a predefined literal for query expressions ([\$it]{.Datatype},
-[\$root]{.Datatype}, or other literals defined according to the
+If the `$`-prefixed request identifier is identical to the name of a
+predefined literal for query expressions (`$it`, `$root`, or other
+literals defined according to the
 [`OData-Version`](#sec_HeaderODataVersion) of the protocol specified in
 the request), then the predefined literal is used. This collision can be
 avoided by e.g. using only numeric request identifiers.
@@ -7374,28 +7267,26 @@ content type.
 The body of a multipart batch request is made up of a series of
 individual requests and *change sets*, each represented as a distinct
 body part (i.e. preceded by a boundary delimiter line consisting of two
-dashes and the value of the [boundary]{.Datatype} parameter specified in
-the [Content-Type]{.Datatype} header, and the last body part followed by
-a closing boundary delimiter line consisting of two dashes, the
-boundary, and another two dashes).
+dashes and the value of the `boundary` parameter specified in the
+`Content-Type` header, and the last body part followed by a closing
+boundary delimiter line consisting of two dashes, the boundary, and
+another two dashes).
 
 A body part representing an individual request MUST include a
-[Content-Type]{.Datatype} header with value
-[application/http]{.Datatype}.
+`Content-Type` header with value `application/http`.
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [**\[RFC2046\]**](#RFC2046)) with one body part
 for each operation in the change set.
 [[E]{style="font-size:8.0pt"}]{.MsoCommentReference}ach body part
-representing an operation in the change set MUST specify a
-[Content-ID]{.Datatype} header with a [request
-identifier](#sec_IdentifyingIndividualRequests) that is unique within
-the batch request.
+representing an operation in the change set MUST specify a `Content-ID`
+header with a [request identifier](#sec_IdentifyingIndividualRequests)
+that is unique within the batch request.
 
-A [Content-Transfer-Encoding]{.Datatype} header with value
-[binary]{.Datatype} may be included for historic reasons although this
-header is not used by HTTP and only needed for transmission via E-Mail.
-Neither clients nor services should rely on this header being present.
+A `Content-Transfer-Encoding` header with value `binary` may be included
+for historic reasons although this header is not used by HTTP and only
+needed for transmission via E-Mail. Neither clients nor services should
+rely on this header being present.
 
 Preambles and epilogues in the multipart batch request body, as defined
 in [**\[RFC2046\]**](#RFC2046), are valid but are assigned no meaning
@@ -7441,15 +7332,13 @@ Services MUST support all three formats for URLs of individual requests.
 URLs must be correctly percent-encoded. For relative URLs this means
 that colons in the path part, especially within key values, MUST be
 percent-encoded to avoid confusion with the scheme separator. Colons
-within the query part, i.e. after the question mark character
-([?]{.Datatype}), need not be percent-encoded.
+within the query part, i.e. after the question mark character (`?`),
+need not be percent-encoded.
 
 Each body part that represents a single request MUST NOT include:
 
--   [authentication]{.Datatype} or [authorization]{.Datatype} related
-    HTTP headers
--   [Expect]{.Datatype}, [From]{.Datatype}, [Max-Forwards]{.Datatype},
-    [Range]{.Datatype}, or [TE]{.Datatype} headers
+-   `authentication` or `authorization` related HTTP headers
+-   `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
 
 Processors of batch requests MAY choose to disallow additional HTTP
 constructs in HTTP requests serialized within body parts. For example, a
@@ -7466,23 +7355,22 @@ contains the following requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-entity (with [Content-ID = 1]{.Datatype})
+entity (with `Content-ID = 1`)
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Update
-entity (with [Content-ID = 2]{.Datatype})
+entity (with `Content-ID = 2`)
 
 3.[     ]{style="font:7.0pt \"Times New Roman\""}A second query request
 
 Note: For brevity, in the example, request bodies are excluded in favor
-of English descriptions inside [\<\>]{.Datatype} brackets and
-[OData-Version]{.Datatype} headers are omitted.
+of English descriptions inside `<>` brackets and `OData-Version` headers
+are omitted.
 
-Note also that the two empty lines after the [Host]{.Datatype} header of
-the [GET]{.Datatype} request are necessary: the first is part of the
-[GET]{.Datatype} request header; the second is the empty body of the
-[GET]{.Datatype} request, followed by a [CRLF]{.Datatype} according to
-[**\[RFC2046\]**](#RFC2046)[.]{.MsoHyperlink}
+Note also that the two empty lines after the `Host` header of the `GET`
+request are necessary: the first is part of the `GET` request header;
+the second is the empty body of the `GET` request, followed by a `CRLF`
+according to [**\[RFC2046\]**](#RFC2046)[.]{.MsoHyperlink}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7553,7 +7441,7 @@ Entities created by an [Insert](#sec_CreateanEntity) request can be
 referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
-[ReferencesAcrossChangeSetsSupported]{.Datatype} property in the
+`ReferencesAcrossChangeSetsSupported` property in the
 [`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 term applied to the entity container, see
 [**\[OData-VocCap\]**](#VocCapabilities).
@@ -7565,12 +7453,11 @@ A change set that contains the following requests:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-a new entity (with [Content-ID = 1]{.Datatype})
+a new entity (with `Content-ID = 1`)
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-a second new entity (references request with [Content-ID =
-1]{.Datatype})
+a second new entity (references request with `Content-ID = 1`)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7618,7 +7505,7 @@ the order listed:
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Get
-an Employee (with [Content-ID = 1]{.Datatype})
+an Employee (with `Content-ID = 1`)
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Update
@@ -7674,8 +7561,7 @@ The service MUST process the individual requests and change sets within
 a multipart batch request in the order received. Processing stops on the
 first error unless the
 [`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
-preference is specified with an explicit or implicit value of
-[true]{.Datatype}.
+preference is specified with an explicit or implicit value of `true`.
 
 All requests in a change set represent a single change unit so a service
 MUST successfully process and apply all the requests in the change set
@@ -7686,13 +7572,13 @@ failed and thereby apply this all-or-nothing requirement. The service
 MAY execute the requests within a change set in any order and MAY return
 the responses to the individual requests in any order. If a request
 specifies a request identifier, the service MUST include the
-[Content-ID]{.Datatype} header with the request identifier in the
-corresponding response so clients can correlate requests and responses.
+`Content-ID` header with the request identifier in the corresponding
+response so clients can correlate requests and responses.
 
 #### []{#sec_MultipartBatchResponse}[11.7.7.5]{#_Toc477876729} [Multipart Batch Response](#sec_MultipartBatchResponse)
 
-A multipart response to a batch request MUST contain a
-[Content-Type]{.Datatype} header with value `multipart/mixed.`
+A multipart response to a batch request MUST contain a `Content-Type`
+header with value `multipart/mixed.`
 
 The body of a multipart response to a multipart batch request MUST
 structurally match one-to-one with the multipart batch request body,
@@ -7702,41 +7588,41 @@ used for responses. There are three exceptions to this rule:
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}When
 a request within a change set fails, the change set response is not
-represented using the [multipart/mixed]{.Datatype} media type. Instead,
-a single response, using the [application/http]{.Datatype} media type,
-is returned that applies to all requests in the change set and MUST be a
-valid OData error response.
+represented using the `multipart/mixed` media type. Instead, a single
+response, using the `application/http` media type, is returned that
+applies to all requests in the change set and MUST be a valid OData
+error response.
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}When
 an error occurs processing a request and the
 [`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
 preference is not specified, or specified with an explicit value of
-[false]{.Datatype}, processing of the batch is terminated and the error
-response is the last part of the multipart response.
+`false`, processing of the batch is terminated and the error response is
+the last part of the multipart response.
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[Asynchronously
 processed batch requests](#sec_AsynchronousBatchRequests) can return
-interim results and end with a [202 Accepted]{.Datatype} as the last
-part of the multipart response. Therefore, the
+interim results and end with a `202 Accepted` as the last part of the
+multipart response. Therefore, the
 [`respond-async`](#sec_Preferencerespondasync) preference MUST NOT be
 applied to individual requests within a batch if the batch response is a
 multipart response.
 
 The body of a multipart response to a JSON batch request contains one
 body part for each processed or accepted request. The order of the body
-parts is insignificant as each body part MUST contain the
-[Content-ID]{.Datatype} header with the value of the [id]{.Datatype}
-name/value pair of the corresponding request object.
+parts is insignificant as each body part MUST contain the `Content-ID`
+header with the value of the `id` name/value pair of the corresponding
+request object.
 
 A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service
 Requests](#sec_DataServiceRequests). Relative URLs in each individual
 response are relative to the request URL of the corresponding individual
-request. URLs in responses MUST NOT contain [\$]{.Datatype}-prefixed
-request identifiers.
+request. URLs in responses MUST NOT contain `$`-prefixed request
+identifiers.
 
 Example 104: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
@@ -7813,8 +7699,8 @@ Content-Length: \###\
 Batch requests MAY be executed asynchronously by including the
 [`respond-async`](#sec_Preferencerespondasync) preference in the
 [`Prefer`](#sec_HeaderPrefer) header. If the service responds with a
-multipart batch response, it MUST ignore the [respond-async]{.Datatype}
-preference for individual requests within a batch.
+multipart batch response, it MUST ignore the `respond-async` preference
+for individual requests within a batch.
 
 After successful execution of the batch request the response to the
 batch request is returned in the body of a response to an interrogation
@@ -7822,8 +7708,8 @@ request against the *status monitor resource* URL (see [Asynchronous
 Requests](#sec_AsynchronousRequests)).
 
 A service MAY return interim results to an asynchronously executing
-batch. It does this by responding with [200 OK]{.Datatype} to a
-[GET]{.Datatype} request to the monitor resource and including a
+batch. It does this by responding with `200 OK` to a `GET` request to
+the monitor resource and including a
 [`202 Accepted`](#sec_ResponseCode202Accepted) response as the last part
 of the multipart response. The client can use the monitor URL returned
 in this [`202 Accepted`](#sec_ResponseCode202Accepted) response to
@@ -7848,8 +7734,8 @@ Retry-After: \###\
 When interrogating the monitor URL only the first request in the batch
 has finished processing and all the remaining requests are still being
 processed. Note that the actual multipart batch response itself is
-contained in an [application/http]{.Datatype} wrapper as it is a
-response to a status monitor resource:
+contained in an `application/http` wrapper as it is a response to a
+status monitor resource:
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7890,8 +7776,8 @@ Retry-After: \###\
 :::
 
 After some time the client makes a second request using the returned
-monitor URL, not explicitly accepting [application/http]{.Datatype}[[.
-The batch is completely processed and the response is the final result.
+monitor URL, not explicitly accepting `application/http`[[. The batch is
+completely processed and the response is the final result.
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -7959,8 +7845,8 @@ concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
 of [**\[RFC7231\]**](#HTTPSemantic) (9. Security Considerations) and for
-the HTTP [PATCH]{.Datatype} method [**\[RFC5789\]**](#RFC5789) (5.
-Security Considerations) as starting points.
+the HTTP `PATCH` method [**\[RFC5789\]**](#RFC5789) (5. Security
+Considerations) as starting points.
 
 ## []{#sec_Authentication}[12.1]{#_Toc477876732} [Authentication](#sec_Authentication)
 
@@ -8076,10 +7962,9 @@ other OData-defined semantics
 [`$expand`](#sec_SystemQueryOptionexpand) (section 11.2.5.2)
 
 13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at [\$metadata]{.Datatype} according to
-[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) and MAY publish metadata
-according to [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section
-11.1.2)
+at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
+and MAY publish metadata according to
+[**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section 11.1.2)
 
 14.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support prefixed
 variants of supported headers and preference values
@@ -8106,37 +7991,33 @@ To be considered an *Updatable OData Service*, the service additionally:
 (explicitly or implicitly) for all updatable or deletable resources
 according to [**\[OData-JSON\]**](#ODataJSONRef)
 
-19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[POST]{.Datatype} of new entities to insertable entity sets (section
-11.4.1.5 and 11.4.2.1)
+19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` of
+new entities to insertable entity sets (section 11.4.1.5 and 11.4.2.1)
 
-20.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[POST]{.Datatype} of new related entities to updatable navigation
-properties (section 11.4.2)
+20.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` of
+new related entities to updatable navigation properties (section 11.4.2)
 
-21.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[POST]{.Datatype} to `$ref` to add an existing entity to an updatable
-related collection (section 11.4.6.1)
+21.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` to
+`$ref` to add an existing entity to an updatable related collection
+(section 11.4.6.1)
 
-22.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[PUT]{.Datatype} to `$ref` to set an existing single updatable related
-entity (section 11.4.6.3)
+22.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `PUT` to
+`$ref` to set an existing single updatable related entity (section
+11.4.6.3)
 
-23.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[PATCH]{.Datatype} to all edit URLs for updatable resources (section
-11.4.3)
+23.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `PATCH` to
+all edit URLs for updatable resources (section 11.4.3)
 
-24.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[DELETE]{.Datatype} to all edit URLs for deletable resources (section
-11.4.5)
+24.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
+all edit URLs for deletable resources (section 11.4.5)
 
-25.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[DELETE]{.Datatype} to `$ref` to remove a reference to an entity from an
-updatable navigation property (section 11.4.6.2)
+25.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
+`$ref` to remove a reference to an entity from an updatable navigation
+property (section 11.4.6.2)
 
-26.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[If-Match]{.Datatype} header in update/delete of any resources returned
-with an ETag (section 11.4.1.1)
+26.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `If-Match`
+header in update/delete of any resources returned with an ETag (section
+11.4.1.1)
 
 27.[  ]{style="font:7.0pt \"Times New Roman\""}MUST return a `Location`
 header with the edit URL or read URL of a created resource (section
@@ -8150,13 +8031,12 @@ that returns `204 ``No Content`[` `]{.MsoHyperlink}(section 8.3.4)
 ]{style="font:7.0pt \"Times New Roman\""}MUST support Upserts (section
 11.4.4)
 
-30.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[PUT]{.Datatype} and [PATCH]{.Datatype} to an individual primitive
-(section 11.4.9.1) or complex (section 11.4.9.3) property (respectively)
+30.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `PUT` and
+`PATCH` to an individual primitive (section 11.4.9.1) or complex
+(section 11.4.9.3) property (respectively)
 
-31.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[DELETE]{.Datatype} to set an individual property to null (section
-11.4.9.2)
+31.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `DELETE`
+to set an individual property to null (section 11.4.9.2)
 
 32.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support deep
 inserts (section 11.4.2.2)
@@ -8176,36 +8056,35 @@ Level](#sec_OData40MinimalConformanceLevel)
 
 2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST successfully parse
 the [**\[OData-ABNF\]**](#ABNF) and either follow the specification or
-return [501 Not Implemented]{.Datatype} for any unsupported
-functionality (section 9.3.1)
+return `501 Not Implemented` for any unsupported functionality (section
+9.3.1)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support [\$select
-]{.Datatype}[[(section
+3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
+`$select `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.5.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support casting to
 a derived type according to [**\[OData‑URL\]**](#ODataURLRef) if derived
 types are present in the model
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support [\$top
-]{.Datatype}[[(section
+5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
+`$top `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[/\$value]{.Datatype} on media entities (section 4.12 in
-[**\[OData‑URL\]**](#ODataURLRef)) and individual properties (section
-11.2.4.1)
+6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `/$value`
+on media entities (section 4.12 in [**\[OData‑URL\]**](#ODataURLRef))
+and individual properties (section 11.2.4.1)
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support [\$filter
-]{.Datatype}[[(section
+7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
+`$filter `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-7.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[eq]{.Datatype}, [ne]{.Datatype} filter operations on properties of
-entities in the requested entity set (section 11.2.6.1.1)
+7.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support `eq`, `ne`
+filter operations on properties of entities in the requested entity set
+(section 11.2.6.1.1)
 
 7.2.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support aliases in
-[\$filter]{.Datatype} expressions (section 11.2.6.1.3)
+`$filter` expressions (section 11.2.6.1.3)
 
 7.3.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
 additional filter operations (section 11.2.6.1.1) and MUST return
@@ -8218,11 +8097,11 @@ canonical functions (section 11.2.6.1.2) and MUST return
 (section 9.3.1)
 
 7.5.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[\$filter]{.Datatype} on expanded entities (section 11.2.5.2.1)
+`$filter` on expanded entities (section 11.2.5.2.1)
 
 8.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at [\$metadata]{.Datatype} according to
-[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) (section 11.1.2)
+at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
+(section 11.1.2)
 
 9.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
 [**\[OData-JSON\]**](#ODataJSONRef) format
@@ -8234,32 +8113,30 @@ highest level of interoperability with generic
 clients]{style="color:black"}
 
 11.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[\$search ]{.Datatype}[[system query option (section
-]{style="font-family:
+`$search `[[system query option (section ]{style="font-family:
 \"Arial\",sans-serif"}]{.Datatype}[[11.2.6.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 12.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[\$skip]{.Datatype}[[ system query option (section
+`$skip`[[ system query option (section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
 13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[\$count]{.Datatype}[[ system query option (section
+`$count`[[ system query option (section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[\$expand]{.Datatype} (section 11.2.5.2)
+14.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$expand`
+(section 11.2.5.2)
 
 15.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the lambda
 operators `any` and `all` on navigation- and collection-valued
 properties (section 5.1.1.10 in [**\[OData‑URL\]**](#ODataURLRef))
 
 16.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[/\$count]{.Datatype} segment on navigation and collection properties
-(section 11.2.10)
+`/$count` segment on navigation and collection properties (section
+11.2.10)
 
-17.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support [\$orderby
-asc]{.Datatype} and [desc]{.Datatype} on individual properties (section
-11.2.6.2)
+17.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
+`$orderby asc` and `desc` on individual properties (section 11.2.6.2)
 
 ### []{#sec_OData40AdvancedConformanceLevel}[]{#_OData_Updatable_Service}[]{#_OData_Full_Data}[]{#_OData_4.0_Advanced}13.1.3 [OData 4.0 Advanced Conformance Level](#sec_OData40AdvancedConformanceLevel)
 
@@ -8277,15 +8154,15 @@ at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
 [**\[OData-JSON\]**](#ODataJSONRef) format
 
 4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-[/\$count]{.Datatype} segment on navigation and collection properties
-(section 11.2.10)
+`/$count` segment on navigation and collection properties (section
+11.2.10)
 
 5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the lambda
 operators `any` and `all` on navigation- and collection-valued
 properties (section 5.1.1.10 in [**\[OData‑URL\]**](#ODataURLRef))
 
 6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-[\$skip]{.Datatype} system query option (section
+`$skip` system query option (section
 [[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
 
 7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
@@ -8293,11 +8170,10 @@ properties (section 5.1.1.10 in [**\[OData‑URL\]**](#ODataURLRef))
 [[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
 
 8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `$orderby`
-[asc]{.Datatype} and [desc]{.Datatype} on individual properties (section
-11.2.6.2)
+`asc` and `desc` on individual properties (section 11.2.6.2)
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[\$expand]{.Datatype} (section 11.2.5.2)
+9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `$expand`
+(section 11.2.5.2)
 
 9.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support returning
 references for expanded properties
@@ -8309,8 +8185,7 @@ on expanded collection-valued properties
 segment in expand with derived types
 
 9.4.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$orderby` [asc]{.Datatype} and [desc]{.Datatype} on expanded
-collection-valued properties
+`$orderby` `asc` and `desc` on expanded collection-valued properties
 
 9.5.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$count`
 on expanded collection-valued properties
@@ -8322,7 +8197,7 @@ and `$skip` on expanded collection-valued properties
 `$search` on expanded collection-valued properties
 
 9.8.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[\$levels]{.Datatype} for recursive expand (section 11.2.5.2.1.1)
+`$levels` for recursive expand (section 11.2.5.2.1.1)
 
 9.9.[   ]{style="font:7.0pt \"Times New Roman\""}MAY support `$compute`
 on expanded properties
@@ -8348,19 +8223,18 @@ change tracking](#sec_RequestingChanges) (section 11.3)
 queries defined in [**\[OData‑URL\]**](#ODataURLRef)
 
 []{#_OData_Conformance_Level}[]{#_Not_Supported_Codes:}[]{#_Not_Supported_Codes}[]{#_Interoperable_OData_Clients}16.[ 
-]{style="font:7.0pt \"Times New Roman\""}MAY support the
-[\$compute]{.Datatype} system query option (section 11.2.5.3)
+]{style="font:7.0pt \"Times New Roman\""}MAY support the `$compute`
+system query option (section 11.2.5.3)
 
 ## []{#sec_OData401ServiceConformanceLevels}[13.2]{#_Toc477876738} [OData 4.01 Service Conformance Levels](#sec_OData401ServiceConformanceLevels)
 
 OData services can report conformance to the OData 4.01 specification by
-including [4.01]{.Datatype} in the list of supported protocol versions
-in the
+including `4.01` in the list of supported protocol versions in the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 annotation, as defined in [**\[OData-VocCore\]**](#VocCore). As all
 OData 4.01 compliant services must also be fully OData 4.0 compliant,
-OData 4.01 services do not need to separately list [4.0]{.Datatype} as a
-supported version.
+OData 4.01 services do not need to separately list `4.0` as a supported
+version.
 
 ### []{#sec_OData401MinimalConformanceLevel}[]{#_OData_4.1_Minimal}13.2.1 [OData 4.01 Minimal Conformance Level](#sec_OData401MinimalConformanceLevel)
 
@@ -8393,14 +8267,13 @@ option if a
 annotation is returned in [\$metadata]{.Keyword}
 
 6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support specifying
-supported system query options with or without the [\$]{.Datatype}
-prefix
+supported system query options with or without the `$` prefix
 
 7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
 case-insensitive query option, operator, and canonical function names
 
 8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST return identifiers
-in the case they are specified in [\$metadata]{.Datatype}
+in the case they are specified in `$metadata`
 
 9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support both 4.0
 and 4.01 syntax in URLs for supported functionality regardless of
@@ -8426,8 +8299,8 @@ with or without namespace qualification
 
 f.[      ]{style="font:7.0pt \"Times New Roman\""}MUST support parameter
 aliases for key values and function parameter values if they allow the
-octets [00]{.Datatype} (NUL), [2F]{.Datatype} (forward slash), or
-[5C]{.Datatype} (backslash) in string literals
+octets `00` (NUL), `2F` (forward slash), or `5C` (backslash) in string
+literals
 
 g.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support implicit
 aliasing of parameters
@@ -8460,7 +8333,7 @@ n.[     ]{style="font:7.0pt \"Times New Roman\""}MAY support equal and
 non-equal structural comparison
 
 10.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at [\$metadata]{.Datatype} according to both
+at `$metadata` according to both
 [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) and
 [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section 11.1.2)
 
@@ -8498,9 +8371,9 @@ service:
 Level](#sec_OData40MinimalConformanceLevel)[ ]{.MsoHyperlink}for an
 Updateable service.
 
-19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support
-[DELETE]{.Datatype} to the reference of a collection member to be
-removed, identified by key (section 11.4.6.2)
+19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
+the reference of a collection member to be removed, identified by key
+(section 11.4.6.2)
 
 20.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
 [PUT]{.Keyword} against single entity with nested content
@@ -8555,8 +8428,7 @@ cardinality of one
 
 [[5.[    
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}MUST
-support the [\$select]{.Datatype} option nested within
-[\$select]{.Datatype}
+support the `$select` option nested within `$select`
 
 6.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
 count of a filtered collection in a common expression
@@ -8568,15 +8440,14 @@ and non-equal structural comparison
 `$compute` system query option
 
 9.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support nested
-query options in [\$select]{.Datatype}
+query options in `$select`
 
 [10.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support nested
-parameter alias assignments in]{#_Toc477876741} [\$select]{.Datatype}[[
-and
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[\$expand]{.Datatype}
+parameter alias assignments in]{#_Toc477876741} `$select`[[ and
+]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
 11.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support filtering a
-collection using a [/]{.Datatype}[\$filter]{.Keyword} path segment
+collection using a `/`[\$filter]{.Keyword} path segment
 
 ### [13.2.3]{#sec_OData401AdvancedConformanceLevel} [OData 4.01 Advanced Conformance Level](#sec_OData401AdvancedConformanceLevel)
 
@@ -8600,14 +8471,13 @@ of a filtered/searched collection in a common expression
 system query option
 
 5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support nested
-options in [\$select]{.Datatype}
+options in `$select`
 
 5.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support `$filter`
 on selected collection-valued properties
 
 5.2.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$orderby` [asc]{.Datatype} and [desc]{.Datatype} on selected
-collection-valued properties
+`$orderby` `asc` and `desc` on selected collection-valued properties
 
 5.3.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
 `$count` on selected collection-valued properties
@@ -8629,14 +8499,13 @@ support batch requests according both to the multipart format (section
 [**\[OData-JSON\]**](#ODataJSONRef)
 
 [8.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-filtering a collection using a]{#_Toc477876742}
-[/]{.Datatype}[\$filter]{.Keyword} path segment
+filtering a collection using a]{#_Toc477876742} `/`[\$filter]{.Keyword}
+path segment
 
 [[9.[    
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
-support nested parameter alias assignments in [\$select]{.Datatype}[[
-and
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[\$expand]{.Datatype}
+support nested parameter alias assignments in `$select`[[ and
+]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
 10.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
 case-insensitive comparison of identifiers in URLs and request payloads
@@ -8654,11 +8523,11 @@ Level](#sec_OData40MinimalConformanceLevel) and implement the
 To be generally interoperable, OData clients      
 
 1.[     ]{style="font:7.0pt \"Times New Roman\""}MUST specify the
-[OData-MaxVersion]{.Datatype} header in requests (section 8.2.7)
+`OData-MaxVersion` header in requests (section 8.2.7)
 
 2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST specify
-[OData-Version]{.Datatype} (section 8.1.5) and [Content-Type]{.Datatype}
-(section 8.1.1) in any request with a payload
+`OData-Version` (section 8.1.5) and `Content-Type` (section 8.1.1) in
+any request with a payload
 
 3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST be a conforming
 consumer of OData as defined in [**\[OData-JSON\]**](#ODataJSONRef)
@@ -8673,13 +8542,11 @@ next links (section 11.2.6.7)
 returning properties and navigation properties not specified in metadata
 (section 11.2)
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST generate
-[PATCH]{.Datatype} requests for updates, if the client supports updates
-(section 11.4.3)
+7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST generate `PATCH`
+requests for updates, if the client supports updates (section 11.4.3)
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST include the
-[\$]{.Datatype} prefix when specifying OData-defined system query
-options
+8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST include the `$`
+prefix when specifying OData-defined system query options
 
 9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST use case-sensitive
 query options, operators, and canonical functions
@@ -8700,11 +8567,11 @@ entities, link entities, deleted link entities in a delta response
 responses (section 11.6)
 
 14.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[metadata=minimal]{.Datatype} in a JSON response (see
+`metadata=minimal` in a JSON response (see
 [**\[OData-JSON\]**](#ODataJSONRef))
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support [streaming
-]{.Datatype}in a JSON response (see [**\[OData-JSON\]**](#ODataJSONRef))
+15.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
+`streaming `in a JSON response (see [**\[OData-JSON\]**](#ODataJSONRef))
 
 In addition, interoperable OData 4.01 clients
 
@@ -8716,8 +8583,7 @@ metadata annotation (see
 [**\[OData-VocCore\]**](#VocCore)[)]{.MsoHyperlink}
 
 17.[  ]{style="font:7.0pt \"Times New Roman\""}MUST specify identifiers
-in payloads and URLs in the case they are specified in
-[\$metadata]{.Datatype}
+in payloads and URLs in the case they are specified in `$metadata`
 
 18.[  ]{style="font:7.0pt \"Times New Roman\""}MUST be prepared to
 receive any valid 4.01 CSDL
@@ -9070,20 +8936,15 @@ History](#sec_RevisionHistory)
 | Draft 03        |                 | Ralf Handl      |                 |
 |                 |                 |                 | Added nested    |
 |                 |                 |                 | query options   |
-|                 |                 |                 | for             |
-|                 |                 |                 | [\$sel          |
-|                 |                 |                 | ect]{.Datatype} |
+|                 |                 |                 | for `$select`   |
 |                 |                 |                 |                 |
 |                 |                 |                 | Added nested    |
 |                 |                 |                 | parameter alias |
 |                 |                 |                 | value           |
 |                 |                 |                 | assignments     |
 |                 |                 |                 | within          |
-|                 |                 |                 | [\$exp          |
-|                 |                 |                 | and]{.Datatype} |
-|                 |                 |                 | and             |
-|                 |                 |                 | [\$sel          |
-|                 |                 |                 | ect]{.Datatype} |
+|                 |                 |                 | `$expand` and   |
+|                 |                 |                 | `$select`       |
 |                 |                 |                 |                 |
 |                 |                 |                 | Simplified      |
 |                 |                 |                 | implicit        |
@@ -9105,11 +8966,8 @@ History](#sec_RevisionHistory)
 |                 |                 |                 |                 |
 |                 |                 |                 | Function        |
 |                 |                 |                 | imports in      |
-|                 |                 |                 | [\$fil          |
-|                 |                 |                 | ter]{.Datatype} |
-|                 |                 |                 | and             |
-|                 |                 |                 | [\$orde         |
-|                 |                 |                 | rby]{.Datatype} |
+|                 |                 |                 | `$filter` and   |
+|                 |                 |                 | `$orderby`      |
 |                 |                 |                 |                 |
 |                 |                 |                 | Stable order of |
 |                 |                 |                 | action and      |
@@ -9124,8 +8982,8 @@ History](#sec_RevisionHistory)
 | Specification   |                 |                 | errors          |
 | Draft 05        |                 | Ralf Handl      |                 |
 |                 |                 |                 | URL function    |
-|                 |                 |                 | [matchesPatt    |
-|                 |                 |                 | ern]{.Datatype} |
+|                 |                 |                 | `               |
+|                 |                 |                 | matchesPattern` |
 |                 |                 |                 |                 |
 |                 |                 |                 | Delta response  |
 |                 |                 |                 | for singletons  |
@@ -9137,8 +8995,8 @@ History](#sec_RevisionHistory)
 |                 |                 |                 | and function    |
 |                 |                 |                 | parameters      |
 |                 |                 |                 |                 |
-|                 |                 |                 | [continue-on-er |
-|                 |                 |                 | ror]{.Datatype} |
+|                 |                 |                 | `con            |
+|                 |                 |                 | tinue-on-error` |
 |                 |                 |                 | for operations  |
 |                 |                 |                 | on collections  |
 +-----------------+-----------------+-----------------+-----------------+
@@ -9151,11 +9009,9 @@ History](#sec_RevisionHistory)
 |                 |                 |                 | responses       |
 |                 |                 |                 |                 |
 |                 |                 |                 | Removed nested  |
-|                 |                 |                 | [\$exp          |
-|                 |                 |                 | and]{.Datatype} |
+|                 |                 |                 | `$expand`       |
 |                 |                 |                 | within          |
-|                 |                 |                 | [\$sel          |
-|                 |                 |                 | ect]{.Datatype} |
+|                 |                 |                 | `$select`       |
 +-----------------+-----------------+-----------------+-----------------+
 | Committee       | 2019-11-05      | Michael Pizzo   | Non-material    |
 | Specification   |                 |                 | changes         |
