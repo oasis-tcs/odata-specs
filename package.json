@@ -7,7 +7,8 @@
     "build": "node lib/build",
     "pdf": "node lib/build-pdf.js",
     "start": "node lib/server",
-    "test": "c8 -r html -r text mocha"
+    "test": "c8 -r html -r text mocha",
+    "clean-protocol": "cd odata-protocol/temp && node ./clean.js && pandoc odata-v4.01-os-part1-protocol-clean.html -o odata-v4.01-os-part1-protocol.md"
   },
   "author": "",
   "license": "ISC",
