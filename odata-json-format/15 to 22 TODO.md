@@ -1,45 +1,5 @@
 -------
 
-# ##sec Navigation Property
-
-## ##subsec Navigation Link
-
-## ##subsec Association Link
-
-## ##subsec Expanded Navigation Property
-
-## ##subsec Deep Insert
-
-## ##subsec Bind Operation
-
-## ##subsec Collection ETag
-
--------
-
-# ##sec Stream Property
-
--------
-
-# ##sec Media Entity
-
--------
-
-# ##sec Individual Property or Operation Response
-
--------
-
-# ##sec Collection of Operation Responses
-
--------
-
-# ##sec Collection of Entities
-
--------
-
-# ##sec Entity Reference
-
--------
-
 # ##sec Delta Payload
 
 ## ##subsec Delta Responses

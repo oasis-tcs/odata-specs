@@ -1,345 +1,3 @@
-# {#sec_NavigationProperty}[8[     ]{style="font:7.0pt "Times New Roman""}][Navigation Property](#NavigationProperty) {#navigation-property style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-A navigation property is a reference from a source entity to zero or
-more related entities.
-
-## {#sec_NavigationLink}{#\_Representing_a_Deferred}8.1 [Navigation Link](#NavigationLink)
-
-The navigation link for a navigation property is represented as a
-[`navigationLink`](#ControlInformationnavigationLinkanda)
-control information on the navigation property. Its value is an absolute
-or [relative URL](#RelativeURLs) that allows retrieving the related
-entity or collection of entities.
-
-The navigation link for a navigation property is only represented if the
-client requests `metadata=full` or the navigation link cannot
-be computed, e.g. if it is within a collection of complex type
-instances. If it is represented it MUST immediately precede the expanded
-navigation property if the latter is represented.
- 
-::: example
-Example ##ex:
-```json
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  ...
-  "Orders@navigationLink":
-"Customers('ALFKI')/Orders",
-  ...
-}
-```
-
-## {#sec_AssociationLink}[8.2] [Association Link](#AssociationLink)
-
-The association link for a navigation property is represented as an
-[`associationLink`](#ControlInformationnavigationLinkanda)
-control information on the navigation property. Its value is an absolute
-or [relative URL](#RelativeURLs) that can be used to retrieve the
-reference or collection of references to the related entity or entities.
-
-The association link for a navigation property is only represented if
-the client requests `metadata=full` or the association link
-cannot be computed by appending `/$ref` to the navigation
-link. If it is represented, it MUST immediately precede the navigation
-link if the latter is represented, otherwise it MUST immediately precede
-the expanded navigation property if it is represented.
- 
-::: example
-Example ##ex:
-```json
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  ...
-  "Orders@associationLink":
-"Customers('ALFKI')/Orders/$ref",
-  ...
-}
-```
-
-## {#sec_ExpandedNavigationProperty}{#\_Expanded_Navigation_Property}8.3 [Expanded Navigation Property](#ExpandedNavigationProperty)
-
-An expanded navigation property is represented as a name/value pair
-where the name is the name of the navigation property, and the value is
-the representation of the related entity or collection of entities.
-
-If at most one entity can be related, the value is the representation of
-the related entity, or `null` if no entity is currently
-related.
-
-If a collection of entities can be related, it is represented as a JSON
-array. Each element is the [representation of an entity](#Entity) or
-the [representation of an entity reference](#EntityReference). An
-empty collection of entities (one that contains no entities) is
-represented as an empty JSON array. The navigation property MAY be
-include
-[`context`](#ControlInformationcontextodatacontext),
-[`type`](#ControlInformationtypeodatatype),
-[`count`](#ControlInformationcountodatacount),[
-]{.MsoHyperlink}or[
-]{.MsoHyperlink}[`nextLink`](#ControlInformationnextLinkodatanextL)[
-]{.MsoHyperlink}control information. If a navigation property is
-expanded with the suffix `/$count`, only the
-[`count`](#ControlInformationcountodatacount)[
-]{.MsoHyperlink}control information is represented.
- 
-::: example
-Example ##ex:
-```json
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  ][...]{lang="NL" style="color:black"}
-
-  "Orders@count": 42,]{lang="NL" style="color:black"}
-
-  "Orders": \[ ... \],]{lang="NL" style="color:black"}
-
-  "Orders@nextLink": "...",]{lang="NL" style="color:black"}
-
-  ]{lang="NL" style="color:black"}[...
-}
-```
-
-## {#sec_DeepInsert}[8.4] [Deep Insert](#DeepInsert)
-
-When inserting a new entity with a `POST` request, related
-new entities MAY be specified using the same representation as for an
-[expanded navigation property](#ExpandedNavigationProperty).
-
-Deep inserts are not allowed in update operations using `PUT`
-or `PATCH` requests.
- 
-::: example
-Example ##ex: inserting a new order for a new customer with order items
-related to existing products:
-```json
-{
-  "ID": 11643,
-  "Amount": 100,
-  ...,
-  "Customer": {
-  "ID": "ANEWONE",
-  ...
-  },
-  "Items": \[
-  {
-    "Product": { "@id": "Products(28)" },
-    "Quantity": 1,
-     ...
-  },
-  {
-    "Product": { "@id": "Products(39)" },
-    "Quantity": 5,
-    ...
-  }
-  \]
-}
-```
-
-## {#sec_BindOperation}{#\_Bind_Operation}8.5 [Bind Operation](#BindOperation)
-
-When inserting or updating an entity, relationships of navigation
-properties MAY be inserted or updated via bind operations.
-
-For requests containing an `OData-Version` header with a value
-of `4.0`[[,
-]{style="font-family:"Arial",sans-serif"}]{.Datatype}a bind operation
-is encoded as a property control information `odata.bind` on
-the navigation property it belongs to and has a single value for
-single-valued navigation properties or an array of values for collection
-navigation properties. For nullable single-valued navigation properties
-the value `null` may be used to remove the relationship.
- 
-::: example
-Example ##ex: assign an existing product to an existing category with a
-partial update request against the product
-```json
-PATCH http://host/service/Products(42) HTTP/1.1
- 
-
-[{
-  "Category@odata.bind": "Categories(6)"
-}
-```
-
-The values are the [ids](#ControlInformationidodataid) of the
-related entities. They MAY be absolute or [relative
-URLs](#RelativeURLs).
-
-For requests containing an `OData-Version` header with a value
-of `4.01`, a relationship is bound to an existing entity
-using the same representation as for an [expanded entity
-reference](#EntityReference).
- 
-::: example
-Example ##ex: assign an existing product to an existing category with a
-partial update request against the product
-```json
-PATCH http://host/service/Products(42) HTTP/1.1
- 
-
-[{
-  "Category": {"@id": "Categories(6)"}
-}
-```
-
- 
- 
-::: example
-Example ##ex: submit a partial update request to:
-
-]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;font-style:normal"}modify
-the name of an existing category
-
-]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;font-style:normal"}assign
-an existing product with the id 42 to the category
-
-]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;font-style:normal"}assign
-an existing product 57 to the category and update its name
-
-]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;font-style:normal"}create
-a new product named "Wedges" and assign it to the category
-
-_[at the end of the request, the updated category contains exactly the
-three specified products.]{style="font-size:9.0pt"}_
-```json
-PATCH http://host/service/Categories(6) HTTP/1.1
- 
-
-[{
-  "Name": "UpdatedCategory",
-  "Products": \[
-  {
-    "@id": "Products(42)"
-  },
-  {
-    "@id": "Products(57)",
-    "Name": "Widgets"
-  },
-  {
-    "Name": "Wedges"
-  }
-  \]
-}
-```
-
-OData 4.01 services MUST support both the OData 4.0 representation, for
-requests containing an `OData-Version` header with a value of
-`4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of
-`4.01`[[.]{style="font-family:"Arial",sans-serif"}]{.Datatype}
-Clients MUST NOT use `\@odata.bind` in requests with an
-`OData-Version` header with a value of
-`4.01`[[.]{style="font-family:"Arial",sans-serif"}]{.Datatype}
-
-For insert operations collection navigation property bind operations and
-deep insert operations can be combined. For OData 4.0 requests, the bind
-operations MUST appear before the deep insert operations in the payload.
-
-For update operations a bind operation on a collection navigation
-property adds additional relationships, it does not replace existing
-relationships, while bind operations on an entity navigation property
-update the relationship.
-
-## {#sec_CollectionETag}[8.6] [Collection ETag](#CollectionETag)
-
-The ETag for a collection of related entities is represented as
-[[etag]{style="font-family:
-"Courier New""}](#ControlInformationetagodataetag) control
-information on the navigation property. Its value is an opaque string
-that can be used in a subsequent request to determine if the collection
-has changed.
-
-Services MAY include this control information as appropriate.
- 
-::: example
-Example ##ex: ETag for a collection of related entities
-```json
-{
-  "@context":
-"http://host/service/$metadata#Orders/$entity",
-  "@id": "Orders(1234)",
-  "@etag":
-"W/\\"MjAxMy0wNS0yN1QxMTo1OFo=\\"",
-  "ID": 1234,
-  "Items@etag":
-"W/\\"MjAxOS0wMy0xMlQxMDoyMlo=\\""
-  ...
-}
-```
-
-Note: the collection ETag for a navigation property may or may not be
-identical to the ETag of the containing entity, the example shows a
-different ETag for the `Items` collection.
-
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#sec_StreamProperty}{#\_Stream_Property}9[     ]{style="font:7.0pt "Times New Roman""}[Stream Property](#StreamProperty) {#stream-property style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-[An entity or complex type instance can have one or more stream
-properties. ]{style="color:black;background:white"}
-
-[The actual stream data is not usually contained in the representation.
-Instead stream property data is generally read and edited via URLs.
-]{style="color:black;background:white"}
-
-Depending on the [[metadata
-level]{style="background:white"}](#ControllingtheAmountofControlInforma)[,
-the stream property MAY be annotated to provide the read link, edit
-link, media type, and ETag of the media
-stream]{style="color:black;background:white"} through a set of
-[`media\*`](#ControlInformationmediaodatamedia)
-control information.
-
-[If the actual stream data is included inline, the control information
-]{style="color:black;background:white"}[`mediaContentType`](#ControlInformationmediaodatamedia)[
-MUST be present to indicate how the included stream property value is
-represented. Stream property values of media type
-]{style="color:black;background:white"}`application/json`[ or
-one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of ]{style="color:
-black;background:white"}top-level type `text`, for example
-`text/plain`, are represented as a string, with JSON string
-escaping rules applied. [Included stream data of other media types is
-represented as a base64url-encoded string value, see
-**]{style="color:black;background:white"}\*\*RFC4648\]\*\*[,
-section 5.]{style="color:black;background:white"}
-
-If the included stream property has no value, the non-existing stream
-data is represented as `null` and the control information
-[`mediaContentType`](#ControlInformationmediaodatamedia)[[
-is not necessary]{style="font-family:"Arial",sans-serif"}]{.Datatype}.
- 
-::: example
-Example ##ex:
-```json
-{
-  "@context":
-"http://host/service/$metadata#Products/$entity",
-  ...
-  "Thumbnail@mediaReadLink":
-"http://server/Thumbnail546.jpg",
-  "Thumbnail@mediaEditLink":
-"http://server/uploads/Thumbnail546.jpg",
-  ]["Thumbnail@mediaContentType":
-"image/jpeg",]{lang="DE" style="color:black"}
-
-  "Thumbnail@mediaEtag": "W/\\"####\\"",]{lang="DE"
-style="color:black"}
-
-  ]{lang="DE" style="color:black"}["Thumbnail": "...base64url
-encoded value...",
-  ...
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
 # {#sec_MediaEntity}{#\_Media_Entity}10[ ]{style="font:7.0pt "Times New Roman""}[Media Entity](#MediaEntity) {#media-entity style="margin-left:19.85pt;text-indent:-19.85pt"}
 
 :::
@@ -407,6 +65,7 @@ Example ##ex:  primitive value
   "value": "Pilar Ackerman"
 }
 ```
+:::
  
 ::: example
 Example ##ex:  collection of primitive values
@@ -418,6 +77,7 @@ Example ##ex:  collection of primitive values
 large"\]
 }
 ```
+:::
  
 ::: example
 Example ##ex:  empty collection of primitive values
@@ -428,6 +88,7 @@ Example ##ex:  empty collection of primitive values
   "value": \[\]
 }
 ```
+:::
  
 ::: example
 Example ##ex: complex value
@@ -441,6 +102,7 @@ Example ##ex: complex value
   "Country@navigationLink": "Countries('US')"
 }
 ```
+:::
  
 ::: example
 Example ##ex: empty collection of complex values
@@ -451,6 +113,7 @@ Example ##ex: empty collection of complex values
   "value": \[\]
 }
 ```
+:::
 
 Note: the context URL is optional in requests.
 
@@ -587,6 +250,7 @@ Example ##ex: entity reference to order 10643
   "@id": "Orders(10643)"
 }
 ```
+:::
  
 ::: example
 Example ##ex: collection of entity references
@@ -1219,6 +883,7 @@ path in the initial request, unless either of the following is true:
 0in"}
 The deleted-link object MUST include the following properties, regardless of the specified metadata value, and MAY include annotations:
 ```
+:::
 
 - [`context`](#ControlInformationcontextodatacontext)
   -- the context URL fragment MUST be
@@ -1454,6 +1119,7 @@ applicable
   ...
 }
 ```
+:::
  
 ::: example
 Example ##ex: full representation of a specific overload with parameter
@@ -1470,6 +1136,7 @@ alias for the [[Year]{style="font-size:10.0pt"}]{.Keyword} parameter
   ...
 }
 ```
+:::
  
 ::: example
 Example ##ex: full representation in a collection
@@ -1485,6 +1152,7 @@ Example ##ex: full representation in a collection
   "value": \[ ... \]
 }
 ```
+:::
 
 {#\_Bound_Action}Example
 41: full representation in a nested collection
@@ -1563,6 +1231,7 @@ Example ##ex: minimal representation in an entity
   ...
 }
 ```
+:::
  
 ::: example
 Example ##ex: full representation in an entity:
@@ -1577,6 +1246,7 @@ Example ##ex: full representation in an entity:
   ...
 }
 ```
+:::
  
 ::: example
 Example ##ex: full representation in a collection
@@ -1592,6 +1262,7 @@ Example ##ex: full representation in a collection
   "value": \[ ... \]
 }
 ```
+:::
 
 [Example] 45: full
 representation in a nested collection
@@ -1650,6 +1321,7 @@ Example 46:
   "param4": null
 }
 ```
+:::
 
  
 
@@ -1863,6 +1535,7 @@ entity\>
   \]
 }
 ```
+:::
 
 ## {#sec_ReferencingNewEntities}[[19.2 ]{style="color:#0000EE"}][Referencing New Entities](#ReferencingNewEntities)
 
@@ -1906,6 +1579,7 @@ Order\>
   \]
 }
 ```
+:::
 
 ## {#sec_ReferencinganETag}[[19.3 ]{style="color:#0000EE"}][Referencing an ETag](#ReferencinganETag)
  
@@ -1952,6 +1626,7 @@ Content-Length: \###\
   \]
 }
 ```
+:::
 
 ## {#sec_ProcessingaBatchRequest}19.4 [Processing a Batch Request](#ProcessingaBatchRequest)
 
@@ -2099,6 +1774,7 @@ entity\>
   \]
 }
 ```
+:::
 
 ## {#sec_AsynchronousBatchRequests}{#\_Ref358207547}{#\_Instance_Annotations}19.6 [Asynchronous Batch Requests](#AsynchronousBatchRequests)
 
@@ -2309,6 +1985,7 @@ Example ##ex:
   \]
 }
 ```
+:::
 
 ## {#sec_AnnotateaJSONObject}[20.1] [Annotate a JSON Object](#AnnotateaJSONObject)
 
@@ -2436,6 +2113,7 @@ supported"
   }
 }
 ```
+:::
 
 ## {#\_Ref356829963}{#sec_InStreamError}{#\_The_Content-Type_Header}{#\_Payload_Ordering_Constraints}21.2 [In-Stream Error](#InStreamError)
 
@@ -2461,7 +2139,7 @@ header-appropriate way:
 - Control
   characters (`00` to `1F` and `7F`) and
   Unicode characters beyond `00FF` within JSON strings are
-  encoded as `\\uXXXX` or `\\uXXXX\\uXXXX` (see
+  encoded as `\uXXXX` or `\uXXXX\uXXXX` (see
   [RFC8259](#rfc8259), section 7)
  
 ::: example
@@ -2526,7 +2204,7 @@ members are not available.
 :::
 
 Implementations can add [instance annotations](#InstanceAnnotations)
-of the form `\@namespace.termname` or
+of the form `@namespace.termname` or
 `property@namespace.termname` to any JSON object, where
 `property` MAY or MAY NOT match the name of a name/value pair
 within the JSON object. However, the namespace MUST NOT start with
@@ -2616,12 +2294,12 @@ odata.]{style="font-family:"Courier New""} prefix, where defined, on
 
 b.[      ]{style="font:7.0pt "Times New Roman""}MUST accept the [\#
 ]{style="font-family:"Courier New""}prefix in
-[`\@odata.type`](#ControlInformationtypeodatatype)
+[`@odata.type`](#ControlInformationtypeodatatype)
 values
 
 c.[       ]{style="font:7.0pt "Times New Roman""}MUST be prepared to
 handle binding through the use of the
-[`\@odata.bind`](#BindOperation)
+[`@odata.bind`](#BindOperation)
 property in payloads to a `PATCH`,
 `PUT`, or
 [POST]{style="font-family:
@@ -2652,7 +2330,7 @@ interpret [control information](#ControlInformation) with or without
 the `odata.` prefix
 
 b.[      ]{style="font:7.0pt "Times New Roman""}MUST be prepared for
-[`\@odata.type`](#ControlInformationtypeodatatype)
+[`@odata.type`](#ControlInformationtypeodatatype)
 primitive values with or without the
 `\#` prefix
 
@@ -2701,7 +2379,7 @@ information](#ControlInformation)
 
 b.[      ]{style="font:7.0pt "Times New Roman""}MUST NOT omit the
 `\#` prefix from
-[`\@odata.type`](#ControlInformationtypeodatatype)[
+[`@odata.type`](#ControlInformationtypeodatatype)[
 ]{style="font-family:"Courier New""}values
 
 c.[       ]{style="font:7.0pt "Times New Roman""}MUST NOT include
@@ -2747,7 +2425,7 @@ control information](#ControlInformation)
 
 c.[       ]{style="font:7.0pt "Times New Roman""}SHOULD omit the
 `\#` prefix from
-[`\@type`](#ControlInformationtypeodatatype)
+[`@type`](#ControlInformationtypeodatatype)
 primitive values
 
 d.[      ]{style="font:7.0pt "Times New Roman""}MAY include inline
@@ -2963,3 +2641,4 @@ B.[  ]{style="font:7.0pt "Times New Roman""}][Revision History](#RevisionHistory
  
 :::
 ```
+:::

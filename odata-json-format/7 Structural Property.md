@@ -143,6 +143,7 @@ Example ##ex: partial collection of strings with next link
   "EmailAddresses@nextLink": "..."
 }
 ```
+:::
 
 ## ##subsec Collection of Complex Values
 
@@ -169,6 +170,7 @@ Example ##ex: partial collection of complex values with next link
   "PhoneNumbers@nextLink": "..."
 }
 ```
+:::
 
 ## ##subsec Untyped Value
 
@@ -195,3 +197,303 @@ they are annotated with the
 [`type`](#ControlInformationtypeodatatype)
 control information, in which case they MUST conform to the type
 described by the control information.
+
+-------
+
+# ##sec Navigation Property
+
+A navigation property is a reference from a source entity to zero or
+more related entities.
+
+## ##subsec Navigation Link
+
+The navigation link for a navigation property is represented as a
+[`navigationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+control information on the navigation property. Its value is an absolute
+or [relative URL](#RelativeURLs) that allows retrieving the related
+entity or collection of entities.
+
+The navigation link for a navigation property is only represented if the
+client requests `metadata=full` or the navigation link cannot
+be computed, e.g. if it is within a collection of complex type
+instances. If it is represented it MUST immediately precede the expanded
+navigation property if the latter is represented.
+ 
+::: example
+Example ##ex:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Orders@navigationLink": "Customers('ALFKI')/Orders",
+  ...
+}
+```
+:::
+
+## ##subsec Association Link
+
+The association link for a navigation property is represented as an
+[`associationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+control information on the navigation property. Its value is an absolute
+or [relative URL](#RelativeURLs) that can be used to retrieve the
+reference or collection of references to the related entity or entities.
+
+The association link for a navigation property is only represented if
+the client requests `metadata=full` or the association link
+cannot be computed by appending `/$ref` to the navigation
+link. If it is represented, it MUST immediately precede the navigation
+link if the latter is represented, otherwise it MUST immediately precede
+the expanded navigation property if it is represented.
+ 
+::: example
+Example ##ex:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
+  ...
+}
+```
+:::
+
+## ##subsec Expanded Navigation Property
+
+An expanded navigation property is represented as a name/value pair
+where the name is the name of the navigation property, and the value is
+the representation of the related entity or collection of entities.
+
+If at most one entity can be related, the value is the representation of
+the related entity, or `null` if no entity is currently
+related.
+
+If a collection of entities can be related, it is represented as a JSON
+array. Each element is the [representation of an entity](#Entity) or
+the [representation of an entity reference](#EntityReference). An
+empty collection of entities (one that contains no entities) is
+represented as an empty JSON array. The navigation property MAY include
+[`context`](#ControlInformationcontextodatacontext),
+[`type`](#ControlInformationtypeodatatype),
+[`count`](#ControlInformationcountodatacount), or
+[`nextLink`](#ControlInformationnextLinkodatanextLink) control information. If a navigation property is
+expanded with the suffix `/$count`, only the
+[`count`](#ControlInformationcountodatacount) control information is represented.
+ 
+::: example
+Example ##ex:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "Orders@count": 42,
+  "Orders": [ ... ],
+  "Orders@nextLink": "...",
+  ...
+}
+```
+:::
+
+## ##subsec Deep Insert
+
+When inserting a new entity with a `POST` request, related
+new entities MAY be specified using the same representation as for an
+[expanded navigation property](#ExpandedNavigationProperty).
+
+Deep inserts are not allowed in update operations using `PUT`
+or `PATCH` requests.
+ 
+::: example
+Example ##ex: inserting a new order for a new customer with order items
+related to existing products:
+```json
+{
+  "ID": 11643,
+  "Amount": 100,
+  ...,
+  "Customer": {
+    "ID": "ANEWONE",
+    ...
+  },
+  "Items": [
+    {
+      "Product": { "@id": "Products(28)" },
+      "Quantity": 1,
+      ...
+    },
+    {
+      "Product": { "@id": "Products(39)" },
+      "Quantity": 5,
+      ...
+    }
+  ]
+}
+```
+:::
+
+## ##subsec Bind Operation
+
+When inserting or updating an entity, relationships of navigation
+properties MAY be inserted or updated via bind operations.
+
+For requests containing an `OData-Version` header with a value
+of `4.0`, a bind operation
+is encoded as a property control information `odata.bind` on
+the navigation property it belongs to and has a single value for
+single-valued navigation properties or an array of values for collection
+navigation properties. For nullable single-valued navigation properties
+the value `null` may be used to remove the relationship.
+ 
+::: example
+Example ##ex: assign an existing product to an existing category with a
+partial update request against the product
+```json
+PATCH http://host/service/Products(42) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Category@odata.bind": "Categories(6)"
+}
+```
+:::
+
+The values are the [ids](#ControlInformationidodataid) of the
+related entities. They MAY be absolute or [relative URLs](#RelativeURLs).
+
+For requests containing an `OData-Version` header with a value
+of `4.01`, a relationship is bound to an existing entity
+using the same representation as for an [expanded entity
+reference](#EntityReference).
+ 
+::: example
+Example ##ex: assign an existing product to an existing category with a
+partial update request against the product
+```json
+PATCH http://host/service/Products(42) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Category": {"@id": "Categories(6)"}
+}
+```
+:::
+ 
+::: example
+Example ##ex: submit a partial update request to:
+- modify the name of an existing category
+- assign an existing product with the id 42 to the category
+- assign an existing product 57 to the category and update its name
+- create a new product named "Wedges" and assign it to the category
+
+At the end of the request, the updated category contains exactly the
+three specified products.
+```json
+PATCH http://host/service/Categories(6) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@id": "Products(42)"
+    },
+    {
+      "@id": "Products(57)",
+      "Name": "Widgets"
+    },
+    {
+      "Name": "Wedges"
+    }
+  ]
+}
+```
+:::
+
+OData 4.01 services MUST support both the OData 4.0 representation, for
+requests containing an `OData-Version` header with a value of
+`4.0`, and the OData 4.01 representation, for requests
+containing an `OData-Version` header with a value of `4.01`. 
+Clients MUST NOT use `@odata.bind` in requests with an
+`OData-Version` header with a value of `4.01`.
+
+For insert operations collection navigation property bind operations and
+deep insert operations can be combined. For OData 4.0 requests, the bind
+operations MUST appear before the deep insert operations in the payload.
+
+For update operations a bind operation on a collection navigation
+property adds additional relationships, it does not replace existing
+relationships, while bind operations on an entity navigation property
+update the relationship.
+
+## ##subsec Collection ETag
+
+The ETag for a collection of related entities is represented as
+[`etag`](#ControlInformationetagodataetag) control
+information on the navigation property. Its value is an opaque string
+that can be used in a subsequent request to determine if the collection
+has changed.
+
+Services MAY include this control information as appropriate.
+ 
+::: example
+Example ##ex: ETag for a collection of related entities
+```json
+{
+  "@context": "http://host/service/$metadata#Orders/$entity",
+  "@id": "Orders(1234)",
+  "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
+  "ID": 1234,
+  "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
+  ...
+}
+```
+:::
+
+Note: the collection ETag for a navigation property may or may not be
+identical to the ETag of the containing entity, the example shows a
+different ETag for the `Items` collection.
+
+-------
+
+# ##sec Stream Property
+
+An entity or complex type instance can have one or more stream properties.
+
+The actual stream data is not usually contained in the representation.
+Instead stream property data is generally read and edited via URLs.
+
+Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
+the stream property MAY be annotated to provide the read link, edit
+link, media type, and ETag of the media stream through a set of
+[`media*`](#ControlInformationmediaodatamedia) control information.
+
+If the actual stream data is included inline, the control information
+[`mediaContentType`](#ControlInformationmediaodatamedia)
+MUST be present to indicate how the included stream property value is
+represented. Stream property values of media type `application/json` or
+one of its subtypes, optionally with format parameters, are represented
+as native JSON. Values of top-level type `text`, for example
+`text/plain`, are represented as a string, with JSON string
+escaping rules applied. Included stream data of other media types is
+represented as a base64url-encoded string value, see
+[RFC4648](#rfc4648), section 5.
+
+If the included stream property has no value, the non-existing stream
+data is represented as `null` and the control information
+[`mediaContentType`](#ControlInformationmediaodatamedia)
+is not necessary.
+ 
+::: example
+Example ##ex:
+```json
+{
+  "@context": "http://host/service/$metadata#Products/$entity",
+  ...
+  "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
+  "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
+  "Thumbnail@mediaContentType": "image/jpeg",
+  "Thumbnail@mediaEtag": "W/\"####\"",
+  "Thumbnail": "...base64url encoded value...",
+  ...
+}
+```
+:::

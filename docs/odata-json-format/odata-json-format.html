@@ -801,6 +801,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
 <p>A collection of complex values is represented as a JSON array; each element in the array is the representation of a <a href="#ComplexValue">complex value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
 <div class="example">
@@ -820,6 +821,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PhoneNumbers@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="75-untyped-value"><a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h2>
 <p>OData 4.01 adds the built-in abstract types <code>Edm.Untyped</code> and <code>Collection(Edm.Untyped)</code>that services can use to advertise in metadata that there is a property of a particular name present, but there is no type to describe the structure of the property's values.</p>
 <p>The value of an <code>Edm.Untyped</code> property MAY be a primitive value, a structural value, or a collection. If a collection, it may contain any combination of primitive values, structural values, and collections.</p>
@@ -828,14 +830,161 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>All children of an untyped property are assumed to be untyped unless they are annotated with the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information, in which case they MUST conform to the type described by the control information.</p>
 <hr />
 <h1 id="8-navigation-property"><a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a></h1>
+<p>A navigation property is a reference from a source entity to zero or more related entities.</p>
 <h2 id="81-navigation-link"><a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a></h2>
+<p>The navigation link for a navigation property is represented as a <a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink"><code>navigationLink</code></a> control information on the navigation property. Its value is an absolute or <a href="#RelativeURLs">relative URL</a> that allows retrieving the related entity or collection of entities.</p>
+<p>The navigation link for a navigation property is only represented if the client requests <code>metadata=full</code> or the navigation link cannot be computed, e.g. if it is within a collection of complex type instances. If it is represented it MUST immediately precede the expanded navigation property if the latter is represented.</p>
+<div class="example">
+<p>Example 16:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="82-association-link"><a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h2>
+<p>The association link for a navigation property is represented as an <a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink"><code>associationLink</code></a> control information on the navigation property. Its value is an absolute or <a href="#RelativeURLs">relative URL</a> that can be used to retrieve the reference or collection of references to the related entity or entities.</p>
+<p>The association link for a navigation property is only represented if the client requests <code>metadata=full</code> or the association link cannot be computed by appending <code>/$ref</code> to the navigation link. If it is represented, it MUST immediately precede the navigation link if the latter is represented, otherwise it MUST immediately precede the expanded navigation property if it is represented.</p>
+<div class="example">
+<p>Example 17:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@associationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders/$ref&quot;</span><span class="fu">,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="83-expanded-navigation-property"><a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h2>
+<p>An expanded navigation property is represented as a name/value pair where the name is the name of the navigation property, and the value is the representation of the related entity or collection of entities.</p>
+<p>If at most one entity can be related, the value is the representation of the related entity, or <code>null</code> if no entity is currently related.</p>
+<p>If a collection of entities can be related, it is represented as a JSON array. Each element is the <a href="#Entity">representation of an entity</a> or the <a href="#EntityReference">representation of an entity reference</a>. An empty collection of entities (one that contains no entities) is represented as an empty JSON array. The navigation property MAY include <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, <a href="#ControlInformationcountodatacount"><code>count</code></a>, or <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information. If a navigation property is expanded with the suffix <code>/$count</code>, only the <a href="#ControlInformationcountodatacount"><code>count</code></a> control information is represented.</p>
+<div class="example">
+<p>Example 18:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">...</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="84-deep-insert"><a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h2>
+<p>When inserting a new entity with a <code>POST</code> request, related new entities MAY be specified using the same representation as for an <a href="#ExpandedNavigationProperty">expanded navigation property</a>.</p>
+<p>Deep inserts are not allowed in update operations using <code>PUT</code> or <code>PATCH</code> requests.</p>
+<div class="example">
+<p>Example 19: inserting a new order for a new customer with order items related to existing products:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">11643</span><span class="fu">,</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">100</span><span class="fu">,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANEWONE&quot;</span><span class="fu">,</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(28)&quot;</span> <span class="fu">},</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      <span class="er">...</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(39)&quot;</span> <span class="fu">},</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Quantity&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      <span class="er">...</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="85-bind-operation"><a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a></h2>
+<p>When inserting or updating an entity, relationships of navigation properties MAY be inserted or updated via bind operations.</p>
+<p>For requests containing an <code>OData-Version</code> header with a value of <code>4.0</code>, a bind operation is encoded as a property control information <code>odata.bind</code> on the navigation property it belongs to and has a single value for single-valued navigation properties or an array of values for collection navigation properties. For nullable single-valued navigation properties the value <code>null</code> may be used to remove the relationship.</p>
+<div class="example">
+<p>Example 20: assign an existing product to an existing category with a partial update request against the product</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Category@odata.bind&quot;</span><span class="fu">:</span> <span class="st">&quot;Categories(6)&quot;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>The values are the <a href="#ControlInformationidodataid">ids</a> of the related entities. They MAY be absolute or <a href="#RelativeURLs">relative URLs</a>.</p>
+<p>For requests containing an <code>OData-Version</code> header with a value of <code>4.01</code>, a relationship is bound to an existing entity using the same representation as for an <a href="#EntityReference">expanded entity reference</a>.</p>
+<div class="example">
+<p>Example 21: assign an existing product to an existing category with a partial update request against the product</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Categories(6)&quot;</span><span class="fu">}</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 22: submit a partial update request to:</p>
+<ul>
+<li>modify the name of an existing category</li>
+<li>assign an existing product with the id 42 to the category</li>
+<li>assign an existing product 57 to the category and update its name</li>
+<li>create a new product named "Wedges" and assign it to the category</li>
+</ul>
+<p>At the end of the request, the updated category contains exactly the three specified products.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(6)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;UpdatedCategory&quot;</span><span class="fu">,</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(42)&quot;</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Widgets&quot;</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Wedges&quot;</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>OData 4.01 services MUST support both the OData 4.0 representation, for requests containing an <code>OData-Version</code> header with a value of <code>4.0</code>, and the OData 4.01 representation, for requests containing an <code>OData-Version</code> header with a value of <code>4.01</code>. Clients MUST NOT use <code>@odata.bind</code> in requests with an <code>OData-Version</code> header with a value of <code>4.01</code>.</p>
+<p>For insert operations collection navigation property bind operations and deep insert operations can be combined. For OData 4.0 requests, the bind operations MUST appear before the deep insert operations in the payload.</p>
+<p>For update operations a bind operation on a collection navigation property adds additional relationships, it does not replace existing relationships, while bind operations on an entity navigation property update the relationship.</p>
 <h2 id="86-collection-etag"><a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a></h2>
+<p>The ETag for a collection of related entities is represented as <a href="#ControlInformationetagodataetag"><code>etag</code></a> control information on the navigation property. Its value is an opaque string that can be used in a subsequent request to determine if the collection has changed.</p>
+<p>Services MAY include this control information as appropriate.</p>
+<div class="example">
+<p>Example 23: ETag for a collection of related entities</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Orders/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(1234)&quot;</span><span class="fu">,</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAxMy0wNS0yN1QxMTo1OFo=</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1234</span><span class="fu">,</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Items@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAxOS0wMy0xMlQxMDoyMlo=</span><span class="ch">\&quot;</span><span class="st">&quot;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Note: the collection ETag for a navigation property may or may not be identical to the ETag of the containing entity, the example shows a different ETag for the <code>Items</code> collection.</p>
 <hr />
 <h1 id="9-stream-property"><a name="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
+<p>An entity or complex type instance can have one or more stream properties.</p>
+<p>The actual stream data is not usually contained in the representation. Instead stream property data is generally read and edited via URLs.</p>
+<p>Depending on the <a href="#ControllingtheAmountofControlInformationinResponses">metadata level</a>, the stream property MAY be annotated to provide the read link, edit link, media type, and ETag of the media stream through a set of <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
+<p>If the actual stream data is included inline, the control information <a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a> MUST be present to indicate how the included stream property value is represented. Stream property values of media type <code>application/json</code> or one of its subtypes, optionally with format parameters, are represented as native JSON. Values of top-level type <code>text</code>, for example <code>text/plain</code>, are represented as a string, with JSON string escaping rules applied. Included stream data of other media types is represented as a base64url-encoded string value, see <a href="#rfc4648">RFC4648</a>, section 5.</p>
+<p>If the included stream property has no value, the non-existing stream data is represented as <code>null</code> and the control information <a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a> is not necessary.</p>
+<div class="example">
+<p>Example 24:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEtag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">####</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail&quot;</span><span class="fu">:</span> <span class="st">&quot;...base64url encoded value...&quot;</span><span class="fu">,</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
 <hr />
@@ -1136,7 +1285,5 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
-</div>
-</div>
 </body>
 </html>
