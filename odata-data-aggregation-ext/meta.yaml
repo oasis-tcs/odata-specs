@@ -1,6 +1,8 @@
 pagetitle: OData Extension for Data Aggregation Version 4.0
 subtitle: Committee Specification Draft 04
 filename: odata-data-aggregation-ext-v4.0-csd04
+stage: csd04
+previousStage: cs02
 pubdate: 05 July 2023
 pubdateISO: '2023-07-05'
 copyright: © OASIS Open 2023

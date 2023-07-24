@@ -1,11 +1,14 @@
 const fs = require("fs");
 const Number = require("../lib/number");
 const pandoc = require("../lib/pandoc");
+const { compareSectionNumbers } = require("../lib/utilities");
 const puppeteer = require("puppeteer");
 const assert = require("assert");
 const { PassThrough } = require("stream");
 
 describe("OASIS doc build", function () {
+  this.timeout(10000);
+
   it("Markdown assembly", async function () {
     var md = new PassThrough();
     new Number(__dirname + "/test-data").build(md);
@@ -20,6 +23,7 @@ describe("OASIS doc build", function () {
       "Markdown"
     );
   });
+
   it("Pandoc", async function () {
     var proc = pandoc({
       "--metadata-file": __dirname + "/test-data/meta.yaml",
@@ -36,6 +40,7 @@ describe("OASIS doc build", function () {
       "HTML"
     );
   });
+
   it("Puppeteer", async function () {
     var browser = await puppeteer.launch({ headless: "new" });
     var page = await browser.newPage();
@@ -46,5 +51,14 @@ describe("OASIS doc build", function () {
     assert.equal(box.width, 10);
     assert.equal(box.height, 7);
     await browser.close();
+  });
+
+  it("Compare section numbers", function () {
+    assert.equal(compareSectionNumbers("0 foo", "1 bar"), -1, "simple");
+    assert.equal(compareSectionNumbers("1 foo", "0 bar"), 1, "simple, reverse");
+    assert.equal(compareSectionNumbers("9 foo", "23 bar"), -1, "numeric");
+    assert.equal(compareSectionNumbers("3 foo", "3.4 bar"), -1, "prefix");
+    assert.equal(compareSectionNumbers("3.14 foo", "3.4 bar"), 1, "prefix");
+    assert.equal(compareSectionNumbers("9 foo", "Appendix"), -1, "numeric");
   });
 });

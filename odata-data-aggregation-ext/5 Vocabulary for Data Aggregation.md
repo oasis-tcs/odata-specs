@@ -220,7 +220,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
-    aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">
+    aggregation-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Aggregation.V1.xml">
     <edmx:Include Alias="Aggregation"
                   Namespace="Org.OData.Aggregation.V1" />
   </edmx:Reference>
