@@ -1,185 +1,4 @@
-# {#sec_ServiceDocument}[5[     ]{style="font:7.0pt "Times New Roman""}][Service Document](#ServiceDocument) {#service-document style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-A service document in JSON is represented as a single JSON object with
-at least the
-[`context`](#ControlInformationcontextodatacontex)
-control information and a property
-`value`.
-
-The value of the
-[`context`](#ControlInformationcontextodatacontex)
-control information MUST be the URL of the metadata document, without
-any fragment part.
-
-The value of the `value` property MUST be a JSON array
-containing one element for each entity set and function import with an
-explicit or default value of `true` for the attribute
-`IncludeInServiceDocument` and each singleton exposed by the
-service, see [OData-CSDLJSON](#ODataCSDLJSON) or
-[OData-CSDLXML](#ODataCSDLXML).
-
-Each element MUST be a JSON object with at least two name/value pairs,
-one with name `name` containing the name of the entity set,
-function import, or singleton, and one with name `url`
-containing the URL of the entity set, which may be an absolute or a
-[relative URL](#RelativeURLs). It MAY contain a name/value pair with
-name `title` containing a human-readable, language-dependent
-title for the object.
-
-JSON objects representing an entity set MAY contain an additional
-name/value pair with name `kind` and a value of
-`EntitySet`. If the `kind` name/value pair is not
-present, the object MUST represent an entity set.
-
-JSON objects representing a function import MUST contain the
-`kind` name/value pair with a value of
-`FunctionImport`.
-
-JSON objects representing a singleton MUST contain the `kind`
-name/value pair with a value of `Singleton`.
-
-JSON objects representing a related service document MUST contain the
-`kind` name/value pair with a value of
-`ServiceDocument`.
-
-C[lients ]{style="color:black;background:white"}that encounter unknown
-values of the `kind` name/value pair not defined in this
-version of the specification [MUST NOT stop processing and MUST NOT
-signal an error[.]{.apple-converted-space}]{style="color:black;
-background:white"}
-
-Service documents MAY contain [annotations](#InstanceAnnotations) in
-any of its JSON objects. Services MUST NOT produce name/value pairs
-other than the ones explicitly defined in this section, and clients MUST
-ignore unknown name/value pairs.
-
-Example ##ex:
-```
-{
-  "@context":
-"http://host/service/$metadata",
-  "value": \{style="color:black"}
-
-  {
-    "name": "Orders",
-    "kind": "EntitySet",
-    "url":  "Orders"
-  },
-  {
-    "name":  "OrderItems",
-    "title": "Order Details",
-    "url":   "OrderItems"
-  },
-  {
-    "name":  "TopProducts",
-    "title": "Best-Selling Products",
-    "kind":  "FunctionImport",
-    "url":   "TopProducts"
-  },
-  {
-    "name":  "MainSupplier",
-    "title": "Main Supplier",
-    "kind":  "Singleton",
-    "url":   "MainSupplier"
-  },
-  {
-    "name": "Human Resources",
-    "kind": "ServiceDocument",
-    "url":  "http://host/HR/"
-  }
-  \]
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#sec_Entity}{#Entitiy}{#\_Entity}6[     ]{style="font:7.0pt "Times New Roman""}[Entity](#Entity) {#entity style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-An entity is serialized as a JSON object. It MAY contain
-[`context`](#ControlInformationcontextodatacontex),
-[`type`](#ControlInformationtypeodatatype),
-or[[
-]{style="font-family:"Courier New""}]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadelt)
-control information.
-
-Each [property](#StructuralProperty) to be transmitted is
-represented as a name/value pair within the object. The order properties
-appear within the object is considered insignificant.
-
-An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select`
-[OData-Protocol](#ODataProtocol)), or a partial entity update (see
-_Update an Entity_ in [OData-Protocol](#ODataProtocol)).
-
-An entity representation can be (modified and) round-tripped to the
-service directly. The [context
-URL](#ControlInformationcontextodatacontex) is used in requests only
-as a base for [relative URLs](#RelativeURLs).
-
-Example ##ex: entity with `metadata=minimal`
-```
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  "ID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "ContactName": "Maria Anders",
-  "ContactTitle": "Sales Representative",
-  "Phone": "030-0074321",
-  "Fax": "030-0076545",
-  "Address": {
-  "Street": "Obere Str. 57",
-  "City": "Berlin",
-  "Region": null,
-  "PostalCode": "D-12209"
-  }
-}
-```
-
-{#\_Properties}Example 11: entity with `metadata=full`
-```
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  "@id": "Customers(\'ALFKI\')",
-  "@etag":
-"W/\\"MjAxMy0wNS0yN1QxMTo1OFo=\\"",
-  "@editLink": "Customers(\'ALFKI\')",
-  "ID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "ContactName": "Maria Anders",
-  "ContactTitle": "Sales Representative",
-  "Phone": "030-0074321",
-  "Fax": "030-0076545",
-  "Address": {
-  "Street": "Obere Str. 57",
-  "City": "Berlin",
-  ]{style="color:black"}["Region": null,]{lang="DE"
-style="color:black"}
-
-   "PostalCode": "D-12209",]{lang="DE" style="color:black"}
-
-
- "Country@associationLink":"Customers(\'ALFKI\')/Address/Country/$ref",]{lang="DE"
-style="color:black"}
-
-  ]{lang="DE" style="color:black"}["Country@navigationLink":
-"Customers(\'ALFKI\')/Address/Country"
-  },
-  "Orders@associationLink":
-"Customers(\'ALFKI\')/Orders/$ref",
-  "Orders@navigationLink":
-"Customers(\'ALFKI\')/Orders"
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
 # {#sec_StructuralProperty}{#\_Structural_Property}7[     ]{style="font:7.0pt "Times New Roman""}[Structural Property](#StructuralProperty) {#structural-property style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
 
 A property within an entity or complex type instance is represented as a
 name/value pair. The name MUST be the name of the property; the value is
@@ -255,7 +74,8 @@ payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -309,7 +129,8 @@ property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance
 annotations](#InstanceAnnotations) and control information.
-
+ 
+::: example
 Example ##ex:
 ````json
 {
@@ -336,7 +157,8 @@ element in the array is the representation of a [primitive
 value](#PrimitiveValue). A JSON literal `null` represents
 a null value within the collection. An empty collection is represented
 as an empty array.
-
+ 
+::: example
 Example ##ex: partial collection of strings with next link
 ```json
 {
@@ -358,7 +180,8 @@ element in the array is the representation of a [complex
 value](#ComplexValue). A JSON literal `null` represents a
 null value within the collection. An empty collection is represented as
 an empty array.
-
+ 
+::: example
 Example ##ex: partial collection of complex values with next link
 ```json
 {
@@ -427,7 +250,8 @@ client requests `metadata=full` or the navigation link cannot
 be computed, e.g. if it is within a collection of complex type
 instances. If it is represented it MUST immediately precede the expanded
 navigation property if the latter is represented.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -435,7 +259,7 @@ Example ##ex:
 "http://host/service/$metadata#Customers/$entity",
   ...
   "Orders@navigationLink":
-"Customers(\'ALFKI\')/Orders",
+"Customers('ALFKI')/Orders",
   ...
 }
 ```
@@ -454,7 +278,8 @@ cannot be computed by appending `/$ref` to the navigation
 link. If it is represented, it MUST immediately precede the navigation
 link if the latter is represented, otherwise it MUST immediately precede
 the expanded navigation property if it is represented.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -462,7 +287,7 @@ Example ##ex:
 "http://host/service/$metadata#Customers/$entity",
   ...
   "Orders@associationLink":
-"Customers(\'ALFKI\')/Orders/$ref",
+"Customers('ALFKI')/Orders/$ref",
   ...
 }
 ```
@@ -483,7 +308,7 @@ the [representation of an entity reference](#EntityReference). An
 empty collection of entities (one that contains no entities) is
 represented as an empty JSON array. The navigation property MAY be
 include
-[`context`](#ControlInformationcontextodatacontex),
+[`context`](#ControlInformationcontextodatacontext),
 [`type`](#ControlInformationtypeodatatype),
 [`count`](#ControlInformationcountodatacount),[
 ]{.MsoHyperlink}or[
@@ -492,7 +317,8 @@ include
 expanded with the suffix `/$count`, only the
 [`count`](#ControlInformationcountodatacount)[
 ]{.MsoHyperlink}control information is represented.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -518,7 +344,8 @@ new entities MAY be specified using the same representation as for an
 
 Deep inserts are not allowed in update operations using `PUT`
 or `PATCH` requests.
-
+ 
+::: example
 Example ##ex: inserting a new order for a new customer with order items
 related to existing products:
 ```json
@@ -558,7 +385,8 @@ the navigation property it belongs to and has a single value for
 single-valued navigation properties or an array of values for collection
 navigation properties. For nullable single-valued navigation properties
 the value `null` may be used to remove the relationship.
-
+ 
+::: example
 Example ##ex: assign an existing product to an existing category with a
 partial update request against the product
 ```json
@@ -578,7 +406,8 @@ For requests containing an `OData-Version` header with a value
 of `4.01`, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
-
+ 
+::: example
 Example ##ex: assign an existing product to an existing category with a
 partial update request against the product
 ```json
@@ -591,7 +420,8 @@ PATCH http://host/service/Products(42) HTTP/1.1
 ```
 
  
-
+ 
+::: example
 Example ##ex: submit a partial update request to:
 
 ]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;font-style:normal"}modify
@@ -657,7 +487,8 @@ that can be used in a subsequent request to determine if the collection
 has changed.
 
 Services MAY include this control information as appropriate.
-
+ 
+::: example
 Example ##ex: ETag for a collection of related entities
 ```json
 {
@@ -690,7 +521,7 @@ properties. ]{style="color:black;background:white"}
 Instead stream property data is generally read and edited via URLs.
 ]{style="color:black;background:white"}
 
-[Depending on the ]{style="color:black;background:white"}[[metadata
+Depending on the [[metadata
 level]{style="background:white"}](#ControllingtheAmountofControlInforma)[,
 the stream property MAY be annotated to provide the read link, edit
 link, media type, and ETag of the media
@@ -709,14 +540,15 @@ black;background:white"}top-level type `text`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. [Included stream data of other media types is
 represented as a base64url-encoded string value, see
-**]{style="color:black;background:white"}\*\*RFC4648[\]]{style="color:black;background:white"}\*\*[,
+**]{style="color:black;background:white"}\*\*RFC4648\]\*\*[,
 section 5.]{style="color:black;background:white"}
 
 If the included stream property has no value, the non-existing stream
 data is represented as `null` and the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)[[
 is not necessary]{style="font-family:"Arial",sans-serif"}]{.Datatype}.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -747,17 +579,18 @@ encoded value...",
 Media entities are entities that describe a media resource, for example
 a photo. They are represented as entities that contain additional[
 ]{.MsoHyperlink}[`media\*`](#ControlInformationmediaodatamedia)
-control information.[ ]{style="color:black;background:white"}
+control information. 
 
 [If the actual stream data for the media entity is included, it is
 represented as property named
 ]{style="color:black;background:white"}`$value`[ whose
 string value is the base64url-encoded value of the media stream, see
 **]{style="color:black;
-background:white"}**RFC4648[\]]{style="color:black;background:white"}**[,
+background:white"}**RFC4648\]**[,
 section 5.]{style="color:black;
 background:white"}
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -797,7 +630,8 @@ represented as an object with a single name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
-
+ 
+::: example
 Example ##ex:  primitive value
 ```json
 {
@@ -805,7 +639,8 @@ Example ##ex:  primitive value
   "value": "Pilar Ackerman"
 }
 ```
-
+ 
+::: example
 Example ##ex:  collection of primitive values
 ```json
 {
@@ -815,7 +650,8 @@ Example ##ex:  collection of primitive values
 large"\]
 }
 ```
-
+ 
+::: example
 Example ##ex:  empty collection of primitive values
 ```json
 {
@@ -824,7 +660,8 @@ Example ##ex:  empty collection of primitive values
   "value": \[\]
 }
 ```
-
+ 
+::: example
 Example ##ex: complex value
 ```json
 {
@@ -836,7 +673,8 @@ Example ##ex: complex value
   "Country@navigationLink": "Countries('US')"
 }
 ```
-
+ 
+::: example
 Example ##ex: empty collection of complex values
 ```json
 {\
@@ -858,7 +696,7 @@ Invoking a bound action or function with `/$each` on each
 member of a collection in one request results in a collection of
 operation results, which is represented as a JSON object containing a
 name/value pair named `value`. It MAY contain
-[`context`](#ControlInformationcontextodatacontex),
+[`context`](#ControlInformationcontextodatacontext),
 [`type`](#ControlInformationtypeodatatype),
 [`count`](#ControlInformationcountodatacount),
 or [[nextLink]{style="font-family:
@@ -891,7 +729,7 @@ object itself contains a name/value pair named `value`.
 
 A collection of entities is represented as a JSON object containing a
 name/value pair named `value`. It MAY contain
-[`context`](#ControlInformationcontextodatacontex),
+[`context`](#ControlInformationcontextodatacontext),
 [`type`](#ControlInformationtypeodatatype),
 [`count`](#ControlInformationcountodatacount),
 [[nextLink]{style="font-family:
@@ -965,14 +803,15 @@ representations instead of entity representations as items in the array
 value of the `value` name/value pair.
 
 The outermost JSON object in a response MUST contain a
-[`context`](#ControlInformationcontextodatacontex)
+[`context`](#ControlInformationcontextodatacontext)
 control information and MAY contain
 [`count`](#ControlInformationcountodatacount),
 [[nextLink]{style="font-family:
 "Courier New""}](#ControlInformationnextLinkodatanextL), or[
 ]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadelt)
 control information.
-
+ 
+::: example
 Example ##ex: entity reference to order 10643
 ```json
 {
@@ -980,7 +819,8 @@ Example ##ex: entity reference to order 10643
   "@id": "Orders(10643)"
 }
 ```
-
+ 
+::: example
 Example ##ex: collection of entity references
 ```json
 {
@@ -1041,24 +881,25 @@ If the response from the delta link contains a `count`[
 ]{.MsoHyperlink}control information, the returned number MUST include
 all added, changed, or deleted entities to be returned, as well as added
 or deleted links.
-
+ 
+::: example
 Example ##ex: a 4.01 delta response with five changes, in order of
 occurrence
 
 _[1.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[ContactName]{style="font-size:9.0pt;font-family:"Courier New""}[
-for customer \'BOTTM\' was changed to "Susan
+for customer 'BOTTM' was changed to "Susan
 Halvenstern"]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[2.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Order
 10643 was removed from customer
-\'ALFKI\']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'ALFKI']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[3.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Order
 10645 was added to customer
-\'BOTTM\']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'BOTTM']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[4.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[The
@@ -1067,7 +908,7 @@ updated]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[5.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Customer
-\'ANTON\' was
+'ANTON' was
 deleted]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 ````json
 [{]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
@@ -1084,7 +925,7 @@ deleted]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 [[    {]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
-"@id":"Customers(\'BOTTM\')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"@id":"Customers('BOTTM')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
 ]{style="font-size:10.0pt;color:black"}]{.CODEtemp}[["ContactName":"Susan
@@ -1099,7 +940,7 @@ style="font-size:10.0pt;color:black"}]{.CODEtemp}
 style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[      ]{lang="NL"
-style="font-size:10.0pt;color:black"}]{.CODEtemp}[["source":"Customers(\'ALFKI\')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+style="font-size:10.0pt;color:black"}]{.CODEtemp}[["source":"Customers('ALFKI')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
 "relationship":"Orders",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
@@ -1115,7 +956,7 @@ style="font-size:10.0pt;color:black"}]{.CODEtemp}[["source":"Customers(\'ALFKI\'
  "@context":"#Customers/$link",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
-"source":"Customers(\'BOTTM\')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"source":"Customers('BOTTM')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
 "relationship":"Orders",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
@@ -1167,7 +1008,7 @@ Blvd.",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 [[      },]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
-"@id":"Customers(\'ANTON\')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"@id":"Customers('ANTON')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[    }]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
@@ -1202,7 +1043,7 @@ the delta response.
 
 Entities that are not part of the entity set specified by the context
 URL MUST include the
-[`context`](#ControlInformationcontextodatacontex)
+[`context`](#ControlInformationcontextodatacontext)
 control information to specify the entity set of the entity, regardless
 of the specified
 [`metadata`](#ControllingtheAmountofControlInforma)[
@@ -1240,13 +1081,14 @@ collection and deleted, otherwise it is removed from the collection and
 only deleted if the navigation property is a containment navigation
 property. The array MUST NOT contain [added](#AddedLink) or [deleted
 links](#DeletedLink).
-
+ 
+::: example
 Example ##ex: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
 _[1.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Customer
-\'BOTTM\':]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'BOTTM':]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[a.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[ContactName]{style="font-size:9.0pt;font-family:"Courier New""}[
@@ -1260,7 +1102,7 @@ added]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[2.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Customer
-\'ALFKI\': ]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'ALFKI': ]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[a.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Order
@@ -1269,7 +1111,7 @@ removed]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[3.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Customer
-\'ANTON\' was
+'ANTON' was
 deleted]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 ```json
 [{]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
@@ -1286,7 +1128,7 @@ deleted]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 [[    {]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
-"@id":"Customers(\'BOTTM\')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"@id":"Customers('BOTTM')",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
 ]{style="font-size:10.0pt;color:black"}]{.CODEtemp}[["ContactName":"Susan
@@ -1308,7 +1150,7 @@ style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[    {]{lang="NL" style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
-[[      "@id":"Customers(\'ALFKI\')",]{lang="NL"
+[[      "@id":"Customers('ALFKI')",]{lang="NL"
 style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[      "Orders@delta":\{lang="NL"
@@ -1350,7 +1192,7 @@ style="font-size:10.0pt;color:black"}]{.CODEtemp}[["@removed":
 [[      },]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[     
-"@id":"Customers(\'ANTON\')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"@id":"Customers('ANTON')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[    }]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
@@ -1399,7 +1241,7 @@ indicated with a [next link](#ControlInformationnextLinkodatanextL))
 [[  ...]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[  "@deltaLink":
-"Customers(\'ALFKI\')?$expand=Orders&$deltatoken=9711"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"Customers('ALFKI')?$expand=Orders&$deltatoken=9711"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[}]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 :::
@@ -1424,7 +1266,7 @@ following properties, regardless of the specified
 
 - Control
   information
-  [`context`](#ControlInformationcontextodatacontex)
+  [`context`](#ControlInformationcontextodatacontext)
   -- the context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
@@ -1459,7 +1301,7 @@ a property, not control information
 [[ 
 "reason":"deleted",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
-[[  "id":"Customers(\'ANTON\')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+[[  "id":"Customers('ANTON')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[}]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 :::
@@ -1486,7 +1328,7 @@ following properties, regardless of the specified
   [`removed`](#ControlInformationremovedodataremove)[[
   ]{style="font-family:"Arial",sans-serif"}]{.Datatype}MUST immediately
   follow the [[context]{style="font-family:
-  "Courier New""}](#ControlInformationcontextodatacontex) control
+  "Courier New""}](#ControlInformationcontextodatacontext) control
   information, if present, otherwise it MUST be the first property in the
   deleted entity.
 
@@ -1495,7 +1337,7 @@ following properties, regardless of the specified
   [`id`](#ControlInformationidodataid)
   or all of the entity's key fields. The `id`[[
   ]{style="font-family:"Arial",sans-serif"}]{.Datatype}control
-  information MUST appear if any of the entity\'s key fields are omitted
+  information MUST appear if any of the entity's key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
@@ -1504,7 +1346,7 @@ following properties, regardless of the specified
   [`removed`](#ControlInformationremovedodataremove).
 
 For full metadata the
-[`context`](#ControlInformationcontextodatacontex)
+[`context`](#ControlInformationcontextodatacontext)
 control information MUST be included. It also MUST be included if the
 entity set of the deleted entity cannot be determined from the
 surrounding context.
@@ -1514,7 +1356,8 @@ entity, as well as [annotations](#InstanceAnnotations), and MAY
 include related entities, related deleted entities, or a delta or full
 representation of a related collection of entities, to represent related
 entities that have been modified or deleted.
-
+ 
+::: example
 Example ##ex: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an
 `@`[[)]{style="font-family:"Arial",sans-serif"}]{.Datatype}
@@ -1535,11 +1378,12 @@ control information (prefixed with an
 [[  },]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[ 
-"@id":"Customers(\'ANTON\')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
+"@id":"Customers('ANTON')"]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
 [[}]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 :::
-
+ 
+::: example
 Example ##ex: entity removed OData 4.01 response without `id`
 control information and instead all key fields (`ID` is the
 single key field of `Customer`)
@@ -1565,7 +1409,7 @@ the initial request.
 The link object MUST include the following properties, regardless of the specified metadata value, and MAY include annotations:
 ````
 
-- [`context`](#ControlInformationcontextodatacontex)
+- [`context`](#ControlInformationcontextodatacontext)
   -- the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
@@ -1608,7 +1452,7 @@ path in the initial request, unless either of the following is true:
 The deleted-link object MUST include the following properties, regardless of the specified metadata value, and MAY include annotations:
 ```
 
-- [`context`](#ControlInformationcontextodatacontex)
+- [`context`](#ControlInformationcontextodatacontext)
   -- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
@@ -1639,7 +1483,7 @@ properties]{style="color:windowtext"}]{.MsoHyperlink}[.]{.MsoHyperlink}
 
 The body of a PATCH request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
-[`context`](#ControlInformationcontextodatacontex)
+[`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
 MUST contain an array-valued property named `value`
 containing all [added](#AddedLink),
@@ -1654,22 +1498,22 @@ inline as a delta
 _[1.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Add
 customer
-\'EASTC\':]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'EASTC':]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[2.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Change
 ]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[ContactName]{style="font-size:9.0pt;font-family:"Courier New""}[
 of customer
-\'AROUT\']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'AROUT']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[3.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Delete
 customer
-\'ANTON\']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
+'ANTON']{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[4.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Change
-customer \'ALFKI\':
+customer 'ALFKI':
 ]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[a.[    
@@ -1694,12 +1538,12 @@ link to order
 
 _[5.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Add
-link between customer \'ANATR\' and order
+link between customer 'ANATR' and order
 10643]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 
 _[6.[    
 ]{style="font:7.0pt "Times New Roman""}]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}[Delete
-link between customer \'DUMON\' and order
+link between customer 'DUMON' and order
 10311]{style="font-size:9.0pt;font-family:"Arial",sans-serif"}_
 ```json
 {
@@ -1752,13 +1596,13 @@ link between customer \'DUMON\' and order
   },
   {
     "@context":"#Customers/$link",
-    "source":"Customers(\'ANATR\')",
+    "source":"Customers('ANATR')",
     "relationship":"Orders",
     "target":"Orders(10643)"
    },
   {
     "@context":"#Customers/$deletedLink",
-    "source":"Customers(\'DUMON\')",
+    "source":"Customers('DUMON')",
     "relationship":"Orders",
     "target":"Orders(10311)"
   }
@@ -1775,8 +1619,8 @@ A bound function is advertised via a name/value pair where the name is a
 hash (`\#`) character followed by the namespace- or
 alias-qualified name of the function. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDLJSON) or
-[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDLXML) A
+service, see [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDL) A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
@@ -1830,7 +1674,8 @@ If
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
-
+ 
+::: example
 Example ##ex: minimal representation of a function where all overloads are
 applicable
 ```json
@@ -1841,7 +1686,8 @@ applicable
   ...
 }
 ```
-
+ 
+::: example
 Example ##ex: full representation of a specific overload with parameter
 alias for the [[Year]{style="font-size:10.0pt"}]{.Keyword} parameter
 ```json
@@ -1856,7 +1702,8 @@ alias for the [[Year]{style="font-size:10.0pt"}]{.Keyword} parameter
   ...
 }
 ```
-
+ 
+::: example
 Example ##ex: full representation in a collection
 ```json
 {
@@ -1897,8 +1744,8 @@ A bound action is advertised via a name/value pair where the name is a
 hash (`\#`) character followed by the namespace- or
 alias-qualified name of the action. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDLJSON) or
-[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDLXML)
+service, see [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDL)
 
 An action that is bound to a single structured type is advertised within
 the JSON object representing that structured type.
@@ -1937,7 +1784,8 @@ If
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
-
+ 
+::: example
 Example ##ex: minimal representation in an entity
 ```json
 {
@@ -1947,7 +1795,8 @@ Example ##ex: minimal representation in an entity
   ...
 }
 ```
-
+ 
+::: example
 Example ##ex: full representation in an entity:
 ```json
 {
@@ -1960,7 +1809,8 @@ Example ##ex: full representation in an entity:
   ...
 }
 ```
-
+ 
+::: example
 Example ##ex: full representation in a collection
 ```json
 {
@@ -2179,7 +2029,8 @@ reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is
 `get` or `delete`.
-
+ 
+::: example
 Example ##ex: a batch request that contains
 the following individual requests in the order listed
 
@@ -2213,14 +2064,14 @@ Content-Length: \###
   {
     "id": "0",
     "method": "get",
-    "url": "/service/Customers(\'ALFKI\')"
+    "url": "/service/Customers('ALFKI')"
   },
   {
     "id": "1",
     "atomicityGroup": "group1",
     "dependsOn": \[ "0" \],
     "method": "patch",
-    "url": "/service/Customers(\'ALFKI\')",
+    "url": "/service/Customers('ALFKI')",
     "headers": {
       "Prefer": "return=minimal"
     },
@@ -2249,7 +2100,8 @@ entity\>
 
 The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests.
-
+ 
+::: example
 Example ##ex: a batch request that contains the following operations in
 the order listed:
 
@@ -2288,7 +2140,8 @@ Order\>
 ```
 
 ## {#sec_ReferencinganETag}[[19.3 ]{style="color:#0000EE"}][Referencing an ETag](#ReferencinganETag)
-
+ 
+::: example
 Example ##ex: a batch request that contains the following operations in
 the order listed:
 
@@ -2441,7 +2294,8 @@ Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
 request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
-
+ 
+::: example
 Example ##ex: referencing the batch request example 47 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
@@ -2464,7 +2318,7 @@ ALFKI\>
      "status": 201,
     "headers": {
       "location":
-"http://host/service.svc/Customer(\'POIUY\')"
+"http://host/service.svc/Customer('POIUY')"
     },
     "body": \<JSON representation of the new Customer
 entity\>
@@ -2499,7 +2353,8 @@ response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a [202
 Accepted]{style="font-family:"Courier New""} response with a
 `location` header pointing to a new status monitor resource.
-
+ 
+::: example
 Example ##ex: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor
@@ -2572,7 +2427,7 @@ Content-Type: application/json\
     "status": 201,
     "headers": {
       "location":
-"http://host/service.svc/Customer(\'POIUY\')"
+"http://host/service.svc/Customer('POIUY')"
     },
     "body": \<JSON representation of the new Customer
 entity\>
@@ -2597,7 +2452,8 @@ asynchronously executed individual request with a `status`[[
 `202`, a `location` header pointing to an
 individual status monitor resource, and optionally a
 `retry-after` header.
-
+ 
+::: example
 Example ##ex: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
@@ -2644,8 +2500,8 @@ followed by a hash
 (]{style="color:#333333;background:white"}`\#`[) and a
 qualifier.]{style="color:
 #333333;background:white"} The namespace or alias MUST be defined in the
-metadata document, see [OData-CSDLJSON](#ODataCSDLJSON) or
-[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDLXML)
+metadata document, see [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML[.]{style="color:windowtext"}](#ODataCSDL)
 
 The annotation identifier `odata` is reserved for future
 extensions of the protocol and format. Instance annotations MUST have a
@@ -2787,7 +2643,8 @@ disclosure.]{style="color:black;background:white"}
 
 Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
-
+ 
+::: example
 Example ##ex:
 ```json
 {
@@ -2838,7 +2695,8 @@ header-appropriate way:
   Unicode characters beyond `00FF` within JSON strings are
   encoded as `\\uXXXX` or `\\uXXXX\\uXXXX` (see
   [RFC8259](#rfc_JSON), section 7)
-
+ 
+::: example
 Example ##ex: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
