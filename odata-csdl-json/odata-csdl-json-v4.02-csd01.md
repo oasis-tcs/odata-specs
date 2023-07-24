@@ -98,17 +98,6 @@ For complete copyright information please see the full Notices section in an App
 
 <!-- All text is normative unless otherwise labeled -->
 
-Here is a customized command line which will generate HTML from this markdown file (named odata-csdl-json-v4.02-csd01.md):
-
-pandoc -f gfm -t html odata-csdl-json-v4.02-csd01.md -c styles/markdown-styles-v1.7.3b.css --toc --toc-depth=5 -s -o odata-csdl-json-v4.02-csd01.html --metadata title="OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02"
-
-Generating HTML in OASIS style requires a reference to a .css file containing the HTML styles. The .css file may be either included with the markdown file (like styles/markdown-styles-v1.7.3b.css) or a reference to one of the online stylesheets:
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3.css
-- https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css (this one produces HTML that resembles the github display more closely, especially for blocks of code)
-
-Note this command generates a Table of Contents (TOC) in HTML which is located at the top of the HTML document, and which requires additional editing in order to be published in the expected OASIS style. This editing can be handled by OASIS staff during publication.
-A TC may use other ways to generate HTML from markdown, which may generate a TOC in a different way.
-
 ## ##subsec Changes from earlier Versions
 
 <!-- TODO -->
@@ -236,7 +225,6 @@ http://www.rfc-editor.org/info/rfc8174.
 ###### <a name="rfc3552">[RFC3552]
 _Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
 https://www.rfc-editor.org/info/rfc3552.
-
 
 -------
 
