@@ -946,7 +946,7 @@ History[.
 
 ::: WordSection2
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Introduction}[1[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876541}[Introduction](#sec_Introduction) {#introduction style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Introduction}[1[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876541}[Introduction](#sec_Introduction)
 :::
 
 The Open Data Protocol (OData) enables the creation of REST-based data
@@ -1094,7 +1094,7 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Overview}[2[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876545}[Overview](#sec_Overview) {#overview style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Overview}[2[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876545}[Overview](#sec_Overview)
 :::
 
 The OData Protocol is an application-level protocol for interacting with
@@ -1161,7 +1161,7 @@ it simple. Address the common cases and provide extensibility where
 necessary.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataModel}[]{#_Data_Model}3[     ]{style="font:7.0pt \"Times New Roman\""}[Data Model](#sec_DataModel) {#data-model style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_DataModel}[]{#_Data_Model}3[     ]{style="font:7.0pt \"Times New Roman\""}[Data Model](#sec_DataModel)
 :::
 
 This section provides a high-level description of the *Entity Data Model
@@ -1261,7 +1261,7 @@ Annotation terms are defined in metadata and have a name and a type.
 A set of related terms in a common namespace comprises a *Vocabulary*.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_ServiceModel}[4[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876548}[Service Model](#sec_ServiceModel) {#service-model style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_ServiceModel}[4[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876548}[Service Model](#sec_ServiceModel)
 :::
 
 OData services are defined using a common data model. The service
@@ -1385,7 +1385,7 @@ qualify action, function, and type names in order to avoid any possible
 ambiguity.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Versioning}[]{#_Versioning_2}5[     ]{style="font:7.0pt \"Times New Roman\""}[Versioning](#sec_Versioning) {#versioning style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Versioning}[]{#_Versioning_2}5[     ]{style="font:7.0pt \"Times New Roman\""}[Versioning](#sec_Versioning)
 :::
 
 Versioning enables clients and services to evolve independently. OData
@@ -1499,7 +1499,7 @@ authorizations.]{style="color:black"}
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Extensibility}[]{#_Extensibility}6[     ]{style="font:7.0pt \"Times New Roman\""}[Extensibility](#sec_Extensibility) {#extensibility style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Extensibility}[]{#_Extensibility}6[     ]{style="font:7.0pt \"Times New Roman\""}[Extensibility](#sec_Extensibility)
 :::
 
 The OData protocol supports both user- and version-driven extensibility
@@ -1609,7 +1609,7 @@ An OData service MUST support [**\[OData-JSON\]**](#ODataJSONRef) and
 MAY support additional formats for both request and response bodies.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Formats}[]{#_Formats}7[     ]{style="font:7.0pt \"Times New Roman\""}[Formats](#sec_Formats) {#formats style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Formats}[]{#_Formats}7[     ]{style="font:7.0pt \"Times New Roman\""}[Formats](#sec_Formats)
 :::
 
 The client MAY request a particular response format through the
@@ -1652,7 +1652,7 @@ JSON responses, and elements in document order for XML responses,
 including CSDL documents.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_HeaderFields}[8[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876564}[Header Fields](#sec_HeaderFields) {#header-fields style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_HeaderFields}[8[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876564}[Header Fields](#sec_HeaderFields)
 :::
 
 OData defines semantics around the following request and response
@@ -2714,7 +2714,7 @@ Note that this will make it impossible for a proxy to cache the
 response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_CommonResponseStatusCodes}[]{#_AsyncResult}[]{#_Header_AsyncResult}[]{#_Common_Response_Status}9[     ]{style="font:7.0pt \"Times New Roman\""}[Common Response Status Codes](#sec_CommonResponseStatusCodes) {#common-response-status-codes style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_CommonResponseStatusCodes}[]{#_AsyncResult}[]{#_Header_AsyncResult}[]{#_Common_Response_Status}9[     ]{style="font:7.0pt \"Times New Roman\""}[Common Response Status Codes](#sec_CommonResponseStatusCodes)
 :::
 
 An OData service MAY respond to any request using any valid HTTP status
@@ -2916,7 +2916,7 @@ as a trailing header if supported by the transport protocol (e.g.
 HTTP/1.1 with chunked transfer encoding, or HTTP/2).
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10[    ]{style="font:7.0pt \"Times New Roman\""}[Context URL](#sec_ContextURL) {#context-url style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10[    ]{style="font:7.0pt \"Times New Roman\""}[Context URL](#sec_ContextURL)
 :::
 
 The *context URL* describes the content of the payload. It consists of
@@ -3579,7 +3579,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 type. Single instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[    ]{style="font:7.0pt \"Times New Roman\""}[Data Service Requests](#sec_DataServiceRequests) {#data-service-requests style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[    ]{style="font:7.0pt \"Times New Roman\""}[Data Service Requests](#sec_DataServiceRequests)
 :::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
@@ -7833,7 +7833,7 @@ Content-Length: \###\
 :::
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_SecurityConsiderations}[12[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876731}[Security Considerations](#sec_SecurityConsiderations) {#security-considerations style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_SecurityConsiderations}[12[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876731}[Security Considerations](#sec_SecurityConsiderations)
 :::
 
 This section is provided as a service to the application developers,
@@ -7856,7 +7856,7 @@ the highest level of interoperability with generic clients. They MAY
 support other authentication methods.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Conformance}[13[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876733}[Conformance](#sec_Conformance) {#conformance style="margin-left:19.85pt;text-indent:-19.85pt"}
+# []{#sec_Conformance}[13[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876733}[Conformance](#sec_Conformance)
 :::
 
 OData is designed as a set of conventions that can be layered on top of
