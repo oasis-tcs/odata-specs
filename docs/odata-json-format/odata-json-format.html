@@ -540,16 +540,103 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h1 id="454-control-information-count-odatacount"><a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h1>
+<p>The <code>count</code> control information occurs only in responses and can annotate any collection, see <a href="#ODataProtocol">OData-Protocol</a> section 11.2.5.5 System Query Option <code>$count</code>. Its value is an <code>Edm.Int64</code> value corresponding to the total count of members in the collection represented by the request.</p>
 <h1 id="455-control-information-nextlink-odatanextlink"><a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h1>
+<p>The <code>nextLink</code> control information indicates that a response is only a subset of the requested collection. It contains a URL that allows retrieving the next subset of the requested collection.</p>
+<p>This control information can also be applied to <a href="#ExpandedNavigationProperty">expanded to-many navigation properties</a>.</p>
 <h1 id="456-control-information-delta-odatadelta"><a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h1>
+<p>The <code>delta</code> control information is applied to a collection-valued navigation property within an <a href="#AddedChangedEntity">added/changed entity</a> in a delta payload to represent changes in membership or value of nested entities.</p>
 <h1 id="457-control-information-deltalink-odatadeltalink"><a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h1>
+<p>The <code>deltaLink</code> control information contains a URL that can be used to retrieve changes to the current set of results. The <code>deltaLink</code> control information MUST only appear on the last page of results. A page of results MUST NOT have both a <code>deltaLink</code> control information and a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
 <h1 id="458-control-information-id-odataid"><a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h1>
+<p>The <code>id</code> control information contains the entity-id, see <a href="#ODataProtocol">OData-Protocol</a>. By convention the entity-id is identical to the canonical URL of the entity, as defined in <a href="#ODataURL">OData-URL</a>.</p>
+<p>The <code>id </code>control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity's key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
+<ul>
+<li>IRI-to-URI conversion as defined in <a href="#rfc3987">RFC3987</a>,</li>
+<li>relative resolution as defined in section 5.2 of <a href="#rfc3986">RFC3986</a>, and</li>
+<li>percent-encoding normalization as defined in section 6 of <a href="#rfc3986">RFC3986</a>.</li>
+</ul>
+<p>Note that the entity-id MUST be invariant across languages, so if key values are language dependent then the <code>id</code> MUST be included if it does not match convention for the localized key values. If the <code>id</code> is represented, it MAY be a <a href="#RelativeURLs">relative URL</a>.</p>
+<p>If the entity is transient (i.e. cannot be read or updated), the <code>id</code> control information MUST appear in OData 4.0 payloads and have the <code>null</code> value. In 4.01 payloads transient entities need not have the <code>id</code> control information, and 4.01 clients MUST treat entities with neither <code>id</code> control information nor a full set of key properties as transient entities.</p>
+<p>The <code>id</code> control information MUST NOT appear for a collection. Its meaning in this context is reserved for future versions of this specification.</p>
+<p>Entities with <code>id</code> equal to <code>null</code> cannot be compared to other entities, reread, or updated. If <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is specified and the <code>id</code> is not present in the entity, then the canonical URL MUST be used as the entity-id.</p>
 <h1 id="459-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h1>
+<p>The <code>[editLink</code>]{#odataEditLink} control information contains the edit URL of the entity; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The <code>readLink</code> control information contains the read URL of the entity or collection; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The <code>editLink</code> and <code>readLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
+<p>The default value of both the edit URL and read URL is the entity's <a href="#ControlInformationidodataid">entity-id</a> appended with a cast segment to the type of the entity if its type is derived from the declared type of the entity set. If neither the <code>editLink</code> nor the <code>readLink</code> control information is present in an entity, the client uses this default value for the edit URL.</p>
+<p>For updatable entities:</p>
+<ul>
+<li>The <code>editLink</code> control information is written if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and the edit URL differs from the default value of the edit URL.</li>
+<li>The <code>readLink</code> control information is written if the read URL is different from the edit URL. If no <code>readLink</code> control information is present, the read URL is identical to the edit URL.</li>
+</ul>
+<p>For read-only entities:</p>
+<ul>
+<li>The <code>readLink</code> control information is written if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and its value differs from the default value of the read URL.</li>
+<li>The <code>readLink</code> control information may also be written if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is specified in order to signal that an individual entity is read-only.</li>
+</ul>
+<p>For collections:</p>
+<ul>
+<li>The <code>readLink</code> control information, if written, MUST be the request URL that produced the collection.</li>
+<li>The <code>editLink</code> control information MUST NOT be written as its meaning in this context is reserved for future versions of this specification.</li>
+</ul>
 <h1 id="4510-control-information-etag-odataetag"><a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h1>
+<p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
+<p>For details on how ETags are used, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 <h1 id="4511-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h1>
+<p>The [<code>navigationLink</code>]{#odataNavigationLink} control information in a response contains a <em>navigation URL</em> that can be used to retrieve an entity or collection of entities related to the current entity via a <a href="#NavigationProperty">navigation property</a>.</p>
+<p>The <em>default computed value of a navigation URL</em> is the value of the <a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">read URL</a> appended with a segment containing the name of the navigation property. The service MAY omit the <code>navigationLink</code> control information if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> has been specified on the request and the navigation link matches this computed value.</p>
+<p>The <code>associationLink</code> control information in a response contains an <em>association URL</em> that can be used to retrieve a reference to an entity or a collection of references to entities related to the current entity via a navigation property.</p>
+<p>The <em>default computed value of an association URL</em> is the value of the navigation URL appended with <code>/$ref</code>. The service MAY omit the <code>associationLink</code> control information if the association link matches this computed value.</p>
+<p>The <code>navigationLink</code> and <code>associationLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 <h1 id="4512-control-information-media-odatamedia"><a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h1>
+<p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don't follow standard URL conventions as defined in <a href="#ODataURL">OData-URL</a> or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
+<p>The <code>mediaEditLink</code> control information contains a URL that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
+<p>The <code>mediaReadLink</code> control information contains a URL that can be used to read the binary stream associated with the media entity or stream property. It MUST be included if its value differs from the value of the associated <code>mediaEditLink</code>, if present, or if it doesn't follow standard URL conventions relative to the read link of the entity and the associated <code>mediaEditLink</code> is not present.</p>
+<p>The <code>mediaContentType </code>control information MAY be included; its value SHOULD match the media type of the binary stream represented by the <code>mediaReadLink</code> URL. This is only a hint; the actual media type will be included in the <code>Content-Type</code> header when the resource is requested.</p>
+<p>The <code>mediaEtag</code> control information MAY be included; its value is the ETag of the binary stream represented by this media entity or stream property.</p>
+<p>The <code>media*</code> control information is not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
+<p>If a stream property is provided inline in a request, the <code>mediaContentType</code> control information may be specified.</p>
+<p>If a stream property is annotated with <code>Capabilities.MediaLocationUpdateSupported</code> (see <a href="#ODataVocCap">OData-VocCap</a>) and a value of <code>true</code>, clients MAY specify the <code>mediaEditLink</code> and/or <code>mediaReadLink</code> control information for that stream property in order to change the association between the stream property and a media stream.</p>
+<p>In all other cases <code>media*</code> control information is ignored in request payloads.</p>
+<div class="example">
+<p>Example 7:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(1)/$value&quot;</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h1 id="4513-control-information-removed-odataremoved"><a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h1>
+<p>The <code>removed</code> control information is used in <a href="#DeletedEntity">delta payloads</a> and indicates that the represented entity is (to be) deleted.</p>
 <h1 id="4514-control-information-collectionannotations-odatacollectionannotations"><a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h1>
+<p>The <code>collectionAnnotations</code> control information can be applied to a collection containing primitive members in order to annotate such primitive members. The value of the <code>collectionAnnotations</code> control information is an array of JSON objects containing an integer property <code>index</code>, specifying the zero-based ordinal index of the primitive item within the collection, along with any annotations that are to be applied to that primitive collection member.</p>
+<div class="example">
+<p>Example 8: Annotating primitive values within a collection</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@collectionAnnotations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Personal&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Work&quot;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie@Swansworth.com&quot;</span><span class="ot">,</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;JulieSwa@live.com&quot;</span><span class="ot">,</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie.Swansworth@work.com&quot;</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="5-service-document"><a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a></h1>
 <hr />

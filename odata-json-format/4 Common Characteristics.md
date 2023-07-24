@@ -358,23 +358,281 @@ service
 
 # ##subsubsec Control Information: `count` (`odata.count`)
 
+The `count` control information occurs only in responses and
+can annotate any collection, see [OData-Protocol](#ODataProtocol)
+section 11.2.5.5 System Query Option
+`$count`. Its value is an
+`Edm.Int64` value corresponding to
+the total count of members in the collection represented by the request.
+
 # ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
+
+The `nextLink` control information indicates that a response
+is only a subset of the requested collection. It contains a URL that
+allows retrieving the next subset of the requested collection.
+
+This control information can also be applied to [expanded to-many
+navigation properties](#ExpandedNavigationProperty).
 
 # ##subsubsec Control Information: `delta` (`odata.delta`)
 
+The `delta` control information is applied to a
+collection-valued navigation property within an [added/changed
+entity](#AddedChangedEntity) in a delta payload to represent changes
+in membership or value of nested entities.
+
 # ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
+
+The `deltaLink` control information contains a URL that can
+be used to retrieve changes to the current set of results. The
+`deltaLink` control information MUST only appear on the last
+page of results. A page of results MUST NOT have both a
+`deltaLink` control information and a
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
+control information.
 
 # ##subsubsec Control Information: `id` (`odata.id`)
 
+The `id` control information contains the entity-id, see
+[OData-Protocol](#ODataProtocol). By convention the entity-id is
+identical to the canonical URL of the entity, as defined in
+[OData-URL](#ODataURL).
+
+The `id `control information MUST appear in responses if
+[`metadata=full`](#metadatafullodatametadatafull)
+is requested, or if
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+is requested and any of a non-transient entity\'s key fields are omitted
+from the response _or_ the entity-id is not identical to the canonical
+URL of the entity after
+
+- IRI-to-URI conversion as defined in [RFC3987](#rfc3987),
+- relative resolution as defined in section 5.2 of [RFC3986](#rfc3986), and
+- percent-encoding normalization as defined in section 6 of [RFC3986](#rfc3986).
+
+Note that the entity-id MUST be invariant across languages, so if key
+values are language dependent then the `id` MUST be included
+if it does not match convention for the localized key values. If the
+`id` is represented, it MAY be a [relative
+URL](#RelativeURLs).
+
+If the entity is transient (i.e. cannot be read or updated), the
+`id` control information MUST appear in OData 4.0 payloads
+and have the `null` value. In 4.01 payloads transient
+entities need not have the `id` control information, and 4.01
+clients MUST treat entities with neither `id` control
+information nor a full set of key properties as transient entities.
+
+The `id` control information MUST NOT appear for a
+collection. Its meaning in this context is reserved for future versions
+of this specification.
+
+Entities with `id` equal to `null` cannot be
+compared to other entities, reread, or updated. If
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+is specified and the `id` is not present in the entity, then
+the canonical URL MUST be used as the entity-id.
+
 # ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
+
+The `[editLink`]{#odataEditLink} control information contains
+the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
+
+The `readLink` control information contains the read URL of
+the entity or collection; see [OData-Protocol](#ODataProtocol).
+
+The `editLink` and `readLink` control information
+is ignored in request payloads and not written in responses if
+[`metadata=none`](#metadatanoneodatametadatanone)
+is requested.
+
+The default value of both the edit URL and read URL is the entity\'s
+[entity-id](#ControlInformationidodataid) appended with a cast
+segment to the type of the entity if its type is derived from the
+declared type of the entity set. If neither the `editLink`
+nor the `readLink` control information is present in an
+entity, the client uses this default value for the edit URL.
+
+For updatable entities:
+
+- The `editLink` control information is written if
+  [`metadata=full`](#metadatafullodatametadatafull) is requested or
+  if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is requested and the edit URL differs from the default value of the edit
+  URL.
+- The `readLink` control information is written if the read URL is
+  different from the edit URL. If no `readLink` control
+  information is present, the read URL is identical to the edit URL.
+
+For read-only entities:
+
+- The `readLink` control information is written if
+  [`metadata=full`](#metadatafullodatametadatafull) is requested or
+  if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is requested and its value differs from the default value of the read
+  URL.
+- The `readLink` control information may also be written if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is specified in order to signal that an individual entity is read-only.
+
+For collections:
+
+- The `readLink` control information, if written, MUST be the
+  request URL that produced the collection.
+- The `editLink` control information MUST NOT be written as its
+  meaning in this context is reserved for future versions of this
+  specification.
 
 # ##subsubsec Control Information: `etag` (`odata.etag`)
 
+The `etag` control information MAY be applied to an
+[entity](#Entity) or collection in a response. The
+value of the control information is an entity tag (ETag) which is an
+opaque string value that can be used in a subsequent request to
+determine if the value of the entity or collection has changed.
+
+For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+
+The `etag` control information is ignored in request payloads for
+single entities and not written in responses if
+[`metadata=none`](#metadatanoneodatametadatanone) is requested.
+
 # ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
+
+The [`navigationLink`]{#odataNavigationLink} control information in a
+response contains a _navigation URL_ that can be used to retrieve an
+entity or collection of entities related to the current entity via a
+[navigation property](#NavigationProperty).
+
+The _default computed value of a navigation URL_ is the value of the
+[read URL](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) appended with a
+segment containing the name of the navigation property. The service MAY
+omit the `navigationLink` control information if
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+has been specified on the request and the navigation link matches this
+computed value.
+
+The `associationLink` control information in a response contains an _association URL_ that can
+be used to retrieve a reference to an entity or a collection of
+references to entities related to the current entity via a navigation
+property.
+
+The _default computed value of an association URL_ is the value of the
+navigation URL appended with `/$ref`. The service MAY omit
+the `associationLink` control information if the association
+link matches this computed value.
+
+The `navigationLink` and `associationLink` control
+information is ignored in request payloads and not written in responses
+if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
 # ##subsubsec Control Information: `media*` (`odata.media*`)
 
+For [media entities](#MediaEntity) and [stream
+properties](#StreamProperty) at least one of the control information
+`mediaEditLink` and `mediaReadLink` MUST be included
+in responses if they don\'t follow standard URL conventions as defined
+in [OData-URL](#ODataURL) or if
+[`metadata=full`](#metadatafullodatametadatafull)
+is requested.
+
+The `mediaEditLink` control information contains a URL that
+can be used to update the binary stream associated with the media entity
+or stream property. It MUST be included for updatable streams if it
+differs from standard URL conventions relative to the edit link of the
+entity.
+
+The `mediaReadLink` control information contains a URL that
+can be used to read the binary stream associated with the media entity
+or stream property. It MUST be included if its value differs from the
+value of the associated `mediaEditLink`, if present, or if it
+doesn't follow standard URL conventions relative to the read link of the
+entity and the associated
+`mediaEditLink` is not present.
+
+The `mediaContentType `control information MAY be included;
+its value SHOULD match the media type of the binary stream represented
+by the `mediaReadLink` URL. This is only a hint; the actual
+media type will be included in the `Content-Type` header when
+the resource is requested.
+
+The `mediaEtag` control information MAY be included; its value
+is the ETag of the binary stream represented by this media entity or
+stream property.
+
+The `media*` control information is not written in responses
+if
+[`metadata=none`](#metadatanoneodatametadatanone)
+is requested.
+
+If a stream property is provided inline in a request, the
+`mediaContentType` control information may be specified.
+
+If a stream property is annotated with
+`Capabilities.MediaLocationUpdateSupported` (see
+[OData-VocCap](#ODataVocCap)) and a value of
+`true`, clients MAY specify the `mediaEditLink`
+and/or `mediaReadLink` control information for that stream
+property in order to change the association between the stream property
+and a media stream.
+
+In all other cases `media*` control information is ignored
+in request payloads.
+
+::: example
+Example ##ex:
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "@mediaReadLink": "Employees(1)/$value",
+  "@mediaContentType": "image/jpeg",
+  "ID": 1,
+  ...
+}
+```
+:::
+
 # ##subsubsec Control Information: `removed` (`odata.removed`)
+
+The `removed` control information is used in [delta
+payloads](#DeletedEntity) and indicates that the represented entity
+is (to be) deleted.
 
 # ##subsubsec Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)
 
+The `collectionAnnotations` control information can be
+applied to a collection containing primitive members in order to
+annotate such primitive members. The value of the
+`collectionAnnotations` control information is an array of
+JSON objects containing an integer property `index`,
+specifying the zero-based ordinal index of the primitive item within the
+collection, along with any annotations that are to be applied to that
+primitive collection member.
+
+::: example
+Example ##ex: Annotating primitive values within a collection
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "ID": 1,
+  "EmailAddresses@collectionAnnotations": [
+    {
+      "index": 0,
+      "@emailType": "Personal"
+    },
+    {
+      "index": 2,
+      "@emailType": "Work"
+    }
+  ],
+  "EmailAddresses": [
+    "Julie@Swansworth.com",
+    "JulieSwa@live.com",
+    "Julie.Swansworth@work.com"
+  ],
+  ...
+}
+```
+:::
