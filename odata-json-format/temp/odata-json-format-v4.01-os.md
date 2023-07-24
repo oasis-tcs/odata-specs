@@ -1,272 +1,3 @@
-# {#sec_MediaEntity}{#\_Media_Entity}10[ ]{style="font:7.0pt "Times New Roman""}[Media Entity](#MediaEntity) {#media-entity style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-Media entities are entities that describe a media resource, for example
-a photo. They are represented as entities that contain additional[
-]{.MsoHyperlink}[`media\*`](#ControlInformationmediaodatamedia)
-control information. 
-
-[If the actual stream data for the media entity is included, it is
-represented as property named
-]{style="color:black;background:white"}`$value`[ whose
-string value is the base64url-encoded value of the media stream, see
-**]{style="color:black;
-background:white"}**RFC4648\]**[,
-section 5.]{style="color:black;
-background:white"}
- 
-::: example
-Example ##ex:
-```json
-{
-  "@context":
-"http://host/service/$metadata#Employees/$entity",
-  "@mediaReadLink": "Employees(1)/$value",
-  "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded
-value...",
-  "ID": 1,
-  ...
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#sec_IndividualPropertyorOperationRespons}{#\_Individual_Property_or}11[ ]{style="font:7.0pt "Times New Roman""}[Individual Property or Operation Response](#IndividualPropertyorOperationRespons) {#individual-property-or-operation-response style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-An individual property or operation response is represented as a JSON
-object.
-
-A single-valued property or operation response that has the
-`null` value does not have a representation; see
-[OData-Protocol](#ODataProtocol).
-
-A property or operation response that is of a primitive type is
-represented as an object with a single name/value pair, whose name is
-`value` and whose value is a [primitive
-value](#PrimitiveValue).
-
-A property or operation response that is of complex type is represented
-as a [complex value](#ComplexValue).
-
-A property or operation response that is of a collection type is
-represented as an object with a single name/value pair whose name is
-`value`. Its value is the JSON representation of a
-[collection of complex type values](#CollectionofComplexValues) or
-[collection of primitive values](#CollectionofPrimitiveValues).
- 
-::: example
-Example ##ex:  primitive value
-```json
-{
-  "@context": "http://host/service/$metadata#Edm.String",
-  "value": "Pilar Ackerman"
-}
-```
-:::
- 
-::: example
-Example ##ex:  collection of primitive values
-```json
-{
-  "@context":
-"http://host/service/$metadata#Collection(Edm.String)",
-  "value": \["small", "medium", "extra
-large"\]
-}
-```
-:::
- 
-::: example
-Example ##ex:  empty collection of primitive values
-```json
-{
-  "@context":
-"http://host/service/$metadata#Collection(Edm.String)",
-  "value": \[\]
-}
-```
-:::
- 
-::: example
-Example ##ex: complex value
-```json
-{
-  "@context": "http://host/service/$metadata#Model.Address",
-  "Street": "12345 Grant Street",
-  "City": "Taft",
-  "Region": "Ohio",
-  "PostalCode": "OH 98052",
-  "Country@navigationLink": "Countries('US')"
-}
-```
-:::
- 
-::: example
-Example ##ex: empty collection of complex values
-```json
-{\
- 
-"@context":"http://host/service/$metadata#Collection(Model.Address)",\
-  "value": \[\]
-}
-```
-:::
-
-Note: the context URL is optional in requests.
-
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#CollectionOfEntities}{#sec_CollectionofOperationResponses}{#\_Representing_Multiple_Entities}{#\_Collection_of_Entities}12[ ]{style="font:7.0pt "Times New Roman""}[Collection of Operation Responses](#CollectionofOperationResponses) {#collection-of-operation-responses style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-Invoking a bound action or function with `/$each` on each
-member of a collection in one request results in a collection of
-operation results, which is represented as a JSON object containing a
-name/value pair named `value`. It MAY contain
-[`context`](#ControlInformationcontextodatacontext),
-[`type`](#ControlInformationtypeodatatype),
-[`count`](#ControlInformationcountodatacount),
-or [[nextLink]{style="font-family:
-"Courier New""}](#ControlInformationnextLinkodatanextL) control
-information.
-
-If present, the `context` control information MUST be the
-first name/value pair in the response.
-
-The `count` name/value pair represents the number of operation
-responses in the collection. If present and the
-`streaming=true` media type parameter is set, it MUST come
-before the `value` name/value pair. If the response
-represents a partial result, the `count` name/value pair MUST
-appear in the first partial response, and it MAY appear in subsequent
-[partial responses (in which case it may vary from response to
-response).]{style="color:#333333;background:white"}
-
-The value of the `value` name/value pair is an array of
-objects, each object representing a single [operation
-response](#IndividualPropertyorOperationRespons). Note: if the
-operation response is a collection, each single operation response
-object itself contains a name/value pair named `value`.
-
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#sec_CollectionofEntities}[13[ ]{style="font:7.0pt "Times New Roman""}][Collection of Entities](#CollectionofEntities) {#collection-of-entities style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-A collection of entities is represented as a JSON object containing a
-name/value pair named `value`. It MAY contain
-[`context`](#ControlInformationcontextodatacontext),
-[`type`](#ControlInformationtypeodatatype),
-[`count`](#ControlInformationcountodatacount),
-[[nextLink]{style="font-family:
-"Courier New""}](#ControlInformationnextLinkodatanextL), or[[
-]{style="font-family:"Courier New""}]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadelt)
-control information.
-
-If present, the `context` control information MUST be the
-first name/value pair in the response.
-
-The `count` name/value pair represents the number of entities
-in the collection. If present and the `streaming=true`
-content-type parameter is set, it MUST come before the
-`value` name/value pair. If the response represents a partial
-result, the `count` name/value pair MUST appear in the first
-partial response, and it MAY appear in subsequent [partial responses (in
-which case it may vary from response to
-response).]{style="color:#333333;background:white"}
-
-The value of the `value` name/value pair is a JSON array
-[where each]{#CollectionOfLinks} element is [representation of an
-entity](#Entity) or a[
-]{.MsoHyperlink}{#CollectionOfEntityRef}[representation of an entity
-reference](#EntityReference). An empty collection is represented as
-an empty JSON array.
-
-Functions or actions that are bound to this collection of entities are
-advertised in the "wrapper object" in the same way as
-[functions](#BoundFunction) or [actions](#BoundAction) are
-advertised in the object representing a single entity.
-
-The
-[`nextLink`](#ControlInformationnextLinkodatanextL)
-control information MUST be included in a response that represents a
-partial result.
-
-{#_Representing_Changes_(Deltas)\_1}Example 28:
-```json
-{
-  "@context": "...",
-  "@count": 37,
-  "value": \
-
-  { ... },
-  { ... },
-  { ... }
-  \],
-  "@nextLink": "...?$skiptoken=342r89"
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
-# {#sec_EntityReference}{#ResourceReference}{#\_Entity_Reference}14[ ]{style="font:7.0pt "Times New Roman""}[Entity Reference](#EntityReference) {#entity-reference style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-:::
-
-An entity reference (see [OData-Protocol](#ODataProtocol)) MAY take the
-place of an entity in a JSON payload, based on the client request. It
-{#\_Entity_References_as}is serialized as a JSON object that MUST
-contain the [[id]{style="font-family:
-"Courier New""}](#ControlInformationidodataid) of the referenced
-entity and MAY contain the
-[`type`](#ControlInformationtypeodatatype)
-control information and [instance
-annotations](#InstanceAnnotations), but no additional properties or
-control information.
-
-A collection of entity references is represented as a [collection of
-entities](#CollectionofEntities), with entity reference
-representations instead of entity representations as items in the array
-value of the `value` name/value pair.
-
-The outermost JSON object in a response MUST contain a
-[`context`](#ControlInformationcontextodatacontext)
-control information and MAY contain
-[`count`](#ControlInformationcountodatacount),
-[[nextLink]{style="font-family:
-"Courier New""}](#ControlInformationnextLinkodatanextL), or[
-]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadelt)
-control information.
- 
-::: example
-Example ##ex: entity reference to order 10643
-```json
-{
-  "@context": "http://host/service/$metadata#$ref",
-  "@id": "Orders(10643)"
-}
-```
-:::
- 
-::: example
-Example ##ex: collection of entity references
-```json
-{
-  "@context": "http://host/service/$metadata#Collection($ref)",
-
-  "value": \
-
-  { "@id": "Orders(10643)" },
-  { "@id": "Orders(10759)" }
-  \]
-}
-```
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
 # {#sec_DeltaPayload}{#DeltaResponse}{#\_Delta_Response}15[ ]{style="font:7.0pt "Times New Roman""}[Delta Payload](#DeltaPayload) {#delta-payload style="margin-left:19.85pt;text-indent:-19.85pt"}
 
 :::
@@ -290,12 +21,12 @@ links](#AddedLink) or [deleted links](#DeletedLink) between
 entities, and MAY contain additional, unchanged entities.
 
 If the delta response contains a partial list of changes, it MUST
-include a [next link](#ControlInformationnextLinkodatanextL) for the
+include a [next link](#ControlInformationnextLinkodatanextLink) for the
 client to retrieve the next set of changes.
 
 The last page of a delta response SHOULD contain a [delta
-link](#ControlInformationdeltaLinkodatadelt) in place of the [next
-link](#ControlInformationnextLinkodatanextL) for retrieving
+link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next
+link](#ControlInformationnextLinkodatanextLink) for retrieving
 subsequent changes once the current set of changes has been applied to
 the initial set.
 
@@ -304,7 +35,7 @@ navigation property inline (see [next
 section](#AddedChangedEntity)), the expanded collection can be a
 partial list, in which case the expanded navigation property MUST have
 the
-[`nextLink`](#ControlInformationnextLinkodatanextL)
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information applied to it. Following this chain of next links
 does not result in a delta link on the last page of the expanded
 collection.
@@ -652,7 +383,7 @@ entities.
 {#sec_DeletedEntity}{#\_Representing_Deleted_Entities_1}{#\_Deleted_Entity}Example
 33: 4.01 delta response for a single entity with an expanded navigation
 property containing only a partial list of related entities (as
-indicated with a [next link](#ControlInformationnextLinkodatanextL))
+indicated with a [next link](#ControlInformationnextLinkodatanextLink))
 ```json
 [{]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 
@@ -1670,7 +1401,7 @@ each representing an individual response.
 
 A JSON batch response MAY be a partial result containing the
 [[nextLink]{style="font-family:
-"Courier New""}](#ControlInformationnextLinkodatanextL) control
+"Courier New""}](#ControlInformationnextLinkodatanextLink) control
 information. This allows services to chunk results into manageable
 pieces, or to return results for already processed requests and continue
 processing the remaining individual requests while waiting for the
@@ -1791,7 +1522,7 @@ URL, see section "Asynchronous Requests" in
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a
 `GET` request to the monitor resource and including a
-[`nextLink`](#ControlInformationnextLinkodatanextL)
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information in the JSON batch response, thus signaling that the
 response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a [202
@@ -2004,7 +1735,7 @@ a JSON array or primitive value, each annotation that applies to this
 name/value pair MUST be represented as a single name/value pair and
 placed immediately prior to the annotated name/value pair, with the
 exception of the
-][`nextLink`](#ControlInformationnextLinkodatanextL)[
+][`nextLink`](#ControlInformationnextLinkodatanextLink)[
 or
 ][`collectionAnnotations`](#ControlInformationcollectionAnnotati)[
 control information],[ which can appear immediately
@@ -2190,9 +1921,9 @@ example, if they encounter an error while retrieving the collection and
 the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
-[`nextLink`](#ControlInformationnextLinkodatanextL).
+[`nextLink`](#ControlInformationnextLinkodatanextLink).
 The [[nextLink]{style="font-family:
-"Courier New""}](#ControlInformationnextLinkodatanextL)[
+"Courier New""}](#ControlInformationnextLinkodatanextLink)[
 ]{.Datatype}can be used to attempt retrieving the remaining members of
 the collection and could return an error indicating that the remaining
 members are not available.

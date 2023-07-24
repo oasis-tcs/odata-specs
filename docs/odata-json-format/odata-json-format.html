@@ -987,14 +987,114 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
+<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information. If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
+<div class="example">
+<p>Example 25:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(1)/$value&quot;</span><span class="fu">,</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$value&quot;</span><span class="fu">:</span> <span class="st">&quot;...base64url encoded value...&quot;</span><span class="fu">,</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="11-individual-property-or-operation-response"><a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
+<p>An individual property or operation response is represented as a JSON object.</p>
+<p>A single-valued property or operation response that has the <code>null</code> value does not have a representation; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>A property or operation response that is of a primitive type is represented as an object with a single name/value pair, whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a>.</p>
+<p>A property or operation response that is of complex type is represented as a <a href="#ComplexValue">complex value</a>.</p>
+<p>A property or operation response that is of a collection type is represented as an object with a single name/value pair whose name is <code>value</code>. Its value is the JSON representation of a <a href="#CollectionofComplexValues">collection of complex type values</a> or <a href="#CollectionofPrimitiveValues">collection of primitive values</a>.</p>
+<div class="example">
+<p>Example 26: primitive value</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Edm.String&quot;</span><span class="fu">,</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;Pilar Ackerman&quot;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 27: collection of primitive values</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.String)&quot;</span><span class="fu">,</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;small&quot;</span><span class="ot">,</span> <span class="st">&quot;medium&quot;</span><span class="ot">,</span> <span class="st">&quot;extra large&quot;</span><span class="ot">]</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 28: empty collection of primitive values</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.String)&quot;</span><span class="fu">,</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 29: complex value</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Model.Address&quot;</span><span class="fu">,</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;12345 Grant Street&quot;</span><span class="fu">,</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Taft&quot;</span><span class="fu">,</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Region&quot;</span><span class="fu">:</span> <span class="st">&quot;Ohio&quot;</span><span class="fu">,</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PostalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;OH 98052&quot;</span><span class="fu">,</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Country@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Countries(&#39;US&#39;)&quot;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 30: empty collection of complex values</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Model.Address)&quot;</span><span class="fu">,</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Note: the context URL is optional in requests.</p>
 <hr />
 <h1 id="12-collection-of-operation-responses"><a name="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a></h1>
+<p>Invoking a bound action or function with <code>/$each</code> on each member of a collection in one request results in a collection of operation results, which is represented as a JSON object containing a name/value pair named <code>value</code>. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, <a href="#ControlInformationcountodatacount"><code>count</code></a>, or <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
+<p>If present, the <code>context</code> control information MUST be the first name/value pair in the response.</p>
+<p>The <code>count</code> name/value pair represents the number of operation responses in the collection. If present and the <a href="#PayloadOrderingConstraints"><code>streaming=true</code></a> media type parameter is set, it MUST come before the <code>value</code> name/value pair. If the response represents a partial result, the <code>count</code> name/value pair MUST appear in the first partial response, and it MAY appear in subsequent partial responses (in which case it may vary from response to response).</p>
+<p>The value of the <code>value</code> name/value pair is an array of objects, each object representing a single <a href="#IndividualPropertyorOperationResponse">operation response</a>. Note: if the operation response is a collection, each single operation response object itself contains a name/value pair named <code>value</code>.</p>
 <hr />
 <h1 id="13-collection-of-entities"><a name="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a></h1>
+<p>A collection of entities is represented as a JSON object containing a name/value pair named <code>value</code>. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
+<p>If present, the <code>context</code> control information MUST be the first name/value pair in the response.</p>
+<p>The <code>count</code> name/value pair represents the number of entities in the collection. If present and the <a href="#PayloadOrderingConstraints"><code>streaming=true</code></a> content-type parameter is set, it MUST come before the <code>value</code> name/value pair. If the response represents a partial result, the <code>count</code> name/value pair MUST appear in the first partial response, and it MAY appear in subsequent partial responses (in which case it may vary from response to response).</p>
+<p>The value of the <code>value</code> name/value pair is a JSON array where each element is <a href="#Entity">representation of an entity</a> or a <a href="#EntityReference">representation of an entity reference</a>. An empty collection is represented as an empty JSON array.</p>
+<p>Functions or actions that are bound to this collection of entities are advertised in the "wrapper object" in the same way as <a href="#BoundFunction">functions</a> or <a href="#BoundAction">actions</a> are advertised in the object representing a single entity.</p>
+<p>The <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information MUST be included in a response that represents a partial result.</p>
+<div class="example">
+<p>Example 28:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">37</span><span class="fu">,</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...?$skiptoken=342r89&quot;</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="14-entity-reference"><a name="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
+<p>An entity reference (see <a href="#ODataProtocol">OData-Protocol</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain the <a href="#ControlInformationidodataid">id</a> of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information.</p>
+<p>A collection of entity references is represented as a <a href="#CollectionofEntities">collection of entities</a>, with entity reference representations instead of entity representations as items in the array value of the <code>value</code> name/value pair.</p>
+<p>The outermost JSON object in a response MUST contain a <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information and MAY contain <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
+<div class="example">
+<p>Example 31: entity reference to order 10643</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#$ref&quot;</span><span class="fu">,</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 32: collection of entity references</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection($ref)&quot;</span><span class="fu">,</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10759)&quot;</span> <span class="fu">}</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="15-delta-payload"><a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
 <h2 id="151-delta-responses"><a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h2>
