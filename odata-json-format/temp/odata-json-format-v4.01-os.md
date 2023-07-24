@@ -1,235 +1,3 @@
-# {#sec_StructuralProperty}{#\_Structural_Property}7[     ]{style="font:7.0pt "Times New Roman""}[Structural Property](#StructuralProperty) {#structural-property style="margin-left:19.85pt;text-indent:-19.85pt"}
-
-A property within an entity or complex type instance is represented as a
-name/value pair. The name MUST be the name of the property; the value is
-represented depending on its type as a [primitive
-value](#PrimitiveValue), a [complex value](#ComplexValue), a
-[collection of primitive values](#CollectionofPrimitiveValues), or
-a[ ]{.MsoHyperlink}[collection of complex
-values](#CollectionofComplexValues)[.]{.MsoHyperlink}
-
-## {#sec_PrimitiveValue}{#\_Ref356829873}{#\_Primitive_Value}7.1 [Primitive Value](#PrimitiveValue)
-
-Primitive values are represented following the rules of
-[RFC8259](#rfc_JSON).
-
-Null values are represented as the JSON literal `null`.
-
-Values of type `Edm.Boolean` are represented as the JSON
-literals `true` and `false`
-
-Values of types `Edm.Byte`, `Edm.SByte`,
-`Edm.Int16`, `Edm.Int32`, `Edm.Int64`,
-`Edm.Single`, `Edm.Double`, and
-`Edm.Decimal` are represented as JSON numbers, except for
-`-INF`, `INF`, and `NaN` which are
-represented as strings.
-
-Values of type `Edm.String` are represented as JSON strings,
-using the JSON string escaping rules.
-
-Values of type `Edm.Binary`, `Edm.Date`,
-`Edm.DateTimeOffset`[[,
-]{style="font-family:"Arial",sans-serif"}]{.Datatype}`Edm.Duration`, 
-`Edm.Guid`, and `Edm.TimeOfDay` are represented as
-JSON strings whose content satisfies the rules `binaryValue`,
-`dateValue`, `dateTimeOffsetValue`,
-`durationValue`, `guidValue`, and
-`timeOfDayValue` respectively, in
-[OData-ABNF](#abnf).
-
-Primitive values that cannot be represented, for example due to server
-conversion issues or IEEE754 limitations on the size of an [Edm.Int64
-]{.Datatype}or `Edm.Decimal`[[
-]{style="font-family:"Arial",sans-serif"}]{.Datatype}value, are
-annotated with the `Core.ValueException` term. In this case,
-the payload MAY include an approximation of the value and MAY specify a
-string representation of the exact value in the `value`
-property of the annotation.
-
-Enumeration values are represented as JSON strings whose content
-satisfies the rule `enumValue` in
-[OData-ABNF](#abnf). The preferred representation is the
-`enumerationMember`. If no `enumerationMember` (or
-combination of [[named enumeration
-members]{style="font-family:"Arial",sans-serif"}]{.Datatype}) is
-available, the `enumMemberValue` representation may be used.
-
-Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys
-  SHOULD be ordered with type first, then coordinates, then any other keys
-
-- If
-  the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see GeoJSON-2008.
-
-Geography and geometry types have the same representation in a JSON
-payload. Whether the value represents a geography type or geometry type
-is inferred from its usage or specified using the
-[`type`](#ControlInformationtypeodatatype)
-control information.
- 
-::: example
-Example ##ex:
-```json
-{
-  "NullValue": null,
-  "TrueValue": true,
-  "FalseValue": false,
-  "BinaryValue": "T0RhdGE",
-  "IntegerValue": -128,
-  "DoubleValue": 3.1415926535897931,
-[[ 
-"SingleValue]{style="color:black"}]{.string}["]{style="color:black"}[[:
-"INF",]{style="color:black"}]{.string}
-
-[[  "DecimalValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[[34.95,]{style="color:black"}]{.string}
-
-  "StringValue": ]{style="color:black"}[["Say \\"Hello\\",\\nthen
-go",]{style="color:black"}]{.string}
-
-[[  "DateValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[["2012-12-03",]{style="color:black"}]{.string}
-
-[[  "DateTimeOffsetValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[["2012-12-03T07:16:23Z",]{style="color:black"}]{.string}
-
-[[  "DurationValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[["P12DT23H59M59.999999999999S",]{style="color:black"}]{.string}
-
-[[  "TimeOfDayValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[["07:59:59.999",]{style="color:black"}]{.string}
-
-[[  "GuidValue"]{style="color:black"}]{.string}[:
-]{style="color:black"}[["01234567-89ab-cdef-0123-456789abcdef",]{style="color:black"}]{.string}
-
-[[  "Int64Value"]{style="color:black"}]{.string}[:
-]{style="color:black"}[[0,]{style="color:black"}]{.string}
-
-  "ColorEnumValue": "Yellow",
-[[  "GeographyPoint": {"type":
-"Point","coordinates":\[142.1,64.1\]}
-]{style="color:black"}]{.string}
-
-}
-```
-
-## {#sec_ComplexValue}{#ComplexValue}{#\_Ref332033656}{#\_Ref332032621}{#\_Representing_a_Complex}{#\_Complex_Value}7.2 [Complex Value](#ComplexValue)
-
-A complex value is represented as a single JSON object containing one
-name/value pair for each property that makes up the complex type. Each
-property value is formatted as appropriate for the type of the property.
-
-It MAY have name/value pairs for [instance
-annotations](#InstanceAnnotations) and control information.
- 
-::: example
-Example ##ex:
-````json
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  ...
-  "Address": {
-  "Street": "Obere Str. 57",
-  "City": "Berlin",
-  "Region": null,
-  "PostalCode": "D-12209"
-  }
-[}{#\_Representing_an_Individual}:::
-
-{#\_Representing_a_Collection}{#\_Collection_of_Primitive}A
-complex value with no selected properties, or no defined properties
-(such as an empty open complex type or complex type with no structural
-properties) is represented as an empty JSON object.
-
-## {#sec_CollectionofPrimitiveValues}[7.3]{#CollectionOfPrimitive} [Collection of Primitive Values](#CollectionofPrimitiveValues)
-
-A collection of primitive values is represented as a JSON array; each
-element in the array is the representation of a [primitive
-value](#PrimitiveValue). A JSON literal `null` represents
-a null value within the collection. An empty collection is represented
-as an empty array.
- 
-::: example
-Example ##ex: partial collection of strings with next link
-```json
-{
-  "@context":
-"http://host/service/$metadata#Customers/$entity",
-  ...
-  "EmailAddresses": \[
-  "Julie@Swansworth.com",
-  "Julie.Swansworth@work.com"
-  \],
-  "EmailAddresses@nextLink": "..."
-}
-````
-
-## {#sec_CollectionofComplexValues}{#\_Collection_of_Complex}7.4 [Collection of Complex Values](#CollectionofComplexValues)
-
-A collection of complex values is represented as a JSON array; each
-element in the array is the representation of a [complex
-value](#ComplexValue). A JSON literal `null` represents a
-null value within the collection. An empty collection is represented as
-an empty array.
- 
-::: example
-Example ##ex: partial collection of complex values with next link
-```json
-{
-  "PhoneNumbers": \{style="color:black"}
-
-  {
-    "Number": "425-555-1212", 
-    "Type": "Home" 
-  },
-  {
-    "@type": "#Model.CellPhoneNumber",
-    "Number": "425-555-0178",
-    "Type": "Cell",
-    "Carrier": "Sprint"
-  } 
-  \],
-  "PhoneNumbers@nextLink": "..."
-}
-```
-
-## {#sec_UntypedValue}{#\_Navigation_Property}7.5 [Untyped Value](#UntypedValue)
-
-OData 4.01 adds the built-in abstract types `Edm.Untyped` and
-`Collection(Edm.Untyped)`that services can use to advertise
-in metadata that there is a property of a particular name present, but
-there is no type to describe the structure of the property's values.
-
-The value of an `Edm.Untyped` property MAY be a primitive
-value, a structural value, or a collection. If a collection, it may
-contain any combination of primitive values, structural values, and
-collections.
-
-The value of a property of type `Collection(Edm.Untyped)`MUST
-be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections.
-
-Untyped values are the only place where a collection can directly
-contain a collection, or a collection can contain a mix of primitive
-values, structural values, and collections.
-
-All children of an untyped property are assumed to be untyped unless
-they are annotated with the
-[`type`](#ControlInformationtypeodatatype)
-control information, in which case they MUST conform to the type
-described by the control information.
-
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-
 # {#sec_NavigationProperty}[8[     ]{style="font:7.0pt "Times New Roman""}][Navigation Property](#NavigationProperty) {#navigation-property style="margin-left:19.85pt;text-indent:-19.85pt"}
 
 :::
@@ -324,7 +92,7 @@ Example ##ex:
 {
   "@context":
 "http://host/service/$metadata#Customers/$entity",
-  ]{style="color:black"}[...]{lang="NL" style="color:black"}
+  ][...]{lang="NL" style="color:black"}
 
   "Orders@count": 42,]{lang="NL" style="color:black"}
 
@@ -559,7 +327,7 @@ Example ##ex:
 "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink":
 "http://server/uploads/Thumbnail546.jpg",
-  ]{style="color:black"}["Thumbnail@mediaContentType":
+  ]["Thumbnail@mediaContentType":
 "image/jpeg",]{lang="DE" style="color:black"}
 
   "Thumbnail@mediaEtag": "W/\\"####\\"",]{lang="DE"
@@ -751,7 +519,7 @@ response).]{style="color:#333333;background:white"}
 
 The value of the `value` name/value pair is a JSON array
 [where each]{#CollectionOfLinks} element is [representation of an
-entity](#Entity)[ ]{.MsoHyperlink}or a[
+entity](#Entity) or a[
 ]{.MsoHyperlink}{#CollectionOfEntityRef}[representation of an entity
 reference](#EntityReference). An empty collection is represented as
 an empty JSON array.
@@ -771,7 +539,7 @@ partial result.
 {
   "@context": "...",
   "@count": 37,
-  "value": \{style="color:black"}
+  "value": \
 
   { ... },
   { ... },
@@ -826,7 +594,7 @@ Example ##ex: collection of entity references
 {
   "@context": "http://host/service/$metadata#Collection($ref)",
 
-  "value": \{style="color:black"}
+  "value": \
 
   { "@id": "Orders(10643)" },
   { "@id": "Orders(10759)" }
@@ -848,7 +616,7 @@ Responses from a delta request are returned as a JSON object.
 
 The JSON object for a delta response to a single entity is either an
 [added](#AddedChangedEntity), [changed](#AddedChangedEntity), or
-[deleted entity](#DeletedEntity)[.]{.MsoHyperlink}
+[deleted entity](#DeletedEntity).
 
 The JSON object for a delta response to a collection of entities MUST
 contain an array-valued property named `value` containing all
@@ -1023,7 +791,7 @@ Blvd.",]{style="font-size:10.0pt;color:black"}]{.CODEtemp}
 ## {#sec_AddedChangedEntity}{#\_Representing_Added/Changed_Entities_1}{#\_Added/Changed_Entity}15.2 [Added/Changed Entity](#AddedChangedEntity)
 
 Added or changed entities within a delta response are represented as
-[entities](#Entity)[.]{.MsoHyperlink}
+[entities](#Entity).
 
 Added entities MUST include all available selected properties and MAY
 include additional, unselected properties. Collection-valued properties
@@ -1471,13 +1239,13 @@ The deleted-link object MUST include the following properties, regardless of the
 ]{style="font:7.0pt "Times New Roman""}]{style="font-family:Symbol;color:windowtext"}]{.MsoHyperlink}`target`
 -- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
-[relative](#RelativeURLs)[. ]{.MsoHyperlink}[[For delta payloads
+[relative](#RelativeURLs). [[For delta payloads
 that do not specify an
 ]{style="color:windowtext"}]{.MsoHyperlink}`OData-Version`[[
 header value of
 ]{style="color:windowtext"}]{.MsoHyperlink}[[4.0]{style="font-family:"Courier New";color:windowtext"}]{.MsoHyperlink}[[,
 the target MAY be omitted for single-valued navigation
-properties]{style="color:windowtext"}]{.MsoHyperlink}[.]{.MsoHyperlink}
+properties]{style="color:windowtext"}]{.MsoHyperlink}.
 
 ## {#sec_UpdateaCollectionofEntities}[[[15.6 ]{style="color:windowtext"}]{.MsoHyperlink}][Update a Collection of Entities](#UpdateaCollectionofEntities)
 
@@ -1548,7 +1316,7 @@ link between customer 'DUMON' and order
 ```json
 {
   "@context":"#$delta",
-  "value": \{style="color:black"}
+  "value": \
 
    {
     "CustomerID": "EASTC",
@@ -1566,7 +1334,7 @@ link between customer 'DUMON' and order
    },
   {
     "CustomerID": "ALFKI",
-    "Orders@delta": \{style="color:black"}
+    "Orders@delta": \
 
       {
         "OrderID": 11011,
@@ -1624,7 +1392,7 @@ service, see [OData-CSDLJSON](#ODataCSDL) or
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#abnf).
+`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.
@@ -1659,13 +1427,13 @@ the parameter values via query options for [parameter
 aliases](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ParameterAliases)[[
 ]{style="color:#0000EE"}]{.apple-converted-space}[that are identical to
 the parameter name preceded by an at
-(]{style="color:black"}[[@]{style="font-family:"Courier New";
+(][[@]{style="font-family:"Courier New";
 color:black"}]{.datatype0}[) sign. Clients MUST check if the obtained
 URL already contains a query part and appropriately precede the
 parameters either with an ampersand
-(]{style="color:black"}[[&]{style="font-family:"Courier New";color:black"}]{.datatype0}[)
+(][[&]{style="font-family:"Courier New";color:black"}]{.datatype0}[)
 or a question mark
-(]{style="color:black"}[[?]{style="font-family:"Courier New";color:black"}]{.datatype0}[)]{style="color:black"}.
+(][[?]{style="font-family:"Courier New";color:black"}]{.datatype0}[)].
 
 The `title` name/value pair contains the function or action
 title as a string.
@@ -1921,7 +1689,7 @@ within the batch request.
 
 Note: the `id` name/value pair corresponds to the
 `Content-ID` header in the multipart batch format specified
-in [OData-Protocol](#ODataProtocol)[.]{.MsoHyperlink}
+in [OData-Protocol](#ODataProtocol).
 
 The value of `method` is a string that MUST contain one of
 the literals `delete`, `get`, `patch`,
@@ -1954,7 +1722,7 @@ URL (i.e. relative to the service root).
 The value of `atomicityGroup` is a string whose content MUST
 NOT be identical to any value of `id` within the batch
 request, and which MUST satisfy the rule `request-id` in
-[OData-ABNF](#abnf). All request objects with the same value for
+[OData-ABNF](#ODataABNF). All request objects with the same value for
 `atomicityGroup` MUST be adjacent in the
 `requests` array. These requests are processed as an atomic
 operation and MUST either all succeed, or all fail.
@@ -2059,7 +1827,7 @@ Content-Length: \###
  
 
 [{
-  "requests": \{style="color:black"}
+  "requests": \
 
   {
     "id": "0",
@@ -2118,7 +1886,7 @@ Content-Type: application/json\
 Content-Length: \###\
 \
 {
-  "requests": \{style="color:black"}
+  "requests": \
 
   {
     "id": "1",
@@ -2159,7 +1927,7 @@ Content-Length: \###\
 \
 
 [{
-  "requests": \{style="color:black"}
+  "requests": \
 
   {
     "id": "1",
@@ -2234,7 +2002,7 @@ processing the remaining individual requests while waiting for the
 client to fire a `GET` request to the next link.
 
 In a response to a batch request using the multipart format defined in
-[OData-Protocol](#ODataProtocol)[ ]{.MsoHyperlink}[[the response objects
+[OData-Protocol](#ODataProtocol) [[the response objects
 MUST appear in the same order as required for multipart batch responses
 because the
 ]{style="color:windowtext"}]{.MsoHyperlink}`Content-ID`[[
@@ -2301,7 +2069,7 @@ the requests except the final query request succeed. In this case the
 response would be
 ```json
 {
-  "responses": \{style="color:black"}
+  "responses": \
 
   {
     "id": "0",
@@ -2383,7 +2151,7 @@ Content-Type: application/json\
 \
 
 [{
-  "responses": \{style="color:black"}
+  "responses": \
 
   {
     "id": "0",
@@ -2416,7 +2184,7 @@ Content-Type: application/json\
 \
 
 [{
-  "responses": \{style="color:black"}
+  "responses": \
 
   {
     "id": "1",
@@ -2464,7 +2232,7 @@ Content-Type: application/json\
 \
 
 [{
-  "responses": \{style="color:black"}
+  "responses": \
 
   {
     "id": "0",
@@ -2516,9 +2284,9 @@ model constructs represented as JSON objects the annotation name/value
 pairs are placed within the object; for constructs represented as JSON
 arrays or primitives they are placed next to the annotated model
 construct. [When annotating a payload that represents a
-]{style="color:black"}[single primitive or collection
+][single primitive or collection
 value](#IndividualPropertyorOperationRespons)[, the annotations for
-the value appear next to the ]{style="color:black"}`value`
+the value appear next to the ]`value`
 [property and are not prefixed with a property
 name.
 Example ##ex:
@@ -2527,7 +2295,7 @@ Example ##ex:
   "@context":
 "http://host/service/$metadata#Customers",
   "@com.example.customer.setkind": "VIPs",
-  "value": \{style="color:black"}
+  "value": \
 
   {
     "@com.example.display.highlight": true,
@@ -2559,10 +2327,10 @@ a JSON array or primitive value, each annotation that applies to this
 name/value pair MUST be represented as a single name/value pair and
 placed immediately prior to the annotated name/value pair, with the
 exception of the
-]{style="color:black"}[`nextLink`](#ControlInformationnextLinkodatanextL)[
+][`nextLink`](#ControlInformationnextLinkodatanextL)[
 or
-]{style="color:black"}[`collectionAnnotations`](#ControlInformationcollectionAnnotati)[
-control information]{style="color:black"},[ which can appear immediately
+][`collectionAnnotations`](#ControlInformationcollectionAnnotati)[
+control information],[ which can appear immediately
 before or after the annotated collection.
 The name is the same as the name of the property or name/value pair
 being annotated, followed by the "at" sign (`@`), followed by
@@ -2574,7 +2342,7 @@ The value MUST be an appropriate value for the annotation.
 
 Individual primitive elements within a JSON array can be[ annotated by
 applying the
-]{style="color:black"}[`collectionAnnotations`](#ControlInformationcollectionAnnotati)[
+][`collectionAnnotations`](#ControlInformationcollectionAnnotati)[
 control information to the array containing the primitive
 member.
 The control information must come with other annotations or control
@@ -2652,7 +2420,7 @@ Example ##ex:
   "code": "err123",
   "message": "Unsupported functionality",
   "target": "query",
-  "details": \{style="color:black"}
+  "details": \
 
     {
      "code": "forty-two",
@@ -2694,7 +2462,7 @@ header-appropriate way:
   characters (`00` to `1F` and `7F`) and
   Unicode characters beyond `00FF` within JSON strings are
   encoded as `\\uXXXX` or `\\uXXXX\\uXXXX` (see
-  [RFC8259](#rfc_JSON), section 7)
+  [RFC8259](#rfc8259), section 7)
  
 ::: example
 Example ##ex: note that this is one HTTP header line without any line
@@ -2783,7 +2551,7 @@ and thus inherits both sides of the coin, security enhancements and
 concerns alike from the latter.
 
 For JSON-relevant security implications please cf. at least the relevant
-subsections of [RFC8259](#rfc_JSON) as starting point.
+subsections of [RFC8259](#rfc8259) as starting point.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 
@@ -2828,7 +2596,7 @@ b.[      ]{style="font:7.0pt "Times New Roman""}exposed by the service
 payload (section 4.5)
 
 5.[     ]{style="font:7.0pt "Times New Roman""}MUST be prepared to
-receive any annotations[ ]{.MsoHyperlink}and control information not
+receive any annotations and control information not
 defined in the `OData-Version`
 header of the payload (section 21.2)
 
@@ -2909,7 +2677,7 @@ values `-INF`,
 [[f.[       
 ]{style="font:7.0pt "Times New Roman""}]{style="color:windowtext"}]{.MsoHyperlink}MUST
 be prepared to handle related entities inline within a [delta
-payload](#DeltaPayload)[ ]{.MsoHyperlink}[[as well as a nested delta
+payload](#DeltaPayload) [[as well as a nested delta
 representation for the
 collection]{style="color:windowtext"}]{.MsoHyperlink}
 

@@ -416,16 +416,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <hr />
 <h1 id="4-common-characteristics"><a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
 <p>This section describes common characteristics of the representation for OData values in JSON. A request or response body consists of several parts. It contains OData values as part of a larger document. Requests and responses are structured almost identical; the few existing differences will be explicitly called out in the respective subsections.</p>
-<h1 id="41-header-content-type"><a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h1>
+<h2 id="41-header-content-type"><a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h2>
 <p>Requests and responses with a JSON message body MUST have a <code>Content-Type</code> header value of <code>application/json</code>.</p>
 <p>Requests MAY add the <code>charset</code> parameter to the content type. Allowed values are <code>UTF-8</code>,<code> UTF-16</code>, and <code>UTF-32</code>. If no <code>charset</code> parameter is present, <code>UTF-8</code> MUST be assumed.</p>
 <p>Responses MUST include the <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> parameter to specify the amount of metadata included in the response.</p>
 <p>Requests and responses MUST include the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> parameter if <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers are represented as strings.</p>
 <p>Requests and responses MAY add the <code>streaming</code> parameter with a value of <code>true</code> or <code>false</code>, see section <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
-<h1 id="42-message-body"><a name="MessageBody" href="#MessageBody">4.2 Message Body</a></h1>
+<h2 id="42-message-body"><a name="MessageBody" href="#MessageBody">4.2 Message Body</a></h2>
 <p>Each message body is represented as a single JSON object. This object is either the representation of an <a href="#Entity">entity</a>, an <a href="#EntityReference">entity reference</a> or a <a href="#ComplexValue">complex type instance</a>, or it contains a name/value pair whose name MUST be <code>value</code> and whose value is the correct representation for a <a href="#PrimitiveValue">primitive value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, a <a href="#CollectionofComplexValues">collection of complex values</a>, a <a href="#CollectionofEntities">collection of entities</a>, or a collection of objects that represent <a href="#DeltaPayload">changes to a previous result</a>.</p>
 <p>Client libraries MUST retain the order of objects within an array in JSON responses.</p>
-<h1 id="43-relative-urls"><a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a></h1>
+<h2 id="43-relative-urls"><a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a></h2>
 <p>URLs present in a payload (whether request or response) MAY be represented as relative URLs.</p>
 <p>Relative URLs, other than those in <a href="#ControlInformationtypeodatatype"><code>type</code></a>, are relative to their base URL, which is</p>
 <ul>
@@ -457,7 +457,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The resulting absolute URLs are <code>http://host/service/Customers('ALFKI')</code> and <code>http://host/service/Customers('ALFKI')/Orders</code>.</p>
-<h1 id="44-payload-ordering-constraints"><a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a></h1>
+<h2 id="44-payload-ordering-constraints"><a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a></h2>
 <p>Ordering constraints MAY be imposed on the JSON payload in order to support streaming scenarios. These ordering constraints MUST only be assumed if explicitly specified as some clients (and services) might not be able to control, or might not care about, the order of the JSON properties in the payload.</p>
 <p>Clients can request that a JSON response conform to these ordering constraints by specifying a media type of [application/json]{style="font-family: "Courier New""} with the <code>streaming=true</code> parameter in the <code>Accept</code> header or <code>$format</code> query option. Services MUST return <code>406 Not Acceptable</code> if the client only requests streaming and the service does not support it.</p>
 <p>Clients may specify the <code>streaming=true</code> parameter in the <code>Content-Type</code> header of requests to indicate that the request body follows the payload ordering constraints. In the absence of this parameter, the service must assume that the JSON properties in the request are unordered.</p>
@@ -480,12 +480,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>For 4.0 payloads, annotations and control information for navigation properties MUST appear after all structural properties. 4.01 clients MUST NOT assume this ordering.</li>
 </ul>
 <p>Note that in OData 4.0 the <code>streaming</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version </code>header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
-<h1 id="45-control-information"><a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a></h1>
+<h2 id="45-control-information"><a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a></h2>
 <p>In addition to the "pure data" a message body MAY contain <a href="#InstanceAnnotations">annotations</a> and control information that is represented as name/value pairs whose names start with <code>@</code>.</p>
 <p>In requests and responses with an <code>OData-Version</code> header with a value of <code>4.0</code> control information names are prefixed with <code>@odata.</code>, e.g. <code>@odata.context</code>. In requests and responses without such a header the <code>odata.</code> prefix SHOULD be omitted, e.g <code>@context</code>.</p>
 <p>In some cases, control information is required in request payloads; this is called out in the following subsections.</p>
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
-<h1 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h1>
+<h3 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
 <p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>.</p>
 <p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a>[ ]{.MsoHyperlink}is requested. Otherwise[ ]{.MsoHyperlink}it MUST be the first property of any JSON response[. ]{.MsoHyperlink}</p>
 <p>The <code>context</code> control information MUST also be included in requests and responses for entities whose entity set cannot be determined from the context URL[ ]{.MsoHyperlink}of the collection.</p>
@@ -499,10 +499,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<h1 id="452-control-information-metadataetag-odatametadataetag"><a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h1>
+<h3 id="452-control-information-metadataetag-odatametadataetag"><a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
 <p>The <code>metadataEtag</code> control information MAY appear in a response in order to specify the entity tag (ETag) that can be used to determine the version of the metadata of the response. If an ETag is returned when requesting the metadata document, then the service SHOULD set the <code>metadataEtag</code> control information to the metadata document's ETag in all responses when using <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> or <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a>. If no ETag is returned when requesting the metadata document, then the service SHOULD NOT set the <code>metadataEtag</code> control information in any responses.</p>
 <p>For details on how ETags are used, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
-<h1 id="453-control-information-type-odatatype"><a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h1>
+<h3 id="453-control-information-type-odatatype"><a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h3>
 <p>The <code>type</code> control information specifies the type of a JSON object or name/value pair. Its value is a URI that identifies the type of the property or object. For built-in primitive types the value is the unqualified name of the primitive type. For payloads described by an <code>OData-Version</code> header with a value of <code>4.0</code>, this name MUST be prefixed with the hash symbol (<code>#</code>); for non-OData 4.0 payloads, built-in primitive type values SHOULD be represented without the hash symbol, but consumers of 4.01 or greater payloads MUST support values with or without the hash symbol. For all other types, the URI may be absolute or relative to the <code>type</code> of the containing object. The root <code>type</code> may be absolute or relative to the root <a href="#ControlInformationcontextodatacontext">context URL</a>.</p>
 <p>If the URI references a metadata document (that is, it's not just a fragment), it MAY refer to a specific version of that metadata document using the <code>$schemaversion</code> system query option defined in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>For non-built in primitive types, the URI contains the namespace-qualified or alias-qualified type, specified as a URI fragment. For properties that represent a collection of values, the fragment is the namespace-qualified or alias-qualified element type enclosed in parentheses and prefixed with <code>Collection</code>. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>.</p>
@@ -539,16 +539,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<h1 id="454-control-information-count-odatacount"><a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h1>
+<h3 id="454-control-information-count-odatacount"><a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h3>
 <p>The <code>count</code> control information occurs only in responses and can annotate any collection, see <a href="#ODataProtocol">OData-Protocol</a> section 11.2.5.5 System Query Option <code>$count</code>. Its value is an <code>Edm.Int64</code> value corresponding to the total count of members in the collection represented by the request.</p>
-<h1 id="455-control-information-nextlink-odatanextlink"><a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h1>
+<h3 id="455-control-information-nextlink-odatanextlink"><a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h3>
 <p>The <code>nextLink</code> control information indicates that a response is only a subset of the requested collection. It contains a URL that allows retrieving the next subset of the requested collection.</p>
 <p>This control information can also be applied to <a href="#ExpandedNavigationProperty">expanded to-many navigation properties</a>.</p>
-<h1 id="456-control-information-delta-odatadelta"><a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h1>
+<h3 id="456-control-information-delta-odatadelta"><a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h3>
 <p>The <code>delta</code> control information is applied to a collection-valued navigation property within an <a href="#AddedChangedEntity">added/changed entity</a> in a delta payload to represent changes in membership or value of nested entities.</p>
-<h1 id="457-control-information-deltalink-odatadeltalink"><a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h1>
+<h3 id="457-control-information-deltalink-odatadeltalink"><a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h3>
 <p>The <code>deltaLink</code> control information contains a URL that can be used to retrieve changes to the current set of results. The <code>deltaLink</code> control information MUST only appear on the last page of results. A page of results MUST NOT have both a <code>deltaLink</code> control information and a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
-<h1 id="458-control-information-id-odataid"><a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h1>
+<h3 id="458-control-information-id-odataid"><a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
 <p>The <code>id</code> control information contains the entity-id, see <a href="#ODataProtocol">OData-Protocol</a>. By convention the entity-id is identical to the canonical URL of the entity, as defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>The <code>id </code>control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity's key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
 <ul>
@@ -560,7 +560,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the entity is transient (i.e. cannot be read or updated), the <code>id</code> control information MUST appear in OData 4.0 payloads and have the <code>null</code> value. In 4.01 payloads transient entities need not have the <code>id</code> control information, and 4.01 clients MUST treat entities with neither <code>id</code> control information nor a full set of key properties as transient entities.</p>
 <p>The <code>id</code> control information MUST NOT appear for a collection. Its meaning in this context is reserved for future versions of this specification.</p>
 <p>Entities with <code>id</code> equal to <code>null</code> cannot be compared to other entities, reread, or updated. If <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is specified and the <code>id</code> is not present in the entity, then the canonical URL MUST be used as the entity-id.</p>
-<h1 id="459-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h1>
+<h3 id="459-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h3>
 <p>The <code>[editLink</code>]{#odataEditLink} control information contains the edit URL of the entity; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>The <code>readLink</code> control information contains the read URL of the entity or collection; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>The <code>editLink</code> and <code>readLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
@@ -580,17 +580,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The <code>readLink</code> control information, if written, MUST be the request URL that produced the collection.</li>
 <li>The <code>editLink</code> control information MUST NOT be written as its meaning in this context is reserved for future versions of this specification.</li>
 </ul>
-<h1 id="4510-control-information-etag-odataetag"><a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h1>
+<h3 id="4510-control-information-etag-odataetag"><a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
 <p>For details on how ETags are used, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
-<h1 id="4511-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h1>
+<h3 id="4511-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h3>
 <p>The [<code>navigationLink</code>]{#odataNavigationLink} control information in a response contains a <em>navigation URL</em> that can be used to retrieve an entity or collection of entities related to the current entity via a <a href="#NavigationProperty">navigation property</a>.</p>
 <p>The <em>default computed value of a navigation URL</em> is the value of the <a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">read URL</a> appended with a segment containing the name of the navigation property. The service MAY omit the <code>navigationLink</code> control information if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> has been specified on the request and the navigation link matches this computed value.</p>
 <p>The <code>associationLink</code> control information in a response contains an <em>association URL</em> that can be used to retrieve a reference to an entity or a collection of references to entities related to the current entity via a navigation property.</p>
 <p>The <em>default computed value of an association URL</em> is the value of the navigation URL appended with <code>/$ref</code>. The service MAY omit the <code>associationLink</code> control information if the association link matches this computed value.</p>
 <p>The <code>navigationLink</code> and <code>associationLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
-<h1 id="4512-control-information-media-odatamedia"><a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h1>
+<h3 id="4512-control-information-media-odatamedia"><a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h3>
 <p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don't follow standard URL conventions as defined in <a href="#ODataURL">OData-URL</a> or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
 <p>The <code>mediaEditLink</code> control information contains a URL that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
 <p>The <code>mediaReadLink</code> control information contains a URL that can be used to read the binary stream associated with the media entity or stream property. It MUST be included if its value differs from the value of the associated <code>mediaEditLink</code>, if present, or if it doesn't follow standard URL conventions relative to the read link of the entity and the associated <code>mediaEditLink</code> is not present.</p>
@@ -610,9 +610,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<h1 id="4513-control-information-removed-odataremoved"><a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h1>
+<h3 id="4513-control-information-removed-odataremoved"><a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
 <p>The <code>removed</code> control information is used in <a href="#DeletedEntity">delta payloads</a> and indicates that the represented entity is (to be) deleted.</p>
-<h1 id="4514-control-information-collectionannotations-odatacollectionannotations"><a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h1>
+<h3 id="4514-control-information-collectionannotations-odatacollectionannotations"><a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h3>
 <p>The <code>collectionAnnotations</code> control information can be applied to a collection containing primitive members in order to annotate such primitive members. The value of the <code>collectionAnnotations</code> control information is an array of JSON objects containing an integer property <code>index</code>, specifying the zero-based ordinal index of the primitive item within the collection, along with any annotations that are to be applied to that primitive collection member.</p>
 <div class="example">
 <p>Example 8: Annotating primitive values within a collection</p>
@@ -733,19 +733,107 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="7-structural-property"><a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a></h1>
-<h1 id="71-primitive-value"><a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a></h1>
-<h1 id="72-complex-value"><a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h1>
-<h1 id="73-collection-of-primitive-values"><a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a></h1>
-<h1 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h1>
-<h1 id="75-untyped-value"><a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h1>
+<p>A property within an entity or complex type instance is represented as a name/value pair. The name MUST be the name of the property; the value is represented depending on its type as a <a href="#PrimitiveValue">primitive value</a>, a <a href="#ComplexValue">complex value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, or a <a href="#CollectionofComplexValues">collection of complex values</a>.</p>
+<h2 id="71-primitive-value"><a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a></h2>
+<p>Primitive values are represented following the rules of <a href="#rfc8259">RFC8259</a>.</p>
+<p>Null values are represented as the JSON literal <code>null</code>.</p>
+<p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
+<p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings.</p>
+<p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
+<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
+<p>Enumeration values are represented as JSON strings whose content satisfies the rule <code>enumValue</code> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <code>enumerationMember</code>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <code>enumMemberValue</code> representation may be used.</p>
+<p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>, with the following modifications:</p>
+<ul>
+<li>Keys SHOULD be ordered with type first, then coordinates, then any other keys</li>
+<li>If the optional <a href="http://geojson.org/geojson-spec.html#named-crs">CRS object</a> is present, it MUST be of type <code>name</code>, where the value of the <code>name</code> member of the contained <code>properties</code> object is an EPSG SRID legacy identifier, see [<a href="#GeoJSON-2008">GeoJSON-2008</a>].</li>
+</ul>
+<p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information.</p>
+<div class="example">
+<p>Example 12:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;NullValue&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;TrueValue&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FalseValue&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;BinaryValue&quot;</span><span class="fu">:</span> <span class="st">&quot;T0RhdGE&quot;</span><span class="fu">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;IntegerValue&quot;</span><span class="fu">:</span> <span class="dv">-128</span><span class="fu">,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DoubleValue&quot;</span><span class="fu">:</span> <span class="fl">3.1415926535897931</span><span class="fu">,</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;SingleValue&quot;</span><span class="fu">:</span> <span class="st">&quot;INF&quot;</span><span class="fu">,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DecimalValue&quot;</span><span class="fu">:</span> <span class="fl">34.95</span><span class="fu">,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;StringValue&quot;</span><span class="fu">:</span> <span class="st">&quot;Say </span><span class="ch">\&quot;</span><span class="st">Hello</span><span class="ch">\&quot;</span><span class="st">,</span><span class="ch">\n</span><span class="st">then go&quot;</span><span class="fu">,</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DateValue&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-12-03&quot;</span><span class="fu">,</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DateTimeOffsetValue&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-12-03T07:16:23Z&quot;</span><span class="fu">,</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DurationValue&quot;</span><span class="fu">:</span> <span class="st">&quot;P12DT23H59M59.999999999999S&quot;</span><span class="fu">,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;TimeOfDayValue&quot;</span><span class="fu">:</span> <span class="st">&quot;07:59:59.999&quot;</span><span class="fu">,</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GuidValue&quot;</span><span class="fu">:</span> <span class="st">&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</span><span class="fu">,</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Int64Value&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ColorEnumValue&quot;</span><span class="fu">:</span> <span class="st">&quot;Yellow&quot;</span><span class="fu">,</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GeographyPoint&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;Point&quot;</span><span class="fu">,</span> <span class="dt">&quot;coordinates&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fl">142.1</span><span class="ot">,</span><span class="fl">64.1</span><span class="ot">]</span><span class="fu">}</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<h2 id="72-complex-value"><a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h2>
+<p>A complex value is represented as a single JSON object containing one name/value pair for each property that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
+<p>It MAY have name/value pairs for <a href="#InstanceAnnotations">instance annotations</a> and control information.</p>
+<div class="example">
+<p>Example 13:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;Obere Str. 57&quot;</span><span class="fu">,</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Berlin&quot;</span><span class="fu">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Region&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;PostalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;D-12209&quot;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>A complex value with no selected properties, or no defined properties (such as an empty open complex type or complex type with no structural properties) is represented as an empty JSON object.</p>
+<h2 id="73-collection-of-primitive-values"><a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a></h2>
+<p>A collection of primitive values is represented as a JSON array; each element in the array is the representation of a <a href="#PrimitiveValue">primitive value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
+<div class="example">
+<p>Example 14: partial collection of strings with next link</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie@Swansworth.com&quot;</span><span class="ot">,</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie.Swansworth@work.com&quot;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
+<p>A collection of complex values is represented as a JSON array; each element in the array is the representation of a <a href="#ComplexValue">complex value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
+<div class="example">
+<p>Example 15: partial collection of complex values with next link</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PhoneNumbers&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Number&quot;</span><span class="fu">:</span> <span class="st">&quot;425-555-1212&quot;</span><span class="fu">,</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Home&quot;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Model.CellPhoneNumber&quot;</span><span class="fu">,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Number&quot;</span><span class="fu">:</span> <span class="st">&quot;425-555-0178&quot;</span><span class="fu">,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Cell&quot;</span><span class="fu">,</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Carrier&quot;</span><span class="fu">:</span> <span class="st">&quot;Sprint&quot;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PhoneNumbers@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="75-untyped-value"><a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h2>
+<p>OData 4.01 adds the built-in abstract types <code>Edm.Untyped</code> and <code>Collection(Edm.Untyped)</code>that services can use to advertise in metadata that there is a property of a particular name present, but there is no type to describe the structure of the property's values.</p>
+<p>The value of an <code>Edm.Untyped</code> property MAY be a primitive value, a structural value, or a collection. If a collection, it may contain any combination of primitive values, structural values, and collections.</p>
+<p>The value of a property of type <code>Collection(Edm.Untyped)</code>MUST be a collection, and it MAY contain any combination of primitive values, structural values, and collections.</p>
+<p>Untyped values are the only place where a collection can directly contain a collection, or a collection can contain a mix of primitive values, structural values, and collections.</p>
+<p>All children of an untyped property are assumed to be untyped unless they are annotated with the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information, in which case they MUST conform to the type described by the control information.</p>
 <hr />
 <h1 id="8-navigation-property"><a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a></h1>
-<h1 id="81-navigation-link"><a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a></h1>
-<h1 id="82-association-link"><a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h1>
-<h1 id="83-expanded-navigation-property"><a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h1>
-<h1 id="84-deep-insert"><a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h1>
-<h1 id="85-bind-operation"><a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a></h1>
-<h1 id="86-collection-etag"><a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a></h1>
+<h2 id="81-navigation-link"><a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a></h2>
+<h2 id="82-association-link"><a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h2>
+<h2 id="83-expanded-navigation-property"><a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h2>
+<h2 id="84-deep-insert"><a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h2>
+<h2 id="85-bind-operation"><a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a></h2>
+<h2 id="86-collection-etag"><a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a></h2>
 <hr />
 <h1 id="9-stream-property"><a name="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
 <hr />
@@ -760,12 +848,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="14-entity-reference"><a name="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
 <hr />
 <h1 id="15-delta-payload"><a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
-<h1 id="151-delta-responses"><a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h1>
-<h1 id="152-addedchanged-entity"><a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h1>
-<h1 id="153-deleted-entity"><a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a></h1>
-<h1 id="154-added-link"><a name="AddedLink" href="#AddedLink">15.4 Added Link</a></h1>
-<h1 id="155-deleted-link"><a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a></h1>
-<h1 id="156-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a></h1>
+<h2 id="151-delta-responses"><a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h2>
+<h2 id="152-addedchanged-entity"><a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h2>
+<h2 id="153-deleted-entity"><a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a></h2>
+<h2 id="154-added-link"><a name="AddedLink" href="#AddedLink">15.4 Added Link</a></h2>
+<h2 id="155-deleted-link"><a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a></h2>
+<h2 id="156-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a></h2>
 <hr />
 <h1 id="16-bound-function"><a name="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 <hr />
@@ -774,25 +862,25 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="18-action-invocation"><a name="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a></h1>
 <hr />
 <h1 id="19-batch-requests-and-responses"><a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a></h1>
-<h1 id="191-batch-request"><a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a></h1>
-<h1 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h1>
-<h1 id="193-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a></h1>
-<h1 id="194-processing-a-batch-request"><a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a></h1>
-<h1 id="195-batch-response"><a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a></h1>
-<h1 id="196-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a></h1>
+<h2 id="191-batch-request"><a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a></h2>
+<h2 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
+<h2 id="193-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a></h2>
+<h2 id="194-processing-a-batch-request"><a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a></h2>
+<h2 id="195-batch-response"><a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a></h2>
+<h2 id="196-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a></h2>
 <hr />
 <h1 id="20-instance-annotations"><a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a></h1>
-<h1 id="201-annotate-a-json-object"><a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a></h1>
-<h1 id="202-annotate-a-json-array-or-primitive"><a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a></h1>
-<h1 id="203-annotate-a-primitive-value-within-a-json-array"><a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a></h1>
+<h2 id="201-annotate-a-json-object"><a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a></h2>
+<h2 id="202-annotate-a-json-array-or-primitive"><a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a></h2>
+<h2 id="203-annotate-a-primitive-value-within-a-json-array"><a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a></h2>
 <hr />
 <h1 id="21-error-handling"><a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a></h1>
-<h1 id="211-error-response"><a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a></h1>
-<h1 id="212-in-stream-error"><a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a></h1>
-<h1 id="213-error-information-in-a-success-payload"><a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a></h1>
-<h1 id="2131-primitive-value-errors"><a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a></h1>
-<h1 id="2132-structured-type-errors"><a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a></h1>
-<h1 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h1>
+<h2 id="211-error-response"><a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a></h2>
+<h2 id="212-in-stream-error"><a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a></h2>
+<h2 id="213-error-information-in-a-success-payload"><a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a></h2>
+<h3 id="2131-primitive-value-errors"><a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a></h3>
+<h3 id="2132-structured-type-errors"><a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a></h3>
+<h3 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
 <hr />
 <h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
 <hr />
@@ -933,6 +1021,8 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h2 id="a2-informative-references-"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+<h6 id="geojson-2008"><a name="GeoJSON-2008">[GeoJSON-2008]</a></h6>
+<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008</em> <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 <p>This specification raises no security issues.</p>
@@ -1046,5 +1136,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+</div>
+</div>
 </body>
 </html>

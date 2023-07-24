@@ -545,7 +545,7 @@ parts. It contains OData values as part of a larger document. Requests
 and responses are structured almost identical; the few existing
 differences will be explicitly called out in the respective subsections.
 
-# <a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a>
+## <a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a>
 
 Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
@@ -568,7 +568,7 @@ Requests and responses MAY add the `streaming` parameter with
 a value of `true` or `false`, see section [Payload
 Ordering Constraints](#PayloadOrderingConstraints).
 
-# <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
+## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
 Each message body is represented as a single JSON object. This object is
 either the representation of an [entity](#Entity),
@@ -585,7 +585,7 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
-# <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
+## <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
 
 URLs present in a payload (whether request or response) MAY be
 represented as relative URLs.
@@ -650,7 +650,7 @@ The resulting absolute URLs are
 `http://host/service/Customers('ALFKI')` and
 `http://host/service/Customers('ALFKI')/Orders`.
 
-# <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
+## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
 
 Ordering constraints MAY be imposed on the JSON payload in order to
 support streaming scenarios. These ordering constraints MUST only be
@@ -722,7 +722,7 @@ Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `OData-Version `header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-# <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
+## <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
 
 In addition to the "pure data" a message body MAY contain
 [annotations](#InstanceAnnotations) and control information that is
@@ -741,7 +741,7 @@ Receivers that encounter unknown
 annotations in any namespace or unknown control information MUST NOT
 stop processing and MUST NOT signal an error.
 
-# <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
+### <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
 
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
@@ -775,7 +775,7 @@ Example 4:
 ```
 :::
 
-# <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
+### <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
 
 The `metadataEtag` control information MAY appear in a
 response in order to specify the entity tag (ETag) that can be used to
@@ -792,7 +792,7 @@ in any responses.
 
 For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
 
-# <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
+### <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
 
 The `type` control information specifies the type of a JSON
 object or name/value pair. Its value is a URI that identifies the type
@@ -893,7 +893,7 @@ service
 ```
 :::
 
-# <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
+### <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
 
 The `count` control information occurs only in responses and
 can annotate any collection, see [OData-Protocol](#ODataProtocol)
@@ -902,7 +902,7 @@ section 11.2.5.5 System Query Option
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
-# <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
+### <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
 
 The `nextLink` control information indicates that a response
 is only a subset of the requested collection. It contains a URL that
@@ -911,14 +911,14 @@ allows retrieving the next subset of the requested collection.
 This control information can also be applied to [expanded to-many
 navigation properties](#ExpandedNavigationProperty).
 
-# <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
+### <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
 
 The `delta` control information is applied to a
 collection-valued navigation property within an [added/changed
 entity](#AddedChangedEntity) in a delta payload to represent changes
 in membership or value of nested entities.
 
-# <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
+### <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
 
 The `deltaLink` control information contains a URL that can
 be used to retrieve changes to the current set of results. The
@@ -928,7 +928,7 @@ page of results. A page of results MUST NOT have both a
 [`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information.
 
-# <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
+### <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
 
 The `id` control information contains the entity-id, see
 [OData-Protocol](#ODataProtocol). By convention the entity-id is
@@ -970,7 +970,7 @@ compared to other entities, reread, or updated. If
 is specified and the `id` is not present in the entity, then
 the canonical URL MUST be used as the entity-id.
 
-# <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
+### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
 The `[editLink`]{#odataEditLink} control information contains
 the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
@@ -1022,7 +1022,7 @@ For collections:
   meaning in this context is reserved for future versions of this
   specification.
 
-# <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
+### <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
 
 The `etag` control information MAY be applied to an
 [entity](#Entity) or collection in a response. The
@@ -1036,7 +1036,7 @@ The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-# <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
+### <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
 
 The [`navigationLink`]{#odataNavigationLink} control information in a
 response contains a _navigation URL_ that can be used to retrieve an
@@ -1065,7 +1065,7 @@ The `navigationLink` and `associationLink` control
 information is ignored in request payloads and not written in responses
 if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-# <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
+### <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
 
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
@@ -1131,13 +1131,13 @@ Example 7:
 ```
 :::
 
-# <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
+### <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
 
 The `removed` control information is used in [delta
 payloads](#DeletedEntity) and indicates that the represented entity
 is (to be) deleted.
 
-# <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
+### <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
 
 The `collectionAnnotations` control information can be
 applied to a collection containing primitive members in order to
@@ -1340,31 +1340,213 @@ Example 11: entity with `metadata=full`
 
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
 
-# <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
+A property within an entity or complex type instance is represented as a
+name/value pair. The name MUST be the name of the property; the value is
+represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
+[collection of primitive values](#CollectionofPrimitiveValues), or
+a [collection of complex values](#CollectionofComplexValues).
 
-# <a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
+## <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
 
-# <a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a>
+Primitive values are represented following the rules of
+[RFC8259](#rfc8259).
 
-# <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
+Null values are represented as the JSON literal `null`.
 
-# <a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a>
+Values of type `Edm.Boolean` are represented as the JSON
+literals `true` and `false`
+
+Values of types `Edm.Byte`, `Edm.SByte`,
+`Edm.Int16`, `Edm.Int32`, `Edm.Int64`,
+`Edm.Single`, `Edm.Double`, and
+`Edm.Decimal` are represented as JSON numbers, except for
+`-INF`, `INF`, and `NaN` which are
+represented as strings.
+
+Values of type `Edm.String` are represented as JSON strings,
+using the JSON string escaping rules.
+
+Values of type `Edm.Binary`, `Edm.Date`,
+`Edm.DateTimeOffset`, `Edm.Duration`, `Edm.Guid`, and `Edm.TimeOfDay` are represented as
+JSON strings whose content satisfies the rules `binaryValue`,
+`dateValue`, `dateTimeOffsetValue`,
+`durationValue`, `guidValue`, and
+`timeOfDayValue` respectively, in
+[OData-ABNF](#ODataABNF).
+
+Primitive values that cannot be represented, for example due to server
+conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
+annotated with the `Core.ValueException` term. In this case,
+the payload MAY include an approximation of the value and MAY specify a
+string representation of the exact value in the `value`
+property of the annotation.
+
+Enumeration values are represented as JSON strings whose content
+satisfies the rule `enumValue` in
+[OData-ABNF](#ODataABNF). The preferred representation is the
+`enumerationMember`. If no `enumerationMember` (or
+combination of named enumeration members) is
+available, the `enumMemberValue` representation may be used.
+
+Geography and geometry values are represented as geometry types as
+defined in [RFC7946](#rfc7946), with the following
+modifications:
+
+- Keys SHOULD be ordered with type first, then coordinates, then any other keys
+- If the optional [CRS
+  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
+  MUST be of type `name`, where the value of the
+  `name` member of the contained `properties` object
+  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+
+Geography and geometry types have the same representation in a JSON
+payload. Whether the value represents a geography type or geometry type
+is inferred from its usage or specified using the
+[`type`](#ControlInformationtypeodatatype)
+control information.
+ 
+::: example
+Example 12:
+```json
+{
+  "NullValue": null,
+  "TrueValue": true,
+  "FalseValue": false,
+  "BinaryValue": "T0RhdGE",
+  "IntegerValue": -128,
+  "DoubleValue": 3.1415926535897931,
+  "SingleValue": "INF",
+  "DecimalValue": 34.95,
+  "StringValue": "Say \"Hello\",\nthen go",
+  "DateValue": "2012-12-03",
+  "DateTimeOffsetValue": "2012-12-03T07:16:23Z",
+  "DurationValue": "P12DT23H59M59.999999999999S",
+  "TimeOfDayValue": "07:59:59.999",
+  "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
+  "Int64Value": 0,
+  "ColorEnumValue": "Yellow",
+  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+}
+```
+:::
+
+## <a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
+
+A complex value is represented as a single JSON object containing one
+name/value pair for each property that makes up the complex type. Each
+property value is formatted as appropriate for the type of the property.
+
+It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
+ 
+::: example
+Example 13:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Address": {
+    "Street": "Obere Str. 57",
+    "City": "Berlin",
+    "Region": null,
+    "PostalCode": "D-12209"
+  }
+}
+```
+:::
+
+A complex value with no selected properties, or no defined properties
+(such as an empty open complex type or complex type with no structural
+properties) is represented as an empty JSON object.
+
+## <a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a>
+
+A collection of primitive values is represented as a JSON array; each
+element in the array is the representation of a [primitive
+value](#PrimitiveValue). A JSON literal `null` represents
+a null value within the collection. An empty collection is represented
+as an empty array.
+ 
+::: example
+Example 14: partial collection of strings with next link
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "EmailAddresses": [
+    "Julie@Swansworth.com",
+    "Julie.Swansworth@work.com"
+  ],
+  "EmailAddresses@nextLink": "..."
+}
+```
+
+## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
+
+A collection of complex values is represented as a JSON array; each
+element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
+null value within the collection. An empty collection is represented as an empty array.
+ 
+::: example
+Example 15: partial collection of complex values with next link
+```json
+{
+  "PhoneNumbers": [
+    {
+      "Number": "425-555-1212",
+      "Type": "Home"
+    },
+    {
+      "@type": "#Model.CellPhoneNumber",
+      "Number": "425-555-0178",
+      "Type": "Cell",
+      "Carrier": "Sprint"
+    }
+  ],
+  "PhoneNumbers@nextLink": "..."
+}
+```
+
+## <a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a>
+
+OData 4.01 adds the built-in abstract types `Edm.Untyped` and
+`Collection(Edm.Untyped)`that services can use to advertise
+in metadata that there is a property of a particular name present, but
+there is no type to describe the structure of the property's values.
+
+The value of an `Edm.Untyped` property MAY be a primitive
+value, a structural value, or a collection. If a collection, it may
+contain any combination of primitive values, structural values, and
+collections.
+
+The value of a property of type `Collection(Edm.Untyped)`MUST
+be a collection, and it MAY contain any combination of primitive values,
+structural values, and collections.
+
+Untyped values are the only place where a collection can directly
+contain a collection, or a collection can contain a mix of primitive
+values, structural values, and collections.
+
+All children of an untyped property are assumed to be untyped unless
+they are annotated with the
+[`type`](#ControlInformationtypeodatatype)
+control information, in which case they MUST conform to the type
+described by the control information.
 
 -------
 
 # <a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
 
-# <a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a>
+## <a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a>
 
-# <a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a>
+## <a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a>
 
-# <a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a>
+## <a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a>
 
-# <a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a>
+## <a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a>
 
-# <a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a>
+## <a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a>
 
-# <a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a>
+## <a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a>
 
 -------
 
@@ -1394,17 +1576,17 @@ Example 11: entity with `metadata=full`
 
 # <a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a>
 
-# <a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
+## <a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
 
-# <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
+## <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
 
-# <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
+## <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
 
-# <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
+## <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
 
-# <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
+## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
 
-# <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
+## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
 
 -------
 
@@ -1422,43 +1604,43 @@ Example 11: entity with `metadata=full`
 
 # <a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a>
 
-# <a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a>
+## <a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a>
 
-# <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
+## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
 
-# <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
+## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
-# <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
 
-# <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+## <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
 
-# <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
 
 -------
 
 # <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
 
-# <a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a>
+## <a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a>
 
-# <a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a>
+## <a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a>
 
-# <a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a>
+## <a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a>
 
 -------
 
 # <a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a>
 
-# <a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a>
+## <a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a>
 
-# <a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a>
+## <a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a>
 
-# <a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a>
+## <a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a>
 
-# <a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a>
+### <a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a>
 
-# <a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a>
+### <a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a>
 
-# <a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a>
+### <a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a>
 
 -------
 
@@ -1624,6 +1806,10 @@ http://tools.ietf.org/html/rfc8259.
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
+_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
+http://geojson.org/geojson-spec.html.
 
 -------
 

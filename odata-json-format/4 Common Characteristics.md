@@ -8,7 +8,7 @@ parts. It contains OData values as part of a larger document. Requests
 and responses are structured almost identical; the few existing
 differences will be explicitly called out in the respective subsections.
 
-# ##subsec Header Content-Type
+## ##subsec Header Content-Type
 
 Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
@@ -31,7 +31,7 @@ Requests and responses MAY add the `streaming` parameter with
 a value of `true` or `false`, see section [Payload
 Ordering Constraints](#PayloadOrderingConstraints).
 
-# ##subsec Message Body
+## ##subsec Message Body
 
 Each message body is represented as a single JSON object. This object is
 either the representation of an [entity](#Entity),
@@ -48,7 +48,7 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
-# ##subsec Relative URLs
+## ##subsec Relative URLs
 
 URLs present in a payload (whether request or response) MAY be
 represented as relative URLs.
@@ -113,7 +113,7 @@ The resulting absolute URLs are
 `http://host/service/Customers('ALFKI')` and
 `http://host/service/Customers('ALFKI')/Orders`.
 
-# ##subsec Payload Ordering Constraints
+## ##subsec Payload Ordering Constraints
 
 Ordering constraints MAY be imposed on the JSON payload in order to
 support streaming scenarios. These ordering constraints MUST only be
@@ -185,7 +185,7 @@ Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `OData-Version `header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-# ##subsec Control Information
+## ##subsec Control Information
 
 In addition to the "pure data" a message body MAY contain
 [annotations](#InstanceAnnotations) and control information that is
@@ -204,7 +204,7 @@ Receivers that encounter unknown
 annotations in any namespace or unknown control information MUST NOT
 stop processing and MUST NOT signal an error.
 
-# ##subsubsec Control Information: `context` (`odata.context`)
+### ##subsubsec Control Information: `context` (`odata.context`)
 
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
@@ -238,7 +238,7 @@ Example ##ex:
 ```
 :::
 
-# ##subsubsec Control Information: `metadataEtag` (`odata.metadataEtag`)
+### ##subsubsec Control Information: `metadataEtag` (`odata.metadataEtag`)
 
 The `metadataEtag` control information MAY appear in a
 response in order to specify the entity tag (ETag) that can be used to
@@ -255,7 +255,7 @@ in any responses.
 
 For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
 
-# ##subsubsec Control Information: `type` (`odata.type`)
+### ##subsubsec Control Information: `type` (`odata.type`)
 
 The `type` control information specifies the type of a JSON
 object or name/value pair. Its value is a URI that identifies the type
@@ -356,7 +356,7 @@ service
 ```
 :::
 
-# ##subsubsec Control Information: `count` (`odata.count`)
+### ##subsubsec Control Information: `count` (`odata.count`)
 
 The `count` control information occurs only in responses and
 can annotate any collection, see [OData-Protocol](#ODataProtocol)
@@ -365,7 +365,7 @@ section 11.2.5.5 System Query Option
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
-# ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
+### ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
 
 The `nextLink` control information indicates that a response
 is only a subset of the requested collection. It contains a URL that
@@ -374,14 +374,14 @@ allows retrieving the next subset of the requested collection.
 This control information can also be applied to [expanded to-many
 navigation properties](#ExpandedNavigationProperty).
 
-# ##subsubsec Control Information: `delta` (`odata.delta`)
+### ##subsubsec Control Information: `delta` (`odata.delta`)
 
 The `delta` control information is applied to a
 collection-valued navigation property within an [added/changed
 entity](#AddedChangedEntity) in a delta payload to represent changes
 in membership or value of nested entities.
 
-# ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
+### ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
 
 The `deltaLink` control information contains a URL that can
 be used to retrieve changes to the current set of results. The
@@ -391,7 +391,7 @@ page of results. A page of results MUST NOT have both a
 [`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information.
 
-# ##subsubsec Control Information: `id` (`odata.id`)
+### ##subsubsec Control Information: `id` (`odata.id`)
 
 The `id` control information contains the entity-id, see
 [OData-Protocol](#ODataProtocol). By convention the entity-id is
@@ -433,7 +433,7 @@ compared to other entities, reread, or updated. If
 is specified and the `id` is not present in the entity, then
 the canonical URL MUST be used as the entity-id.
 
-# ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
+### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
 The `[editLink`]{#odataEditLink} control information contains
 the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
@@ -485,7 +485,7 @@ For collections:
   meaning in this context is reserved for future versions of this
   specification.
 
-# ##subsubsec Control Information: `etag` (`odata.etag`)
+### ##subsubsec Control Information: `etag` (`odata.etag`)
 
 The `etag` control information MAY be applied to an
 [entity](#Entity) or collection in a response. The
@@ -499,7 +499,7 @@ The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-# ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
+### ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
 
 The [`navigationLink`]{#odataNavigationLink} control information in a
 response contains a _navigation URL_ that can be used to retrieve an
@@ -528,7 +528,7 @@ The `navigationLink` and `associationLink` control
 information is ignored in request payloads and not written in responses
 if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-# ##subsubsec Control Information: `media*` (`odata.media*`)
+### ##subsubsec Control Information: `media*` (`odata.media*`)
 
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
@@ -594,13 +594,13 @@ Example ##ex:
 ```
 :::
 
-# ##subsubsec Control Information: `removed` (`odata.removed`)
+### ##subsubsec Control Information: `removed` (`odata.removed`)
 
 The `removed` control information is used in [delta
 payloads](#DeletedEntity) and indicates that the represented entity
 is (to be) deleted.
 
-# ##subsubsec Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)
+### ##subsubsec Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)
 
 The `collectionAnnotations` control information can be
 applied to a collection containing primitive members in order to
