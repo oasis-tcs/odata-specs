@@ -58,6 +58,7 @@ describe("OASIS doc build", function () {
     assert.equal(compareSectionNumbers("1 foo", "0 bar"), 1, "simple, reverse");
     assert.equal(compareSectionNumbers("9 foo", "23 bar"), -1, "numeric");
     assert.equal(compareSectionNumbers("3 foo", "3.4 bar"), -1, "prefix");
+    assert.equal(compareSectionNumbers("3.14 foo", "3.4 bar"), 1, "prefix");
     assert.equal(compareSectionNumbers("9 foo", "Appendix"), -1, "numeric");
   });
 });
