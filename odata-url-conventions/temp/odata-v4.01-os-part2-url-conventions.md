@@ -39,46 +39,45 @@ document are to be interpreted as described in [RFC2119](#rfc2119).
 
 ## ##subsec Normative References
 
-[\[[ECMAScript]{#ECMAScript}\]]{.Refterm}[[                
+[\[ECMAScript\]]{.Refterm}[[                
 ]{style="font-weight:normal"}]{.Refterm}*ECMAScript 2016 Language
 Specification, 7^th^ Edition,* June 2016. Standard ECMA-262.
 <http://www.ecma-international.org/publications/standards/Ecma-262.htm>.
 
-[\[[OData-ABNF]{#ABNF}\]]{.Refterm}                 *OData ABNF
-Construction Rules Version 4.01*.\
+[\[OData-ABNF\]]{.Refterm}                 *OData ABNF Construction
+Rules Version 4.01*.\
 See the link in \"Additional artifacts\" section on cover page.
 
-[\[[OData-CSDL]{#CSDL}JSON\]]{.Refterm}        *OData Common Schema
-Definition Language (CSDL) JSON Representation Version 4.01)*. See link
-in \"Related work\" section on cover page.[ ]{.Refterm}
+[\[OData-CSDLJSON\]]{.Refterm}        *OData Common Schema Definition
+Language (CSDL) JSON Representation Version 4.01)*. See link in
+\"Related work\" section on cover page.[ ]{.Refterm}
 
 [OData-CSDLXML]{#ODataCSDLXMLRef}**         ** *OData Common Schema
 Definition Language (CSDL) XML Representation Version 4.01.* See link in
 \"Related work\" section on cover page
 
-**\[[OData-JSON]{#ODataJSONRef}\]**                 *OData JSON Format
-Version 4.01.*\
+OData-JSON                 *OData JSON Format Version 4.01.*\
 See link in \"Related work\" section on cover page.
 
-[\[[OData-Protocol]{#odata}\]]{.Refterm}            *OData Version 4.01
-Part 1: Protocol*.\
+[\[OData-Protocol\]]{.Refterm}            *OData Version 4.01 Part 1:
+Protocol*.\
 See link in \"Additional artifacts\" section on cover page.[ ]{.Refterm}
 
-**\[[OData-VocCap]{#VocCapabilities}\]**              *OData
-Vocabularies Version 4.0: Capabilities Vocabulary.*\
+OData-VocCap              *OData Vocabularies Version 4.0: Capabilities
+Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-**\[[OData-VocCore]{#VocCore}\]**            *OData Vocabularies Version
-4.0: Core Vocabulary.*\
+OData-VocCore            *OData Vocabularies Version 4.0: Core
+Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-[\[[RFC2119]{#rfc2119}\]]{.Refterm}                      Bradner, S.,
-"Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC
-2119, March 1997. <https://tools.ietf.org/html/rfc2119>.
+[\[RFC2119\]]{.Refterm}                      Bradner, S., "Key words for
+use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March
+1997. <https://tools.ietf.org/html/rfc2119>.
 
-[\[[RFC3986]{#RFC3986}\]]{.Refterm}                      Berners-Lee,
-T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI):
-Generic Syntax", STD 66, RFC 3986, January 2005.
+[\[RFC3986\]]{.Refterm}                      Berners-Lee, T., Fielding,
+R., and L. Masinter, "Uniform Resource Identifier (URI): Generic
+Syntax", STD 66, RFC 3986, January 2005.
 <https://tools.ietf.org/html/rfc3986>.
 
 [[\[]{.Refterm}]{#_Toc371341726}[[XML-Schema-2]{.Refterm}]{#BMXMLSchema2}[\]]{.Refterm}            
@@ -1327,9 +1326,8 @@ The special value `NaN` is not equal to anything, even to itself.
 The `ne` operator returns true if the left operand is not equal to the
 right operand, otherwise it returns false.
 
-[When applied to operands of entity types,
-the]{#greater-than-operatorurl5.1.2.1.3} `ne` operator returns true if
-the two operands do not represent the same entity.
+When applied to operands of entity types, the `ne` operator returns true
+if the two operands do not represent the same entity.
 
 When applied to operands of complex types, the `ne` operator returns
 true if the operands do not have the same structure and same values.
@@ -1511,11 +1509,12 @@ http://host/service/Products?\$filter=not endswith(Name,\'ilk\')
 ```
 :::
 
-[Example]{#arithmetic-operatorsurl5.1.2.2} 59: all products whose
-`style` value includes `Yellow`:
+::: example
+Example ##ex: all products whose `style` value includes `Yellow`:
 ```
 http://host/service/Products?\$filter=style has Sales.Pattern\'Yellow\'
 ```
+:::
 
 ::: example
 Example ##ex: all products whose `name` value is 'Milk' or 'Cheese':

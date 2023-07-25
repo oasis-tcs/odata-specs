@@ -39,80 +39,78 @@ document are to be interpreted as described in [RFC2119](#RFC2119).
 
 ## ##subsec Normative References
 
-[\[[OData-ABNF]{#ABNF}\]]{.Refterm}                 *OData ABNF
-Construction Rules Version 4.01*.\
+[\[OData-ABNF\]]{.Refterm}                 *OData ABNF Construction
+Rules Version 4.01*.\
 See link in \"Additional artifacts\" section on cover page.
 
-**\[[OData-Aggregation]{#ODataAggregationRef}**[**\]**]{.Hyperlink1}     
-*OData Extension for Data Aggregation Version 4.0*.\
+**\[OData-Aggregation**[**\]**]{.Hyperlink1}      *OData Extension for
+Data Aggregation Version 4.0*.\
 See link in \"Related work\" section on cover page.
 
-[\[[OData-CSDL]{#ODataCSDLRef}JSON\]]{.Refterm}        *OData Common
-Schema Definition Language (CSDL) JSON Representation Version 4.01*. See
-link in \"Related work\" section on cover page.
+[\[OData-CSDLJSON\]]{.Refterm}        *OData Common Schema Definition
+Language (CSDL) JSON Representation Version 4.01*. See link in \"Related
+work\" section on cover page.
 
 [**\[**]{#ODataCSDLXMLRef}[OData-CSDLXML\]]{.Refterm}          *OData
 Common Schema Definition Language (CSDL) XML Representation Version
 4.01.* See link in \"Related work\" section on cover page
 
-**\[[OData-JSON]{#ODataJSONRef}**[**\]**]{.Hyperlink1}                
-*OData JSON Format Version 4.01.*\
+**\[OData-JSON**[**\]**]{.Hyperlink1}                 *OData JSON Format
+Version 4.01.*\
 See link in \"Related work\" section on cover page.
 
-**\[[OData-URL]{#ODataURLRef}\]**                   *OData Version 4.01
-Part 2: URL Conventions*.\
+OData-URL                   *OData Version 4.01 Part 2: URL
+Conventions*.\
 See link in \"Additional artifacts\" section on cover page.
 
-**\[[OData-VocCap]{#VocCapabilities}\]**              *OData
-Vocabularies Version 4.0: Capabilities Vocabulary.*\
+OData-VocCap              *OData Vocabularies Version 4.0: Capabilities
+Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-**\[[OData-VocCore]{#VocCore}\]**            *OData Vocabularies Version
-4.0: Core Vocabulary.*\
+OData-VocCore            *OData Vocabularies Version 4.0: Core
+Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-**\[[RFC2046]{#RFC2046}\]                     ** Freed, N. and N.
-Borenstein, \"Multipurpose Internet Mail Extensions (MIME) Part Two:
-Media Types\", RFC 2046, November 1996.
-<https://tools.ietf.org/html/rfc2046>.
+**\[RFC2046\]                     ** Freed, N. and N. Borenstein,
+\"Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types\",
+RFC 2046, November 1996. <https://tools.ietf.org/html/rfc2046>.
 
-[\[[RFC2119]{#RFC2119}\]]{.Refterm}                      Bradner, S.,
-"Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC
-2119, March 1997. <https://tools.ietf.org/html/rfc2119>.
+[\[RFC2119\]]{.Refterm}                      Bradner, S., "Key words for
+use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March
+1997. <https://tools.ietf.org/html/rfc2119>.
 
-[\[[RFC3987]{#RFC3987}\]]{.Refterm}                      Duerst, M. and,
-M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987,
+[\[RFC3987\]]{.Refterm}                      Duerst, M. and, M.
+Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987,
 January 2005. <https://tools.ietf.org/html/rfc3987>.
 
-[\[[RFC5646]{#rfc5646}\]]{.Refterm}                      Phillips, A.,
-Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC
-5646, September 2009. <http://tools.ietf.org/html/rfc5646>.
+[\[RFC5646\]]{.Refterm}                      Phillips, A., Ed., and M.
+Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646,
+September 2009. <http://tools.ietf.org/html/rfc5646>.
 
-**\[[RFC5789]{#RFC5789}\]**                      Dusseault, L., and J.
-Snell, "Patch Method for HTTP", RFC 5789, March 2010.
-<http://tools.ietf.org/html/rfc5789>.
+RFC5789                      Dusseault, L., and J. Snell, "Patch Method
+for HTTP", RFC 5789, March 2010. <http://tools.ietf.org/html/rfc5789>.
 
-**\[[RFC7230]{#HTTPMessage}\]**                      Fielding, R., Ed.
-and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message
-Syntax and Routing",[ ]{style="font-size:10.5pt;color:#333333"}RFC 7230,
-June 2014. <https://tools.ietf.org/html/rfc7230>.
+RFC7230                      Fielding, R., Ed. and J. Reschke, Ed.,
+"Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing",[
+]{style="font-size:10.5pt;color:#333333"}RFC 7230, June 2014.
+<https://tools.ietf.org/html/rfc7230>.
 
-**\[[RFC7231]{#HTTPSemantic}\]**                      Fielding, R., Ed.
-and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics
-and Content"[,]{style="font-size:10.5pt;color:#333333"} RFC 7231, June
-2014. <https://tools.ietf.org/html/rfc7231>.
+RFC7231                      Fielding, R., Ed. and J. Reschke, Ed.,
+"Hypertext Transfer Protocol (HTTP/1.1): Semantics and
+Content"[,]{style="font-size:10.5pt;color:#333333"} RFC 7231, June 2014.
+<https://tools.ietf.org/html/rfc7231>.
 
-**\[[RFC7232]{#HTTPConditional}\]                     ** Fielding, R.,
-Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1):
-Conditional Requests"[, ]{style="font-size:10.5pt;color:#333333"}RFC
-7232, June 2014. <https://tools.ietf.org/html/rfc7232>.
+**\[RFC7232\]                     ** Fielding, R., Ed. and J. Reschke,
+Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests"[,
+]{style="font-size:10.5pt;color:#333333"}RFC 7232, June 2014.
+<https://tools.ietf.org/html/rfc7232>.
 
 [**\[**]{#_Toc370125980}[**RFC7240**]{#HTTPPREFER}**\]**                     
 Snell, J., \"Prefer Header for HTTP\",[
 ]{style="font-size:10.5pt;color:#333333"}RFC 7240, June
 2014.https://tools.ietf.org/html/rfc7240.
 
-[\[[RFC7617]{#RFC7617}\]]{.Refterm}[                     
+[\[RFC7617\]]{.Refterm}[                     
 ]{style="font-size:10.5pt;color:#333333;
 background:white"}Reschke, J., \"The \'Basic\' HTTP Authentication
 Scheme\", RFC 7617, September 2015.
@@ -5062,12 +5060,11 @@ GET http://host/service/Customers/\$each/SampleModel.MostRecentOrder()
 ```
 :::
 
-[The client MAY specify the]{#sec_AdvertisingAvailableOperationswithin}
-`continue-on-error` preference, in which case the service MAY continue
-processing actions after a failure. In this case, the service MUST,
-regardless of the `return` preference, return a response containing at
-least the members identified by the request for which the action failed.
-Such members MUST be annotated with term
+The client MAY specify the `continue-on-error` preference, in which case
+the service MAY continue processing actions after a failure. In this
+case, the service MUST, regardless of the `return` preference, return a
+response containing at least the members identified by the request for
+which the action failed. Such members MUST be annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `invoke`.
 
