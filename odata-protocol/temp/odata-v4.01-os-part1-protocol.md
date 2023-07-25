@@ -713,12 +713,12 @@ headers according to the above rules.
 
 For more details, see [Versioning](#sec_Versioning).
 
-[If the]{#_Toc477876571} `OData-Version` header is specified on an
-individual request or response within a batch, then it specifies the
-OData version for that individual request or response. Individual
-requests or responses that don't include the `OData-Version` header
-inherit the OData version of the overall batch request or response. This
-OData version does not typically vary within a batch.
+If the `OData-Version` header is specified on an individual request or
+response within a batch, then it specifies the OData version for that
+individual request or response. Individual requests or responses that
+don't include the `OData-Version` header inherit the OData version of
+the overall batch request or response. This OData version does not
+typically vary within a batch.
 
 ## ##subsec Request Headers
 
@@ -2279,8 +2279,8 @@ Example ##ex: resource URL and corresponding context URL
 `http://host/service/$metadata#Customers/$delta`
 ```
 
-[The context URL of an update request body for a collection of entities
-is simply the fragment]{#_Toc370126063} `#$delta`.
+The context URL of an update request body for a collection of entities
+is simply the fragment `#$delta`.
 
 ## ##subsec Item in a Delta Payload Response
 
@@ -4606,7 +4606,7 @@ annotation with term
 [`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
 see [OData-VocCore](#ODataVocCore).
 
-[On success, the service MUST respond with either]{#_Toc477876696}
+On success, the service MUST respond with either
 [`204 No Content`](#sec_ResponseCode204NoContent) and an empty body, or
 [`200 OK`](#sec_ResponseCode200OK) if the client specified the
 preference
@@ -5280,7 +5280,7 @@ parameter using the implicit parameter alias
 ```
 :::
 
-[Non-binding parameters annotated with the term]{#_Toc477876712}
+Non-binding parameters annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
@@ -5579,13 +5579,12 @@ specifying the desired batch response format, either `multipart/mixed`
 or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
 
-[If the set of request headers of a batch request are valid the service
-MUST return a]{#_Toc370126141} [`200 OK`](#sec_ResponseCode200OK) HTTP
-response code to indicate that the batch request was accepted for
-processing, but the processing is yet to be completed. The individual
-requests within the body of the batch request may subsequently fail or
-be malformed; however, this enables batch implementations to stream the
-results.
+If the set of request headers of a batch request are valid the service
+MUST return a [`200 OK`](#sec_ResponseCode200OK) HTTP response code to
+indicate that the batch request was accepted for processing, but the
+processing is yet to be completed. The individual requests within the
+body of the batch request may subsequently fail or be malformed;
+however, this enables batch implementations to stream the results.
 
 If the service receives a batch request with an invalid set of headers
 it MUST return a [`4xx response code`](#sec_ClientErrorResponses) and
@@ -6691,7 +6690,7 @@ expression
 
 9\. SHOULD support nested query options in `$select`
 
-[10. MAY support nested parameter alias assignments in]{#_Toc477876741}
+10\. MAY support nested parameter alias assignments in
 `$select and $expand`
 
 11\. MAY support filtering a collection using a `/$filter` path segment
@@ -6734,8 +6733,8 @@ properties
 (section 11.7 and all subsections) and the JSON Batch format defined in
 [OData-JSON](#ODataJSON)
 
-[8. SHOULD support filtering a collection using a]{#_Toc477876742}
-`/$filter` path segment
+8\. SHOULD support filtering a collection using a `/$filter` path
+segment
 
 `9. `SHOULD support nested parameter alias assignments in
 `$select and $expand`
@@ -6819,7 +6818,7 @@ prepared to handle either
 
  
 
-[Appendix A.]{#_Toc477876743} [Acknowledgments](#sec_Acknowledgments)
+Appendix A. [Acknowledgments](#sec_Acknowledgments)
 
 The following individuals were members of the OASIS OData Technical
 Committee during the creation of this specification and their
@@ -6965,7 +6964,7 @@ contributions are gratefully acknowledged:
 
  
 
-[Appendix B.]{#_Toc477876744} [Revision History](#sec_RevisionHistory)
+Appendix B. [Revision History](#sec_RevisionHistory)
 
 +-----------------+-----------------+-----------------+-----------------+
 | **Revision**    | **Date**        | **Editor**      | **Changes       |

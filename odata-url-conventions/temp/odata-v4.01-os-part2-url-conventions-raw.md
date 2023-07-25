@@ -758,8 +758,8 @@ DELETE http://host/service/Products(0)/Category/\$ref
 
 ## ##subsec Addressing Operations
 
-[The semantic rules for addressing and invoking actions and functions
-are defined in the]{#_Toc371341739} [OData-Protocol](#odata) document.
+The semantic rules for addressing and invoking actions and functions are
+defined in the [OData-Protocol](#odata) document.
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
@@ -1237,8 +1237,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/\$all?\$search=red
 :::
 
-[Example]{#_Toc371341748} 48: all `Customer` entities in a service whose
-name contains `red`
+Example 48: all `Customer` entities in a service whose name contains
+`red`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -1616,8 +1616,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products?\$filter=style has Sales.Pattern\'Yellow\'
 :::
 
-[Example]{#_Toc371341763} 60: all products whose `name` value is 'Milk'
-or 'Cheese':
+Example 60: all products whose `name` value is 'Milk' or 'Cheese':
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -1661,7 +1660,7 @@ a `DateTimeOffset` 
 
 [· ]{style="font-family:Symbol"}`Date add Duration` results in a `Date`
 
-[The rules for time-related operands are defined in]{#_Toc371341765}
+The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically, for
 adding a duration to a date:
 
@@ -1701,7 +1700,7 @@ results in a `Duration` 
 
 [· ]{style="font-family:Symbol"}`Date sub Date` results in a `Duration` 
 
-[The rules for time-related operands are defined in]{#_Toc371341766}
+The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically for
 subtracting a duration from a date see the preceding
 [section](#sec_Addition).
@@ -2779,9 +2778,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Orders?\$filter=Items/any(d:d/Quantity gt 100)
 :::
 
-[Example]{#_Toc371341807} 99: all customers having an order with a
-deviating shipping address. The `Address` in the argument expression is
-evaluated in the scope of the `Customers` collection.
+Example 99: all customers having an order with a deviating shipping
+address. The `Address` in the argument expression is evaluated in the
+scope of the `Customers` collection.
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -2976,9 +2975,9 @@ http://host/service/Customers?\$expand=Orders(\$filter=\$it/Address/City
 eq ShipTo/City)
 :::
 
-[Example]{#_Toc371341813} 107: products with at least 10 positive
-reviews. `Model.PositiveReviews` is a function bound to `Model.Product`
-returning a collection of reviews.
+Example 107: products with at least 10 positive reviews.
+`Model.PositiveReviews` is a function bound to `Model.Product` returning
+a collection of reviews.
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3861,7 +3860,7 @@ The semantics of parameter aliases are covered in
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
-[Example]{#_Toc371341828} 136:
+Example 136:
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3893,12 +3892,12 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=\[\"Carrot
 The conformance requirements for OData clients and services are
 described in [OData-Protocol](#odata).
 
-[Appendix A.]{#_Toc371341829} [Acknowledgments](#sec_Acknowledgments)
+Appendix A. [Acknowledgments](#sec_Acknowledgments)
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [OData-Protocol](#odata), are gratefully acknowledged.
 
-[Appendix B.]{#_Toc371341830} [Revision History](#sec_RevisionHistory)
+Appendix B. [Revision History](#sec_RevisionHistory)
 
 +-----------------+-----------------+-----------------+-----------------+
 | **Revision**    | **Date**        | **Editor**      | **Changes       |
