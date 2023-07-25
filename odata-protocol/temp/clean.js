@@ -15,7 +15,7 @@ const clean = old
   .replace(/<h1[^>]*>/g, "<h1>")
 
   // clean up headings
-
+  .replace(/<a href="#sec[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
 
   // clean up "keyword" formatting
   .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
