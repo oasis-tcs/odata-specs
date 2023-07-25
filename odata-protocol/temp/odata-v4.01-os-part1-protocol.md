@@ -2605,10 +2605,12 @@ A `$value` request for a property that is `null` results in a
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
-[Example]{#_Ref356920699} 32:
+::: example
+Example ##ex:
 ```
 GET http://host/service/Products(1)/Name/\$value
 ```
+:::
 
 ### ##subsubsec Specifying Properties to Return
 
@@ -4774,11 +4776,12 @@ than or equal to the inserted position are increased by one. A negative
 ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
-[Example]{#_Ref484616044} 80: Insert a new email address at the second
-position
+::: example
+Example ##ex: Insert a new email address at the second position
 ```
 [POST
 /service/Customers(\'ALFKI\')/EmailAddresses?\$index=1]{style="color:black;background:#D9D9D9"}
+:::
 
 [Content-Type: application/json]{style="color:black;background:#D9D9D9"}
 

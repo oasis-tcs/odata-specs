@@ -42,6 +42,7 @@ const clean = old
   .replace(/<a[ \n]href="#sec[^"]+">((<code>|<\/code>|[^<])*)<\/a><\/h/g, "$1</h")
   .replace(/<a[ \n]name="sec[^"]+">[\d\. \n]*<\/a>/g, "")
   .replace(/<a[ \n]name="_Toc[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
+  .replace(/<a[ \n]name="_Ref[^"]+">([^<]*)<\/a>/g, "$1")
   .replace(/<h1>[\d\.\s]*/g, "<h1>##sec ")
   .replace(/<h2>[\d\.\s]*/g, "<h2>##subsec ")
   .replace(/<h3>[\d\.\s]*/g, "<h3>##subsubsec ")

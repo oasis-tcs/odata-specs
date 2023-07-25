@@ -2698,7 +2698,7 @@ A `$value` request for a property that is `null` results in a
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
-[Example]{#_Ref356920699} 32:
+Example 32:
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4923,8 +4923,7 @@ than or equal to the inserted position are increased by one. A negative
 ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
-[Example]{#_Ref484616044} 80: Insert a new email address at the second
-position
+Example 80: Insert a new email address at the second position
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
