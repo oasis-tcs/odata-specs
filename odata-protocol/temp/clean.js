@@ -15,7 +15,7 @@ const clean = old
   .replace(/<h1[^>]*>/g, "<h1>")
 
   // clean up formatting
-  .replace(/<span[ \n]style='(font-size:[\d\.]+pt;)?color:\n?black(;\n?background:white)?'>([^<]*)<\/span>/g,"$3")
+  .replace(/<span[ \n]style='(font-size:\n?[\d\.]+pt;)?color:\n?black(;\n?background:white)?'>([^<]*)<\/span>/g,"$3")
   .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='background:white'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
@@ -23,7 +23,7 @@ const clean = old
   // TODO: clean up all <span> tags
 
   // clean up "keyword" formatting
-  .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"(;\n?color:black)?(;\n?background:white)?'>([^<]*)<\/span>/g, "<code>$3</code>")
+  .replace(/<span[ \n]+style='font-family:\n?"Courier[ \n]New"(;\n?color:black)?(;\n?background:white)?'>([^<]*)<\/span>/g, "<code>$3</code>")
   .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=Keyword>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=VerbatimChar>([^<]*)<\/span>/g, "<code>$1</code>")

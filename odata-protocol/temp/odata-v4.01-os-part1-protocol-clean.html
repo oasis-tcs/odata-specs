@@ -1185,8 +1185,7 @@ influence the response in a couple of ways. </p>
      are available. Once notified, the client uses the status monitor resource
      from the </span></span><code>Location</code><span
      class=Datatype><span style='font-family:"Arial",sans-serif'> header of the
-     previously returned </span></span><a href="#sec_ResponseCode202Accepted"><span
-     style='font-family:"Courier New"'>202 Accepted</span></a><span
+     previously returned </span></span><a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a><span
      class=Datatype><span style='font-family:"Arial",sans-serif'> response to
      retrieve the results. In case no updates were available after processing
      the initial request, the result will contain no updates and the client can
@@ -2911,20 +2910,13 @@ paging</a>:</p>
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><code>$appl</code><span style='font-family:
      "Courier New"'>y</span> – defined in <a href="#ODataAggregationRef">OData-Aggregation</a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptioncompute"><span
-     style='font-family:"Courier New"'>$compute</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionsearch"><span
-     style='font-family:"Courier New"'>$search</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionfilter"><span
-     style='font-family:"Courier New"'>$filter</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptioncount"><span
-     style='font-family:"Courier New"'>$count</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionorderby"><span
-     style='font-family:"Courier New"'>$orderby</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionskip"><span
-     style='font-family:"Courier New"'>$skip</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptiontop"><span
-     style='font-family:"Courier New"'>$top</span></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptioncompute"><code>$compute</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionsearch"><code>$search</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptioncount"><code>$count</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionskip"><code>$skip</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptiontop"><code>$top</code></a></li>
 </ul>
 
 <p class=MsoNormal>After applying
@@ -2934,10 +2926,8 @@ paging</a>:</p>
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='color:#0000EE'><span style='color:windowtext'><a
      href="#sec_SystemQueryOptionexpand"><code>$expand</code></a></span></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionselect"><span
-     style='font-family:"Courier New"'>$select</span></a></li>
- <li class=MsoNormal><a href="#sec_SystemQueryOptionformat"><span
-     style='font-family:"Courier New"'>$format</span></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionselect"><code>$select</code></a></li>
+ <li class=MsoNormal><a href="#sec_SystemQueryOptionformat"><code>$format</code></a></li>
 </ul>
 
 <h3>##subsubsec Requesting Individual Entities</h3>
@@ -3204,8 +3194,7 @@ omitting properties previously returned by default.</span></a> <span
 class=apple-converted-space>Clients
 that rely on specific properties in the response MUST use </span><code>$select</code><span class=apple-converted-space> with the required properties or with </span><code>*</code><span class=apple-converted-space>.</span></p>
 
-<p class=MsoNormal><span class=apple-converted-space><span style='font-size:
-9.0pt;color:black;background:white'>If t</span></span>he service returns less than the full set of properties,
+<p class=MsoNormal><span class=apple-converted-space>If t</span>he service returns less than the full set of properties,
 either because the client specified a select or because the service returned a
 subset of properties in the absence of a select, the <a
 href="#sec_ContextURL">context URL</a> MUST reflect the set of selected
@@ -3491,8 +3480,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>eq</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>eq</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Equal</p>
@@ -3504,8 +3492,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>ne</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>ne</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Not equal</p>
@@ -3517,8 +3504,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>gt</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>gt</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Greater than</p>
@@ -3530,8 +3516,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>ge</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>ge</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Greater than or equal</p>
@@ -3543,8 +3528,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>lt</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>lt</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Less than</p>
@@ -3556,8 +3540,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>le</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>le</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Less than or equal</p>
@@ -3598,8 +3581,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>and</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>and</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Logical and</p>
@@ -3612,8 +3594,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>or</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>or</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Logical or</p>
@@ -3643,8 +3624,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>add</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>add</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Addition</p>
@@ -3656,8 +3636,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>sub</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>sub</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Subtraction</p>
@@ -3669,8 +3648,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>mul</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>mul</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Multiplication</p>
@@ -3682,8 +3660,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
  <tr>
   <td width=72 valign=top style='width:.75in;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>div</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>div</code></p>
   </td>
   <td width=155 valign=top style='width:116.1pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='page-break-after:avoid'>Division</p>
@@ -3776,8 +3753,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>concat</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>concat</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3787,8 +3763,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>contains</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>contains</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3797,8 +3772,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>endswith</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>endswith</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3807,8 +3781,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>indexof</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>indexof</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3818,8 +3791,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>length</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>length</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3828,8 +3800,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>startswith</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>startswith</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3852,8 +3823,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>hassubset</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>hassubset</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3876,8 +3846,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>matchesPattern</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>matchesPattern</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3886,8 +3855,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>tolower</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>tolower</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3897,8 +3865,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>toupper</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>toupper</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3922,8 +3889,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>day</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>day</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3932,8 +3898,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>date</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>date</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3943,8 +3908,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>fractionalseconds</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>fractionalseconds</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3953,8 +3917,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>hour</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>hour</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3963,8 +3926,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>maxdatetime</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>maxdatetime</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3973,8 +3935,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>mindatetime</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>mindatetime</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3983,8 +3944,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>minute</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>minute</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -3993,8 +3953,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>month</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>month</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4003,8 +3962,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>now</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>now</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4013,8 +3971,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>second</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>second</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4023,8 +3980,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>time</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>time</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4033,8 +3989,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>totaloffsetminutes</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>totaloffsetminutes</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4044,8 +3999,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>totalseconds</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>totalseconds</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4069,8 +4023,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>ceiling</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>ceiling</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4079,8 +4032,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>floor</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>floor</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4103,8 +4055,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>cast</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>cast</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4113,8 +4064,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>isof</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>isof</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4137,8 +4087,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>geo.distance</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>geo.distance</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
@@ -4147,8 +4096,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=161 valign=top style='width:120.5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
-  style='font-family:"Courier New"'>geo.intersects</span></p>
+  <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><code>geo.intersects</code></p>
   </td>
   <td width=454 valign=top style='width:340.2pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='text-align:justify;page-break-after:avoid'><span
