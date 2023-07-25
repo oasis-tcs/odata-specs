@@ -1307,17 +1307,13 @@ see [OData-VocCap](#ODataVocCap).
 
 Example 9: a service receiving the following header might choose to
 respond
-
-[· ]{style="font-family:Symbol;font-style:normal"}asynchronously if the
+- asynchronously if the
 synchronous processing of the request will take longer than 10 seconds
-
-[· ]{style="font-family:Symbol;font-style:normal"}synchronously after 5
+- synchronously after 5
 seconds
-
-[· ]{style="font-family:Symbol;font-style:normal"}asynchronously
+- asynchronously
 (ignoring the [`wait`](#sec_Preferencewait) preference)
-
-[· ]{style="font-family:Symbol;font-style:normal"}synchronously after 15
+- synchronously after 15
 seconds (ignoring `respond-`async preference and the
 [`wait`](#sec_Preferencewait) preference)
 
@@ -1738,8 +1734,7 @@ singleton entity,
 - `{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
+- `{property-path}` is the
 path to a structural property of the entity,
 - `{type-name}` is a qualified type name,
 - `{/type-name}` is an optional type-cast
@@ -2371,8 +2366,7 @@ subsections
 Entity](#sec_CreateanEntity) and subsections
 - 11.4.7.1 [Create a Media
 Entity](#sec_CreateaMediaEntity)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.11` [Positional
+- `11.4.11` [Positional
 Inserts](#sec_PositionalInserts)
 - 11.5.5 [Actions](#sec_Actions) and
 subsections
@@ -2382,36 +2376,26 @@ Requests](#sec_BatchRequests) and subsections
 `PATCH` and `PUT` requests:
 - 11.4.3 [Update an
 Entity](#sec_UpdateanEntity) and subsections
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.4` [Upsert an
+- `11.4.4` [Upsert an
 Entity](#sec_UpsertanEntity)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.6` [Modifying
+- `11.4.6` [Modifying
 Relationships between
 Entities](#sec_ModifyingRelationshipsbetweenEntitie) and subsections
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.7.2` [Update a Media
+- `11.4.7.2` [Update a Media
 Entity Stream](#sec_UpdateaMediaEntityStream)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.8.1` [Update Stream
+- `11.4.8.1` [Update Stream
 Values](#sec_UpdateStreamValues)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.1 `[Update a
+- `11.4.9.1 `[Update a
 Primitive Property](#sec_UpdateaPrimitiveProperty)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.3 `[Update a
+- `11.4.9.3 `[Update a
 Complex Property](#sec_UpdateaComplexProperty)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.4 `[Update a
+- `11.4.9.4 `[Update a
 Collection Property](#sec_UpdateaCollectionProperty)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.10` [Managing Members
+- `11.4.10` [Managing Members
 of an Ordered Collection](#sec_ManagingMembersofanOrderedCollection)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}11.4.12 [Update a
+- 11.4.12 [Update a
 Collection of Entities](#sec_UpdateaCollectionofEntities)
-
-[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.13` [Update Members
+- `11.4.13` [Update Members
 of a Collection](#sec_UpdateMembersofaCollection)
 
 `DELETE` requests:
@@ -2855,8 +2839,7 @@ gt 100)]{lang="FR" style="color:black"}
 
 Example 42: for each order within the `Orders` entity set, the following
 will be represented inline:
-
-[· ]{style="font-family:Symbol;font-style:normal"}The `Items` related to
+- The `Items` related to
 the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 
@@ -4382,20 +4365,15 @@ fields, they MUST identify the same entity, or the request is invalid.
 Example 79: using the JSON format, a 4.01
 [[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can specify a
 nested delta representation to:
-
-[· ]{style="font-family:Symbol;font-style:normal"}delete employee 3 and
+- delete employee 3 and
 remove link to it
-
-[· ]{style="font-family:Symbol;font-style:normal"}remove the link to
+- remove the link to
 employee 4 and do not delete it
-
-[· ]{style="font-family:Symbol;font-style:normal"}add a link to employee
+- add a link to employee
 5
-
-[· ]{style="font-family:Symbol;font-style:normal"}change the last name
+- change the last name
 of employee 6 and link to it if necessary
-
-[· ]{style="font-family:Symbol;font-style:normal"}add a new employee
+- add a new employee
 named "Suzanne Brown" and link to it
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -5891,11 +5869,9 @@ the following individual requests in the order listed
 1\. A query request
 
 2\. A change set that contains the following requests:
-
-[· ]{style="font-family:Symbol;font-style:normal"}Insert entity (with
+- Insert entity (with
 `Content-ID = 1`)
-
-[· ]{style="font-family:Symbol;font-style:normal"}Update entity (with
+- Update entity (with
 `Content-ID = 2`)
 
 3\. A second query request
@@ -5986,11 +5962,9 @@ Example 102: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
-
-[· ]{style="font-family:Symbol;font-style:normal"}Insert a new entity
+- Insert a new entity
 (with `Content-ID = 1`)
-
-[· ]{style="font-family:Symbol;font-style:normal"}Insert a second new
+- Insert a second new
 entity (references request with `Content-ID = 1`)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -6036,11 +6010,9 @@ Content-Length: \###\
 
 Example 103: a batch request that contains the following operations in
 the order listed:
-
-[· ]{style="font-family:Symbol;font-style:normal"}Get an Employee (with
+- Get an Employee (with
 `Content-ID = 1`)
-
-[· ]{style="font-family:Symbol;font-style:normal"}Update the salary only
+- Update the salary only
 if the employee has not changed
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
