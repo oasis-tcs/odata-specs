@@ -176,8 +176,7 @@ style</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Non-normative examples use this paragraph style.</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Non-normative examples use this paragraph style.</p>
 
 </div>
 
@@ -383,11 +382,10 @@ within an entity set are uniquely identified by their key values, entities are
 also uniquely identified by a durable, opaque, globally unique <i>entity-id</i>.
 The entity-id MUST be an IRI as defined in <a href="#RFC3987"><b>[RFC3987]</b></a>
 and MAY be expressed in payloads, headers, and URLs as a relative reference as
-appropriate. <span style='color:black'>While the client MUST be prepared to
+appropriate. While the client MUST be prepared to
 accept any IRI, services MUST use valid URIs in this version of the
 specification since there is currently no lossless representation of an IRI in
-the </span><a href="#sec_HeaderODataEntityId"><code>EntityId</code></a><span
-style='color:black'> header. </span></p>
+the <a href="#sec_HeaderODataEntityId"><code>EntityId</code></a> header. </p>
 
 <p class=MsoNormal>Services are strongly encouraged to use the canonical URL
 for an entity as defined in <b>OData-URL</b> as its entity-id, but clients cannot
@@ -495,8 +493,7 @@ header.</p>
 <p class=MsoNormal>OData clients include the <a
 href="#sec_HeaderODataMaxVersion"><code>OData-MaxVersion</code></a><code> </code>header in requests in order to
 specify the maximum acceptable response version. Services respond with the
-maximum supported version that is less than or equal to the requested <code>OData-MaxVersion</code>, using decimal comparison. <span
-style='color:black'>The syntax of the </span><code>OData-Version</code>
+maximum supported version that is less than or equal to the requested <code>OData-MaxVersion</code>, using decimal comparison. The syntax of the <code>OData-Version</code>
 and <code>OData-MaxVersion</code> header fields is defined in <a
 href="#ODataABNF">OData-ABNF</a>. </p>
 
@@ -806,14 +803,10 @@ href="#sec_HeaderContentLanguage">Header <code>Content-Language</code></a></h3>
 class=MsoHyperlink><b><span style='color:windowtext'>,</span></b></span> a
 request or response can include a <code>Content-Language</code>
 header to indicate the natural language of the intended audience for the
-enclosed <span style='color:black'>message body</span>. OData does not add any
-additional <span style='color:black'>requirements over HTTP</span> <span
-style='color:black'>for including </span><code>Content-Language</code><span
-style='color:black'>. OData services can annotate model elements whose content
-depends on the content language with the term </span><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a><span
-style='color:black'>, see </span><a href="#ODataVocCore">OData-VocCore</a><span
-style='color:black'>.</span></p>
+enclosed message body. OData does not add any
+additional requirements over HTTP for including <code>Content-Language</code>. OData services can annotate model elements whose content
+depends on the content language with the term <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal>If the <code>Content-Language</code> header
 is specified on an individual request or response within a batch, then it
@@ -827,9 +820,8 @@ href="#sec_HeaderContentLength">Header <code>Content-Length</code></a></h3>
 <p class=MsoNormal>As defined in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
 class=MsoHyperlink><b><span style='color:windowtext'>,</span></b></span> a
 request or response SHOULD include a <code>Content-Length</code>
-header <span style='color:black'>when the message's length can be determined
-prior to being transferred</span>. OData does not add any additional <span
-style='color:black'>requirements over HTTP for writing </span><code>Content-Length</code><span style='color:black'>.</span></p>
+header when the message's length can be determined
+prior to being transferred. OData does not add any additional requirements over HTTP for writing <code>Content-Length</code>.</p>
 
 <p class=MsoNormal>If the <code>Content-Length</code> header is
 specified on an individual request or response within a batch, then it
@@ -940,18 +932,12 @@ request header MUST be an ETag value previously retrieved for the resource, or <
 (see term <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>in <a
-href="#ODataVocCore">OData-VocCore</a><span style='color:black'> and
-property </span><code>OptimisticConcurrencyControl</code><span
-style='color:black'> of type </span><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a><span
-style='color:black'> in </span><b> </b><a href="#ODataVocCap">OData-VocCap</a><span
-style='color:black'>) and the client does not specify an </span><code>If-Match</code><span style='color:black'> request header in a </span><a
-href="#sec_DataModification">Data Modification Request</a><span
-style='color:black'> or </span>in an <a href="#sec_Actions">Action Request</a><span
-style='color:black'> invoking an action bound to the resource, the service
-responds with a </span><code>428 Precondition Required</code><span
-style='color:black'> and MUST ensure that no observable change occurs as a
-result of the request.</span></p>
+href="#ODataVocCore">OData-VocCore</a> and
+property <code>OptimisticConcurrencyControl</code> of type <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a> in <b> </b><a href="#ODataVocCap">OData-VocCap</a>) and the client does not specify an <code>If-Match</code> request header in a <a
+href="#sec_DataModification">Data Modification Request</a> or in an <a href="#sec_Actions">Action Request</a> invoking an action bound to the resource, the service
+responds with a <code>428 Precondition Required</code> and MUST ensure that no observable change occurs as a
+result of the request.</p>
 
 <p class=MsoNormal>If present, the request MUST only be processed if the
 specified ETag value matches the current ETag value of the target resource.
@@ -965,10 +951,8 @@ href="#HTTPConditional"><b>[RFC7232]</b></a>. </p>
 resource for a <a href="#sec_DataModification">Data Modification Request<span
 style='color:windowtext'> </span></a>or <a href="#sec_Actions">Action Request</a>,
 the service MUST respond with <a href="#sec_ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST
-ensure that no observable change occurs as a result of the request.<span
-style='color:black'> In the case of an </span><a href="#sec_UpsertanEntity">upsert</a><span
-style='color:black'>, if the addressed entity does not exist the provided ETag value
-is considered not to match.</span></p>
+ensure that no observable change occurs as a result of the request. In the case of an <a href="#sec_UpsertanEntity">upsert</a>, if the addressed entity does not exist the provided ETag value
+is considered not to match.</p>
 
 <p class=MsoNormal>An <code>If-Match</code> header with a value
 of <code>*</code> in a <code>PUT</code> or <code>PATCH</code> request results in an <a href="#sec_UpsertanEntity">upsert
@@ -1054,7 +1038,7 @@ Not Found</code></a><span style='color:black;background:white'> if a consumer
 tries to follow a next link referring to a snapshot that is no longer
 available.</span></p>
 
-<p class=MsoNormal><span style='color:black'>The syntax of the </span><span
+<p class=MsoNormal>The syntax of the <span
 style='font-family:"Courier New";color:black;background:white'>Isolation</span>
 header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
@@ -1128,8 +1112,8 @@ place of entities that have previously been returned, with at least the
 properties requested, in the same response (for example, when serializing the
 expanded results of many-to-many relationships). The service MUST NOT return
 entity references in place of requested entities if <code>allow-entityreferences </code>has not been specified in the
-request, unless explicitly defined by other rules in this document<code>.</code><span style='color:black'> The syntax
-of the </span><code>allow-entityreferences </code>preference
+request, unless explicitly defined by other rules in this document<code>.</code> The syntax
+of the <code>allow-entityreferences </code>preference
 is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In the case
@@ -1178,7 +1162,7 @@ request that the service notify the client when data is available.</p>
 <p class=MsoNormal>The <code>callback</code>
 preference MUST include the parameter <code>url</code>
 whose value is the URL of a callback endpoint to be invoked by the OData
-service when data is available.<span style='color:black'> The syntax of the </span><code>callback</code> preference is defined in <a
+service when data is available. The syntax of the <code>callback</code> preference is defined in <a
 href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoNormal>For HTTP based callbacks, the OData service executes an HTTP
@@ -1258,8 +1242,7 @@ notification</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: callback; url=&quot;http://myserver/notfication/token/12345&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: callback; url=&quot;http://myserver/notfication/token/12345&quot;</p>
 
 </div>
 
@@ -1294,8 +1277,7 @@ request whether, upon encountering a request within the batch that returns an
 error, the service return the error for that request and continue processing
 additional requests within the batch (if specified with an implicit or explicit
 value of <code>true</code>), or rather stop further processing
-(if specified with an explicit value of <code>false</code>).<span
-style='color:black'> The syntax of the </span><code>continue-on-error</code>
+(if specified with an explicit value of <code>false</code>). The syntax of the <code>continue-on-error</code>
 preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoNormal>The <code>continue-on-error</code>
@@ -1334,21 +1316,20 @@ response. </p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The value of
 the <code>include-annotations</code>
-preference is <span style='color:black'>a comma-separated list of
+preference is a comma-separated list of
 namespace-qualified term names or term name patterns to include or exclude, with
-</span><code>*</code><span style='color:black'> as a wildcard
+<code>*</code> as a wildcard
 for name segments. Term names and term name patterns can optionally be followed
-by a hash (</span><code>#</code><span style='color:black'>)
-character and an annotation qualifier. The full syntax of the </span><code>include-annotations</code> preference is
+by a hash (<code>#</code>)
+character and an annotation qualifier. The full syntax of the <code>include-annotations</code> preference is
 defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'><span
-style='color:black'>The most specific identifier always takes precedence, with
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The most specific identifier always takes precedence, with
 an explicit name taking precedence over a name pattern, and a longer pattern
 taking precedence over a shorter pattern. If the same identifier value is
 requested to both be excluded and included the behavior is undefined; the
 service MAY return or omit the specified vocabulary but MUST NOT raise an
-exception. </span></p>
+exception. </p>
 
 <p class=MsoCaption>Example 3: a <code>Prefer</code>
 header requesting all annotations within a metadata document to be returned</p>
@@ -1357,8 +1338,7 @@ header requesting all annotations within a metadata document to be returned</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: include-annotations=&quot;*&quot; </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: include-annotations=&quot;*&quot; </p>
 
 </div>
 
@@ -1369,8 +1349,7 @@ header requesting that no annotations are returned</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: include-annotations=&quot;-*&quot; </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: include-annotations=&quot;-*&quot; </p>
 
 </div>
 
@@ -1382,8 +1361,7 @@ namespace (recursively) be returned</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: include-annotations=&quot;display.*&quot; </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: include-annotations=&quot;display.*&quot; </p>
 
 </div>
 
@@ -1395,8 +1373,7 @@ within the <code>display</code> namespace be returned</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: include-annotations=&quot;display.subject&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: include-annotations=&quot;display.subject&quot;</p>
 
 </div>
 
@@ -1408,27 +1385,23 @@ namespace (recursively) with the qualifier “tablet” be returned</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: include-annotations=&quot;display.*#tablet&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: include-annotations=&quot;display.*#tablet&quot;</p>
 
 </div>
 
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'><span
-style='color:black'>The </span><code>include-annotations</code><span
-style='color:black'> preference is only a hint to the service. The service MAY
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>include-annotations</code> preference is only a hint to the service. The service MAY
 ignore the preference and is free to decide whether or not to return
-annotations not specified in the </span><code>include-annotations</code><span
-style='color:black'> preference. </span></p>
+annotations not specified in the <code>include-annotations</code> preference. </p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In the case
 that the client has specified the <code>include-annotations</code>
 preference in the request, the service SHOULD include a <a
 href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a>
 response header containing the <code>include-annotations</code>
-preference<span style='color:black'> to specify the annotations actually
+preference to specify the annotations actually
 included, where applicable, in the response. This value may differ from the
-annotations requested in the </span><a href="#sec_HeaderPrefer"><code>Prefer</code></a><span style='color:black'> header
-of the request. </span></p>
+annotations requested in the <a href="#sec_HeaderPrefer"><code>Prefer</code></a> header
+of the request. </p>
 
 <p class=MsoNormal>If the <code>include-annotations</code>
 preference is specified on an individual request within a batch, then it
@@ -1456,8 +1429,7 @@ preference SHOULD be used.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>maxpagesize</code> preference is used to
 request that each collection within the response contain no more than the
-number of items specified as the positive integer value of this preference.<span
-style='color:black'> The syntax of the </span><code>maxpagesize</code>
+number of items specified as the positive integer value of this preference. The syntax of the <code>maxpagesize</code>
 preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoCaption>Example 8: a request for customers and their orders would
@@ -1543,26 +1515,19 @@ not affect a request payload.</p>
 <h4>8.2.8.7 <a
 href="#sec_Preferencereturnrepresentationandret">Preference <code>return=representation</code> and <code>return=minimal</code></a></h4>
 
-<p class=MsoNormal style='margin-left:99.25pt;text-indent:-99.25pt'>The <code>return=representation</code><span style='color:black'> and </span><code>return=minimal</code> preferences are defined in <a
+<p class=MsoNormal style='margin-left:99.25pt;text-indent:-99.25pt'>The <code>return=representation</code> and <code>return=minimal</code> preferences are defined in <a
 href="#HTTPPREFER"><b>[RFC7240]</b></a>.</p>
 
-<p class=MsoNormal><span style='color:black'>In OData, </span><code>return=representation</code><span style='color:black'> or </span><code>return=minimal</code><span style='color:black'> is defined for
-use with a </span><code>POST</code><span style='color:black'>, </span><code>PUT</code><span style='color:black'>, or </span><code>PATCH</code><span style='color:black'> </span><a
-href="#sec_DataModification">Data Modification Request</a><span
-style='color:black'>, or with an </span><a href="#sec_Actions">Action Request</a><span
-style='color:black'>. Specifying a preference of </span><code>return=representation</code><span
-style='color:black'> or </span><code>return=minimal</code><span
-style='color:black'> in a </span><code>GET</code><span
-style='color:black'> or </span><code>DELETE</code><span
-style='color:black'> request does not have any effect. </span></p>
+<p class=MsoNormal>In OData, <code>return=representation</code> or <code>return=minimal</code> is defined for
+use with a <code>POST</code>, <code>PUT</code>, or <code>PATCH</code> <a
+href="#sec_DataModification">Data Modification Request</a>, or with an <a href="#sec_Actions">Action Request</a>. Specifying a preference of <code>return=representation</code> or <code>return=minimal</code> in a <code>GET</code> or <code>DELETE</code> request does not have any effect. </p>
 
-<p class=MsoNormal><span style='color:black'>A preference of </span><code>return=representation</code><span style='color:black'> or </span><code>return=minimal</code><span style='color:black'> is allowed on an
-individual </span><a href="#sec_DataModification">Data Modification Request</a><span
-style='color:black'> or </span><a href="#sec_Actions">Action Request</a><span
-class=MsoHyperlink> </span><span style='color:black'>within a batch, subject to
-the same restrictions, but SHOULD return a </span><code>4xx
-Client Error</code><span style='color:black'> if specified on the batch request
-itself. </span></p>
+<p class=MsoNormal>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an
+individual <a href="#sec_DataModification">Data Modification Request</a> or <a href="#sec_Actions">Action Request</a><span
+class=MsoHyperlink> </span>within a batch, subject to
+the same restrictions, but SHOULD return a <code>4xx
+Client Error</code> if specified on the batch request
+itself. </p>
 
 <p class=MsoNormal>A preference of <code>return=minimal</code>
 requests that the service invoke the request but does not return content in the
@@ -1638,8 +1603,7 @@ preference)</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Prefer: respond-async, wait=10</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Prefer: respond-async, wait=10</p>
 
 </div>
 
@@ -1649,8 +1613,7 @@ href="#sec_Preferencetrackchangesodatatrackchan">Preference <code>track-changes<
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>track-changes</code> preference is used to
 request that the service return a<span class=MsoHyperlink> </span><a
 href="#sec_DeltaLinks">delta link</a> that can subsequently be used to obtain <a
-href="#sec_RequestingChanges">changes </a>(deltas) to this result. <span
-style='color:black'>The syntax of the </span><code>track-changes
+href="#sec_RequestingChanges">changes </a>(deltas) to this result. The syntax of the <code>track-changes
 </code>preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoNormal>For <a href="#sec_ServerDrivenPaging">paged results</a>, the
@@ -1791,7 +1754,7 @@ operation</span> that returns <a href="#sec_ResponseCode204NoContent"><code>204 
 Content</code></a><span style='font-family:"Calibri",sans-serif'> </span>MUST
 include an <span style='font-family:"Courier New";color:black;background:white'>OData-</span><code>EntityId</code> response header. The value of the header is the <a
 href="#sec_EntityIdsandEntityReferences">entity-id</a> of the entity that was
-acted on by the request. <span style='color:black'>The syntax of the </span><span
+acted on by the request. The syntax of the <span
 style='font-family:"Courier New";color:black;background:white'>OData-</span><code>EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
 <p class=MsoNormal>The <span style='font-family:"Courier New";color:black;
@@ -2061,11 +2024,9 @@ code serves as a sub-status for the HTTP error code specified in the response.</
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 style='font-family:Symbol'>· </span><code>message</code>: required non-null,
-non-empty, language-dependent, human-readable string describing the error. <span
-style='color:black'>The&nbsp;</span><a href="#sec_HeaderContentLanguage"><code>Content-Language</code></a><span
-style='color:black'>&nbsp;header MUST contain the language code </span>from <a
-href="#rfc5646"><b>[RFC5646]</b></a> <span style='color:black'>corresponding to
-the language in which the value for message is written.</span></p>
+non-empty, language-dependent, human-readable string describing the error. The&nbsp;<a href="#sec_HeaderContentLanguage"><code>Content-Language</code></a>&nbsp;header MUST contain the language code from <a
+href="#rfc5646"><b>[RFC5646]</b></a> corresponding to
+the language in which the value for message is written.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 style='font-family:Symbol'>· </span><code>target</code>: optional nullable,
@@ -2177,10 +2138,9 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/</span></span></p>
+class=Datatype>http://host/service/</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata</p>
 
 </div>
 
@@ -2202,11 +2162,9 @@ collection are members of one entity set, its name is the context URL fragment.
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers</p>
 
 </div>
 
@@ -2222,11 +2180,9 @@ contained entities</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Orders(4711)/Items</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Orders(4711)/Items</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Orders(4711)/Items</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Orders(4711)/Items</p>
 
 </div>
 
@@ -2254,10 +2210,9 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/Customers(1)</span></span></p>
+class=Datatype>http://host/service/Customers(1)</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers/$entity</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers/$entity</p>
 
 </div>
 
@@ -2273,11 +2228,9 @@ contained entity</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Orders(4711)/Items(1)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Orders(4711)/Items(1)</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Orders(4711)/Items/$entity</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Orders(4711)/Items/$entity</p>
 
 </div>
 
@@ -2303,7 +2256,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/MainSupplier</span></span></p>
+class=Datatype>http://host/service/MainSupplier</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 style='color:black'>http://host/service/$metadata#<code>MainSupplier</code></span></p>
@@ -2326,11 +2279,9 @@ URL.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers/Model.VipCustomer</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers/Model.VipCustomer</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers/Model.VipCustomer</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers/Model.VipCustomer</p>
 
 </div>
 
@@ -2351,10 +2302,9 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/Customers(2)/Model.VipCustomer</span></span></p>
+class=Datatype>http://host/service/Customers(2)/Model.VipCustomer</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers/Model.VipCustomer/$entity</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers/Model.VipCustomer/$entity</p>
 
 </div>
 
@@ -2407,13 +2357,10 @@ collection, see system query option <a href="#sec_SystemQueryOptionselect"><code
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers?$</span><span class=Datatype><span
-style='font-size:10.0pt;color:black'>select</span></span><span
-style='color:black'>=Address,Orders</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers?$<span class=Datatype><span
+style='font-size:10.0pt;color:black'>select</span></span>=Address,Orders</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers(Address,Orders)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers(Address,Orders)</p>
 
 </div>
 
@@ -2470,11 +2417,9 @@ system query option <a href="#sec_SystemQueryOptionselect"><code>$select</code><
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers(1)?$select=Name,Rating</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers(1)?$select=Name,Rating</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers(Name,Rating)/$entity</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers(Name,Rating)/$entity</p>
 
 </div>
 
@@ -2517,11 +2462,9 @@ select and expand</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers?$select=Name&amp;$expand=Address/Country</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers?$select=Name&amp;$expand=Address/Country</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers(Name,Address/Country())</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers(Name,Address/Country())</p>
 
 </div>
 
@@ -2532,11 +2475,9 @@ expand <code>$ref</code></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers?$expand=Orders/$ref</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers?$expand=Orders/$ref</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers</p>
 
 </div>
 
@@ -2627,10 +2568,10 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/Customers('ALFKI')/Orders/$ref</span></span></p>
+class=Datatype>http://host/service/Customers('ALFKI')/Orders/$ref</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#Collection($ref)</span></span></p>
+class=Datatype>http://host/service/$metadata#Collection($ref)</span></p>
 
 </div>
 
@@ -2651,10 +2592,10 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/Orders(10643)/Customer/$ref</span></span></p>
+class=Datatype>http://host/service/Orders(10643)/Customer/$ref</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#$ref</span></span></p>
+class=Datatype>http://host/service/$metadata#$ref</span></p>
 
 </div>
 
@@ -2683,11 +2624,10 @@ operations, OData 4.01 responses MAY use the less specific second template.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/Customers(1)/Addresses</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers(1)/Addresses</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#Customers(1)/Addresses</span></span></p>
+class=Datatype>http://host/service/$metadata#Customers(1)/Addresses</span></p>
 
 </div>
 
@@ -2709,11 +2649,10 @@ qualified type of the collection.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/TopFiveHobbies()</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/TopFiveHobbies()</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#Collection(Edm.String)</span></span></p>
+class=Datatype>http://host/service/$metadata#Collection(Edm.String)</span></p>
 
 </div>
 
@@ -2735,10 +2674,10 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/MostPopularName()</span></span></p>
+class=Datatype>http://host/service/MostPopularName()</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#Edm.String</span></span></p>
+class=Datatype>http://host/service/$metadata#Edm.String</span></p>
 
 </div>
 
@@ -2770,11 +2709,9 @@ examples.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/TopFiveCustomers()</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/TopFiveCustomers()</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>http://host/service/$metadata#Customers</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers</p>
 
 </div>
 
@@ -2811,7 +2748,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 style='color:black'>http://host/service/Customers<code>?$deltatoken=1234</code></span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>http://host/service/$metadata#Customers/$delta</span></span></p>
+class=Datatype>http://host/service/$metadata#Customers/$delta</span></p>
 
 </div>
 
@@ -3200,8 +3137,7 @@ permissions, the service responds with <a href="#sec_ResponseCode404NotFound"><c
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products(1)/Name </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products(1)/Name </p>
 
 </div>
 
@@ -3257,8 +3193,7 @@ permissions, the service responds with <a href="#sec_ResponseCode404NotFound"><c
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products(1)/Name/$value </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products(1)/Name/$value </p>
 
 </div>
 
@@ -3299,8 +3234,7 @@ and <code>ReleaseDate</code> for the matching Products</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$select=Rating,ReleaseDate</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$select=Rating,ReleaseDate</p>
 
 </div>
 
@@ -3315,8 +3249,7 @@ actions or functions not otherwise requested.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$select=*</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$select=*</p>
 
 </div>
 
@@ -3329,8 +3262,7 @@ the <code>$select</code> query option within the <code>$expand</code>. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$expand=Category($select=Name)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$expand=Category($select=Name)</p>
 
 </div>
 
@@ -3346,8 +3278,7 @@ query option, then it is additionally represented as inline content.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Categories?$select=CategoryName,Products</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Categories?$select=CategoryName,Products</p>
 
 </div>
 
@@ -3360,8 +3291,7 @@ request all actions or functions available for each returned entity.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$select=DemoService.*</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$select=DemoService.*</p>
 
 </div>
 
@@ -3433,8 +3363,7 @@ entity set the value of all related Orders will be represented inline</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service.svc/Customers?$expand=Orders</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service.svc/Customers?$expand=Orders</p>
 
 </div>
 
@@ -3445,8 +3374,7 @@ entity set the references to the related Orders will be represented inline</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service.svc/Customers?$expand=Orders/$ref</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service.svc/Customers?$expand=Orders/$ref</p>
 
 </div>
 
@@ -3458,8 +3386,7 @@ representing the customer photo will be represented inline</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service.svc/Customers?$expand=Photo</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service.svc/Customers?$expand=Photo</p>
 
 </div>
 
@@ -3492,8 +3419,7 @@ represented inline</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET </span><span lang=FR style='color:black'>http://host/service.svc/Customers?$expand=Orders($filter=Amount
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <span lang=FR style='color:black'>http://host/service.svc/Customers?$expand=Orders($filter=Amount
 gt 100)</span></p>
 
 </div>
@@ -3513,8 +3439,7 @@ related to each order returned.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer</p>
 
 </div>
 
@@ -3531,8 +3456,7 @@ always send more than requested)</span></span></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</p>
 
 </div>
 
@@ -3564,9 +3488,8 @@ recursively to four levels</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET
-http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET
+http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</p>
 
 </div>
 
@@ -3634,8 +3557,7 @@ is less than <span style='font-family:"Calibri",sans-serif'>$10.00</span></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$filter=Price lt 10.00</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$filter=Price lt 10.00</p>
 
 </div>
 
@@ -3650,9 +3572,8 @@ collection-valued property. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Categories?$filter=Products/$count
-lt 10</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Categories?$filter=Products/$count
+lt 10</p>
 
 </div>
 
@@ -3971,7 +3892,7 @@ in comparisons.</p>
    </td>
    <td width=454 valign=top style='width:340.2pt;background:#EEECE1;padding:
    0in 5.4pt 0in 5.4pt'>
-   <p class=MsoNormal><b><span style='color:black'>Example</span></b></p>
+   <p class=MsoNormal><b>Example</b></p>
    </td>
   </tr>
  </thead>
@@ -4409,8 +4330,7 @@ matches the string parameter value &quot;WA&quot;</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET </span><span class=VerbatimChar><span style='color:
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <span class=VerbatimChar><span style='color:
 black'>http://host/service.svc/Employees?$filter=Region eq @p1&amp;@p1='WA'</span></span></p>
 
 </div>
@@ -4444,8 +4364,7 @@ the filter on the expanded direct reports</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET </span><span class=VerbatimChar><span style='color:
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <span class=VerbatimChar><span style='color:
 black'>http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName
 eq FirstName))</span></span></p>
 
@@ -4488,10 +4407,8 @@ before the value true in ascending order.</p>
 <p class=MsoNormal>Services SHOULD order language-dependent strings according
 to the <a href="#sec_HeaderContentLanguage">content-language</a> of the
 response, and SHOULD annotate string properties with language-dependent order
-with the <span style='color:black'>term </span><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a><span
-style='color:black'>, see </span><a href="#ODataVocCore">OData-VocCore</a><span
-style='color:black'>.</span></p>
+with the term <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>Values of type <code>Edm.Stream</code> or any of the <code>Geo</code>
 types cannot be sorted.</p>
@@ -4503,9 +4420,8 @@ ascending order, then by rating in descending order</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$orderby=ReleaseDate asc,
-Rating desc</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$orderby=ReleaseDate asc,
+Rating desc</p>
 
 </div>
 
@@ -4536,8 +4452,7 @@ Products within each category</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Categories?$orderby=Products/$count</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Categories?$orderby=Products/$count</p>
 
 </div>
 
@@ -4556,8 +4471,7 @@ Products entity set</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$top=5</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$top=5</p>
 
 </div>
 
@@ -4581,8 +4495,7 @@ of the <code>Products</code> entity set</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$skip=5</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$skip=5</p>
 
 </div>
 
@@ -4599,8 +4512,7 @@ the <code>Products</code> entity set</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$top=5&amp;$skip=2</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$top=5&amp;$skip=2</p>
 
 </div>
 
@@ -4623,8 +4535,7 @@ number of products in the collection</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$count=true</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$count=true</p>
 
 </div>
 
@@ -4638,8 +4549,7 @@ clause. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Categories?$expand=Products($count=true)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Categories?$expand=Products($count=true)</p>
 
 </div>
 
@@ -4680,8 +4590,7 @@ dependent upon the implementation.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$search=bike</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$search=bike</p>
 
 </div>
 
@@ -4695,9 +4604,8 @@ double-quotes. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$search=&quot;mountain
-bike&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$search=&quot;mountain
+bike&quot;</p>
 
 </div>
 
@@ -4711,8 +4619,7 @@ the set of entities to those that do not match the specified term. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$search=NOT clothing</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$search=NOT clothing</p>
 
 </div>
 
@@ -4726,8 +4633,7 @@ space (implicit <code>AND</code>) or the upper-case keyword <code>AND</code>, in
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$search=mountain AND bike</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$search=mountain AND bike</p>
 
 </div>
 
@@ -4741,8 +4647,7 @@ immediately preceding or subsequent expression. </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products?$search=mountain OR bike</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products?$search=mountain OR bike</p>
 
 </div>
 
@@ -4758,7 +4663,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 style='color:black'>GET http://host/service/Products?$search=<span
-class=MsoHyperlink><span style='color:black'>(</span></span>mountain OR bike)
+class=MsoHyperlink>(</span>mountain OR bike)
 AND NOT clothing </span></p>
 
 </div>
@@ -4820,8 +4725,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;page-break-after:avoid;
-background:#D9D9D9'><span style='color:black'>GET <span class=MsoHyperlink><span
-style='color:black'>http://host/service/Suppliers(MainSupplier)/Addresses/0</span></span></span></p>
+background:#D9D9D9'><span style='color:black'>GET <span class=MsoHyperlink>http://host/service/Suppliers(MainSupplier)/Addresses/0</span></span></p>
 
 </div>
 
@@ -4854,8 +4758,7 @@ No Content</code></a>.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products(1)/Supplier</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products(1)/Supplier</p>
 
 </div>
 
@@ -4897,8 +4800,7 @@ Order related to the Product with <code>ID=0</code></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products(0)/Orders/$ref</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products(0)/Orders/$ref</p>
 
 </div>
 
@@ -4918,8 +4820,7 @@ entity-id</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/$entity?$id=http://host/service/Products(0)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/$entity?$id=http://host/service/Products(0)</p>
 
 </div>
 
@@ -4944,11 +4845,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 style='color:black'>GET http://host/service/$entity/Model.Customer<br>
                            ?$id=http://host/service/Customers('ALFKI')</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>                           &amp;$select=CompanyName,ContactName</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                           &amp;$select=CompanyName,ContactName</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>                           &amp;$expand=Orders</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                           &amp;$expand=Orders</p>
 
 </div>
 
@@ -4983,8 +4882,7 @@ the Products entity set</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products/$count</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products/$count</p>
 
 </div>
 
@@ -4999,9 +4897,8 @@ segment to count the items in the filtered collection.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products/$filter(@foo)/$count?@foo=Price
-lt 10.00</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products/$filter(@foo)/$count?@foo=Price
+lt 10.00</p>
 
 </div>
 
@@ -5015,9 +4912,8 @@ system query option.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products/$count?$filter=Price lt
-10.00</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products/$count?$filter=Price lt
+10.00</p>
 
 </div>
 
@@ -5036,9 +4932,8 @@ interests</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Customers?$filter=Interests/$count
-gt 5</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Customers?$filter=Interests/$count
+gt 5</p>
 
 </div>
 
@@ -5080,8 +4975,7 @@ NOT be appended to the format abbreviations.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Orders?$format=application/json;metadata=full</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Orders?$format=application/json;metadata=full</p>
 
 </div>
 
@@ -5096,8 +4990,7 @@ href="#ODataJSON">OData-JSON</a>.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Orders?$format=json</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Orders?$format=json</p>
 
 </div>
 
@@ -5120,8 +5013,7 @@ query option MAY be included in any request. For a <a
 href="#sec_MetadataDocumentRequest">metadata document request</a> the value of
 the <span class=VerbatimChar>$schemaversion</span> system query option
 addresses a specific schema version. For all other request types the value
-specifies the version of the schema against which the request is made.<span
-style='color:black'> The syntax of the </span><span class=VerbatimChar>$schemaversion</span>
+specifies the version of the schema against which the request is made. The syntax of the <span class=VerbatimChar>$schemaversion</span>
 system query option is defined in <a href="#ODataABNF">OData-ABNF</a>. </p>
 
 <p class=MsoNormal>The value of the <span class=VerbatimChar>$schemaversion</span>
@@ -5358,19 +5250,16 @@ entity containing the navigation property.</p>
 
 <p class=MsoNormal>A <a href="#sec_DataModification">Data Modification Request</a><span
 class=MsoHyperlink> </span>on an existing resource or an <a href="#sec_Actions">Action
-Request</a><span style='color:black'> invoking an action bound to an existing
-resource</span> MAY require optimistic concurrency control. Services SHOULD
+Request</a> invoking an action bound to an existing
+resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>in <a
-href="#ODataVocCore">OData-VocCore</a><span style='color:black'> and </span><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions"><code>Capabilities.NavigationRestrictions</code></a><span
-style='color:black'> (nested property </span><code>OptimisticConcurrencyControl</code><span
-style='color:black'>) in</span><b> </b><a href="#ODataVocCap">OData-VocCap</a><span
-style='color:black'>.</span></p>
+href="#ODataVocCore">OData-VocCore</a> and <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions"><code>Capabilities.NavigationRestrictions</code></a> (nested property <code>OptimisticConcurrencyControl</code>) in<b> </b><a href="#ODataVocCap">OData-VocCap</a>.</p>
 
-<p class=MsoNormal><span style='color:black'>If optimistic concurrency control
-is required for a resource, the service MUST include </span>an <a
+<p class=MsoNormal>If optimistic concurrency control
+is required for a resource, the service MUST include an <a
 href="#sec_HeaderETag">ETag header</a> in a response to a <code>GET</code>
 request to the resource, and MAY include the ETag in a format-specific manner
 in responses containing that resource.</p>
@@ -5386,15 +5275,13 @@ header of a <a href="#sec_DataModification">Data Modification Request</a> or <a
 href="#sec_Actions">Action Request</a>, the operation MUST only be invoked if
 the <code>If-Match</code> or <code>If-None-Match</code> condition is satisfied.</p>
 
-<p class=MsoNormal><span style='color:black'>If the client does not specify an </span><a
+<p class=MsoNormal>If the client does not specify an <a
 href="#sec_HeaderIfMatch"><code>If-Match</code></a>
-<span style='color:black'>request header in a </span><a
-href="#sec_DataModification">Data Modification Request</a><span
-style='color:black'> or </span><a href="#sec_Actions">Action Request</a><span
-style='color:black'> on a resource that requires optimistic concurrency control,
-the service responds with a </span><code>428 Precondition
-Required</code><span style='color:black'> and MUST ensure that no observable
-change occurs as a result of the request. </span>Clients can attempt to disable
+request header in a <a
+href="#sec_DataModification">Data Modification Request</a> or <a href="#sec_Actions">Action Request</a> on a resource that requires optimistic concurrency control,
+the service responds with a <code>428 Precondition
+Required</code> and MUST ensure that no observable
+change occurs as a result of the request. Clients can attempt to disable
 optimistic concurrency control by specifying <code>If-Match</code>
 with a value of <code>*</code>. Services MAY reject such
 requests.</p>
@@ -5559,37 +5446,25 @@ navigation property</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>{ </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{ </p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;@odata.type&quot;:&quot;#Northwind.Manager&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.type&quot;:&quot;#Northwind.Manager&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;ID&quot;: 1,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: 1,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;FirstName&quot;: &quot;Pat&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;FirstName&quot;: &quot;Pat&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;LastName&quot;: &quot;Griswold&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;LastName&quot;: &quot;Griswold&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;DirectReports@odata.bind&quot;: [</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;DirectReports@odata.bind&quot;: [</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    &quot;</span><span style='color:black'>http://host/service/</span><span
-style='color:black'>Employees(5)&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;http://host/service/Employees(5)&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    &quot;</span><span style='color:black'>http://host/service/</span><span
-style='color:black'>Employees(6)&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;http://host/service/Employees(6)&quot;</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  ]</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
 
 </div>
 
@@ -5602,35 +5477,25 @@ property</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>{ </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{ </p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;@type&quot;:&quot;#Northwind.Manager&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@type&quot;:&quot;#Northwind.Manager&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;ID&quot;: 1,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: 1,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;FirstName&quot;: &quot;Pat&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;FirstName&quot;: &quot;Pat&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;LastName&quot;: &quot;Griswold&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;LastName&quot;: &quot;Griswold&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;DirectReports&quot;: [</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;DirectReports&quot;: [</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    {&quot;@id&quot;: &quot;Employees(5)&quot;},</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {&quot;@id&quot;: &quot;Employees(5)&quot;},</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    {&quot;@id&quot;: &quot;Employees(6)&quot;}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {&quot;@id&quot;: &quot;Employees(6)&quot;}</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  ]</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
 
 </div>
 
@@ -5826,58 +5691,41 @@ class=Keyword><span style='font-size:10.0pt'>6</span></span> is updated to <code
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>{ </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{ </p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@type&quot;:&quot;#Northwind.Manager&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;FirstName&quot; : &quot;Patricia&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;DirectReports&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;@id&quot;: &quot;Employees(5}&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;@id&quot;: &quot;Employees(6}&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;LastName&quot;: &quot;Smith&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;@type&quot;:&quot;#Northwind.Manager&quot;,</span></p>
+class=Datatype>      </span>&quot;FirstName&quot;: &quot;Suzanne&quot;,</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;FirstName&quot; : &quot;Patricia&quot;,</span></p>
+class=Datatype>      </span>&quot;LastName&quot;: &quot;Brown&quot;</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;DirectReports&quot;: [</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    {</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>      &quot;@id&quot;: &quot;Employees(5}&quot;</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    },</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    {</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>      &quot;@id&quot;: &quot;Employees(6}&quot;,</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>      &quot;LastName&quot;: &quot;Smith&quot;</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    },</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    {</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>      </span></span><span
-style='color:black'>&quot;FirstName&quot;: &quot;Suzanne&quot;,</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>      </span></span><span
-style='color:black'>&quot;LastName&quot;: &quot;Brown&quot;</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>    }</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  ]</span></p>
-
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
 
 </div>
 
@@ -5926,54 +5774,50 @@ avoid'><span style='font-family:Symbol;font-style:normal'>· </span>add a new emp
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>{ </span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{ </p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;@type&quot;: &quot;#Northwind.Manager&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@type&quot;: &quot;#Northwind.Manager&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;FirstName&quot;: &quot;Patricia&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;FirstName&quot;: &quot;Patricia&quot;,</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  &quot;DirectReports@delta&quot;: [</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;DirectReports@delta&quot;: [</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>    {</span></span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>      &quot;@removed&quot;: {</span></span></p>
+class=CODEtemp>      &quot;@removed&quot;: {</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>        &quot;reason&quot;: &quot;deleted&quot;</span></span></p>
+class=CODEtemp>        &quot;reason&quot;: &quot;deleted&quot;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>      },</span></span></p>
+class=CODEtemp>      },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>      </span></span><span
-class=CODEtemp><span style='color:black'>&quot;@id&quot;: &quot;Employees(3)&quot;</span></span></p>
+class=CODEtemp>&quot;@id&quot;: &quot;Employees(3)&quot;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>    },</span></span></p>
+class=CODEtemp>    },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>    {</span></span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>      &quot;@removed&quot;: {</span></span></p>
+class=CODEtemp>      &quot;@removed&quot;: {</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>        &quot;reason&quot;: &quot;changed&quot;</span></span></p>
+class=CODEtemp>        &quot;reason&quot;: &quot;changed&quot;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>      },</span></span></p>
+class=CODEtemp>      },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>      &quot;@id&quot;: &quot;Employees(4)&quot;</span></span></p>
+class=CODEtemp>      &quot;@id&quot;: &quot;Employees(4)&quot;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>    },</span></span></p>
+class=CODEtemp>    },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>    {</span></span></p>
@@ -5983,7 +5827,7 @@ class=CODEtemp><span lang=NL style='color:black'>      &quot;@id&quot;:
 &quot;Employees(5)&quot;</span></span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>    },</span></span></p>
+class=CODEtemp>    },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>    {</span></span></p>
@@ -5997,26 +5841,22 @@ class=CODEtemp><span lang=NL style='color:black'>      &quot;LastName&quot;:
 &quot;Smith&quot;</span></span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>    },</span></span></p>
+class=CODEtemp>    },</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=CODEtemp><span lang=NL style='color:black'>    {</span></span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>      &quot;FirstName&quot;: &quot;Suzanne&quot;,</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;FirstName&quot;: &quot;Suzanne&quot;,</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=Datatype><span style='color:black'>      </span></span><span
-style='color:black'>&quot;LastName&quot;: &quot;Brown&quot;</span></p>
+class=Datatype>      </span>&quot;LastName&quot;: &quot;Brown&quot;</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=CODEtemp><span style='color:black'>    }</span></span></p>
+class=CODEtemp>    }</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>  ]</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
 
 </div>
 
@@ -6055,9 +5895,9 @@ values are generated by the service. Services MUST fail an update request to a
 URL that would identify such an entity and the entity does not yet exist.</p>
 
 <p class=MsoNormal>Singleton entities can be upserted if they are nullable. Services
-supporting this SHOULD advertise it by annotating the singleton with the term <code>Capabilities.UpdateRestrictions</code> <span style='color:black'>(nested
-property </span><code>Upsertable</code><span style='color:black'>
-with value </span><code>true</code><span style='color:black'>) </span>defined
+supporting this SHOULD advertise it by annotating the singleton with the term <code>Capabilities.UpdateRestrictions</code> (nested
+property <code>Upsertable</code>
+with value <code>true</code>) defined
 in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 
 <p class=MsoNormal>Key and other non-updatable properties, as well as dependent
@@ -6081,9 +5921,7 @@ href="#sec_ReadURLsandEditURLs">edit URL</a> of the entity.</p>
 <p class=MsoNormal>The request body SHOULD be empty. Singleton entities can be
 deleted if they are nullable. Services supporting this SHOULD advertise it by
 annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code>
-<span style='color:black'>(nested property </span><code>Deletable</code><span
-style='color:black'> with value </span><code>true</code><span
-style='color:black'>) </span>defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
+(nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 
 <p class=MsoNormal>On successful completion of the delete, the response MUST be
 <a href="#sec_ResponseCode204NoContent"><code>204
@@ -6234,9 +6072,8 @@ entity whose media type MUST be specified in a <a href="#sec_HeaderContentType">
 <p class=MsoNormal>On success, the service MUST respond with either <a
 href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a> and an empty body, or <a href="#sec_ResponseCode200OK"><code>200 OK</code></a> if the client specified the
-preference <a href="#sec_Preferencereturnrepresentationandret"><code>return=representation</code></a><span
-style='color:black'>, in which case the response body MUST contain the updated
-media entity.</span></p>
+preference <a href="#sec_Preferencereturnrepresentationandret"><code>return=representation</code></a>, in which case the response body MUST contain the updated
+media entity.</p>
 
 <h4>Delete a
 Media Entity</h4>
@@ -6282,9 +6119,8 @@ href="#ODataVocCore">OData-VocCore</a>.</p>
 success, the service MUST respond with either </a><a
 href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a> and an empty body, or <a href="#sec_ResponseCode200OK"><code>200 OK</code></a> if the client specified the
-preference <a href="#sec_Preferencereturnrepresentationandret"><code>return=representation</code></a><span
-style='color:black'>, in which case the response body MUST contain the updated
-media value for the stream</span>.</p>
+preference <a href="#sec_Preferencereturnrepresentationandret"><code>return=representation</code></a>, in which case the response body MUST contain the updated
+media value for the stream.</p>
 
 <p class=MsoNormal>Clients MAY change the association between a stream property
 and a media stream by modifying the edit URL or read URL of the stream
@@ -6740,8 +6576,7 @@ being the entity identified by <code>http://host/service/Customers(6)</code></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()</p>
 
 </div>
 
@@ -6768,8 +6603,7 @@ function on the set of red products</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()</p>
 
 </div>
 
@@ -6796,8 +6630,7 @@ function on each entity in the entity set <code>Customers</code></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()</p>
 
 </div>
 
@@ -6839,8 +6672,7 @@ style='color:black'>{<br>
   &quot;CompanyName&quot;: &quot;Alfreds Futterkiste&quot;, <br>
   &quot;#SampleEntities.MostRecentOrder&quot;: {<br>
     &quot;title&quot;: &quot;Most Recent Order&quot;,<br>
-    &quot;target&quot;: &quot;</span><span class=VerbatimChar><span
-style='color:black'>Customers('ALFKI')</span></span><span style='color:black'>/SampleEntities.MostRecentOrder()&quot;<br>
+    &quot;target&quot;: &quot;</span><span class=VerbatimChar>Customers('ALFKI')</span><span style='color:black'>/SampleEntities.MostRecentOrder()&quot;<br>
   },<br>
   ...<br>
 }</span></p>
@@ -6944,15 +6776,14 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>POST </span></span><span
-style='color:black'>http://host/service/MyShoppingCart()</span><span
-class=VerbatimChar><span style='color:black'>/Items</span></span></p>
+class=VerbatimChar>POST </span>http://host/service/MyShoppingCart()<span
+class=VerbatimChar>/Items</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=VerbatimChar>&nbsp;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>...</span></span></p>
+class=VerbatimChar>...</span></p>
 
 </div>
 
@@ -7002,7 +6833,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>GET http://host/service/EmployeesByManager(ManagerID=3)</span></span></p>
+class=VerbatimChar>GET http://host/service/EmployeesByManager(ManagerID=3)</span></p>
 
 </div>
 
@@ -7033,7 +6864,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</span></span></p>
+class=VerbatimChar>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</span></p>
 
 </div>
 
@@ -7061,7 +6892,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>GET http://host/service/EmployeesByManager?ManagerID=3</span></span></p>
+class=VerbatimChar>GET http://host/service/EmployeesByManager?ManagerID=3</span></p>
 
 </div>
 
@@ -7206,10 +7037,10 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder</span></span></p>
+class=VerbatimChar>POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>If-Match: W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></span></p>
+class=VerbatimChar>If-Match: W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=VerbatimChar><span style='color:black'><br>
@@ -7369,18 +7200,18 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>POST /service/$batch HTTP/1.1</span></span><span
+class=VerbatimChar>POST /service/$batch HTTP/1.1</span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>Host: odata.org</span></span><span
+</span><span class=VerbatimChar>Host: odata.org</span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>OData-Version: 4.0 </span></span><span
+</span><span class=VerbatimChar>OData-Version: 4.0 </span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>Content-Type:
-multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span><span
+</span><span class=VerbatimChar>Content-Type:
+multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span><span
 style='font-size:6.0pt;color:black'><br>
 <br>
-</span><span class=VerbatimChar><span style='color:black'>&lt;Multipart Batch request
-body&gt;</span></span></p>
+</span><span class=VerbatimChar>&lt;Multipart Batch request
+body&gt;</span></p>
 
 </div>
 
@@ -7393,17 +7224,17 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar><span style='color:black'>POST /service/$batch HTTP/1.1</span></span><span
+class=VerbatimChar>POST /service/$batch HTTP/1.1</span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>Host: odata.org</span></span><span
+</span><span class=VerbatimChar>Host: odata.org</span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>OData-Version: 4.01 </span></span><span
+</span><span class=VerbatimChar>OData-Version: 4.01 </span><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar><span style='color:black'>Content-Type: application/json</span></span><span
+</span><span class=VerbatimChar>Content-Type: application/json</span><span
 style='font-size:6.0pt;color:black'><br>
 <br>
-</span><span class=VerbatimChar><span style='color:black'>&lt;JSON Batch
-request body&gt;</span></span></p>
+</span><span class=VerbatimChar>&lt;JSON Batch
+request body&gt;</span></p>
 
 </div>
 
@@ -7558,8 +7389,7 @@ three formats:</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET&nbsp;https://host:1234/path/service/People(1)&nbsp;HTTP/1.1&nbsp;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET&nbsp;https://host:1234/path/service/People(1)&nbsp;HTTP/1.1&nbsp;</p>
 
 </div>
 
@@ -7574,11 +7404,9 @@ style='color:black'>GET&nbsp;https://host:1234/path/service/People(1)&nbsp;HTTP/
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET&nbsp;/path/service/People(1)&nbsp;HTTP/1.1</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET&nbsp;/path/service/People(1)&nbsp;HTTP/1.1</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Host: myserver.mydomain.org:1234</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Host: myserver.mydomain.org:1234</p>
 
 </div>
 
@@ -7593,8 +7421,7 @@ style='color:black'>Host: myserver.mydomain.org:1234</span></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>GET&nbsp;People(1)&nbsp;HTTP/1.1</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET&nbsp;People(1)&nbsp;HTTP/1.1</p>
 
 </div>
 
@@ -7664,8 +7491,7 @@ Host: host <br>
 OData-Version: 4.0<br>
 Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>Content-Length: ###</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Content-Length: ###</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
 
@@ -7835,17 +7661,13 @@ If-Match: $1<br>
 <br>
 </span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>{</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>   &quot;Salary&quot;: 75000</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>   &quot;Salary&quot;: 75000</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>}</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</p>
 
 </div>
 
@@ -7972,8 +7794,7 @@ Host: host<br>
 <br>
 </span></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>--cs_12u7hdkin252452345eknd_383673037--</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>--cs_12u7hdkin252452345eknd_383673037--</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 style='color:black'>--b_243234_25424_ef_892u748<br>
@@ -8040,8 +7861,7 @@ response to a status monitor resource:</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>HTTP/1.1 200 Ok</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>HTTP/1.1 200 Ok</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 style='color:black'>Content-Type: application/http<br>
@@ -8075,8 +7895,7 @@ Retry-After: ###<br>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>--b_243234_25424_ef_892u748--</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>--b_243234_25424_ef_892u748--</p>
 
 </div>
 
@@ -8128,8 +7947,7 @@ Host: host<br>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-style='color:black'>--cs_12u7hdkin252452345eknd_383673037--</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>--cs_12u7hdkin252452345eknd_383673037--</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 style='color:black'>--b_243234_25424_ef_892u748<br>
@@ -8470,10 +8288,9 @@ href="#ODataCSDL">OData-CSDLXML</a> (section 11.1.2)</p>
 support the <a href="#ODataJSON">OData-JSON</a> format </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD consider <span
-style='color:black'>supporting basic authentication as defined in </span><a
-href="#RFC7617"><b>[RFC7617]</b></a><span style='color:black'> over HTTPS for
-the highest level of interoperability with generic clients</span></p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD consider supporting basic authentication as defined in <a
+href="#RFC7617"><b>[RFC7617]</b></a> over HTTPS for
+the highest level of interoperability with generic clients</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD support the <code>$search </code><span class=Datatype><span style='font-family:
@@ -8995,8 +8812,7 @@ system query options</p>
 case-sensitive query options, operators, and canonical functions</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a><span
-style='color:black'> </span>over HTTPS</p>
+4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a> over HTTPS</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>11. MAY request entity

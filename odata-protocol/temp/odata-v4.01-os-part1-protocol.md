@@ -136,7 +136,7 @@ Example 1: text describing an example uses this paragraph style
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Non-normative examples use this paragraph style.]{style="color:black"}
+Non-normative examples use this paragraph style.
 :::
 
 All examples in this document are non-normative and informative only.
@@ -326,12 +326,11 @@ Whereas entities within an entity set are uniquely identified by their
 key values, entities are also uniquely identified by a durable, opaque,
 globally unique *entity-id*. The entity-id MUST be an IRI as defined in
 [**\[RFC3987\]**](#RFC3987) and MAY be expressed in payloads, headers,
-and URLs as a relative reference as appropriate. [While the client MUST
+and URLs as a relative reference as appropriate. While the client MUST
 be prepared to accept any IRI, services MUST use valid URIs in this
 version of the specification since there is currently no lossless
-representation of an IRI in the
-]{style="color:black"}[`EntityId`](#sec_HeaderODataEntityId)[ header.
-]{style="color:black"}
+representation of an IRI in the [`EntityId`](#sec_HeaderODataEntityId)
+header.
 
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in **OData-URL** as its entity-id, but clients cannot assume
@@ -432,9 +431,9 @@ OData clients include the
 [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)` `header in requests in
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
-the requested `OData-MaxVersion`, using decimal comparison. [The syntax
-of the ]{style="color:black"}`OData-Version` and `OData-MaxVersion`
-header fields is defined in [OData-ABNF](#ODataABNF).
+the requested `OData-MaxVersion`, using decimal comparison. The syntax
+of the `OData-Version` and `OData-MaxVersion` header fields is defined
+in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
@@ -719,14 +718,11 @@ As defined in
 [**\[RFC7231\]**](#HTTPSemantic)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
 a request or response can include a `Content-Language` header to
 indicate the natural language of the intended audience for the enclosed
-[message body]{style="color:black"}. OData does not add any additional
-[requirements over HTTP]{style="color:black"} [for including
-]{style="color:black"}`Content-Language`[. OData services can annotate
-model elements whose content depends on the content language with the
-term
-]{style="color:black"}[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent)[,
-see
-]{style="color:black"}[OData-VocCore](#ODataVocCore)[.]{style="color:black"}
+message body. OData does not add any additional requirements over HTTP
+for including `Content-Language`. OData services can annotate model
+elements whose content depends on the content language with the term
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
 or response within a batch, then it specifies the language for that
@@ -738,11 +734,10 @@ overall batch request or response.
 
 As defined in
 [**\[RFC7230\]**](#HTTPMessage)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
-a request or response SHOULD include a `Content-Length` header [when the
-message\'s length can be determined prior to being
-transferred]{style="color:black"}. OData does not add any additional
-[requirements over HTTP for writing
-]{style="color:black"}`Content-Length`[.]{style="color:black"}
+a request or response SHOULD include a `Content-Length` header when the
+message\'s length can be determined prior to being transferred. OData
+does not add any additional requirements over HTTP for writing
+`Content-Length`.
 
 If the `Content-Length` header is specified on an individual request or
 response within a batch, then it specifies the length for that
@@ -843,18 +838,15 @@ match any value.
 If an operation on an existing resource requires an ETag, (see term
 [`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
-[OData-VocCore](#ODataVocCore)[ and property
-]{style="color:black"}`OptimisticConcurrencyControl`[ of type
-]{style="color:black"}[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)[
-in ]{style="color:black"}** **[OData-VocCap](#ODataVocCap)[) and the
-client does not specify an ]{style="color:black"}`If-Match`[ request
-header in a ]{style="color:black"}[Data Modification
-Request](#sec_DataModification)[ or ]{style="color:black"}in an [Action
-Request](#sec_Actions)[ invoking an action bound to the resource, the
-service responds with a
-]{style="color:black"}`428 Precondition Required`[ and MUST ensure that
-no observable change occurs as a result of the
-request.]{style="color:black"}
+[OData-VocCore](#ODataVocCore) and property
+`OptimisticConcurrencyControl` of type
+[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
+in ** **[OData-VocCap](#ODataVocCap)) and the client does not specify an
+`If-Match` request header in a [Data Modification
+Request](#sec_DataModification) or in an [Action Request](#sec_Actions)
+invoking an action bound to the resource, the service responds with a
+`428 Precondition Required` and MUST ensure that no observable change
+occurs as a result of the request.
 
 If present, the request MUST only be processed if the specified ETag
 value matches the current ETag value of the target resource. Services
@@ -869,11 +861,9 @@ If the value does not match the current ETag value of the resource for a
 ]{style="color:windowtext"}](#sec_DataModification)or [Action
 Request](#sec_Actions), the service MUST respond with
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) and
-MUST ensure that no observable change occurs as a result of the
-request.[ In the case of an
-]{style="color:black"}[upsert](#sec_UpsertanEntity)[, if the addressed
-entity does not exist the provided ETag value is considered not to
-match.]{style="color:black"}
+MUST ensure that no observable change occurs as a result of the request.
+In the case of an [upsert](#sec_UpsertanEntity), if the addressed entity
+does not exist the provided ETag value is considered not to match.
 
 An `If-Match` header with a value of `*` in a `PUT` or `PATCH` request
 results in an [upsert request](#sec_UpsertanEntity) being processed as
@@ -953,8 +943,8 @@ or
 if a consumer tries to follow a next link referring to a snapshot that
 is no longer available.]{style="color:black;background:white"}
 
-[The syntax of the
-]{style="color:black"}[Isolation]{style="font-family:\"Courier New\";color:black;background:white"}
+The syntax of the
+[Isolation]{style="font-family:\"Courier New\";color:black;background:white"}
 header is defined in [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for
@@ -1029,8 +1019,8 @@ same response (for example, when serializing the expanded results of
 many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences `has not been specified in the request, unless
-explicitly defined by other rules in this document`.`[ The syntax of the
-]{style="color:black"}`allow-entityreferences `preference is defined in
+explicitly defined by other rules in this document`.` The syntax of the
+`allow-entityreferences `preference is defined in
 [OData-ABNF](#ODataABNF).
 
 In the case the service applies the `allow-entityreferences` preference
@@ -1075,9 +1065,8 @@ The `callback` preference can be specified:
 
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
-when data is available.[ The syntax of the
-]{style="color:black"}`callback` preference is defined in
-[OData-ABNF](#ODataABNF).
+when data is available. The syntax of the `callback` preference is
+defined in [OData-ABNF](#ODataABNF).
 
 For HTTP based callbacks, the OData service executes an HTTP `GET`
 request against the specified URL.
@@ -1146,8 +1135,7 @@ Example 2: using a HTTP callback endpoint to receive notification
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: callback;
-url=\"http://myserver/notfication/token/12345\"]{style="color:black"}
+Prefer: callback; url=\"http://myserver/notfication/token/12345\"
 :::
 
 If the [callback]{style="font-family:
@@ -1184,9 +1172,8 @@ encountering a request within the batch that returns an error, the
 service return the error for that request and continue processing
 additional requests within the batch (if specified with an implicit or
 explicit value of `true`), or rather stop further processing (if
-specified with an explicit value of `false`).[ The syntax of the
-]{style="color:black"}`continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+specified with an explicit value of `false`). The syntax of the
+`continue-on-error` preference is defined in [OData-ABNF](#ODataABNF).
 
 The `continue-on-error` preference can also be used on a [delta
 update](#sec_UpdateaCollectionofEntities), [set-based
@@ -1223,21 +1210,19 @@ The `include-annotations` preference in a request for
 is used to specify the set of annotations the client requests to be
 included, where applicable, in the response.
 
-The value of the `include-annotations` preference is [a comma-separated
+The value of the `include-annotations` preference is a comma-separated
 list of namespace-qualified term names or term name patterns to include
-or exclude, with ]{style="color:black"}`*`[ as a wildcard for name
-segments. Term names and term name patterns can optionally be followed
-by a hash (]{style="color:black"}`#`[) character and an annotation
-qualifier. The full syntax of the
-]{style="color:black"}`include-annotations` preference is defined in
-[OData-ABNF](#ODataABNF).
+or exclude, with `*` as a wildcard for name segments. Term names and
+term name patterns can optionally be followed by a hash (`#`) character
+and an annotation qualifier. The full syntax of the
+`include-annotations` preference is defined in [OData-ABNF](#ODataABNF).
 
-[The most specific identifier always takes precedence, with an explicit
+The most specific identifier always takes precedence, with an explicit
 name taking precedence over a name pattern, and a longer pattern taking
 precedence over a shorter pattern. If the same identifier value is
 requested to both be excluded and included the behavior is undefined;
 the service MAY return or omit the specified vocabulary but MUST NOT
-raise an exception. ]{style="color:black"}
+raise an exception.
 
 Example 3: a `Prefer` header requesting all annotations within a
 metadata document to be returned
@@ -1245,7 +1230,7 @@ metadata document to be returned
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: include-annotations=\"\*\" ]{style="color:black"}
+Prefer: include-annotations=\"\*\"
 :::
 
 Example 4: a `Prefer` header requesting that no annotations are returned
@@ -1253,7 +1238,7 @@ Example 4: a `Prefer` header requesting that no annotations are returned
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: include-annotations=\"-\*\" ]{style="color:black"}
+Prefer: include-annotations=\"-\*\"
 :::
 
 Example 5: a `Prefer` header requesting that all annotations defined
@@ -1262,7 +1247,7 @@ under the \"display\" namespace (recursively) be returned
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: include-annotations=\"display.\*\" ]{style="color:black"}
+Prefer: include-annotations=\"display.\*\"
 :::
 
 Example 6: a `Prefer` header requesting that the annotation with the
@@ -1271,7 +1256,7 @@ term name `subject` within the `display` namespace be returned
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: include-annotations=\"display.subject\"]{style="color:black"}
+Prefer: include-annotations=\"display.subject\"
 :::
 
 Example 7: a `Prefer` header requesting that all annotations defined
@@ -1281,23 +1266,21 @@ under the \"display\" namespace (recursively) with the qualifier
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: include-annotations=\"display.\*#tablet\"]{style="color:black"}
+Prefer: include-annotations=\"display.\*#tablet\"
 :::
 
-[The ]{style="color:black"}`include-annotations`[ preference is only a
-hint to the service. The service MAY ignore the preference and is free
-to decide whether or not to return annotations not specified in the
-]{style="color:black"}`include-annotations`[ preference.
-]{style="color:black"}
+The `include-annotations` preference is only a hint to the service. The
+service MAY ignore the preference and is free to decide whether or not
+to return annotations not specified in the `include-annotations`
+preference.
 
 In the case that the client has specified the `include-annotations`
 preference in the request, the service SHOULD include a
 [`Preference-Applied`](#sec_HeaderPreferenceApplied) response header
-containing the `include-annotations` preference[ to specify the
+containing the `include-annotations` preference to specify the
 annotations actually included, where applicable, in the response. This
 value may differ from the annotations requested in the
-]{style="color:black"}[`Prefer`](#sec_HeaderPrefer)[ header of the
-request. ]{style="color:black"}
+[`Prefer`](#sec_HeaderPrefer) header of the request.
 
 If the `include-annotations` preference is specified on an individual
 request within a batch, then it specifies the preference for that
@@ -1327,9 +1310,8 @@ preference SHOULD be used.
 
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
-as the positive integer value of this preference.[ The syntax of the
-]{style="color:black"}`maxpagesize` preference is defined in
-[OData-ABNF](#ODataABNF).
+as the positive integer value of this preference. The syntax of the
+`maxpagesize` preference is defined in [OData-ABNF](#ODataABNF).
 
 Example 8: a request for customers and their orders would result in a
 response containing one collection with customer entities and for every
@@ -1412,28 +1394,21 @@ The `omit-values` preference does not affect a request payload.
 
 #### 8.2.8.7 [Preference `return=representation` and `return=minimal`](#sec_Preferencereturnrepresentationandret)
 
-The `return=representation`[ and ]{style="color:black"}`return=minimal`
-preferences are defined in [**\[RFC7240\]**](#HTTPPREFER).
+The `return=representation` and `return=minimal` preferences are defined
+in [**\[RFC7240\]**](#HTTPPREFER).
 
-[In OData, ]{style="color:black"}`return=representation`[ or
-]{style="color:black"}`return=minimal`[ is defined for use with a
-]{style="color:black"}`POST`[, ]{style="color:black"}`PUT`[, or
-]{style="color:black"}`PATCH`[ ]{style="color:black"}[Data Modification
-Request](#sec_DataModification)[, or with an
-]{style="color:black"}[Action Request](#sec_Actions)[. Specifying a
-preference of ]{style="color:black"}`return=representation`[ or
-]{style="color:black"}`return=minimal`[ in a
-]{style="color:black"}`GET`[ or ]{style="color:black"}`DELETE`[ request
-does not have any effect. ]{style="color:black"}
+In OData, `return=representation` or `return=minimal` is defined for use
+with a `POST`, `PUT`, or `PATCH` [Data Modification
+Request](#sec_DataModification), or with an [Action
+Request](#sec_Actions). Specifying a preference of
+`return=representation` or `return=minimal` in a `GET` or `DELETE`
+request does not have any effect.
 
-[A preference of ]{style="color:black"}`return=representation`[ or
-]{style="color:black"}`return=minimal`[ is allowed on an individual
-]{style="color:black"}[Data Modification
-Request](#sec_DataModification)[ or ]{style="color:black"}[Action
-Request](#sec_Actions)[ ]{.MsoHyperlink}[within a batch, subject to the
-same restrictions, but SHOULD return a
-]{style="color:black"}`4xx Client Error`[ if specified on the batch
-request itself. ]{style="color:black"}
+A preference of `return=representation` or `return=minimal` is allowed
+on an individual [Data Modification Request](#sec_DataModification) or
+[Action Request](#sec_Actions)[ ]{.MsoHyperlink}within a batch, subject
+to the same restrictions, but SHOULD return a `4xx Client Error` if
+specified on the batch request itself.
 
 A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
@@ -1500,7 +1475,7 @@ seconds (ignoring `respond-`async preference and the
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[Prefer: respond-async, wait=10]{style="color:black"}
+Prefer: respond-async, wait=10
 :::
 
 #### 8.2.8.9 [Preference `track-changes` (`odata.track-changes`)](#sec_Preferencetrackchangesodatatrackchan)
@@ -1508,9 +1483,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 The `track-changes` preference is used to request that the service
 return a[ ]{.MsoHyperlink}[delta link](#sec_DeltaLinks) that can
 subsequently be used to obtain [changes](#sec_RequestingChanges)
-(deltas) to this result. [The syntax of the
-]{style="color:black"}`track-changes `preference is defined in
-[OData-ABNF](#ODataABNF).
+(deltas) to this result. The syntax of the `track-changes `preference is
+defined in [OData-ABNF](#ODataABNF).
 
 For [paged results](#sec_ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -1645,8 +1619,8 @@ operation]{.MsoHyperlink} that returns
 [OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
 response header. The value of the header is the
 [entity-id](#sec_EntityIdsandEntityReferences) of the entity that was
-acted on by the request. [The syntax of the
-]{style="color:black"}[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
+acted on by the request. The syntax of the
+[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
 header is defined in [OData-ABNF](#ODataABNF).
 
 The [OData-]{style="font-family:\"Courier New\";color:black;
@@ -1885,10 +1859,9 @@ the response.
 
 [· ]{style="font-family:Symbol"}`message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
-[The ]{style="color:black"}[`Content-Language`](#sec_HeaderContentLanguage)[ header
-MUST contain the language code ]{style="color:black"}from
-[**\[RFC5646\]**](#rfc5646) [corresponding to the language in which the
-value for message is written.]{style="color:black"}
+The [`Content-Language`](#sec_HeaderContentLanguage) header MUST contain
+the language code from [**\[RFC5646\]**](#rfc5646) corresponding to the
+language in which the value for message is written.
 
 [· ]{style="font-family:Symbol"}`target`: optional nullable, potentially
 empty string indicating the target of the error, for example, the name
@@ -1982,9 +1955,9 @@ Example 10: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/]{style="color:black"}]{.Datatype}
+[http://host/service/]{.Datatype}
 
-[http://host/service/\$metadata]{style="color:black"}
+http://host/service/\$metadata
 :::
 
 ## Collection of Entities
@@ -2003,9 +1976,9 @@ Example 11: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers]{style="color:black"}
+http://host/service/Customers
 
-[http://host/service/\$metadata#Customers]{style="color:black"}
+http://host/service/\$metadata#Customers
 :::
 
 If the entities are contained, then `entity-set` is the top-level entity
@@ -2018,9 +1991,9 @@ entities
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders(4711)/Items]{style="color:black"}
+http://host/service/Orders(4711)/Items
 
-[http://host/service/\$metadata#Orders(4711)/Items]{style="color:black"}
+http://host/service/\$metadata#Orders(4711)/Items
 :::
 
 If the entities in the response are not bound to a single entity set,
@@ -2045,9 +2018,9 @@ Example 13: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/Customers(1)]{style="color:black"}]{.Datatype}
+[http://host/service/Customers(1)]{.Datatype}
 
-[http://host/service/\$metadata#Customers/\$entity]{style="color:black"}
+http://host/service/\$metadata#Customers/\$entity
 :::
 
 If the entity is contained, then `entity-set` is the canonical URL for
@@ -2060,9 +2033,9 @@ entity
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders(4711)/Items(1)]{style="color:black"}
+http://host/service/Orders(4711)/Items(1)
 
-[http://host/service/\$metadata#Orders(4711)/Items/\$entity]{style="color:black"}
+http://host/service/\$metadata#Orders(4711)/Items/\$entity
 :::
 
 If the response is not bound to a single entity set, such as an entity
@@ -2085,7 +2058,7 @@ Example 15: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/MainSupplier]{style="color:black"}]{.Datatype}
+[http://host/service/MainSupplier]{.Datatype}
 
 [http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
 :::
@@ -2104,9 +2077,9 @@ Example 16: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers/Model.VipCustomer]{style="color:black"}
+http://host/service/Customers/Model.VipCustomer
 
-[http://host/service/\$metadata#Customers/Model.VipCustomer]{style="color:black"}
+http://host/service/\$metadata#Customers/Model.VipCustomer
 :::
 
 ## Derived Entity
@@ -2124,9 +2097,9 @@ Example 17: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/Customers(2)/Model.VipCustomer]{style="color:black"}]{.Datatype}
+[http://host/service/Customers(2)/Model.VipCustomer]{.Datatype}
 
-[http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity]{style="color:black"}
+http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity
 :::
 
 ## Collection of Projected Entities
@@ -2176,9 +2149,9 @@ Example 18: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$]{style="color:black"}[[select]{style="font-size:10.0pt;color:black"}]{.Datatype}[=Address,Orders]{style="color:black"}
+http://host/service/Customers?\$[[select]{style="font-size:10.0pt;color:black"}]{.Datatype}=Address,Orders
 
-[http://host/service/\$metadata#Customers(Address,Orders)]{style="color:black"}
+http://host/service/\$metadata#Customers(Address,Orders)
 :::
 
 ## Projected Entity
@@ -2233,9 +2206,9 @@ Example 19: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers(1)?\$select=Name,Rating]{style="color:black"}
+http://host/service/Customers(1)?\$select=Name,Rating
 
-[http://host/service/\$metadata#Customers(Name,Rating)/\$entity]{style="color:black"}
+http://host/service/\$metadata#Customers(Name,Rating)/\$entity
 :::
 
 ## Collection of Expanded Entities
@@ -2276,9 +2249,9 @@ expand
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$select=Name&\$expand=Address/Country]{style="color:black"}
+http://host/service/Customers?\$select=Name&\$expand=Address/Country
 
-[http://host/service/\$metadata#Customers(Name,Address/Country())]{style="color:black"}
+http://host/service/\$metadata#Customers(Name,Address/Country())
 :::
 
 Example 21: resource URL and corresponding context URL -- expand `$ref`
@@ -2286,9 +2259,9 @@ Example 21: resource URL and corresponding context URL -- expand `$ref`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$expand=Orders/\$ref]{style="color:black"}
+http://host/service/Customers?\$expand=Orders/\$ref
 
-[http://host/service/\$metadata#Customers]{style="color:black"}
+http://host/service/\$metadata#Customers
 :::
 
 Example 22: resource URL and corresponding context URL -- expand with
@@ -2371,9 +2344,9 @@ of entity references
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/Customers(\'ALFKI\')/Orders/\$ref]{style="color:black"}]{.Datatype}
+[http://host/service/Customers(\'ALFKI\')/Orders/\$ref]{.Datatype}
 
-[[http://host/service/\$metadata#Collection(\$ref)]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#Collection(\$ref)]{.Datatype}
 :::
 
 ## Entity Reference
@@ -2391,9 +2364,9 @@ entity reference
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/Orders(10643)/Customer/\$ref]{style="color:black"}]{.Datatype}
+[http://host/service/Orders(10643)/Customer/\$ref]{.Datatype}
 
-[[http://host/service/\$metadata#\$ref]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#\$ref]{.Datatype}
 :::
 
 ## Property Value
@@ -2420,9 +2393,9 @@ Example 26: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers(1)/Addresses]{style="color:black"}
+http://host/service/Customers(1)/Addresses
 
-[[http://host/service/\$metadata#Customers(1)/Addresses]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#Customers(1)/Addresses]{.Datatype}
 :::
 
 ## Collection of Complex or Primitive Types
@@ -2441,9 +2414,9 @@ Example 27: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/TopFiveHobbies()]{style="color:black"}
+http://host/service/TopFiveHobbies()
 
-[[http://host/service/\$metadata#Collection(Edm.String)]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#Collection(Edm.String)]{.Datatype}
 :::
 
 ## Complex or Primitive Type
@@ -2461,9 +2434,9 @@ Example 28: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/MostPopularName()]{style="color:black"}]{.Datatype}
+[http://host/service/MostPopularName()]{.Datatype}
 
-[[http://host/service/\$metadata#Edm.String]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#Edm.String]{.Datatype}
 :::
 
 ## Operation Result
@@ -2493,9 +2466,9 @@ Example 29: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/TopFiveCustomers()]{style="color:black"}
+http://host/service/TopFiveCustomers()
 
-[http://host/service/\$metadata#Customers]{style="color:black"}
+http://host/service/\$metadata#Customers
 :::
 
 ## Delta Payload Response
@@ -2526,7 +2499,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
 
-[[http://host/service/\$metadata#Customers/\$delta]{style="color:black"}]{.Datatype}
+[http://host/service/\$metadata#Customers/\$delta]{.Datatype}
 :::
 
 [The context URL of an update request body for a collection of entities
@@ -2866,7 +2839,7 @@ Example 31:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products(1)/Name ]{style="color:black"}
+GET http://host/service/Products(1)/Name
 :::
 
 #### 11.2.4.1 [Requesting a Property\'s Raw Value using `$value`](#sec_RequestingaPropertysRawValueusingval)
@@ -2917,7 +2890,7 @@ service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products(1)/Name/\$value ]{style="color:black"}
+GET http://host/service/Products(1)/Name/\$value
 :::
 
 ### 11.2.5 Specifying Properties to Return
@@ -2953,8 +2926,7 @@ Products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Products?\$select=Rating,ReleaseDate]{style="color:black"}
+GET http://host/service/Products?\$select=Rating,ReleaseDate
 :::
 
 It is also possible to request all structural properties, including any
@@ -2967,7 +2939,7 @@ Example 34:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$select=\*]{style="color:black"}
+GET http://host/service/Products?\$select=\*
 :::
 
 Properties of related entities can be specified by including the
@@ -2978,8 +2950,7 @@ Example 35:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Products?\$expand=Category(\$select=Name)]{style="color:black"}
+GET http://host/service/Products?\$expand=Category(\$select=Name)
 :::
 
 The properties specified in `$select` are represented in addition to any
@@ -2995,8 +2966,7 @@ Example 36: for each category, return the `CategoryName` and the
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Categories?\$select=CategoryName,Products]{style="color:black"}
+GET http://host/service/Categories?\$select=CategoryName,Products
 :::
 
 It is also possible to request all actions or functions available for
@@ -3007,8 +2977,7 @@ Example 37:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Products?\$select=DemoService.\*]{style="color:black"}
+GET http://host/service/Products?\$select=DemoService.\*
 :::
 
 Query options can be applied to a selected property by appending a
@@ -3078,8 +3047,7 @@ value of all related Orders will be represented inline
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service.svc/Customers?\$expand=Orders]{style="color:black"}
+GET http://host/service.svc/Customers?\$expand=Orders
 :::
 
 Example 39: for each customer entity within the Customers entity set the
@@ -3088,8 +3056,7 @@ references to the related Orders will be represented inline
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service.svc/Customers?\$expand=Orders/\$ref]{style="color:black"}
+GET http://host/service.svc/Customers?\$expand=Orders/\$ref
 :::
 
 Example 40: for each customer entity within the Customers entity set the
@@ -3098,8 +3065,7 @@ media stream representing the customer photo will be represented inline
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service.svc/Customers?\$expand=Photo]{style="color:black"}
+GET http://host/service.svc/Customers?\$expand=Photo
 :::
 
 ##### Expand Options
@@ -3128,8 +3094,7 @@ will be represented inline
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-]{style="color:black"}[http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount
+GET [http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount
 gt 100)]{lang="FR" style="color:black"}
 :::
 
@@ -3145,8 +3110,8 @@ The `Customer` related to each order returned.
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service.svc/Orders?\$expand=Items(\$expand=Product),Customer]{style="color:black"}
+GET
+http://host/service.svc/Orders?\$expand=Items(\$expand=Product),Customer
 :::
 
 Example 43: for each customer entity in the Customers entity set, the
@@ -3160,8 +3125,8 @@ requested)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff]{style="color:black"}
+GET
+http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff
 :::
 
 ###### 11.2.5.2.1.1 [Expand Option `$levels`](#sec_ExpandOptionlevels)
@@ -3190,8 +3155,8 @@ to four levels
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)]{style="color:black"}
+GET
+http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)
 :::
 
 #### 11.2.5.3 [System Query Option `$compute`](#sec_SystemQueryOptioncompute)
@@ -3253,8 +3218,7 @@ Example 46: return all Products whose `Price` is less than
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$filter=Price lt
-10.00]{style="color:black"}
+GET http://host/service/Products?\$filter=Price lt 10.00
 :::
 
 The [`$count`](#sec_SystemQueryOptioncount) segment may be used within a
@@ -3266,8 +3230,7 @@ Example 47: return all Categories with less than 10 products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Categories?\$filter=Products/\$count lt
-10]{style="color:black"}
+GET http://host/service/Categories?\$filter=Products/\$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
@@ -3331,7 +3294,7 @@ For a full description of the syntax used when building requests, see
 OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
-  **Function**                                                **[Example]{style="color:black"}**
+  **Function**                                                **Example**
   ----------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------
   **String and Collection Functions**                         
   [concat]{style="font-family:\"Courier New\""}               [concat(concat(City,\', \'), Country) eq \'Berlin, Germany\']{style="font-size:9.0pt;font-family:\"Courier New\""}
@@ -3408,9 +3371,8 @@ string parameter value \"WA\"
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-]{style="color:black"}[[http://host/service.svc/Employees?\$filter=Region
-eq \@p1&@p1=\'WA\']{style="color:
+GET [[http://host/service.svc/Employees?\$filter=Region eq
+\@p1&@p1=\'WA\']{style="color:
 black"}]{.VerbatimChar}
 :::
 
@@ -3443,8 +3405,8 @@ expanded direct reports
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-]{style="color:black"}[[http://host/service.svc/Employees?\$expand=Manager(@m=\$this;\$expand=DirectReports(\$filter=@m/FirstName
+GET
+[[http://host/service.svc/Employees?\$expand=Manager(@m=\$this;\$expand=DirectReports(\$filter=@m/FirstName
 eq FirstName))]{style="color:
 black"}]{.VerbatimChar}
 :::
@@ -3481,10 +3443,9 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [content-language](#sec_HeaderContentLanguage) of the response, and
 SHOULD annotate string properties with language-dependent order with the
-[term
-]{style="color:black"}[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent)[,
-see
-]{style="color:black"}[OData-VocCore](#ODataVocCore)[.]{style="color:black"}
+term
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
 
@@ -3494,8 +3455,7 @@ order, then by rating in descending order
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$orderby=ReleaseDate asc, Rating
-desc]{style="color:black"}
+GET http://host/service/Products?\$orderby=ReleaseDate asc, Rating desc
 :::
 
 Related entities may be ordered by specifying `$orderby` within the
@@ -3522,8 +3482,7 @@ within each category
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Categories?\$orderby=Products/\$count]{style="color:black"}
+GET http://host/service/Categories?\$orderby=Products/\$count
 :::
 
 #### 11.2.6.3 [System Query Option `$top`](#sec_SystemQueryOptiontop)
@@ -3539,7 +3498,7 @@ set
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$top=5]{style="color:black"}
+GET http://host/service/Products?\$top=5
 :::
 
 If no unique ordering is imposed through an
@@ -3558,7 +3517,7 @@ Example 54: return products starting with the 6th product of the
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$skip=5]{style="color:black"}
+GET http://host/service/Products?\$skip=5
 :::
 
 Where [`$top`[
@@ -3572,7 +3531,7 @@ entity set
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$top=5&\$skip=2]{style="color:black"}
+GET http://host/service/Products?\$top=5&\$skip=2
 :::
 
 If no unique ordering is imposed through an
@@ -3591,7 +3550,7 @@ in the collection
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$count=true]{style="color:black"}
+GET http://host/service/Products?\$count=true
 :::
 
 The count of related entities can be requested by specifying
@@ -3602,8 +3561,7 @@ Example 57:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Categories?\$expand=Products(\$count=true)]{style="color:black"}
+GET http://host/service/Categories?\$expand=Products(\$count=true)
 :::
 
 A `$count` query option with a value of `false` (or not specified) hints
@@ -3638,7 +3596,7 @@ Example 58: return all Products that match the search term \"bike\"
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=bike]{style="color:black"}
+GET http://host/service/Products?\$search=bike
 :::
 
 The search expression can contain phrases, enclosed in double-quotes.
@@ -3648,8 +3606,7 @@ Example 59: return all Products that match the phrase \"mountain bike\"
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=\"mountain
-bike\"]{style="color:black"}
+GET http://host/service/Products?\$search=\"mountain bike\"
 :::
 
 The upper-case keyword `NOT` restricts the set of entities to those that
@@ -3660,8 +3617,7 @@ Example 60: return all Products that do not match \"clothing\"
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=NOT
-clothing]{style="color:black"}
+GET http://host/service/Products?\$search=NOT clothing
 :::
 
 Multiple terms within a search expression are separated by a space
@@ -3674,8 +3630,7 @@ Example 61: return all Products that match both \"mountain\" and
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=mountain AND
-bike]{style="color:black"}
+GET http://host/service/Products?\$search=mountain AND bike
 :::
 
 The upper-case keyword `OR` is used to return entities that satisfy
@@ -3687,8 +3642,7 @@ Example 62: return all Products that match either \"mountain\" or
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=mountain OR
-bike]{style="color:black"}
+GET http://host/service/Products?\$search=mountain OR bike
 :::
 
 Parentheses within the search expression group together multiple
@@ -3700,9 +3654,8 @@ Example 63: return all Products that match either \"mountain\" or
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Products?\$search=[[(]{style="color:black"}]{.MsoHyperlink}mountain
-OR bike) AND NOT clothing ]{style="color:black"}
+[GET http://host/service/Products?\$search=[(]{.MsoHyperlink}mountain OR
+bike) AND NOT clothing ]{style="color:black"}
 :::
 
 The operations within a search expression MUST be evaluated in the
@@ -3758,7 +3711,7 @@ Example 64: the first address in a list of addresses for `MainSupplier`
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [GET
-[[http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}]{.MsoHyperlink}]{style="color:black"}
+[http://host/service/Suppliers(MainSupplier)/Addresses/0]{.MsoHyperlink}]{style="color:black"}
 :::
 
 ### Requesting Related Entities
@@ -3788,7 +3741,7 @@ Products entity set
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products(1)/Supplier]{style="color:black"}
+GET http://host/service/Products(1)/Supplier
 :::
 
 ### Requesting Entity References
@@ -3828,7 +3781,7 @@ to the Product with `ID=0`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products(0)/Orders/\$ref]{style="color:black"}
+GET http://host/service/Products(0)/Orders/\$ref
 :::
 
 ### 11.2.9 Resolving an Entity-Id
@@ -3844,8 +3797,7 @@ Example 67: return the entity representation for a given entity-id
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/\$entity?\$id=http://host/service/Products(0)]{style="color:black"}
+GET http://host/service/\$entity?\$id=http://host/service/Products(0)
 :::
 
 A type segment following the `$entity` resource casts the resource to
@@ -3868,10 +3820,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
                           
 ?\$id=http://host/service/Customers(\'ALFKI\')]{style="color:black"}
 
-[                          
-&\$select=CompanyName,ContactName]{style="color:black"}
+                           &\$select=CompanyName,ContactName
 
-[                           &\$expand=Orders]{style="color:black"}
+                           &\$expand=Orders
 :::
 
 ### Requesting the Number of Items in a Collection
@@ -3901,7 +3852,7 @@ entity set
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products/\$count]{style="color:black"}
+GET http://host/service/Products/\$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
@@ -3915,8 +3866,8 @@ Example 70: return the number of products whose `Price` is less than
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products/\$filter(@foo)/\$count?@foo=Price lt
-10.00]{style="color:black"}
+GET http://host/service/Products/\$filter(@foo)/\$count?@foo=Price lt
+10.00
 :::
 
 For backwards compatibility, the `/$count` suffix MAY be used in
@@ -3929,8 +3880,7 @@ Example 71: return the number of products whose `Price` is less than
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products/\$count?\$filter=Price lt
-10.00]{style="color:black"}
+GET http://host/service/Products/\$count?\$filter=Price lt 10.00
 :::
 
 The [`$filter`](#sec_SystemQueryOptionfilter) system query option MUST
@@ -3945,8 +3895,7 @@ Example 72: return all customers with more than five interests
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Customers?\$filter=Interests/\$count gt
-5]{style="color:black"}
+GET http://host/service/Customers?\$filter=Interests/\$count gt 5
 :::
 
 Example 73: return all categories with more than one product over \$5.00
@@ -3980,8 +3929,7 @@ Example 74: the request
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Orders?\$format=application/json;metadata=full]{style="color:black"}
+GET http://host/service/Orders?\$format=application/json;metadata=full
 :::
 
 is equivalent to a request with an `Accept` header using the same media
@@ -3994,7 +3942,7 @@ Example 75: the request
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Orders?\$format=json]{style="color:black"}
+GET http://host/service/Orders?\$format=json
 :::
 
 is equivalent to a request with the `Accept` header set to
@@ -4015,9 +3963,9 @@ in any request. For a [metadata document
 request](#sec_MetadataDocumentRequest) the value of the
 [\$schemaversion]{.VerbatimChar} system query option addresses a
 specific schema version. For all other request types the value specifies
-the version of the schema against which the request is made.[ The syntax
-of the ]{style="color:black"}[\$schemaversion]{.VerbatimChar} system
-query option is defined in [OData-ABNF](#ODataABNF).
+the version of the schema against which the request is made. The syntax
+of the [\$schemaversion]{.VerbatimChar} system query option is defined
+in [OData-ABNF](#ODataABNF).
 
 The value of the [\$schemaversion]{.VerbatimChar} system query option
 MUST be a version of the schema as returned in the
@@ -4237,23 +4185,20 @@ collection of related entities reached via a navigation property MAY
 differ from the ETag of the entity containing the navigation property.
 
 A [Data Modification Request](#sec_DataModification)[ ]{.MsoHyperlink}on
-an existing resource or an [Action Request](#sec_Actions)[ invoking an
-action bound to an existing resource]{style="color:black"} MAY require
-optimistic concurrency control. Services SHOULD announce this via
-annotations with the terms
+an existing resource or an [Action Request](#sec_Actions) invoking an
+action bound to an existing resource MAY require optimistic concurrency
+control. Services SHOULD announce this via annotations with the terms
 [`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
-[OData-VocCore](#ODataVocCore)[ and
-]{style="color:black"}[`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)[
-(nested property ]{style="color:black"}`OptimisticConcurrencyControl`[)
-in]{style="color:black"}
-[OData-VocCap](#ODataVocCap)[.]{style="color:black"}
+[OData-VocCore](#ODataVocCore) and
+[`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
+(nested property `OptimisticConcurrencyControl`) in
+[OData-VocCap](#ODataVocCap).
 
-[If optimistic concurrency control is required for a resource, the
-service MUST include ]{style="color:black"}an [ETag
-header](#sec_HeaderETag) in a response to a `GET` request to the
-resource, and MAY include the ETag in a format-specific manner in
-responses containing that resource.
+If optimistic concurrency control is required for a resource, the
+service MUST include an [ETag header](#sec_HeaderETag) in a response to
+a `GET` request to the resource, and MAY include the ETag in a
+format-specific manner in responses containing that resource.
 
 The presence of an [ETag header](#sec_HeaderETag) in a response does not
 imply in itself that the resource requires optimistic concurrency
@@ -4266,17 +4211,14 @@ Request](#sec_DataModification) or [Action Request](#sec_Actions), the
 operation MUST only be invoked if the `If-Match` or `If-None-Match`
 condition is satisfied.
 
-[If the client does not specify an
-]{style="color:black"}[`If-Match`](#sec_HeaderIfMatch) [request header
-in a ]{style="color:black"}[Data Modification
-Request](#sec_DataModification)[ or ]{style="color:black"}[Action
-Request](#sec_Actions)[ on a resource that requires optimistic
+If the client does not specify an [`If-Match`](#sec_HeaderIfMatch)
+request header in a [Data Modification Request](#sec_DataModification)
+or [Action Request](#sec_Actions) on a resource that requires optimistic
 concurrency control, the service responds with a
-]{style="color:black"}`428 Precondition Required`[ and MUST ensure that
-no observable change occurs as a result of the request.
-]{style="color:black"}Clients can attempt to disable optimistic
-concurrency control by specifying `If-Match` with a value of `*`.
-Services MAY reject such requests.
+`428 Precondition Required` and MUST ensure that no observable change
+occurs as a result of the request. Clients can attempt to disable
+optimistic concurrency control by specifying `If-Match` with a value of
+`*`. Services MAY reject such requests.
 
 For requests including an [`OData-Version`](#sec_HeaderODataVersion)
 header value of `4.01`, any ETag values specified in the request body of
@@ -4436,27 +4378,25 @@ annotation to the `DirectReports` navigation property
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[{ ]{style="color:black"}
+{
 
-[  \"@odata.type\":\"#Northwind.Manager\",]{style="color:black"}
+  \"@odata.type\":\"#Northwind.Manager\",
 
-[  \"ID\": 1,]{style="color:black"}
+  \"ID\": 1,
 
-[  \"FirstName\": \"Pat\",]{style="color:black"}
+  \"FirstName\": \"Pat\",
 
-[  \"LastName\": \"Griswold\",]{style="color:black"}
+  \"LastName\": \"Griswold\",
 
-[  \"DirectReports@odata.bind\": \[]{style="color:black"}
+  \"DirectReports@odata.bind\": \[
 
-[   
-\"]{style="color:black"}[http://host/service/]{style="color:black"}[Employees(5)\",]{style="color:black"}
+    \"http://host/service/Employees(5)\",
 
-[   
-\"]{style="color:black"}[http://host/service/]{style="color:black"}[Employees(6)\"]{style="color:black"}
+    \"http://host/service/Employees(6)\"
 
-[  \]]{style="color:black"}
+  \]
 
-[}]{style="color:black"}
+}
 :::
 
 Example 77: using the JSON format, 4.01 clients can create a new manager
@@ -4466,25 +4406,25 @@ within the `DirectReports` navigation property
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[{ ]{style="color:black"}
+{
 
-[  \"@type\":\"#Northwind.Manager\",]{style="color:black"}
+  \"@type\":\"#Northwind.Manager\",
 
-[  \"ID\": 1,]{style="color:black"}
+  \"ID\": 1,
 
-[  \"FirstName\": \"Pat\",]{style="color:black"}
+  \"FirstName\": \"Pat\",
 
-[  \"LastName\": \"Griswold\",]{style="color:black"}
+  \"LastName\": \"Griswold\",
 
-[  \"DirectReports\": \[]{style="color:black"}
+  \"DirectReports\": \[
 
-[    {\"@id\": \"Employees(5)\"},]{style="color:black"}
+    {\"@id\": \"Employees(5)\"},
 
-[    {\"@id\": \"Employees(6)\"}]{style="color:black"}
+    {\"@id\": \"Employees(6)\"}
 
-[  \]]{style="color:black"}
+  \]
 
-[}]{style="color:black"}
+}
 :::
 
 Upon successful completion of the operation, the service creates the
@@ -4674,41 +4614,39 @@ reports; two existing employees and one new employee named
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[{ ]{style="color:black"}
+{
 
-[  \"@type\":\"#Northwind.Manager\",]{style="color:black"}
+  \"@type\":\"#Northwind.Manager\",
 
-[  \"FirstName\" : \"Patricia\",]{style="color:black"}
+  \"FirstName\" : \"Patricia\",
 
-[  \"DirectReports\": \[]{style="color:black"}
+  \"DirectReports\": \[
 
-[    {]{style="color:black"}
+    {
 
-[      \"@id\": \"Employees(5}\"]{style="color:black"}
+      \"@id\": \"Employees(5}\"
 
-[    },]{style="color:black"}
+    },
 
-[    {]{style="color:black"}
+    {
 
-[      \"@id\": \"Employees(6}\",]{style="color:black"}
+      \"@id\": \"Employees(6}\",
 
-[      \"LastName\": \"Smith\"]{style="color:black"}
+      \"LastName\": \"Smith\"
 
-[    },]{style="color:black"}
+    },
 
-[    {]{style="color:black"}
+    {
 
-[[      ]{style="color:black"}]{.Datatype}[\"FirstName\":
-\"Suzanne\",]{style="color:black"}
+[      ]{.Datatype}\"FirstName\": \"Suzanne\",
 
-[[      ]{style="color:black"}]{.Datatype}[\"LastName\":
-\"Brown\"]{style="color:black"}
+[      ]{.Datatype}\"LastName\": \"Brown\"
 
-[    }]{style="color:black"}
+    }
 
-[  \]]{style="color:black"}
+  \]
 
-[}]{style="color:black"}
+}
 :::
 
 If the nested collection is represented as a delta annotation on the
@@ -4755,45 +4693,45 @@ named "Suzanne Brown" and link to it
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[{ ]{style="color:black"}
+{
 
-[  \"@type\": \"#Northwind.Manager\",]{style="color:black"}
+  \"@type\": \"#Northwind.Manager\",
 
-[  \"FirstName\": \"Patricia\",]{style="color:black"}
+  \"FirstName\": \"Patricia\",
 
-[  \"DirectReports@delta\": \[]{style="color:black"}
-
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
-
-[[      \"@removed\": {]{style="color:black"}]{.CODEtemp}
-
-[[        \"reason\": \"deleted\"]{style="color:black"}]{.CODEtemp}
-
-[[      },]{style="color:black"}]{.CODEtemp}
-
-[[      ]{lang="NL" style="color:black"}]{.CODEtemp}[[\"@id\":
-\"Employees(3)\"]{style="color:black"}]{.CODEtemp}
-
-[[    },]{style="color:black"}]{.CODEtemp}
+  \"DirectReports@delta\": \[
 
 [[    {]{lang="NL" style="color:black"}]{.CODEtemp}
 
-[[      \"@removed\": {]{style="color:black"}]{.CODEtemp}
+[      \"@removed\": {]{.CODEtemp}
 
-[[        \"reason\": \"changed\"]{style="color:black"}]{.CODEtemp}
+[        \"reason\": \"deleted\"]{.CODEtemp}
 
-[[      },]{style="color:black"}]{.CODEtemp}
+[      },]{.CODEtemp}
 
-[[      \"@id\": \"Employees(4)\"]{style="color:black"}]{.CODEtemp}
+[[      ]{lang="NL" style="color:black"}]{.CODEtemp}[\"@id\":
+\"Employees(3)\"]{.CODEtemp}
 
-[[    },]{style="color:black"}]{.CODEtemp}
+[    },]{.CODEtemp}
+
+[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+
+[      \"@removed\": {]{.CODEtemp}
+
+[        \"reason\": \"changed\"]{.CODEtemp}
+
+[      },]{.CODEtemp}
+
+[      \"@id\": \"Employees(4)\"]{.CODEtemp}
+
+[    },]{.CODEtemp}
 
 [[    {]{lang="NL" style="color:black"}]{.CODEtemp}
 
 [[      \"@id\": \"Employees(5)\"]{lang="NL"
 style="color:black"}]{.CODEtemp}
 
-[[    },]{style="color:black"}]{.CODEtemp}
+[    },]{.CODEtemp}
 
 [[    {]{lang="NL" style="color:black"}]{.CODEtemp}
 
@@ -4803,20 +4741,19 @@ style="color:black"}]{.CODEtemp}
 [[      \"LastName\": \"Smith\"]{lang="NL"
 style="color:black"}]{.CODEtemp}
 
-[[    },]{style="color:black"}]{.CODEtemp}
+[    },]{.CODEtemp}
 
 [[    {]{lang="NL" style="color:black"}]{.CODEtemp}
 
-[      \"FirstName\": \"Suzanne\",]{style="color:black"}
+      \"FirstName\": \"Suzanne\",
 
-[[      ]{style="color:black"}]{.Datatype}[\"LastName\":
-\"Brown\"]{style="color:black"}
+[      ]{.Datatype}\"LastName\": \"Brown\"
 
-[[    }]{style="color:black"}]{.CODEtemp}
+[    }]{.CODEtemp}
 
-[  \]]{style="color:black"}
+  \]
 
-[}]{style="color:black"}
+}
 :::
 
 Clients MAY associate an id with individual nested entities in the
@@ -4855,10 +4792,8 @@ that would identify such an entity and the entity does not yet exist.
 
 Singleton entities can be upserted if they are nullable. Services
 supporting this SHOULD advertise it by annotating the singleton with the
-term `Capabilities.UpdateRestrictions` [(nested property
-]{style="color:black"}`Upsertable`[ with value
-]{style="color:black"}`true`[) ]{style="color:black"}defined in
-[OData-VocCap](#ODataVocCap).
+term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
+with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 Key and other non-updatable properties, as well as dependent properties
 that are not tied to key properties of the principal entity, MUST be
@@ -4883,8 +4818,7 @@ entity.
 The request body SHOULD be empty. Singleton entities can be deleted if
 they are nullable. Services supporting this SHOULD advertise it by
 annotating the singleton with the term `Capabilities.DeleteRestrictions`
-[(nested property ]{style="color:black"}`Deletable`[ with value
-]{style="color:black"}`true`[) ]{style="color:black"}defined in
+(nested property `Deletable` with value `true`) defined in
 [OData-VocCap](#ODataVocCap).
 
 On successful completion of the delete, the response MUST be
@@ -5031,9 +4965,8 @@ On success, the service MUST respond with either
 [`204 No Content`](#sec_ResponseCode204NoContent) and an empty body, or
 [`200 OK`](#sec_ResponseCode200OK) if the client specified the
 preference
-[`return=representation`](#sec_Preferencereturnrepresentationandret)[,
-in which case the response body MUST contain the updated media
-entity.]{style="color:black"}
+[`return=representation`](#sec_Preferencereturnrepresentationandret), in
+which case the response body MUST contain the updated media entity.
 
 #### Delete a Media Entity
 
@@ -5074,9 +5007,9 @@ see [OData-VocCore](#ODataVocCore).
 [`204 No Content`](#sec_ResponseCode204NoContent) and an empty body, or
 [`200 OK`](#sec_ResponseCode200OK) if the client specified the
 preference
-[`return=representation`](#sec_Preferencereturnrepresentationandret)[,
-in which case the response body MUST contain the updated media value for
-the stream]{style="color:black"}.
+[`return=representation`](#sec_Preferencereturnrepresentationandret), in
+which case the response body MUST contain the updated media value for
+the stream.
 
 Clients MAY change the association between a stream property and a media
 stream by modifying the edit URL or read URL of the stream property.
@@ -5496,8 +5429,7 @@ binding parameter `customer` being the entity identified by
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Customers(6)/SampleModel.MostRecentOrder()]{style="color:black"}
+GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 Example 85: the function `Comparison` can be bound to any URL that
@@ -5517,8 +5449,8 @@ Example 86: invoke the `Comparison` function on the set of red products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products/\$filter(Color eq
-\'Red\')/Diff.Comparison()]{style="color:black"}
+GET http://host/service/Products/\$filter(Color eq
+\'Red\')/Diff.Comparison()
 :::
 
 ### [11.5.2 Applying an Action to Members of a Collection]{#_Toc12019608}
@@ -5543,8 +5475,7 @@ entity set `Customers`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Customers/\$each/SampleModel.MostRecentOrder()]{style="color:black"}
+GET http://host/service/Customers/\$each/SampleModel.MostRecentOrder()
 :::
 
 [The client MAY specify the]{#sec_AdvertisingAvailableOperationswithin}
@@ -5583,7 +5514,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \"#SampleEntities.MostRecentOrder\": {\
     \"title\": \"Most Recent Order\",\
     \"target\":
-\"]{style="color:black"}[[Customers(\'ALFKI\')]{style="color:black"}]{.VerbatimChar}[/SampleEntities.MostRecentOrder()\"\
+\"]{style="color:black"}[Customers(\'ALFKI\')]{.VerbatimChar}[/SampleEntities.MostRecentOrder()\"\
   },\
   \...\
 }]{style="color:black"}
@@ -5676,12 +5607,12 @@ returned by the composable `MyShoppingCart` function import
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[POST
-]{style="color:black"}]{.VerbatimChar}[http://host/service/MyShoppingCart()]{style="color:black"}[[/Items]{style="color:black"}]{.VerbatimChar}
+[POST
+]{.VerbatimChar}http://host/service/MyShoppingCart()[/Items]{.VerbatimChar}
 
 [ ]{.VerbatimChar}
 
-[[\...]{style="color:black"}]{.VerbatimChar}
+[\...]{.VerbatimChar}
 :::
 
 Parameter values passed to functions MUST be specified either as a URL
@@ -5726,8 +5657,7 @@ single `ManagerID` parameter via the function import
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[GET
-http://host/service/EmployeesByManager(ManagerID=3)]{style="color:black"}]{.VerbatimChar}
+[GET http://host/service/EmployeesByManager(ManagerID=3)]{.VerbatimChar}
 :::
 
 Example 92: return all `Customers` whose City property returns
@@ -5753,8 +5683,8 @@ parameter
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[GET
-http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3]{style="color:black"}]{.VerbatimChar}
+[GET
+http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3]{.VerbatimChar}
 :::
 
 Services MAY in addition allow implicit [parameter
@@ -5778,8 +5708,7 @@ parameter using the implicit parameter alias
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[GET
-http://host/service/EmployeesByManager?ManagerID=3]{style="color:black"}]{.VerbatimChar}
+[GET http://host/service/EmployeesByManager?ManagerID=3]{.VerbatimChar}
 :::
 
 [Non-binding parameters annotated with the term]{#_Toc477876712}
@@ -5921,11 +5850,10 @@ ETag still matches.
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[POST
-http://host/service/Customers(\'ALFKI\')/SampleEntities.CreateOrder]{style="color:black"}]{.VerbatimChar}
+[POST
+http://host/service/Customers(\'ALFKI\')/SampleEntities.CreateOrder]{.VerbatimChar}
 
-[[If-Match:
-W/\"MjAxOS0wMy0yMVQxMzowNVo=\"]{style="color:black"}]{.VerbatimChar}
+[If-Match: W/\"MjAxOS0wMy0yMVQxMzowNVo=\"]{.VerbatimChar}
 
 [[\
 {\
@@ -6072,16 +6000,15 @@ Example 96: multipart batch request
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[POST /service/\$batch HTTP/1.1]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[Host:
-odata.org]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[OData-Version: 4.0
-]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[Content-Type: multipart/mixed;
-boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b]{style="color:black"}]{.VerbatimChar}[\
+[POST /service/\$batch HTTP/1.1]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[Host: odata.org]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[OData-Version: 4.0
+]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[Content-Type: multipart/mixed;
+boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b]{.VerbatimChar}[\
 \
-]{style="font-size:6.0pt;color:black"}[[\<Multipart Batch request
-body\>]{style="color:black"}]{.VerbatimChar}
+]{style="font-size:6.0pt;color:black"}[\<Multipart Batch request
+body\>]{.VerbatimChar}
 :::
 
 A batch request using the JSON batch format MUST contain a
@@ -6092,16 +6019,15 @@ A batch request using the JSON batch format MUST contain a
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[POST /service/\$batch HTTP/1.1]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[Host:
-odata.org]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[OData-Version: 4.01
-]{style="color:black"}]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[[Content-Type:
-application/json]{style="color:black"}]{.VerbatimChar}[\
+[POST /service/\$batch HTTP/1.1]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[Host: odata.org]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[OData-Version: 4.01
+]{.VerbatimChar}[\
+]{style="font-size:6.0pt;color:black"}[Content-Type:
+application/json]{.VerbatimChar}[\
 \
-]{style="font-size:6.0pt;color:black"}[[\<JSON Batch request
-body\>]{style="color:black"}]{.VerbatimChar}
+]{style="font-size:6.0pt;color:black"}[\<JSON Batch request
+body\>]{.VerbatimChar}
 :::
 
 Batch requests SHOULD contain the applicable `OData-Version` header.
@@ -6249,7 +6175,7 @@ Example 98:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET https://host:1234/path/service/People(1) HTTP/1.1 ]{style="color:black"}
+GET https://host:1234/path/service/People(1) HTTP/1.1 
 :::
 
 -   Absolute resource path and separate [Host]{.Keyword} header
@@ -6259,9 +6185,9 @@ Example 99:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET /path/service/People(1) HTTP/1.1]{style="color:black"}
+GET /path/service/People(1) HTTP/1.1
 
-[Host: myserver.mydomain.org:1234]{style="color:black"}
+Host: myserver.mydomain.org:1234
 :::
 
 -   Resource path relative to the batch request URI.
@@ -6271,7 +6197,7 @@ Example 100:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET People(1) HTTP/1.1]{style="color:black"}
+GET People(1) HTTP/1.1
 :::
 
 Services MUST support all three formats for URLs of individual requests.
@@ -6325,7 +6251,7 @@ OData-Version: 4.0\
 Content-Type: multipart/mixed;
 boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b]{style="color:black"}
 
-[Content-Length: \###]{style="color:black"}
+Content-Length: \###
 
  
 
@@ -6485,13 +6411,13 @@ If-Match: \$1\
 \
 ]{style="color:black"}
 
-[{]{style="color:black"}
+{
 
-[   \"Salary\": 75000]{style="color:black"}
+   \"Salary\": 75000
 
-[}]{style="color:black"}
+}
 
-[\--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
+\--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--
 :::
 
 #### Processing a Multipart Batch Request
@@ -6615,7 +6541,7 @@ Host: host\
 \
 ]{style="color:black"}
 
-[\--cs_12u7hdkin252452345eknd_383673037\--]{style="color:black"}
+\--cs_12u7hdkin252452345eknd_383673037\--
 
 [\--b_243234_25424_ef_892u748\
 Content-Type: application/http\
@@ -6674,7 +6600,7 @@ status monitor resource:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[HTTP/1.1 200 Ok]{style="color:black"}
+HTTP/1.1 200 Ok
 
 [Content-Type: application/http\
 \
@@ -6706,7 +6632,7 @@ Retry-After: \###\
 
  
 
-[\--b_243234_25424_ef_892u748\--]{style="color:black"}
+\--b_243234_25424_ef_892u748\--
 :::
 
 After some time the client makes a second request using the returned
@@ -6753,7 +6679,7 @@ Host: host\
 
  
 
-[\--cs_12u7hdkin252452345eknd_383673037\--]{style="color:black"}
+\--cs_12u7hdkin252452345eknd_383673037\--
 
 [\--b_243234_25424_ef_892u748\
 Content-Type: application/http\
@@ -7003,10 +6929,9 @@ functions (section 9.3.1)
 
 9\. SHOULD support the [OData-JSON](#ODataJSON) format
 
-10\. SHOULD consider [supporting basic authentication as defined in
-]{style="color:black"}[**\[RFC7617\]**](#RFC7617)[ over HTTPS for the
-highest level of interoperability with generic
-clients]{style="color:black"}
+10\. SHOULD consider supporting basic authentication as defined in
+[**\[RFC7617\]**](#RFC7617) over HTTPS for the highest level of
+interoperability with generic clients
 
 11\. SHOULD support the `$search `[[system query option (section
 ]{style="font-family:
@@ -7376,7 +7301,7 @@ query options
 functions
 
 10\. SHOULD support basic authentication as defined in
-[**\[RFC7617\]**](#RFC7617)[ ]{style="color:black"}over HTTPS
+[**\[RFC7617\]**](#RFC7617) over HTTPS
 
 11\. MAY request entity references in place of entities previously
 returned in the response (section 11.2.8)

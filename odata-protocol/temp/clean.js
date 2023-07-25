@@ -14,13 +14,16 @@ const clean = old
   .replace(/<a[ \n]name="_[^"]+">[\d\. \n]*<\/a>/g, "")
   .replace(/<h1[^>]*>/g, "<h1>")
 
+  // clean up "keyword" formatting
+  .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
+  .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
+
   // clean up headings
   .replace(/<a[ \n]href="#sec[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
   .replace(/<a[ \n]name="sec[^"]+">[\d\. \n]*<\/a>/g, "")
 
-  // clean up "keyword" formatting
-  .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
-  .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
+  // clean up formatting
+  .replace(/<span[ \n]style='color:black'>([^<]*)<\/span>/g,"$1")
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")
