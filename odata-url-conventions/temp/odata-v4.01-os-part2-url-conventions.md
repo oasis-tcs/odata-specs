@@ -2102,8 +2102,8 @@ Example ##ex: all customers with a `CompanyName` that equals
 `'ALFREDS FUTTERKISTE'` once any lowercase characters have been
 converted to uppercase
 ```
-http://host/service/Customers?\$filter=toupper([CompanyName) eq
-\'ALFREDS FUTTERKISTE\']{style="color:black"}
+http://host/service/Customers?\$filter=toupper(CompanyName) eq \'ALFREDS
+FUTTERKISTE\'
 ```
 :::
 
@@ -2371,8 +2371,7 @@ white"}
 ::: example
 Example ##ex: all employees born in 1971
 ```
-http://host/service/[Employees?\$filter=year(BirthDate) eq
-1971]{style="color:black"}
+http://host/service/Employees?\$filter=year(BirthDate) eq 1971
 ```
 :::
 

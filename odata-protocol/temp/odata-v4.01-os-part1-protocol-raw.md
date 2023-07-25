@@ -2984,8 +2984,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
    &\$expand=Orders(\$compute=Price mult Qty as
 TotalPrice]{style="background:#D9D9D9"}]{style="color:black"}
 
-[                 
-;\$select=Name,Price,Qty,TotalPrice)]{style="color:black"}
+                  ;\$select=Name,Price,Qty,TotalPrice)
 :::
 
 ### ##subsubsec Querying Collections

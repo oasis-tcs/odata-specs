@@ -2239,8 +2239,8 @@ converted to uppercase
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-http://host/service/Customers?\$filter=toupper([CompanyName) eq
-\'ALFREDS FUTTERKISTE\']{style="color:black"}
+http://host/service/Customers?\$filter=toupper(CompanyName) eq \'ALFREDS
+FUTTERKISTE\'
 :::
 
 ##### ##subsubsubsubsec `trim`
@@ -2516,8 +2516,7 @@ Example 91: all employees born in 1971
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-http://host/service/[Employees?\$filter=year(BirthDate) eq
-1971]{style="color:black"}
+http://host/service/Employees?\$filter=year(BirthDate) eq 1971
 :::
 
 #### ##subsubsubsec Arithmetic Functions

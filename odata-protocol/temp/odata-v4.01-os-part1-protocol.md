@@ -2876,8 +2876,7 @@ readability)
 TotalPrice]{style="background:#D9D9D9"}]{style="color:black"}
 :::
 
-[                 
-;\$select=Name,Price,Qty,TotalPrice)]{style="color:black"}
+                  ;\$select=Name,Price,Qty,TotalPrice)
 ```
 
 ### ##subsubsec Querying Collections
