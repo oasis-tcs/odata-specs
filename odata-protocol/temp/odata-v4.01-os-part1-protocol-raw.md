@@ -2985,7 +2985,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 TotalPrice]{style="background:#D9D9D9"}]{style="color:black"}
 
 [                 
-;[\$select=Name,Price,Qty,TotalPrice)]{style="background:#D9D9D9"}]{style="color:black"}
+;\$select=Name,Price,Qty,TotalPrice)]{style="color:black"}
 :::
 
 ### ##subsubsec Querying Collections
@@ -4928,7 +4928,7 @@ POST /service/Customers(\'ALFKI\')/EmailAddresses?\$index=1
 
 Content-Type: application/json
 
-[ ]{style="background:#D9D9D9"}
+ 
 
 {
 
@@ -5063,7 +5063,7 @@ PATCH /service/Products/\$filter(@bar)/\$each?@bar=Color eq
 
 Content-Type: application/json
 
-[ ]{style="background:#D9D9D9"}
+ 
 
 {
 

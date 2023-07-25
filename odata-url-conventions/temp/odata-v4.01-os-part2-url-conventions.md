@@ -473,16 +473,14 @@ definition in the service metadata.
 ::: example
 Example ##ex: Non-canonical URL
 ```
-http://host/service/Categories(ID=1)/Products(ID=1)[[
-]{style="background:#D9D9D9"}]{.MsoHyperlink}
+http://host/service/Categories(ID=1)/Products(ID=1)
 ```
 :::
 
 ::: example
 Example ##ex: Canonical URL for previous example:
 ```
-http://host/service/Products(1)[[
-]{style="background:#D9D9D9"}]{.MsoHyperlink}
+http://host/service/Products(1)
 ```
 :::
 
@@ -1193,7 +1191,7 @@ POST http://host/service/People/\$query
 
 Content-Type: text/plain
 
-[ ]{style="background:#D9D9D9"}
+ 
 
 \$filter=\[FirstName,LastName\]%20in%20\[\[\"John\",\"Doe\"\],\[\"Jane\",\"Smith\"\]\]
 ```
@@ -2104,9 +2102,8 @@ Example ##ex: all customers with a `CompanyName` that equals
 `'ALFREDS FUTTERKISTE'` once any lowercase characters have been
 converted to uppercase
 ```
-http://host/service/Customers?\$filter=toupper([CompanyName[) eq
-\'ALFREDS
-FUTTERKISTE\']{style="background:#D9D9D9"}]{style="color:black"}
+http://host/service/Customers?\$filter=toupper([CompanyName) eq
+\'ALFREDS FUTTERKISTE\']{style="color:black"}
 ```
 :::
 
@@ -2184,8 +2181,8 @@ non-negative decimal value less than 1. The
 Example ##ex: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
-http://host/service/Employees?\$filter=[fractionalseconds[(BirthDate) lt
-0.1]{style="background:#D9D9D9"}]{lang="DE" style="color:black"}
+http://host/service/Employees?\$filter=[fractionalseconds(BirthDate) lt
+0.1]{lang="DE" style="color:black"}
 ```
 :::
 
@@ -2374,8 +2371,8 @@ white"}
 ::: example
 Example ##ex: all employees born in 1971
 ```
-http://host/service/[Employees[?\$filter=year(BirthDate) eq
-1971]{style="background:#D9D9D9"}]{style="color:black"}
+http://host/service/[Employees?\$filter=year(BirthDate) eq
+1971]{style="color:black"}
 ```
 :::
 
