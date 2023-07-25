@@ -1097,12 +1097,275 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="15-delta-payload"><a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
+<p>The non-format specific aspects of the delta handling are described in the section "Requesting Changes" in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <h2 id="151-delta-responses"><a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h2>
+<p>Responses from a delta request are returned as a JSON object.</p>
+<p>The JSON object for a delta response to a single entity is either an <a href="#AddedChangedEntity">added</a>, <a href="#AddedChangedEntity">changed</a>, or <a href="#DeletedEntity">deleted entity</a>.</p>
+<p>The JSON object for a delta response to a collection of entities MUST contain an array-valued property named <code>value</code> containing all <a href="#AddedChangedEntity">added</a>, <a href="#AddedChangedEntity">changed</a>, or <a href="#DeletedEntity">deleted entities</a>, as well as <a href="#AddedLink">added links</a> or <a href="#DeletedLink">deleted links</a> between entities, and MAY contain additional, unchanged entities.</p>
+<p>If the delta response contains a partial list of changes, it MUST include a <a href="#ControlInformationnextLinkodatanextLink">next link</a> for the client to retrieve the next set of changes.</p>
+<p>The last page of a delta response SHOULD contain a <a href="#ControlInformationdeltaLinkodatadeltaLink">delta link</a> in place of the <a href="#ControlInformationnextLinkodatanextLink">next link</a> for retrieving subsequent changes once the current set of changes has been applied to the initial set.</p>
+<p>If an OData 4.01 delta response includes an expanded collection-valued navigation property inline (see <a href="#AddedChangedEntity">next section</a>), the expanded collection can be a partial list, in which case the expanded navigation property MUST have the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information applied to it. Following this chain of next links does not result in a delta link on the last page of the expanded collection.</p>
+<p>If the response from the delta link contains a <code>count</code>[ ]{.MsoHyperlink}control information, the returned number MUST include all added, changed, or deleted entities to be returned, as well as added or deleted links.</p>
+<div class="example">
+<p>Example 33: a 4.01 delta response with five changes, in order of occurrence</p>
+<ol type="1">
+<li><code>ContactName</code> for customer 'BOTTM' was changed to "Susan Halvenstern"</li>
+<li>Order 10643 was removed from customer 'ALFKI'</li>
+<li>Order 10645 was added to customer 'BOTTM'</li>
+<li>The shipping information for order 10643 was updated</li>
+<li>Customer 'ANTON' was deleted</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span><span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Susan Halvenstern&quot;</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedLink&quot;</span><span class="fu">,</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$link&quot;</span><span class="fu">,</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10645)&quot;</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Orders/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ShippingAddress&quot;</span><span class="fu">:{</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;23 Tsawassen Blvd.&quot;</span><span class="fu">,</span></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Tsawassen&quot;</span><span class="fu">,</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Region&quot;</span><span class="fu">:</span> <span class="st">&quot;BC&quot;</span><span class="fu">,</span></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;PostalCode&quot;</span><span class="fu">:</span> <span class="st">&quot;T2F 8M4&quot;</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8015&quot;</span></span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="152-addedchanged-entity"><a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h2>
+<p>Added or changed entities within a delta response are represented as <a href="#Entity">entities</a>.</p>
+<p>Added entities MUST include all available selected properties and MAY include additional, unselected properties. Collection-valued properties are treated as atomic values; any collection-valued properties returned from a delta request MUST contain all current values for that collection.</p>
+<p>Changed entities MUST include all available selected properties that have changed, and MAY include additional properties.</p>
+<p>If a property of an entity is dependent upon the property of another entity within the expanded set of entities being tracked, then both the change to the dependent property as well as the change to the principle property or <a href="#AddedLink">added</a>/<a href="#DeletedLink">deleted link</a> corresponding to the change to the dependent property are returned in the delta response.</p>
+<p>Entities that are not part of the entity set specified by the context URL MUST include the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information to specify the entity set of the entity, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value.</p>
+<p>Entities include control information for selected navigation links based on <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a>.</p>
+<p>OData 4.0 payloads MUST NOT include expanded navigation properties inline; all changes MUST be represented as a flat array of added, deleted, or changed entities, along with added or deleted links.</p>
+<p>OData 4.01 delta payloads MAY include expanded navigation properties inline. Related single entities are represented as either an <a href="#AddedChangedEntity">added/changed</a> entity, an <a href="#EntityReference">entity reference</a>, a <a href="#DeletedEntity">deleted entity</a>, or a null value (if no entity is related as the outcome of the change). Collection-valued navigation properties are represented either as a delta representation or as a full representation of the collection.</p>
+<p>If the expanded navigation property represents a delta, it MUST be represented as an array-valued control information <a href="#ControlInformationdeltaodatadelta"><code>delta</code></a> on the navigation property. <a href="#AddedChangedEntity">Added/changed</a> entities or <a href="#EntityReference">entity references</a>[ ]{.MsoHyperlink}are added to the collection. <a href="#DeletedEntity">Deleted entities</a> MAY be specified in a nested delta representation to represent entities no longer part of the collection. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the navigation property is a containment navigation property. The array MUST NOT contain <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted links</a>.</p>
+<div class="example">
+<p>Example 34: 4.01 delta response customers with expanded orders represented inline as a delta</p>
+<ol type="1">
+<li>Customer 'BOTTM': 1. <code>ContactName</code> was changed to "Susan Halvenstern"] 2. Order 10645 was added</li>
+<li>Customer 'ALFKI': 1. Order 10643 was removed</li>
+<li>Customer 'ANTON' was deleted</li>
+</ol>
+<div class="sourceCode" id="cb37"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Susan Halvenstern&quot;</span><span class="fu">,</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@delta&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10645)&quot;</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@delta&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Orders/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>             <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;changed&quot;</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>            </span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>         <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8015&quot;</span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>If the expanded navigation property is a full representation of the collection, it MUST be represented as an expanded navigation property, and its array value represents the full set of entities related according to that relationship and satisfying any specified expand options. Members of the array MUST be represented as <a href="#AddedChangedEntity">added/changed</a> entities or <a href="#EntityReference">entity references</a> and MUST NOT include added links, deleted links, or deleted entities. Any entity not represented in the collection has either been removed, deleted, or changed such that it no longer satisfies the expand options in the defining query. In any case, clients SHOULD NOT receive additional notifications for such removed entities.</p>
+<div class="example">
+<p>Example 35: 4.01 delta response for a single entity with an expanded navigation property containing only a partial list of related entities (as indicated with a <a href="#ControlInformationnextLinkodatanextLink">next link</a>)</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">…</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span><span class="fu">,</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)?$expand=Orders&amp;$deltatoken=9711&quot;</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="153-deleted-entity"><a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a></h2>
+<p>Deleted entities in JSON are returned as deleted-entity objects. Delta responses MUST contain a deleted-entity object for each deleted entity, including deleted expanded entities that are not related through a containment navigation property. The service MAY additionally include expanded entities related through a containment navigation property in which case it MUST include those in any returned count of enumerated changes.</p>
+<p>The representation of deleted-entity objects differs between OData 4.0 and OData 4.01.</p>
+<p>In OData 4.0 payloads the deleted-entity object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value:</p>
+<ul>
+<li>Control information <a href="#ControlInformationcontextodatacontext"><code>context</code></a> - The context URL fragment MUST be <code>#{entity-set}/$deletedEntity</code>, where <code>{entity-set}</code> is the entity set of the deleted entity</li>
+<li><code>id</code> - The <a href="#ControlInformationidodataid">id</a> of the deleted entity (same as the <a href="#ControlInformationidodataid">id</a> returned or computed when calling GET on resource), which may be absolute or <a href="#RelativeURLs">relative</a></li>
+</ul>
+<p>In OData 4.0 payloads the deleted-entity object MAY include the following optional property, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value, and MAY include <a href="#InstanceAnnotations">annotations</a>:</p>
+<ul>
+<li><code>reason</code> - either <code>deleted</code>, if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result (i.e., due to a data change).</li>
+</ul>
+<div class="example">
+<p>Example 36: deleted entity in OData 4.0 response - note that <code>id</code> is a property, not control information</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span><span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>In OData 4.01 payloads the deleted-entity object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a>[ ]{.MsoHyperlink}value:</p>
+<ul>
+<li><p>Control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a>, whose value is an object that MAY contain a property named <code>reason</code>. If present, the value of <code>reason</code> MUST be either <code>deleted</code> if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result either due to change in value such that the entity no longer matches the defining query or because the entity was removed from the collection. The object MAY include <a href="#InstanceAnnotations">annotations</a>, and clients SHOULD NOT error due to the presence of additional properties that MAY be defined by future versions of this specification. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a> MUST immediately follow the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information, if present, otherwise it MUST be the first property in the deleted entity.</p></li>
+<li><p>Control information <a href="#ControlInformationidodataid"><code>id</code></a> or all of the entity's key fields. The <code>id</code> control information MUST appear if any of the entity's key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the control information <code>id,</code> if present, MUST immediately follow the control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a>.</p></li>
+</ul>
+<p>For full metadata the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information MUST be included. It also MUST be included if the entity set of the deleted entity cannot be determined from the surrounding context.</p>
+<p>The deleted-entity object MAY include additional properties of the entity, as well as <a href="#InstanceAnnotations">annotations</a>, and MAY include related entities, related deleted entities, or a delta or full representation of a related collection of entities, to represent related entities that have been modified or deleted.</p>
+<div class="example">
+<p>Example 37: deleted entity in OData 4.01 response with <code>id</code> control information (prefixed with an <code>@</code>)</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:{</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;reason&quot;</span><span class="fu">:</span><span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@myannoation.deletedBy&quot;</span><span class="fu">:</span><span class="st">&quot;Mario&quot;</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span><span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example 38: entity removed OData 4.01 response without <code>id</code> control information and instead all key fields (<code>ID</code> is the single key field of <code>Customer</code>)</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:{},</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span><span class="st">&quot;ANTON&quot;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="154-added-link"><a name="AddedLink" href="#AddedLink">15.4 Added Link</a></h2>
+<p>Links within a delta response are represented as link objects.</p>
+<p>Delta responses MUST contain a link object for each added link that corresponds to a <code>$expand</code> path in the initial request.</p>
+<p>The link object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value, and MAY include <a href="#InstanceAnnotations">annotations</a>:</p>
+<ul>
+<li><a href="#ControlInformationcontextodatacontext"><code>context</code></a> - the context URL fragment MUST be <code>#{entity-set}/$link</code>, where <code>{entity-set}</code> is the entity set containing the source entity</li>
+<li><code>source</code> - The <a href="#ControlInformationidodataid">id</a> of the entity from which the relationship is defined, which may be absolute or <a href="#RelativeURLs">relative</a></li>
+<li><code>relationship</code> - The path from the source object to the navigation property which MAY traverse one or more complex properties, type cast segments, or members of ordered collections</li>
+<li><code>target</code> - The <a href="#ControlInformationidodataid">id</a> of the related entity, which may be absolute or <a href="#RelativeURLs">relative</a></li>
+</ul>
 <h2 id="155-deleted-link"><a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a></h2>
+<p>Deleted links within a delta response are represented as deleted-link objects.</p>
+<p>Delta responses MUST contain a deleted-link object for each deleted link that corresponds to a <code>$expand</code> path in the initial request, unless either of the following is true:</p>
+<ul>
+<li>The <code>source</code> or <code>target</code> entity has been deleted</li>
+<li>The maximum cardinality of the related entity is one and there is a subsequent <a href="#AddedLink">link object</a> that specifies the same <code>source</code> and [relationship]{style="font-family: "Courier New""}.</li>
+</ul>
+<p>The deleted-link object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value, and MAY include <a href="#InstanceAnnotations">annotations</a>:</p>
+<ul>
+<li><a href="#ControlInformationcontextodatacontext"><code>context</code></a> - the context URL fragment MUST be <code>#{entity-set}/$deletedLink</code>, where <code>{entity-set}</code> is the entity set containing the source entity</li>
+<li><code>source</code> - The <a href="#ControlInformationidodataid">id</a> of the entity from which the relationship is defined, which may be absolute or <a href="#RelativeURLs">relative</a></li>
+<li><code>relationship</code> - The path from the source object to the navigation property which MAY traverse one or more complex properties, type cast segments, or members of ordered collections</li>
+<li><code>target</code> - The <a href="#ControlInformationidodataid">id</a> of the related entity for multi-valued navigation properties, which may be absolute or <a href="#RelativeURLs">relative</a>. For delta payloads that do not specify an <code>OData-Version</code> header value of <code>4.0</code>, the target MAY be omitted for single-valued navigation.</li>
+</ul>
 <h2 id="156-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a></h2>
+<p>The body of a PATCH request to a URL identifying a collection of entities is a JSON object. It MUST contain the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information with a string value of <code>#$delta</code>, and it MUST contain an array-valued property named <code>value</code> containing all <a href="#AddedLink">added</a>, <a href="#AddedChangedEntity">changed</a>, or <a href="#DeletedEntity">deleted</a> entities, as well as <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted</a> links between entities.</p>
+<div class="example">
+<p>Example 39: 4.01 delta response customers with expanded orders represented inline as a delta</p>
+<ol type="1">
+<li>Add customer 'EASTC'</li>
+<li>Change <code>ContactName</code> of customer 'AROUT'</li>
+<li>Delete customer 'ANTON'</li>
+<li>Change customer 'ALFKI':
+<ol type="1">
+<li>Create order 11011</li>
+<li>Add link to existing order 10692 3. Change <code>ShippedDate</code> of related order 10835</li>
+<li>Delete link to order 10643</li>
+</ol></li>
+<li>Add link between customer 'ANATR' and order 10643</li>
+<li>Delete link between customer 'DUMON' and order 10311</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;EASTC&quot;</span><span class="fu">,</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Eastern Connection&quot;</span><span class="fu">,</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Devon&quot;</span><span class="fu">,</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactTitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales Agent&quot;</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;AROUT&quot;</span><span class="fu">,</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Thomas Hardy&quot;</span><span class="fu">,</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span><span class="st">&quot;ANTON&quot;</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@delta&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;OrderID&quot;</span><span class="fu">:</span> <span class="dv">11011</span><span class="fu">,</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;EmployeeID&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;OrderDate&quot;</span><span class="fu">:</span> <span class="st">&quot;1998-04-09T00:00:00Z&quot;</span><span class="fu">,</span></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;RequiredDate&quot;</span><span class="fu">:</span> <span class="st">&quot;1998-05-07T00:00:00Z&quot;</span><span class="fu">,</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ShippedDate&quot;</span><span class="fu">:</span> <span class="st">&quot;1998-04-13T00:00:00Z&quot;</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10692)&quot;</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10835)&quot;</span><span class="fu">,</span></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ShippedDate&quot;</span><span class="fu">:</span> <span class="st">&quot;1998-01-23T00:00:00Z&quot;</span><span class="fu">,</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;changed&quot;</span></span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;OrderID&quot;</span><span class="fu">:</span> <span class="dv">10643</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$link&quot;</span><span class="fu">,</span></span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span><span class="st">&quot; Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedLink&quot;</span><span class="fu">,</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;DUMON&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10311)&quot;</span></span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <hr />
 <h1 id="16-bound-function"><a name="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 <hr />
