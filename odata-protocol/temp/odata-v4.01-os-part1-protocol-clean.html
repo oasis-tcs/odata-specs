@@ -247,7 +247,7 @@ extensibility where necessary.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="_Data_Model"></a>3 Data Model</h1>
+<h1>3 Data Model</h1>
 
 </div>
 
@@ -327,8 +327,7 @@ be addressed (an entity set, entity, property, or operation).</p>
 or<span style='color:black;background:white'> </span><a href="#ODataCSDL">OData-CSDLXML</a>
 for more information on the OData entity data model.</p>
 
-<h2><a
-name="_Annotations"></a>3.1 Annotations</h2>
+<h2>3.1 Annotations</h2>
 
 <p class=MsoNormal>Model and instance elements can be decorated with <i>Annotations</i>.</p>
 
@@ -377,8 +376,7 @@ computed from the information in the metadata document.</p>
 <p class=MsoNormal>See <a href="#sec_RequestingData">Requesting Data</a> and <a
 href="#sec_DataModification">Data Modification</a> for details.</p>
 
-<h2><a
-name="_Entity_Ids_and"></a><a name="_Entity-Ids_and_Entity"></a>4.1 Entity-Ids and Entity References</h2>
+<h2>4.1 Entity-Ids and Entity References</h2>
 
 <p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'>Whereas entities
 within an entity set are uniquely identified by their key values, entities are
@@ -408,8 +406,7 @@ href="#ODataVocCore">OData-VocCore</a>.</p>
 <p class=MsoNormal><i>Entity references</i> refer to an entity using the
 entity's entity-id.</p>
 
-<h2><a
-name="_Versioning"></a>4.2 Read URLs and
+<h2>4.2 Read URLs and
 Edit URLs</h2>
 
 <p class=MsoNormal>The read URL of an entity is the URL that can be used to
@@ -430,8 +427,7 @@ links specified in the payload according to the appropriate format as the two
 URLs may be different from one another, or one or both of them may differ from
 convention.</p>
 
-<h2><a
-name="_Versioning_1"></a>4.3 Transient
+<h2>4.3 Transient
 Entities</h2>
 
 <p class=MsoNormal>Transient entities are instances of an entity type that are
@@ -439,8 +435,7 @@ Entities</h2>
 reread or updated and consequently possess neither a stable entity-id nor a
 read URL or an update URL.</p>
 
-<h2><a
-name="_Default_Namespaces"></a>4.4 Default
+<h2>4.4 Default
 Namespaces</h2>
 
 <p class=MsoNormal>References to actions, functions, and types within a URL
@@ -483,7 +478,7 @@ ambiguity.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="_Versioning_2"></a>5 Versioning</h1>
+<h1>5 Versioning</h1>
 
 </div>
 
@@ -515,8 +510,7 @@ values <code>4.0</code> and <code>4.01</code>.
 Content that applies only to one version or another is explicitly called out in
 the text.</p>
 
-<h2><a
-name="_Model_Versioning"></a>5.2 Model
+<h2>5.2 Model
 Versioning</h2>
 
 <p class=MsoNormal>The <a href="#sec_DataModel">Data Model</a> exposed by an
@@ -596,7 +590,7 @@ restricted authorizations.</span></p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="_Extensibility"></a>6 Extensibility</h1>
+<h1>6 Extensibility</h1>
 
 </div>
 
@@ -628,8 +622,7 @@ URL. However, clients should be prepared for such URLs to include custom query
 options and propagate any such custom query options in future requests to the identified
 resource. </p>
 
-<h2><a
-name="_Payload_Extensibility"></a>6.2 Payload
+<h2>6.2 Payload
 Extensibility</h2>
 
 <p class=MsoNormal>OData supports extensibility in the payload, according to
@@ -692,8 +685,7 @@ annotations in order to accurately interpret a response.</p>
 with a set of basic terms describing behavioral aspects along with terms that
 can be used in defining other vocabularies; see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
-<h2><a
-name="_Header_Field_Extensibility"></a>6.5 Header Field Extensibility</h2>
+<h2>6.5 Header Field Extensibility</h2>
 
 <p class=MsoNormal>OData defines semantics around certain HTTP request and
 response headers. Services that support a version of OData conform to the processing
@@ -711,7 +703,7 @@ and MAY support additional formats for both request and response bodies.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="_Formats"></a>7 Formats</h1>
+<h1>7 Formats</h1>
 
 </div>
 
@@ -765,15 +757,12 @@ including CSDL documents. </p>
 response headers. Additional headers may be specified, but have no unique
 semantics defined in OData.</p>
 
-<h2><a
-name="_Common_Headers"></a>8.1 Common Headers</h2>
+<h2>8.1 Common Headers</h2>
 
 <p class=MsoNormal>The following headers are common between OData requests and
 responses.</p>
 
-<h3><a
-name="_The_DataServiceVersion_Header"></a><a name="_The_Content-Type_Header"></a><a
-name="_Header_Content-Type"></a>8.1.1 <a href="#sec_HeaderContentType">Header <code>Content-Type</code></a></h3>
+<h3>8.1.1 <a href="#sec_HeaderContentType">Header <code>Content-Type</code></a></h3>
 
 <p class=MsoNormal>The format of a non-empty individual request or response
 body, alone or within a batch, MUST be specified in the <code>Content-Type</code>
@@ -810,7 +799,7 @@ it specifies the encoding for that individual request or response. Individual
 requests or responses that don’t include the <code>Content-Encoding</code>
 header inherit the encoding of the overall batch request or response.</p>
 
-<h3><a name="_Header_Content-Language"></a>8.1.3 <a
+<h3>8.1.3 <a
 href="#sec_HeaderContentLanguage">Header <code>Content-Language</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a><span
@@ -846,8 +835,7 @@ style='color:black'>requirements over HTTP for writing </span><code>Content-Leng
 specified on an individual request or response within a batch, then it
 specifies the length for that individual request or response. </p>
 
-<h3><a
-name="_The_OData-Version_Header"></a><a name="_Header_OData-Version"></a>8.1.5 <a
+<h3>8.1.5 <a
 href="#sec_HeaderODataVersion">Header <code>OData-Version</code></a></h3>
 
 <p class=MsoNormal>OData clients SHOULD use the <code>OData-Version</code>
@@ -888,10 +876,7 @@ Headers</h2>
 Headers</a>, the client may specify any combination of the following request
 headers.</p>
 
-<h3><a
-name="_The_MaxDataServiceVersion_Request"></a><a
-name="_The_MinDataServiceVersion_Request"></a><a name="_The_Accept_Request"></a><a
-name="_Header_Accept"></a>8.2.1 <a href="#sec_HeaderAccept">Header <code>Accept</code></a></h3>
+<h3>8.2.1 <a href="#sec_HeaderAccept">Header <code>Accept</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
 the client MAY specify the set of accepted <a href="#sec_Formats">formats</a>
@@ -920,8 +905,7 @@ the acceptable formats for that individual request. Requests within a batch
 that don’t include the <code>Accept</code>
 header inherit the acceptable formats of the overall batch request.</p>
 
-<h3><a
-name="_The_If-Match_Request"></a><a name="_The_Accept-Charset_Request"></a>8.2.2
+<h3>8.2.2
 <a href="#sec_HeaderAcceptCharset">Header <code>Accept-Charset</code></a></h3>
 
 <p class=MsoNormal>As defined in<b> </b><a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
@@ -933,8 +917,7 @@ acceptable character sets for that individual request. Requests within a batch
 that don’t include the <code>Accept-Charset</code> header
 inherit the acceptable character sets of the overall batch request.</p>
 
-<h3><a
-name="_Header_If-Match"></a>8.2.3 <a href="#sec_HeaderAcceptLanguage">Header <code>Accept-Language</code></a></h3>
+<h3>8.2.3 <a href="#sec_HeaderAcceptLanguage">Header <code>Accept-Language</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
 the client MAY specify the set of accepted natural languages with the <code>Accept-Language</code> header.</p>
@@ -945,8 +928,7 @@ acceptable languages for that individual request. Requests within a batch that
 don’t include the <code>Accept-Language</code> header inherit
 the acceptable languages of the overall batch request.</p>
 
-<h3><a
-name="_Header_If-Match_1"></a>8.2.4 <a href="#sec_HeaderIfMatch">Header <code>If-Match</code></a></h3>
+<h3>8.2.4 <a href="#sec_HeaderIfMatch">Header <code>If-Match</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a><span
 class=MsoHyperlink>,</span> a client MAY include an <code>If-Match</code>
@@ -996,8 +978,7 @@ request</a> being processed as an update and not an insert.</p>
 specified on a batch request, but MAY be specified on individual requests
 within the batch.</p>
 
-<h3><a
-name="_The_If-None-Match_Request"></a><a name="_Header_If-None-Match"></a>8.2.5
+<h3>8.2.5
 <a href="#sec_HeaderIfNoneMatch">Header <code>If-None-Match</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a>,
@@ -1029,9 +1010,7 @@ NOT be specified on a batch request, but MAY be specified on individual
 requests within the batch.</p>
 
 <h3><a
-name="sec_HeaderIsolationODataIsolation"></a><a
-name="_The_Prefer_Header_1"></a><a name="_Header_OData-MaxVersion"></a><a
-name="_Header_OData-Isolation"></a>8.2.6 <a
+name="sec_HeaderIsolationODataIsolation"></a>8.2.6 <a
 href="#sec_HeaderIsolationODataIsolation">Header <code>Isolation</code>
 (<code>OData-Isolation</code>)</a></h3>
 
@@ -1100,8 +1079,7 @@ color:black;background:white'>OData-Isolation</span> headers are specified in
 the same request, the value of the <span style='font-family:"Courier New";
 color:black;background:white'>Isolation</span> header SHOULD be used.</p>
 
-<h3><a
-name="_Header_OData-MaxVersion_1"></a>8.2.7 <a href="#sec_HeaderODataMaxVersion">Header
+<h3>8.2.7 <a href="#sec_HeaderODataMaxVersion">Header
 <code>OData-MaxVersion</code></a></h3>
 
 <p class=MsoNormal>Clients SHOULD specify an <code>OData-MaxVersion</code>
@@ -1126,8 +1104,7 @@ OData version does not typically vary within a batch. </p>
 <p class=MsoNormal>For more details, see <a href="#sec_Versioning">Versioning</a>.
 </p>
 
-<h3><a
-name="_Header_Prefer"></a>8.2.8 <a href="#sec_HeaderPrefer">Header <code>Prefer</code></a></h3>
+<h3>8.2.8 <a href="#sec_HeaderPrefer">Header <code>Prefer</code></a></h3>
 
 <p class=MsoNormal>The <code>Prefer</code> header, as defined in
 <a href="#HTTPPREFER"><b>[RFC7240]</b></a>, allows clients to request certain behavior
@@ -1179,9 +1156,7 @@ white'>odata.allow-entityreferences</span> for OData 4.0 clients and clients
 SHOULD use <span style='font-family:"Courier New";color:black;background:white'>odata.allow-entityreferences</span>
 for compatibility with OData 4.0 services.</p>
 
-<h4><a
-name="_The_odata-track-changes_Preference"></a><a
-name="_The_OData-Continue-On-Error_Prefere"></a>8.2.8.2 <a
+<h4>8.2.8.2 <a
 href="#sec_Preferencecallbackodatacallback">Preference <code>callback</code> (<code>odata.callback</code>)</a></h4>
 
 <p class=MsoNormal>For scenarios in which links returned by the service are
@@ -1289,8 +1264,7 @@ style='color:black'>Prefer: callback; url=&quot;http://myserver/notfication/toke
 
 </div>
 
-<p class=MsoNormal><a
-name="_Preference_odata.continue-on-error"></a>If the <span style='font-family:
+<p class=MsoNormal>If the <span style='font-family:
 "Courier New";color:black;background:white'>callback</span> preference is
 specified on an individual request within a batch, then it specifies the
 callback to be used for tracking changes to that individual request. If the <span
@@ -1478,7 +1452,7 @@ preferences are specified in the same request, the value of the <span
 style='font-family:"Courier New";color:black;background:white'>include-annotations</span>
 preference SHOULD be used.</p>
 
-<h4><a name="_The_odata.maxpagesize_Preference"></a>8.2.8.5
+<h4>8.2.8.5
 <a href="#sec_Preferencemaxpagesizeodatamaxpagesiz">Preference <code>maxpagesize</code> (<code>odata.maxpagesize</code>)</a></h4>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>maxpagesize</code> preference is used to
@@ -1531,8 +1505,7 @@ for compatibility with OData 4.0 services. If both <code>maxpagesize</code> and 
 color:black;background:white'>odata.</span><code>maxpagesize</code>
 preferences are specified in the same request, the value of the <code>maxpagesize</code> preference SHOULD be used.</p>
 
-<h4><a
-name="_Preference_odata.track-changes"></a>8.2.8.6 <a href="#sec_Preferenceomitvalues">Preference
+<h4>8.2.8.6 <a href="#sec_Preferenceomitvalues">Preference
 <code>omit-values</code></a></h4>
 
 <p class=MsoNormal>The <code>omit-values</code> preference
@@ -1617,8 +1590,7 @@ preference.</p>
 preference SHOULD NOT be applied to a batch request, but MAY be applied to
 individual requests within a batch. </p>
 
-<h4><a
-name="_The_respond-async_Preference"></a><a name="_Preference_respond-async"></a>8.2.8.8
+<h4>8.2.8.8
 <a href="#sec_Preferencerespondasync">Preference <code>respond-async</code></a></h4>
 
 <p class=MsoNormal>The <code>respond-async </code>preference, as
@@ -1673,8 +1645,7 @@ style='color:black'>Prefer: respond-async, wait=10</span></p>
 </div>
 
 <h4><a
-name="sec_Preferencetrackchangesodatatrackchan"></a><a
-name="_The_wait_Preference"></a>8.2.8.9 <a
+name="sec_Preferencetrackchangesodatatrackchan"></a>8.2.8.9 <a
 href="#sec_Preferencetrackchangesodatatrackchan">Preference <code>track-changes</code> (<code>odata.track-changes</code>)</a></h4>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>track-changes</code> preference is used to
@@ -1743,16 +1714,14 @@ individual request. If the <span style='font-family:"Courier New";color:black;
 background:white'>wait</span> preference is specified on a batch, then it
 specifies the maximum time to wait for the entire batch.</p>
 
-<h2><a
-name="_Header_SchemaVersion"></a>8.3 Response
+<h2>8.3 Response
 Headers</h2>
 
 <p class=MsoNormal>In addition to the <a href="#sec_CommonHeaders">Common
 Headers</a>, the following response headers have defined meaning in OData.</p>
 
 <h3><a
-name="sec_HeaderAsyncResult"></a><a
-name="_The_ETag_Header"></a>8.3.1 <a href="#sec_HeaderAsyncResult">Header <code>AsyncResult</code></a></h3>
+name="sec_HeaderAsyncResult"></a>8.3.1 <a href="#sec_HeaderAsyncResult">Header <code>AsyncResult</code></a></h3>
 
 <p class=MsoNormal>A <span class=Datatype><span style='font-family:"Arial",sans-serif'>4.01</span></span>
 service MUST include the <code>AsyncResult</code> header in <a
@@ -1790,7 +1759,7 @@ href="#sec_HeaderContentType"><code>Content-Type</code></a>,
 the <a href="#sec_HeaderContentEncoding"><code>Content-Encoding</code></a>,
 and potentially other characteristics of the response.</p>
 
-<p class=MsoNormal><a name="_The_Location_Header"></a>An <code>ETag</code>
+<p class=MsoNormal>An <code>ETag</code>
 header MAY also be returned on a <a href="#sec_MetadataDocumentRequest">metadata
 document request</a> or <a href="#sec_ServiceDocumentRequest">service document
 request</a> to allow the client subsequently to make a conditional request for
@@ -1802,8 +1771,7 @@ metadata used to generate that response.</p>
 included for the overall batch response, but MAY be included in individual
 responses within a batch.</p>
 
-<h3><a
-name="_Header_Location"></a>8.3.3 <a href="#sec_HeaderLocation">Header <code>Location</code></a></h3>
+<h3>8.3.3 <a href="#sec_HeaderLocation">Header <code>Location</code></a></h3>
 
 <p class=MsoNormal>The <code>Location</code>
 header MUST be returned in the response from a <a href="#sec_CreateanEntity">Create
@@ -1816,9 +1784,7 @@ that the client can use to request the status of an asynchronous request.</p>
 be included for the overall batch response, but MAY be included in individual
 responses within a batch.</p>
 
-<h3><a
-name="_The_Preference-Applied_Header"></a><a name="_Header_OData-EntityId"></a><a
-name="_Header_Preference-Applied"></a>8.3.4 <a href="#sec_HeaderODataEntityId">Header
+<h3>8.3.4 <a href="#sec_HeaderODataEntityId">Header
 <code>OData-EntityId</code></a></h3>
 
 <p class=MsoNormal>A response to a <a href="#sec_CreateanEntity">create</a><span
@@ -1871,8 +1837,7 @@ color:black;background:white'>Preference-Applied</span> header is specified on
 a batch response, then it specifies the preferences applied to the overall
 batch. </p>
 
-<h3><a
-name="_The_Prefer_Header"></a><a name="_The_Retry-After_Header"></a>8.3.7 <a
+<h3>8.3.7 <a
 href="#sec_HeaderRetryAfter">Header <code>Retry-After</code></a></h3>
 
 <p class=MsoNormal>A service MAY include a <code>Retry-After</code>
@@ -1913,8 +1878,7 @@ href="#HTTPPREFER"><b>[RFC7240]</b></a><span class=MsoHyperlink><b>.</b></span><
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <h1><a
-name="sec_CommonResponseStatusCodes"></a><a name="_AsyncResult"></a><a
-name="_Header_AsyncResult"></a><a name="_Common_Response_Status"></a>9 Common Response Status Codes</h1>
+name="sec_CommonResponseStatusCodes"></a>9 Common Response Status Codes</h1>
 
 </div>
 
@@ -1925,14 +1889,12 @@ as possible in its choice of HTTP status codes.</p>
 <p class=MsoNormal>The following represent the most common success response
 codes. In some cases, a service MAY respond with a more specific success code.</p>
 
-<h2><a
-name="_Success_Response_Codes"></a>9.1 Success
+<h2>9.1 Success
 Responses</h2>
 
 <p class=MsoNormal>The following response codes represent successful requests.</p>
 
-<h3><a
-name="_200_OK_Response"></a><a name="_Response_Code_200"></a>9.1.1 <a
+<h3>9.1.1 <a
 href="#sec_ResponseCode200OK">Response Code <code>200
 OK</code><code> </code></a> </h3>
 
@@ -1941,8 +1903,7 @@ the resource is not <code>null</code>. In this case, the
 response body MUST contain the value of the resource specified in the request
 URL.</p>
 
-<h3><a
-name="_201_Created_Response"></a><a name="_Response_Code_201"></a>9.1.2 <a
+<h3>9.1.2 <a
 href="#sec_ResponseCode201Created">Response Code <code>201
 Created</code></a></h3>
 
@@ -1952,8 +1913,7 @@ href="#sec_InvokinganAction">Invoke Action</a> request that successfully
 creates a resource returns <code>201 Created</code>. In this
 case, the response body MUST contain the resource created.</p>
 
-<h3><a
-name="_202_Accepted_Response"></a><a name="_Response_Code_202"></a>9.1.3 <a
+<h3>9.1.3 <a
 href="#sec_ResponseCode202Accepted">Response Code <code>202 Accepted</code></a></h3>
 
 <p class=MsoNormal><code>202 Accepted</code> indicates that the <a
@@ -1963,8 +1923,7 @@ requests is defined in the sections on <a href="#sec_AsynchronousRequests">Async
 Requests</a> and <a href="#sec_AsynchronousBatchRequests">Asynchronous Batch
 Requests</a>..</p>
 
-<h3><a
-name="_204_No_Content"></a><a name="_Response_Code_204"></a>9.1.4 <a
+<h3>9.1.4 <a
 href="#sec_ResponseCode204NoContent">Response Code <code>204 No Content</code></a></h3>
 
 <p class=MsoNormal>A request returns <code>204 No Content</code>
@@ -1987,8 +1946,7 @@ sent in the request body, plus (for values not sent in the request body) server-
 values corresponding to the <code>ETag</code> value sent in the <code>If-Match</code> header of the <code>PATCH</code>
 request, i.e. the previous values “known” to the client.</p>
 
-<h3><a
-name="_3xx_Redirect_Response"></a><a name="_Response_Code_3xx"></a>9.1.5 <a
+<h3>9.1.5 <a
 href="#sec_ResponseCode3xxRedirection">Response Code <code>3xx Redirection</code></a></h3>
 
 <p class=MsoNormal>As per <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, a <code>3xx Redirection</code> indicates that further action needs to be
@@ -1999,8 +1957,7 @@ which the result can be obtained; it MAY include a <a
 href="#sec_HeaderRetryAfter"><code>Retry-After</code>
 header</a>.</p>
 
-<h3><a
-name="_4xx_Client_Error"></a><a name="_304_Not_Modified"></a>9.1.6 <a
+<h3>9.1.6 <a
 href="#sec_ResponseCode304NotModified">Response Code <code>304 Not Modified</code></a></h3>
 
 <p class=MsoNormal>As per <a href="#HTTPConditional"><b>[RFC7232]</b></a>, a <code>304 Not Modified</code> is returned when the
@@ -2013,8 +1970,7 @@ entity-bodies and updated headers.</p>
 <p class=MsoNormal>The service MUST ensure that no observable change has
 occurred to the state of the service as a result of any request that returns a <code>304 Not Modified</code>.</p>
 
-<h2><a
-name="_Client_Error_Responses"></a>9.2 <a href="#sec_ClientErrorResponses">Client
+<h2>9.2 <a href="#sec_ClientErrorResponses">Client
 Error Responses </a> </h2>
 
 <p class=MsoNormal>Error codes in the <code>4xx</code> range
@@ -2028,16 +1984,14 @@ error status code.</p>
 code, the body of the error is as defined for the appropriate <a
 href="#sec_Formats">format</a>.</p>
 
-<h3><a
-name="_404_Not_Found"></a><a name="_Response_Code_404"></a>9.2.1 <a
+<h3>9.2.1 <a
 href="#sec_ResponseCode404NotFound">Response Code <code>404 Not Found</code></a></h3>
 
 <p class=MsoNormal><code>404 Not Found </code>indicates that the
 resource specified by the request URL does not exist. The response body MAY
 provide additional information.</p>
 
-<h3><a
-name="_Response_Code_405"></a>9.2.2 <a
+<h3>9.2.2 <a
 href="#sec_ResponseCode405MethodNotAllowed">Response Code <code>405 Method Not Allowed</code></a></h3>
 
 <p class=MsoNormal><code>405 Method Not Allowed</code> indicates
@@ -2046,8 +2000,7 @@ method. In this case the response MUST include an <code>Allow</code>
 header containing a list of valid request methods for the requested resource as
 defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>.</p>
 
-<h3><a
-name="_501_Not_Implemented"></a><a name="_Response_code_410"></a>9.2.3 <a
+<h3>9.2.3 <a
 href="#sec_ResponseCode406NotAcceptable">Response Code <code>406 Not Acceptable</code></a></h3>
 
 <p class=MsoNormal><a name="_Toc477876608"><code>406 Not Acceptable</code>
@@ -2070,8 +2023,7 @@ link on a collection that was requested with <a
 href="#sec_HeaderIsolationODataIsolation">snapshot isolation</a>.</p>
 
 <h3><a
-name="sec_ResponseCode412PreconditionFailed"></a><a
-name="_Response_Code_412"></a>9.2.5 <a
+name="sec_ResponseCode412PreconditionFailed"></a>9.2.5 <a
 href="#sec_ResponseCode412PreconditionFailed">Response Code <code>412 Precondition Failed</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a><span
@@ -2093,8 +2045,7 @@ request within a batch that depended upon a request that failed.</p>
 class=MsoHyperlink>, </span>error codes in the <code>5xx</code>
 range indicate service errors<span class=MsoHyperlink>.</span></p>
 
-<h3><a
-name="_501_Not_Implemented_1"></a><a name="_Response_Code_501"></a>9.3.1 <a
+<h3>9.3.1 <a
 href="#sec_ResponseCode501NotImplemented">Response Code <code>501 Not Implemented</code></a></h3>
 
 <p class=MsoNormal>If the client requests functionality not implemented by the
@@ -2102,8 +2053,7 @@ OData Service, the service responds with <code>501 Not
 Implemented</code> and SHOULD include a response body describing the functionality
 not implemented.</p>
 
-<h2><a
-name="_Not_Implemented_Error"></a>9.4 Error
+<h2>9.4 Error
 Response Body</h2>
 
 <p class=MsoNormal>The representation of an error response body is
@@ -2156,8 +2106,7 @@ chunked transfer encoding, or HTTP/2).</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="_Data_Service_Requests"></a><a
-name="_Metadata_URL"></a>10 Context URL</h1>
+<h1>10 Context URL</h1>
 
 </div>
 
@@ -2915,8 +2864,7 @@ not have a context URL.</p>
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <h1><a
-name="sec_DataServiceRequests"></a><a
-name="_Data_Service_Requests_1"></a>11 Data Service Requests</h1>
+name="sec_DataServiceRequests"></a>11 Data Service Requests</h1>
 
 </div>
 
@@ -3046,8 +2994,7 @@ of a Collection</a></p>
 metadata defining the entity sets, singletons, relationships, entity types, and
 operations.</p>
 
-<h3><a
-name="_Service_Document_Request"></a>11.1.1 Service Document Request</h3>
+<h3>11.1.1 Service Document Request</h3>
 
 <p class=MsoNormal>Service documents enable simple hypermedia-driven clients to
 enumerate and explore the resources offered by the data service.</p>
@@ -3058,8 +3005,7 @@ from the root URL of the service (the <i>service root</i>).</p>
 <p class=MsoNormal>The format of the service document is dependent upon the
 format selected. </p>
 
-<h3><a
-name="_Metadata_Document_Request"></a>11.1.2 Metadata Document Request</h3>
+<h3>11.1.2 Metadata Document Request</h3>
 
 <p class=MsoNormal>An OData <i>metadata document</i> is a representation of the
 <a href="#sec_DataModel">data model</a><span class=MsoHyperlink> </span>that
@@ -3085,8 +3031,7 @@ request to the metadata document URL.</p>
 preference (via <a href="#sec_HeaderAccept"><code>Accept</code>
 header</a> or <a href="#sec_SystemQueryOptionformat"><code>$format</code></a>) then the XML representation MUST be returned.</p>
 
-<h2><a name="_10.2._Requesting_Data"></a><a
-name="_Requesting_Data"></a><a name="_Requesting_Data_1"></a>11.2 Requesting Data</h2>
+<h2>11.2 Requesting Data</h2>
 
 <p class=MsoNormal>OData services support requests for data via HTTP <code>GET</code> requests.</p>
 
@@ -3116,8 +3061,7 @@ href="#sec_SystemQueryOptionformat"><code>$format</code></a><span
 class=Hyperlink1> </span>query option, the service is allowed to return the
 response in any format.</p>
 
-<h3><a
-name="_Evaluating_System_Query"></a>11.2.1 System
+<h3>11.2.1 System
 Query Options</h3>
 
 <p class=MsoNormal><span style='color:black;background:white'>OData defines a
@@ -3209,8 +3153,7 @@ class=Datatype><span style='font-family:"Arial",sans-serif'>.</span></span></p>
 service responds with <a href="#sec_ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 
 <h3><a
-name="sec_RequestingtheMediaStreamofaMediaEnti"></a><a
-name="_Requesting_Individual_Properties"></a><a name="_Requesting_the_Media"></a>11.2.3
+name="sec_RequestingtheMediaStreamofaMediaEnti"></a>11.2.3
 <a href="#sec_RequestingtheMediaStreamofaMediaEnti">Requesting the Media Stream
 of a Media Entity using <code>$value</code></a></h3>
 
@@ -3269,7 +3212,7 @@ style='color:black'>GET http://host/service/Products(1)/Name </span></p>
 
 </div>
 
-<h4><a name="_Requesting_a_Property's"></a>11.2.4.1 <a
+<h4>11.2.4.1 <a
 href="#sec_RequestingaPropertysRawValueusingval">Requesting a Property's Raw
 Value using <code>$value</code></a></h4>
 
@@ -3326,8 +3269,7 @@ style='color:black'>GET http://host/service/Products(1)/Name/$value </span></p>
 
 </div>
 
-<h3><a
-name="_Specifying_Properties_to"></a>11.2.5 Specifying Properties to Return</h3>
+<h3>11.2.5 Specifying Properties to Return</h3>
 
 <p class=MsoNormal>The <a href="#sec_SystemQueryOptionselect"><code>$select</code></a> and <a
 href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>
@@ -3339,8 +3281,7 @@ and <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>,
 including properties not defined in <a href="#sec_MetadataDocumentRequest">the
 metadata document</a><span class=MsoHyperlink>.</span></p>
 
-<h4><a
-name="_System_Query_Option_3"></a>11.2.5.1 <a
+<h4>11.2.5.1 <a
 href="#sec_SystemQueryOptionselect">System Query Option <code>$select</code></a></h4>
 
 <p class=MsoNormal>The <code>$select</code> system query option
@@ -3431,7 +3372,7 @@ style='color:black'>GET http://host/service/Products?$select=DemoService.*</span
 
 </div>
 
-<p class=MsoNormal><a name="_System_Query_Option_4"></a>Query options can be
+<p class=MsoNormal>Query options can be
 applied to a selected property by appending a semicolon-separated list of query
 options, enclosed in parentheses, to the property. Allowed system query options
 are <a href="#sec_SystemQueryOptionselect"><code>$select</code></a>
@@ -3471,8 +3412,7 @@ properties and projected </span><a href="#sec_SystemQueryOptionexpand"><span
 style='background:white'>expanded</span></a><span style='color:black;
 background:white'> navigation properties.</span></p>
 
-<h4><a
-name="_System_Query_Option_6"></a>11.2.5.2 <a
+<h4>11.2.5.2 <a
 href="#sec_SystemQueryOptionexpand">System Query Option <code>$expand</code></a></h4>
 
 <p class=MsoNormal>The <code>$expand</code> system query option
@@ -3517,7 +3457,7 @@ style='color:black'>GET http://host/service.svc/Customers?$expand=Orders/$ref</s
 
 </div>
 
-<p class=MsoCaption><a name="_Expand_Options_1"></a>Example 40:
+<p class=MsoCaption>Example 40:
 for each customer entity within the Customers entity set the media stream
 representing the customer photo will be represented inline</p>
 
@@ -3603,8 +3543,7 @@ style='color:black'>GET http://host/service.svc/Customers?$expand=SampleModel.Vi
 
 </div>
 
-<h6><a
-name="_Expand_Option_$levels"></a>11.2.5.2.1.1 <a href="#sec_ExpandOptionlevels">Expand Option <code>$levels</code></a></h6>
+<h6>11.2.5.2.1.1 <a href="#sec_ExpandOptionlevels">Expand Option <code>$levels</code></a></h6>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$levels</code><span
 style='font-family:"Calibri",sans-serif'> </span>expand option can be used to
@@ -3639,8 +3578,7 @@ http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</sp
 </div>
 
 <h4><a
-name="sec_SystemQueryOptioncompute"></a><a
-name="_System_Query_Option_2"></a>11.2.5.3 <a
+name="sec_SystemQueryOptioncompute"></a>11.2.5.3 <a
 href="#sec_SystemQueryOptioncompute">System Query Option <code>$compute</code></a></h4>
 
 <p class=MsoNormal>The <code>$compute</code> system query option
@@ -3691,8 +3629,7 @@ MUST fail any request that contains the unsupported option and SHOULD return <a
 href="#sec_ResponseCode501NotImplemented"><span class=Datatype><span
 style='color:windowtext'>501 Not Implemented</span></span></a>.</p>
 
-<h4><a
-name="_The_$filter_System"></a>11.2.6.1 <a href="#sec_SystemQueryOptionfilter">System
+<h4>11.2.6.1 <a href="#sec_SystemQueryOptionfilter">System
 Query Option <code>$filter</code></a></h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$filter</code>
@@ -3730,8 +3667,7 @@ lt 10</span></p>
 <p class=MsoNormal>The value of the <code>$filter</code> option
 is a Boolean expression as defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
-<h5><a
-name="_Built-in_Filter_Operations"></a>11.2.6.1.1 Built-in Filter Operations</h5>
+<h5>11.2.6.1.1 Built-in Filter Operations</h5>
 
 <p class=MsoNormal>OData supports a set of built-in filter operations, as
 described in this section. </p>
@@ -4016,8 +3952,7 @@ requests, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
  </tr>
 </table>
 
-<h5><a
-name="_Built-in_Query_Functions"></a>11.2.6.1.2 Built-in Query Functions</h5>
+<h5>11.2.6.1.2 Built-in Query Functions</h5>
 
 <p class=MsoNormal>OData supports a set of built-in functions that can be used
 within <code>$filter</code> operations. The following table
@@ -4411,7 +4346,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=614 colspan=2 valign=top style='width:460.7pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><a name="_The_$expand_System"></a><b>Geo Functions</b></p>
+  <p class=MsoNormal><b>Geo Functions</b></p>
   </td>
  </tr>
  <tr>
@@ -4445,7 +4380,7 @@ in comparisons.</p>
  </tr>
  <tr>
   <td width=614 colspan=2 valign=top style='width:460.7pt;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal><a name="_Parameter_Aliases_1"></a><b>Conditional
+  <p class=MsoNormal><b>Conditional
   Functions</b></p>
   </td>
  </tr>
@@ -4524,8 +4459,7 @@ eq FirstName))</span></span></p>
 
 </div>
 
-<h4><a
-name="_The_$select_System_1"></a><a name="_The_$orderby_System"></a>11.2.6.2 <a
+<h4>11.2.6.2 <a
 href="#sec_SystemQueryOptionorderby">System Query Option <code>$orderby</code></a></h4>
 
 <p class=MsoNormal>The <code>$orderby</code> System Query option
@@ -4583,7 +4517,7 @@ Rating desc</span></p>
 
 </div>
 
-<p class=MsoNormal><a name="_The_$top_System"></a>Related entities may be
+<p class=MsoNormal>Related entities may be
 ordered by specifying <code>$orderby</code> within the <code>$expand</code> clause.</p>
 
 <p class=MsoCaption>Example 51: return all Categories, and their Products
@@ -4615,8 +4549,7 @@ style='color:black'>GET http://host/service/Categories?$orderby=Products/$count<
 
 </div>
 
-<h4><a
-name="_The_$top_System_1"></a>11.2.6.3 <a href="#sec_SystemQueryOptiontop">System
+<h4>11.2.6.3 <a href="#sec_SystemQueryOptiontop">System
 Query Option <code>$top</code></a></h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$top</code>
@@ -4641,8 +4574,7 @@ href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
 query option, the service MUST impose a stable ordering across requests that
 include <code>$top</code>.</p>
 
-<h4><a
-name="_The_$skip_System"></a>11.2.6.4 <a href="#sec_SystemQueryOptionskip">System
+<h4>11.2.6.4 <a href="#sec_SystemQueryOptionskip">System
 Query Option <code>$skip</code></a></h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$skip</code>
@@ -4685,8 +4617,7 @@ href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
 query option, the service MUST impose a stable ordering across requests that
 include <code>$skip</code>.</p>
 
-<h4><a
-name="_The_$inlinecount_System"></a>11.2.6.5 <a
+<h4>11.2.6.5 <a
 href="#sec_SystemQueryOptioncount">System Query Option <code>$count</code></a></h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$count</code> system query option with a value of <code>true</code> specifies that the total count of
@@ -4742,8 +4673,7 @@ service.</p>
 <p class=MsoNormal>How the count is encoded in the response body is dependent
 upon the selected format.</p>
 
-<h4><a
-name="_The_$format_System"></a><a name="_The_$search_System"></a>11.2.6.6 <a
+<h4>11.2.6.6 <a
 href="#sec_SystemQueryOptionsearch">System Query Option <code>$search</code></a></h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$search</code>
@@ -4854,8 +4784,7 @@ are returned.</p>
 <p class=MsoNormal>The value of the <code>$search</code> option
 is a search expression as defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
-<h4><a
-name="_Server-Driven_Paging"></a>11.2.6.7 Server-Driven
+<h4>11.2.6.7 Server-Driven
 Paging</h4>
 
 <p class=MsoNormal>Responses that include only a partial set of the items
@@ -4880,13 +4809,10 @@ only follow the rules for URL query parts. </p>
 
 <p class=MsoNormal>OData clients MUST NOT use the system query option <code>$skiptoken</code> when constructing requests. </p>
 
-<h4><a name="_Requesting_an_Individual"></a>11.2.6.8 Requesting an Individual
+<h4>11.2.6.8 Requesting an Individual
 Member of an Ordered Collection</h4>
 
-<p class=MsoNormal><a
-name="_The_$expand_System_1"></a><a name="_System_Query_Option"></a><a
-name="_System_Query_Option_1"></a><a name="_The_$select_System_2"></a><a
-name="_System_Query_Option_5"></a><a name="_Requesting_Related_Entities"></a>Individual
+<p class=MsoNormal>Individual
 members of collections of primitive and complex types annotated with the <code>Ordered</code> term (see <a href="#ODataVocCore">OData-VocCore</a>)
 are addressable by appending a segment containing the zero-based ordinal to the
 URL of the collection. A negative ordinal indexes from the end of the
@@ -4984,8 +4910,7 @@ style='color:black'>GET http://host/service/Products(0)/Orders/$ref</span></p>
 
 </div>
 
-<h3><a name="_Requesting_the_Number"></a><a
-name="_Resolving_an_Entity-Id"></a>11.2.9 Resolving
+<h3>11.2.9 Resolving
 an Entity-Id</h3>
 
 <p class=MsoNormal>To resolve an <a href="#sec_EntityIdsandEntityReferences">entity-id</a>,
@@ -5125,7 +5050,7 @@ gt 5</span></p>
 
 </div>
 
-<p class=MsoCaption><a name="_Requesting_Changes"></a>Example 73:
+<p class=MsoCaption>Example 73:
 return all categories with more than one product over $5.00</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -5189,7 +5114,7 @@ header set to <code>application/json</code>; it requests the set
 of Order entities represented using the JSON media type with minimal metadata,
 as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
 
-<p class=MsoNormal><a name="_Requesting_Changes_1"></a>In <a
+<p class=MsoNormal>In <a
 href="#sec_MetadataDocumentRequest">metadata document requests</a><span
 class=MsoHyperlink>,</span> the values <code>application/xml</code>
 and <code>application/json</code>, along with their subtypes and
@@ -5249,7 +5174,7 @@ request is answered with a <a href="#sec_ResponseCode404NotFound">response code
 <code>404 Not Found</code></a>. The response
 body SHOULD provide additional information.</p>
 
-<h2><a name="_Requesting_Changes_2"></a>11.3 Requesting Changes</h2>
+<h2>11.3 Requesting Changes</h2>
 
 <p class=MsoNormal>Services advertise their change-tracking capabilities by
 annotating entity sets with the <a
@@ -5267,8 +5192,7 @@ href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </
 in a result for a single entity, and on the last page of results for a
 collection of entities in place of the next link.</p>
 
-<h3><a
-name="_Delta_Link_URL"></a><a name="_Delta_Links"></a>11.3.1 Delta Links</h3>
+<h3>11.3.1 Delta Links</h3>
 
 <p class=MsoNormal>Delta links are opaque, service-generated links that the
 client uses to retrieve subsequent changes to a result. </p>
@@ -5392,8 +5316,7 @@ Gone</code></a>, and SHOULD include the URL for refetching the entire set in
 the <code>Location</code> header of the
 response.</p>
 
-<h3><a
-name="_Data_Modification"></a>11.3.3 Delta
+<h3>11.3.3 Delta
 Payloads</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>A delta payload
@@ -5426,7 +5349,7 @@ Semantics</h3>
 <p class=MsoNormal><a href="#sec_DataModification">Data Modification Requests</a>
 share the following semantics.</p>
 
-<h4><a name="_Use_of_ETags"></a>11.4.1.1 Use of ETags for Avoiding
+<h4>11.4.1.1 Use of ETags for Avoiding
 Update Conflicts</h4>
 
 <p class=MsoNormal>Each entity has its own ETag value that MUST change when
@@ -5488,8 +5411,7 @@ requests.</p>
 request body of an <a href="#sec_UpdateanEntity">update request</a> MUST be <code>*</code> or match the current value for the
 record being updated.</p>
 
-<h4><a
-name="_Differential_Update"></a><a name="_Create_an_Entity"></a>11.4.1.2 Handling of DateTimeOffset Values</h4>
+<h4>11.4.1.2 Handling of DateTimeOffset Values</h4>
 
 <p class=MsoNormal>Services SHOULD preserve the offset of <code>Edm.DateTimeOffset</code>
 values, if possible. However, where the underlying storage does not support
@@ -5515,8 +5437,7 @@ for types not marked as open. By using <code>PATCH</code>
 when <a href="#sec_UpdateanEntity">updating entities</a>, clients can ensure
 that such properties values are not lost if omitted from the update request. </p>
 
-<h4><a
-name="_Handling_of_Consistency"></a>11.4.1.4 Handling of Integrity Constraints</h4>
+<h4>11.4.1.4 Handling of Integrity Constraints</h4>
 
 <p class=MsoNormal>Services may impose cross-entity integrity constraints.
 Certain referential constraints, such as requiring an entity to be created with
@@ -5527,8 +5448,7 @@ when creating the entity. Other constraints might require multiple changes to
 be processed in an all-or-nothing fashion.</p>
 
 <h4><a
-name="sec_ReturningResultsfromDataModification"></a><a
-name="_Create_an_Entity_1"></a>11.4.1.5 Returning Results from Data
+name="sec_ReturningResultsfromDataModification"></a>11.4.1.5 Returning Results from Data
 Modification Requests</h4>
 
 <p class=MsoNormal>Clients can request whether created or modified resources
@@ -5569,7 +5489,7 @@ query options. If it cannot apply the specified query options appropriately, it
 MUST NOT fail the request solely due to the presence of these query options and
 instead MUST return <span class=Keyword>204 No Content</span>.</p>
 
-<h3><a name="_Create_an_Entity_2"></a>11.4.2 Create an Entity</h3>
+<h3>11.4.2 Create an Entity</h3>
 
 <p class=MsoNormal>To create an entity in a collection, the client sends a <code>POST</code> request to that collection's URL. The <code>POST</code> body MUST contain a single valid
 entity representation.</p>
@@ -5630,7 +5550,7 @@ of <a href="#sec_Preferencereturnrepresentationandret"><code>return=minimal</cod
 options <a href="#sec_SystemQueryOptionselect"><code>$select</code></a>
 and <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>.</p>
 
-<h4><a name="_Link_to_Related"></a>11.4.2.1 Link to Related Entities When
+<h4>11.4.2.1 Link to Related Entities When
 Creating an Entity</h4>
 
 <p class=MsoNormal>To create a new entity with links to existing entities in a
@@ -5736,7 +5656,7 @@ Bad Request</code>.</p>
 the new entity. In particular, the service MUST never create an entity in a
 partially valid state (with the navigation property unset).</p>
 
-<h4><a name="_Create_Related_Entities"></a>11.4.2.2 Create Related Entities When
+<h4>11.4.2.2 Create Related Entities When
 Creating an Entity</h4>
 
 <p class=MsoNormal>A request to create an entity that includes related
@@ -5781,8 +5701,7 @@ preference is not supported for deep insert operations.</p>
 
 <p class=MsoNormal>On failure, the service MUST NOT create any of the entities.</p>
 
-<h3><a name="_Update_an_Entity"></a><a
-name="_Delete_an_Entity"></a><a name="_Upsert_an_Entity"></a>11.4.3 Update an Entity</h3>
+<h3>11.4.3 Update an Entity</h3>
 
 <p class=MsoNormal>To update an individual entity, the client makes a <code>PATCH</code> or <code>PUT</code> request to a URL
 that identifies the entity. Services MAY restrict updates only to requests
@@ -5883,8 +5802,7 @@ href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>.
 If the service uses ETags for optimistic concurrency control, the entities in
 the response MUST include ETags.</p>
 
-<h4><a
-name="_Link_Treatingto_Related"></a><a name="_Treating_Related_Entities"></a>11.4.3.1
+<h4>11.4.3.1
 Update Related Entities
 When Updating an Entity</h4>
 
@@ -5994,7 +5912,7 @@ context URL specifying the entity set in which the new entity is to be created.
 If any nested entities contain both id and key fields, they MUST identify the
 same entity, or the request is invalid. </p>
 
-<p class=MsoCaption><a name="_Upsert_an_Entity_1"></a>Example 79:
+<p class=MsoCaption>Example 79:
 using the JSON format, a 4.01 <span class=Keyword><span style='font-size:10.0pt'>PATCH</span></span>
 request can specify a nested delta representation to:</p>
 
@@ -6111,7 +6029,7 @@ style='color:black'>}</span></p>
 
 </div>
 
-<p class=MsoNormal><a name="_Upsert_an_Entity_2"></a>Clients
+<p class=MsoNormal>Clients
 MAY associate an id with individual nested entities in the request by using the
 <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a
@@ -6163,7 +6081,7 @@ The service MUST NOT treat an update request containing an <code>If-Match</code>
 request MUST NOT be treated as an update if an <a href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code> header</a> is specified
 with a value of <code>*</code>.</p>
 
-<h3><a name="_Delete_an_Entity_1"></a>11.4.5 Delete an Entity</h3>
+<h3>11.4.5 Delete an Entity</h3>
 
 <p class=MsoNormal>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity.
 Services MAY restrict deletes only to requests addressing the <a
@@ -6196,15 +6114,14 @@ value.</p>
 navigation property in a key definition of an entity type. If the related “key”
 entity is deleted, the dependent entity is also deleted.</p>
 
-<h3><a
-name="_Modifying_Relationships_between"></a>11.4.6 Modifying Relationships
+<h3>11.4.6 Modifying Relationships
 between Entities</h3>
 
 <p class=MsoNormal>Relationships between entities are represented by navigation
 properties as described in <a href="#sec_DataModel">Data Model</a>. URL
 conventions for navigation properties are described in <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
-<h4><a name="_Create_a_New"></a>11.4.6.1 Add a Reference to a
+<h4>11.4.6.1 Add a Reference to a
 Collection-Valued Navigation Property</h4>
 
 <p class=MsoNormal>A successful <code>POST</code> request to a
@@ -6219,8 +6136,7 @@ No Content</code></a> and contain an empty body.</p>
 <p class=MsoNormal>Note that if the two entities are already related prior to
 the request, the request is completed successfully.</p>
 
-<h4><a
-name="_Remove_a_Reference"></a>11.4.6.2 Remove a Reference to an Entity</h4>
+<h4>11.4.6.2 Remove a Reference to an Entity</h4>
 
 <p class=MsoNormal>A successful <code>DELETE</code> request to
 the URL that represents a reference to a related entity removes the
@@ -6279,7 +6195,7 @@ request to the navigation property’s reference resource.</p>
 
 <p class=MsoNormal>A successful <code>DELETE</code> request to a
 collection-valued navigation property’s reference resource removes all related
-references from the collection.<a name="_Managing_Media_Entities"></a></p>
+references from the collection.</p>
 
 <h3>Managing Media Entities</h3>
 
@@ -6290,7 +6206,7 @@ and MAY have a media edit URL that can be used to write to the media stream.</p>
 <p class=MsoNormal>Because a media entity has both a media stream and standard
 entity properties special handling is required.</p>
 
-<h4><a name="_Creating_a_Media"></a>11.4.7.1 Create a Media Entity</h4>
+<h4>11.4.7.1 Create a Media Entity</h4>
 
 <p class=MsoNormal>A <code>POST</code> request to a media
 entity's entity set creates a new media entity. The request body MUST contain
@@ -6312,8 +6228,7 @@ class=MsoHyperlink><code> </code></span>if
 the request included a <a href="#sec_Preferencereturnrepresentationandret">Prefer
 header</a> with a value of <a href="#sec_Preferencereturnrepresentationandret"><code>return=minimal</code></a>.</p>
 
-<h4><a
-name="_Editing_a_Media"></a>11.4.7.2 Update
+<h4>11.4.7.2 Update
 a Media Entity Stream</h4>
 
 <p class=MsoNormal>A successful <code>PUT</code> request to the
@@ -6343,8 +6258,7 @@ class=MsoHyperlink>.</span></p>
 <p class=MsoNormal>Deleting a media entity also deletes the media associated
 with the entity.</p>
 
-<h3><a
-name="_Managing_Stream_Properties"></a>11.4.8 Managing Stream Properties</h3>
+<h3>11.4.8 Managing Stream Properties</h3>
 
 <p class=MsoNormal>An entity may have one or more <i>stream properties</i>.
 Stream properties are properties of type <code>Edm.Stream</code>.</p>
@@ -6405,7 +6319,7 @@ segment(s) specifying the individual property. The edit URL allows properties
 to be individually modified. See <a href="#ODataURL">OData&#8209;URL</a>
 for details on addressing individual properties.</p>
 
-<h4><a name="_Update_a_Primitive"></a>11.4.9.1 Update a Primitive Property</h4>
+<h4>11.4.9.1 Update a Primitive Property</h4>
 
 <p class=MsoNormal>A successful <code>PUT</code>
 request to the edit URL for a primitive property updates the value of the property.
@@ -6432,7 +6346,7 @@ header</a> with a value of <a href="#sec_Preferencereturnrepresentationandret"><
 <p class=MsoNormal>Services MUST return an error if the property is not
 updatable.</p>
 
-<h4><a name="_Set_a_Value"></a>11.4.9.2 Set a Value to Null</h4>
+<h4>11.4.9.2 Set a Value to Null</h4>
 
 <p class=MsoNormal>A successful <code>DELETE</code> request to
 the edit URL for a structural property, or to the edit URL of the <a
@@ -6457,7 +6371,7 @@ updatable.</p>
 property</a> or a <a href="#sec_UpdateaComplexProperty">complex property</a>
 with a null value also sets the property to null.</p>
 
-<h4><a name="_Update_a_Complex"></a>11.4.9.3 Update a Complex Property</h4>
+<h4>11.4.9.3 Update a Complex Property</h4>
 
 <p class=MsoNormal>A successful <code>PATCH</code> request to
 the edit URL for a complex typed property updates that property. The request
@@ -6840,8 +6754,7 @@ style='color:black'>GET http://host/service/Customers(6)/SampleModel.MostRecentO
 
 </div>
 
-<p class=MsoCaption><a
-name="_Advertising_Available_Operations"></a>Example 85: the function <code>Comparison</code> can be bound to any URL that identifies a
+<p class=MsoCaption>Example 85: the function <code>Comparison</code> can be bound to any URL that identifies a
 collection of entities</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -6943,7 +6856,7 @@ style='color:black'>Customers('ALFKI')</span></span><span style='color:black'>/S
 
 </div>
 
-<p class=MsoNormal><a name="_Functions_1"></a>An
+<p class=MsoNormal>An
 efficient format that assumes client knowledge of metadata may omit actions and
 functions from the payload  whose target URL can be computed via metadata
 following standard conventions defined in <a href="#ODataURL">OData&#8209;URL</a>.
@@ -6975,8 +6888,7 @@ style='color:black'>{<br>
 <p class=MsoNormal>Functions are operations exposed by an OData service that
 MUST return data and MUST have no observable side effects.</p>
 
-<h4><a
-name="_Invoking_a_Function"></a>11.5.4.1 Invoking
+<h4>11.5.4.1 Invoking
 a Function</h4>
 
 <p class=MsoNormal>To invoke a function bound to a resource, the client issues
@@ -7079,8 +6991,7 @@ literal MAY be used in the <a href="#sec_SystemQueryOptionfilter"><code>$filter<
 href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
 system query options, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
-<h5><a
-name="_Inline_Parameter_Syntax"></a>11.5.4.1.1 Inline Parameter Syntax</h5>
+<h5>11.5.4.1.1 Inline Parameter Syntax</h5>
 
 <p class=MsoNormal>Parameter values are specified inline by appending a
 comma-separated list of parameter values, enclosed by parenthesis to the
@@ -7117,7 +7028,7 @@ class=VerbatimChar><span style='color:black'>GET http://host/service/Customers?<
 
 </div>
 
-<p class=MsoNormal><a name="_Parameter_Aliases"></a>A <a
+<p class=MsoNormal>A <a
 href="#sec_ParameterAliases">parameter alias</a><span class=MsoHyperlink> </span>can
 be used in place of an inline parameter value. The value for the alias is
 specified as a separate query option using the name of the parameter alias.</p>
@@ -7135,8 +7046,7 @@ class=VerbatimChar><span style='color:black'>GET http://host/service/EmployeesBy
 
 </div>
 
-<p class=MsoNormal><a
-name="_Parameter_Name_Syntax"></a>Services MAY in addition allow implicit <a
+<p class=MsoNormal>Services MAY in addition allow implicit <a
 href="#sec_ParameterAliases">parameter aliases</a><span class=MsoHyperlink> </span><span
 class=MsoHyperlink><span style='color:windowtext'>for function imports and for functions
 that are the last path segment of the URL. An implicit parameter alias is the
@@ -7216,14 +7126,13 @@ names, plus the binding parameter type for bound overloads SHOULD identify a
 particular function overload. If there is ambiguity, then services MAY return <code>400 Bad Request</code> with an error response body stating that
 the request was ambiguous.</p>
 
-<h3><a name="_Actions_1"></a>11.5.5 Actions</h3>
+<h3>11.5.5 Actions</h3>
 
 <p class=MsoNormal>Actions are operations exposed by an OData service that MAY
 have side effects when invoked. Actions MAY return data but<code> </code>MUST NOT be further composed with
 additional path segments.</p>
 
-<h4><a
-name="_Invoking_an_Action"></a>11.5.5.1 Invoking
+<h4>11.5.5.1 Invoking
 an Action</h4>
 
 <p class=MsoNormal>To invoke an action bound to a resource, the client issues a
@@ -7340,8 +7249,7 @@ type of the URL segment preceding the action name. A type-cast segment can be
 used to select an action defined on a particular type in the hierarchy, see <a
 href="#ODataURL">OData&#8209;URL</a>.</p>
 
-<h2><a name="_Functions"></a><a name="_Batch_Requests"></a><a
-name="_Asynchronous_Requests"></a>11.6 Asynchronous
+<h2>11.6 Asynchronous
 Requests</h2>
 
 <p class=MsoNormal>A <a href="#sec_HeaderPrefer">Prefer</a> header with a <a
@@ -7432,7 +7340,7 @@ Not Found</code></a>.</p>
 <p class=MsoNormal>The status monitor resource URL MUST differ from any other
 resource URL.</p>
 
-<h2><a name="_Batch_Requests_1"></a>11.7 Batch Requests</h2>
+<h2>11.7 Batch Requests</h2>
 
 <p class=MsoNormal>Batch requests allow grouping multiple individual requests
 into a single HTTP request payload. An individual request in the context of a
@@ -7825,8 +7733,7 @@ Host: host <br>
 </div>
 
 <h4><a
-name="sec_ReferencingNewEntities"></a><a
-name="_Change_Sets"></a>11.7.7.2 Referencing
+name="sec_ReferencingNewEntities"></a>11.7.7.2 Referencing
 New Entities</h4>
 
 <p class=MsoNormal>Entities created by an <a href="#sec_CreateanEntity">Insert</a>
@@ -8092,8 +7999,7 @@ Content-Length: ###<br>
 </div>
 
 <h4><a
-name="sec_AsynchronousBatchRequests"></a><a
-name="_Asynchronous_Batch_Requests"></a>11.7.7.6 Asynchronous Batch Requests</h4>
+name="sec_AsynchronousBatchRequests"></a>11.7.7.6 Asynchronous Batch Requests</h4>
 
 <p class=MsoNormal>Batch requests MAY be executed asynchronously by including
 the <a href="#sec_Preferencerespondasync"><code>respond-async</code></a>
@@ -8295,8 +8201,7 @@ conformance for an OData Service, as well as the <a
 href="#sec_InteroperableODataClients">minimal requirements </a>for an OData
 Client to be interoperable across OData services.</p>
 
-<h2><a
-name="_OData_Data_Publishing"></a><a name="_Service_Conformance_Levels"></a>13.1
+<h2>13.1
 OData 4.0 Service Conformance
 Levels</h2>
 
@@ -8324,9 +8229,7 @@ href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/O
 Services are encouraged to support as much additional functionality beyond
 their level of conformance as is appropriate for their intended scenario.</p>
 
-<h3><a
-name="_OData_Data_Publishing_1"></a><a name="_OData_Minimal_Conformance"></a><a
-name="_OData_4.0_Minimal"></a>13.1.1 OData 4.0 Minimal Conformance Level</h3>
+<h3>13.1.1 OData 4.0 Minimal Conformance Level</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In order to
 conform to the OData 4.0 Minimal conformance level, a service:</p>
@@ -8480,8 +8383,7 @@ class=MsoHyperlink><code> </code></span>(section
 8.3.4)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_OData_Data_Service"></a>29. MUST support Upserts (section 11.4.4)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>29. MUST support Upserts (section 11.4.4)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>30. SHOULD support <code>PUT</code> and <code>PATCH</code> to an individual
@@ -8498,8 +8400,7 @@ primitive (section 11.4.9.1) or complex (section 11.4.9.3) property (respectivel
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>33. MAY support set-based
 updates (section 11.4.13) or deletes (section 11.4.14) to members of a collection </p>
 
-<h3><a name="_OData_Intermediate_Conformance"></a><a
-name="_OData_4.0_Intermediate"></a>13.1.2 OData 4.0 Intermediate
+<h3>13.1.2 OData 4.0 Intermediate
 Conformance Level</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In order to
@@ -8620,9 +8521,7 @@ collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData&#820
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>17. SHOULD support <code>$orderby asc</code> and <code>desc</code> on
 individual properties (section 11.2.6.2)</p>
 
-<h3><a
-name="_OData_Updatable_Service"></a><a name="_OData_Full_Data"></a><a
-name="_OData_4.0_Advanced"></a>13.1.3 OData 4.0 Advanced Conformance
+<h3>13.1.3 OData 4.0 Advanced Conformance
 Level</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;page-break-after:
@@ -8736,9 +8635,7 @@ href="#sec_RequestingChanges">Delta change tracking</a> (section 11.3)</p>
 queries defined in <a href="#ODataURL">OData&#8209;URL</a> </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_OData_Conformance_Level"></a><a name="_Not_Supported_Codes:"></a><a
-name="_Not_Supported_Codes"></a><a name="_Interoperable_OData_Clients"></a>16. MAY support the <code>$compute</code> system query option (section 11.2.5.3)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>16. MAY support the <code>$compute</code> system query option (section 11.2.5.3)</p>
 
 <h2>OData 4.01 Service
 Conformance Levels</h2>
@@ -8752,8 +8649,7 @@ compliant services must also be fully OData 4.0 compliant, OData 4.01 services
 do not need to separately list <code>4.0</code> as a supported
 version.</p>
 
-<h3><a
-name="_OData_4.1_Minimal"></a>13.2.1 OData 4.01 Minimal Conformance
+<h3>13.2.1 OData 4.01 Minimal Conformance
 Level</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In order to
@@ -8769,8 +8665,7 @@ href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</
 compliant with version 4.01 of the <a href="#ODataJSON">OData-JSON</a> 
 format</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'><a
-name="_OData_4.1_Intermediate"></a>3. MUST return the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> result header in the final response to an
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST return the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> result header in the final response to an
 asynchronous request if asynchronous operations are supported.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4. MUST
