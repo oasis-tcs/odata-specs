@@ -660,10 +660,8 @@ properties in the payload.
 
 Clients can request that a JSON response conform to these ordering
 constraints by specifying a media type of
-[application/json]{style="font-family:
-\"Courier New\""} with the `streaming=true` parameter in the
-`Accept` header or
-`$format` query option. Services
+`application/json` with the `streaming=true` parameter in the
+`Accept` header or `$format` query option. Services
 MUST return `406 Not Acceptable` if
 the client only requests streaming and the service does not support it.
 
@@ -747,15 +745,13 @@ The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 
-The `context` control information
-is not returned if
-[`metadata=none`](#metadatanoneodatametadatanone)[
-]{.MsoHyperlink}is requested. Otherwise[ ]{.MsoHyperlink}it MUST be the
-first property of any JSON response[. ]{.MsoHyperlink}
+The `context` control information is not returned if
+[`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
+first property of any JSON response.
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
-entity set cannot be determined from the context URL[ ]{.MsoHyperlink}of
+entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
@@ -972,7 +968,7 @@ the canonical URL MUST be used as the entity-id.
 
 ### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
-The `[editLink`]{#odataEditLink} control information contains
+The `editLink` control information contains
 the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
 
 The `readLink` control information contains the read URL of
@@ -1038,7 +1034,7 @@ single entities and not written in responses if
 
 ### <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
 
-The [`navigationLink`]{#odataNavigationLink} control information in a
+The `navigationLink` control information in a
 response contains a _navigation URL_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
@@ -1271,8 +1267,7 @@ Example 9:
 An entity is serialized as a JSON object. It MAY contain
 [`context`](#ControlInformationcontextodatacontext),
 [`type`](#ControlInformationtypeodatatype),
-or[[
-]{style="font-family:"Courier New""}]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
+or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
 Each [property](#StructuralProperty) to be transmitted is
@@ -2108,8 +2103,7 @@ control information applied to it. Following this chain of next links
 does not result in a delta link on the last page of the expanded
 collection.
 
-If the response from the delta link contains a `count`[
-]{.MsoHyperlink}control information, the returned number MUST include
+If the response from the delta link contains a `count` control information, the returned number MUST include
 all added, changed, or deleted entities to be returned, as well as added
 or deleted links.
  
@@ -2215,9 +2209,8 @@ If the expanded navigation property represents a delta, it MUST be
 represented as an array-valued control information
 [`delta`](#ControlInformationdeltaodatadelta)
 on the navigation property.  [Added/changed](#AddedChangedEntity)
-entities or [entity references](#EntityReference)[
-]{.MsoHyperlink}are added to the collection. [Deleted
-entities](#DeletedEntity) MAY be specified in a nested delta
+entities or [entity references](#EntityReference)
+are added to the collection. [Deleted entities](#DeletedEntity) MAY be specified in a nested delta
 representation to represent entities no longer part of the collection.
 If the deleted entity specifies a `reason` as
 `deleted`, then the entity is both removed from the
@@ -2352,8 +2345,7 @@ a property, not control information
 
 In OData 4.01 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses)[
-]{.MsoHyperlink}value:
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
 - Control information
   [`removed`](#ControlInformationremovedodataremoved),
@@ -2455,9 +2447,7 @@ path in the initial request, unless either of the following is true:
 - The `source` or `target` entity has been deleted
 - The maximum cardinality of the related entity is one and there is a
   subsequent [link object](#AddedLink) that specifies the same
-  `source` and
-  [relationship]{style="font-family:
-  "Courier New""}.
+  `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
 - [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be

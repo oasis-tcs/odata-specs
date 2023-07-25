@@ -40,8 +40,8 @@ control information applied to it. Following this chain of next links
 does not result in a delta link on the last page of the expanded
 collection.
 
-If the response from the delta link contains a `count`[
-]{.MsoHyperlink}control information, the returned number MUST include
+If the response from the delta link contains a `count` control information, 
+the returned number MUST include
 all added, changed, or deleted entities to be returned, as well as added
 or deleted links.
  
@@ -147,9 +147,8 @@ If the expanded navigation property represents a delta, it MUST be
 represented as an array-valued control information
 [`delta`](#ControlInformationdeltaodatadelta)
 on the navigation property.  [Added/changed](#AddedChangedEntity)
-entities or [entity references](#EntityReference)[
-]{.MsoHyperlink}are added to the collection. [Deleted
-entities](#DeletedEntity) MAY be specified in a nested delta
+entities or [entity references](#EntityReference)
+are added to the collection. [Deleted entities](#DeletedEntity) MAY be specified in a nested delta
 representation to represent entities no longer part of the collection.
 If the deleted entity specifies a `reason` as
 `deleted`, then the entity is both removed from the
@@ -286,8 +285,7 @@ a property, not control information
 
 In OData 4.01 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses)[
-]{.MsoHyperlink}value:
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
 - Control information
   [`removed`](#ControlInformationremovedodataremoved),
@@ -390,9 +388,7 @@ path in the initial request, unless either of the following is true:
 - The `source` or `target` entity has been deleted
 - The maximum cardinality of the related entity is one and there is a
   subsequent [link object](#AddedLink) that specifies the same
-  `source` and
-  [relationship]{style="font-family:
-  "Courier New""}.
+  `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
 - [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be

@@ -95,8 +95,7 @@ Example ##ex:
 An entity is serialized as a JSON object. It MAY contain
 [`context`](#ControlInformationcontextodatacontext),
 [`type`](#ControlInformationtypeodatatype),
-or[[
-]{style="font-family:"Courier New""}]{.MsoHyperlink}[`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
+or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
 Each [property](#StructuralProperty) to be transmitted is

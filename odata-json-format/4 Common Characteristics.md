@@ -123,10 +123,8 @@ properties in the payload.
 
 Clients can request that a JSON response conform to these ordering
 constraints by specifying a media type of
-[application/json]{style="font-family:
-\"Courier New\""} with the `streaming=true` parameter in the
-`Accept` header or
-`$format` query option. Services
+`application/json` with the `streaming=true` parameter in the
+`Accept` header or `$format` query option. Services
 MUST return `406 Not Acceptable` if
 the client only requests streaming and the service does not support it.
 
@@ -210,15 +208,13 @@ The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 
-The `context` control information
-is not returned if
-[`metadata=none`](#metadatanoneodatametadatanone)[
-]{.MsoHyperlink}is requested. Otherwise[ ]{.MsoHyperlink}it MUST be the
-first property of any JSON response[. ]{.MsoHyperlink}
+The `context` control information is not returned if
+[`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
+first property of any JSON response.
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
-entity set cannot be determined from the context URL[ ]{.MsoHyperlink}of
+entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
@@ -435,7 +431,7 @@ the canonical URL MUST be used as the entity-id.
 
 ### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
-The `[editLink`]{#odataEditLink} control information contains
+The `editLink` control information contains
 the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
 
 The `readLink` control information contains the read URL of
@@ -501,7 +497,7 @@ single entities and not written in responses if
 
 ### ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
 
-The [`navigationLink`]{#odataNavigationLink} control information in a
+The `navigationLink` control information in a
 response contains a _navigation URL_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
