@@ -1040,12 +1040,8 @@ Combining [`respond-async`](#sec_Preferencerespondasync), `callback` and
 on a `GET` request to a delta-link might influence the response in a
 couple of ways.
 
--   [[If the service processes the request synchronously, and no updates
-    are available, then the response is the same as if the
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`respond-async hadn’t been specified and results in a response as described above. `
--   [[If the service processes the request asynchronously, then it
-    responds with a
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`202 Accepted`](#sec_ResponseCode202Accepted)` response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned `[`202 Accepted`](#sec_ResponseCode202Accepted)` response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.`
+-   `If the service processes the request synchronously, and no updates are available, then the response is the same as if the respond-async hadn’t been specified and results in a response as described above. `
+-   `If the service processes the request asynchronously, then it responds with a `[`202 Accepted`](#sec_ResponseCode202Accepted)` response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned `[`202 Accepted`](#sec_ResponseCode202Accepted)` response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.`
 
 If the consumer specifies the same URL as callback endpoint in multiple
 requests, the service MAY collate them into a single notification once
@@ -5656,9 +5652,8 @@ If the client has specified` respond-async` in the request, the service
 MAY process the request asynchronously and return a
 [`202 Accepted`](#sec_ResponseCode202Accepted)` `response. A service
 MUST NOT reply to a [Data Service Request](#sec_DataServiceRequests)
-with `202 Accepted`[[ ]{style="font-family:
-\"Arial\",sans-serif"}]{.Datatype}if the request has not included the
-`respond-async` preference.
+with `202 Accepted `if the request has not included the `respond-async`
+preference.
 
 Responses that return `202 Accepted` MUST include a [`Location`
 header](#sec_HeaderLocation) pointing to a *status monitor resource*
@@ -6671,9 +6666,7 @@ functions (section 9.3.1)
 [**\[RFC7617\]**](#RFC7617) over HTTPS for the highest level of
 interoperability with generic clients
 
-11\. SHOULD support the `$search `[[system query option (section
-]{style="font-family:
-\"Arial\",sans-serif"}]{.Datatype}`11.2.6.6)`
+11\. SHOULD support the `$search system query option (section 11.2.6.6)`
 
 12\. SHOULD support the `$skip system query option (section 11.2.6.4)`
 

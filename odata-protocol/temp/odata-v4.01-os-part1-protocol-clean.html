@@ -1152,14 +1152,12 @@ preferences on a <code>GET</code> request to a delta-link might
 influence the response in a couple of ways. </p>
 
 <ul style='margin-top:0in' type=disc>
- <li class=MsoNormal style='margin-top:0in'><span class=Datatype><span
-     style='font-family:"Arial",sans-serif'>If the service processes the
+ <li class=MsoNormal style='margin-top:0in'><code>If the service processes the
      request synchronously, and no updates are available, then the response is
-     the same as if the </span></span><code>respond-async hadn’t been
+     the same as if the respond-async hadn’t been
      specified and results in a response as described above. </code></li>
- <li class=MsoNormal style='margin-top:0in'><span class=Datatype><span
-     style='font-family:"Arial",sans-serif'>If the service processes the
-     request asynchronously, then it responds with a </span></span><a
+ <li class=MsoNormal style='margin-top:0in'><code>If the service processes the
+     request asynchronously, then it responds with a </code><a
      href="#sec_ResponseCode202Accepted"><code>202
      Accepted</code></a><code>
      response specifying the URL to the status monitor resource as it would
@@ -6741,8 +6739,7 @@ asynchronously. </p>
 in the request, the service MAY process the request asynchronously and return a
 <a href="#sec_ResponseCode202Accepted"><code>202
 Accepted</code></a><code> </code>response. A service MUST NOT
-reply to a <a href="#sec_DataServiceRequests">Data Service Request</a> with <code>202 Accepted</code><span class=Datatype><span style='font-family:
-"Arial",sans-serif'> </span></span>if the request has not included the <code>respond-async</code> preference.</p>
+reply to a <a href="#sec_DataServiceRequests">Data Service Request</a> with <code>202 Accepted </code>if the request has not included the <code>respond-async</code> preference.</p>
 
 <p class=MsoNormal>Responses that return <code>202 Accepted</code>
 MUST include a <a href="#sec_HeaderLocation"><code>Location</code>
@@ -7928,8 +7925,7 @@ href="#RFC7617"><b>[RFC7617]</b></a> over HTTPS for
 the highest level of interoperability with generic clients</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD support the <code>$search </code><span class=Datatype><span style='font-family:
-"Arial",sans-serif'>system query option (section </span></span><code>11.2.6.6)</code></p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD support the <code>$search system query option (section 11.2.6.6)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. SHOULD support the <code>$skip
