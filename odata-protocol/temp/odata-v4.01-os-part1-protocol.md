@@ -910,7 +910,7 @@ processed as an [insert](#sec_CreateanEntity) and not an
 The `If-None-Match` header MUST NOT be specified on a batch request, but
 MAY be specified on individual requests within the batch.
 
-### []{#sec_HeaderIsolationODataIsolation}8.2.6 [Header `Isolation` (`OData-Isolation`)](#sec_HeaderIsolationODataIsolation)
+### 8.2.6 [Header `Isolation` (`OData-Isolation`)](#sec_HeaderIsolationODataIsolation)
 
 The [Isolation]{style="font-family:\"Courier New\";color:black;
 background:white"} header specifies the isolation of the current request
@@ -1503,7 +1503,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [Prefer: respond-async, wait=10]{style="color:black"}
 :::
 
-#### []{#sec_Preferencetrackchangesodatatrackchan}8.2.8.9 [Preference `track-changes` (`odata.track-changes`)](#sec_Preferencetrackchangesodatatrackchan)
+#### 8.2.8.9 [Preference `track-changes` (`odata.track-changes`)](#sec_Preferencetrackchangesodatatrackchan)
 
 The `track-changes` preference is used to request that the service
 return a[ ]{.MsoHyperlink}[delta link](#sec_DeltaLinks) that can
@@ -1573,7 +1573,7 @@ the maximum time to wait for the entire batch.
 In addition to the [Common Headers](#sec_CommonHeaders), the following
 response headers have defined meaning in OData.
 
-### []{#sec_HeaderAsyncResult}8.3.1 [Header `AsyncResult`](#sec_HeaderAsyncResult)
+### 8.3.1 [Header `AsyncResult`](#sec_HeaderAsyncResult)
 
 A [[4.01]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} service
 MUST include the `AsyncResult` header in
@@ -1721,7 +1721,7 @@ Note that this will make it impossible for a proxy to cache the
 response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_CommonResponseStatusCodes}9 Common Response Status Codes
+# 9 Common Response Status Codes
 :::
 
 An OData service MAY respond to any request using any valid HTTP status
@@ -1848,7 +1848,7 @@ link](#sec_DeltaLinks) or a
 link on a collection that was requested with [snapshot
 isolation](#sec_HeaderIsolationODataIsolation).
 
-### []{#sec_ResponseCode412PreconditionFailed}9.2.5 [Response Code `412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed)
+### 9.2.5 [Response Code `412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed)
 
 As defined in [**\[RFC7232\]**](#HTTPConditional)[,
 ]{.MsoHyperlink}`412 Precondition Failed` indicates that the client has
@@ -2570,7 +2570,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataServiceRequests}11 Data Service Requests
+# 11 Data Service Requests
 :::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
@@ -2819,7 +2819,7 @@ for the property with a value of
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
-### []{#sec_RequestingtheMediaStreamofaMediaEnti}11.2.3 [Requesting the Media Stream of a Media Entity using `$value`](#sec_RequestingtheMediaStreamofaMediaEnti)
+### 11.2.3 [Requesting the Media Stream of a Media Entity using `$value`](#sec_RequestingtheMediaStreamofaMediaEnti)
 
 A *media entity* is an entity that represents an out-of-band stream,
 such as a photograph.
@@ -3194,7 +3194,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)]{style="color:black"}
 :::
 
-#### []{#sec_SystemQueryOptioncompute}11.2.5.3 [System Query Option `$compute`](#sec_SystemQueryOptioncompute)
+#### 11.2.5.3 [System Query Option `$compute`](#sec_SystemQueryOptioncompute)
 
 The `$compute` system query option allows clients to define computed
 properties that can be used in a
@@ -4319,7 +4319,7 @@ related entities can be satisfied through
 when creating the entity. Other constraints might require multiple
 changes to be processed in an all-or-nothing fashion.
 
-#### []{#sec_ReturningResultsfromDataModification}11.4.1.5 Returning Results from Data Modification Requests
+#### 11.4.1.5 Returning Results from Data Modification Requests
 
 Clients can request whether created or modified resources are returned
 from [create](#sec_CreateanEntity), [update](#sec_UpdateanEntity), and
@@ -6379,7 +6379,7 @@ Host: host\
 \--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
 :::
 
-#### []{#sec_ReferencingNewEntities}11.7.7.2 Referencing New Entities
+#### 11.7.7.2 Referencing New Entities
 
 Entities created by an [Insert](#sec_CreateanEntity) request can be
 referenced in the request URL of subsequent requests within the same
@@ -6628,7 +6628,7 @@ Content-Length: \###\
 \--b_243234_25424_ef_892u748---]{style="color:black"}
 :::
 
-#### []{#sec_AsynchronousBatchRequests}11.7.7.6 Asynchronous Batch Requests
+#### 11.7.7.6 Asynchronous Batch Requests
 
 Batch requests MAY be executed asynchronously by including the
 [`respond-async`](#sec_Preferencerespondasync) preference in the
@@ -6767,7 +6767,7 @@ Content-Length: \###\
 :::
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_SecurityConsiderations}Security Considerations
+# Security Considerations
 :::
 
 This section is provided as a service to the application developers,
