@@ -2794,8 +2794,8 @@ Example ##ex: for each customer entity within the `Customers` entity set,
 the value of those related `Orders` whose `Amount` is greater than 100
 will be represented inline
 ```
-GET [http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount
-gt 100)]{lang="FR" style="color:black"}
+GET http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount gt
+100)
 ```
 :::
 
@@ -4311,7 +4311,7 @@ named "Suzanne Brown" and link to it
 
   \"DirectReports@delta\": \[
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
 [      \"@removed\": {]{.CODEtemp}
 
@@ -4319,12 +4319,11 @@ named "Suzanne Brown" and link to it
 
 [      },]{.CODEtemp}
 
-[[      ]{lang="NL" style="color:black"}]{.CODEtemp}[\"@id\":
-\"Employees(3)\"]{.CODEtemp}
+[      ]{.CODEtemp}[\"@id\": \"Employees(3)\"]{.CODEtemp}
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
 [      \"@removed\": {]{.CODEtemp}
 
@@ -4336,24 +4335,21 @@ named "Suzanne Brown" and link to it
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
-[[      \"@id\": \"Employees(5)\"]{lang="NL"
-style="color:black"}]{.CODEtemp}
-
-[    },]{.CODEtemp}
-
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
-
-[[      \"@id\": \"Employees(6)\",]{lang="NL"
-style="color:black"}]{.CODEtemp}
-
-[[      \"LastName\": \"Smith\"]{lang="NL"
-style="color:black"}]{.CODEtemp}
+[      \"@id\": \"Employees(5)\"]{.CODEtemp}
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
+
+[      \"@id\": \"Employees(6)\",]{.CODEtemp}
+
+[      \"LastName\": \"Smith\"]{.CODEtemp}
+
+[    },]{.CODEtemp}
+
+[    {]{.CODEtemp}
 
       \"FirstName\": \"Suzanne\",
 

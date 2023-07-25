@@ -1456,8 +1456,7 @@ http://host/service/Products?\$filter=Name eq \'Milk\'
 ::: example
 Example ##ex: all products with a `Name` not equal to \'`Milk'`
 ```
-[http://host/service/Products?\$filter=Name ne \'Milk\']{lang="FR"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name ne \'Milk\'
 ```
 :::
 
@@ -1485,9 +1484,7 @@ http://host/service/Products?\$filter=Name lt \'Milk\'
 ::: example
 Example ##ex: all products with a Name less than or equal to \'Milk\':
 ```
-[http://host/service/Products?\$filter=Name le \'Milk\']{lang="FR"
-style="color:black;background:#D9D9D9"}[[ ]{lang="FR"
-style="color:black"}]{.VerbatimChar}
+http://host/service/Products?\$filter=Name le \'Milk\'` `
 ```
 :::
 

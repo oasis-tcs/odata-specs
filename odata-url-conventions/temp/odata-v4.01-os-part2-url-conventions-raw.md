@@ -1548,8 +1548,7 @@ Example 51: all products with a `Name` not equal to \'`Milk'`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name ne \'Milk\']{lang="FR"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name ne \'Milk\'
 :::
 
 Example 52: all products with a Name greater than \'Milk\':
@@ -1581,9 +1580,7 @@ Example 55: all products with a Name less than or equal to \'Milk\':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name le \'Milk\']{lang="FR"
-style="color:black;background:#D9D9D9"}[[ ]{lang="FR"
-style="color:black"}]{.VerbatimChar}
+http://host/service/Products?\$filter=Name le \'Milk\'` `
 :::
 
 Example 56: all products with the Name \'Milk\' that also have a Price

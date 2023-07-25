@@ -2898,8 +2898,8 @@ will be represented inline
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-GET [http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount
-gt 100)]{lang="FR" style="color:black"}
+GET http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount gt
+100)
 :::
 
 Example 42: for each order within the `Orders` entity set, the following
@@ -4458,7 +4458,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
   \"DirectReports@delta\": \[
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
 [      \"@removed\": {]{.CODEtemp}
 
@@ -4466,12 +4466,11 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 [      },]{.CODEtemp}
 
-[[      ]{lang="NL" style="color:black"}]{.CODEtemp}[\"@id\":
-\"Employees(3)\"]{.CODEtemp}
+[      ]{.CODEtemp}[\"@id\": \"Employees(3)\"]{.CODEtemp}
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
 [      \"@removed\": {]{.CODEtemp}
 
@@ -4483,24 +4482,21 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
 
-[[      \"@id\": \"Employees(5)\"]{lang="NL"
-style="color:black"}]{.CODEtemp}
-
-[    },]{.CODEtemp}
-
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
-
-[[      \"@id\": \"Employees(6)\",]{lang="NL"
-style="color:black"}]{.CODEtemp}
-
-[[      \"LastName\": \"Smith\"]{lang="NL"
-style="color:black"}]{.CODEtemp}
+[      \"@id\": \"Employees(5)\"]{.CODEtemp}
 
 [    },]{.CODEtemp}
 
-[[    {]{lang="NL" style="color:black"}]{.CODEtemp}
+[    {]{.CODEtemp}
+
+[      \"@id\": \"Employees(6)\",]{.CODEtemp}
+
+[      \"LastName\": \"Smith\"]{.CODEtemp}
+
+[    },]{.CODEtemp}
+
+[    {]{.CODEtemp}
 
       \"FirstName\": \"Suzanne\",
 
