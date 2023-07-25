@@ -66,6 +66,7 @@ const result = await pandoc(["--eol=lf", `./${basename}-clean.html`, `-o ${basen
 const raw = fs.readFileSync(`./${basename}-raw.md`, "utf8");
 
 const final = raw
+  .replace(/\n\[· \]\{style="font-family:Symbol"\}/g,"- ")
   //TODO: post-process raw markdown
   ;
 

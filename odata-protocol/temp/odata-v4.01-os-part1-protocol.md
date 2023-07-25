@@ -146,23 +146,17 @@ The OData Protocol is an application-level protocol for interacting with
 data via RESTful interfaces. The protocol supports the description of
 data models and the editing and querying of data according to those
 models. It provides facilities for:
-
-[· ]{style="font-family:Symbol"}Metadata: a machine-readable description
+- Metadata: a machine-readable description
 of the data model exposed by a particular service.
-
-[· ]{style="font-family:Symbol"}Data: sets of data entities and the
+- Data: sets of data entities and the
 relationships between them.
-
-[· ]{style="font-family:Symbol"}Querying: requesting that the service
+- Querying: requesting that the service
 perform a set of filtering and other transformations to its data, then
 return the results.
-
-[· ]{style="font-family:Symbol"}Editing: creating, updating, and
+- Editing: creating, updating, and
 deleting data.
-
-[· ]{style="font-family:Symbol"}Operations: invoking custom logic
-
-[· ]{style="font-family:Symbol"}Vocabularies: attaching custom semantics
+- Operations: invoking custom logic
+- Vocabularies: attaching custom semantics
 
 The OData Protocol is different from other REST-based web service
 approaches in that it provides a uniform way to describe both the data
@@ -170,21 +164,16 @@ and the data model. This improves semantic interoperability between
 systems and allows an ecosystem to emerge.
 
 Towards that end, the OData Protocol follows these design principles:
-
-[· ]{style="font-family:Symbol"}Prefer mechanisms that work on a variety
+- Prefer mechanisms that work on a variety
 of data sources. In particular, do not assume a relational data model.
-
-[· ]{style="font-family:Symbol"}Extensibility is important. Services
+- Extensibility is important. Services
 should be able to support extended functionality without breaking
 clients unaware of those extensions.
-
-[· ]{style="font-family:Symbol"}Follow REST principles.
-
-[· ]{style="font-family:Symbol"}OData should build incrementally. A very
+- Follow REST principles.
+- OData should build incrementally. A very
 basic, compliant service should be easy to build, with additional work
 necessary only to support additional capabilities.
-
-[· ]{style="font-family:Symbol"}Keep it simple. Address the common cases
+- Keep it simple. Address the common cases
 and provide extensibility where necessary.
 
 # ##sec Data Model
@@ -448,41 +437,29 @@ requests according to the
 [`$schemaversion`](#sec_SystemQueryOptionschemaversion) system query
 option. The following Data Model additions are considered safe and do
 not require services to version their entry point or schema.
-
-[· ]{style="font-family:Symbol"}Adding a property that is nullable or
+- Adding a property that is nullable or
 has a default value; if it has the same name as an existing dynamic
 property, it must have the same type (or base type) as the existing
 dynamic property
-
-[· ]{style="font-family:Symbol"}Adding a navigation property that is
+- Adding a navigation property that is
 nullable or collection-valued; if it has the same name as an existing
 dynamic navigation property, it must have the same type (or base type)
 as the existing dynamic navigation property
-
-[· ]{style="font-family:Symbol"}Adding a new entity type to the model
-
-[· ]{style="font-family:Symbol"}Adding a new complex type to the model
-
-[· ]{style="font-family:Symbol"}Adding a new entity set
-
-[· ]{style="font-family:Symbol"}Adding a new singleton
-
-[· ]{style="font-family:Symbol"}Adding an action, a function, an action
+- Adding a new entity type to the model
+- Adding a new complex type to the model
+- Adding a new entity set
+- Adding a new singleton
+- Adding an action, a function, an action
 import, or function import
-
-[· ]{style="font-family:Symbol"}Adding an action parameter that is
+- Adding an action parameter that is
 nullable after existing parameters
-
-[· ]{style="font-family:Symbol"}Adding an action or function parameter
+- Adding an action or function parameter
 that is annotated with
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
 after existing parameters
-
-[· ]{style="font-family:Symbol"}Adding a type definition or enumeration
-
-[· ]{style="font-family:Symbol"}Adding a new term
-
-[· ]{style="font-family:Symbol"}Adding any annotation to a model element
+- Adding a type definition or enumeration
+- Adding a new term
+- Adding any annotation to a model element
 that does not need to be understood by the client in order to correctly
 interact with the service
 
@@ -1711,27 +1688,22 @@ include a response body describing the functionality not implemented.
 
 The representation of an error response body is format-specific. It
 consists at least of the following information:
-
-[· ]{style="font-family:Symbol"}`code`: required non-null, non-empty,
+- `code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
 This code serves as a sub-status for the HTTP error code specified in
 the response.
-
-[· ]{style="font-family:Symbol"}`message`: required non-null, non-empty,
+- `message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
 The [`Content-Language`](#sec_HeaderContentLanguage) header MUST contain
 the language code from [**\[RFC5646\]**](#rfc5646) corresponding to the
 language in which the value for message is written.
-
-[· ]{style="font-family:Symbol"}`target`: optional nullable, potentially
+- `target`: optional nullable, potentially
 empty string indicating the target of the error, for example, the name
 of the property in error.
-
-[· ]{style="font-family:Symbol"}`details`: optional, potentially empty
+- `details`: optional, potentially empty
 collection of structured instances with `code`, `message`, and `target`
 following the rules above.
-
-[· ]{style="font-family:Symbol"}`innererror`: optional structured
+- `innererror`: optional structured
 instance with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
@@ -1768,29 +1740,22 @@ the relevant sections in the particular format.
 The following subsections describe how the context URL is constructed
 for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
-
-[· ]{style="font-family:Symbol"}`{context-url}` is the canonical
+- `{context-url}` is the canonical
 resource path to the `$metadata` document,
-
-[· ]{style="font-family:Symbol"}`{entity-set}` is the name of an entity
+- `{entity-set}` is the name of an entity
 set or path to a containment navigation property,
-
-[· ]{style="font-family:Symbol"}`{entity}` is the canonical URL for an
+- `{entity}` is the canonical URL for an
 entity,
-
-[· ]{style="font-family:Symbol"}`{singleton}` is the canonical URL for a
+- `{singleton}` is the canonical URL for a
 singleton entity,
-
-[· ]{style="font-family:Symbol"}`{select-list}` is an optional
+- `{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,
 
 [[· ]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
 path to a structural property of the entity,
-
-[· ]{style="font-family:Symbol"}`{type-name}` is a qualified type name,
-
-[· ]{style="font-family:Symbol"}`{/type-name}` is an optional type-cast
+- `{type-name}` is a qualified type name,
+- `{/type-name}` is an optional type-cast
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
 
@@ -2405,39 +2370,30 @@ This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 `PATCH`, `PUT`, and `DELETE` for OData resources.
 
 `GET` requests:
-
-[· ]{style="font-family:Symbol"}11.1 [Metadata
+- 11.1 [Metadata
 Requests](#sec_MetadataRequests) and subsections
-
-[· ]{style="font-family:Symbol"}11.2 [Requesting
+- 11.2 [Requesting
 Data](#sec_RequestingData) and subsections
-
-[· ]{style="font-family:Symbol"}11.3 [Requesting
+- 11.3 [Requesting
 Changes](#sec_RequestingChanges) and subsections
-
-[· ]{style="font-family:Symbol"}11.5.4 [Functions](#sec_Functions) and
+- 11.5.4 [Functions](#sec_Functions) and
 subsections
 
 `POST` requests:
-
-[· ]{style="font-family:Symbol"}11.4.2 [Create an
+- 11.4.2 [Create an
 Entity](#sec_CreateanEntity) and subsections
-
-[· ]{style="font-family:Symbol"}11.4.7.1 [Create a Media
+- 11.4.7.1 [Create a Media
 Entity](#sec_CreateaMediaEntity)
 
 [[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.11` [Positional
 Inserts](#sec_PositionalInserts)
-
-[· ]{style="font-family:Symbol"}11.5.5 [Actions](#sec_Actions) and
+- 11.5.5 [Actions](#sec_Actions) and
 subsections
-
-[· ]{style="font-family:Symbol"}11.7 [Batch
+- 11.7 [Batch
 Requests](#sec_BatchRequests) and subsections
 
 `PATCH` and `PUT` requests:
-
-[· ]{style="font-family:Symbol"}11.4.3 [Update an
+- 11.4.3 [Update an
 Entity](#sec_UpdateanEntity) and subsections
 
 [[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.4` [Upsert an
@@ -2472,20 +2428,15 @@ Collection of Entities](#sec_UpdateaCollectionofEntities)
 of a Collection](#sec_UpdateMembersofaCollection)
 
 `DELETE` requests:
-
-[· ]{style="font-family:Symbol"}11.4.5 [Delete an
+- 11.4.5 [Delete an
 Entity](#sec_DeleteanEntity)
-
-[· ]{style="font-family:Symbol"}11.4.7.3 [Delete a Media
+- 11.4.7.3 [Delete a Media
 Entity](#sec_DeleteaMediaEntity)
-
-[· ]{style="font-family:Symbol"}0 [Delete Stream
+- 0 [Delete Stream
 Values](#sec_DeleteStreamValues)
-
-[· ]{style="font-family:Symbol"}11.4.9.2 [Set a Value to
+- 11.4.9.2 [Set a Value to
 Null](#sec_SetaValuetoNull)
-
-[· ]{style="font-family:Symbol"}11.4.14 [Delete Members of a
+- 11.4.14 [Delete Members of a
 Collection](#sec_DeleteMembersofaCollection)
 
 ## ##subsec Metadata Requests
@@ -5005,34 +4956,28 @@ occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#sec_Preferencereturnrepresentationandret)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
-
-[· ]{style="font-family:Symbol"}Failed deletes in the request MUST be
+- Failed deletes in the request MUST be
 represented in the response as either entities or entity references,
 annotated with term `Core.DataModificationException`, see
 [OData-VocCore](#ODataVocCore). If the deleted entity specified a reason
 of `deleted`, the value of `failedOperation` MUST be `delete`, otherwise
 `unlink`.
-
-[· ]{style="font-family:Symbol"}Failed inserts within the request MUST
+- Failed inserts within the request MUST
 be represented in the response as deleted entities annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `insert`.
-
-[· ]{style="font-family:Symbol"}Failed updates within the request SHOULD
+- Failed updates within the request SHOULD
 be annotated in the response with term `Core.DataModificationException`
 with a `failedOperation` value of `update`.
-
-[· ]{style="font-family:Symbol"}Failed added links within the request
+- Failed added links within the request
 MUST represented in the response as deleted links annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `link`.
-
-[· ]{style="font-family:Symbol"}Failed deleted links within the request
+- Failed deleted links within the request
 MUST represented in the response as added links annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `unlink`.
-
-[· ]{style="font-family:Symbol"}Collections within the request MUST be
+- Collections within the request MUST be
 represented in the response as a collection with the current values and
 membership of the collection as it exists in the service after
 processing the request.
@@ -5512,11 +5457,9 @@ in [OData-VocCore](#ODataVocCore). All parameters marked as optional
 MUST come after any parameters not marked as optional.
 
 A function overload is selected if
-
-[· ]{style="font-family:Symbol"}The set of specified parameters exactly
+- The set of specified parameters exactly
 matches a function overload, or else
-
-[· ]{style="font-family:Symbol"}The set of specified parameters matches
+- The set of specified parameters matches
 a subset of parameters that includes all non-optional parameters of
 exactly one function overload.
 
@@ -6196,21 +6139,18 @@ The body of a multipart response to a multipart batch request MUST
 structurally match one-to-one with the multipart batch request body,
 such that the same multipart message structure defined for requests is
 used for responses. There are three exceptions to this rule:
-
-[· ]{style="font-family:Symbol"}When a request within a change set
+- When a request within a change set
 fails, the change set response is not represented using the
 `multipart/mixed` media type. Instead, a single response, using the
 `application/http` media type, is returned that applies to all requests
 in the change set and MUST be a valid OData error response.
-
-[· ]{style="font-family:Symbol"}When an error occurs processing a
+- When an error occurs processing a
 request and the
 [`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
 preference is not specified, or specified with an explicit value of
 `false`, processing of the batch is terminated and the error response is
 the last part of the multipart response.
-
-[· ]{style="font-family:Symbol"}[Asynchronously processed batch
+- [Asynchronously processed batch
 requests](#sec_AsynchronousBatchRequests) can return interim results and
 end with a `202 Accepted` as the last part of the multipart response.
 Therefore, the [`respond-async`](#sec_Preferencerespondasync) preference
