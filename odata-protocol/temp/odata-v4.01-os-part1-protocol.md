@@ -128,12 +128,9 @@ Some sections of this specification are illustrated with non-normative
 examples.
 
 Example 1: text describing an example uses this paragraph style
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Non-normative examples use this paragraph style.
-:::
+```
 
 All examples in this document are non-normative and informative only.
 
@@ -1019,12 +1016,9 @@ consumer MUST be prepared to deal with receiving up to as many
 notifications as it requested.
 
 Example 2: using a HTTP callback endpoint to receive notification
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: callback; url=\"http://myserver/notfication/token/12345\"
-:::
+```
 
 If the `callback` preference is specified on an individual request
 within a batch, then it specifies the callback to be used for tracking
@@ -1093,48 +1087,33 @@ raise an exception.
 
 Example 3: a `Prefer` header requesting all annotations within a
 metadata document to be returned
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: include-annotations=\"\*\"
-:::
+```
 
 Example 4: a `Prefer` header requesting that no annotations are returned
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: include-annotations=\"-\*\"
-:::
+```
 
 Example 5: a `Prefer` header requesting that all annotations defined
 under the \"display\" namespace (recursively) be returned
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: include-annotations=\"display.\*\"
-:::
+```
 
 Example 6: a `Prefer` header requesting that the annotation with the
 term name `subject` within the `display` namespace be returned
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: include-annotations=\"display.subject\"
-:::
+```
 
 Example 7: a `Prefer` header requesting that all annotations defined
 under the \"display\" namespace (recursively) with the qualifier
 "tablet" be returned
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: include-annotations=\"display.\*#tablet\"
-:::
+```
 
 The `include-annotations` preference is only a hint to the service. The
 service MAY ignore the preference and is free to decide whether or not
@@ -1316,12 +1295,9 @@ seconds
 - synchronously after 15
 seconds (ignoring `respond-`async preference and the
 [`wait`](#sec_Preferencewait) preference)
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 Prefer: respond-async, wait=10
-:::
+```
 
 #### ##subsubsubsec Preference `track-changes` (`odata.track-changes`)
 
@@ -1756,14 +1732,11 @@ The context URL of the service document is the metadata document URL of
 the service.
 
 Example 10: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/`
 
 http://host/service/\$metadata
-:::
+```
 
 ## ##subsec Collection of Entities
 
@@ -1777,14 +1750,11 @@ If all entities in the collection are members of one entity set, its
 name is the context URL fragment.
 
 Example 11: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers
 
 http://host/service/\$metadata#Customers
-:::
+```
 
 If the entities are contained, then `entity-set` is the top-level entity
 set or singleton followed by the path to the containment navigation
@@ -1792,14 +1762,11 @@ property of the containing entity.
 
 Example 12: resource URL and corresponding context URL for contained
 entities
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Orders(4711)/Items
 
 http://host/service/\$metadata#Orders(4711)/Items
-:::
+```
 
 If the entities in the response are not bound to a single entity set,
 such as from a function or action with no entity set path, a function
@@ -1819,14 +1786,11 @@ If a response or response part is a single entity of the declared type
 of an entity set, `/$entity` is appended to the context URL.
 
 Example 13: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/Customers(1)`
 
 http://host/service/\$metadata#Customers/\$entity
-:::
+```
 
 If the entity is contained, then `entity-set` is the canonical URL for
 the containment navigation property of the containing entity, e.g.
@@ -1834,14 +1798,11 @@ Orders(4711)/Items.
 
 Example 14: resource URL and corresponding context URL for contained
 entity
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Orders(4711)/Items(1)
 
 http://host/service/\$metadata#Orders(4711)/Items/\$entity
-:::
+```
 
 If the response is not bound to a single entity set, such as an entity
 returned from a function or action with no entity set path, a function
@@ -1859,14 +1820,11 @@ If a response or response part is a singleton, its name is the context
 URL fragment.
 
 Example 15: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/MainSupplier`
 
 [http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
-:::
+```
 
 ## ##subsec Collection of Derived Entities
 
@@ -1878,14 +1836,11 @@ If an entity set consists exclusively of derived entities, a type-cast
 segment is added to the context URL.
 
 Example 16: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers/Model.VipCustomer
 
 http://host/service/\$metadata#Customers/Model.VipCustomer
-:::
+```
 
 ## ##subsec Derived Entity
 
@@ -1898,14 +1853,11 @@ the declared type of an entity set, a type-cast segment is appended to
 the entity set name.
 
 Example 17: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/Customers(2)/Model.VipCustomer`
 
 http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity
-:::
+```
 
 ## ##subsec Collection of Projected Entities
 
@@ -1950,14 +1902,11 @@ entities in the collection, see system query option
 [`$select`](#sec_SystemQueryOptionselect).
 
 Example 18: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers?\$`select`=Address,Orders
 
 http://host/service/\$metadata#Customers(Address,Orders)
-:::
+```
 
 ## ##subsec Projected Entity
 
@@ -2007,14 +1956,11 @@ returned entity, see system query option
 [`$select`](#sec_SystemQueryOptionselect).
 
 Example 19: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers(1)?\$select=Name,Rating
 
 http://host/service/\$metadata#Customers(Name,Rating)/\$entity
-:::
+```
 
 ## ##subsec Collection of Expanded Entities
 
@@ -2050,31 +1996,22 @@ the context URL.
 
 Example 20: resource URL and corresponding context URL - select and
 expand
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers?\$select=Name&\$expand=Address/Country
 
 http://host/service/\$metadata#Customers(Name,Address/Country())
-:::
+```
 
 Example 21: resource URL and corresponding context URL -- expand `$ref`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers?\$expand=Orders/\$ref
 
 http://host/service/\$metadata#Customers
-:::
+```
 
 Example 22: resource URL and corresponding context URL -- expand with
 `$levels`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [http://host/service/Employees/Sales.Manager?\$select=DirectReports\
        
         &\$expand=DirectReports(\$select=FirstName,LastName;\$levels=4)]{style="color:black"}
@@ -2083,7 +2020,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
                 #Employees/Sales.Manager(DirectReports,\
           
                               DirectReports+(FirstName,LastName))]{style="color:black"}
-:::
+```
 
 ## ##subsec Expanded Entity
 
@@ -2120,10 +2057,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 Example 23: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [http://host/service/Employees(1)/Sales.Manager?\
                
    \$expand=DirectReports(\$select=FirstName,LastName;\$levels=4)]{style="color:black"}
@@ -2131,7 +2065,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata\
       
 #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/\$entity]{style="color:black"}
-:::
+```
 
 ## ##subsec Collection of Entity References
 
@@ -2144,14 +2078,11 @@ not contain the type of the referenced entities.
 
 Example 24: resource URL and corresponding context URL for a collection
 of entity references
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/Customers('ALFKI')/Orders/$ref`
 
 `http://host/service/$metadata#Collection($ref)`
-:::
+```
 
 ## ##subsec Entity Reference
 
@@ -2164,14 +2095,11 @@ fragment.
 
 Example 25: resource URL and corresponding context URL for a single
 entity reference
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/Orders(10643)/Customer/$ref`
 
 `http://host/service/$metadata#$ref`
-:::
+```
 
 ## ##subsec Property Value
 
@@ -2193,14 +2121,11 @@ navigation properties or operations, OData 4.01 responses MAY use the
 less specific second template.
 
 Example 26: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/Customers(1)/Addresses
 
 `http://host/service/$metadata#Customers(1)/Addresses`
-:::
+```
 
 ## ##subsec Collection of Complex or Primitive Types
 
@@ -2214,14 +2139,11 @@ URL, the context URL specifies the fully qualified type of the
 collection.
 
 Example 27: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/TopFiveHobbies()
 
 `http://host/service/$metadata#Collection(Edm.String)`
-:::
+```
 
 ## ##subsec Complex or Primitive Type
 
@@ -2234,14 +2156,11 @@ represent an individual property of an entity with a canonical URL, the
 context URL specifies the fully qualified type of the result.
 
 Example 28: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `http://host/service/MostPopularName()`
 
 `http://host/service/$metadata#Edm.String`
-:::
+```
 
 ## ##subsec Operation Result
 
@@ -2266,14 +2185,11 @@ operation. The context URL will correspond to one of the former
 examples.
 
 Example 29: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 http://host/service/TopFiveCustomers()
 
 http://host/service/\$metadata#Customers
-:::
+```
 
 ## ##subsec Delta Payload Response
 
@@ -2297,14 +2213,11 @@ entity set followed by the path to the containment navigation property
 of the containing entity.
 
 Example 30: resource URL and corresponding context URL
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
 
 `http://host/service/$metadata#Customers/$delta`
-:::
+```
 
 [The context URL of an update request body for a collection of entities
 is simply the fragment]{#_Toc370126063} `#$delta`.
@@ -2587,12 +2500,9 @@ If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
 Example 31:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products(1)/Name
-:::
+```
 
 #### ##subsubsubsec Requesting a Property\'s Raw Value using `$value`
 
@@ -2634,12 +2544,9 @@ If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
 [Example]{#_Ref356920699} 32:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products(1)/Name/\$value
-:::
+```
 
 ### ##subsubsec Specifying Properties to Return
 
@@ -2669,12 +2576,9 @@ be used in URLs.
 
 Example 33: request only the `Rating` and `ReleaseDate` for the matching
 Products
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$select=Rating,ReleaseDate
-:::
+```
 
 It is also possible to request all structural properties, including any
 dynamic properties, using the star operator. The star operator SHOULD
@@ -2682,23 +2586,17 @@ NOT introduce navigation properties, actions or functions not otherwise
 requested.
 
 Example 34:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$select=\*
-:::
+```
 
 Properties of related entities can be specified by including the
 `$select` query option within the `$expand`.
 
 Example 35:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$expand=Category(\$select=Name)
-:::
+```
 
 The properties specified in `$select` are represented in addition to any
 expanded navigation or stream properties. If a navigation property is
@@ -2709,23 +2607,17 @@ additionally represented as inline content.
 
 Example 36: for each category, return the `CategoryName` and the
 `Products` navigation link
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Categories?\$select=CategoryName,Products
-:::
+```
 
 It is also possible to request all actions or functions available for
 each returned entity.
 
 Example 37:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$select=DemoService.\*
-:::
+```
 
 Query options can be applied to a selected property by appending a
 semicolon-separated list of query options, enclosed in parentheses, to
@@ -2782,30 +2674,21 @@ For a full description of the syntax used when building requests, see
 
 Example 38: for each customer entity within the Customers entity set the
 value of all related Orders will be represented inline
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service.svc/Customers?\$expand=Orders
-:::
+```
 
 Example 39: for each customer entity within the Customers entity set the
 references to the related Orders will be represented inline
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service.svc/Customers?\$expand=Orders/\$ref
-:::
+```
 
 Example 40: for each customer entity within the Customers entity set the
 media stream representing the customer photo will be represented inline
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service.svc/Customers?\$expand=Photo
-:::
+```
 
 ##### ##subsubsubsubsec Expand Options
 
@@ -2829,13 +2712,10 @@ Allowed system query options are
 Example 41: for each customer entity within the `Customers` entity set,
 the value of those related `Orders` whose `Amount` is greater than 100
 will be represented inline
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET [http://host/service.svc/Customers?\$expand=Orders(\$filter=Amount
 gt 100)]{lang="FR" style="color:black"}
-:::
+```
 
 Example 42: for each order within the `Orders` entity set, the following
 will be represented inline:
@@ -2844,13 +2724,10 @@ the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 
 The `Customer` related to each order returned.
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET
 http://host/service.svc/Orders?\$expand=Items(\$expand=Product),Customer
-:::
+```
 
 Example 43: for each customer entity in the Customers entity set, the
 value of all related InHouseStaff will be represented inline if the
@@ -2858,13 +2735,10 @@ entity is of type VipCustomer or a subtype of that. For entities that
 are not of type `VipCustomer`, or any of its subtypes, that entity may
 be returned with no inline representation for the expanded navigation
 property` InHouseStaff (the service can always send more than requested)`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET
 http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff
-:::
+```
 
 ###### ##subsubsubsubsubsec Expand Option `$levels`
 
@@ -2887,13 +2761,10 @@ manner. Clients that want to work with 4.0 services MUST use lower case.
 Example 44: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET
 http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)
-:::
+```
 
 #### ##subsubsubsec System Query Option `$compute`
 
@@ -2909,10 +2780,7 @@ property name, or star (`*`).
 
 Example 45: compute total price for order items (line breaks only for
 readability)
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET [http://host/service/Customers?\
    \$filter=Orders/any(o:o/TotalPrice gt 100)\
    &\$expand=Orders(\$compute=Price mult Qty as
@@ -2920,7 +2788,7 @@ TotalPrice]{style="background:#D9D9D9"}]{style="color:black"}
 
 [                 
 ;[\$select=Name,Price,Qty,TotalPrice)]{style="background:#D9D9D9"}]{style="color:black"}
-:::
+```
 
 ### ##subsubsec Querying Collections
 
@@ -2948,24 +2816,18 @@ return [`501 Not Implemented`](#sec_ResponseCode501NotImplemented).
 The `$filter` system query option restricts the set of items returned.
 
 Example 46: return all Products whose `Price` is less than \$10.00
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$filter=Price lt 10.00
-:::
+```
 
 The [`$count`](#sec_SystemQueryOptioncount) segment may be used within a
 `$filter `expression to limit the items returned based on the exact
 count of related entities or items within a collection-valued property.
 
 Example 47: return all Categories with less than 10 products
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Categories?\$filter=Products/\$count lt 10
-:::
+```
 
 The value of the `$filter` option is a Boolean expression as defined in
 [OData-ABNF](#ODataABNF).
@@ -3085,12 +2947,9 @@ specified parameter alias.
 
 Example 48: returns all employees whose Region property matches the
 string parameter value \"WA\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET `http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'`
-:::
+```
 
 Parameter aliases allow the same value to be used multiple times in a
 request and may be used to reference primitive, structured, or
@@ -3116,13 +2975,10 @@ Example 49: returns all employees, expands their manager, and expands
 all direct reports with the same first name as the manager, using a
 parameter alias for `$this` to pass the manager into the filter on the
 expanded direct reports
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET
 `http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName eq FirstName))`
-:::
+```
 
 #### ##subsubsubsec System Query Option `$orderby`
 
@@ -3164,26 +3020,20 @@ Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
 
 Example 50: return all Products ordered by release date in ascending
 order, then by rating in descending order
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$orderby=ReleaseDate asc, Rating desc
-:::
+```
 
 Related entities may be ordered by specifying `$orderby` within the
 `$expand` clause.
 
 Example 51: return all Categories, and their Products ordered according
 to release date and in descending order of rating
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET http://host/service/Categories?\
    \$expand=Products(\$orderby=ReleaseDate asc, Rating
 desc)]{style="color:black"}
-:::
+```
 
 `$count` may be used within a `$orderby` expression to order the
 returned items according to the exact count of related entities or items
@@ -3191,12 +3041,9 @@ within a collection-valued property.
 
 Example 52: return all Categories ordered by the number of Products
 within each category
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Categories?\$orderby=Products/\$count
-:::
+```
 
 #### ##subsubsubsec System Query Option `$top`
 
@@ -3207,12 +3054,9 @@ specified value n.
 
 Example 53: return only the first five products of the Products entity
 set
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$top=5
-:::
+```
 
 If no unique ordering is imposed through an
 [`$orderby`](#sec_SystemQueryOptionorderby) query option, the service
@@ -3226,12 +3070,9 @@ The service returns items starting at position n+1.
 
 Example 54: return products starting with the 6th product of the
 `Products` entity set
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$skip=5
-:::
+```
 
 Where [`$top`](#sec_SystemQueryOptiontop) and `$skip` are used together,
 `$skip` MUST be applied before `$top`, regardless of the order in which
@@ -3239,12 +3080,9 @@ they appear in the request.
 
 Example 55: return the third through seventh products of the `Products`
 entity set
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$top=5&\$skip=2
-:::
+```
 
 If no unique ordering is imposed through an
 [`$orderby`](#sec_SystemQueryOptionorderby) query option, the service
@@ -3258,23 +3096,17 @@ returned along with the result.
 
 Example 56: return, along with the results, the total number of products
 in the collection
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$count=true
-:::
+```
 
 The count of related entities can be requested by specifying
 the` $count` query option within the `$expand` clause.
 
 Example 57:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Categories?\$expand=Products(\$count=true)
-:::
+```
 
 A `$count` query option with a value of `false` (or not specified) hints
 that the service SHOULD NOT return a count.
@@ -3304,33 +3136,24 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 Example 58: return all Products that match the search term \"bike\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$search=bike
-:::
+```
 
 The search expression can contain phrases, enclosed in double-quotes.
 
 Example 59: return all Products that match the phrase \"mountain bike\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$search=\"mountain bike\"
-:::
+```
 
 The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 Example 60: return all Products that do not match \"clothing\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$search=NOT clothing
-:::
+```
 
 Multiple terms within a search expression are separated by a space
 (implicit `AND`) or the upper-case keyword `AND`, indicating that all
@@ -3338,37 +3161,28 @@ such terms must be matched.
 
 Example 61: return all Products that match both \"mountain\" and
 \"bike\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$search=mountain AND bike
-:::
+```
 
 The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 Example 62: return all Products that match either \"mountain\" or
 \"bike\"
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products?\$search=mountain OR bike
-:::
+```
 
 Parentheses within the search expression group together multiple
 expressions.
 
 Example 63: return all Products that match either \"mountain\" or
 \"bike\" and do not match clothing
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
 clothing ]{style="color:black"}
-:::
+```
 
 The operations within a search expression MUST be evaluated in the
 following order: grouping operator, `NOT` operator, `AND` operator, `OR`
@@ -3418,13 +3232,10 @@ Entities are stably addressable using their canonical URL and are not
 accessible using an ordinal index.
 
 Example 64: the first address in a list of addresses for `MainSupplier`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET
 http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}
-:::
+```
 
 ### ##subsubsec Requesting Related Entities
 
@@ -3449,12 +3260,9 @@ entity is related, the service returns
 
 Example 65: return the supplier of the product with `ID=1 `in the
 Products entity set
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products(1)/Supplier
-:::
+```
 
 ### ##subsubsec Requesting Entity References
 
@@ -3489,12 +3297,9 @@ exists, the service returns either
 
 Example 66: collection with an entity reference for each Order related
 to the Product with `ID=0`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products(0)/Orders/\$ref
-:::
+```
 
 ### ##subsubsec Resolving an Entity-Id
 
@@ -3505,12 +3310,9 @@ located at the URL `$entity` relative to the service root. The entity-id
 MUST be specified using the system query option `$id`.
 
 Example 67: return the entity representation for a given entity-id
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/\$entity?\$id=http://host/service/Products(0)
-:::
+```
 
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
@@ -3524,10 +3326,7 @@ requests to the `$entity` resource.
 
 Example 68: return the entity representation for a given entity-id and
 specify properties to return
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET http://host/service/\$entity/Model.Customer\
                           
 ?\$id=http://host/service/Customers(\'ALFKI\')]{style="color:black"}
@@ -3535,7 +3334,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
                            &\$select=CompanyName,ContactName
 
                            &\$expand=Orders
-:::
+```
 
 ### ##subsubsec Requesting the Number of Items in a Collection
 
@@ -3557,12 +3356,9 @@ formatted as a simple primitive integer value with media type
 `/$count`. The result of such a request is undefined.
 
 Example 69: return the number of product`s `in the Products entity set
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products/\$count
-:::
+```
 
 With 4.01 services the `/$count` segment MAY be used in combination with
 the `/$filter path` segment to count the items in the filtered
@@ -3570,13 +3366,10 @@ collection.
 
 Example 70: return the number of products whose `Price` is less than
 \$10.00
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products/\$filter(@foo)/\$count?@foo=Price lt
 10.00
-:::
+```
 
 For backwards compatibility, the `/$count` suffix MAY be used in
 combination with the [`$filter`](#sec_SystemQueryOptionfilter) system
@@ -3584,12 +3377,9 @@ query option.
 
 Example 71: return the number of products whose `Price` is less than
 \$10.00
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products/\$count?\$filter=Price lt 10.00
-:::
+```
 
 The [`$filter`](#sec_SystemQueryOptionfilter) system query option MUST
 NOT be used in conjunction with a both a `/$count` path segment and a
@@ -3599,22 +3389,16 @@ The `/$count` suffix can also be used in path expressions within system
 query options, e.g. [`$filter`](#sec_SystemQueryOptionfilter).
 
 Example 72: return all customers with more than five interests
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Customers?\$filter=Interests/\$count gt 5
-:::
+```
 
 Example 73: return all categories with more than one product over \$5.00
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [GET http://host/service/Categories?\
                        \$filter=Products/\$filter(Price gt 5.0)/\$count
 gt 1]{style="color:black"}
-:::
+```
 
 ### ##subsubsec System Query Option `$format`
 
@@ -3633,12 +3417,9 @@ In addition, format-specific abbreviations may be used, e.g. `json` for
 MUST NOT be appended to the format abbreviations.
 
 Example 74: the request
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Orders?\$format=application/json;metadata=full
-:::
+```
 
 is equivalent to a request with an `Accept` header using the same media
 type; it requests the set of Order entities represented using the JSON
@@ -3646,12 +3427,9 @@ media type including full metadata, as defined in
 [OData-JSON](#ODataJSON).
 
 Example 75: the request
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Orders?\$format=json
-:::
+```
 
 is equivalent to a request with the `Accept` header set to
 `application/json`; it requests the set of Order entities represented
@@ -4066,10 +3844,7 @@ The representation for referencing related entities is format-specific.
 Example 76: using the JSON format, 4.0 clients can create a new manager
 entity with links to two existing employees by applying the `odata.bind`
 annotation to the `DirectReports` navigation property
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 {
 
   \"@odata.type\":\"#Northwind.Manager\",
@@ -4089,15 +3864,12 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \]
 
 }
-:::
+```
 
 Example 77: using the JSON format, 4.01 clients can create a new manager
 entity with links to two existing employees by including the entity-ids
 within the `DirectReports` navigation property
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 {
 
   \"@type\":\"#Northwind.Manager\",
@@ -4117,7 +3889,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \]
 
 }
-:::
+```
 
 Upon successful completion of the operation, the service creates the
 requested entity and relates it to the requested existing entities.
@@ -4301,10 +4073,7 @@ manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee
 [[6]{style="font-size:10.0pt"}]{.Keyword} is updated to `Smith.`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 {
 
   \"@type\":\"#Northwind.Manager\",
@@ -4338,7 +4107,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \]
 
 }
-:::
+```
 
 If the nested collection is represented as a delta annotation on the
 navigation property, then the collection contains members to be added or
@@ -4375,10 +4144,7 @@ employee 4 and do not delete it
 of employee 6 and link to it if necessary
 - add a new employee
 named "Suzanne Brown" and link to it
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 {
 
   \"@type\": \"#Northwind.Manager\",
@@ -4440,7 +4206,7 @@ style="color:black"}]{.CODEtemp}
   \]
 
 }
-:::
+```
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
@@ -4854,10 +4620,7 @@ representing an insert as the last item in the collection.
 
 [Example]{#_Ref484616044} 80: Insert a new email address at the second
 position
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [POST
 /service/Customers(\'ALFKI\')/EmailAddresses?\$index=1]{style="color:black;background:#D9D9D9"}
 
@@ -4871,7 +4634,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 \"alfred@futterkiste.de\"]{style="color:black;background:#D9D9D9"}
 
 [}]{style="color:black;background:#D9D9D9"}
-:::
+```
 
 ### ##subsubsec Update a Collection of Entities
 
@@ -4984,10 +4747,7 @@ semantics described in [Update a Collection of
 Entities](#sec_UpdateaCollectionofEntities) applies.
 
 Example 81: change the color of all beige-brown products
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [PATCH /service/Products/\$filter(@bar)/\$each?@bar=Color eq
 \'beige-brown\']{style="color:black;background:#D9D9D9"}
 
@@ -5000,7 +4760,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [  \"Color\": \"taupe\"]{style="color:black;background:#D9D9D9"}
 
 [}]{style="color:black;background:#D9D9D9"}
-:::
+```
 
 The response, if requested, is a collection payload containing the
 updated representation of each member identified by the request. If the
@@ -5035,13 +4795,10 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 Example 82: delete all products older than 3
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [DELETE /service/Products/\$filter(Age gt
 3)/\$each]{style="color:black;background:#D9D9D9"}
-:::
+```
 
 If the path identifies a collection of entities and if the service
 returns a representation, then the response is a delta response
@@ -5089,46 +4846,34 @@ defined in the metadata document of the service can be used in URLs.
 
 Example 83: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [\<Function Name=\"MostRecentOrder\" IsBound=\"true\"\>\
     \<Parameter Name=\"customer\" Type=\"SampleModel.Customer\" /\>\
     \<ReturnType Type=\"SampleModel.Order\" /\>\
 \</Function\>]{style="color:black"}
-:::
+```
 
 Example 84: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
-:::
+```
 
 Example 85: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [\<Function Name=\"Comparison\" IsBound=\"true\"\>\
     \<Parameter Name=\"in\" Type=\"Collection(Edm.EntityType)\" /\>\
     \<ReturnType Type=\"Diff.Overview\" /\>\
 \</Function\>]{style="color:black"}
-:::
+```
 
 Example 86: invoke the `Comparison` function on the set of red products
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Products/\$filter(Color eq
 \'Red\')/Diff.Comparison()
-:::
+```
 
 ### ##subsubsec Applying an Action to Members of a Collection
 
@@ -5148,12 +4893,9 @@ collection, the response is a collection of collections.
 
 Example 87: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET http://host/service/Customers/\$each/SampleModel.MostRecentOrder()
-:::
+```
 
 [The client MAY specify the]{#sec_AdvertisingAvailableOperationswithin}
 `continue-on-error` preference, in which case the service MAY continue
@@ -5180,10 +4922,7 @@ Example 88: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [{\
   \"@context\": \...,\
   \"CustomerID\": \"ALFKI\",\
@@ -5195,7 +4934,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   },\
   \...\
 }]{style="color:black"}
-:::
+```
 
 An efficient format that assumes client knowledge of metadata may omit
 actions and functions from the payload  whose target URL can be computed
@@ -5207,10 +4946,7 @@ particular instance by setting its value to null.
 
 Example 89: the `SampleEntities.MostRecentOrder` function is not
 available for customer \'ALFKI\'
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [{\
   \"@context\": \...,\
   \"CustomerID\": \"ALFKI\",\
@@ -5218,7 +4954,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \"#SampleEntities.MostRecentOrder\": null,\
   \...\
 }]{style="color:black"}
-:::
+```
 
 ### ##subsubsec Functions
 
@@ -5278,16 +5014,13 @@ used to create a new entity in the identified collection.
 
 Example 90: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `POST `http://host/service/MyShoppingCart()`/Items`
 
 ` `
 
 `...`
-:::
+```
 
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for
@@ -5327,23 +5060,17 @@ and `Value` is the parameter value.
 Example 91: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `GET http://host/service/EmployeesByManager(ManagerID=3)`
-:::
+```
 
 Example 92: return all `Customers` whose City property returns
 \"Western\" when passed to the `Sales.SalesRegion` function
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [[GET http://host/service/Customers?\
                          \$filter=Sales.SalesRegion(City=\$it/City) eq
 \'Western\']{style="color:black"}]{.VerbatimChar}
-:::
+```
 
 A [parameter alias](#sec_ParameterAliases) can be used in place of an
 inline parameter value. The value for the alias is specified as a
@@ -5352,12 +5079,9 @@ separate query option using the name of the parameter alias.
 Example 93: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3`
-:::
+```
 
 Services MAY in addition allow implicit [parameter
 aliases](#sec_ParameterAliases) for function imports and for functions
@@ -5373,12 +5097,9 @@ with an at (`@`) sign.
 Example 94: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `GET http://host/service/EmployeesByManager?ManagerID=3`
-:::
+```
 
 [Non-binding parameters annotated with the term]{#_Toc477876712}
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
@@ -5507,10 +5228,7 @@ Example 95: invoke the `SampleEntities.CreateOrder` action using
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder`
 
 `If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
@@ -5526,7 +5244,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[   \],\
    \"discountCode\": \"BLACKFRIDAY\"\
 }]{style="color:black"}]{.VerbatimChar}
-:::
+```
 
 #### ##subsubsubsec Action Overload Resolution
 
@@ -5647,33 +5365,27 @@ type of `multipart/mixed` and a `boundary` parameter as defined in
 [RFC2046](#RFC2046).
 
 Example 96: multipart batch request
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `POST /service/$batch HTTP/1.1`[\
 ]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
 ]{style="font-size:6.0pt;color:black"}`OData-Version: 4.0 `[\
 ]{style="font-size:6.0pt;color:black"}`Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b`[\
 \
 ]{style="font-size:6.0pt;color:black"}`<Multipart Batch request body>`
-:::
+```
 
 A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
  Example 97: JSON batch request
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 `POST /service/$batch HTTP/1.1`[\
 ]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
 ]{style="font-size:6.0pt;color:black"}`OData-Version: 4.01 `[\
 ]{style="font-size:6.0pt;color:black"}`Content-Type: application/json`[\
 \
 ]{style="font-size:6.0pt;color:black"}`<JSON Batch request body>`
-:::
+```
 
 Batch requests SHOULD contain the applicable `OData-Version` header.
 
@@ -5816,34 +5528,25 @@ set can use one of the following three formats:
 -   Absolute URI with schema, host, port, and absolute resource path.
 
 Example 98:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET https://host:1234/path/service/People(1) HTTP/1.1 
-:::
+```
 
 -   Absolute resource path and separate `Host` header
 
 Example 99:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET /path/service/People(1) HTTP/1.1
 
 Host: myserver.mydomain.org:1234
-:::
+```
 
 -   Resource path relative to the batch request URI.
 
 Example 100:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 GET People(1) HTTP/1.1
-:::
+```
 
 Services MUST support all three formats for URLs of individual requests.
 
@@ -5884,10 +5587,7 @@ Note also that the two empty lines after the `Host` header of the `GET`
 request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
 according to [RFC2046](#RFC2046).
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [POST /service/\$batch HTTP/1.1\
 Host: host\
 OData-Version: 4.0\
@@ -5946,7 +5646,7 @@ Host: host\
 \
 \
 \--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
-:::
+```
 
 #### ##subsubsubsec Referencing New Entities
 
@@ -5966,10 +5666,7 @@ A change set that contains the following requests:
 (with `Content-ID = 1`)
 - Insert a second new
 entity (references request with `Content-ID = 1`)
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [POST /service/\$batch HTTP/1.1\
 Host: host\
 OData-Version: 4.0\
@@ -6004,7 +5701,7 @@ Content-Length: \###\
 \<JSON representation of a new Order\>\
 \--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd\--\
 \--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
-:::
+```
 
 #### ##subsubsubsec Referencing an ETag
 
@@ -6014,10 +5711,7 @@ the order listed:
 `Content-ID = 1`)
 - Update the salary only
 if the employee has not changed
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [POST /service/\$batch HTTP/1.1\
 Host: host\
 OData-Version: 4.0\
@@ -6057,7 +5751,7 @@ If-Match: \$1\
 }
 
 \--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--
-:::
+```
 
 #### ##subsubsubsec Processing a Multipart Batch Request
 
@@ -6123,10 +5817,7 @@ identifiers.
 Example 104: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [HTTP/1.1 200 Ok\
 OData-Version: 4.0\
 Content-Length: \####\
@@ -6188,7 +5879,7 @@ Content-Length: \###\
 \
 \<Error message\>\
 \--b_243234_25424_ef_892u748---]{style="color:black"}
-:::
+```
 
 #### ##subsubsubsec Asynchronous Batch Requests
 
@@ -6216,26 +5907,20 @@ Since a change set is executed atomically,
 within a change set.
 
 Example 105: referencing the example 101 above again, assume that
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [HTTP/1.1 202 Accepted\
 Location: http://service-root/async-monitor-0\
 Retry-After: \###\
 \
 ]{style="color:black"}
-:::
+```
 
 When interrogating the monitor URL only the first request in the batch
 has finished processing and all the remaining requests are still being
 processed. Note that the actual multipart batch response itself is
 contained in an `application/http` wrapper as it is a response to a
 status monitor resource:
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 HTTP/1.1 200 Ok
 
 [Content-Type: application/http\
@@ -6269,15 +5954,12 @@ Retry-After: \###\
  
 
 \--b_243234_25424_ef_892u748\--
-:::
+```
 
 After some time the client makes a second request using the returned
 monitor URL, not explicitly accepting
 `application/http. The batch is completely processed and the response is the final result. `
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
+```
 [HTTP/1.1 200 Ok\
 AsyncResult: 200\
 OData-Version: 4.0]{style="color:black"}
@@ -6325,7 +6007,7 @@ Content-Length: \###\
 \
 \<Error message\>\
 \--b_243234_25424_ef_892u748---]{style="color:black"}
-:::
+```
 
 # ##sec Security Considerations
 

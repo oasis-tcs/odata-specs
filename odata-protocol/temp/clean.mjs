@@ -71,9 +71,12 @@ const result = await pandoc(["--eol=lf", `./${basename}-clean.html`, `-o ${basen
 const raw = fs.readFileSync(`./${basename}-raw.md`, "utf8");
 
 const final = raw
+  // bullet points
   .replace(/\n\[· \]\{style="font-family:Symbol(;font-style:normal)?"\}/g,"- ")
   .replace(/\n\[\[· \]\{style="font-family:Symbol"\}\]\{\.Datatype\}/g,"- ")
-  //TODO: post-process raw markdown
+  // code blocks
+  .replace(/\n::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:\nsolid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;\nbackground:#D9D9D9;margin-left:.3in;margin-right:.3in"}\n([\s\S]*?)\n:::\n/g, "```\n$1\n```\n")
+  //TODO: examples
   ;
 
 fs.writeFileSync(`./${basename}.md`, final, {encoding:"utf8"})
