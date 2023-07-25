@@ -5565,7 +5565,8 @@ Example ##ex: multipart batch request
 A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
- Example 97: JSON batch request
+::: example
+Example ##ex: JSON batch request
 ```
 `POST /service/$batch HTTP/1.1`[\
 ]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
@@ -5574,6 +5575,7 @@ A batch request using the JSON batch format MUST contain a
 \
 ]{style="font-size:6.0pt;color:black"}`<JSON Batch request body>`
 ```
+:::
 
 Batch requests SHOULD contain the applicable `OData-Version` header.
 
