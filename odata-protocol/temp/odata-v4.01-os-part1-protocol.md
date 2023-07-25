@@ -675,7 +675,7 @@ semantics defined in OData.
 
 The following headers are common between OData requests and responses.
 
-### 8.1.1 [Header `Content-Type`](#sec_HeaderContentType)
+### 8.1.1 Header `Content-Type`
 
 The format of a non-empty individual request or response body, alone or
 within a batch, MUST be specified in the `Content-Type` header of a
@@ -695,7 +695,7 @@ format parameters in order to correctly interpret the payload.
 See [OData-JSON](#ODataJSON) for format-specific details about format
 parameters within the `Content-Type` header.
 
-### [Header `Content-Encoding`](#sec_HeaderContentEncoding)
+### Header `Content-Encoding`
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the `Content-Encoding`
 header field is used as a modifier to the media-type (as indicated in
@@ -712,7 +712,7 @@ individual request or response. Individual requests or responses that
 don't include the `Content-Encoding` header inherit the encoding of the
 overall batch request or response.
 
-### 8.1.3 [Header `Content-Language`](#sec_HeaderContentLanguage)
+### 8.1.3 Header `Content-Language`
 
 As defined in
 [**\[RFC7231\]**](#HTTPSemantic)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
@@ -730,7 +730,7 @@ individual request or response. Individual requests or responses that
 don't include the `Content-Language` header inherit the language of the
 overall batch request or response.
 
-### [Header `Content-Length`](#sec_HeaderContentLength)
+### Header `Content-Length`
 
 As defined in
 [**\[RFC7230\]**](#HTTPMessage)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
@@ -743,7 +743,7 @@ If the `Content-Length` header is specified on an individual request or
 response within a batch, then it specifies the length for that
 individual request or response.
 
-### 8.1.5 [Header `OData-Version`](#sec_HeaderODataVersion)
+### 8.1.5 Header `OData-Version`
 
 OData clients SHOULD use the `OData-Version` header on a request to
 specify the version of the protocol used to generate the request
@@ -779,7 +779,7 @@ OData version does not typically vary within a batch.
 In addition to the [Common Headers](#sec_CommonHeaders), the client may
 specify any combination of the following request headers.
 
-### 8.2.1 [Header `Accept`](#sec_HeaderAccept)
+### 8.2.1 Header `Accept`
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
 the set of accepted [formats](#sec_Formats) with the `Accept` Header.
@@ -805,7 +805,7 @@ batch, then it specifies the acceptable formats for that individual
 request. Requests within a batch that don't include the `Accept` header
 inherit the acceptable formats of the overall batch request.
 
-### 8.2.2 [Header `Accept-Charset`](#sec_HeaderAcceptCharset)
+### 8.2.2 Header `Accept-Charset`
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
 the set of accepted character sets with the `Accept-Charset` header.
@@ -816,7 +816,7 @@ individual request. Requests within a batch that don't include the
 `Accept-Charset` header inherit the acceptable character sets of the
 overall batch request.
 
-### 8.2.3 [Header `Accept-Language`](#sec_HeaderAcceptLanguage)
+### 8.2.3 Header `Accept-Language`
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
 the set of accepted natural languages with the `Accept-Language` header.
@@ -827,7 +827,7 @@ individual request. Requests within a batch that don't include the
 `Accept-Language` header inherit the acceptable languages of the overall
 batch request.
 
-### 8.2.4 [Header `If-Match`](#sec_HeaderIfMatch)
+### 8.2.4 Header `If-Match`
 
 As defined in [**\[RFC7232\]**](#HTTPConditional)[,]{.MsoHyperlink} a
 client MAY include an `If-Match` header in a request to `GET`, `POST`,
@@ -872,7 +872,7 @@ an update and not an insert.
 The `If-Match` header MUST NOT be specified on a batch request, but MAY
 be specified on individual requests within the batch.
 
-### 8.2.5 [Header `If-None-Match`](#sec_HeaderIfNoneMatch)
+### 8.2.5 Header `If-None-Match`
 
 As defined in [**\[RFC7232\]**](#HTTPConditional), a client MAY include
 an `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH`
@@ -900,7 +900,7 @@ processed as an [insert](#sec_CreateanEntity) and not an
 The `If-None-Match` header MUST NOT be specified on a batch request, but
 MAY be specified on individual requests within the batch.
 
-### 8.2.6 [Header `Isolation` (`OData-Isolation`)](#sec_HeaderIsolationODataIsolation)
+### 8.2.6 Header `Isolation` (`OData-Isolation`)
 
 The [Isolation]{style="font-family:\"Courier New\";color:black;
 background:white"} header specifies the isolation of the current request
@@ -973,7 +973,7 @@ request, the value of the
 [Isolation]{style="font-family:\"Courier New\";
 color:black;background:white"} header SHOULD be used.
 
-### 8.2.7 [Header `OData-MaxVersion`](#sec_HeaderODataMaxVersion)
+### 8.2.7 Header `OData-MaxVersion`
 
 Clients SHOULD specify an `OData-MaxVersion` request header.
 
@@ -995,7 +995,7 @@ typically vary within a batch.
 
 For more details, see [Versioning](#sec_Versioning).
 
-### 8.2.8 [Header `Prefer`](#sec_HeaderPrefer)
+### 8.2.8 Header `Prefer`
 
 The `Prefer` header, as defined in [**\[RFC7240\]**](#HTTPPREFER),
 allows clients to request certain behavior from the service. The service
@@ -1010,7 +1010,7 @@ In response to a request containing a `Prefer` header, the service MAY
 return the [`Preference-Applied`](#sec_HeaderPreferenceApplied) and
 [`Vary`](#sec_HeaderVary) headers.
 
-#### [Preference `allow-entityreferences` (`odata.allow-entityreferences`)](#sec_Preferenceallowentityreferencesodata)
+#### Preference `allow-entityreferences` (`odata.allow-entityreferences`)
 
 The `allow-entityreferences` preference indicates that the service is
 allowed to return entity references in place of entities that have
@@ -1048,7 +1048,7 @@ white"} for OData 4.0 clients and clients SHOULD use
 [odata.allow-entityreferences]{style="font-family:\"Courier New\";color:black;background:white"}
 for compatibility with OData 4.0 services.
 
-#### 8.2.8.2 [Preference `callback` (`odata.callback`)](#sec_Preferencecallbackodatacallback)
+#### 8.2.8.2 Preference `callback` (`odata.callback`)
 
 For scenarios in which links returned by the service are used by the
 client to poll for additional information, the client can specify the
@@ -1164,7 +1164,7 @@ color:black;background:white"} preferences are specified in the same
 request, the value of the [callback]{style="font-family:\"Courier New\";
 color:black;background:white"} preference SHOULD be used.
 
-#### [Preference `continue-on-error` (`odata.continue-on-error`)](#sec_Preferencecontinueonerrorodatacontin)
+#### Preference `continue-on-error` (`odata.continue-on-error`)
 
 The `continue-on-error` preference on a [batch
 request](#sec_BatchRequests) is used to request whether, upon
@@ -1203,7 +1203,7 @@ for OData 4.0 clients and clients SHOULD use
 color:black;background:white"} for compatibility with OData 4.0
 services.
 
-#### [Preference `include-annotations` (`odata.include-annotations`)](#sec_Preferenceincludeannotationsodatainc)
+#### Preference `include-annotations` (`odata.include-annotations`)
 
 The `include-annotations` preference in a request for
 [data](#sec_RequestingData) or [metadata](#sec_MetadataDocumentRequest)
@@ -1306,7 +1306,7 @@ preferences are specified in the same request, the value of the
 [include-annotations]{style="font-family:\"Courier New\";color:black;background:white"}
 preference SHOULD be used.
 
-#### 8.2.8.5 [Preference `maxpagesize` (`odata.maxpagesize`)](#sec_Preferencemaxpagesizeodatamaxpagesiz)
+#### 8.2.8.5 Preference `maxpagesize` (`odata.maxpagesize`)
 
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
@@ -1357,7 +1357,7 @@ color:black;background:white"}`maxpagesize` preferences are specified in
 the same request, the value of the `maxpagesize` preference SHOULD be
 used.
 
-#### 8.2.8.6 [Preference `omit-values`](#sec_Preferenceomitvalues)
+#### 8.2.8.6 Preference `omit-values`
 
 The `omit-values` preference specifies values that MAY be omitted from a
 response payload. Valid values are `nulls` or `defaults`.
@@ -1392,7 +1392,7 @@ operation.
 
 The `omit-values` preference does not affect a request payload.
 
-#### 8.2.8.7 [Preference `return=representation` and `return=minimal`](#sec_Preferencereturnrepresentationandret)
+#### 8.2.8.7 Preference `return=representation` and `return=minimal`
 
 The `return=representation` and `return=minimal` preferences are defined
 in [**\[RFC7240\]**](#HTTPPREFER).
@@ -1432,7 +1432,7 @@ header containing the `return=representation` preference.
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
 
-#### 8.2.8.8 [Preference `respond-async`](#sec_Preferencerespondasync)
+#### 8.2.8.8 Preference `respond-async`
 
 The `respond-async `preference, as defined in
 [**\[RFC7240\]**](#HTTPPREFER), allows clients to request that the
@@ -1478,7 +1478,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 Prefer: respond-async, wait=10
 :::
 
-#### 8.2.8.9 [Preference `track-changes` (`odata.track-changes`)](#sec_Preferencetrackchangesodatatrackchan)
+#### 8.2.8.9 Preference `track-changes` (`odata.track-changes`)
 
 The `track-changes` preference is used to request that the service
 return a[ ]{.MsoHyperlink}[delta link](#sec_DeltaLinks) that can
@@ -1519,7 +1519,7 @@ clients SHOULD use [odata.]{style="font-family:\"Courier New\";
 color:black;background:white"}`track-changes` for compatibility with
 OData 4.0 services.
 
-#### [Preference `wait`](#sec_Preferencewait)
+#### Preference `wait`
 
 The `wait` preference, as defined in [**\[RFC7240\]**](#HTTPPREFER), is
 used to establish an upper bound on the length of time, in seconds, the
@@ -1547,7 +1547,7 @@ the maximum time to wait for the entire batch.
 In addition to the [Common Headers](#sec_CommonHeaders), the following
 response headers have defined meaning in OData.
 
-### 8.3.1 [Header `AsyncResult`](#sec_HeaderAsyncResult)
+### 8.3.1 Header `AsyncResult`
 
 A [[4.01]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} service
 MUST include the `AsyncResult` header in
@@ -1559,7 +1559,7 @@ executed request](#sec_AsynchronousRequests).
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
 
-### [Header `ETag`](#sec_HeaderETag)
+### Header `ETag`
 
 A response MAY include an `ETag` header, see
 [**\[RFC7232\]**](#HTTPConditional). Services MUST include this header
@@ -1596,7 +1596,7 @@ response.
 The `ETag` header SHOULD NOT be included for the overall batch response,
 but MAY be included in individual responses within a batch.
 
-### 8.3.3 [Header `Location`](#sec_HeaderLocation)
+### 8.3.3 Header `Location`
 
 The `Location` header MUST be returned in the response from a [Create
 Entity](#sec_CreateanEntity) or [Create Media
@@ -1609,7 +1609,7 @@ request.
 The `Location` header SHOULD NOT be included for the overall batch
 response, but MAY be included in individual responses within a batch.
 
-### 8.3.4 [Header `OData-EntityId`](#sec_HeaderODataEntityId)
+### 8.3.4 Header `OData-EntityId`
 
 A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[[or
 ]{style="color:windowtext"}]{.MsoHyperlink}[upsert](#sec_UpsertanEntity)[
@@ -1628,7 +1628,7 @@ background:white"}`EntityID` header SHOULD NOT be included for the
 overall batch response, but MAY be included in individual responses
 within a batch.
 
-### [Header `OData-Error`](#sec_HeaderODataError)
+### Header `OData-Error`
 
 A response with an [in-stream error](#sec_InStreamErrors) MAY include an
 `OData-Error` trailing header if the transport protocol supports
@@ -1639,7 +1639,7 @@ The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
 in a header, see e.g. [OData-JSON](#ODataJSON).
 
-### [Header `Preference-Applied`](#sec_HeaderPreferenceApplied)
+### Header `Preference-Applied`
 
 In a response to a request that specifies a
 [`Prefer`](#sec_HeaderPrefer) header, a service MAY include a
@@ -1660,7 +1660,7 @@ response. If the
 color:black;background:white"} header is specified on a batch response,
 then it specifies the preferences applied to the overall batch.
 
-### 8.3.7 [Header `Retry-After`](#sec_HeaderRetryAfter)
+### 8.3.7 Header `Retry-After`
 
 A service MAY include a `Retry-After` header, as defined in
 [**\[RFC7231\]**](#HTTPSemantic)[**,**]{.MsoHyperlink} in
@@ -1672,7 +1672,7 @@ that the client is asked to wait before retrying the request or issuing
 a request to the resource returned as the value of the [`Location`
 header](#sec_HeaderLocation).
 
-### [Header `Vary`](#sec_HeaderVary)
+### Header `Vary`
 
 If a response varies depending on the
 [`OData-Version`](#sec_HeaderODataVersion) of the response, the service
@@ -1716,7 +1716,7 @@ completed successfully and the value of the resource is not `null`. In
 this case, the response body MUST contain the value of the resource
 specified in the request URL.
 
-### 9.1.2 [Response Code `201 Created`](#sec_ResponseCode201Created)
+### 9.1.2 Response Code `201 Created`
 
 A [Create Entity](#sec_CreateanEntity), [Create Media
 Entity](#sec_CreateaMediaEntity), or [Invoke
@@ -1724,7 +1724,7 @@ Action](#sec_InvokinganAction) request that successfully creates a
 resource returns `201 Created`. In this case, the response body MUST
 contain the resource created.
 
-### 9.1.3 [Response Code `202 Accepted`](#sec_ResponseCode202Accepted)
+### 9.1.3 Response Code `202 Accepted`
 
 `202 Accepted` indicates that the [Data Service
 Request](#sec_DataServiceRequests) has been accepted and has not yet
@@ -1733,7 +1733,7 @@ requests is defined in the sections on [Asynchronous
 Requests](#sec_AsynchronousRequests) and [Asynchronous Batch
 Requests](#sec_AsynchronousBatchRequests)..
 
-### 9.1.4 [Response Code `204 No Content`](#sec_ResponseCode204NoContent)
+### 9.1.4 Response Code `204 No Content`
 
 A request returns `204 No Content` if the requested resource has the
 `null` value, or if the service applies a [`return=minimal`
@@ -1756,7 +1756,7 @@ request body, plus (for values not sent in the request body) server-side
 values corresponding to the `ETag` value sent in the `If-Match` header
 of the `PATCH` request, i.e. the previous values "known" to the client.
 
-### 9.1.5 [Response Code `3xx Redirection`](#sec_ResponseCode3xxRedirection)
+### 9.1.5 Response Code `3xx Redirection`
 
 As per [**\[RFC7231\]**](#HTTPSemantic), a `3xx Redirection` indicates
 that further action needs to be taken by the client in order to fulfill
@@ -1765,7 +1765,7 @@ header](#sec_HeaderLocation)[, ]{.MsoHyperlink}as appropriate, with the
 URL from which the result can be obtained; it MAY include a
 [`Retry-After` header](#sec_HeaderRetryAfter).
 
-### 9.1.6 [Response Code `304 Not Modified`](#sec_ResponseCode304NotModified)
+### 9.1.6 Response Code `304 Not Modified`
 
 As per [**\[RFC7232\]**](#HTTPConditional), a `304 Not Modified` is
 returned when the client performs a `GET` request containing an
@@ -1790,12 +1790,12 @@ status code.
 In the case that a response body is defined for the error code, the body
 of the error is as defined for the appropriate [format](#sec_Formats).
 
-### 9.2.1 [Response Code `404 Not Found`](#sec_ResponseCode404NotFound)
+### 9.2.1 Response Code `404 Not Found`
 
 `404 Not Found `indicates that the resource specified by the request URL
 does not exist. The response body MAY provide additional information.
 
-### 9.2.2 [Response Code `405 Method Not Allowed`](#sec_ResponseCode405MethodNotAllowed)
+### 9.2.2 Response Code `405 Method Not Allowed`
 
 `405 Method Not Allowed` indicates that the resource specified by the
 request URL does not support the request method. In this case the
@@ -1803,7 +1803,7 @@ response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
 [**\[RFC7231\]**](#HTTPSemantic).
 
-### 9.2.3 [Response Code `406 Not Acceptable`](#sec_ResponseCode406NotAcceptable)
+### 9.2.3 Response Code `406 Not Acceptable`
 
 [`406 Not Acceptable` indicates that the resource specified by the
 request URL does not have a current representation that would be
@@ -1813,7 +1813,7 @@ headers]{#_Toc477876608} [`Accept`](#sec_HeaderAccept),
 [`Accept-Language`](#sec_HeaderAcceptLanguage), and that the service is
 unwilling to supply a default representation.
 
-### [Response Code `410 Gone`](#sec_ResponseCode410Gone)
+### Response Code `410 Gone`
 
 `410 Gone` indicates that the requested resource is no longer available.
 This can happen if a client has waited too long to follow a [delta
@@ -1822,7 +1822,7 @@ link](#sec_DeltaLinks) or a
 link on a collection that was requested with [snapshot
 isolation](#sec_HeaderIsolationODataIsolation).
 
-### 9.2.5 [Response Code `412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed)
+### 9.2.5 Response Code `412 Precondition Failed`
 
 As defined in [**\[RFC7232\]**](#HTTPConditional)[,
 ]{.MsoHyperlink}`412 Precondition Failed` indicates that the client has
@@ -1830,7 +1830,7 @@ performed a conditional request and the resource fails the condition.
 The service MUST ensure that no observable change occurs as a result of
 the request.
 
-### [Response Code `424 Failed Dependency`](#sec_ResponseCode424FailedDependency)
+### Response Code `424 Failed Dependency`
 
 `424 Failed Dependency` indicates that a request was not performed due
 to a failed dependency; for example, a request within a batch that
@@ -1841,7 +1841,7 @@ depended upon a request that failed.
 As defined in [**\[RFC7231\]**](#HTTPSemantic)[, ]{.MsoHyperlink}error
 codes in the `5xx` range indicate service errors[.]{.MsoHyperlink}
 
-### 9.3.1 [Response Code `501 Not Implemented`](#sec_ResponseCode501NotImplemented)
+### 9.3.1 Response Code `501 Not Implemented`
 
 If the client requests functionality not implemented by the OData
 Service, the service responds with `501 Not Implemented` and SHOULD
@@ -1955,7 +1955,7 @@ Example 10: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/]{.Datatype}
+`http://host/service/`
 
 http://host/service/\$metadata
 :::
@@ -2018,7 +2018,7 @@ Example 13: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers(1)]{.Datatype}
+`http://host/service/Customers(1)`
 
 http://host/service/\$metadata#Customers/\$entity
 :::
@@ -2058,7 +2058,7 @@ Example 15: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/MainSupplier]{.Datatype}
+`http://host/service/MainSupplier`
 
 [http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
 :::
@@ -2097,7 +2097,7 @@ Example 17: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers(2)/Model.VipCustomer]{.Datatype}
+`http://host/service/Customers(2)/Model.VipCustomer`
 
 http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity
 :::
@@ -2344,9 +2344,9 @@ of entity references
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers(\'ALFKI\')/Orders/\$ref]{.Datatype}
+`http://host/service/Customers('ALFKI')/Orders/$ref`
 
-[http://host/service/\$metadata#Collection(\$ref)]{.Datatype}
+`http://host/service/$metadata#Collection($ref)`
 :::
 
 ## Entity Reference
@@ -2364,9 +2364,9 @@ entity reference
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders(10643)/Customer/\$ref]{.Datatype}
+`http://host/service/Orders(10643)/Customer/$ref`
 
-[http://host/service/\$metadata#\$ref]{.Datatype}
+`http://host/service/$metadata#$ref`
 :::
 
 ## Property Value
@@ -2395,7 +2395,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Customers(1)/Addresses
 
-[http://host/service/\$metadata#Customers(1)/Addresses]{.Datatype}
+`http://host/service/$metadata#Customers(1)/Addresses`
 :::
 
 ## Collection of Complex or Primitive Types
@@ -2416,7 +2416,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/TopFiveHobbies()
 
-[http://host/service/\$metadata#Collection(Edm.String)]{.Datatype}
+`http://host/service/$metadata#Collection(Edm.String)`
 :::
 
 ## Complex or Primitive Type
@@ -2434,9 +2434,9 @@ Example 28: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/MostPopularName()]{.Datatype}
+`http://host/service/MostPopularName()`
 
-[http://host/service/\$metadata#Edm.String]{.Datatype}
+`http://host/service/$metadata#Edm.String`
 :::
 
 ## Operation Result
@@ -2499,7 +2499,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
 
-[http://host/service/\$metadata#Customers/\$delta]{.Datatype}
+`http://host/service/$metadata#Customers/$delta`
 :::
 
 [The context URL of an update request body for a collection of entities
@@ -2792,7 +2792,7 @@ for the property with a value of
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#sec_ResponseCode404NotFound).
 
-### 11.2.3 [Requesting the Media Stream of a Media Entity using `$value`](#sec_RequestingtheMediaStreamofaMediaEnti)
+### 11.2.3 Requesting the Media Stream of a Media Entity using `$value`
 
 A *media entity* is an entity that represents an out-of-band stream,
 such as a photograph.
@@ -2842,7 +2842,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET http://host/service/Products(1)/Name
 :::
 
-#### 11.2.4.1 [Requesting a Property\'s Raw Value using `$value`](#sec_RequestingaPropertysRawValueusingval)
+#### 11.2.4.1 Requesting a Property\'s Raw Value using `$value`
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
@@ -2904,7 +2904,7 @@ and [`$expand`](#sec_SystemQueryOptionexpand), including properties not
 defined in [the metadata
 document](#sec_MetadataDocumentRequest)[.]{.MsoHyperlink}
 
-#### 11.2.5.1 [System Query Option `$select`](#sec_SystemQueryOptionselect)
+#### 11.2.5.1 System Query Option `$select`
 
 The `$select` system query option requests that the service return only
 the properties, dynamic properties, [actions](#sec_Actions) and
@@ -3022,7 +3022,7 @@ of selected properties and projected
 navigation properties.]{style="color:black;
 background:white"}
 
-#### 11.2.5.2 [System Query Option `$expand`](#sec_SystemQueryOptionexpand)
+#### 11.2.5.2 System Query Option `$expand`
 
 The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
@@ -3129,7 +3129,7 @@ GET
 http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff
 :::
 
-###### 11.2.5.2.1.1 [Expand Option `$levels`](#sec_ExpandOptionlevels)
+###### 11.2.5.2.1.1 Expand Option `$levels`
 
 The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
 option can be used to specify the number of levels of recursion for a
@@ -3159,7 +3159,7 @@ GET
 http://host/service/Employees?\$expand=Model.Manager/DirectReports(\$levels=4)
 :::
 
-#### 11.2.5.3 [System Query Option `$compute`](#sec_SystemQueryOptioncompute)
+#### 11.2.5.3 System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
 properties that can be used in a
@@ -3208,7 +3208,7 @@ MUST fail any request that contains the unsupported option and SHOULD
 return [[[501 Not
 Implemented]{style="color:windowtext"}]{.Datatype}](#sec_ResponseCode501NotImplemented).
 
-#### 11.2.6.1 [System Query Option `$filter`](#sec_SystemQueryOptionfilter)
+#### 11.2.6.1 System Query Option `$filter`
 
 The `$filter` system query option restricts the set of items returned.
 
@@ -3411,7 +3411,7 @@ eq FirstName))]{style="color:
 black"}]{.VerbatimChar}
 :::
 
-#### 11.2.6.2 [System Query Option `$orderby`](#sec_SystemQueryOptionorderby)
+#### 11.2.6.2 System Query Option `$orderby`
 
 The `$orderby` System Query option specifies the order in which items
 are returned from the service.
@@ -3485,7 +3485,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET http://host/service/Categories?\$orderby=Products/\$count
 :::
 
-#### 11.2.6.3 [System Query Option `$top`](#sec_SystemQueryOptiontop)
+#### 11.2.6.3 System Query Option `$top`
 
 The `$top` system query option specifies a non-negative integer n that
 limits the number of items returned from a collection. The service
@@ -3505,7 +3505,7 @@ If no unique ordering is imposed through an
 [`$orderby`](#sec_SystemQueryOptionorderby) query option, the service
 MUST impose a stable ordering across requests that include `$top`.
 
-#### 11.2.6.4 [System Query Option `$skip`](#sec_SystemQueryOptionskip)
+#### 11.2.6.4 System Query Option `$skip`
 
 The `$skip` system query option specifies a non-negative integer n that
 excludes the first n items of the queried collection from the result.
@@ -3538,7 +3538,7 @@ If no unique ordering is imposed through an
 [`$orderby`](#sec_SystemQueryOptionorderby) query option, the service
 MUST impose a stable ordering across requests that include `$skip`.
 
-#### 11.2.6.5 [System Query Option `$count`](#sec_SystemQueryOptioncount)
+#### 11.2.6.5 System Query Option `$count`
 
 The `$count` system query option with a value of `true` specifies that
 the total count of items within a collection matching the request be
@@ -3585,7 +3585,7 @@ service.
 How the count is encoded in the response body is dependent upon the
 selected format.
 
-#### 11.2.6.6 [System Query Option `$search`](#sec_SystemQueryOptionsearch)
+#### 11.2.6.6 System Query Option `$search`
 
 The `$search` system query option restricts the result to include only
 those items *matching* the specified search expression. The definition
@@ -3908,7 +3908,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 gt 1]{style="color:black"}
 :::
 
-### [System Query Option `$format`](#sec_SystemQueryOptionformat)
+### System Query Option `$format`
 
 The `$format` system query option specifies the media type of the
 response.
@@ -3956,7 +3956,7 @@ requests](#sec_MetadataDocumentRequest)[,]{.MsoHyperlink} the values
 parameterized variants, as well as the format-specific abbreviations
 `xml` and `json,` are reserved for this specification.
 
-### [System Query Option `$schemaversion`](#sec_SystemQueryOptionschemaversion)
+### System Query Option `$schemaversion`
 
 The [\$schemaversion]{.VerbatimChar} system query option MAY be included
 in any request. For a [metadata document
@@ -4638,9 +4638,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 
     {
 
-[      ]{.Datatype}\"FirstName\": \"Suzanne\",
+`      `\"FirstName\": \"Suzanne\",
 
-[      ]{.Datatype}\"LastName\": \"Brown\"
+`      `\"LastName\": \"Brown\"
 
     }
 
@@ -4747,7 +4747,7 @@ style="color:black"}]{.CODEtemp}
 
       \"FirstName\": \"Suzanne\",
 
-[      ]{.Datatype}\"LastName\": \"Brown\"
+`      `\"LastName\": \"Brown\"
 
 [    }]{.CODEtemp}
 
