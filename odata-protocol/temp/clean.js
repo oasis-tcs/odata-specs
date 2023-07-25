@@ -29,6 +29,11 @@ const clean = old
   .replace(/<a[ \n]name="sec[^"]+">[\d\. \n]*<\/a>/g, "")
   .replace(/<a[ \n]name="_Toc[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
   .replace(/<h1>[\d\.\s]*/g, "<h1>##sec ")
+  .replace(/<h2>[\d\.\s]*/g, "<h2>##subsec ")
+  .replace(/<h3>[\d\.\s]*/g, "<h3>##subsubsec ")
+  .replace(/<h4>[\d\.\s]*/g, "<h4>##subsubsubsec ")
+  .replace(/<h5>[\d\.\s]*/g, "<h4>##subsubsubsubsec ")
+  // .replace(/<h6>[\d\.\s]*/g, "<h4>##subsubsubsubsubsec ")
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")
