@@ -22,6 +22,13 @@ const clean = old
   .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
 
   // clean up references
-  .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>");
+  .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")
+  .replace(/#ABNF/g, "#ODataABNF")
+  .replace(/#ODataCSDLJSONRef/g, "#ODataCSDL")
+  .replace(/#ODataCSDLXMLRef/g, "#ODataCSDL")
+  .replace(/#ODataJSONRef/g, "#ODataJSON")
+  .replace(/#ODataURLRef/g, "#ODataURL")
+  .replace(/#VocCapabilities/g, "#ODataVocCap")
+  .replace(/#VocCore/g, "#ODataVocCore");
 
 fs.writeFileSync(`./${basename}-clean.html`, clean, {encoding:"latin1"})
