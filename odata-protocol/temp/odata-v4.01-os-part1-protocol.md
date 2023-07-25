@@ -4311,51 +4311,51 @@ named "Suzanne Brown" and link to it
 
   \"DirectReports@delta\": \[
 
-[    {]{.CODEtemp}
+    {
 
-[      \"@removed\": {]{.CODEtemp}
+      \"@removed\": {
 
-[        \"reason\": \"deleted\"]{.CODEtemp}
+        \"reason\": \"deleted\"
 
-[      },]{.CODEtemp}
+      },
 
-[      ]{.CODEtemp}[\"@id\": \"Employees(3)\"]{.CODEtemp}
+      \"@id\": \"Employees(3)\"
 
-[    },]{.CODEtemp}
+    },
 
-[    {]{.CODEtemp}
+    {
 
-[      \"@removed\": {]{.CODEtemp}
+      \"@removed\": {
 
-[        \"reason\": \"changed\"]{.CODEtemp}
+        \"reason\": \"changed\"
 
-[      },]{.CODEtemp}
+      },
 
-[      \"@id\": \"Employees(4)\"]{.CODEtemp}
+      \"@id\": \"Employees(4)\"
 
-[    },]{.CODEtemp}
+    },
 
-[    {]{.CODEtemp}
+    {
 
-[      \"@id\": \"Employees(5)\"]{.CODEtemp}
+      \"@id\": \"Employees(5)\"
 
-[    },]{.CODEtemp}
+    },
 
-[    {]{.CODEtemp}
+    {
 
-[      \"@id\": \"Employees(6)\",]{.CODEtemp}
+      \"@id\": \"Employees(6)\",
 
-[      \"LastName\": \"Smith\"]{.CODEtemp}
+      \"LastName\": \"Smith\"
 
-[    },]{.CODEtemp}
+    },
 
-[    {]{.CODEtemp}
+    {
 
       \"FirstName\": \"Suzanne\",
 
 `      `\"LastName\": \"Brown\"
 
-[    }]{.CODEtemp}
+    }
 
   \]
 
