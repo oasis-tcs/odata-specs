@@ -10,7 +10,7 @@ const clean = old
   .replace(/<body[\s\S]*?<h1/, "<body>\n<h1")
 
   // remove _Toc anchors
-  .replace(/<span style='font:7.0pt "Times New Roman"'>(&nbsp;|\n)+<\/span>/g,"")
+  .replace(/<span[ \n]style='font:7.0pt "Times New Roman"'>(&nbsp;|\n)+<\/span>/g,"")
   .replace(/<a[ \n]name="_Toc\d+">[\d\. ]*<\/a>/g, "")
   .replace(/<h1[^>]*>/g, "<h1>")
 

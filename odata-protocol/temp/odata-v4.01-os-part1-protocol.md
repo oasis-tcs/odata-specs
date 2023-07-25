@@ -153,31 +153,22 @@ data via RESTful interfaces. The protocol supports the description of
 data models and the editing and querying of data according to those
 models. It provides facilities for:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Metadata:
-a machine-readable description of the data model exposed by a particular
-service.
+[·]{style="font-family:Symbol"}Metadata: a machine-readable description
+of the data model exposed by a particular service.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Data:
-sets of data entities and the relationships between them.
+[·]{style="font-family:Symbol"}Data: sets of data entities and the
+relationships between them.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Querying:
-requesting that the service perform a set of filtering and other
-transformations to its data, then return the results.
+[·]{style="font-family:Symbol"}Querying: requesting that the service
+perform a set of filtering and other transformations to its data, then
+return the results.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Editing:
-creating, updating, and deleting data.
+[·]{style="font-family:Symbol"}Editing: creating, updating, and deleting
+data.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Operations:
-invoking custom logic
+[·]{style="font-family:Symbol"}Operations: invoking custom logic
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Vocabularies:
-attaching custom semantics
+[·]{style="font-family:Symbol"}Vocabularies: attaching custom semantics
 
 The OData Protocol is different from other REST-based web service
 approaches in that it provides a uniform way to describe both the data
@@ -189,25 +180,18 @@ Towards that end, the OData Protocol follows these design principles:
 [·]{style="font-family:Symbol"}Prefer mechanisms that work on a variety
 of data sources. In particular, do not assume a relational data model.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Extensibility
-is important. Services should be able to support extended functionality
-without breaking clients unaware of those extensions.
+[·]{style="font-family:Symbol"}Extensibility is important. Services
+should be able to support extended functionality without breaking
+clients unaware of those extensions.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Follow
-REST principles.
+[·]{style="font-family:Symbol"}Follow REST principles.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}OData
-should build incrementally. A very basic, compliant service should be
-easy to build, with additional work necessary only to support additional
-capabilities.
+[·]{style="font-family:Symbol"}OData should build incrementally. A very
+basic, compliant service should be easy to build, with additional work
+necessary only to support additional capabilities.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Keep
-it simple. Address the common cases and provide extensibility where
-necessary.
+[·]{style="font-family:Symbol"}Keep it simple. Address the common cases
+and provide extensibility where necessary.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # []{#sec_DataModel}[]{#_Data_Model}3[Data Model](#sec_DataModel)
@@ -1503,22 +1487,17 @@ see [**\[OData-VocCap\]**](#VocCapabilities).
 Example 9: a service receiving the following header might choose to
 respond
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}asynchronously
-if the synchronous processing of the request will take longer than 10
+[·]{style="font-family:Symbol;font-style:normal"}asynchronously if the
+synchronous processing of the request will take longer than 10 seconds
+
+[·]{style="font-family:Symbol;font-style:normal"}synchronously after 5
 seconds
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}synchronously
-after 5 seconds
-
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}asynchronously
+[·]{style="font-family:Symbol;font-style:normal"}asynchronously
 (ignoring the [`wait`](#sec_Preferencewait) preference)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}synchronously
-after 15 seconds (ignoring `respond-`async preference and the
+[·]{style="font-family:Symbol;font-style:normal"}synchronously after 15
+seconds (ignoring `respond-`async preference and the
 [`wait`](#sec_Preferencewait) preference)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -1962,39 +1941,30 @@ The following subsections describe how the context URL is constructed
 for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{context-url}`
-is the canonical resource path to the `$metadata` document,
+[·]{style="font-family:Symbol"}`{context-url}` is the canonical resource
+path to the `$metadata` document,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{entity-set}`
-is the name of an entity set or path to a containment navigation
-property,
+[·]{style="font-family:Symbol"}`{entity-set}` is the name of an entity
+set or path to a containment navigation property,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{entity}`
-is the canonical URL for an entity,
+[·]{style="font-family:Symbol"}`{entity}` is the canonical URL for an
+entity,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{singleton}`
-is the canonical URL for a singleton entity,
+[·]{style="font-family:Symbol"}`{singleton}` is the canonical URL for a
+singleton entity,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{select-list}`
-is an optional parenthesized comma-separated list of selected
-properties, instance annotations, functions, and actions,
+[·]{style="font-family:Symbol"}`{select-list}` is an optional
+parenthesized comma-separated list of selected properties, instance
+annotations, functions, and actions,
 
 [[·]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
 path to a structural property of the entity,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{type-name}`
-is a qualified type name,
+[·]{style="font-family:Symbol"}`{type-name}` is a qualified type name,
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{/type-name}`
-is an optional type-cast segment containing the qualified name of a
-derived or implemented type prefixed with a forward slash.
+[·]{style="font-family:Symbol"}`{/type-name}` is an optional type-cast
+segment containing the qualified name of a derived or implemented type
+prefixed with a forward slash.
 
 The full grammar for the context URL is defined in
 [**\[OData-ABNF\]**](#ABNF). Note that the syntax of the context URL is
@@ -3162,10 +3132,9 @@ gt 100)]{lang="FR" style="color:black"}
 Example 42: for each order within the `Orders` entity set, the following
 will be represented inline:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}The
-`Items` related to the `Orders` identified by the resource path section
-of the URL and the products related to each order item.
+[·]{style="font-family:Symbol;font-style:normal"}The `Items` related to
+the `Orders` identified by the resource path section of the URL and the
+products related to each order item.
 
 The `Customer` related to each order returned.
 
@@ -4766,25 +4735,20 @@ fields, they MUST identify the same entity, or the request is invalid.
 [[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can specify a
 nested delta representation to:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}delete
-employee 3 and remove link to it
+[·]{style="font-family:Symbol;font-style:normal"}delete employee 3 and
+remove link to it
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}remove
-the link to employee 4 and do not delete it
+[·]{style="font-family:Symbol;font-style:normal"}remove the link to
+employee 4 and do not delete it
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}add
-a link to employee 5
+[·]{style="font-family:Symbol;font-style:normal"}add a link to employee
+5
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}change
-the last name of employee 6 and link to it if necessary
+[·]{style="font-family:Symbol;font-style:normal"}change the last name of
+employee 6 and link to it if necessary
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}add
-a new employee named "Suzanne Brown" and link to it
+[·]{style="font-family:Symbol;font-style:normal"}add a new employee
+named "Suzanne Brown" and link to it
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6342,13 +6306,11 @@ the following individual requests in the order listed
 2.[     ]{style="font:7.0pt \"Times New Roman\""}A change set that
 contains the following requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-entity (with `Content-ID = 1`)
+[·]{style="font-family:Symbol;font-style:normal"}Insert entity (with
+`Content-ID = 1`)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Update
-entity (with `Content-ID = 2`)
+[·]{style="font-family:Symbol;font-style:normal"}Update entity (with
+`Content-ID = 2`)
 
 3.[     ]{style="font:7.0pt \"Times New Roman\""}A second query request
 
@@ -6440,13 +6402,11 @@ the order listed:
 
 A change set that contains the following requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-a new entity (with `Content-ID = 1`)
+[·]{style="font-family:Symbol;font-style:normal"}Insert a new entity
+(with `Content-ID = 1`)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Insert
-a second new entity (references request with `Content-ID = 1`)
+[·]{style="font-family:Symbol;font-style:normal"}Insert a second new
+entity (references request with `Content-ID = 1`)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6492,13 +6452,11 @@ Content-Length: \###\
 Example 103: a batch request that contains the following operations in
 the order listed:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Get
-an Employee (with `Content-ID = 1`)
+[·]{style="font-family:Symbol;font-style:normal"}Get an Employee (with
+`Content-ID = 1`)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol;font-style:normal"}Update
-the salary only if the employee has not changed
+[·]{style="font-family:Symbol;font-style:normal"}Update the salary only
+if the employee has not changed
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6574,30 +6532,24 @@ structurally match one-to-one with the multipart batch request body,
 such that the same multipart message structure defined for requests is
 used for responses. There are three exceptions to this rule:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}When
-a request within a change set fails, the change set response is not
-represented using the `multipart/mixed` media type. Instead, a single
-response, using the `application/http` media type, is returned that
-applies to all requests in the change set and MUST be a valid OData
-error response.
+[·]{style="font-family:Symbol"}When a request within a change set fails,
+the change set response is not represented using the `multipart/mixed`
+media type. Instead, a single response, using the `application/http`
+media type, is returned that applies to all requests in the change set
+and MUST be a valid OData error response.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}When
-an error occurs processing a request and the
-[`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
+[·]{style="font-family:Symbol"}When an error occurs processing a request
+and the [`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
 preference is not specified, or specified with an explicit value of
 `false`, processing of the batch is terminated and the error response is
 the last part of the multipart response.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}[Asynchronously
-processed batch requests](#sec_AsynchronousBatchRequests) can return
-interim results and end with a `202 Accepted` as the last part of the
-multipart response. Therefore, the
-[`respond-async`](#sec_Preferencerespondasync) preference MUST NOT be
-applied to individual requests within a batch if the batch response is a
-multipart response.
+[·]{style="font-family:Symbol"}[Asynchronously processed batch
+requests](#sec_AsynchronousBatchRequests) can return interim results and
+end with a `202 Accepted` as the last part of the multipart response.
+Therefore, the [`respond-async`](#sec_Preferencerespondasync) preference
+MUST NOT be applied to individual requests within a batch if the batch
+response is a multipart response.
 
 The body of a multipart response to a JSON batch request contains one
 body part for each processed or accepted request. The order of the body
