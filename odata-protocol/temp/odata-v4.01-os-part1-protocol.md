@@ -945,8 +945,7 @@ In the case the service applies the `allow-entityreferences` preference
 it MUST include a [`Preference-Applied`](#sec_HeaderPreferenceApplied)
 response header containing the `allow-entityreferences` preference to
 indicate that entity references MAY be returned in place of entities
-that have previously been
-returned[.]{style="font-family:\"Calibri\",sans-serif"}
+that have previously been returned.
 
 If the `allow-entityreferences` preference is specified on an individual
 request within a batch, then it specifies the preference for that
@@ -1268,15 +1267,13 @@ apply this preference by returning
 [`204 No Content`](#sec_ResponseCode204NoContent)` `in which case it MAY
 include a
 [`Preference-Applied`](#sec_HeaderPreferenceApplied)` `response header
-containing the
-`return=minimal `preference[.]{style="font-family:\"Calibri\",sans-serif"}
+containing the `return=minimal `preference.
 
-A preference of[
-]{style="font-family:\"Calibri\",sans-serif"}`return=representation`
-requests that the service invokes the request and returns the modified
-resource. The service MAY apply this preference by returning the
-representation of the successfully modified resource in the body of the
-response, formatted according to the rules specified for the requested
+A preference of `return=representation` requests that the service
+invokes the request and returns the modified resource. The service MAY
+apply this preference by returning the representation of the
+successfully modified resource in the body of the response, formatted
+according to the rules specified for the requested
 [format](#sec_Formats)[. In this case the service]{.Hyperlink1} MAY
 include a [`Preference-Applied`](#sec_HeaderPreferenceApplied) response
 header containing the `return=representation` preference.
@@ -1454,8 +1451,7 @@ response, but MAY be included in individual responses within a batch.
 
 A response to a [create](#sec_CreateanEntity) or
 [upsert](#sec_UpsertanEntity) operation that returns
-[`204 No Content`](#sec_ResponseCode204NoContent)[
-]{style="font-family:\"Calibri\",sans-serif"}MUST include an
+[`204 No Content`](#sec_ResponseCode204NoContent) MUST include an
 `OData-EntityId` response header. The value of the header is the
 [entity-id](#sec_EntityIdsandEntityReferences) of the entity that was
 acted on by the request. The syntax of the `OData-EntityId` header is
@@ -2592,9 +2588,8 @@ property referencing a media entity whose value is null returns
 ### ##subsubsec Requesting Individual Properties
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with
-[\"/\"]{style="font-family:\"Calibri\",sans-serif"} and the property
-name appended.
+the property URL. The property URL is the entity read URL with \"/\" and
+the property name appended.
 
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
@@ -2890,12 +2885,11 @@ http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff
 
 ###### ##subsubsubsubsubsec Expand Option `$levels`
 
-The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
-option can be used to specify the number of levels of recursion for a
-hierarchy in which the related entity type is the same as, or can be
-cast to, the source entity type. A `$levels` option with a value of 1
-specifies a single expand with no recursion. The same expand options are
-applied at each level of the hierarchy.
+The `$levels` expand option can be used to specify the number of levels
+of recursion for a hierarchy in which the related entity type is the
+same as, or can be cast to, the source entity type. A `$levels` option
+with a value of 1 specifies a single expand with no recursion. The same
+expand options are applied at each level of the hierarchy.
 
 Services MAY support the symbolic value `max` in addition to numeric
 values. In that case they MUST solve circular dependencies by injecting
@@ -2970,8 +2964,7 @@ return [`501 Not Implemented`](#sec_ResponseCode501NotImplemented).
 
 The `$filter` system query option restricts the set of items returned.
 
-Example 46: return all Products whose `Price` is less than
-[\$10.00]{style="font-family:\"Calibri\",sans-serif"}
+Example 46: return all Products whose `Price` is less than \$10.00
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3257,10 +3250,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET http://host/service/Products?\$skip=5
 :::
 
-Where [`$top`[
-]{style="font-family:\"Calibri\",sans-serif"}](#sec_SystemQueryOptiontop)and
-`$skip` are used together, `$skip` MUST be applied before `$top`,
-regardless of the order in which they appear in the request.
+Where [`$top`](#sec_SystemQueryOptiontop) and `$skip` are used together,
+`$skip` MUST be applied before `$top`, regardless of the order in which
+they appear in the request.
 
 Example 55: return the third through seventh products of the `Products`
 entity set
@@ -3594,7 +3586,7 @@ the `/$filter path` segment to count the items in the filtered
 collection.
 
 Example 70: return the number of products whose `Price` is less than
-[\$10.00]{style="font-family:\"Calibri\",sans-serif"}
+\$10.00
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3608,7 +3600,7 @@ combination with the [`$filter`](#sec_SystemQueryOptionfilter) system
 query option.
 
 Example 71: return the number of products whose `Price` is less than
-[\$10.00]{style="font-family:\"Calibri\",sans-serif"}
+\$10.00
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4546,8 +4538,7 @@ deleting it; clients need not delete the relations explicitly.
 
 Services MAY implicitly delete or modify related entities if required by
 [integrity constraints](#sec_HandlingofIntegrityConstraints). If
-integrity constraints are declared in `$metadata`[
-]{style="font-family:\"Calibri\",sans-serif"}using a
+integrity constraints are declared in `$metadata` using a
 `ReferentialConstraint` element, services MUST modify affected related
 entities according to the declared integrity constraints, e.g. by
 deleting dependent entities, or setting dependent properties to `null`
@@ -5534,12 +5525,10 @@ collection as a whole is transported in the `ETag` header of a
 collection response.
 
 Example 95: invoke the `SampleEntities.CreateOrder` action using
-`/Customers('ALFKI'`[[)
-]{style="font-family:\"Calibri\",sans-serif"}]{.VerbatimChar}as the
-customer (or binding parameter). The values `2` for the `quantity`
-parameter and `BLACKFRIDAY` for the `discountCode` parameter are passed
-in the body of the request. Invoke the action only if the customer's
-ETag still matches.
+`/Customers('ALFKI') `as the customer (or binding parameter). The values
+`2` for the `quantity` parameter and `BLACKFRIDAY` for the
+`discountCode` parameter are passed in the body of the request. Invoke
+the action only if the customer's ETag still matches.
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;

@@ -1075,7 +1075,7 @@ the service applies the <code>allow-entityreferences</code>
 preference it MUST include a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header
 containing the <code>allow-entityreferences</code> preference to
 indicate that entity references MAY be returned in place of entities that have
-previously been returned<span style='font-family:"Calibri",sans-serif'>.</span></p>
+previously been returned.</p>
 
 <p class=MsoNormal>If the <code>allow-entityreferences</code>
 preference is specified on an individual request within a batch, then it
@@ -1444,11 +1444,10 @@ response. The service MAY apply this preference by returning <a
 href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a><code> </code>in which
 case it MAY include a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response
-header containing the <code>return=minimal </code>preference<span
-style='font-family:"Calibri",sans-serif'>.</span></p>
+header containing the <code>return=minimal </code>preference.</p>
 
-<p class=MsoNormal>A preference of<span style='font-family:"Calibri",sans-serif'>
-</span><code>return=representation</code> requests that the
+<p class=MsoNormal>A preference of
+<code>return=representation</code> requests that the
 service invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the successfully
 modified resource in the body of the response, formatted according to the rules
@@ -1646,7 +1645,7 @@ responses within a batch.</p>
 <p class=MsoNormal>A response to a <a href="#sec_CreateanEntity">create</a> or
 <a href="#sec_UpsertanEntity">upsert</a>
 operation that returns <a href="#sec_ResponseCode204NoContent"><code>204 No
-Content</code></a><span style='font-family:"Calibri",sans-serif'> </span>MUST
+Content</code></a> MUST
 include an <code>OData-EntityId</code> response header. The value of the header is the <a
 href="#sec_EntityIdsandEntityReferences">entity-id</a> of the entity that was
 acted on by the request. The syntax of the <code>OData-EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
@@ -2941,7 +2940,7 @@ Not Found</code></a>.</p>
 Properties</h3>
 
 <p class=MsoNormal>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the
-entity read URL with <span style='font-family:"Calibri",sans-serif'>&quot;/&quot;</span>
+entity read URL with &quot;/&quot;
 and the property name appended.</p>
 
 <p class=MsoNormal>For complex typed properties, the path can be further
@@ -3269,8 +3268,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <h6>##subsubsubsubsubsec Expand Option <code>$levels</code></h6>
 
-<p class=MsoNormal style='page-break-after:avoid'>The <code>$levels</code><span
-style='font-family:"Calibri",sans-serif'> </span>expand option can be used to
+<p class=MsoNormal style='page-break-after:avoid'>The <code>$levels</code> expand option can be used to
 specify the number of levels of recursion for a hierarchy in which the related
 entity type is the same as, or can be cast to, the source entity type. A <code>$levels</code> option with a value of 1 specifies a single
 expand with no recursion. The same expand options are applied at each level of
@@ -3356,7 +3354,7 @@ Query Option <code>$filter</code></h4>
 system query option restricts the set of items returned.</p>
 
 <p class=MsoCaption>Example 46: return all Products whose <code>Price</code>
-is less than <span style='font-family:"Calibri",sans-serif'>$10.00</span></p>
+is less than $10.00</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4202,8 +4200,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 </div>
 
 <p class=MsoNormal style='page-break-after:avoid'>Where <a
-href="#sec_SystemQueryOptiontop"><code>$top</code><span
-style='font-family:"Calibri",sans-serif'> </span></a>and <code>$skip</code>
+href="#sec_SystemQueryOptiontop"><code>$top</code> </a>and <code>$skip</code>
 are used together, <code>$skip</code> MUST be applied before <code>$top</code>, regardless of the order in which they appear in the
 request. </p>
 
@@ -4587,7 +4584,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 segment MAY be used in combination with the <code>/$filter path</code>
 segment to count the items in the filtered collection.</p>
 
-<p class=MsoCaption>Example 70: return the number of products whose <code>Price</code> is less than <span style='font-family:"Calibri",sans-serif'>$10.00</span></p>
+<p class=MsoCaption>Example 70: return the number of products whose <code>Price</code> is less than $10.00</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4602,7 +4599,7 @@ lt 10.00</p>
 href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
 system query option.</p>
 
-<p class=MsoCaption>Example 71: return the number of products whose <code>Price</code> is less than <span style='font-family:"Calibri",sans-serif'>$10.00</span></p>
+<p class=MsoCaption>Example 71: return the number of products whose <code>Price</code> is less than $10.00</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5604,8 +5601,7 @@ entity when deleting it; clients need not delete the relations explicitly.</p>
 
 <p class=MsoNormal>Services MAY implicitly delete or modify related entities if
 required by <a href="#sec_HandlingofIntegrityConstraints">integrity constraints</a>.
-If integrity constraints are declared in <code>$metadata</code><span
-style='font-family:"Calibri",sans-serif'> </span>using a <code>ReferentialConstraint</code>
+If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code>
 element, services MUST modify affected related entities according to the
 declared integrity constraints, e.g. by deleting dependent entities, or setting
 dependent properties to <code>null</code> or their default
@@ -6675,8 +6671,7 @@ header with the latest known ETag value for the entity or collection of
 entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 
 <p class=MsoCaption>Example 95: invoke the <code>SampleEntities.CreateOrder</code>
-action using <code>/Customers('ALFKI'</code><span
-class=VerbatimChar><span style='font-family:"Calibri",sans-serif'>) </span></span>as
+action using <code>/Customers('ALFKI') </code>as
 the customer (or binding parameter). The values <code>2</code>
 for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code>
 parameter are passed in the body of the request. Invoke the action only if the

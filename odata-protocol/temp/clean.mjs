@@ -18,6 +18,7 @@ const clean = old
   // clean up formatting
   .replace(/<span[ \n]+style='font-family:\n?"Arial",sans-serif'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='(font-size:\n?[\d\.]+pt;[ \n]*)?color:\n?black(;\n?background:white)?'>([^<]*)<\/span>/g,"$3")
+  .replace(/<span[ \n]style='font-family:"Calibri",sans-serif'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='background:white'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
