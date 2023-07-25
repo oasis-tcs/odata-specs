@@ -1903,7 +1903,7 @@ solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 `http://host/service/MainSupplier`
 
-[http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
+http://host/service/\$metadata#`MainSupplier`
 :::
 
 ## ##subsec Collection of Derived Entities
@@ -2339,7 +2339,7 @@ Example 30: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
+http://host/service/Customers`?$deltatoken=1234`
 
 `http://host/service/$metadata#Customers/$delta`
 :::
@@ -3429,8 +3429,8 @@ Example 63: return all Products that match either \"mountain\" or
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
-clothing ]{style="color:black"}
+GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
+clothing
 :::
 
 The operations within a search expression MUST be evaluated in the
@@ -3485,8 +3485,7 @@ Example 64: the first address in a list of addresses for `MainSupplier`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}
+GET http://host/service/Suppliers(MainSupplier)/Addresses/0
 :::
 
 ### ##subsubsec Requesting Related Entities

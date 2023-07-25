@@ -190,18 +190,18 @@ http://host/service/People(%27O%27%27Neil%27) 
 
 http://host/service/People%28%27O%27%27Neil%27%29
 
-[http://host/service/`Categories`(\'Smartphone%2FTablet\')]{style="color:black"}
+http://host/service/`Categories`(\'Smartphone%2FTablet\')
 ```
 
 ::: example
 Example ##ex: invalid OData URLs:
 ```
-[http://host/service`/People('O'Neil') `]{style="color:black"}
+http://host/service`/People('O'Neil') `
 :::
 
-[http://host/service`/People('O%27Neil') `]{style="color:black"}
+http://host/service`/People('O%27Neil') `
 
-[http://host/service`/Categories('Smartphone/Tablet') `]{style="color:black"}
+http://host/service`/Categories('Smartphone/Tablet') `
 ```
 
 The first and second examples are invalid because a single quote in a
@@ -597,7 +597,7 @@ http://host/service/People/O\'Neil
 
 http://host/service/People/O%27Neil 
 
-[http://host/service/`Categories`/Smartphone%2FTablet]{style="color:black"}
+http://host/service/`Categories`/Smartphone%2FTablet
 ```
 
 For multi-part keys, the entity MUST be addressed by multiple segments
@@ -1603,9 +1603,8 @@ sign of its numeric or `Duration` operand.
 ##### ##subsubsubsubsec [Multiplication](#sec_Multiplication)
 
 The `mul` operator multiplies the left and right numeric operands. The
-`mul`[ operator is also valid for multiplying a
-]{style="color:#333333;background:
-white"}`Duration` value with a numeric value.
+`mul` operator is also valid for multiplying a `Duration` value with a
+numeric value.
 
 For operands of type `Edm.Decimal` the scale of the result is scaleof(A
 mul B) = scaleof(A) + scaleof(B), floating if any operand has floating
@@ -1622,13 +1621,12 @@ If the left operand is of type `Edm.Decimal` with floating scale,
 negative `div` zero returns `-INF`, and zero `div` zero returns `NaN`.
 For all other types the request fails.
 
-[For operands of type]{#_Toc371341769} `Edm.Decimal` [the result is
+[For operands of type]{#_Toc371341769} `Edm.Decimal` the result is
 computed with maximal decimal scale. If any operand has floating scale,
 the result has floating scale, else if any operand has variable scale,
 the result has variable scale. Otherwise the resulting scale is
-service-specific, and clients can use ]{style="color:
-#333333;background:white"}`cast` to force the result to a specific
-scale.
+service-specific, and clients can use `cast` to force the result to a
+specific scale.
 
 The `div` and` divby` operators differ in their handling of integers. If
 both operands to `div` are of an integer type, the result is an integer
@@ -2155,9 +2153,8 @@ parameter value. The `dayMethodCallExpr` syntax rule defines how the
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (i.e.
 UTC) MUST fail evaluation of the `day` function for literal
-`Edm.DateTimeOffset` [values that are not stated in the time zone of the
-normalized values.]{style="color:black;background:
-white"}
+`Edm.DateTimeOffset` values that are not stated in the time zone of the
+normalized values.
 
 ::: example
 Example ##ex: all employees born on the 8th day of a month
@@ -2203,9 +2200,8 @@ syntax rule defines how the `hour` function is invoked.
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (i.e.
 UTC) MUST fail evaluation of the `hour` function for literal
-`Edm.DateTimeOffset` [values that are not stated in the time zone of the
-normalized values.]{style="color:black;background:
-white"}
+`Edm.DateTimeOffset` values that are not stated in the time zone of the
+normalized values.
 
 ::: example
 Example ##ex: all employees born in hour 4, between 04:00 (inclusive) and
@@ -2267,9 +2263,8 @@ defines how the `month` function is invoked.
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (i.e.
 UTC) MUST fail evaluation of the `month` function for literal
-`Edm.DateTimeOffset` [values that are not stated in the time zone of the
-normalized values.]{style="color:black;background:
-white"}
+`Edm.DateTimeOffset` values that are not stated in the time zone of the
+normalized values.
 
 ::: example
 Example ##ex: all employees born in May
@@ -2327,9 +2322,8 @@ parameter value.
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (i.e.
 UTC) MUST fail evaluation of the `time` function for literal
-`Edm.DateTimeOffset` [values that are not stated in the time zone of the
-normalized values.]{style="color:black;background:
-white"}
+`Edm.DateTimeOffset` values that are not stated in the time zone of the
+normalized values.
 
 ##### ##subsubsubsubsec `totaloffsetminutes`
 
@@ -2358,17 +2352,15 @@ The `year` function has the following signatures:
 `Edm.Int32 year(Edm.DateTimeOffset)`
 
 The `year` function returns the year component of the `Date` or
-`DateTimeOffset` parameter value, evaluated in the time zone of the[
-]{style="font-size:9.0pt;color:black;background:
-white"}`DateTimeOffset` parameter value. The `yearMethodCallExpr` syntax
-rule defines how the `year` function is invoked.
+`DateTimeOffset` parameter value, evaluated in the time zone of the
+`DateTimeOffset` parameter value. The `yearMethodCallExpr` syntax rule
+defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (i.e.
 UTC) MUST fail evaluation of the `year` function for literal
-`Edm.DateTimeOffset` [values that are not stated in the time zone of the
-normalized values.]{style="color:black;background:
-white"}
+`Edm.DateTimeOffset` values that are not stated in the time zone of the
+normalized values.
 
 ::: example
 Example ##ex: all employees born in 1971
@@ -2693,31 +2685,31 @@ IntegerValue lt -128
 
 DoubleValue ge 0.31415926535897931e1
 
-[SingleValue]{.string}[ eq [INF]{.string}]{style="color:black"}
+SingleValue eq INF
 
-[DecimalValue eq 34.95]{.string}
+DecimalValue eq 34.95
 
-[StringValue eq \'[Say Hello,then go\']{.string}]{style="color:black"}
+StringValue eq \'Say Hello,then go\'
 
-[DateValue eq 2012-12-03]{.string}
+DateValue eq 2012-12-03
 
-[DateTimeOffsetValue eq 2012-12-03T07:16:23Z]{.string}
+DateTimeOffsetValue eq 2012-12-03T07:16:23Z
 
-[DurationValue eq duration\'P12DT23H59M59.999999999999S\']{.string}
+DurationValue eq duration\'P12DT23H59M59.999999999999S\'
 
-[DurationValue eq \'P12DT23H59M59.999999999999S\']{.string}
+DurationValue eq \'P12DT23H59M59.999999999999S\'
 
-[TimeOfDayValue eq 07:59:59.999]{.string}
+TimeOfDayValue eq 07:59:59.999
 
-[GuidValue eq 01234567-89ab-cdef-0123-456789abcdef]{.string}
+GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
 
-[Int64Value eq]{.string}[ [0]{.string}]{style="color:black"}
+Int64Value eq 0
 
-[ColorEnumValue eq `Sales.Pattern'Yellow'`,]{style="color:black"}
+ColorEnumValue eq `Sales.Pattern'Yellow'`,
 
-[ColorEnumValue eq `'Yellow'`,]{style="color:black"}
+ColorEnumValue eq `'Yellow'`,
 
-[geo.distance(Location,geography\'SRID=0;Point(142.1 64.1)\')]{.string}
+geo.distance(Location,geography\'SRID=0;Point(142.1 64.1)\')
 ```
 
 Duration literals in OData 4.0 required prefixing with "duration".
@@ -2943,8 +2935,8 @@ Example ##ex: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
-[http://host/service/Employees?\$filter=@Core.Messages/any(m:m/severity
-eq `'`error`'`)]{style="color:black"}
+http://host/service/Employees?\$filter=@Core.Messages/any(m:m/severity
+eq `'`error`'`)
 ```
 :::
 

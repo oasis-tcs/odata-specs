@@ -1851,7 +1851,7 @@ Example ##ex: resource URL and corresponding context URL
 `http://host/service/MainSupplier`
 :::
 
-[http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
+http://host/service/\$metadata#`MainSupplier`
 ```
 
 ## ##subsec Collection of Derived Entities
@@ -2271,7 +2271,7 @@ of the containing entity.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-[http://host/service/Customers`?$deltatoken=1234`]{style="color:black"}
+http://host/service/Customers`?$deltatoken=1234`
 :::
 
 `http://host/service/$metadata#Customers/$delta`
@@ -3302,8 +3302,8 @@ expressions.
 Example ##ex: return all Products that match either \"mountain\" or
 \"bike\" and do not match clothing
 ```
-[GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
-clothing ]{style="color:black"}
+GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
+clothing
 ```
 :::
 
@@ -3357,8 +3357,7 @@ accessible using an ordinal index.
 ::: example
 Example ##ex: the first address in a list of addresses for `MainSupplier`
 ```
-[GET
-http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}
+GET http://host/service/Suppliers(MainSupplier)/Addresses/0
 ```
 :::
 
