@@ -52,14 +52,14 @@ implementing this specification, and any offers of patent licensing terms,
 please refer to the Intellectual Property Rights section of the TC’s web page (<a
 href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 
-<h2><a name="sec_Terminology"></a><a name="_Toc477876542">1.1 </a><a
+<h2><a name="sec_Terminology"></a><a
 href="#sec_Terminology">Terminology</a></h2>
 
 <p class=MsoNormal>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL
 NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
 document are to be interpreted as described in <a href="#RFC2119"><b>[RFC2119]</b></a>.</p>
 
-<h2><a name="sec_NormativeReferences"></a><a name="_Toc477876543">1.2 </a><a
+<h2><a name="sec_NormativeReferences"></a><a
 href="#sec_NormativeReferences">Normative References</a></h2>
 
 <p class=MsoNormal style='margin-left:127.6pt;text-indent:-113.4pt'><span
@@ -164,7 +164,7 @@ Scheme&quot;, RFC 7617, September 2015. </span><a
 href="https://tools.ietf.org/html/rfc7617"><span style='background:white'>https://tools.ietf.org/html/</span>rfc7617</a><span
 class=MsoHyperlink>.  </span></p>
 
-<h2><a name="sec_TypographicalConventions"></a><a name="_Toc477876544">1.3 </a><a
+<h2><a name="sec_TypographicalConventions"></a><a
 href="#sec_TypographicalConventions">Typographical Conventions</a></h2>
 
 <p class=MsoNormal>Keywords defined by this specification use this <code>monospaced</code> font.</p>
@@ -524,7 +524,7 @@ ambiguity.</p>
 independently. OData defines semantics for both protocol and data model
 versioning.</p>
 
-<h2><a name="sec_ProtocolVersioning"></a><a name="_Toc477876554">5.1 </a><a
+<h2><a name="sec_ProtocolVersioning"></a><a
 href="#sec_ProtocolVersioning">Protocol Versioning</a></h2>
 
 <p class=MsoNormal>OData requests and responses are versioned according to the <a
@@ -651,7 +651,7 @@ restricted authorizations.</span></p>
 extensibility through a combination of versioning, convention, and explicit
 extension points.</p>
 
-<h2><a name="sec_QueryOptionExtensibility"></a><a name="_Toc477876557">6.1 </a><a
+<h2><a name="sec_QueryOptionExtensibility"></a><a
 href="#sec_QueryOptionExtensibility">Query Option Extensibility</a></h2>
 
 <p class=MsoNormal>Query options within the request URL can control how a
@@ -692,7 +692,7 @@ content not specifically defined in the version of the payload specified by the
 <code>OData-Version</code><span
 class=Hyperlink1><code> </code></span>header.</p>
 
-<h2><a name="sec_ActionFunctionExtensibility"></a><a name="_Toc477876559">6.3 </a><a
+<h2><a name="sec_ActionFunctionExtensibility"></a><a
 href="#sec_ActionFunctionExtensibility">Action/Function Extensibility</a></h2>
 
 <p class=MsoNormal><a href="#sec_Actions">Actions</a><span class=MsoHyperlink> </span>and
@@ -713,7 +713,7 @@ reserved for the use of this specification.</p>
 <p class=MsoNormal>An OData service MUST fail any request that contains actions
 or functions that it does not understand.</p>
 
-<h2><a name="sec_VocabularyExtensibility"></a><a name="_Toc477876560">6.4 </a><a
+<h2><a name="sec_VocabularyExtensibility"></a><a
 href="#sec_VocabularyExtensibility">Vocabulary Extensibility</a></h2>
 
 <p class=MsoNormal>The set of <a href="#sec_Annotations">annotations</a>
@@ -755,7 +755,7 @@ MUST NOT begin with <code>OData</code>. Custom headers SHOULD be
 optional when making requests to the service. A service MUST NOT require the
 client to understand custom headers to accurately interpret the response.</p>
 
-<h2><a name="sec_FormatExtensibility"></a><a name="_Toc477876562">6.6 </a><a
+<h2><a name="sec_FormatExtensibility"></a><a
 href="#sec_FormatExtensibility">Format Extensibility</a></h2>
 
 <p class=MsoNormal>An OData service MUST support <a href="#ODataJSONRef"><b>[OData-JSON]</b></a>
@@ -847,7 +847,7 @@ in order to correctly interpret the payload.</p>
 <p class=MsoNormal>See <a href="#ODataJSONRef"><b>[OData-JSON]</b></a> for
 format-specific details about format parameters within the <code>Content-Type</code> header.</p>
 
-<h3><a name="sec_HeaderContentEncoding"></a><a name="_Toc477876567">8.1.2 </a><a
+<h3><a name="sec_HeaderContentEncoding"></a><a
 href="#sec_HeaderContentEncoding">Header <code>Content-Encoding</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, the
@@ -887,7 +887,7 @@ specifies the language for that individual request or response. Individual
 requests or responses that don’t include the <code>Content-Language</code>
 header inherit the language of the overall batch request or response.</p>
 
-<h3><a name="sec_HeaderContentLength"></a><a name="_Toc477876569">8.1.4 </a><a
+<h3><a name="sec_HeaderContentLength"></a><a
 href="#sec_HeaderContentLength">Header <code>Content-Length</code></a></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
@@ -1199,7 +1199,6 @@ href="#sec_HeaderVary"><code>Vary</code></a>
 headers.</p>
 
 <h4><a name="sec_Preferenceallowentityreferencesodata"></a><a
-name="_Toc477876580">8.2.8.1 </a><a
 href="#sec_Preferenceallowentityreferencesodata">Preference <code>allow-entityreferences</code> (<code>odata.allow-entityreferences</code>)</a></h4>
 
 <p class=MsoNormal>The <code>allow-entityreferences</code>
@@ -1369,7 +1368,6 @@ in the same request, the value of the <span style='font-family:"Courier New";
 color:black;background:white'>callback</span> preference SHOULD be used.</p>
 
 <h4><a name="sec_Preferencecontinueonerrorodatacontin"></a><a
-name="_Toc477876582">8.2.8.3 </a><a
 href="#sec_Preferencecontinueonerrorodatacontin">Preference <code>continue-on-error</code> (<code>odata.continue-on-error</code>)</a></h4>
 
 <p class=MsoNormal>The <code>continue-on-error</code>
@@ -1408,7 +1406,6 @@ color:black;background:white'>odata.continue-on-error</span> for compatibility
 with OData 4.0 services.</p>
 
 <h4><a name="sec_Preferenceincludeannotationsodatainc"></a><a
-name="_Toc477876583">8.2.8.4 </a><a
 href="#sec_Preferenceincludeannotationsodatainc">Preference <code>include-annotations</code> (<code>odata.include-annotations</code>)</a></h4>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <code>include-annotations</code> preference in a
@@ -1786,7 +1783,7 @@ for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier N
 color:black;background:white'>odata.</span><code>track-changes</code>
 for compatibility with OData 4.0 services.</p>
 
-<h4><a name="sec_Preferencewait"></a><a name="_Toc477876589">8.2.8.10 </a><a
+<h4><a name="sec_Preferencewait"></a><a
 href="#sec_Preferencewait">Preference <code>wait</code></a></h4>
 
 <p class=MsoNormal>The <code>wait</code> preference, as defined
@@ -2155,7 +2152,7 @@ href="#sec_ResponseCode424FailedDependency">Response Code <code>424 Failed Depen
 that a request was not performed due to a failed dependency; for example, a
 request within a batch that depended upon a request that failed.</p>
 
-<h2><a name="sec_ServerErrorResponses"></a><a name="_Toc477876610">9.3 </a><a
+<h2><a name="sec_ServerErrorResponses"></a><a
 href="#sec_ServerErrorResponses">Server Error Responses</a></h2>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a><span
@@ -2307,7 +2304,7 @@ href="#ABNF"><b>[OData-ABNF]</b></a>. Note that the syntax of the context URL
 is independent of whatever URL conventions the service uses for addressing
 individual entities.</p>
 
-<h2><a name="sec_ServiceDocument"></a><a name="_Toc477876614">10.1 </a><a
+<h2><a name="sec_ServiceDocument"></a><a
 href="#sec_ServiceDocument">Service Document</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2331,7 +2328,7 @@ style='color:black'>http://host/service/$metadata</span></p>
 
 </div>
 
-<h2><a name="sec_CollectionofEntities"></a><a name="_Toc477876615">10.2 </a><a
+<h2><a name="sec_CollectionofEntities"></a><a
 href="#sec_CollectionofEntities">Collection of Entities</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2384,7 +2381,7 @@ action with no entity set path, a function import or action import with no
 specified entity set, or a navigation property with no navigation property
 binding, the context URL specifies the type of the returned entity collection. </p>
 
-<h2><a name="sec_Entity"></a><a name="_Toc477876616">10.3 </a><a
+<h2><a name="sec_Entity"></a><a
 href="#sec_Entity">Entity</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template: </p>
@@ -2436,7 +2433,7 @@ with no entity set path, a function import or action import with no specified
 entity set, or a navigation property with no navigation property binding, the
 context URL specifies the type of the returned entity. </p>
 
-<h2><a name="sec_Singleton"></a><a name="_Toc477876617">10.4 </a><a
+<h2><a name="sec_Singleton"></a><a
 href="#sec_Singleton">Singleton</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2460,7 +2457,7 @@ style='color:black'>http://host/service/$metadata#<code>MainSupplier</code></spa
 
 </div>
 
-<h2><a name="sec_CollectionofDerivedEntities"></a><a name="_Toc477876618">10.5 </a><a
+<h2><a name="sec_CollectionofDerivedEntities"></a><a
 href="#sec_CollectionofDerivedEntities">Collection of Derived Entities</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2485,7 +2482,7 @@ style='color:black'>http://host/service/$metadata#Customers/Model.VipCustomer</s
 
 </div>
 
-<h2><a name="sec_DerivedEntity"></a><a name="_Toc477876619">10.6 </a><a
+<h2><a name="sec_DerivedEntity"></a><a
 href="#sec_DerivedEntity">Derived Entity</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2570,7 +2567,7 @@ style='color:black'>http://host/service/$metadata#Customers(Address,Orders)</spa
 
 </div>
 
-<h2><a name="sec_ProjectedEntity"></a><a name="_Toc477876621">10.8 </a><a
+<h2><a name="sec_ProjectedEntity"></a><a
 href="#sec_ProjectedEntity">Projected Entity</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL templates:</p>
@@ -2713,7 +2710,7 @@ style='color:black'>http://host/service/$metadata<br>
 
 </div>
 
-<h2><a name="sec_ExpandedEntity"></a><a name="_Toc477876623">10.10 </a><a
+<h2><a name="sec_ExpandedEntity"></a><a
 href="#sec_ExpandedEntity">Expanded Entity</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2791,7 +2788,7 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#Collectio
 
 </div>
 
-<h2><a name="sec_EntityReference"></a><a name="_Toc477876625">10.12 </a><a
+<h2><a name="sec_EntityReference"></a><a
 href="#sec_EntityReference">Entity Reference</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2816,7 +2813,7 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#$ref</spa
 
 </div>
 
-<h2><a name="sec_PropertyValue"></a><a name="_Toc477876626">10.13 </a><a
+<h2><a name="sec_PropertyValue"></a><a
 href="#sec_PropertyValue">Property Value</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL templates:</p>
@@ -2851,7 +2848,6 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#Customers
 </div>
 
 <h2><a name="sec_CollectionofComplexorPrimitiveTypes"></a><a
-name="_Toc477876627">10.14 </a><a
 href="#sec_CollectionofComplexorPrimitiveTypes">Collection of Complex or
 Primitive Types</a></h2>
 
@@ -2878,7 +2874,7 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#Collectio
 
 </div>
 
-<h2><a name="sec_ComplexorPrimitiveType"></a><a name="_Toc477876628">10.15 </a><a
+<h2><a name="sec_ComplexorPrimitiveType"></a><a
 href="#sec_ComplexorPrimitiveType">Complex or Primitive Type</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -2904,7 +2900,7 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#Edm.Strin
 
 </div>
 
-<h2><a name="sec_OperationResult"></a><a name="_Toc477876629">10.16 </a><a
+<h2><a name="sec_OperationResult"></a><a
 href="#sec_OperationResult">Operation Result</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL templates:</p>
@@ -2941,7 +2937,7 @@ style='color:black'>http://host/service/$metadata#Customers</span></p>
 
 </div>
 
-<h2><a name="sec_DeltaPayloadResponse"></a><a name="_Toc477876630">10.17 </a><a
+<h2><a name="sec_DeltaPayloadResponse"></a><a
 href="#sec_DeltaPayloadResponse">Delta Payload Response</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -3001,7 +2997,7 @@ entities, new links, and deleted links. They are identified by the corresponding
 context URL fragment. <code>{entity-set}</code> corresponds to
 the set of the deleted entity, or source entity for an added or deleted link.</p>
 
-<h2><a name="sec_allResponse"></a><a name="_Toc477876632">10.19 </a><a
+<h2><a name="sec_allResponse"></a><a
 href="#sec_allResponse">$all Response</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -3012,7 +3008,7 @@ href="#sec_allResponse">$all Response</a></h2>
 use the built-in abstract entity type. Each single entity in such a response
 has its individual context URL that identifies the entity set or singleton.</p>
 
-<h2><a name="sec_crossjoinResponse"></a><a name="_Toc477876633">10.20 </a><a
+<h2><a name="sec_crossjoinResponse"></a><a
 href="#sec_crossjoinResponse">$crossjoin Response</a></h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
@@ -3178,7 +3174,7 @@ style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nb
 of a Collection</a></p>
 
 <h2><a name="sec_MetadataRequests"></a><a name="_Ref484615108"></a><a
-name="_Ref484615099"></a><a name="_Toc477876635">11.1 </a><a
+name="_Ref484615099"></a><a
 href="#sec_MetadataRequests">Metadata Requests</a></h2>
 
 <p class=MsoNormal>An OData service is a self-describing service that exposes
@@ -3678,7 +3674,7 @@ style='color:black'>GET http://host/service.svc/Customers?$expand=Photo</span></
 
 </div>
 
-<h5><a name="sec_ExpandOptions"></a><a name="_Toc477876647">11.2.5.2.1 </a><a
+<h5><a name="sec_ExpandOptions"></a><a
 href="#sec_ExpandOptions">Expand Options</a></h5>
 
 <p class=MsoNormal style='page-break-after:avoid'>The set of expanded entities
@@ -3821,7 +3817,7 @@ style='color:black'>                  ;<span style='background:#D9D9D9'>$select=
 
 </div>
 
-<h3><a name="sec_QueryingCollections"></a><a name="_Toc477876650">11.2.6 </a><a
+<h3><a name="sec_QueryingCollections"></a><a
 href="#sec_QueryingCollections">Querying Collections</a></h3>
 
 <p class=MsoNormal>OData services support querying collections of entities,
@@ -5064,7 +5060,7 @@ style='color:black'>http://host/service/Suppliers(MainSupplier)/Addresses/0</spa
 
 </div>
 
-<h3><a name="sec_RequestingRelatedEntities"></a><a name="_Toc477876662">11.2.7 </a><a
+<h3><a name="sec_RequestingRelatedEntities"></a><a
 href="#sec_RequestingRelatedEntities">Requesting Related Entities</a></h3>
 
 <p class=MsoNormal>To request related entities according to a particular
@@ -5196,7 +5192,6 @@ style='color:black'>                           &amp;$expand=Orders</span></p>
 </div>
 
 <h3><a name="sec_RequestingtheNumberofItemsinaCollect"></a><a
-name="_Toc477876665">11.2.10 </a><a
 href="#sec_RequestingtheNumberofItemsinaCollect">Requesting the Number of Items
 in a Collection</a></h3>
 
@@ -5300,7 +5295,7 @@ style='color:black'>GET http://host/service/Categories?<br>
 
 </div>
 
-<h3><a name="sec_SystemQueryOptionformat"></a><a name="_Toc477876666">11.2.11 </a><a
+<h3><a name="sec_SystemQueryOptionformat"></a><a
 href="#sec_SystemQueryOptionformat">System Query Option <code>$format</code></a></h3>
 
 <p class=MsoNormal>The <code>$format</code> system query option
@@ -5506,7 +5501,7 @@ projection to limit the entities returned to those that have changed within the
 selected fields, but the client MUST be prepared to receive entities returned
 whether or not the field that changed was specified in the projection.</p>
 
-<h3><a name="sec_UsingDeltaLinks"></a><a name="_Toc477876670">11.3.2 </a><a
+<h3><a name="sec_UsingDeltaLinks"></a><a
 href="#sec_UsingDeltaLinks">Using Delta Links</a></h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The client
@@ -5676,7 +5671,6 @@ style='color:black;background:white'> for literal values that are not stated in
 the time zone of the normalized values.</span></p>
 
 <h4><a name="sec_HandlingofPropertiesNotAdvertisedinM"></a><a
-name="_Toc477876675">11.4.1.3 </a><a
 href="#sec_HandlingofPropertiesNotAdvertisedinM">Handling of Properties Not
 Advertised in Metadata</a></h4>
 
@@ -6443,7 +6437,6 @@ href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a> and contain an empty body.</p>
 
 <h4><a name="sec_ChangetheReferenceinaSingleValuedNav"></a><a
-name="_Toc477876688">11.4.6.3 </a><a
 href="#sec_ChangetheReferenceinaSingleValuedNav">Change the Reference in a
 Single-Valued Navigation Property</a></h4>
 
@@ -6467,7 +6460,6 @@ definition of an entity type, it cannot be changed and the request MUST fail
 with <a href="#sec_ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a> or an other appropriate error.</p>
 
 <h4><a name="sec_ReplaceallReferencesinaCollectionval"></a><a
-name="_Toc477876689">11.4.6.4 </a><a
 href="#sec_ReplaceallReferencesinaCollectionval">Replace all References in a
 Collection-valued Navigation Property</a></h4>
 
@@ -6481,7 +6473,7 @@ request to the navigation property’s reference resource.</p>
 collection-valued navigation property’s reference resource removes all related
 references from the collection.<a name="_Managing_Media_Entities"></a></p>
 
-<h3><a name="sec_ManagingMediaEntities"></a><a name="_Toc477876690">11.4.7 </a><a
+<h3><a name="sec_ManagingMediaEntities"></a><a
 href="#sec_ManagingMediaEntities">Managing Media Entities</a></h3>
 
 <p class=MsoNormal>A <a href="#sec_RequestingtheMediaStreamofaMediaEnti">media
@@ -6534,8 +6526,7 @@ preference <a href="#sec_Preferencereturnrepresentationandret"><code>return=repr
 style='color:black'>, in which case the response body MUST contain the updated
 media entity.</span></p>
 
-<h4><a name="sec_DeleteaMediaEntity"></a><a name="_Ref484615925"></a><a
-name="_Toc477876693">11.4.7.3 </a><a href="#sec_DeleteaMediaEntity">Delete a
+<h4><a name="sec_DeleteaMediaEntity"></a><a name="_Ref484615925"></a><a href="#sec_DeleteaMediaEntity">Delete a
 Media Entity</a></h4>
 
 <p class=MsoNormal>A successful <code>DELETE</code>
@@ -6603,7 +6594,7 @@ null and results in an error if the property is non-nullable. </p>
 results in <a href="#sec_ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 
 <h3><a name="sec_ManagingValuesandPropertiesDirectly"></a><a
-name="_Ref484616008"></a><a name="_Toc477876697">11.4.9 </a><a
+name="_Ref484616008"></a><a
 href="#sec_ManagingValuesandPropertiesDirectly">Managing Values and Properties
 Directly</a></h3>
 
@@ -6694,7 +6685,7 @@ header</a> with a value of <a href="#sec_Preferencereturnrepresentationandret"><
 updatable.</p>
 
 <h4><a name="sec_UpdateaCollectionProperty"></a><a name="_Ref484617922"></a><a
-name="_Ref484616032"></a><a name="_Toc477876701">11.4.9.4 </a><a
+name="_Ref484616032"></a><a
 href="#sec_UpdateaCollectionProperty">Update a Collection Property</a></h4>
 
 <p class=MsoNormal>A successful <code>PUT</code> request to the
@@ -6731,7 +6722,7 @@ header</a> with a value of <a href="#sec_Preferencereturnrepresentationandret"><
 updatable.</p>
 
 <h3><a name="sec_ManagingMembersofanOrderedCollection"></a><a
-name="_Ref484616038"></a><a name="_Toc477876702">11.4.10 </a><a
+name="_Ref484616038"></a><a
 href="#sec_ManagingMembersofanOrderedCollection">Managing Members of an Ordered
 Collection</a></h3>
 
@@ -6747,8 +6738,7 @@ of the collection, with -1 representing the last item in the collection. </p>
 <p class=MsoNormal>Entities can be updated using their edit URL and SHOULD NOT
 be addressed using an index.</p>
 
-<h3><a name="sec_PositionalInserts"></a><a name="_Ref484616041"></a><a
-name="_Toc477876703">11.4.11 </a><a href="#sec_PositionalInserts">Positional
+<h3><a name="sec_PositionalInserts"></a><a name="_Ref484616041"></a><a href="#sec_PositionalInserts">Positional
 Inserts</a></h3>
 
 <p class=MsoNormal>Collections of entity, complex, or primitive types annotated
@@ -7827,7 +7817,6 @@ the request identifier prefixed with a <code>$</code> character
 as the unquoted value of the <code>If-Match</code> or <code>If-None-Match</code> header.</p>
 
 <h3><a name="sec_ReferencingValuesfromResponseBodies"></a><a
-name="_Toc477876723">11.7.6 </a><a
 href="#sec_ReferencingValuesfromResponseBodies">Referencing Values from
 Response Bodies</a></h3>
 
@@ -7844,7 +7833,7 @@ or other literals defined according to the <a href="#sec_HeaderODataVersion"><co
 specified in the request), then the predefined literal is used. This collision
 can be avoided by e.g. using only numeric request identifiers.</p>
 
-<h3><a name="sec_MultipartBatchFormat"></a><a name="_Toc477876724">11.7.7 </a><a
+<h3><a name="sec_MultipartBatchFormat"></a><a
 href="#sec_MultipartBatchFormat">Multipart Batch Format</a></h3>
 
 <p class=MsoNormal>The multipart batch format is represented as a Multipart
@@ -8137,7 +8126,7 @@ Content-Length: ### <br>
 
 </div>
 
-<h4><a name="sec_ReferencinganETag"></a><a name="_Toc477876727">11.7.7.3 </a><a
+<h4><a name="sec_ReferencinganETag"></a><a
 href="#sec_ReferencinganETag">Referencing an ETag</a></h4>
 
 <p class=MsoCaption>Example 103: a batch request that contains the following
@@ -8228,7 +8217,7 @@ the service MUST include the <code>Content-ID</code> header with
 the request identifier in the corresponding response so clients can correlate
 requests and responses.</p>
 
-<h4><a name="sec_MultipartBatchResponse"></a><a name="_Toc477876729">11.7.7.5 </a><a
+<h4><a name="sec_MultipartBatchResponse"></a><a
 href="#sec_MultipartBatchResponse">Multipart Batch Response</a></h4>
 
 <p class=MsoNormal>A multipart response to a batch request MUST contain a <code>Content-Type</code> header with value <code>multipart/mixed.</code></p>
@@ -8534,7 +8523,7 @@ Considerations) and for the HTTP <code>PATCH</code> method <a
 href="#RFC5789"><b>[RFC5789]</b></a> (5. Security Considerations) as starting
 points.</p>
 
-<h2><a name="sec_Authentication"></a><a name="_Toc477876732">12.1 </a><a
+<h2><a name="sec_Authentication"></a><a
 href="#sec_Authentication">Authentication</a></h2>
 
 <p class=MsoNormal>OData Services requiring authentication SHOULD consider supporting
@@ -9318,7 +9307,6 @@ class=Keyword>$select</span> and <span class=Keyword>$expand</span> on data
 modification requests</p>
 
 <h3><a name="sec_OData401IntermediateConformanceLevel"></a><a
-name="_Toc477876740">13.2.2 </a><a
 href="#sec_OData401IntermediateConformanceLevel">OData 4.01 Intermediate
 Conformance Level</a></h3>
 

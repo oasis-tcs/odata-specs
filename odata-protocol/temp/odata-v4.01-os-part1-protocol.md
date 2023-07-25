@@ -32,14 +32,14 @@ implementing this specification, and any offers of patent licensing
 terms, please refer to the Intellectual Property Rights section of the
 TC's web page (<https://www.oasis-open.org/committees/odata/ipr.php>).
 
-## []{#sec_Terminology}[1.1]{#_Toc477876542} [Terminology](#sec_Terminology)
+## []{#sec_Terminology}[Terminology](#sec_Terminology)
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
 document are to be interpreted as described in
 [**\[RFC2119\]**](#RFC2119).
 
-## []{#sec_NormativeReferences}[1.2]{#_Toc477876543} [Normative References](#sec_NormativeReferences)
+## []{#sec_NormativeReferences}[Normative References](#sec_NormativeReferences)
 
 [\[[OData-ABNF]{#ABNF}\]]{.Refterm}                 *OData ABNF
 Construction Rules Version 4.01*.\
@@ -123,7 +123,7 @@ Scheme\", RFC 7617, September 2015. ]{style="color:#333333;
 background:white"}[[https://tools.ietf.org/html/]{style="background:white"}rfc7617](https://tools.ietf.org/html/rfc7617)[.
  ]{.MsoHyperlink}
 
-## []{#sec_TypographicalConventions}[1.3]{#_Toc477876544} [Typographical Conventions](#sec_TypographicalConventions)
+## []{#sec_TypographicalConventions}[Typographical Conventions](#sec_TypographicalConventions)
 
 Keywords defined by this specification use this `monospaced` font.
 
@@ -442,7 +442,7 @@ ambiguity.
 Versioning enables clients and services to evolve independently. OData
 defines semantics for both protocol and data model versioning.
 
-## []{#sec_ProtocolVersioning}[5.1]{#_Toc477876554} [Protocol Versioning](#sec_ProtocolVersioning)
+## []{#sec_ProtocolVersioning}[Protocol Versioning](#sec_ProtocolVersioning)
 
 OData requests and responses are versioned according to the
 [`OData-Version`](#sec_HeaderODataVersion) header.
@@ -557,7 +557,7 @@ The OData protocol supports both user- and version-driven extensibility
 through a combination of versioning, convention, and explicit extension
 points.
 
-## []{#sec_QueryOptionExtensibility}[6.1]{#_Toc477876557} [Query Option Extensibility](#sec_QueryOptionExtensibility)
+## []{#sec_QueryOptionExtensibility}[Query Option Extensibility](#sec_QueryOptionExtensibility)
 
 Query options within the request URL can control how a particular
 request is processed by the service.
@@ -594,7 +594,7 @@ clients and services MUST be prepared to handle or safely ignore any
 content not specifically defined in the version of the payload specified
 by the `OData-Version`[` `]{.Hyperlink1}header.
 
-## []{#sec_ActionFunctionExtensibility}[6.3]{#_Toc477876559} [Action/Function Extensibility](#sec_ActionFunctionExtensibility)
+## []{#sec_ActionFunctionExtensibility}[Action/Function Extensibility](#sec_ActionFunctionExtensibility)
 
 [Actions](#sec_Actions)[ ]{.MsoHyperlink}and
 [Functions](#sec_Functions)[ ]{.MsoHyperlink}extend the set of
@@ -613,7 +613,7 @@ of this specification.
 An OData service MUST fail any request that contains actions or
 functions that it does not understand.
 
-## []{#sec_VocabularyExtensibility}[6.4]{#_Toc477876560} [Vocabulary Extensibility](#sec_VocabularyExtensibility)
+## []{#sec_VocabularyExtensibility}[Vocabulary Extensibility](#sec_VocabularyExtensibility)
 
 The set of [annotations](#sec_Annotations) defined within a schema
 comprise a *vocabulary*. Shared vocabularies provide a powerful
@@ -654,7 +654,7 @@ begin with `OData`. Custom headers SHOULD be optional when making
 requests to the service. A service MUST NOT require the client to
 understand custom headers to accurately interpret the response.
 
-## []{#sec_FormatExtensibility}[6.6]{#_Toc477876562} [Format Extensibility](#sec_FormatExtensibility)
+## []{#sec_FormatExtensibility}[Format Extensibility](#sec_FormatExtensibility)
 
 An OData service MUST support [**\[OData-JSON\]**](#ODataJSONRef) and
 MAY support additional formats for both request and response bodies.
@@ -734,7 +734,7 @@ format parameters in order to correctly interpret the payload.
 See [**\[OData-JSON\]**](#ODataJSONRef) for format-specific details
 about format parameters within the `Content-Type` header.
 
-### []{#sec_HeaderContentEncoding}[8.1.2]{#_Toc477876567} [Header `Content-Encoding`](#sec_HeaderContentEncoding)
+### []{#sec_HeaderContentEncoding}[Header `Content-Encoding`](#sec_HeaderContentEncoding)
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), the `Content-Encoding`
 header field is used as a modifier to the media-type (as indicated in
@@ -772,7 +772,7 @@ individual request or response. Individual requests or responses that
 don't include the `Content-Language` header inherit the language of the
 overall batch request or response.
 
-### []{#sec_HeaderContentLength}[8.1.4]{#_Toc477876569} [Header `Content-Length`](#sec_HeaderContentLength)
+### []{#sec_HeaderContentLength}[Header `Content-Length`](#sec_HeaderContentLength)
 
 As defined in
 [**\[RFC7230\]**](#HTTPMessage)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
@@ -1058,7 +1058,7 @@ In response to a request containing a `Prefer` header, the service MAY
 return the [`Preference-Applied`](#sec_HeaderPreferenceApplied) and
 [`Vary`](#sec_HeaderVary) headers.
 
-#### []{#sec_Preferenceallowentityreferencesodata}[8.2.8.1]{#_Toc477876580} [Preference `allow-entityreferences` (`odata.allow-entityreferences`)](#sec_Preferenceallowentityreferencesodata)
+#### []{#sec_Preferenceallowentityreferencesodata}[Preference `allow-entityreferences` (`odata.allow-entityreferences`)](#sec_Preferenceallowentityreferencesodata)
 
 The `allow-entityreferences` preference indicates that the service is
 allowed to return entity references in place of entities that have
@@ -1215,7 +1215,7 @@ color:black;background:white"} preferences are specified in the same
 request, the value of the [callback]{style="font-family:\"Courier New\";
 color:black;background:white"} preference SHOULD be used.
 
-#### []{#sec_Preferencecontinueonerrorodatacontin}[8.2.8.3]{#_Toc477876582} [Preference `continue-on-error` (`odata.continue-on-error`)](#sec_Preferencecontinueonerrorodatacontin)
+#### []{#sec_Preferencecontinueonerrorodatacontin}[Preference `continue-on-error` (`odata.continue-on-error`)](#sec_Preferencecontinueonerrorodatacontin)
 
 The `continue-on-error` preference on a [batch
 request](#sec_BatchRequests) is used to request whether, upon
@@ -1255,7 +1255,7 @@ for OData 4.0 clients and clients SHOULD use
 color:black;background:white"} for compatibility with OData 4.0
 services.
 
-#### []{#sec_Preferenceincludeannotationsodatainc}[8.2.8.4]{#_Toc477876583} [Preference `include-annotations` (`odata.include-annotations`)](#sec_Preferenceincludeannotationsodatainc)
+#### []{#sec_Preferenceincludeannotationsodatainc}[Preference `include-annotations` (`odata.include-annotations`)](#sec_Preferenceincludeannotationsodatainc)
 
 The `include-annotations` preference in a request for
 [data](#sec_RequestingData) or [metadata](#sec_MetadataDocumentRequest)
@@ -1589,7 +1589,7 @@ clients SHOULD use [odata.]{style="font-family:\"Courier New\";
 color:black;background:white"}`track-changes` for compatibility with
 OData 4.0 services.
 
-#### []{#sec_Preferencewait}[8.2.8.10]{#_Toc477876589} [Preference `wait`](#sec_Preferencewait)
+#### []{#sec_Preferencewait}[Preference `wait`](#sec_Preferencewait)
 
 The `wait` preference, as defined in [**\[RFC7240\]**](#HTTPPREFER), is
 used to establish an upper bound on the length of time, in seconds, the
@@ -1906,7 +1906,7 @@ the request.
 to a failed dependency; for example, a request within a batch that
 depended upon a request that failed.
 
-## []{#sec_ServerErrorResponses}[9.3]{#_Toc477876610} [Server Error Responses](#sec_ServerErrorResponses)
+## []{#sec_ServerErrorResponses}[Server Error Responses](#sec_ServerErrorResponses)
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic)[, ]{.MsoHyperlink}error
 codes in the `5xx` range indicate service errors[.]{.MsoHyperlink}
@@ -2028,7 +2028,7 @@ The full grammar for the context URL is defined in
 independent of whatever URL conventions the service uses for addressing
 individual entities.
 
-## []{#sec_ServiceDocument}[10.1]{#_Toc477876614} [Service Document](#sec_ServiceDocument)
+## []{#sec_ServiceDocument}[Service Document](#sec_ServiceDocument)
 
 Context URL template:
 
@@ -2047,7 +2047,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata]{style="color:black"}
 :::
 
-## []{#sec_CollectionofEntities}[10.2]{#_Toc477876615} [Collection of Entities](#sec_CollectionofEntities)
+## []{#sec_CollectionofEntities}[Collection of Entities](#sec_CollectionofEntities)
 
 Context URL template:
 
@@ -2089,7 +2089,7 @@ import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL specifies
 the type of the returned entity collection.
 
-## []{#sec_Entity}[10.3]{#_Toc477876616} [Entity](#sec_Entity)
+## []{#sec_Entity}[Entity](#sec_Entity)
 
 Context URL template:
 
@@ -2131,7 +2131,7 @@ import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL specifies
 the type of the returned entity.
 
-## []{#sec_Singleton}[10.4]{#_Toc477876617} [Singleton](#sec_Singleton)
+## []{#sec_Singleton}[Singleton](#sec_Singleton)
 
 Context URL template:
 
@@ -2150,7 +2150,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#`MainSupplier`]{style="color:black"}
 :::
 
-## []{#sec_CollectionofDerivedEntities}[10.5]{#_Toc477876618} [Collection of Derived Entities](#sec_CollectionofDerivedEntities)
+## []{#sec_CollectionofDerivedEntities}[Collection of Derived Entities](#sec_CollectionofDerivedEntities)
 
 Context URL template:
 
@@ -2169,7 +2169,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers/Model.VipCustomer]{style="color:black"}
 :::
 
-## []{#sec_DerivedEntity}[10.6]{#_Toc477876619} [Derived Entity](#sec_DerivedEntity)
+## []{#sec_DerivedEntity}[Derived Entity](#sec_DerivedEntity)
 
 Context URL template:
 
@@ -2241,7 +2241,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers(Address,Orders)]{style="color:black"}
 :::
 
-## []{#sec_ProjectedEntity}[10.8]{#_Toc477876621} [Projected Entity](#sec_ProjectedEntity)
+## []{#sec_ProjectedEntity}[Projected Entity](#sec_ProjectedEntity)
 
 Context URL templates:
 
@@ -2367,7 +2367,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
                               DirectReports+(FirstName,LastName))]{style="color:black"}
 :::
 
-## []{#sec_ExpandedEntity}[10.10]{#_Toc477876623} [Expanded Entity](#sec_ExpandedEntity)
+## []{#sec_ExpandedEntity}[Expanded Entity](#sec_ExpandedEntity)
 
 Context URL template:
 
@@ -2436,7 +2436,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/\$metadata#Collection(\$ref)]{style="color:black"}]{.Datatype}
 :::
 
-## []{#sec_EntityReference}[10.12]{#_Toc477876625} [Entity Reference](#sec_EntityReference)
+## []{#sec_EntityReference}[Entity Reference](#sec_EntityReference)
 
 Context URL template:
 
@@ -2456,7 +2456,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/\$metadata#\$ref]{style="color:black"}]{.Datatype}
 :::
 
-## []{#sec_PropertyValue}[10.13]{#_Toc477876626} [Property Value](#sec_PropertyValue)
+## []{#sec_PropertyValue}[Property Value](#sec_PropertyValue)
 
 Context URL templates:
 
@@ -2485,7 +2485,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/\$metadata#Customers(1)/Addresses]{style="color:black"}]{.Datatype}
 :::
 
-## []{#sec_CollectionofComplexorPrimitiveTypes}[10.14]{#_Toc477876627} [Collection of Complex or Primitive Types](#sec_CollectionofComplexorPrimitiveTypes)
+## []{#sec_CollectionofComplexorPrimitiveTypes}[Collection of Complex or Primitive Types](#sec_CollectionofComplexorPrimitiveTypes)
 
 Context URL template:
 
@@ -2506,7 +2506,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/\$metadata#Collection(Edm.String)]{style="color:black"}]{.Datatype}
 :::
 
-## []{#sec_ComplexorPrimitiveType}[10.15]{#_Toc477876628} [Complex or Primitive Type](#sec_ComplexorPrimitiveType)
+## []{#sec_ComplexorPrimitiveType}[Complex or Primitive Type](#sec_ComplexorPrimitiveType)
 
 Context URL template:
 
@@ -2526,7 +2526,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/\$metadata#Edm.String]{style="color:black"}]{.Datatype}
 :::
 
-## []{#sec_OperationResult}[10.16]{#_Toc477876629} [Operation Result](#sec_OperationResult)
+## []{#sec_OperationResult}[Operation Result](#sec_OperationResult)
 
 Context URL templates:
 
@@ -2558,7 +2558,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers]{style="color:black"}
 :::
 
-## []{#sec_DeltaPayloadResponse}[10.17]{#_Toc477876630} [Delta Payload Response](#sec_DeltaPayloadResponse)
+## []{#sec_DeltaPayloadResponse}[Delta Payload Response](#sec_DeltaPayloadResponse)
 
 Context URL template:
 
@@ -2608,7 +2608,7 @@ links, and deleted links. They are identified by the corresponding
 context URL fragment. `{entity-set}` corresponds to the set of the
 deleted entity, or source entity for an added or deleted link.
 
-## []{#sec_allResponse}[10.19]{#_Toc477876632} [\$all Response](#sec_allResponse)
+## []{#sec_allResponse}[\$all Response](#sec_allResponse)
 
 Context URL template:
 
@@ -2619,7 +2619,7 @@ Responses to requests to the virtual collection `$all` (see
 type. Each single entity in such a response has its individual context
 URL that identifies the entity set or singleton.
 
-## []{#sec_crossjoinResponse}[10.20]{#_Toc477876633} [\$crossjoin Response](#sec_crossjoinResponse)
+## []{#sec_crossjoinResponse}[\$crossjoin Response](#sec_crossjoinResponse)
 
 Context URL template:
 
@@ -2749,7 +2749,7 @@ Collection](#sec_ManagingMembersofanOrderedCollection)
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.14
 [Delete Members of a Collection](#sec_DeleteMembersofaCollection)
 
-## []{#sec_MetadataRequests}[]{#_Ref484615108}[]{#_Ref484615099}[11.1]{#_Toc477876635} [Metadata Requests](#sec_MetadataRequests)
+## []{#sec_MetadataRequests}[]{#_Ref484615108}[]{#_Ref484615099}[Metadata Requests](#sec_MetadataRequests)
 
 An OData service is a self-describing service that exposes metadata
 defining the entity sets, singletons, relationships, entity types, and
@@ -3181,7 +3181,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service.svc/Customers?\$expand=Photo]{style="color:black"}
 :::
 
-##### []{#sec_ExpandOptions}[11.2.5.2.1]{#_Toc477876647} [Expand Options](#sec_ExpandOptions)
+##### []{#sec_ExpandOptions}[Expand Options](#sec_ExpandOptions)
 
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
@@ -3301,7 +3301,7 @@ TotalPrice]{style="background:#D9D9D9"}]{style="color:black"}
 ;[\$select=Name,Price,Qty,TotalPrice)]{style="background:#D9D9D9"}]{style="color:black"}
 :::
 
-### []{#sec_QueryingCollections}[11.2.6]{#_Toc477876650} [Querying Collections](#sec_QueryingCollections)
+### []{#sec_QueryingCollections}[Querying Collections](#sec_QueryingCollections)
 
 OData services support querying collections of entities, complex type
 instances, and primitive values.
@@ -3842,7 +3842,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [[http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}]{.MsoHyperlink}]{style="color:black"}
 :::
 
-### []{#sec_RequestingRelatedEntities}[11.2.7]{#_Toc477876662} [Requesting Related Entities](#sec_RequestingRelatedEntities)
+### []{#sec_RequestingRelatedEntities}[Requesting Related Entities](#sec_RequestingRelatedEntities)
 
 To request related entities according to a particular relationship, the
 client issues a `GET` request to the source entity's request URL,
@@ -3955,7 +3955,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [                           &\$expand=Orders]{style="color:black"}
 :::
 
-### []{#sec_RequestingtheNumberofItemsinaCollect}[11.2.10]{#_Toc477876665} [Requesting the Number of Items in a Collection](#sec_RequestingtheNumberofItemsinaCollect)
+### []{#sec_RequestingtheNumberofItemsinaCollect}[Requesting the Number of Items in a Collection](#sec_RequestingtheNumberofItemsinaCollect)
 
 To request only the number of items of a collection of entities or items
 of a collection-valued property, the client issues a `GET` request with
@@ -4041,7 +4041,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 gt 1]{style="color:black"}
 :::
 
-### []{#sec_SystemQueryOptionformat}[11.2.11]{#_Toc477876666} [System Query Option `$format`](#sec_SystemQueryOptionformat)
+### []{#sec_SystemQueryOptionformat}[System Query Option `$format`](#sec_SystemQueryOptionformat)
 
 The `$format` system query option specifies the media type of the
 response.
@@ -4228,7 +4228,7 @@ within the selected fields, but the client MUST be prepared to receive
 entities returned whether or not the field that changed was specified in
 the projection.
 
-### []{#sec_UsingDeltaLinks}[11.3.2]{#_Toc477876670} [Using Delta Links](#sec_UsingDeltaLinks)
+### []{#sec_UsingDeltaLinks}[Using Delta Links](#sec_UsingDeltaLinks)
 
 The client requests changes by invoking the `GET` method on the [delta
 link](#sec_DeltaLinks). The client MUST NOT attempt to append system
@@ -4383,7 +4383,7 @@ background:white"}`month`[,
 are not stated in the time zone of the normalized
 values.]{style="color:black;background:white"}
 
-#### []{#sec_HandlingofPropertiesNotAdvertisedinM}[11.4.1.3]{#_Toc477876675} [Handling of Properties Not Advertised in Metadata](#sec_HandlingofPropertiesNotAdvertisedinM)
+#### []{#sec_HandlingofPropertiesNotAdvertisedinM}[Handling of Properties Not Advertised in Metadata](#sec_HandlingofPropertiesNotAdvertisedinM)
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -5038,7 +5038,7 @@ On successful completion, the response MUST be
 [`204 No Content`](#sec_ResponseCode204NoContent) and contain an empty
 body.
 
-#### []{#sec_ChangetheReferenceinaSingleValuedNav}[11.4.6.3]{#_Toc477876688} [Change the Reference in a Single-Valued Navigation Property](#sec_ChangetheReferenceinaSingleValuedNav)
+#### []{#sec_ChangetheReferenceinaSingleValuedNav}[Change the Reference in a Single-Valued Navigation Property](#sec_ChangetheReferenceinaSingleValuedNav)
 
 A successful `PUT` request to a single-valued navigation property's
 reference resource changes the related entity. The request body MUST
@@ -5059,7 +5059,7 @@ of an entity type, it cannot be changed and the request MUST fail with
 [`405 Method Not Allowed`](#sec_ResponseCode405MethodNotAllowed) or an
 other appropriate error.
 
-#### []{#sec_ReplaceallReferencesinaCollectionval}[11.4.6.4]{#_Toc477876689} [Replace all References in a Collection-valued Navigation Property](#sec_ReplaceallReferencesinaCollectionval)
+#### []{#sec_ReplaceallReferencesinaCollectionval}[Replace all References in a Collection-valued Navigation Property](#sec_ReplaceallReferencesinaCollectionval)
 
 A successful `PUT` request to a collection-valued navigation property's
 reference resource replaces the set of related entities. The request
@@ -5071,7 +5071,7 @@ A successful `DELETE` request to a collection-valued navigation
 property's reference resource removes all related references from the
 collection.[]{#_Managing_Media_Entities}
 
-### []{#sec_ManagingMediaEntities}[11.4.7]{#_Toc477876690} [Managing Media Entities](#sec_ManagingMediaEntities)
+### []{#sec_ManagingMediaEntities}[Managing Media Entities](#sec_ManagingMediaEntities)
 
 A [media entity](#sec_RequestingtheMediaStreamofaMediaEnti) MUST have a
 source URL that can be used to read the media stream, and MAY have a
@@ -5123,7 +5123,7 @@ preference
 in which case the response body MUST contain the updated media
 entity.]{style="color:black"}
 
-#### []{#sec_DeleteaMediaEntity}[]{#_Ref484615925}[11.4.7.3]{#_Toc477876693} [Delete a Media Entity](#sec_DeleteaMediaEntity)
+#### []{#sec_DeleteaMediaEntity}[]{#_Ref484615925}[Delete a Media Entity](#sec_DeleteaMediaEntity)
 
 A successful `DELETE` request to the entity\'s edit URL or to the edit
 URL of its media stream deletes the media entity as described in [Delete
@@ -5182,7 +5182,7 @@ property is non-nullable.
 Attempting to request a stream property whose value is null results in
 [`204 No Content`](#sec_ResponseCode204NoContent).
 
-### []{#sec_ManagingValuesandPropertiesDirectly}[]{#_Ref484616008}[11.4.9]{#_Toc477876697} [Managing Values and Properties Directly](#sec_ManagingValuesandPropertiesDirectly)
+### []{#sec_ManagingValuesandPropertiesDirectly}[]{#_Ref484616008}[Managing Values and Properties Directly](#sec_ManagingValuesandPropertiesDirectly)
 
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
@@ -5263,7 +5263,7 @@ header](#sec_Preferencereturnrepresentationandret) with a value of
 
 Services MUST return an error if the property is not updatable.
 
-#### []{#sec_UpdateaCollectionProperty}[]{#_Ref484617922}[]{#_Ref484616032}[11.4.9.4]{#_Toc477876701} [Update a Collection Property](#sec_UpdateaCollectionProperty)
+#### []{#sec_UpdateaCollectionProperty}[]{#_Ref484617922}[]{#_Ref484616032}[Update a Collection Property](#sec_UpdateaCollectionProperty)
 
 A successful `PUT` request to the edit URL of a collection property
 updates that collection. The message body MUST contain the desired new
@@ -5297,7 +5297,7 @@ header](#sec_Preferencereturnrepresentationandret) with a value of
 
 Services MUST return an error if the property is not updatable.
 
-### []{#sec_ManagingMembersofanOrderedCollection}[]{#_Ref484616038}[11.4.10]{#_Toc477876702} [Managing Members of an Ordered Collection](#sec_ManagingMembersofanOrderedCollection)
+### []{#sec_ManagingMembersofanOrderedCollection}[]{#_Ref484616038}[Managing Members of an Ordered Collection](#sec_ManagingMembersofanOrderedCollection)
 
 Collections annotated with the
 [`Core.O``rdered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -5312,7 +5312,7 @@ last item in the collection.
 Entities can be updated using their edit URL and SHOULD NOT be addressed
 using an index.
 
-### []{#sec_PositionalInserts}[]{#_Ref484616041}[11.4.11]{#_Toc477876703} [Positional Inserts](#sec_PositionalInserts)
+### []{#sec_PositionalInserts}[]{#_Ref484616041}[Positional Inserts](#sec_PositionalInserts)
 
 Collections of entity, complex, or primitive types annotated with the
 [`Core.``PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
@@ -6291,7 +6291,7 @@ The ETag for a previous operation can be referenced by using the request
 identifier prefixed with a `$` character as the unquoted value of the
 `If-Match` or `If-None-Match` header.
 
-### []{#sec_ReferencingValuesfromResponseBodies}[11.7.6]{#_Toc477876723} [Referencing Values from Response Bodies](#sec_ReferencingValuesfromResponseBodies)
+### []{#sec_ReferencingValuesfromResponseBodies}[Referencing Values from Response Bodies](#sec_ReferencingValuesfromResponseBodies)
 
 Services MAY support using values from a response body in the query part
 of the URL or in the request body of subsequent requests. Value
@@ -6306,7 +6306,7 @@ literals defined according to the
 the request), then the predefined literal is used. This collision can be
 avoided by e.g. using only numeric request identifiers.
 
-### []{#sec_MultipartBatchFormat}[11.7.7]{#_Toc477876724} [Multipart Batch Format](#sec_MultipartBatchFormat)
+### []{#sec_MultipartBatchFormat}[Multipart Batch Format](#sec_MultipartBatchFormat)
 
 The multipart batch format is represented as a Multipart Media Type
 message [**\[RFC2046\]**](#RFC2046), a standard format allowing the
@@ -6549,7 +6549,7 @@ Content-Length: \###\
 \--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
 :::
 
-#### []{#sec_ReferencinganETag}[11.7.7.3]{#_Toc477876727} [Referencing an ETag](#sec_ReferencinganETag)
+#### []{#sec_ReferencinganETag}[Referencing an ETag](#sec_ReferencinganETag)
 
 Example 103: a batch request that contains the following operations in
 the order listed:
@@ -6626,7 +6626,7 @@ specifies a request identifier, the service MUST include the
 `Content-ID` header with the request identifier in the corresponding
 response so clients can correlate requests and responses.
 
-#### []{#sec_MultipartBatchResponse}[11.7.7.5]{#_Toc477876729} [Multipart Batch Response](#sec_MultipartBatchResponse)
+#### []{#sec_MultipartBatchResponse}[Multipart Batch Response](#sec_MultipartBatchResponse)
 
 A multipart response to a batch request MUST contain a `Content-Type`
 header with value `multipart/mixed.`
@@ -6899,7 +6899,7 @@ of [**\[RFC7231\]**](#HTTPSemantic) (9. Security Considerations) and for
 the HTTP `PATCH` method [**\[RFC5789\]**](#RFC5789) (5. Security
 Considerations) as starting points.
 
-## []{#sec_Authentication}[12.1]{#_Toc477876732} [Authentication](#sec_Authentication)
+## []{#sec_Authentication}[Authentication](#sec_Authentication)
 
 OData Services requiring authentication SHOULD consider supporting basic
 authentication as defined in [**\[RFC7617\]**](#RFC7617) over HTTPS for
@@ -7453,7 +7453,7 @@ collection URL terminating in a type cast segment
 [\$select]{.Keyword} and [\$expand]{.Keyword} on data modification
 requests
 
-### []{#sec_OData401IntermediateConformanceLevel}[13.2.2]{#_Toc477876740} [OData 4.01 Intermediate Conformance Level](#sec_OData401IntermediateConformanceLevel)
+### []{#sec_OData401IntermediateConformanceLevel}[OData 4.01 Intermediate Conformance Level](#sec_OData401IntermediateConformanceLevel)
 
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
