@@ -1500,19 +1500,98 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="196-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a></h2>
 <hr />
 <h1 id="20-instance-annotations"><a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a></h1>
+<p>Annotations are an extensibility mechanism that allows services and clients to include information other than the raw data in the request or response.</p>
+<p>Annotations are name/value pairs that have an at (<code>@</code>) and a dot (<code>.</code>) as part of the name. The part after the "at" sign (<code>@</code>) is the <em>annotation identifier</em>. It consists of the namespace or alias of the schema that defines the term, followed by a dot (<code>.</code>), followed by the name of the term, optionally followed by a hash (<code>#</code>) and a qualifier. The namespace or alias MUST be defined in the metadata document, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a></p>
+<p>The annotation identifier <code>odata</code> is reserved for future extensions of the protocol and format. Instance annotations MUST have a namespace or alias that is different from <code>odata</code>.</p>
+<p>Annotations can be applied to any name/value pair in a JSON payload that represents a value of any type from the entity data model. Clients should never error due to an unexpected annotation in a JSON payload.</p>
+<p>Annotations are always expressed as name/value pairs. For entity data model constructs represented as JSON objects the annotation name/value pairs are placed within the object; for constructs represented as JSON arrays or primitives they are placed next to the annotated model construct. When annotating a payload that represents a <a href="#IndividualPropertyorOperationResponse">single primitive or collection value</a>, the annotations for the value appear next to the <code>value</code> property and are not prefixed with a property name.</p>
+<div class="example">
+<p>Example 48:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers&quot;</span><span class="fu">,</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@com.example.customer.setkind&quot;</span><span class="fu">:</span> <span class="st">&quot;VIPs&quot;</span><span class="fu">,</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@com.example.display.highlight&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CompanyName@com.example.display.style&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;order&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">},</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@com.example.display.style#simple&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;order&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="201-annotate-a-json-object"><a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a></h2>
+<p>When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair.</p>
+<p>The name always starts with the "at" sign (<code>@</code>), followed by the annotation identifier.</p>
+<p>The value MUST be an appropriate value for the annotation.</p>
 <h2 id="202-annotate-a-json-array-or-primitive"><a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a></h2>
+<p>When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair MUST be represented as a single name/value pair and placed immediately prior to the annotated name/value pair, with the exception of the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> or <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information, which can appear immediately before or after the annotated collection.</p>
+<p>The name is the same as the name of the property or name/value pair being annotated, followed by the "at" sign (<code>@</code>), followed by the annotation identifier.</p>
+<p>The value MUST be an appropriate value for the annotation.</p>
 <h2 id="203-annotate-a-primitive-value-within-a-json-array"><a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a></h2>
+<p>Individual primitive elements within a JSON array can be annotated by applying the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information to the array containing the primitive member.</p>
+<p>The control information must come with other annotations or control information immediately before or after the collection valued property. The name of the property representing the control information is the same as the name of the collection-valued property, followed by the "at" sign (<code>@</code>), followed by the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> identifier.</p>
 <hr />
 <h1 id="21-error-handling"><a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a></h1>
+<p>OData requests may return a well formed <a href="#ErrorResponse">error response</a>, an <a href="#InStreamError">in-stream error</a>, or error information <a href="#ErrorInformationinaSuccessPayload">within a success payload</a>.</p>
 <h2 id="211-error-response"><a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a></h2>
+<p>The error response MUST be a single JSON object. This object MUST have a single name/value pair named <code>error</code>. The value must be an OData error object.</p>
+<p>The OData error object MUST contain name/value pairs with the names <code>code</code> and <code>message</code>, and it MAY contain name/value pairs with the names <code>target</code>, <code>details</code>, and <code>innererror</code>.</p>
+<p>The value for the <code>code</code> name/value pair is a non-empty language-independent string. Its value is a service-defined error code. This code serves as a sub-status for the HTTP error code specified in the response. It cannot be <code>null</code>.</p>
+<p>The value for the <code>message</code> name/value pair is a non-empty, language-dependent, human-readable string describing the error. The <code>Content-Language</code> header MUST contain the language code from <a href="#rfc5646">RFC5646</a> corresponding to the language in which the value for message is written. It cannot be <code>null</code>.</p>
+<p>The value for the <code>target</code> name/value pair is a potentially empty string indicating the target of the error (for example, the name of the property in error). It can be <code>null</code>.</p>
+<p>The value for the <code>details</code> name/value pair MUST be an array of JSON objects that MUST contain name/value pairs for <code>code</code> and <code>message</code>, and MAY contain a name/value pair for <code>target</code>, as described above.</p>
+<p>The value for the <code>innererror</code> name/value pair MUST be an object. The contents of this object are service-defined. Usually this object contains information that will help debug the service.</p>
+<p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
+<p>Error responses MAY contain <a href="#InstanceAnnotations">annotations</a> in any of its JSON objects.</p>
+<div class="example">
+<p>Example 49:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;err123&quot;</span><span class="fu">,</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Unsupported functionality&quot;</span><span class="fu">,</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;query&quot;</span><span class="fu">,</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;details&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;forty-two&quot;</span><span class="fu">,</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;$search&quot;</span><span class="fu">,</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;$search query option not supported&quot;</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;innererror&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trace&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="er">...</span><span class="fu">}</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="212-in-stream-error"><a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a></h2>
+<p>In the case that a service encounters an error after sending a success status to the client, the service MUST leave the response malformed. This can be achieved by immediately stopping response serialization and thus omitting (among others) the end-object character of the top-level JSON object in the response.</p>
+<p>Services MAY include the header <code>OData-Error</code> as a trailing header if supported by the transport protocol (e.g. with HTTP/1.1 and chunked transfer encoding, or with HTTP/2), see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The value of the <code>OData-Error</code> trailing header is an OData error object as defined in the preceding chapter, represented in a header-appropriate way:</p>
+<ul>
+<li><p>All optional whitespace (indentation and line breaks) is removed, especially (in hex notation) <code>09</code>, <code>0A</code> and <code>0D</code></p></li>
+<li><p>Control characters (<code>00</code> to <code>1F</code> and <code>7F</code>) and Unicode characters beyond <code>00FF</code> within JSON strings are encoded as <code>\uXXXX</code> or <code>\uXXXX\uXXXX</code> (see <a href="#rfc8259">RFC8259</a>, section 7)</p></li>
+</ul>
+<div class="example">
+<p>Example 50: note that this is one HTTP header line without any line breaks or optional whitespace</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="er">OData-error:</span> <span class="fu">{</span><span class="dt">&quot;code&quot;</span><span class="fu">:</span><span class="st">&quot;err123&quot;</span><span class="fu">,</span><span class="dt">&quot;message&quot;</span><span class="fu">:</span><span class="st">&quot;Unsupported</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="st">functionality&quot;</span><span class="fu">,</span><span class="dt">&quot;target&quot;</span><span class="fu">:</span><span class="st">&quot;query&quot;</span><span class="fu">,</span><span class="dt">&quot;details&quot;</span><span class="fu">:</span><span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;code&quot;</span><span class="fu">:</span><span class="st">&quot;forty-two&quot;</span><span class="fu">,</span><span class="dt">&quot;target&quot;</span><span class="fu">:</span><span class="st">&quot;$search&quot;</span><span class="fu">,</span><span class="dt">&quot;message&quot;</span><span class="fu">:</span><span class="st">&quot;$search</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="st">query option not supported&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">}</span></span></code></pre></div>
+</div>
 <h2 id="213-error-information-in-a-success-payload"><a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a></h2>
+<p>Services may return error information within a success payload; for example, if the client has specified the <code>continue-on-error</code> preference.</p>
 <h3 id="2131-primitive-value-errors"><a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a></h3>
+<p>Primitive values that are in error are annotated with the <code>Core.ValueException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
 <h3 id="2132-structured-type-errors"><a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a></h3>
+<p>Structured types that are in error can be represented within a success payload only if the client has specified the <code>continue-on-error</code> preference. Such items are annotated with the <code>Core.ResourceException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. The annotation MAY include a <code>retryLink</code> property that can be used by the client to attempt to re-fetch the resource.</p>
 <h3 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
+<p>Collections within a success payload can contain primitive values that are in error, or structured values that are in error, if the client has specified the <code>continue-on-error</code> preference. Such elements are annotated as described above. Primitive elements within a collection are annotated using the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information.</p>
+<p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
 <hr />
 <h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
+<p>Implementations can add <a href="#InstanceAnnotations">instance annotations</a> of the form <code>@namespace.termname</code> or <code>property@namespace.termname</code> to any JSON object, where <code>property</code> MAY or MAY NOT match the name of a name/value pair within the JSON object. However, the namespace MUST NOT start with <code>odata</code> and SHOULD NOT be required to be understood by the receiving party in order to correctly interpret the rest of the payload as the receiving party MUST ignore unknown annotations not defined in this version of the OData JSON Specification.</p>
 <hr />
 <h1 id="23-conformance"><a name="Conformance" href="#Conformance">23 Conformance</a></h1>
 <p>Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.</p>
