@@ -798,7 +798,7 @@ header inherit the encoding of the overall batch request or response.</p>
 <h3>8.1.3 Header <code>Content-Language</code></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a><span
-class=MsoHyperlink><b><span style='color:windowtext'>,</span></b></span> a
+class=MsoHyperlink><b>,</b></span> a
 request or response can include a <code>Content-Language</code>
 header to indicate the natural language of the intended audience for the
 enclosed message body. OData does not add any
@@ -815,7 +815,7 @@ header inherit the language of the overall batch request or response.</p>
 <h3>Header <code>Content-Length</code></h3>
 
 <p class=MsoNormal>As defined in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
-class=MsoHyperlink><b><span style='color:windowtext'>,</span></b></span> a
+class=MsoHyperlink><b>,</b></span> a
 request or response SHOULD include a <code>Content-Length</code>
 header when the message's length can be determined
 prior to being transferred. OData does not add any additional requirements over HTTP for writing <code>Content-Length</code>.</p>
@@ -944,8 +944,7 @@ prevent accidental overwrites. This is a deviation from <a
 href="#HTTPConditional"><b>[RFC7232]</b></a>. </p>
 
 <p class=MsoNormal>If the value does not match the current ETag value of the
-resource for a <a href="#sec_DataModification">Data Modification Request<span
-style='color:windowtext'> </span></a>or <a href="#sec_Actions">Action Request</a>,
+resource for a <a href="#sec_DataModification">Data Modification Request </a>or <a href="#sec_Actions">Action Request</a>,
 the service MUST respond with <a href="#sec_ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST
 ensure that no observable change occurs as a result of the request. In the case of an <a href="#sec_UpsertanEntity">upsert</a>, if the addressed entity does not exist the provided ETag value
 is considered not to match.</p>
@@ -973,8 +972,8 @@ using the weak comparison function (see<span class=MsoHyperlink><b> </b></span><
 href="#HTTPConditional"><b>[RFC7232]</b></a>). If the value matches the current
 ETag value of the resource, then for a <code>GET</code> request,
 the service SHOULD respond with <a href="#sec_ResponseCode304NotModified"><code>304 Not Modified</code></a>, and for a <a
-href="#sec_DataModification">Data Modification Request<span style='color:windowtext'>
-</span></a>or <a href="#sec_Actions">Action Request</a><span
+href="#sec_DataModification">Data Modification Request
+</a>or <a href="#sec_Actions">Action Request</a><span
 class=MsoHyperlink>,</span> the service MUST respond with <a
 href="#sec_ResponseCode412PreconditionFailed"><code>412
 Precondition Failed</code></a> and MUST ensure that no observable change occurs
@@ -1734,8 +1733,8 @@ responses within a batch.</p>
 <code>OData-EntityId</code></h3>
 
 <p class=MsoNormal>A response to a <a href="#sec_CreateanEntity">create</a><span
-class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>or
-</span></span><a href="#sec_UpsertanEntity">upsert</a><span class=MsoHyperlink>
+class=MsoHyperlink> </span><span class=MsoHyperlink>or
+</span><a href="#sec_UpsertanEntity">upsert</a><span class=MsoHyperlink>
 operation</span> that returns <a href="#sec_ResponseCode204NoContent"><code>204 </code><code>No
 Content</code></a><span style='font-family:"Calibri",sans-serif'> </span>MUST
 include an <span style='font-family:"Courier New";color:black;background:white'>OData-</span><code>EntityId</code> response header. The value of the header is the <a
@@ -1900,7 +1899,7 @@ header</a>.</p>
 
 <p class=MsoNormal>As per <a href="#HTTPConditional"><b>[RFC7232]</b></a>, a <code>304 Not Modified</code> is returned when the
 client performs a <code>GET</code> request containing an <a
-href="#sec_HeaderIfNoneMatch"><span class=Datatype><span style='color:windowtext'>If-None-Match</span></span></a>
+href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code></a>
 header and the content has not changed. In this case the response SHOULD NOT
 include other headers in order to prevent inconsistencies between cached
 entity-bodies and updated headers.</p>
@@ -3068,7 +3067,7 @@ Bad Request<span class=MsoHyperlink>.</span></span></p>
 <p class=MsoNormal>Attempting to retrieve the media stream from a single-valued
 navigation property referencing a media entity whose value is null returns <a
 href="#sec_ResponseCode404NotFound"><code>404
-Not Found</code></a><span class=MsoHyperlink><span style='color:windowtext'>.</span></span></p>
+Not Found</code></a><span class=MsoHyperlink>.</span></p>
 
 <h3>Requesting Individual
 Properties</h3>
@@ -3496,8 +3495,7 @@ once for any resource.</p>
 <p class=MsoNormal>An OData service MAY support some or all of the system query
 options defined. If a data service does not support a system query option, it
 MUST fail any request that contains the unsupported option and SHOULD return <a
-href="#sec_ResponseCode501NotImplemented"><span class=Datatype><span
-style='color:windowtext'>501 Not Implemented</span></span></a>.</p>
+href="#sec_ResponseCode501NotImplemented"><code>501 Not Implemented</code></a>.</p>
 
 <h4>11.2.6.1 System
 Query Option <code>$filter</code></h4>
@@ -5052,8 +5050,7 @@ criteria. Added entities MUST be returned for entities that were added or
 changed and now match the specified criteria, and deleted entities MUST be
 returned for entities that are changed to no longer match the criteria of <a
 href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-or <a href="#sec_SystemQueryOptionsearch"><span class=Datatype><span
-style='color:windowtext'>$s</span></span><code>earch</code></a>.</p>
+or <a href="#sec_SystemQueryOptionsearch"><code>$s</code><code>earch</code></a>.</p>
 
 <p class=MsoNormal>The delta link MUST NOT encode any client <a
 href="#sec_SystemQueryOptiontop">top</a> or <a href="#sec_SystemQueryOptionskip">skip</a>
@@ -5067,8 +5064,7 @@ expanded references, then the delta link MUST return changes to the membership
 in the set of expanded references.  </p>
 
 <p class=MsoNormal>Navigation properties specified in the <a
-href="#sec_SystemQueryOptionselect"><span class=Datatype><span
-style='color:windowtext'>$select</span></span></a> list of a defining query are
+href="#sec_SystemQueryOptionselect"><code>$select</code></a> list of a defining query are
 not used to define the scope or contents of the items being tracked. Clients
 can specify <code>/$ref</code> in <a
 href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>
@@ -5292,7 +5288,7 @@ non-empty response body MUST be the updated media entity.</p>
 <p class=MsoNormal>Requests that return a single instance of a structured type
 or a collection of structured type instances MAY specify the system query
 options <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a><span
-class=MsoHyperlink><span style='color:windowtext'> and </span></span><a
+class=MsoHyperlink> and </span><a
 href="#sec_SystemQueryOptionselect"><code>$select</code></a>.
 </p>
 
@@ -5597,8 +5593,7 @@ href="#sec_ResponseCode200OK"><code>200 OK</code></a>
 and a representation of the updated entity, or <a
 href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a>. The client may request that the response SHOULD include
-a body by specifying a <a href="#sec_Preferencereturnrepresentationandret"><span
-class=Datatype><span style='color:windowtext'>Prefer</span></span> header</a>
+a body by specifying a <a href="#sec_Preferencereturnrepresentationandret"><code>Prefer</code> header</a>
 with a value of <a href="#sec_Preferencereturnrepresentationandret"><code>return=representation</code></a>, or by
 specifying the system query options <a href="#sec_SystemQueryOptionselect"><code>$select</code></a> or <a
 href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>.
@@ -6806,16 +6801,15 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=MsoNormal>Services MAY in addition allow implicit <a
 href="#sec_ParameterAliases">parameter aliases</a><span class=MsoHyperlink> </span><span
-class=MsoHyperlink><span style='color:windowtext'>for function imports and for functions
+class=MsoHyperlink>for function imports and for functions
 that are the last path segment of the URL. An implicit parameter alias is the
-parameter name, optionally preceded by an at (</span></span><code>@</code><span class=MsoHyperlink><span style='color:windowtext'>)
+parameter name, optionally preceded by an at (</span><code>@</code><span class=MsoHyperlink>)
 sign. When using implicit parameter aliases, parentheses MUST NOT be appended
-to the function (import) name. The </span></span>value for each parameter MUST
+to the function (import) name. The </span>value for each parameter MUST
 be specified as a separate query option with the name of the parameter alias.
 If a parameter name is identical to a system query option name (without the
 optional <code>$</code> prefix), the parameter name MUST be
-prefixed with an at (<code>@</code><span class=MsoHyperlink><span
-style='color:windowtext'>) sign.</span></span></p>
+prefixed with an at (<code>@</code><span class=MsoHyperlink>) sign.</span></p>
 
 <p class=MsoCaption>Example 94: invoke a <code>Sales.EmployeesByManager</code>
 function via the function import <code>EmployeesByManager</code>,
@@ -7045,9 +7039,9 @@ OData 4.0 requests that include an <code>Accept </code>header
 that does not specify <code>application/http</code><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>,</span></span> the
 response MUST include the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> <span
-class=MsoHyperlink><span style='color:windowtext'>response header. Any other
+class=MsoHyperlink>response header. Any other
 headers, along with the response body, represent the result of the completed
-asynchronous operation. </span></span>If the <code>GET</code>
+asynchronous operation. </span>If the <code>GET</code>
 request to the status monitor includes an <code>OData-MaxVersion
 </code>header with a value of <code>4.0</code> and no <code>Accept</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
 </span></span>header, or an <code>Accept</code><span
@@ -7996,23 +7990,23 @@ conform to the semantics the following headers, or fail the request</p>
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
 0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.1. <a
 href="#sec_HeaderAccept"><code>Accept</code></a><span
-class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(</span></span>section
+class=MsoHyperlink> </span><span class=MsoHyperlink>(</span>section
 8.2.1)</p>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
 0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.2. <a
 href="#sec_HeaderODataMaxVersion"><code>OData-MaxVersion</code></a><span
-class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(section
-</span></span>8.2.7<span class=MsoHyperlink><span style='color:windowtext'>)</span></span>
+class=MsoHyperlink> </span><span class=MsoHyperlink>(section
+</span>8.2.7<span class=MsoHyperlink>)</span>
 </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
 follow OData guidelines for <a href="#sec_Extensibility">extensibility</a><span
-class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(section
-</span></span><span
-class=MsoHyperlink><span style='color:windowtext'>6</span></span><span
-class=MsoHyperlink><span style='color:windowtext'> and all subsections)</span></span></p>
+class=MsoHyperlink> </span><span class=MsoHyperlink>(section
+</span><span
+class=MsoHyperlink>6</span><span
+class=MsoHyperlink> and all subsections)</span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
@@ -8392,7 +8386,7 @@ conform to the OData 4.01 Minimal Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
+class=MsoHyperlink>1. </span>MUST conform to the <a
 href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
@@ -8551,14 +8545,14 @@ conform to the OData 4.01 Intermediate Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
+class=MsoHyperlink>1. </span>MUST conform to the <a
 href="#sec_OData401MinimalConformanceLevel">OData 4.01 Minimal Conformance
 Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>2. </span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
-conform to the </span></span><a href="#sec_OData40IntermediateConformanceLevel">OData
+class=MsoHyperlink>2. </span><span class=MsoHyperlink>MUST
+conform to the </span><a href="#sec_OData40IntermediateConformanceLevel">OData
 4.0 Intermediate Conformance Level</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST
@@ -8609,14 +8603,14 @@ conform to the OData 4.01 Advanced Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
+class=MsoHyperlink>1. </span>MUST conform to the <a
 href="#sec_OData401IntermediateConformanceLevel">OData 4.01 Intermediate
 Conformance Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>2. </span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
-conform to the </span></span><a href="#sec_OData40AdvancedConformanceLevel">OData
+class=MsoHyperlink>2. </span><span class=MsoHyperlink>MUST
+conform to the </span><a href="#sec_OData40AdvancedConformanceLevel">OData
 4.0 Advanced Conformance Level</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST
@@ -8658,7 +8652,7 @@ according to <a href="#ODataCSDL">OData-CSDLJSON</a> (section 11.1.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>7. </span></span>MUST support batch requests according both to the
+class=MsoHyperlink>7. </span>MUST support batch requests according both to the
 multipart format (section 11.7 and all subsections) and the JSON Batch format
 defined in <a href="#ODataJSON">OData-JSON</a></p>
 
@@ -8775,8 +8769,7 @@ any valid 4.01 response according to the requested format</p>
 <p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>20. SHOULD use capabilities (see
 <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01
 feature is supported but MAY attempt syntax and be prepared to handle either <a
-href="#sec_ResponseCode501NotImplemented"><span class=Keyword><span
-style='color:windowtext'>501 Not Implemented</span></span></a> or <code>400 Bad Request</code></p>
+href="#sec_ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> or <code>400 Bad Request</code></p>
 
 <p class=MsoNormal style='margin-top:1.0pt'>&nbsp;</p>
 

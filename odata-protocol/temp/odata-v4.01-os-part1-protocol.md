@@ -714,13 +714,12 @@ overall batch request or response.
 
 ### 8.1.3 Header `Content-Language`
 
-As defined in
-[**\[RFC7231\]**](#HTTPSemantic)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
-a request or response can include a `Content-Language` header to
-indicate the natural language of the intended audience for the enclosed
-message body. OData does not add any additional requirements over HTTP
-for including `Content-Language`. OData services can annotate model
-elements whose content depends on the content language with the term
+As defined in [**\[RFC7231\]**](#HTTPSemantic)[**,**]{.MsoHyperlink} a
+request or response can include a `Content-Language` header to indicate
+the natural language of the intended audience for the enclosed message
+body. OData does not add any additional requirements over HTTP for
+including `Content-Language`. OData services can annotate model elements
+whose content depends on the content language with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
@@ -732,9 +731,8 @@ overall batch request or response.
 
 ### Header `Content-Length`
 
-As defined in
-[**\[RFC7230\]**](#HTTPMessage)[**[,]{style="color:windowtext"}**]{.MsoHyperlink}
-a request or response SHOULD include a `Content-Length` header when the
+As defined in [**\[RFC7230\]**](#HTTPMessage)[**,**]{.MsoHyperlink} a
+request or response SHOULD include a `Content-Length` header when the
 message\'s length can be determined prior to being transferred. OData
 does not add any additional requirements over HTTP for writing
 `Content-Length`.
@@ -857,8 +855,7 @@ overwrites. This is a deviation from
 [**\[RFC7232\]**](#HTTPConditional).
 
 If the value does not match the current ETag value of the resource for a
-[Data Modification Request[
-]{style="color:windowtext"}](#sec_DataModification)or [Action
+[Data Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions), the service MUST respond with
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) and
 MUST ensure that no observable change occurs as a result of the request.
@@ -886,8 +883,7 @@ weak comparison function (see[
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
 [`304 Not Modified`](#sec_ResponseCode304NotModified), and for a [Data
-Modification Request[
-]{style="color:windowtext"}](#sec_DataModification)or [Action
+Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions)[,]{.MsoHyperlink} the service MUST respond with
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) and
 MUST ensure that no observable change occurs as a result of the request.
@@ -1610,10 +1606,9 @@ response, but MAY be included in individual responses within a batch.
 
 ### 8.3.4 Header `OData-EntityId`
 
-A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[[or
-]{style="color:windowtext"}]{.MsoHyperlink}[upsert](#sec_UpsertanEntity)[
-operation]{.MsoHyperlink} that returns
-[`204 ``No Content`](#sec_ResponseCode204NoContent)[
+A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[or
+]{.MsoHyperlink}[upsert](#sec_UpsertanEntity)[ operation]{.MsoHyperlink}
+that returns [`204 ``No Content`](#sec_ResponseCode204NoContent)[
 ]{style="font-family:\"Calibri\",sans-serif"}MUST include an
 [OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
 response header. The value of the header is the
@@ -1768,10 +1763,10 @@ URL from which the result can be obtained; it MAY include a
 
 As per [**\[RFC7232\]**](#HTTPConditional), a `304 Not Modified` is
 returned when the client performs a `GET` request containing an
-[[[If-None-Match]{style="color:windowtext"}]{.Datatype}](#sec_HeaderIfNoneMatch)
-header and the content has not changed. In this case the response SHOULD
-NOT include other headers in order to prevent inconsistencies between
-cached entity-bodies and updated headers.
+[`If-None-Match`](#sec_HeaderIfNoneMatch) header and the content has not
+changed. In this case the response SHOULD NOT include other headers in
+order to prevent inconsistencies between cached entity-bodies and
+updated headers.
 
 The service MUST ensure that no observable change has occurred to the
 state of the service as a result of any request that returns a
@@ -2813,7 +2808,7 @@ Bad Request[.]{.MsoHyperlink}]{style="font-family:\"Courier New\""}
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
-[`404 Not Found`](#sec_ResponseCode404NotFound)[[.]{style="color:windowtext"}]{.MsoHyperlink}
+[`404 Not Found`](#sec_ResponseCode404NotFound)[.]{.MsoHyperlink}
 
 ### Requesting Individual Properties
 
@@ -3204,8 +3199,7 @@ any resource.
 An OData service MAY support some or all of the system query options
 defined. If a data service does not support a system query option, it
 MUST fail any request that contains the unsupported option and SHOULD
-return [[[501 Not
-Implemented]{style="color:windowtext"}]{.Datatype}](#sec_ResponseCode501NotImplemented).
+return [`501 Not Implemented`](#sec_ResponseCode501NotImplemented).
 
 #### 11.2.6.1 System Query Option `$filter`
 
@@ -4046,7 +4040,7 @@ Added entities MUST be returned for entities that were added or changed
 and now match the specified criteria, and deleted entities MUST be
 returned for entities that are changed to no longer match the criteria
 of [`$filter`](#sec_SystemQueryOptionfilter) or
-[[[\$s]{style="color:windowtext"}]{.Datatype}`earch`](#sec_SystemQueryOptionsearch).
+[`$s``earch`](#sec_SystemQueryOptionsearch).
 
 The delta link MUST NOT encode any client
 [top](#sec_SystemQueryOptiontop) or [skip](#sec_SystemQueryOptionskip)
@@ -4060,12 +4054,11 @@ includes expanded references, then the delta link MUST return changes to
 the membership in the set of expanded references. 
 
 Navigation properties specified in the
-[[[\$select]{style="color:windowtext"}]{.Datatype}](#sec_SystemQueryOptionselect)
-list of a defining query are not used to define the scope or contents of
-the items being tracked. Clients can specify `/$ref` in
-[`$expand`](#sec_SystemQueryOptionexpand) in order to specify interest
-in the set of related entities without interest in changes to the
-content of those related entities.
+[`$select`](#sec_SystemQueryOptionselect) list of a defining query are
+not used to define the scope or contents of the items being tracked.
+Clients can specify `/$ref` in [`$expand`](#sec_SystemQueryOptionexpand)
+in order to specify interest in the set of related entities without
+interest in changes to the content of those related entities.
 
 If an expanded entity becomes orphaned because all paths to the entity
 as specified in the defining query have been broken (i.e. due to
@@ -4272,8 +4265,8 @@ content of a non-empty response body MUST be the updated media entity.
 
 Requests that return a single instance of a structured type or a
 collection of structured type instances MAY specify the system query
-options [`$expand`](#sec_SystemQueryOptionexpand)[[ and
-]{style="color:windowtext"}]{.MsoHyperlink}[`$select`](#sec_SystemQueryOptionselect).
+options [`$expand`](#sec_SystemQueryOptionexpand)[ and
+]{.MsoHyperlink}[`$select`](#sec_SystemQueryOptionselect).
 
 Requests that return a collection MAY specify the system query option
 [`$filter`](#sec_SystemQueryOptionfilter).
@@ -4570,8 +4563,8 @@ Upon successful completion the service responds with either
 [`200 OK`](#sec_ResponseCode200OK) and a representation of the updated
 entity, or [`204 No Content`](#sec_ResponseCode204NoContent). The client
 may request that the response SHOULD include a body by specifying a
-[[[Prefer]{style="color:windowtext"}]{.Datatype}
-header](#sec_Preferencereturnrepresentationandret) with a value of
+[`Prefer` header](#sec_Preferencereturnrepresentationandret) with a
+value of
 [`return=representation`](#sec_Preferencereturnrepresentationandret), or
 by specifying the system query options
 [`$select`](#sec_SystemQueryOptionselect) or
@@ -5680,17 +5673,16 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 Services MAY in addition allow implicit [parameter
-aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}[[for function imports
+aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}[for function imports
 and for functions that are the last path segment of the URL. An implicit
 parameter alias is the parameter name, optionally preceded by an at
-(]{style="color:windowtext"}]{.MsoHyperlink}`@`[[) sign. When using
-implicit parameter aliases, parentheses MUST NOT be appended to the
-function (import) name. The
-]{style="color:windowtext"}]{.MsoHyperlink}value for each parameter MUST
-be specified as a separate query option with the name of the parameter
-alias. If a parameter name is identical to a system query option name
-(without the optional `$` prefix), the parameter name MUST be prefixed
-with an at (`@`[[) sign.]{style="color:windowtext"}]{.MsoHyperlink}
+(]{.MsoHyperlink}`@`[) sign. When using implicit parameter aliases,
+parentheses MUST NOT be appended to the function (import) name. The
+]{.MsoHyperlink}value for each parameter MUST be specified as a separate
+query option with the name of the parameter alias. If a parameter name
+is identical to a system query option name (without the optional `$`
+prefix), the parameter name MUST be prefixed with an at (`@`[)
+sign.]{.MsoHyperlink}
 
 Example 94: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
@@ -5909,11 +5901,10 @@ responses, or OData 4.0 requests that include an `Accept `header that
 does not specify
 `application/http`[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 the response MUST include the [`AsyncResult`](#sec_HeaderAsyncResult)
-[[response header. Any other headers, along with the response body,
+[response header. Any other headers, along with the response body,
 represent the result of the completed asynchronous operation.
-]{style="color:windowtext"}]{.MsoHyperlink}If the `GET` request to the
-status monitor includes an `OData-MaxVersion `header with a value of
-`4.0` and no `Accept`[[
+]{.MsoHyperlink}If the `GET` request to the status monitor includes an
+`OData-MaxVersion `header with a value of `4.0` and no `Accept`[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header, or an
 `Accept`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header
 that includes `application/http`, then the body of the final `200 OK`
@@ -6763,17 +6754,14 @@ mechanism
 request
 
 5.1. [`Accept`](#sec_HeaderAccept)[
-]{.MsoHyperlink}[[(]{style="color:windowtext"}]{.MsoHyperlink}section
-8.2.1)
+]{.MsoHyperlink}[(]{.MsoHyperlink}section 8.2.1)
 
 5.2. [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)[
-]{.MsoHyperlink}[[(section
-]{style="color:windowtext"}]{.MsoHyperlink}8.2.7[[)]{style="color:windowtext"}]{.MsoHyperlink}
+]{.MsoHyperlink}[(section ]{.MsoHyperlink}8.2.7[)]{.MsoHyperlink}
 
 6\. MUST follow OData guidelines for
-[extensibility](#sec_Extensibility)[ ]{.MsoHyperlink}[[(section
-]{style="color:windowtext"}]{.MsoHyperlink}[[6]{style="color:windowtext"}]{.MsoHyperlink}[[
-and all subsections)]{style="color:windowtext"}]{.MsoHyperlink}
+[extensibility](#sec_Extensibility)[ ]{.MsoHyperlink}[(section
+]{.MsoHyperlink}[6]{.MsoHyperlink}[ and all subsections)]{.MsoHyperlink}
 
 7\. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
@@ -7024,8 +7012,7 @@ version.
 In order to conform to the OData 4.01 Minimal Conformance Level, a
 service:
 
-[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
-[OData 4.0 Minimal Conformance
+[1. ]{.MsoHyperlink}MUST conform to the [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)
 
 2\. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) 
@@ -7159,13 +7146,12 @@ format
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
 
-[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
-[OData 4.01 Minimal Conformance
+[1. ]{.MsoHyperlink}MUST conform to the [OData 4.01 Minimal Conformance
 Level](#sec_OData401MinimalConformanceLevel)
 
-[[2. ]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
-]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Intermediate
-Conformance Level](#sec_OData40IntermediateConformanceLevel)
+[2. ]{.MsoHyperlink}[MUST conform to the ]{.MsoHyperlink}[OData 4.0
+Intermediate Conformance
+Level](#sec_OData40IntermediateConformanceLevel)
 
 3\. MUST support `eq/ne null` comparison for navigation properties with
 a maximum cardinality of one
@@ -7197,13 +7183,11 @@ segment
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:
 
-[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
-[OData 4.01 Intermediate Conformance
-Level](#sec_OData401IntermediateConformanceLevel)
+[1. ]{.MsoHyperlink}MUST conform to the [OData 4.01 Intermediate
+Conformance Level](#sec_OData401IntermediateConformanceLevel)
 
-[[2. ]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
-]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Advanced
-Conformance Level](#sec_OData40AdvancedConformanceLevel)
+[2. ]{.MsoHyperlink}[MUST conform to the ]{.MsoHyperlink}[OData 4.0
+Advanced Conformance Level](#sec_OData40AdvancedConformanceLevel)
 
 3\. MUST support the count of a filtered/searched collection in a common
 expression
@@ -7228,10 +7212,9 @@ properties
 6\. MUST publish metadata at `$metadata` according to
 [OData-CSDLJSON](#ODataCSDL) (section 11.1.2)
 
-[[7. ]{style="color:windowtext"}]{.MsoHyperlink}MUST support batch
-requests according both to the multipart format (section 11.7 and all
-subsections) and the JSON Batch format defined in
-[OData-JSON](#ODataJSON)
+[7. ]{.MsoHyperlink}MUST support batch requests according both to the
+multipart format (section 11.7 and all subsections) and the JSON Batch
+format defined in [OData-JSON](#ODataJSON)
 
 [8. SHOULD support filtering a collection using a]{#_Toc477876742}
 `/``$filter` path segment
@@ -7314,9 +7297,9 @@ the requested format
 
 20\. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
-prepared to handle either [[[501 Not
-Implemented]{style="color:windowtext"}]{.Keyword}](#sec_ResponseCode501NotImplemented)
-or `400 Bad Request`
+prepared to handle either
+[`501 Not Implemented`](#sec_ResponseCode501NotImplemented) or
+`400 Bad Request`
 
  
 

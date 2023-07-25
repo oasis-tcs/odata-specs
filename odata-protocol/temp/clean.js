@@ -16,6 +16,7 @@ const clean = old
 
   // clean up formatting
   .replace(/<span[ \n]style='color:black'>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
 
   // clean up "keyword" formatting
   .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
