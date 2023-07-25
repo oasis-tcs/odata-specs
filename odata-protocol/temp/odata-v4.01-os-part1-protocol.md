@@ -153,22 +153,22 @@ data via RESTful interfaces. The protocol supports the description of
 data models and the editing and querying of data according to those
 models. It provides facilities for:
 
-[·]{style="font-family:Symbol"}Metadata: a machine-readable description
+[· ]{style="font-family:Symbol"}Metadata: a machine-readable description
 of the data model exposed by a particular service.
 
-[·]{style="font-family:Symbol"}Data: sets of data entities and the
+[· ]{style="font-family:Symbol"}Data: sets of data entities and the
 relationships between them.
 
-[·]{style="font-family:Symbol"}Querying: requesting that the service
+[· ]{style="font-family:Symbol"}Querying: requesting that the service
 perform a set of filtering and other transformations to its data, then
 return the results.
 
-[·]{style="font-family:Symbol"}Editing: creating, updating, and deleting
-data.
+[· ]{style="font-family:Symbol"}Editing: creating, updating, and
+deleting data.
 
-[·]{style="font-family:Symbol"}Operations: invoking custom logic
+[· ]{style="font-family:Symbol"}Operations: invoking custom logic
 
-[·]{style="font-family:Symbol"}Vocabularies: attaching custom semantics
+[· ]{style="font-family:Symbol"}Vocabularies: attaching custom semantics
 
 The OData Protocol is different from other REST-based web service
 approaches in that it provides a uniform way to describe both the data
@@ -177,24 +177,24 @@ systems and allows an ecosystem to emerge.
 
 Towards that end, the OData Protocol follows these design principles:
 
-[·]{style="font-family:Symbol"}Prefer mechanisms that work on a variety
+[· ]{style="font-family:Symbol"}Prefer mechanisms that work on a variety
 of data sources. In particular, do not assume a relational data model.
 
-[·]{style="font-family:Symbol"}Extensibility is important. Services
+[· ]{style="font-family:Symbol"}Extensibility is important. Services
 should be able to support extended functionality without breaking
 clients unaware of those extensions.
 
-[·]{style="font-family:Symbol"}Follow REST principles.
+[· ]{style="font-family:Symbol"}Follow REST principles.
 
-[·]{style="font-family:Symbol"}OData should build incrementally. A very
+[· ]{style="font-family:Symbol"}OData should build incrementally. A very
 basic, compliant service should be easy to build, with additional work
 necessary only to support additional capabilities.
 
-[·]{style="font-family:Symbol"}Keep it simple. Address the common cases
+[· ]{style="font-family:Symbol"}Keep it simple. Address the common cases
 and provide extensibility where necessary.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataModel}[]{#_Data_Model}3[Data Model](#sec_DataModel)
+# []{#sec_DataModel}[]{#_Data_Model}3 [Data Model](#sec_DataModel)
 :::
 
 This section provides a high-level description of the *Entity Data Model
@@ -418,7 +418,7 @@ qualify action, function, and type names in order to avoid any possible
 ambiguity.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Versioning}[]{#_Versioning_2}5[Versioning](#sec_Versioning)
+# []{#sec_Versioning}[]{#_Versioning_2}5 [Versioning](#sec_Versioning)
 :::
 
 Versioning enables clients and services to evolve independently. OData
@@ -464,40 +464,40 @@ requests according to the
 option. The following Data Model additions are considered safe and do
 not require services to version their entry point or schema.
 
-[·]{style="font-family:Symbol"}Adding a property that is nullable or has
-a default value; if it has the same name as an existing dynamic
+[· ]{style="font-family:Symbol"}Adding a property that is nullable or
+has a default value; if it has the same name as an existing dynamic
 property, it must have the same type (or base type) as the existing
 dynamic property
 
-[·]{style="font-family:Symbol"}Adding a navigation property that is
+[· ]{style="font-family:Symbol"}Adding a navigation property that is
 nullable or collection-valued; if it has the same name as an existing
 dynamic navigation property, it must have the same type (or base type)
 as the existing dynamic navigation property
 
-[·]{style="font-family:Symbol"}Adding a new entity type to the model
+[· ]{style="font-family:Symbol"}Adding a new entity type to the model
 
-[·]{style="font-family:Symbol"}Adding a new complex type to the model
+[· ]{style="font-family:Symbol"}Adding a new complex type to the model
 
-[·]{style="font-family:Symbol"}Adding a new entity set
+[· ]{style="font-family:Symbol"}Adding a new entity set
 
-[·]{style="font-family:Symbol"}Adding a new singleton
+[· ]{style="font-family:Symbol"}Adding a new singleton
 
-[·]{style="font-family:Symbol"}Adding an action, a function, an action
+[· ]{style="font-family:Symbol"}Adding an action, a function, an action
 import, or function import
 
-[·]{style="font-family:Symbol"}Adding an action parameter that is
+[· ]{style="font-family:Symbol"}Adding an action parameter that is
 nullable after existing parameters
 
-[·]{style="font-family:Symbol"}Adding an action or function parameter
+[· ]{style="font-family:Symbol"}Adding an action or function parameter
 that is annotated with
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
 after existing parameters
 
-[·]{style="font-family:Symbol"}Adding a type definition or enumeration
+[· ]{style="font-family:Symbol"}Adding a type definition or enumeration
 
-[·]{style="font-family:Symbol"}Adding a new term
+[· ]{style="font-family:Symbol"}Adding a new term
 
-[·]{style="font-family:Symbol"}Adding any annotation to a model element
+[· ]{style="font-family:Symbol"}Adding any annotation to a model element
 that does not need to be understood by the client in order to correctly
 interact with the service
 
@@ -514,7 +514,7 @@ authorizations.]{style="color:black"}
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Extensibility}[]{#_Extensibility}6[Extensibility](#sec_Extensibility)
+# []{#sec_Extensibility}[]{#_Extensibility}6 [Extensibility](#sec_Extensibility)
 :::
 
 The OData protocol supports both user- and version-driven extensibility
@@ -624,7 +624,7 @@ An OData service MUST support [**\[OData-JSON\]**](#ODataJSONRef) and
 MAY support additional formats for both request and response bodies.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Formats}[]{#_Formats}7[Formats](#sec_Formats)
+# []{#sec_Formats}[]{#_Formats}7 [Formats](#sec_Formats)
 :::
 
 The client MAY request a particular response format through the
@@ -1487,16 +1487,16 @@ see [**\[OData-VocCap\]**](#VocCapabilities).
 Example 9: a service receiving the following header might choose to
 respond
 
-[·]{style="font-family:Symbol;font-style:normal"}asynchronously if the
+[· ]{style="font-family:Symbol;font-style:normal"}asynchronously if the
 synchronous processing of the request will take longer than 10 seconds
 
-[·]{style="font-family:Symbol;font-style:normal"}synchronously after 5
+[· ]{style="font-family:Symbol;font-style:normal"}synchronously after 5
 seconds
 
-[·]{style="font-family:Symbol;font-style:normal"}asynchronously
+[· ]{style="font-family:Symbol;font-style:normal"}asynchronously
 (ignoring the [`wait`](#sec_Preferencewait) preference)
 
-[·]{style="font-family:Symbol;font-style:normal"}synchronously after 15
+[· ]{style="font-family:Symbol;font-style:normal"}synchronously after 15
 seconds (ignoring `respond-`async preference and the
 [`wait`](#sec_Preferencewait) preference)
 
@@ -1724,7 +1724,7 @@ Note that this will make it impossible for a proxy to cache the
 response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_CommonResponseStatusCodes}[]{#_AsyncResult}[]{#_Header_AsyncResult}[]{#_Common_Response_Status}9[     ]{style="font:7.0pt \"Times New Roman\""}[Common Response Status Codes](#sec_CommonResponseStatusCodes)
+# []{#sec_CommonResponseStatusCodes}[]{#_AsyncResult}[]{#_Header_AsyncResult}[]{#_Common_Response_Status}9 [Common Response Status Codes](#sec_CommonResponseStatusCodes)
 :::
 
 An OData service MAY respond to any request using any valid HTTP status
@@ -1881,27 +1881,27 @@ include a response body describing the functionality not implemented.
 The representation of an error response body is format-specific. It
 consists at least of the following information:
 
-[·]{style="font-family:Symbol"}`code`: required non-null, non-empty,
+[· ]{style="font-family:Symbol"}`code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
 This code serves as a sub-status for the HTTP error code specified in
 the response.
 
-[·]{style="font-family:Symbol"}`message`: required non-null, non-empty,
+[· ]{style="font-family:Symbol"}`message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
 [The ]{style="color:black"}[`Content-Language`](#sec_HeaderContentLanguage)[ header
 MUST contain the language code ]{style="color:black"}from
 [**\[RFC5646\]**](#rfc5646) [corresponding to the language in which the
 value for message is written.]{style="color:black"}
 
-[·]{style="font-family:Symbol"}`target`: optional nullable, potentially
+[· ]{style="font-family:Symbol"}`target`: optional nullable, potentially
 empty string indicating the target of the error, for example, the name
 of the property in error.
 
-[·]{style="font-family:Symbol"}`details`: optional, potentially empty
+[· ]{style="font-family:Symbol"}`details`: optional, potentially empty
 collection of structured instances with `code`, `message`, and `target`
 following the rules above.
 
-[·]{style="font-family:Symbol"}`innererror`: optional structured
+[· ]{style="font-family:Symbol"}`innererror`: optional structured
 instance with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
@@ -1920,7 +1920,7 @@ as a trailing header if supported by the transport protocol (e.g.
 HTTP/1.1 with chunked transfer encoding, or HTTP/2).
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10[Context URL](#sec_ContextURL)
+# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10 [Context URL](#sec_ContextURL)
 :::
 
 The *context URL* describes the content of the payload. It consists of
@@ -1941,28 +1941,28 @@ The following subsections describe how the context URL is constructed
 for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 
-[·]{style="font-family:Symbol"}`{context-url}` is the canonical resource
-path to the `$metadata` document,
+[· ]{style="font-family:Symbol"}`{context-url}` is the canonical
+resource path to the `$metadata` document,
 
-[·]{style="font-family:Symbol"}`{entity-set}` is the name of an entity
+[· ]{style="font-family:Symbol"}`{entity-set}` is the name of an entity
 set or path to a containment navigation property,
 
-[·]{style="font-family:Symbol"}`{entity}` is the canonical URL for an
+[· ]{style="font-family:Symbol"}`{entity}` is the canonical URL for an
 entity,
 
-[·]{style="font-family:Symbol"}`{singleton}` is the canonical URL for a
+[· ]{style="font-family:Symbol"}`{singleton}` is the canonical URL for a
 singleton entity,
 
-[·]{style="font-family:Symbol"}`{select-list}` is an optional
+[· ]{style="font-family:Symbol"}`{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,
 
-[[·]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
+[[· ]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
 path to a structural property of the entity,
 
-[·]{style="font-family:Symbol"}`{type-name}` is a qualified type name,
+[· ]{style="font-family:Symbol"}`{type-name}` is a qualified type name,
 
-[·]{style="font-family:Symbol"}`{/type-name}` is an optional type-cast
+[· ]{style="font-family:Symbol"}`{/type-name}` is an optional type-cast
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
 
@@ -2573,7 +2573,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 type. Single instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[Data Service Requests](#sec_DataServiceRequests)
+# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11 [Data Service Requests](#sec_DataServiceRequests)
 :::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
@@ -2581,90 +2581,100 @@ This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 
 `GET` requests:
 
-[·]{style="font-family:Symbol"}11.1 [Metadata
+[· ]{style="font-family:Symbol"}11.1 [Metadata
 Requests](#sec_MetadataRequests) and subsections
 
-[·]{style="font-family:Symbol"}11.2 [Requesting
+[· ]{style="font-family:Symbol"}11.2 [Requesting
 Data](#sec_RequestingData) and subsections
 
-[·]{style="font-family:Symbol"}11.3 [Requesting
+[· ]{style="font-family:Symbol"}11.3 [Requesting
 Changes](#sec_RequestingChanges) and subsections
 
-[·]{style="font-family:Symbol"}11.5.4 [Functions](#sec_Functions) and
+[· ]{style="font-family:Symbol"}11.5.4 [Functions](#sec_Functions) and
 subsections
 
 `POST` requests:
 
-[·]{style="font-family:Symbol"}11.4.2 [Create an
+[· ]{style="font-family:Symbol"}11.4.2 [Create an
 Entity](#sec_CreateanEntity) and subsections
 
-[·]{style="font-family:Symbol"}11.4.7.1 [Create a Media
+[· ]{style="font-family:Symbol"}11.4.7.1 [Create a Media
 Entity](#sec_CreateaMediaEntity)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.11]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.11]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Positional Inserts](#sec_PositionalInserts)
 
-[·]{style="font-family:Symbol"}11.5.5 [Actions](#sec_Actions) and
+[· ]{style="font-family:Symbol"}11.5.5 [Actions](#sec_Actions) and
 subsections
 
-[·]{style="font-family:Symbol"}11.7 [Batch Requests](#sec_BatchRequests)
-and subsections
+[· ]{style="font-family:Symbol"}11.7 [Batch
+Requests](#sec_BatchRequests) and subsections
 
 `PATCH` and `PUT` requests:
 
-[·]{style="font-family:Symbol"}11.4.3 [Update an
+[· ]{style="font-family:Symbol"}11.4.3 [Update an
 Entity](#sec_UpdateanEntity) and subsections
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Upsert an Entity](#sec_UpsertanEntity)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Modifying Relationships between
 Entities](#sec_ModifyingRelationshipsbetweenEntitie) and subsections
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.7.2]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.7.2]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update a Media Entity Stream](#sec_UpdateaMediaEntityStream)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.8.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.8.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update Stream Values](#sec_UpdateStreamValues)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
 Primitive Property](#sec_UpdateaPrimitiveProperty)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a Complex
 Property](#sec_UpdateaComplexProperty)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
 Collection Property](#sec_UpdateaCollectionProperty)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.10]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.10]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Managing Members of an Ordered
 Collection](#sec_ManagingMembersofanOrderedCollection)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}11.4.12 [Update a Collection
-of Entities](#sec_UpdateaCollectionofEntities)
+[[· ]{style="font-family:Symbol"}]{.Datatype}11.4.12 [Update a
+Collection of Entities](#sec_UpdateaCollectionofEntities)
 
-[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·
+]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update Members of a Collection](#sec_UpdateMembersofaCollection)
 
 `DELETE` requests:
 
-[·]{style="font-family:Symbol"}11.4.5 [Delete an
+[· ]{style="font-family:Symbol"}11.4.5 [Delete an
 Entity](#sec_DeleteanEntity)
 
-[·]{style="font-family:Symbol"}11.4.7.3 [Delete a Media
+[· ]{style="font-family:Symbol"}11.4.7.3 [Delete a Media
 Entity](#sec_DeleteaMediaEntity)
 
-[·]{style="font-family:Symbol"}0 [Delete Stream
+[· ]{style="font-family:Symbol"}0 [Delete Stream
 Values](#sec_DeleteStreamValues)
 
-[·]{style="font-family:Symbol"}11.4.9.2 [Set a Value to
+[· ]{style="font-family:Symbol"}11.4.9.2 [Set a Value to
 Null](#sec_SetaValuetoNull)
 
-[·]{style="font-family:Symbol"}11.4.14 [Delete Members of a
+[· ]{style="font-family:Symbol"}11.4.14 [Delete Members of a
 Collection](#sec_DeleteMembersofaCollection)
 
 ## []{#sec_MetadataRequests}[]{#_Ref484615108}[]{#_Ref484615099}[Metadata Requests](#sec_MetadataRequests)
@@ -2755,7 +2765,7 @@ and specify the `$` prefix.
 [The result of the request MUST be as if the system query options were
 evaluated in the following order.]{style="color:black;background:white"}
 
-[·]{style="font-family:
+[· ]{style="font-family:
 Symbol;color:black"}[[\$schemaversion]{style="font-family:\"Courier New\";background:white"}](#sec_SystemQueryOptionschemaversion)[
 MUST be evaluated first, because it may influence any further
 processing.]{style="color:black;background:white"}
@@ -3132,7 +3142,7 @@ gt 100)]{lang="FR" style="color:black"}
 Example 42: for each order within the `Orders` entity set, the following
 will be represented inline:
 
-[·]{style="font-family:Symbol;font-style:normal"}The `Items` related to
+[· ]{style="font-family:Symbol;font-style:normal"}The `Items` related to
 the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 
@@ -3160,7 +3170,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff]{style="color:black"}
 :::
 
-###### []{#sec_ExpandOptionlevels}[]{#_Expand_Option_$levels}11.2.5.2.1.1[Expand Option `$levels`](#sec_ExpandOptionlevels)
+###### []{#sec_ExpandOptionlevels}[]{#_Expand_Option_$levels}11.2.5.2.1.1 [Expand Option `$levels`](#sec_ExpandOptionlevels)
 
 The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
 option can be used to specify the number of levels of recursion for a
@@ -4735,19 +4745,19 @@ fields, they MUST identify the same entity, or the request is invalid.
 [[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can specify a
 nested delta representation to:
 
-[·]{style="font-family:Symbol;font-style:normal"}delete employee 3 and
+[· ]{style="font-family:Symbol;font-style:normal"}delete employee 3 and
 remove link to it
 
-[·]{style="font-family:Symbol;font-style:normal"}remove the link to
+[· ]{style="font-family:Symbol;font-style:normal"}remove the link to
 employee 4 and do not delete it
 
-[·]{style="font-family:Symbol;font-style:normal"}add a link to employee
+[· ]{style="font-family:Symbol;font-style:normal"}add a link to employee
 5
 
-[·]{style="font-family:Symbol;font-style:normal"}change the last name of
-employee 6 and link to it if necessary
+[· ]{style="font-family:Symbol;font-style:normal"}change the last name
+of employee 6 and link to it if necessary
 
-[·]{style="font-family:Symbol;font-style:normal"}add a new employee
+[· ]{style="font-family:Symbol;font-style:normal"}add a new employee
 named "Suzanne Brown" and link to it
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -5299,33 +5309,33 @@ regardless of the [`return`](#sec_Preferencereturnrepresentationandret)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
 
-[·]{style="font-family:Symbol"}Failed deletes in the request MUST be
+[· ]{style="font-family:Symbol"}Failed deletes in the request MUST be
 represented in the response as either entities or entity references,
 annotated with term `Core.DataModificationException`, see
 [**\[OData-VocCore\]**](#VocCore). If the deleted entity specified a
 reason of `deleted`, the value of `failedOperation` MUST be `delete`,
 otherwise `unlink`.
 
-[·]{style="font-family:Symbol"}Failed inserts within the request MUST be
-represented in the response as deleted entities annotated with term
+[· ]{style="font-family:Symbol"}Failed inserts within the request MUST
+be represented in the response as deleted entities annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `insert`.
 
-[·]{style="font-family:Symbol"}Failed updates within the request SHOULD
+[· ]{style="font-family:Symbol"}Failed updates within the request SHOULD
 be annotated in the response with term `Core.DataModificationException`
 with a `failedOperation` value of `update`.
 
-[·]{style="font-family:Symbol"}Failed added links within the request
+[· ]{style="font-family:Symbol"}Failed added links within the request
 MUST represented in the response as deleted links annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `link`.
 
-[·]{style="font-family:Symbol"}Failed deleted links within the request
+[· ]{style="font-family:Symbol"}Failed deleted links within the request
 MUST represented in the response as added links annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
 `unlink`.
 
-[·]{style="font-family:Symbol"}Collections within the request MUST be
+[· ]{style="font-family:Symbol"}Collections within the request MUST be
 represented in the response as a collection with the current values and
 membership of the collection as it exists in the service after
 processing the request.
@@ -5824,11 +5834,11 @@ MUST come after any parameters not marked as optional.
 
 A function overload is selected if
 
-[·]{style="font-family:Symbol"}The set of specified parameters exactly
+[· ]{style="font-family:Symbol"}The set of specified parameters exactly
 matches a function overload, or else
 
-[·]{style="font-family:Symbol"}The set of specified parameters matches a
-subset of parameters that includes all non-optional parameters of
+[· ]{style="font-family:Symbol"}The set of specified parameters matches
+a subset of parameters that includes all non-optional parameters of
 exactly one function overload.
 
 Services SHOULD avoid ambiguity, i.e. the combination of the function
@@ -6301,18 +6311,17 @@ HTTP requests.
 Example []{#BatchRequestExampleNumber}101: a batch request that contains
 the following individual requests in the order listed
 
-1.[     ]{style="font:7.0pt \"Times New Roman\""}A query request
+1\. A query request
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}A change set that
-contains the following requests:
+2\. A change set that contains the following requests:
 
-[·]{style="font-family:Symbol;font-style:normal"}Insert entity (with
+[· ]{style="font-family:Symbol;font-style:normal"}Insert entity (with
 `Content-ID = 1`)
 
-[·]{style="font-family:Symbol;font-style:normal"}Update entity (with
+[· ]{style="font-family:Symbol;font-style:normal"}Update entity (with
 `Content-ID = 2`)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}A second query request
+3\. A second query request
 
 Note: For brevity, in the example, request bodies are excluded in favor
 of English descriptions inside `<>` brackets and `OData-Version` headers
@@ -6402,10 +6411,10 @@ the order listed:
 
 A change set that contains the following requests:
 
-[·]{style="font-family:Symbol;font-style:normal"}Insert a new entity
+[· ]{style="font-family:Symbol;font-style:normal"}Insert a new entity
 (with `Content-ID = 1`)
 
-[·]{style="font-family:Symbol;font-style:normal"}Insert a second new
+[· ]{style="font-family:Symbol;font-style:normal"}Insert a second new
 entity (references request with `Content-ID = 1`)
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -6452,10 +6461,10 @@ Content-Length: \###\
 Example 103: a batch request that contains the following operations in
 the order listed:
 
-[·]{style="font-family:Symbol;font-style:normal"}Get an Employee (with
+[· ]{style="font-family:Symbol;font-style:normal"}Get an Employee (with
 `Content-ID = 1`)
 
-[·]{style="font-family:Symbol;font-style:normal"}Update the salary only
+[· ]{style="font-family:Symbol;font-style:normal"}Update the salary only
 if the employee has not changed
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -6532,19 +6541,20 @@ structurally match one-to-one with the multipart batch request body,
 such that the same multipart message structure defined for requests is
 used for responses. There are three exceptions to this rule:
 
-[·]{style="font-family:Symbol"}When a request within a change set fails,
-the change set response is not represented using the `multipart/mixed`
-media type. Instead, a single response, using the `application/http`
-media type, is returned that applies to all requests in the change set
-and MUST be a valid OData error response.
+[· ]{style="font-family:Symbol"}When a request within a change set
+fails, the change set response is not represented using the
+`multipart/mixed` media type. Instead, a single response, using the
+`application/http` media type, is returned that applies to all requests
+in the change set and MUST be a valid OData error response.
 
-[·]{style="font-family:Symbol"}When an error occurs processing a request
-and the [`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
+[· ]{style="font-family:Symbol"}When an error occurs processing a
+request and the
+[`continue-on-error`](#sec_Preferencecontinueonerrorodatacontin)
 preference is not specified, or specified with an explicit value of
 `false`, processing of the batch is terminated and the error response is
 the last part of the multipart response.
 
-[·]{style="font-family:Symbol"}[Asynchronously processed batch
+[· ]{style="font-family:Symbol"}[Asynchronously processed batch
 requests](#sec_AsynchronousBatchRequests) can return interim results and
 end with a `202 Accepted` as the last part of the multipart response.
 Therefore, the [`respond-async`](#sec_Preferencerespondasync) preference
@@ -6774,7 +6784,7 @@ Content-Length: \###\
 :::
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_SecurityConsiderations}[12[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876731}[Security Considerations](#sec_SecurityConsiderations)
+# []{#sec_SecurityConsiderations}[Security Considerations](#sec_SecurityConsiderations)
 :::
 
 This section is provided as a service to the application developers,
@@ -6843,327 +6853,277 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1.[     ]{style="font:7.0pt \"Times New Roman\""}MUST publish a [service
-document](#sec_ServiceDocumentRequest) at the service root (section
-11.1.1)
+1\. MUST publish a [service document](#sec_ServiceDocumentRequest) at
+the service root (section 11.1.1)
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST return data
-according to the[**\[OData-JSON\]**](#ODataJSONRef)[
-**format**]{.MsoHyperlink}
+2\. MUST return data according to
+the[**\[OData-JSON\]**](#ODataJSONRef)[ **format**]{.MsoHyperlink}
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST use [server-driven
-paging](#sec_ServerDrivenPaging) when returning partial results (section
-11.2.6.7) and not use any other mechanism
+3\. MUST use [server-driven paging](#sec_ServerDrivenPaging) when
+returning partial results (section 11.2.6.7) and not use any other
+mechanism
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST return the
-appropriate [`OData-Version`](#sec_HeaderODataVersion) header (section
-8.1.5)
+4\. MUST return the appropriate
+[`OData-Version`](#sec_HeaderODataVersion) header (section 8.1.5)
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST conform to the
-semantics the following headers, or fail the request
+5\. MUST conform to the semantics the following headers, or fail the
+request
 
-5.1.[  
-]{style="font:7.0pt \"Times New Roman\""}[`Accept`](#sec_HeaderAccept)[
+5.1. [`Accept`](#sec_HeaderAccept)[
 ]{.MsoHyperlink}[[(]{style="color:windowtext"}]{.MsoHyperlink}section
 8.2.1)
 
-5.2.[  
-]{style="font:7.0pt \"Times New Roman\""}[`OData-MaxVersion`](#sec_HeaderODataMaxVersion)[
+5.2. [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)[
 ]{.MsoHyperlink}[[(section
 ]{style="color:windowtext"}]{.MsoHyperlink}8.2.7[[)]{style="color:windowtext"}]{.MsoHyperlink}
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST follow OData
-guidelines for [extensibility](#sec_Extensibility)[
-]{.MsoHyperlink}[[(section
+6\. MUST follow OData guidelines for
+[extensibility](#sec_Extensibility)[ ]{.MsoHyperlink}[[(section
 ]{style="color:windowtext"}]{.MsoHyperlink}[[6]{style="color:windowtext"}]{.MsoHyperlink}[[
 and all subsections)]{style="color:windowtext"}]{.MsoHyperlink}
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST successfully parse
-the request according to [**\[OData-ABNF\]**](#ABNF) for any supported
-system query options and either follow the specification or return
+7\. MUST successfully parse the request according to
+[**\[OData-ABNF\]**](#ABNF) for any supported system query options and
+either follow the specification or return
 [`501`` ``Not Implemented`](#sec_ResponseCode501NotImplemented) for any
 unsupported functionality (section 9.3.1)
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST expose only data
-types defined in [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
+8\. MUST expose only data types defined in
+[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST NOT require
-clients to understand any metadata or instance annotations (section
-6.4), custom headers (section 6.5), or custom content (section 6.2) in
-the payload in order to correctly consume the service
+9\. MUST NOT require clients to understand any metadata or instance
+annotations (section 6.4), custom headers (section 6.5), or custom
+content (section 6.2) in the payload in order to correctly consume the
+service
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}MUST NOT violate any
-OData [update semantics](#sec_DataModification) (section 11.4 and all
-subsections)
+10\. MUST NOT violate any OData [update
+semantics](#sec_DataModification) (section 11.4 and all subsections)
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}MUST NOT violate any
-other OData-defined semantics
+11\. MUST NOT violate any other OData-defined semantics
 
-12.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[`$expand`](#sec_SystemQueryOptionexpand) (section 11.2.5.2)
+12\. SHOULD support [`$expand`](#sec_SystemQueryOptionexpand) (section
+11.2.5.2)
 
-13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
-and MAY publish metadata according to
-[**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section 11.1.2)
+13\. SHOULD publish metadata at `$metadata` according to
+[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) and MAY publish metadata
+according to [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section
+11.1.2)
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support prefixed
-variants of supported headers and preference values
+14\. MUST support prefixed variants of supported headers and preference
+values
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support enumeration
-and duration literals in URLs with the type prefix
+15\. MUST support enumeration and duration literals in URLs with the
+type prefix
 
 Additionally, if async operations are supported:
 
-16.[  ]{style="font:7.0pt \"Times New Roman\""}MUST return an HTTP
-message as the final response to an asynchronous request with an
-`OData-MaxVersion` value of `4.0` and an `Accept` header including
-`application/http`.
+16\. MUST return an HTTP message as the final response to an
+asynchronous request with an `OData-MaxVersion` value of `4.0` and an
+`Accept` header including `application/http`.
 
-17.[  ]{style="font:7.0pt \"Times New Roman\""}MAY return the
-[`AsyncResult`](#sec_HeaderAsyncResult) header in the final response to
-an asynchronous request
+17\. MAY return the [`AsyncResult`](#sec_HeaderAsyncResult) header in
+the final response to an asynchronous request
 
  
 
 To be considered an *Updatable OData Service*, the service additionally:
 
-18.[  ]{style="font:7.0pt \"Times New Roman\""}MUST include edit links
-(explicitly or implicitly) for all updatable or deletable resources
-according to [**\[OData-JSON\]**](#ODataJSONRef)
+18\. MUST include edit links (explicitly or implicitly) for all
+updatable or deletable resources according to
+[**\[OData-JSON\]**](#ODataJSONRef)
 
-19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` of
-new entities to insertable entity sets (section 11.4.1.5 and 11.4.2.1)
+19\. MUST support `POST` of new entities to insertable entity sets
+(section 11.4.1.5 and 11.4.2.1)
 
-20.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` of
-new related entities to updatable navigation properties (section 11.4.2)
+20\. MUST support `POST` of new related entities to updatable navigation
+properties (section 11.4.2)
 
-21.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `POST` to
-`$ref` to add an existing entity to an updatable related collection
-(section 11.4.6.1)
+21\. MUST support `POST` to `$ref` to add an existing entity to an
+updatable related collection (section 11.4.6.1)
 
-22.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `PUT` to
-`$ref` to set an existing single updatable related entity (section
-11.4.6.3)
+22\. MUST support `PUT` to `$ref` to set an existing single updatable
+related entity (section 11.4.6.3)
 
-23.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `PATCH` to
-all edit URLs for updatable resources (section 11.4.3)
+23\. MUST support `PATCH` to all edit URLs for updatable resources
+(section 11.4.3)
 
-24.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
-all edit URLs for deletable resources (section 11.4.5)
+24\. MUST support `DELETE` to all edit URLs for deletable resources
+(section 11.4.5)
 
-25.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
-`$ref` to remove a reference to an entity from an updatable navigation
-property (section 11.4.6.2)
+25\. MUST support `DELETE` to `$ref` to remove a reference to an entity
+from an updatable navigation property (section 11.4.6.2)
 
-26.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `If-Match`
-header in update/delete of any resources returned with an ETag (section
-11.4.1.1)
+26\. MUST support `If-Match` header in update/delete of any resources
+returned with an ETag (section 11.4.1.1)
 
-27.[  ]{style="font:7.0pt \"Times New Roman\""}MUST return a `Location`
-header with the edit URL or read URL of a created resource (section
-11.4.2)
+27\. MUST return a `Location` header with the edit URL or read URL of a
+created resource (section 11.4.2)
 
-28.[  ]{style="font:7.0pt \"Times New Roman\""}MUST include the
-`OData-EntityId` header in response to any create or upsert operation
-that returns `204 ``No Content`[` `]{.MsoHyperlink}(section 8.3.4)
+28\. MUST include the `OData-EntityId` header in response to any create
+or upsert operation that returns
+`204 ``No Content`[` `]{.MsoHyperlink}(section 8.3.4)
 
-[]{#_OData_Data_Service}29.MUST support Upserts (section 11.4.4)
+[]{#_OData_Data_Service}29. MUST support Upserts (section 11.4.4)
 
-30.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `PUT` and
-`PATCH` to an individual primitive (section 11.4.9.1) or complex
-(section 11.4.9.3) property (respectively)
+30\. SHOULD support `PUT` and `PATCH` to an individual primitive
+(section 11.4.9.1) or complex (section 11.4.9.3) property (respectively)
 
-31.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `DELETE`
-to set an individual property to null (section 11.4.9.2)
+31\. SHOULD support `DELETE` to set an individual property to null
+(section 11.4.9.2)
 
-32.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support deep
-inserts (section 11.4.2.2)
+32\. SHOULD support deep inserts (section 11.4.2.2)
 
-33.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support set-based
-updates (section 11.4.13) or deletes (section 11.4.14) to members of a
-collection
+33\. MAY support set-based updates (section 11.4.13) or deletes (section
+11.4.14) to members of a collection
 
 ### []{#sec_OData40IntermediateConformanceLevel}[]{#_OData_Intermediate_Conformance}[]{#_OData_4.0_Intermediate}13.1.2 [OData 4.0 Intermediate Conformance Level](#sec_OData40IntermediateConformanceLevel)
 
 In order to conform to the OData Intermediate Conformance Level, a
 service:
 
-1.[     ]{style="font:7.0pt \"Times New Roman\""}MUST conform to the
-[OData 4.0 Minimal Conformance
+1\. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST successfully parse
-the [**\[OData-ABNF\]**](#ABNF) and either follow the specification or
-return `501 Not Implemented` for any unsupported functionality (section
-9.3.1)
+2\. MUST successfully parse the [**\[OData-ABNF\]**](#ABNF) and either
+follow the specification or return `501 Not Implemented` for any
+unsupported functionality (section 9.3.1)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-`$select `[[(section
+3\. MUST support `$select `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.5.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support casting to
-a derived type according to [**\[OData‑URL\]**](#ODataURLRef) if derived
-types are present in the model
+4\. MUST support casting to a derived type according to
+[**\[OData‑URL\]**](#ODataURLRef) if derived types are present in the
+model
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-`$top `[[(section
+5\. MUST support `$top `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `/$value`
-on media entities (section 4.12 in [**\[OData‑URL\]**](#ODataURLRef))
-and individual properties (section 11.2.4.1)
+6\. MUST support `/$value` on media entities (section 4.12 in
+[**\[OData‑URL\]**](#ODataURLRef)) and individual properties (section
+11.2.4.1)
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-`$filter `[[(section
+7\. MUST support `$filter `[[(section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-7.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support `eq`, `ne`
-filter operations on properties of entities in the requested entity set
-(section 11.2.6.1.1)
+7.1. MUST support `eq`, `ne` filter operations on properties of entities
+in the requested entity set (section 11.2.6.1.1)
 
-7.2.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support aliases in
-`$filter` expressions (section 11.2.6.1.3)
+7.2. MUST support aliases in `$filter` expressions (section 11.2.6.1.3)
 
-7.3.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-additional filter operations (section 11.2.6.1.1) and MUST return
-`501`` ``Not Implemented` for any unsupported filter operations (section
-9.3.1)
+7.3. SHOULD support additional filter operations (section 11.2.6.1.1)
+and MUST return `501`` ``Not Implemented` for any unsupported filter
+operations (section 9.3.1)
 
-7.4.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-canonical functions (section 11.2.6.1.2) and MUST return
-`501`` ``Not Implemented` for any unsupported canonical functions
-(section 9.3.1)
+7.4. SHOULD support the canonical functions (section 11.2.6.1.2) and
+MUST return `501`` ``Not Implemented` for any unsupported canonical
+functions (section 9.3.1)
 
-7.5.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$filter` on expanded entities (section 11.2.5.2.1)
+7.5. SHOULD support `$filter` on expanded entities (section 11.2.5.2.1)
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
-(section 11.1.2)
+8\. SHOULD publish metadata at `$metadata` according to
+[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) (section 11.1.2)
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[**\[OData-JSON\]**](#ODataJSONRef) format
+9\. SHOULD support the [**\[OData-JSON\]**](#ODataJSONRef) format
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD consider
-[supporting basic authentication as defined in
+10\. SHOULD consider [supporting basic authentication as defined in
 ]{style="color:black"}[**\[RFC7617\]**](#RFC7617)[ over HTTPS for the
 highest level of interoperability with generic
 clients]{style="color:black"}
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-`$search `[[system query option (section ]{style="font-family:
+11\. SHOULD support the `$search `[[system query option (section
+]{style="font-family:
 \"Arial\",sans-serif"}]{.Datatype}[[11.2.6.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-12.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-`$skip`[[ system query option (section
+12\. SHOULD support the `$skip`[[ system query option (section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-`$count`[[ system query option (section
+13\. SHOULD support the `$count`[[ system query option (section
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$expand`
-(section 11.2.5.2)
+14\. SHOULD support `$expand` (section 11.2.5.2)
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the lambda
-operators `any` and `all` on navigation- and collection-valued
-properties (section 5.1.1.10 in [**\[OData‑URL\]**](#ODataURLRef))
+15\. SHOULD support the lambda operators `any` and `all` on navigation-
+and collection-valued properties (section 5.1.1.10 in
+[**\[OData‑URL\]**](#ODataURLRef))
 
-16.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-`/$count` segment on navigation and collection properties (section
-11.2.10)
+16\. SHOULD support the `/$count` segment on navigation and collection
+properties (section 11.2.10)
 
-17.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$orderby asc` and `desc` on individual properties (section 11.2.6.2)
+17\. SHOULD support `$orderby asc` and `desc` on individual properties
+(section 11.2.6.2)
 
 ### []{#sec_OData40AdvancedConformanceLevel}[]{#_OData_Updatable_Service}[]{#_OData_Full_Data}[]{#_OData_4.0_Advanced}13.1.3 [OData 4.0 Advanced Conformance Level](#sec_OData40AdvancedConformanceLevel)
 
 In order to conform to the OData Advanced Conformance Level, a service:
 
-1.[     ]{style="font:7.0pt \"Times New Roman\""}MUST conform to at
-least the [OData 4.0 Intermediate Conformance
+1\. MUST conform to at least the [OData 4.0 Intermediate Conformance
 Level](#sec_OData40IntermediateConformanceLevel)[ ]{.MsoHyperlink}
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST publish metadata
-at `$metadata` according to [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef)
-(section 11.1.2)
+2\. MUST publish metadata at `$metadata` according to
+[**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) (section 11.1.2)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-[**\[OData-JSON\]**](#ODataJSONRef) format
+3\. MUST support the [**\[OData-JSON\]**](#ODataJSONRef) format
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-`/$count` segment on navigation and collection properties (section
-11.2.10)
+4\. MUST support the `/$count` segment on navigation and collection
+properties (section 11.2.10)
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the lambda
-operators `any` and `all` on navigation- and collection-valued
-properties (section 5.1.1.10 in [**\[OData‑URL\]**](#ODataURLRef))
+5\. MUST support the lambda operators `any` and `all` on navigation- and
+collection-valued properties (section 5.1.1.10 in
+[**\[OData‑URL\]**](#ODataURLRef))
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-`$skip` system query option (section
+6\. MUST support the `$skip` system query option (section
 [[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-`$count` system query option (section
+7\. MUST support the `$count` system query option (section
 [[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `$orderby`
-`asc` and `desc` on individual properties (section 11.2.6.2)
+8\. MUST support `$orderby` `asc` and `desc` on individual properties
+(section 11.2.6.2)
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `$expand`
-(section 11.2.5.2)
+9\. MUST support `$expand` (section 11.2.5.2)
 
-9.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support returning
-references for expanded properties
+9.1. MUST support returning references for expanded properties
 
-9.2.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support `$filter`
-on expanded collection-valued properties
+9.2. MUST support `$filter` on expanded collection-valued properties
 
-9.3.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support cast
-segment in expand with derived types
+9.3. MUST support cast segment in expand with derived types
 
-9.4.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$orderby` `asc` and `desc` on expanded collection-valued properties
+9.4. SHOULD support `$orderby` `asc` and `desc` on expanded
+collection-valued properties
 
-9.5.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$count`
-on expanded collection-valued properties
+9.5. SHOULD support `$count` on expanded collection-valued properties
 
-9.6.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$top`
-and `$skip` on expanded collection-valued properties
+9.6. SHOULD support `$top` and `$skip` on expanded collection-valued
+properties
 
-9.7.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$search` on expanded collection-valued properties
+9.7. SHOULD support `$search` on expanded collection-valued properties
 
-9.8.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$levels` for recursive expand (section 11.2.5.2.1.1)
+9.8. SHOULD support `$levels` for recursive expand (section
+11.2.5.2.1.1)
 
-9.9.[   ]{style="font:7.0pt \"Times New Roman\""}MAY support `$compute`
-on expanded properties
+9.9. MAY support `$compute` on expanded properties
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-`$search` system query option (section 11.2.6.6)
+10\. MUST support the `$search` system query option (section 11.2.6.6)
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support batch
-requests according to the multipart format (section 11.7 and all
-subsections) and MAY support batch requests according to the JSON Batch
-format defined in [**\[OData-JSON\]**](#ODataJSONRef)
+11\. MUST support batch requests according to the multipart format
+(section 11.7 and all subsections) and MAY support batch requests
+according to the JSON Batch format defined in
+[**\[OData-JSON\]**](#ODataJSONRef)
 
-12.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support the resource
-path conventions defined in [**\[OData‑URL\]**](#ODataURLRef)
+12\. MUST support the resource path conventions defined in
+[**\[OData‑URL\]**](#ODataURLRef)
 
-13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[asynchronous requests](#sec_AsynchronousRequests) (section 11.6)
+13\. SHOULD support [asynchronous requests](#sec_AsynchronousRequests)
+(section 11.6)
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support [Delta
-change tracking](#sec_RequestingChanges) (section 11.3)
+14\. SHOULD support [Delta change tracking](#sec_RequestingChanges)
+(section 11.3)
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support cross-join
-queries defined in [**\[OData‑URL\]**](#ODataURLRef)
+15\. SHOULD support cross-join queries defined in
+[**\[OData‑URL\]**](#ODataURLRef)
 
-[]{#_OData_Conformance_Level}[]{#_Not_Supported_Codes:}[]{#_Not_Supported_Codes}[]{#_Interoperable_OData_Clients}16.[ 
-]{style="font:7.0pt \"Times New Roman\""}MAY support the `$compute`
-system query option (section 11.2.5.3)
+[]{#_OData_Conformance_Level}[]{#_Not_Supported_Codes:}[]{#_Not_Supported_Codes}[]{#_Interoperable_OData_Clients}16.
+MAY support the `$compute` system query option (section 11.2.5.3)
 
 ## []{#sec_OData401ServiceConformanceLevels}[13.2]{#_Toc477876738} [OData 4.01 Service Conformance Levels](#sec_OData401ServiceConformanceLevels)
 
@@ -7180,268 +7140,232 @@ version.
 In order to conform to the OData 4.01 Minimal Conformance Level, a
 service:
 
-[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
 [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST be compliant with
-version 4.01 of the [**\[OData-JSON\]**](#ODataJSONRef)  format
+2\. MUST be compliant with version 4.01 of the
+[**\[OData-JSON\]**](#ODataJSONRef)  format
 
-[]{#_OData_4.1_Intermediate}3.MUST return the
+[]{#_OData_4.1_Intermediate}3. MUST return the
 [`AsyncResult`](#sec_HeaderAsyncResult) result header in the final
 response to an asynchronous request if asynchronous operations are
 supported.
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support both
-prefixed and non-prefixed variants of supported headers and preference
-values
+4\. MUST support both prefixed and non-prefixed variants of supported
+headers and preference values
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST reject a request
-with an incompatible
+5\. MUST reject a request with an incompatible
 [`$schemaversion`](#sec_SystemQueryOptionschemaversion) system query
 option if a
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is returned in [\$metadata]{.Keyword}
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support specifying
-supported system query options with or without the `$` prefix
+6\. MUST support specifying supported system query options with or
+without the `$` prefix
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-case-insensitive query option, operator, and canonical function names
+7\. MUST support case-insensitive query option, operator, and canonical
+function names
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST return identifiers
-in the case they are specified in `$metadata`
+8\. MUST return identifiers in the case they are specified in
+`$metadata`
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support both 4.0
-and 4.01 syntax in URLs for supported functionality regardless of
-requested [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)
+9\. MUST support both 4.0 and 4.01 syntax in URLs for supported
+functionality regardless of requested
+[`OData-MaxVersion`](#sec_HeaderODataMaxVersion)
 
-a.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support casting
-strings to primitive types in URLs
+a\. MUST support casting strings to primitive types in URLs
 
-b.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support
-enumeration and duration literals in URLs with or without the type
-prefix
+b\. MUST support enumeration and duration literals in URLs with or
+without the type prefix
 
-c.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support invoking
-parameter-less function imports with or without parentheses
+c\. MUST support invoking parameter-less function imports with or
+without parentheses
 
-d.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support an empty
-object or no-content for the request body when invoking an action with
-no non-binding parameters
+d\. MUST support an empty object or no-content for the request body when
+invoking an action with no non-binding parameters
 
-e.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support invoking
-functions and actions in a [default namespace](#sec_DefaultNamespaces)
-with or without namespace qualification
+e\. MUST support invoking functions and actions in a [default
+namespace](#sec_DefaultNamespaces) with or without namespace
+qualification
 
-f.[      ]{style="font:7.0pt \"Times New Roman\""}MUST support parameter
-aliases for key values and function parameter values if they allow the
-octets `00` (NUL), `2F` (forward slash), or `5C` (backslash) in string
-literals
+f\. MUST support parameter aliases for key values and function parameter
+values if they allow the octets `00` (NUL), `2F` (forward slash), or
+`5C` (backslash) in string literals
 
-g.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support implicit
-aliasing of parameters
+g\. SHOULD support implicit aliasing of parameters
 
-h.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support [eq/ne
-null]{.Keyword} comparison for navigation properties with a maximum
-cardinality of one
+h\. SHOULD support [eq/ne null]{.Keyword} comparison for navigation
+properties with a maximum cardinality of one
 
-i.[      ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-[`in`](#sec_BuiltinFilterOperations)[[
+i\. SHOULD support the [`in`](#sec_BuiltinFilterOperations)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
 
-j.[      ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[divby]{.Keyword}
+j\. SHOULD support [divby]{.Keyword}
 
-k.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support negative
-indexes for the substring function
+k\. SHOULD support negative indexes for the substring function
 
-l.[      ]{style="font:7.0pt \"Times New Roman\""}MAY support
-Key-As-Segment URL convention
+l\. MAY support Key-As-Segment URL convention
 
-a.[     ]{style="font:7.0pt \"Times New Roman\""}MUST also support
-canonical URL conventions (described in
+a\. MUST also support canonical URL conventions (described in
 [**\[OData‑URL\]**](#ODataURLRef)) or include URLs in payload
 
-m.[   ]{style="font:7.0pt \"Times New Roman\""}MAY support the count of
-a filtered collection in a common expression
+m\. MAY support the count of a filtered collection in a common
+expression
 
-n.[     ]{style="font:7.0pt \"Times New Roman\""}MAY support equal and
-non-equal structural comparison
+n\. MAY support equal and non-equal structural comparison
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD publish metadata
-at `$metadata` according to both
+10\. SHOULD publish metadata at `$metadata` according to both
 [**\[OData-CSDLXML\]**](#ODataCSDLXMLRef) and
 [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section 11.1.2)
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD NOT have
-identifiers within a uniqueness scope (e.g. a schema, a structural type,
-or an entity container) that differ only by case
+11\. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+schema, a structural type, or an entity container) that differ only by
+case
 
-12.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD return the
+12\. SHOULD return the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 annotation
 
-13.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD report
-capabilities through the Capabilities vocabulary
+13\. SHOULD report capabilities through the Capabilities vocabulary
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support filtering on
-annotation values
+14\. MAY support filtering on annotation values
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support `$compute`
-system query option
+15\. MAY support `$compute` system query option
 
-16.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[\$search]{.Keyword} for all collections
+16\. MAY support [\$search]{.Keyword} for all collections
 
-17.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support 4.01
-behavior, including returning 4.01 content and payloads, if the client
-does not specify the [OData-MaxVersion:4.0]{.Keyword} request header
+17\. MAY support 4.01 behavior, including returning 4.01 content and
+payloads, if the client does not specify the
+[OData-MaxVersion:4.0]{.Keyword} request header
 
  
 
 In addition, to be considered an *Updatable OData 4.01 Service*, the
 service:
 
-18.[  ]{style="font:7.0pt \"Times New Roman\""}MUST conform to the
-[OData 4.0 Minimal Conformance
+18\. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)[ ]{.MsoHyperlink}for an
 Updateable service.
 
-19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST support `DELETE` to
-the reference of a collection member to be removed, identified by key
-(section 11.4.6.2)
+19\. MUST support `DELETE` to the reference of a collection member to be
+removed, identified by key (section 11.4.6.2)
 
-20.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[PUT]{.Keyword} against single entity with nested content
+20\. SHOULD support [PUT]{.Keyword} against single entity with nested
+content
 
-21.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support deep
-updates (section 11.4.3.1) and deep inserts (section 11.4.2.2)
+21\. SHOULD support deep updates (section 11.4.3.1) and deep inserts
+(section 11.4.2.2)
 
-22.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-[PUT]{.Keyword} or [DELETE]{.Keyword} to [\$ref]{.Keyword} of a
-collection-valued nav prop
+22\. SHOULD support [PUT]{.Keyword} or [DELETE]{.Keyword} to
+[\$ref]{.Keyword} of a collection-valued nav prop
 
-23.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[POST]{.Keyword} to collections of complex/primitive types
+23\. MAY support [POST]{.Keyword} to collections of complex/primitive
+types
 
-24.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[PATCH]{.Keyword} and [DELETE]{.Keyword} to a collection
+24\. MAY support [PATCH]{.Keyword} and [DELETE]{.Keyword} to a
+collection
 
-25.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[POST]{.Keyword}, [PATCH]{.Keyword} and [DELETE]{.Keyword} to a
-collection URL terminating in a type cast segment
+25\. MAY support [POST]{.Keyword}, [PATCH]{.Keyword} and
+[DELETE]{.Keyword} to a collection URL terminating in a type cast
+segment
 
-26.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[PATCH]{.Keyword} to entity sets using the 4.01 delta payload format
+26\. MAY support [PATCH]{.Keyword} to entity sets using the 4.01 delta
+payload format
 
-27.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-[\$select]{.Keyword} and [\$expand]{.Keyword} on data modification
-requests
+27\. MAY support [\$select]{.Keyword} and [\$expand]{.Keyword} on data
+modification requests
 
 ### []{#sec_OData401IntermediateConformanceLevel}[OData 4.01 Intermediate Conformance Level](#sec_OData401IntermediateConformanceLevel)
 
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
 
-[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
 [OData 4.01 Minimal Conformance
 Level](#sec_OData401MinimalConformanceLevel)
 
-[[2.]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
+[[2. ]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
 ]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Intermediate
 Conformance Level](#sec_OData40IntermediateConformanceLevel)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support [eq/ne
-null]{.Keyword} comparison for navigation properties with a maximum
-cardinality of one
+3\. MUST support [eq/ne null]{.Keyword} comparison for navigation
+properties with a maximum cardinality of one
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the
-[`in`](#sec_BuiltinFilterOperations)[[
+4\. MUST support the [`in`](#sec_BuiltinFilterOperations)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
 
-[[5.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}MUST
-support the `$select` option nested within `$select`
+[[5. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}MUST support
+the `$select` option nested within `$select`
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-count of a filtered collection in a common expression
+6\. SHOULD support the count of a filtered collection in a common
+expression
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support equal
-and non-equal structural comparison
+7\. SHOULD support equal and non-equal structural comparison
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$compute` system query option
+8\. SHOULD support `$compute` system query option
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support nested
-query options in `$select`
+9\. SHOULD support nested query options in `$select`
 
-[10.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support nested
-parameter alias assignments in]{#_Toc477876741} `$select`[[ and
+[10. MAY support nested parameter alias assignments in]{#_Toc477876741}
+`$select`[[ and
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support filtering a
-collection using a `/`[\$filter]{.Keyword} path segment
+11\. MAY support filtering a collection using a `/`[\$filter]{.Keyword}
+path segment
 
 ### [13.2.3]{#sec_OData401AdvancedConformanceLevel} [OData 4.01 Advanced Conformance Level](#sec_OData401AdvancedConformanceLevel)
 
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:
 
-[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[[1. ]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
 [OData 4.01 Intermediate Conformance
 Level](#sec_OData401IntermediateConformanceLevel)
 
-[[2.]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
+[[2. ]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
 ]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Advanced
 Conformance Level](#sec_OData40AdvancedConformanceLevel)
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the count
-of a filtered/searched collection in a common expression
+3\. MUST support the count of a filtered/searched collection in a common
+expression
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support `$compute`
-system query option
+4\. MUST support `$compute` system query option
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support nested
-options in `$select`
+5\. MUST support nested options in `$select`
 
-5.1.[   ]{style="font:7.0pt \"Times New Roman\""}MUST support `$filter`
-on selected collection-valued properties
+5.1. MUST support `$filter` on selected collection-valued properties
 
-5.2.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$orderby` `asc` and `desc` on selected collection-valued properties
+5.2. SHOULD support `$orderby` `asc` and `desc` on selected
+collection-valued properties
 
-5.3.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support the
-`$count` on selected collection-valued properties
+5.3. SHOULD support the `$count` on selected collection-valued
+properties
 
-5.4.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `$top`
-and `$skip` on selected collection-valued properties
+5.4. SHOULD support `$top` and `$skip` on selected collection-valued
+properties
 
-5.5.[   ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-`$search` on selected collection-valued properties
+5.5. SHOULD support `$search` on selected collection-valued properties
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST publish metadata
-at `$metadata` according to [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef)
-(section 11.1.2)
+6\. MUST publish metadata at `$metadata` according to
+[**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef) (section 11.1.2)
 
-[[7.]{style="color:windowtext"}]{.MsoHyperlink}MUST support batch
+[[7. ]{style="color:windowtext"}]{.MsoHyperlink}MUST support batch
 requests according both to the multipart format (section 11.7 and all
 subsections) and the JSON Batch format defined in
 [**\[OData-JSON\]**](#ODataJSONRef)
 
-[8.SHOULD support filtering a collection using a]{#_Toc477876742}
+[8. SHOULD support filtering a collection using a]{#_Toc477876742}
 `/`[\$filter]{.Keyword} path segment
 
-[[9.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
+[[9. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
 support nested parameter alias assignments in `$select`[[ and
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-case-insensitive comparison of identifiers in URLs and request payloads
-if no exact match is found, using the same lookup sequence as for
-[default namespaces](#sec_DefaultNamespaces) with a case-insensitive
-comparison 
+10\. MAY support case-insensitive comparison of identifiers in URLs and
+request payloads if no exact match is found, using the same lookup
+sequence as for [default namespaces](#sec_DefaultNamespaces) with a
+case-insensitive comparison 
 
 ## []{#sec_InteroperableODataClients}13.3 [Interoperable OData Clients](#sec_InteroperableODataClients)
 
@@ -7452,86 +7376,76 @@ Level](#sec_OData40MinimalConformanceLevel) and implement the
 
 To be generally interoperable, OData clients      
 
-1.[     ]{style="font:7.0pt \"Times New Roman\""}MUST specify the
-`OData-MaxVersion` header in requests (section 8.2.7)
+1\. MUST specify the `OData-MaxVersion` header in requests (section
+8.2.7)
 
-2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST specify
-`OData-Version` (section 8.1.5) and `Content-Type` (section 8.1.1) in
-any request with a payload
+2\. MUST specify `OData-Version` (section 8.1.5) and `Content-Type`
+(section 8.1.1) in any request with a payload
 
-3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST be a conforming
-consumer of OData as defined in [**\[OData-JSON\]**](#ODataJSONRef)
+3\. MUST be a conforming consumer of OData as defined in
+[**\[OData-JSON\]**](#ODataJSONRef)
 
-4.[     ]{style="font:7.0pt \"Times New Roman\""}MUST follow redirects
-(section 9.1.5)
+4\. MUST follow redirects (section 9.1.5)
 
-5.[     ]{style="font:7.0pt \"Times New Roman\""}MUST correctly handle
-next links (section 11.2.6.7)
+5\. MUST correctly handle next links (section 11.2.6.7)
 
-6.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support instances
-returning properties and navigation properties not specified in metadata
-(section 11.2)
+6\. MUST support instances returning properties and navigation
+properties not specified in metadata (section 11.2)
 
-7.[     ]{style="font:7.0pt \"Times New Roman\""}MUST generate `PATCH`
-requests for updates, if the client supports updates (section 11.4.3)
+7\. MUST generate `PATCH` requests for updates, if the client supports
+updates (section 11.4.3)
 
-8.[     ]{style="font:7.0pt \"Times New Roman\""}MUST include the `$`
-prefix when specifying OData-defined system query options
+8\. MUST include the `$` prefix when specifying OData-defined system
+query options
 
-9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST use case-sensitive
-query options, operators, and canonical functions
+9\. MUST use case-sensitive query options, operators, and canonical
+functions
 
-10.SHOULD support basic authentication as defined in
+10\. SHOULD support basic authentication as defined in
 [**\[RFC7617\]**](#RFC7617)[ ]{style="color:black"}over HTTPS
 
-11.[  ]{style="font:7.0pt \"Times New Roman\""}MAY request entity
-references in place of entities previously returned in the response
-(section 11.2.8)
+11\. MAY request entity references in place of entities previously
+returned in the response (section 11.2.8)
 
-12.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support deleted
-entities, link entities, deleted link entities in a delta response
-(section 11.3)
+12\. MAY support deleted entities, link entities, deleted link entities
+in a delta response (section 11.3)
 
-13.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support asynchronous
-responses (section 11.6)
+13\. MAY support asynchronous responses (section 11.6)
 
-14.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-`metadata=minimal` in a JSON response (see
+14\. MAY support `metadata=minimal` in a JSON response (see
 [**\[OData-JSON\]**](#ODataJSONRef))
 
-15.MAY support `streaming `in a JSON response (see
+15\. MAY support `streaming `in a JSON response (see
 [**\[OData-JSON\]**](#ODataJSONRef))
 
 In addition, interoperable OData 4.01 clients
 
-16.[  ]{style="font:7.0pt \"Times New Roman\""}MUST send OData
-4.0-compliant payloads to services that don\'t advertise support for
-4.01 or greater through the
+16\. MUST send OData 4.0-compliant payloads to services that don\'t
+advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see
 [**\[OData-VocCore\]**](#VocCore)[)]{.MsoHyperlink}
 
-17.[  ]{style="font:7.0pt \"Times New Roman\""}MUST specify identifiers
-in payloads and URLs in the case they are specified in `$metadata`
+17\. MUST specify identifiers in payloads and URLs in the case they are
+specified in `$metadata`
 
-18.[  ]{style="font:7.0pt \"Times New Roman\""}MUST be prepared to
-receive any valid 4.01 CSDL
+18\. MUST be prepared to receive any valid 4.01 CSDL
 
-19.[  ]{style="font:7.0pt \"Times New Roman\""}MUST be prepared to
-receive any valid 4.01 response according to the requested format
+19\. MUST be prepared to receive any valid 4.01 response according to
+the requested format
 
-20.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD use capabilities
-(see [**\[OData-VocCap\]**](#VocCapabilities)) to determine if a 4.01
-feature is supported but MAY attempt syntax and be prepared to handle
-either [[[501 Not
+20\. SHOULD use capabilities (see
+[**\[OData-VocCap\]**](#VocCapabilities)) to determine if a 4.01 feature
+is supported but MAY attempt syntax and be prepared to handle either
+[[[501 Not
 Implemented]{style="color:windowtext"}]{.Keyword}](#sec_ResponseCode501NotImplemented)
 or [400 Bad Request]{.Keyword}
 
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-[]{#sec_Acknowledgments}[Appendix
-A.]{#_Toc477876743}[Acknowledgments](#sec_Acknowledgments)
+[]{#sec_Acknowledgments}[Appendix A.]{#_Toc477876743}
+[Acknowledgments](#sec_Acknowledgments)
 :::
 
 The following individuals were members of the OASIS OData Technical
@@ -7539,217 +7453,153 @@ Committee during the creation of this specification and their
 contributions are gratefully acknowledged:
 
 +-----------------------------------+-----------------------------------+
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
 | s                                 | style="font-family:Symbol"}[Jens  |
 | tyle="font-family:Symbol"}[Howard | Hüsken (SAP SE)]{lang="EN"}       |
 | Abrams (CA                        |                                   |
-| Technologies)]{lang="EN"}         | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | style="font-family:Symbol"}[Evan  |
-|  \"Times New Roman\""}]{lang="EN" | Ireland (SAP SE)]{lang="EN"}      |
+| Technologies)]{lang="EN"}         | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}[Evan  |
+| [· ]{lang="EN"                    | Ireland (SAP SE)]{lang="EN"}      |
 | style="font-family:Symbol"}[Ken   |                                   |
-| Baclawski (Northeastern           | [·[                               |
-| University)]{lang="EN"}           | ]{style="font:7.0pt               |
-|                                   |  \"Times New Roman\""}]{lang="EN" |
-| [·[                               | st                                |
-| ]{style="font:7.0pt               | yle="font-family:Symbol"}[Gershon |
-|  \"Times New Roman\""}]{lang="EN" | Janssen (Individual)]{lang="EN"}  |
+| Baclawski (Northeastern           | [· ]{lang="EN"                    |
+| University)]{lang="EN"}           | st                                |
+|                                   | yle="font-family:Symbol"}[Gershon |
+| [· ]{lang="EN"                    | Janssen (Individual)]{lang="EN"}  |
 | style="font-family:Symbol"}[Jay   |                                   |
-| Balunas (Red Hat)]{lang="EN"}     | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | style="font-family:Symbol"}[Ram   |
-|  \"Times New Roman\""}]{lang="EN" | Jeyaraman (Microsoft)]{lang="EN"} |
+| Balunas (Red Hat)]{lang="EN"}     | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}[Ram   |
+| [· ]{lang="EN"                    | Jeyaraman (Microsoft)]{lang="EN"} |
 | st                                |                                   |
-| yle="font-family:Symbol"}[Stephen | [·[                               |
-| Berard (Schneider Electric        | ]{style="font:7.0pt               |
-| Industries SAS)]{lang="EN"}       |  \"Times New Roman\""}]{lang="EN" |
-|                                   | style="font-family:Symbol"}[Ted   |
-| [·[                               | Jones (Red Hat)]{lang="EN"}       |
-| ]{style="font:7.0pt               |                                   |
-|  \"Times New Roman\""}]{lang="EN" | [·[                               |
-| style="font-family:Symbol"}[Mark  | ]{style="font:7.0pt               |
-| Biamonte (Progress                |  \"Times New Roman\""}]{lang="EN" |
-| Software)]{lang="EN"}             | style="font-family:Symbol"}[Diane |
-|                                   | Jordan (IBM)]{lang="EN"}          |
-| [·[                               |                                   |
-| ]{style="font:7.0pt               | [·[                               |
-|  \"Times New Roman\""}]{lang="EN" | ]{style="font:7.0pt               |
-| st                                |  \"Times New Roman\""}]{lang="EN" |
-| yle="font-family:Symbol"}[Matthew | st                                |
-| Borges (SAP SE)]{lang="EN"}       | yle="font-family:Symbol"}[Stephan |
-|                                   | Klevenz (SAP SE)]{lang="EN"}      |
-| [·[                               |                                   |
-| ]{style="font:7.0pt               | [·[                               |
-|  \"Times New Roman\""}]{lang="EN" | ]{style="font:7.0pt               |
-| s                                 |  \"Times New Roman\""}]{lang="EN" |
-| tyle="font-family:Symbol"}[Edmond | s                                 |
-| Bourne (BlackBerry)]{lang="EN"}   | tyle="font-family:Symbol"}[Gerald |
-|                                   | Krause (SAP SE)]{lang="EN"}       |
-| [·[                               |                                   |
-| ]{style="font:7.0pt               | [·[                               |
-|  \"Times New Roman\""}]{lang="EN" | ]{style="font:7.0pt               |
-| s                                 |  \"Times New Roman\""}]{lang="EN" |
-| tyle="font-family:Symbol"}[Joseph | style="font-family:Symbol"}[Nuno  |
-| Boyle (Planetwork,                | Linhares (SDL)]{lang="EN"}        |
-| Inc.)]{lang="EN"}                 |                                   |
-|                                   | [·[                               |
-| [·[                               | ]{style="font:7.0pt               |
-| ]{style="font:7.0pt               |  \"Times New Roman\""}]{lang="EN" |
-|  \"Times New Roman\""}]{lang="EN" | style="font-family:Symbol"}[Paul  |
-| style="font-family:Symbol"}[Peter | Lipton (CA                        |
-| Brown (Individual)]{lang="EN"}    | Technologies)]{lang="EN"}         |
+| yle="font-family:Symbol"}[Stephen | [· ]{lang="EN"                    |
+| Berard (Schneider Electric        | style="font-family:Symbol"}[Ted   |
+| Industries SAS)]{lang="EN"}       | Jones (Red Hat)]{lang="EN"}       |
 |                                   |                                   |
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
-| st                                | style="font-family:Symbol"}[Susan |
-| yle="font-family:Symbol"}[Antonio | Malaika (IBM)]{lang="EN"}         |
-| Campanile (Bank of                |                                   |
-| America)]{lang="EN"}              | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | style="f                          |
-|  \"Times New Roman\""}]{lang="EN" | ont-family:Symbol"}[Ramanjaneyulu |
-| style="font-family:Symbol"}[Pablo | Malisetti (CA                     |
-| Castro (Microsoft)]{lang="EN"}    | Technologies)]{lang="EN"}         |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}[Mark  | style="font-family:Symbol"}[Diane |
+| Biamonte (Progress                | Jordan (IBM)]{lang="EN"}          |
+| Software)]{lang="EN"}             |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | st                                |
+| st                                | yle="font-family:Symbol"}[Stephan |
+| yle="font-family:Symbol"}[Matthew | Klevenz (SAP SE)]{lang="EN"}      |
+| Borges (SAP SE)]{lang="EN"}       |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | s                                 |
+| s                                 | tyle="font-family:Symbol"}[Gerald |
+| tyle="font-family:Symbol"}[Edmond | Krause (SAP SE)]{lang="EN"}       |
+| Bourne (BlackBerry)]{lang="EN"}   |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | style="font-family:Symbol"}[Nuno  |
+| s                                 | Linhares (SDL)]{lang="EN"}        |
+| tyle="font-family:Symbol"}[Joseph |                                   |
+| Boyle (Planetwork,                | [· ]{lang="EN"                    |
+| Inc.)]{lang="EN"}                 | style="font-family:Symbol"}[Paul  |
+|                                   | Lipton (CA                        |
+| [· ]{lang="EN"                    | Technologies)]{lang="EN"}         |
+| style="font-family:Symbol"}[Peter |                                   |
+| Brown (Individual)]{lang="EN"}    | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}[Susan |
+| [· ]{lang="EN"                    | Malaika (IBM)]{lang="EN"}         |
+| st                                |                                   |
+| yle="font-family:Symbol"}[Antonio | [· ]{lang="EN"                    |
+| Campanile (Bank of                | style="f                          |
+| America)]{lang="EN"}              | ont-family:Symbol"}[Ramanjaneyulu |
+|                                   | Malisetti (CA                     |
+| [· ]{lang="EN"                    | Technologies)]{lang="EN"}         |
+| style="font-family:Symbol"}[Pablo |                                   |
+| Castro (Microsoft)]{lang="EN"}    | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}[Neil  |
+| [· ]{lang="EN"                    | McEvoy (iFOSSF -- International   |
+| style="font-family:Symbol"}[Axel  | Free and Open Source Solutions    |
+| Conrad (BlackBerry)]{lang="EN"}   | Foundation)]{lang="EN"}           |
 |                                   |                                   |
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
-| style="font-family:Symbol"}[Axel  | style="font-family:Symbol"}[Neil  |
-| Conrad (BlackBerry)]{lang="EN"}   | McEvoy (iFOSSF -- International   |
-|                                   | Free and Open Source Solutions    |
-| [·[                               | Foundation)]{lang="EN"}           |
-| ]{style="font:7.0pt               |                                   |
-|  \"Times New Roman\""}]{lang="EN" | [·[                               |
-| style="font-family:Symbol"}[Robin | ]{style="font:7.0pt               |
-| Cover (OASIS)]{lang="EN"}         |  \"Times New Roman\""}]{lang="EN" |
-|                                   | style="font-family:Symbol"}[Stan  |
-| [·[                               | Mitranic (CA                      |
-| ]{style="font:7.0pt               | Technologies)]{lang="EN"}         |
-|  \"Times New Roman\""}]{lang="EN" |                                   |
-| style="font-family:Symbol"}[Erik  | [·[                               |
-| de Voogd (SDL)]{lang="EN"}        | ]{style="font:7.0pt               |
-|                                   |  \"Times New Roman\""}]{lang="EN" |
-| [·[                               | style="font-family:Symbol"}[Dale  |
-| ]{style="font:7.0pt               | Moberg (Axway                     |
-|  \"Times New Roman\""}]{lang="EN" | Software)]{lang="EN"}             |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}[Robin | style="font-family:Symbol"}[Stan  |
+| Cover (OASIS)]{lang="EN"}         | Mitranic (CA                      |
+|                                   | Technologies)]{lang="EN"}         |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}[Erik  | [· ]{lang="EN"                    |
+| de Voogd (SDL)]{lang="EN"}        | style="font-family:Symbol"}[Dale  |
+|                                   | Moberg (Axway                     |
+| [· ]{lang="EN"                    | Software)]{lang="EN"}             |
 | style="font-family:Symbol"}[Yi    |                                   |
-| Ding (Microsoft)]{lang="EN"}      | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | s                                 |
-|  \"Times New Roman\""}]{lang="EN" | tyle="font-family:Symbol"}[Graham |
+| Ding (Microsoft)]{lang="EN"}      | [· ]{lang="EN"                    |
+|                                   | s                                 |
+| [· ]{lang="EN"                    | tyle="font-family:Symbol"}[Graham |
 | style="font-family:Symbol"}[Diane | Moore (BrightstarDB               |
 | Downie (Citrix                    | Ltd.)]{lang="EN"}                 |
 | Systems)]{lang="EN"}              |                                   |
-|                                   | [·[                               |
-| [·[                               | ]{style="font:7.0pt               |
-| ]{style="font:7.0pt               |  \"Times New Roman\""}]{lang="EN" |
-|  \"Times New Roman\""}]{lang="EN" | st                                |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | st                                |
 | st                                | yle="font-family:Symbol"}[Farrukh |
 | yle="font-family:Symbol"}[Patrick | Najmi (Individual)]{lang="EN"}    |
 | Durusau (Individual)]{lang="EN"}  |                                   |
-|                                   | [·[                               |
-| [·[                               | ]{style="font:7.0pt               |
-| ]{style="font:7.0pt               |  \"Times New Roman\""}]{lang="EN" |
-|  \"Times New Roman\""}]{lang="EN" | st                                |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | st                                |
 | s                                 | yle="font-family:Symbol"}[Shishir |
 | tyle="font-family:Symbol"}[Andrew | Pardikar (Citrix                  |
 | Eisenberg (IBM)]{lang="EN"}       | Systems)]{lang="EN"}              |
 |                                   |                                   |
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
 | style="font-family:Symbol"}[Chet  | s                                 |
 | Ensign (OASIS)]{lang="EN"}        | tyle="font-family:Symbol"}[Sanjay |
 |                                   | Patil (SAP SE)]{lang="EN"}        |
-| [·[                               |                                   |
-| ]{style="font:7.0pt               | [·[                               |
-|  \"Times New Roman\""}]{lang="EN" | ]{style="font:7.0pt               |
-| s                                 |  \"Times New Roman\""}]{lang="EN" |
+| [· ]{lang="EN"                    |                                   |
+| s                                 | [· ]{lang="EN"                    |
 | tyle="font-family:Symbol"}[Davina | s                                 |
 | Erasmus (SDL)]{lang="EN"}         | tyle="font-family:Symbol"}[Nuccio |
 |                                   | Piscopo (iFOSSF -- International  |
-| [·[                               | Free and Open Source Solutions    |
-| ]{style="font:7.0pt               | Foundation)]{lang="EN"}           |
-|  \"Times New Roman\""}]{lang="EN" |                                   |
-| s                                 | [·[                               |
-| tyle="font-family:Symbol"}[George | ]{style="font:7.0pt               |
-| Ericson (Dell)]{lang="EN"}        |  \"Times New Roman\""}]{lang="EN" |
+| [· ]{lang="EN"                    | Free and Open Source Solutions    |
+| s                                 | Foundation)]{lang="EN"}           |
+| tyle="font-family:Symbol"}[George |                                   |
+| Ericson (Dell)]{lang="EN"}        | [· ]{lang="EN"                    |
 |                                   | st                                |
-| [·[                               | yle="font-family:Symbol"}[Michael |
-| ]{style="font:7.0pt               | Pizzo (Microsoft)]{lang="EN"}     |
-|  \"Times New Roman\""}]{lang="EN" |                                   |
-| st                                | [·[                               |
-| yle="font-family:Symbol"}[Colleen | ]{style="font:7.0pt               |
-| Evans (Microsoft)]{lang="EN"}     |  \"Times New Roman\""}]{lang="EN" |
+| [· ]{lang="EN"                    | yle="font-family:Symbol"}[Michael |
+| st                                | Pizzo (Microsoft)]{lang="EN"}     |
+| yle="font-family:Symbol"}[Colleen |                                   |
+| Evans (Microsoft)]{lang="EN"}     | [· ]{lang="EN"                    |
 |                                   | s                                 |
-| [·[                               | tyle="font-family:Symbol"}[Ramesh |
-| ]{style="font:7.0pt               | Reddy (Red Hat)]{lang="EN"}       |
-|  \"Times New Roman\""}]{lang="EN" |                                   |
-| style="font-family:Symbol"}[Jason | [·[                               |
-| Fam (IBM)]{lang="EN"}             | ]{style="font:7.0pt               |
-|                                   |  \"Times New Roman\""}]{lang="EN" |
-| [·[                               | s                                 |
-| ]{style="font:7.0pt               | tyle="font-family:Symbol"}[Robert |
-|  \"Times New Roman\""}]{lang="EN" | Richards (Mashery)]{lang="EN"}    |
-| s                                 |                                   |
-| tyle="font-family:Symbol"}[Senaka | [·[                               |
-| Fernando (WSO2)]{lang="EN"}       | ]{style="font:7.0pt               |
-|                                   |  \"Times New Roman\""}]{lang="EN" |
-| [·[                               | st                                |
-| ]{style="font:7.0pt               | yle="font-family:Symbol"}[Sumedha |
-|  \"Times New Roman\""}]{lang="EN" | Rubasinghe (WSO2)]{lang="EN"}     |
-| style="font-family:Symbol"}[Josh  |                                   |
-| Gavant (Microsoft)]{lang="EN"}    | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | style="font-family:Symbol"}[James |
-|  \"Times New Roman\""}]{lang="EN" | Snell (IBM)]{lang="EN"}           |
-| style="font-family:Symbol"}[Brent |                                   |
-| Gross (IBM)]{lang="EN"}           | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | st                                |
-|  \"Times New Roman\""}]{lang="EN" | yle="font-family:Symbol"}[Jeffrey |
-| style="font-family:Symbol"}[Zhun  | Turpin (Axway                     |
-| Guo (Individual)]{lang="EN"}      | Software)]{lang="EN"}             |
+| [· ]{lang="EN"                    | tyle="font-family:Symbol"}[Ramesh |
+| style="font-family:Symbol"}[Jason | Reddy (Red Hat)]{lang="EN"}       |
+| Fam (IBM)]{lang="EN"}             |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | s                                 |
+| s                                 | tyle="font-family:Symbol"}[Robert |
+| tyle="font-family:Symbol"}[Senaka | Richards (Mashery)]{lang="EN"}    |
+| Fernando (WSO2)]{lang="EN"}       |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | st                                |
+| style="font-family:Symbol"}[Josh  | yle="font-family:Symbol"}[Sumedha |
+| Gavant (Microsoft)]{lang="EN"}    | Rubasinghe (WSO2)]{lang="EN"}     |
 |                                   |                                   |
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
-| style="font-family:Symbol"}[Anila | style="font-family:Symbol"}[John  |
-| Kumar GVN (CA                     | Willson (Individual)]{lang="EN"}  |
-| Technologies)]{lang="EN"}         |                                   |
-|                                   | [·[                               |
-| [·[                               | ]{style="font:7.0pt               |
-| ]{style="font:7.0pt               |  \"Times New Roman\""}]{lang="EN" |
-|  \"Times New Roman\""}]{lang="EN" | style="font-family:Symbol"}[John  |
-| s                                 | Wilmes (Individual)]{lang="EN"}   |
-| tyle="font-family:Symbol"}[Stefan |                                   |
-| Hagen (Individual)]{lang="EN"}    | [·[                               |
-|                                   | ]{style="font:7.0pt               |
-| [·[                               |  \"Times New Roman\""}]{lang="EN" |
-| ]{style="font:7.0pt               | style=                            |
-|  \"Times New Roman\""}]{lang="EN" | "font-family:Symbol"}[Christopher |
-| style="font-family:Symbol"}[Ralf  | Woodruff (Perficient,             |
-| Handl (SAP SE)]{lang="EN"}        | Inc.)]{lang="EN"}                 |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}[Brent | style="font-family:Symbol"}[James |
+| Gross (IBM)]{lang="EN"}           | Snell (IBM)]{lang="EN"}           |
 |                                   |                                   |
-| [·[                               | [·[                               |
-| ]{style="font:7.0pt               | ]{style="font:7.0pt               |
-|  \"Times New Roman\""}]{lang="EN" |  \"Times New Roman\""}]{lang="EN" |
-| st                                | s                                 |
-| yle="font-family:Symbol"}[Barbara | tyle="font-family:Symbol"}[Martin |
-| Hartel (SAP SE)]{lang="EN"}       | Zurmuehl (SAP SE)]{lang="EN"}     |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}[Zhun  | st                                |
+| Guo (Individual)]{lang="EN"}      | yle="font-family:Symbol"}[Jeffrey |
+|                                   | Turpin (Axway                     |
+| [· ]{lang="EN"                    | Software)]{lang="EN"}             |
+| style="font-family:Symbol"}[Anila |                                   |
+| Kumar GVN (CA                     | [· ]{lang="EN"                    |
+| Technologies)]{lang="EN"}         | style="font-family:Symbol"}[John  |
+|                                   | Willson (Individual)]{lang="EN"}  |
+| [· ]{lang="EN"                    |                                   |
+| s                                 | [· ]{lang="EN"                    |
+| tyle="font-family:Symbol"}[Stefan | style="font-family:Symbol"}[John  |
+| Hagen (Individual)]{lang="EN"}    | Wilmes (Individual)]{lang="EN"}   |
 |                                   |                                   |
-| [·[                               |                                   |
-| ]{style="font:7.0pt               |                                   |
-|  \"Times New Roman\""}]{lang="EN" |                                   |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}[Ralf  | style=                            |
+| Handl (SAP SE)]{lang="EN"}        | "font-family:Symbol"}[Christopher |
+|                                   | Woodruff (Perficient,             |
+| [· ]{lang="EN"                    | Inc.)]{lang="EN"}                 |
+| st                                |                                   |
+| yle="font-family:Symbol"}[Barbara | [· ]{lang="EN"                    |
+| Hartel (SAP SE)]{lang="EN"}       | s                                 |
+|                                   | tyle="font-family:Symbol"}[Martin |
+| [· ]{lang="EN"                    | Zurmuehl (SAP SE)]{lang="EN"}     |
 | s                                 |                                   |
 | tyle="font-family:Symbol"}[Hubert |                                   |
 | Heijkers (IBM)]{lang="EN"}        |                                   |
@@ -7758,7 +7608,7 @@ contributions are gratefully acknowledged:
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-[]{#sec_RevisionHistory}[Appendix B.]{#_Toc477876744}[Revision
+[]{#sec_RevisionHistory}[Appendix B.]{#_Toc477876744} [Revision
 History](#sec_RevisionHistory)
 :::
 
@@ -7775,57 +7625,40 @@ History](#sec_RevisionHistory)
 | Committee       | 2016-12-08      | Michael Pizzo   | Integrated 4.01 |
 | Specification   |                 |                 | features        |
 | Draft 01        |                 | Ralf Handl      |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]               |
-|                 |                 |                 | {style="font:7. |
-|                 |                 |                 | 0pt \"Times New |
-|                 |                 |                 |  Roman\""}]{sty |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{sty           |
 |                 |                 |                 | le="font-family |
 |                 |                 |                 | :Symbol"}Schema |
 |                 |                 |                 | Versioning      |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{sty           |
-|                 |                 |                 | le="font:7.0pt  |
-|                 |                 |                 | \"Times New Rom |
-|                 |                 |                 | an\""}]{style=" |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{style="       |
 |                 |                 |                 | font-family:Sym |
 |                 |                 |                 | bol"}Preference |
 |                 |                 |                 | omit-values     |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{st            |
-|                 |                 |                 | yle="font:7.0pt |
-|                 |                 |                 |  \"Times New Ro |
-|                 |                 |                 | man\""}]{style= |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{style=        |
 |                 |                 |                 | "font-family:Sy |
 |                 |                 |                 | mbol"}\$compute |
 |                 |                 |                 | system query    |
 |                 |                 |                 | option          |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{s             |
-|                 |                 |                 | tyle="font:7.0p |
-|                 |                 |                 | t \"Times New R |
-|                 |                 |                 | oman\""}]{style |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{style         |
 |                 |                 |                 | ="font-family:S |
 |                 |                 |                 | ymbol"}Indexing |
 |                 |                 |                 | into Ordered    |
 |                 |                 |                 | Collections     |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{style="font:  |
-|                 |                 |                 | 7.0pt \"Times N |
-|                 |                 |                 | ew Roman\""}]{s |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{s             |
 |                 |                 |                 | tyle="font-fami |
 |                 |                 |                 | ly:Symbol"}Deep |
 |                 |                 |                 | Update          |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{s             |
-|                 |                 |                 | tyle="font:7.0p |
-|                 |                 |                 | t \"Times New R |
-|                 |                 |                 | oman\""}]{style |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{style         |
 |                 |                 |                 | ="font-family:S |
 |                 |                 |                 | ymbol"}Improved |
 |                 |                 |                 | referencing in  |
@@ -7834,27 +7667,20 @@ History](#sec_RevisionHistory)
 | Committee       | 2017-06-20      | Michael Pizzo   | More 4.01       |
 | Specification   |                 |                 | features        |
 | Draft 02        |                 | Ralf Handl      |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{st            |
-|                 |                 |                 | yle="font:7.0pt |
-|                 |                 |                 |  \"Times New Ro |
-|                 |                 |                 | man\""}]{style= |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{style=        |
 |                 |                 |                 | "font-family:Sy |
 |                 |                 |                 | mbol"}Set-based |
 |                 |                 |                 | operations      |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{style="font:  |
-|                 |                 |                 | 7.0pt \"Times N |
-|                 |                 |                 | ew Roman\""}]{s |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{s             |
 |                 |                 |                 | tyle="font-fami |
 |                 |                 |                 | ly:Symbol"}JSON |
 |                 |                 |                 | Batch format    |
 |                 |                 |                 |                 |
-|                 |                 |                 | [·[             |
-|                 |                 |                 | ]{style="font:  |
-|                 |                 |                 | 7.0pt \"Times N |
-|                 |                 |                 | ew Roman\""}]{s |
+|                 |                 |                 | [·              |
+|                 |                 |                 | ]{s             |
 |                 |                 |                 | tyle="font-fami |
 |                 |                 |                 | ly:Symbol"}CSDL |
 |                 |                 |                 | JSON format     |

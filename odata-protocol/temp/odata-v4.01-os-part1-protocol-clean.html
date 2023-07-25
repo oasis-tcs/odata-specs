@@ -201,24 +201,24 @@ description of data models and the editing and querying of data according to
 those models. It provides facilities for:</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Metadata: a machine-readable description of the data model
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Metadata: a machine-readable description of the data model
 exposed by a particular service.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Data: sets of data entities and the relationships between them.</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Data: sets of data entities and the relationships between them.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Querying: requesting that the service perform a set of filtering
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Querying: requesting that the service perform a set of filtering
 and other transformations to its data, then return the results.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Editing: creating, updating, and deleting data.</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Editing: creating, updating, and deleting data.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Operations: invoking custom logic</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Operations: invoking custom logic</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Vocabularies: attaching custom semantics</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Vocabularies: attaching custom semantics</p>
 
 <p class=MsoNormal>The OData Protocol is different from other REST-based web
 service approaches in that it provides a uniform way to describe both the data
@@ -229,28 +229,28 @@ allows an ecosystem to emerge.</p>
 principles:</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Prefer mechanisms that work on a variety of data sources. In
+style='font-family:Symbol'>· </span>Prefer mechanisms that work on a variety of data sources. In
 particular, do not assume a relational data model.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Extensibility is important. Services should be able to support
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Extensibility is important. Services should be able to support
 extended functionality without breaking clients unaware of those extensions.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Follow REST principles.</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Follow REST principles.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>OData should build incrementally. A very basic, compliant service
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>OData should build incrementally. A very basic, compliant service
 should be easy to build, with additional work necessary only to support
 additional capabilities.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>Keep it simple. Address the common cases and provide
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Keep it simple. Address the common cases and provide
 extensibility where necessary.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="sec_DataModel"></a><a name="_Data_Model"></a>3<a href="#sec_DataModel">Data Model</a></h1>
+<h1><a name="sec_DataModel"></a><a name="_Data_Model"></a>3 <a href="#sec_DataModel">Data Model</a></h1>
 
 </div>
 
@@ -487,7 +487,7 @@ ambiguity.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="sec_Versioning"></a><a name="_Versioning_2"></a>5<a href="#sec_Versioning">Versioning</a></h1>
+<h1><a name="sec_Versioning"></a><a name="_Versioning_2"></a>5 <a href="#sec_Versioning">Versioning</a></h1>
 
 </div>
 
@@ -542,49 +542,49 @@ system query option. The following Data Model additions are considered safe and
 do not require services to version their entry point or schema.</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a property that is nullable or has a default value; if it
+style='font-family:Symbol'>· </span>Adding a property that is nullable or has a default value; if it
 has the same name as an existing dynamic property, it must have the same type
 (or base type) as the existing dynamic property</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a navigation property that is nullable or
+style='font-family:Symbol'>· </span>Adding a navigation property that is nullable or
 collection-valued; if it has the same name as an existing dynamic navigation
 property, it must have the same type (or base type) as the existing dynamic
 navigation property</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a new entity type to the model</p>
+style='font-family:Symbol'>· </span>Adding a new entity type to the model</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a new complex type to the model</p>
+style='font-family:Symbol'>· </span>Adding a new complex type to the model</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a new entity set</p>
+style='font-family:Symbol'>· </span>Adding a new entity set</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a new singleton</p>
+style='font-family:Symbol'>· </span>Adding a new singleton</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding an action, a function, an action import, or function
+style='font-family:Symbol'>· </span>Adding an action, a function, an action import, or function
 import </p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding an action parameter that is nullable after existing
+style='font-family:Symbol'>· </span>Adding an action parameter that is nullable after existing
 parameters</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding an action or function parameter that is annotated with <a
+style='font-family:Symbol'>· </span>Adding an action or function parameter that is annotated with <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> after
 existing parameters</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a type definition or enumeration</p>
+style='font-family:Symbol'>· </span>Adding a type definition or enumeration</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding a new term</p>
+style='font-family:Symbol'>· </span>Adding a new term</p>
 
 <p class=MsoNormal style='margin-left:35.7pt;text-indent:-17.85pt'><span
-style='font-family:Symbol'>·</span>Adding any annotation to a model element that does not need to be
+style='font-family:Symbol'>· </span>Adding any annotation to a model element that does not need to be
 understood by the client in order to correctly interact with the service</p>
 
 <p class=MsoNormal>Clients SHOULD be prepared for services to make such
@@ -601,7 +601,7 @@ restricted authorizations.</span></p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="sec_Extensibility"></a><a name="_Extensibility"></a>6<a href="#sec_Extensibility">Extensibility</a></h1>
+<h1><a name="sec_Extensibility"></a><a name="_Extensibility"></a>6 <a href="#sec_Extensibility">Extensibility</a></h1>
 
 </div>
 
@@ -721,7 +721,7 @@ and MAY support additional formats for both request and response bodies.</p>
 
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
-<h1><a name="sec_Formats"></a><a name="_Formats"></a>7<a href="#sec_Formats">Formats</a></h1>
+<h1><a name="sec_Formats"></a><a name="_Formats"></a>7 <a href="#sec_Formats">Formats</a></h1>
 
 </div>
 
@@ -1659,17 +1659,17 @@ see<b> </b><a href="#VocCapabilities"><b>[OData-VocCap]</b></a>.</p>
 choose to respond </p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>asynchronously if the synchronous processing of the request will
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>asynchronously if the synchronous processing of the request will
 take longer than 10 seconds</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>synchronously after 5 seconds</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>synchronously after 5 seconds</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>asynchronously (ignoring the <a href="#sec_Preferencewait"><code>wait</code></a> preference)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>asynchronously (ignoring the <a href="#sec_Preferencewait"><code>wait</code></a> preference)</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>synchronously after 15 seconds (ignoring <code>respond-</code>async
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>synchronously after 15 seconds (ignoring <code>respond-</code>async
 preference and the <a href="#sec_Preferencewait"><code>wait</code></a>
 preference)</p>
 
@@ -1924,8 +1924,7 @@ href="#HTTPPREFER"><b>[RFC7240]</b></a><span class=MsoHyperlink><b>.</b></span><
 
 <h1><a
 name="sec_CommonResponseStatusCodes"></a><a name="_AsyncResult"></a><a
-name="_Header_AsyncResult"></a><a name="_Common_Response_Status"></a>9<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span><a
+name="_Header_AsyncResult"></a><a name="_Common_Response_Status"></a>9 <a
 href="#sec_CommonResponseStatusCodes">Common Response Status Codes</a></h1>
 
 </div>
@@ -2123,12 +2122,12 @@ Response Body</a></h2>
 format-specific. It consists at least of the following information:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span><code>code</code>: required non-null, non-empty,
+style='font-family:Symbol'>· </span><code>code</code>: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code. This
 code serves as a sub-status for the HTTP error code specified in the response.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span><code>message</code>: required non-null,
+style='font-family:Symbol'>· </span><code>message</code>: required non-null,
 non-empty, language-dependent, human-readable string describing the error. <span
 style='color:black'>The&nbsp;</span><a href="#sec_HeaderContentLanguage"><code>Content-Language</code></a><span
 style='color:black'>&nbsp;header MUST contain the language code </span>from <a
@@ -2136,17 +2135,17 @@ href="#rfc5646"><b>[RFC5646]</b></a> <span style='color:black'>corresponding to
 the language in which the value for message is written.</span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span><code>target</code>: optional nullable,
+style='font-family:Symbol'>· </span><code>target</code>: optional nullable,
 potentially empty string indicating the target of the error, for example, the
 name of the property in error.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span><code>details</code>: optional, potentially empty
+style='font-family:Symbol'>· </span><code>details</code>: optional, potentially empty
 collection of structured instances with <code>code</code>, <code>message</code>, and <code>target</code> following
 the rules above.</p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span><code>innererror</code>: optional structured
+style='font-family:Symbol'>· </span><code>innererror</code>: optional structured
 instance with service-defined content. </p>
 
 <p class=MsoNormal>Service implementations SHOULD carefully consider which
@@ -2170,7 +2169,7 @@ chunked transfer encoding, or HTTP/2).</p>
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <h1><a name="sec_ContextURL"></a><a name="_Data_Service_Requests"></a><a
-name="_Metadata_URL"></a>10<a href="#sec_ContextURL">Context URL</a></h1>
+name="_Metadata_URL"></a>10 <a href="#sec_ContextURL">Context URL</a></h1>
 
 </div>
 
@@ -2192,36 +2191,36 @@ constructed for each category of payload by providing a <i>context URL template<
 The context URL template uses the following terms:</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{context-url}</code> is the canonical resource
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{context-url}</code> is the canonical resource
 path to the <code>$metadata</code> document,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{entity-set}</code> is the name of an entity
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{entity-set}</code> is the name of an entity
 set or path to a containment navigation property,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{entity}</code> is the canonical URL for an
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{entity}</code> is the canonical URL for an
 entity,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{singleton}</code> is the canonical URL for
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{singleton}</code> is the canonical URL for
 a singleton entity,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{select-list}</code> is an optional
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{select-list}</code> is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
 margin-left:35.7pt;text-indent:-17.85pt'><span class=Datatype><span
-style='font-family:Symbol'>·</span></span><code>{property-path}</code> is the path to
+style='font-family:Symbol'>· </span></span><code>{property-path}</code> is the path to
 a structural property of the entity,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{type-name}</code> is a qualified type name,</p>
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{type-name}</code> is a qualified type name,</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><code>{/type-name}</code> is an optional type-cast
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><code>{/type-name}</code> is an optional type-cast
 segment containing the qualified name of a derived or implemented type prefixed
 with a forward slash.</p>
 
@@ -2949,7 +2948,7 @@ not have a context URL.</p>
 
 <h1><a
 name="sec_DataServiceRequests"></a><a
-name="_Data_Service_Requests_1"></a>11<a href="#sec_DataServiceRequests">Data Service Requests</a></h1>
+name="_Data_Service_Requests_1"></a>11 <a href="#sec_DataServiceRequests">Data Service Requests</a></h1>
 
 </div>
 
@@ -2958,119 +2957,119 @@ name="_Data_Service_Requests_1"></a>11<a href="#sec_DataServiceRequests">Data Se
 <p class=MsoNormal><code>GET</code> requests:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.1 <a href="#sec_MetadataRequests">Metadata Requests</a> and
+style='font-family:Symbol'>· </span>11.1 <a href="#sec_MetadataRequests">Metadata Requests</a> and
 subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.2 <a href="#sec_RequestingData">Requesting Data</a> and
+style='font-family:Symbol'>· </span>11.2 <a href="#sec_RequestingData">Requesting Data</a> and
 subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.3 <a href="#sec_RequestingChanges">Requesting Changes</a> and
+style='font-family:Symbol'>· </span>11.3 <a href="#sec_RequestingChanges">Requesting Changes</a> and
 subsections</p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.5.4 <a href="#sec_Functions">Functions</a> and subsections</p>
+style='font-family:Symbol'>· </span>11.5.4 <a href="#sec_Functions">Functions</a> and subsections</p>
 
 <p class=MsoNormal><code>POST</code> requests:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.2 <a href="#sec_CreateanEntity">Create an Entity</a> and
+style='font-family:Symbol'>· </span>11.4.2 <a href="#sec_CreateanEntity">Create an Entity</a> and
 subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.7.1 <a href="#sec_CreateaMediaEntity">Create a Media Entity</a>
+style='font-family:Symbol'>· </span>11.4.7.1 <a href="#sec_CreateaMediaEntity">Create a Media Entity</a>
 </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.11</span></span>
 <a href="#sec_PositionalInserts">Positional Inserts</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.5.5 <a href="#sec_Actions">Actions</a> and subsections</p>
+style='font-family:Symbol'>· </span>11.5.5 <a href="#sec_Actions">Actions</a> and subsections</p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.7 <a href="#sec_BatchRequests">Batch Requests</a> and
+style='font-family:Symbol'>· </span>11.7 <a href="#sec_BatchRequests">Batch Requests</a> and
 subsections</p>
 
 <p class=MsoNormal><code>PATCH</code> and <code>PUT</code>
 requests:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.3 <a href="#sec_UpdateanEntity">Update an Entity</a> and
+style='font-family:Symbol'>· </span>11.4.3 <a href="#sec_UpdateanEntity">Update an Entity</a> and
 subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.4</span></span>
 <a href="#sec_UpsertanEntity">Upsert an Entity</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.6</span></span>
 <a href="#sec_ModifyingRelationshipsbetweenEntitie">Modifying Relationships
 between Entities</a> and subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.7.2</span></span>
 <a href="#sec_UpdateaMediaEntityStream">Update a Media Entity Stream</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.8.1</span></span>
 <a href="#sec_UpdateStreamValues">Update Stream Values</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.1</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
 href="#sec_UpdateaPrimitiveProperty">Update a Primitive Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.3</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
 href="#sec_UpdateaComplexProperty">Update a Complex Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.4</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
 href="#sec_UpdateaCollectionProperty">Update a Collection Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.10</span></span>
 <a href="#sec_ManagingMembersofanOrderedCollection">Managing Members of an
 Ordered Collection</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span>11.4.12 <a href="#sec_UpdateaCollectionofEntities">Update
+class=Datatype><span style='font-family:Symbol'>· </span></span>11.4.12 <a href="#sec_UpdateaCollectionofEntities">Update
 a Collection of Entities</a></p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>·</span></span><span
+class=Datatype><span style='font-family:Symbol'>· </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.13</span></span>
 <a href="#sec_UpdateMembersofaCollection">Update Members of a Collection</a></p>
 
 <p class=MsoNormal><code>DELETE</code> requests:</p>
 
 <p class=MsoListParagraphCxSpFirst style='margin-left:39.0pt;text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.5 <a href="#sec_DeleteanEntity">Delete an Entity</a></p>
+style='font-family:Symbol'>· </span>11.4.5 <a href="#sec_DeleteanEntity">Delete an Entity</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:39.0pt;text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.7.3 <a href="#sec_DeleteaMediaEntity">Delete a Media Entity</a></p>
+style='font-family:Symbol'>· </span>11.4.7.3 <a href="#sec_DeleteaMediaEntity">Delete a Media Entity</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:39.0pt;text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>0 <a href="#sec_DeleteStreamValues">Delete Stream Values</a></p>
+style='font-family:Symbol'>· </span>0 <a href="#sec_DeleteStreamValues">Delete Stream Values</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:39.0pt;text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.9.2 <a href="#sec_SetaValuetoNull">Set a Value to Null</a></p>
+style='font-family:Symbol'>· </span>11.4.9.2 <a href="#sec_SetaValuetoNull">Set a Value to Null</a></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-left:39.0pt;text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>11.4.14 <a href="#sec_DeleteMembersofaCollection">Delete Members
+style='font-family:Symbol'>· </span>11.4.14 <a href="#sec_DeleteMembersofaCollection">Delete Members
 of a Collection</a></p>
 
 <h2><a name="sec_MetadataRequests"></a><a name="_Ref484615108"></a><a
@@ -3174,7 +3173,7 @@ request MUST be as if the system query options were evaluated in the following
 order.</span></p>
 
 <p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
-Symbol;color:black'>·</span><a href="#sec_SystemQueryOptionschemaversion"><span
+Symbol;color:black'>· </span><a href="#sec_SystemQueryOptionschemaversion"><span
 style='font-family:"Courier New";background:white'>$schemaversion</span></a><span
 style='color:black;background:white'> MUST be evaluated first, because it may
 influence any further processing.</span></p>
@@ -3613,7 +3612,7 @@ gt 100)</span></p>
 be represented inline:</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>The <code>Items</code> related
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>The <code>Items</code> related
 to the <code>Orders</code> identified by the
 resource path section of the URL and the products related to each order item.</p>
 
@@ -3648,7 +3647,7 @@ style='color:black'>GET http://host/service.svc/Customers?$expand=SampleModel.Vi
 </div>
 
 <h6><a name="sec_ExpandOptionlevels"></a><a
-name="_Expand_Option_$levels"></a>11.2.5.2.1.1<a href="#sec_ExpandOptionlevels">Expand Option <code>$levels</code></a></h6>
+name="_Expand_Option_$levels"></a>11.2.5.2.1.1 <a href="#sec_ExpandOptionlevels">Expand Option <code>$levels</code></a></h6>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$levels</code><span
 style='font-family:"Calibri",sans-serif'> </span>expand option can be used to
@@ -6070,19 +6069,19 @@ using the JSON format, a 4.01 <span class=Keyword><span style='font-size:10.0pt'
 request can specify a nested delta representation to:</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>delete employee 3 and remove link to it</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>delete employee 3 and remove link to it</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>remove the link to employee 4 and do not delete it</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>remove the link to employee 4 and do not delete it</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>add a link to employee 5</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>add a link to employee 5</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>change the last name of employee 6 and link to it if necessary</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>change the last name of employee 6 and link to it if necessary</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>add a new employee named “Suzanne Brown” and link to it</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>add a new employee named “Suzanne Brown” and link to it</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6715,33 +6714,33 @@ preference and MUST contain at least the failed changes. The service represents
 failed changes in the delta response as follows:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Failed deletes in the request MUST be represented in the response
+style='font-family:Symbol'>· </span>Failed deletes in the request MUST be represented in the response
 as either entities or entity references, annotated with term <code>Core.DataModificationException</code>, see <a
 href="#VocCore"><b>[OData-VocCore]</b></a>. If the deleted entity specified a
 reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>. </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Failed inserts within the request MUST be represented in the
+style='font-family:Symbol'>· </span>Failed inserts within the request MUST be represented in the
 response as deleted entities annotated with term <code>Core.DataModificationException</code>
 with a <code>failedOperation</code> value of <code>insert</code>. </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Failed updates within the request SHOULD be annotated in the response
+style='font-family:Symbol'>· </span>Failed updates within the request SHOULD be annotated in the response
 with term <code>Core.DataModificationException</code>
 with a <code>failedOperation</code> value of <code>update</code>.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Failed added links within the request MUST represented in the
+style='font-family:Symbol'>· </span>Failed added links within the request MUST represented in the
 response as deleted links annotated with term <code>Core.DataModificationException</code>
 with a <code>failedOperation</code> value of <code>link</code>.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Failed deleted links within the request MUST represented in the
+style='font-family:Symbol'>· </span>Failed deleted links within the request MUST represented in the
 response as added links annotated with term <code>Core.DataModificationException</code>
 with a <code>failedOperation</code> value of <code>unlink</code>.</p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>Collections within the request MUST be represented in the
+style='font-family:Symbol'>· </span>Collections within the request MUST be represented in the
 response as a collection with the current values and membership of the
 collection as it exists in the service after processing the request. </p>
 
@@ -7302,11 +7301,11 @@ MUST come after any parameters not marked as optional. </p>
 <p class=MsoNormal>A function overload is selected if</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>The set of specified parameters exactly matches a function
+style='font-family:Symbol'>· </span>The set of specified parameters exactly matches a function
 overload, or else</p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-style='font-family:Symbol'>·</span>The set of specified parameters matches a subset of parameters
+style='font-family:Symbol'>· </span>The set of specified parameters matches a subset of parameters
 that includes all non-optional parameters of exactly one function overload.</p>
 
 <p class=MsoNormal>Services SHOULD avoid ambiguity, i.e. the combination of the
@@ -7836,21 +7835,21 @@ a batch request that contains the following individual requests in the order
 listed</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>A
+avoid'>1. A
 query request</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>A
+avoid'>2. A
 change set that contains the following requests:</p>
 
 <p class=MsoCaption style='margin-left:74.75pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Insert entity (with <code>Content-ID = 1</code>)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Insert entity (with <code>Content-ID = 1</code>)</p>
 
 <p class=MsoCaption style='margin-left:74.75pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Update entity (with <code>Content-ID = 2</code>)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Update entity (with <code>Content-ID = 2</code>)</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>A
+avoid'>3. A
 second query request </p>
 
 <p class=MsoCaption>Note: For brevity, in the example, request bodies are
@@ -7950,10 +7949,10 @@ operations in the order listed:</p>
 <p class=MsoCaption>A change set that contains the following requests:</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Insert a new entity (with <code>Content-ID = 1</code>)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Insert a new entity (with <code>Content-ID = 1</code>)</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Insert a second new entity (references request with <code>Content-ID = 1</code>)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Insert a second new entity (references request with <code>Content-ID = 1</code>)</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -8003,10 +8002,10 @@ href="#sec_ReferencinganETag">Referencing an ETag</a></h4>
 operations in the order listed:</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Get an Employee (with <code>Content-ID = 1</code>)</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Get an Employee (with <code>Content-ID = 1</code>)</p>
 
 <p class=MsoCaption style='margin-left:55.85pt;text-indent:-.25in;page-break-after:
-avoid'><span style='font-family:Symbol;font-style:normal'>·</span>Update the salary only if the employee has not changed</p>
+avoid'><span style='font-family:Symbol;font-style:normal'>· </span>Update the salary only if the employee has not changed</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -8094,20 +8093,20 @@ body, such that the same multipart message structure defined for requests is
 used for responses. There are three exceptions to this rule:</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>When a request within a change set fails, the change set response
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>When a request within a change set fails, the change set response
 is not represented using the <code>multipart/mixed</code> media
 type. Instead, a single response, using the <code>application/http</code>
 media type, is returned that applies to all requests in the change set and MUST
 be a valid OData error response.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span>When an error occurs processing a request and the <a
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>When an error occurs processing a request and the <a
 href="#sec_Preferencecontinueonerrorodatacontin"><code>continue-on-error</code></a>
 preference is not specified, or specified with an explicit value of <code>false</code>, processing of the batch is terminated and the
 error response is the last part of the multipart response.</p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:4.0pt;
-margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>·</span><a href="#sec_AsynchronousBatchRequests">Asynchronously processed
+margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span><a href="#sec_AsynchronousBatchRequests">Asynchronously processed
 batch requests</a> can return interim results and end with a <code>202 Accepted</code> as the last part of the multipart response. Therefore,
 the <a href="#sec_Preferencerespondasync"><code>respond-async</code></a>
 preference MUST NOT be applied to individual requests within a batch if the
@@ -8364,8 +8363,7 @@ Content-Length: ###<br>
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <h1><a
-name="sec_SecurityConsiderations"></a><a name="_Toc477876731">12<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></a><a
+name="sec_SecurityConsiderations"></a><a
 href="#sec_SecurityConsiderations">Security Considerations</a></h1>
 
 </div>
@@ -8448,51 +8446,43 @@ href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</
 conform to the OData 4.0 Minimal conformance level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>1. MUST
 publish a <a href="#sec_ServiceDocumentRequest">service document</a> at the
 service root (section 11.1.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2. MUST
 return data according to the<a href="#ODataJSONRef"><b>[OData-JSON]</b></a><span
 class=MsoHyperlink><b> format</b></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST use <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3. MUST use <a
 href="#sec_ServerDrivenPaging">server-driven paging</a> when returning partial
 results (section 11.2.6.7) and not use any other mechanism</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4. MUST
 return the appropriate <a href="#sec_HeaderODataVersion"><code>OData-Version</code></a> header (section 8.1.5)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5. MUST
 conform to the semantics the following headers, or fail the request</p>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span><a
+0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.1. <a
 href="#sec_HeaderAccept"><code>Accept</code></a><span
 class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(</span></span>section
 8.2.1)</p>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span><a
+0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.2. <a
 href="#sec_HeaderODataMaxVersion"><code>OData-MaxVersion</code></a><span
 class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(section
 </span></span>8.2.7<span class=MsoHyperlink><span style='color:windowtext'>)</span></span>
 </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
 follow OData guidelines for <a href="#sec_Extensibility">extensibility</a><span
 class=MsoHyperlink> </span><span class=MsoHyperlink><span style='color:windowtext'>(section
 </span></span><span
@@ -8500,52 +8490,43 @@ class=MsoHyperlink><span style='color:windowtext'>6</span></span><span
 class=MsoHyperlink><span style='color:windowtext'> and all subsections)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
 successfully parse the request according to <a href="#ABNF"><b>[OData-ABNF]</b></a>
 for any supported system query options and either follow the specification or
 return <a href="#sec_ResponseCode501NotImplemented"><code>501</code><code> </code><code>Not Implemented</code></a> for any
 unsupported functionality (section 9.3.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. MUST
 expose only data types defined in <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a>
 </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST NOT
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9. MUST NOT
 require clients to understand any metadata or instance annotations (section 6.4), custom headers (section 6.5), or custom content (section 6.2) in the payload in order to correctly consume the service</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST NOT violate any OData <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. MUST NOT violate any OData <a
 href="#sec_DataModification">update semantics</a> (section 11.4 and all subsections)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST NOT violate any other
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MUST NOT violate any other
 OData-defined semantics </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. SHOULD support <a
 href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>
 (section 11.2.5.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13. SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a>
 and MAY publish metadata according to <a href="#ODataCSDLJSONRef"><b>[OData-CSDLJSON]</b></a>
 (section 11.1.2)</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>14.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support prefixed
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>14. MUST support prefixed
 variants of supported headers and preference values</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>15.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support enumeration and
+<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>15. MUST support enumeration and
 duration literals in URLs with the type prefix</p>
 
 <p class=MsoNormal style='margin-top:1.0pt;margin-right:0in;margin-bottom:0in;
@@ -8553,13 +8534,11 @@ margin-left:0in;margin-bottom:.0001pt'>Additionally, if async operations are
 supported: </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>16.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST return an HTTP message
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>16. MUST return an HTTP message
 as the final response to an asynchronous request with an <code>OData-MaxVersion</code> value of <code>4.0</code> and an <code>Accept</code> header including <code>application/http</code>.</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>17.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY return the <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>17. MAY return the <a
 href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a>
 header in the final response to an asynchronous request</p>
 
@@ -8569,57 +8548,46 @@ header in the final response to an asynchronous request</p>
 considered an <i>Updatable OData Service</i>, the service additionally:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>18.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST include edit links
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>18. MUST include edit links
 (explicitly or implicitly) for all updatable or deletable resources according
 to <a href="#ODataJSONRef"><b>[OData-JSON]</b></a> </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>19.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>POST</code> of new entities to insertable entity sets (section 11.4.1.5 and 11.4.2.1)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>19. MUST support <code>POST</code> of new entities to insertable entity sets (section 11.4.1.5 and 11.4.2.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>20.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>POST</code> of new related entities to updatable navigation
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>20. MUST support <code>POST</code> of new related entities to updatable navigation
 properties (section 11.4.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>21.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>POST</code> to <code>$ref</code>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>21. MUST support <code>POST</code> to <code>$ref</code>
 to add an existing entity to an updatable related collection (section 11.4.6.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>22.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>PUT</code> to <code>$ref</code>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>22. MUST support <code>PUT</code> to <code>$ref</code>
 to set an existing single updatable related entity (section 11.4.6.3)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>23.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>PATCH</code> to all edit URLs for updatable resources (section 11.4.3)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>23. MUST support <code>PATCH</code> to all edit URLs for updatable resources (section 11.4.3)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>24.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>DELETE</code> to all edit URLs for deletable resources (section 11.4.5)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>24. MUST support <code>DELETE</code> to all edit URLs for deletable resources (section 11.4.5)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>25.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>DELETE</code> to <code>$ref</code>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>25. MUST support <code>DELETE</code> to <code>$ref</code>
 to remove a reference to an entity from an updatable navigation property
 (section 11.4.6.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>26.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>If-Match</code> header in update/delete of any resources
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>26. MUST support <code>If-Match</code> header in update/delete of any resources
 returned with an ETag (section 11.4.1.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>27.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST return a <code>Location</code> header with the edit URL or
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>27. MUST return a <code>Location</code> header with the edit URL or
 read URL of a created resource (section 11.4.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>28.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST include the <code>OData-EntityId</code> header in response to
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>28. MUST include the <code>OData-EntityId</code> header in response to
 any create or upsert operation that returns <code>204
 </code><code>No Content</code><span
 class=MsoHyperlink><code> </code></span>(section
@@ -8627,25 +8595,21 @@ class=MsoHyperlink><code> </code></span>(section
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_OData_Data_Service"></a>29.MUST support Upserts (section 11.4.4)</p>
+name="_OData_Data_Service"></a>29. MUST support Upserts (section 11.4.4)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>30.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <code>PUT</code> and <code>PATCH</code> to an individual
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>30. SHOULD support <code>PUT</code> and <code>PATCH</code> to an individual
 primitive (section 11.4.9.1) or complex (section 11.4.9.3) property (respectively)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>31.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <code>DELETE</code> to set an individual property to null (section 11.4.9.2)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>31. SHOULD support <code>DELETE</code> to set an individual property to null (section 11.4.9.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>32.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support deep inserts (section
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>32. SHOULD support deep inserts (section
 11.4.2.2) </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>33.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support set-based
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>33. MAY support set-based
 updates (section 11.4.13) or deletes (section 11.4.14) to members of a collection </p>
 
 <h3><a name="sec_OData40IntermediateConformanceLevel"></a><a name="_OData_Intermediate_Conformance"></a><a
@@ -8657,140 +8621,118 @@ Conformance Level</a></h3>
 conform to the OData Intermediate Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>1. MUST
 conform to the <a href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal
 Conformance Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2. MUST
 successfully parse the <a href="#ABNF"><b>[OData-ABNF]</b></a> and either
 follow the specification or return <code>501 Not Implemented</code>
 for any unsupported functionality (section 9.3.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3. MUST
 support <code>$select </code><span class=Datatype><span
 style='font-family:"Arial",sans-serif'>(section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.5.1</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4. MUST
 support casting to a derived type according to <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>
 if derived types are present in the model</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5. MUST
 support <code>$top </code><span class=Datatype><span
 style='font-family:"Arial",sans-serif'>(section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.3</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
 support <code>/$value</code> on media entities (section 4.12 in <a
 href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>) and individual properties
 (section 11.2.4.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
 support <code>$filter </code><span class=Datatype><span
 style='font-family:"Arial",sans-serif'>(section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.1</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support <code>eq</code>, <code>ne</code> filter operations on
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.1. MUST support <code>eq</code>, <code>ne</code> filter operations on
 properties of entities in the requested entity set (section 11.2.6.1.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support aliases
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.2. MUST support aliases
 in <code>$filter</code> expressions (section 11.2.6.1.3)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.3. SHOULD support
 additional filter operations (section 11.2.6.1.1) and MUST return <code>501</code><code>
 </code><code>Not Implemented</code> for any
 unsupported filter operations (section 9.3.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support the
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.4. SHOULD support the
 canonical functions (section 11.2.6.1.2) and MUST return <code>501</code><code>
 </code><code>Not Implemented</code> for any
 unsupported canonical functions (section 9.3.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$filter</code> on expanded entities (section 11.2.5.2.1)</p>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.5. SHOULD support <code>$filter</code> on expanded entities (section 11.2.5.2.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD publish
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. SHOULD publish
 metadata at <code>$metadata</code> according to <a
 href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a> (section 11.1.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9. SHOULD
 support the <a href="#ODataJSONRef"><b>[OData-JSON]</b></a> format </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD consider <span
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD consider <span
 style='color:black'>supporting basic authentication as defined in </span><a
 href="#RFC7617"><b>[RFC7617]</b></a><span style='color:black'> over HTTPS for
 the highest level of interoperability with generic clients</span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support the <code>$search </code><span class=Datatype><span style='font-family:
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD support the <code>$search </code><span class=Datatype><span style='font-family:
 "Arial",sans-serif'>system query option (section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.6</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support the <code>$skip</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. SHOULD support the <code>$skip</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
 system query option (section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.4</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support the <code>$count</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13. SHOULD support the <code>$count</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
 system query option (section </span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.5</span></span><span
 class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>14.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <code>$expand</code> (section 11.2.5.2)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>14. SHOULD support <code>$expand</code> (section 11.2.5.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support the lambda
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15. SHOULD support the lambda
 operators <code>any</code> and <code>all</code> on navigation- and
 collection-valued properties (section 5.1.1.10 in <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>16.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support the <code>/$count</code> segment on navigation and collection properties
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>16. SHOULD support the <code>/$count</code> segment on navigation and collection properties
 (section 11.2.10)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>17.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <code>$orderby asc</code> and <code>desc</code> on
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>17. SHOULD support <code>$orderby asc</code> and <code>desc</code> on
 individual properties (section 11.2.6.2)</p>
 
 <h3><a name="sec_OData40AdvancedConformanceLevel"></a><a
@@ -8804,137 +8746,115 @@ avoid'>In order to conform to the OData Advanced Conformance Level, a service:</
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in;page-break-after:
-avoid'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+avoid'>1. MUST
 conform to at least the <a href="#sec_OData40IntermediateConformanceLevel">OData
 4.0 Intermediate Conformance Level</a><span class=MsoHyperlink> </span></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in;page-break-after:
-avoid'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+avoid'>2. MUST
 publish metadata at <code>$metadata</code>
 according to <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a> (section 11.1.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in;page-break-after:
-avoid'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+avoid'>3. MUST
 support the <a href="#ODataJSONRef"><b>[OData-JSON]</b></a> format</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4. MUST
 support the <code>/$count</code> segment on navigation and
 collection properties (section 11.2.10)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5. MUST
 support the lambda operators <code>any</code>
 and <code>all</code> on navigation- and collection-valued
 properties (section 5.1.1.10 in <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
 support the <code>$skip</code> system query option (section <span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.4</span></span>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
 support the <code>$count</code> system query
 option (section <span
 class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.5</span></span>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. MUST
 support <code>$orderby</code> <code>asc</code> and <code>desc</code> on individual
 properties (section 11.2.6.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9. MUST
 support <code>$expand</code> (section 11.2.5.2)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support returning
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.1. MUST support returning
 references for expanded properties</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support <code>$filter</code> on expanded collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.2. MUST support <code>$filter</code> on expanded collection-valued
 properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support cast
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.3. MUST support cast
 segment in expand with derived types</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$orderby</code> <code>asc</code>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.4. SHOULD support <code>$orderby</code> <code>asc</code>
 and <code>desc</code> on expanded collection-valued properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$count</code> on expanded collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.5. SHOULD support <code>$count</code> on expanded collection-valued
 properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$top</code> and <code>$skip</code> on expanded collection-valued properties </p>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.6. SHOULD support <code>$top</code> and <code>$skip</code> on expanded collection-valued properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$search</code> on expanded collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.7. SHOULD support <code>$search</code> on expanded collection-valued
 properties</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$levels</code> for recursive expand (section 11.2.5.2.1.1)</p>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.8. SHOULD support <code>$levels</code> for recursive expand (section 11.2.5.2.1.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MAY support <code>$compute</code> on expanded properties </p>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>9.9. MAY support <code>$compute</code> on expanded properties </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support the <code>$search</code> system query option (section 11.2.6.6)</p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. MUST support the <code>$search</code> system query option (section 11.2.6.6)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support batch requests
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MUST support batch requests
 according to the multipart format (section 11.7 and all subsections) and MAY
 support batch requests according to the JSON Batch format defined in <a
 href="#ODataJSONRef"><b>[OData-JSON]</b></a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support the resource
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. MUST support the resource
 path conventions defined in <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>
 </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13. SHOULD support <a
 href="#sec_AsynchronousRequests">asynchronous requests</a> (section 11.6)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>14.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>14. SHOULD support <a
 href="#sec_RequestingChanges">Delta change tracking</a> (section 11.3)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support cross-join
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15. SHOULD support cross-join
 queries defined in <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a> </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
 name="_OData_Conformance_Level"></a><a name="_Not_Supported_Codes:"></a><a
-name="_Not_Supported_Codes"></a><a name="_Interoperable_OData_Clients"></a>16.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support the <code>$compute</code> system query option (section 11.2.5.3)</p>
+name="_Not_Supported_Codes"></a><a name="_Interoperable_OData_Clients"></a>16. MAY support the <code>$compute</code> system query option (section 11.2.5.3)</p>
 
 <h2><a name="sec_OData401ServiceConformanceLevels"></a><a name="_Toc477876738">13.2
 </a><a href="#sec_OData401ServiceConformanceLevels">OData 4.01 Service
@@ -8959,152 +8879,122 @@ conform to the OData 4.01 Minimal Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1.</span></span>MUST conform to the <a
+class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
 href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST be
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2. MUST be
 compliant with version 4.01 of the <a href="#ODataJSONRef"><b>[OData-JSON]</b></a> 
 format</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'><a
-name="_OData_4.1_Intermediate"></a>3.MUST return the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> result header in the final response to an
+name="_OData_4.1_Intermediate"></a>3. MUST return the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> result header in the final response to an
 asynchronous request if asynchronous operations are supported.</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4. MUST
 support both prefixed and non-prefixed variants of supported headers and
 preference values</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>5. MUST
 reject a request with an incompatible <a
 href="#sec_SystemQueryOptionschemaversion"><code>$schemaversion</code></a>
 system query option if a <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is
 returned in <span class=Keyword>$metadata</span></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6. MUST
 support specifying supported system query options with or without the <code>$</code> prefix </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>7. MUST
 support case-insensitive query option, operator, and canonical function names</p>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. MUST
 return identifiers in the case they are specified in <code>$metadata</code></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>9. MUST
 support both 4.0 and 4.01 syntax in URLs for supported functionality regardless
 of requested <a href="#sec_HeaderODataMaxVersion"><code>OData-MaxVersion</code></a></p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a. MUST
 support casting strings to primitive types in URLs</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b. MUST
 support enumeration and duration literals in URLs with or without the type
 prefix</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c. MUST
 support invoking parameter-less function imports with or without parentheses </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d. MUST
 support an empty object or no-content for the request body when invoking an
 action with no non-binding parameters </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>e.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST support
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>e. MUST support
 invoking functions and actions in a <a href="#sec_DefaultNamespaces">default
 namespace</a> with or without namespace qualification </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>f.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>f. MUST
 support parameter aliases for key values and function parameter values if they
 allow the octets <code>00</code> (NUL), <code>2F</code>
 (forward slash), or <code>5C</code> (backslash) in string
 literals</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>g.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>g. SHOULD
 support implicit aliasing of parameters</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>h.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>h. SHOULD
 support <span class=Keyword>eq/ne null</span> comparison for navigation
 properties with a maximum cardinality of one </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>i.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>i. SHOULD
 support the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><span class=Datatype><span style='font-family:"Arial",sans-serif'>
 </span></span>operator </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>j.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>j. SHOULD
 support <span class=Keyword>divby</span></p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>k.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>k. SHOULD
 support negative indexes for the substring function </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>l.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>MAY
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>l. MAY
 support Key-As-Segment URL convention</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>a.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST also
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>a. MUST also
 support canonical URL conventions (described in <a href="#ODataURLRef"><b>[OData&#8209;URL]</b></a>)
 or include URLs in payload</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>m.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MAY support the count
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>m. MAY support the count
 of a filtered collection in a common expression </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>n.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MAY
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>n. MAY
 support equal and non-equal structural comparison</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDLXMLRef"><b>[OData-CSDLXML]</b></a>
 and <a href="#ODataCSDLJSONRef"><b>[OData-CSDLJSON]</b></a> (section 11.1.2)</p>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD NOT have identifiers
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD NOT have identifiers
 within a uniqueness scope (e.g. a schema, a structural type, or an entity
 container) that differ only by case</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD return the <a
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>12. SHOULD return the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> annotation</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>13.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD report capabilities
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>13. SHOULD report capabilities
 through the Capabilities vocabulary</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>14.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support filtering on
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>14. MAY support filtering on
 annotation values</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <code>$compute</code> system query option</p>
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15. MAY support <code>$compute</code> system query option</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>16.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>16. MAY support <span
 class=Keyword>$search</span> for all collections </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>17.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support 4.01 behavior,
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>17. MAY support 4.01 behavior,
 including returning 4.01 content and payloads, if the client does not specify
 the <span class=Keyword>OData-MaxVersion:4.0</span> request header</p>
 
@@ -9114,50 +9004,40 @@ the <span class=Keyword>OData-MaxVersion:4.0</span> request header</p>
 to be considered an <i>Updatable OData 4.01 Service</i>, the service: </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>18.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST conform to the <a
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>18. MUST conform to the <a
 href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a><span
 class=MsoHyperlink> </span>for an Updateable service.</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>19.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST support <code>DELETE</code> to the reference of a collection member to be
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>19. MUST support <code>DELETE</code> to the reference of a collection member to be
 removed, identified by key (section 11.4.6.2)</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>20.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>20. SHOULD support <span
 class=Keyword>PUT</span> against single entity with nested content</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>21.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support deep updates
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>21. SHOULD support deep updates
 (section 11.4.3.1) and deep inserts (section 11.4.2.2) </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>22.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>22. SHOULD support <span
 class=Keyword>PUT</span> or <span class=Keyword>DELETE</span> to <span
 class=Keyword>$ref</span> of a collection-valued nav prop</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>23.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>23. MAY support <span
 class=Keyword>POST</span> to collections of complex/primitive types</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>24.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>24. MAY support <span
 class=Keyword>PATCH</span> and <span class=Keyword>DELETE</span> to a
 collection </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>25.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>25. MAY support <span
 class=Keyword>POST</span>, <span class=Keyword>PATCH</span> and <span
 class=Keyword>DELETE</span> to a collection URL terminating in a type cast
 segment</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>26.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>26. MAY support <span
 class=Keyword>PATCH</span> to entity sets using the 4.01 delta payload format</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>27.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <span
+<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>27. MAY support <span
 class=Keyword>$select</span> and <span class=Keyword>$expand</span> on data
 modification requests</p>
 
@@ -9170,61 +9050,53 @@ conform to the OData 4.01 Intermediate Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1.</span></span>MUST conform to the <a
+class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
 href="#sec_OData401MinimalConformanceLevel">OData 4.01 Minimal Conformance
 Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>2.</span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
+class=MsoHyperlink><span style='color:windowtext'>2. </span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
 conform to the </span></span><a href="#sec_OData40IntermediateConformanceLevel">OData
 4.0 Intermediate Conformance Level</a></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST
 support <span class=Keyword>eq/ne null</span> comparison for navigation
 properties with a maximum cardinality of one </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST support
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4. MUST support
 the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>operator
 </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>MUST
+class=Datatype><span style='font-family:"Arial",sans-serif'>5. </span></span>MUST
 support the <code>$select</code> option nested within <code>$select</code></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6. SHOULD
 support the count of a filtered collection in a common expression </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. SHOULD
 support equal and non-equal structural comparison</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. SHOULD
 support <code>$compute</code> system query
 option</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>SHOULD
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9. SHOULD
 support nested query options in <code>$select</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_Toc477876741">10.<span style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY
+name="_Toc477876741">10. MAY
 support nested parameter alias assignments in </a><code>$select</code><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><code>$expand</code></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support filtering a
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MAY support filtering a
 collection using a <code>/</code><span class=Keyword>$filter</span>
 path segment</p>
 
@@ -9237,82 +9109,72 @@ conform to the OData 4.01 Advanced Conformance Level, a service:</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>1.</span></span>MUST conform to the <a
+class=MsoHyperlink><span style='color:windowtext'>1. </span></span>MUST conform to the <a
 href="#sec_OData401IntermediateConformanceLevel">OData 4.01 Intermediate
 Conformance Level</a></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>2.</span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
+class=MsoHyperlink><span style='color:windowtext'>2. </span></span><span class=MsoHyperlink><span style='color:windowtext'>MUST
 conform to the </span></span><a href="#sec_OData40AdvancedConformanceLevel">OData
 4.0 Advanced Conformance Level</a></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST
 support the count of a filtered/searched collection in a common expression </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4. MUST
 support <code>$compute</code> system query
 option</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5. MUST
 support nested options in <code>$select</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>MUST support <code>$filter</code> on selected collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.1. MUST support <code>$filter</code> on selected collection-valued
 properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$orderby</code> <code>asc</code>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.2. SHOULD support <code>$orderby</code> <code>asc</code>
 and <code>desc</code> on selected collection-valued properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support the <code>$count</code> on selected collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.3. SHOULD support the <code>$count</code> on selected collection-valued
 properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$top</code> and <code>$skip</code> on selected collection-valued properties </p>
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.4. SHOULD support <code>$top</code> and <code>$skip</code> on selected collection-valued properties </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>SHOULD support <code>$search</code> on selected collection-valued
+margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>5.5. SHOULD support <code>$search</code> on selected collection-valued
 properties</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in;page-break-after:
-avoid'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+avoid'>6. MUST
 publish metadata at <code>$metadata</code>
 according to <a href="#ODataCSDLJSONRef"><b>[OData-CSDLJSON]</b></a> (section 11.1.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=MsoHyperlink><span style='color:windowtext'>7.</span></span>MUST support batch requests according both to the
+class=MsoHyperlink><span style='color:windowtext'>7. </span></span>MUST support batch requests according both to the
 multipart format (section 11.7 and all subsections) and the JSON Batch format
 defined in <a href="#ODataJSONRef"><b>[OData-JSON]</b></a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_Toc477876742">8.SHOULD support filtering a collection using a </a><code>/</code><span
+name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/</code><span
 class=Keyword>$filter</span> path segment</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>SHOULD
+class=Datatype><span style='font-family:"Arial",sans-serif'>9. </span></span>SHOULD
 support nested parameter alias assignments in <code>$select</code><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><code>$expand</code></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support case-insensitive
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. MAY support case-insensitive
 comparison of identifiers in URLs and request payloads if no exact match is
 found, using the same lookup sequence as for <a href="#sec_DefaultNamespaces">default
 namespaces</a> with a case-insensitive comparison  </p>
@@ -9330,108 +9192,90 @@ class=MsoHyperlink><b> </b></span>format.</p>
 generally interoperable, OData clients       </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>1. MUST
 specify the <code>OData-MaxVersion</code> header in requests
 (section 8.2.7)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>2. MUST
 specify <code>OData-Version</code> (section 8.1.5) and <code>Content-Type</code> (section 8.1.1) in any request with a payload</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST be a
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>3. MUST be a
 conforming consumer of OData as defined in <a href="#ODataJSONRef"><b>[OData-JSON]</b></a>
 </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>4. MUST
 follow redirects (section 9.1.5)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>5. MUST
 correctly handle next links (section 11.2.6.7)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>6. MUST
 support instances returning properties and navigation properties not specified
 in metadata (section 11.2)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>7. MUST
 generate <code>PATCH</code> requests for updates, if the client
 supports updates (section 11.4.3)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>8. MUST
 include the <code>$</code> prefix when specifying OData-defined
 system query options</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>MUST use
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>9. MUST use
 case-sensitive query options, operators, and canonical functions</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10.SHOULD support basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a><span
+4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a><span
 style='color:black'> </span>over HTTPS</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY request entity
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>11. MAY request entity
 references in place of entities previously returned in the response (section 11.2.8)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support deleted entities,
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>12. MAY support deleted entities,
 link entities, deleted link entities in a delta response (section 11.3)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>13.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support asynchronous
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>13. MAY support asynchronous
 responses (section 11.6)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>14.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MAY support <code>metadata=minimal</code> in a JSON response (see <a
+0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>14. MAY support <code>metadata=minimal</code> in a JSON response (see <a
 href="#ODataJSONRef"><b>[OData-JSON]</b></a>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>15.MAY support <code>streaming </code>in a JSON response
+4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>15. MAY support <code>streaming </code>in a JSON response
 (see <a href="#ODataJSONRef"><b>[OData-JSON]</b></a>)</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In addition,
 interoperable OData 4.01 clients</p>
 
-<p class=MsoListParagraphCxSpFirst style='margin-left:.25in;text-indent:-.25in'>16.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST send OData
+<p class=MsoListParagraphCxSpFirst style='margin-left:.25in;text-indent:-.25in'>16. MUST send OData
 4.0-compliant payloads to services that don't advertise support for 4.01 or
 greater through the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> metadata
 annotation (see <a href="#VocCore"><b>[OData-VocCore]</b></a><span
 class=MsoHyperlink>)</span></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>17.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST specify identifiers in
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>17. MUST specify identifiers in
 payloads and URLs in the case they are specified in <code>$metadata</code></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>18.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST be prepared to receive
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>18. MUST be prepared to receive
 any valid 4.01 CSDL</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>19.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>MUST be prepared to receive
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>19. MUST be prepared to receive
 any valid 4.01 response according to the requested format</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>20.<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span>SHOULD use capabilities (see
+<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>20. SHOULD use capabilities (see
 <a href="#VocCapabilities"><b>[OData-VocCap]</b></a>) to determine if a 4.01
 feature is supported but MAY attempt syntax and be prepared to handle either <a
 href="#sec_ResponseCode501NotImplemented"><span class=Keyword><span
@@ -9443,7 +9287,7 @@ class=Keyword>400 Bad Request</span></p>
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <p class=AppendixHeading1><a name="sec_Acknowledgments"></a><a
-name="_Toc477876743">Appendix A.</a><a href="#sec_Acknowledgments">Acknowledgments</a></p>
+name="_Toc477876743">Appendix A. </a><a href="#sec_Acknowledgments">Acknowledgments</a></p>
 
 </div>
 
@@ -9457,257 +9301,195 @@ contributions are gratefully acknowledged:</p>
   <td width=295 valign=top style='width:221.55pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Howard Abrams (CA Technologies)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Howard Abrams (CA Technologies)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ken Baclawski (Northeastern University)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ken Baclawski (Northeastern University)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Jay Balunas (Red Hat)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Jay Balunas (Red Hat)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Stephen Berard (Schneider Electric Industries
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Stephen Berard (Schneider Electric Industries
   SAS)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Mark Biamonte (Progress Software)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Mark Biamonte (Progress Software)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Matthew Borges (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Matthew Borges (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Edmond Bourne (BlackBerry)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Edmond Bourne (BlackBerry)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Joseph Boyle (Planetwork, Inc.)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Joseph Boyle (Planetwork, Inc.)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Peter Brown (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Peter Brown (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Antonio Campanile (Bank of America)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Antonio Campanile (Bank of America)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Pablo Castro (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Pablo Castro (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Axel Conrad (BlackBerry)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Axel Conrad (BlackBerry)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Robin Cover (OASIS)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Robin Cover (OASIS)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Erik de Voogd (SDL)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Erik de Voogd (SDL)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Yi Ding (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Yi Ding (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Diane Downie (Citrix Systems)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Diane Downie (Citrix Systems)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Patrick Durusau (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Patrick Durusau (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Andrew Eisenberg (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Andrew Eisenberg (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Chet Ensign (OASIS)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Chet Ensign (OASIS)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Davina Erasmus (SDL)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Davina Erasmus (SDL)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>George Ericson (Dell)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>George Ericson (Dell)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Colleen Evans (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Colleen Evans (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Jason Fam (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Jason Fam (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Senaka Fernando (WSO2)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Senaka Fernando (WSO2)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Josh Gavant (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Josh Gavant (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Brent Gross (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Brent Gross (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Zhun Guo (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Zhun Guo (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Anila Kumar GVN (CA Technologies)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Anila Kumar GVN (CA Technologies)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Stefan Hagen (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Stefan Hagen (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ralf Handl (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ralf Handl (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Barbara Hartel (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Barbara Hartel (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Hubert Heijkers (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Hubert Heijkers (IBM)</span></p>
   </td>
   <td width=312 valign=top style='width:233.65pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Jens Hüsken (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Jens Hüsken (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Evan Ireland (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Evan Ireland (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Gershon Janssen (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Gershon Janssen (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ram Jeyaraman (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ram Jeyaraman (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ted Jones (Red Hat)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ted Jones (Red Hat)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Diane Jordan (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Diane Jordan (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Stephan Klevenz (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Stephan Klevenz (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Gerald Krause (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Gerald Krause (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Nuno Linhares (SDL)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Nuno Linhares (SDL)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Paul Lipton (CA Technologies)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Paul Lipton (CA Technologies)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Susan Malaika (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Susan Malaika (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ramanjaneyulu Malisetti (CA Technologies)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ramanjaneyulu Malisetti (CA Technologies)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Neil McEvoy (iFOSSF – International Free and Open
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Neil McEvoy (iFOSSF – International Free and Open
   Source Solutions Foundation)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Stan Mitranic (CA Technologies)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Stan Mitranic (CA Technologies)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Dale Moberg (Axway Software)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Dale Moberg (Axway Software)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Graham Moore (BrightstarDB Ltd.)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Graham Moore (BrightstarDB Ltd.)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Farrukh Najmi (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Farrukh Najmi (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Shishir Pardikar (Citrix Systems)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Shishir Pardikar (Citrix Systems)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Sanjay Patil (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Sanjay Patil (SAP SE)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Nuccio Piscopo (iFOSSF – International Free and
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Nuccio Piscopo (iFOSSF – International Free and
   Open Source Solutions Foundation)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Michael Pizzo (Microsoft)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Michael Pizzo (Microsoft)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Ramesh Reddy (Red Hat)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Ramesh Reddy (Red Hat)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Robert Richards (Mashery)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Robert Richards (Mashery)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Sumedha Rubasinghe (WSO2)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Sumedha Rubasinghe (WSO2)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>James Snell (IBM)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>James Snell (IBM)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Jeffrey Turpin (Axway Software)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Jeffrey Turpin (Axway Software)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>John Willson (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>John Willson (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>John Wilmes (Individual)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>John Wilmes (Individual)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Christopher Woodruff (Perficient, Inc.)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Christopher Woodruff (Perficient, Inc.)</span></p>
   <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
   0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-  lang=EN style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span lang=EN>Martin Zurmuehl (SAP SE)</span></p>
+  lang=EN style='font-family:Symbol'>· </span><span lang=EN>Martin Zurmuehl (SAP SE)</span></p>
   </td>
  </tr>
 </table>
@@ -9717,7 +9499,7 @@ contributions are gratefully acknowledged:</p>
 <div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
 
 <p class=AppendixHeading1><a name="sec_RevisionHistory"></a><a
-name="_Toc477876744">Appendix B.</a><a href="#sec_RevisionHistory">Revision History</a></p>
+name="_Toc477876744">Appendix B. </a><a href="#sec_RevisionHistory">Revision History</a></p>
 
 </div>
 
@@ -9787,23 +9569,17 @@ name="_Toc477876744">Appendix B.</a><a href="#sec_RevisionHistory">Revision Hist
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal>Integrated 4.01 features</p>
   <p class=MsoListParagraphCxSpFirst style='margin-left:.25in;text-indent:-.25in'><span
-  style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Schema Versioning</p>
+  style='font-family:Symbol'>· </span>Schema Versioning</p>
   <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:
-  -.25in'><span style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Preference omit-values</p>
+  -.25in'><span style='font-family:Symbol'>· </span>Preference omit-values</p>
   <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:
-  -.25in'><span style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>$compute system query option </p>
+  -.25in'><span style='font-family:Symbol'>· </span>$compute system query option </p>
   <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:
-  -.25in'><span style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Indexing into Ordered Collections</p>
+  -.25in'><span style='font-family:Symbol'>· </span>Indexing into Ordered Collections</p>
   <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:
-  -.25in'><span style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Deep Update</p>
+  -.25in'><span style='font-family:Symbol'>· </span>Deep Update</p>
   <p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'><span
-  style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Improved referencing in batch requests</p>
+  style='font-family:Symbol'>· </span>Improved referencing in batch requests</p>
   </td>
  </tr>
  <tr>
@@ -9827,14 +9603,11 @@ name="_Toc477876744">Appendix B.</a><a href="#sec_RevisionHistory">Revision Hist
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal>More 4.01 features</p>
   <p class=MsoListParagraphCxSpFirst style='margin-left:.25in;text-indent:-.25in'><span
-  style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>Set-based operations</p>
+  style='font-family:Symbol'>· </span>Set-based operations</p>
   <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:
-  -.25in'><span style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>JSON Batch format</p>
+  -.25in'><span style='font-family:Symbol'>· </span>JSON Batch format</p>
   <p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'><span
-  style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span>CSDL JSON format</p>
+  style='font-family:Symbol'>· </span>CSDL JSON format</p>
   </td>
  </tr>
  <tr>
