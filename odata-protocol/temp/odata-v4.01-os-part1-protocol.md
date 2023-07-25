@@ -75,7 +75,7 @@ See link in \"Related work\" section on cover page.
 **\[[RFC2046]{#RFC2046}\]                     ** Freed, N. and N.
 Borenstein, \"Multipurpose Internet Mail Extensions (MIME) Part Two:
 Media Types\", RFC 2046, November 1996.
-<https://tools.ietf.org/html/rfc2046>[.]{.MsoHyperlink}
+<https://tools.ietf.org/html/rfc2046>.
 
 [\[[RFC2119]{#RFC2119}\]]{.Refterm}                      Bradner, S.,
 "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC
@@ -117,7 +117,7 @@ Snell, J., \"Prefer Header for HTTP\",[
 ]{style="font-size:10.5pt;color:#333333;
 background:white"}Reschke, J., \"The \'Basic\' HTTP Authentication
 Scheme\", RFC 7617, September 2015.
-<https://tools.ietf.org/html/rfc7617>[.  ]{.MsoHyperlink}
+<https://tools.ietf.org/html/rfc7617>.  
 
 ## ##subsec Typographical Conventions
 
@@ -245,16 +245,16 @@ has a different [entity-id](#sec_EntityIdsandEntityReferences). Entity
 sets provide entry points into the data model.
 
 *Operations* allow the execution of custom logic on parts of a data
-model. [*Functions*](#sec_Functions)[ ]{.MsoHyperlink}are operations
-that do not have side effects and may support further composition, for
-example, with additional filter operations, functions or an action.
-[*Actions*](#sec_Actions)[ ]{.MsoHyperlink}are operations that allow
-side effects, such as data modification, and cannot be further composed
-in order to avoid non-deterministic behavior. Actions and functions are
-either *bound* to a type, enabling them to be called as members of an
-instance of that type, or unbound, in which case they are called as
-static operations. *Action imports* and *function imports* enable
-unbound actions and functions to be called from the service root.
+model. [*Functions*](#sec_Functions) are operations that do not have
+side effects and may support further composition, for example, with
+additional filter operations, functions or an action.
+[*Actions*](#sec_Actions) are operations that allow side effects, such
+as data modification, and cannot be further composed in order to avoid
+non-deterministic behavior. Actions and functions are either *bound* to
+a type, enabling them to be called as members of an instance of that
+type, or unbound, in which case they are called as static operations.
+*Action imports* and *function imports* enable unbound actions and
+functions to be called from the service root.
 
 *Singletons* are named entities which can be accessed as direct children
 of the entity container. A singleton may also be a member of an entity
@@ -377,9 +377,9 @@ same name.
 Services MAY define one or more default namespaces through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}term defined in
-[OData-VocCore](#ODataVocCore)[. ]{.MsoHyperlink}Functions, actions and
-types in a default namespace can be referenced in URLs with or without
-namespace or alias qualification.[ ]{.MsoHyperlink}
+[OData-VocCore](#ODataVocCore). Functions, actions and types in a
+default namespace can be referenced in URLs with or without namespace or
+alias qualification.
 
 Service designers should ensure uniqueness of schema children across all
 default namespaces, and should avoid naming bound functions, actions, or
@@ -537,16 +537,15 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[OData-Version](#sec_HeaderODataVersion)[ ]{.MsoHyperlink}header. Thus,
-clients and services MUST be prepared to handle or safely ignore any
-content not specifically defined in the version of the payload specified
-by the `OData-Version`[` `]{.Hyperlink1}header.
+[OData-Version](#sec_HeaderODataVersion) header. Thus, clients and
+services MUST be prepared to handle or safely ignore any content not
+specifically defined in the version of the payload specified by the
+`OData-Version`[` `]{.Hyperlink1}header.
 
 ## ##subsec Action/Function Extensibility
 
-[Actions](#sec_Actions)[ ]{.MsoHyperlink}and
-[Functions](#sec_Functions)[ ]{.MsoHyperlink}extend the set of
-operations that can be performed on or with a service or resource.
+[Actions](#sec_Actions) and [Functions](#sec_Functions) extend the set
+of operations that can be performed on or with a service or resource.
 [Actions]{.Hyperlink1} can have side-effects. For example,
 [Actions]{.Hyperlink1} can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
@@ -612,7 +611,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#sec_HeaderAccept) header, as defined in
 [**\[RFC7231\]**](#HTTPSemantic), or through the system query option
-[\$format](#sec_SystemQueryOptionformat)[.]{.MsoHyperlink}
+[\$format](#sec_SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format`[[ system
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}query option are
@@ -806,11 +805,10 @@ batch request.
 
 ### ##subsubsec Header `If-Match`
 
-As defined in [**\[RFC7232\]**](#HTTPConditional)[,]{.MsoHyperlink} a
-client MAY include an `If-Match` header in a request to `GET`, `POST`,
-`PUT`, `PATCH` or `DELETE`. The value of the `If-Match` request header
-MUST be an ETag value previously retrieved for the resource, or `*` to
-match any value.
+As defined in [**\[RFC7232\]**](#HTTPConditional), a client MAY include
+an `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
+`DELETE`. The value of the `If-Match` request header MUST be an ETag
+value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
 [`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
@@ -863,7 +861,7 @@ matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
 [`304 Not Modified`](#sec_ResponseCode304NotModified), and for a [Data
 Modification Request](#sec_DataModification) or [Action
-Request](#sec_Actions)[,]{.MsoHyperlink} the service MUST respond with
+Request](#sec_Actions), the service MUST respond with
 [`412 Precondition Failed`](#sec_ResponseCode412PreconditionFailed) and
 MUST ensure that no observable change occurs as a result of the request.
 
@@ -886,13 +884,13 @@ specified on the request, the service MUST NOT process the request and
 MUST respond with `412 Precondition Failed.`
 
 *Snapshot isolation* guarantees that all data returned for a request,
-including multiple requests within a [batch](#sec_BatchRequests)[
-]{.MsoHyperlink}or results retrieved across multiple
-[pages](#sec_ServerDrivenPaging), will be consistent as of a single
-point in time. Only data modifications made within the request (for
-example, by a data modification request within the same batch) are
-visible. The effect is as if the request generates a \"snapshot\" of the
-committed data as it existed at the start of the request.
+including multiple requests within a [batch](#sec_BatchRequests) or
+results retrieved across multiple [pages](#sec_ServerDrivenPaging), will
+be consistent as of a single point in time. Only data modifications made
+within the request (for example, by a data modification request within
+the same batch) are visible. The effect is as if the request generates a
+\"snapshot\" of the committed data as it existed at the start of the
+request.
 
 The` Isolation `header may be specified on a single or batch request. If
 it is specified on a batch then the value is applied to all statements
@@ -991,9 +989,8 @@ of the overall batch request.
 Note: The `allow-entityreferences` preference was named
 `odata.allow-entityreferences` in OData version 4.0. Services that
 support the` allow-entityreferences` preference SHOULD also support
-[odata.allow-entityreferences]{style="font-family:\"Courier New\";color:black;background:
-white"} for OData 4.0 clients and clients SHOULD use
-`odata.allow-entityreferences` for compatibility with OData 4.0
+`odata.allow-entityreferences` for OData 4.0 clients and clients SHOULD
+use `odata.allow-entityreferences` for compatibility with OData 4.0
 services.
 
 #### ##subsubsubsec Preference `callback` (`odata.callback`)
@@ -1008,8 +1005,7 @@ The `callback` preference can be specified:
 -   when requesting asynchronous processing of a request with the
     [`respond-async`](#sec_Preferencerespondasync)[` `]{.MsoHyperlink}preference,
     or
--   on a `GET` request to a [delta
-    link](#sec_DeltaLinks)[.]{.MsoHyperlink}
+-   on a `GET` request to a [delta link](#sec_DeltaLinks).
 
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
@@ -1217,8 +1213,7 @@ the overall batch request.
 Note: The `include-annotations `preference was named
 `odata.include-annotations` in OData version 4.0. Services that support
 the` include-annotations `preference SHOULD also support
-[odata.include-annotations]{style="font-family:\"Courier New\";color:black;background:
-white"} for OData 4.0 clients and clients SHOULD use
+`odata.include-annotations` for OData 4.0 clients and clients SHOULD use
 `odata.include-annotations` for compatibility with OData 4.0 services.
 If both `include-annotations` and `odata.include-annotations`
 preferences are specified in the same request, the value of the
@@ -1317,9 +1312,9 @@ request does not have any effect.
 
 A preference of `return=representation` or `return=minimal` is allowed
 on an individual [Data Modification Request](#sec_DataModification) or
-[Action Request](#sec_Actions)[ ]{.MsoHyperlink}within a batch, subject
-to the same restrictions, but SHOULD return a `4xx Client Error` if
-specified on the batch request itself.
+[Action Request](#sec_Actions) within a batch, subject to the same
+restrictions, but SHOULD return a `4xx Client Error` if specified on the
+batch request itself.
 
 A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
@@ -1392,10 +1387,10 @@ Prefer: respond-async, wait=10
 #### ##subsubsubsec Preference `track-changes` (`odata.track-changes`)
 
 The `track-changes` preference is used to request that the service
-return a[ ]{.MsoHyperlink}[delta link](#sec_DeltaLinks) that can
-subsequently be used to obtain [changes](#sec_RequestingChanges)
-(deltas) to this result. The syntax of the `track-changes `preference is
-defined in [OData-ABNF](#ODataABNF).
+return a [delta link](#sec_DeltaLinks) that can subsequently be used to
+obtain [changes](#sec_RequestingChanges) (deltas) to this result. The
+syntax of the `track-changes `preference is defined in
+[OData-ABNF](#ODataABNF).
 
 For [paged results](#sec_ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -1513,9 +1508,9 @@ response, but MAY be included in individual responses within a batch.
 
 ### ##subsubsec Header `OData-EntityId`
 
-A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[or
-]{.MsoHyperlink}[upsert](#sec_UpsertanEntity)[ operation]{.MsoHyperlink}
-that returns [`204 No Content`](#sec_ResponseCode204NoContent)[
+A response to a [create](#sec_CreateanEntity) or
+[upsert](#sec_UpsertanEntity) operation that returns
+[`204 No Content`](#sec_ResponseCode204NoContent)[
 ]{style="font-family:\"Calibri\",sans-serif"}MUST include an
 `OData-EntityId` response header. The value of the header is the
 [entity-id](#sec_EntityIdsandEntityReferences) of the entity that was
@@ -1653,9 +1648,9 @@ of the `PATCH` request, i.e. the previous values "known" to the client.
 As per [**\[RFC7231\]**](#HTTPSemantic), a `3xx Redirection` indicates
 that further action needs to be taken by the client in order to fulfill
 the request. In this case, the response SHOULD include a [`Location`
-header](#sec_HeaderLocation)[, ]{.MsoHyperlink}as appropriate, with the
-URL from which the result can be obtained; it MAY include a
-[`Retry-After` header](#sec_HeaderRetryAfter).
+header](#sec_HeaderLocation), as appropriate, with the URL from which
+the result can be obtained; it MAY include a [`Retry-After`
+header](#sec_HeaderRetryAfter).
 
 ### ##subsubsec Response Code `304 Not Modified`
 
@@ -1730,8 +1725,8 @@ depended upon a request that failed.
 
 ## ##subsec Server Error Responses
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic)[, ]{.MsoHyperlink}error
-codes in the `5xx` range indicate service errors[.]{.MsoHyperlink}
+As defined in [**\[RFC7231\]**](#HTTPSemantic), error codes in the `5xx`
+range indicate service errors.
 
 ### ##subsubsec Response Code `501 Not Implemented`
 
@@ -2268,11 +2263,11 @@ Context URL templates:
 `{context-url}#{type-name}{select-list}`
 
 If a response represents an [individual
-property](#sec_RequestingIndividualProperties)[ ]{.MsoHyperlink}of an
-entity with a canonical URL, the context URL specifies the canonical URL
-of the entity and the path to the structural property of that entity.
-The path MUST include cast segments for properties defined on types
-derived from the expected type of the previous segment.
+property](#sec_RequestingIndividualProperties) of an entity with a
+canonical URL, the context URL specifies the canonical URL of the entity
+and the path to the structural property of that entity. The path MUST
+include cast segments for properties defined on types derived from the
+expected type of the previous segment.
 
 If the property value does not contain explicitly or implicitly selected
 navigation properties or operations, OData 4.01 responses MAY use the
@@ -2373,10 +2368,10 @@ Context URL template:
 
 `#$delta`
 
-The context URL of a [delta response](#sec_RequestingChanges)[
-]{.MsoHyperlink}is the context URL of the response to the defining
-query, followed by `/$delta`. This includes singletons, single-valued
-navigation properties, and collection-valued navigation properties.
+The context URL of a [delta response](#sec_RequestingChanges) is the
+context URL of the response to the defining query, followed by
+`/$delta`. This includes singletons, single-valued navigation
+properties, and collection-valued navigation properties.
 
 If the entities are contained, then `{entity-set}` is the top-level
 entity set followed by the path to the containment navigation property
@@ -2555,8 +2550,8 @@ selected.
 ### ##subsubsec Metadata Document Request
 
 An OData *metadata document* is a representation of the [data
-model](#sec_DataModel)[ ]{.MsoHyperlink}that describes the data and
-operations exposed by an OData service.
+model](#sec_DataModel) that describes the data and operations exposed by
+an OData service.
 
 [OData-CSDLJSON](#ODataCSDL) describes a JSON representation for OData
 metadata documents and provides a JSON schema to validate their
@@ -2627,9 +2622,7 @@ processing.
 
 Prior to applying any [server-driven paging](#sec_ServerDrivenPaging):
 
--   `$appl`[y]{style="font-family:
-         \"Courier New\""} -- defined in
-    [OData-Aggregation](#ODataAggregationRef)
+-   `$apply` -- defined in [OData-Aggregation](#ODataAggregationRef)
 -   [`$compute`](#sec_SystemQueryOptioncompute)
 -   [`$search`](#sec_SystemQueryOptionsearch)
 -   [`$filter`](#sec_SystemQueryOptionfilter)
@@ -2691,12 +2684,12 @@ append `/$value` to the resource path of the media entity URL. Services
 may redirect from this canonical URL to the source URL of the media
 stream.
 
-Appending `/$value` to an entity that is not a media entity returns [400
-Bad Request[.]{.MsoHyperlink}]{style="font-family:\"Courier New\""}
+Appending `/$value` to an entity that is not a media entity returns
+`400 Bad Request.`
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
-[`404 Not Found`](#sec_ResponseCode404NotFound)[.]{.MsoHyperlink}
+[`404 Not Found`](#sec_ResponseCode404NotFound).
 
 ### ##subsubsec Requesting Individual Properties
 
@@ -2779,17 +2772,16 @@ the client to specify the set of structural properties and navigation
 properties to include in a response. The service MAY include additional
 properties not specified in [`$select`](#sec_SystemQueryOptionselect)
 and [`$expand`](#sec_SystemQueryOptionexpand), including properties not
-defined in [the metadata
-document](#sec_MetadataDocumentRequest)[.]{.MsoHyperlink}
+defined in [the metadata document](#sec_MetadataDocumentRequest).
 
 #### ##subsubsubsec System Query Option `$select`
 
 The `$select` system query option requests that the service return only
 the properties, dynamic properties, [actions](#sec_Actions) and
-[functions](#sec_Functions)[ ]{.MsoHyperlink}explicitly requested by the
-client. The service returns the specified content, if available, along
-with any available [expanded](#sec_SystemQueryOptionexpand) navigation
-or stream properties, and MAY return additional information.
+[functions](#sec_Functions) explicitly requested by the client. The
+service returns the specified content, if available, along with any
+available [expanded](#sec_SystemQueryOptionexpand) navigation or stream
+properties, and MAY return additional information.
 
 The value of the `$select` query option is a comma-separated list of
 properties, qualified action names, qualified function names, the star
@@ -3120,7 +3112,7 @@ For a full description of the syntax used when building requests, see
 
   **Operator**               **[Description]{style="color:   **[Example]{style="color:
                                 black"}**                       black"}**
-  -------------------------- ------------------------------- -------------------------------------------------------------
+  -------------------------- ------------------------------- -----------------------------------------
   **Comparison Operators**                                   
   `eq`                       Equal                           `Address/City eq 'Redmond'`
   `ne`                       Not equal                       `Address/City ne 'London'`
@@ -3142,8 +3134,7 @@ For a full description of the syntax used when building requests, see
   `divby`                    Decimal Division                `Price divby 2 gt 3.5`
   `mod`                      Modulo                          `Price mod 2 eq 0`
   **Grouping Operators**                                     
-  `( )`                      Precedence grouping             `(`[Price sub 5) gt 10]{style="font-size:9.0pt;font-family:
-                                                               \"Courier New\""}
+  `( )`                      Precedence grouping             `(Price sub 5) gt 10`
 
 ##### ##subsubsubsubsec Built-in Query Functions
 
@@ -3210,8 +3201,7 @@ a `null` literal that can be used in comparisons.
 ##### ##subsubsubsubsec Parameter Aliases
 
 Parameter aliases can be used in place of literal values in entity keys,
-[function parameters](#sec_InvokingaFunction)[,]{.MsoHyperlink} or
-within a
+[function parameters](#sec_InvokingaFunction), or within a
 [`$compute`](#sec_SystemQueryOptioncompute)[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) expression. Parameters
@@ -3507,8 +3497,8 @@ Example 63: return all Products that match either \"mountain\" or
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/Products?\$search=[(]{.MsoHyperlink}mountain OR
-bike) AND NOT clothing ]{style="color:black"}
+[GET http://host/service/Products?\$search=(mountain OR bike) AND NOT
+clothing ]{style="color:black"}
 :::
 
 The operations within a search expression MUST be evaluated in the
@@ -3564,7 +3554,7 @@ Example 64: the first address in a list of addresses for `MainSupplier`
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [GET
-[http://host/service/Suppliers(MainSupplier)/Addresses/0]{.MsoHyperlink}]{style="color:black"}
+http://host/service/Suppliers(MainSupplier)/Addresses/0]{style="color:black"}
 :::
 
 ### ##subsubsec Requesting Related Entities
@@ -3803,11 +3793,10 @@ is equivalent to a request with the `Accept` header set to
 using the JSON media type with minimal metadata, as defined in
 [OData-JSON](#ODataJSON).
 
-In [metadata document
-requests](#sec_MetadataDocumentRequest)[,]{.MsoHyperlink} the values
-`application/xml` and `application/json`, along with their subtypes and
-parameterized variants, as well as the format-specific abbreviations
-`xml` and `json,` are reserved for this specification.
+In [metadata document requests](#sec_MetadataDocumentRequest), the
+values `application/xml` and `application/json`, along with their
+subtypes and parameterized variants, as well as the format-specific
+abbreviations `xml` and `json,` are reserved for this specification.
 
 ### ##subsubsec System Query Option `$schemaversion`
 
@@ -3893,13 +3882,13 @@ option, the response MUST be represented according to that schema
 version.
 
 If the defining query contains a
-[`$filter`](#sec_SystemQueryOptionfilter)[ ]{.MsoHyperlink}or[
-]{.MsoHyperlink}[`$search`](#sec_SystemQueryOptionsearch), the response
-MUST include only changes to entities matching the specified criteria.
-Added entities MUST be returned for entities that were added or changed
-and now match the specified criteria, and deleted entities MUST be
-returned for entities that are changed to no longer match the criteria
-of [`$filter`](#sec_SystemQueryOptionfilter) or
+[`$filter`](#sec_SystemQueryOptionfilter) or
+[`$search`](#sec_SystemQueryOptionsearch), the response MUST include
+only changes to entities matching the specified criteria. Added entities
+MUST be returned for entities that were added or changed and now match
+the specified criteria, and deleted entities MUST be returned for
+entities that are changed to no longer match the criteria of
+[`$filter`](#sec_SystemQueryOptionfilter) or
 [`$search`](#sec_SystemQueryOptionsearch).
 
 The delta link MUST NOT encode any client
@@ -3975,10 +3964,10 @@ change.
 In order to continue tracking changes beyond the current set, the client
 specifies [`track-changes`](#sec_Preferencetrackchangesodatatrackchan)
 on the initial request to the delta link but is not required to repeat
-it for subsequent [pages](#sec_ServerDrivenPaging)[.]{.MsoHyperlink} The
-new delta link appears at the end of the last page of changes in place
-of the next link and MUST return all changes subsequent to the last
-change of the previous delta link.
+it for subsequent [pages](#sec_ServerDrivenPaging). The new delta link
+appears at the end of the last page of changes in place of the next link
+and MUST return all changes subsequent to the last change of the
+previous delta link.
 
 If no changes have occurred, the response is an empty collection that
 contains a delta link for subsequent changes if requested. This delta
@@ -4001,9 +3990,8 @@ service using a delta link or provided as updates to the service.
 ## ##subsec Data Modification
 
 Updatable OData services support Create, Update, and Delete operations
-for some or all exposed entities. Additionally, [Actions](#sec_Actions)[
-]{.MsoHyperlink}supported by a service can affect the state of the
-system.
+for some or all exposed entities. Additionally, [Actions](#sec_Actions)
+supported by a service can affect the state of the system.
 
 A successfully completed [Data Modification
 Request](#sec_DataModification) must not violate the integrity of the
@@ -4032,10 +4020,10 @@ collection, or if an entity in the collection is changed. The ETag of a
 collection of related entities reached via a navigation property MAY
 differ from the ETag of the entity containing the navigation property.
 
-A [Data Modification Request](#sec_DataModification)[ ]{.MsoHyperlink}on
-an existing resource or an [Action Request](#sec_Actions) invoking an
-action bound to an existing resource MAY require optimistic concurrency
-control. Services SHOULD announce this via annotations with the terms
+A [Data Modification Request](#sec_DataModification) on an existing
+resource or an [Action Request](#sec_Actions) invoking an action bound
+to an existing resource MAY require optimistic concurrency control.
+Services SHOULD announce this via annotations with the terms
 [`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
 [OData-VocCore](#ODataVocCore) and
@@ -4118,8 +4106,8 @@ content of a non-empty response body MUST be the updated media entity.
 
 Requests that return a single instance of a structured type or a
 collection of structured type instances MAY specify the system query
-options [`$expand`](#sec_SystemQueryOptionexpand)[ and
-]{.MsoHyperlink}[`$select`](#sec_SystemQueryOptionselect).
+options [`$expand`](#sec_SystemQueryOptionexpand) and
+[`$select`](#sec_SystemQueryOptionselect).
 
 Requests that return a collection MAY specify the system query option
 [`$filter`](#sec_SystemQueryOptionfilter).
@@ -4301,9 +4289,9 @@ least the level that was present in the deep-insert request.
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
-term defined in [OData-VocCore](#ODataVocCore)[.
-]{.MsoHyperlink}Services that respond with `201 Created` SHOULD annotate
-the entities in the response using the same
+term defined in [OData-VocCore](#ODataVocCore). Services that respond
+with `201 Created` SHOULD annotate the entities in the response using
+the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
 deep inserts, including support for returning the
@@ -4599,9 +4587,9 @@ style="color:black"}]{.CODEtemp}
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
-term defined in [OData-VocCore](#ODataVocCore)[.
-]{.MsoHyperlink}Services that respond with `200 OK` SHOULD annotate the
-entities in the response using the same
+term defined in [OData-VocCore](#ODataVocCore). Services that respond
+with `200 OK` SHOULD annotate the entities in the response using the
+same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
 deep updates, including support for returning the
@@ -4812,7 +4800,7 @@ which case the response body MUST contain the updated media entity.
 
 A successful `DELETE` request to the entity\'s edit URL or to the edit
 URL of its media stream deletes the media entity as described in [Delete
-an Entity](#sec_DeleteanEntity)[.]{.MsoHyperlink}
+an Entity](#sec_DeleteanEntity).
 
 Deleting a media entity also deletes the media associated with the
 entity.
@@ -5047,9 +5035,9 @@ updating an entity](#sec_UpdateRelatedEntitiesWhenUpdatinganE).
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
-term defined in [OData-VocCore](#ODataVocCore)[.
-]{.MsoHyperlink}Services that respond with `200 OK` SHOULD annotate the
-entities in the response using the same
+term defined in [OData-VocCore](#ODataVocCore). Services that respond
+with `200 OK` SHOULD annotate the entities in the response using the
+same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request.
 
@@ -5229,7 +5217,7 @@ changes.
 
 ## ##subsec Operations
 
-Custom operations ([Actions](#sec_Actions)[ ]{.MsoHyperlink}and
+Custom operations ([Actions](#sec_Actions) and
 [Functions](#sec_Functions)) allow encapsulating logic for modifying or
 requesting data that goes beyond simple CRUD described in the preceding
 sections of this chapter. See `Action`, `ActionImport`, `Function`, and
@@ -5238,11 +5226,10 @@ sections of this chapter. See `Action`, `ActionImport`, `Function`, and
 
 ### ##subsubsec Binding an Operation to a Resource
 
-[Actions](#sec_Actions)[ ]{.MsoHyperlink}and
-[Functions](#sec_Functions)[ ]{.MsoHyperlink}MAY be bound to any type or
-collection, similar to defining a method in a class in object-oriented
-programming. The first parameter of a bound operation is the *binding
-parameter*.
+[Actions](#sec_Actions) and [Functions](#sec_Functions) MAY be bound to
+any type or collection, similar to defining a method in a class in
+object-oriented programming. The first parameter of a bound operation is
+the *binding parameter*.
 
 The namespace- or alias-qualified name of a bound operation may be
 appended to any URL that identifies a resource whose type matches, or is
@@ -5402,11 +5389,10 @@ the function name, and additional parameter values are specified using
 [inline parameter syntax](#sec_InlineParameterSyntax). If the function
 URL is [obtained](#sec_AdvertisingAvailableOperationswithin) from a
 previously returned entity representation, [parameter
-aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}that are identical to
-the parameter name preceded by an at (`@`) sign MUST be used. Clients
-MUST check if the obtained URL already contains a query part and
-appropriately precede the parameters either with an ampersand (`&`) or a
-question mark (`?`).
+aliases](#sec_ParameterAliases) that are identical to the parameter name
+preceded by an at (`@`) sign MUST be used. Clients MUST check if the
+obtained URL already contains a query part and appropriately precede the
+parameters either with an ampersand (`&`) or a question mark (`?`).
 
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
@@ -5510,10 +5496,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 \'Western\']{style="color:black"}]{.VerbatimChar}
 :::
 
-A [parameter alias](#sec_ParameterAliases)[ ]{.MsoHyperlink}can be used
-in place of an inline parameter value. The value for the alias is
-specified as a separate query option using the name of the parameter
-alias.
+A [parameter alias](#sec_ParameterAliases) can be used in place of an
+inline parameter value. The value for the alias is specified as a
+separate query option using the name of the parameter alias.
 
 Example 93: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
@@ -5526,16 +5511,15 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 Services MAY in addition allow implicit [parameter
-aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}[for function imports
-and for functions that are the last path segment of the URL. An implicit
-parameter alias is the parameter name, optionally preceded by an at
-(]{.MsoHyperlink}`@`[) sign. When using implicit parameter aliases,
-parentheses MUST NOT be appended to the function (import) name. The
-]{.MsoHyperlink}value for each parameter MUST be specified as a separate
-query option with the name of the parameter alias. If a parameter name
-is identical to a system query option name (without the optional `$`
-prefix), the parameter name MUST be prefixed with an at (`@`[)
-sign.]{.MsoHyperlink}
+aliases](#sec_ParameterAliases) for function imports and for functions
+that are the last path segment of the URL. An implicit parameter alias
+is the parameter name, optionally preceded by an at (`@`) sign. When
+using implicit parameter aliases, parentheses MUST NOT be appended to
+the function (import) name. The value for each parameter MUST be
+specified as a separate query option with the name of the parameter
+alias. If a parameter name is identical to a system query option name
+(without the optional `$` prefix), the parameter name MUST be prefixed
+with an at (`@`) sign.
 
 Example 94: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
@@ -5733,17 +5717,17 @@ with `202 Accepted`[[ ]{style="font-family:
 Responses that return `202 Accepted` MUST include a [`Location`
 header](#sec_HeaderLocation) pointing to a *status monitor resource*
 that represents the current state of the asynchronous processing in
-addition to an optional [`Retry-After` header](#sec_HeaderRetryAfter)[
-]{.MsoHyperlink}indicating the time, in seconds, the client should wait
-before querying the service for status. Services MAY include a response
-body, for example, to provide additional status information.
+addition to an optional [`Retry-After` header](#sec_HeaderRetryAfter)
+indicating the time, in seconds, the client should wait before querying
+the service for status. Services MAY include a response body, for
+example, to provide additional status information.
 
 A `GET` request to the status monitor resource again returns
 `202 Accepted `response if the asynchronous processing has not finished.
 This response MUST again[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include a
-[`Location` header](#sec_HeaderLocation)[ ]{.MsoHyperlink}and MAY
-include a [`Retry-After` header](#sec_HeaderRetryAfter) to be used for a
+[`Location` header](#sec_HeaderLocation) and MAY include a
+[`Retry-After` header](#sec_HeaderRetryAfter) to be used for a
 subsequent request. The `Location` header and optional `Retry-After`
 header may or may not contain the same values as returned by the
 previous request.
@@ -5754,9 +5738,9 @@ responses, or OData 4.0 requests that include an `Accept `header that
 does not specify
 `application/http`[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 the response MUST include the [`AsyncResult`](#sec_HeaderAsyncResult)
-[response header. Any other headers, along with the response body,
-represent the result of the completed asynchronous operation.
-]{.MsoHyperlink}If the `GET` request to the status monitor includes an
+response header. Any other headers, along with the response body,
+represent the result of the completed asynchronous operation. If the
+`GET` request to the status monitor includes an
 `OData-MaxVersion `header with a value of `4.0` and no `Accept`[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header, or an
 `Accept`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header
@@ -5803,11 +5787,10 @@ The status monitor resource URL MUST differ from any other resource URL.
 Batch requests allow grouping multiple individual requests into a single
 HTTP request payload. An individual request in the context of a batch
 request is a [Metadata Request](#sec_MetadataRequests), [Data
-Request](#sec_RequestingData)[,]{.MsoHyperlink} [Data Modification
+Request](#sec_RequestingData), [Data Modification
 Request](#sec_DataModification), [Action
-invocation](#sec_InvokinganAction)[ ]{.MsoHyperlink}request,[
-]{.MsoHyperlink}or [Function invocation](#sec_InvokingaFunction)
-request.
+invocation](#sec_InvokinganAction) request, or [Function
+invocation](#sec_InvokingaFunction) request.
 
 Batch requests are submitted as a single HTTP `POST` request to the
 batch endpoint of a service, located at the URL `$batch` relative to the
@@ -6068,7 +6051,7 @@ are omitted.
 Note also that the two empty lines after the `Host` header of the `GET`
 request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
-according to [**\[RFC2046\]**](#RFC2046)[.]{.MsoHyperlink}
+according to [**\[RFC2046\]**](#RFC2046).
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6602,15 +6585,12 @@ mechanism
 5\. MUST conform to the semantics the following headers, or fail the
 request
 
-5.1. [`Accept`](#sec_HeaderAccept)[
-]{.MsoHyperlink}[(]{.MsoHyperlink}section 8.2.1)
+5.1. [`Accept`](#sec_HeaderAccept) (section 8.2.1)
 
-5.2. [`OData-MaxVersion`](#sec_HeaderODataMaxVersion)[
-]{.MsoHyperlink}[(section ]{.MsoHyperlink}8.2.7[)]{.MsoHyperlink}
+5.2. [`OData-MaxVersion`](#sec_HeaderODataMaxVersion) (section 8.2.7)
 
-6\. MUST follow OData guidelines for
-[extensibility](#sec_Extensibility)[ ]{.MsoHyperlink}[(section
-]{.MsoHyperlink}[6]{.MsoHyperlink}[ and all subsections)]{.MsoHyperlink}
+6\. MUST follow OData guidelines for [extensibility](#sec_Extensibility)
+(section 6 and all subsections)
 
 7\. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
@@ -6781,7 +6761,7 @@ properties (section 11.2.10)
 In order to conform to the OData Advanced Conformance Level, a service:
 
 1\. MUST conform to at least the [OData 4.0 Intermediate Conformance
-Level](#sec_OData40IntermediateConformanceLevel)[ ]{.MsoHyperlink}
+Level](#sec_OData40IntermediateConformanceLevel)
 
 2\. MUST publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) (section 11.1.2)
@@ -6861,7 +6841,7 @@ version.
 In order to conform to the OData 4.01 Minimal Conformance Level, a
 service:
 
-[1. ]{.MsoHyperlink}MUST conform to the [OData 4.0 Minimal Conformance
+1\. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)
 
 2\. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) 
@@ -6964,8 +6944,7 @@ In addition, to be considered an *Updatable OData 4.01 Service*, the
 service:
 
 18\. MUST conform to the [OData 4.0 Minimal Conformance
-Level](#sec_OData40MinimalConformanceLevel)[ ]{.MsoHyperlink}for an
-Updateable service.
+Level](#sec_OData40MinimalConformanceLevel) for an Updateable service.
 
 19\. MUST support `DELETE` to the reference of a collection member to be
 removed, identified by key (section 11.4.6.2)
@@ -6995,11 +6974,10 @@ format
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
 
-[1. ]{.MsoHyperlink}MUST conform to the [OData 4.01 Minimal Conformance
+1\. MUST conform to the [OData 4.01 Minimal Conformance
 Level](#sec_OData401MinimalConformanceLevel)
 
-[2. ]{.MsoHyperlink}[MUST conform to the ]{.MsoHyperlink}[OData 4.0
-Intermediate Conformance
+2\. MUST conform to the [OData 4.0 Intermediate Conformance
 Level](#sec_OData40IntermediateConformanceLevel)
 
 3\. MUST support `eq/ne null` comparison for navigation properties with
@@ -7031,11 +7009,11 @@ expression
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:
 
-[1. ]{.MsoHyperlink}MUST conform to the [OData 4.01 Intermediate
-Conformance Level](#sec_OData401IntermediateConformanceLevel)
+1\. MUST conform to the [OData 4.01 Intermediate Conformance
+Level](#sec_OData401IntermediateConformanceLevel)
 
-[2. ]{.MsoHyperlink}[MUST conform to the ]{.MsoHyperlink}[OData 4.0
-Advanced Conformance Level](#sec_OData40AdvancedConformanceLevel)
+2\. MUST conform to the [OData 4.0 Advanced Conformance
+Level](#sec_OData40AdvancedConformanceLevel)
 
 3\. MUST support the count of a filtered/searched collection in a common
 expression
@@ -7060,9 +7038,9 @@ properties
 6\. MUST publish metadata at `$metadata` according to
 [OData-CSDLJSON](#ODataCSDL) (section 11.1.2)
 
-[7. ]{.MsoHyperlink}MUST support batch requests according both to the
-multipart format (section 11.7 and all subsections) and the JSON Batch
-format defined in [OData-JSON](#ODataJSON)
+7\. MUST support batch requests according both to the multipart format
+(section 11.7 and all subsections) and the JSON Batch format defined in
+[OData-JSON](#ODataJSON)
 
 [8. SHOULD support filtering a collection using a]{#_Toc477876742}
 `/$filter` path segment
@@ -7132,8 +7110,7 @@ In addition, interoperable OData 4.01 clients
 16\. MUST send OData 4.0-compliant payloads to services that don\'t
 advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
-metadata annotation (see
-[OData-VocCore](#ODataVocCore)[)]{.MsoHyperlink}
+metadata annotation (see [OData-VocCore](#ODataVocCore))
 
 17\. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`

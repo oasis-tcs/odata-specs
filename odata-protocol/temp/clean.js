@@ -20,10 +20,11 @@ const clean = old
   .replace(/<span[ \n]style='background:white'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333;\n?background:white'>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]class=MsoHyperlink>([^<]*)<\/span>/g,"$1")
   // TODO: clean up all <span> tags
 
   // clean up "keyword" formatting
-  .replace(/<span[ \n]+style='(font-size:[\d\.]+pt;[ \n]*)?font-family:\n?"Courier[ \n]New"(;\n?color:black)?(;\n?background:white)?'>([^<]*)<\/span>/g, "<code>$4</code>")
+  .replace(/<span[ \n]+style='(font-size:[\d\.]+pt;[ \n]*)?font-family:[ \n]*"Courier[ \n]New"(;\n?color:black)?(;\n?background:\n?white)?'>([^<]*)<\/span>/g, "<code>$4</code>")
   .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=Keyword>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=VerbatimChar>([^<]*)<\/span>/g, "<code>$1</code>")
