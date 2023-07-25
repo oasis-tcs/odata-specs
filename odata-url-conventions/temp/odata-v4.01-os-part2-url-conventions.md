@@ -320,39 +320,30 @@ not limited to:
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 [http://host/service/Products]{style="color:black;background:#D9D9D9"}` `
-:::
+```
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
 - By invoking a function that returns a
 collection of entities (see rule: `entityColFunctionCall`)
+:::
 
 ::: example
 Example ##ex: function with parameters in resource path
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/ProductsByCategoryId(categoryId=2) `
+```
 :::
 
 ::: example
 Example ##ex: function with parameters as query options
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/ProductsByColor(color=@color)?@color='red' `
-:::
+```
 - By invoking an action that returns a
 collection of entities (see rule: `actionCall`)
+:::
 
 Likewise there are many ways to address a single entity.
 
@@ -365,12 +356,9 @@ entity (see rule: `actionCall`)
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/BestProductEverCreated `
+```
 :::
 
 Often however a single entity is accessed by composing more path
@@ -381,27 +369,21 @@ entity (see rules: `collectionNavigation` and `keyPredicate`)
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 [http://host/service/Categories(1)]{style="color:black;background:#D9D9D9"}` `
-:::
+```
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
 - Invoking an function bound to a
 collection of entities that returns a single entity (see rule:
 `boundOperation`)
+:::
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/Products/Model.MostExpensive() `
+```
 :::
 
 These rules are recursive, so it is possible to address a single entity
@@ -412,59 +394,47 @@ entity to another related entity (see rule: `entityNavigationProperty`)
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 [http://host/service/Products(1)/Supplier]{style="color:black;background:#D9D9D9"}` `
-:::
+```
 - By invoking a function bound to a single
 entity that returns a single entity (see rule: `boundOperation`)
+:::
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/Products(1)/Model.MostRecentOrder() `
-:::
+```
 - By invoking an action bound to a single
 entity that returns a single entity (see rule: `boundOperation`)
 - By following a navigation from a single
 entity to a related collection of entities (see rule:
 `entityColNavigationProperty`)
+:::
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 [http://host/service/Categories(1)/Products]{style="color:black;background:#D9D9D9"}` `
-:::
+```
 - By invoking a function bound to a single
 entity that returns a collection of entities (see rule:
 `boundOperation`)
+:::
 
 ::: example
 Example ##ex:
-:::
-
-::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
-solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
-background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
+```
 `http://host/service/Categories(1)/Model.TopTenProducts()`
-:::
+```
 - By invoking an action bound to a single
 entity that returns a collection of entities (see rule:
 `boundOperation`)
 - By invoking a function bound to a
 collection of entities that returns a collection of entities (see rule:
 `boundOperation`)
+:::
 
 ::: example
 Example ##ex:
