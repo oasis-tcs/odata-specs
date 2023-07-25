@@ -27,6 +27,8 @@ const clean = old
   // clean up headings
   .replace(/<a[ \n]href="#sec[^"]+">((<code>|<\/code>|[^<])*)<\/a><\/h/g, "$1</h")
   .replace(/<a[ \n]name="sec[^"]+">[\d\. \n]*<\/a>/g, "")
+  .replace(/<a[ \n]name="_Toc[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
+  .replace(/<h1>[\d\.\s]*/g, "<h1>##sec ")
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")
@@ -39,3 +41,7 @@ const clean = old
   .replace(/#VocCore/g, "#ODataVocCore");
 
 fs.writeFileSync(`./${basename}-clean.html`, clean, {encoding:"latin1"})
+
+//TODO: call pandoc to generate raw markdown
+
+//TODO: post-process raw markdown

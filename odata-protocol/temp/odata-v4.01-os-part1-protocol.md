@@ -1,4 +1,4 @@
-# Introduction
+# ##sec Introduction
 
 The Open Data Protocol (OData) enables the creation of REST-based data
 services which allow resources, identified using Uniform Resource
@@ -19,7 +19,7 @@ representation of the entity data model exposed by an OData service.
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
 resource representations that are exchanged using OData.
 
-## [1.0 IPR Policy]{#_Toc19865974}
+## 1.0 IPR Policy
 
 This specification is provided under the [RF on RAND
 Terms](https://www.oasis-open.org/policies-guidelines/ipr#RF-on-RAND-Mode)
@@ -144,7 +144,7 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# Overview
+# ##sec Overview
 :::
 
 The OData Protocol is an application-level protocol for interacting with
@@ -193,7 +193,7 @@ necessary only to support additional capabilities.
 and provide extensibility where necessary.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 3 Data Model
+# ##sec Data Model
 :::
 
 This section provides a high-level description of the *Entity Data Model
@@ -293,7 +293,7 @@ Annotation terms are defined in metadata and have a name and a type.
 A set of related terms in a common namespace comprises a *Vocabulary*.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# Service Model
+# ##sec Service Model
 :::
 
 OData services are defined using a common data model. The service
@@ -416,7 +416,7 @@ qualify action, function, and type names in order to avoid any possible
 ambiguity.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 5 Versioning
+# ##sec Versioning
 :::
 
 Versioning enables clients and services to evolve independently. OData
@@ -512,7 +512,7 @@ authorizations.]{style="color:black"}
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 6 Extensibility
+# ##sec Extensibility
 :::
 
 The OData protocol supports both user- and version-driven extensibility
@@ -622,7 +622,7 @@ An OData service MUST support [OData-JSON](#ODataJSON) and MAY support
 additional formats for both request and response bodies.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 7 Formats
+# ##sec Formats
 :::
 
 The client MAY request a particular response format through the
@@ -664,7 +664,7 @@ JSON responses, and elements in document order for XML responses,
 including CSDL documents.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# Header Fields
+# ##sec Header Fields
 :::
 
 OData defines semantics around the following request and response
@@ -1689,7 +1689,7 @@ Note that this will make it impossible for a proxy to cache the
 response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 9 Common Response Status Codes
+# ##sec Common Response Status Codes
 :::
 
 An OData service MAY respond to any request using any valid HTTP status
@@ -1884,7 +1884,7 @@ as a trailing header if supported by the transport protocol (e.g.
 HTTP/1.1 with chunked transfer encoding, or HTTP/2).
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 10 Context URL
+# ##sec Context URL
 :::
 
 The *context URL* describes the content of the payload. It consists of
@@ -2537,7 +2537,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# 11 Data Service Requests
+# ##sec Data Service Requests
 :::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
@@ -5440,7 +5440,7 @@ GET http://host/service/Products/\$filter(Color eq
 \'Red\')/Diff.Comparison()
 :::
 
-### [11.5.2 Applying an Action to Members of a Collection]{#_Toc12019608}
+### 11.5.2 Applying an Action to Members of a Collection
 
 A bound operation with a single-valued binding parameter can be applied
 to each member of a collection by appending the path segment `/$each` to
@@ -6668,7 +6668,7 @@ Content-Length: \###\
 :::
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# Security Considerations
+# ##sec Security Considerations
 :::
 
 This section is provided as a service to the application developers,
@@ -6691,7 +6691,7 @@ the highest level of interoperability with generic clients. They MAY
 support other authentication methods.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# Conformance
+# ##sec Conformance
 :::
 
 OData is designed as a set of conventions that can be layered on top of
