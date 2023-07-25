@@ -1,6 +1,7 @@
-const basename = "odata-v4.01-os-part1-protocol"
+import fs from "fs";
+import { exec } from "child_process";
 
-const fs = require("fs");
+const basename = "odata-v4.01-os-part1-protocol"
 
 const old = fs.readFileSync(`./${basename}.html`, "latin1");
 
@@ -55,10 +56,34 @@ const clean = old
   .replace(/#ODataJSONRef/g, "#ODataJSON")
   .replace(/#ODataURLRef/g, "#ODataURL")
   .replace(/#VocCapabilities/g, "#ODataVocCap")
-  .replace(/#VocCore/g, "#ODataVocCore");
+  .replace(/#VocCore/g, "#ODataVocCore")
+  ;
 
 fs.writeFileSync(`./${basename}-clean.html`, clean, {encoding:"latin1"})
 
-//TODO: call pandoc to generate raw markdown
+const result = await pandoc(["--eol=lf", `./${basename}-clean.html`, `-o ${basename}-raw.md`]);
 
-//TODO: post-process raw markdown
+const raw = fs.readFileSync(`./${basename}-raw.md`, "utf8");
+
+const final = raw
+  //TODO: post-process raw markdown
+  ;
+
+fs.writeFileSync(`./${basename}.md`, final, {encoding:"utf8"})
+
+function pandoc(args, cwd) {
+  return new Promise((resolve) => {
+    exec(
+      `pandoc ${args.join(" ")}`,
+      { cwd },
+      (error, stdout, stderr) => {
+        resolve({
+          code: error && error.code ? error.code : 0,
+          error,
+          stdout,
+          stderr,
+        });
+      }
+    );
+  });
+}
