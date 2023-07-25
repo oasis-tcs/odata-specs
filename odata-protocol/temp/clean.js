@@ -15,6 +15,7 @@ const clean = old
   .replace(/<h1[^>]*>/g, "<h1>")
 
   // clean up formatting
+  .replace(/<span[ \n]+style='font-family:"Arial",sans-serif'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='(font-size:\n?[\d\.]+pt;[ \n]*)?color:\n?black(;\n?background:white)?'>([^<]*)<\/span>/g,"$3")
   .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='background:white'>([^<]*)<\/span>/g,"$1")

@@ -375,11 +375,10 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}term defined in
-[OData-VocCore](#ODataVocCore). Functions, actions and types in a
-default namespace can be referenced in URLs with or without namespace or
-alias qualification.
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
+in a default namespace can be referenced in URLs with or without
+namespace or alias qualification.
 
 Service designers should ensure uniqueness of schema children across all
 default namespaces, and should avoid naming bound functions, actions, or
@@ -613,10 +612,9 @@ The client MAY request a particular response format through the
 [**\[RFC7231\]**](#HTTPSemantic), or through the system query option
 [\$format](#sec_SystemQueryOptionformat).
 
-In the case that both the `Accept` header and the `$format`[[ system
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}query option are
-specified on a request, the value specified in the `$format` query
-option MUST be used.
+In the case that both the `Accept` header and the `$format system `query
+option are specified on a request, the value specified in the `$format`
+query option MUST be used.
 
 If the service does not support the requested format, it replies with a
 [`406 Not Acceptable`](#sec_ResponseCode406NotAcceptable) error
@@ -811,8 +809,7 @@ an `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
@@ -1045,27 +1042,10 @@ couple of ways.
 
 -   [[If the service processes the request synchronously, and no updates
     are available, then the response is the same as if the
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`respond-async`[[
-    hadn't been specified and results in a response as described above.
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`respond-async hadn’t been specified and results in a response as described above. `
 -   [[If the service processes the request asynchronously, then it
     responds with a
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`202 Accepted`](#sec_ResponseCode202Accepted)[[
-    response specifying the URL to the status monitor resource as it
-    would have with any other asynchronous request. Once the service has
-    finished processing the asynchronous request to the delta link
-    resource, if changes are available it invokes the specified callback
-    endpoint. If no changes are available, the service SHOULD wait to
-    notify the client until changes are available. Once notified, the
-    client uses the status monitor resource from the
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`Location`[[
-    header of the previously returned
-    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`202 Accepted`](#sec_ResponseCode202Accepted)[[
-    response to retrieve the results. In case no updates were available
-    after processing the initial request, the result will contain no
-    updates and the client can use the delta-link contained in the
-    result to retrieve the updates that have since become
-    available.]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+    ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`202 Accepted`](#sec_ResponseCode202Accepted)` response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned `[`202 Accepted`](#sec_ResponseCode202Accepted)` response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.`
 
 If the consumer specifies the same URL as callback endpoint in multiple
 requests, the service MAY collate them into a single notification once
@@ -1320,8 +1300,8 @@ A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#sec_ResponseCode204NoContent)` `in which case it MAY
-include a [`Preference-Applied`](#sec_HeaderPreferenceApplied)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}response header
+include a
+[`Preference-Applied`](#sec_HeaderPreferenceApplied)` `response header
 containing the
 `return=minimal `preference[.]{style="font-family:\"Calibri\",sans-serif"}
 
@@ -1401,8 +1381,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#sec_HeaderPreferenceApplied)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}response header
+[`Preference-Applied`](#sec_HeaderPreferenceApplied)` `response header
 in the first page of the response containing the `track-changes`
 preference to signal that changes are being tracked.
 
@@ -1447,8 +1426,7 @@ response headers have defined meaning in OData.
 
 ### ##subsubsec Header `AsyncResult`
 
-A [[4.01]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} service
-MUST include the `AsyncResult` header in
+A `4.01` service MUST include the `AsyncResult` header in
 [`200 OK`](#sec_ResponseCode200OK)[` `]{.MsoHyperlink}response from a
 status monitor resource in order to indicate the final [HTTP Response
 Status Code](#sec_CommonResponseStatusCodes) of an [asynchronously
@@ -1572,8 +1550,7 @@ allow correct caching of the response.
 If a response varies depending on the applied preferences
 ([`allow-entityreferences`](#sec_Preferenceallowentityreferencesodata),
 [`include-annotations`](#sec_Preferenceincludeannotationsodatainc),
-[`omit-values`](#sec_Preferenceomitvalues)[[,
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[`return`](#sec_Preferencereturnrepresentationandret)),
+[`omit-values`](#sec_Preferenceomitvalues)`, `[`return`](#sec_Preferencereturnrepresentationandret)),
 the service MUST include a `Vary` header listing the
 [`Prefer`](#sec_HeaderPrefer) request header field to allow correct
 caching of the response.
@@ -1628,20 +1605,20 @@ preference](#sec_Preferencereturnrepresentationandret). In this case,
 the response body MUST be empty.
 
 As defined in [**\[RFC7231\]**](#HTTPSemantic), a [Data Modification
-Request](#sec_DataModification) that responds with `204 No Content`[[
-MAY ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include an
-`ETag` header with a value reflecting the result of the data
-modification if and only if the client can reasonably "know" the new
-representation of the resource without actually receiving it. For a
-`PUT` request this means that the response body of a corresponding
-`200 OK` or `201 Created` response would have been identical to the
-request body, i.e. no server-side modification of values sent in the
-request body, no server-calculated values etc. For a `PATCH` request
-this means that the response body of a corresponding `200 OK` or
-`201 Created` response would have consisted of all values sent in the
-request body, plus (for values not sent in the request body) server-side
-values corresponding to the `ETag` value sent in the `If-Match` header
-of the `PATCH` request, i.e. the previous values "known" to the client.
+Request](#sec_DataModification) that responds with
+`204 No Content MAY `include an `ETag` header with a value reflecting
+the result of the data modification if and only if the client can
+reasonably "know" the new representation of the resource without
+actually receiving it. For a `PUT` request this means that the response
+body of a corresponding `200 OK` or `201 Created` response would have
+been identical to the request body, i.e. no server-side modification of
+values sent in the request body, no server-calculated values etc. For a
+`PATCH` request this means that the response body of a corresponding
+`200 OK` or `201 Created` response would have consisted of all values
+sent in the request body, plus (for values not sent in the request body)
+server-side values corresponding to the `ETag` value sent in the
+`If-Match` header of the `PATCH` request, i.e. the previous values
+"known" to the client.
 
 ### ##subsubsec Response Code `3xx Redirection`
 
@@ -2188,9 +2165,8 @@ between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select`[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}or `$expand`, but
-MUST still be present, without a suffix, if it is explicitly selected.
+nested `$select `or `$expand`, but MUST still be present, without a
+suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -2454,9 +2430,8 @@ Entity](#sec_CreateanEntity) and subsections
 [· ]{style="font-family:Symbol"}11.4.7.1 [Create a Media
 Entity](#sec_CreateaMediaEntity)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.11]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Positional Inserts](#sec_PositionalInserts)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.11` [Positional
+Inserts](#sec_PositionalInserts)
 
 [· ]{style="font-family:Symbol"}11.5.5 [Actions](#sec_Actions) and
 subsections
@@ -2469,49 +2444,36 @@ Requests](#sec_BatchRequests) and subsections
 [· ]{style="font-family:Symbol"}11.4.3 [Update an
 Entity](#sec_UpdateanEntity) and subsections
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Upsert an Entity](#sec_UpsertanEntity)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.4` [Upsert an
+Entity](#sec_UpsertanEntity)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Modifying Relationships between
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.6` [Modifying
+Relationships between
 Entities](#sec_ModifyingRelationshipsbetweenEntitie) and subsections
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.7.2]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Update a Media Entity Stream](#sec_UpdateaMediaEntityStream)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.7.2` [Update a Media
+Entity Stream](#sec_UpdateaMediaEntityStream)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.8.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Update Stream Values](#sec_UpdateStreamValues)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.8.1` [Update Stream
+Values](#sec_UpdateStreamValues)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.1 `[Update a
 Primitive Property](#sec_UpdateaPrimitiveProperty)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a Complex
-Property](#sec_UpdateaComplexProperty)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.3 `[Update a
+Complex Property](#sec_UpdateaComplexProperty)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.9.4 `[Update a
 Collection Property](#sec_UpdateaCollectionProperty)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.10]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Managing Members of an Ordered
-Collection](#sec_ManagingMembersofanOrderedCollection)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.10` [Managing Members
+of an Ordered Collection](#sec_ManagingMembersofanOrderedCollection)
 
 [[· ]{style="font-family:Symbol"}]{.Datatype}11.4.12 [Update a
 Collection of Entities](#sec_UpdateaCollectionofEntities)
 
-[[·
-]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[Update Members of a Collection](#sec_UpdateMembersofaCollection)
+[[· ]{style="font-family:Symbol"}]{.Datatype}`11.4.13` [Update Members
+of a Collection](#sec_UpdateMembersofaCollection)
 
 `DELETE` requests:
 
@@ -2608,7 +2570,7 @@ OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
 character, which is optional in OData 4.01. 4.01 services MUST support
 case-insensitive system query option names specified with or without the
-`$`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}prefix.\
+`$ `prefix.\
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -2661,8 +2623,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of
-`None`[[.]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+for the property with a value of `None.`
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#sec_ResponseCode404NotFound).
@@ -2865,11 +2826,9 @@ property MUST NOT have select options specified in more than one place
 in a request and MUST NOT have both select options and expand options
 specified.
 
-If the
-`$`[[select]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} query
-option is not specified, [[the service returns the full set of
-properties or a default set of properties. The default set of properties
-MUST include all key
+If the `$select` query option is not specified, [[the service returns
+the full set of properties or a default set of properties. The default
+set of properties MUST include all key
 properties[.]{.apple-converted-space}]{style="color:black;background:white"}
 [Services may change the default set of properties returned. This
 includes returning new properties by default and omitting properties
@@ -2947,9 +2906,9 @@ Allowed system query options are
 [`$top`](#sec_SystemQueryOptiontop),
 [`$count`](#sec_SystemQueryOptioncount),
 [`$search`](#sec_SystemQueryOptionsearch),
-[`$expand`](#sec_SystemQueryOptionexpand)[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-[`$compute`](#sec_SystemQueryOptioncompute)[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-and [`$levels`](#sec_ExpandOptionlevels).
+[`$expand`](#sec_SystemQueryOptionexpand)`,`
+[`$compute`](#sec_SystemQueryOptioncompute)`,` and
+[`$levels`](#sec_ExpandOptionlevels).
 
 Example 41: for each customer entity within the `Customers` entity set,
 the value of those related `Orders` whose `Amount` is greater than 100
@@ -2983,8 +2942,7 @@ value of all related InHouseStaff will be represented inline if the
 entity is of type VipCustomer or a subtype of that. For entities that
 are not of type `VipCustomer`, or any of its subtypes, that entity may
 be returned with no inline representation for the expanded navigation
-property` InHouseStaff `[[(the service can always send more than
-requested)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+property` InHouseStaff (the service can always send more than requested)`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3202,7 +3160,7 @@ a `null` literal that can be used in comparisons.
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#sec_InvokingaFunction), or within a
-[`$compute`](#sec_SystemQueryOptioncompute)[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[`$compute`](#sec_SystemQueryOptioncompute)`,`
 [`$filter`](#sec_SystemQueryOptionfilter) or
 [`$orderby`](#sec_SystemQueryOptionorderby) expression. Parameters
 aliases are names beginning with an at sign (`@`).
@@ -3237,10 +3195,9 @@ parameter).
 All other parameter alias values are evaluated in the context of the
 resource identified by the path segment in which they are assigned and
 passed as values into the expression. Parameter alias value assignments
-MAY be nested within `$expand` and `$select`[[, in which case they are
-evaluated relative to the resource context of the
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand` or
-`$select`.
+MAY be nested within `$expand` and
+`$select, in which case they are evaluated relative to the resource context of the $expand`
+or `$select`.
 
 Example 49: returns all employees, expands their manager, and expands
 all direct reports with the same first name as the manager, using a
@@ -3687,10 +3644,7 @@ formatted as a simple primitive integer value with media type
 [`$format`](#sec_SystemQueryOptionformat) with the path suffix
 `/$count`. The result of such a request is undefined.
 
-Example 69: return the number of
-product[[s]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in the Products
-entity set
+Example 69: return the number of product`s `in the Products entity set
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -3699,9 +3653,8 @@ GET http://host/service/Products/\$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the `/$filter`[[
-path]{style="font-family:\"Arial\",sans-serif"}]{.Datatype} segment to
-count the items in the filtered collection.
+the `/$filter path` segment to count the items in the filtered
+collection.
 
 Example 70: return the number of products whose `Price` is less than
 [\$10.00]{style="font-family:\"Calibri\",sans-serif"}
@@ -4024,8 +3977,7 @@ A [Data Modification Request](#sec_DataModification) on an existing
 resource or an [Action Request](#sec_Actions) invoking an action bound
 to an existing resource MAY require optimistic concurrency control.
 Services SHOULD announce this via annotations with the terms
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
 [OData-VocCore](#ODataVocCore) and
 [`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
 (nested property `OptimisticConcurrencyControl`) in
@@ -4302,9 +4254,8 @@ term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
 [`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}for the inserted
-or updated entities.
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)` `for
+the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
 operations.
@@ -5397,9 +5348,8 @@ parameters either with an ampersand (`&`) or a question mark (`?`).
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#sec_DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}term defined in 
-[OData-VocCore](#ODataVocCore).
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+defined in  [OData-VocCore](#ODataVocCore).
 
 Functions can be used within [`$filter`](#sec_SystemQueryOptionfilter)
 or [`$orderby`](#sec_SystemQueryOptionorderby) system query options.
@@ -5532,9 +5482,8 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 :::
 
 [Non-binding parameters annotated with the term]{#_Toc477876712}
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}defined in
-[OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
 does not specify a default value, the service is free on how to
@@ -5562,10 +5511,9 @@ hierarchy, see [OData‑URL](#ODataURL).
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}defined in
-[OData-VocCore](#ODataVocCore). All parameters marked as optional MUST
-come after any parameters not marked as optional.
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+in [OData-VocCore](#ODataVocCore). All parameters marked as optional
+MUST come after any parameters not marked as optional.
 
 A function overload is selected if
 
@@ -5605,9 +5553,8 @@ according to the particular format.
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#sec_DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}term defined in 
-[OData-VocCore](#ODataVocCore).
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+defined in  [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
 request to a URL identifying the action import. The canonical URL for an
@@ -5617,10 +5564,9 @@ values MUST be passed in the request body according to the particular
 format.
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}defined in
-[OData-VocCore](#ODataVocCore) MAY be omitted from the request body. If
-an omitted parameter is not annotated (and thus nullable), it MUST be
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+in [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
+If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated and the
 annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
@@ -5724,28 +5670,23 @@ example, to provide additional status information.
 
 A `GET` request to the status monitor resource again returns
 `202 Accepted `response if the asynchronous processing has not finished.
-This response MUST again[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}include a
-[`Location` header](#sec_HeaderLocation) and MAY include a
-[`Retry-After` header](#sec_HeaderRetryAfter) to be used for a
-subsequent request. The `Location` header and optional `Retry-After`
-header may or may not contain the same values as returned by the
-previous request.
+This response MUST again` `include a [`Location`
+header](#sec_HeaderLocation) and MAY include a [`Retry-After`
+header](#sec_HeaderRetryAfter) to be used for a subsequent request. The
+`Location` header and optional `Retry-After` header may or may not
+contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns `200 OK` once the
 asynchronous processing has completed. For OData 4.01 and greater
 responses, or OData 4.0 requests that include an `Accept `header that
-does not specify
-`application/http`[[,]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
-the response MUST include the [`AsyncResult`](#sec_HeaderAsyncResult)
-response header. Any other headers, along with the response body,
-represent the result of the completed asynchronous operation. If the
-`GET` request to the status monitor includes an
-`OData-MaxVersion `header with a value of `4.0` and no `Accept`[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header, or an
-`Accept`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}header
-that includes `application/http`, then the body of the final `200 OK`
-response MUST be represented as an HTTP message, as described in
+does not specify `application/http,` the response MUST include the
+[`AsyncResult`](#sec_HeaderAsyncResult) response header. Any other
+headers, along with the response body, represent the result of the
+completed asynchronous operation. If the `GET` request to the status
+monitor includes an `OData-MaxVersion `header with a value of `4.0` and
+no `Accept `header, or an `Accept `header that includes
+`application/http`, then the body of the final `200 OK` response MUST be
+represented as an HTTP message, as described in
 [**\[RFC7230\]**](#HTTPMessage)[**,** ]{.MsoHyperlink}which is the full
 HTTP response to the completed asynchronous operation.
 
@@ -6447,9 +6388,8 @@ Retry-After: \###\
 :::
 
 After some time the client makes a second request using the returned
-monitor URL, not explicitly accepting `application/http`[[. The batch is
-completely processed and the response is the final result.
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+monitor URL, not explicitly accepting
+`application/http. The batch is completely processed and the response is the final result. `
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6695,20 +6635,17 @@ Level](#sec_OData40MinimalConformanceLevel)
 follow the specification or return `501 Not Implemented` for any
 unsupported functionality (section 9.3.1)
 
-3\. MUST support `$select `[[(section
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.5.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+3\. MUST support `$select (section 11.2.5.1)`
 
 4\. MUST support casting to a derived type according to
 [OData‑URL](#ODataURL) if derived types are present in the model
 
-5\. MUST support `$top `[[(section
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+5\. MUST support `$top (section 11.2.6.3)`
 
 6\. MUST support `/$value` on media entities (section 4.12 in
 [OData‑URL](#ODataURL)) and individual properties (section 11.2.4.1)
 
-7\. MUST support `$filter `[[(section
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+7\. MUST support `$filter (section 11.2.6.1)`
 
 7.1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set (section 11.2.6.1.1)
@@ -6736,13 +6673,11 @@ interoperability with generic clients
 
 11\. SHOULD support the `$search `[[system query option (section
 ]{style="font-family:
-\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+\"Arial\",sans-serif"}]{.Datatype}`11.2.6.6)`
 
-12\. SHOULD support the `$skip`[[ system query option (section
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+12\. SHOULD support the `$skip system query option (section 11.2.6.4)`
 
-13\. SHOULD support the `$count`[[ system query option (section
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[)]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+13\. SHOULD support the `$count system query option (section 11.2.6.5)`
 
 14\. SHOULD support `$expand` (section 11.2.5.2)
 
@@ -6775,11 +6710,9 @@ properties (section 11.2.10)
 collection-valued properties (section 5.1.1.10 in
 [OData‑URL](#ODataURL))
 
-6\. MUST support the `$skip` system query option (section
-[[11.2.6.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
+6\. MUST support the `$skip` system query option (section `11.2.6.4`)
 
-7\. MUST support the `$count` system query option (section
-[[11.2.6.5]{style="font-family:\"Arial\",sans-serif"}]{.Datatype})
+7\. MUST support the `$count` system query option (section `11.2.6.5`)
 
 8\. MUST support `$orderby` `asc` and `desc` on individual properties
 (section 11.2.6.2)
@@ -6897,8 +6830,7 @@ g\. SHOULD support implicit aliasing of parameters
 h\. SHOULD support `eq/ne null` comparison for navigation properties
 with a maximum cardinality of one
 
-i\. SHOULD support the [`in`](#sec_BuiltinFilterOperations)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
+i\. SHOULD support the [`in`](#sec_BuiltinFilterOperations)` `operator
 
 j\. SHOULD support `divby`
 
@@ -6983,11 +6915,9 @@ Level](#sec_OData40IntermediateConformanceLevel)
 3\. MUST support `eq/ne null` comparison for navigation properties with
 a maximum cardinality of one
 
-4\. MUST support the [`in`](#sec_BuiltinFilterOperations)[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
+4\. MUST support the [`in`](#sec_BuiltinFilterOperations)` `operator
 
-[[5. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}MUST support
-the `$select` option nested within `$select`
+`5. `MUST support the `$select` option nested within `$select`
 
 6\. SHOULD support the count of a filtered collection in a common
 expression
@@ -6999,8 +6929,7 @@ expression
 9\. SHOULD support nested query options in `$select`
 
 [10. MAY support nested parameter alias assignments in]{#_Toc477876741}
-`$select`[[ and
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
+`$select and $expand`
 
 11\. MAY support filtering a collection using a `/$filter` path segment
 
@@ -7045,9 +6974,8 @@ properties
 [8. SHOULD support filtering a collection using a]{#_Toc477876742}
 `/$filter` path segment
 
-[[9. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
-support nested parameter alias assignments in `$select`[[ and
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
+`9. `SHOULD support nested parameter alias assignments in
+`$select and $expand`
 
 10\. MAY support case-insensitive comparison of identifiers in URLs and
 request payloads if no exact match is found, using the same lookup

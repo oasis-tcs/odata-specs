@@ -433,8 +433,7 @@ properties and bound functions, actions, or types with the same name.</p>
 
 <p class=MsoNormal>Services MAY define one or more default namespaces through
 the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>term
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term
 defined in <a href="#ODataVocCore">OData-VocCore</a>. Functions, actions and types in a default namespace
 can be referenced in URLs with or without namespace or alias qualification. </p>
 
@@ -697,8 +696,7 @@ header, as defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, or through
 the system query option <a href="#sec_SystemQueryOptionformat">$format</a>.</p>
 
 <p class=MsoNormal>In the case that both the <code>Accept</code>
-header and the <code>$format</code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'> system </span></span>query option are
+header and the <code>$format system </code>query option are
 specified on a request, the value specified in the <code>$format</code>
 query option MUST be used.</p>
 
@@ -908,8 +906,7 @@ request header MUST be an ETag value previously retrieved for the resource, or <
 
 <p class=MsoNormal>If an operation on an existing resource requires an ETag,
 (see term <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>in <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><code> </code>in <a
 href="#ODataVocCore">OData-VocCore</a> and
 property <code>OptimisticConcurrencyControl</code> of type <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a> in <b> </b><a href="#ODataVocCap">OData-VocCap</a>) and the client does not specify an <code>If-Match</code> request header in a <a
@@ -1158,28 +1155,25 @@ influence the response in a couple of ways. </p>
  <li class=MsoNormal style='margin-top:0in'><span class=Datatype><span
      style='font-family:"Arial",sans-serif'>If the service processes the
      request synchronously, and no updates are available, then the response is
-     the same as if the </span></span><code>respond-async</code><span
-     class=Datatype><span style='font-family:"Arial",sans-serif'> hadn’t been
-     specified and results in a response as described above. </span></span></li>
+     the same as if the </span></span><code>respond-async hadn’t been
+     specified and results in a response as described above. </code></li>
  <li class=MsoNormal style='margin-top:0in'><span class=Datatype><span
      style='font-family:"Arial",sans-serif'>If the service processes the
      request asynchronously, then it responds with a </span></span><a
      href="#sec_ResponseCode202Accepted"><code>202
-     Accepted</code></a><span class=Datatype><span style='font-family:"Arial",sans-serif'>
+     Accepted</code></a><code>
      response specifying the URL to the status monitor resource as it would
      have with any other asynchronous request. Once the service has finished
      processing the asynchronous request to the delta link resource, if changes
      are available it invokes the specified callback endpoint. If no changes
      are available, the service SHOULD wait to notify the client until changes
      are available. Once notified, the client uses the status monitor resource
-     from the </span></span><code>Location</code><span
-     class=Datatype><span style='font-family:"Arial",sans-serif'> header of the
-     previously returned </span></span><a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a><span
-     class=Datatype><span style='font-family:"Arial",sans-serif'> response to
+     from the Location header of the
+     previously returned </code><a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a><code> response to
      retrieve the results. In case no updates were available after processing
      the initial request, the result will contain no updates and the client can
      use the delta-link contained in the result to retrieve the updates that
-     have since become available.</span></span></li>
+     have since become available.</code></li>
 </ul>
 
 <p class=MsoNormal>If the consumer specifies the same URL as callback endpoint
@@ -1454,8 +1448,7 @@ requests that the service invoke the request but does not return content in the
 response. The service MAY apply this preference by returning <a
 href="#sec_ResponseCode204NoContent"><code>204
 No Content</code></a><code> </code>in which
-case it MAY include a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>response
+case it MAY include a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response
 header containing the <code>return=minimal </code>preference<span
 style='font-family:"Calibri",sans-serif'>.</span></p>
 
@@ -1544,8 +1537,7 @@ link MUST only be returned on the final page of results in place of the next
 link.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The service includes
-a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>response
+a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response
 header in the first page of the response containing the <code>track-changes</code>
 preference to signal that changes are being tracked.</p>
 
@@ -1594,7 +1586,7 @@ Headers</a>, the following response headers have defined meaning in OData.</p>
 
 <h3>##subsubsec Header <code>AsyncResult</code></h3>
 
-<p class=MsoNormal>A <span class=Datatype><span style='font-family:"Arial",sans-serif'>4.01</span></span>
+<p class=MsoNormal>A <code>4.01</code>
 service MUST include the <code>AsyncResult</code> header in <a
 href="#sec_ResponseCode200OK"><code>200 OK</code></a><span
 class=MsoHyperlink><code> </code></span>response
@@ -1726,8 +1718,7 @@ request header field to allow correct caching of the response.</p>
 <p class=MsoNormal>If a response varies depending on the applied preferences (<a
 href="#sec_Preferenceallowentityreferencesodata"><code>allow-entityreferences</code></a>,
 <a href="#sec_Preferenceincludeannotationsodatainc"><code>include-annotations</code></a>, <a
-href="#sec_Preferenceomitvalues"><code>omit-values</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>, </span></span><a
+href="#sec_Preferenceomitvalues"><code>omit-values</code></a><code>, </code><a
 href="#sec_Preferencereturnrepresentationandret"><code>return</code></a>),
 the service MUST include a <code>Vary</code> header listing the <a
 href="#sec_HeaderPrefer"><code>Prefer</code></a>
@@ -1792,8 +1783,7 @@ case, the response body MUST be empty.</p>
 
 <p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
 a <a href="#sec_DataModification">Data Modification Request</a> that responds
-with <code>204 No Content</code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'> MAY </span></span>include an <code>ETag</code> header with a value reflecting the result of the
+with <code>204 No Content MAY </code>include an <code>ETag</code> header with a value reflecting the result of the
 data modification if and only if the client can reasonably “know” the new representation
 of the resource without actually receiving it. For a <code>PUT</code>
 request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code>
@@ -2407,8 +2397,7 @@ infixed between the navigation property name and the opening parenthesis. </p>
 
 <p class=MsoNormal style='page-break-after:avoid'>For a 4.0 response, the
 expanded navigation property suffixed with parentheses is omitted from the
-select-list if it does not contain a nested <code>$select</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>or <code>$expand</code>, but MUST still be present, without a suffix, if
+select-list if it does not contain a nested <code>$select </code>or <code>$expand</code>, but MUST still be present, without a suffix, if
 it is explicitly selected.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>If the context URL includes
@@ -2704,8 +2693,7 @@ style='font-family:Symbol'>· </span>11.4.7.1 <a href="#sec_CreateaMediaEntity">C
 </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.11</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.11</code>
 <a href="#sec_PositionalInserts">Positional Inserts</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
@@ -2723,47 +2711,36 @@ style='font-family:Symbol'>· </span>11.4.3 <a href="#sec_UpdateanEntity">Update 
 subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.4</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.4</code>
 <a href="#sec_UpsertanEntity">Upsert an Entity</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.6</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.6</code>
 <a href="#sec_ModifyingRelationshipsbetweenEntitie">Modifying Relationships
 between Entities</a> and subsections</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.7.2</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.7.2</code>
 <a href="#sec_UpdateaMediaEntityStream">Update a Media Entity Stream</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.8.1</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.8.1</code>
 <a href="#sec_UpdateStreamValues">Update Stream Values</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.1</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.9.1 </code><a
 href="#sec_UpdateaPrimitiveProperty">Update a Primitive Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.3</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.9.3 </code><a
 href="#sec_UpdateaComplexProperty">Update a Complex Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.9.4</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span><a
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.9.4 </code><a
 href="#sec_UpdateaCollectionProperty">Update a Collection Property</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.10</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.10</code>
 <a href="#sec_ManagingMembersofanOrderedCollection">Managing Members of an
 Ordered Collection</a></p>
 
@@ -2772,8 +2749,7 @@ class=Datatype><span style='font-family:Symbol'>· </span></span>11.4.12 <a href=
 a Collection of Entities</a></p>
 
 <p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
-class=Datatype><span style='font-family:Symbol'>· </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.4.13</span></span>
+class=Datatype><span style='font-family:Symbol'>· </span></span><code>11.4.13</code>
 <a href="#sec_UpdateMembersofaCollection">Update Members of a Collection</a></p>
 
 <p class=MsoNormal><code>DELETE</code> requests:</p>
@@ -2874,8 +2850,7 @@ Query Options</h3>
 number of system query options that allow refining the request. System query
 options are prefixed with the dollar (<code>$</code>) character, which is optional in OData
 4.01. 4.01 services MUST support case-insensitive system query option
-names specified with or without the <code>$</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>prefix.<br>
+names specified with or without the <code>$ </code>prefix.<br>
 Clients that want to work with 4.0 services MUST use lower case names and
 specify the <code>$</code> prefix.</p>
 
@@ -2939,8 +2914,7 @@ for types not marked as open.</p>
 permissions, are not returned. In this case, the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation,
 defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for
-the property with a value of <code>None</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>.</span></span></p>
+the property with a value of <code>None.</code></p>
 
 <p class=MsoNormal>If no entity exists with the specified request URL, the
 service responds with <a href="#sec_ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
@@ -3165,8 +3139,7 @@ for collection-valued properties. A property MUST NOT have select options
 specified in more than one place in a request and MUST NOT have both select
 options and expand options specified.</p>
 
-<p class=MsoNormal>If the <code>$</code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'>select</span></span> query option is not
+<p class=MsoNormal>If the <code>$select</code> query option is not
 specified, <a name="_Ref358202018"><span style='color:black;background:white'>the
 service returns the full set of properties or a default set of properties. The
 default set of properties MUST include all key properties<span
@@ -3251,10 +3224,8 @@ href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>,
 <a href="#sec_SystemQueryOptiontop"><code>$top</code></a>,
 <a href="#sec_SystemQueryOptioncount"><code>$count</code></a>,
 <a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>,
-<a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>,</span></span> <a
-href="#sec_SystemQueryOptioncompute"><code>$compute</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>,</span></span> and
+<a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a><code>,</code> <a
+href="#sec_SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> and
 <a href="#sec_ExpandOptionlevels"><code>$levels</code></a>.</p>
 
 <p class=MsoCaption>Example 41: for each customer entity within the <code>Customers</code> entity set, the value of
@@ -3294,9 +3265,8 @@ entity set, the value of all related InHouseStaff will be represented inline if
 the entity is of type VipCustomer or a subtype of that. For entities that are
 not of type <code>VipCustomer</code>, or any of its subtypes,
 that entity may be returned with no inline representation for the expanded
-navigation property<code> InHouseStaff </code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>(the service can
-always send more than requested)</span></span></p>
+navigation property<code> InHouseStaff (the service can
+always send more than requested)</code></p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4058,8 +4028,7 @@ in comparisons.</p>
 <h5>##subsubsubsubsec Parameter Aliases</h5>
 
 <p class=MsoNormal>Parameter aliases can be used in place of literal values in
-entity keys, <a href="#sec_InvokingaFunction">function parameters</a>, or within a <a href="#sec_SystemQueryOptioncompute"><code>$compute</code></a><span class=Datatype><span
-style='font-family:"Arial",sans-serif'>,</span></span> <a
+entity keys, <a href="#sec_InvokingaFunction">function parameters</a>, or within a <a href="#sec_SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> <a
 href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
 or <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
 expression. Parameters aliases are names beginning with an at sign (<code>@</code>).</p>
@@ -4096,9 +4065,8 @@ type of the parameter). </p>
 <p class=MsoNormal>All other parameter alias values are evaluated in the
 context of the resource identified by the path segment in which they are assigned
 and passed as values into the expression. Parameter alias value assignments MAY
-be nested within <code>$expand</code> and <code>$select</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>, in which case
-they are evaluated relative to the resource context of the </span></span><code>$expand</code> or <code>$select</code>.</p>
+be nested within <code>$expand</code> and <code>$select, in which case
+they are evaluated relative to the resource context of the $expand</code> or <code>$select</code>.</p>
 
 <p class=MsoCaption>Example 49: returns all employees, expands their manager,
 and expands all direct reports with the same first name as the manager, using a
@@ -4613,9 +4581,7 @@ and <a href="#sec_SystemQueryOptionformat"><code>$format</code></a>
 with the path suffix <code>/$count</code>. The result of such a
 request is undefined.</p>
 
-<p class=MsoCaption>Example 69: return the number of product<span
-class=Datatype><span style='font-family:"Arial",sans-serif'>s</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>in
+<p class=MsoCaption>Example 69: return the number of product<code>s </code>in
 the Products entity set</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -4627,8 +4593,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 </div>
 
 <p class=MsoNormal>With 4.01 services the <code>/$count</code>
-segment MAY be used in combination with the <code>/$filter</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> path</span></span>
+segment MAY be used in combination with the <code>/$filter path</code>
 segment to count the items in the filtered collection.</p>
 
 <p class=MsoCaption>Example 70: return the number of products whose <code>Price</code> is less than <span style='font-family:"Calibri",sans-serif'>$10.00</span></p>
@@ -4984,8 +4949,7 @@ entity containing the navigation property.</p>
 Request</a> invoking an action bound to an existing
 resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>in <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><code> </code>in <a
 href="#ODataVocCore">OData-VocCore</a> and <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions"><code>Capabilities.NavigationRestrictions</code></a> (nested property <code>OptimisticConcurrencyControl</code>) in<b> </b><a href="#ODataVocCap">OData-VocCap</a>.</p>
 
@@ -5271,8 +5235,7 @@ term, defined in <a href="#ODataVocCap">OData-VocCap</a>; services
 that advertise support through <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a>
 MUST return the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>for
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a><code> </code>for
 the inserted or updated entities.</p>
 
 <p class=MsoNormal>The <code>continue-on-error</code>
@@ -6447,8 +6410,7 @@ or a question mark (<code>?</code>).</p>
 <p class=MsoNormal>Services MAY additionally support invoking functions using
 the unqualified function name by defining one or more <a
 href="#sec_DefaultNamespaces">default namespaces</a> through the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>term
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term
 defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal>Functions can be used within <a
@@ -6600,8 +6562,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=MsoNormal style='text-align:justify'><a name="_Toc477876712">Non-binding
 parameters annotated with the term </a><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>defined
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><code> </code>defined
 in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted. If it is
 annotated and the annotation specifies a <code>DefaultValue</code>,
 the omitted parameter is interpreted as having that default value. If omitted
@@ -6629,8 +6590,7 @@ see <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <p class=MsoNormal style='text-align:justify'>Non-binding parameters MAY be
 marked as optional by annotating them with the term <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>defined
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><code> </code>defined
 in <a href="#ODataVocCore">OData-VocCore</a>. All parameters marked as optional
 MUST come after any parameters not marked as optional. </p>
 
@@ -6673,8 +6633,7 @@ format. </p>
 <p class=MsoNormal>Services MAY additionally support invoking actions using the
 unqualified action name by defining one or more <a href="#sec_DefaultNamespaces">default
 namespaces</a> through the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>term
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term
 defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal>To invoke an action through an action import, the client
@@ -6686,8 +6645,7 @@ request body according to the particular format.</p>
 
 <p class=MsoNormal style='text-align:justify'>Non-binding parameters that are
 nullable or annotated with the term <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>defined
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><code> </code>defined
 in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the
 request body. If an omitted parameter is not annotated (and thus nullable), it
 MUST be interpreted as having the <code>null</code> value. If it
@@ -6797,8 +6755,7 @@ a response body, for example, to provide additional status information.</p>
 
 <p class=MsoNormal>A <code>GET</code> request to the status
 monitor resource again returns <code>202 Accepted </code>response
-if the asynchronous processing has not finished. This response MUST again<span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>include
+if the asynchronous processing has not finished. This response MUST again<code> </code>include
 a <a href="#sec_HeaderLocation"><code>Location</code>
 header</a> and MAY include a <a
 href="#sec_HeaderRetryAfter"><code>Retry-After</code>
@@ -6810,15 +6767,13 @@ request.</p>
 monitor resource returns <code>200 OK</code> once the
 asynchronous processing has completed. For OData 4.01 and greater responses, or
 OData 4.0 requests that include an <code>Accept </code>header
-that does not specify <code>application/http</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>,</span></span> the
+that does not specify <code>application/http,</code> the
 response MUST include the <a href="#sec_HeaderAsyncResult"><code>AsyncResult</code></a> response header. Any other
 headers, along with the response body, represent the result of the completed
 asynchronous operation. If the <code>GET</code>
 request to the status monitor includes an <code>OData-MaxVersion
-</code>header with a value of <code>4.0</code> and no <code>Accept</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
-</span></span>header, or an <code>Accept</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>header
+</code>header with a value of <code>4.0</code> and no <code>Accept
+</code>header, or an <code>Accept </code>header
 that includes <code>application/http</code>, then the body of
 the final <code>200 OK</code> response MUST be represented as an
 HTTP message, as described in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
@@ -7596,9 +7551,8 @@ Retry-After: ###<br>
 </div>
 
 <p class=MsoCaption>After some time the client makes a second request using the
-returned monitor URL, not explicitly accepting <code>application/http</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>. The batch is
-completely processed and the response is the final result. </span></span></p>
+returned monitor URL, not explicitly accepting <code>application/http. The batch is
+completely processed and the response is the final result. </code></p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7915,10 +7869,7 @@ for any unsupported functionality (section 9.3.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3. MUST
-support <code>$select </code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'>(section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.5.1</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+support <code>$select (section 11.2.5.1)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>4. MUST
@@ -7927,10 +7878,7 @@ if derived types are present in the model</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>5. MUST
-support <code>$top </code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'>(section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.3</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+support <code>$top (section 11.2.6.3)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
@@ -7940,10 +7888,7 @@ href="#ODataURL">OData&#8209;URL</a>) and individual properties
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
-support <code>$filter </code><span class=Datatype><span
-style='font-family:"Arial",sans-serif'>(section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.1</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+support <code>$filter (section 11.2.6.1)</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.1. MUST support <code>eq</code>, <code>ne</code> filter operations on
@@ -7984,21 +7929,15 @@ the highest level of interoperability with generic clients</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. SHOULD support the <code>$search </code><span class=Datatype><span style='font-family:
-"Arial",sans-serif'>system query option (section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.6</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+"Arial",sans-serif'>system query option (section </span></span><code>11.2.6.6)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. SHOULD support the <code>$skip</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
-system query option (section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.4</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>12. SHOULD support the <code>$skip
+system query option (section 11.2.6.4)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13. SHOULD support the <code>$count</code><span class=Datatype><span style='font-family:"Arial",sans-serif'>
-system query option (section </span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.5</span></span><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>)</span></span></p>
+0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>13. SHOULD support the <code>$count
+system query option (section 11.2.6.5)</code></p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>14. SHOULD support <code>$expand</code> (section 11.2.5.2)</p>
@@ -8052,14 +7991,12 @@ properties (section 5.1.1.10 in <a href="#ODataURL">OData&#8209;URL</a>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>6. MUST
-support the <code>$skip</code> system query option (section <span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.4</span></span>)</p>
+support the <code>$skip</code> system query option (section <code>11.2.6.4</code>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
 support the <code>$count</code> system query
-option (section <span
-class=Datatype><span style='font-family:"Arial",sans-serif'>11.2.6.5</span></span>)</p>
+option (section <code>11.2.6.5</code>)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>8. MUST
@@ -8219,8 +8156,8 @@ support <code>eq/ne null</code> comparison for navigation
 properties with a maximum cardinality of one </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>i. SHOULD
-support the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><span class=Datatype><span style='font-family:"Arial",sans-serif'>
-</span></span>operator </p>
+support the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><code>
+</code>operator </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>j. SHOULD
 support <code>divby</code></p>
@@ -8322,12 +8259,10 @@ support <code>eq/ne null</code> comparison for navigation
 properties with a maximum cardinality of one </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4. MUST support
-the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>operator
+the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><code> </code>operator
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>5. </span></span>MUST
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'><code>5. </code>MUST
 support the <code>$select</code> option nested within <code>$select</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6. SHOULD
@@ -8349,8 +8284,7 @@ support nested query options in <code>$select</code></p>
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
 name="_Toc477876741">10. MAY
-support nested parameter alias assignments in </a><code>$select</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><code>$expand</code></p>
+support nested parameter alias assignments in </a><code>$select and $expand</code></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MAY support filtering a
@@ -8420,10 +8354,8 @@ margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
 name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/$filter</code> path segment</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
-class=Datatype><span style='font-family:"Arial",sans-serif'>9. </span></span>SHOULD
-support nested parameter alias assignments in <code>$select</code><span
-class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><code>$expand</code></p>
+margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><code>9. </code>SHOULD
+support nested parameter alias assignments in <code>$select and $expand</code></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. MAY support case-insensitive
