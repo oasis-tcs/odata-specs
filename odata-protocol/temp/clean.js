@@ -32,8 +32,8 @@ const clean = old
   .replace(/<h2>[\d\.\s]*/g, "<h2>##subsec ")
   .replace(/<h3>[\d\.\s]*/g, "<h3>##subsubsec ")
   .replace(/<h4>[\d\.\s]*/g, "<h4>##subsubsubsec ")
-  .replace(/<h5>[\d\.\s]*/g, "<h4>##subsubsubsubsec ")
-  // .replace(/<h6>[\d\.\s]*/g, "<h4>##subsubsubsubsubsec ")
+  .replace(/<h5>[\d\.\s]*/g, "<h5>##subsubsubsubsec ")
+  .replace(/<h6>[\d\.\s]*/g, "<h6>##subsubsubsubsubsec ")
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")

@@ -3062,7 +3062,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET http://host/service.svc/Customers?\$expand=Photo
 :::
 
-##subsubsubsubsec Expand Options
+##### ##subsubsubsubsec Expand Options
 
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
@@ -3123,7 +3123,7 @@ GET
 http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff
 :::
 
-###### 11.2.5.2.1.1 Expand Option `$levels`
+###### ##subsubsubsubsubsec Expand Option `$levels`
 
 The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
 option can be used to specify the number of levels of recursion for a
@@ -3229,7 +3229,7 @@ GET http://host/service/Categories?\$filter=Products/\$count lt 10
 The value of the `$filter` option is a Boolean expression as defined in
 [OData-ABNF](#ODataABNF).
 
-##subsubsubsubsec Built-in Filter Operations
+##### ##subsubsubsubsec Built-in Filter Operations
 
 OData supports a set of built-in filter operations, as described in this
 section.
@@ -3273,7 +3273,7 @@ For a full description of the syntax used when building requests, see
                                                                                  font-family:\"Courier New\""}[Price sub 5) gt 10]{style="font-size:9.0pt;font-family:
                                                                                  \"Courier New\""}
 
-##subsubsubsubsec Built-in Query Functions
+##### ##subsubsubsubsec Built-in Query Functions
 
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
@@ -3343,7 +3343,7 @@ a `null` literal that can be used in comparisons.
   `case`                                                      [case(X gt 0:1,X lt 0:-1,true:0)]{style="font-size:9.0pt;
                                                                 font-family:\"Courier New\""}
 
-##subsubsubsubsec Parameter Aliases
+##### ##subsubsubsubsec Parameter Aliases
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#sec_InvokingaFunction)[,]{.MsoHyperlink} or
@@ -5627,7 +5627,7 @@ Function imports preceded by the `$root` literal MAY be used in the
 [`$orderby`](#sec_SystemQueryOptionorderby) system query options, see
 [OData‑URL](#ODataURL).
 
-##subsubsubsubsec Inline Parameter Syntax
+##### ##subsubsubsubsec Inline Parameter Syntax
 
 Parameter values are specified inline by appending a comma-separated
 list of parameter values, enclosed by parenthesis to the function name.
