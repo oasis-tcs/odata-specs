@@ -89,9 +89,9 @@ January 2005. <https://tools.ietf.org/html/rfc3987>.
 Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC
 5646, September 2009. <http://tools.ietf.org/html/rfc5646>.
 
-**\[[RFC5789]{#RFC5789}\]**                      Dusseault, L., [and J.
-Snell]{style="color:black;background:white"}, "Patch Method for HTTP",
-RFC 5789, March 2010. <http://tools.ietf.org/html/rfc5789>.
+**\[[RFC5789]{#RFC5789}\]**                      Dusseault, L., and J.
+Snell, "Patch Method for HTTP", RFC 5789, March 2010.
+<http://tools.ietf.org/html/rfc5789>.
 
 **\[[RFC7230]{#HTTPMessage}\]**                      Fielding, R., Ed.
 and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message
@@ -263,8 +263,7 @@ set.
 An OData *resource* is anything in the model that can be addressed (an
 entity set, entity, property, or operation).
 
-Refer to [OData-CSDLJSON](#ODataCSDL) or[
-]{style="color:black;background:white"}[OData-CSDLXML](#ODataCSDL) for
+Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) for
 more information on the OData entity data model.
 
 ## ##subsec Annotations
@@ -895,26 +894,21 @@ example, by a data modification request within the same batch) are
 visible. The effect is as if the request generates a \"snapshot\" of the
 committed data as it existed at the start of the request.
 
-[The]{style="color:black;background:white"}` Isolation `header may be
-specified on a single or batch request. If it is specified on a batch
-then the value is applied to all statements within the batch.
+The` Isolation `header may be specified on a single or batch request. If
+it is specified on a batch then the value is applied to all statements
+within the batch.
 
-[Next links returned within a snapshot return results within the same
-snapshot as the initial request;]{style="color:black;background:white"}
-the client is not required to repeat the header on each individual page
-request.
+Next links returned within a snapshot return results within the same
+snapshot as the initial request; the client is not required to repeat
+the header on each individual page request.
 
-[The ]{style="color:black;background:white"}`Isolation` header[ has no
-effect on links other than the next link. Navigation links, read links,
-and edit links return the current version of the
-data.]{style="color:black;background:white"}
+The `Isolation` header has no effect on links other than the next link.
+Navigation links, read links, and edit links return the current version
+of the data.
 
-[A service returns
-]{style="color:black;background:white"}[`410 Gone`](#sec_ResponseCode410Gone)[
-or
-]{style="color:black;background:white"}[`404 Not Found`](#sec_ResponseCode404NotFound)[
-if a consumer tries to follow a next link referring to a snapshot that
-is no longer available.]{style="color:black;background:white"}
+A service returns [`410 Gone`](#sec_ResponseCode410Gone) or
+[`404 Not Found`](#sec_ResponseCode404NotFound) if a consumer tries to
+follow a next link referring to a snapshot that is no longer available.
 
 The syntax of the `Isolation` header is defined in
 [OData-ABNF](#ODataABNF).
@@ -2046,7 +2040,7 @@ Example 18: resource URL and corresponding context URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-http://host/service/Customers?\$[[select]{style="font-size:10.0pt;color:black"}]{.Datatype}=Address,Orders
+http://host/service/Customers?\$`select`=Address,Orders
 
 http://host/service/\$metadata#Customers(Address,Orders)
 :::
@@ -2616,27 +2610,23 @@ option, the service is allowed to return the response in any format.
 
 ### ##subsubsec System Query Options
 
-[OData defines a number of system query options that allow refining the
-request. System query options are prefixed with the dollar
-(]{style="color:black;background:white"}`$`[) character, which is
-optional in OData 4.01. ]{style="color:black;background:white"}4.01
-services MUST support case-insensitive system query option names
-specified with or without the `$`[[
-]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}prefix.\
+OData defines a number of system query options that allow refining the
+request. System query options are prefixed with the dollar (`$`)
+character, which is optional in OData 4.01. 4.01 services MUST support
+case-insensitive system query option names specified with or without the
+`$`[[ ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}prefix.\
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
-[The result of the request MUST be as if the system query options were
-evaluated in the following order.]{style="color:black;background:white"}
+The result of the request MUST be as if the system query options were
+evaluated in the following order.
 
 [· ]{style="font-family:
-Symbol;color:black"}[[\$schemaversion]{style="font-family:\"Courier New\";background:white"}](#sec_SystemQueryOptionschemaversion)[
+Symbol;color:black"}[`$schemaversion`](#sec_SystemQueryOptionschemaversion)
 MUST be evaluated first, because it may influence any further
-processing.]{style="color:black;background:white"}
+processing.
 
-[Prior to applying any
-]{style="color:black;background:white"}[server-driven
-paging](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
+Prior to applying any [server-driven paging](#sec_ServerDrivenPaging):
 
 -   `$appl`[y]{style="font-family:
          \"Courier New\""} -- defined in
@@ -2649,9 +2639,7 @@ paging](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
 -   [[\$skip]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptionskip)
 -   [[\$top]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptiontop)
 
-[After applying any
-]{style="color:black;background:white"}[server-driven
-paging](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
+After applying any [server-driven paging](#sec_ServerDrivenPaging):
 
 -   [[`$expand`](#sec_SystemQueryOptionexpand)]{style="color:windowtext"}
 -   [[\$select]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptionselect)
@@ -2747,15 +2735,11 @@ The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#sec_SystemQueryOptionformat) system query
 option.
 
-[The default format for
-]{style="color:black;background:white"}`Edm.Binary`[ is the format
-specified by the ]{style="color:
-black;background:white"}[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)[
-annotation of this property (]{style="color:black;background:white"}see
-[OData-VocCore](#ODataVocCore)) [if this annotation is present. If not
-annotated, the format cannot be predicted by the
-client.]{style="color:black;
-background:white"}
+The default format for `Edm.Binary` is the format specified by the
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+annotation of this property (see [OData-VocCore](#ODataVocCore)) if this
+annotation is present. If not annotated, the format cannot be predicted
+by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
 (well-known text) format, see rules `fullCollectionLiteral`,
@@ -2896,25 +2880,22 @@ option is not specified, [[the service returns the full set of
 properties or a default set of properties. The default set of properties
 MUST include all key
 properties[.]{.apple-converted-space}]{style="color:black;background:white"}
-[[Services may change the default set of properties returned. This
+[Services may change the default set of properties returned. This
 includes returning new properties by default and omitting properties
 previously returned by
-default.]{style="color:black;background:white"}]{.apple-converted-space}]{#_Ref358202018}
-[[Clients that rely on specific properties in the response MUST use
-]{style="color:black;background:white"}]{.apple-converted-space}`$select`[[
-with the required properties or with
-]{style="color:black;background:white"}]{.apple-converted-space}`*`[[.]{style="color:black;background:white"}]{.apple-converted-space}
+default.]{.apple-converted-space}]{#_Ref358202018} [Clients that rely on
+specific properties in the response MUST use
+]{.apple-converted-space}`$select`[ with the required properties or with
+]{.apple-converted-space}`*`[.]{.apple-converted-space}
 
 [[If t]{style="font-size:
-9.0pt;color:black;background:white"}]{.apple-converted-space}[he service
+9.0pt;color:black;background:white"}]{.apple-converted-space}he service
 returns less than the full set of properties, either because the client
 specified a select or because the service returned a subset of
-properties in the absence of a select, the ]{style="color:black;
-background:white"}[context URL](#sec_ContextURL)[ MUST reflect the set
-of selected properties and projected
-]{style="color:black;background:white"}[expanded](#sec_SystemQueryOptionexpand)[
-navigation properties.]{style="color:black;
-background:white"}
+properties in the absence of a select, the [context
+URL](#sec_ContextURL) MUST reflect the set of selected properties and
+projected [expanded](#sec_SystemQueryOptionexpand) navigation
+properties.
 
 #### ##subsubsubsec System Query Option `$expand`
 
@@ -3264,9 +3245,7 @@ string parameter value \"WA\"
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-GET [[http://host/service.svc/Employees?\$filter=Region eq
-\@p1&@p1=\'WA\']{style="color:
-black"}]{.VerbatimChar}
+GET `http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'`
 :::
 
 Parameter aliases allow the same value to be used multiple times in a
@@ -3299,9 +3278,7 @@ expanded direct reports
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET
-[[http://host/service.svc/Employees?\$expand=Manager(@m=\$this;\$expand=DirectReports(\$filter=@m/FirstName
-eq FirstName))]{style="color:
-black"}]{.VerbatimChar}
+`http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName eq FirstName))`
 :::
 
 #### ##subsubsubsec System Query Option `$orderby`
@@ -4119,16 +4096,10 @@ Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
 possible. However, where the underlying storage does not support offset
 services may be forced to normalize the value to some common time zone
 (i.e. UTC) in which case the result would be returned with that time
-zone offset. If the service normalizes values, it [MUST fail evaluation
-of the ]{style="color:black;
-background:white"}[query functions](#sec_BuiltinQueryFunctions) `year`[,
-]{style="color:black;
-background:white"}`month`[,
-]{style="color:black;background:white"}`day`[,
-]{style="color:black;background:white"}`hour`[, and
-]{style="color:black;background:white"}`time`[ for literal values that
-are not stated in the time zone of the normalized
-values.]{style="color:black;background:white"}
+zone offset. If the service normalizes values, it MUST fail evaluation
+of the [query functions](#sec_BuiltinQueryFunctions) `year`, `month`,
+`day`, `hour`, and `time` for literal values that are not stated in the
+time zone of the normalized values.
 
 #### ##subsubsubsec Handling of Properties Not Advertised in Metadata
 
@@ -5279,8 +5250,8 @@ Custom operations ([Actions](#sec_Actions)[ ]{.MsoHyperlink}and
 [Functions](#sec_Functions)) allow encapsulating logic for modifying or
 requesting data that goes beyond simple CRUD described in the preceding
 sections of this chapter. See `Action`, `ActionImport`, `Function`, and
-`FunctionImport` in [OData-CSDLJSON](#ODataCSDL) or[
-]{style="color:black;background:white"}[OData-CSDLXML](#ODataCSDL).
+`FunctionImport` in [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML](#ODataCSDL).
 
 ### ##subsubsec Binding an Operation to a Resource
 

@@ -120,8 +120,7 @@ September 2009. <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.o
 </p>
 
 <p class=MsoNormal style='margin-left:127.6pt;text-indent:-113.4pt'><b>[<a
-name=RFC5789>RFC5789</a>]</b>                      Dusseault, L., <span
-style='color:black;background:white'>and J. Snell</span>, “Patch Method for HTTP”,
+name=RFC5789>RFC5789</a>]</b>                      Dusseault, L., and J. Snell, “Patch Method for HTTP”,
 RFC 5789, March 2010. <a href="http://tools.ietf.org/html/rfc5789">http://tools.ietf.org/html/rfc5789</a>.</p>
 
 <p class=MsoNormal style='margin-left:127.6pt;text-indent:-113.4pt'><b>[<a
@@ -317,7 +316,7 @@ an entity set.</p>
 be addressed (an entity set, entity, property, or operation).</p>
 
 <p class=MsoNormal>Refer to <a href="#ODataCSDL">OData-CSDLJSON</a>
-or<span style='color:black;background:white'> </span><a href="#ODataCSDL">OData-CSDLXML</a>
+or <a href="#ODataCSDL">OData-CSDLXML</a>
 for more information on the OData entity data model.</p>
 
 <h2>##subsec Annotations</h2>
@@ -998,26 +997,26 @@ a data modification request within the same batch) are visible. The effect is
 as if the request generates a &quot;snapshot&quot; of the committed data as it
 existed at the start of the request.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>The</span><code> Isolation </code>header
+<p class=MsoNormal>The<code> Isolation </code>header
 may be specified on a single or batch request. If it is specified on a batch
 then the value is applied to all statements within the batch.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>Next links
+<p class=MsoNormal>Next links
 returned within a snapshot return results within the same snapshot as the
-initial request;</span> the client is not required to repeat the header on each
+initial request; the client is not required to repeat the header on each
 individual page request.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>The </span><code>Isolation</code> header<span style='color:black;background:white'>
+<p class=MsoNormal>The <code>Isolation</code> header
 has no effect on links other than the next link. Navigation links, read links,
-and edit links return the current version of the data.</span></p>
+and edit links return the current version of the data.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>A service returns
-</span><a href="#sec_ResponseCode410Gone"><code>410
-Gone</code></a><span style='color:black;background:white'> or </span><a
+<p class=MsoNormal>A service returns
+<a href="#sec_ResponseCode410Gone"><code>410
+Gone</code></a> or <a
 href="#sec_ResponseCode404NotFound"><code>404
-Not Found</code></a><span style='color:black;background:white'> if a consumer
+Not Found</code></a> if a consumer
 tries to follow a next link referring to a snapshot that is no longer
-available.</span></p>
+available.</p>
 
 <p class=MsoNormal>The syntax of the <code>Isolation</code>
 header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
@@ -2260,8 +2259,7 @@ collection, see system query option <a href="#sec_SystemQueryOptionselect"><code
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers?$<span class=Datatype><span
-style='font-size:10.0pt;color:black'>select</span></span>=Address,Orders</p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/Customers?$<code>select</code>=Address,Orders</p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>http://host/service/$metadata#Customers(Address,Orders)</p>
 
@@ -2889,29 +2887,26 @@ response in any format.</p>
 <h3>##subsubsec System
 Query Options</h3>
 
-<p class=MsoNormal><span style='color:black;background:white'>OData defines a
+<p class=MsoNormal>OData defines a
 number of system query options that allow refining the request. System query
-options are prefixed with the dollar (</span><code>$</code><span
-style='color:black;background:white'>) character, which is optional in OData
-4.01. </span>4.01 services MUST support case-insensitive system query option
+options are prefixed with the dollar (<code>$</code>) character, which is optional in OData
+4.01. 4.01 services MUST support case-insensitive system query option
 names specified with or without the <code>$</code><span
 class=Datatype><span style='font-family:"Arial",sans-serif'> </span></span>prefix.<br>
 Clients that want to work with 4.0 services MUST use lower case names and
 specify the <code>$</code> prefix.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>The result of the
+<p class=MsoNormal>The result of the
 request MUST be as if the system query options were evaluated in the following
-order.</span></p>
+order.</p>
 
 <p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
-Symbol;color:black'>· </span><a href="#sec_SystemQueryOptionschemaversion"><span
-style='font-family:"Courier New";background:white'>$schemaversion</span></a><span
-style='color:black;background:white'> MUST be evaluated first, because it may
-influence any further processing.</span></p>
+Symbol;color:black'>· </span><a href="#sec_SystemQueryOptionschemaversion"><code>$schemaversion</code></a> MUST be evaluated first, because it may
+influence any further processing.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>Prior to applying
-any </span><a href="#sec_ServerDrivenPaging">server-driven
-paging</a><span style='color:black;background:white'>:</span></p>
+<p class=MsoNormal>Prior to applying
+any <a href="#sec_ServerDrivenPaging">server-driven
+paging</a>:</p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><code>$appl</code><span style='font-family:
@@ -2932,9 +2927,9 @@ paging</a><span style='color:black;background:white'>:</span></p>
      style='font-family:"Courier New"'>$top</span></a></li>
 </ul>
 
-<p class=MsoNormal><span style='color:black;background:white'>After applying
-any </span><a href="#sec_ServerDrivenPaging">server-driven
-paging</a><span style='color:black;background:white'>:</span></p>
+<p class=MsoNormal>After applying
+any <a href="#sec_ServerDrivenPaging">server-driven
+paging</a>:</p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='color:#0000EE'><span style='color:windowtext'><a
@@ -3046,14 +3041,11 @@ document for details.</p>
 of the response is determined using the <code>Accept</code>
 header and the <a href="#sec_SystemQueryOptionformat"><code>$format</code></a> system query option. </p>
 
-<p class=MsoNormal><span style='color:black;background:white'>The default
-format for </span><code>Edm.Binary</code><span style='color:
-black;background:white'> is the format specified by the </span><a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a><span
-style='color:black;background:white'> annotation of this property (</span>see <a
-href="#ODataVocCore">OData-VocCore</a>) <span style='color:black;
-background:white'>if this annotation is present. If not annotated, the format
-cannot be predicted by the client.</span></p>
+<p class=MsoNormal>The default
+format for <code>Edm.Binary</code> is the format specified by the <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a
+href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format
+cannot be predicted by the client.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>The default format for <code>Edm.Geo</code> types is <code>text/plain</code>
 using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>,
@@ -3206,24 +3198,18 @@ style='font-family:"Arial",sans-serif'>select</span></span> query option is not
 specified, <a name="_Ref358202018"><span style='color:black;background:white'>the
 service returns the full set of properties or a default set of properties. The
 default set of properties MUST include all key properties<span
-class=apple-converted-space>.</span></span> <span class=apple-converted-space><span
-style='color:black;background:white'>Services may change the default set of
+class=apple-converted-space>.</span></span> <span class=apple-converted-space>Services may change the default set of
 properties returned. This includes returning new properties by default and
-omitting properties previously returned by default.</span></span></a> <span
-class=apple-converted-space><span style='color:black;background:white'>Clients
-that rely on specific properties in the response MUST use </span></span><code>$select</code><span class=apple-converted-space><span
-style='color:black;background:white'> with the required properties or with </span></span><code>*</code><span class=apple-converted-space><span
-style='color:black;background:white'>.</span></span></p>
+omitting properties previously returned by default.</span></a> <span
+class=apple-converted-space>Clients
+that rely on specific properties in the response MUST use </span><code>$select</code><span class=apple-converted-space> with the required properties or with </span><code>*</code><span class=apple-converted-space>.</span></p>
 
 <p class=MsoNormal><span class=apple-converted-space><span style='font-size:
-9.0pt;color:black;background:white'>If t</span></span><span style='color:black;
-background:white'>he service returns less than the full set of properties,
+9.0pt;color:black;background:white'>If t</span></span>he service returns less than the full set of properties,
 either because the client specified a select or because the service returned a
-subset of properties in the absence of a select, the </span><a
-href="#sec_ContextURL">context URL</a><span
-style='color:black;background:white'> MUST reflect the set of selected
-properties and projected </span><a href="#sec_SystemQueryOptionexpand">expanded</a><span style='color:black;
-background:white'> navigation properties.</span></p>
+subset of properties in the absence of a select, the <a
+href="#sec_ContextURL">context URL</a> MUST reflect the set of selected
+properties and projected <a href="#sec_SystemQueryOptionexpand">expanded</a> navigation properties.</p>
 
 <h4>##subsubsubsec System Query Option <code>$expand</code></h4>
 
@@ -4217,8 +4203,7 @@ matches the string parameter value &quot;WA&quot;</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <span class=VerbatimChar><span style='color:
-black'>http://host/service.svc/Employees?$filter=Region eq @p1&amp;@p1='WA'</span></span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <code>http://host/service.svc/Employees?$filter=Region eq @p1&amp;@p1='WA'</code></p>
 
 </div>
 
@@ -4251,9 +4236,8 @@ the filter on the expanded direct reports</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <span class=VerbatimChar><span style='color:
-black'>http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName
-eq FirstName))</span></span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET <code>http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName
+eq FirstName))</code></p>
 
 </div>
 
@@ -5174,16 +5158,10 @@ record being updated.</p>
 values, if possible. However, where the underlying storage does not support
 offset services may be forced to normalize the value to some common time zone
 (i.e. UTC) in which case the result would be returned with that time zone
-offset. If the service normalizes values, it <span style='color:black;
-background:white'>MUST fail evaluation of the </span><a
+offset. If the service normalizes values, it MUST fail evaluation of the <a
 href="#sec_BuiltinQueryFunctions">query
-functions </a><code>year</code><span style='color:black;
-background:white'>, </span><code>month</code><span
-style='color:black;background:white'>, </span><code>day</code><span
-style='color:black;background:white'>, </span><code>hour</code><span
-style='color:black;background:white'>, and </span><code>time</code><span
-style='color:black;background:white'> for literal values that are not stated in
-the time zone of the normalized values.</span></p>
+functions </a><code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>time</code> for literal values that are not stated in
+the time zone of the normalized values.</p>
 
 <h4>##subsubsubsec Handling of Properties Not
 Advertised in Metadata</h4>
@@ -6403,8 +6381,7 @@ and MUST NOT apply any changes.</p>
 class=MsoHyperlink> </span>and <a href="#sec_Functions">Functions</a>) allow
 encapsulating logic for modifying or requesting data that goes beyond simple
 CRUD described in the preceding sections of this chapter. See <code>Action</code>, <code>ActionImport</code>, <code>Function</code>, and <code>FunctionImport</code>
-in <a href="#ODataCSDL">OData-CSDLJSON</a> or<span
-style='color:black;background:white'> </span><a href="#ODataCSDL">OData-CSDLXML</a>.</p>
+in <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>.</p>
 
 <h3>##subsubsec Binding an Operation to a
 Resource</h3>
