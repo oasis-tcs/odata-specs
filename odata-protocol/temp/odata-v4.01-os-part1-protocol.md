@@ -5260,7 +5260,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [}]{style="color:black;background:#D9D9D9"}
 :::
 
-### [11.4.12]{#_Ref484619408} Update a Collection of Entities
+### Update a Collection of Entities
 
 Collections of entities can be updated by submitting a `PATCH` request
 to the resource path of the collection. The body of the request MUST be
@@ -5353,7 +5353,7 @@ service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
-### [11.4.13]{#_Ref484616099} Update Members of a Collection
+### Update Members of a Collection
 
 Members of a collection can be updated by submitting a [PATCH]{.Keyword}
 request to the URL constructed by appending `/$each` to the resource
@@ -5417,7 +5417,7 @@ service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
 updates.
 
-### [11.4.14]{#_Ref484616106} Delete Members of a Collection
+### Delete Members of a Collection
 
 Members of a collection can be deleted by submitting a
 [DELETE]{.Keyword} request to the URL constructed by appending `/$each`
