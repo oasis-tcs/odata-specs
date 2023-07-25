@@ -2130,7 +2130,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity]{style="color:black"}
 :::
 
-## [10.7]{#_Toc477876620} Collection of Projected Entities
+## Collection of Projected Entities
 
 Context URL templates:
 
@@ -2239,7 +2239,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/\$metadata#Customers(Name,Rating)/\$entity]{style="color:black"}
 :::
 
-## [10.9]{#_Toc477876622} Collection of Expanded Entities
+## Collection of Expanded Entities
 
 Context URL template:
 
@@ -2357,7 +2357,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/\$entity]{style="color:black"}
 :::
 
-## [10.11]{#_Toc477876624} Collection of Entity References
+## Collection of Entity References
 
 Context URL template:
 
@@ -2533,7 +2533,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [The context URL of an update request body for a collection of entities
 is simply the fragment]{#_Toc370126063} `#$delta`.
 
-## [10.18]{#_Toc477876631} Item in a Delta Payload Response
+## Item in a Delta Payload Response
 
 Context URL templates:
 
@@ -2790,7 +2790,7 @@ paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:blac
 -   [[\$select]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptionselect)
 -   [[\$format]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptionformat)
 
-### [11.2.2]{#_Toc477876640} Requesting Individual Entities
+### Requesting Individual Entities
 
 To retrieve an individual entity, the client makes a `GET` request to a
 URL that identifies the entity, e.g. its read URL.
@@ -2844,7 +2844,7 @@ Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
 [`404 Not Found`](#sec_ResponseCode404NotFound)[[.]{style="color:windowtext"}]{.MsoHyperlink}
 
-### [11.2.4]{#_Toc477876642} Requesting Individual Properties
+### Requesting Individual Properties
 
 To retrieve an individual property, the client issues a `GET` request to
 the property URL. The property URL is the entity read URL with
@@ -3794,7 +3794,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [GET http://host/service/Products(1)/Supplier]{style="color:black"}
 :::
 
-### [11.2.8]{#_Toc477876663} Requesting Entity References
+### Requesting Entity References
 
 To request [entity references](#sec_EntityIdsandEntityReferences) in
 place of the actual entities, the client issues a `GET` request with
@@ -4012,7 +4012,7 @@ requests](#sec_MetadataDocumentRequest)[,]{.MsoHyperlink} the values
 parameterized variants, as well as the format-specific abbreviations
 `xml` and `json,` are reserved for this specification.
 
-### [11.2.12]{#_Toc477876667} [System Query Option `$schemaversion`](#sec_SystemQueryOptionschemaversion)
+### [System Query Option `$schemaversion`](#sec_SystemQueryOptionschemaversion)
 
 The [\$schemaversion]{.VerbatimChar} system query option MAY be included
 in any request. For a [metadata document
@@ -4221,7 +4221,7 @@ The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
 the [`return` Prefer header](#sec_Preferencereturnrepresentationandret).
 
-### [11.4.1]{#_Toc477876672} Common Data Modification Semantics
+### Common Data Modification Semantics
 
 [Data Modification Requests](#sec_DataModification) share the following
 semantics.
@@ -5467,7 +5467,7 @@ sections of this chapter. See `Action`, `ActionImport`, `Function`, and
 `FunctionImport` in [OData-CSDLJSON](#ODataCSDL) or[
 ]{style="color:black;background:white"}[OData-CSDLXML](#ODataCSDL).
 
-### [11.5.1]{#_Toc477876707} Binding an Operation to a Resource
+### Binding an Operation to a Resource
 
 [Actions](#sec_Actions)[ ]{.MsoHyperlink}and
 [Functions](#sec_Functions)[ ]{.MsoHyperlink}MAY be bound to any type or
@@ -5946,7 +5946,7 @@ W/\"MjAxOS0wMy0yMVQxMzowNVo=\"]{style="color:black"}]{.VerbatimChar}
 }]{style="color:black"}]{.VerbatimChar}
 :::
 
-#### [11.5.5.2]{#_Toc477876715} Action Overload Resolution
+#### Action Overload Resolution
 
 The same action name may be used multiple times within a schema provided
 there is at most one unbound overload, and each bound overload specifies
@@ -6147,7 +6147,7 @@ grouped as part of an atomic change set. Operations outside the change
 set are executed sequentially, while operations within the change set
 may be executed in any order.
 
-### [11.7.3]{#_Toc477876720} Identifying Individual Requests
+### Identifying Individual Requests
 
 Each individual request within a batch request MAY have a request
 identifier assigned. The request identifier is case-sensitive, MUST be
@@ -6157,7 +6157,7 @@ in [OData-ABNF](#ODataABNF).
 The representation of the request identifier is format-specific, as are
 the rules for which individual requests require an identifier.
 
-### [11.7.4]{#_Toc477876721} Referencing Returned Entities
+### Referencing Returned Entities
 
 Entities created by an [insert](#sec_CreateanEntity) request can be
 referenced in the request URL of subsequent requests by using the
@@ -6178,7 +6178,7 @@ case they SHOULD advertise this support by specifying the
 [`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
-### [11.7.5]{#_Toc477876722} Referencing the ETag of an Entity
+### Referencing the ETag of an Entity
 
 Services MAY support the use of an ETag returned from a previous
 operation in an [`If-Match`](#sec_HeaderIfMatch) or
@@ -6215,7 +6215,7 @@ message [**\[RFC2046\]**](#RFC2046), a standard format allowing the
 representation of multiple parts, each of which may have a different
 content type.
 
-#### [11.7.7.1]{#_Toc477876725} Multipart Batch Request Body
+#### Multipart Batch Request Body
 
 The body of a multipart batch request is made up of a series of
 individual requests and *change sets*, each represented as a distinct
@@ -6500,7 +6500,7 @@ If-Match: \$1\
 [\--batch_36522ad7-fc75-4b56-8c71-56071383e77b\--]{style="color:black"}
 :::
 
-#### [11.7.7.4]{#_Toc477876728} Processing a Multipart Batch Request
+#### Processing a Multipart Batch Request
 
 The service MUST process the individual requests and change sets within
 a multipart batch request in the order received. Processing stops on the
@@ -7107,7 +7107,7 @@ according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 []{#_OData_Conformance_Level}[]{#_Not_Supported_Codes:}[]{#_Not_Supported_Codes}[]{#_Interoperable_OData_Clients}16.
 MAY support the `$compute` system query option (section 11.2.5.3)
 
-## [13.2]{#_Toc477876738} OData 4.01 Service Conformance Levels
+## OData 4.01 Service Conformance Levels
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the

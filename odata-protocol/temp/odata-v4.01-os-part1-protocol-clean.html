@@ -2414,8 +2414,7 @@ style='color:black'>http://host/service/$metadata#Customers/Model.VipCustomer/$e
 
 </div>
 
-<h2><a name="_Toc477876620">10.7
-</a>Collection of Projected
+<h2>Collection of Projected
 Entities</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL templates:</p>
@@ -2535,8 +2534,7 @@ style='color:black'>http://host/service/$metadata#Customers(Name,Rating)/$entity
 
 </div>
 
-<h2><a name="_Toc477876622">10.9
-</a>Collection of Expanded Entities</h2>
+<h2>Collection of Expanded Entities</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
 
@@ -2667,8 +2665,7 @@ style='color:black'>http://host/service/$metadata<br>
 
 </div>
 
-<h2><a name="_Toc477876624">10.11
-</a>Collection of Entity References</h2>
+<h2>Collection of Entity References</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL template:</p>
 
@@ -2878,8 +2875,7 @@ class=Datatype><span style='color:black'>http://host/service/$metadata#Customers
 name="_Toc370126063">The context URL of an update request body for a collection
 of entities is simply the fragment </a><code>#$delta</code>.</p>
 
-<h2><a name="_Toc477876631">10.18
-</a>Item in a Delta Payload Response</h2>
+<h2>Item in a Delta Payload Response</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>Context URL templates:</p>
 
@@ -3180,8 +3176,7 @@ paging</span></a><span style='color:black;background:white'>:</span></p>
      style='font-family:"Courier New"'>$format</span></a></li>
 </ul>
 
-<h3><a name="_Toc477876640">11.2.2
-</a>Requesting Individual Entities</h3>
+<h3>Requesting Individual Entities</h3>
 
 <p class=MsoNormal>To retrieve an individual entity, the client makes a <code>GET</code> request to a URL that identifies the entity, e.g. its
 read URL.</p>
@@ -3243,8 +3238,7 @@ navigation property referencing a media entity whose value is null returns <a
 href="#sec_ResponseCode404NotFound"><code>404
 Not Found</code></a><span class=MsoHyperlink><span style='color:windowtext'>.</span></span></p>
 
-<h3><a name="_Toc477876642">11.2.4
-</a>Requesting Individual
+<h3>Requesting Individual
 Properties</h3>
 
 <p class=MsoNormal>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the
@@ -4947,8 +4941,7 @@ style='color:black'>GET http://host/service/Products(1)/Supplier</span></p>
 
 </div>
 
-<h3><a name="_Toc477876663">11.2.8
-</a>Requesting Entity References</h3>
+<h3>Requesting Entity References</h3>
 
 <p class=MsoNormal>To request <a href="#sec_EntityIdsandEntityReferences">entity
 references</a> in place of the actual entities, the client issues a <code>GET</code> request with <code>/$ref</code>
@@ -5203,8 +5196,7 @@ and <code>application/json</code>, along with their subtypes and
 parameterized variants, as well as the format-specific abbreviations <code>xml</code> and <code>json,</code> are reserved
 for this specification.</p>
 
-<h3><a name="_Toc477876667">11.2.12
-</a><a href="#sec_SystemQueryOptionschemaversion">System Query Option <code>$schemaversion</code></a></h3>
+<h3><a href="#sec_SystemQueryOptionschemaversion">System Query Option <code>$schemaversion</code></a></h3>
 
 <p class=MsoNormal>The <span class=VerbatimChar>$schemaversion</span> system
 query option MAY be included in any request. For a <a
@@ -5428,8 +5420,7 @@ Modification Request</a> must not violate the integrity of the data.</p>
 Create, Update, or Delete request, or the invocation of an Action, by
 specifying the <a href="#sec_Preferencereturnrepresentationandret"><code>return</code> Prefer header</a>.</p>
 
-<h3><a name="_Toc477876672">11.4.1
-</a>Common Data Modification
+<h3>Common Data Modification
 Semantics</h3>
 
 <p class=MsoNormal><a href="#sec_DataModification">Data Modification Requests</a>
@@ -6808,8 +6799,7 @@ CRUD described in the preceding sections of this chapter. See <code>Action</code
 in <a href="#ODataCSDL">OData-CSDLJSON</a> or<span
 style='color:black;background:white'> </span><a href="#ODataCSDL">OData-CSDLXML</a>.</p>
 
-<h3><a name="_Toc477876707">11.5.1
-</a>Binding an Operation to a
+<h3>Binding an Operation to a
 Resource</h3>
 
 <p class=MsoNormal><a href="#sec_Actions">Actions</a><span class=MsoHyperlink> </span>and
@@ -7341,8 +7331,7 @@ class=VerbatimChar><span style='color:black'>   ],<br>
 
 </div>
 
-<h4><a name="_Toc477876715">11.5.5.2
-</a>Action Overload Resolution</h4>
+<h4>Action Overload Resolution</h4>
 
 <p class=MsoNormal>The same action name may be used multiple times within a
 schema provided there is at most one unbound overload, and each bound overload
@@ -7560,8 +7549,7 @@ requests may be grouped as part of an atomic change set. Operations outside the
 change set are executed sequentially, while operations within the change set
 may be executed in any order.</p>
 
-<h3><a name="_Toc477876720">11.7.3
-</a>Identifying Individual
+<h3>Identifying Individual
 Requests</h3>
 
 <p class=MsoNormal>Each individual request within a batch request MAY have a
@@ -7572,8 +7560,7 @@ unique within the batch request, and MUST satisfy the rule <code>request-id</cod
 format-specific, as are the rules for which individual requests require an
 identifier.</p>
 
-<h3><a name="_Toc477876721">11.7.4
-</a>Referencing Returned Entities</h3>
+<h3>Referencing Returned Entities</h3>
 
 <p class=MsoNormal>Entities created by an <a href="#sec_CreateanEntity">insert</a>
 request can be referenced in the request URL of subsequent requests by using
@@ -7592,8 +7579,7 @@ in which case they SHOULD advertise this support by specifying the <code>Referen
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term
 applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 
-<h3><a name="_Toc477876722">11.7.5
-</a>Referencing the ETag of an
+<h3>Referencing the ETag of an
 Entity</h3>
 
 <p class=MsoNormal>Services MAY support the use of an ETag returned from a
@@ -7629,8 +7615,7 @@ Media Type message <a href="#RFC2046"><b>[RFC2046]</b></a>, a standard format
 allowing the representation of multiple parts, each of which may have a different
 content type.</p>
 
-<h4><a name="_Toc477876725">11.7.7.1
-</a>Multipart Batch Request Body</h4>
+<h4>Multipart Batch Request Body</h4>
 
 <p class=MsoNormal>The body of a multipart batch request is made up of a series
 of individual requests and <i>change sets</i>, each represented as a distinct
@@ -7970,8 +7955,7 @@ style='color:black'>--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></p>
 
 </div>
 
-<h4><a name="_Toc477876728">11.7.7.4
-</a>Processing a Multipart
+<h4>Processing a Multipart
 Batch Request</h4>
 
 <p class=MsoNormal>The service MUST process the individual requests and change
@@ -8759,8 +8743,7 @@ queries defined in <a href="#ODataURL">OData&#8209;URL</a> </p>
 name="_OData_Conformance_Level"></a><a name="_Not_Supported_Codes:"></a><a
 name="_Not_Supported_Codes"></a><a name="_Interoperable_OData_Clients"></a>16. MAY support the <code>$compute</code> system query option (section 11.2.5.3)</p>
 
-<h2><a name="_Toc477876738">13.2
-</a>OData 4.01 Service
+<h2>OData 4.01 Service
 Conformance Levels</h2>
 
 <p class=MsoNormal>OData services can report conformance to the OData 4.01

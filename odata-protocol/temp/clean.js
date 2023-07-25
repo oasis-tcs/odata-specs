@@ -11,7 +11,7 @@ const clean = old
 
   // remove _Toc anchors
   .replace(/<span[ \n]style='font:7.0pt "Times New Roman"'>(&nbsp;|\n|\s)+<\/span>/g," ")
-  .replace(/<a[ \n]name="_Toc\d+">[\d\. ]*<\/a>/g, "")
+  .replace(/<a[ \n]name="_Toc\d+">[\d\. \n]*<\/a>/g, "")
   .replace(/<a[ \n]name="_Ref\d+">[\d\. ]*<\/a>/g, "")
   .replace(/<h1[^>]*>/g, "<h1>")
 
