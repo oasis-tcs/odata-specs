@@ -123,7 +123,7 @@ Example 2: OData URL broken down into its component parts:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name]{style="font-size:8.0pt;color:black;background:#D9D9D9"}[\
+http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name[\
 ]{style="font-size:6.0pt;color:black"}`\______________________________________/\____________________/ \__________________/`[\
 ]{style="font-size:6.0pt;color:black"}`                  |                               |                       |`[\
 ]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options`
@@ -334,7 +334,7 @@ Example 8:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
-[http://host/service/Products]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products` `
 :::
 
 [· ]{style="font-family:Symbol"}By navigating a collection-valued
@@ -394,7 +394,7 @@ Example 12:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
-[http://host/service/Categories(1)]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Categories(1)` `
 :::
 
 [· ]{style="font-family:Symbol"}Invoking an action bound to a collection
@@ -424,7 +424,7 @@ Example 14:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
-[http://host/service/Products(1)/Supplier]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products(1)/Supplier` `
 :::
 
 [· ]{style="font-family:Symbol"}By invoking a function bound to a single
@@ -450,7 +450,7 @@ Example 16:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:21.3pt;margin-right:.3in"}
-[http://host/service/Categories(1)/Products]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Categories(1)/Products` `
 :::
 
 [· ]{style="font-family:Symbol"}By invoking a function bound to a single
@@ -511,7 +511,7 @@ Example 19: Non-canonical URL
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories(ID=1)/Products(ID=1)]{style="color:black;background:#D9D9D9"}[[
+http://host/service/Categories(ID=1)/Products(ID=1)[[
 ]{style="background:#D9D9D9"}]{.MsoHyperlink}
 :::
 
@@ -520,7 +520,7 @@ Example 20: Canonical URL for previous example:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products(1)]{style="color:black;background:#D9D9D9"}[[
+http://host/service/Products(1)[[
 ]{style="background:#D9D9D9"}]{.MsoHyperlink}
 :::
 
@@ -867,7 +867,7 @@ Example 30: the number of related entities
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories(1)/Products/\$cou]{style="color:black;background:#D9D9D9"}nt
+http://host/service/Categories(1)/Products/\$count
 :::
 
 Example 31: the number of entities in an entity set
@@ -875,7 +875,7 @@ Example 31: the number of entities in an entity set
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products/\$coun]{style="color:black;background:#D9D9D9"}t
+http://host/service/Products/\$count
 :::
 
 Example 32: entity count in a [`$filter`](#sec_SystemQueryOptionfilter)
@@ -1065,8 +1065,7 @@ segment and system query option
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET Products/\$filter(@foo)?@foo=Price lt 10&\$filter=Color eq
-\'red\']{style="color:black;background:#D9D9D9"}
+GET Products/\$filter(@foo)?@foo=Price lt 10&\$filter=Color eq \'red\'
 :::
 
 Example 42: red products that cost less than 10 -- combine two path
@@ -1075,8 +1074,8 @@ segments
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET Products/\$filter(@p)/\$filter(@c)?@p=Price lt 10&@c=Color eq
-\'red\']{style="color:black;background:#D9D9D9"}
+GET Products/\$filter(@p)/\$filter(@c)?@p=Price lt 10&@c=Color eq
+\'red\'
 :::
 
 Example 43: categories with less than ten products older than three
@@ -1084,8 +1083,7 @@ Example 43: categories with less than ten products older than three
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET Categories?\$filter=Products/\$filter(Age gt 3)/\$count lt
-10]{style="color:black;background:#D9D9D9"}
+GET Categories?\$filter=Products/\$filter(Age gt 3)/\$count lt 10
 :::
 
 Note that the `/$filter` path segment filters the "input" to the
@@ -1280,10 +1278,9 @@ Example 49: passing a filter condition in the request body
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST
-http://host/service/People/\$query]{style="color:black;background:#D9D9D9"}
+POST http://host/service/People/\$query
 
-[Content-Type: text/plain]{style="color:black;background:#D9D9D9"}
+Content-Type: text/plain
 
 [ ]{style="background:#D9D9D9"}
 
@@ -1547,8 +1544,7 @@ Example 50: all products with a `Name` equal to \'`Milk'`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name eq
-\'Milk\']{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\'
 :::
 
 Example 51: all products with a `Name` not equal to \'`Milk'`
@@ -1603,8 +1599,7 @@ less than 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name eq \'Milk\' and Price lt
-2.55]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\' and Price lt 2.55
 :::
 
 Example 57: all products that either have the Name \'Milk\' or have a
@@ -1613,8 +1608,7 @@ Price less than 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name eq \'Milk\' or Price lt
-2.55]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\' or Price lt 2.55
 :::
 
 Example 58: all products that do not have a Name that ends with \'ilk\':
@@ -1622,8 +1616,7 @@ Example 58: all products that do not have a Name that ends with \'ilk\':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=not
-endswith(Name,\'ilk\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=not endswith(Name,\'ilk\')
 :::
 
 [Example]{#arithmetic-operatorsurl5.1.2.2} 59: all products whose
@@ -1632,8 +1625,7 @@ endswith(Name,\'ilk\')]{style="color:black;background:#D9D9D9"}
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=style has
-Sales.Pattern\'Yellow\']{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=style has Sales.Pattern\'Yellow\'
 :::
 
 [Example]{#_Toc371341763} 60: all products whose `name` value is 'Milk'
@@ -1642,8 +1634,7 @@ or 'Cheese':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name in (\'Milk\',
-\'Cheese\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name in (\'Milk\', \'Cheese\')
 :::
 
 #### ##subsubsubsec Arithmetic Operators
@@ -1791,8 +1782,7 @@ Example 61: all products with a Price of 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Price add 2.45 eq
-5.00]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price add 2.45 eq 5.00
 :::
 
 Example 62: all products with a Price of 2.55:
@@ -1800,8 +1790,7 @@ Example 62: all products with a Price of 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Price sub 0.55 eq
-2.00]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price sub 0.55 eq 2.00
 :::
 
 Example 63: all products with a Price of 2.55:
@@ -1809,8 +1798,7 @@ Example 63: all products with a Price of 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Price mul 2.0 eq
-5.10]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products?\$filter=Price mul 2.0 eq 5.10` `
 :::
 
 Example 64: all products with a Price of 2.55:
@@ -1818,8 +1806,7 @@ Example 64: all products with a Price of 2.55:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Price div 2.55 eq
-1]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price div 2.55 eq 1
 :::
 
 Example 65: all products with an integer Rating value of 4 or 5:
@@ -1827,8 +1814,7 @@ Example 65: all products with an integer Rating value of 4 or 5:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Rating div 2 eq
-2]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating div 2 eq 2
 :::
 
 Example 66: all products with an integer Rating value of 5:
@@ -1836,8 +1822,7 @@ Example 66: all products with an integer Rating value of 5:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Rating divby 2 eq
-2.5]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating divby 2 eq 2.5
 :::
 
 Example 67: all products with a Rating exactly divisible by 5:
@@ -1845,8 +1830,7 @@ Example 67: all products with a Rating exactly divisible by 5:
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Rating mod 5 eq
-0]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating mod 5 eq 0
 :::
 
 #### ##subsubsubsec [Grouping](#sec_Grouping)
@@ -1908,9 +1892,8 @@ Example 69: all customers from Berlin, Germany
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=concat(concat(City,\',
-\'),Country) eq \'Berlin,
-Germany\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=concat(concat(City,\',
+\'),Country) eq \'Berlin, Germany\'
 :::
 
 ##### ##subsubsubsubsec `contains`
@@ -1973,7 +1956,7 @@ Example 71: all customers with a `CompanyName` that ends with
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=endswith(CompanyName,\'Futterkiste\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=endswith(CompanyName,\'Futterkiste\')
 :::
 
 ##### ##subsubsubsubsec `indexof`
@@ -2004,8 +1987,8 @@ starting at the second character
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=indexof(CompanyName,\'lfreds\')
-eq 1]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=indexof(CompanyName,\'lfreds\')
+eq 1
 :::
 
 ##### ##subsubsubsubsec `length`
@@ -2030,8 +2013,7 @@ long
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=length(CompanyName) eq
-19]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=length(CompanyName) eq 19
 :::
 
 ##### ##subsubsubsubsec `startswith`
@@ -2061,7 +2043,7 @@ Example 74: all customers with a `CompanyName` that starts with `'Alfr'`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=startswith(CompanyName,\'Alfr\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=startswith(CompanyName,\'Alfr\')
 :::
 
 ##### ##subsubsubsubsec `substring`
@@ -2116,8 +2098,8 @@ once the first character has been removed
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=substring(CompanyName,1) eq
-\'lfreds Futterkiste\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=substring(CompanyName,1) eq
+\'lfreds Futterkiste\'
 :::
 
 Example 76: all customers with a `CompanyName` that has \'`lf' `as the
@@ -2126,8 +2108,8 @@ second and third characters, e.g, \'`Alfreds Futterkiste`\'
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=substring(CompanyName,1,2) eq
-\'lf\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=substring(CompanyName,1,2) eq
+\'lf\'
 :::
 
 #### ##subsubsubsec Collection Functions
@@ -2269,8 +2251,8 @@ converted to uppercase
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=toupper(]{style="color:black;background:#D9D9D9"}[CompanyName[)
-eq \'ALFREDS
+http://host/service/Customers?\$filter=toupper([CompanyName[) eq
+\'ALFREDS
 FUTTERKISTE\']{style="background:#D9D9D9"}]{style="color:black"}
 :::
 
@@ -2291,8 +2273,7 @@ trailing whitespace characters
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=trim(CompanyName) eq
-CompanyName]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=trim(CompanyName) eq CompanyName
 :::
 
 #### ##subsubsubsec Date and Time Functions
@@ -2331,8 +2312,7 @@ Example 85: all employees born on the 8th day of a month
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=day(BirthDate) eq
-8]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=day(BirthDate) eq 8
 :::
 
 ##### ##subsubsubsubsec `fractionalseconds`
@@ -2384,8 +2364,7 @@ Example 87: all employees born in hour 4, between 04:00 (inclusive) and
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=hour(BirthDate) eq
-4]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=hour(BirthDate) eq 4
 :::
 
 ##### ##subsubsubsubsec `maxdatetime`
@@ -2423,8 +2402,7 @@ Example 88: all employees born in minute 40 of any hour on any day
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=minute(BirthDate) eq
-40]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=minute(BirthDate) eq 40
 :::
 
 ##### ##subsubsubsubsec `month`
@@ -2451,8 +2429,7 @@ Example 89: all employees born in May
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=month(BirthDate) eq
-5]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=month(BirthDate) eq 5
 :::
 
 ##### ##subsubsubsubsec `now`
@@ -2489,8 +2466,7 @@ any day
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=second(BirthDate) eq
-40]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=second(BirthDate) eq 40
 :::
 
 ##### ##subsubsubsubsec `time`
@@ -2554,8 +2530,8 @@ Example 91: all employees born in 1971
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/]{style="color:black;background:#D9D9D9"}[Employees[?\$filter=year(BirthDate)
-eq 1971]{style="background:#D9D9D9"}]{style="color:black"}
+http://host/service/[Employees[?\$filter=year(BirthDate) eq
+1971]{style="background:#D9D9D9"}]{style="color:black"}
 :::
 
 #### ##subsubsubsec Arithmetic Functions
@@ -2577,8 +2553,7 @@ Example 92: all orders with freight costs that round up to 32
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders?\$filter=ceiling(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=ceiling(Freight) eq 32
 :::
 
 ##### ##subsubsubsubsec `floor`
@@ -2598,8 +2573,7 @@ Example 93: all orders with freight costs that round down to 32
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders?\$filter=floor(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=floor(Freight) eq 32
 :::
 
 ##### ##subsubsubsubsec `round`
@@ -2620,8 +2594,7 @@ Example 94: all orders with freight costs that round to 32
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders?\$filter=round(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=round(Freight) eq 32
 :::
 
 #### ##subsubsubsec Type Functions
@@ -3346,7 +3319,7 @@ Example 114: expand a navigation property of an entity type
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$expand=Category]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products?\$expand=Category` `
 :::
 
 Example 115: expand a navigation property of a complex type
@@ -3392,7 +3365,7 @@ related products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$expand=Products/\$count]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$count
 :::
 
 Example 118: all categories and for each category the number of all
@@ -3401,7 +3374,7 @@ related blue products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$expand=Products/\$count(\$search=blue)]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$count(\$search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
@@ -3421,7 +3394,7 @@ related products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$expand=Products/\$ref]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$ref
 :::
 
 Example 120: all categories and for each category the references of all
@@ -3476,7 +3449,7 @@ related entities
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$expand=\*/\$ref,Supplier]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=\*/\$ref,Supplier
 :::
 
 Example 124: expand all related entities and their related entities
@@ -3484,7 +3457,7 @@ Example 124: expand all related entities and their related entities
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$expand=\*(\$levels=2)]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=\*(\$levels=2)
 :::
 
 Specifying a stream property includes the media stream inline according
@@ -3496,7 +3469,7 @@ properties of the customer
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$expand=Photo]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$expand=Photo
 :::
 
 Specifying `$value` for a media entity includes the media entity's
@@ -3508,7 +3481,7 @@ properties of the product
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$expand=\$value]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$expand=\$value
 :::
 
 ### ##subsubsec System Query Option `$select`
@@ -3574,7 +3547,7 @@ Example 127: rating and release date of all products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$select=Rating,ReleaseDate]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$select=Rating,ReleaseDate
 :::
 
 It is also possible to request all declared and dynamic structural
@@ -3585,7 +3558,7 @@ Example 128: all structural properties of all products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$select=\*]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$select=\*
 :::
 
 If the select item is not defined for the type of the resource, and that
@@ -3845,9 +3818,8 @@ Example 134: compute total price for order items
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders(10)/Items?\$select=Product/Description,Total&\$filter=Total
-gt 100&\$orderby=Total&\$compute=Product/Price mul Quantity as
-Total]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders(10)/Items?\$select=Product/Description,Total&\$filter=Total
+gt 100&\$orderby=Total&\$compute=Product/Price mul Quantity as Total
 :::
 
 ### ##subsubsec System Query Option `$index`

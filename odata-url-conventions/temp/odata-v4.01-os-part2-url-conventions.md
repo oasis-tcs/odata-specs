@@ -123,7 +123,7 @@ such additional constructs.
 ::: example
 Example ##ex: OData URL broken down into its component parts:
 ```
-[http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name]{style="font-size:8.0pt;color:black;background:#D9D9D9"}[\
+http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name[\
 ]{style="font-size:6.0pt;color:black"}`\______________________________________/\____________________/ \__________________/`[\
 ]{style="font-size:6.0pt;color:black"}`                  |                               |                       |`[\
 ]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options`
@@ -321,7 +321,7 @@ not limited to:
 ::: example
 Example ##ex:
 ```
-[http://host/service/Products]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products` `
 ```
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
@@ -370,7 +370,7 @@ entity (see rules: `collectionNavigation` and `keyPredicate`)
 ::: example
 Example ##ex:
 ```
-[http://host/service/Categories(1)]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Categories(1)` `
 ```
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
@@ -395,7 +395,7 @@ entity to another related entity (see rule: `entityNavigationProperty`)
 ::: example
 Example ##ex:
 ```
-[http://host/service/Products(1)/Supplier]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products(1)/Supplier` `
 ```
 - By invoking a function bound to a single
 entity that returns a single entity (see rule: `boundOperation`)
@@ -416,7 +416,7 @@ entity to a related collection of entities (see rule:
 ::: example
 Example ##ex:
 ```
-[http://host/service/Categories(1)/Products]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Categories(1)/Products` `
 ```
 - By invoking a function bound to a single
 entity that returns a collection of entities (see rule:
@@ -473,7 +473,7 @@ definition in the service metadata.
 ::: example
 Example ##ex: Non-canonical URL
 ```
-[http://host/service/Categories(ID=1)/Products(ID=1)]{style="color:black;background:#D9D9D9"}[[
+http://host/service/Categories(ID=1)/Products(ID=1)[[
 ]{style="background:#D9D9D9"}]{.MsoHyperlink}
 ```
 :::
@@ -481,7 +481,7 @@ Example ##ex: Non-canonical URL
 ::: example
 Example ##ex: Canonical URL for previous example:
 ```
-[http://host/service/Products(1)]{style="color:black;background:#D9D9D9"}[[
+http://host/service/Products(1)[[
 ]{style="background:#D9D9D9"}]{.MsoHyperlink}
 ```
 :::
@@ -807,14 +807,14 @@ The count is calculated after applying any
 ::: example
 Example ##ex: the number of related entities
 ```
-[http://host/service/Categories(1)/Products/\$cou]{style="color:black;background:#D9D9D9"}nt
+http://host/service/Categories(1)/Products/\$count
 ```
 :::
 
 ::: example
 Example ##ex: the number of entities in an entity set
 ```
-[http://host/service/Products/\$coun]{style="color:black;background:#D9D9D9"}t
+http://host/service/Products/\$count
 ```
 :::
 
@@ -992,8 +992,7 @@ option.
 Example ##ex: red products that cost less than 10  -- combining path
 segment and system query option
 ```
-[GET Products/\$filter(@foo)?@foo=Price lt 10&\$filter=Color eq
-\'red\']{style="color:black;background:#D9D9D9"}
+GET Products/\$filter(@foo)?@foo=Price lt 10&\$filter=Color eq \'red\'
 ```
 :::
 
@@ -1001,16 +1000,15 @@ segment and system query option
 Example ##ex: red products that cost less than 10 -- combine two path
 segments
 ```
-[GET Products/\$filter(@p)/\$filter(@c)?@p=Price lt 10&@c=Color eq
-\'red\']{style="color:black;background:#D9D9D9"}
+GET Products/\$filter(@p)/\$filter(@c)?@p=Price lt 10&@c=Color eq
+\'red\'
 ```
 :::
 
 ::: example
 Example ##ex: categories with less than ten products older than three
 ```
-[GET Categories?\$filter=Products/\$filter(Age gt 3)/\$count lt
-10]{style="color:black;background:#D9D9D9"}
+GET Categories?\$filter=Products/\$filter(Age gt 3)/\$count lt 10
 ```
 :::
 
@@ -1194,11 +1192,10 @@ follow the syntax rules described in chapter Query Options.
 ::: example
 Example ##ex: passing a filter condition in the request body
 ```
-[POST
-http://host/service/People/\$query]{style="color:black;background:#D9D9D9"}
+POST http://host/service/People/\$query
 :::
 
-[Content-Type: text/plain]{style="color:black;background:#D9D9D9"}
+Content-Type: text/plain
 
 [ ]{style="background:#D9D9D9"}
 
@@ -1456,8 +1453,7 @@ logical operators.
 ::: example
 Example ##ex: all products with a `Name` equal to \'`Milk'`
 ```
-[http://host/service/Products?\$filter=Name eq
-\'Milk\']{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\'
 ```
 :::
 
@@ -1506,8 +1502,7 @@ style="color:black"}]{.VerbatimChar}
 Example ##ex: all products with the Name \'Milk\' that also have a Price
 less than 2.55:
 ```
-[http://host/service/Products?\$filter=Name eq \'Milk\' and Price lt
-2.55]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\' and Price lt 2.55
 ```
 :::
 
@@ -1515,31 +1510,27 @@ less than 2.55:
 Example ##ex: all products that either have the Name \'Milk\' or have a
 Price less than 2.55:
 ```
-[http://host/service/Products?\$filter=Name eq \'Milk\' or Price lt
-2.55]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name eq \'Milk\' or Price lt 2.55
 ```
 :::
 
 ::: example
 Example ##ex: all products that do not have a Name that ends with \'ilk\':
 ```
-[http://host/service/Products?\$filter=not
-endswith(Name,\'ilk\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=not endswith(Name,\'ilk\')
 ```
 :::
 
 [Example]{#arithmetic-operatorsurl5.1.2.2} 59: all products whose
 `style` value includes `Yellow`:
 ```
-[http://host/service/Products?\$filter=style has
-Sales.Pattern\'Yellow\']{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=style has Sales.Pattern\'Yellow\'
 ```
 
 [Example]{#_Toc371341763} 60: all products whose `name` value is 'Milk'
 or 'Cheese':
 ```
-[http://host/service/Products?\$filter=Name in (\'Milk\',
-\'Cheese\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name in (\'Milk\', \'Cheese\')
 ```
 
 #### ##subsubsubsec Arithmetic Operators
@@ -1676,56 +1667,49 @@ Arithmetic operators.
 ::: example
 Example ##ex: all products with a Price of 2.55:
 ```
-[http://host/service/Products?\$filter=Price add 2.45 eq
-5.00]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price add 2.45 eq 5.00
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Price of 2.55:
 ```
-[http://host/service/Products?\$filter=Price sub 0.55 eq
-2.00]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price sub 0.55 eq 2.00
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Price of 2.55:
 ```
-[http://host/service/Products?\$filter=Price mul 2.0 eq
-5.10]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products?\$filter=Price mul 2.0 eq 5.10` `
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Price of 2.55:
 ```
-[http://host/service/Products?\$filter=Price div 2.55 eq
-1]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Price div 2.55 eq 1
 ```
 :::
 
 ::: example
 Example ##ex: all products with an integer Rating value of 4 or 5:
 ```
-[http://host/service/Products?\$filter=Rating div 2 eq
-2]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating div 2 eq 2
 ```
 :::
 
 ::: example
 Example ##ex: all products with an integer Rating value of 5:
 ```
-[http://host/service/Products?\$filter=Rating divby 2 eq
-2.5]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating divby 2 eq 2.5
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Rating exactly divisible by 5:
 ```
-[http://host/service/Products?\$filter=Rating mod 5 eq
-0]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Rating mod 5 eq 0
 ```
 :::
 
@@ -1785,9 +1769,8 @@ is invoked.
 ::: example
 Example ##ex: all customers from Berlin, Germany
 ```
-[http://host/service/Customers?\$filter=concat(concat(City,\',
-\'),Country) eq \'Berlin,
-Germany\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=concat(concat(City,\',
+\'),Country) eq \'Berlin, Germany\'
 ```
 :::
 
@@ -1848,7 +1831,7 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` that ends with
 `'Futterkiste'`
 ```
-[http://host/service/Customers?\$filter=endswith(CompanyName,\'Futterkiste\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=endswith(CompanyName,\'Futterkiste\')
 ```
 :::
 
@@ -1878,8 +1861,8 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` containing \'`lfreds'`
 starting at the second character
 ```
-[http://host/service/Customers?\$filter=indexof(CompanyName,\'lfreds\')
-eq 1]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=indexof(CompanyName,\'lfreds\')
+eq 1
 ```
 :::
 
@@ -1903,8 +1886,7 @@ is invoked.
 Example ##ex: all customers with a `CompanyName` that is 19 characters
 long
 ```
-[http://host/service/Customers?\$filter=length(CompanyName) eq
-19]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=length(CompanyName) eq 19
 ```
 :::
 
@@ -1933,7 +1915,7 @@ function is invoked.
 ::: example
 Example ##ex: all customers with a `CompanyName` that starts with `'Alfr'`
 ```
-[http://host/service/Customers?\$filter=startswith(CompanyName,\'Alfr\')]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=startswith(CompanyName,\'Alfr\')
 ```
 :::
 
@@ -1987,8 +1969,8 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` of `'lfreds Futterkiste'`
 once the first character has been removed
 ```
-[http://host/service/Customers?\$filter=substring(CompanyName,1) eq
-\'lfreds Futterkiste\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=substring(CompanyName,1) eq
+\'lfreds Futterkiste\'
 ```
 :::
 
@@ -1996,8 +1978,8 @@ once the first character has been removed
 Example ##ex: all customers with a `CompanyName` that has \'`lf' `as the
 second and third characters, e.g, \'`Alfreds Futterkiste`\'
 ```
-[http://host/service/Customers?\$filter=substring(CompanyName,1,2) eq
-\'lf\']{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=substring(CompanyName,1,2) eq
+\'lf\'
 ```
 :::
 
@@ -2132,8 +2114,8 @@ Example ##ex: all customers with a `CompanyName` that equals
 `'ALFREDS FUTTERKISTE'` once any lowercase characters have been
 converted to uppercase
 ```
-[http://host/service/Customers?\$filter=toupper(]{style="color:black;background:#D9D9D9"}[CompanyName[)
-eq \'ALFREDS
+http://host/service/Customers?\$filter=toupper([CompanyName[) eq
+\'ALFREDS
 FUTTERKISTE\']{style="background:#D9D9D9"}]{style="color:black"}
 ```
 :::
@@ -2153,8 +2135,7 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` without leading or
 trailing whitespace characters
 ```
-[http://host/service/Customers?\$filter=trim(CompanyName) eq
-CompanyName]{style="color:black;background:#D9D9D9"}
+http://host/service/Customers?\$filter=trim(CompanyName) eq CompanyName
 ```
 :::
 
@@ -2192,8 +2173,7 @@ white"}
 ::: example
 Example ##ex: all employees born on the 8th day of a month
 ```
-[http://host/service/Employees?\$filter=day(BirthDate) eq
-8]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=day(BirthDate) eq 8
 ```
 :::
 
@@ -2243,8 +2223,7 @@ white"}
 Example ##ex: all employees born in hour 4, between 04:00 (inclusive) and
 05:00 (exclusive)
 ```
-[http://host/service/Employees?\$filter=hour(BirthDate) eq
-4]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=hour(BirthDate) eq 4
 ```
 :::
 
@@ -2281,8 +2260,7 @@ syntax rule defines how the `minute` function is invoked.
 ::: example
 Example ##ex: all employees born in minute 40 of any hour on any day
 ```
-[http://host/service/Employees?\$filter=minute(BirthDate) eq
-40]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=minute(BirthDate) eq 40
 ```
 :::
 
@@ -2308,8 +2286,7 @@ white"}
 ::: example
 Example ##ex: all employees born in May
 ```
-[http://host/service/Employees?\$filter=month(BirthDate) eq
-5]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=month(BirthDate) eq 5
 ```
 :::
 
@@ -2345,8 +2322,7 @@ invoked.
 Example ##ex: all employees born in second 40 of any minute of any hour on
 any day
 ```
-[http://host/service/Employees?\$filter=second(BirthDate) eq
-40]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$filter=second(BirthDate) eq 40
 ```
 :::
 
@@ -2409,8 +2385,8 @@ white"}
 ::: example
 Example ##ex: all employees born in 1971
 ```
-[http://host/service/]{style="color:black;background:#D9D9D9"}[Employees[?\$filter=year(BirthDate)
-eq 1971]{style="background:#D9D9D9"}]{style="color:black"}
+http://host/service/[Employees[?\$filter=year(BirthDate) eq
+1971]{style="background:#D9D9D9"}]{style="color:black"}
 ```
 :::
 
@@ -2431,8 +2407,7 @@ is invoked.
 ::: example
 Example ##ex: all orders with freight costs that round up to 32
 ```
-[http://host/service/Orders?\$filter=ceiling(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=ceiling(Freight) eq 32
 ```
 :::
 
@@ -2451,8 +2426,7 @@ invoked.
 ::: example
 Example ##ex: all orders with freight costs that round down to 32
 ```
-[http://host/service/Orders?\$filter=floor(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=floor(Freight) eq 32
 ```
 :::
 
@@ -2472,8 +2446,7 @@ rounded to -1. The `roundMethodCallExpr` syntax rule defines how the
 ::: example
 Example ##ex: all orders with freight costs that round to 32
 ```
-[http://host/service/Orders?\$filter=round(Freight) eq
-32]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders?\$filter=round(Freight) eq 32
 ```
 :::
 
@@ -3170,7 +3143,7 @@ appears only for those instances on which it has a value.
 ::: example
 Example ##ex: expand a navigation property of an entity type
 ```
-[http://host/service/Products?\$expand=Category]{style="color:black;background:#D9D9D9"}` `
+http://host/service/Products?\$expand=Category` `
 ```
 :::
 
@@ -3213,7 +3186,7 @@ number of related entities included in the count.
 Example ##ex: all categories and for each category the number of all
 related products
 ```
-[http://host/service/Categories?\$expand=Products/\$count]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$count
 ```
 :::
 
@@ -3221,7 +3194,7 @@ related products
 Example ##ex: all categories and for each category the number of all
 related blue products
 ```
-[http://host/service/Categories?\$expand=Products/\$count(\$search=blue)]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$count(\$search=blue)
 ```
 :::
 
@@ -3240,7 +3213,7 @@ of expanded entity references.
 Example ##ex: all categories and for each category the references of all
 related products
 ```
-[http://host/service/Categories?\$expand=Products/\$ref]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=Products/\$ref
 ```
 :::
 
@@ -3291,14 +3264,14 @@ The star operator does not implicitly include stream properties.
 Example ##ex: expand `Supplier` and include references for all other
 related entities
 ```
-[http://host/service/Categories?\$expand=\*/\$ref,Supplier]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=\*/\$ref,Supplier
 ```
 :::
 
 ::: example
 Example ##ex: expand all related entities and their related entities
 ```
-[http://host/service/Categories?\$expand=\*(\$levels=2)]{style="color:black;background:#D9D9D9"}
+http://host/service/Categories?\$expand=\*(\$levels=2)
 ```
 :::
 
@@ -3309,7 +3282,7 @@ to the specified format.
 Example ##ex: include Employee's `Photo `stream property along with other
 properties of the customer
 ```
-[http://host/service/Employees?\$expand=Photo]{style="color:black;background:#D9D9D9"}
+http://host/service/Employees?\$expand=Photo
 ```
 :::
 
@@ -3320,7 +3293,7 @@ stream value inline according to the specified format.
 Example ##ex: Include the `Product’s `media stream along with other
 properties of the product
 ```
-[http://host/service/Products?\$expand=\$value]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$expand=\$value
 ```
 :::
 
@@ -3378,7 +3351,7 @@ URL.
 ::: example
 Example ##ex: rating and release date of all products
 ```
-[http://host/service/Products?\$select=Rating,ReleaseDate]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$select=Rating,ReleaseDate
 ```
 :::
 
@@ -3388,7 +3361,7 @@ properties using a star (`*`).
 ::: example
 Example ##ex: all structural properties of all products
 ```
-[http://host/service/Products?\$select=\*]{style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$select=\*
 ```
 :::
 
@@ -3642,9 +3615,8 @@ property name, or star (`*`).
 ::: example
 Example ##ex: compute total price for order items
 ```
-[http://host/service/Orders(10)/Items?\$select=Product/Description,Total&\$filter=Total
-gt 100&\$orderby=Total&\$compute=Product/Price mul Quantity as
-Total]{style="color:black;background:#D9D9D9"}
+http://host/service/Orders(10)/Items?\$select=Product/Description,Total&\$filter=Total
+gt 100&\$orderby=Total&\$compute=Product/Price mul Quantity as Total
 ```
 :::
 

@@ -4928,19 +4928,17 @@ Example 80: Insert a new email address at the second position
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST
-/service/Customers(\'ALFKI\')/EmailAddresses?\$index=1]{style="color:black;background:#D9D9D9"}
+POST /service/Customers(\'ALFKI\')/EmailAddresses?\$index=1
 
-[Content-Type: application/json]{style="color:black;background:#D9D9D9"}
+Content-Type: application/json
 
 [ ]{style="background:#D9D9D9"}
 
-[{]{style="color:black;background:#D9D9D9"}
+{
 
-[  \"value\":
-\"alfred@futterkiste.de\"]{style="color:black;background:#D9D9D9"}
+  \"value\": \"alfred@futterkiste.de\"
 
-[}]{style="color:black;background:#D9D9D9"}
+}
 :::
 
 ### ##subsubsec Update a Collection of Entities
@@ -5064,18 +5062,18 @@ Example 81: change the color of all beige-brown products
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[PATCH /service/Products/\$filter(@bar)/\$each?@bar=Color eq
-\'beige-brown\']{style="color:black;background:#D9D9D9"}
+PATCH /service/Products/\$filter(@bar)/\$each?@bar=Color eq
+\'beige-brown\'
 
-[Content-Type: application/json]{style="color:black;background:#D9D9D9"}
+Content-Type: application/json
 
 [ ]{style="background:#D9D9D9"}
 
-[{]{style="color:black;background:#D9D9D9"}
+{
 
-[  \"Color\": \"taupe\"]{style="color:black;background:#D9D9D9"}
+  \"Color\": \"taupe\"
 
-[}]{style="color:black;background:#D9D9D9"}
+}
 :::
 
 The response, if requested, is a collection payload containing the
@@ -5115,8 +5113,7 @@ Example 82: delete all products older than 3
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[DELETE /service/Products/\$filter(Age gt
-3)/\$each]{style="color:black;background:#D9D9D9"}
+DELETE /service/Products/\$filter(Age gt 3)/\$each
 :::
 
 If the path identifies a collection of entities and if the service
