@@ -34,6 +34,8 @@ const clean = old
   .replace(/<span[ \n]+class=VerbatimChar>([^<]*)<\/span>/g, "<code>$1</code>")
   .replaceAll("</code><code>","")
   .replace(/<p[ \n]+class=SourceCode>([^<]*)<\/p>/g, "<p class=SourceCode><code>$1</code></p>")
+  .replace(/<span[ \n]+class=MsoHyperlink><code> <\/code><\/span>/g,"")
+  .replace(/<span[ \n]+class=MsoHyperlink><i> <\/i><\/span>/g,"")
 
   // clean up headings
   .replace(/<a[ \n]href="#sec[^"]+">((<code>|<\/code>|[^<])*)<\/a><\/h/g, "$1</h")

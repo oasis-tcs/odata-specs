@@ -281,10 +281,9 @@ generic clients to interact with the service in a well-defined way.
 An OData service exposes two well-defined resources that describe its
 data model; a service document and a metadata document.
 
-The [*service document*](#sec_ServiceDocumentRequest)[
-]{.MsoHyperlink}lists entity sets, functions, and singletons that can be
-retrieved. Clients can use the service document to navigate the model in
-a hypermedia-driven fashion.
+The [*service document*](#sec_ServiceDocumentRequest)lists entity sets,
+functions, and singletons that can be retrieved. Clients can use the
+service document to navigate the model in a hypermedia-driven fashion.
 
 The [*metadata document*](#sec_MetadataDocumentRequest) describes the
 types, sets, functions and actions understood by the OData service.
@@ -972,8 +971,7 @@ data is available.
 The `callback` preference can be specified:
 
 -   when requesting asynchronous processing of a request with the
-    [`respond-async`](#sec_Preferencerespondasync)[` `]{.MsoHyperlink}preference,
-    or
+    [`respond-async`](#sec_Preferencerespondasync)preference, or
 -   on a `GET` request to a [delta link](#sec_DeltaLinks).
 
 The `callback` preference MUST include the parameter `url` whose value
@@ -1395,10 +1393,10 @@ response headers have defined meaning in OData.
 ### ##subsubsec Header `AsyncResult`
 
 A `4.01` service MUST include the `AsyncResult` header in
-[`200 OK`](#sec_ResponseCode200OK)[` `]{.MsoHyperlink}response from a
-status monitor resource in order to indicate the final [HTTP Response
-Status Code](#sec_CommonResponseStatusCodes) of an [asynchronously
-executed request](#sec_AsynchronousRequests).
+[`200 OK`](#sec_ResponseCode200OK)response from a status monitor
+resource in order to indicate the final [HTTP Response Status
+Code](#sec_CommonResponseStatusCodes) of an [asynchronously executed
+request](#sec_AsynchronousRequests).
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1655,11 +1653,10 @@ isolation](#sec_HeaderIsolationODataIsolation).
 
 ### ##subsubsec Response Code `412 Precondition Failed`
 
-As defined in [RFC7232](#HTTPConditional)[,
-]{.MsoHyperlink}`412 Precondition Failed` indicates that the client has
-performed a conditional request and the resource fails the condition.
-The service MUST ensure that no observable change occurs as a result of
-the request.
+As defined in [RFC7232](#HTTPConditional), `412 Precondition Failed`
+indicates that the client has performed a conditional request and the
+resource fails the condition. The service MUST ensure that no observable
+change occurs as a result of the request.
 
 ### ##subsubsec Response Code `424 Failed Dependency`
 
@@ -2553,8 +2550,7 @@ key value(s), as described in [OData‑URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#sec_SystemQueryOptionselect) or
-[`$expand`](#sec_SystemQueryOptionexpand)[` `]{.MsoHyperlink}system
-query options.
+[`$expand`](#sec_SystemQueryOptionexpand)system query options.
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -4663,10 +4659,9 @@ media entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#sec_ResponseCode201Created), or
-[`204 No Content`](#sec_ResponseCode204NoContent)[` `]{.MsoHyperlink}if
-the request included a [Prefer
-header](#sec_Preferencereturnrepresentationandret) with a value of
-[`return=minimal`](#sec_Preferencereturnrepresentationandret).
+[`204 No Content`](#sec_ResponseCode204NoContent)if the request included
+a [Prefer header](#sec_Preferencereturnrepresentationandret) with a
+value of [`return=minimal`](#sec_Preferencereturnrepresentationandret).
 
 #### ##subsubsubsec Update a Media Entity Stream
 
@@ -6534,8 +6529,7 @@ returned with an ETag (section 11.4.1.1)
 created resource (section 11.4.2)
 
 28\. MUST include the `OData-EntityId` header in response to any create
-or upsert operation that returns
-`204 No Content`[` `]{.MsoHyperlink}(section 8.3.4)
+or upsert operation that returns `204 No Content`(section 8.3.4)
 
 29\. MUST support Upserts (section 11.4.4)
 

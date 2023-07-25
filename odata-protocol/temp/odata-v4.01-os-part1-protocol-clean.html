@@ -348,7 +348,7 @@ generic clients to interact with the service in a well-defined way.</p>
 describe its data model; a service document and a metadata document. </p>
 
 <p class=MsoNormal>The <a href="#sec_ServiceDocumentRequest"><i>service
-document</i></a><span class=MsoHyperlink><i> </i></span>lists entity sets,
+document</i></a>lists entity sets,
 functions, and singletons that can be retrieved. Clients can use the service
 document to navigate the model in a hypermedia-driven fashion.</p>
 
@@ -1101,8 +1101,7 @@ request that the service notify the client when data is available.</p>
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='page-break-after:avoid'>when requesting
      asynchronous processing of a request with the <a
-     href="#sec_Preferencerespondasync"><code>respond-async</code></a><span
-     class=MsoHyperlink><code> </code></span>preference,
+     href="#sec_Preferencerespondasync"><code>respond-async</code></a>preference,
      or</li>
  <li class=MsoNormal>on a <code>GET</code> request to a <a
      href="#sec_DeltaLinks">delta link</a>. </li>
@@ -1584,8 +1583,7 @@ Headers</a>, the following response headers have defined meaning in OData.</p>
 
 <p class=MsoNormal>A <code>4.01</code>
 service MUST include the <code>AsyncResult</code> header in <a
-href="#sec_ResponseCode200OK"><code>200 OK</code></a><span
-class=MsoHyperlink><code> </code></span>response
+href="#sec_ResponseCode200OK"><code>200 OK</code></a>response
 from a status monitor resource in order to indicate the final <a
 href="#sec_CommonResponseStatusCodes">HTTP Response Status Code</a> of an <a
 href="#sec_AsynchronousRequests">asynchronously executed request</a>.</p>
@@ -1862,8 +1860,7 @@ href="#sec_HeaderIsolationODataIsolation">snapshot isolation</a>.</p>
 
 <h3>##subsubsec Response Code <code>412 Precondition Failed</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPConditional">RFC7232</a><span
-class=MsoHyperlink>,<b> </b></span><code>412 Precondition Failed</code>
+<p class=MsoNormal>As defined in <a href="#HTTPConditional">RFC7232</a>, <code>412 Precondition Failed</code>
 indicates that the client has performed a conditional request and the resource
 fails the condition. The service MUST ensure that no observable change occurs
 as a result of the request.</p>
@@ -2897,8 +2894,7 @@ href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <p class=MsoNormal>The set of structural or navigation properties to return may
 be specified through <a href="#sec_SystemQueryOptionselect"><code>$select</code></a> or <a
-href="#sec_SystemQueryOptionexpand"><code>$expand</code></a><span
-class=MsoHyperlink><code> </code></span>system
+href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>system
 query options.</p>
 
 <p class=MsoNormal>Clients MUST be prepared to receive additional properties in
@@ -5728,8 +5724,7 @@ header</a> that contains the edit URL of the created media entity.</p>
 
 <p class=MsoNormal>Upon successful completion the service responds with either <a
 href="#sec_ResponseCode201Created"><code>201
-Created</code></a>, or <a href="#sec_ResponseCode204NoContent"><code>204 No Content</code></a><span
-class=MsoHyperlink><code> </code></span>if
+Created</code></a>, or <a href="#sec_ResponseCode204NoContent"><code>204 No Content</code></a>if
 the request included a <a href="#sec_Preferencereturnrepresentationandret">Prefer
 header</a> with a value of <a href="#sec_Preferencereturnrepresentationandret"><code>return=minimal</code></a>.</p>
 
@@ -7819,8 +7814,7 @@ read URL of a created resource (section 11.4.2)</p>
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>28. MUST include the <code>OData-EntityId</code> header in response to
 any create or upsert operation that returns <code>204
-No Content</code><span
-class=MsoHyperlink><code> </code></span>(section
+No Content</code>(section
 8.3.4)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
