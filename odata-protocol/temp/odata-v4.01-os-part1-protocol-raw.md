@@ -47,9 +47,9 @@ See link in \"Additional artifacts\" section on cover page.
 *OData Extension for Data Aggregation Version 4.0*.\
 See link in \"Related work\" section on cover page.
 
-[\[[]{#ODataCSDLJSONRef}[OData-CSDL]{#ODataCSDLRef}JSON\]]{.Refterm}       
-*OData Common Schema Definition Language (CSDL) JSON Representation
-Version 4.01*. See link in \"Related work\" section on cover page.
+[\[[OData-CSDL]{#ODataCSDLRef}JSON\]]{.Refterm}        *OData Common
+Schema Definition Language (CSDL) JSON Representation Version 4.01*. See
+link in \"Related work\" section on cover page.
 
 [**\[**]{#ODataCSDLXMLRef}[OData-CSDLXML\]]{.Refterm}          *OData
 Common Schema Definition Language (CSDL) XML Representation Version
@@ -5941,8 +5941,8 @@ constructs in HTTP requests serialized within body parts. For example, a
 processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
-Example []{#BatchRequestExampleNumber}101: a batch request that contains
-the following individual requests in the order listed
+Example 101: a batch request that contains the following individual
+requests in the order listed
 
 1\. A query request
 
