@@ -1431,8 +1431,7 @@ to request that each page of results contain a maximum of 50 customers, each
 with a maximum of 50 orders. </p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If a
-collection within the result contains more than the specified <span
-class=Keyword>maxpagesize</span>, the collection SHOULD be <a
+collection within the result contains more than the specified <code>maxpagesize</code>, the collection SHOULD be <a
 href="#sec_ServerDrivenPaging">a partial set of the results</a> with a <a
 href="#sec_ServerDrivenPaging">next link</a> to the next page of results. The
 client MAY specify a different value for this preference with every request
@@ -4972,8 +4971,7 @@ system query option is defined in <a href="#ODataABNF">OData-ABNF</a>. </p>
 system query option MUST be a version of the schema as returned in the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation,
 defined in <a href="#ODataVocCore">OData-VocCore</a>, of a previous request
-to the <a href="#sec_MetadataDocumentRequest">metadata document</a>, or <span
-class=Keyword>*</span> in order to specify the current version of the metadata.</p>
+to the <a href="#sec_MetadataDocumentRequest">metadata document</a>, or <code>*</code> in order to specify the current version of the metadata.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If
 specified, the service MUST process the request according to the specified
@@ -4982,7 +4980,7 @@ version of the metadata.</p>
 <p class=MsoNormal>Clients can retrieve the current version of the metadata by
 making a <a href="#sec_MetadataDocumentRequest">metadata document request</a>
 with a <code>$schemaversion</code> system query option value
-of <span class=Keyword>*</span>, and SHOULD include the value from the returned
+of <code>*</code>, and SHOULD include the value from the returned
 <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation in
 the <code>$schemaversion</code> system query option of
@@ -5302,12 +5300,11 @@ href="#sec_SystemQueryOptionselect"><code>$select</code></a>.
 query option <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>. </p>
 
 <p class=MsoNormal>If one or more of these query options are present, this
-implies a <span class=Keyword>return=representation</span> preference if no <a
+implies a <code>return=representation</code> preference if no <a
 href="#sec_Preferencereturnrepresentationandret"><code>return</code></a>
 preference is specified. </p>
 
-<p class=MsoNormal>If one or more of these query options are present with a <span
-class=Keyword>return=minimal</span> preference, the service SHOULD NOT return a
+<p class=MsoNormal>If one or more of these query options are present with a <code>return=minimal</code> preference, the service SHOULD NOT return a
 representation and MUST include a <a href="#sec_HeaderPreferenceApplied"><code>Preference-Applied</code></a> header if it
 does not return a representation.</p>
 
@@ -5315,7 +5312,7 @@ does not return a representation.</p>
 service returns a representation, then the service MUST apply the specified
 query options. If it cannot apply the specified query options appropriately, it
 MUST NOT fail the request solely due to the presence of these query options and
-instead MUST return <span class=Keyword>204 No Content</span>.</p>
+instead MUST return <code>204 No Content</code>.</p>
 
 <h3>11.4.2 Create an Entity</h3>
 
@@ -5619,7 +5616,7 @@ navigation properties. For single-valued navigation properties this replaces
 the relationship. For collection-valued navigation properties this adds to the
 relationship.</p>
 
-<p class=MsoNormal>Payloads with an <span class=Keyword>OData-Version</span>
+<p class=MsoNormal>Payloads with an <code>OData-Version</code>
 header with a value of <code>4.01</code> or
 greater MAY include nested entities and entity references that specify the full
 set of to be related entities, or a nested <a href="#sec_DeltaPayloads">delta
@@ -6363,8 +6360,7 @@ apply any of the changes specified in the request payload.</p>
 
 <h3>Update Members of a Collection</h3>
 
-<p class=MsoNormal>Members of a collection can be updated by submitting a <span
-class=Keyword>PATCH</span> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The
+<p class=MsoNormal>Members of a collection can be updated by submitting a <code>PATCH</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The
 additional path segment expresses that the request body describes an update to
 each member of the collection, not an update to the collection itself. </p>
 
@@ -6378,7 +6374,7 @@ updated to the specified primitive value.</p>
 <p class=MsoNormal>For collections of structured type, the body of the request
 MUST be a full or partial representation of an instance of the collection’s
 structured type. Each member of the potentially filtered collection is <a
-href="#sec_UpdateanEntity">updated</a> using <span class=Keyword>PATCH</span>
+href="#sec_UpdateanEntity">updated</a> using <code>PATCH</code>
 semantics. Structured types MAY include nested collections or delta
 collections, in which case the semantics described in <a
 href="#sec_UpdateaCollectionofEntities">Update a Collection of Entities</a>
@@ -6435,8 +6431,7 @@ and MUST NOT apply any updates.</p>
 
 <h3>Delete Members of a Collection</h3>
 
-<p class=MsoNormal>Members of a collection can be deleted by submitting a <span
-class=Keyword>DELETE</span> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The
+<p class=MsoNormal>Members of a collection can be deleted by submitting a <code>DELETE</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The
 additional path segment expresses that the collection itself is not deleted.</p>
 
 <p class=MsoNormal>The request resource path of the collection MAY contain
@@ -6813,14 +6808,13 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 href="#sec_ParameterAliases">parameter aliases</a><span class=MsoHyperlink> </span><span
 class=MsoHyperlink><span style='color:windowtext'>for function imports and for functions
 that are the last path segment of the URL. An implicit parameter alias is the
-parameter name, optionally preceded by an at (</span></span><span
-class=Keyword>@</span><span class=MsoHyperlink><span style='color:windowtext'>)
+parameter name, optionally preceded by an at (</span></span><code>@</code><span class=MsoHyperlink><span style='color:windowtext'>)
 sign. When using implicit parameter aliases, parentheses MUST NOT be appended
 to the function (import) name. The </span></span>value for each parameter MUST
 be specified as a separate query option with the name of the parameter alias.
 If a parameter name is identical to a system query option name (without the
 optional <code>$</code> prefix), the parameter name MUST be
-prefixed with an at (<span class=Keyword>@</span><span class=MsoHyperlink><span
+prefixed with an at (<code>@</code><span class=MsoHyperlink><span
 style='color:windowtext'>) sign.</span></span></p>
 
 <p class=MsoCaption>Example 94: invoke a <code>Sales.EmployeesByManager</code>
@@ -7331,7 +7325,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='page-break-after:avoid'>Absolute resource path and
-     separate <span class=Keyword>Host</span> header</li>
+     separate <code>Host</code> header</li>
 </ul>
 
 <p class=MsoCaption>Example 99:</p>
@@ -8418,7 +8412,7 @@ reject a request with an incompatible <a
 href="#sec_SystemQueryOptionschemaversion"><code>$schemaversion</code></a>
 system query option if a <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is
-returned in <span class=Keyword>$metadata</span></p>
+returned in <code>$metadata</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>6. MUST
 support specifying supported system query options with or without the <code>$</code> prefix </p>
@@ -8462,7 +8456,7 @@ literals</p>
 support implicit aliasing of parameters</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>h. SHOULD
-support <span class=Keyword>eq/ne null</span> comparison for navigation
+support <code>eq/ne null</code> comparison for navigation
 properties with a maximum cardinality of one </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>i. SHOULD
@@ -8470,7 +8464,7 @@ support the <a href="#sec_BuiltinFilterOperations"><code>in</code></a><span clas
 </span></span>operator </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>j. SHOULD
-support <span class=Keyword>divby</span></p>
+support <code>divby</code></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>k. SHOULD
 support negative indexes for the substring function </p>
@@ -8509,12 +8503,11 @@ annotation values</p>
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>15. MAY support <code>$compute</code> system query option</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>16. MAY support <span
-class=Keyword>$search</span> for all collections </p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>16. MAY support <code>$search</code> for all collections </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>17. MAY support 4.01 behavior,
 including returning 4.01 content and payloads, if the client does not specify
-the <span class=Keyword>OData-MaxVersion:4.0</span> request header</p>
+the <code>OData-MaxVersion:4.0</code> request header</p>
 
 <p class=MsoListParagraphCxSpLast>&nbsp;</p>
 
@@ -8530,33 +8523,24 @@ class=MsoHyperlink> </span>for an Updateable service.</p>
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>19. MUST support <code>DELETE</code> to the reference of a collection member to be
 removed, identified by key (section 11.4.6.2)</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>20. SHOULD support <span
-class=Keyword>PUT</span> against single entity with nested content</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>20. SHOULD support <code>PUT</code> against single entity with nested content</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>21. SHOULD support deep updates
 (section 11.4.3.1) and deep inserts (section 11.4.2.2) </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>22. SHOULD support <span
-class=Keyword>PUT</span> or <span class=Keyword>DELETE</span> to <span
-class=Keyword>$ref</span> of a collection-valued nav prop</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>22. SHOULD support <code>PUT</code> or <code>DELETE</code> to <code>$ref</code> of a collection-valued nav prop</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>23. MAY support <span
-class=Keyword>POST</span> to collections of complex/primitive types</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>23. MAY support <code>POST</code> to collections of complex/primitive types</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>24. MAY support <span
-class=Keyword>PATCH</span> and <span class=Keyword>DELETE</span> to a
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>24. MAY support <code>PATCH</code> and <code>DELETE</code> to a
 collection </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>25. MAY support <span
-class=Keyword>POST</span>, <span class=Keyword>PATCH</span> and <span
-class=Keyword>DELETE</span> to a collection URL terminating in a type cast
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>25. MAY support <code>POST</code>, <code>PATCH</code> and <code>DELETE</code> to a collection URL terminating in a type cast
 segment</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>26. MAY support <span
-class=Keyword>PATCH</span> to entity sets using the 4.01 delta payload format</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>26. MAY support <code>PATCH</code> to entity sets using the 4.01 delta payload format</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>27. MAY support <span
-class=Keyword>$select</span> and <span class=Keyword>$expand</span> on data
+<p class=MsoListParagraphCxSpLast style='margin-left:.25in;text-indent:-.25in'>27. MAY support <code>$select</code> and <code>$expand</code> on data
 modification requests</p>
 
 <h3>OData 4.01 Intermediate
@@ -8578,7 +8562,7 @@ conform to the </span></span><a href="#sec_OData40IntermediateConformanceLevel">
 4.0 Intermediate Conformance Level</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>3. MUST
-support <span class=Keyword>eq/ne null</span> comparison for navigation
+support <code>eq/ne null</code> comparison for navigation
 properties with a maximum cardinality of one </p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;text-indent:-.25in'>4. MUST support
@@ -8614,7 +8598,7 @@ class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MAY support filtering a
-collection using a <code>/</code><span class=Keyword>$filter</span>
+collection using a <code>/</code><code>$filter</code>
 path segment</p>
 
 <h3>OData 4.01 Advanced Conformance
@@ -8680,8 +8664,7 @@ defined in <a href="#ODataJSON">OData-JSON</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/</code><span
-class=Keyword>$filter</span> path segment</p>
+name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/</code><code>$filter</code> path segment</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
@@ -8793,8 +8776,7 @@ any valid 4.01 response according to the requested format</p>
 <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01
 feature is supported but MAY attempt syntax and be prepared to handle either <a
 href="#sec_ResponseCode501NotImplemented"><span class=Keyword><span
-style='color:windowtext'>501 Not Implemented</span></span></a> or <span
-class=Keyword>400 Bad Request</span></p>
+style='color:windowtext'>501 Not Implemented</span></span></a> or <code>400 Bad Request</code></p>
 
 <p class=MsoNormal style='margin-top:1.0pt'>&nbsp;</p>
 

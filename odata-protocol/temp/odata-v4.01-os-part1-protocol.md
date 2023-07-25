@@ -1320,7 +1320,7 @@ specify `maxpagesize=50 `in order to request that each page of results
 contain a maximum of 50 customers, each with a maximum of 50 orders.
 
 If a collection within the result contains more than the specified
-[maxpagesize]{.Keyword}, the collection SHOULD be [a partial set of the
+`maxpagesize`, the collection SHOULD be [a partial set of the
 results](#sec_ServerDrivenPaging) with a [next
 link](#sec_ServerDrivenPaging) to the next page of results. The client
 MAY specify a different value for this preference with every request
@@ -3969,16 +3969,16 @@ The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
-request to the [metadata document](#sec_MetadataDocumentRequest), or
-[\*]{.Keyword} in order to specify the current version of the metadata.
+request to the [metadata document](#sec_MetadataDocumentRequest), or `*`
+in order to specify the current version of the metadata.
 
 If specified, the service MUST process the request according to the
 specified version of the metadata.
 
 Clients can retrieve the current version of the metadata by making a
 [metadata document request](#sec_MetadataDocumentRequest) with a
-`$schemaversion` system query option value of [\*]{.Keyword}, and SHOULD
-include the value from the returned
+`$schemaversion` system query option value of `*`, and SHOULD include
+the value from the returned
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation in the `$schemaversion` system query option of subsequent
 requests.
@@ -4279,12 +4279,12 @@ Requests that return a collection MAY specify the system query option
 [`$filter`](#sec_SystemQueryOptionfilter).
 
 If one or more of these query options are present, this implies a
-[return=representation]{.Keyword} preference if no
+`return=representation` preference if no
 [`return`](#sec_Preferencereturnrepresentationandret) preference is
 specified.
 
 If one or more of these query options are present with a
-[return=minimal]{.Keyword} preference, the service SHOULD NOT return a
+`return=minimal` preference, the service SHOULD NOT return a
 representation and MUST include a
 [`Preference-Applied`](#sec_HeaderPreferenceApplied) header if it does
 not return a representation.
@@ -4293,8 +4293,7 @@ If one or more of these query options are present and the service
 returns a representation, then the service MUST apply the specified
 query options. If it cannot apply the specified query options
 appropriately, it MUST NOT fail the request solely due to the presence
-of these query options and instead MUST return [204 No
-Content]{.Keyword}.
+of these query options and instead MUST return `204 No Content`.
 
 ### 11.4.2 Create an Entity
 
@@ -4588,9 +4587,9 @@ contain binding information for navigation properties. For single-valued
 navigation properties this replaces the relationship. For
 collection-valued navigation properties this adds to the relationship.
 
-Payloads with an [OData-Version]{.Keyword} header with a value of `4.01`
-or greater MAY include nested entities and entity references that
-specify the full set of to be related entities, or a nested [delta
+Payloads with an `OData-Version` header with a value of `4.01` or
+greater MAY include nested entities and entity references that specify
+the full set of to be related entities, or a nested [delta
 payload](#sec_DeltaPayloads) representing the related entities that have
 been added, removed, or changed. Such a request is referred to as a
 "deep update". If the nested collection is represented identical to an
@@ -5279,11 +5278,11 @@ specified in the request payload.
 
 ### Update Members of a Collection
 
-Members of a collection can be updated by submitting a [PATCH]{.Keyword}
-request to the URL constructed by appending `/$each` to the resource
-path of the collection. The additional path segment expresses that the
-request body describes an update to each member of the collection, not
-an update to the collection itself.
+Members of a collection can be updated by submitting a `PATCH` request
+to the URL constructed by appending `/$each` to the resource path of the
+collection. The additional path segment expresses that the request body
+describes an update to each member of the collection, not an update to
+the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
 segments to subset the collection, see [OData‑URL](#ODataURL).
@@ -5295,9 +5294,9 @@ updated to the specified primitive value.
 For collections of structured type, the body of the request MUST be a
 full or partial representation of an instance of the collection's
 structured type. Each member of the potentially filtered collection is
-[updated](#sec_UpdateanEntity) using [PATCH]{.Keyword} semantics.
-Structured types MAY include nested collections or delta collections, in
-which case the semantics described in [Update a Collection of
+[updated](#sec_UpdateanEntity) using `PATCH` semantics. Structured types
+MAY include nested collections or delta collections, in which case the
+semantics described in [Update a Collection of
 Entities](#sec_UpdateaCollectionofEntities) applies.
 
 Example 81: change the color of all beige-brown products
@@ -5343,10 +5342,10 @@ updates.
 
 ### Delete Members of a Collection
 
-Members of a collection can be deleted by submitting a
-[DELETE]{.Keyword} request to the URL constructed by appending `/$each`
-to the resource path of the collection. The additional path segment
-expresses that the collection itself is not deleted.
+Members of a collection can be deleted by submitting a `DELETE` request
+to the URL constructed by appending `/$each` to the resource path of the
+collection. The additional path segment expresses that the collection
+itself is not deleted.
 
 The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
@@ -5684,15 +5683,14 @@ Services MAY in addition allow implicit [parameter
 aliases](#sec_ParameterAliases)[ ]{.MsoHyperlink}[[for function imports
 and for functions that are the last path segment of the URL. An implicit
 parameter alias is the parameter name, optionally preceded by an at
-(]{style="color:windowtext"}]{.MsoHyperlink}[@]{.Keyword}[[) sign. When
-using implicit parameter aliases, parentheses MUST NOT be appended to
-the function (import) name. The
+(]{style="color:windowtext"}]{.MsoHyperlink}`@`[[) sign. When using
+implicit parameter aliases, parentheses MUST NOT be appended to the
+function (import) name. The
 ]{style="color:windowtext"}]{.MsoHyperlink}value for each parameter MUST
 be specified as a separate query option with the name of the parameter
 alias. If a parameter name is identical to a system query option name
 (without the optional `$` prefix), the parameter name MUST be prefixed
-with an at ([@]{.Keyword}[[)
-sign.]{style="color:windowtext"}]{.MsoHyperlink}
+with an at (`@`[[) sign.]{style="color:windowtext"}]{.MsoHyperlink}
 
 Example 94: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
@@ -6164,7 +6162,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 GET https://host:1234/path/service/People(1) HTTP/1.1 
 :::
 
--   Absolute resource path and separate [Host]{.Keyword} header
+-   Absolute resource path and separate `Host` header
 
 Example 99:
 
@@ -7044,7 +7042,7 @@ headers and preference values
 [`$schemaversion`](#sec_SystemQueryOptionschemaversion) system query
 option if a
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation is returned in [\$metadata]{.Keyword}
+annotation is returned in `$metadata`
 
 6\. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -7080,13 +7078,13 @@ values if they allow the octets `00` (NUL), `2F` (forward slash), or
 
 g\. SHOULD support implicit aliasing of parameters
 
-h\. SHOULD support [eq/ne null]{.Keyword} comparison for navigation
-properties with a maximum cardinality of one
+h\. SHOULD support `eq/ne null` comparison for navigation properties
+with a maximum cardinality of one
 
 i\. SHOULD support the [`in`](#sec_BuiltinFilterOperations)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
 
-j\. SHOULD support [divby]{.Keyword}
+j\. SHOULD support `divby`
 
 k\. SHOULD support negative indexes for the substring function
 
@@ -7118,11 +7116,11 @@ annotation
 
 15\. MAY support `$compute` system query option
 
-16\. MAY support [\$search]{.Keyword} for all collections
+16\. MAY support `$search` for all collections
 
 17\. MAY support 4.01 behavior, including returning 4.01 content and
-payloads, if the client does not specify the
-[OData-MaxVersion:4.0]{.Keyword} request header
+payloads, if the client does not specify the `OData-MaxVersion:4.0`
+request header
 
  
 
@@ -7136,30 +7134,25 @@ Updateable service.
 19\. MUST support `DELETE` to the reference of a collection member to be
 removed, identified by key (section 11.4.6.2)
 
-20\. SHOULD support [PUT]{.Keyword} against single entity with nested
-content
+20\. SHOULD support `PUT` against single entity with nested content
 
 21\. SHOULD support deep updates (section 11.4.3.1) and deep inserts
 (section 11.4.2.2)
 
-22\. SHOULD support [PUT]{.Keyword} or [DELETE]{.Keyword} to
-[\$ref]{.Keyword} of a collection-valued nav prop
+22\. SHOULD support `PUT` or `DELETE` to `$ref` of a collection-valued
+nav prop
 
-23\. MAY support [POST]{.Keyword} to collections of complex/primitive
-types
+23\. MAY support `POST` to collections of complex/primitive types
 
-24\. MAY support [PATCH]{.Keyword} and [DELETE]{.Keyword} to a
-collection
+24\. MAY support `PATCH` and `DELETE` to a collection
 
-25\. MAY support [POST]{.Keyword}, [PATCH]{.Keyword} and
-[DELETE]{.Keyword} to a collection URL terminating in a type cast
-segment
+25\. MAY support `POST`, `PATCH` and `DELETE` to a collection URL
+terminating in a type cast segment
 
-26\. MAY support [PATCH]{.Keyword} to entity sets using the 4.01 delta
-payload format
+26\. MAY support `PATCH` to entity sets using the 4.01 delta payload
+format
 
-27\. MAY support [\$select]{.Keyword} and [\$expand]{.Keyword} on data
-modification requests
+27\. MAY support `$select` and `$expand` on data modification requests
 
 ### OData 4.01 Intermediate Conformance Level
 
@@ -7174,8 +7167,8 @@ Level](#sec_OData401MinimalConformanceLevel)
 ]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Intermediate
 Conformance Level](#sec_OData40IntermediateConformanceLevel)
 
-3\. MUST support [eq/ne null]{.Keyword} comparison for navigation
-properties with a maximum cardinality of one
+3\. MUST support `eq/ne null` comparison for navigation properties with
+a maximum cardinality of one
 
 4\. MUST support the [`in`](#sec_BuiltinFilterOperations)[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}operator
@@ -7196,8 +7189,8 @@ expression
 `$select`[[ and
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
-11\. MAY support filtering a collection using a `/`[\$filter]{.Keyword}
-path segment
+11\. MAY support filtering a collection using a `/``$filter` path
+segment
 
 ### OData 4.01 Advanced Conformance Level
 
@@ -7241,7 +7234,7 @@ subsections) and the JSON Batch format defined in
 [OData-JSON](#ODataJSON)
 
 [8. SHOULD support filtering a collection using a]{#_Toc477876742}
-`/`[\$filter]{.Keyword} path segment
+`/``$filter` path segment
 
 [[9. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
 support nested parameter alias assignments in `$select`[[ and
@@ -7323,7 +7316,7 @@ the requested format
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either [[[501 Not
 Implemented]{style="color:windowtext"}]{.Keyword}](#sec_ResponseCode501NotImplemented)
-or [400 Bad Request]{.Keyword}
+or `400 Bad Request`
 
  
 
