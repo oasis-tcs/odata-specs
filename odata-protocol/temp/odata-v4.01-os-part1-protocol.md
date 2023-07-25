@@ -7057,155 +7057,140 @@ contributions are gratefully acknowledged:
 
 +-----------------------------------+-----------------------------------+
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| s                                 | style="font-family:Symbol"}[Jens  |
-| tyle="font-family:Symbol"}[Howard | Hüsken (SAP SE)]{lang="EN"}       |
-| Abrams (CA                        |                                   |
-| Technologies)]{lang="EN"}         | [· ]{lang="EN"                    |
-|                                   | style="font-family:Symbol"}[Evan  |
-| [· ]{lang="EN"                    | Ireland (SAP SE)]{lang="EN"}      |
-| style="font-family:Symbol"}[Ken   |                                   |
-| Baclawski (Northeastern           | [· ]{lang="EN"                    |
-| University)]{lang="EN"}           | st                                |
-|                                   | yle="font-family:Symbol"}[Gershon |
-| [· ]{lang="EN"                    | Janssen (Individual)]{lang="EN"}  |
-| style="font-family:Symbol"}[Jay   |                                   |
-| Balunas (Red Hat)]{lang="EN"}     | [· ]{lang="EN"                    |
-|                                   | style="font-family:Symbol"}[Ram   |
-| [· ]{lang="EN"                    | Jeyaraman (Microsoft)]{lang="EN"} |
-| st                                |                                   |
-| yle="font-family:Symbol"}[Stephen | [· ]{lang="EN"                    |
-| Berard (Schneider Electric        | style="font-family:Symbol"}[Ted   |
-| Industries SAS)]{lang="EN"}       | Jones (Red Hat)]{lang="EN"}       |
+| style="font-family:Symbol"}Howard | style="font-family:Symbol"}Jens   |
+| Abrams (CA Technologies)          | Hüsken (SAP SE)                   |
 |                                   |                                   |
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Mark  | style="font-family:Symbol"}[Diane |
-| Biamonte (Progress                | Jordan (IBM)]{lang="EN"}          |
-| Software)]{lang="EN"}             |                                   |
-|                                   | [· ]{lang="EN"                    |
-| [· ]{lang="EN"                    | st                                |
-| st                                | yle="font-family:Symbol"}[Stephan |
-| yle="font-family:Symbol"}[Matthew | Klevenz (SAP SE)]{lang="EN"}      |
-| Borges (SAP SE)]{lang="EN"}       |                                   |
+| style="font-family:Symbol"}Ken    | style="font-family:Symbol"}Evan   |
+| Baclawski (Northeastern           | Ireland (SAP SE)                  |
+| University)                       |                                   |
 |                                   | [· ]{lang="EN"                    |
 | [· ]{lang="EN"                    | s                                 |
-| s                                 | tyle="font-family:Symbol"}[Gerald |
-| tyle="font-family:Symbol"}[Edmond | Krause (SAP SE)]{lang="EN"}       |
-| Bourne (BlackBerry)]{lang="EN"}   |                                   |
-|                                   | [· ]{lang="EN"                    |
-| [· ]{lang="EN"                    | style="font-family:Symbol"}[Nuno  |
-| s                                 | Linhares (SDL)]{lang="EN"}        |
-| tyle="font-family:Symbol"}[Joseph |                                   |
-| Boyle (Planetwork,                | [· ]{lang="EN"                    |
-| Inc.)]{lang="EN"}                 | style="font-family:Symbol"}[Paul  |
-|                                   | Lipton (CA                        |
-| [· ]{lang="EN"                    | Technologies)]{lang="EN"}         |
-| style="font-family:Symbol"}[Peter |                                   |
-| Brown (Individual)]{lang="EN"}    | [· ]{lang="EN"                    |
-|                                   | style="font-family:Symbol"}[Susan |
-| [· ]{lang="EN"                    | Malaika (IBM)]{lang="EN"}         |
-| st                                |                                   |
-| yle="font-family:Symbol"}[Antonio | [· ]{lang="EN"                    |
-| Campanile (Bank of                | style="f                          |
-| America)]{lang="EN"}              | ont-family:Symbol"}[Ramanjaneyulu |
-|                                   | Malisetti (CA                     |
-| [· ]{lang="EN"                    | Technologies)]{lang="EN"}         |
-| style="font-family:Symbol"}[Pablo |                                   |
-| Castro (Microsoft)]{lang="EN"}    | [· ]{lang="EN"                    |
-|                                   | style="font-family:Symbol"}[Neil  |
+| style="font-family:Symbol"}Jay    | tyle="font-family:Symbol"}Gershon |
+| Balunas (Red Hat)                 | Janssen (Individual)              |
+|                                   |                                   |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| s                                 | style="font-family:Symbol"}Ram    |
+| tyle="font-family:Symbol"}Stephen | Jeyaraman (Microsoft)             |
+| Berard (Schneider Electric        |                                   |
+| Industries SAS)                   | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Ted    |
+| [· ]{lang="EN"                    | Jones (Red Hat)                   |
+| style="font-family:Symbol"}Mark   |                                   |
+| Biamonte (Progress Software)      | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Diane  |
+| [· ]{lang="EN"                    | Jordan (IBM)                      |
+| s                                 |                                   |
+| tyle="font-family:Symbol"}Matthew | [· ]{lang="EN"                    |
+| Borges (SAP SE)                   | s                                 |
+|                                   | tyle="font-family:Symbol"}Stephan |
+| [· ]{lang="EN"                    | Klevenz (SAP SE)                  |
+| style="font-family:Symbol"}Edmond |                                   |
+| Bourne (BlackBerry)               | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Gerald |
+| [· ]{lang="EN"                    | Krause (SAP SE)                   |
+| style="font-family:Symbol"}Joseph |                                   |
+| Boyle (Planetwork, Inc.)          | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Nuno   |
+| [· ]{lang="EN"                    | Linhares (SDL)                    |
+| style="font-family:Symbol"}Peter  |                                   |
+| Brown (Individual)                | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Paul   |
+| [· ]{lang="EN"                    | Lipton (CA Technologies)          |
+| s                                 |                                   |
+| tyle="font-family:Symbol"}Antonio | [· ]{lang="EN"                    |
+| Campanile (Bank of America)       | style="font-family:Symbol"}Susan  |
+|                                   | Malaika (IBM)                     |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}Pablo  | [· ]{lang="EN"                    |
+| Castro (Microsoft)                | style="                           |
+|                                   | font-family:Symbol"}Ramanjaneyulu |
+| [· ]{lang="EN"                    | Malisetti (CA Technologies)       |
+| style="font-family:Symbol"}Axel   |                                   |
+| Conrad (BlackBerry)               | [· ]{lang="EN"                    |
+|                                   | style="font-family:Symbol"}Neil   |
 | [· ]{lang="EN"                    | McEvoy (iFOSSF -- International   |
-| style="font-family:Symbol"}[Axel  | Free and Open Source Solutions    |
-| Conrad (BlackBerry)]{lang="EN"}   | Foundation)]{lang="EN"}           |
+| style="font-family:Symbol"}Robin  | Free and Open Source Solutions    |
+| Cover (OASIS)                     | Foundation)                       |
 |                                   |                                   |
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Robin | style="font-family:Symbol"}[Stan  |
-| Cover (OASIS)]{lang="EN"}         | Mitranic (CA                      |
-|                                   | Technologies)]{lang="EN"}         |
-| [· ]{lang="EN"                    |                                   |
-| style="font-family:Symbol"}[Erik  | [· ]{lang="EN"                    |
-| de Voogd (SDL)]{lang="EN"}        | style="font-family:Symbol"}[Dale  |
-|                                   | Moberg (Axway                     |
-| [· ]{lang="EN"                    | Software)]{lang="EN"}             |
-| style="font-family:Symbol"}[Yi    |                                   |
-| Ding (Microsoft)]{lang="EN"}      | [· ]{lang="EN"                    |
-|                                   | s                                 |
-| [· ]{lang="EN"                    | tyle="font-family:Symbol"}[Graham |
-| style="font-family:Symbol"}[Diane | Moore (BrightstarDB               |
-| Downie (Citrix                    | Ltd.)]{lang="EN"}                 |
-| Systems)]{lang="EN"}              |                                   |
-|                                   | [· ]{lang="EN"                    |
-| [· ]{lang="EN"                    | st                                |
-| st                                | yle="font-family:Symbol"}[Farrukh |
-| yle="font-family:Symbol"}[Patrick | Najmi (Individual)]{lang="EN"}    |
-| Durusau (Individual)]{lang="EN"}  |                                   |
-|                                   | [· ]{lang="EN"                    |
-| [· ]{lang="EN"                    | st                                |
-| s                                 | yle="font-family:Symbol"}[Shishir |
-| tyle="font-family:Symbol"}[Andrew | Pardikar (Citrix                  |
-| Eisenberg (IBM)]{lang="EN"}       | Systems)]{lang="EN"}              |
+| style="font-family:Symbol"}Erik   | style="font-family:Symbol"}Stan   |
+| de Voogd (SDL)                    | Mitranic (CA Technologies)        |
 |                                   |                                   |
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Chet  | s                                 |
-| Ensign (OASIS)]{lang="EN"}        | tyle="font-family:Symbol"}[Sanjay |
-|                                   | Patil (SAP SE)]{lang="EN"}        |
+| style="font-family:Symbol"}Yi     | style="font-family:Symbol"}Dale   |
+| Ding (Microsoft)                  | Moberg (Axway Software)           |
+|                                   |                                   |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}Diane  | style="font-family:Symbol"}Graham |
+| Downie (Citrix Systems)           | Moore (BrightstarDB Ltd.)         |
+|                                   |                                   |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| s                                 | s                                 |
+| tyle="font-family:Symbol"}Patrick | tyle="font-family:Symbol"}Farrukh |
+| Durusau (Individual)              | Najmi (Individual)                |
+|                                   |                                   |
+| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
+| style="font-family:Symbol"}Andrew | s                                 |
+| Eisenberg (IBM)                   | tyle="font-family:Symbol"}Shishir |
+|                                   | Pardikar (Citrix Systems)         |
 | [· ]{lang="EN"                    |                                   |
-| s                                 | [· ]{lang="EN"                    |
-| tyle="font-family:Symbol"}[Davina | s                                 |
-| Erasmus (SDL)]{lang="EN"}         | tyle="font-family:Symbol"}[Nuccio |
+| style="font-family:Symbol"}Chet   | [· ]{lang="EN"                    |
+| Ensign (OASIS)                    | style="font-family:Symbol"}Sanjay |
+|                                   | Patil (SAP SE)                    |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}Davina | [· ]{lang="EN"                    |
+| Erasmus (SDL)                     | style="font-family:Symbol"}Nuccio |
 |                                   | Piscopo (iFOSSF -- International  |
 | [· ]{lang="EN"                    | Free and Open Source Solutions    |
-| s                                 | Foundation)]{lang="EN"}           |
-| tyle="font-family:Symbol"}[George |                                   |
-| Ericson (Dell)]{lang="EN"}        | [· ]{lang="EN"                    |
-|                                   | st                                |
-| [· ]{lang="EN"                    | yle="font-family:Symbol"}[Michael |
-| st                                | Pizzo (Microsoft)]{lang="EN"}     |
-| yle="font-family:Symbol"}[Colleen |                                   |
-| Evans (Microsoft)]{lang="EN"}     | [· ]{lang="EN"                    |
-|                                   | s                                 |
-| [· ]{lang="EN"                    | tyle="font-family:Symbol"}[Ramesh |
-| style="font-family:Symbol"}[Jason | Reddy (Red Hat)]{lang="EN"}       |
-| Fam (IBM)]{lang="EN"}             |                                   |
+| style="font-family:Symbol"}George | Foundation)                       |
+| Ericson (Dell)                    |                                   |
 |                                   | [· ]{lang="EN"                    |
 | [· ]{lang="EN"                    | s                                 |
-| s                                 | tyle="font-family:Symbol"}[Robert |
-| tyle="font-family:Symbol"}[Senaka | Richards (Mashery)]{lang="EN"}    |
-| Fernando (WSO2)]{lang="EN"}       |                                   |
+| s                                 | tyle="font-family:Symbol"}Michael |
+| tyle="font-family:Symbol"}Colleen | Pizzo (Microsoft)                 |
+| Evans (Microsoft)                 |                                   |
 |                                   | [· ]{lang="EN"                    |
-| [· ]{lang="EN"                    | st                                |
-| style="font-family:Symbol"}[Josh  | yle="font-family:Symbol"}[Sumedha |
-| Gavant (Microsoft)]{lang="EN"}    | Rubasinghe (WSO2)]{lang="EN"}     |
+| [· ]{lang="EN"                    | style="font-family:Symbol"}Ramesh |
+| style="font-family:Symbol"}Jason  | Reddy (Red Hat)                   |
+| Fam (IBM)                         |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | style="font-family:Symbol"}Robert |
+| style="font-family:Symbol"}Senaka | Richards (Mashery)                |
+| Fernando (WSO2)                   |                                   |
+|                                   | [· ]{lang="EN"                    |
+| [· ]{lang="EN"                    | s                                 |
+| style="font-family:Symbol"}Josh   | tyle="font-family:Symbol"}Sumedha |
+| Gavant (Microsoft)                | Rubasinghe (WSO2)                 |
 |                                   |                                   |
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Brent | style="font-family:Symbol"}[James |
-| Gross (IBM)]{lang="EN"}           | Snell (IBM)]{lang="EN"}           |
+| style="font-family:Symbol"}Brent  | style="font-family:Symbol"}James  |
+| Gross (IBM)                       | Snell (IBM)                       |
 |                                   |                                   |
 | [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Zhun  | st                                |
-| Guo (Individual)]{lang="EN"}      | yle="font-family:Symbol"}[Jeffrey |
-|                                   | Turpin (Axway                     |
-| [· ]{lang="EN"                    | Software)]{lang="EN"}             |
-| style="font-family:Symbol"}[Anila |                                   |
-| Kumar GVN (CA                     | [· ]{lang="EN"                    |
-| Technologies)]{lang="EN"}         | style="font-family:Symbol"}[John  |
-|                                   | Willson (Individual)]{lang="EN"}  |
+| style="font-family:Symbol"}Zhun   | s                                 |
+| Guo (Individual)                  | tyle="font-family:Symbol"}Jeffrey |
+|                                   | Turpin (Axway Software)           |
 | [· ]{lang="EN"                    |                                   |
-| s                                 | [· ]{lang="EN"                    |
-| tyle="font-family:Symbol"}[Stefan | style="font-family:Symbol"}[John  |
-| Hagen (Individual)]{lang="EN"}    | Wilmes (Individual)]{lang="EN"}   |
-|                                   |                                   |
-| [· ]{lang="EN"                    | [· ]{lang="EN"                    |
-| style="font-family:Symbol"}[Ralf  | style=                            |
-| Handl (SAP SE)]{lang="EN"}        | "font-family:Symbol"}[Christopher |
-|                                   | Woodruff (Perficient,             |
-| [· ]{lang="EN"                    | Inc.)]{lang="EN"}                 |
-| st                                |                                   |
-| yle="font-family:Symbol"}[Barbara | [· ]{lang="EN"                    |
-| Hartel (SAP SE)]{lang="EN"}       | s                                 |
-|                                   | tyle="font-family:Symbol"}[Martin |
-| [· ]{lang="EN"                    | Zurmuehl (SAP SE)]{lang="EN"}     |
+| style="font-family:Symbol"}Anila  | [· ]{lang="EN"                    |
+| Kumar GVN (CA Technologies)       | style="font-family:Symbol"}John   |
+|                                   | Willson (Individual)              |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}Stefan | [· ]{lang="EN"                    |
+| Hagen (Individual)                | style="font-family:Symbol"}John   |
+|                                   | Wilmes (Individual)               |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}Ralf   | [· ]{lang="EN"                    |
+| Handl (SAP SE)                    | style                             |
+|                                   | ="font-family:Symbol"}Christopher |
+| [· ]{lang="EN"                    | Woodruff (Perficient, Inc.)       |
 | s                                 |                                   |
-| tyle="font-family:Symbol"}[Hubert |                                   |
-| Heijkers (IBM)]{lang="EN"}        |                                   |
+| tyle="font-family:Symbol"}Barbara | [· ]{lang="EN"                    |
+| Hartel (SAP SE)                   | style="font-family:Symbol"}Martin |
+|                                   | Zurmuehl (SAP SE)                 |
+| [· ]{lang="EN"                    |                                   |
+| style="font-family:Symbol"}Hubert |                                   |
+| Heijkers (IBM)                    |                                   |
 +-----------------------------------+-----------------------------------+
 
  

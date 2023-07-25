@@ -22,8 +22,8 @@ const clean = old
   .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333;\n?background:white'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]class=MsoHyperlink>([^<]*)<\/span>/g,"$1")
-  // .replace(/<span[ \n]style='font-family:Symbol'>· <\/span>/g,"- ")
-  // TODO: clean up all <span> tags
+  .replace(/<span lang=EN>([^<]*)<\/span>/g,"$1")
+  // TODO: clean up more <span> tags
 
   // clean up code formatting
   .replace(/<span[ \n]+style='(font-size:[\d\.]+pt;[ \n]*)?font-family:[ \n]*"Courier[ \n]New"(;\n?color:black)?(;\n?background:\n?white)?'>([^<]*)<\/span>/g, "<code>$4</code>")
@@ -44,7 +44,7 @@ const clean = old
   .replace(/<h5>[\d\.\s]*/g, "<h5>##subsubsubsubsec ")
   .replace(/<h6>[\d\.\s]*/g, "<h6>##subsubsubsubsubsec ")
 
-  // TODO: clean up <div> tags
+  // TODO: clean up more <div> tags
   .replace(/<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>([\s\S]*?)<\/div>/g,"$1")
 
   // clean up references
