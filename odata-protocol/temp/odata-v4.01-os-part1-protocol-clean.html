@@ -184,11 +184,11 @@ informative only.</p>
 
 <p class=MsoNormal>All other text is normative unless otherwise labeled.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Overview</h1>
 
-</div>
+
 
 <p class=MsoNormal>The OData Protocol is an application-level protocol for
 interacting with data via RESTful interfaces. The protocol supports the
@@ -243,11 +243,11 @@ additional capabilities.</p>
 margin-left:35.7pt;text-indent:-17.85pt'><span style='font-family:Symbol'>· </span>Keep it simple. Address the common cases and provide
 extensibility where necessary.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Data Model</h1>
 
-</div>
+
 
 <p class=MsoNormal>This section provides a high-level description of the <i>Entity
 Data Model (EDM)</i>: the abstract data model that is used to describe the data
@@ -344,11 +344,11 @@ a type. </p>
 
 <p class=MsoNormal>A set of related terms in a common namespace comprises a <i>Vocabulary</i>.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Service Model</h1>
 
-</div>
+
 
 <p class=MsoNormal>OData services are defined using a common data model. The
 service advertises its concrete data model in a machine-readable form, allowing
@@ -473,11 +473,11 @@ default namespaces is undefined. Generic clients are encouraged to always
 qualify action, function, and type names in order to avoid any possible
 ambiguity.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Versioning</h1>
 
-</div>
+
 
 <p class=MsoNormal>Versioning enables clients and services to evolve
 independently. OData defines semantics for both protocol and data model
@@ -584,11 +584,11 @@ restricted authorizations.</span></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Extensibility</h1>
 
-</div>
+
 
 <p class=MsoNormal>The OData protocol supports both user- and version-driven
 extensibility through a combination of versioning, convention, and explicit
@@ -697,11 +697,11 @@ client to understand custom headers to accurately interpret the response.</p>
 <p class=MsoNormal>An OData service MUST support <a href="#ODataJSON">OData-JSON</a>
 and MAY support additional formats for both request and response bodies.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Formats</h1>
 
-</div>
+
 
 <p class=MsoNormal>The client MAY request a particular response format through
 the <a href="#sec_HeaderAccept"><code>Accept</code></a>
@@ -743,11 +743,11 @@ MAY respond to requests in any format. </span></p>
 array in JSON responses, and elements in document order for XML responses,
 including CSDL documents. </p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Header Fields</h1>
 
-</div>
+
 
 <p class=MsoNormal>OData defines semantics around the following request and
 response headers. Additional headers may be specified, but have no unique
@@ -1813,11 +1813,11 @@ as defined by <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see <a
 href="#HTTPPREFER"><b>[RFC7240]</b></a><span class=MsoHyperlink><b>.</b></span></p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Common Response Status Codes</h1>
 
-</div>
+
 
 <p class=MsoNormal>An OData service MAY respond to any request using any valid
 HTTP status code appropriate for the request. A service SHOULD be as specific
@@ -2026,11 +2026,11 @@ header <a href="#sec_HeaderODataError"><code>OData-Error</code></a>
 as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with
 chunked transfer encoding, or HTTP/2).</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Context URL</h1>
 
-</div>
+
 
 <p class=MsoNormal>The <i>context URL</i> describes the content of the payload.
 It consists of the canonical <a href="#sec_MetadataDocumentRequest">metadata
@@ -2746,11 +2746,11 @@ has its individual context URL that identifies the entity set or singleton.</p>
 use the built-in abstract complex type. Single instances in these responses do
 not have a context URL.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Data Service Requests</h1>
 
-</div>
+
 
 <p class=MsoNormal>This chapter describes the semantics of the HTTP verbs <code>GET</code>, <code>POST</code>, <code>PATCH</code>, <code>PUT</code>, and <code>DELETE</code> for OData resources.</p>
 
@@ -7878,11 +7878,11 @@ Content-Length: ###<br>
 
 </div>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Security Considerations</h1>
 
-</div>
+
 
 <p class=MsoNormal>This section is provided as a service to the application
 developers, information providers, and users of OData version 4.0 giving some
@@ -7904,11 +7904,11 @@ basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a> over
 HTTPS for the highest level of interoperability with generic clients. They MAY
 support other authentication methods.</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <h1>##sec Conformance</h1>
 
-</div>
+
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>OData is
 designed as a set of conventions that can be layered on top of existing
@@ -8764,12 +8764,12 @@ href="#sec_ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> o
 
 <p class=MsoNormal style='margin-top:1.0pt'>&nbsp;</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <p class=AppendixHeading1><a
 name="_Toc477876743">Appendix A. </a><a href="#sec_Acknowledgments">Acknowledgments</a></p>
 
-</div>
+
 
 <p class=MsoNormal>The following individuals were members of the OASIS OData
 Technical Committee during the creation of this specification and their
@@ -8976,12 +8976,12 @@ contributions are gratefully acknowledged:</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>
+
 
 <p class=AppendixHeading1><a
 name="_Toc477876744">Appendix B. </a><a href="#sec_RevisionHistory">Revision History</a></p>
 
-</div>
+
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>

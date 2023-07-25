@@ -17,6 +17,7 @@ const clean = old
   // clean up formatting
   .replace(/<span[ \n]style='color:black'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
+  // TODO: clean up all <span> tags
 
   // clean up "keyword" formatting
   .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
@@ -34,6 +35,9 @@ const clean = old
   .replace(/<h4>[\d\.\s]*/g, "<h4>##subsubsubsec ")
   .replace(/<h5>[\d\.\s]*/g, "<h5>##subsubsubsubsec ")
   .replace(/<h6>[\d\.\s]*/g, "<h6>##subsubsubsubsubsec ")
+
+  // TODO: clean up <div> tags
+  .replace(/<div style='border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in'>([\s\S]*?)<\/div>/g,"$1")
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")

@@ -143,9 +143,7 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Overview
-:::
 
 The OData Protocol is an application-level protocol for interacting with
 data via RESTful interfaces. The protocol supports the description of
@@ -192,9 +190,7 @@ necessary only to support additional capabilities.
 [· ]{style="font-family:Symbol"}Keep it simple. Address the common cases
 and provide extensibility where necessary.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Data Model
-:::
 
 This section provides a high-level description of the *Entity Data Model
 (EDM)*: the abstract data model that is used to describe the data
@@ -292,9 +288,7 @@ Annotation terms are defined in metadata and have a name and a type.
 
 A set of related terms in a common namespace comprises a *Vocabulary*.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Service Model
-:::
 
 OData services are defined using a common data model. The service
 advertises its concrete data model in a machine-readable form, allowing
@@ -415,9 +409,7 @@ namespaces is undefined. Generic clients are encouraged to always
 qualify action, function, and type names in order to avoid any possible
 ambiguity.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Versioning
-:::
 
 Versioning enables clients and services to evolve independently. OData
 defines semantics for both protocol and data model versioning.
@@ -511,9 +503,7 @@ authorizations.]{style="color:black"}
 
  
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Extensibility
-:::
 
 The OData protocol supports both user- and version-driven extensibility
 through a combination of versioning, convention, and explicit extension
@@ -621,9 +611,7 @@ understand custom headers to accurately interpret the response.
 An OData service MUST support [OData-JSON](#ODataJSON) and MAY support
 additional formats for both request and response bodies.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Formats
-:::
 
 The client MAY request a particular response format through the
 [`Accept`](#sec_HeaderAccept) header, as defined in
@@ -663,9 +651,7 @@ Client libraries MUST retain the order of objects within an array in
 JSON responses, and elements in document order for XML responses,
 including CSDL documents.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Header Fields
-:::
 
 OData defines semantics around the following request and response
 headers. Additional headers may be specified, but have no unique
@@ -1688,9 +1674,7 @@ value `*` as defined by [**\[RFC7231\]**](#HTTPSemantic), Section 8.2.1.
 Note that this will make it impossible for a proxy to cache the
 response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Common Response Status Codes
-:::
 
 An OData service MAY respond to any request using any valid HTTP status
 code appropriate for the request. A service SHOULD be as specific as
@@ -1883,9 +1867,7 @@ Services MAY include the header [`OData-Error`](#sec_HeaderODataError)
 as a trailing header if supported by the transport protocol (e.g.
 HTTP/1.1 with chunked transfer encoding, or HTTP/2).
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Context URL
-:::
 
 The *context URL* describes the content of the payload. It consists of
 the canonical [metadata document URL](#sec_MetadataDocumentRequest) and
@@ -2536,9 +2518,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 [OData‑URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Data Service Requests
-:::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 `PATCH`, `PUT`, and `DELETE` for OData resources.
@@ -6667,9 +6647,7 @@ Content-Length: \###\
 \--b_243234_25424_ef_892u748---]{style="color:black"}
 :::
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Security Considerations
-:::
 
 This section is provided as a service to the application developers,
 information providers, and users of OData version 4.0 giving some
@@ -6690,9 +6668,7 @@ authentication as defined in [**\[RFC7617\]**](#RFC7617) over HTTPS for
 the highest level of interoperability with generic clients. They MAY
 support other authentication methods.
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 # ##sec Conformance
-:::
 
 OData is designed as a set of conventions that can be layered on top of
 existing standards to provide common representations for common
@@ -7303,9 +7279,7 @@ prepared to handle either
 
  
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 [Appendix A.]{#_Toc477876743} [Acknowledgments](#sec_Acknowledgments)
-:::
 
 The following individuals were members of the OASIS OData Technical
 Committee during the creation of this specification and their
@@ -7466,9 +7440,7 @@ contributions are gratefully acknowledged:
 
  
 
-::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
 [Appendix B.]{#_Toc477876744} [Revision History](#sec_RevisionHistory)
-:::
 
 +-----------------+-----------------+-----------------+-----------------+
 | **Revision**    | **Date**        | **Editor**      | **Changes       |
