@@ -53,7 +53,7 @@ href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-ope
 
 <p class=MsoNormal>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL
 NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
-document are to be interpreted as described in <a href="#RFC2119"><b>[RFC2119]</b></a>.</p>
+document are to be interpreted as described in <a href="#RFC2119">RFC2119</a>.</p>
 
 <h2>##subsec Normative References</h2>
 
@@ -369,7 +369,7 @@ href="#sec_DataModification">Data Modification</a> for details.</p>
 <p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'>Whereas entities
 within an entity set are uniquely identified by their key values, entities are
 also uniquely identified by a durable, opaque, globally unique <i>entity-id</i>.
-The entity-id MUST be an IRI as defined in <a href="#RFC3987"><b>[RFC3987]</b></a>
+The entity-id MUST be an IRI as defined in <a href="#RFC3987">RFC3987</a>
 and MAY be expressed in payloads, headers, and URLs as a relative reference as
 appropriate. While the client MUST be prepared to
 accept any IRI, services MUST use valid URIs in this version of the
@@ -692,7 +692,7 @@ and MAY support additional formats for both request and response bodies.</p>
 
 <p class=MsoNormal>The client MAY request a particular response format through
 the <a href="#sec_HeaderAccept"><code>Accept</code></a>
-header, as defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, or through
+header, as defined in <a href="#HTTPSemantic">RFC7231</a>, or through
 the system query option <a href="#sec_SystemQueryOptionformat">$format</a>.</p>
 
 <p class=MsoNormal>In the case that both the <code>Accept</code>
@@ -762,7 +762,7 @@ format-specific details about format parameters within the <code>Content-Type</c
 
 <h3>##subsubsec Header <code>Content-Encoding</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, the
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>, the
 <code>Content-Encoding</code> header field is
 used as a modifier to the media-type (as indicated in the <code>Content-Type</code>). When present, its value
 indicates what additional content codings have been applied to the entity-body.
@@ -779,7 +779,7 @@ header inherit the encoding of the overall batch request or response.</p>
 
 <h3>##subsubsec Header <code>Content-Language</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a><span
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a><span
 class=MsoHyperlink><b>,</b></span> a
 request or response can include a <code>Content-Language</code>
 header to indicate the natural language of the intended audience for the
@@ -796,7 +796,7 @@ header inherit the language of the overall batch request or response.</p>
 
 <h3>##subsubsec Header <code>Content-Length</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
+<p class=MsoNormal>As defined in <a href="#HTTPMessage">RFC7230</a><span
 class=MsoHyperlink><b>,</b></span> a
 request or response SHOULD include a <code>Content-Length</code>
 header when the message's length can be determined
@@ -848,7 +848,7 @@ headers.</p>
 
 <h3>##subsubsec Header <code>Accept</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>,
 the client MAY specify the set of accepted <a href="#sec_Formats">formats</a>
 with the <code>Accept</code> Header.</p>
 
@@ -877,7 +877,7 @@ header inherit the acceptable formats of the overall batch request.</p>
 
 <h3>##subsubsec Header <code>Accept-Charset</code></h3>
 
-<p class=MsoNormal>As defined in<b> </b><a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
+<p class=MsoNormal>As defined in<b> </b><a href="#HTTPSemantic">RFC7231</a>,
 the client MAY specify the set of accepted character sets with the <code>Accept-Charset</code> header.</p>
 
 <p class=MsoNormal>If the <code>Accept-Charset</code> header is
@@ -888,7 +888,7 @@ inherit the acceptable character sets of the overall batch request.</p>
 
 <h3>##subsubsec Header <code>Accept-Language</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>,
 the client MAY specify the set of accepted natural languages with the <code>Accept-Language</code> header.</p>
 
 <p class=MsoNormal>If the <code>Accept-Language</code> header is
@@ -899,7 +899,7 @@ the acceptable languages of the overall batch request.</p>
 
 <h3>##subsubsec Header <code>If-Match</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a>, a client MAY include an <code>If-Match</code>
+<p class=MsoNormal>As defined in <a href="#HTTPConditional">RFC7232</a>, a client MAY include an <code>If-Match</code>
 header in a request to <code>GET</code>, <code>POST</code>,
 <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-Match</code>
 request header MUST be an ETag value previously retrieved for the resource, or <code>*</code> to match any value.</p>
@@ -920,7 +920,7 @@ Services sending <a href="#sec_HeaderETag"><code>ETag</code>
 headers</a> with weak ETags that only depend on the representation-independent
 entity state MUST use the weak comparison function because it is sufficient to
 prevent accidental overwrites. This is a deviation from <a
-href="#HTTPConditional"><b>[RFC7232]</b></a>. </p>
+href="#HTTPConditional">RFC7232</a>. </p>
 
 <p class=MsoNormal>If the value does not match the current ETag value of the
 resource for a <a href="#sec_DataModification">Data Modification Request </a>or <a href="#sec_Actions">Action Request</a>,
@@ -938,7 +938,7 @@ within the batch.</p>
 
 <h3>##subsubsec Header <code>If-None-Match</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a>,
+<p class=MsoNormal>As defined in <a href="#HTTPConditional">RFC7232</a>,
 a client MAY include an <code>If-None-Match</code> header in a
 request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-None-Match
 </code>request header MUST be an ETag value previously retrieved for the
@@ -947,7 +947,7 @@ resource, or <code>*</code>.</p>
 <p class=MsoNormal>If present, the request MUST only be processed if the
 specified ETag value does not match the current ETag value of the resource,
 using the weak comparison function (see<span class=MsoHyperlink><b> </b></span><a
-href="#HTTPConditional"><b>[RFC7232]</b></a>). If the value matches the current
+href="#HTTPConditional">RFC7232</a>). If the value matches the current
 ETag value of the resource, then for a <code>GET</code> request,
 the service SHOULD respond with <a href="#sec_ResponseCode304NotModified"><code>304 Not Modified</code></a>, and for a <a
 href="#sec_DataModification">Data Modification Request
@@ -1047,7 +1047,7 @@ OData version does not typically vary within a batch. </p>
 <h3>##subsubsec Header <code>Prefer</code></h3>
 
 <p class=MsoNormal>The <code>Prefer</code> header, as defined in
-<a href="#HTTPPREFER"><b>[RFC7240]</b></a>, allows clients to request certain behavior
+<a href="#HTTPPREFER">RFC7240</a>, allows clients to request certain behavior
 from the service. The service MUST ignore preference values that are either not
 supported or not known by the service.</p>
 
@@ -1429,7 +1429,7 @@ not affect a request payload.</p>
 <h4>##subsubsubsec Preference <code>return=representation</code> and <code>return=minimal</code></h4>
 
 <p class=MsoNormal style='margin-left:99.25pt;text-indent:-99.25pt'>The <code>return=representation</code> and <code>return=minimal</code> preferences are defined in <a
-href="#HTTPPREFER"><b>[RFC7240]</b></a>.</p>
+href="#HTTPPREFER">RFC7240</a>.</p>
 
 <p class=MsoNormal>In OData, <code>return=representation</code> or <code>return=minimal</code> is defined for
 use with a <code>POST</code>, <code>PUT</code>, or <code>PATCH</code> <a
@@ -1468,7 +1468,7 @@ individual requests within a batch. </p>
 <h4>##subsubsubsec Preference <code>respond-async</code></h4>
 
 <p class=MsoNormal>The <code>respond-async </code>preference, as
-defined in <a href="#HTTPPREFER"><b>[RFC7240]</b></a>, allows clients to
+defined in <a href="#HTTPPREFER">RFC7240</a>, allows clients to
 request that the service process the request asynchronously. </p>
 
 <p class=MsoNormal>If the client has specified<code> respond-async</code>
@@ -1559,7 +1559,7 @@ for compatibility with OData 4.0 services.</p>
 <h4>##subsubsubsec Preference <code>wait</code></h4>
 
 <p class=MsoNormal>The <code>wait</code> preference, as defined
-in <a href="#HTTPPREFER"><b>[RFC7240]</b></a>, is used to establish an upper
+in <a href="#HTTPPREFER">RFC7240</a>, is used to establish an upper
 bound on the length of time, in seconds, the client is prepared to wait for the
 service to process the request synchronously once it has been received. </p>
 
@@ -1598,7 +1598,7 @@ NOT be applied to individual responses within a batch.</p>
 <h3>##subsubsec Header <code>ETag</code></h3>
 
 <p class=MsoNormal>A response MAY include an <code>ETag</code>
-header, see <a href="#HTTPConditional"><b>[RFC7232]</b></a>. Services MUST include
+header, see <a href="#HTTPConditional">RFC7232</a>. Services MUST include
 this header if they require an ETag to be specified when modifying the resource.</p>
 
 <p class=MsoNormal>Services MUST support specifying the value returned in the <code>ETag</code> header in an <a href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a
@@ -1676,7 +1676,7 @@ in a header, see e.g. <a href="#ODataJSON">OData-JSON</a>.</p>
 <p class=MsoNormal>In a response to a request that specifies a <a
 href="#sec_HeaderPrefer"><code>Prefer</code></a>
 header, a service MAY include a <code>Preference-Applied</code>
-header, as defined in <a href="#HTTPPREFER"><b>[RFC7240]</b></a>, specifying
+header, as defined in <a href="#HTTPPREFER">RFC7240</a>, specifying
 how individual preferences within the request were handled.</p>
 
 <p class=MsoNormal>The value of the <code>Preference-Applied</code>
@@ -1694,7 +1694,7 @@ batch. </p>
 <h3>##subsubsec Header <code>Retry-After</code></h3>
 
 <p class=MsoNormal>A service MAY include a <code>Retry-After</code>
-header, as defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a><span
+header, as defined in <a href="#HTTPSemantic">RFC7231</a><span
 class=MsoHyperlink><b>,</b></span> in <a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a> and in <a
 href="#sec_ResponseCode3xxRedirection"><code>3xx
 Redirect</code></a> responses</p>
@@ -1723,9 +1723,9 @@ href="#sec_HeaderPrefer"><code>Prefer</code></a>
 request header field to allow correct caching of the response. </p>
 
 <p class=MsoNormal>Alternatively, the server MAY include a <code>Vary</code> header with the special value <code>*</code>
-as defined by <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, Section 8.2.1. Note
+as defined by <a href="#HTTPSemantic">RFC7231</a>, Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see <a
-href="#HTTPPREFER"><b>[RFC7240]</b></a><span class=MsoHyperlink><b>.</b></span></p>
+href="#HTTPPREFER">RFC7240</a><span class=MsoHyperlink><b>.</b></span></p>
 
 
 
@@ -1779,7 +1779,7 @@ if the requested resource has the <code>null</code> value, or if
 the service applies a <a href="#sec_Preferencereturnrepresentationandret"><code>return=minimal</code> preference</a>. In this
 case, the response body MUST be empty.</p>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>,
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>,
 a <a href="#sec_DataModification">Data Modification Request</a> that responds
 with <code>204 No Content MAY </code>include an <code>ETag</code> header with a value reflecting the result of the
 data modification if and only if the client can reasonably “know” the new representation
@@ -1795,7 +1795,7 @@ request, i.e. the previous values “known” to the client.</p>
 
 <h3>##subsubsec Response Code <code>3xx Redirection</code></h3>
 
-<p class=MsoNormal>As per <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, a <code>3xx Redirection</code> indicates that further action needs to be
+<p class=MsoNormal>As per <a href="#HTTPSemantic">RFC7231</a>, a <code>3xx Redirection</code> indicates that further action needs to be
 taken by the client in order to fulfill the request. In this case, the response
 SHOULD include a <a href="#sec_HeaderLocation"><code>Location</code>
 header</a>, as appropriate, with the URL from
@@ -1805,7 +1805,7 @@ header</a>.</p>
 
 <h3>##subsubsec Response Code <code>304 Not Modified</code></h3>
 
-<p class=MsoNormal>As per <a href="#HTTPConditional"><b>[RFC7232]</b></a>, a <code>304 Not Modified</code> is returned when the
+<p class=MsoNormal>As per <a href="#HTTPConditional">RFC7232</a>, a <code>304 Not Modified</code> is returned when the
 client performs a <code>GET</code> request containing an <a
 href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code></a>
 header and the content has not changed. In this case the response SHOULD NOT
@@ -1841,7 +1841,7 @@ provide additional information.</p>
 that the resource specified by the request URL does not support the request
 method. In this case the response MUST include an <code>Allow</code>
 header containing a list of valid request methods for the requested resource as
-defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>.</p>
+defined in <a href="#HTTPSemantic">RFC7231</a>.</p>
 
 <h3>##subsubsec Response Code <code>406 Not Acceptable</code></h3>
 
@@ -1865,7 +1865,7 @@ href="#sec_HeaderIsolationODataIsolation">snapshot isolation</a>.</p>
 
 <h3>##subsubsec Response Code <code>412 Precondition Failed</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPConditional"><b>[RFC7232]</b></a><span
+<p class=MsoNormal>As defined in <a href="#HTTPConditional">RFC7232</a><span
 class=MsoHyperlink>,<b> </b></span><code>412 Precondition Failed</code>
 indicates that the client has performed a conditional request and the resource
 fails the condition. The service MUST ensure that no observable change occurs
@@ -1879,7 +1879,7 @@ request within a batch that depended upon a request that failed.</p>
 
 <h2>##subsec Server Error Responses</h2>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic"><b>[RFC7231]</b></a>, error codes in the <code>5xx</code>
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>, error codes in the <code>5xx</code>
 range indicate service errors.</p>
 
 <h3>##subsubsec Response Code <code>501 Not Implemented</code></h3>
@@ -1903,7 +1903,7 @@ code serves as a sub-status for the HTTP error code specified in the response.</
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 style='font-family:Symbol'>· </span><code>message</code>: required non-null,
 non-empty, language-dependent, human-readable string describing the error. The&nbsp;<a href="#sec_HeaderContentLanguage"><code>Content-Language</code></a>&nbsp;header MUST contain the language code from <a
-href="#rfc5646"><b>[RFC5646]</b></a> corresponding to
+href="#rfc5646">RFC5646</a> corresponding to
 the language in which the value for message is written.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
@@ -5253,7 +5253,7 @@ provides more resiliency between clients and services by directly modifying
 only those values specified by the client.</p>
 
 <p class=MsoNormal>The semantics of <code>PATCH</code>,
-as defined in <a href="#RFC5789"><b>[RFC5789]</b></a>, is to merge the content
+as defined in <a href="#RFC5789">RFC5789</a>, is to merge the content
 in the request payload with the [entity’s] current state, applying the update
 only to those components specified in the request body. Collection properties
 and primitive properties provided in the payload corresponding to updatable
@@ -6773,7 +6773,7 @@ request to the status monitor includes an <code>OData-MaxVersion
 </code>header, or an <code>Accept </code>header
 that includes <code>application/http</code>, then the body of
 the final <code>200 OK</code> response MUST be represented as an
-HTTP message, as described in <a href="#HTTPMessage"><b>[RFC7230]</b></a><span
+HTTP message, as described in <a href="#HTTPMessage">RFC7230</a><span
 class=MsoHyperlink><b>, </b></span>which is the full HTTP response to the completed
 asynchronous operation.</p>
 
@@ -6840,7 +6840,7 @@ Request Headers</h3>
 
 <p class=MsoNormal>A batch request using the <a href="#sec_MultipartBatchFormat">multipart
 batch format</a> MUST contain a <a href="#sec_HeaderContentType"><code>Content-Type</code></a> header specifying a
-content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#RFC2046"><b>[RFC2046]</b></a>.
+content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#RFC2046">RFC2046</a>.
 </p>
 
 <p class=MsoCaption>Example 96: multipart batch request</p>
@@ -6986,7 +6986,7 @@ can be avoided by e.g. using only numeric request identifiers.</p>
 <h3>##subsubsec Multipart Batch Format</h3>
 
 <p class=MsoNormal>The multipart batch format is represented as a Multipart
-Media Type message <a href="#RFC2046"><b>[RFC2046]</b></a>, a standard format
+Media Type message <a href="#RFC2046">RFC2046</a>, a standard format
 allowing the representation of multiple parts, each of which may have a different
 content type.</p>
 
@@ -7004,7 +7004,7 @@ boundary, and another two dashes).</p>
 a <code>Content-Type</code> header with value <code>application/http</code>. </p>
 
 <p class=MsoNormal>The contents of a body part representing a change set MUST
-itself be a multipart document (see <a href="#RFC2046"><b>[RFC2046]</b></a>) with
+itself be a multipart document (see <a href="#RFC2046">RFC2046</a>) with
 one body part for each operation in the change set. <span
 class=MsoCommentReference><span style='font-size:8.0pt'>E</span></span>ach body
 part representing an operation in the change set MUST specify a <code>Content-ID</code> header with a <a
@@ -7018,7 +7018,7 @@ transmission via E-Mail. Neither clients nor services should rely on this
 header being present. </p>
 
 <p class=MsoNormal>Preambles and epilogues in the multipart batch request body,
-as defined in <a href="#RFC2046"><b>[RFC2046]</b></a>, are valid but are
+as defined in <a href="#RFC2046">RFC2046</a>, are valid but are
 assigned no meaning and thus MUST be ignored by processors of multipart batch
 requests.</p>
 
@@ -7127,7 +7127,7 @@ brackets and <code>OData-Version</code> headers are omitted. </p>
 are necessary: the first is part of the <code>GET</code> request
 header; the second is the empty body of the <code>GET</code>
 request, followed by a <code>CRLF</code> according to <a
-href="#RFC2046"><b>[RFC2046]</b></a>.</p>
+href="#RFC2046">RFC2046</a>.</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7623,15 +7623,15 @@ both sides of the coin, security enhancements and concerns alike from the
 latter.</p>
 
 <p class=MsoNormal>For HTTP relevant security implications please cf. the
-relevant sections of <a href="#HTTPSemantic"><b>[RFC7231]</b></a> (9. Security
+relevant sections of <a href="#HTTPSemantic">RFC7231</a> (9. Security
 Considerations) and for the HTTP <code>PATCH</code> method <a
-href="#RFC5789"><b>[RFC5789]</b></a> (5. Security Considerations) as starting
+href="#RFC5789">RFC5789</a> (5. Security Considerations) as starting
 points.</p>
 
 <h2>##subsec Authentication</h2>
 
 <p class=MsoNormal>OData Services requiring authentication SHOULD consider supporting
-basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a> over
+basic authentication as defined in <a href="#RFC7617">RFC7617</a> over
 HTTPS for the highest level of interoperability with generic clients. They MAY
 support other authentication methods.</p>
 
@@ -7921,7 +7921,7 @@ support the <a href="#ODataJSON">OData-JSON</a> format </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD consider supporting basic authentication as defined in <a
-href="#RFC7617"><b>[RFC7617]</b></a> over HTTPS for
+href="#RFC7617">RFC7617</a> over HTTPS for
 the highest level of interoperability with generic clients</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
@@ -8412,7 +8412,7 @@ system query options</p>
 case-sensitive query options, operators, and canonical functions</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617"><b>[RFC7617]</b></a> over HTTPS</p>
+4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617">RFC7617</a> over HTTPS</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>11. MAY request entity

@@ -35,8 +35,7 @@ TC's web page (<https://www.oasis-open.org/committees/odata/ipr.php>).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in
-[**\[RFC2119\]**](#RFC2119).
+document are to be interpreted as described in [RFC2119](#RFC2119).
 
 ## ##subsec Normative References
 
@@ -315,12 +314,11 @@ Modification](#sec_DataModification) for details.
 Whereas entities within an entity set are uniquely identified by their
 key values, entities are also uniquely identified by a durable, opaque,
 globally unique *entity-id*. The entity-id MUST be an IRI as defined in
-[**\[RFC3987\]**](#RFC3987) and MAY be expressed in payloads, headers,
-and URLs as a relative reference as appropriate. While the client MUST
-be prepared to accept any IRI, services MUST use valid URIs in this
-version of the specification since there is currently no lossless
-representation of an IRI in the [`EntityId`](#sec_HeaderODataEntityId)
-header.
+[RFC3987](#RFC3987) and MAY be expressed in payloads, headers, and URLs
+as a relative reference as appropriate. While the client MUST be
+prepared to accept any IRI, services MUST use valid URIs in this version
+of the specification since there is currently no lossless representation
+of an IRI in the [`EntityId`](#sec_HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in **OData-URL** as its entity-id, but clients cannot assume
@@ -609,7 +607,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#sec_HeaderAccept) header, as defined in
-[**\[RFC7231\]**](#HTTPSemantic), or through the system query option
+[RFC7231](#HTTPSemantic), or through the system query option
 [\$format](#sec_SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format system `query
@@ -673,9 +671,9 @@ parameters within the `Content-Type` header.
 
 ### ##subsubsec Header `Content-Encoding`
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), the `Content-Encoding`
-header field is used as a modifier to the media-type (as indicated in
-the `Content-Type`). When present, its value indicates what additional
+As defined in [RFC7231](#HTTPSemantic), the `Content-Encoding` header
+field is used as a modifier to the media-type (as indicated in the
+`Content-Type`). When present, its value indicates what additional
 content codings have been applied to the entity-body.\
 A service MAY specify a list of acceptable content codings using an
 annotation with term
@@ -690,12 +688,12 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Language`
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic)[**,**]{.MsoHyperlink} a
-request or response can include a `Content-Language` header to indicate
-the natural language of the intended audience for the enclosed message
-body. OData does not add any additional requirements over HTTP for
-including `Content-Language`. OData services can annotate model elements
-whose content depends on the content language with the term
+As defined in [RFC7231](#HTTPSemantic)[**,**]{.MsoHyperlink} a request
+or response can include a `Content-Language` header to indicate the
+natural language of the intended audience for the enclosed message body.
+OData does not add any additional requirements over HTTP for including
+`Content-Language`. OData services can annotate model elements whose
+content depends on the content language with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
@@ -707,11 +705,10 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Length`
 
-As defined in [**\[RFC7230\]**](#HTTPMessage)[**,**]{.MsoHyperlink} a
-request or response SHOULD include a `Content-Length` header when the
-message\'s length can be determined prior to being transferred. OData
-does not add any additional requirements over HTTP for writing
-`Content-Length`.
+As defined in [RFC7230](#HTTPMessage)[**,**]{.MsoHyperlink} a request or
+response SHOULD include a `Content-Length` header when the message\'s
+length can be determined prior to being transferred. OData does not add
+any additional requirements over HTTP for writing `Content-Length`.
 
 If the `Content-Length` header is specified on an individual request or
 response within a batch, then it specifies the length for that
@@ -755,8 +752,8 @@ specify any combination of the following request headers.
 
 ### ##subsubsec Header `Accept`
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted [formats](#sec_Formats) with the `Accept` Header.
+As defined in [RFC7231](#HTTPSemantic), the client MAY specify the set
+of accepted [formats](#sec_Formats) with the `Accept` Header.
 
 Services MUST reject formats that specify unknown or unsupported format
 parameters.
@@ -781,8 +778,8 @@ inherit the acceptable formats of the overall batch request.
 
 ### ##subsubsec Header `Accept-Charset`
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted character sets with the `Accept-Charset` header.
+As defined in [RFC7231](#HTTPSemantic), the client MAY specify the set
+of accepted character sets with the `Accept-Charset` header.
 
 If the `Accept-Charset` header is specified on an individual request
 within a batch, then it specifies the acceptable character sets for that
@@ -792,8 +789,8 @@ overall batch request.
 
 ### ##subsubsec Header `Accept-Language`
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), the client MAY specify
-the set of accepted natural languages with the `Accept-Language` header.
+As defined in [RFC7231](#HTTPSemantic), the client MAY specify the set
+of accepted natural languages with the `Accept-Language` header.
 
 If the `Accept-Language` header is specified on an individual request
 within a batch, then it specifies the acceptable languages for that
@@ -803,8 +800,8 @@ batch request.
 
 ### ##subsubsec Header `If-Match`
 
-As defined in [**\[RFC7232\]**](#HTTPConditional), a client MAY include
-an `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
+As defined in [RFC7232](#HTTPConditional), a client MAY include an
+`If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
 value previously retrieved for the resource, or `*` to match any value.
 
@@ -825,8 +822,7 @@ value matches the current ETag value of the target resource. Services
 sending [`ETag` headers](#sec_HeaderETag) with weak ETags that only
 depend on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
-overwrites. This is a deviation from
-[**\[RFC7232\]**](#HTTPConditional).
+overwrites. This is a deviation from [RFC7232](#HTTPConditional).
 
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#sec_DataModification) or [Action
@@ -845,17 +841,17 @@ be specified on individual requests within the batch.
 
 ### ##subsubsec Header `If-None-Match`
 
-As defined in [**\[RFC7232\]**](#HTTPConditional), a client MAY include
-an `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH`
-or `DELETE`. The value of the `If-None-Match `request header MUST be an
+As defined in [RFC7232](#HTTPConditional), a client MAY include an
+`If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
+`DELETE`. The value of the `If-None-Match `request header MUST be an
 ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
 weak comparison function (see[
-]{.MsoHyperlink}[**\[RFC7232\]**](#HTTPConditional)). If the value
-matches the current ETag value of the resource, then for a `GET`
-request, the service SHOULD respond with
+]{.MsoHyperlink}[RFC7232](#HTTPConditional)). If the value matches the
+current ETag value of the resource, then for a `GET` request, the
+service SHOULD respond with
 [`304 Not Modified`](#sec_ResponseCode304NotModified), and for a [Data
 Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions), the service MUST respond with
@@ -944,10 +940,10 @@ For more details, see [Versioning](#sec_Versioning).
 
 ### ##subsubsec Header `Prefer`
 
-The `Prefer` header, as defined in [**\[RFC7240\]**](#HTTPPREFER),
-allows clients to request certain behavior from the service. The service
-MUST ignore preference values that are either not supported or not known
-by the service.
+The `Prefer` header, as defined in [RFC7240](#HTTPPREFER), allows
+clients to request certain behavior from the service. The service MUST
+ignore preference values that are either not supported or not known by
+the service.
 
 The value of the `Prefer` header is a comma-separated list of
 *preferences*. The following subsections describe preferences whose
@@ -1277,7 +1273,7 @@ The `omit-values` preference does not affect a request payload.
 #### ##subsubsubsec Preference `return=representation` and `return=minimal`
 
 The `return=representation` and `return=minimal` preferences are defined
-in [**\[RFC7240\]**](#HTTPPREFER).
+in [RFC7240](#HTTPPREFER).
 
 In OData, `return=representation` or `return=minimal` is defined for use
 with a `POST`, `PUT`, or `PATCH` [Data Modification
@@ -1316,9 +1312,9 @@ MAY be applied to individual requests within a batch.
 
 #### ##subsubsubsec Preference `respond-async`
 
-The `respond-async `preference, as defined in
-[**\[RFC7240\]**](#HTTPPREFER), allows clients to request that the
-service process the request asynchronously.
+The `respond-async `preference, as defined in [RFC7240](#HTTPPREFER),
+allows clients to request that the service process the request
+asynchronously.
 
 If the client has specified` respond-async` in the request, the service
 MAY process the request asynchronously and return a
@@ -1397,10 +1393,10 @@ clients SHOULD use `odata.track-changes` for compatibility with OData
 
 #### ##subsubsubsec Preference `wait`
 
-The `wait` preference, as defined in [**\[RFC7240\]**](#HTTPPREFER), is
-used to establish an upper bound on the length of time, in seconds, the
-client is prepared to wait for the service to process the request
-synchronously once it has been received.
+The `wait` preference, as defined in [RFC7240](#HTTPPREFER), is used to
+establish an upper bound on the length of time, in seconds, the client
+is prepared to wait for the service to process the request synchronously
+once it has been received.
 
 If the [`respond-async`](#sec_Preferencerespondasync) preference is also
 specified, the client requests that the service respond asynchronously
@@ -1434,8 +1430,8 @@ within a batch.
 ### ##subsubsec Header `ETag`
 
 A response MAY include an `ETag` header, see
-[**\[RFC7232\]**](#HTTPConditional). Services MUST include this header
-if they require an ETag to be specified when modifying the resource.
+[RFC7232](#HTTPConditional). Services MUST include this header if they
+require an ETag to be specified when modifying the resource.
 
 Services MUST support specifying the value returned in the `ETag` header
 in an [`If-None-Match`](#sec_HeaderIfNoneMatch) header of a subsequent
@@ -1509,9 +1505,8 @@ in a header, see e.g. [OData-JSON](#ODataJSON).
 
 In a response to a request that specifies a
 [`Prefer`](#sec_HeaderPrefer) header, a service MAY include a
-`Preference-Applied` header, as defined in
-[**\[RFC7240\]**](#HTTPPREFER), specifying how individual preferences
-within the request were handled.
+`Preference-Applied` header, as defined in [RFC7240](#HTTPPREFER),
+specifying how individual preferences within the request were handled.
 
 The value of the `Preference-Applied` header is a comma-separated list
 of preferences applied in the response. For more information on the
@@ -1526,7 +1521,7 @@ to the overall batch.
 ### ##subsubsec Header `Retry-After`
 
 A service MAY include a `Retry-After` header, as defined in
-[**\[RFC7231\]**](#HTTPSemantic)[**,**]{.MsoHyperlink} in
+[RFC7231](#HTTPSemantic)[**,**]{.MsoHyperlink} in
 [`202 Accepted`](#sec_ResponseCode202Accepted) and in
 [`3xx Redirect`](#sec_ResponseCode3xxRedirection) responses
 
@@ -1552,9 +1547,9 @@ the service MUST include a `Vary` header listing the
 caching of the response.
 
 Alternatively, the server MAY include a `Vary` header with the special
-value `*` as defined by [**\[RFC7231\]**](#HTTPSemantic), Section 8.2.1.
-Note that this will make it impossible for a proxy to cache the
-response, see [**\[RFC7240\]**](#HTTPPREFER)[**.**]{.MsoHyperlink}
+value `*` as defined by [RFC7231](#HTTPSemantic), Section 8.2.1. Note
+that this will make it impossible for a proxy to cache the response, see
+[RFC7240](#HTTPPREFER)[**.**]{.MsoHyperlink}
 
 # ##sec Common Response Status Codes
 
@@ -1600,7 +1595,7 @@ A request returns `204 No Content` if the requested resource has the
 preference](#sec_Preferencereturnrepresentationandret). In this case,
 the response body MUST be empty.
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), a [Data Modification
+As defined in [RFC7231](#HTTPSemantic), a [Data Modification
 Request](#sec_DataModification) that responds with
 `204 No Content MAY `include an `ETag` header with a value reflecting
 the result of the data modification if and only if the client can
@@ -1618,17 +1613,17 @@ server-side values corresponding to the `ETag` value sent in the
 
 ### ##subsubsec Response Code `3xx Redirection`
 
-As per [**\[RFC7231\]**](#HTTPSemantic), a `3xx Redirection` indicates
-that further action needs to be taken by the client in order to fulfill
-the request. In this case, the response SHOULD include a [`Location`
+As per [RFC7231](#HTTPSemantic), a `3xx Redirection` indicates that
+further action needs to be taken by the client in order to fulfill the
+request. In this case, the response SHOULD include a [`Location`
 header](#sec_HeaderLocation), as appropriate, with the URL from which
 the result can be obtained; it MAY include a [`Retry-After`
 header](#sec_HeaderRetryAfter).
 
 ### ##subsubsec Response Code `304 Not Modified`
 
-As per [**\[RFC7232\]**](#HTTPConditional), a `304 Not Modified` is
-returned when the client performs a `GET` request containing an
+As per [RFC7232](#HTTPConditional), a `304 Not Modified` is returned
+when the client performs a `GET` request containing an
 [`If-None-Match`](#sec_HeaderIfNoneMatch) header and the content has not
 changed. In this case the response SHOULD NOT include other headers in
 order to prevent inconsistencies between cached entity-bodies and
@@ -1661,7 +1656,7 @@ does not exist. The response body MAY provide additional information.
 request URL does not support the request method. In this case the
 response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
-[**\[RFC7231\]**](#HTTPSemantic).
+[RFC7231](#HTTPSemantic).
 
 ### ##subsubsec Response Code `406 Not Acceptable`
 
@@ -1684,7 +1679,7 @@ isolation](#sec_HeaderIsolationODataIsolation).
 
 ### ##subsubsec Response Code `412 Precondition Failed`
 
-As defined in [**\[RFC7232\]**](#HTTPConditional)[,
+As defined in [RFC7232](#HTTPConditional)[,
 ]{.MsoHyperlink}`412 Precondition Failed` indicates that the client has
 performed a conditional request and the resource fails the condition.
 The service MUST ensure that no observable change occurs as a result of
@@ -1698,8 +1693,8 @@ depended upon a request that failed.
 
 ## ##subsec Server Error Responses
 
-As defined in [**\[RFC7231\]**](#HTTPSemantic), error codes in the `5xx`
-range indicate service errors.
+As defined in [RFC7231](#HTTPSemantic), error codes in the `5xx` range
+indicate service errors.
 
 ### ##subsubsec Response Code `501 Not Implemented`
 
@@ -1720,8 +1715,8 @@ the response.
 [· ]{style="font-family:Symbol"}`message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
 The [`Content-Language`](#sec_HeaderContentLanguage) header MUST contain
-the language code from [**\[RFC5646\]**](#rfc5646) corresponding to the
-language in which the value for message is written.
+the language code from [RFC5646](#rfc5646) corresponding to the language
+in which the value for message is written.
 
 [· ]{style="font-family:Symbol"}`target`: optional nullable, potentially
 empty string indicating the target of the error, for example, the name
@@ -4269,15 +4264,15 @@ Services SHOULD support `PATCH` as the preferred means of updating an
 entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
-The semantics of `PATCH`, as defined in [**\[RFC5789\]**](#RFC5789), is
-to merge the content in the request payload with the \[entity's\]
-current state, applying the update only to those components specified in
-the request body. Collection properties and primitive properties
-provided in the payload corresponding to updatable properties MUST
-replace the value of the corresponding property in the entity or complex
-type. Missing properties of the containing entity or complex property,
-including dynamic properties, MUST NOT be directly altered unless as a
-side effect of changes resulting from the provided properties.
+The semantics of `PATCH`, as defined in [RFC5789](#RFC5789), is to merge
+the content in the request payload with the \[entity's\] current state,
+applying the update only to those components specified in the request
+body. Collection properties and primitive properties provided in the
+payload corresponding to updatable properties MUST replace the value of
+the corresponding property in the entity or complex type. Missing
+properties of the containing entity or complex property, including
+dynamic properties, MUST NOT be directly altered unless as a side effect
+of changes resulting from the provided properties.
 
 Services MAY additionally support `PUT` but should be aware of the
 potential for data-loss in round-tripping properties that the client may
@@ -5682,8 +5677,8 @@ monitor includes an `OData-MaxVersion `header with a value of `4.0` and
 no `Accept `header, or an `Accept `header that includes
 `application/http`, then the body of the final `200 OK` response MUST be
 represented as an HTTP message, as described in
-[**\[RFC7230\]**](#HTTPMessage)[**,** ]{.MsoHyperlink}which is the full
-HTTP response to the completed asynchronous operation.
+[RFC7230](#HTTPMessage)[**,** ]{.MsoHyperlink}which is the full HTTP
+response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
@@ -5746,7 +5741,7 @@ A batch request using the [multipart batch
 format](#sec_MultipartBatchFormat) MUST contain a
 [`Content-Type`](#sec_HeaderContentType) header specifying a content
 type of `multipart/mixed` and a `boundary` parameter as defined in
-[**\[RFC2046\]**](#RFC2046).
+[RFC2046](#RFC2046).
 
 Example 96: multipart batch request
 
@@ -5878,7 +5873,7 @@ avoided by e.g. using only numeric request identifiers.
 ### ##subsubsec Multipart Batch Format
 
 The multipart batch format is represented as a Multipart Media Type
-message [**\[RFC2046\]**](#RFC2046), a standard format allowing the
+message [RFC2046](#RFC2046), a standard format allowing the
 representation of multiple parts, each of which may have a different
 content type.
 
@@ -5896,8 +5891,8 @@ A body part representing an individual request MUST include a
 `Content-Type` header with value `application/http`.
 
 The contents of a body part representing a change set MUST itself be a
-multipart document (see [**\[RFC2046\]**](#RFC2046)) with one body part
-for each operation in the change set.
+multipart document (see [RFC2046](#RFC2046)) with one body part for each
+operation in the change set.
 [[E]{style="font-size:8.0pt"}]{.MsoCommentReference}ach body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#sec_IdentifyingIndividualRequests)
@@ -5909,8 +5904,8 @@ needed for transmission via E-Mail. Neither clients nor services should
 rely on this header being present.
 
 Preambles and epilogues in the multipart batch request body, as defined
-in [**\[RFC2046\]**](#RFC2046), are valid but are assigned no meaning
-and thus MUST be ignored by processors of multipart batch requests.
+in [RFC2046](#RFC2046), are valid but are assigned no meaning and thus
+MUST be ignored by processors of multipart batch requests.
 
 The request URL of individual requests within a batch request or change
 set can use one of the following three formats:
@@ -5987,7 +5982,7 @@ are omitted.
 Note also that the two empty lines after the `Host` header of the `GET`
 request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
-according to [**\[RFC2046\]**](#RFC2046).
+according to [RFC2046](#RFC2046).
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6448,16 +6443,16 @@ and thus inherits both sides of the coin, security enhancements and
 concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
-of [**\[RFC7231\]**](#HTTPSemantic) (9. Security Considerations) and for
-the HTTP `PATCH` method [**\[RFC5789\]**](#RFC5789) (5. Security
-Considerations) as starting points.
+of [RFC7231](#HTTPSemantic) (9. Security Considerations) and for the
+HTTP `PATCH` method [RFC5789](#RFC5789) (5. Security Considerations) as
+starting points.
 
 ## ##subsec Authentication
 
 OData Services requiring authentication SHOULD consider supporting basic
-authentication as defined in [**\[RFC7617\]**](#RFC7617) over HTTPS for
-the highest level of interoperability with generic clients. They MAY
-support other authentication methods.
+authentication as defined in [RFC7617](#RFC7617) over HTTPS for the
+highest level of interoperability with generic clients. They MAY support
+other authentication methods.
 
 # ##sec Conformance
 
@@ -6663,8 +6658,8 @@ functions (section 9.3.1)
 9\. SHOULD support the [OData-JSON](#ODataJSON) format
 
 10\. SHOULD consider supporting basic authentication as defined in
-[**\[RFC7617\]**](#RFC7617) over HTTPS for the highest level of
-interoperability with generic clients
+[RFC7617](#RFC7617) over HTTPS for the highest level of interoperability
+with generic clients
 
 11\. SHOULD support the `$search system query option (section 11.2.6.6)`
 
@@ -7010,7 +7005,7 @@ query options
 functions
 
 10\. SHOULD support basic authentication as defined in
-[**\[RFC7617\]**](#RFC7617) over HTTPS
+[RFC7617](#RFC7617) over HTTPS
 
 11\. MAY request entity references in place of entities previously
 returned in the response (section 11.2.8)

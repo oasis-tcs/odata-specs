@@ -50,6 +50,7 @@ const clean = old
 
   // clean up references
   .replace(/<b>\[(OData[^<]*)\]<\/b>/g, "$1")
+  .replace(/<b>\[(RFC[^<]*)\]<\/b>/g, "$1")
   .replace(/#ABNF/g, "#ODataABNF")
   .replace(/#ODataCSDLJSONRef/g, "#ODataCSDL")
   .replace(/#ODataCSDLXMLRef/g, "#ODataCSDL")
