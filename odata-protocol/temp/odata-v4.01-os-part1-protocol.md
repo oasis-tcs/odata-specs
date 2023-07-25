@@ -1,4 +1,4 @@
-# []{#sec_Introduction}[1[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876541}[Introduction](#sec_Introduction)
+# []{#sec_Introduction}[Introduction](#sec_Introduction)
 
 The Open Data Protocol (OData) enables the creation of REST-based data
 services which allow resources, identified using Uniform Resource
@@ -145,7 +145,7 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Overview}[2[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876545}[Overview](#sec_Overview)
+# []{#sec_Overview}[Overview](#sec_Overview)
 :::
 
 The OData Protocol is an application-level protocol for interacting with
@@ -186,10 +186,8 @@ systems and allows an ecosystem to emerge.
 
 Towards that end, the OData Protocol follows these design principles:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Prefer
-mechanisms that work on a variety of data sources. In particular, do not
-assume a relational data model.
+[·]{style="font-family:Symbol"}Prefer mechanisms that work on a variety
+of data sources. In particular, do not assume a relational data model.
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Extensibility
@@ -212,7 +210,7 @@ it simple. Address the common cases and provide extensibility where
 necessary.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataModel}[]{#_Data_Model}3[     ]{style="font:7.0pt \"Times New Roman\""}[Data Model](#sec_DataModel)
+# []{#sec_DataModel}[]{#_Data_Model}3[Data Model](#sec_DataModel)
 :::
 
 This section provides a high-level description of the *Entity Data Model
@@ -312,7 +310,7 @@ Annotation terms are defined in metadata and have a name and a type.
 A set of related terms in a common namespace comprises a *Vocabulary*.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_ServiceModel}[4[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876548}[Service Model](#sec_ServiceModel)
+# []{#sec_ServiceModel}[Service Model](#sec_ServiceModel)
 :::
 
 OData services are defined using a common data model. The service
@@ -436,7 +434,7 @@ qualify action, function, and type names in order to avoid any possible
 ambiguity.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Versioning}[]{#_Versioning_2}5[     ]{style="font:7.0pt \"Times New Roman\""}[Versioning](#sec_Versioning)
+# []{#sec_Versioning}[]{#_Versioning_2}5[Versioning](#sec_Versioning)
 :::
 
 Versioning enables clients and services to evolve independently. OData
@@ -482,60 +480,42 @@ requests according to the
 option. The following Data Model additions are considered safe and do
 not require services to version their entry point or schema.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a property that is nullable or has a default value; if it has the same
-name as an existing dynamic property, it must have the same type (or
-base type) as the existing dynamic property
+[·]{style="font-family:Symbol"}Adding a property that is nullable or has
+a default value; if it has the same name as an existing dynamic
+property, it must have the same type (or base type) as the existing
+dynamic property
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a navigation property that is nullable or collection-valued; if it has
-the same name as an existing dynamic navigation property, it must have
-the same type (or base type) as the existing dynamic navigation property
+[·]{style="font-family:Symbol"}Adding a navigation property that is
+nullable or collection-valued; if it has the same name as an existing
+dynamic navigation property, it must have the same type (or base type)
+as the existing dynamic navigation property
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a new entity type to the model
+[·]{style="font-family:Symbol"}Adding a new entity type to the model
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a new complex type to the model
+[·]{style="font-family:Symbol"}Adding a new complex type to the model
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a new entity set
+[·]{style="font-family:Symbol"}Adding a new entity set
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a new singleton
+[·]{style="font-family:Symbol"}Adding a new singleton
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-an action, a function, an action import, or function import
+[·]{style="font-family:Symbol"}Adding an action, a function, an action
+import, or function import
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-an action parameter that is nullable after existing parameters
+[·]{style="font-family:Symbol"}Adding an action parameter that is
+nullable after existing parameters
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-an action or function parameter that is annotated with
+[·]{style="font-family:Symbol"}Adding an action or function parameter
+that is annotated with
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
 after existing parameters
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a type definition or enumeration
+[·]{style="font-family:Symbol"}Adding a type definition or enumeration
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-a new term
+[·]{style="font-family:Symbol"}Adding a new term
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Adding
-any annotation to a model element that does not need to be understood by
-the client in order to correctly interact with the service
+[·]{style="font-family:Symbol"}Adding any annotation to a model element
+that does not need to be understood by the client in order to correctly
+interact with the service
 
 Clients SHOULD be prepared for services to make such incremental changes
 to their model. In particular, clients SHOULD be prepared to receive
@@ -550,7 +530,7 @@ authorizations.]{style="color:black"}
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Extensibility}[]{#_Extensibility}6[     ]{style="font:7.0pt \"Times New Roman\""}[Extensibility](#sec_Extensibility)
+# []{#sec_Extensibility}[]{#_Extensibility}6[Extensibility](#sec_Extensibility)
 :::
 
 The OData protocol supports both user- and version-driven extensibility
@@ -660,7 +640,7 @@ An OData service MUST support [**\[OData-JSON\]**](#ODataJSONRef) and
 MAY support additional formats for both request and response bodies.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Formats}[]{#_Formats}7[     ]{style="font:7.0pt \"Times New Roman\""}[Formats](#sec_Formats)
+# []{#sec_Formats}[]{#_Formats}7[Formats](#sec_Formats)
 :::
 
 The client MAY request a particular response format through the
@@ -703,7 +683,7 @@ JSON responses, and elements in document order for XML responses,
 including CSDL documents.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_HeaderFields}[8[     ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876564}[Header Fields](#sec_HeaderFields)
+# []{#sec_HeaderFields}[Header Fields](#sec_HeaderFields)
 :::
 
 OData defines semantics around the following request and response
@@ -1922,34 +1902,28 @@ include a response body describing the functionality not implemented.
 The representation of an error response body is format-specific. It
 consists at least of the following information:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`code`:
-required non-null, non-empty, language-independent string. Its value is
-a service-defined error code. This code serves as a sub-status for the
-HTTP error code specified in the response.
+[·]{style="font-family:Symbol"}`code`: required non-null, non-empty,
+language-independent string. Its value is a service-defined error code.
+This code serves as a sub-status for the HTTP error code specified in
+the response.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`message`:
-required non-null, non-empty, language-dependent, human-readable string
-describing the error.
+[·]{style="font-family:Symbol"}`message`: required non-null, non-empty,
+language-dependent, human-readable string describing the error.
 [The ]{style="color:black"}[`Content-Language`](#sec_HeaderContentLanguage)[ header
 MUST contain the language code ]{style="color:black"}from
 [**\[RFC5646\]**](#rfc5646) [corresponding to the language in which the
 value for message is written.]{style="color:black"}
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`target`:
-optional nullable, potentially empty string indicating the target of the
-error, for example, the name of the property in error.
+[·]{style="font-family:Symbol"}`target`: optional nullable, potentially
+empty string indicating the target of the error, for example, the name
+of the property in error.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`details`:
-optional, potentially empty collection of structured instances with
-`code`, `message`, and `target` following the rules above.
+[·]{style="font-family:Symbol"}`details`: optional, potentially empty
+collection of structured instances with `code`, `message`, and `target`
+following the rules above.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`innererror`:
-optional structured instance with service-defined content.
+[·]{style="font-family:Symbol"}`innererror`: optional structured
+instance with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
 include in production environments to guard against potential security
@@ -1967,7 +1941,7 @@ as a trailing header if supported by the transport protocol (e.g.
 HTTP/1.1 with chunked transfer encoding, or HTTP/2).
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10[    ]{style="font:7.0pt \"Times New Roman\""}[Context URL](#sec_ContextURL)
+# []{#sec_ContextURL}[]{#_Data_Service_Requests}[]{#_Metadata_URL}10[Context URL](#sec_ContextURL)
 :::
 
 The *context URL* describes the content of the payload. It consists of
@@ -2010,9 +1984,8 @@ is the canonical URL for a singleton entity,
 is an optional parenthesized comma-separated list of selected
 properties, instance annotations, functions, and actions,
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}`{property-path}`
-is the path to a structural property of the entity,
+[[·]{style="font-family:Symbol"}]{.Datatype}`{property-path}` is the
+path to a structural property of the entity,
 
 [·[        
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}`{type-name}`
@@ -2630,7 +2603,7 @@ Responses to requests to the virtual collections `$crossjoin(...)` (see
 type. Single instances in these responses do not have a context URL.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[    ]{style="font:7.0pt \"Times New Roman\""}[Data Service Requests](#sec_DataServiceRequests)
+# []{#sec_DataServiceRequests}[]{#_Data_Service_Requests_1}11[Data Service Requests](#sec_DataServiceRequests)
 :::
 
 This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
@@ -2638,116 +2611,91 @@ This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 
 `GET` requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.1
-[Metadata Requests](#sec_MetadataRequests) and subsections
+[·]{style="font-family:Symbol"}11.1 [Metadata
+Requests](#sec_MetadataRequests) and subsections
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.2
-[Requesting Data](#sec_RequestingData) and subsections
+[·]{style="font-family:Symbol"}11.2 [Requesting
+Data](#sec_RequestingData) and subsections
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.3
-[Requesting Changes](#sec_RequestingChanges) and subsections
+[·]{style="font-family:Symbol"}11.3 [Requesting
+Changes](#sec_RequestingChanges) and subsections
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.5.4
-[Functions](#sec_Functions) and subsections
+[·]{style="font-family:Symbol"}11.5.4 [Functions](#sec_Functions) and
+subsections
 
 `POST` requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.2
-[Create an Entity](#sec_CreateanEntity) and subsections
+[·]{style="font-family:Symbol"}11.4.2 [Create an
+Entity](#sec_CreateanEntity) and subsections
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.7.1
-[Create a Media Entity](#sec_CreateaMediaEntity)
+[·]{style="font-family:Symbol"}11.4.7.1 [Create a Media
+Entity](#sec_CreateaMediaEntity)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.11]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.11]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Positional Inserts](#sec_PositionalInserts)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.5.5
-[Actions](#sec_Actions) and subsections
+[·]{style="font-family:Symbol"}11.5.5 [Actions](#sec_Actions) and
+subsections
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.7
-[Batch Requests](#sec_BatchRequests) and subsections
+[·]{style="font-family:Symbol"}11.7 [Batch Requests](#sec_BatchRequests)
+and subsections
 
 `PATCH` and `PUT` requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.3
-[Update an Entity](#sec_UpdateanEntity) and subsections
+[·]{style="font-family:Symbol"}11.4.3 [Update an
+Entity](#sec_UpdateanEntity) and subsections
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Upsert an Entity](#sec_UpsertanEntity)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.6]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Modifying Relationships between
 Entities](#sec_ModifyingRelationshipsbetweenEntitie) and subsections
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.7.2]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.7.2]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update a Media Entity Stream](#sec_UpdateaMediaEntityStream)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.8.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.8.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update Stream Values](#sec_UpdateStreamValues)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.1]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
 Primitive Property](#sec_UpdateaPrimitiveProperty)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.3]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a Complex
 Property](#sec_UpdateaComplexProperty)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.9.4]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[[
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}[Update a
 Collection Property](#sec_UpdateaCollectionProperty)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.10]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.10]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Managing Members of an Ordered
 Collection](#sec_ManagingMembersofanOrderedCollection)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}11.4.12
-[Update a Collection of Entities](#sec_UpdateaCollectionofEntities)
+[[·]{style="font-family:Symbol"}]{.Datatype}11.4.12 [Update a Collection
+of Entities](#sec_UpdateaCollectionofEntities)
 
-[[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
+[[·]{style="font-family:Symbol"}]{.Datatype}[[11.4.13]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}
 [Update Members of a Collection](#sec_UpdateMembersofaCollection)
 
 `DELETE` requests:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.5
-[Delete an Entity](#sec_DeleteanEntity)
+[·]{style="font-family:Symbol"}11.4.5 [Delete an
+Entity](#sec_DeleteanEntity)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.7.3
-[Delete a Media Entity](#sec_DeleteaMediaEntity)
+[·]{style="font-family:Symbol"}11.4.7.3 [Delete a Media
+Entity](#sec_DeleteaMediaEntity)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}0
-[Delete Stream Values](#sec_DeleteStreamValues)
+[·]{style="font-family:Symbol"}0 [Delete Stream
+Values](#sec_DeleteStreamValues)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.9.2
-[Set a Value to Null](#sec_SetaValuetoNull)
+[·]{style="font-family:Symbol"}11.4.9.2 [Set a Value to
+Null](#sec_SetaValuetoNull)
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}11.4.14
-[Delete Members of a Collection](#sec_DeleteMembersofaCollection)
+[·]{style="font-family:Symbol"}11.4.14 [Delete Members of a
+Collection](#sec_DeleteMembersofaCollection)
 
 ## []{#sec_MetadataRequests}[]{#_Ref484615108}[]{#_Ref484615099}[Metadata Requests](#sec_MetadataRequests)
 
@@ -2837,8 +2785,7 @@ and specify the `$` prefix.
 [The result of the request MUST be as if the system query options were
 evaluated in the following order.]{style="color:black;background:white"}
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:
+[·]{style="font-family:
 Symbol;color:black"}[[\$schemaversion]{style="font-family:\"Courier New\";background:white"}](#sec_SystemQueryOptionschemaversion)[
 MUST be evaluated first, because it may influence any further
 processing.]{style="color:black;background:white"}
@@ -3244,7 +3191,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service.svc/Customers?\$expand=SampleModel.VipCustomer/InHouseStaff]{style="color:black"}
 :::
 
-###### []{#sec_ExpandOptionlevels}[]{#_Expand_Option_$levels}11.2.5.2.1.1[   ]{style="font:7.0pt \"Times New Roman\""}[Expand Option `$levels`](#sec_ExpandOptionlevels)
+###### []{#sec_ExpandOptionlevels}[]{#_Expand_Option_$levels}11.2.5.2.1.1[Expand Option `$levels`](#sec_ExpandOptionlevels)
 
 The `$levels`[ ]{style="font-family:\"Calibri\",sans-serif"}expand
 option can be used to specify the number of levels of recursion for a
@@ -5388,43 +5335,36 @@ regardless of the [`return`](#sec_Preferencereturnrepresentationandret)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
-deletes in the request MUST be represented in the response as either
-entities or entity references, annotated with term
-`Core.DataModificationException`, see [**\[OData-VocCore\]**](#VocCore).
-If the deleted entity specified a reason of `deleted`, the value of
-`failedOperation` MUST be `delete`, otherwise `unlink`.
+[·]{style="font-family:Symbol"}Failed deletes in the request MUST be
+represented in the response as either entities or entity references,
+annotated with term `Core.DataModificationException`, see
+[**\[OData-VocCore\]**](#VocCore). If the deleted entity specified a
+reason of `deleted`, the value of `failedOperation` MUST be `delete`,
+otherwise `unlink`.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
-inserts within the request MUST be represented in the response as
-deleted entities annotated with term `Core.DataModificationException`
-with a `failedOperation` value of `insert`.
-
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
-updates within the request SHOULD be annotated in the response with term
+[·]{style="font-family:Symbol"}Failed inserts within the request MUST be
+represented in the response as deleted entities annotated with term
 `Core.DataModificationException` with a `failedOperation` value of
-`update`.
+`insert`.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
-added links within the request MUST represented in the response as
-deleted links annotated with term `Core.DataModificationException` with
-a `failedOperation` value of `link`.
+[·]{style="font-family:Symbol"}Failed updates within the request SHOULD
+be annotated in the response with term `Core.DataModificationException`
+with a `failedOperation` value of `update`.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Failed
-deleted links within the request MUST represented in the response as
-added links annotated with term `Core.DataModificationException` with a
-`failedOperation` value of `unlink`.
+[·]{style="font-family:Symbol"}Failed added links within the request
+MUST represented in the response as deleted links annotated with term
+`Core.DataModificationException` with a `failedOperation` value of
+`link`.
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}Collections
-within the request MUST be represented in the response as a collection
-with the current values and membership of the collection as it exists in
-the service after processing the request.
+[·]{style="font-family:Symbol"}Failed deleted links within the request
+MUST represented in the response as added links annotated with term
+`Core.DataModificationException` with a `failedOperation` value of
+`unlink`.
+
+[·]{style="font-family:Symbol"}Collections within the request MUST be
+represented in the response as a collection with the current values and
+membership of the collection as it exists in the service after
+processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
 annotated with term `Core.DataModificationException` and SHOULD specify
@@ -5920,14 +5860,12 @@ MUST come after any parameters not marked as optional.
 
 A function overload is selected if
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}The
-set of specified parameters exactly matches a function overload, or else
+[·]{style="font-family:Symbol"}The set of specified parameters exactly
+matches a function overload, or else
 
-[·[        
-]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:Symbol"}The
-set of specified parameters matches a subset of parameters that includes
-all non-optional parameters of exactly one function overload.
+[·]{style="font-family:Symbol"}The set of specified parameters matches a
+subset of parameters that includes all non-optional parameters of
+exactly one function overload.
 
 Services SHOULD avoid ambiguity, i.e. the combination of the function
 name, the unordered set of *non-optional* non-binding parameter names,
@@ -6907,7 +6845,7 @@ the highest level of interoperability with generic clients. They MAY
 support other authentication methods.
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-# []{#sec_Conformance}[13[    ]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876733}[Conformance](#sec_Conformance)
+# []{#sec_Conformance}[Conformance](#sec_Conformance)
 :::
 
 OData is designed as a set of conventions that can be layered on top of
@@ -7078,9 +7016,7 @@ header with the edit URL or read URL of a created resource (section
 `OData-EntityId` header in response to any create or upsert operation
 that returns `204 ``No Content`[` `]{.MsoHyperlink}(section 8.3.4)
 
-[]{#_OData_Data_Service}29.[ 
-]{style="font:7.0pt \"Times New Roman\""}MUST support Upserts (section
-11.4.4)
+[]{#_OData_Data_Service}29.MUST support Upserts (section 11.4.4)
 
 30.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support `PUT` and
 `PATCH` to an individual primitive (section 11.4.9.1) or complex
@@ -7292,16 +7228,14 @@ version.
 In order to conform to the OData 4.01 Minimal Conformance Level, a
 service:
 
-[[1.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}MUST
-conform to the [OData 4.0 Minimal Conformance
+[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel)
 
 2.[     ]{style="font:7.0pt \"Times New Roman\""}MUST be compliant with
 version 4.01 of the [**\[OData-JSON\]**](#ODataJSONRef)  format
 
-[]{#_OData_4.1_Intermediate}3.[    
-]{style="font:7.0pt \"Times New Roman\""}MUST return the
+[]{#_OData_4.1_Intermediate}3.MUST return the
 [`AsyncResult`](#sec_HeaderAsyncResult) result header in the final
 response to an asynchronous request if asynchronous operations are
 supported.
@@ -7458,16 +7392,13 @@ requests
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
 
-[[1.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}MUST
-conform to the [OData 4.01 Minimal Conformance
+[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[OData 4.01 Minimal Conformance
 Level](#sec_OData401MinimalConformanceLevel)
 
-[[2.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}[[MUST
-conform to the ]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0
-Intermediate Conformance
-Level](#sec_OData40IntermediateConformanceLevel)
+[[2.]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
+]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Intermediate
+Conformance Level](#sec_OData40IntermediateConformanceLevel)
 
 3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support [eq/ne
 null]{.Keyword} comparison for navigation properties with a maximum
@@ -7505,15 +7436,13 @@ collection using a `/`[\$filter]{.Keyword} path segment
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:
 
-[[1.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}MUST
-conform to the [OData 4.01 Intermediate Conformance
+[[1.]{style="color:windowtext"}]{.MsoHyperlink}MUST conform to the
+[OData 4.01 Intermediate Conformance
 Level](#sec_OData401IntermediateConformanceLevel)
 
-[[2.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}[[MUST
-conform to the ]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0
-Advanced Conformance Level](#sec_OData40AdvancedConformanceLevel)
+[[2.]{style="color:windowtext"}]{.MsoHyperlink}[[MUST conform to the
+]{style="color:windowtext"}]{.MsoHyperlink}[OData 4.0 Advanced
+Conformance Level](#sec_OData40AdvancedConformanceLevel)
 
 3.[     ]{style="font:7.0pt \"Times New Roman\""}MUST support the count
 of a filtered/searched collection in a common expression
@@ -7543,15 +7472,13 @@ and `$skip` on selected collection-valued properties
 at `$metadata` according to [**\[OData-CSDLJSON\]**](#ODataCSDLJSONRef)
 (section 11.1.2)
 
-[[7.[    
-]{style="font:7.0pt \"Times New Roman\""}]{style="color:windowtext"}]{.MsoHyperlink}MUST
-support batch requests according both to the multipart format (section
-11.7 and all subsections) and the JSON Batch format defined in
+[[7.]{style="color:windowtext"}]{.MsoHyperlink}MUST support batch
+requests according both to the multipart format (section 11.7 and all
+subsections) and the JSON Batch format defined in
 [**\[OData-JSON\]**](#ODataJSONRef)
 
-[8.[     ]{style="font:7.0pt \"Times New Roman\""}SHOULD support
-filtering a collection using a]{#_Toc477876742} `/`[\$filter]{.Keyword}
-path segment
+[8.SHOULD support filtering a collection using a]{#_Toc477876742}
+`/`[\$filter]{.Keyword} path segment
 
 [[9.[    
 ]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
@@ -7602,9 +7529,8 @@ prefix when specifying OData-defined system query options
 9.[     ]{style="font:7.0pt \"Times New Roman\""}MUST use case-sensitive
 query options, operators, and canonical functions
 
-10.[  ]{style="font:7.0pt \"Times New Roman\""}SHOULD support basic
-authentication as defined in [**\[RFC7617\]**](#RFC7617)[
-]{style="color:black"}over HTTPS
+10.SHOULD support basic authentication as defined in
+[**\[RFC7617\]**](#RFC7617)[ ]{style="color:black"}over HTTPS
 
 11.[  ]{style="font:7.0pt \"Times New Roman\""}MAY request entity
 references in place of entities previously returned in the response
@@ -7621,8 +7547,8 @@ responses (section 11.6)
 `metadata=minimal` in a JSON response (see
 [**\[OData-JSON\]**](#ODataJSONRef))
 
-15.[  ]{style="font:7.0pt \"Times New Roman\""}MAY support
-`streaming `in a JSON response (see [**\[OData-JSON\]**](#ODataJSONRef))
+15.MAY support `streaming `in a JSON response (see
+[**\[OData-JSON\]**](#ODataJSONRef))
 
 In addition, interoperable OData 4.01 clients
 
@@ -7652,8 +7578,8 @@ or [400 Bad Request]{.Keyword}
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-[]{#sec_Acknowledgments}[Appendix A.[ 
-]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876743}[Acknowledgments](#sec_Acknowledgments)
+[]{#sec_Acknowledgments}[Appendix
+A.]{#_Toc477876743}[Acknowledgments](#sec_Acknowledgments)
 :::
 
 The following individuals were members of the OASIS OData Technical
@@ -7880,8 +7806,7 @@ contributions are gratefully acknowledged:
  
 
 ::: {style="border:none;border-top:solid gray 1.0pt;padding:6.0pt 0in 0in 0in"}
-[]{#sec_RevisionHistory}[Appendix B.[ 
-]{style="font:7.0pt \"Times New Roman\""}]{#_Toc477876744}[Revision
+[]{#sec_RevisionHistory}[Appendix B.]{#_Toc477876744}[Revision
 History](#sec_RevisionHistory)
 :::
 
