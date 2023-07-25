@@ -48,10 +48,9 @@ Specification, 7^th^ Edition,* June 2016. Standard ECMA-262.
 Construction Rules Version 4.01*.\
 See the link in \"Additional artifacts\" section on cover page.
 
-[\[[]{#ODataCSDLJSONRef}[OData-CSDL]{#CSDL}JSON\]]{.Refterm}       
-*OData Common Schema Definition Language (CSDL) JSON Representation
-Version 4.01)*. See link in \"Related work\" section on cover page.[
-]{.Refterm}
+[\[[OData-CSDL]{#CSDL}JSON\]]{.Refterm}        *OData Common Schema
+Definition Language (CSDL) JSON Representation Version 4.01)*. See link
+in \"Related work\" section on cover page.[ ]{.Refterm}
 
 [OData-CSDLXML]{#ODataCSDLXMLRef}**         ** *OData Common Schema
 Definition Language (CSDL) XML Representation Version 4.01.* See link in
@@ -82,7 +81,7 @@ T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI):
 Generic Syntax", STD 66, RFC 3986, January 2005.
 <https://tools.ietf.org/html/rfc3986>.
 
-[]{#url-componentsurl2}[[\[]{.Refterm}]{#_Toc371341726}[[XML-Schema-2]{.Refterm}]{#BMXMLSchema2}[\]]{.Refterm}            
+[[\[]{.Refterm}]{#_Toc371341726}[[XML-Schema-2]{.Refterm}]{#BMXMLSchema2}[\]]{.Refterm}            
 W3C XML Schema Definition Language (XSD) 1.1 Part 2: DatatypesW3C XML
 Schema Definition Language (XSD) 1.1 Part 2: Datatypes, D. Peterson, S.
 Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra,
@@ -230,7 +229,7 @@ The service root URL MUST terminate in a forward slash.
 The service document enables simple hypermedia-driven clients to
 enumerate and explore the resources published by the OData service.
 
-# ##sec []{#resource-pathurl4}Resource Path
+# ##sec Resource Path
 
 The rules for resource path construction as defined in this section are
 optional. OData services SHOULD follow the subsequently described URL
@@ -491,7 +490,7 @@ that identifies a primitive, complex instance, collection of primitives
 or collection of complex instances and bind an action or function that
 returns an entity or collections of entities.
 
-### ##subsubsec []{#canonical-urlurl4.1.1}4.3.1 Canonical URL
+### ##subsubsec Canonical URL
 
 For OData services conformant with the addressing conventions in this
 section, the canonical form of an absolute URL identifying a
@@ -759,11 +758,10 @@ DELETE http://host/service/Categories(1)/Products(0)/\$ref
 DELETE http://host/service/Products(0)/Category/\$ref
 :::
 
-## ##subsec []{#addressing-operationsurl4.3}Addressing Operations
+## ##subsec Addressing Operations
 
-[]{#addressing-actionsurl4.3.1}[The semantic rules for addressing and
-invoking actions and functions are defined in the]{#_Toc371341739}
-[OData-Protocol](#odata) document.
+[The semantic rules for addressing and invoking actions and functions
+are defined in the]{#_Toc371341739} [OData-Protocol](#odata) document.
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
@@ -790,7 +788,7 @@ the action.
 [· ]{style="font-family:Symbol"}The `boundOperation` syntax rule (which
 encompasses the `boundActionCall` syntax rule), when used by the
 `resourcePath` syntax rule, illustrates how a `boundActionCall` can be
-appended to a `resourcePath`.[]{#addressing-functionsurl4.3.2}
+appended to a `resourcePath`.
 
 ### ##subsubsec Addressing Functions
 
@@ -827,14 +825,14 @@ and order resources identified by the `resourcePath` of the URL.
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [OData-Protocol](#odata).
 
-## ##subsec []{#addressing-a-propertyurl4.4}Addressing a Property
+## ##subsec Addressing a Property
 
 To address an entity property clients append a path segment containing
 the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## ##subsec []{#addressing-a-property-valueurl4.5}Addressing a Property Value
+## ##subsec Addressing a Property Value
 
 To address the raw value of a primitive property, clients append the
 path segment `/$value` to the property URL.
@@ -1301,7 +1299,7 @@ aliases](#sec_ParameterAliases). All OData services MUST follow the
 query string parsing and construction rules defined in this section and
 its subsections.
 
-## ##subsec []{#system-query-optionsurl5.1}5.1 System Query Options
+## ##subsec System Query Options
 
 System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
@@ -1361,7 +1359,7 @@ The grammar and syntax rules for system query options are defined in
 Dynamic properties can be used in the same way as declared properties.
 If they are not defined on an instance, they evaluate to `null`.
 
-### ##subsubsec []{#filter-system-query-optionurl5.1.2}5.1.1 Common Expression Syntax
+### ##subsubsec Common Expression Syntax
 
 The following operators, functions, and literals can be used in
 `$filter`, `$orderby`, and `$compute` expressions.
@@ -1390,9 +1388,9 @@ to the `null` value using the [`eq`](#sec_Equals) and
 When applied to operands of numeric types, [numeric
 promotion](#sec_NumericPromotion) rules are applied.
 
-[]{#equals-operatorurl5.1.2.1.1}The `eq`, `ne`, and `in` operators can
-be used with collection-valued operands, and the `eq` and `ne` operators
-can be used with structured operands.
+The `eq`, `ne`, and `in` operators can be used with collection-valued
+operands, and the `eq` and `ne` operators can be used with structured
+operands.
 
 ##### ##subsubsubsubsec Equals
 
@@ -1420,7 +1418,7 @@ and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
 
-##### ##subsubsubsubsec []{#not-equals-operatorurl5.1.2.1.2}5.1.1.1.2 Not Equals
+##### ##subsubsubsubsec Not Equals
 
 The `ne` operator returns true if the left operand is not equal to the
 right operand, otherwise it returns false.
@@ -1465,7 +1463,7 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
 
-##### ##subsubsubsubsec []{#greater-than-or-equal-operatorurl5.1.2.1}Greater Than or Equal
+##### ##subsubsubsubsec Greater Than or Equal
 
 The `ge` operator returns true if the left operand is greater than or
 equal to the right operand, otherwise it returns false.
@@ -1473,7 +1471,7 @@ equal to the right operand, otherwise it returns false.
 See rules for [`gt`](#sec_GreaterThan) and [`eq`](#sec_Equals) for
 details.
 
-##### ##subsubsubsubsec []{#less-than-operatorurl5.1.2.1.5}Less Than
+##### ##subsubsubsubsec Less Than
 
 The `lt` operator returns true if the left operand is less than the
 right operand, otherwise it returns false.
@@ -1508,7 +1506,7 @@ The `null` value is treated as unknown, so if one operand evaluates to
 `null` and the other operand to false, the `and` operator returns false.
 All other combinations with `null` return `null`.
 
-##### ##subsubsubsubsec []{#logical-or-operatorurl5.1.2.1.8}Or
+##### ##subsubsubsubsec Or
 
 The `or` operator returns false if both the left and right operands both
 evaluate to false, otherwise it returns true.
@@ -1663,7 +1661,7 @@ The syntax rules for the arithmetic operators are defined in
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
-##### ##subsubsubsubsec []{#addition-operatorurl5.1.2.2.1}5.1.1.2.1 [Addition](#sec_Addition)
+##### ##subsubsubsubsec [Addition](#sec_Addition)
 
 The `add` operator adds the left and right numeric operands.
 
@@ -1684,8 +1682,7 @@ a `DateTimeOffset` 
 
 [· ]{style="font-family:Symbol"}`Date add Duration` results in a `Date`
 
-[]{#subtraction-operatorurl5.1.2.2.2}[The rules for time-related
-operands are defined in]{#_Toc371341765}
+[The rules for time-related operands are defined in]{#_Toc371341765}
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically, for
 adding a duration to a date:
 
@@ -1746,7 +1743,7 @@ For operands of type `Edm.Decimal` the scale of the result is scaleof(A
 mul B) = scaleof(A) + scaleof(B), floating if any operand has floating
 scale, or else variable if any operand has variable scale.
 
-##### ##subsubsubsubsec []{#division-operatorurl5.1.2.2.4}[Division](#sec_Division)
+##### ##subsubsubsubsec [Division](#sec_Division)
 
 The `div` and` divby` operators divide the left numeric operand by the
 right numeric operand. They are also valid for dividing a `Duration`
@@ -1757,11 +1754,11 @@ If the left operand is of type `Edm.Decimal` with floating scale,
 negative `div` zero returns `-INF`, and zero `div` zero returns `NaN`.
 For all other types the request fails.
 
-[]{#modulo-operatorurl5.1.2.2.5}[For operands of type]{#_Toc371341769}
-`Edm.Decimal` [the result is computed with maximal decimal scale. If any
-operand has floating scale, the result has floating scale, else if any
-operand has variable scale, the result has variable scale. Otherwise the
-resulting scale is service-specific, and clients can use ]{style="color:
+[For operands of type]{#_Toc371341769} `Edm.Decimal` [the result is
+computed with maximal decimal scale. If any operand has floating scale,
+the result has floating scale, else if any operand has variable scale,
+the result has variable scale. Otherwise the resulting scale is
+service-specific, and clients can use ]{style="color:
 #333333;background:white"}`cast` to force the result to a specific
 scale.
 
@@ -1784,7 +1781,7 @@ For operands of type `Edm.Decimal` the scale of the result is scaleof(A
 mod B) = max(scaleof(A), scaleof(B)), or variable if any operand has
 variable scale.
 
-##### ##subsubsubsubsec []{#arithmetic-operator-examplesurl5.1.2.2.6}Arithmetic Operator Examples
+##### ##subsubsubsubsec Arithmetic Operator Examples
 
 The following examples illustrate the use and semantics of each of the
 Arithmetic operators.
@@ -1852,7 +1849,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 0]{style="color:black;background:#D9D9D9"}
 :::
 
-#### ##subsubsubsec []{#parenthesis-operatorurl5.1.2.3}[Grouping](#sec_Grouping)
+#### ##subsubsubsec [Grouping](#sec_Grouping)
 
 The Grouping operator (open and close parenthesis "`( )`") controls the
 evaluation order of an expression. The Grouping operator returns the
@@ -1866,7 +1863,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products?\$filter=(4 add 5) mod (4 sub 1) eq 0
 :::
 
-#### ##subsubsubsec []{#canonical-functionsurl5.1.2.4}Canonical Functions
+#### ##subsubsubsec Canonical Functions
 
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#sec_SystemQueryOptioncompute), `$filter` or
@@ -1884,9 +1881,9 @@ The syntax rules for all functions are defined in
 canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
-#### ##subsubsubsec []{#substringofurl5.1.2.4.1}String and Collection Functions
+#### ##subsubsubsec String and Collection Functions
 
-##### ##subsubsubsubsec []{#concaturl5.1.2.4.11}`concat`
+##### ##subsubsubsubsec `concat`
 
 The `concat` function has three overloads, with the following
 signatures:
@@ -1947,7 +1944,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Customers?\$filter=contains(CompanyName,\'Alfreds\')
 :::
 
-##### ##subsubsubsubsec []{#endswithurl5.1.2.4.2}`endswith`
+##### ##subsubsubsubsec `endswith`
 
 The `endswith` function has two overloads, with the following
 signatures:
@@ -1979,7 +1976,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/Customers?\$filter=endswith(CompanyName,\'Futterkiste\')]{style="color:black;background:#D9D9D9"}
 :::
 
-##### ##subsubsubsubsec []{#startswithurl5.1.2.4.3}[]{#lengthurl5.1.2.4.4}[]{#indexofurl5.1.2.4.5}`indexof`
+##### ##subsubsubsubsec `indexof`
 
 The `indexof` function has two overloads, with the following signatures:
 
@@ -2067,7 +2064,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 [http://host/service/Customers?\$filter=startswith(CompanyName,\'Alfr\')]{style="color:black;background:#D9D9D9"}
 :::
 
-##### ##subsubsubsubsec []{#tolowerurl5.1.2.4.8}[]{#substringurl5.1.2.4.7}`substring`
+##### ##subsubsubsubsec `substring`
 
 The `substring` function has four overloads, with the following
 signatures:
@@ -2254,7 +2251,7 @@ http://host/service/Customers?\$filter=tolower(CompanyName) eq \'alfreds
 futterkiste\'
 :::
 
-##### ##subsubsubsubsec []{#toupperurl5.1.2.4.9}`toupper`
+##### ##subsubsubsubsec `toupper`
 
 The `toupper` function has the following signature:
 
@@ -2277,7 +2274,7 @@ eq \'ALFREDS
 FUTTERKISTE\']{style="background:#D9D9D9"}]{style="color:black"}
 :::
 
-##### ##subsubsubsubsec []{#trimurl5.1.2.4.10}`trim`
+##### ##subsubsubsubsec `trim`
 
 The `trim` function has the following signature:
 
@@ -2298,9 +2295,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 CompanyName]{style="color:black;background:#D9D9D9"}
 :::
 
-#### ##subsubsubsec []{#yearurl5.1.2.4.12}Date and Time Functions
+#### ##subsubsubsec Date and Time Functions
 
-##### ##subsubsubsubsec []{#dayurl5.1.2.4.15}`date`
+##### ##subsubsubsubsec `date`
 
 The `date` function has the following signature:
 
@@ -2338,7 +2335,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 8]{style="color:black;background:#D9D9D9"}
 :::
 
-##### ##subsubsubsubsec []{#secondsurl5.1.2.4.22}`fractionalseconds`
+##### ##subsubsubsubsec `fractionalseconds`
 
 The `fractionalseconds` function has the following signatures:
 
@@ -2362,7 +2359,7 @@ style="color:black;background:#D9D9D9"}[fractionalseconds[(BirthDate) lt
 0.1]{style="background:#D9D9D9"}]{lang="DE" style="color:black"}
 :::
 
-##### ##subsubsubsubsec []{#hoururl5.1.2.4.17}`hour`
+##### ##subsubsubsubsec `hour`
 
 The `hour` function has the following signatures:
 
@@ -2409,7 +2406,7 @@ The `mindatetime` function has the following signature:
 The `mindatetime` function returns the earliest possible point in time
 as a `DateTimeOffset` value.
 
-##### ##subsubsubsubsec []{#minuteurl5.1.2.4.19}`minute`
+##### ##subsubsubsubsec `minute`
 
 The `minute` function has the following signatures:
 
@@ -2430,7 +2427,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 40]{style="color:black;background:#D9D9D9"}
 :::
 
-##### ##subsubsubsubsec []{#monthurl5.1.2.4.14}`month`
+##### ##subsubsubsubsec `month`
 
 The `month` function has the following signatures:
 
@@ -2473,7 +2470,7 @@ UTC. Services that are unable to preserve the offset of
 common time zone SHOULD return a value in the normalized time zone
 (i.e., UTC).
 
-##### ##subsubsubsubsec []{#secondurl5.1.2.4.21}`second`
+##### ##subsubsubsubsec `second`
 
 The `second` function has the following signatures:
 
@@ -2563,7 +2560,7 @@ eq 1971]{style="background:#D9D9D9"}]{style="color:black"}
 
 #### ##subsubsubsec Arithmetic Functions
 
-##### ##subsubsubsubsec []{#floorurl5.1.2.4.24}`ceiling`
+##### ##subsubsubsubsec `ceiling`
 
 The `ceiling` function has the following signatures
 
@@ -2605,7 +2602,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 32]{style="color:black;background:#D9D9D9"}
 :::
 
-##### ##subsubsubsubsec []{#ceilingurl5.1.2.4.25}`round`
+##### ##subsubsubsubsec `round`
 
 The `round` function has the following signatures
 
@@ -2627,9 +2624,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 32]{style="color:black;background:#D9D9D9"}
 :::
 
-#### ##subsubsubsec []{#isofurl5.1.2.4.26}Type Functions
+#### ##subsubsubsec Type Functions
 
-##### ##subsubsubsubsec []{#casturl5.1.2.4.27}5.1.1.10.1 `cast`
+##### ##subsubsubsubsec `cast`
 
 The `cast` function has the following signatures:
 
@@ -3464,13 +3461,12 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Employees?\$expand=ReportsTo(\$levels=3)
 :::
 
-[]{#select-system-query-optionurl5.1.4}It is also possible to expand all
-declared and dynamic navigation properties using a star (`*`). To
-retrieve references to all related entities use `*/$ref`, and to expand
-all related entities with a certain distance use the star operator with
-the `$levels` option. The star operator can be combined with explicitly
-named navigation properties, which take precedence over the star
-operator.
+It is also possible to expand all declared and dynamic navigation
+properties using a star (`*`). To retrieve references to all related
+entities use `*/$ref`, and to expand all related entities with a certain
+distance use the star operator with the `$levels` option. The star
+operator can be combined with explicitly named navigation properties,
+which take precedence over the star operator.
 
 The star operator does not implicitly include stream properties.
 
@@ -3706,7 +3702,7 @@ If a select item is a path expression requesting a component of a
 complex property and the complex property is `null` on an instance, then
 the component is treated as `null` as well.
 
-### ##subsubsec []{#orderby-system-query-optionurl5.1.4}5.1.5 System Query Option `$orderby`
+### ##subsubsec System Query Option `$orderby`
 
 The `$orderby` system query option allows clients to request resources
 in a particular order.
@@ -3717,7 +3713,7 @@ document.
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
 
-### ##subsubsec []{#top-and-skip-system-query-optionsurl5.1.}5.1.6 System Query Options `$top` and `$skip`
+### ##subsubsec System Query Options `$top` and `$skip`
 
 The `$top` system query option requests the number of items in the
 queried collection to be included in the result. The `$skip` query
@@ -3730,7 +3726,7 @@ The semantics of `$top` and `$skip` are covered in the
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip `query options respectively.
 
-### ##subsubsec []{#inlinecount-system-query-optionurl5.1.6}5.1.7 System Query Option `$count`
+### ##subsubsec System Query Option `$count`
 
 The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
@@ -3767,7 +3763,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products?\$search=blue OR green
 :::
 
-#### ##subsubsubsec []{#Search_Expression}Search Expressions
+#### ##subsubsubsec Search Expressions
 
 Search expressions are used within the
 [`$search`](#sec_SystemQueryOptionsearch) system query option to request
@@ -3818,7 +3814,7 @@ document.
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
 
-### ##subsubsec []{#custom-query-optionsurl5.2}5.1.10 System Query Option `$compute`
+### ##subsubsec System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
 properties that can be used in a

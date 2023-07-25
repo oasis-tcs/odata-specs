@@ -67,7 +67,7 @@ Construction Rules Version 4.01</i>. <br>
 See the link in &quot;Additional artifacts&quot; section on cover page.</p>
 
 <p class=MsoNormal style='margin-left:127.6pt;text-indent:-113.4pt'><span
-class=Refterm>[<a name=ODataCSDLJSONRef></a><a name=CSDL>OData-CSDL</a>JSON]</span>        <i>OData
+class=Refterm>[<a name=CSDL>OData-CSDL</a>JSON]</span>        <i>OData
 Common Schema Definition Language (CSDL) JSON Representation Version 4.01)</i>.
 See link in &quot;Related work&quot; section on cover page.<span class=Refterm>
 </span></p>
@@ -109,8 +109,7 @@ T., Fielding, R., and L. Masinter, “Uniform Resource Identifier (URI): Generic
 Syntax”, STD 66, RFC 3986, January 2005. <a
 href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
 
-<p class=Ref style='margin-left:127.6pt;text-indent:-113.4pt'><a
-name=url-componentsurl2></a><a name="_Toc371341726"><span class=Refterm>[</span></a><a
+<p class=Ref style='margin-left:127.6pt;text-indent:-113.4pt'><a name="_Toc371341726"><span class=Refterm>[</span></a><a
 name=BMXMLSchema2><span class=Refterm>XML-Schema-2</span></a><span
 class=Refterm>]</span>             W3C XML Schema Definition Language (XSD) 1.1
 Part 2: DatatypesW3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes,
@@ -295,7 +294,7 @@ clients to enumerate and explore the resources published by the OData service.</
 
 
 
-<h1>##sec <a name=resource-pathurl4></a>Resource Path</h1>
+<h1>##sec Resource Path</h1>
 
 
 
@@ -617,7 +616,7 @@ resource path that identifies a primitive, complex instance, collection of
 primitives or collection of complex instances and bind an action or function
 that returns an entity or collections of entities.</p>
 
-<h3>##subsubsec <a name=canonical-urlurl4.1.1></a>4.3.1 Canonical URL</h3>
+<h3>##subsubsec Canonical URL</h3>
 
 <p class=MsoNormal>For OData services conformant with the addressing
 conventions in this section, the canonical form of an absolute URL identifying
@@ -922,10 +921,10 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 </div>
 
-<h2>##subsec <a name=addressing-operationsurl4.3></a>Addressing
+<h2>##subsec Addressing
 Operations</h2>
 
-<p class=MsoNormal><a name=addressing-actionsurl4.3.1></a><a
+<p class=MsoNormal><a
 name="_Toc371341739">The semantic rules for addressing and invoking actions and
 functions are defined in the </a><a href="#odata">OData-Protocol</a>
 document.</p>
@@ -959,7 +958,7 @@ when invoking the action.</p>
 style='font-family:Symbol'>· </span>The <code>boundOperation</code> syntax rule (which
 encompasses the <code>boundActionCall</code> syntax rule), when
 used by the <code>resourcePath</code> syntax rule, illustrates
-how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.<a name=addressing-functionsurl4.3.2></a></p>
+how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.</p>
 
 <h3>##subsubsec Addressing Functions</h3>
 
@@ -1001,7 +1000,7 @@ style='font-family:Symbol'>· </span>The <code>aliasAndValue</code> syntax rule d
 the grammar for providing function parameter values using Parameter Alias
 Syntax, see <a href="#odata">OData-Protocol</a>.</p>
 
-<h2>##subsec <a name=addressing-a-propertyurl4.4></a>Addressing a
+<h2>##subsec Addressing a
 Property</h2>
 
 <p class=MsoNormal>To address an entity property clients append a path segment
@@ -1009,7 +1008,7 @@ containing the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.</p>
 
-<h2>##subsec <a name=addressing-a-property-valueurl4.5></a>Addressing a Property Value</h2>
+<h2>##subsec Addressing a Property Value</h2>
 
 <p class=MsoNormal>To address the raw value of a primitive property, clients
 append the path segment <code>/$value</code> to the property
@@ -1563,7 +1562,7 @@ href="#sec_ParameterAliases">parameter aliases</a>. All OData services MUST
 follow the query string parsing and construction rules defined in this section
 and its subsections.</p>
 
-<h2>##subsec <a name=system-query-optionsurl5.1></a>5.1 System Query Options</h2>
+<h2>##subsec System Query Options</h2>
 
 <p class=MsoNormal>System query options are query string parameters that
 control the amount and order of the data returned for the resource identified
@@ -1633,7 +1632,7 @@ defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p class=MsoNormal>Dynamic properties can be used in the same way as declared
 properties. If they are not defined on an instance, they evaluate to <code>null</code>.</p>
 
-<h3>##subsubsec <a name=filter-system-query-optionurl5.1.2></a>5.1.1 Common
+<h3>##subsubsec Common
 Expression Syntax</h3>
 
 <p class=MsoNormal>The following operators, functions, and literals can be used
@@ -1667,7 +1666,7 @@ operators.</p>
 <p class=MsoNormal>When applied to operands of numeric types, <a
 href="#sec_NumericPromotion">numeric promotion</a> rules are applied. </p>
 
-<p class=MsoNormal><a name=equals-operatorurl5.1.2.1.1></a>The <code>eq</code>,
+<p class=MsoNormal>The <code>eq</code>,
 <code>ne</code>, and <code>in</code> operators
 can be used with collection-valued operands, and the <code>eq</code>
 and <code>ne</code> operators can be used with structured
@@ -1699,7 +1698,7 @@ to itself, and only to itself.</p>
 <p class=MsoNormal>The special value <code>NaN</code> is not
 equal to anything, even to itself.</p>
 
-<h5>##subsubsubsubsec <a name=not-equals-operatorurl5.1.2.1.2></a>5.1.1.1.2 Not Equals</h5>
+<h5>##subsubsubsubsec Not Equals</h5>
 
 <p class=MsoNormal>The <code>ne</code> operator returns true if
 the left operand is not equal to the right operand, otherwise it returns false.</p>
@@ -1748,7 +1747,7 @@ href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/O
 <p class=MsoNormal>If any operand is <code>null</code>, the
 operator returns false.</p>
 
-<h5>##subsubsubsubsec <a name=greater-than-or-equal-operatorurl5.1.2.1></a>Greater Than or Equal</h5>
+<h5>##subsubsubsubsec Greater Than or Equal</h5>
 
 <p class=MsoNormal>The <code>ge</code> operator returns true if
 the left operand is greater than or equal to the right operand, otherwise it
@@ -1756,7 +1755,7 @@ returns false.</p>
 
 <p class=MsoNormal>See rules for <a href="#sec_GreaterThan"><code>gt</code></a> and <a href="#sec_Equals"><code>eq</code></a> for details.</p>
 
-<h5>##subsubsubsubsec <a name=less-than-operatorurl5.1.2.1.5></a>Less Than</h5>
+<h5>##subsubsubsubsec Less Than</h5>
 
 <p class=MsoNormal>The <code>lt</code> operator returns true if
 the left operand is less than the right operand, otherwise it returns false.</p>
@@ -1794,7 +1793,7 @@ unknown, so if one operand evaluates to <code>null</code> and the
 other operand to false, the <code>and</code> operator returns
 false. All other combinations with <code>null</code> return <code>null</code>.</p>
 
-<h5>##subsubsubsubsec <a name=logical-or-operatorurl5.1.2.1.8></a>Or</h5>
+<h5>##subsubsubsubsec Or</h5>
 
 <p class=MsoNormal>The <code>or</code> operator returns false if
 both the left and right operands both evaluate to false, otherwise it returns
@@ -1989,7 +1988,7 @@ is null.</p>
 case-insensitive operator names. Clients that want to work with 4.0 services
 MUST use lower case operator names.</p>
 
-<h5>##subsubsubsubsec <a name=addition-operatorurl5.1.2.2.1></a>5.1.1.2.1 <a
+<h5>##subsubsubsubsec <a
 href="#sec_Addition">Addition</a> </h5>
 
 <p class=MsoNormal>The <code>add</code> operator adds the left
@@ -2015,7 +2014,7 @@ style='font-family:Symbol'>· </span><code>Duration add Duration</code> results i
 <p class=MsoNormal style='margin-left:21.3pt;text-indent:-14.2pt'><span
 style='font-family:Symbol'>· </span><code>Date add Duration</code> results in a <code>Date</code></p>
 
-<p class=MsoNormal><a name=subtraction-operatorurl5.1.2.2.2></a><a
+<p class=MsoNormal><a
 name="_Toc371341765">The rules for time-related operands are defined in </a><a
 href="#BMXMLSchema2"><b>[XML&#8209;Schema&#8209;2]</b></a>, section E.3.3.
 Specifically, for adding a duration to a date: </p>
@@ -2086,7 +2085,7 @@ type <code>Edm.Decimal</code> the scale of the result is scaleof(A mul B) = scal
 floating if any operand has floating scale, or else variable if any operand has
 variable scale.</p>
 
-<h5>##subsubsubsubsec <a name=division-operatorurl5.1.2.2.4></a><a href="#sec_Division">Division</a> </h5>
+<h5>##subsubsubsubsec <a href="#sec_Division">Division</a> </h5>
 
 <p class=MsoNormal>The <code>div</code> and<code> divby</code>
 operators divide the left numeric operand by the right numeric operand. They are also valid for dividing a <code>Duration</code>
@@ -2099,7 +2098,7 @@ zero returns <code>-INF</code>, and zero <code>div</code>
 zero returns <code>NaN</code>. For all other types the request
 fails.</p>
 
-<p class=MsoNormal><a name=modulo-operatorurl5.1.2.2.5></a><a
+<p class=MsoNormal><a
 name="_Toc371341769">For operands of
 type </a><code>Edm.Decimal</code> <span style='color:
 #333333;background:white'>the result is computed with maximal decimal scale. If
@@ -2129,7 +2128,7 @@ If the right operand is zero, the request fails. </p>
 type <code>Edm.Decimal</code> the scale of the result is scaleof(A mod B) = max(scaleof(A),
 scaleof(B)), or variable if any operand has variable scale.</p>
 
-<h5>##subsubsubsubsec <a name=arithmetic-operator-examplesurl5.1.2.2.6></a>Arithmetic Operator Examples</h5>
+<h5>##subsubsubsubsec Arithmetic Operator Examples</h5>
 
 <p class=MsoNormal style='page-break-after:avoid'>The following examples
 illustrate the use and semantics of each of the Arithmetic operators.</p>
@@ -2220,7 +2219,7 @@ mod 5 eq 0</span></p>
 
 </div>
 
-<h4>##subsubsubsec <a name=parenthesis-operatorurl5.1.2.3></a><a href="#sec_Grouping">Grouping</a> </h4>
+<h4>##subsubsubsec <a href="#sec_Grouping">Grouping</a> </h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The Grouping operator (open
 and close parenthesis “<code>( )</code>”) controls the
@@ -2239,7 +2238,7 @@ add 5) mod (4 sub 1) eq 0</p>
 
 </div>
 
-<h4>##subsubsubsec <a name=canonical-functionsurl5.1.2.4></a>Canonical
+<h4>##subsubsubsec Canonical
 Functions</h4>
 
 <p class=MsoNormal>In addition to operators, a set of functions is also defined
@@ -2258,9 +2257,9 @@ href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support
 case-insensitive canonical function names. Clients that want to work with 4.0
 services MUST use lower case canonical function names.</p>
 
-<h4>##subsubsubsec <a name=substringofurl5.1.2.4.1></a>String and Collection Functions</h4>
+<h4>##subsubsubsec String and Collection Functions</h4>
 
-<h5>##subsubsubsubsec <a name=concaturl5.1.2.4.11></a><code>concat</code></h5>
+<h5>##subsubsubsubsec <code>concat</code></h5>
 
 <p class=MsoNormal>The <code>concat</code> function has three
 overloads, with the following signatures:</p>
@@ -2330,7 +2329,7 @@ background:#D9D9D9'>http://host/service/Customers?$filter=contains(CompanyName,'
 
 </div>
 
-<h5>##subsubsubsubsec <a name=endswithurl5.1.2.4.2></a><code>endswith</code></h5>
+<h5>##subsubsubsubsec <code>endswith</code></h5>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>endswith</code>
 function has two overloads, with the following signatures:</p>
@@ -2367,9 +2366,7 @@ background:#D9D9D9'><span style='color:black;background:#D9D9D9'>http://host/ser
 
 </div>
 
-<h5>##subsubsubsubsec <a name=startswithurl5.1.2.4.3></a><a
-name=lengthurl5.1.2.4.4></a><a
-name=indexofurl5.1.2.4.5></a><code>indexof</code></h5>
+<h5>##subsubsubsubsec <code>indexof</code></h5>
 
 <p class=MsoNormal>The <code>indexof</code> function has two
 overloads, with the following signatures:</p>
@@ -2474,8 +2471,7 @@ background:#D9D9D9'><span style='color:black;background:#D9D9D9'>http://host/ser
 
 </div>
 
-<h5>##subsubsubsubsec <a name=tolowerurl5.1.2.4.8></a><a
-name=substringurl5.1.2.4.7></a><code>substring</code></h5>
+<h5>##subsubsubsubsec <code>substring</code></h5>
 
 <p class=MsoNormal>The <code>substring</code> function has four
 overloads, with the following signatures:</p>
@@ -2714,7 +2710,7 @@ eq 'alfreds futterkiste'</p>
 
 </div>
 
-<h5>##subsubsubsubsec <a name=toupperurl5.1.2.4.9></a><code>toupper</code></h5>
+<h5>##subsubsubsubsec <code>toupper</code></h5>
 
 <p class=MsoNormal>The <code>toupper</code> function has the
 following signature:</p>
@@ -2741,7 +2737,7 @@ style='color:black'>CompanyName<span style='background:#D9D9D9'>) eq 'ALFREDS FU
 
 </div>
 
-<h5>##subsubsubsubsec <a name=trimurl5.1.2.4.10></a><code>trim</code></h5>
+<h5>##subsubsubsubsec <code>trim</code></h5>
 
 <p class=MsoNormal>The <code>trim</code> function has the
 following signature:</p>
@@ -2767,10 +2763,10 @@ eq CompanyName</span></p>
 
 </div>
 
-<h4>##subsubsubsec <a name=yearurl5.1.2.4.12></a>Date
+<h4>##subsubsubsec Date
 and Time Functions</h4>
 
-<h5>##subsubsubsubsec <a name=dayurl5.1.2.4.15></a><code>date</code></h5>
+<h5>##subsubsubsubsec <code>date</code></h5>
 
 <p class=MsoNormal>The <code>date</code> function has the following
 signature:</p>
@@ -2812,7 +2808,7 @@ eq 8</span></p>
 
 </div>
 
-<h5>##subsubsubsubsec <a name=secondsurl5.1.2.4.22></a><code>fractionalseconds</code></h5>
+<h5>##subsubsubsubsec <code>fractionalseconds</code></h5>
 
 <p class=MsoNormal>The <code>fractionalseconds</code> function
 has the following signatures:</p>
@@ -2841,7 +2837,7 @@ lt 0.1</span></span></p>
 
 </div>
 
-<h5>##subsubsubsubsec <a name=hoururl5.1.2.4.17></a><code>hour</code></h5>
+<h5>##subsubsubsubsec <code>hour</code></h5>
 
 <p class=MsoNormal>The <code>hour</code> function has the
 following signatures:</p>
@@ -2897,8 +2893,7 @@ following signature:</p>
 the earliest possible point in time as a <code>DateTimeOffset</code>
 value.</p>
 
-<h5>##subsubsubsubsec <a
-name=minuteurl5.1.2.4.19></a><code>minute</code></h5>
+<h5>##subsubsubsubsec <code>minute</code></h5>
 
 <p class=MsoNormal>The <code>minute</code> function has the
 following signatures:</p>
@@ -2927,7 +2922,7 @@ eq 40</span></p>
 
 </div>
 
-<h5>##subsubsubsubsec <a name=monthurl5.1.2.4.14></a><code>month</code></h5>
+<h5>##subsubsubsubsec <code>month</code></h5>
 
 <p class=MsoNormal>The <code>month</code> function has the
 following signatures:</p>
@@ -2973,8 +2968,7 @@ point, e.g. UTC. Services that are unable to preserve the offset of <code>Edm.Da
 to some common time zone SHOULD return a value in the normalized time zone
 (i.e., UTC).</p>
 
-<h5>##subsubsubsubsec <a
-name=secondurl5.1.2.4.21></a><code>second</code></h5>
+<h5>##subsubsubsubsec <code>second</code></h5>
 
 <p class=MsoNormal>The <code>second</code> function has the
 following signatures:</p>
@@ -3078,7 +3072,7 @@ eq 1971</span></span></p>
 
 <h4>##subsubsubsec Arithmetic Functions</h4>
 
-<h5>##subsubsubsubsec <a name=floorurl5.1.2.4.24></a><code>ceiling</code></h5>
+<h5>##subsubsubsubsec <code>ceiling</code></h5>
 
 <p class=MsoNormal>The <code>ceiling</code> function has the
 following signatures</p>
@@ -3130,7 +3124,7 @@ eq 32</span></p>
 
 </div>
 
-<h5>##subsubsubsubsec <a name=ceilingurl5.1.2.4.25></a><code>round</code></h5>
+<h5>##subsubsubsubsec <code>round</code></h5>
 
 <p class=MsoNormal>The <code>round</code> function has the
 following signatures</p>
@@ -3157,10 +3151,10 @@ eq 32</span></p>
 
 </div>
 
-<h4>##subsubsubsec <a name=isofurl5.1.2.4.26></a>Type
+<h4>##subsubsubsec Type
 Functions</h4>
 
-<h5>##subsubsubsubsec <a name=casturl5.1.2.4.27></a>5.1.1.10.1 <code>cast</code></h5>
+<h5>##subsubsubsubsec <code>cast</code></h5>
 
 <p class=MsoNormal>The <code>cast</code> function has the
 following signatures:</p>
@@ -4609,8 +4603,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 </div>
 
-<p class=MsoNormal style='page-break-after:avoid'><a
-name=select-system-query-optionurl5.1.4></a>It
+<p class=MsoNormal style='page-break-after:avoid'>It
 is also possible to expand all declared and dynamic navigation properties using
 a star (<code>*</code>). To retrieve references to all related
 entities use <code>*/$ref</code>, and to expand all related
@@ -4889,7 +4882,7 @@ of a complex property and the complex property is <code>null</code>
 on an instance, then the component is treated as <code>null</code>
 as well.</p>
 
-<h3>##subsubsec <a name=orderby-system-query-optionurl5.1.4></a>5.1.5 System
+<h3>##subsubsec System
 Query Option <code>$orderby</code></h3>
 
 <p class=MsoNormal>The <code>$orderby</code> system query option
@@ -4900,7 +4893,7 @@ covered in the <a href="#odata">OData-Protocol</a> document.</p>
 
 <p class=MsoNormal>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
 
-<h3>##subsubsec <a name=top-and-skip-system-query-optionsurl5.1.></a>5.1.6 System
+<h3>##subsubsec System
 Query Options <code>$top</code> and <code>$skip</code></h3>
 
 <p class=MsoNormal>The <code>$top</code> system query option
@@ -4915,7 +4908,7 @@ and <code>skip</code> syntax rules define the formal grammar of
 the <code>$top</code> and <code>$skip </code>query
 options respectively.</p>
 
-<h3>##subsubsec <a name=inlinecount-system-query-optionurl5.1.6></a>5.1.7 System
+<h3>##subsubsec System
 Query Option <code>$count</code></h3>
 
 <p class=MsoNormal>The <code>$count</code> system query option
@@ -4959,7 +4952,7 @@ OR green</p>
 
 </div>
 
-<h4>##subsubsubsec <a name="Search_Expression"></a>Search
+<h4>##subsubsubsec Search
 Expressions</h4>
 
 <p class=MsoNormal>Search expressions are used within the <a
@@ -5010,8 +5003,7 @@ covered in the <a href="#odata">OData-Protocol</a> document.</p>
 
 <p class=MsoNormal>The <a href="#ODataABNF">OData-ABNF</a> <code>format</code> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
 
-<h3>##subsubsec <a name=custom-query-optionsurl5.2></a>5.1.10
-System Query Option <code>$compute</code></h3>
+<h3>##subsubsec System Query Option <code>$compute</code></h3>
 
 <p class=MsoNormal>The <code>$compute</code> system query option
 allows clients to define computed properties that can be used in a <a
