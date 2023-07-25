@@ -665,12 +665,12 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Language`
 
-As defined in [RFC7231](#HTTPSemantic)[**,**]{.MsoHyperlink} a request
-or response can include a `Content-Language` header to indicate the
-natural language of the intended audience for the enclosed message body.
-OData does not add any additional requirements over HTTP for including
-`Content-Language`. OData services can annotate model elements whose
-content depends on the content language with the term
+As defined in [RFC7231](#HTTPSemantic), a request or response can
+include a `Content-Language` header to indicate the natural language of
+the intended audience for the enclosed message body. OData does not add
+any additional requirements over HTTP for including `Content-Language`.
+OData services can annotate model elements whose content depends on the
+content language with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
@@ -682,10 +682,10 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Length`
 
-As defined in [RFC7230](#HTTPMessage)[**,**]{.MsoHyperlink} a request or
-response SHOULD include a `Content-Length` header when the message\'s
-length can be determined prior to being transferred. OData does not add
-any additional requirements over HTTP for writing `Content-Length`.
+As defined in [RFC7230](#HTTPMessage), a request or response SHOULD
+include a `Content-Length` header when the message\'s length can be
+determined prior to being transferred. OData does not add any additional
+requirements over HTTP for writing `Content-Length`.
 
 If the `Content-Length` header is specified on an individual request or
 response within a batch, then it specifies the length for that
@@ -825,10 +825,9 @@ ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
-weak comparison function (see[
-]{.MsoHyperlink}[RFC7232](#HTTPConditional)). If the value matches the
-current ETag value of the resource, then for a `GET` request, the
-service SHOULD respond with
+weak comparison function (see [RFC7232](#HTTPConditional)). If the value
+matches the current ETag value of the resource, then for a `GET`
+request, the service SHOULD respond with
 [`304 Not Modified`](#sec_ResponseCode304NotModified), and for a [Data
 Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions), the service MUST respond with
@@ -1498,7 +1497,7 @@ to the overall batch.
 ### ##subsubsec Header `Retry-After`
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#HTTPSemantic)[**,**]{.MsoHyperlink} in
+[RFC7231](#HTTPSemantic), in
 [`202 Accepted`](#sec_ResponseCode202Accepted) and in
 [`3xx Redirect`](#sec_ResponseCode3xxRedirection) responses
 
@@ -1526,7 +1525,7 @@ caching of the response.
 Alternatively, the server MAY include a `Vary` header with the special
 value `*` as defined by [RFC7231](#HTTPSemantic), Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see
-[RFC7240](#HTTPPREFER)[**.**]{.MsoHyperlink}
+[RFC7240](#HTTPPREFER).
 
 # ##sec Common Response Status Codes
 
@@ -5619,9 +5618,8 @@ completed asynchronous operation. If the `GET` request to the status
 monitor includes an `OData-MaxVersion `header with a value of `4.0` and
 no `Accept `header, or an `Accept `header that includes
 `application/http`, then the body of the final `200 OK` response MUST be
-represented as an HTTP message, as described in
-[RFC7230](#HTTPMessage)[**,** ]{.MsoHyperlink}which is the full HTTP
-response to the completed asynchronous operation.
+represented as an HTTP message, as described in [RFC7230](#HTTPMessage),
+which is the full HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
@@ -5676,7 +5674,7 @@ a batch request.
 
 A batch request is represented using either the [multipart batch
 format](#sec_MultipartBatchFormat) defined in this document or the JSON
-batch format defined in [OData-JSON](#ODataJSON)[**.**]{.MsoHyperlink}
+batch format defined in [OData-JSON](#ODataJSON).
 
 ### ##subsubsec Batch Request Headers
 
@@ -6442,8 +6440,7 @@ service:
 1\. MUST publish a [service document](#sec_ServiceDocumentRequest) at
 the service root (section 11.1.1)
 
-2\. MUST return data according to the[OData-JSON](#ODataJSON)[
-**format**]{.MsoHyperlink}
+2\. MUST return data according to the[OData-JSON](#ODataJSON) format
 
 3\. MUST use [server-driven paging](#sec_ServerDrivenPaging) when
 returning partial results (section 11.2.6.7) and not use any other
@@ -6915,7 +6912,7 @@ case-insensitive comparison 
 Interoperable OData clients can expect to work with OData Services that
 comply with at least the [OData 4.0 Minimal Conformance
 Level](#sec_OData40MinimalConformanceLevel) and implement the
-[OData-JSON](#ODataJSON)[ ]{.MsoHyperlink}format.
+[OData-JSON](#ODataJSON) format.
 
 To be generally interoperable, OData clients      
 

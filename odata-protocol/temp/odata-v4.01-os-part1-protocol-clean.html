@@ -779,8 +779,7 @@ header inherit the encoding of the overall batch request or response.</p>
 
 <h3>##subsubsec Header <code>Content-Language</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a><span
-class=MsoHyperlink><b>,</b></span> a
+<p class=MsoNormal>As defined in <a href="#HTTPSemantic">RFC7231</a>, a
 request or response can include a <code>Content-Language</code>
 header to indicate the natural language of the intended audience for the
 enclosed message body. OData does not add any
@@ -796,8 +795,7 @@ header inherit the language of the overall batch request or response.</p>
 
 <h3>##subsubsec Header <code>Content-Length</code></h3>
 
-<p class=MsoNormal>As defined in <a href="#HTTPMessage">RFC7230</a><span
-class=MsoHyperlink><b>,</b></span> a
+<p class=MsoNormal>As defined in <a href="#HTTPMessage">RFC7230</a>, a
 request or response SHOULD include a <code>Content-Length</code>
 header when the message's length can be determined
 prior to being transferred. OData does not add any additional requirements over HTTP for writing <code>Content-Length</code>.</p>
@@ -946,7 +944,7 @@ resource, or <code>*</code>.</p>
 
 <p class=MsoNormal>If present, the request MUST only be processed if the
 specified ETag value does not match the current ETag value of the resource,
-using the weak comparison function (see<span class=MsoHyperlink><b> </b></span><a
+using the weak comparison function (see <a
 href="#HTTPConditional">RFC7232</a>). If the value matches the current
 ETag value of the resource, then for a <code>GET</code> request,
 the service SHOULD respond with <a href="#sec_ResponseCode304NotModified"><code>304 Not Modified</code></a>, and for a <a
@@ -1694,8 +1692,7 @@ batch. </p>
 <h3>##subsubsec Header <code>Retry-After</code></h3>
 
 <p class=MsoNormal>A service MAY include a <code>Retry-After</code>
-header, as defined in <a href="#HTTPSemantic">RFC7231</a><span
-class=MsoHyperlink><b>,</b></span> in <a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a> and in <a
+header, as defined in <a href="#HTTPSemantic">RFC7231</a>, in <a href="#sec_ResponseCode202Accepted"><code>202 Accepted</code></a> and in <a
 href="#sec_ResponseCode3xxRedirection"><code>3xx
 Redirect</code></a> responses</p>
 
@@ -1725,7 +1722,7 @@ request header field to allow correct caching of the response. </p>
 <p class=MsoNormal>Alternatively, the server MAY include a <code>Vary</code> header with the special value <code>*</code>
 as defined by <a href="#HTTPSemantic">RFC7231</a>, Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see <a
-href="#HTTPPREFER">RFC7240</a><span class=MsoHyperlink><b>.</b></span></p>
+href="#HTTPPREFER">RFC7240</a>.</p>
 
 
 
@@ -6773,8 +6770,7 @@ request to the status monitor includes an <code>OData-MaxVersion
 </code>header, or an <code>Accept </code>header
 that includes <code>application/http</code>, then the body of
 the final <code>200 OK</code> response MUST be represented as an
-HTTP message, as described in <a href="#HTTPMessage">RFC7230</a><span
-class=MsoHyperlink><b>, </b></span>which is the full HTTP response to the completed
+HTTP message, as described in <a href="#HTTPMessage">RFC7230</a>, which is the full HTTP response to the completed
 asynchronous operation.</p>
 
 <p class=MsoNormal>A <code>DELETE</code> request sent to the status
@@ -6832,8 +6828,7 @@ context of a batch request.</p>
 
 <p class=MsoNormal>A batch request is represented using either the <a
 href="#sec_MultipartBatchFormat">multipart batch format</a> defined in this
-document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a><span
-class=MsoHyperlink><b>.</b></span></p>
+document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
 
 <h3>##subsubsec Batch
 Request Headers</h3>
@@ -7693,8 +7688,7 @@ service root (section 11.1.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>2. MUST
-return data according to the<a href="#ODataJSON">OData-JSON</a><span
-class=MsoHyperlink><b> format</b></span></p>
+return data according to the<a href="#ODataJSON">OData-JSON</a> format</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>3. MUST use <a
@@ -8364,8 +8358,7 @@ namespaces</a> with a case-insensitive comparison  </p>
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>Interoperable
 OData clients can expect to work with OData Services that comply with at least
 the <a href="#sec_OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance
-Level</a> and implement the <a href="#ODataJSON">OData-JSON</a><span
-class=MsoHyperlink><b> </b></span>format.</p>
+Level</a> and implement the <a href="#ODataJSON">OData-JSON</a> format.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>To be
 generally interoperable, OData clients       </p>

@@ -23,6 +23,7 @@ const clean = old
   .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:#333333;\n?background:white'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]class=MsoHyperlink>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]class=MsoHyperlink>([^<]*)<b>([^<]*)<\/b><\/span>/g,"$1$2")
   .replace(/<span lang=EN>([^<]*)<\/span>/g,"$1")
   // TODO: clean up more <span> tags
 
