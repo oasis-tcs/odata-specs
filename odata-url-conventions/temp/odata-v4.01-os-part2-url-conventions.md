@@ -823,9 +823,7 @@ Example ##ex: entity count in a [`$filter`](#sec_SystemQueryOptionfilter)
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 ```
-[[http://host/service/Categories?\$filter=Products/\$count]{lang="DE"
-style="color:black"}]{.MsoHyperlink}[ gt 0]{lang="DE"
-style="color:black"}
+http://host/service/Categories?\$filter=Products/\$count gt 0
 ```
 :::
 
@@ -835,9 +833,8 @@ Example ##ex: count of a filtered collection in a
 Categories containing more than two products whose price is greater than
 5.00.
 ```
-[http://host/service/Categories?\$filter=Products/\$count(\$filter=Price
-gt 5.00)]{lang="DE" style="color:black;background:#D9D9D9"}[ gt
-2]{lang="DE" style="color:black"}
+http://host/service/Categories?\$filter=Products/\$count(\$filter=Price
+gt 5.00) gt 2
 ```
 :::
 
@@ -955,8 +952,8 @@ Example ##ex: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-[http://host/service/Customers?\$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
-gt 80]{lang="DE" style="color:black"}
+http://host/service/Customers?\$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
+gt 80
 ```
 :::
 
@@ -1029,8 +1026,7 @@ function](#sec_AddressingFunctions) applicable to the collection.
 Example ##ex: invoke the `Special.Cluster` action on all products older
 than 3
 ```
-[POST /service/Products/\$filter(@foo)/Special.Cluster?@foo=Age gt
-3]{lang="DE" style="color:black;background:#D9D9D9"}
+POST /service/Products/\$filter(@foo)/Special.Cluster?@foo=Age gt 3
 ```
 :::
 
@@ -1468,24 +1464,21 @@ style="color:black;background:#D9D9D9"}
 ::: example
 Example ##ex: all products with a Name greater than \'Milk\':
 ```
-[http://host/service/Products?\$filter=Name gt \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name gt \'Milk\'
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Name greater than or equal to \'Milk\':
 ```
-[http://host/service/Products?\$filter=Name ge \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name ge \'Milk\'
 ```
 :::
 
 ::: example
 Example ##ex: all products with a Name less than \'Milk\':
 ```
-[http://host/service/Products?\$filter=Name lt \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name lt \'Milk\'
 ```
 :::
 
@@ -2194,8 +2187,7 @@ non-negative decimal value less than 1. The
 Example ##ex: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
-[http://host/service/Employees?\$filter=]{lang="DE"
-style="color:black;background:#D9D9D9"}[fractionalseconds[(BirthDate) lt
+http://host/service/Employees?\$filter=[fractionalseconds[(BirthDate) lt
 0.1]{style="background:#D9D9D9"}]{lang="DE" style="color:black"}
 ```
 :::
@@ -2639,8 +2631,7 @@ short form returns false if and only if the collection is empty.
 Example ##ex: all `Orders` that have any `Items` with a `Quantity` greater
 than `100`
 ```
-[http://host/service/Orders?\$filter=Items/any(d:d/Quantity gt 100)
-]{lang="DE" style="color:black"}
+http://host/service/Orders?\$filter=Items/any(d:d/Quantity gt 100)
 ```
 :::
 
@@ -2675,8 +2666,7 @@ The `all` operator cannot be used without an argument expression.
 Example ##ex: all `Orders` that have only `Items` with a `Quantity`
 greater than `100`
 ```
-[http://host/service/Orders?\$filter=Items/all(d:d/Quantity gt 100)
-]{lang="DE" style="color:black"}
+http://host/service/Orders?\$filter=Items/all(d:d/Quantity gt 100)
 ```
 :::
 
@@ -2836,8 +2826,8 @@ eq ShipTo/City)
 reviews. `Model.PositiveReviews` is a function bound to `Model.Product`
 returning a collection of reviews.
 ```
-[http://host/service/Products?\$filter=\$it/Model.PositiveReviews()/\$count
-ge 10]{lang="DE" style="color:black"}
+http://host/service/Products?\$filter=\$it/Model.PositiveReviews()/\$count
+ge 10
 ```
 
 ##### ##subsubsubsubsec [`$root`](#sec_root)

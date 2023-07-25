@@ -885,9 +885,7 @@ example only; in real URLs they must be percent-encoded as `%20`.
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[[http://host/service/Categories?\$filter=Products/\$count]{lang="DE"
-style="color:black"}]{.MsoHyperlink}[ gt 0]{lang="DE"
-style="color:black"}
+http://host/service/Categories?\$filter=Products/\$count gt 0
 :::
 
 Example 33: count of a filtered collection in a
@@ -898,9 +896,8 @@ Categories containing more than two products whose price is greater than
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Categories?\$filter=Products/\$count(\$filter=Price
-gt 5.00)]{lang="DE" style="color:black;background:#D9D9D9"}[ gt
-2]{lang="DE" style="color:black"}
+http://host/service/Categories?\$filter=Products/\$count(\$filter=Price
+gt 5.00) gt 2
 :::
 
 [ ]{lang="DE"}Example 34: entity count in an
@@ -1026,8 +1023,8 @@ for all non-`VipCustomer` instances and thus return only instances of
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Customers?\$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
-gt 80]{lang="DE" style="color:black"}
+http://host/service/Customers?\$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
+gt 80
 :::
 
 Example 40: expand the single related `Customer` only if it is an
@@ -1105,8 +1102,7 @@ than 3
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST /service/Products/\$filter(@foo)/Special.Cluster?@foo=Age gt
-3]{lang="DE" style="color:black;background:#D9D9D9"}
+POST /service/Products/\$filter(@foo)/Special.Cluster?@foo=Age gt 3
 :::
 
 ## ##subsec Addressing Each Member of a Collection
@@ -1561,8 +1557,7 @@ Example 52: all products with a Name greater than \'Milk\':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name gt \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name gt \'Milk\'
 :::
 
 Example 53: all products with a Name greater than or equal to \'Milk\':
@@ -1570,8 +1565,7 @@ Example 53: all products with a Name greater than or equal to \'Milk\':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name ge \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name ge \'Milk\'
 :::
 
 Example 54: all products with a Name less than \'Milk\':
@@ -1579,8 +1573,7 @@ Example 54: all products with a Name less than \'Milk\':
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=Name lt \'Milk\']{lang="DE"
-style="color:black;background:#D9D9D9"}
+http://host/service/Products?\$filter=Name lt \'Milk\'
 :::
 
 Example 55: all products with a Name less than or equal to \'Milk\':
@@ -2334,8 +2327,7 @@ second of any minute of any hour on any day
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Employees?\$filter=]{lang="DE"
-style="color:black;background:#D9D9D9"}[fractionalseconds[(BirthDate) lt
+http://host/service/Employees?\$filter=[fractionalseconds[(BirthDate) lt
 0.1]{style="background:#D9D9D9"}]{lang="DE" style="color:black"}
 :::
 
@@ -2791,8 +2783,7 @@ than `100`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders?\$filter=Items/any(d:d/Quantity gt 100)
-]{lang="DE" style="color:black"}
+http://host/service/Orders?\$filter=Items/any(d:d/Quantity gt 100)
 :::
 
 [Example]{#_Toc371341807} 99: all customers having an order with a
@@ -2832,8 +2823,7 @@ greater than `100`
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Orders?\$filter=Items/all(d:d/Quantity gt 100)
-]{lang="DE" style="color:black"}
+http://host/service/Orders?\$filter=Items/all(d:d/Quantity gt 100)
 :::
 
 #### ##subsubsubsec Literals
@@ -3000,8 +2990,8 @@ returning a collection of reviews.
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[http://host/service/Products?\$filter=\$it/Model.PositiveReviews()/\$count
-ge 10]{lang="DE" style="color:black"}
+http://host/service/Products?\$filter=\$it/Model.PositiveReviews()/\$count
+ge 10
 :::
 
 ##### ##subsubsubsubsec [`$root`](#sec_root)
