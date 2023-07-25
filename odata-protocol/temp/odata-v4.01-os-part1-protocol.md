@@ -779,7 +779,7 @@ requests or responses that don't include the `OData-Version` header
 inherit the OData version of the overall batch request or response. This
 OData version does not typically vary within a batch.
 
-## [8.2]{#sec_RequestHeaders} Request Headers
+## Request Headers
 
 In addition to the [Common Headers](#sec_CommonHeaders), the client may
 specify any combination of the following request headers.
@@ -1585,7 +1585,7 @@ executed request](#sec_AsynchronousRequests).
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
 
-### [8.3.2]{#sec_HeaderETag} [Header `ETag`](#sec_HeaderETag)
+### [Header `ETag`](#sec_HeaderETag)
 
 A response MAY include an `ETag` header, see
 [**\[RFC7232\]**](#HTTPConditional). Services MUST include this header
@@ -1654,7 +1654,7 @@ background:white"}`EntityID` header SHOULD NOT be included for the
 overall batch response, but MAY be included in individual responses
 within a batch.
 
-### [8.3.5]{#sec_HeaderODataError} [Header `OData-Error`](#sec_HeaderODataError)
+### [Header `OData-Error`](#sec_HeaderODataError)
 
 A response with an [in-stream error](#sec_InStreamErrors) MAY include an
 `OData-Error` trailing header if the transport protocol supports
@@ -1665,7 +1665,7 @@ The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
 in a header, see e.g. [OData-JSON](#ODataJSON).
 
-### [8.3.6]{#sec_HeaderPreferenceApplied} [Header `Preference-Applied`](#sec_HeaderPreferenceApplied)
+### [Header `Preference-Applied`](#sec_HeaderPreferenceApplied)
 
 In a response to a request that specifies a
 [`Prefer`](#sec_HeaderPrefer) header, a service MAY include a
@@ -1698,7 +1698,7 @@ that the client is asked to wait before retrying the request or issuing
 a request to the resource returned as the value of the [`Location`
 header](#sec_HeaderLocation).
 
-### [8.3.8]{#sec_HeaderVary} [Header `Vary`](#sec_HeaderVary)
+### [Header `Vary`](#sec_HeaderVary)
 
 If a response varies depending on the
 [`OData-Version`](#sec_HeaderODataVersion) of the response, the service
@@ -1839,7 +1839,7 @@ headers]{#_Toc477876608} [`Accept`](#sec_HeaderAccept),
 [`Accept-Language`](#sec_HeaderAcceptLanguage), and that the service is
 unwilling to supply a default representation.
 
-### [9.2.4]{#sec_ResponseCode410Gone} [Response Code `410 Gone`](#sec_ResponseCode410Gone)
+### [Response Code `410 Gone`](#sec_ResponseCode410Gone)
 
 `410 Gone` indicates that the requested resource is no longer available.
 This can happen if a client has waited too long to follow a [delta
@@ -1856,7 +1856,7 @@ performed a conditional request and the resource fails the condition.
 The service MUST ensure that no observable change occurs as a result of
 the request.
 
-### [9.2.6]{#sec_ResponseCode424FailedDependency} [Response Code `424 Failed Dependency`](#sec_ResponseCode424FailedDependency)
+### [Response Code `424 Failed Dependency`](#sec_ResponseCode424FailedDependency)
 
 `424 Failed Dependency` indicates that a request was not performed due
 to a failed dependency; for example, a request within a batch that
@@ -1905,7 +1905,7 @@ Service implementations SHOULD carefully consider which information to
 include in production environments to guard against potential security
 concerns around information disclosure.
 
-## [9.5]{#sec_InStreamErrors} In-Stream Errors
+## In-Stream Errors
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
@@ -3387,7 +3387,7 @@ a `null` literal that can be used in comparisons.
   `case`                                                      [case(X gt 0:1,X lt 0:-1,true:0)]{style="font-size:9.0pt;
                                                                 font-family:\"Courier New\""}
 
-##### [11.2.6.1.3]{#sec_ParameterAliases} Parameter Aliases
+##### Parameter Aliases
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#sec_InvokingaFunction)[,]{.MsoHyperlink} or
@@ -4202,7 +4202,7 @@ as a representation of added and removed relationships.
 Delta payloads can be [requested](#sec_RequestingChanges) from the
 service using a delta link or provided as updates to the service.
 
-## [11.4]{#sec_DataModification} Data Modification
+## Data Modification
 
 Updatable OData services support Create, Update, and Delete operations
 for some or all exposed entities. Additionally, [Actions](#sec_Actions)[
@@ -5084,7 +5084,7 @@ Services supporting this SHOULD advertise it by annotating the stream
 property with the term `Capabilities.MediaLocationUpdateSupported`
 defined in [OData-VocCap](#ODataVocCap).
 
-#### [11.4.8.2]{#sec_DeleteStreamValues} Delete Stream Values
+#### Delete Stream Values
 
 A successful `DELETE` request to the edit URL of a stream property
 attempts to set the property to null and results in an error if the
@@ -5791,7 +5791,7 @@ interpreted as having that default value. If omitted and the annotation
 does not specify a default value, the service is free on how to
 interpret the omitted parameter.
 
-#### [11.5.4.2]{#sec_Functionoverloadresolution} Function overload resolution
+#### Function overload resolution
 
 The same function name may be used multiple times within a schema, each
 with a different set of parameters. For unbound overloads the
@@ -6123,7 +6123,7 @@ If the service receives a batch request with an invalid set of headers
 it MUST return a [`4xx response code`](#sec_ClientErrorResponses) and
 perform no further processing of the batch request.
 
-### [11.7.2]{#sec_RequestDependencies} Request Dependencies
+### Request Dependencies
 
 Requests within a batch may have dependencies on other requests
 according to the particular batch format.
@@ -7288,7 +7288,7 @@ expression
 11\. MAY support filtering a collection using a `/`[\$filter]{.Keyword}
 path segment
 
-### [13.2.3]{#sec_OData401AdvancedConformanceLevel} OData 4.01 Advanced Conformance Level
+### OData 4.01 Advanced Conformance Level
 
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:

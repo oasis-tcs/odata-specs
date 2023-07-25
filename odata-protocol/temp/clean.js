@@ -16,7 +16,7 @@ const clean = old
 
   // clean up headings
   .replace(/<a[ \n]href="#sec[^"]+">([^<]*)<\/a><\/h/g, "$1</h")
-  .replace(/<a[ \n]name="sec[^"]+"><\/a>/g, "")
+  .replace(/<a[ \n]name="sec[^"]+">[\d\. \n]*<\/a>/g, "")
 
   // clean up "keyword" formatting
   .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")

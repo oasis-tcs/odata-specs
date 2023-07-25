@@ -869,7 +869,7 @@ Individual requests or responses that don’t include the <code>OData-Version</cod
 header inherit the OData version of the overall batch request or response. This
 OData version does not typically vary within a batch. </p>
 
-<h2><a name="sec_RequestHeaders">8.2 </a>Request
+<h2>Request
 Headers</h2>
 
 <p class=MsoNormal>In addition to the <a href="#sec_CommonHeaders">Common
@@ -1731,7 +1731,7 @@ href="#sec_AsynchronousRequests">asynchronously executed request</a>.</p>
 <p class=MsoNormal>The <code>AsyncResult</code> header SHOULD
 NOT be applied to individual responses within a batch.</p>
 
-<h3><a name="sec_HeaderETag">8.3.2 </a><a href="#sec_HeaderETag">Header <code>ETag</code></a></h3>
+<h3><a href="#sec_HeaderETag">Header <code>ETag</code></a></h3>
 
 <p class=MsoNormal>A response MAY include an <code>ETag</code>
 header, see <a href="#HTTPConditional"><b>[RFC7232]</b></a>. Services MUST include
@@ -1799,7 +1799,7 @@ background:white'>OData-</span><code>EntityID</code> header
 SHOULD NOT be included for the overall batch response, but MAY be included in
 individual responses within a batch.</p>
 
-<h3><a name="sec_HeaderODataError">8.3.5 </a><a href="#sec_HeaderODataError">Header
+<h3><a href="#sec_HeaderODataError">Header
 <code>OData-Error</code></a></h3>
 
 <p class=MsoNormal>A response with an <a href="#sec_InStreamErrors">in-stream
@@ -1811,7 +1811,7 @@ chunked transfer encoding, or HTTP/2).</p>
 response according to the OData response format, encoded suitably for transport
 in a header, see e.g. <a href="#ODataJSON">OData-JSON</a>.</p>
 
-<h3><a name="sec_HeaderPreferenceApplied">8.3.6 </a><a
+<h3><a
 href="#sec_HeaderPreferenceApplied">Header <code>Preference-Applied</code></a></h3>
 
 <p class=MsoNormal>In a response to a request that specifies a <a
@@ -1849,7 +1849,7 @@ retrying the request or issuing a request to the resource returned as the value
 of the <a href="#sec_HeaderLocation"><code>Location</code>
 header</a>.</p>
 
-<h3><a name="sec_HeaderVary">8.3.8 </a><a href="#sec_HeaderVary">Header <code>Vary</code></a></h3>
+<h3><a href="#sec_HeaderVary">Header <code>Vary</code></a></h3>
 
 <p class=MsoNormal>If a response varies depending on the <a
 href="#sec_HeaderODataVersion"><code>OData-Version</code></a>
@@ -2007,7 +2007,7 @@ request headers </a><a href="#sec_HeaderAccept"><code>Accept</code></a>,
 and <a href="#sec_HeaderAcceptLanguage"><code>Accept-Language</code></a>,
 and that the service is unwilling to supply a default representation.</p>
 
-<h3><a name="sec_ResponseCode410Gone">9.2.4 </a><a
+<h3><a
 href="#sec_ResponseCode410Gone">Response Code <code>410
 Gone</code></a></h3>
 
@@ -2027,7 +2027,7 @@ indicates that the client has performed a conditional request and the resource
 fails the condition. The service MUST ensure that no observable change occurs
 as a result of the request.</p>
 
-<h3><a name="sec_ResponseCode424FailedDependency">9.2.6 </a><a
+<h3><a
 href="#sec_ResponseCode424FailedDependency">Response Code <code>424 Failed Dependency</code></a></h3>
 
 <p class=MsoNormal><code>424 Failed Dependency</code> indicates
@@ -2085,7 +2085,7 @@ instance with service-defined content. </p>
 information to include in production environments to guard against potential
 security concerns around information disclosure.</p>
 
-<h2><a name="sec_InStreamErrors">9.5 </a>In-Stream
+<h2>In-Stream
 Errors</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>In the case that the service
@@ -4387,7 +4387,7 @@ in comparisons.</p>
  </tr>
 </table>
 
-<h5><a name="sec_ParameterAliases">11.2.6.1.3 </a>Parameter Aliases</h5>
+<h5>Parameter Aliases</h5>
 
 <p class=MsoNormal>Parameter aliases can be used in place of literal values in
 entity keys, <a href="#sec_InvokingaFunction">function parameters</a><span
@@ -5320,7 +5320,7 @@ and removed relationships.</p>
 payloads can be <a href="#sec_RequestingChanges">requested</a> from the service
 using a delta link or provided as updates to the service.</p>
 
-<h2><a name="sec_DataModification">11.4 </a>Data
+<h2>Data
 Modification</h2>
 
 <p class=MsoNormal>Updatable OData services support Create, Update, and Delete
@@ -6292,7 +6292,7 @@ property. Services supporting this SHOULD advertise it by annotating the stream
 property with the term <code>Capabilities.MediaLocationUpdateSupported</code>
 defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 
-<h4><a name="sec_DeleteStreamValues">11.4.8.2 </a>Delete Stream Values</h4>
+<h4>Delete Stream Values</h4>
 
 <p class=MsoNormal>A successful <code>DELETE</code>
 request to the edit URL of a stream property attempts to set the property to
@@ -7075,7 +7075,7 @@ the omitted parameter is interpreted as having that default value. If omitted
 and the annotation does not specify a default value, the service is free on how
 to interpret the omitted parameter. </p>
 
-<h4><a name="sec_Functionoverloadresolution">11.5.4.2 </a>Function overload resolution</h4>
+<h4>Function overload resolution</h4>
 
 <p class=MsoNormal>The same function name may be used multiple times within a
 schema, each with a different set of parameters. For unbound overloads the
@@ -7426,7 +7426,7 @@ however, this enables batch implementations to stream the results.</p>
 of headers it MUST return a <a href="#sec_ClientErrorResponses"><code>4xx response code</code></a> and perform no
 further processing of the batch request.</p>
 
-<h3><a name="sec_RequestDependencies">11.7.2 </a>Request Dependencies</h3>
+<h3>Request Dependencies</h3>
 
 <p class=MsoNormal>Requests within a batch may have dependencies on other
 requests according to the particular batch format.</p>
@@ -8864,7 +8864,7 @@ margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11
 collection using a <code>/</code><span class=Keyword>$filter</span>
 path segment</p>
 
-<h3><a name="sec_OData401AdvancedConformanceLevel">13.2.3 </a>OData 4.01 Advanced Conformance
+<h3>OData 4.01 Advanced Conformance
 Level</h3>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>In order to
