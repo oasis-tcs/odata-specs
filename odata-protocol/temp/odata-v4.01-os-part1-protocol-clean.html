@@ -1688,10 +1688,9 @@ NOT be applied to individual responses within a batch.</p>
 header, see <a href="#HTTPConditional"><b>[RFC7232]</b></a>. Services MUST include
 this header if they require an ETag to be specified when modifying the resource.</p>
 
-<p class=MsoNormal>Services MUST support specifying the value returned in the <span
-class=VerbatimChar>ETag</span> header in an <a href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a
+<p class=MsoNormal>Services MUST support specifying the value returned in the <code>ETag</code> header in an <a href="#sec_HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a
 subsequent <a href="#sec_RequestingData">Data Request</a> for the resource.
-Clients MUST specify the value returned in the <span class=VerbatimChar>ETag</span>
+Clients MUST specify the value returned in the <code>ETag</code>
 header, or star (<code>*</code>), in an <a
 href="#sec_HeaderIfMatch"><code>If-Match</code></a>
 header of a subsequent <a href="#sec_DataModification">Data Modification
@@ -4961,15 +4960,15 @@ for this specification.</p>
 
 <h3>System Query Option <code>$schemaversion</code></h3>
 
-<p class=MsoNormal>The <span class=VerbatimChar>$schemaversion</span> system
+<p class=MsoNormal>The <code>$schemaversion</code> system
 query option MAY be included in any request. For a <a
 href="#sec_MetadataDocumentRequest">metadata document request</a> the value of
-the <span class=VerbatimChar>$schemaversion</span> system query option
+the <code>$schemaversion</code> system query option
 addresses a specific schema version. For all other request types the value
-specifies the version of the schema against which the request is made. The syntax of the <span class=VerbatimChar>$schemaversion</span>
+specifies the version of the schema against which the request is made. The syntax of the <code>$schemaversion</code>
 system query option is defined in <a href="#ODataABNF">OData-ABNF</a>. </p>
 
-<p class=MsoNormal>The value of the <span class=VerbatimChar>$schemaversion</span>
+<p class=MsoNormal>The value of the <code>$schemaversion</code>
 system query option MUST be a version of the schema as returned in the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation,
 defined in <a href="#ODataVocCore">OData-VocCore</a>, of a previous request
@@ -4982,30 +4981,28 @@ version of the metadata.</p>
 
 <p class=MsoNormal>Clients can retrieve the current version of the metadata by
 making a <a href="#sec_MetadataDocumentRequest">metadata document request</a>
-with a <span class=VerbatimChar>$schemaversion</span> system query option value
+with a <code>$schemaversion</code> system query option value
 of <span class=Keyword>*</span>, and SHOULD include the value from the returned
 <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation in
-the <span class=VerbatimChar>$schemaversion</span> system query option of
+the <code>$schemaversion</code> system query option of
 subsequent requests.</p>
 
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If the <span
-class=VerbatimChar>$schemaversion</span> system query option is not specified
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If the <code>$schemaversion</code> system query option is not specified
 in a request for the metadata document, the service MUST return a version of
 the metadata with no breaking changes over time, and the processing of all
-other requests that omit the <span class=VerbatimChar>$schemaversion</span>
+other requests that omit the <code>$schemaversion</code>
 system query option MUST be compatible with that “unversioned” schema. For more
 information on breaking changes, see <a href="#sec_ModelVersioning">Model
 Versioning</a>.</p>
 
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If the <span
-class=VerbatimChar>$schemaversion</span> system query option is specified on an
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>If the <code>$schemaversion</code> system query option is specified on an
 individual request within a batch, then it specifies the version of the schema
 to apply to that individual request. Individual requests within a batch that
-don’t include the <span class=VerbatimChar>$schemaversion</span> system query
+don’t include the <code>$schemaversion</code> system query
 option inherit the schema version of the overall batch request.</p>
 
-<p class=MsoNormal>If the <span class=VerbatimChar>$schemaversion</span> system
+<p class=MsoNormal>If the <code>$schemaversion</code> system
 query option is specified, but the version of the schema doesn’t exist, the
 request is answered with a <a href="#sec_ResponseCode404NotFound">response code
 <code>404 Not Found</code></a>. The response
@@ -6607,7 +6604,7 @@ entity or entity collection within the payload. The representation of an action
 or function depends on the <a href="#sec_Formats">format</a>. </p>
 
 <p class=MsoCaption>Example 88: given a <code>GET</code> request
-to <code>http://host/service/</code><span class=VerbatimChar>Customers('ALFKI')</span>,
+to <code>http://host/service/</code><code>Customers('ALFKI')</code>,
 the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the
 entity</p>
 
@@ -6622,7 +6619,7 @@ style='color:black'>{<br>
   &quot;CompanyName&quot;: &quot;Alfreds Futterkiste&quot;, <br>
   &quot;#SampleEntities.MostRecentOrder&quot;: {<br>
     &quot;title&quot;: &quot;Most Recent Order&quot;,<br>
-    &quot;target&quot;: &quot;</span><span class=VerbatimChar>Customers('ALFKI')</span><span style='color:black'>/SampleEntities.MostRecentOrder()&quot;<br>
+    &quot;target&quot;: &quot;</span><code>Customers('ALFKI')</code><span style='color:black'>/SampleEntities.MostRecentOrder()&quot;<br>
   },<br>
   ...<br>
 }</span></p>
@@ -6725,15 +6722,11 @@ function import </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>POST </span>http://host/service/MyShoppingCart()<span
-class=VerbatimChar>/Items</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>POST </code>http://host/service/MyShoppingCart()<code>/Items</code></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>&nbsp;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>&nbsp;</code></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>...</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>...</code></p>
 
 </div>
 
@@ -6782,8 +6775,7 @@ via the function import <code>EmployeesByManager</code> </p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>GET http://host/service/EmployeesByManager(ManagerID=3)</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>GET http://host/service/EmployeesByManager(ManagerID=3)</code></p>
 
 </div>
 
@@ -6813,8 +6805,7 @@ passing 3 for the <code>ManagerID</code> parameter</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</code></p>
 
 </div>
 
@@ -6841,8 +6832,7 @@ implicit parameter alias</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>GET http://host/service/EmployeesByManager?ManagerID=3</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>GET http://host/service/EmployeesByManager?ManagerID=3</code></p>
 
 </div>
 
@@ -6986,11 +6976,9 @@ customer’s ETag still matches.</p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder</code></p>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>If-Match: W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></p>
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>If-Match: W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</code></p>
 
 <p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
 class=VerbatimChar><span style='color:black'><br>
@@ -7149,19 +7137,18 @@ content type of <code>multipart/mixed</code> and a <code>boundary</code> paramet
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>POST /service/$batch HTTP/1.1</span><span
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>POST /service/$batch HTTP/1.1</code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>Host: odata.org</span><span
+</span><code>Host: odata.org</code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>OData-Version: 4.0 </span><span
+</span><code>OData-Version: 4.0 </code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>Content-Type:
-multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span><span
+</span><code>Content-Type:
+multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</code><span
 style='font-size:6.0pt;color:black'><br>
 <br>
-</span><span class=VerbatimChar>&lt;Multipart Batch request
-body&gt;</span></p>
+</span><code>&lt;Multipart Batch request
+body&gt;</code></p>
 
 </div>
 
@@ -7173,18 +7160,17 @@ body&gt;</span></p>
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
-<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
-class=VerbatimChar>POST /service/$batch HTTP/1.1</span><span
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><code>POST /service/$batch HTTP/1.1</code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>Host: odata.org</span><span
+</span><code>Host: odata.org</code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>OData-Version: 4.01 </span><span
+</span><code>OData-Version: 4.01 </code><span
 style='font-size:6.0pt;color:black'><br>
-</span><span class=VerbatimChar>Content-Type: application/json</span><span
+</span><code>Content-Type: application/json</code><span
 style='font-size:6.0pt;color:black'><br>
 <br>
-</span><span class=VerbatimChar>&lt;JSON Batch
-request body&gt;</span></p>
+</span><code>&lt;JSON Batch
+request body&gt;</code></p>
 
 </div>
 

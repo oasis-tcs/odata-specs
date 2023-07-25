@@ -1565,11 +1565,10 @@ A response MAY include an `ETag` header, see
 [**\[RFC7232\]**](#HTTPConditional). Services MUST include this header
 if they require an ETag to be specified when modifying the resource.
 
-Services MUST support specifying the value returned in the
-[ETag]{.VerbatimChar} header in an
-[`If-None-Match`](#sec_HeaderIfNoneMatch) header of a subsequent [Data
-Request](#sec_RequestingData) for the resource. Clients MUST specify the
-value returned in the [ETag]{.VerbatimChar} header, or star (`*`), in an
+Services MUST support specifying the value returned in the `ETag` header
+in an [`If-None-Match`](#sec_HeaderIfNoneMatch) header of a subsequent
+[Data Request](#sec_RequestingData) for the resource. Clients MUST
+specify the value returned in the `ETag` header, or star (`*`), in an
 [`If-Match`](#sec_HeaderIfMatch) header of a subsequent [Data
 Modification Request](#sec_DataModification) or [Action
 Request](#sec_Actions) in order to apply [optimistic
@@ -3958,17 +3957,16 @@ parameterized variants, as well as the format-specific abbreviations
 
 ### System Query Option `$schemaversion`
 
-The [\$schemaversion]{.VerbatimChar} system query option MAY be included
-in any request. For a [metadata document
-request](#sec_MetadataDocumentRequest) the value of the
-[\$schemaversion]{.VerbatimChar} system query option addresses a
-specific schema version. For all other request types the value specifies
-the version of the schema against which the request is made. The syntax
-of the [\$schemaversion]{.VerbatimChar} system query option is defined
-in [OData-ABNF](#ODataABNF).
+The `$schemaversion` system query option MAY be included in any request.
+For a [metadata document request](#sec_MetadataDocumentRequest) the
+value of the `$schemaversion` system query option addresses a specific
+schema version. For all other request types the value specifies the
+version of the schema against which the request is made. The syntax of
+the `$schemaversion` system query option is defined in
+[OData-ABNF](#ODataABNF).
 
-The value of the [\$schemaversion]{.VerbatimChar} system query option
-MUST be a version of the schema as returned in the
+The value of the `$schemaversion` system query option MUST be a version
+of the schema as returned in the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#sec_MetadataDocumentRequest), or
@@ -3979,32 +3977,29 @@ specified version of the metadata.
 
 Clients can retrieve the current version of the metadata by making a
 [metadata document request](#sec_MetadataDocumentRequest) with a
-[\$schemaversion]{.VerbatimChar} system query option value of
-[\*]{.Keyword}, and SHOULD include the value from the returned
+`$schemaversion` system query option value of [\*]{.Keyword}, and SHOULD
+include the value from the returned
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation in the [\$schemaversion]{.VerbatimChar} system query option
-of subsequent requests.
+annotation in the `$schemaversion` system query option of subsequent
+requests.
 
-If the [\$schemaversion]{.VerbatimChar} system query option is not
-specified in a request for the metadata document, the service MUST
-return a version of the metadata with no breaking changes over time, and
-the processing of all other requests that omit the
-[\$schemaversion]{.VerbatimChar} system query option MUST be compatible
-with that "unversioned" schema. For more information on breaking
-changes, see [Model Versioning](#sec_ModelVersioning).
+If the `$schemaversion` system query option is not specified in a
+request for the metadata document, the service MUST return a version of
+the metadata with no breaking changes over time, and the processing of
+all other requests that omit the `$schemaversion` system query option
+MUST be compatible with that "unversioned" schema. For more information
+on breaking changes, see [Model Versioning](#sec_ModelVersioning).
 
-If the [\$schemaversion]{.VerbatimChar} system query option is specified
-on an individual request within a batch, then it specifies the version
-of the schema to apply to that individual request. Individual requests
-within a batch that don't include the [\$schemaversion]{.VerbatimChar}
-system query option inherit the schema version of the overall batch
-request.
+If the `$schemaversion` system query option is specified on an
+individual request within a batch, then it specifies the version of the
+schema to apply to that individual request. Individual requests within a
+batch that don't include the `$schemaversion` system query option
+inherit the schema version of the overall batch request.
 
-If the [\$schemaversion]{.VerbatimChar} system query option is
-specified, but the version of the schema doesn't exist, the request is
-answered with a [response code
-`404 Not Found`](#sec_ResponseCode404NotFound). The response body SHOULD
-provide additional information.
+If the `$schemaversion` system query option is specified, but the
+version of the schema doesn't exist, the request is answered with a
+[response code `404 Not Found`](#sec_ResponseCode404NotFound). The
+response body SHOULD provide additional information.
 
 ## 11.3 Requesting Changes
 
@@ -5500,9 +5495,9 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#sec_Formats).
 
 Example 88: given a `GET` request to
-`http://host/service/`[Customers(\'ALFKI\')]{.VerbatimChar}, the service
-might respond with a Customer that includes the
-`SampleEntities.MostRecentOrder` function bound to the entity
+`http://host/service/``Customers('ALFKI')`, the service might respond
+with a Customer that includes the `SampleEntities.MostRecentOrder`
+function bound to the entity
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5514,7 +5509,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
   \"#SampleEntities.MostRecentOrder\": {\
     \"title\": \"Most Recent Order\",\
     \"target\":
-\"]{style="color:black"}[Customers(\'ALFKI\')]{.VerbatimChar}[/SampleEntities.MostRecentOrder()\"\
+\"]{style="color:black"}`Customers('ALFKI')`[/SampleEntities.MostRecentOrder()\"\
   },\
   \...\
 }]{style="color:black"}
@@ -5607,12 +5602,11 @@ returned by the composable `MyShoppingCart` function import
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST
-]{.VerbatimChar}http://host/service/MyShoppingCart()[/Items]{.VerbatimChar}
+`POST `http://host/service/MyShoppingCart()`/Items`
 
-[ ]{.VerbatimChar}
+` `
 
-[\...]{.VerbatimChar}
+`...`
 :::
 
 Parameter values passed to functions MUST be specified either as a URL
@@ -5657,7 +5651,7 @@ single `ManagerID` parameter via the function import
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/EmployeesByManager(ManagerID=3)]{.VerbatimChar}
+`GET http://host/service/EmployeesByManager(ManagerID=3)`
 :::
 
 Example 92: return all `Customers` whose City property returns
@@ -5683,8 +5677,7 @@ parameter
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET
-http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3]{.VerbatimChar}
+`GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3`
 :::
 
 Services MAY in addition allow implicit [parameter
@@ -5708,7 +5701,7 @@ parameter using the implicit parameter alias
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[GET http://host/service/EmployeesByManager?ManagerID=3]{.VerbatimChar}
+`GET http://host/service/EmployeesByManager?ManagerID=3`
 :::
 
 [Non-binding parameters annotated with the term]{#_Toc477876712}
@@ -5850,10 +5843,9 @@ ETag still matches.
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST
-http://host/service/Customers(\'ALFKI\')/SampleEntities.CreateOrder]{.VerbatimChar}
+`POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder`
 
-[If-Match: W/\"MjAxOS0wMy0yMVQxMzowNVo=\"]{.VerbatimChar}
+`If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
 
 [[\
 {\
@@ -6000,15 +5992,12 @@ Example 96: multipart batch request
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST /service/\$batch HTTP/1.1]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[Host: odata.org]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[OData-Version: 4.0
-]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[Content-Type: multipart/mixed;
-boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b]{.VerbatimChar}[\
+`POST /service/$batch HTTP/1.1`[\
+]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
+]{style="font-size:6.0pt;color:black"}`OData-Version: 4.0 `[\
+]{style="font-size:6.0pt;color:black"}`Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b`[\
 \
-]{style="font-size:6.0pt;color:black"}[\<Multipart Batch request
-body\>]{.VerbatimChar}
+]{style="font-size:6.0pt;color:black"}`<Multipart Batch request body>`
 :::
 
 A batch request using the JSON batch format MUST contain a
@@ -6019,15 +6008,12 @@ A batch request using the JSON batch format MUST contain a
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
 background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
-[POST /service/\$batch HTTP/1.1]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[Host: odata.org]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[OData-Version: 4.01
-]{.VerbatimChar}[\
-]{style="font-size:6.0pt;color:black"}[Content-Type:
-application/json]{.VerbatimChar}[\
+`POST /service/$batch HTTP/1.1`[\
+]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
+]{style="font-size:6.0pt;color:black"}`OData-Version: 4.01 `[\
+]{style="font-size:6.0pt;color:black"}`Content-Type: application/json`[\
 \
-]{style="font-size:6.0pt;color:black"}[\<JSON Batch request
-body\>]{.VerbatimChar}
+]{style="font-size:6.0pt;color:black"}`<JSON Batch request body>`
 :::
 
 Batch requests SHOULD contain the applicable `OData-Version` header.
