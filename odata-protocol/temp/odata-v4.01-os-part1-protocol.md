@@ -683,7 +683,7 @@ the `Content-Type`). When present, its value indicates what additional
 content codings have been applied to the entity-body.\
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities``.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
+[`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -878,13 +878,11 @@ MAY be specified on individual requests within the batch.
 
 ### ##subsubsec Header `Isolation` (`OData-Isolation`)
 
-The [Isolation]{style="font-family:\"Courier New\";color:black;
-background:white"} header specifies the isolation of the current request
+The `Isolation` header specifies the isolation of the current request
 from external changes. The only supported value for this header is
 `snapshot`.
 
-If the service doesn't support [Isolation:snapshot ]{style="font-family:
-\"Courier New\";color:black;background:white"}and this header was
+If the service doesn't support `Isolation:snapshot `and this header was
 specified on the request, the service MUST NOT process the request and
 MUST respond with `412 Precondition Failed.`
 
@@ -897,10 +895,9 @@ example, by a data modification request within the same batch) are
 visible. The effect is as if the request generates a \"snapshot\" of the
 committed data as it existed at the start of the request.
 
-[The]{style="color:black;background:white"}[ Isolation
-]{style="font-family:\"Courier New\";color:black;background:white"}header
-may be specified on a single or batch request. If it is specified on a
-batch then the value is applied to all statements within the batch.
+[The]{style="color:black;background:white"}` Isolation `header may be
+specified on a single or batch request. If it is specified on a batch
+then the value is applied to all statements within the batch.
 
 [Next links returned within a snapshot return results within the same
 snapshot as the initial request;]{style="color:black;background:white"}
@@ -919,35 +916,20 @@ or
 if a consumer tries to follow a next link referring to a snapshot that
 is no longer available.]{style="color:black;background:white"}
 
-The syntax of the
-[Isolation]{style="font-family:\"Courier New\";color:black;background:white"}
-header is defined in [OData-ABNF](#ODataABNF).
+The syntax of the `Isolation` header is defined in
+[OData-ABNF](#ODataABNF).
 
-A service MAY specify the support for
-[Isolation:snapshot]{style="font-family:\"Courier New\";color:black;background:white"}
-using an annotation with term
+A service MAY specify the support for `Isolation:snapshot` using an
+annotation with term
 [`Capabilities.IsolationSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IsolationSupported),
 see [OData-VocCap](#ODataVocCap).
 
-Note: The [Isolation]{style="font-family:\"Courier New\";color:black;
-background:white"} header was named
-[OData-Isolation]{style="font-family:
-\"Courier New\";color:black;background:white"} in OData version 4.0.
-Services that support the[
-Isolation]{style="font-family:\"Courier New\";
-color:black;background:white"} header SHOULD also support
-[OData-Isolation]{style="font-family:\"Courier New\";color:black;background:white"}
-for OData 4.0 clients and clients SHOULD use
-[OData-Isolation]{style="font-family:\"Courier New\";
-color:black;background:white"} for compatibility with OData 4.0
-services. If both
-[Isolation]{style="font-family:\"Courier New\";color:black;
-background:white"} and
-[OData-Isolation]{style="font-family:\"Courier New\";
-color:black;background:white"} headers are specified in the same
-request, the value of the
-[Isolation]{style="font-family:\"Courier New\";
-color:black;background:white"} header SHOULD be used.
+Note: The `Isolation` header was named `OData-Isolation` in OData
+version 4.0. Services that support the` Isolation` header SHOULD also
+support `OData-Isolation` for OData 4.0 clients and clients SHOULD use
+`OData-Isolation` for compatibility with OData 4.0 services. If both
+`Isolation` and `OData-Isolation` headers are specified in the same
+request, the value of the `Isolation` header SHOULD be used.
 
 ### ##subsubsec Header `OData-MaxVersion`
 
@@ -1012,17 +994,13 @@ individual request. Individual requests within a batch that don't
 include the `allow-entityreferences` preference inherit the preference
 of the overall batch request.
 
-Note: The
-[allow-entityreferences]{style="font-family:\"Courier New\";color:black;
-background:white"} preference was named
-[odata.allow-entityreferences]{style="font-family:\"Courier New\";color:black;background:white"}
-in OData version 4.0. Services that support the[
-allow-entityreferences]{style="font-family:\"Courier New\";
-color:black;background:white"} preference SHOULD also support
+Note: The `allow-entityreferences` preference was named
+`odata.allow-entityreferences` in OData version 4.0. Services that
+support the` allow-entityreferences` preference SHOULD also support
 [odata.allow-entityreferences]{style="font-family:\"Courier New\";color:black;background:
 white"} for OData 4.0 clients and clients SHOULD use
-[odata.allow-entityreferences]{style="font-family:\"Courier New\";color:black;background:white"}
-for compatibility with OData 4.0 services.
+`odata.allow-entityreferences` for compatibility with OData 4.0
+services.
 
 #### ##subsubsubsec Preference `callback` (`odata.callback`)
 
@@ -1114,31 +1092,18 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 Prefer: callback; url=\"http://myserver/notfication/token/12345\"
 :::
 
-If the [callback]{style="font-family:
-\"Courier New\";color:black;background:white"} preference is specified
-on an individual request within a batch, then it specifies the callback
-to be used for tracking changes to that individual request. If the
-[callback]{style="font-family:\"Courier New\";color:black;background:white"}
-preference is specified on a batch, then it specifies the callback to be
-used for async responses to the batch.
+If the `callback` preference is specified on an individual request
+within a batch, then it specifies the callback to be used for tracking
+changes to that individual request. If the `callback` preference is
+specified on a batch, then it specifies the callback to be used for
+async responses to the batch.
 
-Note: The [callback]{style="font-family:\"Courier New\";color:black;
-background:white"} preference was named
-[odata.callback]{style="font-family:
-\"Courier New\";color:black;background:white"} in OData version 4.0.
-Services that support the[ callback]{style="font-family:\"Courier New\";
-color:black;background:white"} preference SHOULD also support
-[odata.callback]{style="font-family:\"Courier New\";color:black;background:white"}
-for OData 4.0 clients and clients SHOULD use
-[odata.callback]{style="font-family:\"Courier New\";
-color:black;background:white"} for compatibility with OData 4.0
-services. If both
-[callback]{style="font-family:\"Courier New\";color:black;
-background:white"} and
-[odata.callback]{style="font-family:\"Courier New\";
-color:black;background:white"} preferences are specified in the same
-request, the value of the [callback]{style="font-family:\"Courier New\";
-color:black;background:white"} preference SHOULD be used.
+Note: The `callback` preference was named `odata.callback` in OData
+version 4.0. Services that support the` callback` preference SHOULD also
+support `odata.callback` for OData 4.0 clients and clients SHOULD use
+`odata.callback` for compatibility with OData 4.0 services. If both
+`callback` and `odata.callback` preferences are specified in the same
+request, the value of the `callback` preference SHOULD be used.
 
 #### ##subsubsubsec Preference `continue-on-error` (`odata.continue-on-error`)
 
@@ -1162,22 +1127,14 @@ using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
 see [OData-VocCap](#ODataVocCap).
 
-The [continue-on-error]{style="font-family:\"Courier New\";color:black;
-background:white"} preference SHOULD NOT be applied to individual
+The `continue-on-error` preference SHOULD NOT be applied to individual
 requests within a batch.
 
-Note: The
-[continue-on-error]{style="font-family:\"Courier New\";color:black;
-background:white"} preference was named
-[odata.continue-on-error]{style="font-family:\"Courier New\";color:black;background:white"}
-in OData version 4.0. Services that support the[
-continue-on-error]{style="font-family:\"Courier New\";
-color:black;background:white"} preference SHOULD also support
-[odata.continue-on-error]{style="font-family:\"Courier New\";color:black;background:white"}
-for OData 4.0 clients and clients SHOULD use
-[odata.continue-on-error]{style="font-family:\"Courier New\";
-color:black;background:white"} for compatibility with OData 4.0
-services.
+Note: The `continue-on-error` preference was named
+`odata.continue-on-error` in OData version 4.0. Services that support
+the` continue-on-error` preference SHOULD also support
+`odata.continue-on-error` for OData 4.0 clients and clients SHOULD use
+`odata.continue-on-error` for compatibility with OData 4.0 services.
 
 #### ##subsubsubsec Preference `include-annotations` (`odata.include-annotations`)
 
@@ -1264,23 +1221,15 @@ individual request. Individual requests within a batch that don't
 include the `include-annotations` preference inherit the preference of
 the overall batch request.
 
-Note: The [include-annotations
-]{style="font-family:\"Courier New\";color:black;
-background:white"}preference was named
-[odata.include-annotations]{style="font-family:\"Courier New\";color:black;background:white"}
-in OData version 4.0. Services that support the[ include-annotations
-]{style="font-family:\"Courier New\";
-color:black;background:white"}preference SHOULD also support
+Note: The `include-annotations `preference was named
+`odata.include-annotations` in OData version 4.0. Services that support
+the` include-annotations `preference SHOULD also support
 [odata.include-annotations]{style="font-family:\"Courier New\";color:black;background:
 white"} for OData 4.0 clients and clients SHOULD use
-[odata.include-annotations]{style="font-family:\"Courier New\";color:black;background:white"}
-for compatibility with OData 4.0 services. If both
-[include-annotations]{style="font-family:
-\"Courier New\";color:black;background:white"} and
-[odata.include-annotations]{style="font-family:\"Courier New\";color:black;background:white"}
+`odata.include-annotations` for compatibility with OData 4.0 services.
+If both `include-annotations` and `odata.include-annotations`
 preferences are specified in the same request, the value of the
-[include-annotations]{style="font-family:\"Courier New\";color:black;background:white"}
-preference SHOULD be used.
+`include-annotations` preference SHOULD be used.
 
 #### ##subsubsubsec Preference `maxpagesize` (`odata.maxpagesize`)
 
@@ -1318,20 +1267,13 @@ applied. This value may differ from the value requested by the client.
 The `maxpagesize` preference SHOULD NOT be applied to a batch request,
 but MAY be applied to individual requests within a batch.
 
-Note: The `maxpagesize` preference was named
-[odata.]{style="font-family:\"Courier New\";color:black;
-background:white"}`maxpagesize` in OData version 4.0. Services that
-support the[ ]{style="font-family:\"Courier New\";
-color:black;background:white"}`maxpagesize` preference SHOULD also
-support [odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}`maxpagesize` for OData 4.0 clients and
-clients SHOULD use [odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}`maxpagesize` for compatibility with OData
-4.0 services. If both `maxpagesize` and
-[odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}`maxpagesize` preferences are specified in
-the same request, the value of the `maxpagesize` preference SHOULD be
-used.
+Note: The `maxpagesize` preference was named `odata.maxpagesize` in
+OData version 4.0. Services that support the` maxpagesize` preference
+SHOULD also support `odata.maxpagesize` for OData 4.0 clients and
+clients SHOULD use `odata.maxpagesize` for compatibility with OData 4.0
+services. If both `maxpagesize` and `odata.maxpagesize` preferences are
+specified in the same request, the value of the `maxpagesize` preference
+SHOULD be used.
 
 #### ##subsubsubsec Preference `omit-values`
 
@@ -1484,16 +1426,11 @@ see [OData-VocCap](#ODataVocCap).
 The `track-changes` preference SHOULD NOT be applied to a batch request,
 but MAY be applied to individual requests within a batch.
 
-Note: The `track-changes` preference was named
-[odata]{style="font-family:\"Courier New\";color:black;
-background:white"}`.track-changes` in OData version 4.0. Services that
-support the[ ]{style="font-family:\"Courier New\";
-color:black;background:white"}`track-changes` preference SHOULD also
-support [odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}`track-changes` for OData 4.0 clients and
-clients SHOULD use [odata.]{style="font-family:\"Courier New\";
-color:black;background:white"}`track-changes` for compatibility with
-OData 4.0 services.
+Note: The `track-changes` preference was named `odata.track-changes` in
+OData version 4.0. Services that support the` track-changes` preference
+SHOULD also support `odata.track-changes` for OData 4.0 clients and
+clients SHOULD use `odata.track-changes` for compatibility with OData
+4.0 services.
 
 #### ##subsubsubsec Preference `wait`
 
@@ -1510,13 +1447,10 @@ If the `respond-async` preference has not been specified, the service
 MAY interpret the `wait` as a request to timeout after the specified
 period of time.
 
-If the [wait]{style="font-family:\"Courier New\";color:black;
-background:white"} preference is specified on an individual request
-within a batch, then it specifies the maximum amount of time to wait for
-that individual request. If the
-[wait]{style="font-family:\"Courier New\";color:black;
-background:white"} preference is specified on a batch, then it specifies
-the maximum time to wait for the entire batch.
+If the `wait` preference is specified on an individual request within a
+batch, then it specifies the maximum amount of time to wait for that
+individual request. If the `wait` preference is specified on a batch,
+then it specifies the maximum time to wait for the entire batch.
 
 ## ##subsec Response Headers
 
@@ -1588,19 +1522,15 @@ response, but MAY be included in individual responses within a batch.
 
 A response to a [create](#sec_CreateanEntity)[ ]{.MsoHyperlink}[or
 ]{.MsoHyperlink}[upsert](#sec_UpsertanEntity)[ operation]{.MsoHyperlink}
-that returns [`204 ``No Content`](#sec_ResponseCode204NoContent)[
+that returns [`204 No Content`](#sec_ResponseCode204NoContent)[
 ]{style="font-family:\"Calibri\",sans-serif"}MUST include an
-[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
-response header. The value of the header is the
+`OData-EntityId` response header. The value of the header is the
 [entity-id](#sec_EntityIdsandEntityReferences) of the entity that was
-acted on by the request. The syntax of the
-[OData-]{style="font-family:\"Courier New\";color:black;background:white"}`EntityId`
-header is defined in [OData-ABNF](#ODataABNF).
+acted on by the request. The syntax of the `OData-EntityId` header is
+defined in [OData-ABNF](#ODataABNF).
 
-The [OData-]{style="font-family:\"Courier New\";color:black;
-background:white"}`EntityID` header SHOULD NOT be included for the
-overall batch response, but MAY be included in individual responses
-within a batch.
+The `OData-EntityID` header SHOULD NOT be included for the overall batch
+response, but MAY be included in individual responses within a batch.
 
 ### ##subsubsec Header `OData-Error`
 
@@ -1625,14 +1555,11 @@ The value of the `Preference-Applied` header is a comma-separated list
 of preferences applied in the response. For more information on the
 individual preferences, see the [`Prefer`](#sec_HeaderPrefer) header.
 
-If the
-[Preference-Applied]{style="font-family:\"Courier New\";color:black;
-background:white"} header is specified on an individual response within
-a batch, then it specifies the preferences applied to that individual
-response. If the
-[Preference-Applied]{style="font-family:\"Courier New\";
-color:black;background:white"} header is specified on a batch response,
-then it specifies the preferences applied to the overall batch.
+If the `Preference-Applied` header is specified on an individual
+response within a batch, then it specifies the preferences applied to
+that individual response. If the `Preference-Applied` header is
+specified on a batch response, then it specifies the preferences applied
+to the overall batch.
 
 ### ##subsubsec Header `Retry-After`
 
@@ -1681,7 +1608,7 @@ cases, a service MAY respond with a more specific success code.
 
 The following response codes represent successful requests.
 
-### ##subsubsec [Response Code `200 OK`` `](#sec_ResponseCode200OK) 
+### ##subsubsec [Response Code `200 OK `](#sec_ResponseCode200OK) 
 
 A request that does not create a resource returns `200 OK` if it is
 completed successfully and the value of the resource is not `null`. In
@@ -3520,7 +3447,7 @@ GET http://host/service/Products?\$count=true
 :::
 
 The count of related entities can be requested by specifying
-the` ``$count` query option within the `$expand` clause.
+the` $count` query option within the `$expand` clause.
 
 Example 57:
 
@@ -4013,7 +3940,7 @@ Added entities MUST be returned for entities that were added or changed
 and now match the specified criteria, and deleted entities MUST be
 returned for entities that are changed to no longer match the criteria
 of [`$filter`](#sec_SystemQueryOptionfilter) or
-[`$s``earch`](#sec_SystemQueryOptionsearch).
+[`$search`](#sec_SystemQueryOptionsearch).
 
 The delta link MUST NOT encode any client
 [top](#sec_SystemQueryOptiontop) or [skip](#sec_SystemQueryOptionskip)
@@ -5102,7 +5029,7 @@ Services MUST return an error if the property is not updatable.
 ### ##subsubsec Managing Members of an Ordered Collection
 
 Collections annotated with the
-[`Core.O``rdered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term (see [OData-VocCore](#ODataVocCore)) have a stable order. Members
 of an ordered collection of primitive and complex types can be
 individually updated or deleted by invoking an update operation against
@@ -5117,7 +5044,7 @@ using an index.
 ### ##subsubsec Positional Inserts
 
 Collections of entity, complex, or primitive types annotated with the
-[`Core.``PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)) support inserting items at a
 specific location via `POST` requests to the collection URL using the
 `$index` system query option. The value of the `$index` system query
@@ -5459,9 +5386,9 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#sec_Formats).
 
 Example 88: given a `GET` request to
-`http://host/service/``Customers('ALFKI')`, the service might respond
-with a Customer that includes the `SampleEntities.MostRecentOrder`
-function bound to the entity
+`http://host/service/Customers('ALFKI')`, the service might respond with
+a Customer that includes the `SampleEntities.MostRecentOrder` function
+bound to the entity
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6734,7 +6661,7 @@ request
 7\. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501`` ``Not Implemented`](#sec_ResponseCode501NotImplemented) for any
+[`501 Not Implemented`](#sec_ResponseCode501NotImplemented) for any
 unsupported functionality (section 9.3.1)
 
 8\. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
@@ -6807,7 +6734,7 @@ created resource (section 11.4.2)
 
 28\. MUST include the `OData-EntityId` header in response to any create
 or upsert operation that returns
-`204 ``No Content`[` `]{.MsoHyperlink}(section 8.3.4)
+`204 No Content`[` `]{.MsoHyperlink}(section 8.3.4)
 
 29\. MUST support Upserts (section 11.4.4)
 
@@ -6855,11 +6782,11 @@ in the requested entity set (section 11.2.6.1.1)
 7.2. MUST support aliases in `$filter` expressions (section 11.2.6.1.3)
 
 7.3. SHOULD support additional filter operations (section 11.2.6.1.1)
-and MUST return `501`` ``Not Implemented` for any unsupported filter
+and MUST return `501 Not Implemented` for any unsupported filter
 operations (section 9.3.1)
 
 7.4. SHOULD support the canonical functions (section 11.2.6.1.2) and
-MUST return `501`` ``Not Implemented` for any unsupported canonical
+MUST return `501 Not Implemented` for any unsupported canonical
 functions (section 9.3.1)
 
 7.5. SHOULD support `$filter` on expanded entities (section 11.2.5.2.1)
@@ -7143,8 +7070,7 @@ expression
 `$select`[[ and
 ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}`$expand`
 
-11\. MAY support filtering a collection using a `/``$filter` path
-segment
+11\. MAY support filtering a collection using a `/$filter` path segment
 
 ### ##subsubsec OData 4.01 Advanced Conformance Level
 
@@ -7185,7 +7111,7 @@ multipart format (section 11.7 and all subsections) and the JSON Batch
 format defined in [OData-JSON](#ODataJSON)
 
 [8. SHOULD support filtering a collection using a]{#_Toc477876742}
-`/``$filter` path segment
+`/$filter` path segment
 
 [[9. ]{style="font-family:\"Arial\",sans-serif"}]{.Datatype}SHOULD
 support nested parameter alias assignments in `$select`[[ and

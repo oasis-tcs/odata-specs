@@ -23,10 +23,11 @@ const clean = old
   // TODO: clean up all <span> tags
 
   // clean up "keyword" formatting
-  .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
+  .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"(;\n?color:black;\n?background:white)?'>([^<]*)<\/span>/g, "<code>$2</code>")
   .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=Keyword>([^<]*)<\/span>/g, "<code>$1</code>")
   .replace(/<span[ \n]+class=VerbatimChar>([^<]*)<\/span>/g, "<code>$1</code>")
+  .replaceAll("</code><code>","")
 
   // clean up headings
   .replace(/<a[ \n]href="#sec[^"]+">((<code>|<\/code>|[^<])*)<\/a><\/h/g, "$1</h")

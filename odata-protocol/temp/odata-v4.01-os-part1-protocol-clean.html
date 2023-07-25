@@ -779,7 +779,7 @@ indicates what additional content codings have been applied to the entity-body.
 <br>
 A service MAY specify a list of acceptable content codings using an annotation
 with term <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings"><code>Capabilities</code><code>.AcceptableEncodings</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings"><code>Capabilities.AcceptableEncodings</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 
 <p class=MsoNormal>If the <code>Content-Encoding</code>
 header is specified on an individual request or response within a batch, then
@@ -981,13 +981,11 @@ requests within the batch.</p>
 <h3>##subsubsec Header <code>Isolation</code>
 (<code>OData-Isolation</code>)</h3>
 
-<p class=MsoNormal>The <span style='font-family:"Courier New";color:black;
-background:white'>Isolation</span> header specifies the isolation of the
+<p class=MsoNormal>The <code>Isolation</code> header specifies the isolation of the
 current request from external changes. The only supported value for this header
 is <code>snapshot</code>.</p>
 
-<p class=MsoNormal>If the service doesn’t support <span style='font-family:
-"Courier New";color:black;background:white'>Isolation:snapshot </span>and this
+<p class=MsoNormal>If the service doesn’t support <code>Isolation:snapshot </code>and this
 header was specified on the request, the service MUST NOT process the request
 and MUST respond with <code>412 Precondition Failed.</code> </p>
 
@@ -1000,8 +998,7 @@ a data modification request within the same batch) are visible. The effect is
 as if the request generates a &quot;snapshot&quot; of the committed data as it
 existed at the start of the request.</p>
 
-<p class=MsoNormal><span style='color:black;background:white'>The</span><span
-style='font-family:"Courier New";color:black;background:white'> Isolation </span>header
+<p class=MsoNormal><span style='color:black;background:white'>The</span><code> Isolation </code>header
 may be specified on a single or batch request. If it is specified on a batch
 then the value is applied to all statements within the batch.</p>
 
@@ -1022,29 +1019,19 @@ Not Found</code></a><span style='color:black;background:white'> if a consumer
 tries to follow a next link referring to a snapshot that is no longer
 available.</span></p>
 
-<p class=MsoNormal>The syntax of the <span
-style='font-family:"Courier New";color:black;background:white'>Isolation</span>
+<p class=MsoNormal>The syntax of the <code>Isolation</code>
 header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
-<p class=MsoNormal>A service MAY specify the support for <span
-style='font-family:"Courier New";color:black;background:white'>Isolation:snapshot</span>
+<p class=MsoNormal>A service MAY specify the support for <code>Isolation:snapshot</code>
 using an annotation with term <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IsolationSupported"><code>Capabilities.IsolationSupported</code></a>,
 see<b> </b><a href="#ODataVocCap">OData-VocCap</a>.</p>
 
-<p class=MsoNormal>Note: The <span style='font-family:"Courier New";color:black;
-background:white'>Isolation</span> header was named <span style='font-family:
-"Courier New";color:black;background:white'>OData-Isolation</span> in OData
-version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> Isolation</span> header SHOULD also support <span
-style='font-family:"Courier New";color:black;background:white'>OData-Isolation</span>
-for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier New";
-color:black;background:white'>OData-Isolation</span> for compatibility with
-OData 4.0 services. If both <span style='font-family:"Courier New";color:black;
-background:white'>Isolation</span> and <span style='font-family:"Courier New";
-color:black;background:white'>OData-Isolation</span> headers are specified in
-the same request, the value of the <span style='font-family:"Courier New";
-color:black;background:white'>Isolation</span> header SHOULD be used.</p>
+<p class=MsoNormal>Note: The <code>Isolation</code> header was named <code>OData-Isolation</code> in OData
+version 4.0. Services that support the<code> Isolation</code> header SHOULD also support <code>OData-Isolation</code>
+for OData 4.0 clients and clients SHOULD use <code>OData-Isolation</code> for compatibility with
+OData 4.0 services. If both <code>Isolation</code> and <code>OData-Isolation</code> headers are specified in
+the same request, the value of the <code>Isolation</code> header SHOULD be used.</p>
 
 <h3>##subsubsec Header
 <code>OData-MaxVersion</code></h3>
@@ -1112,14 +1099,11 @@ specifies the preference for that individual request. Individual requests
 within a batch that don’t include the <code>allow-entityreferences</code>
 preference inherit the preference of the overall batch request. </p>
 
-<p class=MsoNormal>Note: The <span style='font-family:"Courier New";color:black;
-background:white'>allow-entityreferences</span> preference was named <span
-style='font-family:"Courier New";color:black;background:white'>odata.allow-entityreferences</span>
-in OData version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> allow-entityreferences</span> preference SHOULD
+<p class=MsoNormal>Note: The <code>allow-entityreferences</code> preference was named <code>odata.allow-entityreferences</code>
+in OData version 4.0. Services that support the<code> allow-entityreferences</code> preference SHOULD
 also support <span style='font-family:"Courier New";color:black;background:
 white'>odata.allow-entityreferences</span> for OData 4.0 clients and clients
-SHOULD use <span style='font-family:"Courier New";color:black;background:white'>odata.allow-entityreferences</span>
+SHOULD use <code>odata.allow-entityreferences</code>
 for compatibility with OData 4.0 services.</p>
 
 <h4>##subsubsubsec Preference <code>callback</code> (<code>odata.callback</code>)</h4>
@@ -1228,27 +1212,17 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 </div>
 
-<p class=MsoNormal>If the <span style='font-family:
-"Courier New";color:black;background:white'>callback</span> preference is
+<p class=MsoNormal>If the <code>callback</code> preference is
 specified on an individual request within a batch, then it specifies the
-callback to be used for tracking changes to that individual request. If the <span
-style='font-family:"Courier New";color:black;background:white'>callback</span>
+callback to be used for tracking changes to that individual request. If the <code>callback</code>
 preference is specified on a batch, then it specifies the callback to be used
 for async responses to the batch. </p>
 
-<p class=MsoNormal>Note: The <span style='font-family:"Courier New";color:black;
-background:white'>callback</span> preference was named <span style='font-family:
-"Courier New";color:black;background:white'>odata.callback</span> in OData
-version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> callback</span> preference SHOULD also support <span
-style='font-family:"Courier New";color:black;background:white'>odata.callback</span>
-for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier New";
-color:black;background:white'>odata.callback</span> for compatibility with
-OData 4.0 services. If both <span style='font-family:"Courier New";color:black;
-background:white'>callback</span> and <span style='font-family:"Courier New";
-color:black;background:white'>odata.callback</span> preferences are specified
-in the same request, the value of the <span style='font-family:"Courier New";
-color:black;background:white'>callback</span> preference SHOULD be used.</p>
+<p class=MsoNormal>Note: The <code>callback</code> preference was named <code>odata.callback</code> in OData
+version 4.0. Services that support the<code> callback</code> preference SHOULD also support <code>odata.callback</code>
+for OData 4.0 clients and clients SHOULD use <code>odata.callback</code> for compatibility with
+OData 4.0 services. If both <code>callback</code> and <code>odata.callback</code> preferences are specified
+in the same request, the value of the <code>callback</code> preference SHOULD be used.</p>
 
 <h4>##subsubsubsec Preference <code>continue-on-error</code> (<code>odata.continue-on-error</code>)</h4>
 
@@ -1272,18 +1246,13 @@ annotation with term <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported"><code>Capabilities.BatchContinueOnErrorSupported</code></a>,
 see<b> </b><a href="#ODataVocCap">OData-VocCap</a>.</p>
 
-<p class=MsoNormal>The <span style='font-family:"Courier New";color:black;
-background:white'>continue-on-error</span> preference SHOULD NOT be applied to
+<p class=MsoNormal>The <code>continue-on-error</code> preference SHOULD NOT be applied to
 individual requests within a batch. </p>
 
-<p class=MsoNormal>Note: The <span style='font-family:"Courier New";color:black;
-background:white'>continue-on-error</span> preference was named <span
-style='font-family:"Courier New";color:black;background:white'>odata.continue-on-error</span>
-in OData version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> continue-on-error</span> preference SHOULD also
-support <span style='font-family:"Courier New";color:black;background:white'>odata.continue-on-error</span>
-for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier New";
-color:black;background:white'>odata.continue-on-error</span> for compatibility
+<p class=MsoNormal>Note: The <code>continue-on-error</code> preference was named <code>odata.continue-on-error</code>
+in OData version 4.0. Services that support the<code> continue-on-error</code> preference SHOULD also
+support <code>odata.continue-on-error</code>
+for OData 4.0 clients and clients SHOULD use <code>odata.continue-on-error</code> for compatibility
 with OData 4.0 services.</p>
 
 <h4>##subsubsubsec Preference <code>include-annotations</code> (<code>odata.include-annotations</code>)</h4>
@@ -1389,19 +1358,13 @@ specifies the preference for that individual request. Individual requests
 within a batch that don’t include the <code>include-annotations</code>
 preference inherit the preference of the overall batch request. </p>
 
-<p class=MsoNormal>Note: The <span style='font-family:"Courier New";color:black;
-background:white'>include-annotations </span>preference was named <span
-style='font-family:"Courier New";color:black;background:white'>odata.include-annotations</span>
-in OData version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> include-annotations </span>preference SHOULD
+<p class=MsoNormal>Note: The <code>include-annotations </code>preference was named <code>odata.include-annotations</code>
+in OData version 4.0. Services that support the<code> include-annotations </code>preference SHOULD
 also support <span style='font-family:"Courier New";color:black;background:
 white'>odata.include-annotations</span> for OData 4.0 clients and clients
-SHOULD use <span style='font-family:"Courier New";color:black;background:white'>odata.include-annotations</span>
-for compatibility with OData 4.0 services. If both <span style='font-family:
-"Courier New";color:black;background:white'>include-annotations</span> and <span
-style='font-family:"Courier New";color:black;background:white'>odata.include-annotations</span>
-preferences are specified in the same request, the value of the <span
-style='font-family:"Courier New";color:black;background:white'>include-annotations</span>
+SHOULD use <code>odata.include-annotations</code>
+for compatibility with OData 4.0 services. If both <code>include-annotations</code> and <code>odata.include-annotations</code>
+preferences are specified in the same request, the value of the <code>include-annotations</code>
 preference SHOULD be used.</p>
 
 <h4>##subsubsubsec Preference <code>maxpagesize</code> (<code>odata.maxpagesize</code>)</h4>
@@ -1442,16 +1405,11 @@ preference SHOULD NOT be applied to a batch request, but MAY be applied to
 individual requests within a batch. </p>
 
 <p class=MsoNormal>Note: The <code>maxpagesize</code>
-preference was named <span style='font-family:"Courier New";color:black;
-background:white'>odata.</span><code>maxpagesize</code>
-in OData version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> </span><code>maxpagesize</code>
-preference SHOULD also support <span style='font-family:"Courier New";
-color:black;background:white'>odata.</span><code>maxpagesize</code>
-for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier New";
-color:black;background:white'>odata.</span><code>maxpagesize</code>
-for compatibility with OData 4.0 services. If both <code>maxpagesize</code> and <span style='font-family:"Courier New";
-color:black;background:white'>odata.</span><code>maxpagesize</code>
+preference was named <code>odata.maxpagesize</code>
+in OData version 4.0. Services that support the<code> maxpagesize</code>
+preference SHOULD also support <code>odata.maxpagesize</code>
+for OData 4.0 clients and clients SHOULD use <code>odata.maxpagesize</code>
+for compatibility with OData 4.0 services. If both <code>maxpagesize</code> and <code>odata.maxpagesize</code>
 preferences are specified in the same request, the value of the <code>maxpagesize</code> preference SHOULD be used.</p>
 
 <h4>##subsubsubsec Preference
@@ -1617,14 +1575,10 @@ SHOULD NOT be applied to a batch request, but MAY be applied to individual
 requests within a batch.</p>
 
 <p class=MsoNormal>Note: The <code>track-changes</code>
-preference was named <span style='font-family:"Courier New";color:black;
-background:white'>odata</span><code>.track-changes</code> in
-OData version 4.0. Services that support the<span style='font-family:"Courier New";
-color:black;background:white'> </span><code>track-changes</code>
-preference SHOULD also support <span style='font-family:"Courier New";
-color:black;background:white'>odata.</span><code>track-changes</code>
-for OData 4.0 clients and clients SHOULD use <span style='font-family:"Courier New";
-color:black;background:white'>odata.</span><code>track-changes</code>
+preference was named <code>odata.track-changes</code> in
+OData version 4.0. Services that support the<code> track-changes</code>
+preference SHOULD also support <code>odata.track-changes</code>
+for OData 4.0 clients and clients SHOULD use <code>odata.track-changes</code>
 for compatibility with OData 4.0 services.</p>
 
 <h4>##subsubsubsec Preference <code>wait</code></h4>
@@ -1642,11 +1596,9 @@ the specified length of time. </p>
 preference has not been specified, the service MAY interpret the <code>wait</code> as a request to timeout after the
 specified period of time. </p>
 
-<p class=MsoNormal>If the <span style='font-family:"Courier New";color:black;
-background:white'>wait</span> preference is specified on an individual request
+<p class=MsoNormal>If the <code>wait</code> preference is specified on an individual request
 within a batch, then it specifies the maximum amount of time to wait for that
-individual request. If the <span style='font-family:"Courier New";color:black;
-background:white'>wait</span> preference is specified on a batch, then it
+individual request. If the <code>wait</code> preference is specified on a batch, then it
 specifies the maximum time to wait for the entire batch.</p>
 
 <h2>##subsec Response
@@ -1723,15 +1675,13 @@ responses within a batch.</p>
 <p class=MsoNormal>A response to a <a href="#sec_CreateanEntity">create</a><span
 class=MsoHyperlink> </span><span class=MsoHyperlink>or
 </span><a href="#sec_UpsertanEntity">upsert</a><span class=MsoHyperlink>
-operation</span> that returns <a href="#sec_ResponseCode204NoContent"><code>204 </code><code>No
+operation</span> that returns <a href="#sec_ResponseCode204NoContent"><code>204 No
 Content</code></a><span style='font-family:"Calibri",sans-serif'> </span>MUST
-include an <span style='font-family:"Courier New";color:black;background:white'>OData-</span><code>EntityId</code> response header. The value of the header is the <a
+include an <code>OData-EntityId</code> response header. The value of the header is the <a
 href="#sec_EntityIdsandEntityReferences">entity-id</a> of the entity that was
-acted on by the request. The syntax of the <span
-style='font-family:"Courier New";color:black;background:white'>OData-</span><code>EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
+acted on by the request. The syntax of the <code>OData-EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
-<p class=MsoNormal>The <span style='font-family:"Courier New";color:black;
-background:white'>OData-</span><code>EntityID</code> header
+<p class=MsoNormal>The <code>OData-EntityID</code> header
 SHOULD NOT be included for the overall batch response, but MAY be included in
 individual responses within a batch.</p>
 
@@ -1761,11 +1711,9 @@ more information on the individual preferences, see the <a
 href="#sec_HeaderPrefer"><code>Prefer</code></a>
 header.</p>
 
-<p class=MsoNormal>If the <span style='font-family:"Courier New";color:black;
-background:white'>Preference-Applied</span> header is specified on an
+<p class=MsoNormal>If the <code>Preference-Applied</code> header is specified on an
 individual response within a batch, then it specifies the preferences applied
-to that individual response. If the <span style='font-family:"Courier New";
-color:black;background:white'>Preference-Applied</span> header is specified on
+to that individual response. If the <code>Preference-Applied</code> header is specified on
 a batch response, then it specifies the preferences applied to the overall
 batch. </p>
 
@@ -1826,7 +1774,7 @@ Responses</h2>
 
 <h3>##subsubsec <a
 href="#sec_ResponseCode200OK">Response Code <code>200
-OK</code><code> </code></a> </h3>
+OK </code></a> </h3>
 
 <p class=MsoNormal>A request that does not create a resource returns <code>200 OK</code> if it is completed successfully and the value of
 the resource is not <code>null</code>. In this case, the
@@ -4477,7 +4425,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 </div>
 
 <p class=MsoNormal>The count of related entities can be requested by specifying
-the<code> </code><code>$count</code> query option within the <code>$expand</code>
+the<code> $count</code> query option within the <code>$expand</code>
 clause. </p>
 
 <p class=MsoCaption>Example 57:</p>
@@ -5036,7 +4984,7 @@ criteria. Added entities MUST be returned for entities that were added or
 changed and now match the specified criteria, and deleted entities MUST be
 returned for entities that are changed to no longer match the criteria of <a
 href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-or <a href="#sec_SystemQueryOptionsearch"><code>$s</code><code>earch</code></a>.</p>
+or <a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>.</p>
 
 <p class=MsoNormal>The delta link MUST NOT encode any client <a
 href="#sec_SystemQueryOptiontop">top</a> or <a href="#sec_SystemQueryOptionskip">skip</a>
@@ -6186,7 +6134,7 @@ updatable.</p>
 Collection</h3>
 
 <p class=MsoNormal>Collections annotated with the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.O</code><code>rdered</code></a>
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a>
 term (see <a href="#ODataVocCore">OData-VocCore</a>) have a stable order.
 Members of an ordered collection of primitive and complex types can be
 individually updated or deleted by invoking an update operation against the URL
@@ -6202,7 +6150,7 @@ Inserts</h3>
 
 <p class=MsoNormal>Collections of entity, complex, or primitive types annotated
 with the <a
-href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.</code><code>PositionalInsert</code></a>
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a>
 term (see <a href="#ODataVocCore">OData-VocCore</a>) support inserting
 items at a specific location via <code>POST</code> requests to
 the collection URL using the <code>$index</code>
@@ -6578,7 +6526,7 @@ entity or entity collection within the payload. The representation of an action
 or function depends on the <a href="#sec_Formats">format</a>. </p>
 
 <p class=MsoCaption>Example 88: given a <code>GET</code> request
-to <code>http://host/service/</code><code>Customers('ALFKI')</code>,
+to <code>http://host/service/Customers('ALFKI')</code>,
 the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the
 entity</p>
 
@@ -7995,7 +7943,7 @@ class=MsoHyperlink> and all subsections)</span></p>
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>7. MUST
 successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a>
 for any supported system query options and either follow the specification or
-return <a href="#sec_ResponseCode501NotImplemented"><code>501</code><code> </code><code>Not Implemented</code></a> for any
+return <a href="#sec_ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> for any
 unsupported functionality (section 9.3.1)</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
@@ -8091,7 +8039,7 @@ read URL of a created resource (section 11.4.2)</p>
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>28. MUST include the <code>OData-EntityId</code> header in response to
 any create or upsert operation that returns <code>204
-</code><code>No Content</code><span
+No Content</code><span
 class=MsoHyperlink><code> </code></span>(section
 8.3.4)</p>
 
@@ -8172,14 +8120,14 @@ in <code>$filter</code> expressions (section 11.2.6.1.3)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.3. SHOULD support
-additional filter operations (section 11.2.6.1.1) and MUST return <code>501</code><code>
-</code><code>Not Implemented</code> for any
+additional filter operations (section 11.2.6.1.1) and MUST return <code>501
+Not Implemented</code> for any
 unsupported filter operations (section 9.3.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:.55in;margin-bottom:.0001pt;text-indent:-.3in'>7.4. SHOULD support the
-canonical functions (section 11.2.6.1.2) and MUST return <code>501</code><code>
-</code><code>Not Implemented</code> for any
+canonical functions (section 11.2.6.1.2) and MUST return <code>501
+Not Implemented</code> for any
 unsupported canonical functions (section 9.3.1)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
@@ -8575,7 +8523,7 @@ class=Datatype><span style='font-family:"Arial",sans-serif'> and </span></span><
 
 <p class=MsoListParagraphCxSpLast style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>11. MAY support filtering a
-collection using a <code>/</code><code>$filter</code>
+collection using a <code>/$filter</code>
 path segment</p>
 
 <h3>##subsubsec OData 4.01 Advanced Conformance
@@ -8641,7 +8589,7 @@ defined in <a href="#ODataJSON">OData-JSON</a></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><a
-name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/</code><code>$filter</code> path segment</p>
+name="_Toc477876742">8. SHOULD support filtering a collection using a </a><code>/$filter</code> path segment</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:1.0pt;margin-right:0in;
 margin-bottom:0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'><span
