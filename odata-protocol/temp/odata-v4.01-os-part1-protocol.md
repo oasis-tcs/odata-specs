@@ -123,7 +123,7 @@ Scheme\", RFC 7617, September 2015.
 
 Keywords defined by this specification use this `monospaced` font.
 
-Normative source code uses this paragraph style.
+`Normative source code uses this paragraph style.`
 
 Some sections of this specification are illustrated with non-normative
 examples.
@@ -1851,7 +1851,7 @@ Context URL template:
 
 `{context-url}#{entity-set}`
 
-{context-url}#Collection({type-name})
+`{context-url}#Collection({type-name})`
 
 If all entities in the collection are members of one entity set, its
 name is the context URL fragment.
@@ -2047,7 +2047,7 @@ Context URL templates:
 
 `{context-url}#{singleton}{select-list}`
 
-{context-url}#{type-name}{select-list}
+`{context-url}#{type-name}{select-list}`
 
 If a single entity contains a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
