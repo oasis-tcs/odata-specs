@@ -5,9 +5,9 @@ const fs = require("fs");
 const old = fs.readFileSync(`./${basename}.html`, "latin1");
 
 const clean = old
-  // remove preamble
-  .replace(/<style>[\s\S]*<\/style>/g, "")
-  // .replace(/<body[\s\S]*<h1/, "<body>\n<h1")
+  // remove preamble and TOC
+  .replace(/<style>[\s\S]*?<\/style>/g, "")
+  .replace(/<body[\s\S]*?<h1/, "<body>\n<h1")
 
   // remove _Toc anchors
   .replace(/<a[ \n]name="_Toc\d+"><\/a>/g, "")
@@ -15,6 +15,9 @@ const clean = old
 
   // clean up "keyword" formatting
   .replace(/<span[ \n]style='font-family:\n?"Courier[ \n]New"'>([^<]*)<\/span>/g, "<code>$1</code>")
-  .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>");
+  .replace(/<span[ \n]+class=Datatype>([^<]*)<\/span>/g, "<code>$1</code>")
+
+  // clean up references
+  .replace();
 
 fs.writeFileSync(`./${basename}-clean.html`, clean, {encoding:"latin1"})
