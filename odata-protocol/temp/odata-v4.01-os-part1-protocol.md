@@ -95,32 +95,29 @@ RFC 5789, March 2010. <http://tools.ietf.org/html/rfc5789>.
 
 **\[[RFC7230]{#HTTPMessage}\]**                      Fielding, R., Ed.
 and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message
-Syntax and Routing",[ ]{style="font-size:10.5pt;color:#333333"}[RFC
-7230, June 2014.]{style="color:#333333"}
-<https://tools.ietf.org/html/rfc7230>.
+Syntax and Routing",[ ]{style="font-size:10.5pt;color:#333333"}RFC 7230,
+June 2014. <https://tools.ietf.org/html/rfc7230>.
 
 **\[[RFC7231]{#HTTPSemantic}\]**                      Fielding, R., Ed.
 and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics
-and Content"[,]{style="font-size:10.5pt;color:#333333"}[ RFC 7231, June
-2014.]{style="color:#333333"} <https://tools.ietf.org/html/rfc7231>.
+and Content"[,]{style="font-size:10.5pt;color:#333333"} RFC 7231, June
+2014. <https://tools.ietf.org/html/rfc7231>.
 
 **\[[RFC7232]{#HTTPConditional}\]                     ** Fielding, R.,
 Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1):
-Conditional Requests"[, ]{style="font-size:10.5pt;color:#333333"}[RFC
-7232, June 2014.]{style="color:#333333"}
-<https://tools.ietf.org/html/rfc7232>[.]{style="color:#333333"}
+Conditional Requests"[, ]{style="font-size:10.5pt;color:#333333"}RFC
+7232, June 2014. <https://tools.ietf.org/html/rfc7232>.
 
 [**\[**]{#_Toc370125980}[**RFC7240**]{#HTTPPREFER}**\]**                     
 Snell, J., \"Prefer Header for HTTP\",[
-]{style="font-size:10.5pt;color:#333333"}[RFC 7240, June
-2014.https://tools.ietf.org/html/rfc7240]{style="color:#333333"}.
+]{style="font-size:10.5pt;color:#333333"}RFC 7240, June
+2014.https://tools.ietf.org/html/rfc7240.
 
 [\[[RFC7617]{#RFC7617}\]]{.Refterm}[                     
 ]{style="font-size:10.5pt;color:#333333;
-background:white"}[Reschke, J., \"The \'Basic\' HTTP Authentication
-Scheme\", RFC 7617, September 2015. ]{style="color:#333333;
-background:white"}[[https://tools.ietf.org/html/]{style="background:white"}rfc7617](https://tools.ietf.org/html/rfc7617)[.
- ]{.MsoHyperlink}
+background:white"}Reschke, J., \"The \'Basic\' HTTP Authentication
+Scheme\", RFC 7617, September 2015.
+<https://tools.ietf.org/html/rfc7617>[.  ]{.MsoHyperlink}
 
 ## ##subsec Typographical Conventions
 
@@ -640,12 +637,9 @@ Request](#sec_MetadataDocumentRequest)".
 The format specification [OData-JSON](#ODataJSON) describes the media
 type and the format parameters for non-metadata requests and responses.
 
-[For non-metadata requests, if]{style="color:#333333;background:white"}
-[neither the ]{style="color:#333333;background:white"}`Accept`[ header
-nor the ]{style="color:#333333;
-background:white"}`$format`[ query option are specified, the service MAY
-respond to requests in any format.
-]{style="color:#333333;background:white"}
+For non-metadata requests, if neither the `Accept` header nor the
+`$format` query option are specified, the service MAY respond to
+requests in any format.
 
 Client libraries MUST retain the order of objects within an array in
 JSON responses, and elements in document order for XML responses,
@@ -2714,8 +2708,8 @@ MUST be evaluated first, because it may influence any further
 processing.]{style="color:black;background:white"}
 
 [Prior to applying any
-]{style="color:black;background:white"}[[server-driven
-paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
+]{style="color:black;background:white"}[server-driven
+paging](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
 
 -   `$appl`[y]{style="font-family:
          \"Courier New\""} -- defined in
@@ -2729,8 +2723,8 @@ paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:blac
 -   [[\$top]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptiontop)
 
 [After applying any
-]{style="color:black;background:white"}[[server-driven
-paging]{style="background:white"}](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
+]{style="color:black;background:white"}[server-driven
+paging](#sec_ServerDrivenPaging)[:]{style="color:black;background:white"}
 
 -   [[`$expand`](#sec_SystemQueryOptionexpand)]{style="color:windowtext"}
 -   [[\$select]{style="font-family:\"Courier New\""}](#sec_SystemQueryOptionselect)
@@ -2989,10 +2983,9 @@ with the required properties or with
 returns less than the full set of properties, either because the client
 specified a select or because the service returned a subset of
 properties in the absence of a select, the ]{style="color:black;
-background:white"}[[context
-URL]{style="background:white"}](#sec_ContextURL)[ MUST reflect the set
+background:white"}[context URL](#sec_ContextURL)[ MUST reflect the set
 of selected properties and projected
-]{style="color:black;background:white"}[[expanded]{style="background:white"}](#sec_SystemQueryOptionexpand)[
+]{style="color:black;background:white"}[expanded](#sec_SystemQueryOptionexpand)[
 navigation properties.]{style="color:black;
 background:white"}
 
@@ -4201,8 +4194,7 @@ services may be forced to normalize the value to some common time zone
 (i.e. UTC) in which case the result would be returned with that time
 zone offset. If the service normalizes values, it [MUST fail evaluation
 of the ]{style="color:black;
-background:white"}[[query functions
-]{style="background:white"}](#sec_BuiltinQueryFunctions)`year`[,
+background:white"}[query functions](#sec_BuiltinQueryFunctions) `year`[,
 ]{style="color:black;
 background:white"}`month`[,
 ]{style="color:black;background:white"}`day`[,

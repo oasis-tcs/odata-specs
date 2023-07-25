@@ -17,6 +17,9 @@ const clean = old
   // clean up formatting
   .replace(/<span[ \n]style='color:black'>([^<]*)<\/span>/g,"$1")
   .replace(/<span[ \n]style='color:windowtext'>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]style='background:white'>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]style='color:#333333'>([^<]*)<\/span>/g,"$1")
+  .replace(/<span[ \n]style='color:#333333;\n?background:white'>([^<]*)<\/span>/g,"$1")
   // TODO: clean up all <span> tags
 
   // clean up "keyword" formatting
