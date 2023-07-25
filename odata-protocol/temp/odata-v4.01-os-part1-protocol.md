@@ -3120,35 +3120,29 @@ For a full description of the syntax used when building requests, see
 
   **Operator**               **[Description]{style="color:   **[Example]{style="color:
                                 black"}**                       black"}**
-  -------------------------- ------------------------------- -----------------------------------------------------------------------------------------
+  -------------------------- ------------------------------- -------------------------------------------------------------
   **Comparison Operators**                                   
-  `eq`                       Equal                           [Address/City eq \'Redmond\']{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `ne`                       Not equal                       [Address/City ne \'London\']{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `gt`                       Greater than                    [Price gt 20]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `ge`                       Greater than or equal           [Price ge 10]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `lt`                       Less than                       [Price lt 20]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `le`                       Less than or equal              [Price le 100]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `has`                      Has flags                       [Style has Sales.Color\'Yellow\']{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}
-  `in`                       Is a member of                  [Address/City in (\'Redmond\', \'London\')]{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}
+  `eq`                       Equal                           `Address/City eq 'Redmond'`
+  `ne`                       Not equal                       `Address/City ne 'London'`
+  `gt`                       Greater than                    `Price gt 20`
+  `ge`                       Greater than or equal           `Price ge 10`
+  `lt`                       Less than                       `Price lt 20`
+  `le`                       Less than or equal              `Price le 100`
+  `has`                      Has flags                       `Style has Sales.Color'Yellow'`
+  `in`                       Is a member of                  `Address/City in ('Redmond', 'London')`
   **Logical Operators**                                      
-  `and`                      Logical and                     [Price le 200 and Price gt 3.5]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `or`                       Logical or                      [Price le 3.5 or Price gt 200]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `not`                      Logical negation                [not endswith(Description,\'milk\')]{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}
+  `and`                      Logical and                     `Price le 200 and Price gt 3.5`
+  `or`                       Logical or                      `Price le 3.5 or Price gt 200`
+  `not`                      Logical negation                `not endswith(Description,'milk')`
   **Arithmetic Operators**                                   
-  `add`                      Addition                        [Price add 5 gt 10]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `sub`                      Subtraction                     [Price sub 5 gt 10]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `mul`                      Multiplication                  [Price mul 2 gt 2000]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `div`                      Division                        [Price div 2 gt 4]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `divby`                    Decimal Division                [Price divby 2 gt 3.5]{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}
-  `mod`                      Modulo                          [Price mod 2 eq 0]{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}
+  `add`                      Addition                        `Price add 5 gt 10`
+  `sub`                      Subtraction                     `Price sub 5 gt 10`
+  `mul`                      Multiplication                  `Price mul 2 gt 2000`
+  `div`                      Division                        `Price div 2 gt 4`
+  `divby`                    Decimal Division                `Price divby 2 gt 3.5`
+  `mod`                      Modulo                          `Price mod 2 eq 0`
   **Grouping Operators**                                     
-  `( )`                      Precedence grouping             [(]{style="font-size:9.0pt;
-                                                               font-family:\"Courier New\""}[Price sub 5) gt 10]{style="font-size:9.0pt;font-family:
+  `( )`                      Precedence grouping             `(`[Price sub 5) gt 10]{style="font-size:9.0pt;font-family:
                                                                \"Courier New\""}
 
 ##### ##subsubsubsubsec Built-in Query Functions
@@ -3166,60 +3160,52 @@ OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
   **Function**                          **Example**
-  ------------------------------------- --------------------------------------------------------------------------------------------------------------------
+  ------------------------------------- -----------------------------------------------------------
   **String and Collection Functions**   
-  `concat`                              [concat(concat(City,\', \'), Country) eq \'Berlin, Germany\']{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `contains`                            [contains(CompanyName,\'freds\')]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `endswith`                            [endswith(CompanyName,\'Futterkiste\')]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `indexof`                             [indexof(CompanyName,\'lfreds\') eq 1]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `length`                              [length(CompanyName) eq 19]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `startswith`                          [startswith(CompanyName,'Alfr')]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `substring`                           [substring(CompanyName,1) eq \'lfreds Futterkiste\']{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `concat`                              `concat(concat(City,', '), Country) eq 'Berlin, Germany'`
+  `contains`                            `contains(CompanyName,'freds')`
+  `endswith`                            `endswith(CompanyName,'Futterkiste')`
+  `indexof`                             `indexof(CompanyName,'lfreds') eq 1`
+  `length`                              `length(CompanyName) eq 19`
+  `startswith`                          `startswith(CompanyName,’Alfr’)`
+  `substring`                           `substring(CompanyName,1) eq 'lfreds Futterkiste'`
   **Collection Functions**              
-  `hassubset`                           [hassubset(\[4,1,3\],\[3,1\])]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `hassubsequence`                      [hassubsequence(\[4,1,3,1\],\[1,1\])]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `hassubset`                           `hassubset([4,1,3],[3,1])`
+  `hassubsequence`                      `hassubsequence([4,1,3,1],[1,1])`
   **String Functions**                  
-  `matchesPattern`                      [matchesPattern(CompanyName,\'%5EA.\*e\$\')]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `tolower`                             [tolower(CompanyName) eq \'alfreds futterkiste\']{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `toupper`                             [toupper(CompanyName) eq \'ALFREDS FUTTERKISTE\']{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `trim  `                              [trim(CompanyName) eq \'Alfreds Futterkiste\']{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `matchesPattern`                      `matchesPattern(CompanyName,'%5EA.*e$')`
+  `tolower`                             `tolower(CompanyName) eq 'alfreds futterkiste'`
+  `toupper`                             `toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'`
+  `trim  `                              `trim(CompanyName) eq 'Alfreds Futterkiste'`
   **Date and Time Functions**           
-  `day`                                 [day(StartTime) eq 8]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `date`                                [date(StartTime) ne date(EndTime) ]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `fractionalseconds`                   [second(StartTime) eq 0]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `hour`                                [hour(StartTime) eq 1 ]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `maxdatetime`                         [EndTime eq maxdatetime()]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `mindatetime`                         [StartTime eq mindatetime()]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `minute`                              [minute(StartTime) eq 0]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `month`                               [month(BirthDate) eq 12]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `now`                                 [StartTime ge now()]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `second`                              [second(StartTime) eq 0]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `time`                                [time(StartTime) le StartOfDay]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `totaloffsetminutes`                  [totaloffsetminutes(StartTime) eq 60]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `totalseconds`                        [totalseconds(duration\'PT1M\') eq 60]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `year`                                [year(BirthDate) eq 0]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `day`                                 `day(StartTime) eq 8`
+  `date`                                `date(StartTime) ne date(EndTime) `
+  `fractionalseconds`                   `second(StartTime) eq 0`
+  `hour`                                `hour(StartTime) eq 1 `
+  `maxdatetime`                         `EndTime eq maxdatetime()`
+  `mindatetime`                         `StartTime eq mindatetime()`
+  `minute`                              `minute(StartTime) eq 0`
+  `month`                               `month(BirthDate) eq 12`
+  `now`                                 `StartTime ge now()`
+  `second`                              `second(StartTime) eq 0`
+  `time`                                `time(StartTime) le StartOfDay`
+  `totaloffsetminutes`                  `totaloffsetminutes(StartTime) eq 60`
+  `totalseconds`                        `totalseconds(duration'PT1M') eq 60`
+  `year`                                `year(BirthDate) eq 0`
   **Arithmetic Functions**              
-  `ceiling`                             [ceiling(Freight) eq 33]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `floor`                               [floor(Freight) eq 32]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `round`                               [round(Freight) eq 32]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `ceiling`                             `ceiling(Freight) eq 33`
+  `floor`                               `floor(Freight) eq 32`
+  `round`                               `round(Freight) eq 32`
   **Type Functions**                    
-  `cast`                                [cast(ShipCountry,Edm.String)]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `isof`                                [isof(NorthwindModel.Order)]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `isof`                                [isof(ShipCountry,Edm.String)]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `cast`                                `cast(ShipCountry,Edm.String)`
+  `isof`                                `isof(NorthwindModel.Order)`
+  `isof`                                `isof(ShipCountry,Edm.String)`
   **Geo Functions**                     
-  `geo.distance`                        [geo.distance(CurrentPosition,TargetPosition)]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `geo.intersects`                      [geo.intersects(Position,TargetArea)]{style="font-size:9.0pt;font-family:\"Courier New\""}
-  `geo.length`                          [geo.length(DirectRoute)]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `geo.distance`                        `geo.distance(CurrentPosition,TargetPosition)`
+  `geo.intersects`                      `geo.intersects(Position,TargetArea)`
+  `geo.length`                          `geo.length(DirectRoute)`
   **Conditional Functions**             
-  `case`                                [case(X gt 0:1,X lt 0:-1,true:0)]{style="font-size:9.0pt;
-                                          font-family:\"Courier New\""}
+  `case`                                `case(X gt 0:1,X lt 0:-1,true:0)`
 
 ##### ##subsubsubsubsec Parameter Aliases
 
