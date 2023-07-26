@@ -4544,7 +4544,7 @@ href="#SystemQueryOptionfilter"><code>$filter</code></a>
 or <a href="#SystemQueryOptionsearch"><code>$search</code></a>
 system query options, formatted as a simple primitive integer value with media
 type <code>text/plain</code>. Clients SHOULD NOT combine the system
-query options <span class=MsoCommentReference><span style='font-size:8.0pt'> </span></span><a
+query options <span class=MsoCommentReference> </span><a
 href="#SystemQueryOptiontop"><code>$top</code></a>,
 <a href="#SystemQueryOptionskip"><code>$skip</code></a>,
 <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>,
@@ -5337,11 +5337,9 @@ update request represents the full set of entities to be related according to
 that relationship and MUST NOT include added links, deleted links, or deleted
 entities.</p>
 
-<p class=MsoCaption>Example 78: using the JSON format, a 4.01 <span
-class=Keyword><span style='font-size:10.0pt'>PATCH</span></span> request can
+<p class=MsoCaption>Example 78: using the JSON format, a 4.01 <code>PATCH</code> request can
 update a manager entity. Following the update, the manager has three direct
-reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee <span
-class=Keyword><span style='font-size:10.0pt'>6</span></span> is updated to <code>Smith.</code></p>
+reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee <code>6</code> is updated to <code>Smith.</code></p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -5406,7 +5404,7 @@ If any nested entities contain both id and key fields, they MUST identify the
 same entity, or the request is invalid. </p>
 
 <p class=MsoCaption>Example 79:
-using the JSON format, a 4.01 <span class=Keyword><span style='font-size:10.0pt'>PATCH</span></span>
+using the JSON format, a 4.01 <code>PATCH</code>
 request can specify a nested delta representation to:</p>
 
 <p class=MsoCaption style='margin-left:.8in;text-indent:-.25in;page-break-after:
@@ -6940,7 +6938,7 @@ a <code>Content-Type</code> header with value <code>application/http</code>. </p
 <p class=MsoNormal>The contents of a body part representing a change set MUST
 itself be a multipart document (see <a href="#rfc2046">RFC2046</a>) with
 one body part for each operation in the change set. <span
-class=MsoCommentReference><span style='font-size:8.0pt'>E</span></span>ach body
+class=MsoCommentReference>E</span>ach body
 part representing an operation in the change set MUST specify a <code>Content-ID</code> header with a <a
 href="#IdentifyingIndividualRequests">request identifier</a> that is unique
 within the batch request. </p>

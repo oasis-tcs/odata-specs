@@ -105,7 +105,7 @@ Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests"[,
 ]{style="font-size:10.5pt;color:#333333"}RFC 7232, June 2014.
 <https://tools.ietf.org/html/rfc7232>.
 
-[**\[**]{#_Toc370125980}[**RFC7240**]{#HTTPPREFER}**\]**                     
+**\[**[**RFC7240**]{#HTTPPREFER}**\]**                     
 Snell, J., \"Prefer Header for HTTP\",[
 ]{style="font-size:10.5pt;color:#333333"}RFC 7240, June
 2014.https://tools.ietf.org/html/rfc7240.
@@ -1607,10 +1607,10 @@ request methods for the requested resource as defined in
 
 ### ##subsubsec Response Code `406 Not Acceptable`
 
-[`406 Not Acceptable` indicates that the resource specified by the
+`406 Not Acceptable` indicates that the resource specified by the
 request URL does not have a current representation that would be
 acceptable for the client according to the request
-headers]{#_Toc477876608} [`Accept`](#HeaderAccept),
+headers [`Accept`](#HeaderAccept),
 [`Accept-Charset`](#HeaderAcceptCharset), and
 [`Accept-Language`](#HeaderAcceptLanguage), and that the service is
 unwilling to supply a default representation.
@@ -3454,7 +3454,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -4186,12 +4186,10 @@ set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 ::: example
-Example ##ex: using the JSON format, a 4.01
-[[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can update a
+Example ##ex: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
-`Suzanne Brown`. The `LastName` of employee
-[[6]{style="font-size:10.0pt"}]{.Keyword} is updated to `Smith.`
+`Suzanne Brown`. The `LastName` of employee `6` is updated to `Smith.`
 ```
 {
 :::
@@ -4252,8 +4250,7 @@ entity is to be created. If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
 ::: example
-Example ##ex: using the JSON format, a 4.01
-[[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can specify a
+Example ##ex: using the JSON format, a 4.01 `PATCH` request can specify a
 nested delta representation to:
 - delete employee 3 and
 remove link to it
@@ -5640,8 +5637,7 @@ A body part representing an individual request MUST include a
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [RFC2046](#rfc2046)) with one body part for each
-operation in the change set.
-[[E]{style="font-size:8.0pt"}]{.MsoCommentReference}ach body part
+operation in the change set. [E]{.MsoCommentReference}ach body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#IdentifyingIndividualRequests) that
 is unique within the batch request.

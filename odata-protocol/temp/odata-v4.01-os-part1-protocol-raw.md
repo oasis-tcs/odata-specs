@@ -3591,7 +3591,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -4331,12 +4331,10 @@ references specified in a successful update request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
-Example 78: using the JSON format, a 4.01
-[[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can update a
+Example 78: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
-`Suzanne Brown`. The `LastName` of employee
-[[6]{style="font-size:10.0pt"}]{.Keyword} is updated to `Smith.`
+`Suzanne Brown`. The `LastName` of employee `6` is updated to `Smith.`
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -4398,8 +4396,7 @@ MUST include a context URL specifying the entity set in which the new
 entity is to be created. If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
-Example 79: using the JSON format, a 4.01
-[[PATCH]{style="font-size:10.0pt"}]{.Keyword} request can specify a
+Example 79: using the JSON format, a 4.01 `PATCH` request can specify a
 nested delta representation to:
 
 [· ]{style="font-family:Symbol;font-style:normal"}delete employee 3 and
@@ -5822,8 +5819,7 @@ A body part representing an individual request MUST include a
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [RFC2046](#rfc2046)) with one body part for each
-operation in the change set.
-[[E]{style="font-size:8.0pt"}]{.MsoCommentReference}ach body part
+operation in the change set. [E]{.MsoCommentReference}ach body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#IdentifyingIndividualRequests) that
 is unique within the batch request.

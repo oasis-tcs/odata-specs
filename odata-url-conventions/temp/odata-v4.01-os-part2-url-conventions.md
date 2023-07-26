@@ -787,13 +787,12 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
 [`$format`](#SystemQueryOptionformat). The count MUST NOT be affected
-by[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}`$top`, `$skip`,
-`$orderby`, or `$expand`.
+by[ ]{.MsoCommentReference}`$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
@@ -1616,7 +1615,7 @@ If the left operand is of type `Edm.Decimal` with floating scale,
 negative `div` zero returns `-INF`, and zero `div` zero returns `NaN`.
 For all other types the request fails.
 
-[For operands of type]{#_Toc371341769} `Edm.Decimal` the result is
+For operands of type `Edm.Decimal` the result is
 computed with maximal decimal scale. If any operand has floating scale,
 the result has floating scale, else if any operand has variable scale,
 the result has variable scale. Otherwise the resulting scale is
