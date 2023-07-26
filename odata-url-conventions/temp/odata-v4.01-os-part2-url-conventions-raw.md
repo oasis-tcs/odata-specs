@@ -845,13 +845,12 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
 [`$format`](#SystemQueryOptionformat). The count MUST NOT be affected
-by[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}`$top`, `$skip`,
-`$orderby`, or `$expand`.
+by[ ]{.MsoCommentReference}`$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or

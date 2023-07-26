@@ -811,15 +811,14 @@ The following annotations from `http://odata.org/ann/b` are included:
 - Annotations that use a
 term from the `org.example.validation` namespace, and
 - Annotations that use a
-term from the `org.example.display` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier and
+term from the `org.example.display` namespace and specify a `Tablet`
+qualifier and
 - Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
 `com.example.Sales` namespace and
 - Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
-`com.example.Person` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier.
+`com.example.Person` namespace and specify a `Tablet` qualifier.
 
 # ##sec Schema
 
@@ -4764,7 +4763,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: csdlHeadline
-[`Expression `]{#_Toc37318965}`edm:Not`
+`Expression ``edm:Not`
 :::
 
 ::: csdl
@@ -4775,7 +4774,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: csdlHeadline
-[`Expressions `]{#_Toc37318966}`edm:Eq, edm:Ne, edm:Gt, edm:Ge, edm:Lt, edm:Le, edm:Has, and edm:In`
+`Expressions ``edm:Eq, edm:Ne, edm:Gt, edm:Ge, edm:Lt, edm:Le, edm:Has, and edm:In`
 :::
 
 ::: csdl
@@ -4861,7 +4860,7 @@ to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
 ::: csdlHeadline
-[`Expression `]{#_Toc37318967}`edm:Neg`
+`Expression ``edm:Neg`
 :::
 
 ::: csdl
@@ -4872,7 +4871,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: csdlHeadline
-[`Expressions `]{#_Toc37318968}`edm:Add, edm:Sub, edm:Mul, edm:Div, edm:DivBy, and edm:Mod`
+`Expressions ``edm:Add, edm:Sub, edm:Mul, edm:Div, edm:DivBy, and edm:Mod`
 :::
 
 ::: csdl
