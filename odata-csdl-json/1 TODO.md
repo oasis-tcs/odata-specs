@@ -13,9 +13,6 @@
 
 ### ##subsubsec Definitions of terms
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### ##subsubsec Acronyms and abbreviations
 
 <!-- TODO -->
