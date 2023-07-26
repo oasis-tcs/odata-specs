@@ -193,7 +193,7 @@ In requests and responses with an `OData-Version` header with a value of `4.0` c
 information names are prefixed with `@odata.`, e.g.
 `@odata.context`. In requests and responses without such a
 header the `odata.` prefix SHOULD
-be omitted, e.g `@context`.
+be omitted, e.g. `@context`.
 
 In some cases, control information is required in request payloads; this
 is called out in the following subsections.

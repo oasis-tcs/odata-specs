@@ -422,7 +422,7 @@ next link. The client did not explicitly accept
 indicates with the `AsyncResult` header that it is a response
 to a status monitor resource:
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
@@ -452,7 +452,7 @@ Retry-After: ###
 After some time a `GET` request to the monitor resource returns the remainder of the result.
 
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###

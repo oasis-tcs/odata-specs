@@ -9,7 +9,7 @@
 
 ## 14 July 2023
 
-&nbsp;
+$\hbox{}$
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
@@ -213,9 +213,6 @@ An OData JSON payload may represent:
 
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
 
 <!-- TODO -->
@@ -233,7 +230,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
@@ -730,7 +727,7 @@ In requests and responses with an `OData-Version` header with a value of `4.0` c
 information names are prefixed with `@odata.`, e.g.
 `@odata.context`. In requests and responses without such a
 header the `odata.` prefix SHOULD
-be omitted, e.g `@context`.
+be omitted, e.g. `@context`.
 
 In some cases, control information is required in request payloads; this
 is called out in the following subsections.
@@ -2103,10 +2100,11 @@ control information applied to it. Following this chain of next links
 does not result in a delta link on the last page of the expanded
 collection.
 
-If the response from the delta link contains a `count` control information, the returned number MUST include
+If the response from the delta link contains a `count` control information,
+the returned number MUST include
 all added, changed, or deleted entities to be returned, as well as added
 or deleted links.
- 
+
 ::: example
 Example 33: a 4.01 delta response with five changes, in order of
 occurrence
@@ -2218,14 +2216,16 @@ collection and deleted, otherwise it is removed from the collection and
 only deleted if the navigation property is a containment navigation
 property. The array MUST NOT contain [added](#AddedLink) or [deleted
 links](#DeletedLink).
- 
+
 ::: example
 Example 34: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':     1. `ContactName` was changed to "Susan Halvenstern"]     2. Order 10645 was added
+  1. Customer 'BOTTM':
+     1. `ContactName` was changed to "Susan Halvenstern"
+     2. Order 10645 was added
   2. Customer 'ALFKI':
-    1. Order 10643 was removed
+     1. Order 10643 was removed
   3. Customer 'ANTON' was deleted
 
 ```json
@@ -2251,7 +2251,7 @@ represented inline as a delta
              "reason": "changed"
           },
           "@id": "Orders(10643)"
-        }            
+        }
       ]
     },
     {
@@ -2387,7 +2387,7 @@ entity, as well as [annotations](#InstanceAnnotations), and MAY
 include related entities, related deleted entities, or a delta or full
 representation of a related collection of entities, to represent related
 entities that have been modified or deleted.
- 
+
 ::: example
 Example 37: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
@@ -2402,7 +2402,7 @@ control information (prefixed with an `@`)
 }
 ```
 :::
- 
+
 ::: example
 Example 38: entity removed OData 4.01 response without `id`
 control information and instead all key fields (`ID` is the
@@ -2423,7 +2423,8 @@ Delta responses MUST contain a link object for each added link that
 corresponds to a `$expand` path in the initial request.
 
 The link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) -   the context URL fragment MUST be `#{entity-set}/$link`,
+- [`context`](#ControlInformationcontextodatacontext) -
+  the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
 - `source` - The [id](#ControlInformationidodataid) of the entity from which
@@ -2485,7 +2486,8 @@ inline as a delta
   3. Delete customer 'ANTON'
   4. Change customer 'ALFKI':
      1. Create order 11011
-     2. Add link to existing order 10692      3. Change `ShippedDate` of related order 10835
+     2. Add link to existing order 10692
+     3. Change `ShippedDate` of related order 10835
      4. Delete link to order 10643
   5. Add link between customer 'ANATR' and order 10643
   6. Delete link between customer 'DUMON' and order 10311
@@ -3239,7 +3241,7 @@ next link. The client did not explicitly accept
 indicates with the `AsyncResult` header that it is a response
 to a status monitor resource:
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
@@ -3269,7 +3271,7 @@ Retry-After: ###
 After some time a `GET` request to the monitor resource returns the remainder of the result.
 
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
