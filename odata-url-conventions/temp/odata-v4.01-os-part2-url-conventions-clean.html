@@ -325,7 +325,7 @@ Service</h2>
 <p class=MsoNormal>OData services
 expose their entity model according to <a href="#ODataCSDL">OData-CSDLJSON</a>
 or <a href="#ODataCSDL">OData-CSDLXML</a> at the metadata URL, formed by appending <code>$metadata</code> to
-the <a href="#sec_ServiceRootURL">service
+the <a href="#ServiceRootURL">service
 root URL</a>.</p>
 
 <p class=MsoCaption>Example 5: Metadata document URL</p>
@@ -341,7 +341,7 @@ background:#D9D9D9'>http://host/service/$metadata</p>
 
 <p class=MsoNormal>OData clients may
 request a particular format for metadata either through the Accept header or by
-using the <a href="#sec_SystemQueryOptionformat"><code>$format</code></a> system
+using the <a href="#SystemQueryOptionformat"><code>$format</code></a> system
 query option.</p>
 
 <p class=MsoCaption>Example 6: Metadata document URL with specified format</p>
@@ -360,7 +360,7 @@ the Batch Endpoint for a Service</h2>
 
 <p class=MsoNormal style='page-break-after:avoid'>OData services that support batch requests expose a batch URL
 formed by appending <code>$batch</code> to the <a
-href="#sec_ServiceRootURL">service root URL</a>.</p>
+href="#ServiceRootURL">service root URL</a>.</p>
 
 <p class=MsoCaption>Example 7: batch
 URL</p>
@@ -850,7 +850,7 @@ key value</p>
 
 <p class=MsoNormal>For maximum interoperability, services that support the
 key-as-segment convention SHOULD also support the canonical <a
-href="#sec_CanonicalURL">parentheses-style convention</a> for addressing an
+href="#CanonicalURL">parentheses-style convention</a> for addressing an
 entity within a collection, otherwise they MUST specify the URL for each
 returned entity in a response, as specified by the particular format.</p>
 
@@ -1014,17 +1014,17 @@ path of the URL identifying the entity set or collection. </p>
 identifies the integer count of records in the collection and SHOULD NOT be
 combined with the system query options <span class=MsoCommentReference><span
 style='font-size:8.0pt'> </span></span><a
-href="#sec_SystemQueryOptionstopandskip"><code>$top</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$skip</code></a>,
-<a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>,
-<a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>,
-and <a href="#sec_SystemQueryOptionformat"><code>$format</code></a>.
+href="#SystemQueryOptionstopandskip"><code>$top</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>,
+<a href="#SystemQueryOptionorderby"><code>$orderby</code></a>,
+<a href="#SystemQueryOptionexpand"><code>$expand</code></a>,
+and <a href="#SystemQueryOptionformat"><code>$format</code></a>.
 The count MUST NOT be affected by<span class=MsoCommentReference><span
 style='font-size:8.0pt'> </span></span><code>$top</code>,
 <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
 
 <p class=MsoNormal>The count is calculated after applying any <a
-href="#sec_AddressingaSubsetofaCollection"><code>/$filter</code></a>
+href="#AddressingaSubsetofaCollection"><code>/$filter</code></a>
 path segments, or <code>$filter</code> or <code>$search</code> system query options to the
 collection. </p>
 
@@ -1052,7 +1052,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 </div>
 
 <p class=MsoCaption>Example 32: entity count in a <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
+href="#SystemQueryOptionfilter"><code>$filter</code></a>
 expression. Note that the spaces around <code>gt</code> are for
 readability of the example only; in real URLs they must be percent-encoded as <code>%20</code>.</p>
 
@@ -1066,7 +1066,7 @@ background:#D9D9D9'>http://host/service/Categories?$filter=Products/$count gt 0<
 </div>
 
 <p class=MsoCaption>Example 33: count of a filtered collection in a <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
+href="#SystemQueryOptionfilter"><code>$filter</code></a>
 expression; returns all Categories containing more than two products whose
 price is greater than 5.00.</p>
 
@@ -1081,7 +1081,7 @@ gt 5.00) gt 2</p>
 </div>
 
 <p class=MsoCaption><span lang=DE> </span>Example 34: entity count in an <a
-href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
+href="#SystemQueryOptionorderby"><code>$orderby</code></a>
 expression</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
@@ -1103,7 +1103,7 @@ entity set through an <code>EntitySet </code>or <code>EntitySetPath</code> decla
 navigation properties with a <code>NavigationPropertyBinding </code>or <code>ContainsTarget=true </code>specification, members of
 the collection can be addressed by convention by appending the parenthesized
 key to the URL specifying the collection of entities, or by using the <a
-href="#sec_KeyasSegmentConvention">key-as-segment convention</a> if supported
+href="#KeyasSegmentConvention">key-as-segment convention</a> if supported
 by the service.</p>
 
 <p class=MsoNormal>For collection-valued navigation properties with navigation
@@ -1249,7 +1249,7 @@ Collection</h2>
 
 <p class=MsoNormal>Any resource path or path expression identifying a
 collection can be appended with a filter path segment consisting of <code>/$filter</code> followed by parentheses containing a <a
-href="#sec_ParameterAliases">parameter alias</a> or a filter expression
+href="#ParameterAliases">parameter alias</a> or a filter expression
 following the <code>filter</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.
 If the parentheses contain a parameter alias, a filter expression MUST be
 assigned to the parameter alias in the query part of the request URL. If the
@@ -1261,7 +1261,7 @@ filter expression assigned to the parameter alias and may be empty.&nbsp;</p>
 
 <p class=MsoNormal>The <code>/$filter</code> path segment MAY
 occur multiple times and it MAY be combined with the <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
+href="#SystemQueryOptionfilter"><code>$filter</code></a>
 system query option.</p>
 
 <p class=MsoCaption>Example 41: red products that cost less than 10  –
@@ -1310,8 +1310,8 @@ system query option is evaluated <i>after</i> the modification and determines
 which of the modified items are part of the response.</p>
 
 <p class=MsoNormal>The <code>/$filter</code> path segment MAY be
-followed by a path segment identifying a <a href="#sec_AddressingActions">bound
-action</a> or <a href="#sec_AddressingFunctions">bound function</a> applicable
+followed by a path segment identifying a <a href="#AddressingActions">bound
+action</a> or <a href="#AddressingFunctions">bound function</a> applicable
 to the collection.</p>
 
 <p class=MsoCaption>Example 44: invoke the <code>Special.Cluster</code>
@@ -1333,17 +1333,17 @@ Collection</h2>
 append the path segment <code>/$each</code> to a resource path
 identifying a collection.</p>
 
-<p class=MsoNormal>To apply a <a href="#sec_AddressingActions">bound action</a>
+<p class=MsoNormal>To apply a <a href="#AddressingActions">bound action</a>
 or function to each member of a collection, clients append the path segment <code>/$each</code> followed by a path segment identifying the <a
-href="#sec_AddressingActions">bound action</a> or function. The response is a
+href="#AddressingActions">bound action</a> or function. The response is a
 collection of instances of the result type of the bound operation. If the bound
 operation returns a collection, the response is a collection of collections.
-System query options applied to the response can use <a href="#sec_it"><code>$it</code></a> to reference an item in the
-outermost collection, followed by <a href="#sec_any"><code>/any</code></a>, <a href="#sec_all"><code>/all</code></a>, or <a
-href="#sec_AddressingtheCountofaCollection"><code>/$count</code></a>.&nbsp;</p>
+System query options applied to the response can use <a href="#it"><code>$it</code></a> to reference an item in the
+outermost collection, followed by <a href="#any"><code>/any</code></a>, <a href="#all"><code>/all</code></a>, or <a
+href="#AddressingtheCountofaCollection"><code>/$count</code></a>.&nbsp;</p>
 
-<p class=MsoNormal>The resource path of the collection preceding <code>/$each</code> MAY contain <a href="#sec_AddressingDerivedTypes">type-cast</a>
-or <a href="#sec_AddressingaSubsetofaCollection">filter path segments</a> to
+<p class=MsoNormal>The resource path of the collection preceding <code>/$each</code> MAY contain <a href="#AddressingDerivedTypes">type-cast</a>
+or <a href="#AddressingaSubsetofaCollection">filter path segments</a> to
 subset the collection.</p>
 
 <h2>##subsec Addressing the Media Stream of
@@ -1372,7 +1372,7 @@ of Entity Sets</h2>
 properties defined in the entity model of a service, the cross join operator
 allows querying across unrelated entity sets.</p>
 
-<p class=MsoNormal>The cross join is addressed by appending the path segment <code>$crossjoin</code> to the <a href="#sec_ServiceRootURL">service root URL</a>, followed by the
+<p class=MsoNormal>The cross join is addressed by appending the path segment <code>$crossjoin</code> to the <a href="#ServiceRootURL">service root URL</a>, followed by the
 parenthesized comma-separated list of joined entity sets. It returns the
 Cartesian product of all the specified entity sets, represented as a collection
 of instances of a virtual complex type. Each instance consists of one
@@ -1381,19 +1381,19 @@ such navigation property is named identical to the corresponding entity set,
 with a target type equal to the declared entity type of the corresponding entity
 set. </p>
 
-<p class=MsoNormal>The <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a> and <a
-href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a><code> </code>query options can be specified using properties of the
+<p class=MsoNormal>The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a
+href="#SystemQueryOptionorderby"><code>$orderby</code></a><code> </code>query options can be specified using properties of the
 entities in the selected entity sets, prepended with the entity set as the
 navigation property name.</p>
 
-<p class=MsoNormal>The <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a> query option can be
+<p class=MsoNormal>The <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option can be
 specified using the names of the selected entity sets as navigation property
 names. If a selected entity set is not expanded, it MUST be represented using
 the read URL of the related entity as a navigation link in the complex type instance.</p>
 
-<p class=MsoNormal>The <a href="#sec_SystemQueryOptioncount"><code>$count</code></a>, <a
-href="#sec_SystemQueryOptionstopandskip"><code>$skip</code></a>,
-and <a href="#sec_SystemQueryOptionstopandskip"><code>$top</code></a>
+<p class=MsoNormal>The <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a
+href="#SystemQueryOptionstopandskip"><code>$skip</code></a>,
+and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>
 query options can also be used with no special semantics.</p>
 
 <p class=MsoCaption>Example 46: if <code>Sales</code> had a
@@ -1451,16 +1451,16 @@ identifies the collection of all entities in a service, i.e. the union of all
 entity sets plus all singletons.</p>
 
 <p class=MsoNormal>This symbolic resource is of type <code>Collection(Edm.EntityType)</code>
-and allows the <a href="#sec_SystemQueryOptionsearch"><code>$search</code></a> system query option plus all other query
+and allows the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option plus all other query
 options applicable to collections of entities.</p>
 
 <p class=MsoNormal>The <code>$all</code> resource can be appended
 with a path segment containing the qualified name of an entity type in order to
 restrict the collections to entities of that type. Query options such as <a
-href="#sec_SystemQueryOptionselect"><code>$select</code></a>,
-<a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>,
-<a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>,
-and <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
+href="#SystemQueryOptionselect"><code>$select</code></a>,
+<a href="#SystemQueryOptionfilter"><code>$filter</code></a>,
+<a href="#SystemQueryOptionexpand"><code>$expand</code></a>,
+and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>
 can be applied to this restricted set according to the specified type.</p>
 
 <p class=MsoCaption>Example 47: all entities in a service that somehow match <code>red</code></p>
@@ -1535,9 +1535,9 @@ background:#D9D9D9'>$filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot
 
 
 <p class=MsoNormal>The query options part of an OData URL specifies three types
-of information: <a href="#sec_SystemQueryOptions">system query options</a>, <a
-href="#sec_CustomQueryOptions">custom query options</a>, and <a
-href="#sec_ParameterAliases">parameter aliases</a>. All OData services MUST
+of information: <a href="#SystemQueryOptions">system query options</a>, <a
+href="#CustomQueryOptions">custom query options</a>, and <a
+href="#ParameterAliases">parameter aliases</a>. All OData services MUST
 follow the query string parsing and construction rules defined in this section
 and its subsections.</p>
 
@@ -1557,30 +1557,30 @@ and <code>PUT</code> requests the following rules apply:</p>
 <p class=MsoNormal style='margin-left:21.3pt;text-indent:-14.2pt'><span
 style='font-family:Symbol'>· </span>Resource paths identifying a single entity, a complex type
 instance, a collection of entities, or a collection of complex type instances
-allow <a href="#sec_SystemQueryOptioncompute"><code>$compute</code></a>,
-<a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>
-and <a href="#sec_SystemQueryOptionselect"><code>$select</code></a>.
+allow <a href="#SystemQueryOptioncompute"><code>$compute</code></a>,
+<a href="#SystemQueryOptionexpand"><code>$expand</code></a>
+and <a href="#SystemQueryOptionselect"><code>$select</code></a>.
 </p>
 
 <p class=MsoNormal style='margin-left:21.3pt;text-indent:-14.2pt'><span
 style='font-family:Symbol'>· </span>Resource paths identifying a collection allow <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>,
-<a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>,
-<a href="#sec_SystemQueryOptioncount"><code>$count</code></a>,
-<a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$skip</code></a>,
-and <a href="#sec_SystemQueryOptionstopandskip"><code>$top</code></a>.
+href="#SystemQueryOptionfilter"><code>$filter</code></a>,
+<a href="#SystemQueryOptionsearch"><code>$search</code></a>,
+<a href="#SystemQueryOptioncount"><code>$count</code></a>,
+<a href="#SystemQueryOptionorderby"><code>$orderby</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>,
+and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>.
 </p>
 
 <p class=MsoNormal style='margin-left:21.3pt;text-indent:-14.2pt'><span
 style='font-family:Symbol'>· </span>Resource paths ending in <code>/$count</code>
-allow <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-and <a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>.</p>
+allow <a href="#SystemQueryOptionfilter"><code>$filter</code></a>
+and <a href="#SystemQueryOptionsearch"><code>$search</code></a>.</p>
 
 <p class=MsoNormal style='margin-left:21.3pt;text-indent:-14.2pt'><span
 style='font-family:Symbol'>· </span>Resource paths not ending in <code>/$count</code>
 or <code>/$batch</code> allow <a
-href="#sec_SystemQueryOptionformat"><code>$format</code></a>.</p>
+href="#SystemQueryOptionformat"><code>$format</code></a>.</p>
 
 <p class=MsoNormal>For <code>POST</code> requests to an action
 URL the return type of the action determines the applicable system query
@@ -1638,12 +1638,12 @@ values except <code>Edm.Binary</code>, <code>Edm.Stream</code>,
 and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>,
 <code>Edm.Stream</code>, and the <code>Edm.Geo</code>
 types can only be compared to the <code>null</code> value using
-the <a href="#sec_Equals"><code>eq</code></a>
-and <a href="#sec_NotEquals"><code>ne</code></a>
+the <a href="#Equals"><code>eq</code></a>
+and <a href="#NotEquals"><code>ne</code></a>
 operators.</p>
 
 <p class=MsoNormal>When applied to operands of numeric types, <a
-href="#sec_NumericPromotion">numeric promotion</a> rules are applied. </p>
+href="#NumericPromotion">numeric promotion</a> rules are applied. </p>
 
 <p class=MsoNormal>The <code>eq</code>,
 <code>ne</code>, and <code>in</code> operators
@@ -1732,7 +1732,7 @@ operator returns false.</p>
 the left operand is greater than or equal to the right operand, otherwise it
 returns false.</p>
 
-<p class=MsoNormal>See rules for <a href="#sec_GreaterThan"><code>gt</code></a> and <a href="#sec_Equals"><code>eq</code></a> for details.</p>
+<p class=MsoNormal>See rules for <a href="#GreaterThan"><code>gt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
 
 <h5>##subsubsubsubsec Less Than</h5>
 
@@ -1760,7 +1760,7 @@ operator returns false.</p>
 the left operand is less than or equal to the right operand, otherwise it
 returns false.</p>
 
-<p class=MsoNormal>See rules for <a href="#sec_LessThan"><code>lt</code></a> and <a href="#sec_Equals"><code>eq</code></a> for details.</p>
+<p class=MsoNormal>See rules for <a href="#LessThan"><code>lt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
 
 <h5>##subsubsubsubsec And</h5>
 
@@ -1949,7 +1949,7 @@ in ('Milk', 'Cheese')</p>
 <p class=MsoNormal>OData defines a set of arithmetic operators that require
 operands that evaluate to numeric types. Arithmetic operators are typically
 used to filter a collection of resources. However, services MAY allow using
-arithmetic operators with the <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
+arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
 
 <p class=MsoNormal>If an operand of an arithmetic operator is null, the result
 is null.</p>
@@ -1960,7 +1960,7 @@ case-insensitive operator names. Clients that want to work with 4.0 services
 MUST use lower case operator names.</p>
 
 <h5>##subsubsubsubsec <a
-href="#sec_Addition">Addition</a> </h5>
+href="#Addition">Addition</a> </h5>
 
 <p class=MsoNormal>The <code>add</code> operator adds the left
 and right numeric operands.</p>
@@ -2004,7 +2004,7 @@ to date by removing the time and timezone components </code></p>
 <p class=MsoNormal>Thus, today plus a positive duration smaller than one day is
 today; today minus a positive duration smaller than one day is yesterday.</p>
 
-<h5>##subsubsubsubsec <a href="#sec_Subtraction">Subtraction</a> </h5>
+<h5>##subsubsubsubsec <a href="#Subtraction">Subtraction</a> </h5>
 
 <p class=MsoNormal>The <code>sub</code> operator subtracts the
 right numeric operand from the left numeric operand.</p>
@@ -2036,14 +2036,14 @@ style='font-family:Symbol'>· </span><code>Date sub Date</code> results in a <cod
 <p class=MsoNormal>The rules for time-related operands
 are defined in <a href="#BMXMLSchema2"><b>[XML&#8209;Schema&#8209;2]</b></a>,
 section E.3.3. Specifically for subtracting a duration from a date see the
-preceding <a href="#sec_Addition">section</a>.</p>
+preceding <a href="#Addition">section</a>.</p>
 
-<h5>##subsubsubsubsec <a href="#sec_Negation">Negation</a> </h5>
+<h5>##subsubsubsubsec <a href="#Negation">Negation</a> </h5>
 
 <p class=MsoNormal>The negation operator, represented by a minus (<code>-</code>) sign, changes the sign of its numeric or <code>Duration</code> operand.</p>
 
 <h5>##subsubsubsubsec <a
-href="#sec_Multiplication">Multiplication</a> </h5>
+href="#Multiplication">Multiplication</a> </h5>
 
 <p class=MsoNormal>The <code>mul</code> operator multiplies the
 left and right numeric operands. The
@@ -2054,7 +2054,7 @@ type <code>Edm.Decimal</code> the scale of the result is scaleof(A mul B) = scal
 floating if any operand has floating scale, or else variable if any operand has
 variable scale.</p>
 
-<h5>##subsubsubsubsec <a href="#sec_Division">Division</a> </h5>
+<h5>##subsubsubsubsec <a href="#Division">Division</a> </h5>
 
 <p class=MsoNormal>The <code>div</code> and<code> divby</code>
 operators divide the left numeric operand by the right numeric operand. They are also valid for dividing a <code>Duration</code>
@@ -2085,7 +2085,7 @@ a fractional result, and does not fail for <code>divby</code>
 zero, returning <code>-INF</code>, <code>INF</code>,
 or <code>NaN depending on the sign of the left operand.</code></p>
 
-<h5>##subsubsubsubsec <a href="#sec_Modulo">Modulo</a> </h5>
+<h5>##subsubsubsubsec <a href="#Modulo">Modulo</a> </h5>
 
 <p class=MsoNormal>The <code>mod</code> operator returns the
 remainder when the left numeric operand is divided by the right numeric
@@ -2180,7 +2180,7 @@ mod 5 eq 0</p>
 
 </div>
 
-<h4>##subsubsubsec <a href="#sec_Grouping">Grouping</a> </h4>
+<h4>##subsubsubsec <a href="#Grouping">Grouping</a> </h4>
 
 <p class=MsoNormal style='page-break-after:avoid'>The Grouping operator (open
 and close parenthesis “<code>( )</code>”) controls the
@@ -2203,12 +2203,12 @@ add 5) mod (4 sub 1) eq 0</p>
 Functions</h4>
 
 <p class=MsoNormal>In addition to operators, a set of functions is also defined
-for use with the <a href="#sec_SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code>
-or <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
-system query options, or in <a href="#sec_ParameterAliases">parameter alias</a>
+for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code>
+or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>
+system query options, or in <a href="#ParameterAliases">parameter alias</a>
 values. The following sections describe the available functions. Note: ISNULL
 or COALESCE operators are not defined. Instead, OData defines a <a
-href="#sec_null"><code>null</code></a>
+href="#null"><code>null</code></a>
 literal that can be used in comparisons.</p>
 
 <p class=MsoNormal>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>.</p>
@@ -2266,8 +2266,8 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</span></p>
 string parameter values returns true if the second string is a substring of the
 first string, otherwise it returns false. String comparison is case-sensitive,
 case-insensitive comparison can be achieved in combination with <a
-href="#sec_tolower"><code>tolower</code></a> or
-<a href="#sec_toupper"><code>toupper</code></a>.</p>
+href="#tolower"><code>tolower</code></a> or
+<a href="#toupper"><code>toupper</code></a>.</p>
 
 <p class=MsoNormal>The <code>contains</code> function with
 ordered collection parameter values returns true if the first collection can be
@@ -2303,8 +2303,8 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</span></p>
 string parameter values returns true if the first string ends with the second
 string, otherwise it returns false. String comparison is case-sensitive,
 case-insensitive comparison can be achieved in combination with <a
-href="#sec_tolower"><code>tolower</code></a> or
-<a href="#sec_toupper"><code>toupper</code></a>.</p>
+href="#tolower"><code>tolower</code></a> or
+<a href="#toupper"><code>toupper</code></a>.</p>
 
 <p class=MsoNormal>The <code>endswith</code> function with
 ordered collection parameter values returns true if the first collection can be
@@ -2341,8 +2341,8 @@ parameter values returns the zero-based character position of the first
 occurrence of the second string in the first string, or -1 if the first string
 does not contain the second string. String comparison is case-sensitive,
 case-insensitive comparison can be achieved in combination with <a
-href="#sec_tolower"><code>tolower</code></a> or
-<a href="#sec_toupper"><code>toupper</code></a>.</p>
+href="#tolower"><code>tolower</code></a> or
+<a href="#toupper"><code>toupper</code></a>.</p>
 
 <p class=MsoNormal>The <code>indexof</code> function with
 ordered collection parameter values returns the zero-based index of the first
@@ -2408,8 +2408,8 @@ Edm.Boolean startswith(Collection,Collection)</span></p>
 string parameter values returns true if the first string starts with the second
 string, otherwise it returns false. String comparison is case-sensitive,
 case-insensitive comparison can be achieved in combination with <a
-href="#sec_tolower"><code>tolower</code></a> or
-<a href="#sec_toupper"><code>toupper</code></a>.</p>
+href="#tolower"><code>tolower</code></a> or
+<a href="#toupper"><code>toupper</code></a>.</p>
 
 <p class=MsoNormal>The <code>startswith</code> function with
 ordered collection parameter values returns true if the first collection can be
@@ -3187,7 +3187,7 @@ function has the following signatures</p>
 
 <p class=MsoNormal>The single parameter <code>isof</code>
 function returns true if the current instance is assignable to the type
-specified, according to the assignment rules for the <a href="#sec_cast"><code>cast</code></a> function, otherwise it
+specified, according to the assignment rules for the <a href="#cast"><code>cast</code></a> function, otherwise it
 returns <code>false</code>.</p>
 
 <p class=MsoNormal>The two parameter <code>isof</code> function
@@ -3264,7 +3264,7 @@ system signified by its SRID.</p>
 
 <h4>##subsubsubsec Conditional Functions</h4>
 
-<h5>##subsubsubsubsec <a href="#sec_case"><code>case</code></a> </h5>
+<h5>##subsubsubsubsec <a href="#case"><code>case</code></a> </h5>
 
 <p class=MsoNormal>The <code>case</code> function has the
 following signature:</p>
@@ -3326,7 +3326,7 @@ of the collection identified by the navigation path.</p>
 <p class=MsoNormal>If the name chosen for the lambda variable matches a
 property name of the current resource referenced by the resource path, the
 lambda variable takes precedence. Clients can prefix properties of the current
-resource referenced by the resource path with <a href="#sec_it"><code>$it</code></a>.</p>
+resource referenced by the resource path with <a href="#it"><code>$it</code></a>.</p>
 
 <p class=MsoNormal>Other path expressions in the Boolean expression neither
 prefixed with the lambda variable nor <code>$it</code> are
@@ -3334,7 +3334,7 @@ evaluated in the scope of the collection instances at the origin of the
 navigation path prepended to the lambda operator.</p>
 
 <h5>##subsubsubsubsec <a
-href="#sec_any"><code>any</code></a> </h5>
+href="#any"><code>any</code></a> </h5>
 
 <p class=MsoNormal>The <code>any</code> operator applies a
 Boolean expression to each member of a collection and returns true if and only
@@ -3388,7 +3388,7 @@ ne UnitPrice)</p>
 
 </div>
 
-<h5>##subsubsubsubsec <a href="#sec_all"><code>all</code></a> </h5>
+<h5>##subsubsubsubsec <a href="#all"><code>all</code></a> </h5>
 
 <p class=MsoNormal>The <code>all</code> operator applies a
 Boolean expression to each member of a collection and returns true if the
@@ -3419,7 +3419,7 @@ gt 100) </p>
 
 <p class=MsoNormal>Primitive literals can appear in the resource path as key
 property values, and in the query part, for example, as operands in <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
+href="#SystemQueryOptionfilter"><code>$filter</code></a>
 expressions. They are represented according to the <code>primitiveLiteral</code>
 rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 
@@ -3488,8 +3488,8 @@ prefix for duration and enumeration types.</p>
 represented as JSON objects and arrays according to the <code>arrayOrObject</code>
 rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear
 in the path portion of the URL but can be passed to bound <a
-href="#sec_AddressingFunctions">functions</a> and function imports in path
-segments by using <a href="#sec_ParameterAliases">parameter aliases</a>.</p>
+href="#AddressingFunctions">functions</a> and function imports in path
+segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
 
 <p class=MsoNormal>Object member values and array items can be expressions,
 including other objects and arrays, arithmetic expressions, property names, and
@@ -3526,7 +3526,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 <p class=MsoNormal>The <code>null</code> literal can be used to
 compare a value to null, or to pass a null value to a function.</p>
 
-<h5>##subsubsubsubsec <a href="#sec_it"><code>$it</code></a> </h5>
+<h5>##subsubsubsubsec <a href="#it"><code>$it</code></a> </h5>
 
 <p class=MsoNormal>The <code>$it</code> literal can be used in
 expressions to refer to the current instance of the resource identified by the
@@ -3536,23 +3536,23 @@ resource it is the resource itself.</p>
 
 <p class=MsoNormal>It allows comparing properties of related entities to
 properties of the current instance in expressions within lambda operators or in
-<a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-expressions nested within <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a> or <a
-href="#sec_SystemQueryOptionselect"><code>$select</code></a>.
+<a href="#SystemQueryOptionfilter"><code>$filter</code></a>
+expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> or <a
+href="#SystemQueryOptionselect"><code>$select</code></a>.
 </p>
 
-<p class=MsoNormal>It also can be used in <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a> and <a
-href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
+<p class=MsoNormal>It also can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a
+href="#SystemQueryOptionorderby"><code>$orderby</code></a>
 expressions on collections of primitive types to refer to the current primitive
-instance, but using the <a href="#sec_this"><code>$this</code></a>
-literal is preferred as <a href="#sec_this"><code>$this</code></a>
-can also be used in <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a> and <a
-href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
-expressions nested within <a href="#sec_SystemQueryOptionselect"><code>$select</code></a>. </p>
+instance, but using the <a href="#this"><code>$this</code></a>
+literal is preferred as <a href="#this"><code>$this</code></a>
+can also be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a
+href="#SystemQueryOptionorderby"><code>$orderby</code></a>
+expressions nested within <a href="#SystemQueryOptionselect"><code>$select</code></a>. </p>
 
 <p class=MsoNormal>Note: property names and property paths in <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-expressions nested within <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a> are evaluated in the
+href="#SystemQueryOptionfilter"><code>$filter</code></a>
+expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> are evaluated in the
 context of the declared type of the expanded navigation property, so property
 names and property paths for the current instance of the collection identified
 by the resource path MUST be prefixed with <code>$it/</code>.</p>
@@ -3602,12 +3602,12 @@ ge 10</p>
 </div>
 
 <h5>##subsubsubsubsec <a
-href="#sec_root"><code>$root</code></a> </h5>
+href="#root"><code>$root</code></a> </h5>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$root</code>
 literal can be used in expressions to refer to resources of the same service.
 It can be used as a single-valued expression or within <a
-href="#sec_ComplexandCollectionLiterals">complex or collection literals</a>.</p>
+href="#ComplexandCollectionLiterals">complex or collection literals</a>.</p>
 
 <p class=MsoCaption>Example 108: all employees with the same last name as
 employee <code>A1235</code></p>
@@ -3633,14 +3633,14 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 </div>
 
-<h5>##subsubsubsubsec <a href="#sec_this"><code>$this</code></a><code>
+<h5>##subsubsubsubsec <a href="#this"><code>$this</code></a><code>
 </code></h5>
 
 <p class=MsoNormal>The <code>$this</code> literal can be used in
-<a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-and <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
-expressions nested within <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a> and <a
-href="#sec_SystemQueryOptionselect"><code>$select</code></a>
+<a href="#SystemQueryOptionfilter"><code>$filter</code></a>
+and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>
+expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a
+href="#SystemQueryOptionselect"><code>$select</code></a>
 for collection-valued properties and navigation properties. It refers to the
 current instance of the collection.</p>
 
@@ -3691,7 +3691,7 @@ background:#D9D9D9'>Companies(1)/HeadquarterAddress/Street
 <p class=MsoNormal>To access properties of derived types, the property name
 MUST be prefixed with the qualified name of the derived type on which the
 property is defined, followed by a forward slash (<code>/</code>),
-see <a href="#sec_AddressingDerivedTypes">addressing derived types</a>. If the
+see <a href="#AddressingDerivedTypes">addressing derived types</a>. If the
 current instance is not of the specified derived type, the path expression
 returns <code>null</code>.</p>
 
@@ -3718,7 +3718,7 @@ see <a href="#ODataVocCap">OData-VocCap</a>. </p>
 which consists of an at sign (<code>@</code>) followed by
 the qualified term name, optionally
 followed by a percent-encoded hash (<code>%23</code>) and an annotation qualifier.
-The annotation name can be prefixed with a <a href="#sec_PathExpressions">path
+The annotation name can be prefixed with a <a href="#PathExpressions">path
 expression</a> leading to the annotated resource or property.</p>
 
 <p class=MsoNormal>If an annotation is not applied to the resource or property,
@@ -3755,7 +3755,7 @@ term name by defining one or more default namespaces through the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see
 Default Namespaces in <a href="#odata">OData-Protocol</a>. This short notation however uses the
 same name pattern as parameter aliases. If a query option is specified as a <a
-href="#sec_ParameterAliases">parameter alias</a>, then any occurrence of the parameter
+href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter
 alias name in an expression MUST evaluate to the parameter alias value and MUST
 NOT evaluate to the annotation value of an identical unqualified term name.</p>
 
@@ -3763,8 +3763,8 @@ NOT evaluate to the annotation value of an identical unqualified term name.</p>
 Precedence</h4>
 
 <p class=MsoNormal>OData services MUST use the following operator precedence
-for supported operators when evaluating <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a> and <a
-href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
+for supported operators when evaluating <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a
+href="#SystemQueryOptionorderby"><code>$orderby</code></a>
 expressions. Operators are listed by category in order of precedence from
 highest to lowest. Operators in the same category have equal precedence:</p>
 
@@ -4361,7 +4361,7 @@ of the symbols <code>*</code> or <code>$value</code>.</p>
 
 <p class=MsoNormal>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or
 collection-valued complex properties, <a
-href="#sec_AnnotationValuesinExpressions">instance annotations</a>, or
+href="#AnnotationValuesinExpressions">instance annotations</a>, or
 type-cast segments consisting of the qualified name of a structured type that
 is derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.</p>
@@ -4418,13 +4418,13 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 <p class=MsoNormal>Query options can be applied to an expanded navigation
 property by appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name. Allowed system query options are <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>,
-<a href="#sec_SystemQueryOptionselect"><code>$select</code></a>,
-<a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$skip</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$top</code></a>,
-<a href="#sec_SystemQueryOptioncount"><code>$count</code></a>,
-<a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>,
+href="#SystemQueryOptionfilter"><code>$filter</code></a>,
+<a href="#SystemQueryOptionselect"><code>$select</code></a>,
+<a href="#SystemQueryOptionorderby"><code>$orderby</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$top</code></a>,
+<a href="#SystemQueryOptioncount"><code>$count</code></a>,
+<a href="#SystemQueryOptionsearch"><code>$search</code></a>,
 and <code>$expand</code>.</p>
 
 <p class=MsoCaption>Example 116: all categories and for each category all
@@ -4442,7 +4442,7 @@ eq null)</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$count</code>
 segment can be appended to a navigation property name or <a
-href="#sec_AddressingDerivedTypes">type-cast segment</a> following a navigation
+href="#AddressingDerivedTypes">type-cast segment</a> following a navigation
 property name to return just the count of the related entities. The <code>$filter</code> and <code>$search</code> system
 query options can be used to limit the number of related entities included in
 the count.</p>
@@ -4473,13 +4473,13 @@ background:#D9D9D9'>http://host/service/Categories?$expand=Products/$count($sear
 
 <p class=MsoNormal>To retrieve entity references instead of the related
 entities, append <code>/$ref</code> to the navigation property
-name or <a href="#sec_AddressingDerivedTypes">type-cast segment</a> following a
+name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a
 navigation property name. The system query options <a
-href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>,
-<a href="#sec_SystemQueryOptionsearch"><code>$search</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$skip</code></a>,
-<a href="#sec_SystemQueryOptionstopandskip"><code>$top</code></a>,
-and <a href="#sec_SystemQueryOptioncount"><code>$count</code></a>
+href="#SystemQueryOptionfilter"><code>$filter</code></a>,
+<a href="#SystemQueryOptionsearch"><code>$search</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>,
+<a href="#SystemQueryOptionstopandskip"><code>$top</code></a>,
+and <a href="#SystemQueryOptioncount"><code>$count</code></a>
 can be used to limit the number of expanded entity references.</p>
 
 <p class=MsoCaption>Example 119: all categories and for each category the references
@@ -4611,7 +4611,7 @@ allows clients to request a specific set of properties for each entity or
 complex type.</p>
 
 <p class=MsoNormal>The <code>$select</code> query option is
-often used in conjunction with the <a href="#sec_SystemQueryOptionexpand"><code>$expand</code></a> system query option, to
+often used in conjunction with the <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query option, to
 define the extent of the resource graph to return (<code>$expand</code>)
 and then specify a subset of properties for each resource in the graph (<code>$select</code>). Expanded navigation properties MUST be
 returned, even if they are not specified in <code>$select</code>.</p>
@@ -4635,7 +4635,7 @@ actions or functions from that schema</p>
 
 <p class=MsoNormal>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or
 collection-valued complex properties, <a
-href="#sec_AnnotationValuesinExpressions">instance annotations</a>, or
+href="#AnnotationValuesinExpressions">instance annotations</a>, or
 type-cast segments consisting of the qualified name of a structured type that
 is derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.</p>
@@ -4702,12 +4702,12 @@ properties or instance annotations, then the request is considered malformed.</p
 <p class=MsoNormal style='page-break-after:avoid'>If the select item is an
 instance annotation of type entity or collection of entities, then the request
 is considered malformed. Entity-valued annotations can be included using <a
-href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>If the select item is a
 navigation property, then the corresponding navigation link is represented in
 the response. If the navigation property also appears in an <a
-href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>
+href="#SystemQueryOptionexpand"><code>$expand</code></a>
 query option, then it is additionally represented as inline content. This
 inline content can itself be restricted with a nested <code>$select</code>
 query option, see section 5.1.2. </p>
@@ -4730,7 +4730,7 @@ of the resource segment.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>A select item that is a
 complex type or collection of complex type can be followed by a forward slash,
-an optional <a href="#sec_AddressingDerivedTypes">type-cast segment</a>, and
+an optional <a href="#AddressingDerivedTypes">type-cast segment</a>, and
 the name of a property of the complex type (and so on for nested complex
 types). </p>
 
@@ -4752,8 +4752,8 @@ to a single complex value or a collection of primitive or complex values by
 appending a semicolon-separated list of query options, enclosed in parentheses,
 to the select item. The allowed system query options depend on the type of the
 resource identified by the select item, see section <a
-href="#sec_SystemQueryOptions">System Query Options</a>, with the exception of <a
-href="#sec_SystemQueryOptionexpand"><code>$expand</code></a>.
+href="#SystemQueryOptions">System Query Options</a>, with the exception of <a
+href="#SystemQueryOptionexpand"><code>$expand</code></a>.
 The same property MUST NOT have select options specified in more than one place
 in a request and MUST NOT be specified in more than one expand.</p>
 
@@ -4857,17 +4857,17 @@ covered in the <a href="#odata">OData-Protocol</a> document.</p>
 
 <p class=MsoNormal>The <code>$search</code>
 system query option allows clients to request items within a collection
-matching a free-text <a href="#sec_SearchExpressions">search expression</a>.</p>
+matching a free-text <a href="#SearchExpressions">search expression</a>.</p>
 
 <p class=MsoNormal>The <code>$search</code> query option can be
 applied to a URL representing a collection of entity, complex, or primitive
 typed instances, to return all matching items within the collection. Applying
 the <code>$search</code> query option to the <a
-href="#sec_AddressingAllEntitiesinaService"><code>$all</code></a>
+href="#AddressingAllEntitiesinaService"><code>$all</code></a>
 resource requests all matching entities in the service.</p>
 
 <p class=MsoNormal>If both <code>$search</code>
-and <a href="#sec_SystemQueryOptionfilter"><code>$filter</code>
+and <a href="#SystemQueryOptionfilter"><code>$filter</code>
 </a>are applied to the same request, the results include only those items that
 match both criteria.</p>
 
@@ -4890,7 +4890,7 @@ OR green</p>
 Expressions</h4>
 
 <p class=MsoNormal>Search expressions are used within the <a
-href="#sec_SystemQueryOptionsearch"><code>$search</code></a>
+href="#SystemQueryOptionsearch"><code>$search</code></a>
 system query option to request entities matching the specified expression.</p>
 
 <p class=MsoNormal><i>Terms</i> can be any single word to be matched within the
@@ -4941,8 +4941,8 @@ covered in the <a href="#odata">OData-Protocol</a> document.</p>
 
 <p class=MsoNormal>The <code>$compute</code> system query option
 allows clients to define computed properties that can be used in a <a
-href="#sec_SystemQueryOptionselect"><code>$select</code></a>
-or within a <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
+href="#SystemQueryOptionselect"><code>$select</code></a>
+or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
 
 <p class=MsoNormal style='page-break-after:avoid'>The <code>$compute</code>
 system query option is interpreted relative to the entity type or complex type
@@ -4950,7 +4950,7 @@ of the resources identified by the resource path section of the URL.</p>
 
 <p class=MsoNormal>The value of <code>$compute</code> is a
 comma-separated list of compute instructions, each consisting of a <a
-href="#sec_CommonExpressionSyntax">common expression</a> followed by the
+href="#CommonExpressionSyntax">common expression</a> followed by the
 keyword <code>as</code>, followed by the name for the computed
 dynamic property. This name MUST differ from the names of declared or dynamic
 properties of the identified resources.</p>
@@ -5020,9 +5020,9 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 <h2>##subsec Parameter Aliases</h2>
 
 <p class=MsoNormal>Parameter aliases can be used in place of literal values in
-entity keys, <a href="#sec_AddressingFunctions">function</a> parameters, or
-within a <a href="#sec_SystemQueryOptionfilter"><code>$filter</code></a>
-or <a href="#sec_SystemQueryOptionorderby"><code>$orderby</code></a>
+entity keys, <a href="#AddressingFunctions">function</a> parameters, or
+within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a>
+or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>
 expression. </p>
 
 <p class=MsoNormal>Parameter aliases MUST start with an <code>@</code>
@@ -5079,7 +5079,7 @@ are described in <a href="#odata">OData-Protocol</a>.</p>
 
 
 
-<p class=AppendixHeading1>Appendix A. <a href="#sec_Acknowledgments">Acknowledgments</a></p>
+<p class=AppendixHeading1>Appendix A. <a href="#Acknowledgments">Acknowledgments</a></p>
 
 
 
@@ -5089,7 +5089,7 @@ gratefully acknowledged.</p>
 
 
 
-<p class=AppendixHeading1>Appendix B. <a href="#sec_RevisionHistory">Revision History</a></p>
+<p class=AppendixHeading1>Appendix B. <a href="#RevisionHistory">Revision History</a></p>
 
 
 

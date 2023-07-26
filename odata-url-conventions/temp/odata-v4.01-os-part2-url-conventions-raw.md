@@ -262,7 +262,7 @@ An OData service MAY respond with `301 Moved Permanently` or
 OData services expose their entity model according to
 [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
 metadata URL, formed by appending `$metadata` to the [service root
-URL](#sec_ServiceRootURL).
+URL](#ServiceRootURL).
 
 Example 5: Metadata document URL
 
@@ -274,7 +274,7 @@ http://host/service/\$metadata
 
 OData clients may request a particular format for metadata either
 through the Accept header or by using the
-[`$format`](#sec_SystemQueryOptionformat) system query option.
+[`$format`](#SystemQueryOptionformat) system query option.
 
 Example 6: Metadata document URL with specified format
 
@@ -287,7 +287,7 @@ http://host/service/\$metadata?\$format=json
 ## ##subsec Addressing the Batch Endpoint for a Service
 
 OData services that support batch requests expose a batch URL formed by
-appending `$batch` to the [service root URL](#sec_ServiceRootURL).
+appending `$batch` to the [service root URL](#ServiceRootURL).
 
 Example 7: batch URL
 
@@ -702,9 +702,9 @@ as such
 
 For maximum interoperability, services that support the key-as-segment
 convention SHOULD also support the canonical [parentheses-style
-convention](#sec_CanonicalURL) for addressing an entity within a
-collection, otherwise they MUST specify the URL for each returned entity
-in a response, as specified by the particular format.
+convention](#CanonicalURL) for addressing an entity within a collection,
+otherwise they MUST specify the URL for each returned entity in a
+response, as specified by the particular format.
 
 Note: the key-as-segment convention can only be used with the canonical
 (primary) key and cannot be used with alternate keys as the key property
@@ -845,16 +845,16 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#sec_SystemQueryOptionstopandskip),
-[`$skip`](#sec_SystemQueryOptionstopandskip),
-[`$orderby`](#sec_SystemQueryOptionorderby),
-[`$expand`](#sec_SystemQueryOptionexpand), and
-[`$format`](#sec_SystemQueryOptionformat). The count MUST NOT be
-affected by[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}`$top`,
-`$skip`, `$orderby`, or `$expand`.
+[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[`$skip`](#SystemQueryOptionstopandskip),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$expand`](#SystemQueryOptionexpand), and
+[`$format`](#SystemQueryOptionformat). The count MUST NOT be affected
+by[[ ]{style="font-size:8.0pt"}]{.MsoCommentReference}`$top`, `$skip`,
+`$orderby`, or `$expand`.
 
 The count is calculated after applying any
-[`/$filter`](#sec_AddressingaSubsetofaCollection) path segments, or
+[`/$filter`](#AddressingaSubsetofaCollection) path segments, or
 `$filter` or `$search` system query options to the collection.
 
  
@@ -875,7 +875,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products/\$count
 :::
 
-Example 32: entity count in a [`$filter`](#sec_SystemQueryOptionfilter)
+Example 32: entity count in a [`$filter`](#SystemQueryOptionfilter)
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 
@@ -886,9 +886,8 @@ http://host/service/Categories?\$filter=Products/\$count gt 0
 :::
 
 Example 33: count of a filtered collection in a
-[`$filter`](#sec_SystemQueryOptionfilter) expression; returns all
-Categories containing more than two products whose price is greater than
-5.00.
+[`$filter`](#SystemQueryOptionfilter) expression; returns all Categories
+containing more than two products whose price is greater than 5.00.
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -898,7 +897,7 @@ gt 5.00) gt 2
 :::
 
 [ ]{lang="DE"}Example 34: entity count in an
-[`$orderby`](#sec_SystemQueryOptionorderby) expression
+[`$orderby`](#SystemQueryOptionorderby) expression
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -917,8 +916,8 @@ collection-valued navigation properties with a
 `NavigationPropertyBinding `or `ContainsTarget=true `specification,
 members of the collection can be addressed by convention by appending
 the parenthesized key to the URL specifying the collection of entities,
-or by using the [key-as-segment convention](#sec_KeyasSegmentConvention)
-if supported by the service.
+or by using the [key-as-segment convention](#KeyasSegmentConvention) if
+supported by the service.
 
 For collection-valued navigation properties with navigation property
 bindings that end in a type-cast segment, a type-cast segment MUST be
@@ -1038,7 +1037,7 @@ http://host/service/Orders?\$expand=Customer/Model.VipCustomer
 
 Any resource path or path expression identifying a collection can be
 appended with a filter path segment consisting of `/$filter` followed by
-parentheses containing a [parameter alias](#sec_ParameterAliases) or a
+parentheses containing a [parameter alias](#ParameterAliases) or a
 filter expression following the `filter` syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
@@ -1050,7 +1049,7 @@ The collection will be restricted to instances matching the filter
 expression assigned to the parameter alias and may be empty. 
 
 The `/$filter` path segment MAY occur multiple times and it MAY be
-combined with the [`$filter`](#sec_SystemQueryOptionfilter) system query
+combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 Example 41: red products that cost less than 10  -- combining path
@@ -1090,8 +1089,8 @@ evaluated *after* the modification and determines which of the modified
 items are part of the response.
 
 The `/$filter` path segment MAY be followed by a path segment
-identifying a [bound action](#sec_AddressingActions) or [bound
-function](#sec_AddressingFunctions) applicable to the collection.
+identifying a [bound action](#AddressingActions) or [bound
+function](#AddressingFunctions) applicable to the collection.
 
 Example 44: invoke the `Special.Cluster` action on all products older
 than 3
@@ -1108,20 +1107,19 @@ To apply a `PATCH` or `DELETE` request to each member of a collection,
 clients append the path segment `/$each` to a resource path identifying
 a collection.
 
-To apply a [bound action](#sec_AddressingActions) or function to each
-member of a collection, clients append the path segment `/$each`
-followed by a path segment identifying the [bound
-action](#sec_AddressingActions) or function. The response is a
-collection of instances of the result type of the bound operation. If
-the bound operation returns a collection, the response is a collection
-of collections. System query options applied to the response can use
-[`$it`](#sec_it) to reference an item in the outermost collection,
-followed by [`/any`](#sec_any), [`/all`](#sec_all), or
-[`/$count`](#sec_AddressingtheCountofaCollection). 
+To apply a [bound action](#AddressingActions) or function to each member
+of a collection, clients append the path segment `/$each` followed by a
+path segment identifying the [bound action](#AddressingActions) or
+function. The response is a collection of instances of the result type
+of the bound operation. If the bound operation returns a collection, the
+response is a collection of collections. System query options applied to
+the response can use [`$it`](#it) to reference an item in the outermost
+collection, followed by [`/any`](#any), [`/all`](#all), or
+[`/$count`](#AddressingtheCountofaCollection). 
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#sec_AddressingDerivedTypes) or [filter path
-segments](#sec_AddressingaSubsetofaCollection) to subset the collection.
+[type-cast](#AddressingDerivedTypes) or [filter path
+segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## ##subsec Addressing the Media Stream of a Media Entity
 
@@ -1146,7 +1144,7 @@ defined in the entity model of a service, the cross join operator allows
 querying across unrelated entity sets.
 
 The cross join is addressed by appending the path segment `$crossjoin`
-to the [service root URL](#sec_ServiceRootURL), followed by the
+to the [service root URL](#ServiceRootURL), followed by the
 parenthesized comma-separated list of joined entity sets. It returns the
 Cartesian product of all the specified entity sets, represented as a
 collection of instances of a virtual complex type. Each instance
@@ -1155,21 +1153,21 @@ joined entity set. Each such navigation property is named identical to
 the corresponding entity set, with a target type equal to the declared
 entity type of the corresponding entity set.
 
-The [`$filter`](#sec_SystemQueryOptionfilter) and
-[`$orderby`](#sec_SystemQueryOptionorderby)` `query options can be
-specified using properties of the entities in the selected entity sets,
-prepended with the entity set as the navigation property name.
+The [`$filter`](#SystemQueryOptionfilter) and
+[`$orderby`](#SystemQueryOptionorderby)` `query options can be specified
+using properties of the entities in the selected entity sets, prepended
+with the entity set as the navigation property name.
 
-The [`$expand`](#sec_SystemQueryOptionexpand) query option can be
-specified using the names of the selected entity sets as navigation
-property names. If a selected entity set is not expanded, it MUST be
-represented using the read URL of the related entity as a navigation
-link in the complex type instance.
+The [`$expand`](#SystemQueryOptionexpand) query option can be specified
+using the names of the selected entity sets as navigation property
+names. If a selected entity set is not expanded, it MUST be represented
+using the read URL of the related entity as a navigation link in the
+complex type instance.
 
-The [`$count`](#sec_SystemQueryOptioncount),
-[`$skip`](#sec_SystemQueryOptionstopandskip), and
-[`$top`](#sec_SystemQueryOptionstopandskip) query options can also be
-used with no special semantics.
+The [`$count`](#SystemQueryOptioncount),
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) query options can also be used
+with no special semantics.
 
 Example 46: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
@@ -1216,16 +1214,16 @@ the collection of all entities in a service, i.e. the union of all
 entity sets plus all singletons.
 
 This symbolic resource is of type `Collection(Edm.EntityType)` and
-allows the [`$search`](#sec_SystemQueryOptionsearch) system query option
+allows the [`$search`](#SystemQueryOptionsearch) system query option
 plus all other query options applicable to collections of entities.
 
 The `$all` resource can be appended with a path segment containing the
 qualified name of an entity type in order to restrict the collections to
 entities of that type. Query options such as
-[`$select`](#sec_SystemQueryOptionselect),
-[`$filter`](#sec_SystemQueryOptionfilter),
-[`$expand`](#sec_SystemQueryOptionexpand), and
-[`$orderby`](#sec_SystemQueryOptionorderby) can be applied to this
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter),
+[`$expand`](#SystemQueryOptionexpand), and
+[`$orderby`](#SystemQueryOptionorderby) can be applied to this
 restricted set according to the specified type.
 
 Example 47: all entities in a service that somehow match `red`
@@ -1283,11 +1281,11 @@ Content-Type: text/plain
 # ##sec Query Options
 
 The query options part of an OData URL specifies three types of
-information: [system query options](#sec_SystemQueryOptions), [custom
-query options](#sec_CustomQueryOptions), and [parameter
-aliases](#sec_ParameterAliases). All OData services MUST follow the
-query string parsing and construction rules defined in this section and
-its subsections.
+information: [system query options](#SystemQueryOptions), [custom query
+options](#CustomQueryOptions), and [parameter
+aliases](#ParameterAliases). All OData services MUST follow the query
+string parsing and construction rules defined in this section and its
+subsections.
 
 ## ##subsec System Query Options
 
@@ -1304,24 +1302,24 @@ For `GET`, `PATCH`, and `PUT` requests the following rules apply:
 [· ]{style="font-family:Symbol"}Resource paths identifying a single
 entity, a complex type instance, a collection of entities, or a
 collection of complex type instances allow
-[`$compute`](#sec_SystemQueryOptioncompute),
-[`$expand`](#sec_SystemQueryOptionexpand) and
-[`$select`](#sec_SystemQueryOptionselect).
+[`$compute`](#SystemQueryOptioncompute),
+[`$expand`](#SystemQueryOptionexpand) and
+[`$select`](#SystemQueryOptionselect).
 
 [· ]{style="font-family:Symbol"}Resource paths identifying a collection
-allow [`$filter`](#sec_SystemQueryOptionfilter),
-[`$search`](#sec_SystemQueryOptionsearch),
-[`$count`](#sec_SystemQueryOptioncount),
-[`$orderby`](#sec_SystemQueryOptionorderby),
-[`$skip`](#sec_SystemQueryOptionstopandskip), and
-[`$top`](#sec_SystemQueryOptionstopandskip).
+allow [`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$count`](#SystemQueryOptioncount),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip).
 
 [· ]{style="font-family:Symbol"}Resource paths ending in `/$count` allow
-[`$filter`](#sec_SystemQueryOptionfilter) and
-[`$search`](#sec_SystemQueryOptionsearch).
+[`$filter`](#SystemQueryOptionfilter) and
+[`$search`](#SystemQueryOptionsearch).
 
 [· ]{style="font-family:Symbol"}Resource paths not ending in `/$count`
-or `/$batch` allow [`$format`](#sec_SystemQueryOptionformat).
+or `/$batch` allow [`$format`](#SystemQueryOptionformat).
 
 For `POST` requests to an action URL the return type of the action
 determines the applicable system query options that a service MAY
@@ -1372,11 +1370,11 @@ lower case operator names.
 The six comparison operators can be used with all primitive values
 except `Edm.Binary`, `Edm.Stream`, and the `Edm.Geo` types.
 `Edm.Binary`, `Edm.Stream`, and the `Edm.Geo` types can only be compared
-to the `null` value using the [`eq`](#sec_Equals) and
-[`ne`](#sec_NotEquals) operators.
+to the `null` value using the [`eq`](#Equals) and [`ne`](#NotEquals)
+operators.
 
 When applied to operands of numeric types, [numeric
-promotion](#sec_NumericPromotion) rules are applied.
+promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with structured
@@ -1457,8 +1455,7 @@ If any operand is `null`, the operator returns false.
 The `ge` operator returns true if the left operand is greater than or
 equal to the right operand, otherwise it returns false.
 
-See rules for [`gt`](#sec_GreaterThan) and [`eq`](#sec_Equals) for
-details.
+See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
 
 ##### ##subsubsubsubsec Less Than
 
@@ -1484,7 +1481,7 @@ If any operand is `null`, the operator returns false.
 The `le` operator returns true if the left operand is less than or equal
 to the right operand, otherwise it returns false.
 
-See rules for [`lt`](#sec_LessThan) and [`eq`](#sec_Equals) for details.
+See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
 ##### ##subsubsubsubsec And
 
@@ -1626,8 +1623,8 @@ http://host/service/Products?\$filter=Name in (\'Milk\', \'Cheese\')
 OData defines a set of arithmetic operators that require operands that
 evaluate to numeric types. Arithmetic operators are typically used to
 filter a collection of resources. However, services MAY allow using
-arithmetic operators with the
-[`$orderby`](#sec_SystemQueryOptionorderby) system query option.
+arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
+system query option.
 
 If an operand of an arithmetic operator is null, the result is null.
 
@@ -1636,7 +1633,7 @@ The syntax rules for the arithmetic operators are defined in
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
-##### ##subsubsubsubsec [Addition](#sec_Addition)
+##### ##subsubsubsubsec [Addition](#Addition)
 
 The `add` operator adds the left and right numeric operands.
 
@@ -1672,7 +1669,7 @@ adding a duration to a date:
 Thus, today plus a positive duration smaller than one day is today;
 today minus a positive duration smaller than one day is yesterday.
 
-##### ##subsubsubsubsec [Subtraction](#sec_Subtraction)
+##### ##subsubsubsubsec [Subtraction](#Subtraction)
 
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
@@ -1700,14 +1697,14 @@ results in a `Duration` 
 The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically for
 subtracting a duration from a date see the preceding
-[section](#sec_Addition).
+[section](#Addition).
 
-##### ##subsubsubsubsec [Negation](#sec_Negation)
+##### ##subsubsubsubsec [Negation](#Negation)
 
 The negation operator, represented by a minus (`-`) sign, changes the
 sign of its numeric or `Duration` operand.
 
-##### ##subsubsubsubsec [Multiplication](#sec_Multiplication)
+##### ##subsubsubsubsec [Multiplication](#Multiplication)
 
 The `mul` operator multiplies the left and right numeric operands. The
 `mul` operator is also valid for multiplying a `Duration` value with a
@@ -1717,7 +1714,7 @@ For operands of type `Edm.Decimal` the scale of the result is scaleof(A
 mul B) = scaleof(A) + scaleof(B), floating if any operand has floating
 scale, or else variable if any operand has variable scale.
 
-##### ##subsubsubsubsec [Division](#sec_Division)
+##### ##subsubsubsubsec [Division](#Division)
 
 The `div` and` divby` operators divide the left numeric operand by the
 right numeric operand. They are also valid for dividing a `Duration`
@@ -1743,7 +1740,7 @@ operands to decimal before computing the result, may yield a fractional
 result, and does not fail for `divby` zero, returning `-INF`, `INF`, or
 `NaN depending on the sign of the left operand.`
 
-##### ##subsubsubsubsec [Modulo](#sec_Modulo)
+##### ##subsubsubsubsec [Modulo](#Modulo)
 
 The `mod` operator returns the remainder when the left numeric operand
 is divided by the right numeric operand.  The sign of the result is the
@@ -1815,7 +1812,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/Products?\$filter=Rating mod 5 eq 0
 :::
 
-#### ##subsubsubsec [Grouping](#sec_Grouping)
+#### ##subsubsubsec [Grouping](#Grouping)
 
 The Grouping operator (open and close parenthesis "`( )`") controls the
 evaluation order of an expression. The Grouping operator returns the
@@ -1832,12 +1829,12 @@ http://host/service/Products?\$filter=(4 add 5) mod (4 sub 1) eq 0
 #### ##subsubsubsec Canonical Functions
 
 In addition to operators, a set of functions is also defined for use
-with the [`$compute`](#sec_SystemQueryOptioncompute), `$filter` or
-[`$orderby`](#sec_SystemQueryOptionorderby) system query options, or in
-[parameter alias](#sec_ParameterAliases) values. The following sections
+with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
+[`$orderby`](#SystemQueryOptionorderby) system query options, or in
+[parameter alias](#ParameterAliases) values. The following sections
 describe the available functions. Note: ISNULL or COALESCE operators are
-not defined. Instead, OData defines a [`null`](#sec_null) literal that
-can be used in comparisons.
+not defined. Instead, OData defines a [`null`](#null) literal that can
+be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
 `null`.
@@ -1890,8 +1887,8 @@ contains(OrderedCollection,OrderedCollection)]{.VerbatimChar}
 The `contains` function with string parameter values returns true if the
 second string is a substring of the first string, otherwise it returns
 false. String comparison is case-sensitive, case-insensitive comparison
-can be achieved in combination with [`tolower`](#sec_tolower) or
-[`toupper`](#sec_toupper).
+can be achieved in combination with [`tolower`](#tolower) or
+[`toupper`](#toupper).
 
 The `contains` function with ordered collection parameter values returns
 true if the first collection can be transformed into the second
@@ -1921,8 +1918,8 @@ endswith(OrderedCollection,OrderedCollection)]{.VerbatimChar}
 The `endswith` function with string parameter values returns true if the
 first string ends with the second string, otherwise it returns false.
 String comparison is case-sensitive, case-insensitive comparison can be
-achieved in combination with [`tolower`](#sec_tolower) or
-[`toupper`](#sec_toupper).
+achieved in combination with [`tolower`](#tolower) or
+[`toupper`](#toupper).
 
 The `endswith` function with ordered collection parameter values returns
 true if the first collection can be transformed into the second
@@ -1952,8 +1949,8 @@ The `indexof` function with string parameter values returns the
 zero-based character position of the first occurrence of the second
 string in the first string, or -1 if the first string does not contain
 the second string. String comparison is case-sensitive, case-insensitive
-comparison can be achieved in combination with [`tolower`](#sec_tolower)
-or [`toupper`](#sec_toupper).
+comparison can be achieved in combination with [`tolower`](#tolower) or
+[`toupper`](#toupper).
 
 The `indexof` function with ordered collection parameter values returns
 the zero-based index of the first occurrence of the second collection in
@@ -2009,8 +2006,8 @@ Edm.Boolean startswith(Collection,Collection)]{.VerbatimChar}
 The `startswith` function with string parameter values returns true if
 the first string starts with the second string, otherwise it returns
 false. String comparison is case-sensitive, case-insensitive comparison
-can be achieved in combination with [`tolower`](#sec_tolower) or
-[`toupper`](#sec_toupper).
+can be achieved in combination with [`tolower`](#tolower) or
+[`toupper`](#toupper).
 
 The `startswith` function with ordered collection parameter values
 returns true if the first collection can be transformed into the second
@@ -2621,8 +2618,8 @@ The `isof` function has the following signatures
 
 The single parameter `isof` function returns true if the current
 instance is assignable to the type specified, according to the
-assignment rules for the [`cast`](#sec_cast) function, otherwise it
-returns `false`.
+assignment rules for the [`cast`](#cast) function, otherwise it returns
+`false`.
 
 The two parameter `isof` function returns true if the object referred to
 by the expression is assignable to the type specified, according to the
@@ -2686,7 +2683,7 @@ parameter in the coordinate reference system signified by its SRID.
 
 #### ##subsubsubsec Conditional Functions
 
-##### ##subsubsubsubsec [`case`](#sec_case)
+##### ##subsubsubsubsec [`case`](#case)
 
 The `case` function has the following signature:
 
@@ -2741,14 +2738,14 @@ identified by the navigation path.
 If the name chosen for the lambda variable matches a property name of
 the current resource referenced by the resource path, the lambda
 variable takes precedence. Clients can prefix properties of the current
-resource referenced by the resource path with [`$it`](#sec_it).
+resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
 collection instances at the origin of the navigation path prepended to
 the lambda operator.
 
-##### ##subsubsubsubsec [`any`](#sec_any)
+##### ##subsubsubsubsec [`any`](#any)
 
 The `any` operator applies a Boolean expression to each member of a
 collection and returns true if and only if the expression is true for
@@ -2789,7 +2786,7 @@ http://host/service/Categories?\$expand=Products(\$filter=OrderItems/any(oi:oi/U
 ne UnitPrice)
 :::
 
-##### ##subsubsubsubsec [`all`](#sec_all)
+##### ##subsubsubsubsec [`all`](#all)
 
 The `all` operator applies a Boolean expression to each member of a
 collection and returns true if the expression is true for all members of
@@ -2813,9 +2810,8 @@ http://host/service/Orders?\$filter=Items/all(d:d/Quantity gt 100)
 
 Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
-[`$filter`](#sec_SystemQueryOptionfilter) expressions. They are
-represented according to the `primitiveLiteral` rule in
-[OData-ABNF](#ODataABNF).
+[`$filter`](#SystemQueryOptionfilter) expressions. They are represented
+according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 
 Example 102: expressions using primitive literals
 
@@ -2876,8 +2872,8 @@ Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
 [OData-ABNF](#ODataABNF). Such literals MUST NOT appear in the path
 portion of the URL but can be passed to bound
-[functions](#sec_AddressingFunctions) and function imports in path
-segments by using [parameter aliases](#sec_ParameterAliases).
+[functions](#AddressingFunctions) and function imports in path segments
+by using [parameter aliases](#ParameterAliases).
 
 Object member values and array items can be expressions, including other
 objects and arrays, arithmetic expressions, property names, and of
@@ -2910,7 +2906,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 The `null` literal can be used to compare a value to null, or to pass a
 null value to a function.
 
-##### ##subsubsubsubsec [`$it`](#sec_it)
+##### ##subsubsubsubsec [`$it`](#it)
 
 The `$it` literal can be used in expressions to refer to the current
 instance of the resource identified by the resource path. For a
@@ -2920,24 +2916,24 @@ single-valued resource it is the resource itself.
 
 It allows comparing properties of related entities to properties of the
 current instance in expressions within lambda operators or in
-[`$filter`](#sec_SystemQueryOptionfilter) expressions nested within
-[`$expand`](#sec_SystemQueryOptionexpand) or
-[`$select`](#sec_SystemQueryOptionselect).
+[`$filter`](#SystemQueryOptionfilter) expressions nested within
+[`$expand`](#SystemQueryOptionexpand) or
+[`$select`](#SystemQueryOptionselect).
 
-It also can be used in [`$filter`](#sec_SystemQueryOptionfilter) and
-[`$orderby`](#sec_SystemQueryOptionorderby) expressions on collections
-of primitive types to refer to the current primitive instance, but using
-the [`$this`](#sec_this) literal is preferred as [`$this`](#sec_this)
-can also be used in [`$filter`](#sec_SystemQueryOptionfilter) and
-[`$orderby`](#sec_SystemQueryOptionorderby) expressions nested within
-[`$select`](#sec_SystemQueryOptionselect).
+It also can be used in [`$filter`](#SystemQueryOptionfilter) and
+[`$orderby`](#SystemQueryOptionorderby) expressions on collections of
+primitive types to refer to the current primitive instance, but using
+the [`$this`](#this) literal is preferred as [`$this`](#this) can also
+be used in [`$filter`](#SystemQueryOptionfilter) and
+[`$orderby`](#SystemQueryOptionorderby) expressions nested within
+[`$select`](#SystemQueryOptionselect).
 
 Note: property names and property paths in
-[`$filter`](#sec_SystemQueryOptionfilter) expressions nested within
-[`$expand`](#sec_SystemQueryOptionexpand) are evaluated in the context
-of the declared type of the expanded navigation property, so property
-names and property paths for the current instance of the collection
-identified by the resource path MUST be prefixed with `$it/`.
+[`$filter`](#SystemQueryOptionfilter) expressions nested within
+[`$expand`](#SystemQueryOptionexpand) are evaluated in the context of
+the declared type of the expanded navigation property, so property names
+and property paths for the current instance of the collection identified
+by the resource path MUST be prefixed with `$it/`.
 
 The `$it` literal can also be used as a path prefix to invoke a bound
 function overload on the current instance within an expression. Function
@@ -2975,11 +2971,11 @@ http://host/service/Products?\$filter=\$it/Model.PositiveReviews()/\$count
 ge 10
 :::
 
-##### ##subsubsubsubsec [`$root`](#sec_root)
+##### ##subsubsubsubsec [`$root`](#root)
 
 The `$root` literal can be used in expressions to refer to resources of
 the same service. It can be used as a single-valued expression or within
-[complex or collection literals](#sec_ComplexandCollectionLiterals).
+[complex or collection literals](#ComplexandCollectionLiterals).
 
 Example 108: all employees with the same last name as employee `A1235`
 
@@ -3000,15 +2996,14 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in"}
 http://host/service/ProductsOrderedBy(Customers=@c)?@c=\[\$root/Customers(\'ALFKI\'),\$root/Customers(\'BLAUS\')\]
 :::
 
-##### ##subsubsubsubsec [`$this`](#sec_this)` `
+##### ##subsubsubsubsec [`$this`](#this)` `
 
-The `$this` literal can be used in
-[`$filter`](#sec_SystemQueryOptionfilter) and
-[`$orderby`](#sec_SystemQueryOptionorderby) expressions nested within
-[`$expand`](#sec_SystemQueryOptionexpand) and
-[`$select`](#sec_SystemQueryOptionselect) for collection-valued
-properties and navigation properties. It refers to the current instance
-of the collection.
+The `$this` literal can be used in [`$filter`](#SystemQueryOptionfilter)
+and [`$orderby`](#SystemQueryOptionorderby) expressions nested within
+[`$expand`](#SystemQueryOptionexpand) and
+[`$select`](#SystemQueryOptionselect) for collection-valued properties
+and navigation properties. It refers to the current instance of the
+collection.
 
 Example 110: select only email addresses ending with `.com`
 
@@ -3050,8 +3045,8 @@ Companies(1)/HeadquarterAddress/Street
 To access properties of derived types, the property name MUST be
 prefixed with the qualified name of the derived type on which the
 property is defined, followed by a forward slash (`/`), see [addressing
-derived types](#sec_AddressingDerivedTypes). If the current instance is
-not of the specified derived type, the path expression returns `null`.
+derived types](#AddressingDerivedTypes). If the current instance is not
+of the specified derived type, the path expression returns `null`.
 
 If the property or navigation property is not defined for the type of
 the resource and that type supports dynamic properties or navigation
@@ -3074,7 +3069,7 @@ Annotation values are referenced by the annotation name which consists
 of an at sign (`@`) followed by the qualified term name, optionally
 followed by a percent-encoded hash (`%23`) and an annotation qualifier.
 The annotation name can be prefixed with a [path
-expression](#sec_PathExpressions) leading to the annotated resource or
+expression](#PathExpressions) leading to the annotated resource or
 property.
 
 If an annotation is not applied to the resource or property, then its
@@ -3107,16 +3102,16 @@ term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#odata).
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
-alias](#sec_ParameterAliases), then any occurrence of the parameter
-alias name in an expression MUST evaluate to the parameter alias value
-and MUST NOT evaluate to the annotation value of an identical
-unqualified term name.
+alias](#ParameterAliases), then any occurrence of the parameter alias
+name in an expression MUST evaluate to the parameter alias value and
+MUST NOT evaluate to the annotation value of an identical unqualified
+term name.
 
 #### ##subsubsubsec Operator Precedence
 
 OData services MUST use the following operator precedence for supported
-operators when evaluating [`$filter`](#sec_SystemQueryOptionfilter) and
-[`$orderby`](#sec_SystemQueryOptionorderby) expressions. Operators are
+operators when evaluating [`$filter`](#SystemQueryOptionfilter) and
+[`$orderby`](#SystemQueryOptionorderby) expressions. Operators are
 listed by category in order of precedence from highest to lowest.
 Operators in the same category have equal precedence:
 
@@ -3252,7 +3247,7 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#sec_AnnotationValuesinExpressions), or type-cast
+[instance annotations](#AnnotationValuesinExpressions), or type-cast
 segments consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
@@ -3306,13 +3301,13 @@ A property MUST NOT appear in more than one expand item.
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name. Allowed system query
-options are [`$filter`](#sec_SystemQueryOptionfilter),
-[`$select`](#sec_SystemQueryOptionselect),
-[`$orderby`](#sec_SystemQueryOptionorderby),
-[`$skip`](#sec_SystemQueryOptionstopandskip),
-[`$top`](#sec_SystemQueryOptionstopandskip),
-[`$count`](#sec_SystemQueryOptioncount),
-[`$search`](#sec_SystemQueryOptionsearch), and `$expand`.
+options are [`$filter`](#SystemQueryOptionfilter),
+[`$select`](#SystemQueryOptionselect),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip),
+[`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount),
+[`$search`](#SystemQueryOptionsearch), and `$expand`.
 
 Example 116: all categories and for each category all related products
 with a discontinued date equal to `null`
@@ -3325,7 +3320,7 @@ http://host/service/Categories?
 :::
 
 The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#sec_AddressingDerivedTypes) following a navigation
+[type-cast segment](#AddressingDerivedTypes) following a navigation
 property name to return just the count of the related entities. The
 `$filter` and `$search` system query options can be used to limit the
 number of related entities included in the count.
@@ -3350,14 +3345,13 @@ http://host/service/Categories?\$expand=Products/\$count(\$search=blue)
 
 To retrieve entity references instead of the related entities, append
 `/$ref` to the navigation property name or [type-cast
-segment](#sec_AddressingDerivedTypes) following a navigation property
-name. The system query options
-[`$filter`](#sec_SystemQueryOptionfilter),
-[`$search`](#sec_SystemQueryOptionsearch),
-[`$skip`](#sec_SystemQueryOptionstopandskip),
-[`$top`](#sec_SystemQueryOptionstopandskip), and
-[`$count`](#sec_SystemQueryOptioncount) can be used to limit the number
-of expanded entity references.
+segment](#AddressingDerivedTypes) following a navigation property name.
+The system query options [`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$skip`](#SystemQueryOptionstopandskip),
+[`$top`](#SystemQueryOptionstopandskip), and
+[`$count`](#SystemQueryOptioncount) can be used to limit the number of
+expanded entity references.
 
 Example 119: all categories and for each category the references of all
 related products
@@ -3461,9 +3455,9 @@ The `$select` system query option allows clients to request a specific
 set of properties for each entity or complex type.
 
 The `$select` query option is often used in conjunction with the
-[`$expand`](#sec_SystemQueryOptionexpand) system query option, to define
-the extent of the resource graph to return (`$expand`) and then specify
-a subset of properties for each resource in the graph (`$select`).
+[`$expand`](#SystemQueryOptionexpand) system query option, to define the
+extent of the resource graph to return (`$expand`) and then specify a
+subset of properties for each resource in the graph (`$select`).
 Expanded navigation properties MUST be returned, even if they are not
 specified in `$select`.
 
@@ -3484,7 +3478,7 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#sec_AnnotationValuesinExpressions), or type-cast
+[instance annotations](#AnnotationValuesinExpressions), or type-cast
 segments consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
@@ -3544,14 +3538,14 @@ the request is considered malformed.
 If the select item is an instance annotation of type entity or
 collection of entities, then the request is considered malformed.
 Entity-valued annotations can be included using
-[`$expand`](#sec_SystemQueryOptionexpand).
+[`$expand`](#SystemQueryOptionexpand).
 
 If the select item is a navigation property, then the corresponding
 navigation link is represented in the response. If the navigation
-property also appears in an [`$expand`](#sec_SystemQueryOptionexpand)
-query option, then it is additionally represented as inline content.
-This inline content can itself be restricted with a nested `$select`
-query option, see section 5.1.2.
+property also appears in an [`$expand`](#SystemQueryOptionexpand) query
+option, then it is additionally represented as inline content. This
+inline content can itself be restricted with a nested `$select` query
+option, see section 5.1.2.
 
 Example 129: name and description of all products, plus name of expanded
 category
@@ -3568,7 +3562,7 @@ the resource segment.
 
 A select item that is a complex type or collection of complex type can
 be followed by a forward slash, an optional [type-cast
-segment](#sec_AddressingDerivedTypes), and the name of a property of the
+segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 Example 130: the `AccountRepresentative` property of any supplier that
@@ -3587,10 +3581,10 @@ complex value or a collection of primitive or complex values by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the select item. The allowed system query options depend
 on the type of the resource identified by the select item, see section
-[System Query Options](#sec_SystemQueryOptions), with the exception of
-[`$expand`](#sec_SystemQueryOptionexpand). The same property MUST NOT
-have select options specified in more than one place in a request and
-MUST NOT be specified in more than one expand.
+[System Query Options](#SystemQueryOptions), with the exception of
+[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
+select options specified in more than one place in a request and MUST
+NOT be specified in more than one expand.
 
 Example 131: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
@@ -3683,17 +3677,17 @@ document.
 
 The `$search` system query option allows clients to request items within
 a collection matching a free-text [search
-expression](#sec_SearchExpressions).
+expression](#SearchExpressions).
 
 The `$search` query option can be applied to a URL representing a
 collection of entity, complex, or primitive typed instances, to return
 all matching items within the collection. Applying the `$search` query
-option to the [`$all`](#sec_AddressingAllEntitiesinaService) resource
+option to the [`$all`](#AddressingAllEntitiesinaService) resource
 requests all matching entities in the service.
 
-If both `$search` and [`$filter`](#sec_SystemQueryOptionfilter) are
-applied to the same request, the results include only those items that
-match both criteria.
+If both `$search` and [`$filter`](#SystemQueryOptionfilter) are applied
+to the same request, the results include only those items that match
+both criteria.
 
 The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
@@ -3710,7 +3704,7 @@ http://host/service/Products?\$search=blue OR green
 #### ##subsubsubsec Search Expressions
 
 Search expressions are used within the
-[`$search`](#sec_SystemQueryOptionsearch) system query option to request
+[`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
 
 *Terms* can be any single word to be matched within the expression.
@@ -3761,10 +3755,9 @@ grammar of the `$format` query option.
 ### ##subsubsec System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a
-[`$select`](#sec_SystemQueryOptionselect) or within a
-[`$filter`](#sec_SystemQueryOptionfilter) or
-[`$orderby`](#sec_SystemQueryOptionorderby) expression.
+properties that can be used in a [`$select`](#SystemQueryOptionselect)
+or within a [`$filter`](#SystemQueryOptionfilter) or
+[`$orderby`](#SystemQueryOptionorderby) expression.
 
 The `$compute` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
@@ -3772,7 +3765,7 @@ section of the URL.
 
 The value of `$compute` is a comma-separated list of compute
 instructions, each consisting of a [common
-expression](#sec_CommonExpressionSyntax) followed by the keyword `as`,
+expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
@@ -3837,9 +3830,9 @@ http://host/service/Products?debug-mode=true
 ## ##subsec Parameter Aliases
 
 Parameter aliases can be used in place of literal values in entity keys,
-[function](#sec_AddressingFunctions) parameters, or within a
-[`$filter`](#sec_SystemQueryOptionfilter) or
-[`$orderby`](#sec_SystemQueryOptionorderby) expression.
+[function](#AddressingFunctions) parameters, or within a
+[`$filter`](#SystemQueryOptionfilter) or
+[`$orderby`](#SystemQueryOptionorderby) expression.
 
 Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
@@ -3881,12 +3874,12 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=\[\"Carrot
 The conformance requirements for OData clients and services are
 described in [OData-Protocol](#odata).
 
-Appendix A. [Acknowledgments](#sec_Acknowledgments)
+Appendix A. [Acknowledgments](#Acknowledgments)
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [OData-Protocol](#odata), are gratefully acknowledged.
 
-Appendix B. [Revision History](#sec_RevisionHistory)
+Appendix B. [Revision History](#RevisionHistory)
 
 +-----------------+-----------------+-----------------+-----------------+
 | **Revision**    | **Date**        | **Editor**      | **Changes       |
