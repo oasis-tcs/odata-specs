@@ -1556,9 +1556,7 @@ a `DateTimeOffset` 
 The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically, for
 adding a duration to a date:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Convert date to datetime (in any timezone) with a zero time component `
+- `Convert date to datetime (in any timezone) with a zero time component `
 - `Add/subtract duration `
 
 [·
@@ -3034,24 +3032,12 @@ size.
 Services MAY support numeric promotion for arithmetic operations or when
 comparing two operands of comparable types by applying the following
 rules, in order:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`If either operand is Edm.Double, the other operand is converted to type Edm.Double.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Single, the other operand is converted to type Edm.Single.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is of type Edm.Decimal, the other operand is converted to Edm.Decimal. `
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int64, the other operand is converted to type Edm.Int64.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int32, the other operand is converted to type Edm.Int32.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int16, the other operand is converted to type Edm.Int16. `
+- `If either operand is Edm.Double, the other operand is converted to type Edm.Double.`
+- `Otherwise, if either operand is Edm.Single, the other operand is converted to type Edm.Single.`
+- `Otherwise, if either operand is of type Edm.Decimal, the other operand is converted to Edm.Decimal. `
+- `Otherwise, if either operand is Edm.Int64, the other operand is converted to type Edm.Int64.`
+- `Otherwise, if either operand is Edm.Int32, the other operand is converted to type Edm.Int32.`
+- `Otherwise, if either operand is Edm.Int16, the other operand is converted to type Edm.Int16. `
 
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.

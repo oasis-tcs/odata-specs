@@ -174,12 +174,8 @@ The response MUST contain the `Content-Type` header with a value of
 `application/json`, optionally followed by media type parameters.
 
 Possible media type parameters are:
-
-[[·
-]{style="font-family:Symbol;color:windowtext"}]{.MsoHyperlink}[`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
-
-[[·
-]{style="font-family:Symbol;color:windowtext"}]{.MsoHyperlink}[`metadata`](#ControllingtheAmountofControlInforma)
+- [`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
+- [`metadata`](#ControllingtheAmountofControlInforma)
 
 The names and values of these parameters are case-insensitive.
 
@@ -224,16 +220,10 @@ possible.
 This means that the `@type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
-
-[· ]{style="font-family:
-Symbol"}Terms or term properties with an abstract declared type,
-
-[· ]{style="font-family:
-Symbol"}Terms or term properties with a declared type that has derived
+- Terms or term properties with an abstract declared type,
+- Terms or term properties with a declared type that has derived
 types, or
-
-[· ]{style="font-family:
-Symbol"}Dynamic properties of open types.
+- Dynamic properties of open types.
 
 See [OData‑JSON](#BMJSON) for the exact rules.
 
@@ -487,9 +477,7 @@ be used anywhere a corresponding concrete type can be used, except:
     -   cannot be the base type of an entity type or complex type.
     -   cannot be used as the underlying type of a type definition or
         enumeration type.
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Collection(Edm.PrimitiveType)`
+- `Collection(Edm.PrimitiveType)`
 
 -   -   cannot be used as the type of a property or term.
     -   cannot be used as the type of a parameter or the return type of
@@ -505,12 +493,8 @@ be used anywhere a corresponding concrete type can be used, except:
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.NavigationPropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.AnyPropertyPath `(`Edm.PropertyPath `or
+- `Edm.NavigationPropertyPath`
+- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or
 `Edm.NavigationPropertyPath`)
 - `Edm.ModelElementPath `(any
 model element, including
@@ -4470,9 +4454,7 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of schema child
 
 [· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
@@ -4483,9 +4465,7 @@ name of child element
 name](#QualifiedName) of structured type followed by zero or more
 property, navigation property, or type-cast segments, each segment
 starting with a forward slash
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of an entity container followed by a segment containing a singleton or
 entity set name and zero or more property, navigation property, or
 type-cast segments
@@ -4503,16 +4483,12 @@ function followed by parentheses containing the comma-separated list of
 [qualified names](#QualifiedName)[ of the parameter *types* of a bound
 or unbound function overload in the order of their definition in the
 function overload]{style="color:black;background:white"}
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an action or function, optionally followed by
 parentheses as described in the two previous bullet points to identify a
 single overload, followed by a forward slash and either a parameter name
 or `$ReturnType`
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing an action or function import name, optionally followed by a
 forward slash and either a parameter name or `$ReturnType`
@@ -5066,9 +5042,7 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTer)
 `Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`A non-null path MUST resolve to an annotation. `
+- `A non-null path MUST resolve to an annotation. `
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with term `Validation.AllowedTerms` (see
@@ -6450,9 +6424,7 @@ prefixed with `Edm` followed by a dot.
 Target paths are used to refer to other model elements.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}The [qualified
+- The [qualified
 name](#QualifiedName) of an entity container, followed by a forward
 slash and the name of a container child element
 
@@ -7075,15 +7047,9 @@ Appendix A. [Acknowledgments](#Acknowledgments)
 The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
 **\[**[**OpenUI5**](#OpenUI5)**\]**, is gratefully acknowledged,
 especially the contributions of
-
-[· ]{style="font-family:
-Symbol"}Thomas Chadzelek (SAP SE)
-
-[· ]{style="font-family:
-Symbol"}Jens Ittel (SAP SE)
-
-[· ]{style="font-family:
-Symbol"}Patric Ksinsik (SAP SE)
+- Thomas Chadzelek (SAP SE)
+- Jens Ittel (SAP SE)
+- Patric Ksinsik (SAP SE)
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [ODataProtocol](#BMProtocol), are gratefully acknowledged.

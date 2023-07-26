@@ -198,9 +198,7 @@ Elements and attributes associated with the top-level wrapper that
 contains the CSDL used to define the entity model for an OData Service
 are qualified with the Entity Data Model for Data Services Packaging
 namespace:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`http://docs.oasis-open.org/odata/ns/edmx`
+- `http://docs.oasis-open.org/odata/ns/edmx`
 
 Prior versions of OData used the following namespace for EDMX:
 - EDMX version 1.0:
@@ -216,9 +214,7 @@ prefix name is not prescriptive.
 
 Elements and attributes that define the entity model exposed by the
 OData Service are qualified with the Entity Data Model namespace:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`http://docs.oasis-open.org/odata/ns/edm`
+- `http://docs.oasis-open.org/odata/ns/edm`
 
 Prior versions of CSDL used the following namespaces for EDM:
 
@@ -440,9 +436,7 @@ be used anywhere a corresponding concrete type can be used, except:
     -   cannot be the base type of an entity type or complex type. 
     -   cannot be used as the underlying type of a type definition or
         enumeration type.
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Collection(Edm.PrimitiveType)`
+- `Collection(Edm.PrimitiveType)`
 
 -   -   cannot be used as the type of a property or term.
     -   cannot be used as the type of a parameter or the return type of
@@ -458,12 +452,8 @@ be used anywhere a corresponding concrete type can be used, except:
 [Vocabulary terms](#Term) can, in addition, use
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.NavigationPropertyPath `
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.AnyPropertyPath `(`Edm.PropertyPath `or
+- `Edm.NavigationPropertyPath `
+- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or
 `Edm.NavigationPropertyPath`)
 - `Edm.ModelElementPath `(any
 model element, including
@@ -4080,9 +4070,7 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of schema child
 
 [· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
@@ -4110,16 +4098,12 @@ name](#QualifiedName)[ of a function followed by parentheses containing
 the comma-separated list of the parameter *types* of a bound or unbound
 function overload in the order of their definition in the function
 overload]{style="color:black;background:white"}
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an action or function, optionally followed by
 parentheses as described in the two previous bullet points to identify a
 single overload, followed by a forward slash and either a parameter name
 or `$ReturnType`
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing an action or function import name, optionally followed by a
 forward slash and either a parameter name or `$ReturnType`
@@ -4828,9 +4812,7 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTer)
 `Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`A non-null path MUST resolve to an annotation. `
+- `A non-null path MUST resolve to an annotation. `
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with term `Validation.AllowedTerms` (see
@@ -6038,9 +6020,7 @@ Target paths are used in attributes of CSDL elements to refer to other
 CSDL elements or their nested child elements.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}The [qualified
+- The [qualified
 name](#QualifiedName) of an entity container, followed by a forward
 slash and the name of a container child element
 
