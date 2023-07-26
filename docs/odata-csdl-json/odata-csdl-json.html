@@ -171,6 +171,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#CSDLJSONDocument">2 CSDL JSON Document</a>
 <ul>
 <li><a href="#Reference">2.1 Reference</a></li>
+<li><a href="#IncludedSchema">2.2 Included Schema</a></li>
+<li><a href="#IncludedAnnotations">2.3 Included Annotations</a></li>
 </ul></li>
 <li><a href="#References">A References</a>
 <ul>
@@ -232,18 +234,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="2-csdl-json-document"><a name="CSDLJSONDocument" href="#CSDLJSONDocument">2 CSDL JSON Document</a></h1>
 <div class="dl">
 <h3 id="-document-object"><a name="DocumentObject1" href="#DocumentObject1"> Document Object</a></h3>
-<div class="dt">
+<div class="dd">
 <p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member <code>$Version</code>.</p>
 <p>The document object MAY contain the member <a href="#Reference"><code>$Reference</code></a> to reference other CSDL documents.</p>
 <p>It also MAY contain members for schemas.</p>
 <p>If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member <code>$EntityContainer</code>.</p>
 </div>
 <h3 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h3>
-<div class="dt">
+<div class="dd">
 <p>The value of <code>$Version</code> is a string containing either 4.0 or 4.01.</p>
 </div>
 <h3 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h3>
-<div class="dt">
+<div class="dd">
 <p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>
 </div>
@@ -262,12 +264,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="ODataProtocol">OData‑Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="dl">
 <h3 id="-reference"><a name="Reference1.3" href="#Reference1.3"> <code>$Reference</code></a></h3>
-<div class="dt">
+<div class="dd">
 <p>The value of <code>$Reference</code> is an object that contains one member per referenced CSDL document. The name of the pair is a URI for the referenced document. The URI MAY be relative to the document containing the <code>$Reference</code>. The value of each member is a reference object.</p>
 </div>
 <h3 id="-reference-object"><a name="ReferenceObject2" href="#ReferenceObject2"> Reference Object</a></h3>
-<div class="dt">
-<p>The reference object MAY contain the members <a href="IncludedSchema"><code>$Include</code></a> and <a href="IncludedAnnotations"><code>$IncludeAnnotations</code></a> as well as <a href="Annotation">annotations</a>.</p>
+<div class="dd">
+<p>The reference object MAY contain the members <a href="#IncludedSchema"><code>$Include</code></a> and <a href="#IncludedAnnotations"><code>$IncludeAnnotations</code></a> as well as <a href="Annotation">annotations</a>.</p>
 </div>
 </div>
 <div class="example">
@@ -288,8 +290,130 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+<h2 id="22-included-schema"><a name="IncludedSchema" href="#IncludedSchema">2.2 Included Schema</a></h2>
+<p>A reference MAY include zero or more schemas from the referenced document.</p>
+<p>The included schemas are identified via their <a href="Namespace">namespace</a>. The same namespace MUST NOT be included more than once, even if it is declared in more than one referenced document.</p>
+<p>When including a schema, a <a href="SimpleIdentifier">simple identifier</a> value MAY be specified as an alias for the schema that is used in qualified names instead of the namespace. For example, an alias of <code>display</code> might be assigned to the namespace <code>org.example.vocabularies.display</code>. An alias-qualified name is resolved to a fully qualified name by examining aliases for included schemas and schemas defined within the document.</p>
+<div class="dl">
+<div class="dd">
+<p>If an included schema specifies an alias, the alias MUST be used in qualified names throughout the document to identify model elements of the included schema. A mixed use of namespace-qualified names and alias-qualified names is not allowed.</p>
+</div>
+</div>
+<p>Aliases are document-global, so all schemas defined within or included into a document MUST have different aliases, and aliases MUST differ from the namespaces of all schemas defined within or included into a document.</p>
+<p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
+<p>An alias is only valid within the document in which it is declared; a referencing document may define its own aliases for included schemas.</p>
+<div class="dl">
+<h3 id="-include"><a name="Include2.1" href="#Include2.1"> <code>$Include</code></a></h3>
+<div class="dd">
+<p>The value of <code>$Include</code> is an array. Array items are objects that MUST contain the member <code>$Namespace</code> and MAY contain the member <code>$Alias</code>.</p>
+<p>The item objects MAY contain <a href="Annotation">annotations</a>.</p>
+</div>
+<h3 id="-namespace"><a name="Namespace2.2" href="#Namespace2.2"> <code>$Namespace</code></a></h3>
+<div class="dd">
+<p>The value of <code>$Namespace</code> is a string containing the namespace of the included schema.</p>
+</div>
+<h3 id="-alias"><a name="Alias2.3" href="#Alias2.3"> <code>$Alias</code></a></h3>
+<div class="dd">
+<p>The value of <code>$Alias</code> is a string containing the alias for the included schema.</p>
+</div>
+</div>
+<div class="example">
+<p>Example 4: references to entity models containing definitions of vocabulary terms</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="er"> </span><span class="dt">&quot;http://vocabs.odata.org/capabilities/v1&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="er">   </span><span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Capabilities.V1&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Capabilities&quot;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">  </span><span class="fu">},</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="er"> </span><span class="dt">&quot;http://vocabs.odata.org/core/v1&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="er">   </span><span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Core.V1&quot;</span><span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Core&quot;</span><span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;@Core.DefaultNamespace&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">  </span><span class="fu">},</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;http://example.org/display/v1&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">  </span><span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="fu">{</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="er">  </span><span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;org.example.display&quot;</span><span class="fu">,</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;UI&quot;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">},</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<h2 id="23-included-annotations"><a name="IncludedAnnotations" href="#IncludedAnnotations">2.3 Included Annotations</a></h2>
+<p>In addition to including whole schemas with all model constructs defined within that schema, annotations can be included with more flexibility.</p>
+<p>Annotations are selectively included by specifying the <a href="Namespace">namespace</a> of the annotations' term. Consumers can opt not to inspect the referenced document if none of the term namespaces is of interest for the consumer.</p>
+<p>In addition, the <a href="Qualifier">qualifier</a> of annotations to be included MAY be specified. For instance, a service author might want to supply a different set of annotations for various device form factors. If a qualifier is specified, only those annotations from the specified term namespace with the specified qualifier (applied to a model element of the target namespace, if present) SHOULD be included. If no qualifier is specified, all annotations within the referenced document from the specified term namespace (taking into account the target namespace, if present) SHOULD be included.</p>
+<p>The qualifier also provides consumers insight about what qualifiers are present in the referenced document. If the consumer is not interested in that particular qualifier, the consumer can opt not to inspect the referenced document.</p>
+<p>In addition, the namespace of the annotations' <a href="Target">target</a> MAY be specified. If a target namespace is specified, only those annotations which apply a term form the specified term namespace to a model element of the target namespace (with the specified qualifier, if present) SHOULD be included. If no target namespace is specified, all annotations within the referenced document from the specified term namespace (taking into account the qualifier, if present) SHOULD be included.</p>
+<p>The target namespace also provides consumers insight about what namespaces are present in the referenced document. If the consumer is not interested in that particular target namespace, the consumer can opt not to inspect the referenced document.</p>
+<div class="dl">
+<h3 id="-includeannotations"><a name="IncludeAnnotations2.4" href="#IncludeAnnotations2.4"> <code>$IncludeAnnotations</code></a></h3>
+<div class="dd">
+<p>The value of <code>$IncludeAnnotations</code> is an array. Array items are objects that MUST contain the member <code>$TermNamespace</code> and MAY contain the members <code>$Qualifier</code> and <code>$TargetNamespace</code>.</p>
+</div>
+<h3 id="-termnamespace"><a name="TermNamespace2.5" href="#TermNamespace2.5"> <code>$TermNamespace</code></a></h3>
+<div class="dd">
+<p>The value of <code>$TermNamespace</code> is a namespace.</p>
+</div>
+<h3 id="-qualifier"><a name="Qualifier2.6" href="#Qualifier2.6"> <code>$Qualifier</code></a></h3>
+<div class="dd">
+<p>The value of <code>$Qualifier</code> is a simple identifier.</p>
+</div>
+<h3 id="-targetnamespace"><a name="TargetNamespace2.7" href="#TargetNamespace2.7"> <code>$TargetNamespace</code></a></h3>
+<div class="dd">
+<p>The value of <code>$TargetNamespace</code> is a namespace.</p>
+</div>
+</div>
+<div class="example">
+<p>Example 5: reference documents that contain annotations</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;http://odata.org/ann/b&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;$IncludeAnnotations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TermNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;org.example.validation&quot;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TermNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;org.example.display&quot;</span><span class="fu">,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Qualifier&quot;</span><span class="fu">:</span> <span class="st">&quot;Tablet&quot;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TermNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;org.example.hcm&quot;</span><span class="fu">,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TargetNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;com.example.Sales&quot;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TermNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;org.example.hcm&quot;</span><span class="fu">,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$Qualifier&quot;</span><span class="fu">:</span> <span class="st">&quot;Tablet&quot;</span><span class="fu">,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;$TargetNamespace&quot;</span><span class="fu">:</span> <span class="st">&quot;com.example.Person&quot;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">},</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The following annotations from <code>http://odata.org/ann/b</code> are included:</p>
+<ul>
+<li>Annotations that use a term from the <code>org.example.validation</code> namespace, and</li>
+<li>Annotations that use a term from the <code>org.example.display</code> namespace and specify a <code>Tablet</code> qualifier and</li>
+<li>Annotations that apply a term from the <code>org.example.hcm</code> namespace to an element of the <code>com.example.Sales</code> namespace and</li>
+<li>Annotations that apply a term from the <code>org.example.hcm</code> namespace to an element of the <code>com.example.Person</code> namespace and specify a <code>Tablet</code> qualifier.</li>
+</ul>
+</div>
 <hr />
-<h1 id="a-references"><a name="References" href="#References">A. References</a></h1>
+<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 <!-- Required section -->
 
 <p>This appendix contains the normative and informative references that are used in this document.</p>
@@ -305,15 +429,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
 </ul></li>
 </ul>
-<h5 id="rfc2119"><a name="rfc2119">[RFC2119]</h5>
+<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
 <p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em> <a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</h6>
+<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em> <a href="http://www.rfc-editor.org/info/rfc8174">http://www.rfc-editor.org/info/rfc8174</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="rfc3552"><a name="rfc3552">[RFC3552]</h6>
+<h6 id="rfc3552"><a name="rfc3552">[RFC3552]</a></h6>
 <p><em>Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003</em> <a href="https://www.rfc-editor.org/info/rfc3552">https://www.rfc-editor.org/info/rfc3552</a>.</p>
 <hr />
-<h1 id="b-table-of-json-objects-and-members"><a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">B. Table of JSON Objects and Members</a></h1>
+<h1 id="appendix-b-table-of-json-objects-and-members"><a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a></h1>
 <div class="toc">
 <ul>
 <li><a href="#DocumentObject1">Document Object</a>
@@ -322,11 +446,20 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#EntityContainer1.2"><code>$EntityContainer</code></a></li>
 <li><a href="#Reference1.3"><code>$Reference</code></a></li>
 </ul></li>
-<li><a href="#ReferenceObject2">Reference Object</a></li>
+<li><a href="#ReferenceObject2">Reference Object</a>
+<ul>
+<li><a href="#Include2.1"><code>$Include</code></a></li>
+<li><a href="#Namespace2.2"><code>$Namespace</code></a></li>
+<li><a href="#Alias2.3"><code>$Alias</code></a></li>
+<li><a href="#IncludeAnnotations2.4"><code>$IncludeAnnotations</code></a></li>
+<li><a href="#TermNamespace2.5"><code>$TermNamespace</code></a></li>
+<li><a href="#Qualifier2.6"><code>$Qualifier</code></a></li>
+<li><a href="#TargetNamespace2.7"><code>$TargetNamespace</code></a></li>
+</ul></li>
 </ul>
 </div>
 <hr />
-<h1 id="c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">C. Acknowledgments</a></h1>
+<h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 <!-- Required section -->
 
 <p><code>Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.</code></p>
@@ -372,7 +505,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tbody>
 </table>
 <hr />
-<h1 id="d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">D. Revision History</a></h1>
+<h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
 <!-- Optional section -->
 
 <table>
@@ -394,7 +527,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tbody>
 </table>
 <hr />
-<h1 id="e-notices"><a name="Notices" href="#Notices">E. Notices</a></h1>
+<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>

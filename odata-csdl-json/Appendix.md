@@ -1,6 +1,6 @@
 -------
 
-# ##asec References
+# Appendix ##asec References
 
 <!-- Required section -->
 
@@ -24,23 +24,23 @@ Remove this note before submitting for publication.)`
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
 
-##### <a name="rfc2119">[RFC2119]
+###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_
 http://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc8174">[RFC8174]
+###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_
 http://www.rfc-editor.org/info/rfc8174.
 
 ## ##subasec Informative References
 
-###### <a name="rfc3552">[RFC3552]
+###### <a name="rfc3552">[RFC3552]</a>
 _Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
 https://www.rfc-editor.org/info/rfc3552.
 
 -------
 
-# ##asec Table of JSON Objects and Members
+# Appendix ##asec Table of JSON Objects and Members
 
 ::: toc
 $$$isec$$$
@@ -48,7 +48,7 @@ $$$isec$$$
 
 -------
 
-# ##asec Acknowledgments
+# Appendix ##asec Acknowledgments
 
 <!-- Required section -->
 
@@ -79,7 +79,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# ##asec Revision History
+# Appendix ##asec Revision History
 
 <!-- Optional section -->
 
@@ -89,7 +89,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# ##asec Notices
+# Appendix ##asec Notices
 
 <!-- Required section. Do not modify. -->
 

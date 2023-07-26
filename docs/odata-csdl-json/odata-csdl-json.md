@@ -100,6 +100,8 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.3 Document conventions](#Documentconventions)
 - [2 CSDL JSON Document](#CSDLJSONDocument)
   - [2.1 Reference](#Reference)
+  - [2.2 Included Schema](#IncludedSchema)
+  - [2.3 Included Annotations](#IncludedAnnotations)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
@@ -177,7 +179,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 ::: dl
 ### <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
 
-:::: dt
+:::: dd
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
 
 The document object MAY contain the member [`$Reference`](#Reference) to reference other CSDL documents.
@@ -189,13 +191,13 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a name="Version1.1" href="#Version1.1"> `$Version`</a>
 
-:::: dt
+:::: dd
 The value of `$Version` is a string containing either 4.0 or 4.01.
 ::::
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
-:::: dt
+:::: dd
 The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 ::::
 :::
@@ -239,7 +241,7 @@ referenced schema document.
 ::: dl
 ### <a name="Reference1.3" href="#Reference1.3"> `$Reference`</a>
 
-:::: dt
+:::: dd
 The value of `$Reference` is an object that contains one member per
 referenced CSDL document. The name of the pair is a URI for the
 referenced document. The URI MAY be relative to the document containing
@@ -248,10 +250,10 @@ the `$Reference`. The value of each member is a reference object.
 
 ### <a name="ReferenceObject2" href="#ReferenceObject2"> Reference Object</a>
 
-:::: dt
+:::: dd
 The reference object MAY contain the members
-[`$Include`](IncludedSchema) and
-[`$IncludeAnnotations`](IncludedAnnotations) as well as
+[`$Include`](#IncludedSchema) and
+[`$IncludeAnnotations`](#IncludedAnnotations) as well as
 [annotations](Annotation).
 ::::
 :::
@@ -277,9 +279,219 @@ Example 3: references to other CSDL documents
 ```
 :::
 
+## <a name="IncludedSchema" href="#IncludedSchema">2.2 Included Schema</a>
+
+A reference MAY include zero or more schemas from the referenced
+document.
+
+The included schemas are identified via their [namespace](Namespace).
+The same namespace MUST NOT be included more than once, even if it is
+declared in more than one referenced document.
+
+When including a schema, a [simple identifier](SimpleIdentifier) value
+MAY be specified as an alias for the schema that is used in qualified
+names instead of the namespace. For example, an alias of `display` might
+be assigned to the namespace `org.example.vocabularies.display`. An
+alias-qualified name is resolved to a fully qualified name by examining
+aliases for included schemas and schemas defined within the document.
+
+::: dl
+:::: dd
+If an included schema specifies an alias, the alias MUST be used in
+qualified names throughout the document to identify model elements of
+the included schema. A mixed use of namespace-qualified names and
+alias-qualified names is not allowed.
+::::
+:::
+
+Aliases are document-global, so all schemas defined within or included
+into a document MUST have different aliases, and aliases MUST differ
+from the namespaces of all schemas defined within or included into a
+document.
+
+The alias MUST NOT be one of the reserved values `Edm`, `odata`,
+`System`, or `Transient`.
+
+An alias is only valid within the document in which it is declared; a
+referencing document may define its own aliases for included schemas.
+
+::: dl
+### <a name="Include2.1" href="#Include2.1"> `$Include`</a>
+
+:::: dd
+The value of `$Include` is an array. Array items are objects that MUST
+contain the member `$Namespace` and MAY contain the member `$Alias`.
+
+The item objects MAY contain [annotations](Annotation).
+::::
+
+### <a name="Namespace2.2" href="#Namespace2.2"> `$Namespace`</a>
+
+:::: dd
+The value of `$Namespace` is a string containing the namespace of the
+included schema.
+::::
+
+### <a name="Alias2.3" href="#Alias2.3"> `$Alias`</a>
+
+:::: dd
+The value of `$Alias` is a string containing the alias for the included
+schema.
+::::
+:::
+
+::: example
+Example 4: references to entity models containing definitions of
+vocabulary terms
+```json
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Capabilities.V1",
+          "$Alias": "Capabilities"
+        }
+      ]
+    },
+    "http://vocabs.odata.org/core/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Core.V1",
+          "$Alias": "Core",
+          "@Core.DefaultNamespace": true
+        }
+      ]
+    },
+    "http://example.org/display/v1": {
+      "$Include": [
+        {
+          "$Namespace": "org.example.display",
+          "$Alias": "UI"
+        }
+      ]
+    }
+  },
+  …
+}
+```
+:::
+
+## <a name="IncludedAnnotations" href="#IncludedAnnotations">2.3 Included Annotations</a>
+
+In addition to including whole schemas with all model constructs defined
+within that schema, annotations can be included with more flexibility.
+
+Annotations are selectively included by specifying the
+[namespace](Namespace) of the annotations' term. Consumers can opt not
+to inspect the referenced document if none of the term namespaces is of
+interest for the consumer.
+
+In addition, the [qualifier](Qualifier) of annotations to be included
+MAY be specified. For instance, a service author might want to supply a
+different set of annotations for various device form factors. If a
+qualifier is specified, only those annotations from the specified term
+namespace with the specified qualifier (applied to a model element of
+the target namespace, if present) SHOULD be included. If no qualifier is
+specified, all annotations within the referenced document from the
+specified term namespace (taking into account the target namespace, if
+present) SHOULD be included.
+
+The qualifier also provides consumers insight about what qualifiers are
+present in the referenced document. If the consumer is not interested in
+that particular qualifier, the consumer can opt not to inspect the
+referenced document.
+
+In addition, the namespace of the annotations' [target](Target) MAY be
+specified. If a target namespace is specified, only those annotations
+which apply a term form the specified term namespace to a model element
+of the target namespace (with the specified qualifier, if present)
+SHOULD be included. If no target namespace is specified, all annotations
+within the referenced document from the specified term namespace (taking
+into account the qualifier, if present) SHOULD be included.
+
+The target namespace also provides consumers insight about what
+namespaces are present in the referenced document. If the consumer is
+not interested in that particular target namespace, the consumer can opt
+not to inspect the referenced document.
+
+::: dl
+### <a name="IncludeAnnotations2.4" href="#IncludeAnnotations2.4"> `$IncludeAnnotations`</a>
+
+:::: dd
+The value of `$IncludeAnnotations` is an array. Array items are objects
+that MUST contain the member `$TermNamespace` and MAY contain the
+members `$Qualifier` and `$TargetNamespace`.
+::::
+
+### <a name="TermNamespace2.5" href="#TermNamespace2.5"> `$TermNamespace`</a>
+
+:::: dd
+The value of `$TermNamespace` is a namespace.
+::::
+
+### <a name="Qualifier2.6" href="#Qualifier2.6"> `$Qualifier`</a>
+
+:::: dd
+The value of `$Qualifier` is a simple identifier.
+::::
+
+### <a name="TargetNamespace2.7" href="#TargetNamespace2.7"> `$TargetNamespace`</a>
+
+:::: dd
+The value of `$TargetNamespace` is a namespace.
+::::
+:::
+
+::: example
+Example 5: reference documents that contain annotations
+```json
+{
+  …
+  "$Reference": {
+    "http://odata.org/ann/b": {
+      "$IncludeAnnotations": [
+        {
+          "$TermNamespace": "org.example.validation"
+        },
+        {
+          "$TermNamespace": "org.example.display",
+          "$Qualifier": "Tablet"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$TargetNamespace": "com.example.Sales"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$Qualifier": "Tablet",
+          "$TargetNamespace": "com.example.Person"
+        }
+      ]
+    }
+  },
+  …
+}
+```
+
+The following annotations from `http://odata.org/ann/b` are included:
+- Annotations that use a
+term from the `org.example.validation` namespace, and
+- Annotations that use a
+term from the `org.example.display` namespace and specify a `Tablet`
+qualifier and
+- Annotations that apply
+a term from the `org.example.hcm` namespace to an element of the
+`com.example.Sales` namespace and
+- Annotations that apply
+a term from the `org.example.hcm` namespace to an element of the
+`com.example.Person` namespace and specify a `Tablet` qualifier.
+:::
+
 -------
 
-# <a name="References" href="#References">A. References</a>
+# <a name="References" href="#References">Appendix A. References</a>
 
 <!-- Required section -->
 
@@ -303,23 +515,23 @@ Remove this note before submitting for publication.)`
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
 
-##### <a name="rfc2119">[RFC2119]
+###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_
 http://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc8174">[RFC8174]
+###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_
 http://www.rfc-editor.org/info/rfc8174.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="rfc3552">[RFC3552]
+###### <a name="rfc3552">[RFC3552]</a>
 _Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
 https://www.rfc-editor.org/info/rfc3552.
 
 -------
 
-# <a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">B. Table of JSON Objects and Members</a>
+# <a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a>
 
 ::: toc
 - [Document Object](#DocumentObject1)
@@ -327,11 +539,18 @@ https://www.rfc-editor.org/info/rfc3552.
   - [`$EntityContainer`](#EntityContainer1.2)
   - [`$Reference`](#Reference1.3)
 - [Reference Object](#ReferenceObject2)
+  - [`$Include`](#Include2.1)
+  - [`$Namespace`](#Namespace2.2)
+  - [`$Alias`](#Alias2.3)
+  - [`$IncludeAnnotations`](#IncludeAnnotations2.4)
+  - [`$TermNamespace`](#TermNamespace2.5)
+  - [`$Qualifier`](#Qualifier2.6)
+  - [`$TargetNamespace`](#TargetNamespace2.7)
 :::
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">C. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
 <!-- Required section -->
 
@@ -362,7 +581,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
 
 <!-- Optional section -->
 
@@ -372,7 +591,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# <a name="Notices" href="#Notices">E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
