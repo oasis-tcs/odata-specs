@@ -99,6 +99,7 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
     - [1.2.3 Document conventions](#Documentconventions)
 - [2 CSDL JSON Document](#CSDLJSONDocument)
+  - [2.1 Reference](#Reference)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
@@ -173,30 +174,107 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 # <a name="CSDLJSONDocument" href="#CSDLJSONDocument">2 CSDL JSON Document</a>
 
-::: index
-## <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
+::: dl
+### <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
 
 :::: dt
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
 
-The document object MAY contain the member $Reference to reference other CSDL documents.
+The document object MAY contain the member [`$Reference`](#Reference) to reference other CSDL documents.
 
 It also MAY contain members for schemas.
 
 If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member `$EntityContainer`.
 ::::
 
-## <a name="Version1.1" href="#Version1.1"> `$Version`</a>
+### <a name="Version1.1" href="#Version1.1"> `$Version`</a>
 
 :::: dt
 The value of `$Version` is a string containing either 4.0 or 4.01.
 ::::
 
-## <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
+### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
 :::: dt
 The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 ::::
+:::
+
+::: example
+Example 2:
+```json
+{
+  "$Version": "4.01",
+  "$EntityContainer": "org.example.DemoService",
+  …
+}
+```
+:::
+
+## <a name="Reference" href="#Reference">2.1 Reference</a>
+
+A reference to an external CSDL document allows to bring part of the
+referenced document's content into the scope of the referencing
+document.
+
+A reference MUST specify a URI that uniquely identifies the referenced
+document, so two references MUST NOT specify the same URI. The URI
+SHOULD be a URL that locates the referenced document. If the URI is not
+dereferencable it SHOULD identify a well-known schema. The URI MAY be
+absolute or relative URI; relative URLs are relative to the URL of the
+document containing the reference, or relative to a base URL specified
+in a format-specific way.
+
+A reference MAY be annotated.
+
+The
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+annotation, defined in [OData-VocCore](ODataVocCore), MAY be used to
+indicate a particular version of the referenced document. If the
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+annotation is present, the `$schemaversion` system query option, defined
+[OData‑Protocol](ODataProtocol), SHOULD be used when retrieving the
+referenced schema document.
+
+::: dl
+### <a name="Reference1.3" href="#Reference1.3"> `$Reference`</a>
+
+:::: dt
+The value of `$Reference` is an object that contains one member per
+referenced CSDL document. The name of the pair is a URI for the
+referenced document. The URI MAY be relative to the document containing
+the `$Reference`. The value of each member is a reference object.
+::::
+
+### <a name="ReferenceObject2" href="#ReferenceObject2"> Reference Object</a>
+
+:::: dt
+The reference object MAY contain the members
+[`$Include`](IncludedSchema) and
+[`$IncludeAnnotations`](IncludedAnnotations) as well as
+[annotations](Annotation).
+::::
+:::
+
+::: example
+Example 3: references to other CSDL documents
+```json
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      …
+    },
+    "http://vocabs.odata.org/core/v1": {
+      …
+    },
+    "http://example.org/display/v1": {
+      …
+    }
+  },
+  …
+}
+```
 :::
 
 -------
@@ -247,6 +325,8 @@ https://www.rfc-editor.org/info/rfc3552.
 - [Document Object](#DocumentObject1)
   - [`$Version`](#Version1.1)
   - [`$EntityContainer`](#EntityContainer1.2)
+  - [`$Reference`](#Reference1.3)
+- [Reference Object](#ReferenceObject2)
 :::
 
 -------
