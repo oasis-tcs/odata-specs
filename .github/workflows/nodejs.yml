@@ -1,9 +1,6 @@
 name: Node CI
 
-on:
-  push:
-    branches:
-      - '**'
+on: push
 
 jobs:
   build:
@@ -32,6 +29,6 @@ jobs:
           git config user.email ${PUSHER_EMAIL}
           git add docs/*/*.html docs/*/*.md docs/*/styles/*
           git diff-index --quiet HEAD docs/*/*.html docs/*/*.md docs/*/styles/* || (npm run pdf --if-present && git add docs/*/*.pdf && git commit -m "auto-refreshed")
-          git push
+          test `git branch --show-current` && git push
         env:
           PUSHER_EMAIL: ${{ github.event.pusher.email }}

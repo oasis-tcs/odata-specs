@@ -9,7 +9,7 @@
 
 ## 14 July 2023
 
-&nbsp;
+$\hbox{}$
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
@@ -65,7 +65,7 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
@@ -213,9 +213,6 @@ An OData JSON payload may represent:
 
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
 
 <!-- TODO -->
@@ -233,7 +230,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
@@ -545,7 +542,7 @@ parts. It contains OData values as part of a larger document. Requests
 and responses are structured almost identical; the few existing
 differences will be explicitly called out in the respective subsections.
 
-# <a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a>
+## <a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a>
 
 Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
@@ -568,7 +565,7 @@ Requests and responses MAY add the `streaming` parameter with
 a value of `true` or `false`, see section [Payload
 Ordering Constraints](#PayloadOrderingConstraints).
 
-# <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
+## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
 Each message body is represented as a single JSON object. This object is
 either the representation of an [entity](#Entity),
@@ -585,7 +582,7 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
-# <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
+## <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
 
 URLs present in a payload (whether request or response) MAY be
 represented as relative URLs.
@@ -650,7 +647,7 @@ The resulting absolute URLs are
 `http://host/service/Customers('ALFKI')` and
 `http://host/service/Customers('ALFKI')/Orders`.
 
-# <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
+## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
 
 Ordering constraints MAY be imposed on the JSON payload in order to
 support streaming scenarios. These ordering constraints MUST only be
@@ -660,10 +657,8 @@ properties in the payload.
 
 Clients can request that a JSON response conform to these ordering
 constraints by specifying a media type of
-[application/json]{style="font-family:
-\"Courier New\""} with the `streaming=true` parameter in the
-`Accept` header or
-`$format` query option. Services
+`application/json` with the `streaming=true` parameter in the
+`Accept` header or `$format` query option. Services
 MUST return `406 Not Acceptable` if
 the client only requests streaming and the service does not support it.
 
@@ -722,7 +717,7 @@ Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `OData-Version `header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-# <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
+## <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
 
 In addition to the "pure data" a message body MAY contain
 [annotations](#InstanceAnnotations) and control information that is
@@ -732,7 +727,7 @@ In requests and responses with an `OData-Version` header with a value of `4.0` c
 information names are prefixed with `@odata.`, e.g.
 `@odata.context`. In requests and responses without such a
 header the `odata.` prefix SHOULD
-be omitted, e.g `@context`.
+be omitted, e.g. `@context`.
 
 In some cases, control information is required in request payloads; this
 is called out in the following subsections.
@@ -741,21 +736,19 @@ Receivers that encounter unknown
 annotations in any namespace or unknown control information MUST NOT
 stop processing and MUST NOT signal an error.
 
-# <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
+### <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
 
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 
-The `context` control information
-is not returned if
-[`metadata=none`](#metadatanoneodatametadatanone)[
-]{.MsoHyperlink}is requested. Otherwise[ ]{.MsoHyperlink}it MUST be the
-first property of any JSON response[. ]{.MsoHyperlink}
+The `context` control information is not returned if
+[`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
+first property of any JSON response.
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
-entity set cannot be determined from the context URL[ ]{.MsoHyperlink}of
+entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
@@ -775,7 +768,7 @@ Example 4:
 ```
 :::
 
-# <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
+### <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
 
 The `metadataEtag` control information MAY appear in a
 response in order to specify the entity tag (ETag) that can be used to
@@ -792,7 +785,7 @@ in any responses.
 
 For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
 
-# <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
+### <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
 
 The `type` control information specifies the type of a JSON
 object or name/value pair. Its value is a URI that identifies the type
@@ -893,164 +886,2715 @@ service
 ```
 :::
 
-# <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
+### <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
 
-# <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
+The `count` control information occurs only in responses and
+can annotate any collection, see [OData-Protocol](#ODataProtocol)
+section 11.2.5.5 System Query Option
+`$count`. Its value is an
+`Edm.Int64` value corresponding to
+the total count of members in the collection represented by the request.
 
-# <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
+### <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
 
-# <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
+The `nextLink` control information indicates that a response
+is only a subset of the requested collection. It contains a URL that
+allows retrieving the next subset of the requested collection.
 
-# <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
+This control information can also be applied to [expanded to-many
+navigation properties](#ExpandedNavigationProperty).
 
-# <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
+### <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
 
-# <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
+The `delta` control information is applied to a
+collection-valued navigation property within an [added/changed
+entity](#AddedChangedEntity) in a delta payload to represent changes
+in membership or value of nested entities.
 
-# <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
+### <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
 
-# <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
+The `deltaLink` control information contains a URL that can
+be used to retrieve changes to the current set of results. The
+`deltaLink` control information MUST only appear on the last
+page of results. A page of results MUST NOT have both a
+`deltaLink` control information and a
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
+control information.
 
-# <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
+### <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
 
-# <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
+The `id` control information contains the entity-id, see
+[OData-Protocol](#ODataProtocol). By convention the entity-id is
+identical to the canonical URL of the entity, as defined in
+[OData-URL](#ODataURL).
 
+The `id `control information MUST appear in responses if
+[`metadata=full`](#metadatafullodatametadatafull)
+is requested, or if
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+is requested and any of a non-transient entity\'s key fields are omitted
+from the response _or_ the entity-id is not identical to the canonical
+URL of the entity after
+
+- IRI-to-URI conversion as defined in [RFC3987](#rfc3987),
+- relative resolution as defined in section 5.2 of [RFC3986](#rfc3986), and
+- percent-encoding normalization as defined in section 6 of [RFC3986](#rfc3986).
+
+Note that the entity-id MUST be invariant across languages, so if key
+values are language dependent then the `id` MUST be included
+if it does not match convention for the localized key values. If the
+`id` is represented, it MAY be a [relative
+URL](#RelativeURLs).
+
+If the entity is transient (i.e. cannot be read or updated), the
+`id` control information MUST appear in OData 4.0 payloads
+and have the `null` value. In 4.01 payloads transient
+entities need not have the `id` control information, and 4.01
+clients MUST treat entities with neither `id` control
+information nor a full set of key properties as transient entities.
+
+The `id` control information MUST NOT appear for a
+collection. Its meaning in this context is reserved for future versions
+of this specification.
+
+Entities with `id` equal to `null` cannot be
+compared to other entities, reread, or updated. If
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+is specified and the `id` is not present in the entity, then
+the canonical URL MUST be used as the entity-id.
+
+### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
+
+The `editLink` control information contains
+the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
+
+The `readLink` control information contains the read URL of
+the entity or collection; see [OData-Protocol](#ODataProtocol).
+
+The `editLink` and `readLink` control information
+is ignored in request payloads and not written in responses if
+[`metadata=none`](#metadatanoneodatametadatanone)
+is requested.
+
+The default value of both the edit URL and read URL is the entity\'s
+[entity-id](#ControlInformationidodataid) appended with a cast
+segment to the type of the entity if its type is derived from the
+declared type of the entity set. If neither the `editLink`
+nor the `readLink` control information is present in an
+entity, the client uses this default value for the edit URL.
+
+For updatable entities:
+
+- The `editLink` control information is written if
+  [`metadata=full`](#metadatafullodatametadatafull) is requested or
+  if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is requested and the edit URL differs from the default value of the edit
+  URL.
+- The `readLink` control information is written if the read URL is
+  different from the edit URL. If no `readLink` control
+  information is present, the read URL is identical to the edit URL.
+
+For read-only entities:
+
+- The `readLink` control information is written if
+  [`metadata=full`](#metadatafullodatametadatafull) is requested or
+  if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is requested and its value differs from the default value of the read
+  URL.
+- The `readLink` control information may also be written if
+  [`metadata=minimal`](#metadataminimalodatametadataminimal)
+  is specified in order to signal that an individual entity is read-only.
+
+For collections:
+
+- The `readLink` control information, if written, MUST be the
+  request URL that produced the collection.
+- The `editLink` control information MUST NOT be written as its
+  meaning in this context is reserved for future versions of this
+  specification.
+
+### <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
+
+The `etag` control information MAY be applied to an
+[entity](#Entity) or collection in a response. The
+value of the control information is an entity tag (ETag) which is an
+opaque string value that can be used in a subsequent request to
+determine if the value of the entity or collection has changed.
+
+For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+
+The `etag` control information is ignored in request payloads for
+single entities and not written in responses if
+[`metadata=none`](#metadatanoneodatametadatanone) is requested.
+
+### <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
+
+The `navigationLink` control information in a
+response contains a _navigation URL_ that can be used to retrieve an
+entity or collection of entities related to the current entity via a
+[navigation property](#NavigationProperty).
+
+The _default computed value of a navigation URL_ is the value of the
+[read URL](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) appended with a
+segment containing the name of the navigation property. The service MAY
+omit the `navigationLink` control information if
+[`metadata=minimal`](#metadataminimalodatametadataminimal)
+has been specified on the request and the navigation link matches this
+computed value.
+
+The `associationLink` control information in a response contains an _association URL_ that can
+be used to retrieve a reference to an entity or a collection of
+references to entities related to the current entity via a navigation
+property.
+
+The _default computed value of an association URL_ is the value of the
+navigation URL appended with `/$ref`. The service MAY omit
+the `associationLink` control information if the association
+link matches this computed value.
+
+The `navigationLink` and `associationLink` control
+information is ignored in request payloads and not written in responses
+if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
+
+### <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
+
+For [media entities](#MediaEntity) and [stream
+properties](#StreamProperty) at least one of the control information
+`mediaEditLink` and `mediaReadLink` MUST be included
+in responses if they don\'t follow standard URL conventions as defined
+in [OData-URL](#ODataURL) or if
+[`metadata=full`](#metadatafullodatametadatafull)
+is requested.
+
+The `mediaEditLink` control information contains a URL that
+can be used to update the binary stream associated with the media entity
+or stream property. It MUST be included for updatable streams if it
+differs from standard URL conventions relative to the edit link of the
+entity.
+
+The `mediaReadLink` control information contains a URL that
+can be used to read the binary stream associated with the media entity
+or stream property. It MUST be included if its value differs from the
+value of the associated `mediaEditLink`, if present, or if it
+doesn't follow standard URL conventions relative to the read link of the
+entity and the associated
+`mediaEditLink` is not present.
+
+The `mediaContentType `control information MAY be included;
+its value SHOULD match the media type of the binary stream represented
+by the `mediaReadLink` URL. This is only a hint; the actual
+media type will be included in the `Content-Type` header when
+the resource is requested.
+
+The `mediaEtag` control information MAY be included; its value
+is the ETag of the binary stream represented by this media entity or
+stream property.
+
+The `media*` control information is not written in responses
+if
+[`metadata=none`](#metadatanoneodatametadatanone)
+is requested.
+
+If a stream property is provided inline in a request, the
+`mediaContentType` control information may be specified.
+
+If a stream property is annotated with
+`Capabilities.MediaLocationUpdateSupported` (see
+[OData-VocCap](#ODataVocCap)) and a value of
+`true`, clients MAY specify the `mediaEditLink`
+and/or `mediaReadLink` control information for that stream
+property in order to change the association between the stream property
+and a media stream.
+
+In all other cases `media*` control information is ignored
+in request payloads.
+
+::: example
+Example 7:
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "@mediaReadLink": "Employees(1)/$value",
+  "@mediaContentType": "image/jpeg",
+  "ID": 1,
+  ...
+}
+```
+:::
+
+### <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
+
+The `removed` control information is used in [delta
+payloads](#DeletedEntity) and indicates that the represented entity
+is (to be) deleted.
+
+### <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
+
+The `collectionAnnotations` control information can be
+applied to a collection containing primitive members in order to
+annotate such primitive members. The value of the
+`collectionAnnotations` control information is an array of
+JSON objects containing an integer property `index`,
+specifying the zero-based ordinal index of the primitive item within the
+collection, along with any annotations that are to be applied to that
+primitive collection member.
+
+::: example
+Example 8: Annotating primitive values within a collection
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "ID": 1,
+  "EmailAddresses@collectionAnnotations": [
+    {
+      "index": 0,
+      "@emailType": "Personal"
+    },
+    {
+      "index": 2,
+      "@emailType": "Work"
+    }
+  ],
+  "EmailAddresses": [
+    "Julie@Swansworth.com",
+    "JulieSwa@live.com",
+    "Julie.Swansworth@work.com"
+  ],
+  ...
+}
+```
+:::
 
 -------
 
 # <a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a>
 
+A service document in JSON is represented as a single JSON object with
+at least the [`context`](#ControlInformationcontextodatacontext)
+control information and a property `value`.
+
+The value of the [`context`](#ControlInformationcontextodatacontext)
+control information MUST be the URL of the metadata document, without
+any fragment part.
+
+The value of the `value` property MUST be a JSON array
+containing one element for each entity set and function import with an
+explicit or default value of `true` for the attribute
+`IncludeInServiceDocument` and each singleton exposed by the
+service, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL).
+
+Each element MUST be a JSON object with at least two name/value pairs,
+one with name `name` containing the name of the entity set,
+function import, or singleton, and one with name `url`
+containing the URL of the entity set, which may be an absolute or a
+[relative URL](#RelativeURLs). It MAY contain a name/value pair with
+name `title` containing a human-readable, language-dependent
+title for the object.
+
+JSON objects representing an entity set MAY contain an additional
+name/value pair with name `kind` and a value of
+`EntitySet`. If the `kind` name/value pair is not
+present, the object MUST represent an entity set.
+
+JSON objects representing a function import MUST contain the
+`kind` name/value pair with a value of
+`FunctionImport`.
+
+JSON objects representing a singleton MUST contain the `kind`
+name/value pair with a value of `Singleton`.
+
+JSON objects representing a related service document MUST contain the
+`kind` name/value pair with a value of
+`ServiceDocument`.
+
+Clients that encounter unknown
+values of the `kind` name/value pair not defined in this
+version of the specification MUST NOT stop processing and MUST NOT
+signal an error.
+
+Service documents MAY contain [annotations](#InstanceAnnotations) in
+any of its JSON objects. Services MUST NOT produce name/value pairs
+other than the ones explicitly defined in this section, and clients MUST
+ignore unknown name/value pairs.
+ 
+::: example
+Example 9:
+```json
+{
+  "@context": "http://host/service/$metadata",
+  "value": [
+    {
+      "name": "Orders",
+      "kind": "EntitySet",
+      "url":  "Orders"
+    },
+    {
+      "name":  "OrderItems",
+      "title": "Order Details",
+      "url":   "OrderItems"
+    },
+    {
+      "name":  "TopProducts",
+      "title": "Best-Selling Products",
+      "kind":  "FunctionImport",
+      "url":   "TopProducts"
+    },
+    {
+      "name":  "MainSupplier",
+      "title": "Main Supplier",
+      "kind":  "Singleton",
+      "url":   "MainSupplier"
+    },
+    {
+      "name": "Human Resources",
+      "kind": "ServiceDocument",
+      "url":  "http://host/HR/"
+    }
+  ]
+}
+```
+:::
+
 -------
 
 # <a name="Entity" href="#Entity">6 Entity</a>
+
+An entity is serialized as a JSON object. It MAY contain
+[`context`](#ControlInformationcontextodatacontext),
+[`type`](#ControlInformationtypeodatatype),
+or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
+control information.
+
+Each [property](#StructuralProperty) to be transmitted is
+represented as a name/value pair within the object. The order properties
+appear within the object is considered insignificant.
+
+An entity in a payload may be a complete entity, a projected entity (see
+_System Query Option_ `$select`
+[OData-Protocol](#ODataProtocol)), or a partial entity update (see
+_Update an Entity_ in [OData-Protocol](#ODataProtocol)).
+
+An entity representation can be (modified and) round-tripped to the
+service directly. The [context
+URL](#ControlInformationcontextodatacontext) is used in requests only
+as a base for [relative URLs](#RelativeURLs).
+ 
+::: example
+Example 10: entity with `metadata=minimal`
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "ID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "ContactName": "Maria Anders",
+  "ContactTitle": "Sales Representative",
+  "Phone": "030-0074321",
+  "Fax": "030-0076545",
+  "Address": {
+    "Street": "Obere Str. 57",
+    "City": "Berlin",
+    "Region": null,
+    "PostalCode": "D-12209"
+  }
+}
+```
+
+Example 11: entity with `metadata=full`
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "@id": "Customers('ALFKI')",
+  "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
+  "@editLink": "Customers('ALFKI')",
+  "ID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "ContactName": "Maria Anders",
+  "ContactTitle": "Sales Representative",
+  "Phone": "030-0074321",
+  "Fax": "030-0076545",
+  "Address": {
+    "Street": "Obere Str. 57",
+    "City": "Berlin",
+    "Region": null,
+    "PostalCode": "D-12209",
+    "Country@associationLink": "Customers('ALFKI')/Address/Country/$ref",
+    "Country@navigationLink": "Customers('ALFKI')/Address/Country"
+  },
+  "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
+  "Orders@navigationLink": "Customers('ALFKI')/Orders"
+}
+```
+:::
 
 -------
 
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
 
-# <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
+A property within an entity or complex type instance is represented as a
+name/value pair. The name MUST be the name of the property; the value is
+represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
+[collection of primitive values](#CollectionofPrimitiveValues), or
+a [collection of complex values](#CollectionofComplexValues).
 
-# <a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
+## <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
 
-# <a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a>
+Primitive values are represented following the rules of
+[RFC8259](#rfc8259).
 
-# <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
+Null values are represented as the JSON literal `null`.
 
-# <a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a>
+Values of type `Edm.Boolean` are represented as the JSON
+literals `true` and `false`
+
+Values of types `Edm.Byte`, `Edm.SByte`,
+`Edm.Int16`, `Edm.Int32`, `Edm.Int64`,
+`Edm.Single`, `Edm.Double`, and
+`Edm.Decimal` are represented as JSON numbers, except for
+`-INF`, `INF`, and `NaN` which are
+represented as strings.
+
+Values of type `Edm.String` are represented as JSON strings,
+using the JSON string escaping rules.
+
+Values of type `Edm.Binary`, `Edm.Date`,
+`Edm.DateTimeOffset`, `Edm.Duration`, `Edm.Guid`, and `Edm.TimeOfDay` are represented as
+JSON strings whose content satisfies the rules `binaryValue`,
+`dateValue`, `dateTimeOffsetValue`,
+`durationValue`, `guidValue`, and
+`timeOfDayValue` respectively, in
+[OData-ABNF](#ODataABNF).
+
+Primitive values that cannot be represented, for example due to server
+conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
+annotated with the `Core.ValueException` term. In this case,
+the payload MAY include an approximation of the value and MAY specify a
+string representation of the exact value in the `value`
+property of the annotation.
+
+Enumeration values are represented as JSON strings whose content
+satisfies the rule `enumValue` in
+[OData-ABNF](#ODataABNF). The preferred representation is the
+`enumerationMember`. If no `enumerationMember` (or
+combination of named enumeration members) is
+available, the `enumMemberValue` representation may be used.
+
+Geography and geometry values are represented as geometry types as
+defined in [RFC7946](#rfc7946), with the following
+modifications:
+
+- Keys SHOULD be ordered with type first, then coordinates, then any other keys
+- If the optional [CRS
+  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
+  MUST be of type `name`, where the value of the
+  `name` member of the contained `properties` object
+  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+
+Geography and geometry types have the same representation in a JSON
+payload. Whether the value represents a geography type or geometry type
+is inferred from its usage or specified using the
+[`type`](#ControlInformationtypeodatatype)
+control information.
+ 
+::: example
+Example 12:
+```json
+{
+  "NullValue": null,
+  "TrueValue": true,
+  "FalseValue": false,
+  "BinaryValue": "T0RhdGE",
+  "IntegerValue": -128,
+  "DoubleValue": 3.1415926535897931,
+  "SingleValue": "INF",
+  "DecimalValue": 34.95,
+  "StringValue": "Say \"Hello\",\nthen go",
+  "DateValue": "2012-12-03",
+  "DateTimeOffsetValue": "2012-12-03T07:16:23Z",
+  "DurationValue": "P12DT23H59M59.999999999999S",
+  "TimeOfDayValue": "07:59:59.999",
+  "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
+  "Int64Value": 0,
+  "ColorEnumValue": "Yellow",
+  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+}
+```
+:::
+
+## <a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
+
+A complex value is represented as a single JSON object containing one
+name/value pair for each property that makes up the complex type. Each
+property value is formatted as appropriate for the type of the property.
+
+It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
+ 
+::: example
+Example 13:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Address": {
+    "Street": "Obere Str. 57",
+    "City": "Berlin",
+    "Region": null,
+    "PostalCode": "D-12209"
+  }
+}
+```
+:::
+
+A complex value with no selected properties, or no defined properties
+(such as an empty open complex type or complex type with no structural
+properties) is represented as an empty JSON object.
+
+## <a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a>
+
+A collection of primitive values is represented as a JSON array; each
+element in the array is the representation of a [primitive
+value](#PrimitiveValue). A JSON literal `null` represents
+a null value within the collection. An empty collection is represented
+as an empty array.
+ 
+::: example
+Example 14: partial collection of strings with next link
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "EmailAddresses": [
+    "Julie@Swansworth.com",
+    "Julie.Swansworth@work.com"
+  ],
+  "EmailAddresses@nextLink": "..."
+}
+```
+:::
+
+## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
+
+A collection of complex values is represented as a JSON array; each
+element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
+null value within the collection. An empty collection is represented as an empty array.
+ 
+::: example
+Example 15: partial collection of complex values with next link
+```json
+{
+  "PhoneNumbers": [
+    {
+      "Number": "425-555-1212",
+      "Type": "Home"
+    },
+    {
+      "@type": "#Model.CellPhoneNumber",
+      "Number": "425-555-0178",
+      "Type": "Cell",
+      "Carrier": "Sprint"
+    }
+  ],
+  "PhoneNumbers@nextLink": "..."
+}
+```
+:::
+
+## <a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a>
+
+OData 4.01 adds the built-in abstract types `Edm.Untyped` and
+`Collection(Edm.Untyped)`that services can use to advertise
+in metadata that there is a property of a particular name present, but
+there is no type to describe the structure of the property's values.
+
+The value of an `Edm.Untyped` property MAY be a primitive
+value, a structural value, or a collection. If a collection, it may
+contain any combination of primitive values, structural values, and
+collections.
+
+The value of a property of type `Collection(Edm.Untyped)`MUST
+be a collection, and it MAY contain any combination of primitive values,
+structural values, and collections.
+
+Untyped values are the only place where a collection can directly
+contain a collection, or a collection can contain a mix of primitive
+values, structural values, and collections.
+
+All children of an untyped property are assumed to be untyped unless
+they are annotated with the
+[`type`](#ControlInformationtypeodatatype)
+control information, in which case they MUST conform to the type
+described by the control information.
 
 -------
 
 # <a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
 
-# <a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a>
+A navigation property is a reference from a source entity to zero or
+more related entities.
 
-# <a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a>
+## <a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a>
 
-# <a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a>
+The navigation link for a navigation property is represented as a
+[`navigationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+control information on the navigation property. Its value is an absolute
+or [relative URL](#RelativeURLs) that allows retrieving the related
+entity or collection of entities.
 
-# <a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a>
+The navigation link for a navigation property is only represented if the
+client requests `metadata=full` or the navigation link cannot
+be computed, e.g. if it is within a collection of complex type
+instances. If it is represented it MUST immediately precede the expanded
+navigation property if the latter is represented.
+ 
+::: example
+Example 16:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Orders@navigationLink": "Customers('ALFKI')/Orders",
+  ...
+}
+```
+:::
 
-# <a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a>
+## <a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a>
 
-# <a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a>
+The association link for a navigation property is represented as an
+[`associationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+control information on the navigation property. Its value is an absolute
+or [relative URL](#RelativeURLs) that can be used to retrieve the
+reference or collection of references to the related entity or entities.
+
+The association link for a navigation property is only represented if
+the client requests `metadata=full` or the association link
+cannot be computed by appending `/$ref` to the navigation
+link. If it is represented, it MUST immediately precede the navigation
+link if the latter is represented, otherwise it MUST immediately precede
+the expanded navigation property if it is represented.
+ 
+::: example
+Example 17:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  ...
+  "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
+  ...
+}
+```
+:::
+
+## <a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a>
+
+An expanded navigation property is represented as a name/value pair
+where the name is the name of the navigation property, and the value is
+the representation of the related entity or collection of entities.
+
+If at most one entity can be related, the value is the representation of
+the related entity, or `null` if no entity is currently
+related.
+
+If a collection of entities can be related, it is represented as a JSON
+array. Each element is the [representation of an entity](#Entity) or
+the [representation of an entity reference](#EntityReference). An
+empty collection of entities (one that contains no entities) is
+represented as an empty JSON array. The navigation property MAY include
+[`context`](#ControlInformationcontextodatacontext),
+[`type`](#ControlInformationtypeodatatype),
+[`count`](#ControlInformationcountodatacount), or
+[`nextLink`](#ControlInformationnextLinkodatanextLink) control information. If a navigation property is
+expanded with the suffix `/$count`, only the
+[`count`](#ControlInformationcountodatacount) control information is represented.
+ 
+::: example
+Example 18:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity",
+  "Orders@count": 42,
+  "Orders": [ ... ],
+  "Orders@nextLink": "...",
+  ...
+}
+```
+:::
+
+## <a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a>
+
+When inserting a new entity with a `POST` request, related
+new entities MAY be specified using the same representation as for an
+[expanded navigation property](#ExpandedNavigationProperty).
+
+Deep inserts are not allowed in update operations using `PUT`
+or `PATCH` requests.
+ 
+::: example
+Example 19: inserting a new order for a new customer with order items
+related to existing products:
+```json
+{
+  "ID": 11643,
+  "Amount": 100,
+  ...,
+  "Customer": {
+    "ID": "ANEWONE",
+    ...
+  },
+  "Items": [
+    {
+      "Product": { "@id": "Products(28)" },
+      "Quantity": 1,
+      ...
+    },
+    {
+      "Product": { "@id": "Products(39)" },
+      "Quantity": 5,
+      ...
+    }
+  ]
+}
+```
+:::
+
+## <a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a>
+
+When inserting or updating an entity, relationships of navigation
+properties MAY be inserted or updated via bind operations.
+
+For requests containing an `OData-Version` header with a value
+of `4.0`, a bind operation
+is encoded as a property control information `odata.bind` on
+the navigation property it belongs to and has a single value for
+single-valued navigation properties or an array of values for collection
+navigation properties. For nullable single-valued navigation properties
+the value `null` may be used to remove the relationship.
+ 
+::: example
+Example 20: assign an existing product to an existing category with a
+partial update request against the product
+```json
+PATCH http://host/service/Products(42) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Category@odata.bind": "Categories(6)"
+}
+```
+:::
+
+The values are the [ids](#ControlInformationidodataid) of the
+related entities. They MAY be absolute or [relative URLs](#RelativeURLs).
+
+For requests containing an `OData-Version` header with a value
+of `4.01`, a relationship is bound to an existing entity
+using the same representation as for an [expanded entity
+reference](#EntityReference).
+ 
+::: example
+Example 21: assign an existing product to an existing category with a
+partial update request against the product
+```json
+PATCH http://host/service/Products(42) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Category": {"@id": "Categories(6)"}
+}
+```
+:::
+ 
+::: example
+Example 22: submit a partial update request to:
+- modify the name of an existing category
+- assign an existing product with the id 42 to the category
+- assign an existing product 57 to the category and update its name
+- create a new product named "Wedges" and assign it to the category
+
+At the end of the request, the updated category contains exactly the
+three specified products.
+```json
+PATCH http://host/service/Categories(6) HTTP/1.1
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@id": "Products(42)"
+    },
+    {
+      "@id": "Products(57)",
+      "Name": "Widgets"
+    },
+    {
+      "Name": "Wedges"
+    }
+  ]
+}
+```
+:::
+
+OData 4.01 services MUST support both the OData 4.0 representation, for
+requests containing an `OData-Version` header with a value of
+`4.0`, and the OData 4.01 representation, for requests
+containing an `OData-Version` header with a value of `4.01`. Clients MUST NOT use `@odata.bind` in requests with an
+`OData-Version` header with a value of `4.01`.
+
+For insert operations collection navigation property bind operations and
+deep insert operations can be combined. For OData 4.0 requests, the bind
+operations MUST appear before the deep insert operations in the payload.
+
+For update operations a bind operation on a collection navigation
+property adds additional relationships, it does not replace existing
+relationships, while bind operations on an entity navigation property
+update the relationship.
+
+## <a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a>
+
+The ETag for a collection of related entities is represented as
+[`etag`](#ControlInformationetagodataetag) control
+information on the navigation property. Its value is an opaque string
+that can be used in a subsequent request to determine if the collection
+has changed.
+
+Services MAY include this control information as appropriate.
+ 
+::: example
+Example 23: ETag for a collection of related entities
+```json
+{
+  "@context": "http://host/service/$metadata#Orders/$entity",
+  "@id": "Orders(1234)",
+  "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
+  "ID": 1234,
+  "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
+  ...
+}
+```
+:::
+
+Note: the collection ETag for a navigation property may or may not be
+identical to the ETag of the containing entity, the example shows a
+different ETag for the `Items` collection.
 
 -------
 
 # <a name="StreamProperty" href="#StreamProperty">9 Stream Property</a>
 
+An entity or complex type instance can have one or more stream properties.
+
+The actual stream data is not usually contained in the representation.
+Instead stream property data is generally read and edited via URLs.
+
+Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
+the stream property MAY be annotated to provide the read link, edit
+link, media type, and ETag of the media stream through a set of
+[`media*`](#ControlInformationmediaodatamedia) control information.
+
+If the actual stream data is included inline, the control information
+[`mediaContentType`](#ControlInformationmediaodatamedia)
+MUST be present to indicate how the included stream property value is
+represented. Stream property values of media type `application/json` or
+one of its subtypes, optionally with format parameters, are represented
+as native JSON. Values of top-level type `text`, for example
+`text/plain`, are represented as a string, with JSON string
+escaping rules applied. Included stream data of other media types is
+represented as a base64url-encoded string value, see
+[RFC4648](#rfc4648), section 5.
+
+If the included stream property has no value, the non-existing stream
+data is represented as `null` and the control information
+[`mediaContentType`](#ControlInformationmediaodatamedia)
+is not necessary.
+ 
+::: example
+Example 24:
+```json
+{
+  "@context": "http://host/service/$metadata#Products/$entity",
+  ...
+  "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
+  "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
+  "Thumbnail@mediaContentType": "image/jpeg",
+  "Thumbnail@mediaEtag": "W/\"####\"",
+  "Thumbnail": "...base64url encoded value...",
+  ...
+}
+```
+:::
+
 -------
 
 # <a name="MediaEntity" href="#MediaEntity">10 Media Entity</a>
+
+Media entities are entities that describe a media resource, for example
+a photo. They are represented as entities that contain additional
+[`media*`](#ControlInformationmediaodatamedia) control information. 
+If the actual stream data for the media entity is included, it is
+represented as property named `$value` whose
+string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
+ 
+::: example
+Example 25:
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "@mediaReadLink": "Employees(1)/$value",
+  "@mediaContentType": "image/jpeg",
+  "$value": "...base64url encoded value...",
+  "ID": 1,
+  ...
+}
+```
+:::
 
 -------
 
 # <a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a>
 
+An individual property or operation response is represented as a JSON
+object.
+
+A single-valued property or operation response that has the
+`null` value does not have a representation; see
+[OData-Protocol](#ODataProtocol).
+
+A property or operation response that is of a primitive type is
+represented as an object with a single name/value pair, whose name is
+`value` and whose value is a [primitive
+value](#PrimitiveValue).
+
+A property or operation response that is of complex type is represented
+as a [complex value](#ComplexValue).
+
+A property or operation response that is of a collection type is
+represented as an object with a single name/value pair whose name is
+`value`. Its value is the JSON representation of a
+[collection of complex type values](#CollectionofComplexValues) or
+[collection of primitive values](#CollectionofPrimitiveValues).
+ 
+::: example
+Example 26:  primitive value
+```json
+{
+  "@context": "http://host/service/$metadata#Edm.String",
+  "value": "Pilar Ackerman"
+}
+```
+:::
+ 
+::: example
+Example 27:  collection of primitive values
+```json
+{
+  "@context": "http://host/service/$metadata#Collection(Edm.String)",
+  "value": ["small", "medium", "extra large"]
+}
+```
+:::
+ 
+::: example
+Example 28:  empty collection of primitive values
+```json
+{
+  "@context": "http://host/service/$metadata#Collection(Edm.String)",
+  "value": []
+}
+```
+:::
+ 
+::: example
+Example 29: complex value
+```json
+{
+  "@context": "http://host/service/$metadata#Model.Address",
+  "Street": "12345 Grant Street",
+  "City": "Taft",
+  "Region": "Ohio",
+  "PostalCode": "OH 98052",
+  "Country@navigationLink": "Countries('US')"
+}
+```
+:::
+ 
+::: example
+Example 30: empty collection of complex values
+```json
+{
+  "@context":"http://host/service/$metadata#Collection(Model.Address)",
+  "value": []
+}
+```
+:::
+
+Note: the context URL is optional in requests.
+
 -------
 
 # <a name="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a>
+
+Invoking a bound action or function with `/$each` on each
+member of a collection in one request results in a collection of
+operation results, which is represented as a JSON object containing a
+name/value pair named `value`. It MAY contain
+[`context`](#ControlInformationcontextodatacontext),
+[`type`](#ControlInformationtypeodatatype),
+[`count`](#ControlInformationcountodatacount),
+or [`nextLink`](#ControlInformationnextLinkodatanextLink) control information.
+
+If present, the `context` control information MUST be the
+first name/value pair in the response.
+
+The `count` name/value pair represents the number of operation
+responses in the collection. If present and the
+[`streaming=true`](#PayloadOrderingConstraints) media type parameter is set, it MUST come
+before the `value` name/value pair. If the response
+represents a partial result, the `count` name/value pair MUST
+appear in the first partial response, and it MAY appear in subsequent
+partial responses (in which case it may vary from response to
+response).
+
+The value of the `value` name/value pair is an array of
+objects, each object representing a single [operation response](#IndividualPropertyorOperationResponse).
+Note: if the operation response is a collection, each single operation response
+object itself contains a name/value pair named `value`.
 
 -------
 
 # <a name="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a>
 
+A collection of entities is represented as a JSON object containing a
+name/value pair named `value`. It MAY contain
+[`context`](#ControlInformationcontextodatacontext),
+[`type`](#ControlInformationtypeodatatype),
+[`count`](#ControlInformationcountodatacount),
+[`nextLink`](#ControlInformationnextLinkodatanextLink), or
+[`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
+
+If present, the `context` control information MUST be the
+first name/value pair in the response.
+
+The `count` name/value pair represents the number of entities
+in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
+content-type parameter is set, it MUST come before the
+`value` name/value pair. If the response represents a partial
+result, the `count` name/value pair MUST appear in the first
+partial response, and it MAY appear in subsequent partial responses (in
+which case it may vary from response to
+response).
+
+The value of the `value` name/value pair is a JSON array
+where each element is [representation of an entity](#Entity) or a
+[representation of an entity reference](#EntityReference).
+An empty collection is represented as an empty JSON array.
+
+Functions or actions that are bound to this collection of entities are
+advertised in the "wrapper object" in the same way as
+[functions](#BoundFunction) or [actions](#BoundAction) are
+advertised in the object representing a single entity.
+
+The [`nextLink`](#ControlInformationnextLinkodatanextLink)
+control information MUST be included in a response that represents a
+partial result.
+
+::: example
+Example 28:
+```json
+{
+  "@context": "...",
+  "@count": 37,
+  "value": [
+    { ... },
+    { ... },
+    { ... }
+  ],
+  "@nextLink": "...?$skiptoken=342r89"
+}
+```
+:::
+
 -------
 
 # <a name="EntityReference" href="#EntityReference">14 Entity Reference</a>
+
+An entity reference (see [OData-Protocol](#ODataProtocol)) MAY take the
+place of an entity in a JSON payload, based on the client request. It
+is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
+entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
+control information and [instance annotations](#InstanceAnnotations), but no additional properties or
+control information.
+
+A collection of entity references is represented as a [collection of entities](#CollectionofEntities), with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
+
+The outermost JSON object in a response MUST contain a
+[`context`](#ControlInformationcontextodatacontext)
+control information and MAY contain
+[`count`](#ControlInformationcountodatacount),
+[`nextLink`](#ControlInformationnextLinkodatanextLink), or
+[`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
+ 
+::: example
+Example 31: entity reference to order 10643
+```json
+{
+  "@context": "http://host/service/$metadata#$ref",
+  "@id": "Orders(10643)"
+}
+```
+:::
+ 
+::: example
+Example 32: collection of entity references
+```json
+{
+  "@context": "http://host/service/$metadata#Collection($ref)",
+  "value": [
+    { "@id": "Orders(10643)" },
+    { "@id": "Orders(10759)" }
+  ]
+}
+```
+:::
 
 -------
 
 # <a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a>
 
-# <a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
+The non-format specific aspects of the delta handling are described in
+the section "Requesting Changes" in [OData-Protocol](#ODataProtocol).
 
-# <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
+## <a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
 
-# <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
+Responses from a delta request are returned as a JSON object.
 
-# <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
+The JSON object for a delta response to a single entity is either an
+[added](#AddedChangedEntity), [changed](#AddedChangedEntity), or
+[deleted entity](#DeletedEntity).
 
-# <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
+The JSON object for a delta response to a collection of entities MUST
+contain an array-valued property named `value` containing all
+[added](#AddedChangedEntity), [changed](#AddedChangedEntity), or
+[deleted entities](#DeletedEntity), as well as [added
+links](#AddedLink) or [deleted links](#DeletedLink) between
+entities, and MAY contain additional, unchanged entities.
 
-# <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
+If the delta response contains a partial list of changes, it MUST
+include a [next link](#ControlInformationnextLinkodatanextLink) for the
+client to retrieve the next set of changes.
+
+The last page of a delta response SHOULD contain a [delta
+link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next
+link](#ControlInformationnextLinkodatanextLink) for retrieving
+subsequent changes once the current set of changes has been applied to
+the initial set.
+
+If an OData 4.01 delta response includes an expanded collection-valued
+navigation property inline (see [next
+section](#AddedChangedEntity)), the expanded collection can be a
+partial list, in which case the expanded navigation property MUST have
+the
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
+control information applied to it. Following this chain of next links
+does not result in a delta link on the last page of the expanded
+collection.
+
+If the response from the delta link contains a `count` control information,
+the returned number MUST include
+all added, changed, or deleted entities to be returned, as well as added
+or deleted links.
+
+::: example
+Example 33: a 4.01 delta response with five changes, in order of
+occurrence
+
+  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
+  2. Order 10643 was removed from customer 'ALFKI'
+  3. Order 10645 was added to customer 'BOTTM'
+  4. The shipping information for order 10643 was updated
+  5. Customer 'ANTON' was deleted
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count":5,
+  "value": [
+    {
+      "@id": "Customers('BOTTM')",
+      "ContactName": "Susan Halvenstern"
+    },
+    {
+      "@context": "#Customers/$deletedLink",
+      "source": "Customers('ALFKI')",
+      "relationship": "Orders",
+      "target": "Orders(10643)"
+    },
+    {
+      "@context": "#Customers/$link",
+      "source": "Customers('BOTTM')",
+      "relationship": "Orders",
+      "target": "Orders(10645)"
+    },
+    {
+      "@context": "#Orders/$entity",
+      "@id": "Orders(10643)",
+      "ShippingAddress":{
+        "Street": "23 Tsawassen Blvd.",
+        "City": "Tsawassen",
+        "Region": "BC",
+        "PostalCode": "T2F 8M4"
+      },
+    },
+    {
+      "@context": "#Customers/$deletedEntity",
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Customers('ANTON')"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+## <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
+
+Added or changed entities within a delta response are represented as
+[entities](#Entity).
+
+Added entities MUST include all available selected properties and MAY
+include additional, unselected properties. Collection-valued properties
+are treated as atomic values; any collection-valued properties returned
+from a delta request MUST contain all current values for that
+collection.
+
+Changed entities MUST include all available selected properties that
+have changed, and MAY include additional properties.
+
+If a property of an entity is dependent upon the property of another
+entity within the expanded set of entities being tracked, then both the
+change to the dependent property as well as the change to the principle
+property or [added](#AddedLink)/[deleted link](#DeletedLink)
+corresponding to the change to the dependent property are returned in
+the delta response.
+
+Entities that are not part of the entity set specified by the context
+URL MUST include the
+[`context`](#ControlInformationcontextodatacontext)
+control information to specify the entity set of the entity, regardless
+of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+
+Entities include control information for selected navigation links based
+on [`metadata`](#ControllingtheAmountofControlInformationinResponses).
+
+OData 4.0 payloads MUST NOT include expanded navigation properties
+inline; all changes MUST be represented as a flat array of added,
+deleted, or changed entities, along with added or deleted links.
+
+OData 4.01 delta payloads MAY include expanded navigation properties
+inline. Related single entities are represented as either an
+[added/changed](#AddedChangedEntity) entity, an [entity
+reference](#EntityReference), a [deleted
+entity](#DeletedEntity), or a null value (if no entity is related as
+the outcome of the change). Collection-valued navigation properties are
+represented either as a delta representation or as a full representation
+of the collection.
+
+If the expanded navigation property represents a delta, it MUST be
+represented as an array-valued control information
+[`delta`](#ControlInformationdeltaodatadelta)
+on the navigation property.  [Added/changed](#AddedChangedEntity)
+entities or [entity references](#EntityReference)
+are added to the collection. [Deleted entities](#DeletedEntity) MAY be specified in a nested delta
+representation to represent entities no longer part of the collection.
+If the deleted entity specifies a `reason` as
+`deleted`, then the entity is both removed from the
+collection and deleted, otherwise it is removed from the collection and
+only deleted if the navigation property is a containment navigation
+property. The array MUST NOT contain [added](#AddedLink) or [deleted
+links](#DeletedLink).
+
+::: example
+Example 34: 4.01 delta response customers with expanded orders
+represented inline as a delta
+
+  1. Customer 'BOTTM':
+     1. `ContactName` was changed to "Susan Halvenstern"
+     2. Order 10645 was added
+  2. Customer 'ALFKI':
+     1. Order 10643 was removed
+  3. Customer 'ANTON' was deleted
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count": 3,
+  "value": [
+    {
+      "@id": "Customers('BOTTM')",
+      "ContactName": "Susan Halvenstern",
+      "Orders@delta": [
+        {
+          "@id": "Orders(10645)"
+        }
+      ]
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "Orders@delta": [
+        {
+          "@context": "#Orders/$deletedEntity",
+          "@removed": {
+             "reason": "changed"
+          },
+          "@id": "Orders(10643)"
+        }
+      ]
+    },
+    {
+      "@context": "#Customers/$deletedEntity",
+      "@removed": {
+         "reason": "deleted"
+      },
+      "@id": "Customers('ANTON')"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+If the expanded navigation property is a full representation of the
+collection, it MUST be represented as an expanded navigation property,
+and its array value represents the full set of entities related
+according to that relationship and satisfying any specified expand
+options. Members of the array MUST be represented as
+[added/changed](#AddedChangedEntity) entities or [entity
+references](#EntityReference) and MUST NOT include added links,
+deleted links, or deleted entities. Any entity not represented in the
+collection has either been removed, deleted, or changed such that it no
+longer satisfies the expand options in the defining query. In any case,
+clients SHOULD NOT receive additional notifications for such removed
+entities.
+
+::: example
+Example 35: 4.01 delta response for a single entity with an expanded navigation
+property containing only a partial list of related entities (as
+indicated with a [next link](#ControlInformationnextLinkodatanextLink))
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity/$delta",
+  …
+  "Orders@count": 42,
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
+  "@deltaLink": "Customers('ALFKI')?$expand=Orders&$deltatoken=9711"
+}
+```
+:::
+
+## <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
+
+Deleted entities in JSON are returned as deleted-entity objects. Delta
+responses MUST contain a deleted-entity object for each deleted entity,
+including deleted expanded entities that are not related through a
+containment navigation property. The service MAY additionally include
+expanded entities related through a containment navigation property in
+which case it MUST include those in any returned count of enumerated
+changes.
+
+The representation of deleted-entity objects differs between OData 4.0
+and OData 4.01.
+
+In OData 4.0 payloads the deleted-entity object MUST include the
+following properties, regardless of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
+
+- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+  `#{entity-set}/$deletedEntity`, where
+  `{entity-set}` is the entity set of the deleted entity
+- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+  (same as the [id](#ControlInformationidodataid)
+  returned or computed when calling GET on resource), which may be
+  absolute or [relative](#RelativeURLs)
+
+In OData 4.0 payloads the deleted-entity object MAY include the
+following optional property, regardless of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
+[annotations](#InstanceAnnotations):
+
+- `reason` - either `deleted`, if the entity was deleted (destroyed),
+  or `changed` if the entity was removed from membership in the
+  result (i.e., due to a data change).
+
+::: example
+Example 36: deleted entity in OData 4.0 response - note that `id` is
+a property, not control information
+```json
+{
+  "@context":"#Customers/$deletedEntity",
+  "reason":"deleted",
+  "id":"Customers('ANTON')"
+}
+```
+:::
+
+In OData 4.01 payloads the deleted-entity object MUST include the
+following properties, regardless of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
+
+- Control information
+  [`removed`](#ControlInformationremovedodataremoved),
+  whose value is an object that MAY contain a property named
+  `reason`. If present, the value of `reason` MUST
+  be either `deleted` if the entity was deleted (destroyed), or
+  `changed` if the entity was removed from membership in the
+  result either due to change in value such that the entity no longer
+  matches the defining query or because the entity was removed from the
+  collection. The object MAY include
+  [annotations](#InstanceAnnotations), and clients SHOULD NOT error
+  due to the presence of additional properties that MAY be defined by
+  future versions of this specification. For [ordered
+  payloads](#PayloadOrderingConstraints), the control information
+  [`removed`](#ControlInformationremovedodataremoved) MUST immediately
+  follow the [`context`](#ControlInformationcontextodatacontext) control
+  information, if present, otherwise it MUST be the first property in the
+  deleted entity.
+
+- Control information
+  [`id`](#ControlInformationidodataid)
+  or all of the entity's key fields. The `id` control
+  information MUST appear if any of the entity's key fields are omitted
+  from the response _or_ the entity-id is not identical to the canonical
+  URL of the entity. For [ordered
+  payloads](#PayloadOrderingConstraints), the control information
+  `id,` if present, MUST immediately follow the control
+  information
+  [`removed`](#ControlInformationremovedodataremoved).
+
+For full metadata the
+[`context`](#ControlInformationcontextodatacontext)
+control information MUST be included. It also MUST be included if the
+entity set of the deleted entity cannot be determined from the
+surrounding context.
+
+The deleted-entity object MAY include additional properties of the
+entity, as well as [annotations](#InstanceAnnotations), and MAY
+include related entities, related deleted entities, or a delta or full
+representation of a related collection of entities, to represent related
+entities that have been modified or deleted.
+
+::: example
+Example 37: deleted entity in OData 4.01 response with `id`
+control information (prefixed with an `@`)
+```json
+{
+  "@context":"#Customers/$deletedEntity",
+  "@removed":{
+    "reason":"deleted",
+    "@myannoation.deletedBy":"Mario"
+  },
+  "@id":"Customers('ANTON')"
+}
+```
+:::
+
+::: example
+Example 38: entity removed OData 4.01 response without `id`
+control information and instead all key fields (`ID` is the
+single key field of `Customer`)
+```json
+{
+  "@removed":{},
+  "ID":"ANTON"
+}
+```
+:::
+
+## <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
+
+Links within a delta response are represented as link objects.
+
+Delta responses MUST contain a link object for each added link that
+corresponds to a `$expand` path in the initial request.
+
+The link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
+- [`context`](#ControlInformationcontextodatacontext) -
+  the context URL fragment MUST be `#{entity-set}/$link`,
+  where `{entity-set}` is the entity set containing the source
+  entity
+- `source` - The [id](#ControlInformationidodataid) of the entity from which
+  the relationship is defined, which may be absolute or
+  [relative](#RelativeURLs)
+- `relationship` - The path from the source object to the navigation property which MAY
+  traverse one or more complex properties, type cast segments, or members
+  of ordered collections
+- `target` - The [id](#ControlInformationidodataid) of the related entity,
+  which may be absolute or [relative](#RelativeURLs)
+
+## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
+
+Deleted links within a delta response are represented as deleted-link
+objects.
+
+Delta responses MUST contain a deleted-link object for each deleted link
+that corresponds to a `$expand`
+path in the initial request, unless either of the following is true:
+
+- The `source` or `target` entity has been deleted
+- The maximum cardinality of the related entity is one and there is a
+  subsequent [link object](#AddedLink) that specifies the same
+  `source` and `relationship`.
+
+The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
+- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+  `#{entity-set}/$deletedLink`, where
+  `{entity-set}` is the entity set containing the source entity
+- `source` - The [id](#ControlInformationidodataid) of the entity from which
+  the relationship is defined, which may be absolute or
+  [relative](#RelativeURLs)
+- `relationship` - The path from the source object to the navigation property which MAY
+  traverse one or more complex properties, type cast segments, or members
+  of ordered collections
+- `target` - The [id](#ControlInformationidodataid) of the related entity for
+multi-valued navigation properties, which may be absolute or
+[relative](#RelativeURLs). For delta payloads
+that do not specify an `OData-Version` header value of `4.0`,
+the target MAY be omitted for single-valued navigation.
+
+## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
+
+The body of a PATCH request to a URL identifying a collection of
+entities is a JSON object. It MUST contain the
+[`context`](#ControlInformationcontextodatacontext)
+control information with a string value of `#$delta`, and it
+MUST contain an array-valued property named `value`
+containing all [added](#AddedLink),
+[changed](#AddedChangedEntity), or [deleted](#DeletedEntity)
+entities, as well as [added](#AddedLink) or
+[deleted](#DeletedLink) links between entities.
+
+::: example
+Example 39: 4.01 delta response customers with expanded orders represented
+inline as a delta
+  1. Add customer 'EASTC'
+  2. Change `ContactName` of customer 'AROUT'
+  3. Delete customer 'ANTON'
+  4. Change customer 'ALFKI':
+     1. Create order 11011
+     2. Add link to existing order 10692
+     3. Change `ShippedDate` of related order 10835
+     4. Delete link to order 10643
+  5. Add link between customer 'ANATR' and order 10643
+  6. Delete link between customer 'DUMON' and order 10311
+```json
+{
+  "@context": "#$delta",
+  "value": [
+    {
+      "CustomerID": "EASTC",
+      "CompanyName": "Eastern Connection",
+      "ContactName": "Ann Devon",
+      "ContactTitle": "Sales Agent"
+    },
+    {
+      "CustomerID": "AROUT",
+      "ContactName": "Thomas Hardy",
+    },
+    {
+      "@removed": {},
+      "CustomerID":"ANTON"
+    },
+    {
+      "CustomerID": "ALFKI",
+      "Orders@delta": [
+        {
+          "OrderID": 11011,
+          "CustomerID": "ALFKI",
+          "EmployeeID": 3,
+          "OrderDate": "1998-04-09T00:00:00Z",
+          "RequiredDate": "1998-05-07T00:00:00Z",
+          "ShippedDate": "1998-04-13T00:00:00Z"
+        },
+        {
+          "@id": "Orders(10692)"
+        },
+        {
+          "@id": "Orders(10835)",
+          "ShippedDate": "1998-01-23T00:00:00Z",
+        },
+        {
+          "@removed": {
+            "reason": "changed"
+          },
+          "OrderID": 10643
+        }
+      ]
+    },
+    {
+      "@context": "#Customers/$link",
+      "source": "Customers('ANATR')",
+      "relationship":" Orders",
+      "target": "Orders(10643)"
+    },
+    {
+      "@context": "#Customers/$deletedLink",
+      "source": "Customers('DUMON')",
+      "relationship": "Orders",
+      "target": "Orders(10311)"
+    }
+  ]
+}
+```
+:::
 
 -------
 
 # <a name="BoundFunction" href="#BoundFunction">16 Bound Function</a>
 
+A bound function is advertised via a name/value pair where the name is a
+hash (`#`) character followed by the namespace- or
+alias-qualified name of the function. The namespace or alias MUST be
+defined or the namespace referenced in the metadata document of the
+service, see [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML](#ODataCSDL) A
+specific function overload can be advertised by appending the
+parentheses-enclosed, comma-separated list of non-binding parameter
+names to the qualified function name, see rule
+`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+
+A function that is bound to a single structured type MAY be advertised
+within the JSON object representing that structured type.
+
+Functions that are bound to a collection MAY be advertised within the
+JSON object containing the collection. If the collection is the
+top-level response, the function advertisement name/value pair is placed
+next to the `value` name/value pair representing the
+collection. If the collection is nested within an instance of a
+structured type, then in 4.01 payloads the name of the function
+advertisement is prepended with the name of the collection-valued
+property and is placed next to the collection-valued property, [expanded
+navigation property](#ExpandedNavigationProperty), or
+[`navigationLink`](#NavigationLink)
+control information, if present. 4.0 payloads MUST NOT advertise
+functions prefixed with property names.
+
+If the function is available, the value of the advertisement is an
+object. OData 4.01 services MAY advertise the non-availability of the
+function with the value `null`.
+
+If
+[`metadata=full`](#metadatafullodatametadatafull)
+is requested, each value object MUST have at least the two name/value
+pairs `title` and `target`. It MAY contain
+[annotations](#InstanceAnnotations). The order of the name/value
+pairs MUST be considered insignificant.
+
+The `target` name/value pair contains a URL. Clients MUST be
+able to invoke the function or the specific function overload by passing
+the parameter values via query options for [parameter
+aliases](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ParameterAliases) that are identical to
+the parameter name preceded by an at
+(`@`) sign. Clients MUST check if the obtained
+URL already contains a query part and appropriately precede the
+parameters either with an ampersand
+(`&`)
+or a question mark
+(`?`).
+
+The `title` name/value pair contains the function or action
+title as a string.
+
+If [`metadata=minimal`](#metadataminimalodatametadataminimal)
+is requested, the `target` name/value pair MUST be included
+if its value differs from the canonical function or action URL.
+ 
+::: example
+Example 40: minimal representation of a function where all overloads are
+applicable
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "#Model.RemainingVacation": {},
+  ...
+}
+```
+:::
+ 
+::: example
+Example 41: full representation of a specific overload with parameter
+alias for the `Year` parameter
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "#Model.RemainingVacation(Year)": {
+    "title": "Remaining vacation from year.",
+    "target": "Employees(2)/RemainingVacation(Year=@Year)"
+  },
+  ...
+}
+```
+:::
+ 
+::: example
+Example 42: full representation in a collection
+```json
+{
+  "@context": "http://host/service/$metadata#Employees",
+  "#Model.RemainingVacation": {
+    "title": "Remaining Vacation",
+    "target": "Managers(22)/Employees/RemainingVacation"
+  },
+  "value": [ ... ]
+}
+```
+:::
+
+::: example
+Example 43: full representation in a nested collection
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "@type": "Model.Manager",
+  "ID":22,
+  ...
+  "Employees#RemainingVacation": {
+    "title": "RemainingVacation",
+    "target": "Managers(22)/Employees/RemainingVacation"
+  }
+}
+```
+:::
+
 -------
 
 # <a name="BoundAction" href="#BoundAction">17 Bound Action</a>
+
+A bound action is advertised via a name/value pair where the name is a
+hash (`#`) character followed by the namespace- or
+alias-qualified name of the action. The namespace or alias MUST be
+defined or the namespace referenced in the metadata document of the
+service, see [OData-CSDLJSON](#ODataCSDL) or
+[OData-CSDLXML](#ODataCSDL)
+
+An action that is bound to a single structured type is advertised within
+the JSON object representing that structured type.
+
+Actions that are bound to a collection MAY be advertised within the JSON
+object containing the collection. If the collection is the top-level
+response, the action advertisement name/value pair is placed next to the
+`value` name/value pair representing the collection. If the
+collection is nested within an instance of a structured type, then in
+4.01 payloads the name of the action advertisement is prepended with the
+name of the collection-valued property and is placed next to the
+name/value pair representing the collection-valued property, [expanded
+navigation property](#ExpandedNavigationProperty), or
+[`navigationLink`](#NavigationLink)
+control information, if present. 4.0 payloads MUST NOT advertise actions
+prefixed with property names.
+
+If the action is available, the value of the advertisement is an object.
+OData 4.01 services MAY advertise the non-availability of the action
+with the value `null`.
+
+If [`metadata=full`](#metadatafullodatametadatafull)
+is requested, each value object MUST have at least the two name/value
+pairs `title` and `target`. It MAY contain
+[annotations](#InstanceAnnotations). The order of these name/value
+pairs MUST be considered insignificant.
+
+The `target` name/value pair contains a bound function or
+action URL.
+
+The `title` name/value pair contains the function or action
+title as a string.
+
+If [`metadata=minimal`](#metadataminimalodatametadataminimal)
+is requested, the `target` name/value pair MUST be included
+if its value differs from the canonical function or action URL.
+ 
+::: example
+Example 44: minimal representation in an entity
+```json
+{
+  "@context": "http://host/service/$metadata#LeaveRequests/$entity",
+  "#Model.Approve": {},
+  ...
+}
+```
+:::
+ 
+::: example
+Example 45: full representation in an entity:
+```json
+{
+  "@context": "http://host/service/$metadata#LeaveRequests/$entity",
+  "#Model.Approve": {
+    "title": "Approve Leave Request",
+    "target": "LeaveRequests(2)/Approve"
+  },
+  ...
+}
+```
+:::
+ 
+::: example
+Example 46: full representation in a collection
+```json
+{
+  "@context": "http://host/service/$metadata#LeaveRequests",
+  "#Model.Approve": {
+    "title": "Approve All Leave Requests",
+    "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
+  },
+  "value": [ ... ]
+}
+```
+:::
+
+::: example
+Example 47: full representation in a nested collection
+```json
+{
+  "@context": "http://host/service/$metadata#Employees/$entity",
+  "@type": "Model.Manager",
+  "ID": 22,
+  ...
+  "LeaveRequests#Model.Approve": {
+    "title": "Approve All Leave Requests",
+    "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
+  }
+}
+```
+:::
 
 -------
 
 # <a name="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a>
 
+Action parameter values are encoded in a single JSON object in the
+request body.
+
+Each non-binding parameter value is encoded as a separate name/value
+pair in this JSON object. The name is the name of the parameter. The
+value is the parameter value in the JSON representation appropriate for
+its type. Entity typed parameter values MAY include a subset of the
+properties, or just the [entity reference](#EntityReference), as
+appropriate to the action.
+
+Non-binding parameters that are nullable or annotated with the term
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
+If an omitted parameter is not annotated (and thus nullable), it MUST be
+interpreted as having the `null` value. If it is annotated
+and the annotation specifies a `DefaultValue`, the omitted
+parameter is interpreted as having that default value. If omitted and
+the annotation does not specify a default value, the service is free on
+how to interpret the omitted parameter. Note: a nullable non-binding
+parameter is equivalent to being annotated as optional with a default
+value of `null`.
+
+::: example
+Example 46:
+```json
+{
+  "param1": 42,
+  "param2": {
+    "Street": "One Microsoft Way",
+    "Zip": 98052
+  },
+  "param3": [ 1, 42, 99 ],
+  "param4": null
+}
+```
+:::
+
+
+In order to invoke an action with no non-binding parameters, the client
+passes an empty JSON object in the body of the request. 4.01 Services
+MUST also support clients passing an empty request body for this case.
+
 -------
 
 # <a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a>
 
-# <a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a>
+## <a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a>
 
-# <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
+A JSON batch request body consists of a single JSON object that MUST
+contain the name/value pair `requests` and MAY contain
+[annotations](#InstanceAnnotations). It does not contain the
+`context` control information.
 
-# <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
+The value of `requests` is an array of request objects, each
+representing an individual request. Note: an individual request MUST NOT
+itself be a batch request.
 
-# <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+A _request object_ MUST contain the name/value pairs `id`,
+`method` and `url`, and it MAY contain the
+name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
 
-# <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+The value of `id` is a string containing the request
+identifier of the individual request, see
+[OData-Protocol](#ODataProtocol). It MUST NOT be identical to the value
+of any other request identifier nor any `atomicityGroup`
+within the batch request.
 
-# <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+Note: the `id` name/value pair corresponds to the
+`Content-ID` header in the multipart batch format specified
+in [OData-Protocol](#ODataProtocol).
 
+The value of `method` is a string that MUST contain one of
+the literals `delete`, `get`, `patch`, `post`, or `put`.
+These literals are case-insensitive.
+
+The value of `url` is a string containing the individual
+request URL. The URL MAY be an absolute path (starting with a forward
+slash `/`) which is appended to scheme, host, and port of the
+batch request URL, or a relative path (not starting with a forward slash `/`).
+
+If the first segment of a relative path starts with a `$`
+character and is not identical to the name of a top-level system
+resource (`$batch`, `$crossjoin,` `$all,` `$entity`, `$root,`
+`$id`, `$metadata`, or other system resources
+defined according to the `OData-Version` of the protocol
+specified in the request), then this first segment is replaced with the
+URL of the entity created by or returned from a preceding request whose
+`id` value is identical to the value of the first segment
+with the leading `$` character removed. The `id`
+of this request MUST be specified in the `dependsOn`
+name/value pair.
+
+Otherwise, the relative path is resolved relative to the batch request
+URL (i.e. relative to the service root).
+
+The value of `atomicityGroup` is a string whose content MUST
+NOT be identical to any value of `id` within the batch
+request, and which MUST satisfy the rule `request-id` in
+[OData-ABNF](#ODataABNF). All request objects with the same value for
+`atomicityGroup` MUST be adjacent in the
+`requests` array. These requests are processed as an atomic
+operation and MUST either all succeed, or all fail.
+
+Note: the atomicity group is a generalization of the change set in the
+multipart batch format specified in [OData-Protocol](#ODataProtocol).
+
+The value of `dependsOn` is an array of strings whose values
+MUST be values of either `id` or `atomicityGroup`
+of preceding request objects; forward references are not allowed. If a
+request depends on another request that is part of a different atomicity
+group, the atomicity group MUST be listed in `dependsOn`. In
+the absence of the optional `if` member a request that
+depends on other requests or atomicity groups is only executed if those
+requests were executed successfully, i.e. with a `2xx`
+response code. If one of the requests it depends on has failed, the
+dependent request is not executed and a response with status code of
+`424 Failed Dependency` is returned for it as part of the batch response.
+
+The `if` member can specify an alternative condition for
+executing the dependent request. Its value MUST be URL expression (see
+[OData-URL](#ODataURL)) that evaluates to a Boolean value.
+The URL expression syntax is extended and additionally allows
+
+- `$<content-id>/$succeeded`
+  to check if the referenced request has succeeded
+- `$<content-id>`
+  to reference the response body of the referenced request
+- `$<content-id>/<path>`
+  to reference a part of the response body
+
+Services SHOULD advertise support of the `if` member by
+specifying the property
+`RequestDependencyConditionsSupported` in the
+[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+term applied to the entity container, see
+[OData-VocCap](#ODataVocCap). If a service does not
+support request dependencies, the dependent request MUST fail with
+`424 Failed Dependency`, and if the dependent request is part of an
+atomicity group, all requests in that group fail with
+`424 Failed Dependency` with no changes applied.
+
+The value of `headers` is an object whose name/value pairs
+represent request headers. The name of each pair MUST be the lower-case
+header name; the value is a string containing the header-encoded value
+of the header. The `headers` object MUST contain a name/value
+pair with the name `content-type` whose value is the media type.
+
+The value of `body` can be `null`, which is
+equivalent to not specifying the `body` name/value pair.
+
+For media type `application/json` or one of its subtypes,
+optionally with format parameters, the value of `body` is JSON.
+
+For media types of top-level type `text`, for example
+`text/plain`, the value of `body` is a string
+containing the value of the request body.
+
+For all other media types the value of `body` is a string
+containing the base64url-encoded value of the request body. In this case
+the body content can be compressed or chunked if this is correctly
+reflected in the `Transfer-Encoding` header.
+
+A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+ 
+::: example
+Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
+the following individual requests in the order listed
+
+  1. A query request
+  2. An atomicity group that contains the following requests:
+     - Insert entity
+     - Update entity
+  3. A second query request
+
+Note: For brevity, in the example, request bodies are excluded in favor
+of English descriptions inside `<>` brackets and
+`OData-Version` headers are omitted.
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "0",
+      "method": "get",
+      "url": "/service/Customers('ALFKI')"
+    },
+    {
+      "id": "1",
+      "atomicityGroup": "group1",
+      "dependsOn": [ "0" ],
+      "method": "patch",
+      "url": "/service/Customers('ALFKI')",
+      "headers": {
+        "Prefer": "return=minimal"
+      },
+      "body": <JSON representation of changes to Customer ALFKI>
+    },
+    {
+      "id": "2",
+      "atomicityGroup": "group1",
+      "method": "post",
+      "url": "/service/Customers",
+      "body": <JSON representation of a new Customer entity>
+    },
+    {
+      "id": "3",
+      "dependsOn": [ "group1" ],
+      "method": "get",
+      "url": "/service/Products"
+    }
+  ]
+}
+```
+:::
+
+## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
+
+The entity returned by a preceding request can be referenced in the
+request URL of subsequent requests.
+ 
+::: example
+Example 49: a batch request that contains the following operations in
+the order listed:
+
+- Insert a new entity (with `id = 1`)
+- Insert a second new entity (references request with `id = 1`)
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "post",
+      "url": "/service/Customers",
+      "body": <JSON representation of a new Customer entity>
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ]
+      "method": "post",
+      "url": "$1/Orders",
+      "body": <JSON representation of a new Order>
+    }
+  ]
+}
+```
+:::
+
+## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
+
+::: example
+Example 50: a batch request that contains the following operations in
+the order listed:
+
+- Get an Employee (with `id` = 1)
+- Update the salary only if the employee has not changed
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees(0)",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "patch",
+      "url": "/service/Employees(0)",
+      "headers": {
+        "if-match": "$1"
+      },
+      "body": {
+        "Salary": 75000
+      }
+    }
+  ]
+}
+```
+:::
+
+## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+
+All requests in an atomicity group represent a single change unit. A
+service MUST successfully process and apply all the requests in the
+atomicity group or else apply none of them. It is up to the service
+implementation to define rollback semantics to undo any requests within
+an atomicity group that may have been applied before another request in
+that same atomicity group failed.
+
+The service MAY process the individual requests and atomicity groups
+within a batch request, or individual requests within an atomicity
+group, in any order that is compatible with the dependencies expressed
+with the `dependsOn` name/value pair. Individual requests and
+atomicity groups that do not specify the `dependsOn`
+name/value pair may be processed in parallel. Clients that are only
+interested in completely successful batch responses MAY specify the
+preference `continue-on-error=false` to indicate that the service need not spend cycles on further processing once an error occurs in one of the dependency chains. In this case the
+response MAY omit response objects for requests that have not been
+processed. If the preference `continue-on-error` is not
+specified, or specified with a value of `true`, all requests
+are processed according to their dependencies.
+
+The service MUST include the `id` name/value pair in each
+response object with the value of the request identifier that the client
+specified in the corresponding request, so clients can correlate
+requests and responses.
+
+## <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+
+A JSON batch response body consists of a single JSON object that MUST
+contain the name/value pair `responses` and MAY contain
+[annotations](#InstanceAnnotations). It does not contain the
+`context` control information.
+
+The value of `responses` is an array of response objects,
+each representing an individual response.
+
+A JSON batch response MAY be a partial result containing the
+[`nextLink`](#ControlInformationnextLinkodatanextLink) control
+information. This allows services to chunk results into manageable
+pieces, or to return results for already processed requests and continue
+processing the remaining individual requests while waiting for the
+client to fire a `GET` request to the next link.
+
+In a response to a batch request using the multipart format defined in
+[OData-Protocol](#ODataProtocol) the response objects
+MUST appear in the same order as required for multipart batch responses
+because the `Content-ID` header is not required outside of change sets. Response objects
+corresponding to requests that specify a `Content-ID` header MUST contain the
+`id` name/value pair, and the value of `id` MUST be the value of the
+`Content-ID` header of the corresponding request. This is necessarily the case for
+requests contained within a change set. Responses to requests within a
+change set MUST contain the `atomicityGroup`
+name/value pair with a value common within a change set and unique
+across change sets.
+
+In a response to a batch request using the JSON batch request format
+specified in the preceding section the response objects MAY appear in
+any order, and each response object MUST contain the `id` name/value
+pair with the same value as in the corresponding request object. If the
+corresponding request object contains the `atomicityGroup`
+name/value pair, it MUST also be present in the response object with the
+same value.
+
+If any response within an atomicity group returns a failure code, all
+requests within that atomicity group are considered failed, regardless
+of their individual returned status code. The service MAY return `424 Failed Dependency` for statements
+within an atomicity group that fail or are not attempted due to other
+failures within the same atomicity group.
+
+A response object MUST contain the name/value pair `status`
+whose value is a number representing the HTTP status code of the
+response to the individual request.
+
+The response object MAY contain the name/value pair `headers`
+whose value is an object with name/value pairs representing response
+headers. The name of each pair MUST be the lower-case header name; the
+value is a string containing the header-encoded value of the header.
+
+The response object MAY contain the name/value pair `body`
+which follows the same rules as within [request objects](#BatchRequest).
+
+If the media type is not exactly equal to `application/json`
+(i.e. it is a subtype or has format parameters), the
+`headers` object MUST contain a name/value pair with the name
+`content-type` whose value is the media type.
+
+Relative URLs in a response object follow the rules for [relative
+URLs](#RelativeURLs) based on the request URL of the corresponding
+request. Especially: URLs in responses MUST NOT contain
+`$`-prefixed request identifiers.
+ 
+::: example
+Example 51: referencing the batch request [example 48](#batchRequest) above, assume all
+the requests except the final query request succeed. In this case the
+response would be
+```json
+{
+  "responses": [
+    {
+      "id": "0",
+      "status": 200,
+      "body": <JSON representation of the Customer entity with key ALFKI>
+    },
+    {
+      "id": "1",
+      "status": 204
+    },
+    {
+      "id": "2",
+      "status": 201,
+      "headers": {
+        "location": "http://host/service.svc/Customer('POIUY')"
+      },
+      "body": <JSON representation of the new Customer entity>
+    },
+    {
+      "id": "3",
+      "status": 404,
+      "body": <Error message>
+    }
+  ]
+}
+```
+:::
+
+## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+
+A batch request that specifies the `respond-async` preference MAY be executed asynchronously. This means that the "outer" batch request is executed asynchronously; this
+preference does not automatically cascade down to the individual
+requests within the batch. After successful execution of the batch
+request the response to the batch request is returned in the body of a
+response to an interrogation request against the status monitor resource
+URL, see section "Asynchronous Requests" in
+[OData-Protocol](#ODataProtocol).
+
+A service MAY return interim results to an asynchronously executing
+batch. It does this by responding with `200 OK` to a
+`GET` request to the monitor resource and including a
+[`nextLink`](#ControlInformationnextLinkodatanextLink)
+control information in the JSON batch response, thus signaling that the
+response is only a partial result. A subsequent `GET` request
+to the next link MAY result in a `202 Accepted` response with a
+`location` header pointing to a new status monitor resource.
+ 
+::: example
+Example 52: referencing the example 47 above again, assume that the
+request is sent with the `respond-async` preference. This
+results in a `202` response pointing to a status monitor resource:
+```json
+HTTP/1.1 202 Accepted
+Location: http://service-root/async-monitor-0
+Retry-After: ###
+
+```
+
+When interrogating the monitor URL only the first request in the batch
+has finished processing and all the remaining requests are still being
+processed. The service signals that asynchronous processing is
+"finished" and returns a partial result with the first response and a
+next link. The client did not explicitly accept
+`application/http`, so the response is "unwrapped" and only
+indicates with the `AsyncResult` header that it is a response
+to a status monitor resource:
+```json
+HTTP/1.1 200 OK
+AsyncResult: 200
+OData-Version: 4.01
+Content-Length: ###
+Content-Type: application/json
+
+{
+  "responses": [
+    {
+      "id": "0",
+      "status": 200,
+      "body": <JSON representation of the Customer entity with key ALFKI>
+    }
+  ],
+  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+}
+```
+
+Client makes a `GET` request to the next link and receives a
+`202` response with the location of a new monitor resource.
+
+```json
+HTTP/1.1 202 Accepted
+Location: http://service-root/async-monitor-1
+Retry-After: ###
+```
+
+After some time a `GET` request to the monitor resource returns the remainder of the result.
+
+```json
+HTTP/1.1 200 OK
+AsyncResult: 200
+OData-Version: 4.01
+Content-Length: ###
+Content-Type: application/json
+
+{
+  "responses": [
+    {
+      "id": "1",
+      "status": 204
+    },
+    {
+      "id": "2",
+      "status": 201,
+      "headers": {
+        "location": "http://host/service.svc/Customer('POIUY')"
+      },
+      "body": <JSON representation of the new Customer entity>
+    },
+    {
+      "id": "3",
+      "status": 404,
+      "body": <Error message>
+    }
+  ]
+}
+```
+:::
+
+In addition to the above interaction pattern individual requests within
+a batch with no other requests depending on it and not part of an
+atomicity group MAY be executed asynchronously if they specify the
+`respond-async` preference and if
+the service responds with a JSON batch response. In this case the
+`response` array contains a response object for each
+asynchronously executed individual request with a `status` of
+`202`, a `location` header pointing to an
+individual status monitor resource, and optionally a `retry-after` header.
+ 
+::: example
+Example 53: the first individual request is processed asynchronously,
+the second synchronously, the batch itself is processed synchronously
+```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ###
+Content-Type: application/json
+
+{
+  "responses": [
+    {
+      "id": "0",
+      "status": 202,
+      "headers": {
+        "location": "http://service-root/async-monitor-0"
+      }
+    },
+    {
+      "id": "1",
+      "status": 204
+    }
+  ]
+}
+```
+::: 
 -------
 
 # <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
 
-# <a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a>
+Annotations are an extensibility mechanism
+that allows services and clients to include information other than the
+raw data in the request or response.
 
-# <a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a>
+Annotations are name/value pairs that have an at (`@`) and a
+dot (`.`) as part of the name. The part after the "at" sign
+(`@`) is the _annotation identifier_. It consists of the
+namespace or alias of the schema that defines the term, followed by a
+dot (`.`), followed by the name of the term, optionally
+followed by a hash (`#`) and a qualifier. The namespace or alias MUST be defined in the
+metadata document, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL)
 
-# <a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a>
+The annotation identifier `odata` is reserved for future
+extensions of the protocol and format. Instance annotations MUST have a
+namespace or alias that is different from `odata`.
+
+Annotations can be applied to any name/value pair in a JSON payload that
+represents a value of any type from the entity data model. Clients
+should never error due to an unexpected annotation in a JSON payload.
+
+Annotations are always expressed as name/value pairs. For entity data
+model constructs represented as JSON objects the annotation name/value
+pairs are placed within the object; for constructs represented as JSON
+arrays or primitives they are placed next to the annotated model
+construct. When annotating a payload that represents a
+[single primitive or collection value](#IndividualPropertyorOperationResponse),
+the annotations for the value appear next to the `value`
+property and are not prefixed with a property name.
+
+::: example
+Example 54:
+```json
+{
+  "@context": "http://host/service/$metadata#Customers",
+  "@com.example.customer.setkind": "VIPs",
+  "value": [
+    {
+      "@com.example.display.highlight": true,
+      "ID": "ALFKI",
+      "CompanyName@com.example.display.style": { "title": true, "order": 1 },
+      "CompanyName": "Alfreds Futterkiste",
+      "Orders@com.example.display.style#simple": { "order": 2 }
+    }
+  ]
+}
+```
+:::
+
+## <a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a>
+
+When annotating a name/value pair for which the value is represented as
+a JSON object, each annotation is placed within the object and
+represented as a single name/value pair.
+
+The name always starts with the "at" sign (`@`), followed
+by the annotation identifier.
+
+The value MUST be an appropriate value for the annotation.
+
+## <a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a>
+
+When annotating a name/value pair for which the value is represented as
+a JSON array or primitive value, each annotation that applies to this
+name/value pair MUST be represented as a single name/value pair and
+placed immediately prior to the annotated name/value pair, with the
+exception of the [`nextLink`](#ControlInformationnextLinkodatanextLink)
+or [`collectionAnnotations`](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+control information, which can appear immediately
+before or after the annotated collection.
+
+The name is the same as the name of the property or name/value pair
+being annotated, followed by the "at" sign (`@`), followed by
+the annotation identifier.
+
+The value MUST be an appropriate value for the annotation.
+
+## <a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a>
+
+Individual primitive elements within a JSON array can be annotated by
+applying the [`collectionAnnotations`](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+control information to the array containing the primitive
+member.
+
+The control information must come with other annotations or control
+information immediately before or after the collection valued property.
+The name of the property representing the control information is the
+same as the name of the collection-valued property, followed by the "at"
+sign (`@`), followed by the
+[`collectionAnnotations`](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+identifier.
 
 -------
 
 # <a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a>
 
-# <a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a>
+OData requests may return a well formed [error response](#ErrorResponse),
+an [in-stream error](#InStreamError), or error information
+[within a success payload](#ErrorInformationinaSuccessPayload).
 
-# <a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a>
+## <a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a>
 
-# <a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a>
+The error response MUST be a single JSON object. This object MUST have a
+single name/value pair named `error`. The value must be an
+OData error object.
 
-# <a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a>
+The OData error object MUST contain name/value pairs with the names
+`code` and `message`, and it MAY contain name/value
+pairs with the names `target`, `details`, and `innererror`.
 
-# <a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a>
+The value for the `code` name/value pair is a non-empty
+language-independent string. Its value is a service-defined error code.
+This code serves as a sub-status for the HTTP error code specified in
+the response. It cannot be `null`.
 
-# <a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a>
+The value for the `message` name/value pair is a non-empty,
+language-dependent, human-readable string describing the error. The
+`Content-Language` header MUST contain the language code from
+[RFC5646](#rfc5646) corresponding to the language in which the
+value for message is written. It cannot be `null`.
+
+The value for the `target` name/value pair is a potentially empty string indicating the target of
+the error (for example, the name of the property in error). It can be `null`.
+
+The value for the `details` name/value pair MUST be an array
+of JSON objects that MUST contain name/value pairs for
+`code` and `message`, and MAY contain a
+name/value pair for `target`, as described above.
+
+The value for the `innererror` name/value pair MUST be an
+object. The contents of this object are service-defined. Usually this
+object contains information that will help debug the service.
+
+Service implementations SHOULD carefully consider which information to
+include in production environments to guard against potential security
+concerns around information disclosure.
+
+Error responses MAY contain [annotations](#InstanceAnnotations) in
+any of its JSON objects.
+ 
+::: example
+Example 55:
+```json
+{
+  "error": {
+    "code": "err123",
+    "message": "Unsupported functionality",
+    "target": "query",
+    "details": [
+      {
+      "code": "forty-two",
+      "target": "$search",
+      "message": "$search query option not supported"
+      }
+    ],
+    "innererror": {
+      "trace": [...],
+      "context": {...}
+    }
+  }
+}
+```
+:::
+
+## <a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a>
+
+In the case that a service encounters an error after sending a success
+status to the client, the service MUST leave the response malformed.
+This can be achieved by immediately stopping response serialization and
+thus omitting (among others) the end-object character of the top-level
+JSON object in the response.
+
+Services MAY include the header `OData-Error` as a trailing
+header if supported by the transport protocol (e.g. with HTTP/1.1 and
+chunked transfer encoding, or with HTTP/2), see
+[OData-Protocol](#ODataProtocol).
+
+The value of the `OData-Error` trailing header is an OData
+error object as defined in the preceding chapter, represented in a
+header-appropriate way:
+
+- All optional whitespace (indentation and line breaks) is removed, especially
+  (in hex notation) `09`, `0A` and `0D`
+
+- Control characters (`00` to `1F` and `7F`) and
+  Unicode characters beyond `00FF` within JSON strings are
+  encoded as `\uXXXX` or `\uXXXX\uXXXX` (see
+  [RFC8259](#rfc8259), section 7)
+ 
+::: example
+Example 56: note that this is one HTTP header line without any line
+breaks or optional whitespace
+```json
+OData-error: {"code":"err123","message":"Unsupported
+functionality","target":"query","details":[{"code":"forty-two","target":"$search","message":"$search
+query option not supported"}]}
+```
+:::
+
+## <a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a>
+
+Services may return error information within a success payload; for
+example, if the client has specified the
+`continue-on-error` preference.
+
+### <a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a>
+
+Primitive values that are in error are annotated with the
+`Core.ValueException` term, see
+[OData-VocCore](#ODataVocCore). In this case, the payload MAY include
+an approximation of the value and MAY specify a string representation of
+the exact value in the `value` property of the annotation.
+
+### <a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a>
+
+Structured types that are in error can be represented within a success
+payload only if the client has specified the
+`continue-on-error` preference. Such items are annotated with the
+`Core.ResourceException` term, see
+[OData-VocCore](#ODataVocCore). The annotation MAY include a
+`retryLink` property that can be used by the client to
+attempt to re-fetch the resource.
+
+### <a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a>
+
+Collections within a success payload can contain primitive values that
+are in error, or structured values that are in error, if the client has
+specified the `continue-on-error`
+preference. Such elements are annotated as described above. Primitive
+elements within a collection are annotated using the
+[`collectionAnnotations`](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+control information.
+
+Services can return partial collections within a success payload, for
+example, if they encounter an error while retrieving the collection and
+the client has specified the
+`continue-on-error` preference. In
+this case, the service MUST include a
+[`nextLink`](#ControlInformationnextLinkodatanextLink).
+The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+members are not available.
 
 -------
 
 # <a name="Extensibility" href="#Extensibility">22 Extensibility</a>
+
+Implementations can add [instance annotations](#InstanceAnnotations)
+of the form `@namespace.termname` or
+`property@namespace.termname` to any JSON object, where
+`property` MAY or MAY NOT match the name of a name/value pair
+within the JSON object. However, the namespace MUST NOT start with
+`odata` and SHOULD NOT be required to be understood by the
+receiving party in order to correctly interpret the rest of the payload
+as the receiving party MUST ignore unknown annotations not defined in
+this version of the OData JSON Specification.
 
 -------
 
@@ -1212,6 +3756,10 @@ http://tools.ietf.org/html/rfc8259.
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
+_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
+http://geojson.org/geojson-spec.html.
 
 -------
 

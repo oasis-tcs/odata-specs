@@ -3,20 +3,17 @@ a:target {
 }
 
 a[href^="#OData"],
-a[href^="#RFC"],
 a[href^="#rfc"] {
 	font-weight: bold;
 }
 
 a[href^="#OData"]::before,
-a[href^="#RFC"]::before,
 a[href^="#rfc"]::before {
 	content: "[";
 	font-weight: bold;
 }
 
 a[href^="#OData"]::after,
-a[href^="#RFC"]::after,
 a[href^="#rfc"]::after {
 	content: "]";
 	font-weight: bold;
