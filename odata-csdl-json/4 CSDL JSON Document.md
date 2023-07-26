@@ -27,7 +27,3 @@ The value of $Version is a string containing either 4.0 or 4.01.
 The value of $EntityContainer is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 ::::
 :::
-
-::: toc
-$$$isec$$$
-:::
