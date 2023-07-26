@@ -104,6 +104,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Documentconventions">1.2.3 Document conventions</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#CSDLJSONDocument">2 CSDL JSON Document</a></li>
 </ul>
 </div>
 <hr />
@@ -286,5 +287,33 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<hr />
+<h1 id="2-csdl-json-document"><a name="CSDLJSONDocument" href="#CSDLJSONDocument">2 CSDL JSON Document</a></h1>
+<div class="index">
+<h2 id="-document-object"><a name="DocumentObject1" href="#DocumentObject1"> Document Object</a></h2>
+<div class="dt">
+<p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member $Version.</p>
+<p>The document object MAY contain the member $Reference to reference other CSDL documents.</p>
+<p>It also MAY contain members for schemas.</p>
+<p>If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member <code>$EntityContainer</code>.</p>
+</div>
+<h2 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h2>
+<div class="dt">
+<p>The value of $Version is a string containing either 4.0 or 4.01.</p>
+</div>
+<h2 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h2>
+<div class="dt">
+<p>The value of $EntityContainer is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
+</div>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#DocumentObject1">Document Object</a>
+<ul>
+<li><a href="#Version1.1"><code>$Version</code></a></li>
+<li><a href="#EntityContainer1.2"><code>$EntityContainer</code></a></li>
+</ul></li>
+</ul>
+</div>
 </body>
 </html>

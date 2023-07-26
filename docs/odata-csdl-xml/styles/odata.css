@@ -33,6 +33,17 @@ a[href^="#rfc"]::after {
 	font-style: italic;
 }
 
+.index div,
+.index h1,
+.index h2,
+.index h3,
+.index h4,
+.index h5,
+.index h6 {
+	border-left: solid windowtext 1pt;
+	padding-left: 8pt;
+}
+
 table {
 	width: auto;
 }
@@ -133,7 +144,8 @@ h6 code {
 	font-style: initial;
 }
 
-.example pre {
+.example pre,
+.index {
 	margin-left: 40px;
 }
 

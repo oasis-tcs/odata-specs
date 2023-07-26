@@ -98,6 +98,7 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.1 Definitions of terms](#Definitionsofterms)
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
     - [1.2.3 Document conventions](#Documentconventions)
+- [2 CSDL JSON Document](#CSDLJSONDocument)
 :::
 
 -------
@@ -324,4 +325,40 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 [OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
+
+-------
+
+# <a name="CSDLJSONDocument" href="#CSDLJSONDocument">2 CSDL JSON Document</a>
+
+::: index
+## <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
+
+:::: dt
+A CSDL JSON document consists of a single JSON object. This document object MUST contain the member $Version.
+
+The document object MAY contain the member $Reference to reference other CSDL documents.
+
+It also MAY contain members for schemas.
+
+If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member `$EntityContainer`.
+::::
+
+## <a name="Version1.1" href="#Version1.1"> `$Version`</a>
+
+:::: dt
+The value of $Version is a string containing either 4.0 or 4.01.
+::::
+
+## <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
+
+:::: dt
+The value of $EntityContainer is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+::::
+:::
+
+::: toc
+- [Document Object](#DocumentObject1)
+  - [`$Version`](#Version1.1)
+  - [`$EntityContainer`](#EntityContainer1.2)
+:::
 
