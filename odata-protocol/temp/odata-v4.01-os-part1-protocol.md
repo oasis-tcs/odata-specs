@@ -1738,7 +1738,7 @@ the service.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-`http://host/service/`
+http://host/service/`
 :::
 
 http://host/service/\$metadata
@@ -1798,7 +1798,7 @@ of an entity set, `/$entity` is appended to the context URL.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-`http://host/service/Customers(1)`
+http://host/service/Customers(1)`
 :::
 
 http://host/service/\$metadata#Customers/\$entity
@@ -1836,10 +1836,10 @@ URL fragment.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-`http://host/service/MainSupplier`
+http://host/service/MainSupplier`
 :::
 
-http://host/service/\$metadata#`MainSupplier`
+http://host/service/\$metadata#`MainSupplier
 ```
 
 ## ##subsec Collection of Derived Entities
@@ -1873,7 +1873,7 @@ the entity set name.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-`http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer`
 :::
 
 http://host/service/\$metadata#Customers/Model.VipCustomer/\$entity
@@ -2112,11 +2112,10 @@ not contain the type of the referenced entities.
 Example ##ex: resource URL and corresponding context URL for a collection
 of entity references
 ```
-`http://host/service/Customers('ALFKI')/Orders/$ref`
-:::
-
-`http://host/service/$metadata#Collection($ref)`
+http://host/service/Customers('ALFKI')/Orders/$ref
+http://host/service/$metadata#Collection($ref)
 ```
+:::
 
 ## ##subsec Entity Reference
 
@@ -2131,11 +2130,10 @@ fragment.
 Example ##ex: resource URL and corresponding context URL for a single
 entity reference
 ```
-`http://host/service/Orders(10643)/Customer/$ref`
-:::
-
-`http://host/service/$metadata#$ref`
+http://host/service/Orders(10643)/Customer/$ref
+http://host/service/$metadata#$ref
 ```
+:::
 
 ## ##subsec Property Value
 
@@ -2162,7 +2160,7 @@ Example ##ex: resource URL and corresponding context URL
 http://host/service/Customers(1)/Addresses
 :::
 
-`http://host/service/$metadata#Customers(1)/Addresses`
+`http://host/service/$metadata#Customers(1)/Addresses
 ```
 
 ## ##subsec Collection of Complex or Primitive Types
@@ -2182,7 +2180,7 @@ Example ##ex: resource URL and corresponding context URL
 http://host/service/TopFiveHobbies()
 :::
 
-`http://host/service/$metadata#Collection(Edm.String)`
+`http://host/service/$metadata#Collection(Edm.String)
 ```
 
 ## ##subsec Complex or Primitive Type
@@ -2198,11 +2196,10 @@ context URL specifies the fully qualified type of the result.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-`http://host/service/MostPopularName()`
-:::
-
-`http://host/service/$metadata#Edm.String`
+http://host/service/MostPopularName()
+http://host/service/$metadata#Edm.String
 ```
+:::
 
 ## ##subsec Operation Result
 
@@ -2259,11 +2256,10 @@ of the containing entity.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234`
-:::
-
-`http://host/service/$metadata#Customers/$delta`
+http://host/service/Customers`?$deltatoken=1234
+http://host/service/$metadata#Customers/$delta
 ```
+:::
 
 The context URL of an update request body for a collection of entities
 is simply the fragment `#$delta`.
@@ -2452,9 +2448,7 @@ and specify the `$` prefix.
 
 The result of the request MUST be as if the system query options were
 evaluated in the following order.
-
-[· ]{style="font-family:
-Symbol;color:black"}[`$schemaversion`](#SystemQueryOptionschemaversion)
+- [`$schemaversion`](#SystemQueryOptionschemaversion)
 MUST be evaluated first, because it may influence any further
 processing.
 
@@ -3023,7 +3017,7 @@ specified parameter alias.
 Example ##ex: returns all employees whose Region property matches the
 string parameter value \"WA\"
 ```
-GET `http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'`
+GET `http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
 :::
 
@@ -3054,7 +3048,7 @@ parameter alias for `$this` to pass the manager into the filter on the
 expanded direct reports
 ```
 GET
-`http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName eq FirstName))`
+`http://host/service.svc/Employees?$expand=Manager(@m=$this;$expand=DirectReports($filter=@m/FirstName eq FirstName))
 ```
 :::
 
@@ -5144,13 +5138,11 @@ used to create a new entity in the identified collection.
 Example ##ex: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
-`POST `http://host/service/MyShoppingCart()`/Items`
-:::
-
-` `
-
-`...`
+POST `http://host/service/MyShoppingCart()`/Items
+ 
+...
 ```
+:::
 
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for
@@ -5192,7 +5184,7 @@ Example ##ex: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
-`GET http://host/service/EmployeesByManager(ManagerID=3)`
+GET http://host/service/EmployeesByManager(ManagerID=3)
 ```
 :::
 
@@ -5215,7 +5207,7 @@ Example ##ex: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
-`GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3`
+GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3
 ```
 :::
 
@@ -5235,7 +5227,7 @@ Example ##ex: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
-`GET http://host/service/EmployeesByManager?ManagerID=3`
+GET http://host/service/EmployeesByManager?ManagerID=3
 ```
 :::
 
@@ -5368,10 +5360,9 @@ Example ##ex: invoke the `SampleEntities.CreateOrder` action using
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
 ```
-`POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder`
+POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder
+If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
 :::
-
-`If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
 
 [[\
 {\
@@ -5506,12 +5497,12 @@ format](#MultipartBatchFormat) MUST contain a
 ::: example
 Example ##ex: multipart batch request
 ```
-`POST /service/$batch HTTP/1.1`[\
+POST /service/$batch HTTP/1.1`[\
 ]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
 ]{style="font-size:6.0pt;color:black"}`OData-Version: 4.0 `[\
 ]{style="font-size:6.0pt;color:black"}`Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b`[\
 \
-]{style="font-size:6.0pt;color:black"}`<Multipart Batch request body>`
+]{style="font-size:6.0pt;color:black"}`<Multipart Batch request body>
 ```
 :::
 
@@ -5521,12 +5512,12 @@ A batch request using the JSON batch format MUST contain a
 ::: example
 Example ##ex: JSON batch request
 ```
-`POST /service/$batch HTTP/1.1`[\
+POST /service/$batch HTTP/1.1`[\
 ]{style="font-size:6.0pt;color:black"}`Host: odata.org`[\
 ]{style="font-size:6.0pt;color:black"}`OData-Version: 4.01 `[\
 ]{style="font-size:6.0pt;color:black"}`Content-Type: application/json`[\
 \
-]{style="font-size:6.0pt;color:black"}`<JSON Batch request body>`
+]{style="font-size:6.0pt;color:black"}`<JSON Batch request body>
 ```
 :::
 

@@ -4,7 +4,7 @@ OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData service
 using the JavaScript Object Notation (JSON)[, see[
-]{.apple-converted-space}]{style="color:black"}**\[**[**RFC8259**](#rfc_JSON)**\]**.
+]{.apple-converted-space}]{style="color:black"}**\[**[**RFC8259**](#rfc8259)**\]**.
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 **\[**[**OpenUI5**](#OpenUI5)**\]**, with some extensions and
@@ -131,13 +131,11 @@ All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Representation-Specific Headline
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Normative representation-specific text
 :::
 
@@ -147,13 +145,13 @@ All other text is normative unless otherwise labeled.
 
 OData CSDL JSON is a full representation of the OData Common Schema
 Definition Language in the JavaScript Object Notation (JSON) defined in
-**\[**[**RFC8259**](#rfc_JSON)**\]**. It additionally follows the rules
+**\[**[**RFC8259**](#rfc8259)**\]**. It additionally follows the rules
 for "Internet JSON" (I-JSON) defined in
 **\[**[**RFC7493**](#rfc7493)**\]** for e.g. objects, numbers, date
 values, and duration values.
 
 It is an alternative to the CSDL XML representation defined in
-**\[**[**OData-CSDLXML**](#CSDLxml)**\]** and neither adds nor removes
+**\[**[**OData-CSDLXML**](#ODataCSDL)**\]** and neither adds nor removes
 features.
 
 ## ##subsec Requesting the JSON Representation
@@ -174,12 +172,8 @@ The response MUST contain the `Content-Type` header with a value of
 `application/json`, optionally followed by media type parameters.
 
 Possible media type parameters are:
-
-[[·
-]{style="font-family:Symbol;color:windowtext"}]{.MsoHyperlink}[`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
-
-[[·
-]{style="font-family:Symbol;color:windowtext"}]{.MsoHyperlink}[`metadata`](#ControllingtheAmountofControlInforma)
+- [`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
+- [`metadata`](#ControllingtheAmountofControlInforma)
 
 The names and values of these parameters are case-insensitive.
 
@@ -206,7 +200,7 @@ MUST specify this parameter in the media type returned in the
 
 The representation of constant annotation values in CSDL JSON documents
 closely follows the representation of data defined in
-[OData‑JSON](#BMJSON).
+[OData‑JSON](#ODataJSON).
 
 A client application can use the `metadata` format parameter in the
 `Accept` header when requesting a CSDL JSON document to influence how
@@ -224,18 +218,12 @@ possible.
 This means that the `@type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
-
-[· ]{style="font-family:
-Symbol"}Terms or term properties with an abstract declared type,
-
-[· ]{style="font-family:
-Symbol"}Terms or term properties with a declared type that has derived
+- Terms or term properties with an abstract declared type,
+- Terms or term properties with a declared type that has derived
 types, or
+- Dynamic properties of open types.
 
-[· ]{style="font-family:
-Symbol"}Dynamic properties of open types.
-
-See [OData‑JSON](#BMJSON) for the exact rules.
+See [OData‑JSON](#ODataJSON) for the exact rules.
 
 #### ##subsubsubsec `metadata=full`
 
@@ -245,7 +233,7 @@ include all control information explicitly in the payload.
 This means that the `@type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
-[OData‑JSON](#BMJSON) for the exact rules.
+[OData‑JSON](#ODataJSON) for the exact rules.
 
 #### ##subsubsubsec `metadata=none`
 
@@ -269,17 +257,17 @@ name.
 To avoid name collisions, all fixed member names are prefixed with a
 dollar (`$`) sign and otherwise have the same name and capitalization as
 their counterparts in the CSDL XML representation
-**\[**[**OData-CSDLXML**](#CSDLxml)**\]** (with one exception: the
+**\[**[**OData-CSDLXML**](#ODataCSDL)**\]** (with one exception: the
 counterpart of the `EntitySet` element's `EntityType` attribute is
 [`$Type`](#EntitySet), to harmonize it with all other type references).
 
 Additional fixed members introduced by this specification and without
-counterpart in **\[**[**OData-CSDLXML**](#CSDLxml)**\]** are also
+counterpart in **\[**[**OData-CSDLXML**](#ODataCSDL)**\]** are also
 prefixed with a dollar (`$`) sign and use upper-camel-case names. One of
 these is `$Kind` which represents the kind of model element. Its value
 is the upper-camel-case local name of the XML element representing this
-kind of model element in **\[**[**OData-CSDLXML**](#CSDLxml)**\]**, e.g.
-`EntityType` or `NavigationProperty`.
+kind of model element in **\[**[**OData-CSDLXML**](#ODataCSDL)**\]**,
+e.g. `EntityType` or `NavigationProperty`.
 
 While the XML representation of CSDL allows referencing model elements
 with alias-qualified names as well as with namespace-qualified names,
@@ -442,9 +430,10 @@ non-binding parameters to functions or actions.
 Some of these types allow [facets](#TypeFacets), defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData‑ABNF](#BMABNF) for the
+See rule `primitiveLiteral` in [OData‑ABNF](#ODataABNF) for the
 representation of primitive type values in URLs and
-[OData‑JSON](#BMJSON) for the representation in requests and responses.
+[OData‑JSON](#ODataJSON) for the representation in requests and
+responses.
 
 ## ##subsec Built-In Abstract Types
 
@@ -487,9 +476,7 @@ be used anywhere a corresponding concrete type can be used, except:
     -   cannot be the base type of an entity type or complex type.
     -   cannot be used as the underlying type of a type definition or
         enumeration type.
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Collection(Edm.PrimitiveType)`
+- `Collection(Edm.PrimitiveType)`
 
 -   -   cannot be used as the type of a property or term.
     -   cannot be used as the type of a parameter or the return type of
@@ -505,12 +492,8 @@ be used anywhere a corresponding concrete type can be used, except:
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.NavigationPropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.AnyPropertyPath `(`Edm.PropertyPath `or
+- `Edm.NavigationPropertyPath`
+- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or
 `Edm.NavigationPropertyPath`)
 - `Edm.ModelElementPath `(any
 model element, including
@@ -533,13 +516,11 @@ combination of term and qualifier.
 
 # ##sec CSDL JSON Document
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Document Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A CSDL JSON document consists of a single JSON object. This document
 object MUST contain the member `$Version`.
 
@@ -552,23 +533,19 @@ If the CSDL JSON document is the metadata document of an OData service,
 the document object MUST contain the member `$EntityContainer`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Version`]{#_Toc37317365}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Version` is a string containing either `4.0` or `4.01`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$EntityContainer`]{#_Toc37317366}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$EntityContainer` is value is the namespace-qualified name
 of the entity container of that service. This is the only place where a
 model element MUST be referenced with its namespace-qualified name and
@@ -578,17 +555,13 @@ use of the alias-qualified name is not allowed.
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.01",`
-
-`  "$EntityContainer": "org.example.DemoService",`
-
-`  … `
-
-`}`
+{
+  "$Version": "4.01",
+  "$EntityContainer": "org.example.DemoService",
+  … 
+}
 ```
+:::
 
 ## ##subsec Reference
 
@@ -608,33 +581,29 @@ A reference MAY be annotated.
 
 The
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation, defined in [OData-VocCore](#BMVocCore), MAY be used to
+annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is present, the `$schemaversion` system query option, defined
-[OData‑Protocol](#BMProtocol), SHOULD be used when retrieving the
+[OData‑Protocol](#ODataProtocol), SHOULD be used when retrieving the
 referenced schema document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Reference`]{#_Toc37317367}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Reference` is an object that contains one member per
 referenced CSDL document. The name of the pair is a URI for the
 referenced document. The URI MAY be relative to the document containing
 the `$Reference`. The value of each member is a reference object.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Reference Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The reference object MAY contain the members
 [`$Include`](#IncludedSchema) and
 [`$IncludeAnnotations`](#IncludedAnnotations) as well as
@@ -644,37 +613,23 @@ The reference object MAY contain the members
 ::: example
 Example ##ex: references to other CSDL documents
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://vocabs.odata.org/capabilities/v1": {`
-
-`      …`
-
-`    },`
-
-`    "http://vocabs.odata.org/core/v1": {`
-
-`      …`
-
-`    },`
-
-`    "http://example.org/display/v1": {`
-
-`      …`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      …
+    },
+    "http://vocabs.odata.org/core/v1": {
+      …
+    },
+    "http://example.org/display/v1": {
+      …
+    }
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec Included Schema
 
@@ -692,8 +647,7 @@ be assigned to the namespace `org.example.vocabularies.display`. An
 alias-qualified name is resolved to a fully qualified name by examining
 aliases for included schemas and schemas defined within the document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 If an included schema specifies an alias, the alias MUST be used in
 qualified names throughout the document to identify model elements of
 the included schema. A mixed use of namespace-qualified names and
@@ -711,37 +665,31 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Include`]{#_Toc37317369}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Include` is an array. Array items are objects that MUST
 contain the member `$Namespace` and MAY contain the member `$Alias`.
 
 The item objects MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Namespace`]{#_Toc37317370}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Namespace` is a string containing the namespace of the
 included schema.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Alias`]{#_Toc37317371}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
@@ -750,69 +698,39 @@ schema.
 Example ##ex: references to entity models containing definitions of
 vocabulary terms
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://vocabs.odata.org/capabilities/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Capabilities.V1",`
-
-`          "$Alias": "Capabilities"`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://vocabs.odata.org/core/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Core.V1",`
-
-`          "$Alias": "Core",`
-
-`          "@Core.DefaultNamespace": true`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://example.org/display/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "org.example.display",`
-
-`          "$Alias": "UI"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Capabilities.V1",
+          "$Alias": "Capabilities"
+        }
+      ]
+    },
+    "http://vocabs.odata.org/core/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Core.V1",
+          "$Alias": "Core",
+          "@Core.DefaultNamespace": true
+        }
+      ]
+    },
+    "http://example.org/display/v1": {
+      "$Include": [
+        {
+          "$Namespace": "org.example.display",
+          "$Alias": "UI"
+        }
+      ]
+    }
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec Included Annotations
 
@@ -852,104 +770,71 @@ namespaces are present in the referenced document. If the consumer is
 not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IncludeAnnotations`]{#_Toc37317372}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IncludeAnnotations` is an array. Array items are objects
 that MUST contain the member `$TermNamespace` and MAY contain the
 members `$Qualifier` and `$TargetNamespace`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$TermNamespace`]{#_Toc37317373}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$TermNamespace` is a namespace.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Qualifier`]{#_Toc37317374}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Qualifier` is a simple identifier.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$TargetNamespace`]{#_Toc37317375}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$TargetNamespace` is a namespace.
 :::
 
 ::: example
 Example ##ex: reference documents that contain annotations
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://odata.org/ann/b": {`
-
-`      "$IncludeAnnotations": [`
-
-`        {`
-
-`          "$TermNamespace": "org.example.validation"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.display",`
-
-`          "$Qualifier": "Tablet"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.hcm",`
-
-`          "$TargetNamespace": "com.example.Sales"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.hcm",`
-
-`          "$Qualifier": "Tablet",`
-
-`          "$TargetNamespace": "com.example.Person"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://odata.org/ann/b": {
+      "$IncludeAnnotations": [
+        {
+          "$TermNamespace": "org.example.validation"
+        },
+        {
+          "$TermNamespace": "org.example.display",
+          "$Qualifier": "Tablet"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$TargetNamespace": "com.example.Sales"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$Qualifier": "Tablet",
+          "$TargetNamespace": "com.example.Person"
+        }
+      ]
+    }
+  },
+  …
+}
 ```
+:::
 
 The following annotations from `http://odata.org/ann/b` are included:
 - Annotations that use a
@@ -986,13 +871,11 @@ that differ only in case.
 The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Schema Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A schema is represented as a member of the document object whose name is
 the schema namespace. Its value is an object that MAY contain the
 members [`$Alias`](#Alias) and
@@ -1013,8 +896,7 @@ to the schema itself.
 A schema MAY specify an alias which MUST be a [simple
 identifier](#SimpleIdentifier).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 If a schema specifies an alias, the alias MUST be used instead of the
 namespace within qualified names throughout the document to identify
 model elements of that schema. A mixed use of namespace-qualified names
@@ -1031,13 +913,11 @@ them.
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Alias`]{#_Toc37317377}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Alias` is a string containing the alias for the schema.
 :::
 
@@ -1045,35 +925,25 @@ The value of `$Alias` is a string containing the alias for the schema.
 Example ##ex: document defining a schema `org.example` with an alias and a
 description for the schema
 ```
-`{`
-:::
-
-`  …`
-
-`  "org.example": {`
-
-`    "$Alias": "self", `
-
-`    "@Core.Description": "Example schema",`
-
-`    … `
-
-`  },`
-
-`  … `
-
-`}`
+{
+  …
+  "org.example": {
+    "$Alias": "self", 
+    "@Core.Description": "Example schema",
+    … 
+  },
+  … 
+}
 ```
+:::
 
 ## ##subsec Annotations with External Targeting
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Annotations`]{#_Toc37317378}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Annotations` is an object with one member per [annotation
 target](#Target). The member name is a path identifying the [annotation
 target](#Target), the member value is an object containing
@@ -1084,25 +954,17 @@ target](#Target), the member value is an object containing
 Example ##ex: annotations targeting the `Person` type with qualifier
 `Tablet`
 ```
-`"org.example": {`
-:::
-
-`  "$Alias": "self", `
-
-`  "$Annotations": {`
-
-`    "self.Person": {`
-
-`      "@Core.Description#Tablet": "Dummy",`
-
-`      …`
-
-`    }`
-
-`  } `
-
-`},`
+"org.example": {
+  "$Alias": "self", 
+  "$Annotations": {
+    "self.Person": {
+      "@Core.Description#Tablet": "Dummy",
+      …
+    }
+  } 
+},
 ```
+:::
 
 # ##sec Entity Type
 
@@ -1126,13 +988,11 @@ MUST NOT have the same name as the declaring entity type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Entity Type Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An entity type is represented as a member of the schema object whose
 name is the unqualified name of the entity type and whose value is an
 object.
@@ -1152,35 +1012,22 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 ::: example
 Example ##ex: a simple entity type
 ```
-`"Employee": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {},`
-
-`  "FirstName": {},`
-
-`  "LastName": {},`
-
-`  "Manager": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Manager"`
-
-`  }`
-
-`}`
+"Employee": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "FirstName": {},
+  "LastName": {},
+  "Manager": {
+    "$Kind": "NavigationProperty",
+    "$Nullable": true,
+    "$Type": "self.Manager"
+  }
+}
 ```
+:::
 
 ## ##subsec Derived Entity Type
 
@@ -1193,48 +1040,33 @@ navigation properties of its base type.
 An entity type MUST NOT introduce an inheritance cycle by specifying a
 base type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$BaseType`]{#_Toc37317380}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$BaseType` is the qualified name of the base type.
 :::
 
 ::: example
 Example ##ex: a derived entity type based on the previous example
 ```
-`"Manager": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$BaseType": "self.Employee",`
-
-`  "AnnualBudget": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Employees": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Employee"`
-
-`  }`
-
-`}`
+"Manager": {
+  "$Kind": "EntityType",
+  "$BaseType": "self.Employee",
+  "AnnualBudget": {
+    "$Nullable": true,
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Employees": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Employee"
+  }
+}
 ```
+:::
 
 Note: the derived type has the same name as one of the properties of its
 base type.
@@ -1251,13 +1083,11 @@ defined key.
 An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Abstract`]{#_Toc37317381}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -1276,15 +1106,13 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$OpenType`]{#_Toc37317382}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -1302,7 +1130,7 @@ entity with one or more properties of type `Edm.Stream` if the
 structured data of the entity is the main topic of interest and the
 stream data is just additional information attached to the structured
 data. For more information on media entities see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
 An entity type derived from a media entity type MUST indicate that it is
 also a media entity type.
@@ -1310,15 +1138,13 @@ also a media entity type.
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
 [`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
-see [OData-VocCore](#BMVocCore).
+see [OData-VocCore](#ODataVocCore).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$HasStream`]{#_Toc37317383}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$HasStream `is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -1369,7 +1195,7 @@ on one of these primitive types:
 
 Key property values MAY be language-dependent, but their values MUST be
 unique across all languages and the entity ids (defined in
-[OData‑Protocol](#BMProtocol)) MUST be language independent.
+[OData‑Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
@@ -1399,13 +1225,11 @@ URL construction and parsing rather complicated. The alias MUST NOT be
 used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Key`]{#_Toc37317384}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Key` is an array with one item per key property.
 
 Key properties without a key alias are represented as strings containing
@@ -1419,118 +1243,71 @@ containing the path to the property.
 ::: example
 Example ##ex: entity type with a simple key
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true,`
-
-`    "@Core.IsLanguageDependent": true`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true,
+    "@Core.IsLanguageDependent": true
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    {`
-
-`      "EntityInfoID": "Info/ID"`
-
-`    }`
-
-`  ],`
-
-`  "Info": {`
-
-`    "$Type": "self.EntityInfo"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true`
-
-`  }`
-
-`},`
-
-`"EntityInfo": {`
-
-`  "$Kind": "ComplexType",`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Created": {`
-
-`    "$Type": "Edm.DateTimeOffset",`
-
-`    "$Precision": 0`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    {
+      "EntityInfoID": "Info/ID"
+    }
+  ],
+  "Info": {
+    "$Type": "self.EntityInfo"
+  },
+  "Name": {
+    "$Nullable": true
+  }
+},
+"EntityInfo": {
+  "$Kind": "ComplexType",
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Created": {
+    "$Type": "Edm.DateTimeOffset",
+    "$Precision": 0
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: entity type with a composite key
 ```
-`"OrderLine": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "OrderID",`
-
-`    "LineNumber"`
-
-`  ],`
-
-`  "OrderID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "LineNumber": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  }`
-
-`}`
+"OrderLine": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "OrderID",
+    "LineNumber"
+  ],
+  "OrderID": {
+    "$Type": "Edm.Int32"
+  },
+  "LineNumber": {
+    "$Type": "Edm.Int32"
+  }
+}
 ```
+:::
 
 Example 13 (based on example 11): requests to an entity set `Categories`
 of type `Category` must use the alias
@@ -1571,13 +1348,11 @@ property of any of this type's base types for OData 4.0 responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Property Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Structural properties are represented as members of the object
 representing a structured type. The member name is the property name,
 the member value is an object.
@@ -1596,31 +1371,20 @@ It also MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex: complex type with two properties `Dimension` and `Length`
 ```
-`"Measurement": {`
-:::
-
-`  "$Kind": "ComplexType",`
-
-`  "Dimension": {`
-
-`    "$MaxLength": 50,`
-
-`    "$DefaultValue": "Unspecified"`
-
-`  },`
-
-`  "Length": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Precision": 18,`
-
-`    "$Scale": 2`
-
-`  }`
-
-`}`
+"Measurement": {
+  "$Kind": "ComplexType",
+  "Dimension": {
+    "$MaxLength": 50,
+    "$DefaultValue": "Unspecified"
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Precision": 18,
+    "$Scale": 2
+  }
+}
 ```
+:::
 
 ## ##subsec Type
 
@@ -1631,21 +1395,19 @@ scope, or a collection of one of these types.
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in\
-[OData-VocCore](#BMVocCore)**)**, to specify that it supports a stable
-ordering.
+[OData-VocCore](#ODataVocCore)**)**, to specify that it supports a
+stable ordering.
 
 A collection-valued property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type` and]{#_Toc37317386} `$Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued properties the value of `$Type` is the qualified name
 of the property's type.
 
@@ -1661,13 +1423,11 @@ member SHOULD be omitted for string properties to reduce document size.
 Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```
-`"Units": {`
-:::
-
-`  "$Collection": true`
-
-`}`
+"Units": {
+  "$Collection": true
+}
 ```
+:::
 
 ## ##subsec Type Facets
 
@@ -1682,13 +1442,11 @@ in the collection.
 A Boolean value specifying whether the property can have the value
 `null`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Nullable`]{#_Toc37317387}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 
@@ -1711,18 +1469,16 @@ length of the binary data, for string values it is the character length
 If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$MaxLength`]{#_Toc37317388}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$MaxLength` is a positive integer.
 
-Note: **\[**[**OData-CSDLXML**](#CSDLxml)**\]** defines a symbolic value
-`max` that is only allowed in OData 4.0 responses. This symbolic value
-is not allowed in CDSL JSON documents at all. Services MAY instead
+Note: **\[**[**OData-CSDLXML**](#ODataCSDL)**\]** defines a symbolic
+value `max` that is only allowed in OData 4.0 responses. This symbolic
+value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the
 service or omit the member entirely.
 :::
@@ -1747,15 +1503,13 @@ the risk for unintended data loss.
 Note: duration properties supporting a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#BMVocMeasures).
+see [OData-VocMeasures](#ODataVocMeasures).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Precision`]{#_Toc37317389}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Precision` is a number.
 
 Absence of `$Precision` means arbitrary precision.
@@ -1764,17 +1518,13 @@ Absence of `$Precision` means arbitrary precision.
 ::: example
 Example ##ex: `Precision` facet applied to the `DateTimeOffset` type
 ```
-`"SuggestedTimes": {`
-:::
-
-`  "$Type": Edm.DateTimeOffset",`
-
-`  "$Collection": true,`
-
-`  "$Precision": 6`
-
-`}`
+"SuggestedTimes": {
+  "$Type": Edm.DateTimeOffset",
+  "$Collection": true,
+  "$Precision": 6
+}
 ```
+:::
 
 ### ##subsubsec Scale
 
@@ -1806,13 +1556,11 @@ use a [`Precision`](#Precision) with the absolute value of the negative
 scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Scale`]{#_Toc37317390}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Scale` is a number or a string with one of the symbolic
 values `floating` or `variable`.
 
@@ -1826,54 +1574,40 @@ Absence of `$Scale` means `variable`.
 Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
-`"Amount32": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 3,`
-
-`  "$Scale": 2`
-
-`}`
+"Amount32": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3,
+  "$Scale": 2
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=2` equals `Scale`.\
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
-`"Amount22": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 2,`
-
-`  "$Scale": 2`
-
-`}`
+"Amount22": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 2,
+  "$Scale": 2
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=3` and a variable `Scale`.\
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```
-`"Amount3v": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 3`
-
-`}`
+"Amount3v": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=7` and a floating `Scale`.\
@@ -1883,15 +1617,11 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 [`"Amount7f": {`]{#_Toc475623943}
 :::
 
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 7,`
-
-`  "$Scale": "floating"`
-
-`}`
+`  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 7,
+  "$Scale": "floating"
+}
 ```
 
 ### ##subsubsec Unicode
@@ -1904,13 +1634,11 @@ limited to the ASCII character set.
 
 If no value is specified, the `Unicode` facet defaults to `true`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Unicode`]{#_Toc37317391}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Unicode` is one of the Boolean literals `true` or
 `false`. Absence of the member means `true`.
 :::
@@ -1928,13 +1656,11 @@ to `0` for `Geometry` types or `4326` for `Geography` types.
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [**\[EPSG\]**](#BMEPSG)**.**
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$SRID`]{#_Toc37317392}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$SRID` is a string containing a number or the symbolic
 value `variable`.
 :::
@@ -1947,16 +1673,14 @@ the body of a request or response.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$DefaultValue`]{#_Toc37317393}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
-**\[**[**OData-JSON**](#BMJSON)**\]**. For properties of type
+**\[**[**OData-JSON**](#ODataJSON)**\]**. For properties of type
 `Edm.Decimal` and `Edm.Int64` the representation depends on the media
 type parameter
 [`IEEE754Compatible`](#ControllingtheRepresentationofNumber).
@@ -1984,13 +1708,11 @@ responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Navigation Property Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Navigation properties are represented as members of the object
 representing a structured type. The member name is the property name,
 the member value is an object.
@@ -2013,63 +1735,36 @@ It also MAY contain [annotations](#Annotation).
 Example ##ex: the `Product` entity type has a navigation property to a
 `Category`, which has a navigation link back to one or more products
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Category": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Category",`
-
-`    "$Partner": "Products",`
-
-`    "$ReferentialConstraint": {`
-
-`      "CategoryID": "ID"`
-
-`    }`
-
-`  },`
-
-`  "Supplier": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Supplier"`
-
-`  }`
-
-`},`
-
-`"Category": {`
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Products": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$Partner": "Category",`
-
-`    "$OnDelete": "Cascade",`
-
-`    "$OnDelete@Core.Description": "Delete all related entities"`
-
-`  }`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  …
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID"
+    }
+  },
+  "Supplier": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Supplier"
+  }
+},
+"Category": {
+  "$Kind": "EntityType",
+  …
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all related entities"
+  }
+}
 ```
+:::
 
 ## ##subsec Navigation Property Type
 
@@ -2088,21 +1783,19 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type` and]{#_Toc37317395} `$Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued navigation properties the value of `$Type` is the
 qualified name of the navigation property's type.
 
@@ -2120,13 +1813,11 @@ MUST always have a related entity.
 Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Nullable`]{#_Toc37317396}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -2163,13 +1854,11 @@ navigation property is defined on a complex type, or if the current
 navigation property is defined on a type derived from the type of the
 partner navigation property.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Partner`]{#_Toc37317397}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Partner` is a string containing the path to the partner
 navigation property.
 :::
@@ -2191,7 +1880,8 @@ either directly or indirectly via a property of complex type, contain
 the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
-property and the key of the contained entity, see [OData‑URL](#BMURL).
+property and the key of the contained entity, see
+[OData‑URL](#ODataURL).
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.
@@ -2199,10 +1889,10 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-VocCore](#BMVocCore)**)**, the canonical URL of
-the item is the canonical URL of the collection appended with a segment
-containing the zero-based ordinal of the item. Items within in an
-unordered collection of complex types do not have a canonical URL.
+term defined in [OData-VocCore](#ODataVocCore)**)**, the canonical URL
+of the item is the canonical URL of the collection appended with a
+segment containing the zero-based ordinal of the item. Items within in
+an unordered collection of complex types do not have a canonical URL.
 Services that support unordered collections of complex types declaring a
 containment navigation property, either directly or indirectly via a
 property of complex type, MUST specify the URL for the navigation link
@@ -2240,13 +1930,11 @@ for a client to determine which entity contains a given contained
 entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$ContainsTarget`]{#_Toc37317398}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$ContainsTarget` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -2276,13 +1964,11 @@ dependent property MUST also be nullable. If both the navigation
 property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$ReferentialConstraint`]{#_Toc37317399}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$ReferentialConstraint` is an object with one member per
 referential constraint. The member name is the path to the dependent
 property, this path is relative to the structured type declaring the
@@ -2301,61 +1987,35 @@ exist. The `CategoryID` of the product is identical to the `ID` of the
 category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "CategoryID": {},`
-
-`  "CategoryKind": {},`
-
-`  "Category": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Category",`
-
-`    "$Partner": "Products",`
-
-`    "$ReferentialConstraint": {`
-
-`      "CategoryID": "ID",`
-
-`      "CategoryKind": "Kind"`
-
-`      "CategoryKind@Core.Description": "Referential Constraint to non-key property"`
-
-`    }`
-
-`  }`
-
-`},`
-
-`"Category": {`
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {},`
-
-`  "Kind": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  …`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  …
+  "CategoryID": {},
+  "CategoryKind": {},
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID",
+      "CategoryKind": "Kind"
+      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
+    }
+  }
+},
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "Kind": {
+    "$Nullable": true
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec On-Delete Action
 
@@ -2381,13 +2041,11 @@ The action can have one of the following values:
 If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$OnDelete`]{#_Toc37317400}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$OnDelete` is a string with one of the values `Cascade`,
 `None`, `SetNull`, or `SetDefault`.
 
@@ -2399,31 +2057,20 @@ The value of `$OnDelete` is a string with one of the values `Cascade`,
 Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Products": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$Partner": "Category",`
-
-`    "$OnDelete": "Cascade",`
-
-`    "$OnDelete@Core.Description": "Delete all products in this category"`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  …
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all products in this category"
+  }
+}
 ```
+:::
 
 # ##sec Complex Type
 
@@ -2447,13 +2094,11 @@ MUST NOT have the same name as the declaring complex type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Complex Type Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A complex type is represented as a member of the schema object whose
 name is the unqualified name of the complex type and whose value is an
 object.
@@ -2470,73 +2115,41 @@ representing [structural properties](#StructuralProperty) and
 ::: example
 Example ##ex: a complex type used by two entity types
 ```
-`"Dimensions": {`
-:::
-
-`  "$Kind": "ComplexType",`
-
-`  "Height": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Weight": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Length": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  }`
-
-`},`
-
-`"Product": {`
-
-`  …`
-
-`  "ProductDimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  },`
-
-`  "ShippingDimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  }`
-
-`},`
-
-`"ShipmentBox": {`
-
-`  …`
-
-`  "Dimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  }`
-
-`}`
+"Dimensions": {
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Weight": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  }
+},
+"Product": {
+  …
+  "ProductDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  },
+  "ShippingDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
+},
+"ShipmentBox": {
+  …
+  "Dimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
+}
 ```
+:::
 
 ## ##subsec Derived Complex Type
 
@@ -2552,13 +2165,11 @@ base type.
 The rules for annotations of derived complex types are described in
 section 14.2.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$BaseType`]{#_Toc37317402}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$BaseType` is the qualified name of the base type.
 :::
 
@@ -2567,13 +2178,11 @@ The value of `$BaseType` is the qualified name of the base type.
 A complex type MAY indicate that it is abstract and cannot have
 instances.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Abstract`]{#_Toc37317403}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -2592,15 +2201,13 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$OpenType`]{#_Toc37317404}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -2618,18 +2225,16 @@ Although enumeration types have an underlying numeric value, the
 preferred representation for an enumeration value is the member name.
 Discrete sets of numeric values should be represented as numeric values
 annotated with the `AllowedValues` annotation defined in
-[OData-VocCore](#BMVocCore).
+[OData-VocCore](#ODataVocCore).
 
 Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Enumeration Type Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An enumeration type is represented as a member of the schema object
 whose name is the unqualified name of the enumeration type and whose
 value is an object.
@@ -2649,25 +2254,17 @@ The enumeration type object MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex: a simple flags-enabled enumeration
 ```
-`"FileAccess": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "$UnderlyingType": "Edm.Int32",`
-
-`  "$IsFlags": true,`
-
-`  "Read": 1,`
-
-`  "Write": 2,`
-
-`  "Create": 4,`
-
-`  "Delete": 8`
-
-`}`
+"FileAccess": {
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Read": 1,
+  "Write": 2,
+  "Create": 4,
+  "Delete": 8
+}
 ```
+:::
 
 ## ##subsec Underlying Integer Type
 
@@ -2676,13 +2273,11 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$UnderlyingType`]{#_Toc37317406}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
 :::
@@ -2695,13 +2290,11 @@ multiple members to be selected simultaneously.
 If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IsFlags`]{#_Toc37317407}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IsFlags` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -2710,41 +2303,25 @@ The value of `$IsFlags` is one of the Boolean literals `true` or
 Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```
-`"Pattern": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "$UnderlyingType": "Edm.Int32",`
-
-`  "$IsFlags": true,`
-
-`  "Plain": 0,`
-
-`  "Red": 1,`
-
-`  "Blue": 2,`
-
-`  "Yellow": 4,`
-
-`  "Solid": 8,`
-
-`  "Striped": 16,`
-
-`  "SolidRed": 9,`
-
-`  "SolidBlue": 10,`
-
-`  "SolidYellow": 12,`
-
-`  "RedBlueStriped": 19,`
-
-`  "RedYellowStriped": 21,`
-
-`  "BlueYellowStriped": 22`
-
-`}`
+"Pattern": {
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Plain": 0,
+  "Red": 1,
+  "Blue": 2,
+  "Yellow": 4,
+  "Solid": 8,
+  "Striped": 16,
+  "SolidRed": 9,
+  "SolidBlue": 10,
+  "SolidYellow": 12,
+  "RedBlueStriped": 19,
+  "RedYellowStriped": 21,
+  "BlueYellowStriped": 22
+}
 ```
+:::
 
 ## ##subsec Enumeration Type Member
 
@@ -2768,13 +2345,11 @@ For flag enumeration types the combined numeric value of simultaneously
 selected members is the bitwise OR of the discrete numeric member
 values.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Enumeration Member Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Enumeration type members are represented as JSON object members, where
 the object member name is the enumeration member name and the object
 member value is the enumeration member value.
@@ -2791,27 +2366,18 @@ member name.
 Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```
-`"ShippingMethod": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "FirstClass": 0,`
-
-`  "FirstClass@Core.Description": "Shipped with highest priority",`
-
-`  "TwoDay": 1,`
-
-`  "TwoDay@Core.Description": "Shipped within two days",`
-
-`  "Overnight": 2,`
-
-`  "Overnight@Core.Description": "Shipped overnight",`
-
-`  "@Core.Description": "Method of shipping"`
-
-`}`
+"ShippingMethod": {
+  "$Kind": "EnumType",
+  "FirstClass": 0,
+  "FirstClass@Core.Description": "Shipped with highest priority",
+  "TwoDay": 1,
+  "TwoDay@Core.Description": "Shipped within two days",
+  "Overnight": 2,
+  "Overnight@Core.Description": "Shipped overnight",
+  "@Core.Description": "Method of shipping"
+}
 ```
+:::
 
 # ##sec Type Definition
 
@@ -2831,13 +2397,11 @@ It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Type Definition Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A type definition is represented as a member of the schema object whose
 name is the unqualified name of the type definition and whose value is
 an object.
@@ -2902,13 +2466,11 @@ Example ##ex:
 The underlying type of a type definition MUST be a primitive type that
 MUST NOT be another type definition.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$UnderlyingType`]{#_Toc37317410}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
 :::
@@ -2964,13 +2526,11 @@ schema.
 
 An unbound action MAY have the same name as a bound action.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Action Overload Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An action is represented as a member of the schema object whose name is
 the unqualified name of the action and whose value is an array. The
 array contains one object per action overload.
@@ -3033,13 +2593,11 @@ Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Function Overload Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A function is represented as a member of the schema object whose name is
 the unqualified name of the function and whose value is an array. The
 array contains one object per function overload.
@@ -3069,13 +2627,11 @@ Unbound functions are invoked as static functions within a filter or
 orderby expression, or from the entity container through a [function
 import](#FunctionImport).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IsBound`]{#_Toc37317413}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IsBound` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -3099,13 +2655,11 @@ the [navigation property](#NavigationProperty) to be traversed. A
 type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$EntitySetPath`]{#_Toc37317414}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
@@ -3120,13 +2674,11 @@ key predicates appended to the resource path that identifies the
 composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IsComposable`]{#_Toc37317415}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IsComposable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
@@ -3145,13 +2697,11 @@ For a single-valued return type the facets apply to the returned value.
 For a collection-valued return type the facets apply to the items in the
 returned collection.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$ReturnType`]{#_Toc37317416}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$ReturnType` is an object. It MAY contain the members
 `$Type`, `$Collection`, `$Nullable`, [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),
@@ -3160,13 +2710,11 @@ and [`$SRID`](#SRID).
 It also MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type` and]{#_Toc37317417} `$Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued return types the value of `$Type` is the qualified
 name of the returned type.
 
@@ -3177,13 +2725,11 @@ present with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Nullable`]{#_Toc444868540}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 
@@ -3225,24 +2771,20 @@ For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in
 the collection.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Parameter`]{#_Toc37317419}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Parameter` is an array. The array contains one object per
 parameter.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Parameter Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A parameter object MUST contain the member `$Name`, and it MAY contain
 the members `$Type`, `$Collection`, `$Nullable`,
 [`$MaxLength`](#MaxLength), [`$Unicode`](#Unicode),
@@ -3251,23 +2793,19 @@ the members `$Type`, `$Collection`, `$Nullable`,
 Parameter objects MAY also contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Name`]{#_Toc37317421}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Name` is a string containing the parameter name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type` and]{#_Toc37317422} `$Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
 
@@ -3278,13 +2816,11 @@ present with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Nullable`]{#_Toc444868544}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 
@@ -3360,66 +2896,42 @@ Simple entity models frequently have one entity set per entity type.
 ::: example
 Example ##ex: one entity set per entity type
 ```
-`"Products": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Product"`
-
-`},`
-
-`"Categories": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category"`
-
-`}`
+"Products": {
+  "$Collection": true,
+  "$Type": "self.Product"
+},
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category"
+}
 ```
+:::
 
 Other entity models may expose multiple entity sets per type.
 
 ::: example
 Example ##ex: three entity sets referring to the two entity types
 ```
-`"StandardCustomers": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Customer",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Orders": "Orders"`
-
-`  }`
-
-`},`
-
-`"PreferredCustomers": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Customer",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Orders": "Orders"`
-
-`  }`
-
-`},`
-
-`"Orders": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Order"`
-
-`}`
+"StandardCustomers": {
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
+},
+"PreferredCustomers": {
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
+},
+"Orders": {
+  "$Collection": true,
+  "$Type": "self.Order"
+}
 ```
+:::
 
 There are separate entity sets for standard customers and preferred
 customers, but only one entity set for orders. The entity sets for
@@ -3440,13 +2952,11 @@ A [*function import*](#FunctionImport) or an [*action
 import*](#ActionImport) is used to expose a function or action defined
 in an entity model as a top level resource.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Entity Container Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An entity container is represented as a member of the schema object
 whose name is the unqualified name of the entity container and whose
 value is an object.
@@ -3465,81 +2975,45 @@ well as [annotations](#Annotation).
 Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
 ```
-`"DemoService": {`
-:::
-
-`  "$Kind": "EntityContainer",`
-
-`  "Products": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Category": "Categories",`
-
-`      "Supplier": "Suppliers"`
-
-`    },`
-
-`    "@UI.DisplayName": "Product Catalog"`
-
-`  },`
-
-`  "Categories": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Category",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Products": "Products"`
-
-`    }`
-
-`  },`
-
-`  "Suppliers": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Supplier",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Products": "Products"`
-
-`    },`
-
-`    "@UI.DisplayName": "Supplier Directory"`
-
-`  },`
-
-`  "MainSupplier": {`
-
-`    "$Type": "self.Supplier"`
-
-`  },`
-
-`  "LeaveRequestApproval": {`
-
-`    "$Action": "self.Approval"`
-
-`  },`
-
-`  "ProductsByRating": {`
-
-`    "$EntitySet": "Products",`
-
-`    "$Function": "self.ProductsByRating"`
-
-`  }`
-
-`}`
+"DemoService": {
+  "$Kind": "EntityContainer",
+  "Products": {
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$NavigationPropertyBinding": {
+      "Category": "Categories",
+      "Supplier": "Suppliers"
+    },
+    "@UI.DisplayName": "Product Catalog"
+  },
+  "Categories": {
+    "$Collection": true,
+    "$Type": "self.Category",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    }
+  },
+  "Suppliers": {
+    "$Collection": true,
+    "$Type": "self.Supplier",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    },
+    "@UI.DisplayName": "Supplier Directory"
+  },
+  "MainSupplier": {
+    "$Type": "self.Supplier"
+  },
+  "LeaveRequestApproval": {
+    "$Action": "self.Approval"
+  },
+  "ProductsByRating": {
+    "$EntitySet": "Products",
+    "$Function": "self.ProductsByRating"
+  }
+}
 ```
+:::
 
 ## ##subsec Extending an Entity Container
 
@@ -3559,13 +3033,11 @@ Note: services should not introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Extends`]{#_Toc37317425}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Extends` is the qualified name of the entity container to
 be extended.
 :::
@@ -3607,13 +3079,11 @@ document. If not explicitly indicated, it is included.
 Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Entity Set Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An entity set is represented as a member of the entity container object
 whose name is the name of the entity set and whose value is an object.
 
@@ -3625,33 +3095,27 @@ It MAY contain the members `$IncludeInServiceDocument` and
 [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Collection`]{#_Toc37317427}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Collection` is the Booelan value `true`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type`]{#_Toc37317428}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Type` is the qualified name of an entity type.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IncludeInServiceDocument`]{#_Toc37317429}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
 :::
@@ -3668,13 +3132,11 @@ A singleton MUST specify a type that MUST be an entity type in scope.
 
 A singleton MUST reference an instance its entity type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Singleton Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A singleton is represented as a member of the entity container object
 whose name is the name of the singleton and whose value is an object.
 
@@ -3686,23 +3148,19 @@ It MAY contain the member
 [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type`]{#_Toc37317431}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Type` is the qualified name of an entity type.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Nullable`]{#_Toc37317432}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.In OData 4.0 responses this
 member MUST NOT be specified.
@@ -3779,13 +3237,11 @@ containment navigation properties or single-valued complex properties
 before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$NavigationPropertyBinding`]{#_Toc37317433}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$NavigationPropertyBinding` is an object. It consists of
 members whose name is the navigation property binding path and whose
 value is a string containing the navigation property binding target. If
@@ -3797,60 +3253,42 @@ prefixed with the qualified entity container name.
 Example ##ex: for an entity set in the same container as the enclosing
 entity set `Categories`
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products": "SomeSet"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeSet"
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: for an entity set in any container in scope
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products": "SomeModel.SomeContainer/SomeSet"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeModel.SomeContainer/SomeSet"
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: binding `Supplier` on `Products` contained within
 `Categories – binding applies to all suppliers of all products of all categories`
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products/Supplier": "Suppliers"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products/Supplier": "Suppliers"
+  }
+}
 ```
+:::
 
 ## ##subsec Action Import
 
@@ -3871,13 +3309,11 @@ specified, it MUST resolve to an entity set defined in the same entity
 container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Action Import Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An action import is represented as a member of the entity container
 object whose name is the name of the action import and whose value is an
 object.
@@ -3889,24 +3325,20 @@ It MAY contain the member `$EntitySet`.
 It MAY also contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Action`]{#_Toc37317435}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Action` is a string containing the qualified name of an
 unbound action.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$EntitySet`]{#_Toc37317436}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
@@ -3936,13 +3368,11 @@ A function import for a parameterless function MAY indicate whether it
 is included in the service document. If not explicitly indicated, it is
 not included.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Function Import Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A function import is represented as a member of the entity container
 object whose name is the name of the function import and whose value is
 an object.
@@ -3954,36 +3384,30 @@ It MAY contain the members `$EntitySet` and `$IncludeInServiceDocument`.
 It MAY also contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Function`]{#_Toc37317438}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$Function` is a string containing the qualified name of an
 unbound function.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$EntitySet`]{#_Toc37317439}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IncludeInServiceDocument`]{#_Toc37317440}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
 :::
@@ -4005,7 +3429,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData‑JSON](#BMJSON). An
+an OData payload, such as described in [OData‑JSON](#ODataJSON). An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -4019,7 +3443,7 @@ A *vocabulary* is a schema containing a set of terms where each
 vocabulary (a set of terms) that is scenario-specific or
 company-specific; more commonly used terms can be published as shared
 vocabularies such as the OData Core vocabulary
-[OData-VocCore](#BMVocCore).
+[OData-VocCore](#ODataVocCore).
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
@@ -4043,79 +3467,44 @@ of the property `Name`. The `Product` entity type also includes an
 annotation that allows its instances to be viewed as instances of the
 type specified by the term `SearchResult`
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  "Description": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  "@UI.DisplayName": {`
-
-`    "$Path": "Name"`
-
-`  },`
-
-`  "@SearchVocabulary.SearchResult": {`
-
-`    "Title": {`
-
-`      "$Path": "Name"`
-
-`    },`
-
-`    "Abstract": {`
-
-`      "$Path": "Description"`
-
-`    },`
-
-`    "Url": {`
-
-`      "$Apply": [`
-
-`        "Products(",`
-
-`        {`
-
-`          "$Path": "ID"`
-
-`        },`
-
-`        ")"`
-
-`      ],`
-
-`      "$Function": "odata.concat"`
-
-`    }`
-
-`  }`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true
+  },
+  "Description": {
+    "$Nullable": true
+  },
+  "@UI.DisplayName": {
+    "$Path": "Name"
+  },
+  "@SearchVocabulary.SearchResult": {
+    "Title": {
+      "$Path": "Name"
+    },
+    "Abstract": {
+      "$Path": "Description"
+    },
+    "Url": {
+      "$Apply": [
+        "Products(",
+        {
+          "$Path": "ID"
+        },
+        ")"
+      ],
+      "$Function": "odata.concat"
+    }
+  }
+}
 ```
+:::
 
 ## ##subsec Term
 
@@ -4128,13 +3517,11 @@ unique within its schema.
 The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Term Object
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 A term is represented as a member of the schema object whose name is the
 unqualified name of the term and whose value is an object.
 
@@ -4150,13 +3537,11 @@ It MAY contain the members `$Type`, `$Collection`,
 It MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Type` and]{#_Toc37317442} `$Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued terms the value of `$Type` is the qualified name of
 the term's type.
 
@@ -4167,19 +3552,17 @@ with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$DefaultValue`]{#_Toc37317443}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
-**\[**[**OData-JSON**](#BMJSON)**\]**.
+**\[**[**OData-JSON**](#ODataJSON)**\]**.
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to **\[**[**OData-CSDLXML**](#CSDLxml)**\]**. Annotations in
+isomorphy to **\[**[**OData-CSDLXML**](#ODataCSDL)**\]**. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -4192,13 +3575,11 @@ When applying a specialized term, the base term MUST also be applied
 with the same qualifier, and so on until a term without a base term is
 reached.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$BaseTerm`]{#_Toc37317444}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
@@ -4249,13 +3630,11 @@ the following symbolic values:
   `TypeDefinition`          Type Definition
   `UrlRef`                  UrlRef annotation expression
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$AppliesTo`]{#_Toc37317445}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$AppliesTo` is an array whose items are strings containing
 symbolic values from the table above that identify model elements the
 term is intended to be applied to.
@@ -4264,7 +3643,7 @@ term is intended to be applied to.
 ::: example
 Example ##ex: the `IsURL` term can be applied to properties and terms that
 are of type `Edm.String` (the `Core.Tag` type and the two `Core` terms
-are defined in [OData‑VocCore](#BMVocCore))
+are defined in [OData‑VocCore](#ODataVocCore))
 ```
 \"IsURL\": {
 :::
@@ -4286,7 +3665,7 @@ MUST contain a valid URL\",
 
   \"@Core.RequiresType\": \"Edm.String\"
 
-`}`
+`}
 ```
 
 ## ##subsec Annotation
@@ -4303,13 +3682,11 @@ expression](#DynamicExpression). The most common construct for assigning
 an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Annotation Member
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 An annotation is represented as a member whose name consists of an at
 (`@`) character, followed by the qualified name of a term, optionally
 followed by a hash (`#`) and a [qualifier](#Qualifier).
@@ -4334,45 +3711,27 @@ followed by the qualified name of a term, optionally followed by a hash
 Example ##ex: term `Measures.ISOCurrency`, once applied with a constant
 value, once with a path value
 ```
-`"AmountInReportingCurrency": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Scale": 0,`
-
-`  "@Measures.ISOCurrency": "USD",`
-
-`  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"`
-
-`},`
-
-`"AmountInTransactionCurrency": {`
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Scale": 0,`
-
-`  "@Measures.ISOCurrency": {`
-
-`    "$Path": "Currency"`
-
-`  }`
-
-`},`
-
-`"Currency": {`
-
-`  "$Nullable": true,`
-
-`  "$MaxLength": 3`
-
-`}`
+"AmountInReportingCurrency": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Scale": 0,
+  "@Measures.ISOCurrency": "USD",
+  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"
+},
+"AmountInTransactionCurrency": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Scale": 0,
+  "@Measures.ISOCurrency": {
+    "$Path": "Currency"
+  }
+},
+"Currency": {
+  "$Nullable": true,
+  "$MaxLength": 3
+}
 ```
+:::
 
 If an entity type or complex type is annotated with a term that itself
 has a structured type, an instance of the annotated type may be viewed
@@ -4408,13 +3767,11 @@ identifies an annotation.
 ::: example
 Example ##ex: annotation should only be applied to tablet devices
 ```
-`"@UI.DisplayName#Tablet": {`
-:::
-
-`  "$Path": "FirstName"`
-
-`}`
+"@UI.DisplayName#Tablet": {
+  "$Path": "FirstName"
+}
 ```
+:::
 
 ### ##subsubsec Target
 
@@ -4470,49 +3827,36 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of schema child
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of schema child followed by a forward slash and
 name of child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of structured type followed by zero or more
 property, navigation property, or type-cast segments, each segment
 starting with a forward slash
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of an entity container followed by a segment containing a singleton or
 entity set name and zero or more property, navigation property, or
 type-cast segments
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of an action followed by parentheses containing
 the [qualified name](#QualifiedName)[ of the binding parameter *type* of
 a bound action overload to identify that bound overload, or by empty
 parentheses to identify the unbound overload]{style="color:black;
 background:white"}
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{#_Hlk525241110}[qualified name](#QualifiedName) of a
+- [qualified name](#QualifiedName) of a
 function followed by parentheses containing the comma-separated list of
 [qualified names](#QualifiedName)[ of the parameter *types* of a bound
 or unbound function overload in the order of their definition in the
 function overload]{style="color:black;background:white"}
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an action or function, optionally followed by
 parentheses as described in the two previous bullet points to identify a
 single overload, followed by a forward slash and either a parameter name
 or `$ReturnType`
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing an action or function import name, optionally followed by a
 forward slash and either a parameter name or `$ReturnType`
@@ -4595,8 +3939,7 @@ term.
 
 ### ##subsubsec Binary
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Binary expressions are represented as a string containing the
 base64url-encoded binary value.
 :::
@@ -4604,67 +3947,63 @@ base64url-encoded binary value.
 ::: example
 Example ##ex: base64url-encoded binary value (OData)
 ```
-`"@UI.Thumbnail": "T0RhdGE"`
+"@UI.Thumbnail": "T0RhdGE"
 ```
 :::
 
 ### ##subsubsec Boolean
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Boolean expressions are represented as the literals `true` or `false`.
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.ReadOnly": true`
+"@UI.ReadOnly": true
 ```
 :::
 
 ### ##subsubsec Date
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Date expressions are represented as a string containing the date value.
 The value MUST conform to type `xs:date`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData‑ABNF](#BMABNF), i.e. it MUST NOT
-contain a time-zone offset.
+conform to rule `dateValue` in [OData‑ABNF](#ODataABNF), i.e. it MUST
+NOT contain a time-zone offset.
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@vCard.birthDay": "2000-01-01"`
+"@vCard.birthDay": "2000-01-01"
 ```
 :::
 
 ### ##subsubsec DateTimeOffset
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Datetimestamp expressions are represented as a string containing the
 timestamp value. The value MUST conform to type `xs:dateTimeStamp`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
 MUST also conform to rule `dateTimeOffsetValue` in
-[OData‑ABNF](#BMABNF), i.e. it MUST NOT contain an end-of-day fragment
-(24:00:00).
+[OData‑ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
+fragment (24:00:00).
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.LastUpdated": "2000-01-01T16:00:00.000Z"`
+"@UI.LastUpdated": "2000-01-01T16:00:00.000Z"
 ```
 :::
 
 ### ##subsubsec Decimal
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Decimal expressions are represented as either a number or a string. The
 special values `INF`, `-INF`, or `NaN` are represented as strings.
 Numeric values are represented as numbers or strings depending on the
@@ -4675,21 +4014,20 @@ media type parameter
 ::: example
 Example ##ex: default representation as a number
 ```
-`"@UI.Width": 3.14`
+"@UI.Width": 3.14
 ```
 :::
 
 ::: example
 Example ##ex: "safe" representation as a string
 ```
-`"@UI.Width": "3.14"`
+"@UI.Width": "3.14"
 ```
 :::
 
 ### ##subsubsec Duration
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Duration expressions are represented as a string containing the duration
 value. The value MUST conform to type `xs:dayTimeDuration`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
@@ -4699,14 +4037,13 @@ value. The value MUST conform to type `xs:dayTimeDuration`, see
 ::: example
 Example ##ex:
 ```
-`"@task.duration": "P7D"`
+"@task.duration": "P7D"
 ```
 :::
 
 ### ##subsubsec Enumeration Member
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Enumeration member expressions are represented as a string containing
 the numeric or symbolic enumeration value.
 :::
@@ -4714,32 +4051,31 @@ the numeric or symbolic enumeration value.
 ::: example
 Example ##ex: single value `Red` with numeric value and symbolic value
 ```
-`"@self.HasPattern": "1"`
+"@self.HasPattern": "1"
 ```
 :::
 
 ` `
 ```
-`"@self.HasPattern": "Red"`
+"@self.HasPattern": "Red"
 ```
 
 ::: example
 Example ##ex: combined value `Red,Striped` with numeric value 1 + 16 and
 symbolic value
 ```
-`"@self.HasPattern": "17"`
+"@self.HasPattern": "17"
 ```
 :::
 
 ` `
 ```
-`"@self.HasPattern": "Red,Striped"`
+"@self.HasPattern": "Red,Striped"
 ```
 
 ### ##subsubsec Floating-Point Number
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Floating-point expressions are represented as a number or as a string
 containing one of the special values `INF`, `-INF`, or `NaN`.
 :::
@@ -4747,34 +4083,33 @@ containing one of the special values `INF`, `-INF`, or `NaN`.
 ::: example
 Example ##ex:
 ```
-`"@UI.FloatWidth": 3.14`
+"@UI.FloatWidth": 3.14
 ```
 :::
 
 ` `
 ```
-`"@UI.FloatWidth": "INF"`
+"@UI.FloatWidth": "INF"
 ```
 
 ### ##subsubsec Guid
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Guid expressions are represented as a string containing the uuid value.
-The value MUST conform to the rule `guidValue` in [OData‑ABNF](#BMABNF).
+The value MUST conform to the rule `guidValue` in
+[OData‑ABNF](#ODataABNF).
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.Id": "21EC2020-3AEA-1069-A2DD-08002B30309D"`
+"@UI.Id": "21EC2020-3AEA-1069-A2DD-08002B30309D"
 ```
 :::
 
 ### ##subsubsec Integer
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Integer expressions are represented as either a number or a string,
 depending on the media type parameter
 [`IEEE754Compatible`](#ControllingtheRepresentationofNumber).
@@ -4783,44 +4118,42 @@ depending on the media type parameter
 ::: example
 Example ##ex: default representation as a number
 ```
-`"@An.Int": 42`
+"@An.Int": 42
 ```
 :::
 
 ::: example
 Example ##ex: "safe" representation as a string
 ```
-`"@A.Very.Long.Int": "9007199254740992"`
+"@A.Very.Long.Int": "9007199254740992"
 ```
 :::
 
 ### ##subsubsec String
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 String expressions are represented as a JSON string.
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": "Product Catalog"`
+"@UI.DisplayName": "Product Catalog"
 ```
 :::
 
 ### ##subsubsec Time of Day
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Time-of-day expressions are represented as a string containing the
 time-of-day value. The value MUST conform to the rule `timeOfDayValue`
-in [OData‑ABNF](#BMABNF).
+in [OData‑ABNF](#ODataABNF).
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.EndTime": "21:45:00"`
+"@UI.EndTime": "21:45:00"
 ```
 :::
 
@@ -4852,7 +4185,7 @@ than the `Edm.*Path` types, or of any model-defined type.
 #### ##subsubsubsec Path Syntax
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData‑URL](#BMURL).
+from the path expression syntax of URLs, see [OData‑URL](#ODataURL).
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -4981,11 +4314,12 @@ Example ##ex: model path addressing an annotation on a navigation property
 
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
-predicate using parentheses-style convention, see [OData‑URL](#BMURL).
-The key values are either primitive literals or instance paths. If the
-key value is a relative instance path, it is interpreted according to
-the same rule below as the instance path it is part of, *not* relative
-to the instance identified by the preceding path part.
+predicate using parentheses-style convention, see
+[OData‑URL](#ODataURL). The key values are either primitive literals or
+instance paths. If the key value is a relative instance path, it is
+interpreted according to the same rule below as the instance path it is
+part of, *not* relative to the instance identified by the preceding path
+part.
 
 ::: example
 Example ##ex: instance path with entity set and key predicate
@@ -5066,21 +4400,18 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTer)
 `Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`A non-null path MUST resolve to an annotation. `
+- `A non-null path MUST resolve to an annotation. `
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with term `Validation.AllowedTerms` (see
-[OData-VocValidation](#BMVocValidation)) if its intended value is an
+[OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
 The value of the annotation path expression is the path itself, not the
 value of the annotation identified by the path. This is useful for terms
 that reuse or refer to other terms.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Annotation path expressions are represented as a string containing a
 path.
 :::
@@ -5088,17 +4419,13 @@ path.
 ::: example
 Example ##ex:
 ```
-`"@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",`
-:::
-
-`"@UI.CollectionFacet#Contacts": [`
-
-`  "Supplier/@Communication.Contact",`
-
-`  "Customer/@Communication.Contact"`
-
-`]`
+"@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
+"@UI.CollectionFacet#Contacts": [
+  "Supplier/@Communication.Contact",
+  "Customer/@Communication.Contact"
+]
 ```
+:::
 
 #### ##subsubsubsec Model Element Path
 
@@ -5110,8 +4437,7 @@ argument is a [model path](#PathExpressions).
 The value of the model element path expression is the path itself, not
 the instance(s) identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Model element path expressions are represented as a string containing a
 path.
 :::
@@ -5119,7 +4445,7 @@ path.
 ::: example
 Example ##ex:
 ```
-`"@org.example.MyFavoriteModelElement": "/self.someAction"`
+"@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
 :::
 
@@ -5138,8 +4464,7 @@ e.g. a navigation property.
 The value of the navigation property path expression is the path itself,
 not the entitiy or collection of entities identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Navigation property path expressions are represented as a string
 containing a path.
 :::
@@ -5147,23 +4472,16 @@ containing a path.
 ::: example
 Example ##ex:
 ```
-`"@UI.HyperLink": "Supplier",`
-:::
-
-` `
-
-`"@Capabilities.UpdateRestrictions": {`
-
-`  "NonUpdatableNavigationProperties": [`
-
-`    "Supplier",`
-
-`    "Category"`
-
-`  ]`
-
-`}`
+"@UI.HyperLink": "Supplier",
+ 
+"@Capabilities.UpdateRestrictions": {
+  "NonUpdatableNavigationProperties": [
+    "Supplier",
+    "Category"
+  ]
+}
 ```
+:::
 
 #### ##subsubsubsec Property Path
 
@@ -5181,31 +4499,23 @@ The value of the property path expression is the path itself, not the
 value of the structural property or the value of the term cast
 identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Property path expressions are represented as a string containing a path.
 :::
 
 ::: example
 Example ##ex:
 ```
-`"@UI.RefreshOnChangeOf": "ChangedAt",`
-:::
-
-` `
-
-`"@Capabilities.UpdateRestrictions": {`
-
-`  "NonUpdatableProperties": [`
-
-`    "CreatedAt",`
-
-`    "ChangedAt"`
-
-`  ]`
-
-`}`
+"@UI.RefreshOnChangeOf": "ChangedAt",
+ 
+"@Capabilities.UpdateRestrictions": {
+  "NonUpdatableProperties": [
+    "CreatedAt",
+    "ChangedAt"
+  ]
+}
 ```
+:::
 
 #### ##subsubsubsec Value Path
 
@@ -5218,13 +4528,11 @@ types. Its argument is an [instance path](#PathExpressions).
 The value of the path expression is the instance or collection of
 instances identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Path`]{#_Toc37317447}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
 :::
@@ -5232,21 +4540,15 @@ Path expressions are represented as an object with a single member
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$Path": "FirstName"`
-
-`},`
-
-` `
-
-`"@UI.DisplayName#second": {`
-
-`  "$Path": "@vCard.Address#work/FullName"`
-
-`}`
+"@UI.DisplayName": {
+  "$Path": "FirstName"
+},
+ 
+"@UI.DisplayName#second": {
+  "$Path": "@vCard.Address#work/FullName"
+}
 ```
+:::
 
 ### ##subsubsec Comparison and Logical Operators
 
@@ -5273,18 +4575,16 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData‑URL](#BMURL).
+handling for comparison operators see [OData‑URL](#ODataURL).
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$And and `]{#_Toc37317448}`$Or`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `And` and `Or` logical expressions are represented as an object with
 a single member whose value is an array with two annotation expressions.
 The member name is one of `$And`, or `$Or`.
@@ -5292,26 +4592,22 @@ The member name is one of `$And`, or `$Or`.
 It MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Not`]{#_Toc37317449}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Negation expressions are represented as an object with a single member
 `$Not` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Eq, `]{#_Toc37317450}`$Ne, $Gt, $Ge, $Lt, $Le, $Has, and $In`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 All comparison expressions are represented as an object with a single
 member whose value is an array with two annotation expressions. The
 member name is one of `$Eq`, `$Ne`, `$Gt`, `$Ge`, `$Lt`, `$Le`, `$Has`,
@@ -5323,191 +4619,100 @@ They MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$And": [`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "IsMarried"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Or": [`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "IsMarried"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Not": {`
-
-`    "$Path": "IsMale"`
-
-`  }`
-
-`},`
-
-`{`
-
-`  "$Eq": [`
-
-`    null,`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Ne": [`
-
-`    null,`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Gt": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    20`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Ge": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    10`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Lt": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    20`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Le": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    100`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Has": [`
-
-`    {`
-
-`      "$Path": "Fabric"`
-
-`    },`
-
-`    "Red"`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$In": [`
-
-`    {`
-
-`      "$Path": "Size"`
-
-`    },`
-
-`    [`
-
-`      "XS",`
-
-`      "S"`
-
-`    ]`
-
-`  ]`
-
-`} `
+{
+  "$And": [
+    {
+      "$Path": "IsMale"
+    },
+    {
+      "$Path": "IsMarried"
+    }
+  ]
+},
+{
+  "$Or": [
+    {
+      "$Path": "IsMale"
+    },
+    {
+      "$Path": "IsMarried"
+    }
+  ]
+},
+{
+  "$Not": {
+    "$Path": "IsMale"
+  }
+},
+{
+  "$Eq": [
+    null,
+    {
+      "$Path": "IsMale"
+    }
+  ]
+},
+{
+  "$Ne": [
+    null,
+    {
+      "$Path": "IsMale"
+    }
+  ]
+},
+{
+  "$Gt": [
+    {
+      "$Path": "Price"
+    },
+    20
+  ]
+},
+{
+  "$Ge": [
+    {
+      "$Path": "Price"
+    },
+    10
+  ]
+},
+{
+  "$Lt": [
+    {
+      "$Path": "Price"
+    },
+    20
+  ]
+},
+{
+  "$Le": [
+    {
+      "$Path": "Price"
+    },
+    100
+  ]
+},
+{
+  "$Has": [
+    {
+      "$Path": "Fabric"
+    },
+    "Red"
+  ]
+},
+{
+  "$In": [
+    {
+      "$Path": "Size"
+    },
+    [
+      "XS",
+      "S"
+    ]
+  ]
+} 
 ```
+:::
 
 ### ##subsubsec Arithmetic Operators
 
@@ -5516,7 +4721,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData‑URL](#BMURL).
+[OData‑URL](#ODataURL).
 
   **Operator**   **Description**
   -------------- ---------------------------------------------------------------
@@ -5532,26 +4737,22 @@ The `Neg` operator requires a single operand expression that evaluates
 to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Neg`]{#_Toc37317451}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Negation expressions are represented as an object with a single member
 `$Neg` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Add, `]{#_Toc37317452}`$Sub, $Mul, $Div, $DivBy, and $Mod`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 These arithmetic expressions are represented as an object with as single
 member whose value is an array with two annotation expressions. The
 member name is one of `$Add`, `$Sub`, `$Neg`, `$Mul`, `$Div`, `$DivBy`,
@@ -5563,137 +4764,73 @@ They MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Add": [`
-
-`    {`
-
-`      "$Path": "StartDate"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "Duration"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Sub": [`
-
-`    {`
-
-`      "$Path": "Revenue"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "Cost"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Neg": {`
-
-`    "$Path": "Height"`
-
-`  }`
-
-`},`
-
-`{`
-
-`  "$Mul": [`
-
-`    {`
-
-`      "$Path": "NetPrice"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "TaxRate"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Div": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$DivBy": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Mod": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`}`
+{
+  "$Add": [
+    {
+      "$Path": "StartDate"
+    },
+    {
+      "$Path": "Duration"
+    }
+  ]
+},
+{
+  "$Sub": [
+    {
+      "$Path": "Revenue"
+    },
+    {
+      "$Path": "Cost"
+    }
+  ]
+},
+{
+  "$Neg": {
+    "$Path": "Height"
+  }
+},
+{
+  "$Mul": [
+    {
+      "$Path": "NetPrice"
+    },
+    {
+      "$Path": "TaxRate"
+    }
+  ]
+},
+{
+  "$Div": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+},
+{
+  "$DivBy": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+},
+{
+  "$Mod": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+}
 ```
+:::
 
 ### ##subsubsec Apply Client-Side Functions
 
@@ -5702,13 +4839,11 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Apply`]{#_Toc37317453}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
 `$Function` whose value is a string containing the [qualified
@@ -5724,10 +4859,10 @@ specification and its future versions.
 
 #### ##subsubsubsec Canonical Functions
 
-All canonical functions defined in [OData‑URL](#BMURL) can be used as
+All canonical functions defined in [OData‑URL](#ODataURL) can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData‑URL](#BMURL).
+counterpart function defined in [OData‑URL](#ODataURL).
 
 For example, the `odata.concat` client-side function takes two or more
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -5735,49 +4870,32 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData‑ABNF](#BMABNF), i.e. `Edm.Binary` as
+`primitiveValue` rule of [OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$Apply": [`
-
-`    "Product: ",`
-
-`    {`
-
-`      "$Path": "ProductName"`
-
-`    },`
-
-`    " (",`
-
-`    {`
-
-`      "$Path": "Available/Quantity"`
-
-`    },`
-
-`    " ",`
-
-`    {`
-
-`      "$Path": "Available/Unit"`
-
-`    },`
-
-`    " available)"`
-
-`  ],`
-
-`  "$Function": "odata.concat"`
-
-`}`
+"@UI.DisplayName": {
+  "$Apply": [
+    "Product: ",
+    {
+      "$Path": "ProductName"
+    },
+    " (",
+    {
+      "$Path": "Available/Quantity"
+    },
+    " ",
+    {
+      "$Path": "Available/Unit"
+    },
+    " available)"
+  ],
+  "$Function": "odata.concat"
+}
 ```
+:::
 
 `ProductName` is of type `String`, `Quantity` in complex type
 `Available` is of type `Decimal`, and `Unit` in `Available` is of type
@@ -5790,18 +4908,18 @@ The `odata.fillUriTemplate` client-side function takes two or more
 expressions as arguments and returns a value of type `Edm.String.`
 
 The first argument MUST be of type `Edm.String` and specifies a URI
-template according to [RFC6570](#BMRFC6570), the other arguments MUST be
+template according to [RFC6570](#rfc6570), the other arguments MUST be
 [labeled element expressions](#LabeledElement). Each [labeled element
 expression](#LabeledElement) specifies the template parameter name as
 its name and evaluates to the template parameter value.
 
-[RFC6570](#BMRFC6570) defines three kinds of template parameters: simple
+[RFC6570](#rfc6570) defines three kinds of template parameters: simple
 values, lists of values, and key-value maps.
 
 Simple values are represented as [labeled element
 expressions](#LabeledElement) that evaluate to a single primitive value.
 The literal representation of this value according to
-[OData‑ABNF](#BMABNF) is used to fill the corresponding template
+[OData‑ABNF](#ODataABNF) is used to fill the corresponding template
 parameter.
 
 Lists of values are represented as [labeled element
@@ -5930,15 +5048,14 @@ Example ##ex:
 
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
-rules as the `cast` canonical function defined in [OData‑URL](#BMURL).
+rules as the `cast` canonical function defined in
+[OData‑URL](#ODataURL).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Cast`]{#_Toc37317454}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Cast expressions are represented as an object with a member `$Cast`
 whose value is an annotation expression, a member `$Type` whose value is
 a string containing the qualified type name, and optionally a member
@@ -5957,19 +5074,14 @@ considered unspecified.
 ::: example
 Example ##ex:
 ```
-`"@UI.Threshold": {`
-:::
-
-`  "$Cast": {`
-
-`    "$Path": "Average"`
-
-`  },`
-
-`  "$Type": "Edm.Decimal"`
-
-`}`
+"@UI.Threshold": {
+  "$Cast": {
+    "$Path": "Average"
+  },
+  "$Type": "Edm.Decimal"
+}
 ```
+:::
 
 ### ##subsubsec Collection
 
@@ -5979,8 +5091,7 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
 :::
@@ -5988,17 +5099,13 @@ item expression within the collection expression.
 ::: example
 Example ##ex:
 ```
-`"@seo.SeoTerms": [`
-:::
-
-`  "Product",`
-
-`  "Supplier",`
-
-`  "Customer"`
-
-`]`
+"@seo.SeoTerms": [
+  "Product",
+  "Supplier",
+  "Customer"
+]
 ```
+:::
 
 ### ##subsubsec If-Then-Else
 
@@ -6025,13 +5132,11 @@ MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
 collection.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$If`]{#_Toc37317455}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Conditional expressions are represented as an object with a member `$If`
 whose value is an array of two or three annotation expressions.
 
@@ -6043,25 +5148,17 @@ Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale` ,whose value then determines
 the value of the `$If` expression
 ```
-`"@person.Gender": {`
-:::
-
-`  "$If": [`
-
-`    {`
-
-`      "$Path": "IsFemale"`
-
-`    },`
-
-`    "Female",`
-
-`    "Male"`
-
-`  ]`
-
-`}`
+"@person.Gender": {
+  "$If": [
+    {
+      "$Path": "IsFemale"
+    },
+    "Female",
+    "Male"
+  ]
+}
 ```
+:::
 
 ### ##subsubsec Is-Of
 
@@ -6070,13 +5167,11 @@ child expression is compatible with the specified type. It returns
 `true` if the child expression returns a type that is compatible with
 the specified type, and `false` otherwise.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$IsOf`]{#_Toc37317456}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Is-of expressions are represented as an object with a member `$IsOf`
 whose value is an annotation expression, a member `$Type` whose value is
 a string containing an qualified type name, and optionally a member
@@ -6095,19 +5190,14 @@ considered unspecified.
 ::: example
 Example ##ex:
 ```
-`"@Self.IsPreferredCustomer": {`
-:::
-
-`  "$IsOf": {`
-
-`    "$Path": "Customer"`
-
-`  },`
-
-`  "$Type": "self.PreferredCustomer"`
-
-`}`
+"@Self.IsPreferredCustomer": {
+  "$IsOf": {
+    "$Path": "Customer"
+  },
+  "$Type": "self.PreferredCustomer"
+}
 ```
+:::
 
 ### ##subsubsec Labeled Element
 
@@ -6124,13 +5214,11 @@ A labeled element expression MUST provide a [simple
 identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$LabeledElement`]{#_Toc37317457}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Labeled element expressions are represented as an object with a member
 `$LabeledElement` whose value is an annotation expression, and a member
 `$Name` whose value is a string containing the labeled element's name.
@@ -6141,19 +5229,14 @@ It MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$LabeledElement": {`
-
-`    "$Path": "FirstName"`
-
-`  },`
-
-`  "$Name": "CustomerFirstName"`
-
-`}`
+"@UI.DisplayName": {
+  "$LabeledElement": {
+    "$Path": "FirstName"
+  },
+  "$Name": "CustomerFirstName"
+}
 ```
+:::
 
 ### ##subsubsec Labeled Element Reference
 
@@ -6162,13 +5245,11 @@ name](#QualifiedName) of a [labeled element expression](#LabeledElement)
 in scope and returns the value of the identified labeled element
 expression as its value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$LabeledElementReference`]{#_Toc37317458}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Labeled element reference expressions are represented as an object with
 a member `$LabeledElementReference` whose value is a string containing
 an qualified name.
@@ -6177,21 +5258,18 @@ an qualified name.
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$LabeledElementReference": "self.CustomerFirstName"`
-
-`}`
+"@UI.DisplayName": {
+  "$LabeledElementReference": "self.CustomerFirstName"
+}
 ```
+:::
 
 ### ##subsubsec Null
 
 The null expression indicates the absence of a value. The null
 expression MAY be annotated.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Null expressions that do not contain annotations are represented as the
 literal `null`.
 :::
@@ -6199,17 +5277,15 @@ literal `null`.
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": null,`
+"@UI.DisplayName": null,
 ```
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$Null`]{#_Toc37317459}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
 :::
@@ -6217,15 +5293,12 @@ as an object with a member `$Null` whose value is the literal `null`.
 ::: example
 Example ##ex:
 ```
-`"@UI.Address": {`
-:::
-
-`  "$Null": null,`
-
-`  "@self.Reason": "Private"`
-
-`}`
+"@UI.Address": {
+  "$Null": null,
+  "@self.Reason": "Private"
+}
 ```
+:::
 
 ### ##subsubsec Record
 
@@ -6249,14 +5322,13 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
 The type of a record expression is represented as the `@type` control
-information, see  [OData‑JSON](#BMJSON).
+information, see  [OData‑JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
@@ -6270,63 +5342,36 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```
-`"@person.Employee": {`
-:::
-
-`  "@type": "https://example.org/vocabs/person#org.example.person.Manager",`
-
-`  "@Core.Description": "Annotation on record",`
-
-`  "GivenName": {`
-
-`    "$Path": "FirstName"`
-
-`  },`
-
-`  "GivenName@Core.Description": "Annotation on record member",`
-
-`  "Surname": {`
-
-`    "$Path": "LastName"`
-
-`  },`
-
-`  "DirectSupervisor": {`
-
-`    "$Path": "Manager"`
-
-`  },`
-
-`  "CostCenter": {`
-
-`    "$UrlRef": {`
-
-`      "$Apply": [`
-
-`        "http://host/anotherservice/CostCenters('{ccid}')",`
-
-`        {`
-
-`          "$LabeledElement": {`
-
-`            "$Path": "CostCenterID"`
-
-`          },`
-
-`          "$Name": "ccid"`
-
-`        }`
-
-`      ],`
-
-`      "$Function": "odata.fillUriTemplate"`
-
-`    }`
-
-`  }`
-
-`}`
+"@person.Employee": {
+  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+  "@Core.Description": "Annotation on record",
+  "GivenName": {
+    "$Path": "FirstName"
+  },
+  "GivenName@Core.Description": "Annotation on record member",
+  "Surname": {
+    "$Path": "LastName"
+  },
+  "DirectSupervisor": {
+    "$Path": "Manager"
+  },
+  "CostCenter": {
+    "$UrlRef": {
+      "$Apply": [
+        "http://host/anotherservice/CostCenters('{ccid}')",
+        {
+          "$LabeledElement": {
+            "$Path": "CostCenterID"
+          },
+          "$Name": "ccid"
+        }
+      ],
+      "$Function": "odata.fillUriTemplate"
+    }
+  }
+}
 ```
+:::
 
 ### ##subsubsec URL Reference
 
@@ -6344,13 +5389,11 @@ the` `URL reference expression. The result of the` `URL reference
 expression MUST be type compatible with the type expected by the
 surrounding expression.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`$UrlRef`]{#_Toc37317460}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 URL reference expressions are represented as an object with a single
 member `$UrlRef` whose value is an annotation expression.
 
@@ -6360,53 +5403,31 @@ It MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`"@org.example.person.Supplier": {`
-:::
-
-`  "$UrlRef": {`
-
-`    "$Apply": [`
-
-`      "http://host/service/Suppliers({suppID})",`
-
-`      {`
-
-`        "$LabeledElement": {`
-
-`          "$Apply": [`
-
-`            {`
-
-`              "$Path": "SupplierId"`
-
-`            }`
-
-`          ],`
-
-`          "$Function": "odata.uriEncode"`
-
-`        },`
-
-`        "$Name": "suppID"`
-
-`      }`
-
-`    ],`
-
-`    "$Function": "odata.fillUriTemplate"`
-
-`  }`
-
-`},`
-
-` `
-
-`"@Core.LongDescription#element": {`
-
-`  "$UrlRef": "http://host/wiki/HowToUse"`
-
-`}`
+"@org.example.person.Supplier": {
+  "$UrlRef": {
+    "$Apply": [
+      "http://host/service/Suppliers({suppID})",
+      {
+        "$LabeledElement": {
+          "$Apply": [
+            {
+              "$Path": "SupplierId"
+            }
+          ],
+          "$Function": "odata.uriEncode"
+        },
+        "$Name": "suppID"
+      }
+    ],
+    "$Function": "odata.fillUriTemplate"
+  }
+},
+ 
+"@Core.LongDescription#element": {
+  "$UrlRef": "http://host/wiki/HowToUse"
+}
 ```
+:::
 
 # ##sec Identifier and Path Values
 
@@ -6440,7 +5461,7 @@ by at most 127 letters, underscores or digits.
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
-[OData‑ABNF](#BMABNF).
+[OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6450,13 +5471,10 @@ prefixed with `Edm` followed by a dot.
 Target paths are used to refer to other model elements.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}The [qualified
+- The [qualified
 name](#QualifiedName) of an entity container, followed by a forward
 slash and the name of a container child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}The target
+- The target
 path of a container child followed by a forward slash and one or more
 forward-slash separated property, navigation property, or type-cast
 segments
@@ -6486,536 +5504,277 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.0",`
-
-`  "$EntityContainer": "ODataDemo.DemoService",`
-
-`  "$Reference": {`
-
-`    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Core.V1",`
-
-`          "$Alias": "Core",`
-
-`          "@Core.DefaultNamespace": true`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Measures.V1",`
-
-`          "$Alias": "Measures"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  "ODataDemo": {`
-
-`    "$Alias": "self",`
-
-`    "@Core.DefaultNamespace": true,`
-
-`    "Product": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$HasStream": true,`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {},`
-
-`      "Description": {`
-
-`        "$Nullable": true,`
-
-`        "@Core.IsLanguageDependent": true`
-
-`      },`
-
-`      "ReleaseDate": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Date"`
-
-`      },`
-
-`      "DiscontinuedDate": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Date"`
-
-`      },`
-
-`      "Rating": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Price": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Decimal",`
-
-`        "@Measures.ISOCurrency": {`
-
-`          "$Path": "Currency"`
-
-`        }`
-
-`      },`
-
-`      "Currency": {`
-
-`        "$Nullable": true,`
-
-`        "$MaxLength": 3`
-
-`      },`
-
-`      "Category": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Type": "self.Category",`
-
-`        "$Partner": "Products"`
-
-`      },`
-
-`      "Supplier": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Nullable": true,`
-
-`        "$Type": "self.Supplier",`
-
-`        "$Partner": "Products"`
-
-`      }`
-
-`    },`
-
-`    "Category": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Name": {`
-
-`        "@Core.IsLanguageDependent": true`
-
-`      },`
-
-`      "Products": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Partner": "Category",`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product",`
-
-`        "$OnDelete": "Cascade"`
-
-`      }`
-
-`    },`
-
-`    "Supplier": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {},`
-
-`      "Name": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "Address": {`
-
-`        "$Type": "self.Address"`
-
-`      },`
-
-`      "Concurrency": {`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Products": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Partner": "Supplier",`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product"`
-
-`      }`
-
-`    },`
-
-`    "Country": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "Code"`
-
-`      ],`
-
-`      "Code": {`
-
-`        "$MaxLength": 2`
-
-`      },`
-
-`      "Name": {`
-
-`        "$Nullable": true`
-
-`      }`
-
-`    },`
-
-`    "Address": {`
-
-`      "$Kind": "ComplexType",`
-
-`      "Street": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "City": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "State": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "ZipCode": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "CountryName": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "Country": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Nullable": true,`
-
-`        "$Type": "self.Country",`
-
-`        "$ReferentialConstraint": {`
-
-`          "CountryName": "Name"`
-
-`        }`
-
-`      }`
-
-`    },`
-
-`    "ProductsByRating": [`
-
-`      {`
-
-`        "$Kind": "Function",`
-
-`        "$Parameter": [`
-
-`          {`
-
-`            "$Name": "Rating",`
-
-`            "$Nullable": true,`
-
-`            "$Type": "Edm.Int32"`
-
-`          }`
-
-`        ],`
-
-`        "$ReturnType": {`
-
-`          "$Collection": true,`
-
-`          "$Type": "self.Product"`
-
-`        }`
-
-`      }`
-
-`    ],`
-
-`    "DemoService": {`
-
-`      "$Kind": "EntityContainer",`
-
-`      "Products": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Category": "Categories"`
-
-`        }`
-
-`      },`
-
-`      "Categories": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Category",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products"`
-
-`        },`
-
-`        "@Core.Description": "Product Categories"`
-
-`      },`
-
-`      "Suppliers": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Supplier",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products",`
-
-`          "Address/Country": "Countries"`
-
-`        },`
-
-`        "@Core.OptimisticConcurrency": [`
-
-`          "Concurrency"`
-
-`        ]`
-
-`      },`
-
-`      "Countries": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Country"`
-
-`      },`
-
-`      "MainSupplier": {`
-
-`        "$Type": "self.Supplier",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products"`
-
-`        },`
-
-`        "@Core.Description": "Primary Supplier"`
-
-`      },`
-
-`      "ProductsByRating": {`
-
-`        "$EntitySet": "Products",`
-
-`        "$Function": "self.ProductsByRating"`
-
-`      }`
-
-`    }`
-
-`  }`
-
-`}`
+{
+  "$Version": "4.0",
+  "$EntityContainer": "ODataDemo.DemoService",
+  "$Reference": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Core.V1",
+          "$Alias": "Core",
+          "@Core.DefaultNamespace": true
+        }
+      ]
+    },
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Measures.V1",
+          "$Alias": "Measures"
+        }
+      ]
+    }
+  },
+  "ODataDemo": {
+    "$Alias": "self",
+    "@Core.DefaultNamespace": true,
+    "Product": {
+      "$Kind": "EntityType",
+      "$HasStream": true,
+      "$Key": [
+        "ID"
+      ],
+      "ID": {},
+      "Description": {
+        "$Nullable": true,
+        "@Core.IsLanguageDependent": true
+      },
+      "ReleaseDate": {
+        "$Nullable": true,
+        "$Type": "Edm.Date"
+      },
+      "DiscontinuedDate": {
+        "$Nullable": true,
+        "$Type": "Edm.Date"
+      },
+      "Rating": {
+        "$Nullable": true,
+        "$Type": "Edm.Int32"
+      },
+      "Price": {
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "@Measures.ISOCurrency": {
+          "$Path": "Currency"
+        }
+      },
+      "Currency": {
+        "$Nullable": true,
+        "$MaxLength": 3
+      },
+      "Category": {
+        "$Kind": "NavigationProperty",
+        "$Type": "self.Category",
+        "$Partner": "Products"
+      },
+      "Supplier": {
+        "$Kind": "NavigationProperty",
+        "$Nullable": true,
+        "$Type": "self.Supplier",
+        "$Partner": "Products"
+      }
+    },
+    "Category": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "ID"
+      ],
+      "ID": {
+        "$Type": "Edm.Int32"
+      },
+      "Name": {
+        "@Core.IsLanguageDependent": true
+      },
+      "Products": {
+        "$Kind": "NavigationProperty",
+        "$Partner": "Category",
+        "$Collection": true,
+        "$Type": "self.Product",
+        "$OnDelete": "Cascade"
+      }
+    },
+    "Supplier": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "ID"
+      ],
+      "ID": {},
+      "Name": {
+        "$Nullable": true
+      },
+      "Address": {
+        "$Type": "self.Address"
+      },
+      "Concurrency": {
+        "$Type": "Edm.Int32"
+      },
+      "Products": {
+        "$Kind": "NavigationProperty",
+        "$Partner": "Supplier",
+        "$Collection": true,
+        "$Type": "self.Product"
+      }
+    },
+    "Country": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "Code"
+      ],
+      "Code": {
+        "$MaxLength": 2
+      },
+      "Name": {
+        "$Nullable": true
+      }
+    },
+    "Address": {
+      "$Kind": "ComplexType",
+      "Street": {
+        "$Nullable": true
+      },
+      "City": {
+        "$Nullable": true
+      },
+      "State": {
+        "$Nullable": true
+      },
+      "ZipCode": {
+        "$Nullable": true
+      },
+      "CountryName": {
+        "$Nullable": true
+      },
+      "Country": {
+        "$Kind": "NavigationProperty",
+        "$Nullable": true,
+        "$Type": "self.Country",
+        "$ReferentialConstraint": {
+          "CountryName": "Name"
+        }
+      }
+    },
+    "ProductsByRating": [
+      {
+        "$Kind": "Function",
+        "$Parameter": [
+          {
+            "$Name": "Rating",
+            "$Nullable": true,
+            "$Type": "Edm.Int32"
+          }
+        ],
+        "$ReturnType": {
+          "$Collection": true,
+          "$Type": "self.Product"
+        }
+      }
+    ],
+    "DemoService": {
+      "$Kind": "EntityContainer",
+      "Products": {
+        "$Collection": true,
+        "$Type": "self.Product",
+        "$NavigationPropertyBinding": {
+          "Category": "Categories"
+        }
+      },
+      "Categories": {
+        "$Collection": true,
+        "$Type": "self.Category",
+        "$NavigationPropertyBinding": {
+          "Products": "Products"
+        },
+        "@Core.Description": "Product Categories"
+      },
+      "Suppliers": {
+        "$Collection": true,
+        "$Type": "self.Supplier",
+        "$NavigationPropertyBinding": {
+          "Products": "Products",
+          "Address/Country": "Countries"
+        },
+        "@Core.OptimisticConcurrency": [
+          "Concurrency"
+        ]
+      },
+      "Countries": {
+        "$Collection": true,
+        "$Type": "self.Country"
+      },
+      "MainSupplier": {
+        "$Type": "self.Supplier",
+        "$NavigationPropertyBinding": {
+          "Products": "Products"
+        },
+        "@Core.Description": "Primary Supplier"
+      },
+      "ProductsByRating": {
+        "$EntitySet": "Products",
+        "$Function": "self.ProductsByRating"
+      }
+    }
+  }
+}
 ```
+:::
 
 ## [Annotations for Products and Categories Example](#AnnotationsforProductsandCategoriesE) {#annotations-for-products-and-categories-example style="margin-left:28.9pt;text-indent:-28.9pt"}
 
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.01",`
-
-`  "$Reference": {`
-
-`    "http://host/service/$metadata": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "ODataDemo",`
-
-`          "$Alias": "target"`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://somewhere/Vocabulary/V1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Some.Vocabulary.V1",`
-
-`          "$Alias": "Vocabulary1"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  "External.Annotations": {`
-
-`    "$Annotations": {`
-
-`      "target.Supplier": {`
-
-`        "@Vocabulary1.EMail": null,`
-
-`        "@Vocabulary1.AccountID": {`
-
-`          "$Path": "ID"`
-
-`        },`
-
-`        "@Vocabulary1.Title": "Supplier Info",`
-
-`        "@Vocabulary1.DisplayName": {`
-
-`          "$Apply": [`
-
-`            {`
-
-`              "$Path": "Name"`
-
-`            },`
-
-`            " in ",`
-
-`            {`
-
-`              "$Path": "Address/CountryName"`
-
-`            }`
-
-`          ],`
-
-`          "$Function": "odata.concat"`
-
-`        }`
-
-`      },`
-
-`      "target.Product": {`
-
-`        "@Vocabulary1.Tags": [`
-
-`          "MasterData"`
-
-`        ]`
-
-`      }`
-
-`    }`
-
-`  }`
-
-`} `
+{
+  "$Version": "4.01",
+  "$Reference": {
+    "http://host/service/$metadata": {
+      "$Include": [
+        {
+          "$Namespace": "ODataDemo",
+          "$Alias": "target"
+        }
+      ]
+    },
+    "http://somewhere/Vocabulary/V1": {
+      "$Include": [
+        {
+          "$Namespace": "Some.Vocabulary.V1",
+          "$Alias": "Vocabulary1"
+        }
+      ]
+    }
+  },
+  "External.Annotations": {
+    "$Annotations": {
+      "target.Supplier": {
+        "@Vocabulary1.EMail": null,
+        "@Vocabulary1.AccountID": {
+          "$Path": "ID"
+        },
+        "@Vocabulary1.Title": "Supplier Info",
+        "@Vocabulary1.DisplayName": {
+          "$Apply": [
+            {
+              "$Path": "Name"
+            },
+            " in ",
+            {
+              "$Path": "Address/CountryName"
+            }
+          ],
+          "$Function": "odata.concat"
+        }
+      },
+      "target.Product": {
+        "@Vocabulary1.Tags": [
+          "MasterData"
+        ]
+      }
+    }
+  }
+} 
 ```
+:::
 
 # ##sec Conformance
 
@@ -7075,18 +5834,13 @@ Appendix A. [Acknowledgments](#Acknowledgments)
 The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
 **\[**[**OpenUI5**](#OpenUI5)**\]**, is gratefully acknowledged,
 especially the contributions of
-
-[· ]{style="font-family:
-Symbol"}Thomas Chadzelek (SAP SE)
-
-[· ]{style="font-family:
-Symbol"}Jens Ittel (SAP SE)
-
-[· ]{style="font-family:
-Symbol"}Patric Ksinsik (SAP SE)
+- Thomas Chadzelek (SAP SE)
+- Jens Ittel (SAP SE)
+- Patric Ksinsik (SAP SE)
 
 The contributions of the OASIS OData Technical Committee members,
-enumerated in [ODataProtocol](#BMProtocol), are gratefully acknowledged.
+enumerated in [ODataProtocol](#ODataProtocol), are gratefully
+acknowledged.
 
 Appendix B. [Table of JSON Objects and
 Members](#TableofJSONObjectsandMembers)

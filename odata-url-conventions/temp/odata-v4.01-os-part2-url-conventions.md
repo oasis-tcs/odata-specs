@@ -125,7 +125,7 @@ Example ##ex: OData URL broken down into its component parts:
 http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name[\
 ]{style="font-size:6.0pt;color:black"}`\______________________________________/\____________________/ \__________________/`[\
 ]{style="font-size:6.0pt;color:black"}`                  |                               |                       |`[\
-]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options`
+]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options
 ```
 :::
 
@@ -201,7 +201,7 @@ http://host/service`/People('O'Neil') `
 
 http://host/service`/People('O%27Neil') `
 
-http://host/service`/Categories('Smartphone/Tablet') `
+http://host/service`/Categories('Smartphone/Tablet') 
 ```
 
 The first and second examples are invalid because a single quote in a
@@ -320,7 +320,7 @@ not limited to:
 ::: example
 Example ##ex:
 ```
-http://host/service/Products` `
+http://host/service/Products` 
 ```
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
@@ -331,14 +331,14 @@ collection of entities (see rule: `entityColFunctionCall`)
 ::: example
 Example ##ex: function with parameters in resource path
 ```
-`http://host/service/ProductsByCategoryId(categoryId=2) `
+http://host/service/ProductsByCategoryId(categoryId=2) 
 ```
 :::
 
 ::: example
 Example ##ex: function with parameters as query options
 ```
-`http://host/service/ProductsByColor(color=@color)?@color='red' `
+http://host/service/ProductsByColor(color=@color)?@color='red' 
 ```
 - By invoking an action that returns a
 collection of entities (see rule: `actionCall`)
@@ -356,7 +356,7 @@ entity (see rule: `actionCall`)
 ::: example
 Example ##ex:
 ```
-`http://host/service/BestProductEverCreated `
+http://host/service/BestProductEverCreated 
 ```
 :::
 
@@ -369,7 +369,7 @@ entity (see rules: `collectionNavigation` and `keyPredicate`)
 ::: example
 Example ##ex:
 ```
-http://host/service/Categories(1)` `
+http://host/service/Categories(1)` 
 ```
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
@@ -381,7 +381,7 @@ collection of entities that returns a single entity (see rule:
 ::: example
 Example ##ex:
 ```
-`http://host/service/Products/Model.MostExpensive() `
+http://host/service/Products/Model.MostExpensive() 
 ```
 :::
 
@@ -394,7 +394,7 @@ entity to another related entity (see rule: `entityNavigationProperty`)
 ::: example
 Example ##ex:
 ```
-http://host/service/Products(1)/Supplier` `
+http://host/service/Products(1)/Supplier` 
 ```
 - By invoking a function bound to a single
 entity that returns a single entity (see rule: `boundOperation`)
@@ -403,7 +403,7 @@ entity that returns a single entity (see rule: `boundOperation`)
 ::: example
 Example ##ex:
 ```
-`http://host/service/Products(1)/Model.MostRecentOrder() `
+http://host/service/Products(1)/Model.MostRecentOrder() 
 ```
 - By invoking an action bound to a single
 entity that returns a single entity (see rule: `boundOperation`)
@@ -415,7 +415,7 @@ entity to a related collection of entities (see rule:
 ::: example
 Example ##ex:
 ```
-http://host/service/Categories(1)/Products` `
+http://host/service/Categories(1)/Products` 
 ```
 - By invoking a function bound to a single
 entity that returns a collection of entities (see rule:
@@ -425,7 +425,7 @@ entity that returns a collection of entities (see rule:
 ::: example
 Example ##ex:
 ```
-`http://host/service/Categories(1)/Model.TopTenProducts()`
+http://host/service/Categories(1)/Model.TopTenProducts()
 ```
 - By invoking an action bound to a single
 entity that returns a collection of entities (see rule:
@@ -921,7 +921,7 @@ annotation term, defined in [OData-VocCore](#ODataVocCore).
 ::: example
 Example ##ex: entity set restricted to `VipCustomer` instances
 ```
-`http://host/service/Customers/Model.VipCustomer`
+http://host/service/Customers/Model.VipCustomer
 ```
 :::
 
@@ -929,7 +929,7 @@ Example ##ex: entity set restricted to `VipCustomer` instances
 Example ##ex: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-`http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/`Customers/Model.VipCustomer(1)
 :::
 
 `http://host/service/`Customers(1)/Model.VipCustomer
@@ -939,7 +939,7 @@ Example ##ex: entity restricted to a `VipCustomer` instance, resulting in
 Example ##ex: cast the complex property `Address` to its derived type
 `DetailedAddress`, then get a property of the derived type
 ```
-`http://host/service/Customers(1)/Address/Model.DetailedAddress/Location `
+http://host/service/Customers(1)/Address/Model.DetailedAddress/Location 
 ```
 :::
 
@@ -1057,7 +1057,7 @@ stream.
 Example ##ex: request the media stream for the picture with the key value
 `Sunset4321299432:`
 ```
-`http://host/service/Pictures('Sunset4321299432')/$value`
+http://host/service/Pictures('Sunset4321299432')/$value
 ```
 :::
 
@@ -1479,7 +1479,7 @@ http://host/service/Products?\$filter=Name lt \'Milk\'
 ::: example
 Example ##ex: all products with a Name less than or equal to \'Milk\':
 ```
-http://host/service/Products?\$filter=Name le \'Milk\'` `
+http://host/service/Products?\$filter=Name le \'Milk\'` 
 ```
 :::
 
@@ -1556,9 +1556,7 @@ a `DateTimeOffset` 
 The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically, for
 adding a duration to a date:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Convert date to datetime (in any timezone) with a zero time component `
+- `Convert date to datetime (in any timezone) with a zero time component `
 - `Add/subtract duration `
 
 [·
@@ -1666,7 +1664,7 @@ http://host/service/Products?\$filter=Price sub 0.55 eq 2.00
 ::: example
 Example ##ex: all products with a Price of 2.55:
 ```
-http://host/service/Products?\$filter=Price mul 2.0 eq 5.10` `
+http://host/service/Products?\$filter=Price mul 2.0 eq 5.10` 
 ```
 :::
 
@@ -2489,16 +2487,15 @@ The `isofExpr` syntax rule defines how the `isof` function is invoked.
 ::: example
 Example ##ex: orders that are also `BigOrders`
 ```
-`http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)`
-:::
-
-`http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)`
+http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
+http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 ```
+:::
 
 ::: example
 Example ##ex: orders of a customer that is a `VIPCustomer`
 ```
-`http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)`
+http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 ```
 :::
 
@@ -3034,24 +3031,12 @@ size.
 Services MAY support numeric promotion for arithmetic operations or when
 comparing two operands of comparable types by applying the following
 rules, in order:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`If either operand is Edm.Double, the other operand is converted to type Edm.Double.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Single, the other operand is converted to type Edm.Single.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is of type Edm.Decimal, the other operand is converted to Edm.Decimal. `
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int64, the other operand is converted to type Edm.Int64.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int32, the other operand is converted to type Edm.Int32.`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Otherwise, if either operand is Edm.Int16, the other operand is converted to type Edm.Int16. `
+- `If either operand is Edm.Double, the other operand is converted to type Edm.Double.`
+- `Otherwise, if either operand is Edm.Single, the other operand is converted to type Edm.Single.`
+- `Otherwise, if either operand is of type Edm.Decimal, the other operand is converted to Edm.Decimal. `
+- `Otherwise, if either operand is Edm.Int64, the other operand is converted to type Edm.Int64.`
+- `Otherwise, if either operand is Edm.Int32, the other operand is converted to type Edm.Int32.`
+- `Otherwise, if either operand is Edm.Int16, the other operand is converted to type Edm.Int16. `
 
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.
@@ -3119,7 +3104,7 @@ appears only for those instances on which it has a value.
 ::: example
 Example ##ex: expand a navigation property of an entity type
 ```
-http://host/service/Products?\$expand=Category` `
+http://host/service/Products?\$expand=Category` 
 ```
 :::
 
@@ -3365,7 +3350,7 @@ option, see section 5.1.2.
 Example ##ex: name and description of all products, plus name of expanded
 category
 ```
-`http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)`
+http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
 ```
 :::
 
@@ -3384,7 +3369,7 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address, and the Location property of the derived complex type Namespace.AddressWithLocation`
 ```
-`http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location`
+http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
@@ -3437,7 +3422,7 @@ Example ##ex: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
-`http://host/service/Products?$select=ID,Model.ActionName,Model2.*`
+http://host/service/Products?$select=ID,Model.ActionName,Model2.*
 ```
 :::
 
@@ -3652,7 +3637,7 @@ values as query options.
 ::: example
 Example ##ex:
 ```
-`http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'`
+http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 

@@ -141,13 +141,11 @@ All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Representation-Specific Headline
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Normative representation-specific text
 :::
 
@@ -198,9 +196,7 @@ Elements and attributes associated with the top-level wrapper that
 contains the CSDL used to define the entity model for an OData Service
 are qualified with the Entity Data Model for Data Services Packaging
 namespace:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`http://docs.oasis-open.org/odata/ns/edmx`
+- `http://docs.oasis-open.org/odata/ns/edmx`
 
 Prior versions of OData used the following namespace for EDMX:
 - EDMX version 1.0:
@@ -216,9 +212,7 @@ prefix name is not prescriptive.
 
 Elements and attributes that define the entity model exposed by the
 OData Service are qualified with the Entity Data Model namespace:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`http://docs.oasis-open.org/odata/ns/edm`
+- `http://docs.oasis-open.org/odata/ns/edm`
 
 Prior versions of CSDL used the following namespaces for EDM:
 
@@ -395,9 +389,10 @@ non-binding parameters to functions or actions.
 Some of these types allow [facets](#TypeFacets), defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData‑ABNF](#BMABNF) for the
+See rule `primitiveLiteral` in [OData‑ABNF](#ODataABNF) for the
 representation of primitive type values in URLs and
-[OData‑JSON](#BMJSON) for the representation in requests and responses.
+[OData‑JSON](#ODataJSON) for the representation in requests and
+responses.
 
 ## ##subsec Built-In Abstract Types
 
@@ -440,9 +435,7 @@ be used anywhere a corresponding concrete type can be used, except:
     -   cannot be the base type of an entity type or complex type. 
     -   cannot be used as the underlying type of a type definition or
         enumeration type.
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Collection(Edm.PrimitiveType)`
+- `Collection(Edm.PrimitiveType)`
 
 -   -   cannot be used as the type of a property or term.
     -   cannot be used as the type of a parameter or the return type of
@@ -458,12 +451,8 @@ be used anywhere a corresponding concrete type can be used, except:
 [Vocabulary terms](#Term) can, in addition, use
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.NavigationPropertyPath `
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`Edm.AnyPropertyPath `(`Edm.PropertyPath `or
+- `Edm.NavigationPropertyPath `
+- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or
 `Edm.NavigationPropertyPath`)
 - `Edm.ModelElementPath `(any
 model element, including
@@ -486,13 +475,11 @@ combination of term and qualifier.
 
 # ##sec CSDL XML Document
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edmx:Edmx`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edmx:Edmx` element is the root element of a CSDL XML document. It
 MUST contain the `Version` attribute and it MUST contain exactly one
 `edmx:DataServices` element.
@@ -501,13 +488,11 @@ It MAY contain [`edmx:Reference`](#Reference) elements to reference
 other CSDL documents.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Version`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
 `4.0.` For OData 4.01 responses the value of this attribute MUST be
@@ -515,13 +500,11 @@ service. For OData 4.0 responses the value of this attribute MUST be
 made with an `OData-MaxVersion `header with a value of `4.0`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edmx:DataServices`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edmx:DataServices` element MUST contain one or more
 [`edm:Schema`](#Schema) elements which define the schemas exposed by the
 OData service.
@@ -530,7 +513,7 @@ OData service.
 ::: example
 Example ##ex:
 ```
-`<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
 :::
 
 [[           Version=\"4.01\"\>\
@@ -558,20 +541,18 @@ A reference MAY be annotated.
 
 The
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation, defined in [OData-VocCore](#BMVocCore), MAY be used to
+annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced schema. If the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is present, the `$schemaversion` system query option, defined
-[OData‑Protocol](#BMProtocol), SHOULD be used when retrieving the
+[OData‑Protocol](#ODataProtocol), SHOULD be used when retrieving the
 referenced schema document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edmx:Reference`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edmx:Reference` element specifies external CSDL documents
 referenced by the referencing document. The child elements
 [`edmx:Include`](#IncludedSchema) and
@@ -586,13 +567,11 @@ MUST contain at least one [`edmx:Include`](#IncludedSchema) or
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Uri`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Uri` is an absolute or relative URI; relative URIs are
 relative to the `xml:base` attribute, see
 [**\[XML‑Base\]**](#BMXMLBase).
@@ -641,8 +620,7 @@ be assigned to the namespace `org.example.vocabularies.display`. An
 alias-qualified name is resolved to a fully qualified name by examining
 aliases for included schemas and schemas defined within the document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 If an included schema specifies an alias, the alias MAY be used instead
 of the namespace within qualified names to identify model elements of
 the included schema. An alias only provides a more convenient notation,
@@ -662,13 +640,11 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edmx:Include`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edmx:Include` element specifies a schema to include from the
 referenced CSDL document. It MUST provide the `Namespace` attribute and
 it MAY provide the `Alias` attribute.
@@ -676,24 +652,20 @@ it MAY provide the `Alias` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Namespace`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Namespace` is the namespace of a schema defined in the
 referenced CSDL document.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Alias`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Alias` is a [simple identifier](#SimpleIdentifier) that
 can be used in qualified names instead of the namespace.
 :::
@@ -715,11 +687,9 @@ Uri=\"http://vocabs.odata.org/capabilities/v1\"\>]{style="color:black"}]{.Dataty
   \<edmx:Reference
 Uri=\"http://vocabs.odata.org/core/v1\"\>]{style="color:black"}]{.Datatype}
 
-`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">`
-
-`      <Annotation Term="Core.DefaultNamespace" />`
-
-`    </edmx:Include>`
+`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
+      <Annotation Term="Core.DefaultNamespace" />
+    </edmx:Include>`
 
 [[  \</edmx:Reference\>\
   \<edmx:Reference Uri=\"http://example.org/display/v1\"\>\
@@ -769,13 +739,11 @@ namespaces are present in the referenced document. If the consumer is
 not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edmx:IncludeAnnotations`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edmx:IncludeAnnotations` element specifies the annotations to
 include from the referenced CSDL document. If no
 `edmx:IncludeAnnotations` element is specified, a client MAY ignore all
@@ -787,33 +755,27 @@ attribute, and it MAY provide the `Qualifier` and `TargetNamespace`
 attribute.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `TermNamespace`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `TermNamespace` is a namespace.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Qualifier`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `TargetNamespace`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `TargetNamespace` is a namespace.
 :::
 
@@ -880,14 +842,12 @@ that differ only in case.
 The `namespace` MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [[Element
 ]{lang="DE"}]{#_Toc37318849}[[edm:Schema]{lang="DE"}]{.Datatype}
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 [The ]{lang="DE"}[[edm:Schema]{lang="DE"}]{.Datatype}[ element defines a
 schema. ]{lang="DE"}It MUST contain the `Namespace` attribute and it MAY
 contain the `Alias` attribute.
@@ -901,13 +861,11 @@ It MAY contain elements [`edm:Action`](#Action),
 [`edm:TypeDefinition`](#TypeDefinition).
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Namespace`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Namespace` is the namespace of the schema
 :::
 
@@ -916,8 +874,7 @@ The value of `Namespace` is the namespace of the schema
 A schema MAY specify an alias which MUST be a [simple
 identifier](#SimpleIdentifier).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 If a schema specifies an alias, the alias MAY be used instead of the
 namespace within qualified names to identify model elements of that
 schema. An alias only provides a more convenient notation, allowing a
@@ -936,13 +893,11 @@ them.
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Alias`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
@@ -950,25 +905,20 @@ The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 Example ##ex: schema `org.example` with an alias and a description for the
 schema
 ```
-`<Schema Namespace="org.example" Alias="self"> `
-:::
-
-`  <Annotation Term="Core.Description" String="Example schema" />`
-
-`  … `
-
-`</Schema>`
+<Schema Namespace="org.example" Alias="self"> 
+  <Annotation Term="Core.Description" String="Example schema" />
+  … 
+</Schema>
 ```
+:::
 
 ## ##subsec [[ ]{lang="DE"}Annotations with External Targeting](#AnnotationswithExternalTargeting)
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Annotations`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Annotations` element is used to apply a group of annotations to
 a single model element. It MUST contain the `Target` attribute and it
 MAY contain the `Qualifier` attribute.
@@ -976,24 +926,20 @@ MAY contain the `Qualifier` attribute.
 It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Target`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Target` is a path expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Qualifier`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
@@ -1031,13 +977,11 @@ MUST NOT have the same name as the declaring entity type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:EntityType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:EntityType` element MUST contain the `Name` attribute, and it
 MAY contain the [`BaseType`](#DerivedEntityType),
 [`Abstract`](#AbstractEntityType), [`OpenType`](#OpenEntityType), and
@@ -1052,13 +996,11 @@ It MAY contain one [`edm:Key`](#Key) element.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the entity type's name.
 :::
 
@@ -1090,13 +1032,11 @@ navigation properties of its base type.
 An entity type MUST NOT introduce an inheritance cycle via the base type
 attribute.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `BaseType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `BaseType` is the qualified name of the base type.
 :::
 
@@ -1126,13 +1066,11 @@ defined key.
 An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Abstract`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -1151,15 +1089,13 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `OpenType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -1175,7 +1111,7 @@ entity with one or more properties of type `Edm.Stream` if the
 structured data of the entity is the main topic of interest and the
 stream data is just additional information attached to the structured
 data. For more information on media entities see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
 An entity type derived from a media entity type MUST indicate that it is
 also a media entity type.
@@ -1183,15 +1119,13 @@ also a media entity type.
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
 [`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
-see [OData‑VocCore](#BMVocCore).
+see [OData‑VocCore](#ODataVocCore).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `HasStream`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -1242,7 +1176,7 @@ on one of these primitive types:
 
 Key property values MAY be language-dependent, but their values MUST be
 unique across all languages and the entity ids (defined in
-[OData‑Protocol](#BMProtocol)) MUST be language independent.
+[OData‑Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
@@ -1272,47 +1206,39 @@ URL construction and parsing rather complicated. The alias MUST NOT be
 used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Key`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Key` element MUST contain at least one `edm:PropertyRef`
 element.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:PropertyRef`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:PropertyRef` element MUST contain the `Name` attribute and MAY
 contain the `Alias` attribute.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is a path expression leading to a primitive
 property. The names of the properties in the path are joined together by
 forward slashes.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Alias`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
@@ -1343,9 +1269,8 @@ Example ##ex: entity type with a simple key referencing a property of a
 \</EntityType\>]{style="color:black"}]{.Datatype}
 :::
 
-` `
-
-`<ComplexType Name="EntityInfo">`
+` 
+<ComplexType Name="EntityInfo">`
 
 [[  \<Property Name=\"ID\" Type=\"Edm.Int32\" Nullable=\"false\" /\>\
   \<Property Name=\"Created\" Type=\"Edm.DateTimeOffset\" /\>\
@@ -1406,13 +1331,11 @@ property of any of this type's base types for OData 4.0 responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Property`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Property` element MUST contain the `Name` and the `Type`
 attribute, and it MAY contain the facet attributes
 [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
@@ -1422,13 +1345,11 @@ attribute, and it MAY contain the facet attributes
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the property's name.
 :::
 
@@ -1456,21 +1377,19 @@ scope, or a collection of one of these types.
 
 A collection-valued property may be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-CoreVoc](#BMVocCore)**)**, to specify that it
+term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports a stable ordering.
 
 A collection-valued property may be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-CoreVoc](#BMVocCore)**)**, to specify that it
+term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued properties the value of `Type` is the qualified name
 of the property's type.
 
@@ -1483,7 +1402,7 @@ item type, followed by a closing parenthesis `)`.
 Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```
-`<Property Name="Units" Type="Collection(Edm.String)" />`
+<Property Name="Units" Type="Collection(Edm.String)" />
 ```
 :::
 
@@ -1500,13 +1419,11 @@ items in the collection.
 A Boolean value specifying whether the property can have the value
 `null`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Nullable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
 
@@ -1539,13 +1456,11 @@ length of the binary data, for string values it is the character length
 If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `MaxLength`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `MaxLength` is a positive integer or the symbolic value
 `max` as a shorthand for the maximum length supported for the type by
 the service.
@@ -1577,15 +1492,13 @@ the risk for unintended data loss.
 Note: duration properties supporting a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#BMVocMeasures).
+see [OData-VocMeasures](#ODataVocMeasures).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Precision`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Precision` is a number.
 
 If not specified for a decimal property, the decimal property has
@@ -1599,11 +1512,10 @@ precision of zero.
 Example ##ex: [`Precision`](#Precision) facet applied to the
 `DateTimeOffset` type
 ```
-`<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"`
-:::
-
-`          Precision="6" />`
+<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
+          Precision="6" />
 ```
+:::
 
 ### ##subsubsec Scale
 
@@ -1635,13 +1547,11 @@ use a [`Precision`](#Precision) with the absolute value of the negative
 scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Scale`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Scale` is a number or one of the symbolic values
 `floating` or `variable`.
 
@@ -1655,7 +1565,7 @@ If not specified, the `Scale` facet defaults to zero.
 Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
-`<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />`
+<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
 ```
 :::
 
@@ -1663,7 +1573,7 @@ Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 Example ##ex: `Precision=2` equals `Scale`.\
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
-`<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />`
+<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
 ```
 :::
 
@@ -1672,7 +1582,7 @@ Example ##ex: `Precision=3` and a variable `Scale`.\
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```
-`<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />`
+<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
 ```
 :::
 
@@ -1681,7 +1591,7 @@ Example ##ex: `Precision=7` and a floating `Scale`.\
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```
-`<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />`
+<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
 ```
 :::
 
@@ -1695,13 +1605,11 @@ limited to the ASCII character set.
 
 If no value is specified, the `Unicode` facet defaults to `true`.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Unicode`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Unicode` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `true`.
 :::
@@ -1719,13 +1627,11 @@ defaults to `0` for `Geometry` types or `4326` for `Geography` types.
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [**\[EPSG\]**](#BMEPSG)**.**
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `SRID`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `$SRID` is a number or the symbolic value `variable`.
 :::
 
@@ -1737,19 +1643,17 @@ the body of a `POST` or `PUT` request.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `DefaultValue`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
 alternative in the `primitiveValue` rule defined in
-[OData‑ABNF](#BMABNF), i.e. `Edm.Binary` as `binaryValue`, `Edm.Boolean`
-as `booleanValue` etc.
+[OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
+`Edm.Boolean` as `booleanValue` etc.
 :::
 
 # ##sec Navigation Property
@@ -1774,13 +1678,11 @@ responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:NavigationProperty`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:NavigationProperty` element MUST contain the `Name` and `Type`
 attributes, and it MAY contain the attributes
 [`Nullable`](#NullableNavigationProperty),
@@ -1794,13 +1696,11 @@ child element [`edm:OnDelete`](#OnDeleteAction).
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the navigation property's name.
 :::
 
@@ -1846,21 +1746,19 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property may be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-CoreVoc](#BMVocCore)**)**, to specify that it
+term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property may be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-CoreVoc](#BMVocCore)**)**, to specify that it
+term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued navigation properties the value of `Type` is the
 qualified name of the navigation property's type.
 
@@ -1878,13 +1776,11 @@ MUST always have a related entity.
 Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Nullable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 :::
@@ -1921,13 +1817,11 @@ navigation property is defined on a complex type, or if the current
 navigation property is defined on a type derived from the type of the
 partner navigation property.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Partner`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Partner` is the path to the of the partner navigation
 property.
 :::
@@ -1949,7 +1843,8 @@ either directly or indirectly via a property of complex type, contain
 the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
-property and the key of the contained entity, see [OData‑URL](#BMURL).
+property and the key of the contained entity, see
+[OData‑URL](#ODataURL).
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.
@@ -1957,10 +1852,10 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-CoreVoc](#BMVocCore)**)**, the canonical URL of
-the item is the canonical URL of the collection appended with a segment
-containing the zero-based ordinal of the item. Items within in an
-unordered collection of complex types do not have a canonical URL.
+term defined in [OData-CoreVoc](#ODataVocCore)**)**, the canonical URL
+of the item is the canonical URL of the collection appended with a
+segment containing the zero-based ordinal of the item. Items within in
+an unordered collection of complex types do not have a canonical URL.
 Services that support unordered collections of complex types declaring a
 containment navigation property, either directly or indirectly via a
 property of complex type, MUST specify the URL for the navigation link
@@ -1998,13 +1893,11 @@ for a client to determine which entity contains a given contained
 entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `ContainsTarget`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `ContainsTarget` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -2034,26 +1927,22 @@ dependent property MUST also be nullable. If both the navigation
 property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:ReferentialConstraint`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:ReferentialConstraint` element MUST contain the attributes
 `Property` and `ReferencedProperty`.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Property`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `Property` attribute specifies the property that takes part in the
 referential constraint on the dependent structured type. Its value MUST
 be a path expression resolving to a property of the dependent structured
@@ -2063,13 +1952,11 @@ joined together by forward slashes. The path is relative to the
 dependent structured type declaring the navigation property.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `ReferencedProperty`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `ReferencedProperty` attribute specifies the corresponding property
 of the principal entity type. Its value MUST be a path expression
 resolving to a property of the principal entity type itself or to a
@@ -2100,30 +1987,22 @@ ReferencedProperty=\"ID\" /\>\
     \<ReferentialConstraint Property=\"CategoryKind\"
 ReferencedProperty=\"Kind\"\>]{style="color:black"}]{.Datatype}
 
-`      <Annotation Term="Core.Description" `
-
-`                  String="Referential Constraint to non-key property" />`
-
-`    </ReferentialConstraint>`
-
-`  </NavigationProperty>`
-
-`</EntityType>`
-
-` `
-
-`<EntityType Name="Category">`
-
-`  <Key>`
-
-`    <PropertyRef Name="ID" />`
+`      <Annotation Term="Core.Description" 
+                  String="Referential Constraint to non-key property" />
+    </ReferentialConstraint>
+  </NavigationProperty>
+</EntityType>
+ 
+<EntityType Name="Category">
+  <Key>
+    <PropertyRef Name="ID" />`
 
 [[  \</Key\>\
   \<Property Name=\"ID\" Type=\"Edm.String\" Nullable=\"false\" /\>\
   \<Property Name=\"Kind\" Type=\"Edm.String\" Nullable=\"true\" /\>\
   ... ]{style="color:black"}]{.Datatype}
 
-`</EntityType>`
+`</EntityType>
 ```
 
 ## ##subsec On-Delete Action
@@ -2150,25 +2029,21 @@ The action can have one of the following values:
 If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:OnDelete`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:OnDelete` element MUST contain the `Action` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Action`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Action` is one of the values `Cascade`, `None`, `SetNull`,
 or `SetDefault`.
 :::
@@ -2191,7 +2066,7 @@ Type=\"Collection(self.Product)\"\>\
 [[    \</OnDelete\
   \</NavigationProperty\>]{style="color:black"}]{.Datatype}
 
-`</EntityType>`
+`</EntityType>
 ```
 
 # ##sec Complex Type
@@ -2216,13 +2091,11 @@ MUST NOT have the same name as the declaring complex type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:ComplexType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:ComplexType` element MUST contain the `Name` attribute, and it
 MAY contain the [`BaseType`](#DerivedComplexType),
 [`Abstract`](#AbstractComplexType), and [`OpenType`](#OpenComplexType)
@@ -2235,13 +2108,11 @@ properties of the complex type.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the complex type's name.
 :::
 
@@ -2288,13 +2159,11 @@ base type.
 The rules for annotations of derived complex types are described in
 section 14.2.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `BaseType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `BaseType` is the qualified name of the base type.
 :::
 
@@ -2303,13 +2172,11 @@ The value of `BaseType` is the qualified name of the base type.
 A complex type MAY indicate that it is abstract and cannot have
 instances.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Abstract`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -2328,15 +2195,13 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `OpenType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -2354,18 +2219,16 @@ Although enumeration types have an underlying numeric value, the
 preferred representation for an enumeration value is the member name.
 Discrete sets of numeric values should be represented as numeric values
 annotated with the `AllowedValues` annotation defined in
-[**\[OData-VocCore\].**](#BMVocCore)
+[**\[OData-VocCore\].**](#ODataVocCore)
 
 Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:EnumType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:EnumType` element MUST contain the Name attribute, and it MAY
 contain the [`UnderlyingType`](#UnderlyingIntegerType) and
 [`IsFlags`](#FlagsEnumerationType) attributes.
@@ -2376,13 +2239,11 @@ elements defining the members of the enumeration type.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the enumeration type's name.
 :::
 
@@ -2406,13 +2267,11 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `UnderlyingType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `UnderlyingType` is the qualified name of the underlying
 type.
 :::
@@ -2425,13 +2284,11 @@ multiple members to be selected simultaneously.
 If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `IsFlags`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `IsFlags` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
 :::
@@ -2440,35 +2297,22 @@ Absence of the attribute means `false`.
 Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```
-`<EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true"> `
-:::
-
-`  <Member Name="Plain"             Value="0" /> `
-
-`  <Member Name="Red"               Value="1" /> `
-
-`  <Member Name="Blue"              Value="2" /> `
-
-`  <Member Name="Yellow"            Value="4" /> `
-
-`  <Member Name="Solid"             Value="8" /> `
-
-`  <Member Name="Striped"           Value="16" /> `
-
-`  <Member Name="SolidRed"          Value="9" /> `
-
-`  <Member Name="SolidBlue"         Value="10" /> `
-
-`  <Member Name="SolidYellow"       Value="12" /> `
-
-`  <Member Name="RedBlueStriped"    Value="19" /> `
-
-`  <Member Name="RedYellowStriped"  Value="21" /> `
-
-`  <Member Name="BlueYellowStriped" Value="22" /> `
-
-`</EnumType>`
+<EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true"> 
+  <Member Name="Plain"             Value="0" /> 
+  <Member Name="Red"               Value="1" /> 
+  <Member Name="Blue"              Value="2" /> 
+  <Member Name="Yellow"            Value="4" /> 
+  <Member Name="Solid"             Value="8" /> 
+  <Member Name="Striped"           Value="16" /> 
+  <Member Name="SolidRed"          Value="9" /> 
+  <Member Name="SolidBlue"         Value="10" /> 
+  <Member Name="SolidYellow"       Value="12" /> 
+  <Member Name="RedBlueStriped"    Value="19" /> 
+  <Member Name="RedYellowStriped"  Value="21" /> 
+  <Member Name="BlueYellowStriped" Value="22" /> 
+</EnumType>
 ```
+:::
 
 ## ##subsec Enumeration Type Member
 
@@ -2488,36 +2332,30 @@ numeric value can be used interchangeably.
 
 Enumeration members are sorted by their numeric value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Member`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Member` element MUST contain the `Name` attribute and it MAY
 contain the `Value` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the enumeration member's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Value`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 If the [`IsFlags`](#FlagsEnumerationType) attribute has a value of
 `false`, either all members MUST specify an integer value for the
 `Value` attribute, or all members MUST NOT specify a value for the
@@ -2540,9 +2378,8 @@ Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
   \<Member Name=\"FirstClass\"\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <Annotation Term="Core.Description"`
-
-`                String="Shipped with highest priority" />`
+`    <Annotation Term="Core.Description"
+                String="Shipped with highest priority" />`
 
 [[  \</Member\>\
   \<Member Name=\"TwoDay\"\>]{style="color:black"}]{.Datatype}
@@ -2578,26 +2415,22 @@ It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:TypeDefinition`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:TypeDefinition` element MUST contain the `Name` and
 [`UnderlyingType`](#UnderlyingPrimitiveType) attributes.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the type definition's name.
 :::
 
@@ -2639,13 +2472,11 @@ Example ##ex:
 The underlying type of a type definition MUST be a [primitive
 type](#PrimitiveTypes) that MUST NOT be another type definition.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `UnderlyingType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `UnderlyingType` is the qualified name of the underlying
 type.
 :::
@@ -2701,13 +2532,11 @@ schema.
 
 An unbound action MAY have the same name as a bound action.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Action`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Action` element MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverlo) and
 [`EntitySetPath`](#EntitySetPath) attributes.
@@ -2718,13 +2547,11 @@ MAY contain [`edm:Parameter`](#Parameter) elements.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the action's name.
 :::
 
@@ -2776,13 +2603,11 @@ Note that [type definitions](#ActionandFunction) can be used to
 disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Function`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Function` element MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverlo) and
 [`EntitySetPath`](#EntitySetPath) attributes.
@@ -2793,13 +2618,11 @@ contain [`edm:Parameter`](#Parameter) elements.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the action's name.
 :::
 
@@ -2818,13 +2641,11 @@ Unbound functions are invoked as static functions within a filter or
 orderby expression, or from the entity container through a [function
 import](#FunctionImport).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `IsBound`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `IsBound` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
 :::
@@ -2848,13 +2669,11 @@ the [navigation property](#NavigationProperty) to be traversed. A
 type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `EntitySetPath`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `EntitySetPath` is the entity set path.
 :::
 
@@ -2868,13 +2687,11 @@ key predicates appended to the resource path that identifies the
 composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `IsComposable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `IsComposable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
 :::
@@ -2889,13 +2706,11 @@ The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:ReturnType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:ReturnType` element MUST contain the `Type` attribute, and it
 MAY contain the attributes `Nullable`, [`MaxLength`](#MaxLength),
 [`Unicode`](#Unicode), [`Precision`](#Precision), [`Scale`](#Scale), and
@@ -2904,13 +2719,11 @@ MAY contain the attributes `Nullable`, [`MaxLength`](#MaxLength),
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued return types the value of `Type` is the qualified name
 of the return type.
 
@@ -2919,13 +2732,11 @@ sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Nullable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
@@ -2963,13 +2774,11 @@ The facets [`MaxLength`](#MaxLength), [`Precision`](#Precision),
 specify value restrictions of the parameter, as well as the
 [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Parameter`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Parameter` element MUST contain the `Name` and the `Type`
 attribute, and it MAY contain the attributes `Nullable`,
 [`MaxLength`](#MaxLength), [`Unicode`](#Unicode),
@@ -2978,23 +2787,19 @@ attribute, and it MAY contain the attributes `Nullable`,
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the parameter's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued parameters the value of `Type` is the qualified name
 of the parameter.
 
@@ -3003,13 +2808,11 @@ sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Nullable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
@@ -3096,13 +2899,11 @@ A [*function import*](#FunctionImport) or an [*action
 import*](#ActionImport) is used to expose a function or action defined
 in an entity model as a top level resource.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:EntityContainer`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:EntityContainer` MUST contain one or more
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
 [`edm:ActionImport`](#ActionImport), or
@@ -3111,13 +2912,11 @@ The `edm:EntityContainer` MUST contain one or more
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the entity container's name.
 :::
 
@@ -3130,11 +2929,9 @@ action imports, and function imports.
 EntityType=\"self.Product\"\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <NavigationPropertyBinding Path="Category" Target="Categories" />`
-
-`    <NavigationPropertyBinding Path="Supplier" Target="Suppliers" />`
-
-`  </EntitySet>`
+`    <NavigationPropertyBinding Path="Category" Target="Categories" />
+    <NavigationPropertyBinding Path="Supplier" Target="Suppliers" />
+  </EntitySet>`
 
 [[  \<EntitySet Name=\"Categories\" EntityType=\"self.Category\"\>\
     \<NavigationPropertyBinding Path=\"Products\" Target=\"Products\"
@@ -3146,9 +2943,8 @@ EntityType=\"self.Product\"\>]{style="color:black"}]{.Datatype}
     \<NavigationPropertyBinding Path=\"Products\" Target=\"Products\"
 /\>]{style="color:black"}]{.Datatype}
 
-`  </EntitySet>`
-
-`  <Singleton Name="MainSupplier" Type="self.Supplier" />`
+`  </EntitySet>
+  <Singleton Name="MainSupplier" Type="self.Supplier" />`
 
 [[  \<ActionImport Name=\"LeaveRequestApproval\"
 Action=\"self.Approval\" /\>\
@@ -3177,13 +2973,11 @@ Note: services should not introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Extends`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Extends` is the qualified name of the entity container to
 be extended.
 :::
@@ -3222,13 +3016,11 @@ document. If not explicitly indicated, it is included.
 Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:EntitySet`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:EntitySet` element MUST contain the attributes `Name` and
 `EntityType`, and it MAY contain the `IncludeInServiceDocument`
 attribute.
@@ -3239,34 +3031,28 @@ It MAY contain
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the entity set's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `EntityType`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `EntityType` is the qualified name of an entity type in
 scope.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `IncludeInServiceDocument`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the attribute means `true`.
 :::
@@ -3283,13 +3069,11 @@ A singleton MUST specify a type that MUST be an entity type in scope.
 
 A singleton MUST reference an instance its entity type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Singleton`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Singleton` element MUST include the attributes `Name` and
 `Type`, and it MAY contain the `Nullable` attribute.
 
@@ -3299,34 +3083,28 @@ It MAY contain
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the singleton's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Type` is whose value is the [qualified
 name](#QualifiedName) of an entity type in scope.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Nullable`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
 
@@ -3406,34 +3184,28 @@ containment navigation properties or single-valued complex properties
 before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:NavigationPropertyBinding`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:NavigationPropertyBinding` element MUST contain the attributes
 `Path` and `Target`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Path`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Path` is a path expression.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Target`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Target` is a [target path](#TargetPath).
 :::
 
@@ -3446,9 +3218,8 @@ entity set `Categories`
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="SomeSet" />`
-
-`</EntitySet>`
+`                             Target="SomeSet" />
+</EntitySet>
 ```
 
 ::: example
@@ -3459,9 +3230,8 @@ Example ##ex: for an entity set in any container in scope
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="SomeModel.SomeContainer/SomeSet" />`
-
-`</EntitySet>`
+`                             Target="SomeModel.SomeContainer/SomeSet" />
+</EntitySet>
 ```
 
 ::: example
@@ -3473,9 +3243,8 @@ Example ##ex: binding `Supplier` on `Products` contained within
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="Suppliers" />`
-
-`</EntitySet>`
+`                             Target="Suppliers" />
+</EntitySet>
 ```
 
 ## ##subsec Action Import
@@ -3497,46 +3266,38 @@ specified, it MUST resolve to an entity set defined in the same entity
 container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:ActionImport`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:ActionImport` element MUST contain the attributes `Name` and
 `Action`, and it MAY contain the `EntitySet` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the action import's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Action`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Action` is the qualified name of an unbound action.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `EntitySet`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `EntitySet` is either the unqualified name of an entity set
 in the same entity container or a path to an entity set in a different
 entity container.
@@ -3566,57 +3327,47 @@ A function import for a parameterless function MAY indicate whether it
 is included in the service document. If not explicitly indicated, it is
 not included.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:FunctionImport`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:FunctionImport` element MUST contain the attributes `Name` and
 `Function`, and it MAY contain the attributes `EntitySet` and
 `IncludeInServiceDocument`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the function import's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Function`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Function` is the qualified name of an unbound function.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `EntitySet`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `EntitySet` is either the unqualified name of an entity set
 in the same entity container or a path to an entity set in a different
 entity container.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `IncludeInServiceDocument`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the attribute means `false`.
 :::
@@ -3638,7 +3389,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData‑JSON](#BMJSON). An
+an OData payload, such as described in [OData‑JSON](#ODataJSON). An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -3652,7 +3403,7 @@ A *vocabulary* is a schema containing a set of terms where each
 vocabulary (a set of terms) that is scenario-specific or
 company-specific; more commonly used terms can be published as shared
 vocabularies such as the OData Core vocabulary
-[OData‑VocCore](#BMVocCore).
+[OData‑VocCore](#ODataVocCore).
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
@@ -3719,13 +3470,11 @@ unique within its schema.
 The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Term`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Term` element MUST contain the attributes `Name` and `Type`. It
 MAY contain the attributes `BaseTerm` and `AppliesTo`.
 
@@ -3742,23 +3491,19 @@ enumeration type MAY define a value for the `DefaultValue` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the term's name.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 For single-valued properties the value of `Type` is the qualified name
 of the property's type.
 
@@ -3767,13 +3512,11 @@ sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `DefaultValue`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of this attribute determines the value of the term when
 applied in an [`edm:Annotation`](#Annotation) without providing an
 expression.
@@ -3782,8 +3525,8 @@ Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
 alternative in the `primitiveValue` rule defined in
-[OData‑ABNF](#BMABNF), i.e. `Edm.Binary` as `binaryValue`, `Edm.Boolean`
-as `booleanValue` etc.
+[OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
+`Edm.Boolean` as `booleanValue` etc.
 
 If no value is specified, the `DefaultValue` attribute defaults to
 `null`.
@@ -3798,13 +3541,11 @@ When applying a term with a base term, the base term MUST also be
 applied with the same qualifier, and so on until a term without a base
 term is reached.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `BaseTerm`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `BaseTerm` is the qualified name of the base term.
 :::
 
@@ -3855,13 +3596,11 @@ following symbolic values:
   `TypeDefinition`          Type Definition
   `UrlRef`                  UrlRef annotation expression
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `AppliesTo`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `AppliesTo` is a whitespace-separated list of symbolic
 values from the table above that identify model elements the term is
 intended to be applied to.
@@ -3870,7 +3609,7 @@ intended to be applied to.
 ::: example
 Example ##ex: the `IsURL` term can be applied to properties and terms that
 are of type `Edm.String` (the `Core.Tag` type and the two `Core` terms
-are defined in [OData‑VocCore](#BMVocCore))
+are defined in [OData‑VocCore](#ODataVocCore))
 ```
 [\<Term Name=\"IsURL\" Type=\"Core.Tag\" Nullable=\"false\"
 DefaultValue=\"true\"\
@@ -3903,13 +3642,11 @@ expression](#DynamicExpression). The most common construct for assigning
 an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:Annotation`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Annotation` element MUST contain the attribute `Term`, and it
 MAY contain the attribute [`Qualifier`](#Qualifier).
 
@@ -3933,13 +3670,11 @@ An `edm:Annotation` element MAY contain [`edm:Annotation`](#Annotation)
 elements that annotate the annotation.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Term`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Term` is the qualified name of a [term](#Term) in scope.
 :::
 
@@ -3956,18 +3691,16 @@ String=\"USD\"\>]{style="color:black"}]{.Datatype}
                 String=\"The parent company's currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`  </Annotation>`
-
-`</Property>`
+`  </Annotation>
+</Property>`
 
 [[\<Property Name=\"AmountInTransactionCurrency\"
 Type=\"Edm.Decimal\"\>\
   \<Annotation Term=\"Measures.ISOCurrency\" Path=\"Currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`</Property>`
-
-`<Property Name="Currency" Type="Edm.String" MaxLength="3" />`
+`</Property>
+<Property Name="Currency" Type="Edm.String" MaxLength="3" />
 ```
 
 If an entity type or complex type is annotated with a term that itself
@@ -4001,13 +3734,11 @@ providing a qualifier to distinguish the annotations. The qualifier is a
 The combination of target model element, term, and qualifier uniquely
 identifies an annotation.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Qualifier`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Annotation elements that are children of an
 [`edm:Annotations`](#AnnotationswithExternalTargeting) element MUST NOT
 provide a value for the qualifier attribute if the parent
@@ -4080,46 +3811,35 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}[qualified name](#QualifiedName)
+- [qualified name](#QualifiedName)
 of schema child
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of schema child followed by a forward slash and
 name of child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of structured type followed by zero or more
 property, navigation property, or type-cast segments, each segment
 starting with a forward slash
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing a singleton or entity set name and zero or more property,
 navigation property, or type-cast segments
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName)[ of an action followed by parentheses containing
 the binding parameter *type* of a bound action overload to identify that
 bound overload, or by empty parentheses to identify the unbound
 overload]{style="color:black;background:white"}
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName)[ of a function followed by parentheses containing
 the comma-separated list of the parameter *types* of a bound or unbound
 function overload in the order of their definition in the function
 overload]{style="color:black;background:white"}
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an action or function, optionally followed by
 parentheses as described in the two previous bullet points to identify a
 single overload, followed by a forward slash and either a parameter name
 or `$ReturnType`
-
-[[·
-]{style="font-size:9.0pt;font-family:Symbol;color:black"}]{.Keyword}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing an action or function import name, optionally followed by a
 forward slash and either a parameter name or `$ReturnType`
@@ -4204,16 +3924,14 @@ term.
 
 ### ##subsubsec Binary
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Binary`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Binary` expression evaluates to a primitive binary value. A
 binary expression MUST be assigned a value conforming to the rule
-`binaryValue` in [OData‑ABNF](#BMABNF).
+`binaryValue` in [OData‑ABNF](#ODataABNF).
 
 The binary expression MAY be provided using element notation or
 attribute notation.
@@ -4233,13 +3951,11 @@ Example ##ex: base64url-encoded binary value (OData)
 
 ### ##subsubsec Boolean
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Bool`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Bool` expression evaluates to a primitive Boolean value. A
 Boolean expression MUST be assigned a Boolean value.
 
@@ -4260,19 +3976,17 @@ Example ##ex:
 
 ### ##subsubsec Date
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Date`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Date` expression evaluates to a primitive date value. A date
 expression MUST be assigned a value of type `xs:date`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData‑ABNF](#BMABNF), i.e. it MUST NOT
-contain a time-zone offset.
+conform to rule `dateValue` in [OData‑ABNF](#ODataABNF), i.e. it MUST
+NOT contain a time-zone offset.
 
 The date expression MAY be provided using element notation or attribute
 notation.
@@ -4292,21 +4006,19 @@ Example ##ex:
 
 ### ##subsubsec DateTimeOffset
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:DateTimeOffset`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:DateTimeOffset` expression evaluates to a primitive
 datetimestamp value with a time-zone offset. A datetimestamp expression
 MUST be assigned a value of type `xs:dateTimeStamp`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
 MUST also conform to rule `dateTimeOffsetValue` in
-[OData‑ABNF](#BMABNF), i.e. it MUST NOT contain an end-of-day fragment
-(24:00:00).
+[OData‑ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
+fragment (24:00:00).
 
 The datetimestamp expression MAY be provided using element notation or
 attribute notation`.`
@@ -4315,7 +4027,7 @@ attribute notation`.`
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.display.LastUpdated" `
+<Annotation Term="org.example.display.LastUpdated" `
 :::
 
 [[            DateTimeOffset=\"2000-01-01T16:00:00.000Z\" /\>\
@@ -4327,16 +4039,14 @@ Example ##ex:
 
 ### ##subsubsec Decimal
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Decimal`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Decimal` expression evaluates to a primitive decimal value. A
 decimal expression MUST be assigned a value conforming to the rule
-`decimalValue` in [OData‑ABNF](#BMABNF).
+`decimalValue` in [OData‑ABNF](#ODataABNF).
 
 The decimal expression MAY be provided using element notation or
 attribute notation.
@@ -4345,7 +4055,7 @@ attribute notation.
 ::: example
 Example ##ex: attribute notation
 ```
-`<Annotation Term="org.example.display.Width" Decimal="3.14" />`
+<Annotation Term="org.example.display.Width" Decimal="3.14" />
 ```
 :::
 
@@ -4360,13 +4070,11 @@ Example ##ex: element notation
 
 ### ##subsubsec Duration
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Duration`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Duration` expression evaluates to a primitive duration value. A
 duration expression MUST be assigned a value of type
 `xs:dayTimeDuration`, see [**\[XML‑Schema‑2\]**](#BMXMLSchema2),
@@ -4389,13 +4097,11 @@ Example ##ex:
 
 ### ##subsubsec Enumeration Member
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:EnumMember  `
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:EnumMember` expression references a
 [member](#EnumerationTypeMember) of an [enumeration
 type](#EnumerationType). An enumeration member expression MUST be
@@ -4438,16 +4144,14 @@ org.example.Pattern/Striped\</EnumMember\>\
 
 ### ##subsubsec Floating-Point Number
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Float`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Float` expression evaluates to a primitive floating point (or
 double) value. A float expression MUST be assigned a value conforming to
-the rule `doubleValue` in [OData‑ABNF](#BMABNF).
+the rule `doubleValue` in [OData‑ABNF](#ODataABNF).
 
 The float expression MAY be provided using element notation or attribute
 notation.
@@ -4466,16 +4170,14 @@ Example ##ex:
 
 ### ##subsubsec Guid
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Guid`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Guid` expression evaluates to a primitive guid value. A guid
 expression MUST be assigned a value conforming to the rule `guidValue`
-in [OData‑ABNF](#BMABNF).
+in [OData‑ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
 notation`.`
@@ -4484,7 +4186,7 @@ notation`.`
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.display.Id" `
+<Annotation Term="org.example.display.Id" `
 :::
 
 [[            Guid=\"21EC2020-3AEA-1069-A2DD-08002B30309D\" /\>\
@@ -4496,16 +4198,14 @@ Example ##ex:
 
 ### ##subsubsec Integer
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Int`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Int` expression evaluates to a primitive integer value. An
 integer MUST be assigned a value conforming to the rule `int64Value` in
-[OData‑ABNF](#BMABNF).
+[OData‑ABNF](#ODataABNF).
 
 The integer expression MAY be provided using element notation or
 attribute notation.
@@ -4514,7 +4214,7 @@ attribute notation.
 ::: example
 Example ##ex: attribute notation
 ```
-`<Annotation Term="org.example.display.Width" Int="42" />`
+<Annotation Term="org.example.display.Width" Int="42" />
 ```
 :::
 
@@ -4529,13 +4229,11 @@ Example ##ex: element notation
 
 ### ##subsubsec String
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:String`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:String` expression evaluates to a primitive string value. A
 string expression MUST be assigned a value of the type `xs:string`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
@@ -4559,16 +4257,14 @@ Catalog\" /\>\
 
 ### ##subsubsec Time of Day
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:TimeOfDay`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:TimeOfDay` expression evaluates to a primitive time value. A
 time-of-day expression MUST be assigned a value conforming to the rule
-`timeOfDayValue` in [OData‑ABNF](#BMABNF).
+`timeOfDayValue` in [OData‑ABNF](#ODataABNF).
 
 The time-of-day expression MAY be provided using element notation or
 attribute notation.
@@ -4614,7 +4310,7 @@ than the `Edm.*Path` types, or of any model-defined type.
 #### ##subsubsubsec Path Syntax
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData‑URL](#BMURL).
+from the path expression syntax of URLs, see [OData‑URL](#ODataURL).
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -4743,11 +4439,12 @@ Example ##ex: model path addressing an annotation on a navigation property
 
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
-predicate using parentheses-style convention, see [OData‑URL](#BMURL).
-The key values are either primitive literals or instance paths. If the
-key value is a relative instance path, it is interpreted according to
-the same rule below as the instance path it is part of, *not* relative
-to the instance identified by the preceding path part.
+predicate using parentheses-style convention, see
+[OData‑URL](#ODataURL). The key values are either primitive literals or
+instance paths. If the key value is a relative instance path, it is
+interpreted according to the same rule below as the instance path it is
+part of, *not* relative to the instance identified by the preceding path
+part.
 
 ::: example
 Example ##ex: instance path with entity set and key predicate
@@ -4828,26 +4525,22 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTer)
 `Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-
-[[·
-]{style="font-family:Symbol"}]{.Datatype}`A non-null path MUST resolve to an annotation. `
+- `A non-null path MUST resolve to an annotation. `
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with term `Validation.AllowedTerms` (see
-[OData-VocValidation](#BMVocValidation)) if its intended value is an
+[OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
 The value of the annotation path expression is the path itself, not the
 value of the annotation identified by the path. This is useful for terms
 that reuse or refer to other terms.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:AnnotationPath`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:AnnotationPath` expression MAY be provided using element
 notation or attribute notation.
 :::
@@ -4885,13 +4578,11 @@ argument is a [model path](#PathExpressions).
 The value of the model element path expression is the path itself, not
 the instance(s) identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:ModelElementPath`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:ModelElementPath` expression MAY be provided using element
 notation or attribute notation.
 :::
@@ -4899,19 +4590,14 @@ notation or attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.MyFavoriteModelElement" `
-:::
-
-`            ModelElementPath="/org.example.someAction" /> `
-
-` `
-
-`<Annotation Term="org.example.MyFavoriteModelElement"> `
-
-`  <ModelElementPath>/org.example.someAction</ModelElementPath> `
-
-`</Annotation>`
+<Annotation Term="org.example.MyFavoriteModelElement" 
+            ModelElementPath="/org.example.someAction" /> 
+ 
+<Annotation Term="org.example.MyFavoriteModelElement"> 
+  <ModelElementPath>/org.example.someAction</ModelElementPath> 
+</Annotation>
 ```
+:::
 
 #### ##subsubsubsec Navigation Property Path
 
@@ -4928,13 +4614,11 @@ e.g. a navigation property.
 The value of the navigation property path expression is the path itself,
 not the instance(s) identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:NavigationPropertyPath`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:NavigationPropertyPath` expression MAY be provided using
 element notation or attribute notation.
 :::
@@ -4942,30 +4626,22 @@ element notation or attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />`
+<Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
+ 
+<Annotation Term="Capabilities.UpdateRestrictions">`
 :::
-
-` `
-
-`<Annotation Term="Capabilities.UpdateRestrictions">`
 
 [[  \<Record\>\
     \<PropertyValue
 Property=\"NonUpdatableNavigationProperties\"\>]{style="color:black"}]{.Datatype}
 
-`      <Collection>`
-
-`        <NavigationPropertyPath>Supplier</NavigationPropertyPath>`
-
-`        <NavigationPropertyPath>Category</NavigationPropertyPath>`
-
-`      </Collection>`
-
-`    </PropertyValue>`
-
-`  </Record>`
-
-`</Annotation>`
+`      <Collection>
+        <NavigationPropertyPath>Supplier</NavigationPropertyPath>
+        <NavigationPropertyPath>Category</NavigationPropertyPath>
+      </Collection>
+    </PropertyValue>
+  </Record>
+</Annotation>
 ```
 
 #### ##subsubsubsec Property Path
@@ -4984,13 +4660,11 @@ The value of the property path expression is the path itself, not the
 value of the property or the value of the term cast identified by the
 path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:PropertyPath`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:PropertyPath` MAY be provided using either element notation or
 attribute notation.
 :::
@@ -4998,29 +4672,22 @@ attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />`
+<Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
+ `
 :::
-
-` `
 
 [[\<Annotation Term=\"Capabilities.UpdateRestrictions\"\>\
   \<Record\>\
     \<PropertyValue
 Property=\"NonUpdatableProperties\"\>]{style="color:black"}]{.Datatype}
 
-`      <Collection>`
-
-`        <PropertyPath>CreatedAt</PropertyPath>`
-
-`        <PropertyPath>ChangedAt</PropertyPath>`
-
-`      </Collection>`
-
-`    </PropertyValue>`
-
-`  </Record>`
-
-`</Annotation>`
+`      <Collection>
+        <PropertyPath>CreatedAt</PropertyPath>
+        <PropertyPath>ChangedAt</PropertyPath>
+      </Collection>
+    </PropertyValue>
+  </Record>
+</Annotation>
 ```
 
 #### ##subsubsubsec Value Path
@@ -5034,13 +4701,11 @@ argument is an [instance path](#PathExpressions).
 The value of the path expression is the instance or collection of
 instances identified by the path.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Path`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Path` expression MAY be provided using element notation or
 attribute notation.
 :::
@@ -5082,44 +4747,38 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData‑URL](#BMURL).
+handling for comparison operators see [OData‑URL](#ODataURL).
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 `Expressions edm:And and edm:Or`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `And` and `Or` logical expressions are represented as elements
 `edm:And` and `edm:Or` that MUST contain two annotation expressions.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`Expression `]{#_Toc37318965}`edm:Not`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Negation expressions are represented as an element `edm:Not` that MUST
 contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`Expressions `]{#_Toc37318966}`edm:Eq, edm:Ne, edm:Gt, edm:Ge, edm:Lt, edm:Le, edm:Has, and edm:In`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 All comparison expressions are represented as an element that MUST
 contain two annotation expressions.
 
@@ -5129,99 +4788,54 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: example
 Example ##ex:
 ```
-`<And>`
-:::
-
-`  <Path>IsMale</Path>`
-
-`  <Path>IsMarried</Path>`
-
-`</And>`
-
-`<Or>`
-
-`  <Path>IsMale</Path>`
-
-`  <Path>IsMarried</Path>`
-
-`</Or>`
-
-`<Not>`
-
-`  <Path>IsMale</Path>`
-
-`</Not>`
-
-`<Eq>`
-
-`  <Null />`
-
-`  <Path>IsMale</Path>`
-
-`</Eq>`
-
-`<Ne>`
-
-`  <Null />`
-
-`  <Path>IsMale</Path>`
-
-`</Ne>`
-
-`<Gt>`
-
-`  <Path>Price</Path>`
-
-`  <Int>20</Int>`
-
-`</Gt>`
-
-`<Ge>`
-
-`  <Path>Price</Path>`
-
-`  <Int>10</Int>`
-
-`</Ge>`
-
-`<Lt>`
-
-`  <Path>Price</Path>`
-
-`  <Int>20</Int>`
-
-`</Lt>`
-
-`<Le>`
-
-`  <Path>Price</Path>`
-
-`  <Int>100</Int>`
-
-`</Le>`
-
-`<Has>`
-
-`  <Path>Fabric</Path>`
-
-`  <EnumMember>org.example.Pattern/Red</EnumMember>`
-
-`</Has>`
-
-`<In>`
-
-`  <Path>Size</Path>`
-
-`  <Collection>`
-
-`    <String>XS</String>`
-
-`    <String>S</String>`
-
-`  </Collection>`
-
-`</In>`
+<And>
+  <Path>IsMale</Path>
+  <Path>IsMarried</Path>
+</And>
+<Or>
+  <Path>IsMale</Path>
+  <Path>IsMarried</Path>
+</Or>
+<Not>
+  <Path>IsMale</Path>
+</Not>
+<Eq>
+  <Null />
+  <Path>IsMale</Path>
+</Eq>
+<Ne>
+  <Null />
+  <Path>IsMale</Path>
+</Ne>
+<Gt>
+  <Path>Price</Path>
+  <Int>20</Int>
+</Gt>
+<Ge>
+  <Path>Price</Path>
+  <Int>10</Int>
+</Ge>
+<Lt>
+  <Path>Price</Path>
+  <Int>20</Int>
+</Lt>
+<Le>
+  <Path>Price</Path>
+  <Int>100</Int>
+</Le>
+<Has>
+  <Path>Fabric</Path>
+  <EnumMember>org.example.Pattern/Red</EnumMember>
+</Has>
+<In>
+  <Path>Size</Path>
+  <Collection>
+    <String>XS</String>
+    <String>S</String>
+  </Collection>
+</In>
 ```
+:::
 
 ### ##subsubsec Arithmetic Operators
 
@@ -5230,7 +4844,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData‑URL](#BMURL).
+[OData‑URL](#ODataURL).
 
   **Operator**   **Description**
   -------------- ---------------------------------------------------------------
@@ -5246,26 +4860,22 @@ The `Neg` operator requires a single operand expression that evaluates
 to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`Expression `]{#_Toc37318967}`edm:Neg`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 Negation expressions are represented as an element `edm:Neg` that MUST
 contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 [`Expressions `]{#_Toc37318968}`edm:Add, edm:Sub, edm:Mul, edm:Div, edm:DivBy, and edm:Mod`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 These arithmetic expressions are represented as an element that MUST
 contain two annotation expressions.
 
@@ -5275,61 +4885,35 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: example
 Example ##ex:
 ```
-`<Add>`
-:::
-
-`  <Path>StartDate</Path>`
-
-`  <Path>Duration</Path>`
-
-`</Add>`
-
-`<Sub>`
-
-`  <Path>Revenue</Path>`
-
-`  <Path>Cost</Path>`
-
-`</Sub>`
-
-`<Neg>`
-
-`  <Path>Height</Path>`
-
-`</Neg>`
-
-`<Mul>`
-
-`  <Path>NetPrice</Path>`
-
-`  <Path>TaxRate</Path>`
-
-`</Mul>`
-
-`<Div>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</Div>`
-
-`<DivBy>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</DivBy>`
-
-`<Mod>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</Mod>`
+<Add>
+  <Path>StartDate</Path>
+  <Path>Duration</Path>
+</Add>
+<Sub>
+  <Path>Revenue</Path>
+  <Path>Cost</Path>
+</Sub>
+<Neg>
+  <Path>Height</Path>
+</Neg>
+<Mul>
+  <Path>NetPrice</Path>
+  <Path>TaxRate</Path>
+</Mul>
+<Div>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</Div>
+<DivBy>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</DivBy>
+<Mod>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</Mod>
 ```
+:::
 
 ### ##subsubsec Apply Client-Side Function
 
@@ -5337,26 +4921,22 @@ The apply expression enables a value to be obtained by applying a
 client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the function.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Apply`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Apply` element MUST contain the `Function` attribute and MAY
 contain annotation expressions as operands for the applied function.
 
 It MAY contain more [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Function`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Function` is the [qualified name](#QualifiedName) of the
 client-side function to apply.
 :::
@@ -5368,10 +4948,10 @@ specification and its future versions.
 
 #### ##subsubsubsec Canonical Functions
 
-All canonical functions defined in [OData‑URL](#BMURL) can be used as
+All canonical functions defined in [OData‑URL](#ODataURL) can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData‑URL](#BMURL).
+counterpart function defined in [OData‑URL](#ODataURL).
 
 For example, the `odata.concat` client-side function takes two or more
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -5379,7 +4959,7 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData‑ABNF](#BMABNF), i.e. `Edm.Binary` as
+`primitiveValue` rule of [OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: example
@@ -5414,18 +4994,18 @@ The `odata.fillUriTemplate` client-side function takes two or more
 expressions as arguments and returns a value of type `Edm.String.`
 
 The first argument MUST be of type `Edm.String` and specifies a URI
-template according to [RFC6570](#BMRFC6570), the other arguments MUST be
+template according to [RFC6570](#rfc6570), the other arguments MUST be
 [labeled element expressions](#LabeledElement). Each [labeled element
 expression](#LabeledElement) specifies the template parameter name in
 its `Name` attribute and evaluates to the template parameter value.
 
-[RFC6570](#BMRFC6570) defines three kinds of template parameters: simple
+[RFC6570](#rfc6570) defines three kinds of template parameters: simple
 values, lists of values, and key-value maps.
 
 Simple values are represented as [labeled element
 expressions](#LabeledElement) that evaluate to a single primitive value.
 The literal representation of this value according to
-[OData‑ABNF](#BMABNF) is used to fill the corresponding template
+[OData‑ABNF](#ODataABNF) is used to fill the corresponding template
 parameter.
 
 Lists of values are represented as [labeled element
@@ -5510,28 +5090,25 @@ Example ##ex:
 
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
-rules as the `cast` canonical function defined in [OData‑URL](#BMURL).
+rules as the `cast` canonical function defined in
+[OData‑URL](#ODataURL).
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Cast`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Cast` element MUST contain the `Type` attribute and MUST
 contain exactly one expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Type` is a qualified type name in scope, or the character
 sequence `Collection(` followed by the qualified name of a type in
 scope, followed by a closing parenthesis `)`.
@@ -5563,13 +5140,11 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Collection`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Collection` element contains zero or more child expressions.
 :::
 
@@ -5612,13 +5187,11 @@ MUST be returned as the result of the if-then-else expression. If no
 third child element is present, nothing is added to the surrounding
 collection.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:If`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:If` element MUST contain two or three child expressions that
 MUST use element notation.
 
@@ -5647,26 +5220,22 @@ child expression is compatible with the specified type. It returns
 `true` if the child expression returns a type that is compatible with
 the specified type, and `false` otherwise.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:IsOf`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:IsOf` element MUST contain the `Type` attribute and MUST
 contain exactly one child expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Type` is the qualified name of a type in scope, or the
 character sequence `Collection(` followed by the qualified name of a
 type in scope, followed by a closing parenthesis `)`.
@@ -5705,13 +5274,11 @@ A labeled element expression MUST provide a [simple
 identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:LabeledElement`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:LabeledElement` element MUST contain the Name attribute.
 
 It MUST contain a child expression written either in attribute notation
@@ -5720,13 +5287,11 @@ or element notation.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Name`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Name` is the labeled element's name.
 :::
 
@@ -5754,13 +5319,11 @@ name](#QualifiedName) of a [labeled element expression](#LabeledElement)
 in scope and returns the value of the identified labeled element
 expression as its value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:LabeledElementReference`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The edm:LabeledElementReference element MUST contain the qualified name
 of a labeled element expression in its body.
 :::
@@ -5782,13 +5345,11 @@ expression MAY be annotated.
 
 The null expression MUST be written with element notation.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Null`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The edm:Null element MAY contain [`edm:Annotation`](#Annotation)
 elements.
 :::
@@ -5805,17 +5366,13 @@ Example ##ex:
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="@UI.Address">`
-:::
-
-`  <Null>`
-
-`    <Annotation Term="self.Reason" String="Private" />`
-
-`  </Null>`
-
-`</Annotation>`
+<Annotation Term="@UI.Address">
+  <Null>
+    <Annotation Term="self.Reason" String="Private" />
+  </Null>
+</Annotation>
 ```
+:::
 
 ### ##subsubsec Record
 
@@ -5839,36 +5396,30 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:Record`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:Record` element MAY contain the `Type` attribute and MAY
 contain `edm:PropertyValue` elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Type`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Type` is the qualified name of a structured type in scope.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Element `edm:PropertyValue`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:PropertyValue` element MUST contain the `Property` attribute,
 and it MUST contain exactly one expression that MAY be provided using
 either element notation or attribute notation.
@@ -5876,13 +5427,11 @@ either element notation or attribute notation.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Attribute `Property`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The value of `Property` is the name of a property of the type of the
 enclosing `edm:Record` expression.
 :::
@@ -5901,31 +5450,22 @@ that is pointing to a different service
 record\" /\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <PropertyValue Property="GivenName" Path="FirstName">`
-
-`      <Annotation Term="Core.Description" `
-
-`                  String="Annotation on record member" />`
+`    <PropertyValue Property="GivenName" Path="FirstName">
+      <Annotation Term="Core.Description" 
+                  String="Annotation on record member" />`
 
 [[    \</PropertyValue\>\
     \<PropertyValue Property=\"Surname\" Path=\"LastName\"
 /\>]{style="color:black"}]{.Datatype}
 
-`    <PropertyValue Property="DirectSupervisor" Path="Manager" />`
-
-`    <PropertyValue Property="CostCenter">`
-
-`      <UrlRef>`
-
-`        <Apply Function="odata.fillUriTemplate">`
-
-`          <String>http://host/anotherservice/CostCenters('{ccid}')</String> `
-
-`          <LabeledElement Name="ccid" Path="CostCenterID" /> `
-
-`        </Apply> `
-
-`      </UrlRef>`
+`    <PropertyValue Property="DirectSupervisor" Path="Manager" />
+    <PropertyValue Property="CostCenter">
+      <UrlRef>
+        <Apply Function="odata.fillUriTemplate">
+          <String>http://host/anotherservice/CostCenters('{ccid}')</String> 
+          <LabeledElement Name="ccid" Path="CostCenterID" /> 
+        </Apply> 
+      </UrlRef>`
 
 [[    \</PropertyValue\>\
   \</Record\>\
@@ -5948,13 +5488,11 @@ the` `URL reference expression. The result of the` edm:UrlRef`
 expression MUST be type compatible with the type expected by the
 surrounding element or expression.
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:0in"}
+::: csdlHeadline
 Expression `edm:UrlRef`
 :::
 
-::: {style="border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
-margin-left:21.55pt;margin-right:21.55pt"}
+::: csdl
 The `edm:UrlRef` expression MAY be provided using element notation or
 attribute notation.
 
@@ -5982,17 +5520,12 @@ Example ##ex:
 \</Annotation\>]{style="color:black"}]{.Datatype}
 :::
 
-` `
-
-`<Annotation Term="Core.LongDescription">`
-
-`  <UrlRef><String>http://host/wiki/HowToUse</String></UrlRef>`
-
-`</Annotation>`
-
-` `
-
-`<Annotation Term="Core.LongDescription" UrlRef="http://host/wiki/HowToUse" />`
+` 
+<Annotation Term="Core.LongDescription">
+  <UrlRef><String>http://host/wiki/HowToUse</String></UrlRef>
+</Annotation>
+ 
+<Annotation Term="Core.LongDescription" UrlRef="http://host/wiki/HowToUse" />
 ```
 
 # ##sec Identifier and Path Values
@@ -6027,7 +5560,7 @@ by at most 127 letters, underscores or digits.
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
-[OData‑ABNF](#BMABNF).
+[OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6038,13 +5571,10 @@ Target paths are used in attributes of CSDL elements to refer to other
 CSDL elements or their nested child elements.
 
 The allowed path expressions are:
-
-[[· ]{style="font-size:9.0pt;font-family:Symbol;
-color:black"}]{.apple-converted-space}The [qualified
+- The [qualified
 name](#QualifiedName) of an entity container, followed by a forward
 slash and the name of a container child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}The target
+- The target
 path of a container child followed by a forward slash and one or more
 forward-slash separated property, navigation property, or type-cast
 segments
@@ -6074,7 +5604,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 ::: example
 Example ##ex:
 ```
-`<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
 :::
 
 [[           xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"
@@ -6082,19 +5612,13 @@ Version=\"4.0\"\>\
   \<edmx:Reference
 Uri=\"https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml\"\>]{style="color:black"}]{.Datatype}
 
-`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">`
-
-`      <Annotation Term="Core.DefaultNamespace" />`
-
-`    </edmx:Include>`
-
-`  </edmx:Reference>`
-
-`  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">`
-
-`    <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />`
-
-`  </edmx:Reference>`
+`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
+      <Annotation Term="Core.DefaultNamespace" />
+    </edmx:Include>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />
+  </edmx:Reference>`
 
 [[  \<edmx:DataServices\>\
     \<Schema Namespace=\"ODataDemo\"\>\
@@ -6118,15 +5642,11 @@ Scale=\"variable\"\>\
           \<Annotation Term=\"Measures.ISOCurrency\" Path=\"Currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`        </Property>`
-
-`        <Property Name="Currency" Type="Edm.String" MaxLength="3" />`
-
-`        <NavigationProperty Name="Category" Type="ODataDemo.Category"`
-
-`                            Nullable="false" Partner="Products" />`
-
-`        <NavigationProperty Name="Supplier" Type="ODataDemo.Supplier"`
+`        </Property>
+        <Property Name="Currency" Type="Edm.String" MaxLength="3" />
+        <NavigationProperty Name="Category" Type="ODataDemo.Category"
+                            Nullable="false" Partner="Products" />
+        <NavigationProperty Name="Supplier" Type="ODataDemo.Supplier"`
 
 [[                            Partner=\"Products\" /\>\
       \</EntityType\>\
@@ -6141,9 +5661,8 @@ Nullable=\"false\"\>\
           \<Annotation Term=\"Core.IsLanguageDependent\"
 /\>]{style="color:black"}]{.Datatype}
 
-`        </Property>`
-
-`        <NavigationProperty Name="Products" Partner="Category"`
+`        </Property>
+        <NavigationProperty Name="Products" Partner="Category"`
 
 [[                            Type=\"Collection(ODataDemo.Product)\"\>\
           \<OnDelete Action=\"Cascade\"
@@ -6170,19 +5689,13 @@ Partner=\"Supplier\"]{style="color:black"}]{.Datatype}
 [[      \</EntityType\>\
       \<EntityType Name=\"Country\"\>]{style="color:black"}]{.Datatype}
 
-`        <Key>`
-
-`          <PropertyRef Name="Code" />`
-
-`        </Key>`
-
-`        <Property Name="Code" Type="Edm.String" MaxLength="2" `
-
-`                              Nullable="false" />`
-
-`        <Property Name="Name" Type="Edm.String" />`
-
-`      </EntityType>`
+`        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" MaxLength="2" 
+                              Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>`
 
 [[      \<ComplexType Name=\"Address\"\>\
         \<Property Name=\"Street\" Type=\"Edm.String\" /\>\
@@ -6193,11 +5706,9 @@ Partner=\"Supplier\"]{style="color:black"}]{.Datatype}
         \<NavigationProperty Name=\"Country\"
 Type=\"ODataDemo.Country\"\>]{style="color:black"}]{.Datatype}
 
-`          <ReferentialConstraint Property="CountryName"  `
-
-`                                 ReferencedProperty="Name" />`
-
-`        </NavigationProperty>`
+`          <ReferentialConstraint Property="CountryName"  
+                                 ReferencedProperty="Name" />
+        </NavigationProperty>`
 
 [[      \</ComplexType\>\
       \<Function Name=\"ProductsByRating\"\>\
@@ -6226,32 +5737,23 @@ EntityType=\"ODataDemo.Supplier\"\>\
           \<NavigationPropertyBinding Path=\"Products\"
 Target=\"Products\" /\>]{style="color:black"}]{.Datatype}
 
-`          <NavigationPropertyBinding Path="Address/Country"`
-
-`                                     Target="Countries" />`
-
-`          <Annotation Term="Core.OptimisticConcurrency">`
-
-`            <Collection>`
-
-`              <PropertyPath>Concurrency</PropertyPath>`
-
-`            </Collection>`
-
-`          </Annotation>`
+`          <NavigationPropertyBinding Path="Address/Country"
+                                     Target="Countries" />
+          <Annotation Term="Core.OptimisticConcurrency">
+            <Collection>
+              <PropertyPath>Concurrency</PropertyPath>
+            </Collection>
+          </Annotation>`
 
 [[        \</EntitySet\>\
         \<Singleton Name=\"MainSupplier\" Type=\"self.Supplier\"\>\
           \<NavigationPropertyBinding Path=\"Products\"
 Target=\"Products\" /\>]{style="color:black"}]{.Datatype}
 
-`          <Annotation Term="Core.Description" String="Primary Supplier" />`
-
-`        </Singleton>`
-
-`        <EntitySet Name="Countries" EntityType="ODataDemo.Country" />`
-
-`        <FunctionImport Name="ProductsByRating" EntitySet="Products"`
+`          <Annotation Term="Core.Description" String="Primary Supplier" />
+        </Singleton>
+        <EntitySet Name="Countries" EntityType="ODataDemo.Country" />
+        <FunctionImport Name="ProductsByRating" EntitySet="Products"`
 
 [[                        Function=\"ODataDemo.ProductsByRating\" /\>\
       \</EntityContainer\>\
@@ -6272,13 +5774,10 @@ Example ##ex:
 /\>]{style="color:black"}]{.Datatype}
 :::
 
-`  </edmx:Reference>`
-
-`  <edmx:Reference Uri="http://somewhere/Vocabulary/V1">`
-
-`    <edmx:Include Alias="Vocabulary1" Namespace="Some.Vocabulary.V1" />`
-
-`  </edmx:Reference>`
+`  </edmx:Reference>
+  <edmx:Reference Uri="http://somewhere/Vocabulary/V1">
+    <edmx:Include Alias="Vocabulary1" Namespace="Some.Vocabulary.V1" />
+  </edmx:Reference>`
 
 [[  \<edmx:DataServices\>\
     \<Schema xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"\
@@ -6301,19 +5800,13 @@ Example ##ex:
       \<Annotations
 Target=\"ODataDemo.Product\"\>]{style="color:black"}]{.Datatype}
 
-`        <Annotation Term="Vocabulary1.Tags">`
-
-`          <Collection>`
-
-`            <String>MasterData</String>`
-
-`          </Collection>`
-
-`        </Annotation>`
-
-`      </Annotations>`
-
-`  </Schema>`
+`        <Annotation Term="Vocabulary1.Tags">
+          <Collection>
+            <String>MasterData</String>
+          </Collection>
+        </Annotation>
+      </Annotations>
+  </Schema>`
 
 [[  \</edmx:DataServices\>\
 \</edmx:Edmx\>]{style="color:black"}]{.Datatype}
@@ -6386,7 +5879,7 @@ this version of the specification.
 Appendix A. [Acknowledgments](#Acknowledgments)
 
 The contributions of the OASIS OData Technical Committee members,
-enumerated in [OData‑Protocol](#BMProtocol), are gratefully
+enumerated in [OData‑Protocol](#ODataProtocol), are gratefully
 acknowledged.
 
 Appendix B. [Table of XML Elements and

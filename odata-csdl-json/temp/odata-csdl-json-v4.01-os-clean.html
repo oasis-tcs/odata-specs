@@ -19,7 +19,7 @@ Version 4.01</title>
 href="#EntityModel">Entity Model</a>. The Common Schema Definition Language
 (CSDL) defines a representation of the entity model exposed by an OData service
 using the JavaScript Object Notation (JSON)<span style='color:black'>, see<span
-class=apple-converted-space> </span></span><b>[</b><a href="#rfc_JSON"><b>RFC8259</b></a><b>]</b>.</p>
+class=apple-converted-space> </span></span><b>[</b><a href="#rfc8259"><b>RFC8259</b></a><b>]</b>.</p>
 
 <p class=MsoNormal>This format is based on the OpenUI5 OData V4 Metadata JSON
 Format, see <b>[</b><a href="#OpenUI5"><b>OpenUI5</b></a><b>]</b>, with some
@@ -188,12 +188,12 @@ margin-left:0in;border:none;padding:0in'>Normative representation-specific text<
 
 <p class=MsoNormal>OData CSDL JSON is a full representation of the OData Common
 Schema Definition Language in the JavaScript Object Notation (JSON) defined in <b>[</b><a
-href="#rfc_JSON"><b>RFC8259</b></a><b>]</b>. It additionally follows the rules
+href="#rfc8259"><b>RFC8259</b></a><b>]</b>. It additionally follows the rules
 for “Internet JSON” (I-JSON) defined in <b>[</b><a href="#rfc7493"><b>RFC7493</b></a><b>]</b>
 for e.g. objects, numbers, date values, and duration values.</p>
 
 <p class=MsoNormal>It is an alternative to the CSDL XML representation defined
-in <b>[</b><a href="#CSDLxml"><b>OData-CSDLXML</b></a><b>]</b> and neither adds
+in <b>[</b><a href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>]</b> and neither adds
 nor removes features.</p>
 
 <h2>##subsec Requesting the JSON Representation</h2>
@@ -252,7 +252,7 @@ Control Information</h3>
 
 <p class=MsoNormal>The representation of constant annotation values in CSDL JSON
 documents closely follows the representation of data defined in <a
-href="#BMJSON">OData&#8209;JSON</a>.</p>
+href="#ODataJSON">OData&#8209;JSON</a>.</p>
 
 <p class=MsoNormal>A client application can use the <code>metadata</code>
 format parameter in the <code>Accept</code> header when
@@ -283,7 +283,7 @@ types, or</p>
 <p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
 Symbol'>· </span>Dynamic properties of open types.</p>
 
-<p class=MsoNormal>See <a href="#BMJSON">OData&#8209;JSON</a> for the
+<p class=MsoNormal>See <a href="#ODataJSON">OData&#8209;JSON</a> for the
 exact rules.</p>
 
 <h4>##subsubsubsec <code>metadata=full</code></h4>
@@ -295,7 +295,7 @@ explicitly in the payload. </p>
 <p class=MsoNormal>This means that the <code>@type</code>
 control information is included in annotation values except for primitive
 values whose type can be heuristically determined from the representation of
-the value, see <a href="#BMJSON">OData&#8209;JSON</a> for the exact
+the value, see <a href="#ODataJSON">OData&#8209;JSON</a> for the exact
 rules.</p>
 
 <h4>##subsubsubsec <code>metadata=none</code></h4>
@@ -319,19 +319,19 @@ locally unique name as the member name.</p>
 <p class=MsoNormal>To avoid name collisions, all fixed member names are
 prefixed with a dollar (<code>$</code>) sign and otherwise have
 the same name and capitalization as their counterparts in the CSDL XML
-representation <b>[</b><a href="#CSDLxml"><b>OData-CSDLXML</b></a><b>] </b>(with
+representation <b>[</b><a href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>] </b>(with
 one exception: the counterpart of the <code>EntitySet</code>
 element’s <code>EntityType</code> attribute is <a
 href="#EntitySet"><code>$Type</code></a>,
 to harmonize it with all other type references).</p>
 
 <p class=MsoNormal>Additional fixed members introduced by this specification
-and without counterpart in <b>[</b><a href="#CSDLxml"><b>OData-CSDLXML</b></a><b>]</b>
+and without counterpart in <b>[</b><a href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>]</b>
 are also prefixed with a dollar (<code>$</code>) sign and use
 upper-camel-case names. One of these is <code>$Kind</code> which
 represents the kind of model element. Its value is the upper-camel-case local
 name of the XML element representing this kind of model element in <b>[</b><a
-href="#CSDLxml"><b>OData-CSDLXML</b></a><b>]</b>, e.g. <code>EntityType</code>
+href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>]</b>, e.g. <code>EntityType</code>
 or <code>NavigationProperty</code>.</p>
 
 <p class=MsoNormal>While the XML representation of CSDL allows referencing
@@ -848,8 +848,8 @@ actions.</p>
 defined in section “<a href="#TypeFacets">Type Facets</a>”. </p>
 
 <p class=MsoNormal>See rule <code>primitiveLiteral</code> in <a
-href="#BMABNF">OData&#8209;ABNF</a> for the representation of
-primitive type values in URLs and <a href="#BMJSON">OData&#8209;JSON</a>
+href="#ODataABNF">OData&#8209;ABNF</a> for the representation of
+primitive type values in URLs and <a href="#ODataJSON">OData&#8209;JSON</a>
 for the representation in requests and responses.</p>
 
 <h2>##subsec Built-In Abstract Types</h2>
@@ -1094,11 +1094,11 @@ way.</p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt'>The <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation,
-defined in <a href="#BMVocCore">OData-VocCore</a>, MAY be used to
+defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to
 indicate a particular version of the referenced document. If the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is
 present, the <code>$schemaversion</code> system query option,
-defined <a href="#BMProtocol">OData&#8209;Protocol</a>, SHOULD
+defined <a href="#ODataProtocol">OData&#8209;Protocol</a>, SHOULD
 be used when retrieving the referenced schema document. </p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
@@ -1943,7 +1943,7 @@ indicate that it is also open.</p>
 <p class=MsoNormal>Note: structural and navigation properties MAY be returned
 by the service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
-properties on instances of any structured type, see <a href="#BMProtocol">OData&#8209;Protocol</a>.</p>
+properties on instances of any structured type, see <a href="#ODataProtocol">OData&#8209;Protocol</a>.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
 margin-left:21.55pt;margin-right:0in'>
@@ -1975,7 +1975,7 @@ additional structured information attached to the stream. Use a normal entity
 with one or more properties of type <code>Edm.Stream</code> if
 the structured data of the entity is the main topic of interest and the stream
 data is just additional information attached to the structured data. For more
-information on media entities see<b> </b><a href="#BMProtocol">OData&#8209;Protocol</a>.</p>
+information on media entities see<b> </b><a href="#ODataProtocol">OData&#8209;Protocol</a>.</p>
 
 <p class=MsoNormal>An entity type derived from a media entity type MUST
 indicate that it is also a media entity type.</p>
@@ -1983,7 +1983,7 @@ indicate that it is also a media entity type.</p>
 <p class=MsoNormal>Media entity types MAY specify a list of acceptable media
 types using an annotation with term <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a
-href="#BMVocCore">OData-VocCore</a>.</p>
+href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
 margin-left:21.55pt;margin-right:0in'>
@@ -2053,7 +2053,7 @@ types:</p>
 
 <p class=MsoNormal>Key property values MAY be language-dependent, but their
 values MUST be unique across all languages and the entity ids (defined in <a
-href="#BMProtocol">OData&#8209;Protocol</a>) MUST be language
+href="#ODataProtocol">OData&#8209;Protocol</a>) MUST be language
 independent.</p>
 
 <p class=MsoNormal>A key property MUST be a non-nullable primitive property of
@@ -2394,12 +2394,12 @@ one of these types.</p>
 <p class=MsoNormal>A collection-valued property MAY be annotated with the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a>
 term, defined in <br>
-<a href="#BMVocCore">OData-VocCore</a><b>)</b>, to specify that it
+<a href="#ODataVocCore">OData-VocCore</a><b>)</b>, to specify that it
 supports a stable ordering.</p>
 
 <p class=MsoNormal>A collection-valued property MAY be annotated with the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a>
-term, defined in <a href="#BMVocCore">OData-VocCore</a><b>)</b>, to
+term, defined in <a href="#ODataVocCore">OData-VocCore</a><b>)</b>, to
 specify that it supports inserting items into a specific ordinal position.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
@@ -2513,7 +2513,7 @@ margin-left:0in;border:none;padding:0in'>The value of <code>$MaxLength</code>
 is a positive integer. </p>
 
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
-margin-left:0in;border:none;padding:0in'>Note: <b>[</b><a href="#CSDLxml"><b>OData-CSDLXML</b></a><b>]</b>
+margin-left:0in;border:none;padding:0in'>Note: <b>[</b><a href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>]</b>
 defines a symbolic value <code>max</code> that is only allowed
 in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON
 documents at all. Services MAY instead specify the concrete maximum length supported
@@ -2540,7 +2540,7 @@ reduce the risk for unintended data loss.</p>
 <p class=MsoNormal>Note: duration properties supporting a granularity less than
 seconds (e.g. minutes, hours, days) can be annotated with term <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a
-href="#BMVocMeasures">OData-VocMeasures</a>.</p>
+href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
 margin-left:21.55pt;margin-right:0in'>
@@ -2814,7 +2814,7 @@ margin-left:21.55pt;margin-right:21.55pt'>
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>The value of <code>$DefaultValue</code>
 is the type-specific JSON representation of the default value of the property,
-see <b>[</b><a href="#BMJSON"><b>OData-JSON</b></a><b>]</b>. For properties of
+see <b>[</b><a href="#ODataJSON"><b>OData-JSON</b></a><b>]</b>. For properties of
 type <code>Edm.Decimal</code> and <code>Edm.Int64</code>
 the representation depends on the media type parameter <a
 href="#ControllingtheRepresentationofNumber"><code>IEEE754Compatible</code></a>.</p>
@@ -2978,13 +2978,13 @@ specified entity type MUST have a <a href="#Key">key</a> defined.</p>
 <p class=MsoNormal>A collection-valued navigation property MAY be annotated
 with the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a>
-term, defined in <a href="#BMVocCore">OData-VocCore</a><b>)</b>, to
+term, defined in <a href="#ODataVocCore">OData-VocCore</a><b>)</b>, to
 specify that it supports a stable ordering.</p>
 
 <p class=MsoNormal>A collection-valued navigation property MAY be annotated
 with the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a>
-term, defined in <a href="#BMVocCore">OData-VocCore</a><b>)</b>, to
+term, defined in <a href="#ODataVocCore">OData-VocCore</a><b>)</b>, to
 specify that it supports inserting items into a specific ordinal position.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
@@ -3103,7 +3103,7 @@ navigation property, either directly or indirectly via a property of complex
 type, contain the entities referenced by the containment navigation property.
 The canonical URL for contained entities is the canonical URL of the containing
 instance, followed by the path segment of the navigation property and the key
-of the contained entity, see <a href="#BMURL">OData&#8209;URL</a>. </p>
+of the contained entity, see <a href="#ODataURL">OData&#8209;URL</a>. </p>
 
 <p class=MsoNormal>Entity types used in collection-valued containment
 navigation properties MUST have a <a href="#Key">key</a> defined.</p>
@@ -3111,7 +3111,7 @@ navigation properties MUST have a <a href="#Key">key</a> defined.</p>
 <p class=MsoNormal>For items of an ordered collection of complex types (those
 annotated with the <a
 href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a>
-term defined in <a href="#BMVocCore">OData-VocCore</a><b>)</b>, the
+term defined in <a href="#ODataVocCore">OData-VocCore</a><b>)</b>, the
 canonical URL of the item is the canonical URL of the collection appended with
 a segment containing the zero-based ordinal of the item. Items within in an
 unordered collection of complex types do not have a canonical URL. Services
@@ -3577,7 +3577,7 @@ indicate that it is also open.</p>
 <p class=MsoNormal>Note: structural and navigation properties MAY be returned
 by the service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
-properties on instances of any structured type, see <a href="#BMProtocol">OData&#8209;Protocol</a>.</p>
+properties on instances of any structured type, see <a href="#ODataProtocol">OData&#8209;Protocol</a>.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
 margin-left:21.55pt;margin-right:0in'>
@@ -3615,7 +3615,7 @@ its schema.</p>
 the preferred representation for an enumeration value is the member name.
 Discrete sets of numeric values should be represented as numeric values
 annotated with the <code>AllowedValues</code> annotation defined
-in <a href="#BMVocCore">OData-VocCore</a>.</p>
+in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal>Enumeration types marked as flags allow values that consist
 of more than one enumeration member at a time.</p>
@@ -5380,7 +5380,7 @@ model.</p>
 
 <p class=MsoNormal><i>Instance annotations</i> are terms applied to a
 particular instance within an OData payload, such as described in <a
-href="#BMJSON">OData&#8209;JSON</a>. An instance annotation can be
+href="#ODataJSON">OData&#8209;JSON</a>. An instance annotation can be
 used to define additional information associated with a particular result,
 entity, property, or error. For example, whether a property is read-only for a
 particular instance. Where the same annotation is defined at both the metadata
@@ -5392,7 +5392,7 @@ be specified as metadata annotations.</p>
 where each <a href="#Term">term </a>is a named metadata extension. Anyone
 can define a vocabulary (a set of terms) that is scenario-specific or
 company-specific; more commonly used terms can be published as shared
-vocabularies such as the OData Core vocabulary <a href="#BMVocCore">OData-VocCore</a>.</p>
+vocabularies such as the OData Core vocabulary <a href="#ODataVocCore">OData-VocCore</a>.</p>
 
 <p class=MsoNormal>A <a href="#Term">term </a>can be used to:</p>
 
@@ -5591,11 +5591,11 @@ margin-left:21.55pt;margin-right:21.55pt'>
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>The value of <code>$DefaultValue</code>
 is the type-specific JSON representation of the default value of the term, see <b>[</b><a
-href="#BMJSON"><b>OData-JSON</b></a><b>]</b>.</p>
+href="#ODataJSON"><b>OData-JSON</b></a><b>]</b>.</p>
 
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>Note: the <code>$DefaultValue</code>
-member is purely for documentation and isomorphy to <b>[</b><a href="#CSDLxml"><b>OData-CSDLXML</b></a><b>]</b>.
+member is purely for documentation and isomorphy to <b>[</b><a href="#ODataCSDL"><b>OData-CSDLXML</b></a><b>]</b>.
 Annotations in CSDL JSON documents MUST always specify an explicit value.</p>
 
 </div>
@@ -6037,7 +6037,7 @@ above that identify model elements the term is intended to be applied to.</p>
 <p class=MsoCaption>Example 39: the <code>IsURL</code> term can
 be applied to properties and terms that are of type <code>Edm.String</code>
 (the <code>Core.Tag</code> type and the two <code>Core</code> terms
-are defined in <a href="#BMVocCore">OData&#8209;VocCore</a>)</p>
+are defined in <a href="#ODataVocCore">OData&#8209;VocCore</a>)</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6463,7 +6463,7 @@ margin-left:0in;border:none;padding:0in'>Date expressions are represented as a
 string containing the date value. The value MUST conform to type <code>xs:date</code>, see <a href="#BMXMLSchema2"><b>[XML&#8209;Schema&#8209;2]</b></a>,
 <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value
 MUST also conform to rule <code>dateValue</code> in <a
-href="#BMABNF">OData&#8209;ABNF</a>, i.e. it MUST NOT contain a
+href="#ODataABNF">OData&#8209;ABNF</a>, i.e. it MUST NOT contain a
 time-zone offset.</p>
 
 </div>
@@ -6491,7 +6491,7 @@ to type <code>xs:dateTimeStamp</code>, see <a
 href="#BMXMLSchema2"><b>[XML&#8209;Schema&#8209;2]</b></a>, <a
 href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>.
 The value MUST also conform to rule <code>dateTimeOffsetValue</code>
-in <a href="#BMABNF">OData&#8209;ABNF</a>, i.e. it MUST NOT contain an
+in <a href="#ODataABNF">OData&#8209;ABNF</a>, i.e. it MUST NOT contain an
 end-of-day fragment (24:00:00).</p>
 
 </div>
@@ -6659,7 +6659,7 @@ margin-left:21.55pt;margin-right:21.55pt'>
 
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>Guid expressions are represented as a
-string containing the uuid value. The value MUST conform to the rule <code>guidValue</code> in <a href="#BMABNF">OData&#8209;ABNF</a>.</p>
+string containing the uuid value. The value MUST conform to the rule <code>guidValue</code> in <a href="#ODataABNF">OData&#8209;ABNF</a>.</p>
 
 </div>
 
@@ -6738,7 +6738,7 @@ margin-left:21.55pt;margin-right:21.55pt'>
 margin-left:0in;border:none;padding:0in'>Time-of-day expressions are
 represented as a string containing the time-of-day value. The value MUST
 conform to the rule <code>timeOfDayValue</code> in <a
-href="#BMABNF">OData&#8209;ABNF</a>.</p>
+href="#ODataABNF">OData&#8209;ABNF</a>.</p>
 
 </div>
 
@@ -6784,7 +6784,7 @@ types, or of any model-defined type.</p>
 <h4>##subsubsubsec Path Syntax</h4>
 
 <p class=MsoNormal>Model paths and instance paths share a common syntax which
-is derived from the path expression syntax of URLs, see <a href="#BMURL">OData&#8209;URL</a>.</p>
+is derived from the path expression syntax of URLs, see <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <p class=MsoNormal>A path MUST be composed of zero or more path segments joined
 together by forward slashes (<code>/</code>). </p>
@@ -6940,7 +6940,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 
 <p class=MsoNormal>An instance path MAY contain path segments starting with an
 entity set or a collection-valued navigation property, then followed by a key
-predicate using parentheses-style convention, see <a href="#BMURL">OData&#8209;URL</a>.
+predicate using parentheses-style convention, see <a href="#ODataURL">OData&#8209;URL</a>.
 The key values are either primitive literals or instance paths. If the key
 value is a relative instance path, it is interpreted according to the same rule
 below as the instance path it is part of, <i>not</i> relative to the instance
@@ -7037,7 +7037,7 @@ non-null path MUST resolve to an annotation. </code></p>
 
 <p class=MsoNormal>A term or term property of type <code>Edm.AnnotationPath</code>
 can be annotated with term <code>Validation.AllowedTerms</code>
-(see <a href="#BMVocValidation">OData-VocValidation</a>) if its intended
+(see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended
 value is an annotation path that ends in a term cast with one of the listed
 terms.</p>
 
@@ -7426,7 +7426,7 @@ combined and they MAY be used anywhere instead of a Boolean expression. </p>
 <p class=MsoNormal>The <code>And</code> and <code>Or</code> operators require two operand expressions that
 evaluate to Boolean values. The <code>Not</code> operator
 requires a single operand expression that evaluates to a Boolean value. For
-details on null handling for comparison operators see <a href="#BMURL">OData&#8209;URL</a>.</p>
+details on null handling for comparison operators see <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <p class=MsoNormal>The other comparison operators require two operand
 expressions that evaluate to comparable values.</p>
@@ -7712,7 +7712,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 which evaluate to a numeric value. These expressions MAY be combined, and they MAY
 be used anywhere instead of a numeric expression of the appropriate type. The
 semantics and evaluation rules for each arithmetic expression is identical to
-the corresponding arithmetic operator defined in <a href="#BMURL">OData&#8209;URL</a>.</p>
+the corresponding arithmetic operator defined in <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <table class=OASISTable border=1 cellspacing=0 cellpadding=0 width=616
  style='width:462.15pt;margin-left:5.4pt;border-collapse:collapse;border:none'>
@@ -8046,9 +8046,9 @@ versions.</p>
 
 <h4>##subsubsubsec Canonical Functions</h4>
 
-<p class=MsoNormal>All canonical functions defined in <a href="#BMURL">OData&#8209;URL</a>
+<p class=MsoNormal>All canonical functions defined in <a href="#ODataURL">OData&#8209;URL</a>
 can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is
-identical to their counterpart function defined in <a href="#BMURL">OData&#8209;URL</a>.</p>
+identical to their counterpart function defined in <a href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <p class=MsoNormal>For example, the <code>odata.concat</code>
 client-side function takes two or more expressions as arguments. Each argument
@@ -8056,7 +8056,7 @@ MUST evaluate to a primitive or enumeration type. It returns a value of type <co
 of the results of the argument expressions. Values of primitive types other
 than <code>Edm.String</code> are represented according to the
 appropriate alternative in the <code>primitiveValue</code> rule
-of <a href="#BMABNF">OData&#8209;ABNF</a>, i.e. <code>Edm.Binary</code>
+of <a href="#ODataABNF">OData&#8209;ABNF</a>, i.e. <code>Edm.Binary</code>
 as <code>binaryValue</code>, <code>Edm.Boolean</code>
 as <code>booleanValue</code> etc.</p>
 
@@ -8121,20 +8121,20 @@ client-side function takes two or more expressions as arguments and returns a
 value of type <code>Edm.String.</code> </p>
 
 <p class=MsoNormal>The first argument MUST be of type <code>Edm.String</code>
-and specifies a URI template according to <a href="#BMRFC6570">RFC6570</a>,
+and specifies a URI template according to <a href="#rfc6570">RFC6570</a>,
 the other arguments MUST be <a href="#LabeledElement">labeled element
 expressions</a>. Each <a href="#LabeledElement">labeled element expression</a>
 specifies the template parameter name as its name and evaluates to the template
 parameter value.</p>
 
-<p class=MsoNormal><a href="#BMRFC6570">RFC6570</a> defines three
+<p class=MsoNormal><a href="#rfc6570">RFC6570</a> defines three
 kinds of template parameters: simple values, lists of values, and key-value
 maps. </p>
 
 <p class=MsoNormal>Simple values are represented as <a
 href="#LabeledElement">labeled element expressions</a> that evaluate to a
 single primitive value. The literal representation of this value according to <a
-href="#BMABNF">OData&#8209;ABNF</a><b> </b>is used to fill the
+href="#ODataABNF">OData&#8209;ABNF</a><b> </b>is used to fill the
 corresponding template parameter. </p>
 
 <p class=MsoNormal>Lists of values are represented as <a
@@ -8275,7 +8275,7 @@ background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
 <p class=MsoNormal>The cast expression casts the value obtained from its single
 child expression to the specified type. The cast expression follows the same
 rules as the <code>cast</code> canonical function defined in <a
-href="#BMURL">OData&#8209;URL</a>.</p>
+href="#ODataURL">OData&#8209;URL</a>.</p>
 
 <div style='border:none;border-left:solid windowtext 1.0pt;padding:0in 0in 0in 8.0pt;
 margin-left:21.55pt;margin-right:0in'>
@@ -8701,7 +8701,7 @@ property name, and the member value is the property value expression.</p>
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>The type of a record expression is
 represented as the <code>@type</code> control information, see  <a
-href="#BMJSON">OData&#8209;JSON</a>.</p>
+href="#ODataJSON">OData&#8209;JSON</a>.</p>
 
 <p class=Member style='margin-top:4.0pt;margin-right:0in;margin-bottom:4.0pt;
 margin-left:0in;border:none;padding:0in'>It MAY contain <a
@@ -8927,7 +8927,7 @@ underscore, followed by at most 127 letters, underscores or digits.</p>
 <p class=MsoNormal>For model elements that are direct children of a schema: the
 namespace or alias of the schema that defines the model element, followed by a
 dot and the name of the model element, see rule <code>qualifiedTypeName</code>
-in <a href="#BMABNF">OData&#8209;ABNF</a>.</p>
+in <a href="#ODataABNF">OData&#8209;ABNF</a>.</p>
 
 <p class=MsoNormal>For built-in <a href="#PrimitiveTypes">primitive types</a>:
 the name of the type, prefixed with <code>Edm</code> followed by
@@ -9669,7 +9669,7 @@ Symbol'>· </span>Jens Ittel (SAP SE)</p>
 Symbol'>· </span>Patric Ksinsik (SAP SE)</p>
 
 <p class=MsoNormal>The contributions of the OASIS OData Technical Committee
-members, enumerated in <a href="#BMProtocol">ODataProtocol</a>, are
+members, enumerated in <a href="#ODataProtocol">ODataProtocol</a>, are
 gratefully acknowledged. </p>
 
 
