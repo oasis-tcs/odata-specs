@@ -4072,28 +4072,23 @@ properties targeted via the declaring structured type.
 The allowed path expressions are:
 - [qualified name](#QualifiedName)
 of schema child
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of schema child followed by a forward slash and
 name of child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of structured type followed by zero or more
 property, navigation property, or type-cast segments, each segment
 starting with a forward slash
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName) of an entity container followed by a segment
 containing a singleton or entity set name and zero or more property,
 navigation property, or type-cast segments
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName)[ of an action followed by parentheses containing
 the binding parameter *type* of a bound action overload to identify that
 bound overload, or by empty parentheses to identify the unbound
 overload]{style="color:black;background:white"}
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}[qualified
+- [qualified
 name](#QualifiedName)[ of a function followed by parentheses containing
 the comma-separated list of the parameter *types* of a bound or unbound
 function overload in the order of their definition in the function
@@ -6023,8 +6018,7 @@ The allowed path expressions are:
 - The [qualified
 name](#QualifiedName) of an entity container, followed by a forward
 slash and the name of a container child element
-
-[· ]{style="font-size:9.0pt;font-family:Symbol;color:black"}The target
+- The target
 path of a container child followed by a forward slash and one or more
 forward-slash separated property, navigation property, or type-cast
 segments

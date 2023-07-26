@@ -2452,9 +2452,7 @@ and specify the `$` prefix.
 
 The result of the request MUST be as if the system query options were
 evaluated in the following order.
-
-[· ]{style="font-family:
-Symbol;color:black"}[`$schemaversion`](#SystemQueryOptionschemaversion)
+- [`$schemaversion`](#SystemQueryOptionschemaversion)
 MUST be evaluated first, because it may influence any further
 processing.
 
