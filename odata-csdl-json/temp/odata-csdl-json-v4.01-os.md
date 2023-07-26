@@ -534,7 +534,7 @@ the document object MUST contain the member `$EntityContainer`.
 :::
 
 ::: csdlHeadline
-[`$Version`]{#_Toc37317365}
+`$Version`
 :::
 
 ::: csdl
@@ -542,7 +542,7 @@ The value of `$Version` is a string containing either `4.0` or `4.01`.
 :::
 
 ::: csdlHeadline
-[`$EntityContainer`]{#_Toc37317366}
+`$EntityContainer`
 :::
 
 ::: csdl
@@ -589,7 +589,7 @@ annotation is present, the `$schemaversion` system query option, defined
 referenced schema document.
 
 ::: csdlHeadline
-[`$Reference`]{#_Toc37317367}
+`$Reference`
 :::
 
 ::: csdl
@@ -666,7 +666,7 @@ An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
 ::: csdlHeadline
-[`$Include`]{#_Toc37317369}
+`$Include`
 :::
 
 ::: csdl
@@ -677,7 +677,7 @@ The item objects MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Namespace`]{#_Toc37317370}
+`$Namespace`
 :::
 
 ::: csdl
@@ -686,7 +686,7 @@ included schema.
 :::
 
 ::: csdlHeadline
-[`$Alias`]{#_Toc37317371}
+`$Alias`
 :::
 
 ::: csdl
@@ -771,7 +771,7 @@ not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
 ::: csdlHeadline
-[`$IncludeAnnotations`]{#_Toc37317372}
+`$IncludeAnnotations`
 :::
 
 ::: csdl
@@ -781,7 +781,7 @@ members `$Qualifier` and `$TargetNamespace`.
 :::
 
 ::: csdlHeadline
-[`$TermNamespace`]{#_Toc37317373}
+`$TermNamespace`
 :::
 
 ::: csdl
@@ -789,7 +789,7 @@ The value of `$TermNamespace` is a namespace.
 :::
 
 ::: csdlHeadline
-[`$Qualifier`]{#_Toc37317374}
+`$Qualifier`
 :::
 
 ::: csdl
@@ -797,7 +797,7 @@ The value of `$Qualifier` is a simple identifier.
 :::
 
 ::: csdlHeadline
-[`$TargetNamespace`]{#_Toc37317375}
+`$TargetNamespace`
 :::
 
 ::: csdl
@@ -840,15 +840,14 @@ The following annotations from `http://odata.org/ann/b` are included:
 - Annotations that use a
 term from the `org.example.validation` namespace, and
 - Annotations that use a
-term from the `org.example.display` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier and
+term from the `org.example.display` namespace and specify a `Tablet`
+qualifier and
 - Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
 `com.example.Sales` namespace and
 - Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
-`com.example.Person` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier.
+`com.example.Person` namespace and specify a `Tablet` qualifier.
 
 # ##sec Schema
 
@@ -914,7 +913,7 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 ::: csdlHeadline
-[`$Alias`]{#_Toc37317377}
+`$Alias`
 :::
 
 ::: csdl
@@ -940,7 +939,7 @@ description for the schema
 ## ##subsec Annotations with External Targeting
 
 ::: csdlHeadline
-[`$Annotations`]{#_Toc37317378}
+`$Annotations`
 :::
 
 ::: csdl
@@ -1041,7 +1040,7 @@ An entity type MUST NOT introduce an inheritance cycle by specifying a
 base type.
 
 ::: csdlHeadline
-[`$BaseType`]{#_Toc37317380}
+`$BaseType`
 :::
 
 ::: csdl
@@ -1084,7 +1083,7 @@ An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
 ::: csdlHeadline
-[`$Abstract`]{#_Toc37317381}
+`$Abstract`
 :::
 
 ::: csdl
@@ -1109,7 +1108,7 @@ properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
 ::: csdlHeadline
-[`$OpenType`]{#_Toc37317382}
+`$OpenType`
 :::
 
 ::: csdl
@@ -1141,7 +1140,7 @@ annotation with term
 see [OData-VocCore](#ODataVocCore).
 
 ::: csdlHeadline
-[`$HasStream`]{#_Toc37317383}
+`$HasStream`
 :::
 
 ::: csdl
@@ -1226,7 +1225,7 @@ used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
 ::: csdlHeadline
-[`$Key`]{#_Toc37317384}
+`$Key`
 :::
 
 ::: csdl
@@ -1404,7 +1403,7 @@ term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: csdlHeadline
-[`$Type` and]{#_Toc37317386} `$Collection`
+`$Type` and `$Collection`
 :::
 
 ::: csdl
@@ -1443,7 +1442,7 @@ A Boolean value specifying whether the property can have the value
 `null`.
 
 ::: csdlHeadline
-[`$Nullable`]{#_Toc37317387}
+`$Nullable`
 :::
 
 ::: csdl
@@ -1470,7 +1469,7 @@ If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
 ::: csdlHeadline
-[`$MaxLength`]{#_Toc37317388}
+`$MaxLength`
 :::
 
 ::: csdl
@@ -1506,7 +1505,7 @@ Note: duration properties supporting a granularity less than seconds
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: csdlHeadline
-[`$Precision`]{#_Toc37317389}
+`$Precision`
 :::
 
 ::: csdl
@@ -1557,7 +1556,7 @@ scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
 ::: csdlHeadline
-[`$Scale`]{#_Toc37317390}
+`$Scale`
 :::
 
 ::: csdl
@@ -1614,7 +1613,7 @@ Example ##ex: `Precision=7` and a floating `Scale`.\
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```
-[`"Amount7f": {`]{#_Toc475623943}
+`"Amount7f": {`
 :::
 
 `  "$Nullable": true,
@@ -1635,7 +1634,7 @@ limited to the ASCII character set.
 If no value is specified, the `Unicode` facet defaults to `true`.
 
 ::: csdlHeadline
-[`$Unicode`]{#_Toc37317391}
+`$Unicode`
 :::
 
 ::: csdl
@@ -1657,7 +1656,7 @@ The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [**\[EPSG\]**](#BMEPSG)**.**
 
 ::: csdlHeadline
-[`$SRID`]{#_Toc37317392}
+`$SRID`
 :::
 
 ::: csdl
@@ -1674,7 +1673,7 @@ the body of a request or response.
 If no value is specified, the client SHOULD NOT assume a default value.
 
 ::: csdlHeadline
-[`$DefaultValue`]{#_Toc37317393}
+`$DefaultValue`
 :::
 
 ::: csdl
@@ -1792,7 +1791,7 @@ term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: csdlHeadline
-[`$Type` and]{#_Toc37317395} `$Collection`
+`$Type` and `$Collection`
 :::
 
 ::: csdl
@@ -1814,7 +1813,7 @@ Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
 ::: csdlHeadline
-[`$Nullable`]{#_Toc37317396}
+`$Nullable`
 :::
 
 ::: csdl
@@ -1855,7 +1854,7 @@ navigation property is defined on a type derived from the type of the
 partner navigation property.
 
 ::: csdlHeadline
-[`$Partner`]{#_Toc37317397}
+`$Partner`
 :::
 
 ::: csdl
@@ -1931,7 +1930,7 @@ entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
 ::: csdlHeadline
-[`$ContainsTarget`]{#_Toc37317398}
+`$ContainsTarget`
 :::
 
 ::: csdl
@@ -1965,7 +1964,7 @@ property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
 ::: csdlHeadline
-[`$ReferentialConstraint`]{#_Toc37317399}
+`$ReferentialConstraint`
 :::
 
 ::: csdl
@@ -2042,7 +2041,7 @@ If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
 ::: csdlHeadline
-[`$OnDelete`]{#_Toc37317400}
+`$OnDelete`
 :::
 
 ::: csdl
@@ -2166,7 +2165,7 @@ The rules for annotations of derived complex types are described in
 section 14.2.
 
 ::: csdlHeadline
-[`$BaseType`]{#_Toc37317402}
+`$BaseType`
 :::
 
 ::: csdl
@@ -2179,7 +2178,7 @@ A complex type MAY indicate that it is abstract and cannot have
 instances.
 
 ::: csdlHeadline
-[`$Abstract`]{#_Toc37317403}
+`$Abstract`
 :::
 
 ::: csdl
@@ -2204,7 +2203,7 @@ properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
 ::: csdlHeadline
-[`$OpenType`]{#_Toc37317404}
+`$OpenType`
 :::
 
 ::: csdl
@@ -2274,7 +2273,7 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
 ::: csdlHeadline
-[`$UnderlyingType`]{#_Toc37317406}
+`$UnderlyingType`
 :::
 
 ::: csdl
@@ -2291,7 +2290,7 @@ If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
 ::: csdlHeadline
-[`$IsFlags`]{#_Toc37317407}
+`$IsFlags`
 :::
 
 ::: csdl
@@ -2467,7 +2466,7 @@ The underlying type of a type definition MUST be a primitive type that
 MUST NOT be another type definition.
 
 ::: csdlHeadline
-[`$UnderlyingType`]{#_Toc37317410}
+`$UnderlyingType`
 :::
 
 ::: csdl
@@ -2628,7 +2627,7 @@ orderby expression, or from the entity container through a [function
 import](#FunctionImport).
 
 ::: csdlHeadline
-[`$IsBound`]{#_Toc37317413}
+`$IsBound`
 :::
 
 ::: csdl
@@ -2656,7 +2655,7 @@ type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
 ::: csdlHeadline
-[`$EntitySetPath`]{#_Toc37317414}
+`$EntitySetPath`
 :::
 
 ::: csdl
@@ -2675,7 +2674,7 @@ composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
 ::: csdlHeadline
-[`$IsComposable`]{#_Toc37317415}
+`$IsComposable`
 :::
 
 ::: csdl
@@ -2698,7 +2697,7 @@ For a collection-valued return type the facets apply to the items in the
 returned collection.
 
 ::: csdlHeadline
-[`$ReturnType`]{#_Toc37317416}
+`$ReturnType`
 :::
 
 ::: csdl
@@ -2711,7 +2710,7 @@ It also MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Type` and]{#_Toc37317417} `$Collection`
+`$Type` and `$Collection`
 :::
 
 ::: csdl
@@ -2726,7 +2725,7 @@ Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
 ::: csdlHeadline
-[`$Nullable`]{#_Toc444868540}
+`$Nullable`
 :::
 
 ::: csdl
@@ -2772,7 +2771,7 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 ::: csdlHeadline
-[`$Parameter`]{#_Toc37317419}
+`$Parameter`
 :::
 
 ::: csdl
@@ -2794,7 +2793,7 @@ Parameter objects MAY also contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Name`]{#_Toc37317421}
+`$Name`
 :::
 
 ::: csdl
@@ -2802,7 +2801,7 @@ The value of `$Name` is a string containing the parameter name.
 :::
 
 ::: csdlHeadline
-[`$Type` and]{#_Toc37317422} `$Collection`
+`$Type` and `$Collection`
 :::
 
 ::: csdl
@@ -2817,7 +2816,7 @@ Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
 ::: csdlHeadline
-[`$Nullable`]{#_Toc444868544}
+`$Nullable`
 :::
 
 ::: csdl
@@ -3034,7 +3033,7 @@ containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
 ::: csdlHeadline
-[`$Extends`]{#_Toc37317425}
+`$Extends`
 :::
 
 ::: csdl
@@ -3096,7 +3095,7 @@ It MAY contain the members `$IncludeInServiceDocument` and
 :::
 
 ::: csdlHeadline
-[`$Collection`]{#_Toc37317427}
+`$Collection`
 :::
 
 ::: csdl
@@ -3104,7 +3103,7 @@ The value of `$Collection` is the Booelan value `true`.
 :::
 
 ::: csdlHeadline
-[`$Type`]{#_Toc37317428}
+`$Type`
 :::
 
 ::: csdl
@@ -3112,7 +3111,7 @@ The value of `$Type` is the qualified name of an entity type.
 :::
 
 ::: csdlHeadline
-[`$IncludeInServiceDocument`]{#_Toc37317429}
+`$IncludeInServiceDocument`
 :::
 
 ::: csdl
@@ -3149,7 +3148,7 @@ It MAY contain the member
 :::
 
 ::: csdlHeadline
-[`$Type`]{#_Toc37317431}
+`$Type`
 :::
 
 ::: csdl
@@ -3157,7 +3156,7 @@ The value of `$Type` is the qualified name of an entity type.
 :::
 
 ::: csdlHeadline
-[`$Nullable`]{#_Toc37317432}
+`$Nullable`
 :::
 
 ::: csdl
@@ -3238,7 +3237,7 @@ before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
 ::: csdlHeadline
-[`$NavigationPropertyBinding`]{#_Toc37317433}
+`$NavigationPropertyBinding`
 :::
 
 ::: csdl
@@ -3326,7 +3325,7 @@ It MAY also contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Action`]{#_Toc37317435}
+`$Action`
 :::
 
 ::: csdl
@@ -3335,7 +3334,7 @@ unbound action.
 :::
 
 ::: csdlHeadline
-[`$EntitySet`]{#_Toc37317436}
+`$EntitySet`
 :::
 
 ::: csdl
@@ -3385,7 +3384,7 @@ It MAY also contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Function`]{#_Toc37317438}
+`$Function`
 :::
 
 ::: csdl
@@ -3394,7 +3393,7 @@ unbound function.
 :::
 
 ::: csdlHeadline
-[`$EntitySet`]{#_Toc37317439}
+`$EntitySet`
 :::
 
 ::: csdl
@@ -3404,7 +3403,7 @@ entity set in a different entity container.
 :::
 
 ::: csdlHeadline
-[`$IncludeInServiceDocument`]{#_Toc37317440}
+`$IncludeInServiceDocument`
 :::
 
 ::: csdl
@@ -3538,7 +3537,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Type` and]{#_Toc37317442} `$Collection`
+`$Type` and `$Collection`
 :::
 
 ::: csdl
@@ -3553,7 +3552,7 @@ Absence of the `$Type` member means the type is `Edm.String`.
 :::
 
 ::: csdlHeadline
-[`$DefaultValue`]{#_Toc37317443}
+`$DefaultValue`
 :::
 
 ::: csdl
@@ -3576,7 +3575,7 @@ with the same qualifier, and so on until a term without a base term is
 reached.
 
 ::: csdlHeadline
-[`$BaseTerm`]{#_Toc37317444}
+`$BaseTerm`
 :::
 
 ::: csdl
@@ -3631,7 +3630,7 @@ the following symbolic values:
   `UrlRef`                  UrlRef annotation expression
 
 ::: csdlHeadline
-[`$AppliesTo`]{#_Toc37317445}
+`$AppliesTo`
 :::
 
 ::: csdl
@@ -4529,7 +4528,7 @@ The value of the path expression is the instance or collection of
 instances identified by the path.
 
 ::: csdlHeadline
-[`$Path`]{#_Toc37317447}
+`$Path`
 :::
 
 ::: csdl
@@ -4581,7 +4580,7 @@ The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
 ::: csdlHeadline
-[`$And and `]{#_Toc37317448}`$Or`
+`$And and ``$Or`
 :::
 
 ::: csdl
@@ -4593,7 +4592,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Not`]{#_Toc37317449}
+`$Not`
 :::
 
 ::: csdl
@@ -4604,7 +4603,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Eq, `]{#_Toc37317450}`$Ne, $Gt, $Ge, $Lt, $Le, $Has, and $In`
+`$Eq, ``$Ne, $Gt, $Ge, $Lt, $Le, $Has, and $In`
 :::
 
 ::: csdl
@@ -4738,7 +4737,7 @@ to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
 ::: csdlHeadline
-[`$Neg`]{#_Toc37317451}
+`$Neg`
 :::
 
 ::: csdl
@@ -4749,7 +4748,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: csdlHeadline
-[`$Add, `]{#_Toc37317452}`$Sub, $Mul, $Div, $DivBy, and $Mod`
+`$Add, ``$Sub, $Mul, $Div, $DivBy, and $Mod`
 :::
 
 ::: csdl
@@ -4840,7 +4839,7 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: csdlHeadline
-[`$Apply`]{#_Toc37317453}
+`$Apply`
 :::
 
 ::: csdl
@@ -5052,7 +5051,7 @@ rules as the `cast` canonical function defined in
 [OData‑URL](#ODataURL).
 
 ::: csdlHeadline
-[`$Cast`]{#_Toc37317454}
+`$Cast`
 :::
 
 ::: csdl
@@ -5133,7 +5132,7 @@ third expression is present, nothing is added to the surrounding
 collection.
 
 ::: csdlHeadline
-[`$If`]{#_Toc37317455}
+`$If`
 :::
 
 ::: csdl
@@ -5168,7 +5167,7 @@ child expression is compatible with the specified type. It returns
 the specified type, and `false` otherwise.
 
 ::: csdlHeadline
-[`$IsOf`]{#_Toc37317456}
+`$IsOf`
 :::
 
 ::: csdl
@@ -5215,7 +5214,7 @@ identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
 ::: csdlHeadline
-[`$LabeledElement`]{#_Toc37317457}
+`$LabeledElement`
 :::
 
 ::: csdl
@@ -5246,7 +5245,7 @@ in scope and returns the value of the identified labeled element
 expression as its value.
 
 ::: csdlHeadline
-[`$LabeledElementReference`]{#_Toc37317458}
+`$LabeledElementReference`
 :::
 
 ::: csdl
@@ -5282,7 +5281,7 @@ Example ##ex:
 :::
 
 ::: csdlHeadline
-[`$Null`]{#_Toc37317459}
+`$Null`
 :::
 
 ::: csdl
@@ -5390,7 +5389,7 @@ expression MUST be type compatible with the type expected by the
 surrounding expression.
 
 ::: csdlHeadline
-[`$UrlRef`]{#_Toc37317460}
+`$UrlRef`
 :::
 
 ::: csdl

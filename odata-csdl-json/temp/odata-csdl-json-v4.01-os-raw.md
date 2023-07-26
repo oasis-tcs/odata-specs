@@ -975,8 +975,8 @@ The following annotations from `http://odata.org/ann/b` are included:
 term from the `org.example.validation` namespace, and
 
 [· ]{style="font-family:Symbol;font-style:normal"}Annotations that use a
-term from the `org.example.display` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier and
+term from the `org.example.display` namespace and specify a `Tablet`
+qualifier and
 
 [· ]{style="font-family:Symbol;font-style:normal"}Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
@@ -984,8 +984,7 @@ a term from the `org.example.hcm` namespace to an element of the
 
 [· ]{style="font-family:Symbol;font-style:normal"}Annotations that apply
 a term from the `org.example.hcm` namespace to an element of the
-`com.example.Person` namespace and specify a
-[[Tablet]{style="font-size:10.0pt"}]{.Keyword} qualifier.
+`com.example.Person` namespace and specify a `Tablet` qualifier.
 
 # ##sec Schema
 
