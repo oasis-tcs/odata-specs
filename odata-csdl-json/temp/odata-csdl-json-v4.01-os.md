@@ -555,17 +555,13 @@ use of the alias-qualified name is not allowed.
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.01",`
-
-`  "$EntityContainer": "org.example.DemoService",`
-
-`  … `
-
-`}`
+{
+  "$Version": "4.01",
+  "$EntityContainer": "org.example.DemoService",
+  … 
+}
 ```
+:::
 
 ## ##subsec Reference
 
@@ -617,37 +613,23 @@ The reference object MAY contain the members
 ::: example
 Example ##ex: references to other CSDL documents
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://vocabs.odata.org/capabilities/v1": {`
-
-`      …`
-
-`    },`
-
-`    "http://vocabs.odata.org/core/v1": {`
-
-`      …`
-
-`    },`
-
-`    "http://example.org/display/v1": {`
-
-`      …`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      …
+    },
+    "http://vocabs.odata.org/core/v1": {
+      …
+    },
+    "http://example.org/display/v1": {
+      …
+    }
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec Included Schema
 
@@ -716,69 +698,39 @@ schema.
 Example ##ex: references to entity models containing definitions of
 vocabulary terms
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://vocabs.odata.org/capabilities/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Capabilities.V1",`
-
-`          "$Alias": "Capabilities"`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://vocabs.odata.org/core/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Core.V1",`
-
-`          "$Alias": "Core",`
-
-`          "@Core.DefaultNamespace": true`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://example.org/display/v1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "org.example.display",`
-
-`          "$Alias": "UI"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://vocabs.odata.org/capabilities/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Capabilities.V1",
+          "$Alias": "Capabilities"
+        }
+      ]
+    },
+    "http://vocabs.odata.org/core/v1": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Core.V1",
+          "$Alias": "Core",
+          "@Core.DefaultNamespace": true
+        }
+      ]
+    },
+    "http://example.org/display/v1": {
+      "$Include": [
+        {
+          "$Namespace": "org.example.display",
+          "$Alias": "UI"
+        }
+      ]
+    }
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec Included Annotations
 
@@ -855,59 +807,34 @@ The value of `$TargetNamespace` is a namespace.
 ::: example
 Example ##ex: reference documents that contain annotations
 ```
-`{`
-:::
-
-`  …`
-
-`  "$Reference": {`
-
-`    "http://odata.org/ann/b": {`
-
-`      "$IncludeAnnotations": [`
-
-`        {`
-
-`          "$TermNamespace": "org.example.validation"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.display",`
-
-`          "$Qualifier": "Tablet"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.hcm",`
-
-`          "$TargetNamespace": "com.example.Sales"`
-
-`        },`
-
-`        {`
-
-`          "$TermNamespace": "org.example.hcm",`
-
-`          "$Qualifier": "Tablet",`
-
-`          "$TargetNamespace": "com.example.Person"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  …`
-
-`}`
+{
+  …
+  "$Reference": {
+    "http://odata.org/ann/b": {
+      "$IncludeAnnotations": [
+        {
+          "$TermNamespace": "org.example.validation"
+        },
+        {
+          "$TermNamespace": "org.example.display",
+          "$Qualifier": "Tablet"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$TargetNamespace": "com.example.Sales"
+        },
+        {
+          "$TermNamespace": "org.example.hcm",
+          "$Qualifier": "Tablet",
+          "$TargetNamespace": "com.example.Person"
+        }
+      ]
+    }
+  },
+  …
+}
 ```
+:::
 
 The following annotations from `http://odata.org/ann/b` are included:
 - Annotations that use a
@@ -998,25 +925,17 @@ The value of `$Alias` is a string containing the alias for the schema.
 Example ##ex: document defining a schema `org.example` with an alias and a
 description for the schema
 ```
-`{`
-:::
-
-`  …`
-
-`  "org.example": {`
-
-`    "$Alias": "self", `
-
-`    "@Core.Description": "Example schema",`
-
-`    … `
-
-`  },`
-
-`  … `
-
-`}`
+{
+  …
+  "org.example": {
+    "$Alias": "self", 
+    "@Core.Description": "Example schema",
+    … 
+  },
+  … 
+}
 ```
+:::
 
 ## ##subsec Annotations with External Targeting
 
@@ -1035,25 +954,17 @@ target](#Target), the member value is an object containing
 Example ##ex: annotations targeting the `Person` type with qualifier
 `Tablet`
 ```
-`"org.example": {`
-:::
-
-`  "$Alias": "self", `
-
-`  "$Annotations": {`
-
-`    "self.Person": {`
-
-`      "@Core.Description#Tablet": "Dummy",`
-
-`      …`
-
-`    }`
-
-`  } `
-
-`},`
+"org.example": {
+  "$Alias": "self", 
+  "$Annotations": {
+    "self.Person": {
+      "@Core.Description#Tablet": "Dummy",
+      …
+    }
+  } 
+},
 ```
+:::
 
 # ##sec Entity Type
 
@@ -1101,35 +1012,22 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 ::: example
 Example ##ex: a simple entity type
 ```
-`"Employee": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {},`
-
-`  "FirstName": {},`
-
-`  "LastName": {},`
-
-`  "Manager": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Manager"`
-
-`  }`
-
-`}`
+"Employee": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "FirstName": {},
+  "LastName": {},
+  "Manager": {
+    "$Kind": "NavigationProperty",
+    "$Nullable": true,
+    "$Type": "self.Manager"
+  }
+}
 ```
+:::
 
 ## ##subsec Derived Entity Type
 
@@ -1153,35 +1051,22 @@ The value of `$BaseType` is the qualified name of the base type.
 ::: example
 Example ##ex: a derived entity type based on the previous example
 ```
-`"Manager": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$BaseType": "self.Employee",`
-
-`  "AnnualBudget": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Employees": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Employee"`
-
-`  }`
-
-`}`
+"Manager": {
+  "$Kind": "EntityType",
+  "$BaseType": "self.Employee",
+  "AnnualBudget": {
+    "$Nullable": true,
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Employees": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Employee"
+  }
+}
 ```
+:::
 
 Note: the derived type has the same name as one of the properties of its
 base type.
@@ -1358,118 +1243,71 @@ containing the path to the property.
 ::: example
 Example ##ex: entity type with a simple key
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true,`
-
-`    "@Core.IsLanguageDependent": true`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true,
+    "@Core.IsLanguageDependent": true
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    {`
-
-`      "EntityInfoID": "Info/ID"`
-
-`    }`
-
-`  ],`
-
-`  "Info": {`
-
-`    "$Type": "self.EntityInfo"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true`
-
-`  }`
-
-`},`
-
-`"EntityInfo": {`
-
-`  "$Kind": "ComplexType",`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Created": {`
-
-`    "$Type": "Edm.DateTimeOffset",`
-
-`    "$Precision": 0`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    {
+      "EntityInfoID": "Info/ID"
+    }
+  ],
+  "Info": {
+    "$Type": "self.EntityInfo"
+  },
+  "Name": {
+    "$Nullable": true
+  }
+},
+"EntityInfo": {
+  "$Kind": "ComplexType",
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Created": {
+    "$Type": "Edm.DateTimeOffset",
+    "$Precision": 0
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: entity type with a composite key
 ```
-`"OrderLine": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "OrderID",`
-
-`    "LineNumber"`
-
-`  ],`
-
-`  "OrderID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "LineNumber": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  }`
-
-`}`
+"OrderLine": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "OrderID",
+    "LineNumber"
+  ],
+  "OrderID": {
+    "$Type": "Edm.Int32"
+  },
+  "LineNumber": {
+    "$Type": "Edm.Int32"
+  }
+}
 ```
+:::
 
 Example 13 (based on example 11): requests to an entity set `Categories`
 of type `Category` must use the alias
@@ -1533,31 +1371,20 @@ It also MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex: complex type with two properties `Dimension` and `Length`
 ```
-`"Measurement": {`
-:::
-
-`  "$Kind": "ComplexType",`
-
-`  "Dimension": {`
-
-`    "$MaxLength": 50,`
-
-`    "$DefaultValue": "Unspecified"`
-
-`  },`
-
-`  "Length": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Precision": 18,`
-
-`    "$Scale": 2`
-
-`  }`
-
-`}`
+"Measurement": {
+  "$Kind": "ComplexType",
+  "Dimension": {
+    "$MaxLength": 50,
+    "$DefaultValue": "Unspecified"
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Precision": 18,
+    "$Scale": 2
+  }
+}
 ```
+:::
 
 ## ##subsec Type
 
@@ -1596,13 +1423,11 @@ member SHOULD be omitted for string properties to reduce document size.
 Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```
-`"Units": {`
-:::
-
-`  "$Collection": true`
-
-`}`
+"Units": {
+  "$Collection": true
+}
 ```
+:::
 
 ## ##subsec Type Facets
 
@@ -1693,17 +1518,13 @@ Absence of `$Precision` means arbitrary precision.
 ::: example
 Example ##ex: `Precision` facet applied to the `DateTimeOffset` type
 ```
-`"SuggestedTimes": {`
-:::
-
-`  "$Type": Edm.DateTimeOffset",`
-
-`  "$Collection": true,`
-
-`  "$Precision": 6`
-
-`}`
+"SuggestedTimes": {
+  "$Type": Edm.DateTimeOffset",
+  "$Collection": true,
+  "$Precision": 6
+}
 ```
+:::
 
 ### ##subsubsec Scale
 
@@ -1753,54 +1574,40 @@ Absence of `$Scale` means `variable`.
 Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
-`"Amount32": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 3,`
-
-`  "$Scale": 2`
-
-`}`
+"Amount32": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3,
+  "$Scale": 2
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=2` equals `Scale`.\
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
-`"Amount22": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 2,`
-
-`  "$Scale": 2`
-
-`}`
+"Amount22": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 2,
+  "$Scale": 2
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=3` and a variable `Scale`.\
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```
-`"Amount3v": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 3`
-
-`}`
+"Amount3v": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3
+}
 ```
+:::
 
 ::: example
 Example ##ex: `Precision=7` and a floating `Scale`.\
@@ -1810,15 +1617,11 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 [`"Amount7f": {`]{#_Toc475623943}
 :::
 
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Precision": 7,`
-
-`  "$Scale": "floating"`
-
-`}`
+`  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 7,
+  "$Scale": "floating"
+}
 ```
 
 ### ##subsubsec Unicode
@@ -1932,63 +1735,36 @@ It also MAY contain [annotations](#Annotation).
 Example ##ex: the `Product` entity type has a navigation property to a
 `Category`, which has a navigation link back to one or more products
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Category": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Category",`
-
-`    "$Partner": "Products",`
-
-`    "$ReferentialConstraint": {`
-
-`      "CategoryID": "ID"`
-
-`    }`
-
-`  },`
-
-`  "Supplier": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Supplier"`
-
-`  }`
-
-`},`
-
-`"Category": {`
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Products": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$Partner": "Category",`
-
-`    "$OnDelete": "Cascade",`
-
-`    "$OnDelete@Core.Description": "Delete all related entities"`
-
-`  }`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  …
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID"
+    }
+  },
+  "Supplier": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Supplier"
+  }
+},
+"Category": {
+  "$Kind": "EntityType",
+  …
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all related entities"
+  }
+}
 ```
+:::
 
 ## ##subsec Navigation Property Type
 
@@ -2211,61 +1987,35 @@ exist. The `CategoryID` of the product is identical to the `ID` of the
 category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "CategoryID": {},`
-
-`  "CategoryKind": {},`
-
-`  "Category": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Type": "self.Category",`
-
-`    "$Partner": "Products",`
-
-`    "$ReferentialConstraint": {`
-
-`      "CategoryID": "ID",`
-
-`      "CategoryKind": "Kind"`
-
-`      "CategoryKind@Core.Description": "Referential Constraint to non-key property"`
-
-`    }`
-
-`  }`
-
-`},`
-
-`"Category": {`
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {},`
-
-`  "Kind": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  …`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  …
+  "CategoryID": {},
+  "CategoryKind": {},
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID",
+      "CategoryKind": "Kind"
+      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
+    }
+  }
+},
+"Category": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "Kind": {
+    "$Nullable": true
+  },
+  …
+}
 ```
+:::
 
 ## ##subsec On-Delete Action
 
@@ -2307,31 +2057,20 @@ The value of `$OnDelete` is a string with one of the values `Cascade`,
 Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```
-`"Category": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  …`
-
-`  "Products": {`
-
-`    "$Kind": "NavigationProperty",`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$Partner": "Category",`
-
-`    "$OnDelete": "Cascade",`
-
-`    "$OnDelete@Core.Description": "Delete all products in this category"`
-
-`  }`
-
-`}`
+"Category": {
+  "$Kind": "EntityType",
+  …
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all products in this category"
+  }
+}
 ```
+:::
 
 # ##sec Complex Type
 
@@ -2376,73 +2115,41 @@ representing [structural properties](#StructuralProperty) and
 ::: example
 Example ##ex: a complex type used by two entity types
 ```
-`"Dimensions": {`
-:::
-
-`  "$Kind": "ComplexType",`
-
-`  "Height": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Weight": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  },`
-
-`  "Length": {`
-
-`    "$Type": "Edm.Decimal",`
-
-`    "$Scale": 0`
-
-`  }`
-
-`},`
-
-`"Product": {`
-
-`  …`
-
-`  "ProductDimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  },`
-
-`  "ShippingDimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  }`
-
-`},`
-
-`"ShipmentBox": {`
-
-`  …`
-
-`  "Dimensions": {`
-
-`    "$Nullable": true,`
-
-`    "$Type": "self.Dimensions"`
-
-`  }`
-
-`}`
+"Dimensions": {
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Weight": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  }
+},
+"Product": {
+  …
+  "ProductDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  },
+  "ShippingDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
+},
+"ShipmentBox": {
+  …
+  "Dimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
+}
 ```
+:::
 
 ## ##subsec Derived Complex Type
 
@@ -2547,25 +2254,17 @@ The enumeration type object MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex: a simple flags-enabled enumeration
 ```
-`"FileAccess": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "$UnderlyingType": "Edm.Int32",`
-
-`  "$IsFlags": true,`
-
-`  "Read": 1,`
-
-`  "Write": 2,`
-
-`  "Create": 4,`
-
-`  "Delete": 8`
-
-`}`
+"FileAccess": {
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Read": 1,
+  "Write": 2,
+  "Create": 4,
+  "Delete": 8
+}
 ```
+:::
 
 ## ##subsec Underlying Integer Type
 
@@ -2604,41 +2303,25 @@ The value of `$IsFlags` is one of the Boolean literals `true` or
 Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```
-`"Pattern": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "$UnderlyingType": "Edm.Int32",`
-
-`  "$IsFlags": true,`
-
-`  "Plain": 0,`
-
-`  "Red": 1,`
-
-`  "Blue": 2,`
-
-`  "Yellow": 4,`
-
-`  "Solid": 8,`
-
-`  "Striped": 16,`
-
-`  "SolidRed": 9,`
-
-`  "SolidBlue": 10,`
-
-`  "SolidYellow": 12,`
-
-`  "RedBlueStriped": 19,`
-
-`  "RedYellowStriped": 21,`
-
-`  "BlueYellowStriped": 22`
-
-`}`
+"Pattern": {
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Plain": 0,
+  "Red": 1,
+  "Blue": 2,
+  "Yellow": 4,
+  "Solid": 8,
+  "Striped": 16,
+  "SolidRed": 9,
+  "SolidBlue": 10,
+  "SolidYellow": 12,
+  "RedBlueStriped": 19,
+  "RedYellowStriped": 21,
+  "BlueYellowStriped": 22
+}
 ```
+:::
 
 ## ##subsec Enumeration Type Member
 
@@ -2683,27 +2366,18 @@ member name.
 Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```
-`"ShippingMethod": {`
-:::
-
-`  "$Kind": "EnumType",`
-
-`  "FirstClass": 0,`
-
-`  "FirstClass@Core.Description": "Shipped with highest priority",`
-
-`  "TwoDay": 1,`
-
-`  "TwoDay@Core.Description": "Shipped within two days",`
-
-`  "Overnight": 2,`
-
-`  "Overnight@Core.Description": "Shipped overnight",`
-
-`  "@Core.Description": "Method of shipping"`
-
-`}`
+"ShippingMethod": {
+  "$Kind": "EnumType",
+  "FirstClass": 0,
+  "FirstClass@Core.Description": "Shipped with highest priority",
+  "TwoDay": 1,
+  "TwoDay@Core.Description": "Shipped within two days",
+  "Overnight": 2,
+  "Overnight@Core.Description": "Shipped overnight",
+  "@Core.Description": "Method of shipping"
+}
 ```
+:::
 
 # ##sec Type Definition
 
@@ -3222,66 +2896,42 @@ Simple entity models frequently have one entity set per entity type.
 ::: example
 Example ##ex: one entity set per entity type
 ```
-`"Products": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Product"`
-
-`},`
-
-`"Categories": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category"`
-
-`}`
+"Products": {
+  "$Collection": true,
+  "$Type": "self.Product"
+},
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category"
+}
 ```
+:::
 
 Other entity models may expose multiple entity sets per type.
 
 ::: example
 Example ##ex: three entity sets referring to the two entity types
 ```
-`"StandardCustomers": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Customer",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Orders": "Orders"`
-
-`  }`
-
-`},`
-
-`"PreferredCustomers": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Customer",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Orders": "Orders"`
-
-`  }`
-
-`},`
-
-`"Orders": {`
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Order"`
-
-`}`
+"StandardCustomers": {
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
+},
+"PreferredCustomers": {
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
+},
+"Orders": {
+  "$Collection": true,
+  "$Type": "self.Order"
+}
 ```
+:::
 
 There are separate entity sets for standard customers and preferred
 customers, but only one entity set for orders. The entity sets for
@@ -3325,81 +2975,45 @@ well as [annotations](#Annotation).
 Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
 ```
-`"DemoService": {`
-:::
-
-`  "$Kind": "EntityContainer",`
-
-`  "Products": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Product",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Category": "Categories",`
-
-`      "Supplier": "Suppliers"`
-
-`    },`
-
-`    "@UI.DisplayName": "Product Catalog"`
-
-`  },`
-
-`  "Categories": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Category",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Products": "Products"`
-
-`    }`
-
-`  },`
-
-`  "Suppliers": {`
-
-`    "$Collection": true,`
-
-`    "$Type": "self.Supplier",`
-
-`    "$NavigationPropertyBinding": {`
-
-`      "Products": "Products"`
-
-`    },`
-
-`    "@UI.DisplayName": "Supplier Directory"`
-
-`  },`
-
-`  "MainSupplier": {`
-
-`    "$Type": "self.Supplier"`
-
-`  },`
-
-`  "LeaveRequestApproval": {`
-
-`    "$Action": "self.Approval"`
-
-`  },`
-
-`  "ProductsByRating": {`
-
-`    "$EntitySet": "Products",`
-
-`    "$Function": "self.ProductsByRating"`
-
-`  }`
-
-`}`
+"DemoService": {
+  "$Kind": "EntityContainer",
+  "Products": {
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$NavigationPropertyBinding": {
+      "Category": "Categories",
+      "Supplier": "Suppliers"
+    },
+    "@UI.DisplayName": "Product Catalog"
+  },
+  "Categories": {
+    "$Collection": true,
+    "$Type": "self.Category",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    }
+  },
+  "Suppliers": {
+    "$Collection": true,
+    "$Type": "self.Supplier",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    },
+    "@UI.DisplayName": "Supplier Directory"
+  },
+  "MainSupplier": {
+    "$Type": "self.Supplier"
+  },
+  "LeaveRequestApproval": {
+    "$Action": "self.Approval"
+  },
+  "ProductsByRating": {
+    "$EntitySet": "Products",
+    "$Function": "self.ProductsByRating"
+  }
+}
 ```
+:::
 
 ## ##subsec Extending an Entity Container
 
@@ -3639,60 +3253,42 @@ prefixed with the qualified entity container name.
 Example ##ex: for an entity set in the same container as the enclosing
 entity set `Categories`
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products": "SomeSet"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeSet"
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: for an entity set in any container in scope
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products": "SomeModel.SomeContainer/SomeSet"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeModel.SomeContainer/SomeSet"
+  }
+}
 ```
+:::
 
 ::: example
 Example ##ex: binding `Supplier` on `Products` contained within
 `Categories – binding applies to all suppliers of all products of all categories`
 ```
-`"Categories": {`
-:::
-
-`  "$Collection": true,`
-
-`  "$Type": "self.Category",`
-
-`  "$NavigationPropertyBinding": {`
-
-`    "Products/Supplier": "Suppliers"`
-
-`  }`
-
-`}`
+"Categories": {
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products/Supplier": "Suppliers"
+  }
+}
 ```
+:::
 
 ## ##subsec Action Import
 
@@ -3871,79 +3467,44 @@ of the property `Name`. The `Product` entity type also includes an
 annotation that allows its instances to be viewed as instances of the
 type specified by the term `SearchResult`
 ```
-`"Product": {`
-:::
-
-`  "$Kind": "EntityType",`
-
-`  "$Key": [`
-
-`    "ID"`
-
-`  ],`
-
-`  "ID": {`
-
-`    "$Type": "Edm.Int32"`
-
-`  },`
-
-`  "Name": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  "Description": {`
-
-`    "$Nullable": true`
-
-`  },`
-
-`  "@UI.DisplayName": {`
-
-`    "$Path": "Name"`
-
-`  },`
-
-`  "@SearchVocabulary.SearchResult": {`
-
-`    "Title": {`
-
-`      "$Path": "Name"`
-
-`    },`
-
-`    "Abstract": {`
-
-`      "$Path": "Description"`
-
-`    },`
-
-`    "Url": {`
-
-`      "$Apply": [`
-
-`        "Products(",`
-
-`        {`
-
-`          "$Path": "ID"`
-
-`        },`
-
-`        ")"`
-
-`      ],`
-
-`      "$Function": "odata.concat"`
-
-`    }`
-
-`  }`
-
-`}`
+"Product": {
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true
+  },
+  "Description": {
+    "$Nullable": true
+  },
+  "@UI.DisplayName": {
+    "$Path": "Name"
+  },
+  "@SearchVocabulary.SearchResult": {
+    "Title": {
+      "$Path": "Name"
+    },
+    "Abstract": {
+      "$Path": "Description"
+    },
+    "Url": {
+      "$Apply": [
+        "Products(",
+        {
+          "$Path": "ID"
+        },
+        ")"
+      ],
+      "$Function": "odata.concat"
+    }
+  }
+}
 ```
+:::
 
 ## ##subsec Term
 
@@ -4104,7 +3665,7 @@ MUST contain a valid URL\",
 
   \"@Core.RequiresType\": \"Edm.String\"
 
-`}`
+`}
 ```
 
 ## ##subsec Annotation
@@ -4150,45 +3711,27 @@ followed by the qualified name of a term, optionally followed by a hash
 Example ##ex: term `Measures.ISOCurrency`, once applied with a constant
 value, once with a path value
 ```
-`"AmountInReportingCurrency": {`
-:::
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Scale": 0,`
-
-`  "@Measures.ISOCurrency": "USD",`
-
-`  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"`
-
-`},`
-
-`"AmountInTransactionCurrency": {`
-
-`  "$Nullable": true,`
-
-`  "$Type": "Edm.Decimal",`
-
-`  "$Scale": 0,`
-
-`  "@Measures.ISOCurrency": {`
-
-`    "$Path": "Currency"`
-
-`  }`
-
-`},`
-
-`"Currency": {`
-
-`  "$Nullable": true,`
-
-`  "$MaxLength": 3`
-
-`}`
+"AmountInReportingCurrency": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Scale": 0,
+  "@Measures.ISOCurrency": "USD",
+  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"
+},
+"AmountInTransactionCurrency": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Scale": 0,
+  "@Measures.ISOCurrency": {
+    "$Path": "Currency"
+  }
+},
+"Currency": {
+  "$Nullable": true,
+  "$MaxLength": 3
+}
 ```
+:::
 
 If an entity type or complex type is annotated with a term that itself
 has a structured type, an instance of the annotated type may be viewed
@@ -4224,13 +3767,11 @@ identifies an annotation.
 ::: example
 Example ##ex: annotation should only be applied to tablet devices
 ```
-`"@UI.DisplayName#Tablet": {`
-:::
-
-`  "$Path": "FirstName"`
-
-`}`
+"@UI.DisplayName#Tablet": {
+  "$Path": "FirstName"
+}
 ```
+:::
 
 ### ##subsubsec Target
 
@@ -4406,7 +3947,7 @@ base64url-encoded binary value.
 ::: example
 Example ##ex: base64url-encoded binary value (OData)
 ```
-`"@UI.Thumbnail": "T0RhdGE"`
+"@UI.Thumbnail": "T0RhdGE"
 ```
 :::
 
@@ -4419,7 +3960,7 @@ Boolean expressions are represented as the literals `true` or `false`.
 ::: example
 Example ##ex:
 ```
-`"@UI.ReadOnly": true`
+"@UI.ReadOnly": true
 ```
 :::
 
@@ -4437,7 +3978,7 @@ NOT contain a time-zone offset.
 ::: example
 Example ##ex:
 ```
-`"@vCard.birthDay": "2000-01-01"`
+"@vCard.birthDay": "2000-01-01"
 ```
 :::
 
@@ -4456,7 +3997,7 @@ fragment (24:00:00).
 ::: example
 Example ##ex:
 ```
-`"@UI.LastUpdated": "2000-01-01T16:00:00.000Z"`
+"@UI.LastUpdated": "2000-01-01T16:00:00.000Z"
 ```
 :::
 
@@ -4473,14 +4014,14 @@ media type parameter
 ::: example
 Example ##ex: default representation as a number
 ```
-`"@UI.Width": 3.14`
+"@UI.Width": 3.14
 ```
 :::
 
 ::: example
 Example ##ex: "safe" representation as a string
 ```
-`"@UI.Width": "3.14"`
+"@UI.Width": "3.14"
 ```
 :::
 
@@ -4496,7 +4037,7 @@ value. The value MUST conform to type `xs:dayTimeDuration`, see
 ::: example
 Example ##ex:
 ```
-`"@task.duration": "P7D"`
+"@task.duration": "P7D"
 ```
 :::
 
@@ -4510,26 +4051,26 @@ the numeric or symbolic enumeration value.
 ::: example
 Example ##ex: single value `Red` with numeric value and symbolic value
 ```
-`"@self.HasPattern": "1"`
+"@self.HasPattern": "1"
 ```
 :::
 
 ` `
 ```
-`"@self.HasPattern": "Red"`
+"@self.HasPattern": "Red"
 ```
 
 ::: example
 Example ##ex: combined value `Red,Striped` with numeric value 1 + 16 and
 symbolic value
 ```
-`"@self.HasPattern": "17"`
+"@self.HasPattern": "17"
 ```
 :::
 
 ` `
 ```
-`"@self.HasPattern": "Red,Striped"`
+"@self.HasPattern": "Red,Striped"
 ```
 
 ### ##subsubsec Floating-Point Number
@@ -4542,13 +4083,13 @@ containing one of the special values `INF`, `-INF`, or `NaN`.
 ::: example
 Example ##ex:
 ```
-`"@UI.FloatWidth": 3.14`
+"@UI.FloatWidth": 3.14
 ```
 :::
 
 ` `
 ```
-`"@UI.FloatWidth": "INF"`
+"@UI.FloatWidth": "INF"
 ```
 
 ### ##subsubsec Guid
@@ -4562,7 +4103,7 @@ The value MUST conform to the rule `guidValue` in
 ::: example
 Example ##ex:
 ```
-`"@UI.Id": "21EC2020-3AEA-1069-A2DD-08002B30309D"`
+"@UI.Id": "21EC2020-3AEA-1069-A2DD-08002B30309D"
 ```
 :::
 
@@ -4577,14 +4118,14 @@ depending on the media type parameter
 ::: example
 Example ##ex: default representation as a number
 ```
-`"@An.Int": 42`
+"@An.Int": 42
 ```
 :::
 
 ::: example
 Example ##ex: "safe" representation as a string
 ```
-`"@A.Very.Long.Int": "9007199254740992"`
+"@A.Very.Long.Int": "9007199254740992"
 ```
 :::
 
@@ -4597,7 +4138,7 @@ String expressions are represented as a JSON string.
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": "Product Catalog"`
+"@UI.DisplayName": "Product Catalog"
 ```
 :::
 
@@ -4612,7 +4153,7 @@ in [OData‑ABNF](#ODataABNF).
 ::: example
 Example ##ex:
 ```
-`"@UI.EndTime": "21:45:00"`
+"@UI.EndTime": "21:45:00"
 ```
 :::
 
@@ -4878,17 +4419,13 @@ path.
 ::: example
 Example ##ex:
 ```
-`"@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",`
-:::
-
-`"@UI.CollectionFacet#Contacts": [`
-
-`  "Supplier/@Communication.Contact",`
-
-`  "Customer/@Communication.Contact"`
-
-`]`
+"@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
+"@UI.CollectionFacet#Contacts": [
+  "Supplier/@Communication.Contact",
+  "Customer/@Communication.Contact"
+]
 ```
+:::
 
 #### ##subsubsubsec Model Element Path
 
@@ -4908,7 +4445,7 @@ path.
 ::: example
 Example ##ex:
 ```
-`"@org.example.MyFavoriteModelElement": "/self.someAction"`
+"@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
 :::
 
@@ -4935,23 +4472,16 @@ containing a path.
 ::: example
 Example ##ex:
 ```
-`"@UI.HyperLink": "Supplier",`
-:::
-
-` `
-
-`"@Capabilities.UpdateRestrictions": {`
-
-`  "NonUpdatableNavigationProperties": [`
-
-`    "Supplier",`
-
-`    "Category"`
-
-`  ]`
-
-`}`
+"@UI.HyperLink": "Supplier",
+ 
+"@Capabilities.UpdateRestrictions": {
+  "NonUpdatableNavigationProperties": [
+    "Supplier",
+    "Category"
+  ]
+}
 ```
+:::
 
 #### ##subsubsubsec Property Path
 
@@ -4976,23 +4506,16 @@ Property path expressions are represented as a string containing a path.
 ::: example
 Example ##ex:
 ```
-`"@UI.RefreshOnChangeOf": "ChangedAt",`
-:::
-
-` `
-
-`"@Capabilities.UpdateRestrictions": {`
-
-`  "NonUpdatableProperties": [`
-
-`    "CreatedAt",`
-
-`    "ChangedAt"`
-
-`  ]`
-
-`}`
+"@UI.RefreshOnChangeOf": "ChangedAt",
+ 
+"@Capabilities.UpdateRestrictions": {
+  "NonUpdatableProperties": [
+    "CreatedAt",
+    "ChangedAt"
+  ]
+}
 ```
+:::
 
 #### ##subsubsubsec Value Path
 
@@ -5017,21 +4540,15 @@ Path expressions are represented as an object with a single member
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$Path": "FirstName"`
-
-`},`
-
-` `
-
-`"@UI.DisplayName#second": {`
-
-`  "$Path": "@vCard.Address#work/FullName"`
-
-`}`
+"@UI.DisplayName": {
+  "$Path": "FirstName"
+},
+ 
+"@UI.DisplayName#second": {
+  "$Path": "@vCard.Address#work/FullName"
+}
 ```
+:::
 
 ### ##subsubsec Comparison and Logical Operators
 
@@ -5102,191 +4619,100 @@ They MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$And": [`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "IsMarried"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Or": [`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "IsMarried"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Not": {`
-
-`    "$Path": "IsMale"`
-
-`  }`
-
-`},`
-
-`{`
-
-`  "$Eq": [`
-
-`    null,`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Ne": [`
-
-`    null,`
-
-`    {`
-
-`      "$Path": "IsMale"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Gt": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    20`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Ge": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    10`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Lt": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    20`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Le": [`
-
-`    {`
-
-`      "$Path": "Price"`
-
-`    },`
-
-`    100`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Has": [`
-
-`    {`
-
-`      "$Path": "Fabric"`
-
-`    },`
-
-`    "Red"`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$In": [`
-
-`    {`
-
-`      "$Path": "Size"`
-
-`    },`
-
-`    [`
-
-`      "XS",`
-
-`      "S"`
-
-`    ]`
-
-`  ]`
-
-`} `
+{
+  "$And": [
+    {
+      "$Path": "IsMale"
+    },
+    {
+      "$Path": "IsMarried"
+    }
+  ]
+},
+{
+  "$Or": [
+    {
+      "$Path": "IsMale"
+    },
+    {
+      "$Path": "IsMarried"
+    }
+  ]
+},
+{
+  "$Not": {
+    "$Path": "IsMale"
+  }
+},
+{
+  "$Eq": [
+    null,
+    {
+      "$Path": "IsMale"
+    }
+  ]
+},
+{
+  "$Ne": [
+    null,
+    {
+      "$Path": "IsMale"
+    }
+  ]
+},
+{
+  "$Gt": [
+    {
+      "$Path": "Price"
+    },
+    20
+  ]
+},
+{
+  "$Ge": [
+    {
+      "$Path": "Price"
+    },
+    10
+  ]
+},
+{
+  "$Lt": [
+    {
+      "$Path": "Price"
+    },
+    20
+  ]
+},
+{
+  "$Le": [
+    {
+      "$Path": "Price"
+    },
+    100
+  ]
+},
+{
+  "$Has": [
+    {
+      "$Path": "Fabric"
+    },
+    "Red"
+  ]
+},
+{
+  "$In": [
+    {
+      "$Path": "Size"
+    },
+    [
+      "XS",
+      "S"
+    ]
+  ]
+} 
 ```
+:::
 
 ### ##subsubsec Arithmetic Operators
 
@@ -5338,137 +4764,73 @@ They MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Add": [`
-
-`    {`
-
-`      "$Path": "StartDate"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "Duration"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Sub": [`
-
-`    {`
-
-`      "$Path": "Revenue"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "Cost"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Neg": {`
-
-`    "$Path": "Height"`
-
-`  }`
-
-`},`
-
-`{`
-
-`  "$Mul": [`
-
-`    {`
-
-`      "$Path": "NetPrice"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "TaxRate"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Div": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$DivBy": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`},`
-
-`{`
-
-`  "$Mod": [`
-
-`    {`
-
-`      "$Path": "Quantity"`
-
-`    },`
-
-`    {`
-
-`      "$Path": "QuantityPerParcel"`
-
-`    }`
-
-`  ]`
-
-`}`
+{
+  "$Add": [
+    {
+      "$Path": "StartDate"
+    },
+    {
+      "$Path": "Duration"
+    }
+  ]
+},
+{
+  "$Sub": [
+    {
+      "$Path": "Revenue"
+    },
+    {
+      "$Path": "Cost"
+    }
+  ]
+},
+{
+  "$Neg": {
+    "$Path": "Height"
+  }
+},
+{
+  "$Mul": [
+    {
+      "$Path": "NetPrice"
+    },
+    {
+      "$Path": "TaxRate"
+    }
+  ]
+},
+{
+  "$Div": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+},
+{
+  "$DivBy": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+},
+{
+  "$Mod": [
+    {
+      "$Path": "Quantity"
+    },
+    {
+      "$Path": "QuantityPerParcel"
+    }
+  ]
+}
 ```
+:::
 
 ### ##subsubsec Apply Client-Side Functions
 
@@ -5514,43 +4876,26 @@ are represented according to the appropriate alternative in the
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$Apply": [`
-
-`    "Product: ",`
-
-`    {`
-
-`      "$Path": "ProductName"`
-
-`    },`
-
-`    " (",`
-
-`    {`
-
-`      "$Path": "Available/Quantity"`
-
-`    },`
-
-`    " ",`
-
-`    {`
-
-`      "$Path": "Available/Unit"`
-
-`    },`
-
-`    " available)"`
-
-`  ],`
-
-`  "$Function": "odata.concat"`
-
-`}`
+"@UI.DisplayName": {
+  "$Apply": [
+    "Product: ",
+    {
+      "$Path": "ProductName"
+    },
+    " (",
+    {
+      "$Path": "Available/Quantity"
+    },
+    " ",
+    {
+      "$Path": "Available/Unit"
+    },
+    " available)"
+  ],
+  "$Function": "odata.concat"
+}
 ```
+:::
 
 `ProductName` is of type `String`, `Quantity` in complex type
 `Available` is of type `Decimal`, and `Unit` in `Available` is of type
@@ -5729,19 +5074,14 @@ considered unspecified.
 ::: example
 Example ##ex:
 ```
-`"@UI.Threshold": {`
-:::
-
-`  "$Cast": {`
-
-`    "$Path": "Average"`
-
-`  },`
-
-`  "$Type": "Edm.Decimal"`
-
-`}`
+"@UI.Threshold": {
+  "$Cast": {
+    "$Path": "Average"
+  },
+  "$Type": "Edm.Decimal"
+}
 ```
+:::
 
 ### ##subsubsec Collection
 
@@ -5759,17 +5099,13 @@ item expression within the collection expression.
 ::: example
 Example ##ex:
 ```
-`"@seo.SeoTerms": [`
-:::
-
-`  "Product",`
-
-`  "Supplier",`
-
-`  "Customer"`
-
-`]`
+"@seo.SeoTerms": [
+  "Product",
+  "Supplier",
+  "Customer"
+]
 ```
+:::
 
 ### ##subsubsec If-Then-Else
 
@@ -5812,25 +5148,17 @@ Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale` ,whose value then determines
 the value of the `$If` expression
 ```
-`"@person.Gender": {`
-:::
-
-`  "$If": [`
-
-`    {`
-
-`      "$Path": "IsFemale"`
-
-`    },`
-
-`    "Female",`
-
-`    "Male"`
-
-`  ]`
-
-`}`
+"@person.Gender": {
+  "$If": [
+    {
+      "$Path": "IsFemale"
+    },
+    "Female",
+    "Male"
+  ]
+}
 ```
+:::
 
 ### ##subsubsec Is-Of
 
@@ -5862,19 +5190,14 @@ considered unspecified.
 ::: example
 Example ##ex:
 ```
-`"@Self.IsPreferredCustomer": {`
-:::
-
-`  "$IsOf": {`
-
-`    "$Path": "Customer"`
-
-`  },`
-
-`  "$Type": "self.PreferredCustomer"`
-
-`}`
+"@Self.IsPreferredCustomer": {
+  "$IsOf": {
+    "$Path": "Customer"
+  },
+  "$Type": "self.PreferredCustomer"
+}
 ```
+:::
 
 ### ##subsubsec Labeled Element
 
@@ -5906,19 +5229,14 @@ It MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$LabeledElement": {`
-
-`    "$Path": "FirstName"`
-
-`  },`
-
-`  "$Name": "CustomerFirstName"`
-
-`}`
+"@UI.DisplayName": {
+  "$LabeledElement": {
+    "$Path": "FirstName"
+  },
+  "$Name": "CustomerFirstName"
+}
 ```
+:::
 
 ### ##subsubsec Labeled Element Reference
 
@@ -5940,13 +5258,11 @@ an qualified name.
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": {`
-:::
-
-`  "$LabeledElementReference": "self.CustomerFirstName"`
-
-`}`
+"@UI.DisplayName": {
+  "$LabeledElementReference": "self.CustomerFirstName"
+}
 ```
+:::
 
 ### ##subsubsec Null
 
@@ -5961,7 +5277,7 @@ literal `null`.
 ::: example
 Example ##ex:
 ```
-`"@UI.DisplayName": null,`
+"@UI.DisplayName": null,
 ```
 :::
 
@@ -5977,15 +5293,12 @@ as an object with a member `$Null` whose value is the literal `null`.
 ::: example
 Example ##ex:
 ```
-`"@UI.Address": {`
-:::
-
-`  "$Null": null,`
-
-`  "@self.Reason": "Private"`
-
-`}`
+"@UI.Address": {
+  "$Null": null,
+  "@self.Reason": "Private"
+}
 ```
+:::
 
 ### ##subsubsec Record
 
@@ -6029,63 +5342,36 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```
-`"@person.Employee": {`
-:::
-
-`  "@type": "https://example.org/vocabs/person#org.example.person.Manager",`
-
-`  "@Core.Description": "Annotation on record",`
-
-`  "GivenName": {`
-
-`    "$Path": "FirstName"`
-
-`  },`
-
-`  "GivenName@Core.Description": "Annotation on record member",`
-
-`  "Surname": {`
-
-`    "$Path": "LastName"`
-
-`  },`
-
-`  "DirectSupervisor": {`
-
-`    "$Path": "Manager"`
-
-`  },`
-
-`  "CostCenter": {`
-
-`    "$UrlRef": {`
-
-`      "$Apply": [`
-
-`        "http://host/anotherservice/CostCenters('{ccid}')",`
-
-`        {`
-
-`          "$LabeledElement": {`
-
-`            "$Path": "CostCenterID"`
-
-`          },`
-
-`          "$Name": "ccid"`
-
-`        }`
-
-`      ],`
-
-`      "$Function": "odata.fillUriTemplate"`
-
-`    }`
-
-`  }`
-
-`}`
+"@person.Employee": {
+  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+  "@Core.Description": "Annotation on record",
+  "GivenName": {
+    "$Path": "FirstName"
+  },
+  "GivenName@Core.Description": "Annotation on record member",
+  "Surname": {
+    "$Path": "LastName"
+  },
+  "DirectSupervisor": {
+    "$Path": "Manager"
+  },
+  "CostCenter": {
+    "$UrlRef": {
+      "$Apply": [
+        "http://host/anotherservice/CostCenters('{ccid}')",
+        {
+          "$LabeledElement": {
+            "$Path": "CostCenterID"
+          },
+          "$Name": "ccid"
+        }
+      ],
+      "$Function": "odata.fillUriTemplate"
+    }
+  }
+}
 ```
+:::
 
 ### ##subsubsec URL Reference
 
@@ -6117,53 +5403,31 @@ It MAY contain [annotations](#Annotation).
 ::: example
 Example ##ex:
 ```
-`"@org.example.person.Supplier": {`
-:::
-
-`  "$UrlRef": {`
-
-`    "$Apply": [`
-
-`      "http://host/service/Suppliers({suppID})",`
-
-`      {`
-
-`        "$LabeledElement": {`
-
-`          "$Apply": [`
-
-`            {`
-
-`              "$Path": "SupplierId"`
-
-`            }`
-
-`          ],`
-
-`          "$Function": "odata.uriEncode"`
-
-`        },`
-
-`        "$Name": "suppID"`
-
-`      }`
-
-`    ],`
-
-`    "$Function": "odata.fillUriTemplate"`
-
-`  }`
-
-`},`
-
-` `
-
-`"@Core.LongDescription#element": {`
-
-`  "$UrlRef": "http://host/wiki/HowToUse"`
-
-`}`
+"@org.example.person.Supplier": {
+  "$UrlRef": {
+    "$Apply": [
+      "http://host/service/Suppliers({suppID})",
+      {
+        "$LabeledElement": {
+          "$Apply": [
+            {
+              "$Path": "SupplierId"
+            }
+          ],
+          "$Function": "odata.uriEncode"
+        },
+        "$Name": "suppID"
+      }
+    ],
+    "$Function": "odata.fillUriTemplate"
+  }
+},
+ 
+"@Core.LongDescription#element": {
+  "$UrlRef": "http://host/wiki/HowToUse"
+}
 ```
+:::
 
 # ##sec Identifier and Path Values
 
@@ -6240,536 +5504,277 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.0",`
-
-`  "$EntityContainer": "ODataDemo.DemoService",`
-
-`  "$Reference": {`
-
-`    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Core.V1",`
-
-`          "$Alias": "Core",`
-
-`          "@Core.DefaultNamespace": true`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Org.OData.Measures.V1",`
-
-`          "$Alias": "Measures"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  "ODataDemo": {`
-
-`    "$Alias": "self",`
-
-`    "@Core.DefaultNamespace": true,`
-
-`    "Product": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$HasStream": true,`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {},`
-
-`      "Description": {`
-
-`        "$Nullable": true,`
-
-`        "@Core.IsLanguageDependent": true`
-
-`      },`
-
-`      "ReleaseDate": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Date"`
-
-`      },`
-
-`      "DiscontinuedDate": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Date"`
-
-`      },`
-
-`      "Rating": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Price": {`
-
-`        "$Nullable": true,`
-
-`        "$Type": "Edm.Decimal",`
-
-`        "@Measures.ISOCurrency": {`
-
-`          "$Path": "Currency"`
-
-`        }`
-
-`      },`
-
-`      "Currency": {`
-
-`        "$Nullable": true,`
-
-`        "$MaxLength": 3`
-
-`      },`
-
-`      "Category": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Type": "self.Category",`
-
-`        "$Partner": "Products"`
-
-`      },`
-
-`      "Supplier": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Nullable": true,`
-
-`        "$Type": "self.Supplier",`
-
-`        "$Partner": "Products"`
-
-`      }`
-
-`    },`
-
-`    "Category": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Name": {`
-
-`        "@Core.IsLanguageDependent": true`
-
-`      },`
-
-`      "Products": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Partner": "Category",`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product",`
-
-`        "$OnDelete": "Cascade"`
-
-`      }`
-
-`    },`
-
-`    "Supplier": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "ID"`
-
-`      ],`
-
-`      "ID": {},`
-
-`      "Name": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "Address": {`
-
-`        "$Type": "self.Address"`
-
-`      },`
-
-`      "Concurrency": {`
-
-`        "$Type": "Edm.Int32"`
-
-`      },`
-
-`      "Products": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Partner": "Supplier",`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product"`
-
-`      }`
-
-`    },`
-
-`    "Country": {`
-
-`      "$Kind": "EntityType",`
-
-`      "$Key": [`
-
-`        "Code"`
-
-`      ],`
-
-`      "Code": {`
-
-`        "$MaxLength": 2`
-
-`      },`
-
-`      "Name": {`
-
-`        "$Nullable": true`
-
-`      }`
-
-`    },`
-
-`    "Address": {`
-
-`      "$Kind": "ComplexType",`
-
-`      "Street": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "City": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "State": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "ZipCode": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "CountryName": {`
-
-`        "$Nullable": true`
-
-`      },`
-
-`      "Country": {`
-
-`        "$Kind": "NavigationProperty",`
-
-`        "$Nullable": true,`
-
-`        "$Type": "self.Country",`
-
-`        "$ReferentialConstraint": {`
-
-`          "CountryName": "Name"`
-
-`        }`
-
-`      }`
-
-`    },`
-
-`    "ProductsByRating": [`
-
-`      {`
-
-`        "$Kind": "Function",`
-
-`        "$Parameter": [`
-
-`          {`
-
-`            "$Name": "Rating",`
-
-`            "$Nullable": true,`
-
-`            "$Type": "Edm.Int32"`
-
-`          }`
-
-`        ],`
-
-`        "$ReturnType": {`
-
-`          "$Collection": true,`
-
-`          "$Type": "self.Product"`
-
-`        }`
-
-`      }`
-
-`    ],`
-
-`    "DemoService": {`
-
-`      "$Kind": "EntityContainer",`
-
-`      "Products": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Product",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Category": "Categories"`
-
-`        }`
-
-`      },`
-
-`      "Categories": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Category",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products"`
-
-`        },`
-
-`        "@Core.Description": "Product Categories"`
-
-`      },`
-
-`      "Suppliers": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Supplier",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products",`
-
-`          "Address/Country": "Countries"`
-
-`        },`
-
-`        "@Core.OptimisticConcurrency": [`
-
-`          "Concurrency"`
-
-`        ]`
-
-`      },`
-
-`      "Countries": {`
-
-`        "$Collection": true,`
-
-`        "$Type": "self.Country"`
-
-`      },`
-
-`      "MainSupplier": {`
-
-`        "$Type": "self.Supplier",`
-
-`        "$NavigationPropertyBinding": {`
-
-`          "Products": "Products"`
-
-`        },`
-
-`        "@Core.Description": "Primary Supplier"`
-
-`      },`
-
-`      "ProductsByRating": {`
-
-`        "$EntitySet": "Products",`
-
-`        "$Function": "self.ProductsByRating"`
-
-`      }`
-
-`    }`
-
-`  }`
-
-`}`
+{
+  "$Version": "4.0",
+  "$EntityContainer": "ODataDemo.DemoService",
+  "$Reference": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Core.V1",
+          "$Alias": "Core",
+          "@Core.DefaultNamespace": true
+        }
+      ]
+    },
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json": {
+      "$Include": [
+        {
+          "$Namespace": "Org.OData.Measures.V1",
+          "$Alias": "Measures"
+        }
+      ]
+    }
+  },
+  "ODataDemo": {
+    "$Alias": "self",
+    "@Core.DefaultNamespace": true,
+    "Product": {
+      "$Kind": "EntityType",
+      "$HasStream": true,
+      "$Key": [
+        "ID"
+      ],
+      "ID": {},
+      "Description": {
+        "$Nullable": true,
+        "@Core.IsLanguageDependent": true
+      },
+      "ReleaseDate": {
+        "$Nullable": true,
+        "$Type": "Edm.Date"
+      },
+      "DiscontinuedDate": {
+        "$Nullable": true,
+        "$Type": "Edm.Date"
+      },
+      "Rating": {
+        "$Nullable": true,
+        "$Type": "Edm.Int32"
+      },
+      "Price": {
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "@Measures.ISOCurrency": {
+          "$Path": "Currency"
+        }
+      },
+      "Currency": {
+        "$Nullable": true,
+        "$MaxLength": 3
+      },
+      "Category": {
+        "$Kind": "NavigationProperty",
+        "$Type": "self.Category",
+        "$Partner": "Products"
+      },
+      "Supplier": {
+        "$Kind": "NavigationProperty",
+        "$Nullable": true,
+        "$Type": "self.Supplier",
+        "$Partner": "Products"
+      }
+    },
+    "Category": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "ID"
+      ],
+      "ID": {
+        "$Type": "Edm.Int32"
+      },
+      "Name": {
+        "@Core.IsLanguageDependent": true
+      },
+      "Products": {
+        "$Kind": "NavigationProperty",
+        "$Partner": "Category",
+        "$Collection": true,
+        "$Type": "self.Product",
+        "$OnDelete": "Cascade"
+      }
+    },
+    "Supplier": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "ID"
+      ],
+      "ID": {},
+      "Name": {
+        "$Nullable": true
+      },
+      "Address": {
+        "$Type": "self.Address"
+      },
+      "Concurrency": {
+        "$Type": "Edm.Int32"
+      },
+      "Products": {
+        "$Kind": "NavigationProperty",
+        "$Partner": "Supplier",
+        "$Collection": true,
+        "$Type": "self.Product"
+      }
+    },
+    "Country": {
+      "$Kind": "EntityType",
+      "$Key": [
+        "Code"
+      ],
+      "Code": {
+        "$MaxLength": 2
+      },
+      "Name": {
+        "$Nullable": true
+      }
+    },
+    "Address": {
+      "$Kind": "ComplexType",
+      "Street": {
+        "$Nullable": true
+      },
+      "City": {
+        "$Nullable": true
+      },
+      "State": {
+        "$Nullable": true
+      },
+      "ZipCode": {
+        "$Nullable": true
+      },
+      "CountryName": {
+        "$Nullable": true
+      },
+      "Country": {
+        "$Kind": "NavigationProperty",
+        "$Nullable": true,
+        "$Type": "self.Country",
+        "$ReferentialConstraint": {
+          "CountryName": "Name"
+        }
+      }
+    },
+    "ProductsByRating": [
+      {
+        "$Kind": "Function",
+        "$Parameter": [
+          {
+            "$Name": "Rating",
+            "$Nullable": true,
+            "$Type": "Edm.Int32"
+          }
+        ],
+        "$ReturnType": {
+          "$Collection": true,
+          "$Type": "self.Product"
+        }
+      }
+    ],
+    "DemoService": {
+      "$Kind": "EntityContainer",
+      "Products": {
+        "$Collection": true,
+        "$Type": "self.Product",
+        "$NavigationPropertyBinding": {
+          "Category": "Categories"
+        }
+      },
+      "Categories": {
+        "$Collection": true,
+        "$Type": "self.Category",
+        "$NavigationPropertyBinding": {
+          "Products": "Products"
+        },
+        "@Core.Description": "Product Categories"
+      },
+      "Suppliers": {
+        "$Collection": true,
+        "$Type": "self.Supplier",
+        "$NavigationPropertyBinding": {
+          "Products": "Products",
+          "Address/Country": "Countries"
+        },
+        "@Core.OptimisticConcurrency": [
+          "Concurrency"
+        ]
+      },
+      "Countries": {
+        "$Collection": true,
+        "$Type": "self.Country"
+      },
+      "MainSupplier": {
+        "$Type": "self.Supplier",
+        "$NavigationPropertyBinding": {
+          "Products": "Products"
+        },
+        "@Core.Description": "Primary Supplier"
+      },
+      "ProductsByRating": {
+        "$EntitySet": "Products",
+        "$Function": "self.ProductsByRating"
+      }
+    }
+  }
+}
 ```
+:::
 
 ## [Annotations for Products and Categories Example](#AnnotationsforProductsandCategoriesE) {#annotations-for-products-and-categories-example style="margin-left:28.9pt;text-indent:-28.9pt"}
 
 ::: example
 Example ##ex:
 ```
-`{`
-:::
-
-`  "$Version": "4.01",`
-
-`  "$Reference": {`
-
-`    "http://host/service/$metadata": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "ODataDemo",`
-
-`          "$Alias": "target"`
-
-`        }`
-
-`      ]`
-
-`    },`
-
-`    "http://somewhere/Vocabulary/V1": {`
-
-`      "$Include": [`
-
-`        {`
-
-`          "$Namespace": "Some.Vocabulary.V1",`
-
-`          "$Alias": "Vocabulary1"`
-
-`        }`
-
-`      ]`
-
-`    }`
-
-`  },`
-
-`  "External.Annotations": {`
-
-`    "$Annotations": {`
-
-`      "target.Supplier": {`
-
-`        "@Vocabulary1.EMail": null,`
-
-`        "@Vocabulary1.AccountID": {`
-
-`          "$Path": "ID"`
-
-`        },`
-
-`        "@Vocabulary1.Title": "Supplier Info",`
-
-`        "@Vocabulary1.DisplayName": {`
-
-`          "$Apply": [`
-
-`            {`
-
-`              "$Path": "Name"`
-
-`            },`
-
-`            " in ",`
-
-`            {`
-
-`              "$Path": "Address/CountryName"`
-
-`            }`
-
-`          ],`
-
-`          "$Function": "odata.concat"`
-
-`        }`
-
-`      },`
-
-`      "target.Product": {`
-
-`        "@Vocabulary1.Tags": [`
-
-`          "MasterData"`
-
-`        ]`
-
-`      }`
-
-`    }`
-
-`  }`
-
-`} `
+{
+  "$Version": "4.01",
+  "$Reference": {
+    "http://host/service/$metadata": {
+      "$Include": [
+        {
+          "$Namespace": "ODataDemo",
+          "$Alias": "target"
+        }
+      ]
+    },
+    "http://somewhere/Vocabulary/V1": {
+      "$Include": [
+        {
+          "$Namespace": "Some.Vocabulary.V1",
+          "$Alias": "Vocabulary1"
+        }
+      ]
+    }
+  },
+  "External.Annotations": {
+    "$Annotations": {
+      "target.Supplier": {
+        "@Vocabulary1.EMail": null,
+        "@Vocabulary1.AccountID": {
+          "$Path": "ID"
+        },
+        "@Vocabulary1.Title": "Supplier Info",
+        "@Vocabulary1.DisplayName": {
+          "$Apply": [
+            {
+              "$Path": "Name"
+            },
+            " in ",
+            {
+              "$Path": "Address/CountryName"
+            }
+          ],
+          "$Function": "odata.concat"
+        }
+      },
+      "target.Product": {
+        "@Vocabulary1.Tags": [
+          "MasterData"
+        ]
+      }
+    }
+  }
+} 
 ```
+:::
 
 # ##sec Conformance
 

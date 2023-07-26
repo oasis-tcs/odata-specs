@@ -513,7 +513,7 @@ OData service.
 ::: example
 Example ##ex:
 ```
-`<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
 :::
 
 [[           Version=\"4.01\"\>\
@@ -687,11 +687,9 @@ Uri=\"http://vocabs.odata.org/capabilities/v1\"\>]{style="color:black"}]{.Dataty
   \<edmx:Reference
 Uri=\"http://vocabs.odata.org/core/v1\"\>]{style="color:black"}]{.Datatype}
 
-`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">`
-
-`      <Annotation Term="Core.DefaultNamespace" />`
-
-`    </edmx:Include>`
+`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
+      <Annotation Term="Core.DefaultNamespace" />
+    </edmx:Include>`
 
 [[  \</edmx:Reference\>\
   \<edmx:Reference Uri=\"http://example.org/display/v1\"\>\
@@ -907,15 +905,12 @@ The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 Example ##ex: schema `org.example` with an alias and a description for the
 schema
 ```
-`<Schema Namespace="org.example" Alias="self"> `
-:::
-
-`  <Annotation Term="Core.Description" String="Example schema" />`
-
-`  … `
-
-`</Schema>`
+<Schema Namespace="org.example" Alias="self"> 
+  <Annotation Term="Core.Description" String="Example schema" />
+  … 
+</Schema>
 ```
+:::
 
 ## ##subsec [[ ]{lang="DE"}Annotations with External Targeting](#AnnotationswithExternalTargeting)
 
@@ -1274,9 +1269,8 @@ Example ##ex: entity type with a simple key referencing a property of a
 \</EntityType\>]{style="color:black"}]{.Datatype}
 :::
 
-` `
-
-`<ComplexType Name="EntityInfo">`
+` 
+<ComplexType Name="EntityInfo">`
 
 [[  \<Property Name=\"ID\" Type=\"Edm.Int32\" Nullable=\"false\" /\>\
   \<Property Name=\"Created\" Type=\"Edm.DateTimeOffset\" /\>\
@@ -1408,7 +1402,7 @@ item type, followed by a closing parenthesis `)`.
 Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```
-`<Property Name="Units" Type="Collection(Edm.String)" />`
+<Property Name="Units" Type="Collection(Edm.String)" />
 ```
 :::
 
@@ -1518,11 +1512,10 @@ precision of zero.
 Example ##ex: [`Precision`](#Precision) facet applied to the
 `DateTimeOffset` type
 ```
-`<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"`
-:::
-
-`          Precision="6" />`
+<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
+          Precision="6" />
 ```
+:::
 
 ### ##subsubsec Scale
 
@@ -1572,7 +1565,7 @@ If not specified, the `Scale` facet defaults to zero.
 Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
-`<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />`
+<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
 ```
 :::
 
@@ -1580,7 +1573,7 @@ Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 Example ##ex: `Precision=2` equals `Scale`.\
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
-`<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />`
+<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
 ```
 :::
 
@@ -1589,7 +1582,7 @@ Example ##ex: `Precision=3` and a variable `Scale`.\
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```
-`<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />`
+<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
 ```
 :::
 
@@ -1598,7 +1591,7 @@ Example ##ex: `Precision=7` and a floating `Scale`.\
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```
-`<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />`
+<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
 ```
 :::
 
@@ -1994,30 +1987,22 @@ ReferencedProperty=\"ID\" /\>\
     \<ReferentialConstraint Property=\"CategoryKind\"
 ReferencedProperty=\"Kind\"\>]{style="color:black"}]{.Datatype}
 
-`      <Annotation Term="Core.Description" `
-
-`                  String="Referential Constraint to non-key property" />`
-
-`    </ReferentialConstraint>`
-
-`  </NavigationProperty>`
-
-`</EntityType>`
-
-` `
-
-`<EntityType Name="Category">`
-
-`  <Key>`
-
-`    <PropertyRef Name="ID" />`
+`      <Annotation Term="Core.Description" 
+                  String="Referential Constraint to non-key property" />
+    </ReferentialConstraint>
+  </NavigationProperty>
+</EntityType>
+ 
+<EntityType Name="Category">
+  <Key>
+    <PropertyRef Name="ID" />`
 
 [[  \</Key\>\
   \<Property Name=\"ID\" Type=\"Edm.String\" Nullable=\"false\" /\>\
   \<Property Name=\"Kind\" Type=\"Edm.String\" Nullable=\"true\" /\>\
   ... ]{style="color:black"}]{.Datatype}
 
-`</EntityType>`
+`</EntityType>
 ```
 
 ## ##subsec On-Delete Action
@@ -2081,7 +2066,7 @@ Type=\"Collection(self.Product)\"\>\
 [[    \</OnDelete\
   \</NavigationProperty\>]{style="color:black"}]{.Datatype}
 
-`</EntityType>`
+`</EntityType>
 ```
 
 # ##sec Complex Type
@@ -2312,35 +2297,22 @@ Absence of the attribute means `false`.
 Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```
-`<EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true"> `
-:::
-
-`  <Member Name="Plain"             Value="0" /> `
-
-`  <Member Name="Red"               Value="1" /> `
-
-`  <Member Name="Blue"              Value="2" /> `
-
-`  <Member Name="Yellow"            Value="4" /> `
-
-`  <Member Name="Solid"             Value="8" /> `
-
-`  <Member Name="Striped"           Value="16" /> `
-
-`  <Member Name="SolidRed"          Value="9" /> `
-
-`  <Member Name="SolidBlue"         Value="10" /> `
-
-`  <Member Name="SolidYellow"       Value="12" /> `
-
-`  <Member Name="RedBlueStriped"    Value="19" /> `
-
-`  <Member Name="RedYellowStriped"  Value="21" /> `
-
-`  <Member Name="BlueYellowStriped" Value="22" /> `
-
-`</EnumType>`
+<EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true"> 
+  <Member Name="Plain"             Value="0" /> 
+  <Member Name="Red"               Value="1" /> 
+  <Member Name="Blue"              Value="2" /> 
+  <Member Name="Yellow"            Value="4" /> 
+  <Member Name="Solid"             Value="8" /> 
+  <Member Name="Striped"           Value="16" /> 
+  <Member Name="SolidRed"          Value="9" /> 
+  <Member Name="SolidBlue"         Value="10" /> 
+  <Member Name="SolidYellow"       Value="12" /> 
+  <Member Name="RedBlueStriped"    Value="19" /> 
+  <Member Name="RedYellowStriped"  Value="21" /> 
+  <Member Name="BlueYellowStriped" Value="22" /> 
+</EnumType>
 ```
+:::
 
 ## ##subsec Enumeration Type Member
 
@@ -2406,9 +2378,8 @@ Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
   \<Member Name=\"FirstClass\"\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <Annotation Term="Core.Description"`
-
-`                String="Shipped with highest priority" />`
+`    <Annotation Term="Core.Description"
+                String="Shipped with highest priority" />`
 
 [[  \</Member\>\
   \<Member Name=\"TwoDay\"\>]{style="color:black"}]{.Datatype}
@@ -2958,11 +2929,9 @@ action imports, and function imports.
 EntityType=\"self.Product\"\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <NavigationPropertyBinding Path="Category" Target="Categories" />`
-
-`    <NavigationPropertyBinding Path="Supplier" Target="Suppliers" />`
-
-`  </EntitySet>`
+`    <NavigationPropertyBinding Path="Category" Target="Categories" />
+    <NavigationPropertyBinding Path="Supplier" Target="Suppliers" />
+  </EntitySet>`
 
 [[  \<EntitySet Name=\"Categories\" EntityType=\"self.Category\"\>\
     \<NavigationPropertyBinding Path=\"Products\" Target=\"Products\"
@@ -2974,9 +2943,8 @@ EntityType=\"self.Product\"\>]{style="color:black"}]{.Datatype}
     \<NavigationPropertyBinding Path=\"Products\" Target=\"Products\"
 /\>]{style="color:black"}]{.Datatype}
 
-`  </EntitySet>`
-
-`  <Singleton Name="MainSupplier" Type="self.Supplier" />`
+`  </EntitySet>
+  <Singleton Name="MainSupplier" Type="self.Supplier" />`
 
 [[  \<ActionImport Name=\"LeaveRequestApproval\"
 Action=\"self.Approval\" /\>\
@@ -3250,9 +3218,8 @@ entity set `Categories`
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="SomeSet" />`
-
-`</EntitySet>`
+`                             Target="SomeSet" />
+</EntitySet>
 ```
 
 ::: example
@@ -3263,9 +3230,8 @@ Example ##ex: for an entity set in any container in scope
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="SomeModel.SomeContainer/SomeSet" />`
-
-`</EntitySet>`
+`                             Target="SomeModel.SomeContainer/SomeSet" />
+</EntitySet>
 ```
 
 ::: example
@@ -3277,9 +3243,8 @@ Example ##ex: binding `Supplier` on `Products` contained within
 ]{style="color:black"}]{.Datatype}
 :::
 
-`                             Target="Suppliers" />`
-
-`</EntitySet>`
+`                             Target="Suppliers" />
+</EntitySet>
 ```
 
 ## ##subsec Action Import
@@ -3726,18 +3691,16 @@ String=\"USD\"\>]{style="color:black"}]{.Datatype}
                 String=\"The parent company's currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`  </Annotation>`
-
-`</Property>`
+`  </Annotation>
+</Property>`
 
 [[\<Property Name=\"AmountInTransactionCurrency\"
 Type=\"Edm.Decimal\"\>\
   \<Annotation Term=\"Measures.ISOCurrency\" Path=\"Currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`</Property>`
-
-`<Property Name="Currency" Type="Edm.String" MaxLength="3" />`
+`</Property>
+<Property Name="Currency" Type="Edm.String" MaxLength="3" />
 ```
 
 If an entity type or complex type is annotated with a term that itself
@@ -4064,7 +4027,7 @@ attribute notation`.`
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.display.LastUpdated" `
+<Annotation Term="org.example.display.LastUpdated" `
 :::
 
 [[            DateTimeOffset=\"2000-01-01T16:00:00.000Z\" /\>\
@@ -4092,7 +4055,7 @@ attribute notation.
 ::: example
 Example ##ex: attribute notation
 ```
-`<Annotation Term="org.example.display.Width" Decimal="3.14" />`
+<Annotation Term="org.example.display.Width" Decimal="3.14" />
 ```
 :::
 
@@ -4223,7 +4186,7 @@ notation`.`
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.display.Id" `
+<Annotation Term="org.example.display.Id" `
 :::
 
 [[            Guid=\"21EC2020-3AEA-1069-A2DD-08002B30309D\" /\>\
@@ -4251,7 +4214,7 @@ attribute notation.
 ::: example
 Example ##ex: attribute notation
 ```
-`<Annotation Term="org.example.display.Width" Int="42" />`
+<Annotation Term="org.example.display.Width" Int="42" />
 ```
 :::
 
@@ -4627,19 +4590,14 @@ notation or attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="org.example.MyFavoriteModelElement" `
-:::
-
-`            ModelElementPath="/org.example.someAction" /> `
-
-` `
-
-`<Annotation Term="org.example.MyFavoriteModelElement"> `
-
-`  <ModelElementPath>/org.example.someAction</ModelElementPath> `
-
-`</Annotation>`
+<Annotation Term="org.example.MyFavoriteModelElement" 
+            ModelElementPath="/org.example.someAction" /> 
+ 
+<Annotation Term="org.example.MyFavoriteModelElement"> 
+  <ModelElementPath>/org.example.someAction</ModelElementPath> 
+</Annotation>
 ```
+:::
 
 #### ##subsubsubsec Navigation Property Path
 
@@ -4668,30 +4626,22 @@ element notation or attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />`
+<Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
+ 
+<Annotation Term="Capabilities.UpdateRestrictions">`
 :::
-
-` `
-
-`<Annotation Term="Capabilities.UpdateRestrictions">`
 
 [[  \<Record\>\
     \<PropertyValue
 Property=\"NonUpdatableNavigationProperties\"\>]{style="color:black"}]{.Datatype}
 
-`      <Collection>`
-
-`        <NavigationPropertyPath>Supplier</NavigationPropertyPath>`
-
-`        <NavigationPropertyPath>Category</NavigationPropertyPath>`
-
-`      </Collection>`
-
-`    </PropertyValue>`
-
-`  </Record>`
-
-`</Annotation>`
+`      <Collection>
+        <NavigationPropertyPath>Supplier</NavigationPropertyPath>
+        <NavigationPropertyPath>Category</NavigationPropertyPath>
+      </Collection>
+    </PropertyValue>
+  </Record>
+</Annotation>
 ```
 
 #### ##subsubsubsec Property Path
@@ -4722,29 +4672,22 @@ attribute notation.
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />`
+<Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
+ `
 :::
-
-` `
 
 [[\<Annotation Term=\"Capabilities.UpdateRestrictions\"\>\
   \<Record\>\
     \<PropertyValue
 Property=\"NonUpdatableProperties\"\>]{style="color:black"}]{.Datatype}
 
-`      <Collection>`
-
-`        <PropertyPath>CreatedAt</PropertyPath>`
-
-`        <PropertyPath>ChangedAt</PropertyPath>`
-
-`      </Collection>`
-
-`    </PropertyValue>`
-
-`  </Record>`
-
-`</Annotation>`
+`      <Collection>
+        <PropertyPath>CreatedAt</PropertyPath>
+        <PropertyPath>ChangedAt</PropertyPath>
+      </Collection>
+    </PropertyValue>
+  </Record>
+</Annotation>
 ```
 
 #### ##subsubsubsec Value Path
@@ -4845,99 +4788,54 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: example
 Example ##ex:
 ```
-`<And>`
-:::
-
-`  <Path>IsMale</Path>`
-
-`  <Path>IsMarried</Path>`
-
-`</And>`
-
-`<Or>`
-
-`  <Path>IsMale</Path>`
-
-`  <Path>IsMarried</Path>`
-
-`</Or>`
-
-`<Not>`
-
-`  <Path>IsMale</Path>`
-
-`</Not>`
-
-`<Eq>`
-
-`  <Null />`
-
-`  <Path>IsMale</Path>`
-
-`</Eq>`
-
-`<Ne>`
-
-`  <Null />`
-
-`  <Path>IsMale</Path>`
-
-`</Ne>`
-
-`<Gt>`
-
-`  <Path>Price</Path>`
-
-`  <Int>20</Int>`
-
-`</Gt>`
-
-`<Ge>`
-
-`  <Path>Price</Path>`
-
-`  <Int>10</Int>`
-
-`</Ge>`
-
-`<Lt>`
-
-`  <Path>Price</Path>`
-
-`  <Int>20</Int>`
-
-`</Lt>`
-
-`<Le>`
-
-`  <Path>Price</Path>`
-
-`  <Int>100</Int>`
-
-`</Le>`
-
-`<Has>`
-
-`  <Path>Fabric</Path>`
-
-`  <EnumMember>org.example.Pattern/Red</EnumMember>`
-
-`</Has>`
-
-`<In>`
-
-`  <Path>Size</Path>`
-
-`  <Collection>`
-
-`    <String>XS</String>`
-
-`    <String>S</String>`
-
-`  </Collection>`
-
-`</In>`
+<And>
+  <Path>IsMale</Path>
+  <Path>IsMarried</Path>
+</And>
+<Or>
+  <Path>IsMale</Path>
+  <Path>IsMarried</Path>
+</Or>
+<Not>
+  <Path>IsMale</Path>
+</Not>
+<Eq>
+  <Null />
+  <Path>IsMale</Path>
+</Eq>
+<Ne>
+  <Null />
+  <Path>IsMale</Path>
+</Ne>
+<Gt>
+  <Path>Price</Path>
+  <Int>20</Int>
+</Gt>
+<Ge>
+  <Path>Price</Path>
+  <Int>10</Int>
+</Ge>
+<Lt>
+  <Path>Price</Path>
+  <Int>20</Int>
+</Lt>
+<Le>
+  <Path>Price</Path>
+  <Int>100</Int>
+</Le>
+<Has>
+  <Path>Fabric</Path>
+  <EnumMember>org.example.Pattern/Red</EnumMember>
+</Has>
+<In>
+  <Path>Size</Path>
+  <Collection>
+    <String>XS</String>
+    <String>S</String>
+  </Collection>
+</In>
 ```
+:::
 
 ### ##subsubsec Arithmetic Operators
 
@@ -4987,61 +4885,35 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: example
 Example ##ex:
 ```
-`<Add>`
-:::
-
-`  <Path>StartDate</Path>`
-
-`  <Path>Duration</Path>`
-
-`</Add>`
-
-`<Sub>`
-
-`  <Path>Revenue</Path>`
-
-`  <Path>Cost</Path>`
-
-`</Sub>`
-
-`<Neg>`
-
-`  <Path>Height</Path>`
-
-`</Neg>`
-
-`<Mul>`
-
-`  <Path>NetPrice</Path>`
-
-`  <Path>TaxRate</Path>`
-
-`</Mul>`
-
-`<Div>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</Div>`
-
-`<DivBy>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</DivBy>`
-
-`<Mod>`
-
-`  <Path>Quantity</Path>`
-
-`  <Path>QuantityPerParcel</Path>`
-
-`</Mod>`
+<Add>
+  <Path>StartDate</Path>
+  <Path>Duration</Path>
+</Add>
+<Sub>
+  <Path>Revenue</Path>
+  <Path>Cost</Path>
+</Sub>
+<Neg>
+  <Path>Height</Path>
+</Neg>
+<Mul>
+  <Path>NetPrice</Path>
+  <Path>TaxRate</Path>
+</Mul>
+<Div>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</Div>
+<DivBy>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</DivBy>
+<Mod>
+  <Path>Quantity</Path>
+  <Path>QuantityPerParcel</Path>
+</Mod>
 ```
+:::
 
 ### ##subsubsec Apply Client-Side Function
 
@@ -5494,17 +5366,13 @@ Example ##ex:
 ::: example
 Example ##ex:
 ```
-`<Annotation Term="@UI.Address">`
-:::
-
-`  <Null>`
-
-`    <Annotation Term="self.Reason" String="Private" />`
-
-`  </Null>`
-
-`</Annotation>`
+<Annotation Term="@UI.Address">
+  <Null>
+    <Annotation Term="self.Reason" String="Private" />
+  </Null>
+</Annotation>
 ```
+:::
 
 ### ##subsubsec Record
 
@@ -5582,31 +5450,22 @@ that is pointing to a different service
 record\" /\>]{style="color:black"}]{.Datatype}
 :::
 
-`    <PropertyValue Property="GivenName" Path="FirstName">`
-
-`      <Annotation Term="Core.Description" `
-
-`                  String="Annotation on record member" />`
+`    <PropertyValue Property="GivenName" Path="FirstName">
+      <Annotation Term="Core.Description" 
+                  String="Annotation on record member" />`
 
 [[    \</PropertyValue\>\
     \<PropertyValue Property=\"Surname\" Path=\"LastName\"
 /\>]{style="color:black"}]{.Datatype}
 
-`    <PropertyValue Property="DirectSupervisor" Path="Manager" />`
-
-`    <PropertyValue Property="CostCenter">`
-
-`      <UrlRef>`
-
-`        <Apply Function="odata.fillUriTemplate">`
-
-`          <String>http://host/anotherservice/CostCenters('{ccid}')</String> `
-
-`          <LabeledElement Name="ccid" Path="CostCenterID" /> `
-
-`        </Apply> `
-
-`      </UrlRef>`
+`    <PropertyValue Property="DirectSupervisor" Path="Manager" />
+    <PropertyValue Property="CostCenter">
+      <UrlRef>
+        <Apply Function="odata.fillUriTemplate">
+          <String>http://host/anotherservice/CostCenters('{ccid}')</String> 
+          <LabeledElement Name="ccid" Path="CostCenterID" /> 
+        </Apply> 
+      </UrlRef>`
 
 [[    \</PropertyValue\>\
   \</Record\>\
@@ -5661,17 +5520,12 @@ Example ##ex:
 \</Annotation\>]{style="color:black"}]{.Datatype}
 :::
 
-` `
-
-`<Annotation Term="Core.LongDescription">`
-
-`  <UrlRef><String>http://host/wiki/HowToUse</String></UrlRef>`
-
-`</Annotation>`
-
-` `
-
-`<Annotation Term="Core.LongDescription" UrlRef="http://host/wiki/HowToUse" />`
+` 
+<Annotation Term="Core.LongDescription">
+  <UrlRef><String>http://host/wiki/HowToUse</String></UrlRef>
+</Annotation>
+ 
+<Annotation Term="Core.LongDescription" UrlRef="http://host/wiki/HowToUse" />
 ```
 
 # ##sec Identifier and Path Values
@@ -5750,7 +5604,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 ::: example
 Example ##ex:
 ```
-`<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
 :::
 
 [[           xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"
@@ -5758,19 +5612,13 @@ Version=\"4.0\"\>\
   \<edmx:Reference
 Uri=\"https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml\"\>]{style="color:black"}]{.Datatype}
 
-`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">`
-
-`      <Annotation Term="Core.DefaultNamespace" />`
-
-`    </edmx:Include>`
-
-`  </edmx:Reference>`
-
-`  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">`
-
-`    <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />`
-
-`  </edmx:Reference>`
+`    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
+      <Annotation Term="Core.DefaultNamespace" />
+    </edmx:Include>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />
+  </edmx:Reference>`
 
 [[  \<edmx:DataServices\>\
     \<Schema Namespace=\"ODataDemo\"\>\
@@ -5794,15 +5642,11 @@ Scale=\"variable\"\>\
           \<Annotation Term=\"Measures.ISOCurrency\" Path=\"Currency\"
 /\>]{style="color:black"}]{.Datatype}
 
-`        </Property>`
-
-`        <Property Name="Currency" Type="Edm.String" MaxLength="3" />`
-
-`        <NavigationProperty Name="Category" Type="ODataDemo.Category"`
-
-`                            Nullable="false" Partner="Products" />`
-
-`        <NavigationProperty Name="Supplier" Type="ODataDemo.Supplier"`
+`        </Property>
+        <Property Name="Currency" Type="Edm.String" MaxLength="3" />
+        <NavigationProperty Name="Category" Type="ODataDemo.Category"
+                            Nullable="false" Partner="Products" />
+        <NavigationProperty Name="Supplier" Type="ODataDemo.Supplier"`
 
 [[                            Partner=\"Products\" /\>\
       \</EntityType\>\
@@ -5817,9 +5661,8 @@ Nullable=\"false\"\>\
           \<Annotation Term=\"Core.IsLanguageDependent\"
 /\>]{style="color:black"}]{.Datatype}
 
-`        </Property>`
-
-`        <NavigationProperty Name="Products" Partner="Category"`
+`        </Property>
+        <NavigationProperty Name="Products" Partner="Category"`
 
 [[                            Type=\"Collection(ODataDemo.Product)\"\>\
           \<OnDelete Action=\"Cascade\"
@@ -5846,19 +5689,13 @@ Partner=\"Supplier\"]{style="color:black"}]{.Datatype}
 [[      \</EntityType\>\
       \<EntityType Name=\"Country\"\>]{style="color:black"}]{.Datatype}
 
-`        <Key>`
-
-`          <PropertyRef Name="Code" />`
-
-`        </Key>`
-
-`        <Property Name="Code" Type="Edm.String" MaxLength="2" `
-
-`                              Nullable="false" />`
-
-`        <Property Name="Name" Type="Edm.String" />`
-
-`      </EntityType>`
+`        <Key>
+          <PropertyRef Name="Code" />
+        </Key>
+        <Property Name="Code" Type="Edm.String" MaxLength="2" 
+                              Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>`
 
 [[      \<ComplexType Name=\"Address\"\>\
         \<Property Name=\"Street\" Type=\"Edm.String\" /\>\
@@ -5869,11 +5706,9 @@ Partner=\"Supplier\"]{style="color:black"}]{.Datatype}
         \<NavigationProperty Name=\"Country\"
 Type=\"ODataDemo.Country\"\>]{style="color:black"}]{.Datatype}
 
-`          <ReferentialConstraint Property="CountryName"  `
-
-`                                 ReferencedProperty="Name" />`
-
-`        </NavigationProperty>`
+`          <ReferentialConstraint Property="CountryName"  
+                                 ReferencedProperty="Name" />
+        </NavigationProperty>`
 
 [[      \</ComplexType\>\
       \<Function Name=\"ProductsByRating\"\>\
@@ -5902,32 +5737,23 @@ EntityType=\"ODataDemo.Supplier\"\>\
           \<NavigationPropertyBinding Path=\"Products\"
 Target=\"Products\" /\>]{style="color:black"}]{.Datatype}
 
-`          <NavigationPropertyBinding Path="Address/Country"`
-
-`                                     Target="Countries" />`
-
-`          <Annotation Term="Core.OptimisticConcurrency">`
-
-`            <Collection>`
-
-`              <PropertyPath>Concurrency</PropertyPath>`
-
-`            </Collection>`
-
-`          </Annotation>`
+`          <NavigationPropertyBinding Path="Address/Country"
+                                     Target="Countries" />
+          <Annotation Term="Core.OptimisticConcurrency">
+            <Collection>
+              <PropertyPath>Concurrency</PropertyPath>
+            </Collection>
+          </Annotation>`
 
 [[        \</EntitySet\>\
         \<Singleton Name=\"MainSupplier\" Type=\"self.Supplier\"\>\
           \<NavigationPropertyBinding Path=\"Products\"
 Target=\"Products\" /\>]{style="color:black"}]{.Datatype}
 
-`          <Annotation Term="Core.Description" String="Primary Supplier" />`
-
-`        </Singleton>`
-
-`        <EntitySet Name="Countries" EntityType="ODataDemo.Country" />`
-
-`        <FunctionImport Name="ProductsByRating" EntitySet="Products"`
+`          <Annotation Term="Core.Description" String="Primary Supplier" />
+        </Singleton>
+        <EntitySet Name="Countries" EntityType="ODataDemo.Country" />
+        <FunctionImport Name="ProductsByRating" EntitySet="Products"`
 
 [[                        Function=\"ODataDemo.ProductsByRating\" /\>\
       \</EntityContainer\>\
@@ -5948,13 +5774,10 @@ Example ##ex:
 /\>]{style="color:black"}]{.Datatype}
 :::
 
-`  </edmx:Reference>`
-
-`  <edmx:Reference Uri="http://somewhere/Vocabulary/V1">`
-
-`    <edmx:Include Alias="Vocabulary1" Namespace="Some.Vocabulary.V1" />`
-
-`  </edmx:Reference>`
+`  </edmx:Reference>
+  <edmx:Reference Uri="http://somewhere/Vocabulary/V1">
+    <edmx:Include Alias="Vocabulary1" Namespace="Some.Vocabulary.V1" />
+  </edmx:Reference>`
 
 [[  \<edmx:DataServices\>\
     \<Schema xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"\
@@ -5977,19 +5800,13 @@ Example ##ex:
       \<Annotations
 Target=\"ODataDemo.Product\"\>]{style="color:black"}]{.Datatype}
 
-`        <Annotation Term="Vocabulary1.Tags">`
-
-`          <Collection>`
-
-`            <String>MasterData</String>`
-
-`          </Collection>`
-
-`        </Annotation>`
-
-`      </Annotations>`
-
-`  </Schema>`
+`        <Annotation Term="Vocabulary1.Tags">
+          <Collection>
+            <String>MasterData</String>
+          </Collection>
+        </Annotation>
+      </Annotations>
+  </Schema>`
 
 [[  \</edmx:DataServices\>\
 \</edmx:Edmx\>]{style="color:black"}]{.Datatype}
