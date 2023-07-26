@@ -7,7 +7,9 @@
     "build": "node lib/build",
     "pdf": "node lib/build-pdf.js",
     "start": "node lib/server",
-    "test": "c8 -r html -r text mocha"
+    "test": "c8 -r html -r text mocha",
+    "clean-protocol": "node lib/clean.mjs odata-protocol/temp odata-v4.01-os-part1-protocol",
+    "clean-url": "node lib/clean.mjs odata-url-conventions/temp odata-v4.01-os-part2-url-conventions"
   },
   "author": "",
   "license": "ISC",
