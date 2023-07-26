@@ -4,7 +4,7 @@ OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData service
 using the JavaScript Object Notation (JSON)[, see[
-]{.apple-converted-space}]{style="color:black"}**\[**[**RFC8259**](#rfc_JSON)**\]**.
+]{.apple-converted-space}]{style="color:black"}**\[**[**RFC8259**](#rfc8259)**\]**.
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 **\[**[**OpenUI5**](#OpenUI5)**\]**, with some extensions and
@@ -145,13 +145,13 @@ All other text is normative unless otherwise labeled.
 
 OData CSDL JSON is a full representation of the OData Common Schema
 Definition Language in the JavaScript Object Notation (JSON) defined in
-**\[**[**RFC8259**](#rfc_JSON)**\]**. It additionally follows the rules
+**\[**[**RFC8259**](#rfc8259)**\]**. It additionally follows the rules
 for "Internet JSON" (I-JSON) defined in
 **\[**[**RFC7493**](#rfc7493)**\]** for e.g. objects, numbers, date
 values, and duration values.
 
 It is an alternative to the CSDL XML representation defined in
-**\[**[**OData-CSDLXML**](#CSDLxml)**\]** and neither adds nor removes
+**\[**[**OData-CSDLXML**](#ODataCSDL)**\]** and neither adds nor removes
 features.
 
 ## ##subsec Requesting the JSON Representation
@@ -200,7 +200,7 @@ MUST specify this parameter in the media type returned in the
 
 The representation of constant annotation values in CSDL JSON documents
 closely follows the representation of data defined in
-[OData‑JSON](#BMJSON).
+[OData‑JSON](#ODataJSON).
 
 A client application can use the `metadata` format parameter in the
 `Accept` header when requesting a CSDL JSON document to influence how
@@ -223,7 +223,7 @@ heuristically determined, e.g. for
 types, or
 - Dynamic properties of open types.
 
-See [OData‑JSON](#BMJSON) for the exact rules.
+See [OData‑JSON](#ODataJSON) for the exact rules.
 
 #### ##subsubsubsec `metadata=full`
 
@@ -233,7 +233,7 @@ include all control information explicitly in the payload.
 This means that the `@type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
-[OData‑JSON](#BMJSON) for the exact rules.
+[OData‑JSON](#ODataJSON) for the exact rules.
 
 #### ##subsubsubsec `metadata=none`
 
@@ -257,17 +257,17 @@ name.
 To avoid name collisions, all fixed member names are prefixed with a
 dollar (`$`) sign and otherwise have the same name and capitalization as
 their counterparts in the CSDL XML representation
-**\[**[**OData-CSDLXML**](#CSDLxml)**\]** (with one exception: the
+**\[**[**OData-CSDLXML**](#ODataCSDL)**\]** (with one exception: the
 counterpart of the `EntitySet` element's `EntityType` attribute is
 [`$Type`](#EntitySet), to harmonize it with all other type references).
 
 Additional fixed members introduced by this specification and without
-counterpart in **\[**[**OData-CSDLXML**](#CSDLxml)**\]** are also
+counterpart in **\[**[**OData-CSDLXML**](#ODataCSDL)**\]** are also
 prefixed with a dollar (`$`) sign and use upper-camel-case names. One of
 these is `$Kind` which represents the kind of model element. Its value
 is the upper-camel-case local name of the XML element representing this
-kind of model element in **\[**[**OData-CSDLXML**](#CSDLxml)**\]**, e.g.
-`EntityType` or `NavigationProperty`.
+kind of model element in **\[**[**OData-CSDLXML**](#ODataCSDL)**\]**,
+e.g. `EntityType` or `NavigationProperty`.
 
 While the XML representation of CSDL allows referencing model elements
 with alias-qualified names as well as with namespace-qualified names,
@@ -430,9 +430,10 @@ non-binding parameters to functions or actions.
 Some of these types allow [facets](#TypeFacets), defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData‑ABNF](#BMABNF) for the
+See rule `primitiveLiteral` in [OData‑ABNF](#ODataABNF) for the
 representation of primitive type values in URLs and
-[OData‑JSON](#BMJSON) for the representation in requests and responses.
+[OData‑JSON](#ODataJSON) for the representation in requests and
+responses.
 
 ## ##subsec Built-In Abstract Types
 
@@ -584,11 +585,11 @@ A reference MAY be annotated.
 
 The
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation, defined in [OData-VocCore](#BMVocCore), MAY be used to
+annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is present, the `$schemaversion` system query option, defined
-[OData‑Protocol](#BMProtocol), SHOULD be used when retrieving the
+[OData‑Protocol](#ODataProtocol), SHOULD be used when retrieving the
 referenced schema document.
 
 ::: csdlHeadline
@@ -1220,7 +1221,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
 ::: csdlHeadline
 [`$OpenType`]{#_Toc37317382}
@@ -1244,7 +1245,7 @@ entity with one or more properties of type `Edm.Stream` if the
 structured data of the entity is the main topic of interest and the
 stream data is just additional information attached to the structured
 data. For more information on media entities see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
 An entity type derived from a media entity type MUST indicate that it is
 also a media entity type.
@@ -1252,7 +1253,7 @@ also a media entity type.
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
 [`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
-see [OData-VocCore](#BMVocCore).
+see [OData-VocCore](#ODataVocCore).
 
 ::: csdlHeadline
 [`$HasStream`]{#_Toc37317383}
@@ -1309,7 +1310,7 @@ on one of these primitive types:
 
 Key property values MAY be language-dependent, but their values MUST be
 unique across all languages and the entity ids (defined in
-[OData‑Protocol](#BMProtocol)) MUST be language independent.
+[OData‑Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
@@ -1567,12 +1568,12 @@ scope, or a collection of one of these types.
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in\
-[OData-VocCore](#BMVocCore)**)**, to specify that it supports a stable
-ordering.
+[OData-VocCore](#ODataVocCore)**)**, to specify that it supports a
+stable ordering.
 
 A collection-valued property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: csdlHeadline
@@ -1650,9 +1651,9 @@ length.
 ::: csdl
 The value of `$MaxLength` is a positive integer.
 
-Note: **\[**[**OData-CSDLXML**](#CSDLxml)**\]** defines a symbolic value
-`max` that is only allowed in OData 4.0 responses. This symbolic value
-is not allowed in CDSL JSON documents at all. Services MAY instead
+Note: **\[**[**OData-CSDLXML**](#ODataCSDL)**\]** defines a symbolic
+value `max` that is only allowed in OData 4.0 responses. This symbolic
+value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the
 service or omit the member entirely.
 :::
@@ -1677,7 +1678,7 @@ the risk for unintended data loss.
 Note: duration properties supporting a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#BMVocMeasures).
+see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: csdlHeadline
 [`$Precision`]{#_Toc37317389}
@@ -1876,7 +1877,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 ::: csdl
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
-**\[**[**OData-JSON**](#BMJSON)**\]**. For properties of type
+**\[**[**OData-JSON**](#ODataJSON)**\]**. For properties of type
 `Edm.Decimal` and `Edm.Int64` the representation depends on the media
 type parameter
 [`IEEE754Compatible`](#ControllingtheRepresentationofNumber).
@@ -2006,12 +2007,12 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#BMVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: csdlHeadline
@@ -2103,7 +2104,8 @@ either directly or indirectly via a property of complex type, contain
 the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
-property and the key of the contained entity, see [OData‑URL](#BMURL).
+property and the key of the contained entity, see
+[OData‑URL](#ODataURL).
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.
@@ -2111,10 +2113,10 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-VocCore](#BMVocCore)**)**, the canonical URL of
-the item is the canonical URL of the collection appended with a segment
-containing the zero-based ordinal of the item. Items within in an
-unordered collection of complex types do not have a canonical URL.
+term defined in [OData-VocCore](#ODataVocCore)**)**, the canonical URL
+of the item is the canonical URL of the collection appended with a
+segment containing the zero-based ordinal of the item. Items within in
+an unordered collection of complex types do not have a canonical URL.
 Services that support unordered collections of complex types declaring a
 containment navigation property, either directly or indirectly via a
 property of complex type, MUST specify the URL for the navigation link
@@ -2492,7 +2494,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#BMProtocol).
+[OData‑Protocol](#ODataProtocol).
 
 ::: csdlHeadline
 [`$OpenType`]{#_Toc37317404}
@@ -2516,7 +2518,7 @@ Although enumeration types have an underlying numeric value, the
 preferred representation for an enumeration value is the member name.
 Discrete sets of numeric values should be represented as numeric values
 annotated with the `AllowedValues` annotation defined in
-[OData-VocCore](#BMVocCore).
+[OData-VocCore](#ODataVocCore).
 
 Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
@@ -3831,7 +3833,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData‑JSON](#BMJSON). An
+an OData payload, such as described in [OData‑JSON](#ODataJSON). An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -3845,7 +3847,7 @@ A *vocabulary* is a schema containing a set of terms where each
 vocabulary (a set of terms) that is scenario-specific or
 company-specific; more commonly used terms can be published as shared
 vocabularies such as the OData Core vocabulary
-[OData-VocCore](#BMVocCore).
+[OData-VocCore](#ODataVocCore).
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
@@ -3996,10 +3998,10 @@ Absence of the `$Type` member means the type is `Edm.String`.
 ::: csdl
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
-**\[**[**OData-JSON**](#BMJSON)**\]**.
+**\[**[**OData-JSON**](#ODataJSON)**\]**.
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to **\[**[**OData-CSDLXML**](#CSDLxml)**\]**. Annotations in
+isomorphy to **\[**[**OData-CSDLXML**](#ODataCSDL)**\]**. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -4080,7 +4082,7 @@ term is intended to be applied to.
 ::: example
 Example ##ex: the `IsURL` term can be applied to properties and terms that
 are of type `Edm.String` (the `Core.Tag` type and the two `Core` terms
-are defined in [OData‑VocCore](#BMVocCore))
+are defined in [OData‑VocCore](#ODataVocCore))
 ```
 \"IsURL\": {
 :::
@@ -4428,8 +4430,8 @@ Date expressions are represented as a string containing the date value.
 The value MUST conform to type `xs:date`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData‑ABNF](#BMABNF), i.e. it MUST NOT
-contain a time-zone offset.
+conform to rule `dateValue` in [OData‑ABNF](#ODataABNF), i.e. it MUST
+NOT contain a time-zone offset.
 :::
 
 ::: example
@@ -4447,8 +4449,8 @@ timestamp value. The value MUST conform to type `xs:dateTimeStamp`, see
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
 MUST also conform to rule `dateTimeOffsetValue` in
-[OData‑ABNF](#BMABNF), i.e. it MUST NOT contain an end-of-day fragment
-(24:00:00).
+[OData‑ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
+fragment (24:00:00).
 :::
 
 ::: example
@@ -4553,7 +4555,8 @@ Example ##ex:
 
 ::: csdl
 Guid expressions are represented as a string containing the uuid value.
-The value MUST conform to the rule `guidValue` in [OData‑ABNF](#BMABNF).
+The value MUST conform to the rule `guidValue` in
+[OData‑ABNF](#ODataABNF).
 :::
 
 ::: example
@@ -4603,7 +4606,7 @@ Example ##ex:
 ::: csdl
 Time-of-day expressions are represented as a string containing the
 time-of-day value. The value MUST conform to the rule `timeOfDayValue`
-in [OData‑ABNF](#BMABNF).
+in [OData‑ABNF](#ODataABNF).
 :::
 
 ::: example
@@ -4641,7 +4644,7 @@ than the `Edm.*Path` types, or of any model-defined type.
 #### ##subsubsubsec Path Syntax
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData‑URL](#BMURL).
+from the path expression syntax of URLs, see [OData‑URL](#ODataURL).
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -4770,11 +4773,12 @@ Example ##ex: model path addressing an annotation on a navigation property
 
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
-predicate using parentheses-style convention, see [OData‑URL](#BMURL).
-The key values are either primitive literals or instance paths. If the
-key value is a relative instance path, it is interpreted according to
-the same rule below as the instance path it is part of, *not* relative
-to the instance identified by the preceding path part.
+predicate using parentheses-style convention, see
+[OData‑URL](#ODataURL). The key values are either primitive literals or
+instance paths. If the key value is a relative instance path, it is
+interpreted according to the same rule below as the instance path it is
+part of, *not* relative to the instance identified by the preceding path
+part.
 
 ::: example
 Example ##ex: instance path with entity set and key predicate
@@ -4859,7 +4863,7 @@ path](#PathExpressions) with the following restriction:
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with term `Validation.AllowedTerms` (see
-[OData-VocValidation](#BMVocValidation)) if its intended value is an
+[OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
 The value of the annotation path expression is the path itself, not the
@@ -5054,7 +5058,7 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData‑URL](#BMURL).
+handling for comparison operators see [OData‑URL](#ODataURL).
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
@@ -5291,7 +5295,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData‑URL](#BMURL).
+[OData‑URL](#ODataURL).
 
   **Operator**   **Description**
   -------------- ---------------------------------------------------------------
@@ -5493,10 +5497,10 @@ specification and its future versions.
 
 #### ##subsubsubsec Canonical Functions
 
-All canonical functions defined in [OData‑URL](#BMURL) can be used as
+All canonical functions defined in [OData‑URL](#ODataURL) can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData‑URL](#BMURL).
+counterpart function defined in [OData‑URL](#ODataURL).
 
 For example, the `odata.concat` client-side function takes two or more
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -5504,7 +5508,7 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData‑ABNF](#BMABNF), i.e. `Edm.Binary` as
+`primitiveValue` rule of [OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: example
@@ -5559,18 +5563,18 @@ The `odata.fillUriTemplate` client-side function takes two or more
 expressions as arguments and returns a value of type `Edm.String.`
 
 The first argument MUST be of type `Edm.String` and specifies a URI
-template according to [RFC6570](#BMRFC6570), the other arguments MUST be
+template according to [RFC6570](#rfc6570), the other arguments MUST be
 [labeled element expressions](#LabeledElement). Each [labeled element
 expression](#LabeledElement) specifies the template parameter name as
 its name and evaluates to the template parameter value.
 
-[RFC6570](#BMRFC6570) defines three kinds of template parameters: simple
+[RFC6570](#rfc6570) defines three kinds of template parameters: simple
 values, lists of values, and key-value maps.
 
 Simple values are represented as [labeled element
 expressions](#LabeledElement) that evaluate to a single primitive value.
 The literal representation of this value according to
-[OData‑ABNF](#BMABNF) is used to fill the corresponding template
+[OData‑ABNF](#ODataABNF) is used to fill the corresponding template
 parameter.
 
 Lists of values are represented as [labeled element
@@ -5699,7 +5703,8 @@ Example ##ex:
 
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
-rules as the `cast` canonical function defined in [OData‑URL](#BMURL).
+rules as the `cast` canonical function defined in
+[OData‑URL](#ODataURL).
 
 ::: csdlHeadline
 [`$Cast`]{#_Toc37317454}
@@ -6010,7 +6015,7 @@ property value expression. The member name is the property name, and the
 member value is the property value expression.
 
 The type of a record expression is represented as the `@type` control
-information, see  [OData‑JSON](#BMJSON).
+information, see  [OData‑JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
@@ -6192,7 +6197,7 @@ by at most 127 letters, underscores or digits.
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
-[OData‑ABNF](#BMABNF).
+[OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6829,7 +6834,8 @@ especially the contributions of
 - Patric Ksinsik (SAP SE)
 
 The contributions of the OASIS OData Technical Committee members,
-enumerated in [ODataProtocol](#BMProtocol), are gratefully acknowledged.
+enumerated in [ODataProtocol](#ODataProtocol), are gratefully
+acknowledged.
 
 Appendix B. [Table of JSON Objects and
 Members](#TableofJSONObjectsandMembers)
