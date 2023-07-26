@@ -177,7 +177,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 ## <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
 
 :::: dt
-A CSDL JSON document consists of a single JSON object. This document object MUST contain the member $Version.
+A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
 
 The document object MAY contain the member $Reference to reference other CSDL documents.
 
@@ -189,13 +189,13 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 ## <a name="Version1.1" href="#Version1.1"> `$Version`</a>
 
 :::: dt
-The value of $Version is a string containing either 4.0 or 4.01.
+The value of `$Version` is a string containing either 4.0 or 4.01.
 ::::
 
 ## <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
 :::: dt
-The value of $EntityContainer is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 ::::
 :::
 

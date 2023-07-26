@@ -166,18 +166,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="index">
 <h2 id="-document-object"><a name="DocumentObject1" href="#DocumentObject1"> Document Object</a></h2>
 <div class="dt">
-<p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member $Version.</p>
+<p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member <code>$Version</code>.</p>
 <p>The document object MAY contain the member $Reference to reference other CSDL documents.</p>
 <p>It also MAY contain members for schemas.</p>
 <p>If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member <code>$EntityContainer</code>.</p>
 </div>
 <h2 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h2>
 <div class="dt">
-<p>The value of $Version is a string containing either 4.0 or 4.01.</p>
+<p>The value of <code>$Version</code> is a string containing either 4.0 or 4.01.</p>
 </div>
 <h2 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h2>
 <div class="dt">
-<p>The value of $EntityContainer is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
+<p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>
 </div>
 <hr />
