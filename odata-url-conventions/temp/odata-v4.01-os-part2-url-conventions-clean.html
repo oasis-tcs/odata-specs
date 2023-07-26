@@ -177,11 +177,11 @@ following chapters.</p>
 <h2>##subsec URL Parsing</h2>
 
 <p class=MsoNormal>OData follows the URI syntax rules defined in <a
-href="#RFC3986">RFC3986</a> and in addition assigns special meaning to
-several of the sub-delimiters defined by <a href="#RFC3986">RFC3986</a>,
+href="#rfc3986">RFC3986</a> and in addition assigns special meaning to
+several of the sub-delimiters defined by <a href="#rfc3986">RFC3986</a>,
 so special care has to be taken regarding parsing and percent-decoding.</p>
 
-<p class=MsoNormal><a href="#RFC3986">RFC3986</a><b> </b>defines three
+<p class=MsoNormal><a href="#rfc3986">RFC3986</a><b> </b>defines three
 steps for URL processing that MUST be performed before percent-decoding: </p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
@@ -218,7 +218,7 @@ rules that a correct OData URL MUST fulfill. In case of doubt on what makes an
 OData URL correct the rules defined in this specification document take
 precedence. Note also that the rules in <a href="#ODataABNF">OData-ABNF</a>
 assume that URLs and URL parts have been percent-encoding normalized as
-described in section 6.2.2.2 of <a href="#RFC3986">RFC3986</a> before
+described in section 6.2.2.2 of <a href="#rfc3986">RFC3986</a> before
 applying the grammar to them, i.e. all characters in the unreserved set (see
 rule <code>unreserved</code> in  <a href="#ODataABNF">OData-ABNF</a>)
 are plain literals and not percent-encoded. For characters outside of the

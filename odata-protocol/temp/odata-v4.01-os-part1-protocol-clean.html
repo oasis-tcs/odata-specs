@@ -53,7 +53,7 @@ href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-ope
 
 <p class=MsoNormal>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL
 NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
-document are to be interpreted as described in <a href="#RFC2119">RFC2119</a>.</p>
+document are to be interpreted as described in <a href="#rfc2119">RFC2119</a>.</p>
 
 <h2>##subsec Normative References</h2>
 
@@ -358,7 +358,7 @@ href="#DataModification">Data Modification</a> for details.</p>
 <p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'>Whereas entities
 within an entity set are uniquely identified by their key values, entities are
 also uniquely identified by a durable, opaque, globally unique <i>entity-id</i>.
-The entity-id MUST be an IRI as defined in <a href="#RFC3987">RFC3987</a>
+The entity-id MUST be an IRI as defined in <a href="#rfc3987">RFC3987</a>
 and MAY be expressed in payloads, headers, and URLs as a relative reference as
 appropriate. While the client MUST be prepared to
 accept any IRI, services MUST use valid URIs in this version of the
@@ -5227,7 +5227,7 @@ provides more resiliency between clients and services by directly modifying
 only those values specified by the client.</p>
 
 <p class=MsoNormal>The semantics of <code>PATCH</code>,
-as defined in <a href="#RFC5789">RFC5789</a>, is to merge the content
+as defined in <a href="#rfc5789">RFC5789</a>, is to merge the content
 in the request payload with the [entity’s] current state, applying the update
 only to those components specified in the request body. Collection properties
 and primitive properties provided in the payload corresponding to updatable
@@ -6774,7 +6774,7 @@ Request Headers</h3>
 
 <p class=MsoNormal>A batch request using the <a href="#MultipartBatchFormat">multipart
 batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a
-content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#RFC2046">RFC2046</a>.
+content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.
 </p>
 
 <p class=MsoCaption>Example 96: multipart batch request</p>
@@ -6920,7 +6920,7 @@ can be avoided by e.g. using only numeric request identifiers.</p>
 <h3>##subsubsec Multipart Batch Format</h3>
 
 <p class=MsoNormal>The multipart batch format is represented as a Multipart
-Media Type message <a href="#RFC2046">RFC2046</a>, a standard format
+Media Type message <a href="#rfc2046">RFC2046</a>, a standard format
 allowing the representation of multiple parts, each of which may have a different
 content type.</p>
 
@@ -6938,7 +6938,7 @@ boundary, and another two dashes).</p>
 a <code>Content-Type</code> header with value <code>application/http</code>. </p>
 
 <p class=MsoNormal>The contents of a body part representing a change set MUST
-itself be a multipart document (see <a href="#RFC2046">RFC2046</a>) with
+itself be a multipart document (see <a href="#rfc2046">RFC2046</a>) with
 one body part for each operation in the change set. <span
 class=MsoCommentReference><span style='font-size:8.0pt'>E</span></span>ach body
 part representing an operation in the change set MUST specify a <code>Content-ID</code> header with a <a
@@ -6952,7 +6952,7 @@ transmission via E-Mail. Neither clients nor services should rely on this
 header being present. </p>
 
 <p class=MsoNormal>Preambles and epilogues in the multipart batch request body,
-as defined in <a href="#RFC2046">RFC2046</a>, are valid but are
+as defined in <a href="#rfc2046">RFC2046</a>, are valid but are
 assigned no meaning and thus MUST be ignored by processors of multipart batch
 requests.</p>
 
@@ -7061,7 +7061,7 @@ brackets and <code>OData-Version</code> headers are omitted. </p>
 are necessary: the first is part of the <code>GET</code> request
 header; the second is the empty body of the <code>GET</code>
 request, followed by a <code>CRLF</code> according to <a
-href="#RFC2046">RFC2046</a>.</p>
+href="#rfc2046">RFC2046</a>.</p>
 
 <div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -7559,13 +7559,13 @@ latter.</p>
 <p class=MsoNormal>For HTTP relevant security implications please cf. the
 relevant sections of <a href="#HTTPSemantic">RFC7231</a> (9. Security
 Considerations) and for the HTTP <code>PATCH</code> method <a
-href="#RFC5789">RFC5789</a> (5. Security Considerations) as starting
+href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting
 points.</p>
 
 <h2>##subsec Authentication</h2>
 
 <p class=MsoNormal>OData Services requiring authentication SHOULD consider supporting
-basic authentication as defined in <a href="#RFC7617">RFC7617</a> over
+basic authentication as defined in <a href="#rfc7617">RFC7617</a> over
 HTTPS for the highest level of interoperability with generic clients. They MAY
 support other authentication methods.</p>
 
@@ -7853,7 +7853,7 @@ support the <a href="#ODataJSON">OData-JSON</a> format </p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:.25in;margin-bottom:.0001pt;text-indent:-.25in'>10. SHOULD consider supporting basic authentication as defined in <a
-href="#RFC7617">RFC7617</a> over HTTPS for
+href="#rfc7617">RFC7617</a> over HTTPS for
 the highest level of interoperability with generic clients</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
@@ -8341,7 +8341,7 @@ system query options</p>
 case-sensitive query options, operators, and canonical functions</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
-4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#RFC7617">RFC7617</a> over HTTPS</p>
+4.0pt;margin-left:17.85pt;text-indent:-17.85pt'>10. SHOULD support basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS</p>
 
 <p class=MsoListParagraph style='margin-top:1.0pt;margin-right:0in;margin-bottom:
 0in;margin-left:17.85pt;margin-bottom:.0001pt;text-indent:-17.85pt'>11. MAY request entity

@@ -35,7 +35,7 @@ TC's web page (<https://www.oasis-open.org/committees/odata/ipr.php>).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](#RFC2119).
+document are to be interpreted as described in [RFC2119](#rfc2119).
 
 ## ##subsec Normative References
 
@@ -311,7 +311,7 @@ Modification](#DataModification) for details.
 Whereas entities within an entity set are uniquely identified by their
 key values, entities are also uniquely identified by a durable, opaque,
 globally unique *entity-id*. The entity-id MUST be an IRI as defined in
-[RFC3987](#RFC3987) and MAY be expressed in payloads, headers, and URLs
+[RFC3987](#rfc3987) and MAY be expressed in payloads, headers, and URLs
 as a relative reference as appropriate. While the client MUST be
 prepared to accept any IRI, services MUST use valid URIs in this version
 of the specification since there is currently no lossless representation
@@ -4222,7 +4222,7 @@ Services SHOULD support `PATCH` as the preferred means of updating an
 entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
-The semantics of `PATCH`, as defined in [RFC5789](#RFC5789), is to merge
+The semantics of `PATCH`, as defined in [RFC5789](#rfc5789), is to merge
 the content in the request payload with the \[entity's\] current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
@@ -5672,7 +5672,7 @@ A batch request using the [multipart batch
 format](#MultipartBatchFormat) MUST contain a
 [`Content-Type`](#HeaderContentType) header specifying a content type of
 `multipart/mixed` and a `boundary` parameter as defined in
-[RFC2046](#RFC2046).
+[RFC2046](#rfc2046).
 
 Example 96: multipart batch request
 
@@ -5803,7 +5803,7 @@ request identifiers.
 ### ##subsubsec Multipart Batch Format
 
 The multipart batch format is represented as a Multipart Media Type
-message [RFC2046](#RFC2046), a standard format allowing the
+message [RFC2046](#rfc2046), a standard format allowing the
 representation of multiple parts, each of which may have a different
 content type.
 
@@ -5821,7 +5821,7 @@ A body part representing an individual request MUST include a
 `Content-Type` header with value `application/http`.
 
 The contents of a body part representing a change set MUST itself be a
-multipart document (see [RFC2046](#RFC2046)) with one body part for each
+multipart document (see [RFC2046](#rfc2046)) with one body part for each
 operation in the change set.
 [[E]{style="font-size:8.0pt"}]{.MsoCommentReference}ach body part
 representing an operation in the change set MUST specify a `Content-ID`
@@ -5834,7 +5834,7 @@ needed for transmission via E-Mail. Neither clients nor services should
 rely on this header being present.
 
 Preambles and epilogues in the multipart batch request body, as defined
-in [RFC2046](#RFC2046), are valid but are assigned no meaning and thus
+in [RFC2046](#rfc2046), are valid but are assigned no meaning and thus
 MUST be ignored by processors of multipart batch requests.
 
 The request URL of individual requests within a batch request or change
@@ -5912,7 +5912,7 @@ are omitted.
 Note also that the two empty lines after the `Host` header of the `GET`
 request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
-according to [RFC2046](#RFC2046).
+according to [RFC2046](#rfc2046).
 
 ::: {style="border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
 solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
@@ -6373,13 +6373,13 @@ concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
 of [RFC7231](#HTTPSemantic) (9. Security Considerations) and for the
-HTTP `PATCH` method [RFC5789](#RFC5789) (5. Security Considerations) as
+HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
 starting points.
 
 ## ##subsec Authentication
 
 OData Services requiring authentication SHOULD consider supporting basic
-authentication as defined in [RFC7617](#RFC7617) over HTTPS for the
+authentication as defined in [RFC7617](#rfc7617) over HTTPS for the
 highest level of interoperability with generic clients. They MAY support
 other authentication methods.
 
@@ -6583,7 +6583,7 @@ functions (section 9.3.1)
 9\. SHOULD support the [OData-JSON](#ODataJSON) format
 
 10\. SHOULD consider supporting basic authentication as defined in
-[RFC7617](#RFC7617) over HTTPS for the highest level of interoperability
+[RFC7617](#rfc7617) over HTTPS for the highest level of interoperability
 with generic clients
 
 11\. SHOULD support the `$search system query option (section 11.2.6.6)`
@@ -6929,7 +6929,7 @@ query options
 functions
 
 10\. SHOULD support basic authentication as defined in
-[RFC7617](#RFC7617) over HTTPS
+[RFC7617](#rfc7617) over HTTPS
 
 11\. MAY request entity references in place of entities previously
 returned in the response (section 11.2.8)

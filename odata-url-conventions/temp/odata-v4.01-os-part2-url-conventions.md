@@ -135,12 +135,12 @@ chapters.
 
 ## ##subsec URL Parsing
 
-OData follows the URI syntax rules defined in [RFC3986](#RFC3986) and in
+OData follows the URI syntax rules defined in [RFC3986](#rfc3986) and in
 addition assigns special meaning to several of the sub-delimiters
-defined by [RFC3986](#RFC3986), so special care has to be taken
+defined by [RFC3986](#rfc3986), so special care has to be taken
 regarding parsing and percent-decoding.
 
-[RFC3986](#RFC3986) defines three steps for URL processing that MUST be
+[RFC3986](#rfc3986) defines three steps for URL processing that MUST be
 performed before percent-decoding:
 - Split undecoded URL into components
 scheme, hier-part, query, and fragment
@@ -168,7 +168,7 @@ MUST fulfill. In case of doubt on what makes an OData URL correct the
 rules defined in this specification document take precedence. Note also
 that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in section
-6.2.2.2 of [RFC3986](#RFC3986) before applying the grammar to them, i.e.
+6.2.2.2 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
 all characters in the unreserved set (see rule `unreserved` in 
 [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
