@@ -33,8 +33,7 @@ a[href^="#rfc"]::after {
 	font-style: italic;
 }
 
-.dl div,
-.dl h3 {
+.rep {
 	border-left: solid windowtext 1pt;
 	padding-left: 8pt;
 }
@@ -140,7 +139,7 @@ h6 code {
 }
 
 .example pre,
-.dl {
+.rep {
 	margin-left: 40px;
 }
 
