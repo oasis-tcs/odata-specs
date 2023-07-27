@@ -2,12 +2,14 @@ a:target {
 	background-color: yellow;
 }
 
+a[href^="#_"],
 a[href^="#OData"],
 a[href^="#rfc"],
 a[href^="#XML"] {
 	font-weight: bold;
 }
 
+a[href^="#_"]::before,
 a[href^="#OData"]::before,
 a[href^="#rfc"]::before,
 a[href^="#XML"]::before {
@@ -15,6 +17,7 @@ a[href^="#XML"]::before {
 	font-weight: bold;
 }
 
+a[href^="#_"]::after,
 a[href^="#OData"]::after,
 a[href^="#rfc"]::after,
 a[href^="#XML"]::after {

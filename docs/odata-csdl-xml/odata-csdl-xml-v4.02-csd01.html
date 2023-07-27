@@ -120,8 +120,6 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
 <li>XML schemas: <em>OData EDMX XML Schema and OData EDM XML Schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/</a></li>
-<li>Other parts (list titles and/or file names)</li>
-<li><code>(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)</code></li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -220,8 +218,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
-<p>OData services are described in terms of an <a href="#EntityModel">Entity Model</a>. The Common Schema Definition Language (CSDL) defines a representation of the entity model exposed by an OData service using the JavaScript Object Notation (JSON)[, see[ ]{.apple-converted-space}]{style="color:black"}<strong>[</strong><a href="#rfc8259"><strong>RFC8259</strong></a><strong>]</strong>.</p>
-<p>This format is based on the OpenUI5 OData V4 Metadata JSON Format, see <strong>[</strong><a href="#OpenUI5"><strong>OpenUI5</strong></a><strong>]</strong>, with some extensions and modifications made necessary to fully cover OData CSDL Version 4.01.</p>
+<p>OData services are described in terms of an <a href="#EntityModel">Entity Model</a>. The Common Schema Definition Language (CSDL) defines a representation of the entity model exposed by an OData service using the JavaScript Object Notation (JSON), see <a href="#rfc8259">RFC8259</a>.</p>
+<p>This format is based on the OpenUI5 OData V4 Metadata JSON Format, see <a href="#_OpenUI5">OpenUI5</a>, with some extensions and modifications made necessary to fully cover OData CSDL Version 4.01.</p>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></h2>
 <!-- TODO -->
 
@@ -684,9 +682,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </section>
 <div class="varxml example">
 <p>Example 6: schema <code>org.example</code> with an alias and a description for the schema</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;self&quot;</span>&gt;   &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Example schema&quot;</span> /&gt;</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;self&quot;</span>&gt;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Example schema&quot;</span> /&gt;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
 <div class="varxml rep">
@@ -721,9 +720,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
 </ul></li>
 </ul>
-<h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
+<h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2016 Language Specification, 7th Edition</em>. June 2016. Standard ECMA-262. <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">http://www.ecma-international.org/publications/standards/Ecma-262.htm</a>.</p>
-<h6 id="epsg"><a name="EPSG">[EPSG]</a></h6>
+<h6 id="epsg"><a name="_EPSG">[EPSG]</a></h6>
 <p><em>European Petroleum Survey Group (EPSG)</em>. <a href="http://www.epsg.org/.######">http://www.epsg.org/.######</a> <a name="rfc7493">[RFC7493]</a> <em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em>.<br />
 <a href="https://tools.ietf.org/html/rfc7493.######">https://tools.ietf.org/html/rfc7493.######</a> <a name="rfc2119">[RFC2119]</a> <em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>.<br />
 <a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>.</p>
@@ -733,10 +732,10 @@ See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on
 <h6 id="odata-csdl-schema"><a name="ODataCSDL">[OData-CSDL-Schema]</a></h6>
 <p><em>OData CSDL JSON Schema</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-csdljson"><a name="ODataCSDLJSON">[OData-CSDLJSON]</a></h6>
+<h6 id="odata-csdl-json"><a name="ODataCSDLJSON">[OData-CSDL-JSON]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-csdlxml"><a name="ODataCSDLXML">[OData-CSDLXML]</a></h6>
+<h6 id="odata-csdl-xml"><a name="ODataCSDLXML">[OData-CSDL-XML]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-edm"><a name="ODataEDM">[OData-EDM]</a></h6>
@@ -789,7 +788,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.####
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="openui5"><a name="OpenUI5">[OpenUI5]</a></h6>
+<h6 id="openui5"><a name="_OpenUI5">[OpenUI5]</a></h6>
 <p><em>OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format</em>.<br />
 <a href="https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html">https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html</a>.</p>
 <hr />

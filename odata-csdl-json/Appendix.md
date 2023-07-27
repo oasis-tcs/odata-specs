@@ -17,10 +17,10 @@ The following documents are referenced in such a way that some or all of their c
   - _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   - _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
 
-###### <a name="ECMAScript">[ECMAScript]</a>
+###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
-###### <a name="EPSG">[EPSG]</a>
+###### <a name="_EPSG">[EPSG]</a>
 _European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.###### <a name="rfc7493">[RFC7493]</a>
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
 https://tools.ietf.org/html/rfc7493.###### <a name="rfc2119">[RFC2119]</a>
@@ -35,11 +35,11 @@ See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page
 _OData CSDL JSON Schema_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDLJSON">[OData-CSDLJSON]</a>
+###### <a name="ODataCSDLJSON">[OData-CSDL-JSON]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDLXML">[OData-CSDLXML]</a>
+###### <a name="ODataCSDLXML">[OData-CSDL-XML]</a>
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
@@ -111,7 +111,7 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 
 ## ##subasec Informative References
 
-###### <a name="OpenUI5">[OpenUI5]</a>
+###### <a name="_OpenUI5">[OpenUI5]</a>
 _OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
 

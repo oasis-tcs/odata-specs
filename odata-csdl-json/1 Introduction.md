@@ -5,11 +5,10 @@
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData service
-using the JavaScript Object Notation (JSON)[, see[
-]{.apple-converted-space}]{style="color:black"}**\[**[**RFC8259**](#rfc8259)**\]**.
+using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
-**\[**[**OpenUI5**](#OpenUI5)**\]**, with some extensions and
+[OpenUI5](#_OpenUI5), with some extensions and
 modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ## ##subsec Changes from earlier Versions
@@ -116,7 +115,7 @@ conformance with [RFC7493](#rfc7493). If not specified, or specified as
 numbers.
 
 This enables support for JavaScript numbers that are defined to be
-64-bit binary format IEEE 754 values [ECMAScript](#ECMAScript)
+64-bit binary format IEEE 754 values [ECMAScript](#_ECMAScript)
 (see [section
 4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19))
 resulting in integers losing precision past 15 digits, and decimals
