@@ -121,11 +121,12 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Acknowledgments](#Acknowledgments)
-  - [B.1 Special Thanks](#SpecialThanks)
-  - [B.2 Participants](#Participants)
-- [C Revision History](#RevisionHistory)
-- [D Notices](#Notices)
+- [B Table of JSON Objects and Members](#TableofJSONObjectsandMembers)
+- [C Acknowledgments](#Acknowledgments)
+  - [C.1 Special Thanks](#SpecialThanks)
+  - [C.2 Participants](#Participants)
+- [D Revision History](#RevisionHistory)
+- [E Notices](#Notices)
 :::
 
 -------
@@ -358,6 +359,7 @@ in every imaginable use case. This specification document defines
 additional rules that correct CSDL JSON documents MUST fulfill. In case
 of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
+
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -971,6 +973,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 
 -------
 
+# <a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a>
 
 ::: toc
 - [Document Object](#DocumentObject1)
@@ -989,13 +992,13 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
 <!-- Required section -->
 
 `Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.`
 
-## <a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
+## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
 <!-- This is an optional subsection to call out contributions from TC members. If a TC wants to thank non-TC members then they should avoid using the term "contribution" and instead thank them for their "expertise" or "assistance". -->
 
@@ -1003,7 +1006,7 @@ Substantial contributions to this document from the following individuals are gr
 
 Participant Name, Affiliation or "Individual Member"
 
-## <a name="Participants" href="#Participants">B.2 Participants</a>
+## <a name="Participants" href="#Participants">C.2 Participants</a>
 
 <!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
 
@@ -1020,7 +1023,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
 
 <!-- Optional section -->
 
@@ -1030,7 +1033,7 @@ Darren | Anstman | Big Networks
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix D. Notices</a>
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

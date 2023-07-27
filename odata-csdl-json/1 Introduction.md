@@ -70,6 +70,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
+: varjson
 # ##sec JSON Representation
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -228,6 +229,110 @@ in every imaginable use case. This specification document defines
 additional rules that correct CSDL JSON documents MUST fulfill. In case
 of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
+:
+
+: varxml
+# ##sec XML Representation
+
+OData CSDL XML is a full representation of the OData Common Schema
+Definition Language in the Extensible Markup Language (XML) 1.1 (Second
+Edition) [XML-1.1](#BMXML) with further building blocks from the
+W3C XML Schema Definition Language (XSD) 1.1 as described in
+[XML-Schema-1](#BMXMLSchema1) and
+[XML-Schema-2](#BMXMLSchema2).
+
+It is an alternative to the CSDL JSON representation defined in
+[OData-CSDLJSON](#BMCSDLJSON) and neither adds nor
+removes features.
+
+## ##subsec Requesting the XML Representation
+
+The OData CSDL XML representation can be requested using the `$format`
+query option in the request URL with the media type `application/xml`,
+optionally followed by media type parameters, or the case-insensitive
+abbreviation `xml` which MUST NOT be followed by media type parameters.
+
+Alternatively, this representation can be requested using the `Accept`
+header with the media type `application/xml`, optionally followed by
+media type parameters.
+
+If specified, `$format` overrides any value specified in the `Accept`
+header.
+
+The response MUST contain the `Content-Type` header with a value of
+`application/xml`, optionally followed by media type parameters.
+
+This specification does not define additional parameters for the media
+type `application/xml`.
+
+## ##subsec XML Namespaces
+
+In addition to the default XML namespace, the elements and attributes
+used to describe the entity model of an OData service are defined in one
+of the following namespaces.
+
+### ##subsubsec Namespace EDMX
+
+Elements and attributes associated with the top-level wrapper that
+contains the CSDL used to define the entity model for an OData Service
+are qualified with the Entity Data Model for Data Services Packaging
+namespace:
+- `http://docs.oasis-open.org/odata/ns/edmx`
+
+Prior versions of OData used the following namespace for EDMX:
+- EDMX version 1.0:
+`http://schemas.microsoft.com/ado/2007/06/edmx`
+
+They are non-normative for this specification.
+
+In this specification the namespace prefix `edmx` is used to represent
+the Entity Data Model for Data Services Packaging namespace, however the
+prefix name is not prescriptive.
+
+### ##subsubsec Namespace EDM
+
+Elements and attributes that define the entity model exposed by the
+OData Service are qualified with the Entity Data Model namespace:
+- `http://docs.oasis-open.org/odata/ns/edm`
+
+Prior versions of CSDL used the following namespaces for EDM:
+
+- CSDL version 1.0: `http://schemas.microsoft.com/ado/2006/04/edm`
+- CSDL version 1.1: `http://schemas.microsoft.com/ado/2007/05/edm`
+- CSDL version 1.2: `http://schemas.microsoft.com/ado/2008/01/edm`
+- CSDL version 2.0: `http://schemas.microsoft.com/ado/2008/09/edm`
+- CSDL version 3.0: `http://schemas.microsoft.com/ado/2009/11/edm`
+
+They are non-normative for this specification.
+
+In this specification the namespace prefix `edm` is used to represent
+the Entity Data Model namespace, however the prefix name is not
+prescriptive.
+
+## ##subsec XML Schema Definitions
+
+This specification contains normative XML schemas for the EDMX and EDM
+namespaces; see [OData-EDMX](#BMEDMX) and
+[OData-EDM](#BMEDM)
+
+These XML schemas only define the shape of a well-formed CSDL XML
+document and are not descriptive enough to define what a correct CSDL
+XML document MUST be in every imaginable use case. This specification
+document defines additional rules that correct CSDL XML documents MUST
+fulfill. In case of doubt on what makes a CSDL XML document correct the
+rules defined in this specification document take precedence.
+
+## ##subsec XML Document Order
+
+Client libraries MUST retain the document order of XML elements for CSDL
+XML documents because for some elements the order of child elements is
+significant. This includes, but is not limited to, [members of
+enumeration types](#EnumerationTypeMember) and items within a
+[collection expression](#Collection).
+
+OData does not impose any ordering constraints on XML attributes within
+XML elements.
+:
 
 # ##sec Entity Model
 

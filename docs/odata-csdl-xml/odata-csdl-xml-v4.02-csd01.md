@@ -98,15 +98,13 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.1 Definitions of terms](#Definitionsofterms)
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
     - [1.2.3 Document conventions](#Documentconventions)
-- [2 JSON Representation](#JSONRepresentation)
-  - [2.1 Requesting the JSON Representation](#RequestingtheJSONRepresentation)
-    - [2.1.1 Controlling the Representation of Numbers](#ControllingtheRepresentationofNumbers)
-    - [2.1.2 Controlling the Amount of Control Information](#ControllingtheAmountofControlInformation)
-      - [2.1.2.1 `metadata=minimal`](#metadataminimal)
-      - [2.1.2.2 `metadata=full`](#metadatafull)
-      - [2.1.2.3 `metadata=none`](#metadatanone)
-  - [2.2 Design Considerations](#DesignConsiderations)
-  - [2.3 JSON Schema Definition](#JSONSchemaDefinition)
+- [2 XML Representation](#XMLRepresentation)
+  - [2.1 Requesting the XML Representation](#RequestingtheXMLRepresentation)
+  - [2.2 XML Namespaces](#XMLNamespaces)
+    - [2.2.1 Namespace EDMX](#NamespaceEDMX)
+    - [2.2.2 Namespace EDM](#NamespaceEDM)
+  - [2.3 XML Schema Definitions](#XMLSchemaDefinitions)
+  - [2.4 XML Document Order](#XMLDocumentOrder)
 - [3 Entity Model](#EntityModel)
   - [3.1 Nominal Types](#NominalTypes)
   - [3.2 Structured Types](#StructuredTypes)
@@ -201,164 +199,107 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
-# <a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a>
 
-OData CSDL JSON is a full representation of the OData Common Schema
-Definition Language in the JavaScript Object Notation (JSON) defined in
-[RFC8259](#rfc8259). It additionally follows the rules
-for "Internet JSON" (I-JSON) defined in
-[RFC7493](#rfc7493) for e.g. objects, numbers, date
-values, and duration values.
+# <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
-It is an alternative to the CSDL XML representation defined in
-[OData-CSDLXML](#ODataCSDL) and neither adds nor removes
-features.
+OData CSDL XML is a full representation of the OData Common Schema
+Definition Language in the Extensible Markup Language (XML) 1.1 (Second
+Edition) [XML-1.1](#BMXML) with further building blocks from the
+W3C XML Schema Definition Language (XSD) 1.1 as described in
+[XML-Schema-1](#BMXMLSchema1) and
+[XML-Schema-2](#BMXMLSchema2).
 
-## <a name="RequestingtheJSONRepresentation" href="#RequestingtheJSONRepresentation">2.1 Requesting the JSON Representation</a>
+It is an alternative to the CSDL JSON representation defined in
+[OData-CSDLJSON](#BMCSDLJSON) and neither adds nor
+removes features.
 
-The OData CSDL JSON representation can be requested using the `$format`
-query option in the request URL with the media type `application/json`,
+## <a name="RequestingtheXMLRepresentation" href="#RequestingtheXMLRepresentation">2.1 Requesting the XML Representation</a>
+
+The OData CSDL XML representation can be requested using the `$format`
+query option in the request URL with the media type `application/xml`,
 optionally followed by media type parameters, or the case-insensitive
-abbreviation `json` which MUST NOT be followed by media type parameters.
+abbreviation `xml` which MUST NOT be followed by media type parameters.
 
 Alternatively, this representation can be requested using the `Accept`
-header with the media type `application/json`, optionally followed by
+header with the media type `application/xml`, optionally followed by
 media type parameters.
 
 If specified, `$format` overrides any value specified in the `Accept`
 header.
 
 The response MUST contain the `Content-Type` header with a value of
-`application/json`, optionally followed by media type parameters.
+`application/xml`, optionally followed by media type parameters.
 
-Possible media type parameters are:
-- [`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
-- [`metadata`](#ControllingtheAmountofControlInforma)
+This specification does not define additional parameters for the media
+type `application/xml`.
 
-The names and values of these parameters are case-insensitive.
+## <a name="XMLNamespaces" href="#XMLNamespaces">2.2 XML Namespaces</a>
 
-### <a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">2.1.1 Controlling the Representation of Numbers</a>
+In addition to the default XML namespace, the elements and attributes
+used to describe the entity model of an OData service are defined in one
+of the following namespaces.
 
-The `IEEE754Compatible=true` parameter indicates that the service MUST
-serialize `Edm.Int64` and `Edm.Decimal` numbers as strings. This is in
-conformance with [RFC7493](#rfc7493). If not specified, or specified as
-`IEEE754Compatible=false`, all numbers MUST be serialized as JSON
-numbers.
+### <a name="NamespaceEDMX" href="#NamespaceEDMX">2.2.1 Namespace EDMX</a>
 
-This enables support for JavaScript numbers that are defined to be
-64-bit binary format IEEE 754 values [ECMAScript](#ECMAScript)
-(see [section
-4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19))
-resulting in integers losing precision past 15 digits, and decimals
-losing precision due to the conversion from base 10 to base 2.
+Elements and attributes associated with the top-level wrapper that
+contains the CSDL used to define the entity model for an OData Service
+are qualified with the Entity Data Model for Data Services Packaging
+namespace:
+- `http://docs.oasis-open.org/odata/ns/edmx`
 
-Responses that format `Edm.Int64` and `Edm.Decimal` values as strings
-MUST specify this parameter in the media type returned in the
-`Content-Type` header.
+Prior versions of OData used the following namespace for EDMX:
+- EDMX version 1.0:
+`http://schemas.microsoft.com/ado/2007/06/edmx`
 
-### <a name="ControllingtheAmountofControlInformation" href="#ControllingtheAmountofControlInformation">2.1.2 Controlling the Amount of Control Information</a>
+They are non-normative for this specification.
 
-The representation of constant annotation values in CSDL JSON documents
-closely follows the representation of data defined in
-[OData-JSON](#ODataJSON).
+In this specification the namespace prefix `edmx` is used to represent
+the Entity Data Model for Data Services Packaging namespace, however the
+prefix name is not prescriptive.
 
-A client application can use the `metadata` format parameter in the
-`Accept` header when requesting a CSDL JSON document to influence how
-much control information will be included in the response.
+### <a name="NamespaceEDM" href="#NamespaceEDM">2.2.2 Namespace EDM</a>
 
-Other `Accept` header parameters are orthogonal to the `metadata`
-parameter and are therefore not mentioned in this section.
+Elements and attributes that define the entity model exposed by the
+OData Service are qualified with the Entity Data Model namespace:
+- `http://docs.oasis-open.org/odata/ns/edm`
 
-#### <a name="metadataminimal" href="#metadataminimal">2.1.2.1 `metadata=minimal`</a>
+Prior versions of CSDL used the following namespaces for EDM:
 
-The `metadata=minimal` format parameter indicates that the service
-SHOULD remove computable control information from the payload wherever
-possible.
+- CSDL version 1.0: `http://schemas.microsoft.com/ado/2006/04/edm`
+- CSDL version 1.1: `http://schemas.microsoft.com/ado/2007/05/edm`
+- CSDL version 1.2: `http://schemas.microsoft.com/ado/2008/01/edm`
+- CSDL version 2.0: `http://schemas.microsoft.com/ado/2008/09/edm`
+- CSDL version 3.0: `http://schemas.microsoft.com/ado/2009/11/edm`
 
-This means that the `@type` control information is only included if the
-type of the containing object or targeted property cannot be
-heuristically determined, e.g. for
-- Terms or term properties with an abstract declared type,
-- Terms or term properties with a declared type that has derived
-types, or
-- Dynamic properties of open types.
+They are non-normative for this specification.
 
-See [OData-JSON](#ODataJSON) for the exact rules.
+In this specification the namespace prefix `edm` is used to represent
+the Entity Data Model namespace, however the prefix name is not
+prescriptive.
 
-#### <a name="metadatafull" href="#metadatafull">2.1.2.2 `metadata=full`</a>
+## <a name="XMLSchemaDefinitions" href="#XMLSchemaDefinitions">2.3 XML Schema Definitions</a>
 
-The `metadata=full` format parameter indicates that the service MUST
-include all control information explicitly in the payload.
+This specification contains normative XML schemas for the EDMX and EDM
+namespaces; see [OData-EDMX](#BMEDMX) and
+[OData-EDM](#BMEDM)
 
-This means that the `@type` control information is included in
-annotation values except for primitive values whose type can be
-heuristically determined from the representation of the value, see
-[OData-JSON](#ODataJSON) for the exact rules.
+These XML schemas only define the shape of a well-formed CSDL XML
+document and are not descriptive enough to define what a correct CSDL
+XML document MUST be in every imaginable use case. This specification
+document defines additional rules that correct CSDL XML documents MUST
+fulfill. In case of doubt on what makes a CSDL XML document correct the
+rules defined in this specification document take precedence.
 
-#### <a name="metadatanone" href="#metadatanone">2.1.2.3 `metadata=none`</a>
+## <a name="XMLDocumentOrder" href="#XMLDocumentOrder">2.4 XML Document Order</a>
 
-The `metadata=none` format parameter indicates that the service SHOULD
-omit all control information.
+Client libraries MUST retain the document order of XML elements for CSDL
+XML documents because for some elements the order of child elements is
+significant. This includes, but is not limited to, [members of
+enumeration types](#EnumerationTypeMember) and items within a
+[collection expression](#Collection).
 
-## <a name="DesignConsiderations" href="#DesignConsiderations">2.2 Design Considerations</a>
-
-CSDL JSON documents are designed for easy and efficient lookup of model
-constructs by their name without having to know or guess what kind of
-model element it is. Thus, all primary model elements (entity types,
-complex types, type definitions, enumeration types, terms, actions,
-functions, and the entity container) are direct members of their schema,
-using the schema-unique name as the member name. Similarly, child
-elements of primary model elements (properties, navigation properties,
-enumeration type members, entity sets, singletons, action imports, and
-function imports) are direct members of the objects describing their
-parent model element, using their locally unique name as the member
-name.
-
-To avoid name collisions, all fixed member names are prefixed with a
-dollar (`$`) sign and otherwise have the same name and capitalization as
-their counterparts in the CSDL XML representation
-[OData-CSDLXML](#ODataCSDL) (with one exception: the
-counterpart of the `EntitySet` element's `EntityType` attribute is
-[`$Type`](#EntitySet), to harmonize it with all other type references).
-
-Additional fixed members introduced by this specification and without
-counterpart in [OData-CSDLXML](#ODataCSDL) are also
-prefixed with a dollar (`$`) sign and use upper-camel-case names. One of
-these is `$Kind` which represents the kind of model element. Its value
-is the upper-camel-case local name of the XML element representing this
-kind of model element in [OData-CSDLXML](#ODataCSDL),
-e.g. `EntityType` or `NavigationProperty`.
-
-While the XML representation of CSDL allows referencing model elements
-with alias-qualified names as well as with namespace-qualified names,
-this JSON representation requires the use of alias-qualified names if an
-alias is specified for an included or document-defined schema. Aliases
-are usually shorter than namespaces, so this reduces text size of the
-JSON document. Text size matters even if the actual HTTP messages are
-sent in compressed form because the decompressed form needs to be
-reconstructed, and clients not using a streaming JSON parser have to
-materialize the full JSON document before parsing.
-
-To further reduce size the member `$Kind` is optional for [structural
-properties](#StructuralProperty) as these are more common than
-[navigation properties](#NavigationProperty), and the member
-[`$Type`](#Type) is optional for string properties, parameters, and
-return types, as this type is more common than other primitive types.
-
-In general, all members that have a default value SHOULD be omitted if
-they have the default value.
-
-## <a name="JSONSchemaDefinition" href="#JSONSchemaDefinition">2.3 JSON Schema Definition</a>
-
-The structure of CSDL JSON documents can be verified with the JSON
-Schema [OData-CSDL-Schema](#CSDLschema) provided as an
-additional artifact of this prose specification. This schema only
-defines the shape of a well-formed CSDL JSON document but is not
-descriptive enough to define what a correct CSDL JSON document MUST be
-in every imaginable use case. This specification document defines
-additional rules that correct CSDL JSON documents MUST fulfill. In case
-of doubt on what makes a CSDL JSON document correct the rules defined in
-this specification document take precedence.
+OData does not impose any ordering constraints on XML attributes within
+XML elements.
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
