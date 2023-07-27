@@ -40,7 +40,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* XML schemas: (list file names or directory name)
+* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/
 * Other parts (list titles and/or file names)
 * `(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)`
 
@@ -50,8 +50,12 @@ This specification replaces or supersedes:
 
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
-  * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
-  * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
+  * _OData Version 4.02 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
+  * _OData Version 4.02 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
+  * _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/
+* _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
+* _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
+* _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
 
 #### Abstract:
 OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.
@@ -116,6 +120,9 @@ For complete copyright information please see the full Notices section in an App
   - [4.1 Reference](#Reference)
   - [4.2 Included Schema](#IncludedSchema)
   - [4.3 Included Annotations](#IncludedAnnotations)
+- [5 Schema](#Schema)
+  - [5.1 Alias](#Alias)
+  - [5.2 Annotations with External Targeting](#AnnotationswithExternalTargeting)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
@@ -204,13 +211,13 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 OData CSDL XML is a full representation of the OData Common Schema
 Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#BMXML) with further building blocks from the
+Edition) [XML-1.1](#XML11) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
-[XML-Schema-1](#BMXMLSchema1) and
-[XML-Schema-2](#BMXMLSchema2).
+[XML-Schema-1](#XMLSchema1) and
+[XML-Schema-2](#XMLSchema2).
 
 It is an alternative to the CSDL JSON representation defined in
-[OData-CSDLJSON](#BMCSDLJSON) and neither adds nor
+[OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
 removes features.
 
 ## <a name="RequestingtheXMLRepresentation" href="#RequestingtheXMLRepresentation">2.1 Requesting the XML Representation</a>
@@ -280,8 +287,8 @@ prescriptive.
 ## <a name="XMLSchemaDefinitions" href="#XMLSchemaDefinitions">2.3 XML Schema Definitions</a>
 
 This specification contains normative XML schemas for the EDMX and EDM
-namespaces; see [OData-EDMX](#BMEDMX) and
-[OData-EDM](#BMEDM)
+namespaces; see [OData-EDMX](#ODataEDMX) and
+[OData-EDM](#ODataEDM)
 
 These XML schemas only define the shape of a well-formed CSDL XML
 document and are not descriptive enough to define what a correct CSDL
@@ -410,7 +417,7 @@ Type|Meaning
 `Edm.GeometryCollection`         |Collection of arbitrary Geometry values
 
 `Edm.Date` and `Edm.DateTimeOffset` follow
-[XML-Schema-2](#XMLSchema) and use the proleptic Gregorian
+[XML-Schema-2](#XMLSchema2) and use the proleptic Gregorian
 calendar, allowing the year `0000` (equivalent to 1 BCE) and negative
 years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying
@@ -806,6 +813,126 @@ a term from the `org.example.hcm` namespace to an element of the
 
 -------
 
+# <a name="Schema" href="#Schema">5 Schema</a>
+
+One or more schemas describe the entity model exposed by an OData
+service. The schema acts as a namespace for elements of the entity model
+such as entity types, complex types, enumerations and terms.
+
+A schema is identified by a [namespace](#Namespace). Schema namespaces
+MUST be unique within the scope of a document and SHOULD be globally
+unique. A schema cannot span more than one document.
+
+The schema's namespace is combined with the name of elements in the
+schema to create unique [qualified names](#QualifiedName), so
+identifiers that are used to name types MUST be unique within a
+namespace to prevent ambiguity.
+
+Names are case-sensitive, but service authors SHOULD NOT choose names
+that differ only in case.
+
+The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
+`System`, or `Transient`.
+
+
+::: {.varxml .rep}
+### <a name="ElementedmSchema5" href="#ElementedmSchema5"> Element `edm:Schema`</a>
+
+The `edm:Schema` element defines a
+schema. It MUST contain the `Namespace` attribute and it MAY
+contain the `Alias` attribute.
+
+It MAY contain elements [`edm:Action`](#Action),
+[`edm:Annotations`](#AnnotationswithExternalTargeting),
+[`edm:Annotation`](#Annotation), [`edm:ComplexType`](#ComplexType),
+[`edm:EntityContainer`](#EntityContainer),
+[`edm:EntityType`](#EntityType), [`edm:EnumType`](#EnumerationType),
+[`edm:Function`](#Function), [`edm:Term`](#Term), or
+[`edm:TypeDefinition`](#TypeDefinition).
+
+### <a name="AttributeNamespace5.1" href="#AttributeNamespace5.1"> Attribute `Namespace`</a>
+
+The value of `Namespace` is the namespace of the schema
+:::
+
+## <a name="Alias" href="#Alias">5.1 Alias</a>
+
+A schema MAY specify an alias which MUST be a [simple
+identifier](#SimpleIdentifier).
+
+
+::: varxml
+If a schema specifies an alias, the alias MAY be used instead of the
+namespace within qualified names to identify model elements of that
+schema. An alias only provides a more convenient notation, allowing a
+short string to be substituted for a long namespace. Every model element
+that can be identified via an alias-qualified name can alternatively be
+identified via its full namespace-qualified name.
+:::
+
+Aliases are document-global, so all schemas defined within or included
+into a document MUST have different aliases, and aliases MUST differ
+from the namespaces of all schemas defined within or included into a
+document. Aliases defined by a schema can be used throughout the
+containing document and are not restricted to the schema that defines
+them.
+
+The alias MUST NOT be one of the reserved values `Edm`, `odata`,
+`System`, or `Transient`.
+
+
+
+::: {.varxml .rep}
+### <a name="AttributeAlias5.2" href="#AttributeAlias5.2"> Attribute `Alias`</a>
+
+The value of `Alias` is a [simple identifier](#SimpleIdentifier).
+:::
+
+::: {.varxml .example}
+Example 6: schema `org.example` with an alias and a description for the
+schema
+```xml
+<Schema Namespace="org.example" Alias="self">   <Annotation Term="Core.Description" String="Example schema" />
+  ...
+</Schema>
+```
+:::
+
+## <a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a>
+
+
+
+::: {.varxml .rep}
+### <a name="ElementedmAnnotations6" href="#ElementedmAnnotations6"> Element `edm:Annotations`</a>
+
+The `edm:Annotations` element is used to apply a group of annotations to
+a single model element. It MUST contain the `Target` attribute and it
+MAY contain the `Qualifier` attribute.
+
+It MUST contain at least one [`edm:Annotation`](#Annotation) element.
+
+### <a name="AttributeTarget6.1" href="#AttributeTarget6.1"> Attribute `Target`</a>
+
+The value of `Target` is a path expression identifying the [annotation
+target](#Target). It MUST resolve to a model element in scope.
+
+### <a name="AttributeQualifier6.2" href="#AttributeQualifier6.2"> Attribute `Qualifier`</a>
+
+The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
+:::
+
+::: {.varxml .example}
+Example 7: annotations should only be applied to tablet devices
+```xml
+<Annotations Target="org.example.Person" Qualifier="Tablet">
+  <Annotation Term="Core.Description" String="Dummy" />
+  ...
+</Annotations>
+```
+:::
+
+-------
+
 # <a name="References" href="#References">Appendix A. References</a>
 
 <!-- Required section -->
@@ -818,43 +945,20 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-`(Reference sources:
-For references to IETF RFCs, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.  
-For references to W3C Recommendations, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.  
-Remove this note before submitting for publication.)`
-
 ###### [OData-v4.02]
 - _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   - _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   - _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
 
-###### <a name="rfc2119">[RFC2119]</a>
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
-http://www.rfc-editor.org/info/rfc2119.
-
-###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
-
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.###### <a name="rfc7493">[RFC7493]</a>
+_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
+https://tools.ietf.org/html/rfc7493.###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
+http://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.01_.  
@@ -864,9 +968,21 @@ See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page
 _OData CSDL JSON Schema_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataCSDLJSON">[OData-CSDLJSON]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="ODataCSDLXML">[OData-CSDLXML]</a>
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataEDM">[OData-EDM]</a>
+_OData EDM XML Schema_.  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+
+###### <a name="ODataEDMX">[OData-EDMX]</a>
+_OData EDM XML Schema_.  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
 _OData JSON Format Version 4.01_.  
@@ -890,17 +1006,42 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocValidation">[OData-VocValidation]</a>
 _OData Vocabularies Version 4.0: Validation Vocabulary_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.###### <a name="rfc6570">[RFC6570]</a>
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012_.  
+http://tools.ietf.org/html/rfc6570.
 
-###### <a name="XMLSchema">[XML-Schema-2]</a>
+###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
+https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc6570">[RFC6570]</a>
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
+http://tools.ietf.org/html/rfc6570.
+
+###### <a name="rfc8174">[RFC8174]</a>
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
+http://www.rfc-editor.org/info/rfc8174.
+
+###### <a name="rfc8259">[RFC8259]</a>
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
+http://tools.ietf.org/html/rfc8259.
+
+###### <a name="XML11">[XML-1.1]</a>
+_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
+http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+
+###### <a name="XMLBase">[XML-Base]</a>
+_XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+###### <a name="XMLSchema1">[XML-Schema-1]</a>
+_W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
+http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
+
+###### <a name="XMLSchema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
-
-###### <a name="rfc3552">[RFC3552]</a>
-_Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
-https://www.rfc-editor.org/info/rfc3552.
 
 ###### <a name="OpenUI5">[OpenUI5]</a>
 _OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  
@@ -923,6 +1064,12 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [Attribute `TermNamespace`](#AttributeTermNamespace4.1)
   - [Attribute `Qualifier`](#AttributeQualifier4.2)
   - [Attribute `TargetNamespace`](#AttributeTargetNamespace4.3)
+- [Element `edm:Schema`](#ElementedmSchema5)
+  - [Attribute `Namespace`](#AttributeNamespace5.1)
+  - [Attribute `Alias`](#AttributeAlias5.2)
+- [Element `edm:Annotations`](#ElementedmAnnotations6)
+  - [Attribute `Target`](#AttributeTarget6.1)
+  - [Attribute `Qualifier`](#AttributeQualifier6.2)
 :::
 
 -------

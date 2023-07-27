@@ -3,18 +3,21 @@ a:target {
 }
 
 a[href^="#OData"],
-a[href^="#rfc"] {
+a[href^="#rfc"],
+a[href^="#XML"] {
 	font-weight: bold;
 }
 
 a[href^="#OData"]::before,
-a[href^="#rfc"]::before {
+a[href^="#rfc"]::before,
+a[href^="#XML"]::before {
 	content: "[";
 	font-weight: bold;
 }
 
 a[href^="#OData"]::after,
-a[href^="#rfc"]::after {
+a[href^="#rfc"]::after,
+a[href^="#XML"]::after {
 	content: "]";
 	font-weight: bold;
 }

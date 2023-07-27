@@ -12,43 +12,20 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-`(Reference sources:
-For references to IETF RFCs, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.  
-For references to W3C Recommendations, use the approved citation formats at:  
-https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.  
-Remove this note before submitting for publication.)`
-
 ###### [OData-v4.02]
 - _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   - _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   - _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
 
-###### <a name="rfc2119">[RFC2119]</a>
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
-http://www.rfc-editor.org/info/rfc2119.
-
-###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
-
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.###### <a name="rfc7493">[RFC7493]</a>
+_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
+https://tools.ietf.org/html/rfc7493.###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
+http://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.01_.  
@@ -58,9 +35,21 @@ See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page
 _OData CSDL JSON Schema_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataCSDLJSON">[OData-CSDLJSON]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="ODataCSDLXML">[OData-CSDLXML]</a>
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataEDM">[OData-EDM]</a>
+_OData EDM XML Schema_.  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+
+###### <a name="ODataEDMX">[OData-EDMX]</a>
+_OData EDM XML Schema_.  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
 _OData JSON Format Version 4.01_.  
@@ -84,17 +73,43 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocValidation">[OData-VocValidation]</a>
 _OData Vocabularies Version 4.0: Validation Vocabulary_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.###### <a name="rfc6570">[RFC6570]</a>
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012_.  
+http://tools.ietf.org/html/rfc6570.
 
-###### <a name="XMLSchema">[XML-Schema-2]</a>
+###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
+https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc6570">[RFC6570]</a>
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
+http://tools.ietf.org/html/rfc6570.
+
+###### <a name="rfc8174">[RFC8174]</a>
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
+http://www.rfc-editor.org/info/rfc8174.
+
+###### <a name="rfc8259">[RFC8259]</a>
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
+http://tools.ietf.org/html/rfc8259.
+
+###### <a name="XML11">[XML-1.1]</a>
+_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
+http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+
+###### <a name="XMLBase">[XML-Base]</a>
+_XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+
+###### <a name="XMLSchema1">[XML-Schema-1]</a>
+_W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
+http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
+
+###### <a name="XMLSchema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 ## ##subasec Informative References
-
-###### <a name="rfc3552">[RFC3552]</a>
-_Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003_
-https://www.rfc-editor.org/info/rfc3552.
 
 ###### <a name="OpenUI5">[OpenUI5]</a>
 _OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  

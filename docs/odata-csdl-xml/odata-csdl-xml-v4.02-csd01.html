@@ -119,7 +119,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
-<li>XML schemas: (list file names or directory name)</li>
+<li>XML schemas: <em>OData EDMX XML Schema and OData EDM XML Schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/</a></li>
 <li>Other parts (list titles and/or file names)</li>
 <li><code>(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)</code></li>
 </ul>
@@ -132,9 +132,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><em>OData Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
 <ul>
-<li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
-<li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
+<li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
+<li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
+<li><em>ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/">https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/</a></li>
 </ul></li>
+<li><em>OData Vocabularies Version 4.0</em>. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html</a></li>
+<li><em>OData JSON Format Version 4.01</em>. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html">https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html</a></li>
 </ul>
 <h4 id="abstract">Abstract:</h4>
 <p>OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.</p>
@@ -193,6 +197,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Reference">4.1 Reference</a></li>
 <li><a href="#IncludedSchema">4.2 Included Schema</a></li>
 <li><a href="#IncludedAnnotations">4.3 Included Annotations</a></li>
+</ul></li>
+<li><a href="#Schema">5 Schema</a>
+<ul>
+<li><a href="#Alias">5.1 Alias</a></li>
+<li><a href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></li>
 </ul></li>
 <li><a href="#References">A References</a>
 <ul>
@@ -253,8 +262,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
 </div>
 <h1 id="2-xml-representation"><a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a></h1>
-<p>OData CSDL XML is a full representation of the OData Common Schema Definition Language in the Extensible Markup Language (XML) 1.1 (Second Edition) <a href="#BMXML">XML-1.1</a> with further building blocks from the W3C XML Schema Definition Language (XSD) 1.1 as described in <a href="#BMXMLSchema1">XML-Schema-1</a> and <a href="#BMXMLSchema2">XML-Schema-2</a>.</p>
-<p>It is an alternative to the CSDL JSON representation defined in <a href="#BMCSDLJSON">OData-CSDLJSON</a> and neither adds nor removes features.</p>
+<p>OData CSDL XML is a full representation of the OData Common Schema Definition Language in the Extensible Markup Language (XML) 1.1 (Second Edition) <a href="#XML11">XML-1.1</a> with further building blocks from the W3C XML Schema Definition Language (XSD) 1.1 as described in <a href="#XMLSchema1">XML-Schema-1</a> and <a href="#XMLSchema2">XML-Schema-2</a>.</p>
+<p>It is an alternative to the CSDL JSON representation defined in <a href="#ODataCSDLJSON">OData-CSDLJSON</a> and neither adds nor removes features.</p>
 <h2 id="21-requesting-the-xml-representation"><a name="RequestingtheXMLRepresentation" href="#RequestingtheXMLRepresentation">2.1 Requesting the XML Representation</a></h2>
 <p>The OData CSDL XML representation can be requested using the <code>$format</code> query option in the request URL with the media type <code>application/xml</code>, optionally followed by media type parameters, or the case-insensitive abbreviation <code>xml</code> which MUST NOT be followed by media type parameters.</p>
 <p>Alternatively, this representation can be requested using the <code>Accept</code> header with the media type <code>application/xml</code>, optionally followed by media type parameters.</p>
@@ -290,7 +299,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>They are non-normative for this specification.</p>
 <p>In this specification the namespace prefix <code>edm</code> is used to represent the Entity Data Model namespace, however the prefix name is not prescriptive.</p>
 <h2 id="23-xml-schema-definitions"><a name="XMLSchemaDefinitions" href="#XMLSchemaDefinitions">2.3 XML Schema Definitions</a></h2>
-<p>This specification contains normative XML schemas for the EDMX and EDM namespaces; see <a href="#BMEDMX">OData-EDMX</a> and <a href="#BMEDM">OData-EDM</a></p>
+<p>This specification contains normative XML schemas for the EDMX and EDM namespaces; see <a href="#ODataEDMX">OData-EDMX</a> and <a href="#ODataEDM">OData-EDM</a></p>
 <p>These XML schemas only define the shape of a well-formed CSDL XML document and are not descriptive enough to define what a correct CSDL XML document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL XML documents MUST fulfill. In case of doubt on what makes a CSDL XML document correct the rules defined in this specification document take precedence.</p>
 <h2 id="24-xml-document-order"><a name="XMLDocumentOrder" href="#XMLDocumentOrder">2.4 XML Document Order</a></h2>
 <p>Client libraries MUST retain the document order of XML elements for CSDL XML documents because for some elements the order of child elements is significant. This includes, but is not limited to, <a href="#EnumerationTypeMember">members of enumeration types</a> and items within a <a href="#Collection">collection expression</a>.</p>
@@ -454,7 +463,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 </tbody>
 </table>
-<p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XMLSchema">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
+<p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XMLSchema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
 <p><code>Edm.Decimal with a </code><a href="#Scale"><code>Scale</code></a><code> value of floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or the binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections or for non-binding parameters to functions or actions.</p>
 <p>Some of these types allow <a href="#TypeFacets">facets</a>, defined in section "<a href="#TypeFacets">Type Facets</a>".</p>
@@ -649,6 +658,54 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 </div>
 <hr />
+<h1 id="5-schema"><a name="Schema" href="#Schema">5 Schema</a></h1>
+<p>One or more schemas describe the entity model exposed by an OData service. The schema acts as a namespace for elements of the entity model such as entity types, complex types, enumerations and terms.</p>
+<p>A schema is identified by a <a href="#Namespace">namespace</a>. Schema namespaces MUST be unique within the scope of a document and SHOULD be globally unique. A schema cannot span more than one document.</p>
+<p>The schema's namespace is combined with the name of elements in the schema to create unique <a href="#QualifiedName">qualified names</a>, so identifiers that are used to name types MUST be unique within a namespace to prevent ambiguity.</p>
+<p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
+<p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
+<div class="varxml rep">
+<h3 id="-element-edmschema"><a name="ElementedmSchema5" href="#ElementedmSchema5"> Element <code>edm:Schema</code></a></h3>
+<p>The <code>edm:Schema</code> element defines a schema. It MUST contain the <code>Namespace</code> attribute and it MAY contain the <code>Alias</code> attribute.</p>
+<p>It MAY contain elements <a href="#Action"><code>edm:Action</code></a>, <a href="#AnnotationswithExternalTargeting"><code>edm:Annotations</code></a>, <a href="#Annotation"><code>edm:Annotation</code></a>, <a href="#ComplexType"><code>edm:ComplexType</code></a>, <a href="#EntityContainer"><code>edm:EntityContainer</code></a>, <a href="#EntityType"><code>edm:EntityType</code></a>, <a href="#EnumerationType"><code>edm:EnumType</code></a>, <a href="#Function"><code>edm:Function</code></a>, <a href="#Term"><code>edm:Term</code></a>, or <a href="#TypeDefinition"><code>edm:TypeDefinition</code></a>.</p>
+<h3 id="-attribute-namespace-1"><a name="AttributeNamespace5.1" href="#AttributeNamespace5.1"> Attribute <code>Namespace</code></a></h3>
+<p>The value of <code>Namespace</code> is the namespace of the schema</p>
+</div>
+<h2 id="51-alias"><a name="Alias" href="#Alias">5.1 Alias</a></h2>
+<p>A schema MAY specify an alias which MUST be a <a href="#SimpleIdentifier">simple identifier</a>.</p>
+<div class="varxml">
+<p>If a schema specifies an alias, the alias MAY be used instead of the namespace within qualified names to identify model elements of that schema. An alias only provides a more convenient notation, allowing a short string to be substituted for a long namespace. Every model element that can be identified via an alias-qualified name can alternatively be identified via its full namespace-qualified name.</p>
+</div>
+<p>Aliases are document-global, so all schemas defined within or included into a document MUST have different aliases, and aliases MUST differ from the namespaces of all schemas defined within or included into a document. Aliases defined by a schema can be used throughout the containing document and are not restricted to the schema that defines them.</p>
+<p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
+<section id="-attribute-alias-1" class="varxml rep">
+<h3><a name="AttributeAlias5.2" href="#AttributeAlias5.2"> Attribute <code>Alias</code></a></h3>
+<p>The value of <code>Alias</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
+</section>
+<div class="varxml example">
+<p>Example 6: schema <code>org.example</code> with an alias and a description for the schema</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;self&quot;</span>&gt;   &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Example schema&quot;</span> /&gt;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
+</div>
+<h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
+<div class="varxml rep">
+<h3 id="-element-edmannotations"><a name="ElementedmAnnotations6" href="#ElementedmAnnotations6"> Element <code>edm:Annotations</code></a></h3>
+<p>The <code>edm:Annotations</code> element is used to apply a group of annotations to a single model element. It MUST contain the <code>Target</code> attribute and it MAY contain the <code>Qualifier</code> attribute.</p>
+<p>It MUST contain at least one <a href="#Annotation"><code>edm:Annotation</code></a> element.</p>
+<h3 id="-attribute-target"><a name="AttributeTarget6.1" href="#AttributeTarget6.1"> Attribute <code>Target</code></a></h3>
+<p>The value of <code>Target</code> is a path expression identifying the <a href="#Target">annotation target</a>. It MUST resolve to a model element in scope.</p>
+<h3 id="-attribute-qualifier-1"><a name="AttributeQualifier6.2" href="#AttributeQualifier6.2"> Attribute <code>Qualifier</code></a></h3>
+<p>The value of <code>Qualifier</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
+</div>
+<div class="varxml example">
+<p>Example 7: annotations should only be applied to tablet devices</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;org.example.Person&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Tablet&quot;</span>&gt;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Dummy&quot;</span> /&gt;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
+</div>
+<hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 <!-- Required section -->
 
@@ -656,7 +713,6 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
 <h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<p><code>(Reference sources: For references to IETF RFCs, use the approved citation formats at:   https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.   For references to W3C Recommendations, use the approved citation formats at:   https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.   Remove this note before submitting for publication.)</code></p>
 <h6 id="odata-v402">[OData-v4.02]</h6>
 <ul>
 <li><em>OData Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
@@ -665,34 +721,30 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
 </ul></li>
 </ul>
-<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
-<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>.<br />
-<a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
-<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>.<br />
-<a href="http://www.rfc-editor.org/info/rfc8174">http://www.rfc-editor.org/info/rfc8174</a>.</p>
-<h6 id="rfc6570"><a name="rfc6570">[RFC6570]</a></h6>
-<p><em>Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012</em>.<br />
-<a href="http://tools.ietf.org/html/rfc6570">http://tools.ietf.org/html/rfc6570</a>.</p>
-<h6 id="rfc7493"><a name="rfc7493">[RFC7493]</a></h6>
-<p><em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em>.<br />
-<a href="https://tools.ietf.org/html/rfc7493">https://tools.ietf.org/html/rfc7493</a>.</p>
-<h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
-<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em>.<br />
-<a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2016 Language Specification, 7th Edition</em>. June 2016. Standard ECMA-262. <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">http://www.ecma-international.org/publications/standards/Ecma-262.htm</a>.</p>
 <h6 id="epsg"><a name="EPSG">[EPSG]</a></h6>
-<p><em>European Petroleum Survey Group (EPSG)</em>. <a href="http://www.epsg.org/">http://www.epsg.org/</a>.</p>
+<p><em>European Petroleum Survey Group (EPSG)</em>. <a href="http://www.epsg.org/.######">http://www.epsg.org/.######</a> <a name="rfc7493">[RFC7493]</a> <em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em>.<br />
+<a href="https://tools.ietf.org/html/rfc7493.######">https://tools.ietf.org/html/rfc7493.######</a> <a name="rfc2119">[RFC2119]</a> <em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>.<br />
+<a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>OData ABNF Construction Rules Version 4.01</em>.<br />
 See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
 <h6 id="odata-csdl-schema"><a name="ODataCSDL">[OData-CSDL-Schema]</a></h6>
 <p><em>OData CSDL JSON Schema</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-csdljson"><a name="ODataCSDLJSON">[OData-CSDLJSON]</a></h6>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01</em>.<br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-csdlxml"><a name="ODataCSDLXML">[OData-CSDLXML]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-edm"><a name="ODataEDM">[OData-EDM]</a></h6>
+<p><em>OData EDM XML Schema</em>.<br />
+See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
+<h6 id="odata-edmx"><a name="ODataEDMX">[OData-EDMX]</a></h6>
+<p><em>OData EDM XML Schema</em>.<br />
+See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
 <h6 id="odata-json"><a name="ODataJSON">[OData-JSON]</a></h6>
 <p><em>OData JSON Format Version 4.01</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
@@ -710,13 +762,33 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-vocvalidation"><a name="ODataVocValidation">[OData-VocValidation]</a></h6>
 <p><em>OData Vocabularies Version 4.0: Validation Vocabulary</em>.<br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="xml-schema-2"><a name="XMLSchema">[XML-Schema-2]</a></h6>
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.###### <a name="rfc6570">[RFC6570]</a> <em>Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, March 2012</em>.<br />
+<a href="http://tools.ietf.org/html/rfc6570">http://tools.ietf.org/html/rfc6570</a>.</p>
+<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
+<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>.<br />
+<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
+<h6 id="rfc6570"><a name="rfc6570">[RFC6570]</a></h6>
+<p><em>Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012</em>.<br />
+<a href="http://tools.ietf.org/html/rfc6570">http://tools.ietf.org/html/rfc6570</a>.</p>
+<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
+<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>.<br />
+<a href="http://www.rfc-editor.org/info/rfc8174">http://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
+<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em>.<br />
+<a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
+<h6 id="xml-11"><a name="XML11">[XML-1.1]</a></h6>
+<p><em>Extensible Markup Language (XML) 1.1 (Second Edition)</em>. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.<br />
+<a href="http://www.w3.org/TR/2006/REC-xml11-20060816">http://www.w3.org/TR/2006/REC-xml11-20060816</a>. Latest version available at <a href="http://www.w3.org/TR/xml11/">http://www.w3.org/TR/xml11/</a>.</p>
+<h6 id="xml-base"><a name="XMLBase">[XML-Base]</a></h6>
+<p><em>XML Base (Second Edition)</em>. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.<br />
+<a href="http://www.w3.org/TR/2009/REC-xmlbase-20090128/">http://www.w3.org/TR/2009/REC-xmlbase-20090128/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlbase/">http://www.w3.org/TR/xmlbase/</a>.</p>
+<h6 id="xml-schema-1"><a name="XMLSchema1">[XML-Schema-1]</a></h6>
+<p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures</em>. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.<br />
+<a href="http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-1/">http://www.w3.org/TR/xmlschema11-1/</a>.</p>
+<h6 id="xml-schema-2"><a name="XMLSchema2">[XML-Schema-2]</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="rfc3552"><a name="rfc3552">[RFC3552]</a></h6>
-<p><em>Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003</em> <a href="https://www.rfc-editor.org/info/rfc3552">https://www.rfc-editor.org/info/rfc3552</a>.</p>
 <h6 id="openui5"><a name="OpenUI5">[OpenUI5]</a></h6>
 <p><em>OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format</em>.<br />
 <a href="https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html">https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html</a>.</p>
@@ -743,6 +815,16 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <li><a href="#AttributeTermNamespace4.1">Attribute <code>TermNamespace</code></a></li>
 <li><a href="#AttributeQualifier4.2">Attribute <code>Qualifier</code></a></li>
 <li><a href="#AttributeTargetNamespace4.3">Attribute <code>TargetNamespace</code></a></li>
+</ul></li>
+<li><a href="#ElementedmSchema5">Element <code>edm:Schema</code></a>
+<ul>
+<li><a href="#AttributeNamespace5.1">Attribute <code>Namespace</code></a></li>
+<li><a href="#AttributeAlias5.2">Attribute <code>Alias</code></a></li>
+</ul></li>
+<li><a href="#ElementedmAnnotations6">Element <code>edm:Annotations</code></a>
+<ul>
+<li><a href="#AttributeTarget6.1">Attribute <code>Target</code></a></li>
+<li><a href="#AttributeQualifier6.2">Attribute <code>Qualifier</code></a></li>
 </ul></li>
 </ul>
 </div>

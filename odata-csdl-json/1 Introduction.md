@@ -221,7 +221,7 @@ they have the default value.
 ## ##subsec JSON Schema Definition
 
 The structure of CSDL JSON documents can be verified with the JSON
-Schema [OData-CSDL-Schema](#CSDLschema) provided as an
+Schema [OData-CSDL-Schema](#ODataCSDL) provided as an
 additional artifact of this prose specification. This schema only
 defines the shape of a well-formed CSDL JSON document but is not
 descriptive enough to define what a correct CSDL JSON document MUST be
@@ -236,13 +236,13 @@ this specification document take precedence.
 
 OData CSDL XML is a full representation of the OData Common Schema
 Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#BMXML) with further building blocks from the
+Edition) [XML-1.1](#XML11) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
-[XML-Schema-1](#BMXMLSchema1) and
-[XML-Schema-2](#BMXMLSchema2).
+[XML-Schema-1](#XMLSchema1) and
+[XML-Schema-2](#XMLSchema2).
 
 It is an alternative to the CSDL JSON representation defined in
-[OData-CSDLJSON](#BMCSDLJSON) and neither adds nor
+[OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
 removes features.
 
 ## ##subsec Requesting the XML Representation
@@ -312,8 +312,8 @@ prescriptive.
 ## ##subsec XML Schema Definitions
 
 This specification contains normative XML schemas for the EDMX and EDM
-namespaces; see [OData-EDMX](#BMEDMX) and
-[OData-EDM](#BMEDM)
+namespaces; see [OData-EDMX](#ODataEDMX) and
+[OData-EDM](#ODataEDM)
 
 These XML schemas only define the shape of a well-formed CSDL XML
 document and are not descriptive enough to define what a correct CSDL
@@ -443,7 +443,7 @@ Type|Meaning
 `Edm.GeometryCollection`         |Collection of arbitrary Geometry values
 
 `Edm.Date` and `Edm.DateTimeOffset` follow
-[XML-Schema-2](#XMLSchema) and use the proleptic Gregorian
+[XML-Schema-2](#XMLSchema2) and use the proleptic Gregorian
 calendar, allowing the year `0000` (equivalent to 1 BCE) and negative
 years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying
