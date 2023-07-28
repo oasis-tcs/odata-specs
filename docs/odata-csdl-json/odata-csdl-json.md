@@ -5028,9 +5028,14 @@ Example 79:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -5076,6 +5081,31 @@ the value of the `$If` expression (or so it was long ago)
 ```
 :::
 
+::: {.varjson .example}
+Example 81: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+```json
+[
+  {
+    "$If": [
+      {
+        "$Path": "IsLTR"
+      },
+      "margin-left",
+      {
+        "$If": [
+          {
+            "$Path": "IsRTL"
+          },
+          "margin-right"
+        ]
+      }
+    ]
+  }
+]
+```
+:::
+
+
 
 
 ### <a name="IsOf" href="#IsOf">14.4.8 Is-Of</a>
@@ -5104,7 +5134,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 81:
+Example 82:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5143,7 +5173,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 82:
+Example 83:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5172,7 +5202,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 83:
+Example 84:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5193,7 +5223,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 85:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5207,7 +5237,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 86:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5254,7 +5284,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5320,7 +5350,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 87:
+Example 88:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5404,7 +5434,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5425,7 +5455,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 89:
+Example 90:
 ```json
 {
   "$Version": "4.0",
@@ -5647,7 +5677,7 @@ Example 89:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 90:
+Example 91:
 ```json
 {
   "$Version": "4.01",

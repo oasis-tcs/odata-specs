@@ -4851,9 +4851,14 @@ Example 79:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -4872,6 +4877,7 @@ and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
 collection.
+
 
 
 
@@ -4899,6 +4905,22 @@ the value of the `edm:If` expression (or so it was long ago)
 ```
 :::
 
+::: {.varxml .example}
+Example 81: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+```xml
+<Collection>
+ <If>
+  <Path>IsLTR</Path>
+  <String>margin-left</String>
+  <If>
+   <Path>IsRTL</Path>
+   <String>margin-right</String>
+  </If>
+ </If>
+</Collection>
+```
+:::
+
 ### <a name="IsOf" href="#IsOf">14.4.8 Is-Of</a>
 
 The `is-of` expression checks whether the value obtained from its single
@@ -4922,7 +4944,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 81:
+Example 82:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -4965,7 +4987,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 82:
+Example 83:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -4996,7 +5018,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 83:
+Example 84:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5021,7 +5043,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 85:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5030,7 +5052,7 @@ Example 84:
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5091,7 +5113,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5152,7 +5174,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5229,7 +5251,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5251,7 +5273,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 89:
+Example 90:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
@@ -5369,7 +5391,7 @@ Example 89:
 
 
 ::: {.varxml .example}
-Example 90:
+Example 91:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">

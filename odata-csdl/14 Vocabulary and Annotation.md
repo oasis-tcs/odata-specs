@@ -2447,9 +2447,14 @@ Example ##ex:
 ### ##subsubsec If-Then-Else
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -2495,6 +2500,30 @@ the value of the `$If` expression (or so it was long ago)
 ```
 :::
 
+::: {.varjson .example}
+Example ##ex: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+```json
+[
+  {
+    "$If": [
+      {
+        "$Path": "IsLTR"
+      },
+      "margin-left",
+      {
+        "$If": [
+          {
+            "$Path": "IsRTL"
+          },
+          "margin-right"
+        ]
+      }
+    ]
+  }
+]
+```
+:::
+
 ::: {.varxml .rep}
 ### ##isec Expression `edm:If`
 
@@ -2516,6 +2545,22 @@ the value of the `edm:If` expression (or so it was long ago)
     <String>Male</String>
   </If>
 </Annotation>
+```
+:::
+
+::: {.varxml .example}
+Example ##ex: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+```xml
+<Collection>
+ <If>
+  <Path>IsLTR</Path>
+  <String>margin-left</String>
+  <If>
+   <Path>IsRTL</Path>
+   <String>margin-right</String>
+  </If>
+ </If>
+</Collection>
 ```
 :::
 

@@ -2794,7 +2794,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="1447-if-then-else"><a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a></h3>
-<p>The if-then-else expression enables a value to be obtained by evaluating a <em>condition expression</em>. It MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is an item of a collection expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
+<p>The if-then-else expression enables a value to be obtained by evaluating a <em>condition expression</em>. The if-then-else expression is called a collection-if-then-else expression if</p>
+<ul>
+<li>it is a direct child of a collection expression or</li>
+<li>it is the second or third child of a collection-if-then-else expression.</li>
+</ul>
+<p>An if-then-else expression MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is collection-if-then-else expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
 <p>The first child expression is the condition and MUST evaluate to a Boolean result, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
 <p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
@@ -2813,6 +2818,19 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">If</span>&gt;</span>
 <span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
+<div class="varxml example">
+<p>Example 81: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a> &lt;<span class="kw">If</span>&gt;</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Path</span>&gt;IsLTR&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">String</span>&gt;margin-left&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">If</span>&gt;</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">Path</span>&gt;IsRTL&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">String</span>&gt;margin-right&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">If</span>&gt;</span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">If</span>&gt;</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Collection</span>&gt;</span></code></pre></div>
+</div>
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
 <section id="-expression-edmurlref" class="varxml rep">
@@ -2822,12 +2840,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In element notation it MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
 <div class="varxml example">
-<p>Example 81:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;self.IsPreferredCustomer&quot;</span>&gt;</span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">IsOf</span><span class="ot"> Type=</span><span class="st">&quot;self.PreferredCustomer&quot;</span>&gt;</span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Path</span>&gt;Customer&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">IsOf</span>&gt;</span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 82:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;self.IsPreferredCustomer&quot;</span>&gt;</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">IsOf</span><span class="ot"> Type=</span><span class="st">&quot;self.PreferredCustomer&quot;</span>&gt;</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Path</span>&gt;Customer&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">IsOf</span>&gt;</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="1449-labeled-element"><a name="LabeledElement" href="#LabeledElement">14.4.9 Labeled Element</a></h3>
 <p>The labeled element expression assigns a name to its single child expression. The value of the child expression can then be reused elsewhere with a <a href="#LabeledElementReference">labeled element reference expression</a>.</p>
@@ -2842,16 +2860,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Name</code> is the labeled element's name.</p>
 </div>
 <div class="varxml example">
-<p>Example 82:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;CustomerFirstName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span> /&gt;</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;CustomerFirstName&quot;</span>&gt;</span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Path</span>&gt;FirstName&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">LabeledElement</span>&gt;</span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 83:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;CustomerFirstName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span> /&gt;</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;CustomerFirstName&quot;</span>&gt;</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Path</span>&gt;FirstName&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">LabeledElement</span>&gt;</span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14410-labeled-element-reference"><a name="LabeledElementReference" href="#LabeledElementReference">14.4.10 Labeled Element Reference</a></h3>
 <p>The labeled element reference expression MUST specify the <a href="#QualifiedName">qualified name</a> of a <a href="#LabeledElement">labeled element expression</a> in scope and returns the value of the identified labeled element expression as its value.</p>
@@ -2860,10 +2878,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>edm:LabeledElementReference</code> element MUST contain the qualified name of a labeled element expression in its body.</p>
 </section>
 <div class="varxml example">
-<p>Example 83:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElementReference</span>&gt;Model.CustomerFirstName&lt;/<span class="kw">LabeledElementReference</span>&gt;</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 84:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">LabeledElementReference</span>&gt;Model.CustomerFirstName&lt;/<span class="kw">LabeledElementReference</span>&gt;</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14411-null"><a name="Null" href="#Null">14.4.11 Null</a></h3>
 <p>The null expression indicates the absence of a value. The null expression MAY be annotated.</p>
@@ -2872,18 +2890,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>edm:Null</code> element MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
 <div class="varxml example">
-<p>Example 84:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Null</span>/&gt;</span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 85:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Null</span>/&gt;</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <div class="varxml example">
-<p>Example 85:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;@UI.Address&quot;</span>&gt;</span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Null</span>&gt;</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;self.Reason&quot;</span><span class="ot"> String=</span><span class="st">&quot;Private&quot;</span> /&gt;</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Null</span>&gt;</span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 86:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;@UI.Address&quot;</span>&gt;</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Null</span>&gt;</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;self.Reason&quot;</span><span class="ot"> String=</span><span class="st">&quot;Private&quot;</span> /&gt;</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Null</span>&gt;</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14412-record"><a name="Record" href="#Record">14.4.12 Record</a></h3>
 <p>The record expression enables a new entity type or complex type instance to be constructed.</p>
@@ -2903,26 +2921,26 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Property</code> is the name of a property of the type of the enclosing <code>edm:Record</code> expression.</p>
 </div>
 <div class="varxml example">
-<p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Employee&quot;</span>&gt;</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Annotation on record&quot;</span> /&gt;</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GivenName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span>&gt;</span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  String=</span><span class="st">&quot;Annotation on record member&quot;</span> /&gt;</span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Surname&quot;</span><span class="ot"> Path=</span><span class="st">&quot;LastName&quot;</span> /&gt;</span>
-<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;DirectSupervisor&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Manager&quot;</span> /&gt;</span>
-<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;CostCenter&quot;</span>&gt;</span>
-<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
-<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;ccid&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CostCenterID&quot;</span> /&gt;</span>
-<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Apply</span>&gt;</span>
-<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb89-19"><a href="#cb89-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
+<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Employee&quot;</span>&gt;</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Record</span>&gt;</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Annotation on record&quot;</span> /&gt;</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GivenName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span>&gt;</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  String=</span><span class="st">&quot;Annotation on record member&quot;</span> /&gt;</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Surname&quot;</span><span class="ot"> Path=</span><span class="st">&quot;LastName&quot;</span> /&gt;</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;DirectSupervisor&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Manager&quot;</span> /&gt;</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;CostCenter&quot;</span>&gt;</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;ccid&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CostCenterID&quot;</span> /&gt;</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
@@ -2935,25 +2953,25 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In element notation it MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
 <div class="varxml example">
-<p>Example 87:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Supplier&quot;</span>&gt;</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">String</span>&gt;http://host/service/Suppliers({suppID})&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;suppID&quot;</span>&gt;</span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.uriEncode&quot;</span>&gt;</span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Path</span>&gt;SupplierId&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Apply</span>&gt;</span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">LabeledElement</span>&gt;</span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">Apply</span>&gt;</span>
-<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.LongDescription&quot;</span>&gt;</span>
-<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">UrlRef</span>&gt;&lt;<span class="kw">String</span>&gt;http://host/wiki/HowToUse&lt;/<span class="kw">String</span>&gt;&lt;/<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.LongDescription&quot;</span><span class="ot"> UrlRef=</span><span class="st">&quot;http://host/wiki/HowToUse&quot;</span> /&gt;</span></code></pre></div>
+<p>Example 88:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Supplier&quot;</span>&gt;</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">String</span>&gt;http://host/service/Suppliers({suppID})&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;suppID&quot;</span>&gt;</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.uriEncode&quot;</span>&gt;</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Path</span>&gt;SupplierId&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">LabeledElement</span>&gt;</span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>     &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.LongDescription&quot;</span>&gt;</span>
+<span id="cb91-15"><a href="#cb91-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">UrlRef</span>&gt;&lt;<span class="kw">String</span>&gt;http://host/wiki/HowToUse&lt;/<span class="kw">String</span>&gt;&lt;/<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb91-16"><a href="#cb91-16" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb91-17"><a href="#cb91-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-18"><a href="#cb91-18" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.LongDescription&quot;</span><span class="ot"> UrlRef=</span><span class="st">&quot;http://host/wiki/HowToUse&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <hr />
 <h1 id="15-identifier-and-path-values"><a name="IdentifierandPathValues" href="#IdentifierandPathValues">15 Identifier and Path Values</a></h1>
@@ -2978,7 +2996,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The target path of a container child followed by a forward slash and one or more forward-slash separated property, navigation property, or type-cast segments</li>
 </ul>
 <div class="example">
-<p>Example 88: Target expressions</p>
+<p>Example 89: Target expressions</p>
 <pre><code>MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
@@ -2990,154 +3008,154 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <p>Following are two basic examples of valid EDM models as represented in CSDL. These examples demonstrate many of the topics covered above.</p>
 <h2 id="161-products-and-categories-example"><a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a></h2>
 <div class="varxml example">
-<p>Example 89:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span><span class="ot"> Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml&quot;</span>&gt;</span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Namespace=</span><span class="st">&quot;Org.OData.Core.V1&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;Core&quot;</span>&gt;</span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.DefaultNamespace&quot;</span> /&gt;</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">edmx:Include</span>&gt;</span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml&quot;</span>&gt;</span>
-<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Measures&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;Org.OData.Measures.V1&quot;</span> /&gt;</span>
-<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;ODataDemo&quot;</span>&gt;</span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Product&quot;</span><span class="ot"> HasStream=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Description&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> &gt;</span>
-<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
-<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
-<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ReleaseDate&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span> /&gt;</span>
-<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;DiscontinuedDate&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span> /&gt;</span>
-<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Rating&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span> /&gt;</span>
-<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Price&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;variable&quot;</span>&gt;</span>
-<span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Measures.ISOCurrency&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Currency&quot;</span> /&gt;</span>
-<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
-<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Currency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> MaxLength=</span><span class="st">&quot;3&quot;</span> /&gt;</span>
-<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Category&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Category&quot;</span></span>
-<span id="cb92-29"><a href="#cb92-29" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
-<span id="cb92-30"><a href="#cb92-30" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Supplier&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span></span>
-<span id="cb92-31"><a href="#cb92-31" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Partner=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
-<span id="cb92-32"><a href="#cb92-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb92-33"><a href="#cb92-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Category&quot;</span>&gt;</span>
-<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-35"><a href="#cb92-35" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb92-36"><a href="#cb92-36" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-37"><a href="#cb92-37" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span>&gt;</span>
-<span id="cb92-39"><a href="#cb92-39" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
-<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
-<span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Category&quot;</span></span>
-<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span>&gt;</span>
-<span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">OnDelete</span><span class="ot"> Action=</span><span class="st">&quot;Cascade&quot;</span> /&gt;</span>
-<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
-<span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Supplier&quot;</span>&gt;</span>
-<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Address&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Address&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Concurrency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Supplier&quot;</span></span>
-<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span> /&gt;</span>
-<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Country&quot;</span>&gt;</span>
-<span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span> /&gt;</span>
-<span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> MaxLength=</span><span class="st">&quot;2&quot;</span></span>
-<span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a><span class="ot">                              Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-63"><a href="#cb92-63" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-64"><a href="#cb92-64" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb92-65"><a href="#cb92-65" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ComplexType</span><span class="ot"> Name=</span><span class="st">&quot;Address&quot;</span>&gt;</span>
-<span id="cb92-66"><a href="#cb92-66" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Street&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-67"><a href="#cb92-67" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;City&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-68"><a href="#cb92-68" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;State&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-69"><a href="#cb92-69" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ZipCode&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-70"><a href="#cb92-70" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;CountryName&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-71"><a href="#cb92-71" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Country&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Country&quot;</span>&gt;</span>
-<span id="cb92-72"><a href="#cb92-72" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">ReferentialConstraint</span><span class="ot"> Property=</span><span class="st">&quot;CountryName&quot;</span>  </span>
-<span id="cb92-73"><a href="#cb92-73" aria-hidden="true" tabindex="-1"></a><span class="ot">                                 ReferencedProperty=</span><span class="st">&quot;Name&quot;</span> /&gt;</span>
-<span id="cb92-74"><a href="#cb92-74" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
-<span id="cb92-75"><a href="#cb92-75" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">ComplexType</span>&gt;</span>
-<span id="cb92-76"><a href="#cb92-76" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;ProductsByRating&quot;</span>&gt;</span>
-<span id="cb92-77"><a href="#cb92-77" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;Rating&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span> /&gt;</span>
-<span id="cb92-78"><a href="#cb92-78" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span> /&gt;</span>
-<span id="cb92-79"><a href="#cb92-79" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Function</span>&gt;</span>
-<span id="cb92-80"><a href="#cb92-80" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityContainer</span><span class="ot"> Name=</span><span class="st">&quot;DemoService&quot;</span>&gt;</span>
-<span id="cb92-81"><a href="#cb92-81" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Product&quot;</span>&gt;</span>
-<span id="cb92-82"><a href="#cb92-82" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Category&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Categories&quot;</span> /&gt;</span>
-<span id="cb92-83"><a href="#cb92-83" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
-<span id="cb92-84"><a href="#cb92-84" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Categories&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Category&quot;</span>&gt;</span>
-<span id="cb92-85"><a href="#cb92-85" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
-<span id="cb92-86"><a href="#cb92-86" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Product Categories&quot;</span> /&gt;</span>
-<span id="cb92-87"><a href="#cb92-87" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
-<span id="cb92-88"><a href="#cb92-88" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Suppliers&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span>&gt;</span>
-<span id="cb92-89"><a href="#cb92-89" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
-<span id="cb92-90"><a href="#cb92-90" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Address/Country&quot;</span></span>
-<span id="cb92-91"><a href="#cb92-91" aria-hidden="true" tabindex="-1"></a><span class="ot">                                     Target=</span><span class="st">&quot;Countries&quot;</span> /&gt;</span>
-<span id="cb92-92"><a href="#cb92-92" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.OptimisticConcurrency&quot;</span>&gt;</span>
-<span id="cb92-93"><a href="#cb92-93" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-94"><a href="#cb92-94" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyPath</span>&gt;Concurrency&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb92-95"><a href="#cb92-95" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb92-96"><a href="#cb92-96" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb92-97"><a href="#cb92-97" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
-<span id="cb92-98"><a href="#cb92-98" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Singleton</span><span class="ot"> Name=</span><span class="st">&quot;MainSupplier&quot;</span><span class="ot"> Type=</span><span class="st">&quot;self.Supplier&quot;</span>&gt;</span>
-<span id="cb92-99"><a href="#cb92-99" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
-<span id="cb92-100"><a href="#cb92-100" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Primary Supplier&quot;</span> /&gt;</span>
-<span id="cb92-101"><a href="#cb92-101" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Singleton</span>&gt;</span>
-<span id="cb92-102"><a href="#cb92-102" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Countries&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Country&quot;</span> /&gt;</span>
-<span id="cb92-103"><a href="#cb92-103" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">FunctionImport</span><span class="ot"> Name=</span><span class="st">&quot;ProductsByRating&quot;</span><span class="ot"> EntitySet=</span><span class="st">&quot;Products&quot;</span></span>
-<span id="cb92-104"><a href="#cb92-104" aria-hidden="true" tabindex="-1"></a><span class="ot">                        Function=</span><span class="st">&quot;ODataDemo.ProductsByRating&quot;</span> /&gt;</span>
-<span id="cb92-105"><a href="#cb92-105" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityContainer</span>&gt;</span>
-<span id="cb92-106"><a href="#cb92-106" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Schema</span>&gt;</span>
-<span id="cb92-107"><a href="#cb92-107" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb92-108"><a href="#cb92-108" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
+<p>Example 90:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span><span class="ot"> Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml&quot;</span>&gt;</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Namespace=</span><span class="st">&quot;Org.OData.Core.V1&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;Core&quot;</span>&gt;</span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.DefaultNamespace&quot;</span> /&gt;</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">edmx:Include</span>&gt;</span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml&quot;</span>&gt;</span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Measures&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;Org.OData.Measures.V1&quot;</span> /&gt;</span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;ODataDemo&quot;</span>&gt;</span>
+<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Product&quot;</span><span class="ot"> HasStream=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Description&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> &gt;</span>
+<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
+<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
+<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ReleaseDate&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span> /&gt;</span>
+<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;DiscontinuedDate&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Date&quot;</span> /&gt;</span>
+<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Rating&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span> /&gt;</span>
+<span id="cb93-24"><a href="#cb93-24" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Price&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;variable&quot;</span>&gt;</span>
+<span id="cb93-25"><a href="#cb93-25" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Measures.ISOCurrency&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Currency&quot;</span> /&gt;</span>
+<span id="cb93-26"><a href="#cb93-26" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
+<span id="cb93-27"><a href="#cb93-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Currency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> MaxLength=</span><span class="st">&quot;3&quot;</span> /&gt;</span>
+<span id="cb93-28"><a href="#cb93-28" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Category&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Category&quot;</span></span>
+<span id="cb93-29"><a href="#cb93-29" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
+<span id="cb93-30"><a href="#cb93-30" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Supplier&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span></span>
+<span id="cb93-31"><a href="#cb93-31" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Partner=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
+<span id="cb93-32"><a href="#cb93-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb93-33"><a href="#cb93-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Category&quot;</span>&gt;</span>
+<span id="cb93-34"><a href="#cb93-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb93-35"><a href="#cb93-35" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb93-36"><a href="#cb93-36" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb93-37"><a href="#cb93-37" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-38"><a href="#cb93-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span>&gt;</span>
+<span id="cb93-39"><a href="#cb93-39" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
+<span id="cb93-40"><a href="#cb93-40" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Property</span>&gt;</span>
+<span id="cb93-41"><a href="#cb93-41" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Category&quot;</span></span>
+<span id="cb93-42"><a href="#cb93-42" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span>&gt;</span>
+<span id="cb93-43"><a href="#cb93-43" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">OnDelete</span><span class="ot"> Action=</span><span class="st">&quot;Cascade&quot;</span> /&gt;</span>
+<span id="cb93-44"><a href="#cb93-44" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
+<span id="cb93-45"><a href="#cb93-45" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb93-46"><a href="#cb93-46" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Supplier&quot;</span>&gt;</span>
+<span id="cb93-47"><a href="#cb93-47" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb93-48"><a href="#cb93-48" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb93-49"><a href="#cb93-49" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb93-50"><a href="#cb93-50" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-51"><a href="#cb93-51" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-52"><a href="#cb93-52" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Address&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Address&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-53"><a href="#cb93-53" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Concurrency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-54"><a href="#cb93-54" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Partner=</span><span class="st">&quot;Supplier&quot;</span></span>
+<span id="cb93-55"><a href="#cb93-55" aria-hidden="true" tabindex="-1"></a><span class="ot">                            Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span> /&gt;</span>
+<span id="cb93-56"><a href="#cb93-56" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb93-57"><a href="#cb93-57" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Country&quot;</span>&gt;</span>
+<span id="cb93-58"><a href="#cb93-58" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Key</span>&gt;</span>
+<span id="cb93-59"><a href="#cb93-59" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span> /&gt;</span>
+<span id="cb93-60"><a href="#cb93-60" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Key</span>&gt;</span>
+<span id="cb93-61"><a href="#cb93-61" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> MaxLength=</span><span class="st">&quot;2&quot;</span></span>
+<span id="cb93-62"><a href="#cb93-62" aria-hidden="true" tabindex="-1"></a><span class="ot">                              Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb93-63"><a href="#cb93-63" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-64"><a href="#cb93-64" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb93-65"><a href="#cb93-65" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ComplexType</span><span class="ot"> Name=</span><span class="st">&quot;Address&quot;</span>&gt;</span>
+<span id="cb93-66"><a href="#cb93-66" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Street&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-67"><a href="#cb93-67" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;City&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-68"><a href="#cb93-68" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;State&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-69"><a href="#cb93-69" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ZipCode&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-70"><a href="#cb93-70" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;CountryName&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb93-71"><a href="#cb93-71" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Country&quot;</span><span class="ot"> Type=</span><span class="st">&quot;ODataDemo.Country&quot;</span>&gt;</span>
+<span id="cb93-72"><a href="#cb93-72" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">ReferentialConstraint</span><span class="ot"> Property=</span><span class="st">&quot;CountryName&quot;</span>  </span>
+<span id="cb93-73"><a href="#cb93-73" aria-hidden="true" tabindex="-1"></a><span class="ot">                                 ReferencedProperty=</span><span class="st">&quot;Name&quot;</span> /&gt;</span>
+<span id="cb93-74"><a href="#cb93-74" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
+<span id="cb93-75"><a href="#cb93-75" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">ComplexType</span>&gt;</span>
+<span id="cb93-76"><a href="#cb93-76" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;ProductsByRating&quot;</span>&gt;</span>
+<span id="cb93-77"><a href="#cb93-77" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;Rating&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int32&quot;</span> /&gt;</span>
+<span id="cb93-78"><a href="#cb93-78" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Collection(ODataDemo.Product)&quot;</span> /&gt;</span>
+<span id="cb93-79"><a href="#cb93-79" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Function</span>&gt;</span>
+<span id="cb93-80"><a href="#cb93-80" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">EntityContainer</span><span class="ot"> Name=</span><span class="st">&quot;DemoService&quot;</span>&gt;</span>
+<span id="cb93-81"><a href="#cb93-81" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Products&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Product&quot;</span>&gt;</span>
+<span id="cb93-82"><a href="#cb93-82" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Category&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Categories&quot;</span> /&gt;</span>
+<span id="cb93-83"><a href="#cb93-83" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb93-84"><a href="#cb93-84" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Categories&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Category&quot;</span>&gt;</span>
+<span id="cb93-85"><a href="#cb93-85" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
+<span id="cb93-86"><a href="#cb93-86" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Product Categories&quot;</span> /&gt;</span>
+<span id="cb93-87"><a href="#cb93-87" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb93-88"><a href="#cb93-88" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Suppliers&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span>&gt;</span>
+<span id="cb93-89"><a href="#cb93-89" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
+<span id="cb93-90"><a href="#cb93-90" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Address/Country&quot;</span></span>
+<span id="cb93-91"><a href="#cb93-91" aria-hidden="true" tabindex="-1"></a><span class="ot">                                     Target=</span><span class="st">&quot;Countries&quot;</span> /&gt;</span>
+<span id="cb93-92"><a href="#cb93-92" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.OptimisticConcurrency&quot;</span>&gt;</span>
+<span id="cb93-93"><a href="#cb93-93" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb93-94"><a href="#cb93-94" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyPath</span>&gt;Concurrency&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb93-95"><a href="#cb93-95" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb93-96"><a href="#cb93-96" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb93-97"><a href="#cb93-97" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb93-98"><a href="#cb93-98" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Singleton</span><span class="ot"> Name=</span><span class="st">&quot;MainSupplier&quot;</span><span class="ot"> Type=</span><span class="st">&quot;self.Supplier&quot;</span>&gt;</span>
+<span id="cb93-99"><a href="#cb93-99" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>
+<span id="cb93-100"><a href="#cb93-100" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Primary Supplier&quot;</span> /&gt;</span>
+<span id="cb93-101"><a href="#cb93-101" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Singleton</span>&gt;</span>
+<span id="cb93-102"><a href="#cb93-102" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Countries&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;ODataDemo.Country&quot;</span> /&gt;</span>
+<span id="cb93-103"><a href="#cb93-103" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">FunctionImport</span><span class="ot"> Name=</span><span class="st">&quot;ProductsByRating&quot;</span><span class="ot"> EntitySet=</span><span class="st">&quot;Products&quot;</span></span>
+<span id="cb93-104"><a href="#cb93-104" aria-hidden="true" tabindex="-1"></a><span class="ot">                        Function=</span><span class="st">&quot;ODataDemo.ProductsByRating&quot;</span> /&gt;</span>
+<span id="cb93-105"><a href="#cb93-105" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">EntityContainer</span>&gt;</span>
+<span id="cb93-106"><a href="#cb93-106" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Schema</span>&gt;</span>
+<span id="cb93-107"><a href="#cb93-107" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb93-108"><a href="#cb93-108" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="162-annotations-for-products-and-categories-example"><a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a></h2>
 <div class="varxml example">
-<p>Example 90:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.01&quot;</span>&gt;</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://host/service/$metadata&quot;</span>&gt;</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Namespace=</span><span class="st">&quot;ODataDemo&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;target&quot;</span> /&gt;</span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://somewhere/Vocabulary/V1&quot;</span>&gt;</span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Vocabulary1&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;Some.Vocabulary.V1&quot;</span> /&gt;</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            Namespace=</span><span class="st">&quot;External.Annotations&quot;</span>&gt;</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span>&gt;</span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.EMail&quot;</span>&gt;</span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Null</span> /&gt;</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.AccountID&quot;</span><span class="ot"> Path=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Title&quot;</span><span class="ot"> String=</span><span class="st">&quot;Supplier Info&quot;</span> /&gt;</span>
-<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.DisplayName&quot;</span>&gt;</span>
-<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.concat&quot;</span>&gt;</span>
-<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Name&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt; in &lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Address/CountryName&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Apply</span>&gt;</span>
-<span id="cb93-24"><a href="#cb93-24" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb93-25"><a href="#cb93-25" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb93-26"><a href="#cb93-26" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Product&quot;</span>&gt;</span>
-<span id="cb93-27"><a href="#cb93-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Tags&quot;</span>&gt;</span>
-<span id="cb93-28"><a href="#cb93-28" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb93-29"><a href="#cb93-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt;MasterData&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb93-30"><a href="#cb93-30" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb93-31"><a href="#cb93-31" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb93-32"><a href="#cb93-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb93-33"><a href="#cb93-33" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Schema</span>&gt;</span>
-<span id="cb93-34"><a href="#cb93-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb93-35"><a href="#cb93-35" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
+<p>Example 91:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.01&quot;</span>&gt;</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://host/service/$metadata&quot;</span>&gt;</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Namespace=</span><span class="st">&quot;ODataDemo&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;target&quot;</span> /&gt;</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://somewhere/Vocabulary/V1&quot;</span>&gt;</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Vocabulary1&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;Some.Vocabulary.V1&quot;</span> /&gt;</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            Namespace=</span><span class="st">&quot;External.Annotations&quot;</span>&gt;</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span>&gt;</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.EMail&quot;</span>&gt;</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Null</span> /&gt;</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.AccountID&quot;</span><span class="ot"> Path=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Title&quot;</span><span class="ot"> String=</span><span class="st">&quot;Supplier Info&quot;</span> /&gt;</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.DisplayName&quot;</span>&gt;</span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.concat&quot;</span>&gt;</span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Name&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt; in &lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Address/CountryName&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Product&quot;</span>&gt;</span>
+<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Tags&quot;</span>&gt;</span>
+<span id="cb94-28"><a href="#cb94-28" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-29"><a href="#cb94-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt;MasterData&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb94-30"><a href="#cb94-30" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-31"><a href="#cb94-31" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-32"><a href="#cb94-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-33"><a href="#cb94-33" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Schema</span>&gt;</span>
+<span id="cb94-34"><a href="#cb94-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-35"><a href="#cb94-35" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>

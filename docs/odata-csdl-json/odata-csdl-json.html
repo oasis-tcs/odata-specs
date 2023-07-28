@@ -3014,7 +3014,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
 </div>
 <h3 id="1447-if-then-else"><a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a></h3>
-<p>The if-then-else expression enables a value to be obtained by evaluating a <em>condition expression</em>. It MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is an item of a collection expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
+<p>The if-then-else expression enables a value to be obtained by evaluating a <em>condition expression</em>. The if-then-else expression is called a collection-if-then-else expression if</p>
+<ul>
+<li>it is a direct child of a collection expression or</li>
+<li>it is the second or third child of a collection-if-then-else expression.</li>
+</ul>
+<p>An if-then-else expression MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is collection-if-then-else expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
 <p>The first child expression is the condition and MUST evaluate to a Boolean result, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
 <p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
@@ -3035,6 +3040,27 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+<div class="varjson example">
+<p>Example 81: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$If&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;IsLTR&quot;</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;margin-left&quot;</span><span class="ot">,</span></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$If&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">{</span></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;IsRTL&quot;</span></span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;margin-right&quot;</span></span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+</div>
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
 <section id="-isof" class="varjson rep">
@@ -3044,13 +3070,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the specified type is a primitive type or a collection of primitive types, the facet members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet members are not specified, their values are considered unspecified.</p>
 </section>
 <div class="varjson example">
-<p>Example 81:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@Self.IsPreferredCustomer&quot;:</span> <span class="fu">{</span></span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$IsOf&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Customer&quot;</span></span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.PreferredCustomer&quot;</span></span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 82:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@Self.IsPreferredCustomer&quot;:</span> <span class="fu">{</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$IsOf&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Customer&quot;</span></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.PreferredCustomer&quot;</span></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="1449-labeled-element"><a name="LabeledElement" href="#LabeledElement">14.4.9 Labeled Element</a></h3>
 <p>The labeled element expression assigns a name to its single child expression. The value of the child expression can then be reused elsewhere with a <a href="#LabeledElementReference">labeled element reference expression</a>.</p>
@@ -3062,13 +3088,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <div class="varjson example">
-<p>Example 82:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="fu">{</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName&quot;</span></span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;CustomerFirstName&quot;</span></span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 83:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="fu">{</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName&quot;</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;CustomerFirstName&quot;</span></span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="14410-labeled-element-reference"><a name="LabeledElementReference" href="#LabeledElementReference">14.4.10 Labeled Element Reference</a></h3>
 <p>The labeled element reference expression MUST specify the <a href="#QualifiedName">qualified name</a> of a <a href="#LabeledElement">labeled element expression</a> in scope and returns the value of the identified labeled element expression as its value.</p>
@@ -3077,10 +3103,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Labeled element reference expressions are represented as an object with a member <code>$LabeledElementReference</code> whose value is a string containing an qualified name.</p>
 </section>
 <div class="varjson example">
-<p>Example 83:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="fu">{</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$LabeledElementReference&quot;</span><span class="fu">:</span> <span class="st">&quot;self.CustomerFirstName&quot;</span></span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 84:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="fu">{</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$LabeledElementReference&quot;</span><span class="fu">:</span> <span class="st">&quot;self.CustomerFirstName&quot;</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="14411-null"><a name="Null" href="#Null">14.4.11 Null</a></h3>
 <p>The null expression indicates the absence of a value. The null expression MAY be annotated.</p>
@@ -3088,19 +3114,19 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Null expressions that do not contain annotations are represented as the literal <code>null</code>.</p>
 </div>
 <div class="varjson example">
-<p>Example 84:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="er">null,</span></span></code></pre></div>
+<p>Example 85:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="er">null,</span></span></code></pre></div>
 </div>
 <section id="-null" class="varjson rep">
 <h3><a name="Null20.26" href="#Null20.26"> <code>$Null</code></a></h3>
 <p>Null expression containing <a href="#Annotations">annotations</a> are represented as an object with a member <code>$Null</code> whose value is the literal <code>null</code>.</p>
 </section>
 <div class="varjson example">
-<p>Example 85:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.Address&quot;:</span> <span class="fu">{</span></span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Null&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@self.Reason&quot;</span><span class="fu">:</span> <span class="st">&quot;Private&quot;</span></span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 86:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.Address&quot;:</span> <span class="fu">{</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Null&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@self.Reason&quot;</span><span class="fu">:</span> <span class="st">&quot;Private&quot;</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="14412-record"><a name="Record" href="#Record">14.4.12 Record</a></h3>
 <p>The record expression enables a new entity type or complex type instance to be constructed.</p>
@@ -3113,35 +3139,35 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation">annotations</a> for itself and its members. Annotations for record members are prefixed with the member name.</p>
 </div>
 <div class="varjson example">
-<p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Employee&quot;:</span> <span class="fu">{</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://example.org/vocabs/person#org.example.person.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record&quot;</span><span class="fu">,</span></span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName&quot;</span></span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record member&quot;</span><span class="fu">,</span></span>
-<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Surname&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;LastName&quot;</span></span>
-<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectSupervisor&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Manager&quot;</span></span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenter&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&quot;</span><span class="ot">,</span></span>
-<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;CostCenterID&quot;</span></span>
-<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
-<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;ccid&quot;</span></span>
-<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
-<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Employee&quot;:</span> <span class="fu">{</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://example.org/vocabs/person#org.example.person.Manager&quot;</span><span class="fu">,</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record&quot;</span><span class="fu">,</span></span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName&quot;</span></span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record member&quot;</span><span class="fu">,</span></span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Surname&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;LastName&quot;</span></span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectSupervisor&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Manager&quot;</span></span>
+<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenter&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&quot;</span><span class="ot">,</span></span>
+<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;CostCenterID&quot;</span></span>
+<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
+<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;ccid&quot;</span></span>
+<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb93-24"><a href="#cb93-24" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb93-25"><a href="#cb93-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
+<span id="cb93-26"><a href="#cb93-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb93-27"><a href="#cb93-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb93-28"><a href="#cb93-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
@@ -3153,30 +3179,30 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <div class="varjson example">
-<p>Example 87:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@org.example.person.Supplier&quot;:</span> <span class="fu">{</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;http://host/service/Suppliers({suppID})&quot;</span><span class="ot">,</span></span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;SupplierId&quot;</span></span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.uriEncode&quot;</span></span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;suppID&quot;</span></span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
-<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@Core.LongDescription#element&quot;:</span> <span class="fu">{</span></span>
-<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/wiki/HowToUse&quot;</span></span>
-<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 88:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@org.example.person.Supplier&quot;:</span> <span class="fu">{</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;http://host/service/Suppliers({suppID})&quot;</span><span class="ot">,</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;SupplierId&quot;</span></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.uriEncode&quot;</span></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;suppID&quot;</span></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@Core.LongDescription#element&quot;:</span> <span class="fu">{</span></span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/wiki/HowToUse&quot;</span></span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="15-identifier-and-path-values"><a name="IdentifierandPathValues" href="#IdentifierandPathValues">15 Identifier and Path Values</a></h1>
@@ -3201,7 +3227,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>The target path of a container child followed by a forward slash and one or more forward-slash separated property, navigation property, or type-cast segments</li>
 </ul>
 <div class="example">
-<p>Example 88: Target expressions</p>
+<p>Example 89: Target expressions</p>
 <pre><code>MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
@@ -3213,272 +3239,272 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <p>Following are two basic examples of valid EDM models as represented in CSDL JSON. These examples demonstrate many of the topics covered above.</p>
 <h2 id="161-products-and-categories-example"><a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a></h2>
 <div class="varjson example">
-<p>Example 89:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Version&quot;</span><span class="fu">:</span> <span class="st">&quot;4.0&quot;</span><span class="fu">,</span></span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$EntityContainer&quot;</span><span class="fu">:</span> <span class="st">&quot;ODataDemo.DemoService&quot;</span><span class="fu">,</span></span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Core.V1&quot;</span><span class="fu">,</span></span>
-<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Core&quot;</span><span class="fu">,</span></span>
-<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@Core.DefaultNamespace&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Measures.V1&quot;</span><span class="fu">,</span></span>
-<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Measures&quot;</span></span>
-<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb95-21"><a href="#cb95-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb95-22"><a href="#cb95-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb95-23"><a href="#cb95-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ODataDemo&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-24"><a href="#cb95-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;self&quot;</span><span class="fu">,</span></span>
-<span id="cb95-25"><a href="#cb95-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Core.DefaultNamespace&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-26"><a href="#cb95-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-27"><a href="#cb95-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
-<span id="cb95-28"><a href="#cb95-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$HasStream&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-29"><a href="#cb95-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-30"><a href="#cb95-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
-<span id="cb95-31"><a href="#cb95-31" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-32"><a href="#cb95-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb95-33"><a href="#cb95-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Description&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-34"><a href="#cb95-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-35"><a href="#cb95-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-36"><a href="#cb95-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-37"><a href="#cb95-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ReleaseDate&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-38"><a href="#cb95-38" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-39"><a href="#cb95-39" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span></span>
-<span id="cb95-40"><a href="#cb95-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-41"><a href="#cb95-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;DiscontinuedDate&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-42"><a href="#cb95-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-43"><a href="#cb95-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span></span>
-<span id="cb95-44"><a href="#cb95-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-45"><a href="#cb95-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Rating&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-46"><a href="#cb95-46" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-47"><a href="#cb95-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
-<span id="cb95-48"><a href="#cb95-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-49"><a href="#cb95-49" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Price&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-50"><a href="#cb95-50" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-51"><a href="#cb95-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb95-52"><a href="#cb95-52" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Measures.ISOCurrency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-53"><a href="#cb95-53" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Currency&quot;</span></span>
-<span id="cb95-54"><a href="#cb95-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-55"><a href="#cb95-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-56"><a href="#cb95-56" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Currency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-57"><a href="#cb95-57" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-58"><a href="#cb95-58" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$MaxLength&quot;</span><span class="fu">:</span> <span class="dv">3</span></span>
-<span id="cb95-59"><a href="#cb95-59" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-60"><a href="#cb95-60" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-61"><a href="#cb95-61" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
-<span id="cb95-62"><a href="#cb95-62" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Category&quot;</span><span class="fu">,</span></span>
-<span id="cb95-63"><a href="#cb95-63" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
-<span id="cb95-64"><a href="#cb95-64" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-65"><a href="#cb95-65" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-66"><a href="#cb95-66" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
-<span id="cb95-67"><a href="#cb95-67" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-68"><a href="#cb95-68" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
-<span id="cb95-69"><a href="#cb95-69" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
-<span id="cb95-70"><a href="#cb95-70" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-71"><a href="#cb95-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-72"><a href="#cb95-72" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-73"><a href="#cb95-73" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
-<span id="cb95-74"><a href="#cb95-74" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-75"><a href="#cb95-75" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
-<span id="cb95-76"><a href="#cb95-76" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-77"><a href="#cb95-77" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-78"><a href="#cb95-78" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
-<span id="cb95-79"><a href="#cb95-79" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-80"><a href="#cb95-80" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-81"><a href="#cb95-81" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-82"><a href="#cb95-82" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-83"><a href="#cb95-83" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-84"><a href="#cb95-84" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
-<span id="cb95-85"><a href="#cb95-85" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Category&quot;</span><span class="fu">,</span></span>
-<span id="cb95-86"><a href="#cb95-86" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-87"><a href="#cb95-87" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span><span class="fu">,</span></span>
-<span id="cb95-88"><a href="#cb95-88" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$OnDelete&quot;</span><span class="fu">:</span> <span class="st">&quot;Cascade&quot;</span></span>
-<span id="cb95-89"><a href="#cb95-89" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-90"><a href="#cb95-90" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-91"><a href="#cb95-91" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-92"><a href="#cb95-92" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
-<span id="cb95-93"><a href="#cb95-93" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-94"><a href="#cb95-94" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
-<span id="cb95-95"><a href="#cb95-95" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-96"><a href="#cb95-96" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb95-97"><a href="#cb95-97" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-98"><a href="#cb95-98" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-99"><a href="#cb95-99" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-100"><a href="#cb95-100" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-101"><a href="#cb95-101" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Address&quot;</span></span>
-<span id="cb95-102"><a href="#cb95-102" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-103"><a href="#cb95-103" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Concurrency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-104"><a href="#cb95-104" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
-<span id="cb95-105"><a href="#cb95-105" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-106"><a href="#cb95-106" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-107"><a href="#cb95-107" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
-<span id="cb95-108"><a href="#cb95-108" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Supplier&quot;</span><span class="fu">,</span></span>
-<span id="cb95-109"><a href="#cb95-109" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-110"><a href="#cb95-110" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span></span>
-<span id="cb95-111"><a href="#cb95-111" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-112"><a href="#cb95-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-113"><a href="#cb95-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-114"><a href="#cb95-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
-<span id="cb95-115"><a href="#cb95-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-116"><a href="#cb95-116" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Code&quot;</span></span>
-<span id="cb95-117"><a href="#cb95-117" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-118"><a href="#cb95-118" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Code&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-119"><a href="#cb95-119" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$MaxLength&quot;</span><span class="fu">:</span> <span class="dv">2</span></span>
-<span id="cb95-120"><a href="#cb95-120" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-121"><a href="#cb95-121" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-122"><a href="#cb95-122" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-123"><a href="#cb95-123" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-124"><a href="#cb95-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-125"><a href="#cb95-125" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-126"><a href="#cb95-126" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;ComplexType&quot;</span><span class="fu">,</span></span>
-<span id="cb95-127"><a href="#cb95-127" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-128"><a href="#cb95-128" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-129"><a href="#cb95-129" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-130"><a href="#cb95-130" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-131"><a href="#cb95-131" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-132"><a href="#cb95-132" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-133"><a href="#cb95-133" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;State&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-134"><a href="#cb95-134" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-135"><a href="#cb95-135" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-136"><a href="#cb95-136" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ZipCode&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-137"><a href="#cb95-137" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-138"><a href="#cb95-138" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-139"><a href="#cb95-139" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CountryName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-140"><a href="#cb95-140" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb95-141"><a href="#cb95-141" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-142"><a href="#cb95-142" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-143"><a href="#cb95-143" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
-<span id="cb95-144"><a href="#cb95-144" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-145"><a href="#cb95-145" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Country&quot;</span><span class="fu">,</span></span>
-<span id="cb95-146"><a href="#cb95-146" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$ReferentialConstraint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-147"><a href="#cb95-147" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;CountryName&quot;</span><span class="fu">:</span> <span class="st">&quot;Name&quot;</span></span>
-<span id="cb95-148"><a href="#cb95-148" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-149"><a href="#cb95-149" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-150"><a href="#cb95-150" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb95-151"><a href="#cb95-151" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ProductsByRating&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-152"><a href="#cb95-152" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
-<span id="cb95-153"><a href="#cb95-153" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;Function&quot;</span><span class="fu">,</span></span>
-<span id="cb95-154"><a href="#cb95-154" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Parameter&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-155"><a href="#cb95-155" aria-hidden="true" tabindex="-1"></a>          <span class="fu">{</span></span>
-<span id="cb95-156"><a href="#cb95-156" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Rating&quot;</span><span class="fu">,</span></span>
-<span id="cb95-157"><a href="#cb95-157" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-158"><a href="#cb95-158" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
-<span id="cb95-159"><a href="#cb95-159" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
-<span id="cb95-160"><a href="#cb95-160" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-161"><a href="#cb95-161" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$ReturnType&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-162"><a href="#cb95-162" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-163"><a href="#cb95-163" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span></span>
-<span id="cb95-164"><a href="#cb95-164" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-165"><a href="#cb95-165" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-166"><a href="#cb95-166" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb95-167"><a href="#cb95-167" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;DemoService&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-168"><a href="#cb95-168" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityContainer&quot;</span><span class="fu">,</span></span>
-<span id="cb95-169"><a href="#cb95-169" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-170"><a href="#cb95-170" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-171"><a href="#cb95-171" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span><span class="fu">,</span></span>
-<span id="cb95-172"><a href="#cb95-172" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-173"><a href="#cb95-173" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="st">&quot;Categories&quot;</span></span>
-<span id="cb95-174"><a href="#cb95-174" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb95-175"><a href="#cb95-175" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-176"><a href="#cb95-176" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Categories&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-177"><a href="#cb95-177" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-178"><a href="#cb95-178" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Category&quot;</span><span class="fu">,</span></span>
-<span id="cb95-179"><a href="#cb95-179" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-180"><a href="#cb95-180" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
-<span id="cb95-181"><a href="#cb95-181" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb95-182"><a href="#cb95-182" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Product Categories&quot;</span></span>
-<span id="cb95-183"><a href="#cb95-183" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-184"><a href="#cb95-184" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Suppliers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-185"><a href="#cb95-185" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-186"><a href="#cb95-186" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
-<span id="cb95-187"><a href="#cb95-187" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-188"><a href="#cb95-188" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span><span class="fu">,</span></span>
-<span id="cb95-189"><a href="#cb95-189" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Address/Country&quot;</span><span class="fu">:</span> <span class="st">&quot;Countries&quot;</span></span>
-<span id="cb95-190"><a href="#cb95-190" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb95-191"><a href="#cb95-191" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.OptimisticConcurrency&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb95-192"><a href="#cb95-192" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Concurrency&quot;</span></span>
-<span id="cb95-193"><a href="#cb95-193" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb95-194"><a href="#cb95-194" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-195"><a href="#cb95-195" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Countries&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-196"><a href="#cb95-196" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb95-197"><a href="#cb95-197" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Country&quot;</span></span>
-<span id="cb95-198"><a href="#cb95-198" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-199"><a href="#cb95-199" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;MainSupplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-200"><a href="#cb95-200" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
-<span id="cb95-201"><a href="#cb95-201" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-202"><a href="#cb95-202" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
-<span id="cb95-203"><a href="#cb95-203" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb95-204"><a href="#cb95-204" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Primary Supplier&quot;</span></span>
-<span id="cb95-205"><a href="#cb95-205" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb95-206"><a href="#cb95-206" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ProductsByRating&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb95-207"><a href="#cb95-207" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$EntitySet&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span><span class="fu">,</span></span>
-<span id="cb95-208"><a href="#cb95-208" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;self.ProductsByRating&quot;</span></span>
-<span id="cb95-209"><a href="#cb95-209" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb95-210"><a href="#cb95-210" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb95-211"><a href="#cb95-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb95-212"><a href="#cb95-212" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 90:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Version&quot;</span><span class="fu">:</span> <span class="st">&quot;4.0&quot;</span><span class="fu">,</span></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$EntityContainer&quot;</span><span class="fu">:</span> <span class="st">&quot;ODataDemo.DemoService&quot;</span><span class="fu">,</span></span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Core.V1&quot;</span><span class="fu">,</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Core&quot;</span><span class="fu">,</span></span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@Core.DefaultNamespace&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Org.OData.Measures.V1&quot;</span><span class="fu">,</span></span>
+<span id="cb96-18"><a href="#cb96-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Measures&quot;</span></span>
+<span id="cb96-19"><a href="#cb96-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-20"><a href="#cb96-20" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb96-22"><a href="#cb96-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb96-23"><a href="#cb96-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ODataDemo&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-24"><a href="#cb96-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;self&quot;</span><span class="fu">,</span></span>
+<span id="cb96-25"><a href="#cb96-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Core.DefaultNamespace&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-26"><a href="#cb96-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-27"><a href="#cb96-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
+<span id="cb96-28"><a href="#cb96-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$HasStream&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-29"><a href="#cb96-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-30"><a href="#cb96-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
+<span id="cb96-31"><a href="#cb96-31" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-32"><a href="#cb96-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb96-33"><a href="#cb96-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Description&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-34"><a href="#cb96-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-35"><a href="#cb96-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-36"><a href="#cb96-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-37"><a href="#cb96-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ReleaseDate&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-38"><a href="#cb96-38" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-39"><a href="#cb96-39" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span></span>
+<span id="cb96-40"><a href="#cb96-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-41"><a href="#cb96-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;DiscontinuedDate&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-42"><a href="#cb96-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-43"><a href="#cb96-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span></span>
+<span id="cb96-44"><a href="#cb96-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-45"><a href="#cb96-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Rating&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-46"><a href="#cb96-46" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-47"><a href="#cb96-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
+<span id="cb96-48"><a href="#cb96-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-49"><a href="#cb96-49" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Price&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-50"><a href="#cb96-50" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-51"><a href="#cb96-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb96-52"><a href="#cb96-52" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Measures.ISOCurrency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-53"><a href="#cb96-53" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Currency&quot;</span></span>
+<span id="cb96-54"><a href="#cb96-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-55"><a href="#cb96-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-56"><a href="#cb96-56" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Currency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-57"><a href="#cb96-57" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-58"><a href="#cb96-58" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$MaxLength&quot;</span><span class="fu">:</span> <span class="dv">3</span></span>
+<span id="cb96-59"><a href="#cb96-59" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-60"><a href="#cb96-60" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-61"><a href="#cb96-61" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
+<span id="cb96-62"><a href="#cb96-62" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Category&quot;</span><span class="fu">,</span></span>
+<span id="cb96-63"><a href="#cb96-63" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
+<span id="cb96-64"><a href="#cb96-64" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-65"><a href="#cb96-65" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-66"><a href="#cb96-66" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
+<span id="cb96-67"><a href="#cb96-67" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-68"><a href="#cb96-68" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
+<span id="cb96-69"><a href="#cb96-69" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
+<span id="cb96-70"><a href="#cb96-70" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-71"><a href="#cb96-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-72"><a href="#cb96-72" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-73"><a href="#cb96-73" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
+<span id="cb96-74"><a href="#cb96-74" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-75"><a href="#cb96-75" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
+<span id="cb96-76"><a href="#cb96-76" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-77"><a href="#cb96-77" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-78"><a href="#cb96-78" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
+<span id="cb96-79"><a href="#cb96-79" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-80"><a href="#cb96-80" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-81"><a href="#cb96-81" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-82"><a href="#cb96-82" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-83"><a href="#cb96-83" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-84"><a href="#cb96-84" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
+<span id="cb96-85"><a href="#cb96-85" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Category&quot;</span><span class="fu">,</span></span>
+<span id="cb96-86"><a href="#cb96-86" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-87"><a href="#cb96-87" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span><span class="fu">,</span></span>
+<span id="cb96-88"><a href="#cb96-88" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$OnDelete&quot;</span><span class="fu">:</span> <span class="st">&quot;Cascade&quot;</span></span>
+<span id="cb96-89"><a href="#cb96-89" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-90"><a href="#cb96-90" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-91"><a href="#cb96-91" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-92"><a href="#cb96-92" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
+<span id="cb96-93"><a href="#cb96-93" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-94"><a href="#cb96-94" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ID&quot;</span></span>
+<span id="cb96-95"><a href="#cb96-95" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-96"><a href="#cb96-96" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb96-97"><a href="#cb96-97" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-98"><a href="#cb96-98" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-99"><a href="#cb96-99" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-100"><a href="#cb96-100" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-101"><a href="#cb96-101" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Address&quot;</span></span>
+<span id="cb96-102"><a href="#cb96-102" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-103"><a href="#cb96-103" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Concurrency&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-104"><a href="#cb96-104" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
+<span id="cb96-105"><a href="#cb96-105" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-106"><a href="#cb96-106" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-107"><a href="#cb96-107" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
+<span id="cb96-108"><a href="#cb96-108" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Partner&quot;</span><span class="fu">:</span> <span class="st">&quot;Supplier&quot;</span><span class="fu">,</span></span>
+<span id="cb96-109"><a href="#cb96-109" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-110"><a href="#cb96-110" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span></span>
+<span id="cb96-111"><a href="#cb96-111" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-112"><a href="#cb96-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-113"><a href="#cb96-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-114"><a href="#cb96-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
+<span id="cb96-115"><a href="#cb96-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-116"><a href="#cb96-116" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Code&quot;</span></span>
+<span id="cb96-117"><a href="#cb96-117" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-118"><a href="#cb96-118" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Code&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-119"><a href="#cb96-119" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$MaxLength&quot;</span><span class="fu">:</span> <span class="dv">2</span></span>
+<span id="cb96-120"><a href="#cb96-120" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-121"><a href="#cb96-121" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-122"><a href="#cb96-122" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-123"><a href="#cb96-123" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-124"><a href="#cb96-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-125"><a href="#cb96-125" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-126"><a href="#cb96-126" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;ComplexType&quot;</span><span class="fu">,</span></span>
+<span id="cb96-127"><a href="#cb96-127" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-128"><a href="#cb96-128" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-129"><a href="#cb96-129" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-130"><a href="#cb96-130" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-131"><a href="#cb96-131" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-132"><a href="#cb96-132" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-133"><a href="#cb96-133" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;State&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-134"><a href="#cb96-134" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-135"><a href="#cb96-135" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-136"><a href="#cb96-136" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ZipCode&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-137"><a href="#cb96-137" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-138"><a href="#cb96-138" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-139"><a href="#cb96-139" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CountryName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-140"><a href="#cb96-140" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb96-141"><a href="#cb96-141" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-142"><a href="#cb96-142" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-143"><a href="#cb96-143" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;NavigationProperty&quot;</span><span class="fu">,</span></span>
+<span id="cb96-144"><a href="#cb96-144" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-145"><a href="#cb96-145" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Country&quot;</span><span class="fu">,</span></span>
+<span id="cb96-146"><a href="#cb96-146" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$ReferentialConstraint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-147"><a href="#cb96-147" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;CountryName&quot;</span><span class="fu">:</span> <span class="st">&quot;Name&quot;</span></span>
+<span id="cb96-148"><a href="#cb96-148" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-149"><a href="#cb96-149" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-150"><a href="#cb96-150" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb96-151"><a href="#cb96-151" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ProductsByRating&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-152"><a href="#cb96-152" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb96-153"><a href="#cb96-153" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;Function&quot;</span><span class="fu">,</span></span>
+<span id="cb96-154"><a href="#cb96-154" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Parameter&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-155"><a href="#cb96-155" aria-hidden="true" tabindex="-1"></a>          <span class="fu">{</span></span>
+<span id="cb96-156"><a href="#cb96-156" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Rating&quot;</span><span class="fu">,</span></span>
+<span id="cb96-157"><a href="#cb96-157" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-158"><a href="#cb96-158" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Int32&quot;</span></span>
+<span id="cb96-159"><a href="#cb96-159" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb96-160"><a href="#cb96-160" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-161"><a href="#cb96-161" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$ReturnType&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-162"><a href="#cb96-162" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-163"><a href="#cb96-163" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span></span>
+<span id="cb96-164"><a href="#cb96-164" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-165"><a href="#cb96-165" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-166"><a href="#cb96-166" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb96-167"><a href="#cb96-167" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;DemoService&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-168"><a href="#cb96-168" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityContainer&quot;</span><span class="fu">,</span></span>
+<span id="cb96-169"><a href="#cb96-169" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-170"><a href="#cb96-170" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-171"><a href="#cb96-171" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Product&quot;</span><span class="fu">,</span></span>
+<span id="cb96-172"><a href="#cb96-172" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-173"><a href="#cb96-173" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="st">&quot;Categories&quot;</span></span>
+<span id="cb96-174"><a href="#cb96-174" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb96-175"><a href="#cb96-175" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-176"><a href="#cb96-176" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Categories&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-177"><a href="#cb96-177" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-178"><a href="#cb96-178" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Category&quot;</span><span class="fu">,</span></span>
+<span id="cb96-179"><a href="#cb96-179" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-180"><a href="#cb96-180" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
+<span id="cb96-181"><a href="#cb96-181" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb96-182"><a href="#cb96-182" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Product Categories&quot;</span></span>
+<span id="cb96-183"><a href="#cb96-183" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-184"><a href="#cb96-184" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Suppliers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-185"><a href="#cb96-185" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-186"><a href="#cb96-186" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
+<span id="cb96-187"><a href="#cb96-187" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-188"><a href="#cb96-188" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span><span class="fu">,</span></span>
+<span id="cb96-189"><a href="#cb96-189" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Address/Country&quot;</span><span class="fu">:</span> <span class="st">&quot;Countries&quot;</span></span>
+<span id="cb96-190"><a href="#cb96-190" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb96-191"><a href="#cb96-191" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.OptimisticConcurrency&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-192"><a href="#cb96-192" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Concurrency&quot;</span></span>
+<span id="cb96-193"><a href="#cb96-193" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb96-194"><a href="#cb96-194" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-195"><a href="#cb96-195" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Countries&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-196"><a href="#cb96-196" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb96-197"><a href="#cb96-197" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Country&quot;</span></span>
+<span id="cb96-198"><a href="#cb96-198" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-199"><a href="#cb96-199" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;MainSupplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-200"><a href="#cb96-200" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Supplier&quot;</span><span class="fu">,</span></span>
+<span id="cb96-201"><a href="#cb96-201" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-202"><a href="#cb96-202" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
+<span id="cb96-203"><a href="#cb96-203" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb96-204"><a href="#cb96-204" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Primary Supplier&quot;</span></span>
+<span id="cb96-205"><a href="#cb96-205" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb96-206"><a href="#cb96-206" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ProductsByRating&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb96-207"><a href="#cb96-207" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$EntitySet&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span><span class="fu">,</span></span>
+<span id="cb96-208"><a href="#cb96-208" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;self.ProductsByRating&quot;</span></span>
+<span id="cb96-209"><a href="#cb96-209" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb96-210"><a href="#cb96-210" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb96-211"><a href="#cb96-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb96-212"><a href="#cb96-212" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="162-annotations-for-products-and-categories-example"><a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a></h2>
 <div class="varjson example">
-<p>Example 90:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Version&quot;</span><span class="fu">:</span> <span class="st">&quot;4.01&quot;</span><span class="fu">,</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;http://host/service/$metadata&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;ODataDemo&quot;</span><span class="fu">,</span></span>
-<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;target&quot;</span></span>
-<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;http://somewhere/Vocabulary/V1&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Some.Vocabulary.V1&quot;</span><span class="fu">,</span></span>
-<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Vocabulary1&quot;</span></span>
-<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb96-18"><a href="#cb96-18" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb96-19"><a href="#cb96-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb96-20"><a href="#cb96-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;External.Annotations&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-22"><a href="#cb96-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Annotations&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-23"><a href="#cb96-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-24"><a href="#cb96-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.EMail&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb96-25"><a href="#cb96-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.AccountID&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-26"><a href="#cb96-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ID&quot;</span></span>
-<span id="cb96-27"><a href="#cb96-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb96-28"><a href="#cb96-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Title&quot;</span><span class="fu">:</span> <span class="st">&quot;Supplier Info&quot;</span><span class="fu">,</span></span>
-<span id="cb96-29"><a href="#cb96-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.DisplayName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-30"><a href="#cb96-30" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-31"><a href="#cb96-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
-<span id="cb96-32"><a href="#cb96-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Name&quot;</span></span>
-<span id="cb96-33"><a href="#cb96-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb96-34"><a href="#cb96-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot; in &quot;</span><span class="ot">,</span></span>
-<span id="cb96-35"><a href="#cb96-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
-<span id="cb96-36"><a href="#cb96-36" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Address/CountryName&quot;</span></span>
-<span id="cb96-37"><a href="#cb96-37" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
-<span id="cb96-38"><a href="#cb96-38" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb96-39"><a href="#cb96-39" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
-<span id="cb96-40"><a href="#cb96-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb96-41"><a href="#cb96-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb96-42"><a href="#cb96-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb96-43"><a href="#cb96-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Tags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-44"><a href="#cb96-44" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;MasterData&quot;</span></span>
-<span id="cb96-45"><a href="#cb96-45" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb96-46"><a href="#cb96-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb96-47"><a href="#cb96-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb96-48"><a href="#cb96-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb96-49"><a href="#cb96-49" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span> <span class="er">```</span></span></code></pre></div>
+<p>Example 91:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Version&quot;</span><span class="fu">:</span> <span class="st">&quot;4.01&quot;</span><span class="fu">,</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;http://host/service/$metadata&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;ODataDemo&quot;</span><span class="fu">,</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;target&quot;</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;http://somewhere/Vocabulary/V1&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Include&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Namespace&quot;</span><span class="fu">:</span> <span class="st">&quot;Some.Vocabulary.V1&quot;</span><span class="fu">,</span></span>
+<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Alias&quot;</span><span class="fu">:</span> <span class="st">&quot;Vocabulary1&quot;</span></span>
+<span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb97-18"><a href="#cb97-18" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb97-19"><a href="#cb97-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb97-20"><a href="#cb97-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb97-21"><a href="#cb97-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;External.Annotations&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-22"><a href="#cb97-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Annotations&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-23"><a href="#cb97-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Supplier&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-24"><a href="#cb97-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.EMail&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb97-25"><a href="#cb97-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.AccountID&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-26"><a href="#cb97-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ID&quot;</span></span>
+<span id="cb97-27"><a href="#cb97-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb97-28"><a href="#cb97-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Title&quot;</span><span class="fu">:</span> <span class="st">&quot;Supplier Info&quot;</span><span class="fu">,</span></span>
+<span id="cb97-29"><a href="#cb97-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.DisplayName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-30"><a href="#cb97-30" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-31"><a href="#cb97-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb97-32"><a href="#cb97-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Name&quot;</span></span>
+<span id="cb97-33"><a href="#cb97-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb97-34"><a href="#cb97-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot; in &quot;</span><span class="ot">,</span></span>
+<span id="cb97-35"><a href="#cb97-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb97-36"><a href="#cb97-36" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Address/CountryName&quot;</span></span>
+<span id="cb97-37"><a href="#cb97-37" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb97-38"><a href="#cb97-38" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb97-39"><a href="#cb97-39" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb97-40"><a href="#cb97-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb97-41"><a href="#cb97-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb97-42"><a href="#cb97-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb97-43"><a href="#cb97-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Tags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-44"><a href="#cb97-44" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;MasterData&quot;</span></span>
+<span id="cb97-45"><a href="#cb97-45" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb97-46"><a href="#cb97-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb97-47"><a href="#cb97-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb97-48"><a href="#cb97-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb97-49"><a href="#cb97-49" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span> <span class="er">```</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
