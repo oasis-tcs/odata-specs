@@ -3753,7 +3753,6 @@ _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format",
 http://tools.ietf.org/html/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
-
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 

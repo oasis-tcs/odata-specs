@@ -101,8 +101,8 @@ The response MUST contain the `Content-Type` header with a value of
 `application/json`, optionally followed by media type parameters.
 
 Possible media type parameters are:
-- [`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
-- [`metadata`](#ControllingtheAmountofControlInforma)
+- [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+- [`metadata`](#ControllingtheAmountofControlInformation)
 
 The names and values of these parameters are case-insensitive.
 
@@ -237,10 +237,10 @@ this specification document take precedence.
 
 OData CSDL XML is a full representation of the OData Common Schema
 Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML11) with further building blocks from the
+Edition) [XML-1.1](#XML-11) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
-[XML-Schema-1](#XMLSchema1) and
-[XML-Schema-2](#XMLSchema2).
+[XML-Schema-1](#XML-Schema1) and
+[XML-Schema-2](#XML-Schema2).
 
 It is an alternative to the CSDL JSON representation defined in
 [OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
@@ -444,7 +444,7 @@ Type|Meaning
 `Edm.GeometryCollection`         |Collection of arbitrary Geometry values
 
 `Edm.Date` and `Edm.DateTimeOffset` follow
-[XML-Schema-2](#XMLSchema2) and use the proleptic Gregorian
+[XML-Schema-2](#XML-Schema2) and use the proleptic Gregorian
 calendar, allowing the year `0000` (equivalent to 1 BCE) and negative
 years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying

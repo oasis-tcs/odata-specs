@@ -56,7 +56,7 @@ service. For OData 4.0 responses the value of this attribute MUST be
 `4.01.` Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion `header with a value of `4.0`.
 
-### ##subisec Element `edmx:DataServices`
+### ##isec Element `edmx:DataServices`
 
 The `edmx:DataServices` element MUST contain one or more
 [`edm:Schema`](#Schema) elements which define the schemas exposed by the
@@ -157,7 +157,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 
 The value of `Uri` is an absolute or relative URI; relative URIs are
 relative to the `xml:base` attribute, see
-[XML-Base](#XMLBase).
+[XML-Base](#XML-Base).
 :::
 
 ::: {.varxml .example}
