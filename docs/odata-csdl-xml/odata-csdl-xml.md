@@ -204,6 +204,8 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
 
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml"). -->
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
 OData CSDL XML is a full representation of the OData Common Schema
@@ -517,7 +519,7 @@ combination of term and qualifier.
 
 
 
-::: {.varxml .rep}
+::: {.varxml .rep}  <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ### <a name="ElementedmxEdmx1" href="#ElementedmxEdmx1"> Element `edmx:Edmx`</a>
 
 The `edmx:Edmx` element is the root element of a CSDL XML document. It

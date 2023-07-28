@@ -69,7 +69,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
-: varjson
+: varjson  <!-- Lines between here and the closing : belong to the JSON variant only. -->
 # ##sec JSON Representation
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -230,7 +230,9 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 :
 
-: varxml
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml"). -->
+: varxml  <!-- Lines between here and the closing : belong to the XML variant only. -->
 # ##sec XML Representation
 
 OData CSDL XML is a full representation of the OData Common Schema

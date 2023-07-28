@@ -7,7 +7,7 @@
 # ##sec CSDL XML Document
 :
 
-::: {.varjson .rep}
+::: {.varjson .rep}  <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ### ##isec Document Object
 
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
@@ -38,7 +38,7 @@ Example ##ex:
 ```
 :::
 
-::: {.varxml .rep}
+::: {.varxml .rep}  <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ### ##isec Element `edmx:Edmx`
 
 The `edmx:Edmx` element is the root element of a CSDL XML document. It

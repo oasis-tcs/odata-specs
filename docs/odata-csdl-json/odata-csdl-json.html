@@ -308,6 +308,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In general, all members that have a default value SHOULD be omitted if they have the default value.</p>
 <h2 id="23-json-schema-definition"><a name="JSONSchemaDefinition" href="#JSONSchemaDefinition">2.3 JSON Schema Definition</a></h2>
 <p>The structure of CSDL JSON documents can be verified with the JSON Schema <a href="#ODataCSDL">OData-CSDL-Schema</a> provided as an additional artifact of this prose specification. This schema only defines the shape of a well-formed CSDL JSON document but is not descriptive enough to define what a correct CSDL JSON document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL JSON documents MUST fulfill. In case of doubt on what makes a CSDL JSON document correct the rules defined in this specification document take precedence.</p>
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml"). -->
+
 <h1 id="3-entity-model"><a name="EntityModel" href="#EntityModel">3 Entity Model</a></h1>
 <p>An OData service exposes a single entity model. This model may be distributed over several <a href="#Schema">schemas</a>, and these schemas may be distributed over several documents.</p>
 <p>A service is defined by a single CSDL document which can be accessed by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. This document is called the metadata document. It MAY <a href="#Reference">reference</a> other CSDL documents.</p>
@@ -530,7 +533,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A model element MUST NOT specify more than one annotation for a given combination of term and qualifier.</p>
 <hr />
 <h1 id="4-csdl-json-document"><a name="CSDLJSONDocument" href="#CSDLJSONDocument">4 CSDL JSON Document</a></h1>
-<div class="varjson rep">
+<p>::: {.varjson .rep} <!-- Lines from here to the closing ::: belong to the JSON variant only. --></p>
 <h3 id="-document-object"><a name="DocumentObject1" href="#DocumentObject1"> Document Object</a></h3>
 <p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member <code>$Version</code>.</p>
 <p>The document object MAY contain the member <a href="#Reference"><code>$Reference</code></a> to reference other CSDL documents.</p>
@@ -539,8 +542,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h3>
 <p>The value of <code>$Version</code> is a string containing either 4.0 or 4.01.</p>
 <h3 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h3>
-<p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
-</div>
+<p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed. :::</p>
 <div class="varjson example">
 <p>Example 2:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>

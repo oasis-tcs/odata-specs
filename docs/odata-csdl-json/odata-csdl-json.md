@@ -364,6 +364,8 @@ additional rules that correct CSDL JSON documents MUST fulfill. In case
 of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml"). -->
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -575,7 +577,7 @@ combination of term and qualifier.
 
 # <a name="CSDLJSONDocument" href="#CSDLJSONDocument">4 CSDL JSON Document</a>
 
-::: {.varjson .rep}
+::: {.varjson .rep}  <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ### <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
 
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.

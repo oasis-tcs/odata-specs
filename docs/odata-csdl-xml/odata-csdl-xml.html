@@ -259,6 +259,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
        odata-csdl-xml-v4.02-csd01.md</code></pre>
 <p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
 </div>
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml"). -->
+
 <h1 id="2-xml-representation"><a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a></h1>
 <p>OData CSDL XML is a full representation of the OData Common Schema Definition Language in the Extensible Markup Language (XML) 1.1 (Second Edition) <a href="#XML11">XML-1.1</a> with further building blocks from the W3C XML Schema Definition Language (XSD) 1.1 as described in <a href="#XMLSchema1">XML-Schema-1</a> and <a href="#XMLSchema2">XML-Schema-2</a>.</p>
 <p>It is an alternative to the CSDL JSON representation defined in <a href="#ODataCSDLJSON">OData-CSDLJSON</a> and neither adds nor removes features.</p>
@@ -524,15 +527,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A model element MUST NOT specify more than one annotation for a given combination of term and qualifier.</p>
 <hr />
 <h1 id="4-csdl-xml-document"><a name="CSDLXMLDocument" href="#CSDLXMLDocument">4 CSDL XML Document</a></h1>
-<div class="varxml rep">
+<p>::: {.varxml .rep} <!-- Lines from here to the closing ::: belong to the XML variant only. --></p>
 <h3 id="-element-edmxedmx"><a name="ElementedmxEdmx1" href="#ElementedmxEdmx1"> Element <code>edmx:Edmx</code></a></h3>
 <p>The <code>edmx:Edmx</code> element is the root element of a CSDL XML document. It MUST contain the <code>Version</code> attribute and it MUST contain exactly one <code>edmx:DataServices</code> element.</p>
 <p>It MAY contain <a href="#Reference"><code>edmx:Reference</code></a> elements to reference other CSDL documents.</p>
 <h3 id="-attribute-version"><a name="AttributeVersion1.1" href="#AttributeVersion1.1"> Attribute <code>Version</code></a></h3>
 <p>The <code>Version</code> attribute specifies the OData protocol version of the service. For OData 4.0 responses the value of this attribute MUST be <code>4.0.</code> For OData 4.01 responses the value of this attribute MUST be <code>4.01.</code> Services MUST return an OData 4.0 response if the request was made with an <code>OData-MaxVersion </code>header with a value of <code>4.0</code>.</p>
 <h3 id="-element-edmxdataservices"><a name="ElementedmxDataServices1.2" href="#ElementedmxDataServices1.2"> Element <code>edmx:DataServices</code></a></h3>
-<p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service.</p>
-</div>
+<p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service. :::</p>
 <div class="varxml example">
 <p>Example 2:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
