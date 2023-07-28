@@ -1371,44 +1371,27 @@ separately, e.g. as part of a different schema, and specify a path to
 their target model element. The latter situation is referred to as
 *targeting* in the remainder of this section.
 
-For annotations embedded within or targeting an entity container, the
-path is evaluated starting at the entity container, i.e. an empty path
-resolves to the entity container, and non-empty paths MUST start with a
-segment identifying a container child (entity set, function import,
-action import, or singleton). The subsequent segments follow the rules
-for paths targeting the corresponding child element.
+If the value of an annotation is expressed dynamically with a path expression, the path evaluation rules for this expression depend on the *host of the annotation* (roughly, the innermost model element other than an annotation) and its *hosting mode* (roughly, embedded vs. targeting).
+- The host of an annotation embedded within or targeting another annotation or a collection, record or property value of another annotation is the host of that other annotation.
+- The host of an annotation embedded within or targeting another kind of model element is that model element.
+- The hosting mode of an annotation with external targeting whose target path starts with an entity container is "container".
+- The hosting mode of an annotation with external targeting whose target path starts with another kind of schema child is "targeting".
+- The hosting mode of an annotation embedded within another annotation or a collection, record or property value of another annotation is the hosting mode of that other annotation.
+- The hosting mode of an annotation embedded within another kind of model element is "embedded".
 
-For annotations embedded within or targeting an entity set or a
-singleton, the path is evaluated starting at the entity set or
-singleton, i.e. an empty path resolves to the entity set or singleton,
-and non-empty paths MUST follow the rules for annotations targeting the
-declared entity type of the entity set or singleton.
+For annotations hosted by an entity container in container or embedded mode, the path is evaluated starting at the entity container, i.e. an empty path resolves to the entity container, and non-empty paths MUST start with a segment identifying a container child (entity set, function import, action import, or singleton). The subsequent segments follow the rules for path expressions targeting the corresponding child element.
 
-For annotations embedded within or targeting an entity type or complex
-type, the path is evaluated starting at the type, i.e. an empty path
-resolves to the type, and the first segment of a non-empty path MUST be
-a structural or navigation property of the type, a [type
-cast](#TypeCast), or a [term cast](#TermCast).
+For annotations hosted by an entity set or a singleton in container or embedded mode, the path is evaluated starting at the entity set or singleton, i.e. an empty path resolves to the entity set or singleton, and non-empty paths MUST follow the rules for annotations targeting the declared entity type of the entity set or singleton.
 
-For annotations embedded within a structural or navigation property of
-an entity type or complex type, the path is evaluated starting at the
-directly enclosing type. This allows e.g. specifying the value of an
-annotation on one property to be calculated from values of other
-properties of the same type. An empty path resolves to the enclosing
-type, and non-empty paths MUST follow the rules for annotations
-targeting the directly enclosing type.
+For annotations hosted by an entity type or complex type in embedded or targeting mode, the path is evaluated starting at the type, i.e. an empty path resolves to the type, and the first segment of a non-empty path MUST be a structural or navigation property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations targeting a structural or navigation property of an
-entity type or complex type, the path is evaluated starting at the
-*outermost* entity type or complex type named in the target of the
-annotation, i.e. an empty path resolves to the outermost type, and the
-first segment of a non-empty path MUST be a structural or navigation
-property of the outermost type, a [type cast](#TypeCast), or a [term
-cast](#TermCast).
+For annotations hosted by a structural or navigation property in container mode, the path is evaluated starting at the declared type of the property. An empty path resolves to the declared type of the property, and non-empty paths MUST follow the rules for annotations targeting the declared type of the property. If the type is primitive, the first segment of a non-empty path MUST be a [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations embedded within or targeting an action, action import,
-function, function import, parameter, or return type, the first segment
-of the path MUST be a parameter name or `$ReturnType`.
+For annotations hosted by a structural or navigation property of an entity type or complex type in embedded mode, the path is evaluated starting at the directly enclosing type. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the same type. An empty path resolves to the enclosing type, and non-empty paths MUST follow the rules for annotations targeting the directly enclosing type.
+
+For annotations hosted by a structural or navigation property of an entity type or complex type in targeting mode, the path is evaluated starting at the *outermost* entity type or complex type named in the target of the annotation, i.e. an empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a [type cast](#TypeCast), or a [term cast](#TermCast).
+
+For annotations hosted by an action, action import, function, function import, parameter, or return type in any mode, the first segment of the path MUST be a parameter name or `$ReturnType`.
 
 #### ##subsubsubsec Annotation Path
 
