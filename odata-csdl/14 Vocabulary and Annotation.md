@@ -2785,7 +2785,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example ##ex: this annotation "morphs" the entity type from example 8 into
+Example ##ex: this annotation "morphs" the entity type from [example ##entitytype] into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -2850,7 +2850,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example ##ex: this annotation "morphs" the entity type from example 8 into
+Example ##ex: this annotation "morphs" the entity type from [example ##entitytype] into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the

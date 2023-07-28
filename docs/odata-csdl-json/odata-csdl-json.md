@@ -1141,7 +1141,7 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 8: a simple entity type
+Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
 ```json
 "Employee": {
   "$Kind": "EntityType",
@@ -5335,7 +5335,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 87: this annotation "morphs" the entity type from example 8 into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the

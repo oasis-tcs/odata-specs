@@ -1085,7 +1085,7 @@ The value of `Name` is the entity type's name.
 :::
 
 ::: {.varxml .example}
-Example 8: a simple entity type
+Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
 ```xml
 <EntityType Name="Employee">
   <Key>
@@ -5159,7 +5159,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from example 8 into
+Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the

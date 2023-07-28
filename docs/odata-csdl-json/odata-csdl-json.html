@@ -897,7 +897,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>It also MAY contain members representing <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a> as well as <a href="#Annotation">annotations</a>.</p>
 </section>
 <div class="varjson example">
-<p>Example 8: a simple entity type</p>
+<p>Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Employee&quot;:</span> <span class="fu">{</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -3098,7 +3098,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <p>It MAY contain <a href="#Annotation">annotations</a> for itself and its members. Annotations for record members are prefixed with the member name.</p>
 </div>
 <div class="varjson example">
-<p>Example 87: this annotation "morphs" the entity type from example 8 into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Employee&quot;:</span> <span class="fu">{</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://example.org/vocabs/person#org.example.person.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record&quot;</span><span class="fu">,</span></span>

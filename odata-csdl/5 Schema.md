@@ -229,7 +229,7 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example ##ex: a simple entity type
+Example ##ex_entitytype: a simple entity type
 ```json
 "Employee": {
   "$Kind": "EntityType",
@@ -272,7 +272,7 @@ The value of `Name` is the entity type's name.
 :::
 
 ::: {.varxml .example}
-Example ##ex: a simple entity type
+Example ##ex_entitytype: a simple entity type
 ```xml
 <EntityType Name="Employee">
   <Key>

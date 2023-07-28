@@ -866,7 +866,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Name</code> is the entity type's name.</p>
 </section>
 <div class="varxml example">
-<p>Example 8: a simple entity type</p>
+<p>Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Employee&quot;</span>&gt;</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
@@ -2883,7 +2883,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <p>The value of <code>Property</code> is the name of a property of the type of the enclosing <code>edm:Record</code> expression.</p>
 </div>
 <div class="varxml example">
-<p>Example 86: this annotation "morphs" the entity type from example 8 into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
 <pre><code>&lt;Annotation Term=&quot;org.example.person.Employee&quot;&gt;
   &lt;Record&gt;
     &lt;Annotation Term=&quot;Core.Description&quot; String=&quot;Annotation on record&quot; /&gt;
