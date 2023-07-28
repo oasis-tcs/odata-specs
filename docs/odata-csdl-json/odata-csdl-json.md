@@ -1151,7 +1151,7 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
+Example 8: a simple entity type
 ```json
 "Employee": {
   "$Kind": "EntityType",
