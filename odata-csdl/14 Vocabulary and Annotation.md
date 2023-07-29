@@ -534,7 +534,6 @@ These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-::: example-table
 Model element| 
 Can be targeted with path expression (see also [section ##PathSyntax])| 
 <div class="example"><p>Example ##ex: Target expressions</p></div>
@@ -616,7 +615,6 @@ qualified name of term|
 <pre>`MySchema.MyTerm`</pre>
 [Type Definition](#TypeDefinition)| 
 qualified name of type definition
-:::
 
 All [qualified names](#QualifiedName) used in a target path MUST be in scope.
 
