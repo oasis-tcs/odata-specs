@@ -547,8 +547,15 @@ types
 
 10. MUST NOT specify a key as a property of a related entity
 
+: varjson
 11. SHOULD NOT include new/unknown values for
 [`$AppliesTo`](#Applicability)
+:
+
+: varxml
+11. SHOULD NOT include new/unknown values for the
+[`AppliesTo`](#Applicability) attribute
+:
 
 12. MAY include new CSDL annotations
 

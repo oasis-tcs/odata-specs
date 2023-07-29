@@ -502,7 +502,7 @@ Example ##ex: for an entity set in any container in scope
 
 ::: {.varjson .example}
 Example ##ex: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```json
 "Categories": {
   "$Collection": true,

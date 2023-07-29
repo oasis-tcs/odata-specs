@@ -1302,7 +1302,7 @@ Example ##ex: property segments in instance path
 ```
 
 ```
-.../Addresses/\$count
+.../Addresses/$count
 ```
 :::
 
@@ -2521,7 +2521,7 @@ the value of the `edm:If` expression (or so it was long ago)
 
 ### ##subsubsec Is-Of
 
-The i`s-of` expression checks whether the value obtained from its single
+The `is-of` expression checks whether the value obtained from its single
 child expression is compatible with the specified type. It returns
 `true` if the child expression returns a type that is compatible with
 the specified type, and `false` otherwise.
@@ -2706,9 +2706,7 @@ Example ##ex:
 
 ::: {.varjson .rep}
 ### ##subisec `$Null`
-:::
 
-::: {.varjson .rep}
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
 :::

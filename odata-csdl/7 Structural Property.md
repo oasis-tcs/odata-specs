@@ -491,7 +491,7 @@ value `variable`.
 ::: {.varxml .rep}
 ### ##subisec Attribute `SRID`
 
-The value of `$SRID` is a number or the symbolic value `variable`.
+The value of `SRID` is a number or the symbolic value `variable`.
 :::
 
 ### ##subsubsec Default Value
@@ -753,7 +753,7 @@ The value of `$Partner` is a string containing the path to the partner
 navigation property.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 ### ##subisec Attribute `Partner`
 
 The value of `Partner` is the path to the of the partner navigation

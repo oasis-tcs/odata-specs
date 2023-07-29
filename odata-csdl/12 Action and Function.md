@@ -399,7 +399,7 @@ of the collection and specifies whether the collection MAY contain
 ::: {.varjson .example}
 Example ##ex: a function returning the top-selling products for a given
 year. In this case the year must be specified as a parameter of the
-function with the `edm:Parameter` element.
+function with the `$Parameter` member.
 ```json
 "TopSellingProducts": [
   {

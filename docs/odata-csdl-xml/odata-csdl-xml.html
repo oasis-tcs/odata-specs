@@ -357,7 +357,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Participants">C.2 Participants</a></li>
 </ul></li>
 <li><a href="#RevisionHistory">D Revision History</a></li>
-<li><a href="#Notices">E Notices</a></li>
+<li><a href="#Notices">E Notices </a></li>
 </ul>
 </div>
 <hr />
@@ -404,7 +404,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
 </div>
 <!-- These source files can be used to produce the JSON variant or the XML variant,
-     by using either new Number("...", "json") or new Number("...", "xml"). -->
+     by using either new Number("...", "json") or new Number("...", "xml").
+     Lines between here and the closing : belong to the JSON variant only. -->
+
+<!-- Lines between here and the closing : belong to the XML variant only. -->
 
 <h1 id="2-xml-representation"><a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a></h1>
 <p>OData CSDL XML is a full representation of the OData Common Schema Definition Language in the Extensible Markup Language (XML) 1.1 (Second Edition) <a href="#XML-11">XML-1.1</a> with further building blocks from the W3C XML Schema Definition Language (XSD) 1.1 as described in <a href="#XML-Schema1">XML-Schema-1</a> and <a href="#XML-Schema2">XML-Schema-2</a>.</p>
@@ -511,7 +514,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>16-byte (128-bit) unique identifier</td>
 </tr>
 <tr class="even">
-<td><code>Edm.Int16 </code></td>
+<td><code>Edm.Int16</code></td>
 <td>Signed 16-bit integer</td>
 </tr>
 <tr class="odd">
@@ -609,7 +612,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tbody>
 </table>
 <p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XML-Schema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
-<p><code>Edm.Decimal with a </code><a href="#Scale"><code>Scale</code></a><code> value of floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
+<p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or the binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections or for non-binding parameters to functions or actions.</p>
 <p>Some of these types allow <a href="#TypeFacets">facets</a>, defined in section "<a href="#TypeFacets">Type Facets</a>".</p>
 <p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
@@ -671,14 +674,19 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A model element MUST NOT specify more than one annotation for a given combination of term and qualifier.</p>
 <hr />
 <h1 id="4-csdl-xml-document"><a name="CSDLXMLDocument" href="#CSDLXMLDocument">4 CSDL XML Document</a></h1>
-<p>::: {.varxml .rep} <!-- Lines from here to the closing ::: belong to the XML variant only. --></p>
+<!-- Lines from here to the closing ::: belong to the JSON variant only. -->
+
+<!-- Lines from here to the closing ::: belong to the XML variant only. -->
+
+<div class="varxml rep">
 <h3 id="-element-edmxedmx"><a name="ElementedmxEdmx1" href="#ElementedmxEdmx1"> Element <code>edmx:Edmx</code></a></h3>
 <p>The <code>edmx:Edmx</code> element is the root element of a CSDL XML document. It MUST contain the <code>Version</code> attribute and it MUST contain exactly one <code>edmx:DataServices</code> element.</p>
 <p>It MAY contain <a href="#Reference"><code>edmx:Reference</code></a> elements to reference other CSDL documents.</p>
 <h3 id="-attribute-version"><a name="AttributeVersion1.1" href="#AttributeVersion1.1"> Attribute <code>Version</code></a></h3>
 <p>The <code>Version</code> attribute specifies the OData protocol version of the service. For OData 4.0 responses the value of this attribute MUST be <code>4.0.</code> For OData 4.01 responses the value of this attribute MUST be <code>4.01.</code> Services MUST return an OData 4.0 response if the request was made with an <code>OData-MaxVersion </code>header with a value of <code>4.0</code>.</p>
 <h3 id="-element-edmxdataservices"><a name="ElementedmxDataServices2" href="#ElementedmxDataServices2"> Element <code>edmx:DataServices</code></a></h3>
-<p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service. :::</p>
+<p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service.</p>
+</div>
 <div class="varxml example">
 <p>Example 2:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
@@ -927,18 +935,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type's key refers to the set of properties whose values uniquely identify an instance of the entity type within an entity set. The key MUST consist of at least one property.</p>
 <p>Key properties MUST NOT be nullable and MUST be typed with an <a href="#EnumerationType">enumeration type</a>, one of the following <a href="#PrimitiveTypes">primitive types</a>, or a <a href="#TypeDefinition">type definition</a> based on one of these primitive types:</p>
 <ul>
-<li><code>Edm.Boolean </code></li>
-<li><code>Edm.Byte </code></li>
-<li><code>Edm.Date </code></li>
-<li><code>Edm.DateTimeOffset </code></li>
-<li><code>Edm.Decimal </code></li>
-<li><code>Edm.Duration </code></li>
-<li><code>Edm.Guid </code></li>
-<li><code>Edm.Int16 </code></li>
-<li><code>Edm.Int32 </code></li>
-<li><code>Edm.Int64 </code></li>
-<li><code>Edm.SByte </code></li>
-<li><code>Edm.String </code></li>
+<li><code>Edm.Boolean</code></li>
+<li><code>Edm.Byte</code></li>
+<li><code>Edm.Date</code></li>
+<li><code>Edm.DateTimeOffset</code></li>
+<li><code>Edm.Decimal</code></li>
+<li><code>Edm.Duration</code></li>
+<li><code>Edm.Guid</code></li>
+<li><code>Edm.Int16</code></li>
+<li><code>Edm.Int32</code></li>
+<li><code>Edm.Int64</code></li>
+<li><code>Edm.SByte</code></li>
+<li><code>Edm.String</code></li>
 <li><code>Edm.TimeOfDay</code></li>
 </ul>
 <p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
@@ -1129,7 +1137,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
 <section id="-attribute-srid" class="varxml rep">
 <h3><a name="AttributeSRID11.8" href="#AttributeSRID11.8"> Attribute <code>SRID</code></a></h3>
-<p>The value of <code>$SRID</code> is a number or the symbolic value <code>variable</code>.</p>
+<p>The value of <code>SRID</code> is a number or the symbolic value <code>variable</code>.</p>
 </section>
 <h3 id="727-default-value"><a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a></h3>
 <p>A primitive or enumeration property MAY define a default value that is used if the property is not explicitly represented in an annotation or the body of a request or response.</p>
@@ -1191,7 +1199,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the partner navigation property is single-valued, it MUST lead back to the source entity from all related entities. If the partner navigation property is collection-valued, the source entity MUST be part of that collection.</p>
 <p>If no partner navigation property is specified, no assumptions can be made as to whether one of the navigation properties on the target type will lead back to the source entity.</p>
 <p>If a partner navigation property is specified, this partner navigation property MUST either specify the current navigation property as its partner to define a bi-directional relationship or it MUST NOT specify a partner navigation property. The latter can occur if the partner navigation property is defined on a complex type, or if the current navigation property is defined on a type derived from the type of the partner navigation property.</p>
-<section id="-attribute-partner" class="csdlHeadline">
+<section id="-attribute-partner" class="varxml rep">
 <h3><a name="AttributePartner12.4" href="#AttributePartner12.4"> Attribute <code>Partner</code></a></h3>
 <p>The value of <code>Partner</code> is the path to the of the partner navigation property.</p>
 </section>
@@ -2337,7 +2345,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <div class="example">
 <p>Example 63: property segments in instance path</p>
 <pre><code>.../Addresses/Street</code></pre>
-<pre><code>.../Addresses/\$count</code></pre>
+<pre><code>.../Addresses/$count</code></pre>
 </div>
 <p>A model path MAY contain path segments starting with a navigation property, then followed by an at (<code>@</code>) character, then followed by the <a href="#QualifiedName">qualified name</a> of a term in scope, and optionally followed by a hash (<code>#</code>) character and a <a href="#SimpleIdentifier">simple identifier</a> which is interpreted as a <a href="#Qualifier">qualifier</a> for the term. If the navigation property has not been annotated with that term (and if present, with that qualifier), the path segment evaluates to the null value. This allows addressing annotations on the navigation property itself; annotations on the entity type specified by the navigation property are addressed via a <a href="#TermCast">term-cast segment</a>.</p>
 <div class="example">
@@ -2794,7 +2802,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
-<p>The i<code>s-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
+<p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
 <section id="-expression-edmurlref" class="varxml rep">
 <h3><a name="ExpressionedmUrlRef57" href="#ExpressionedmUrlRef57"> Expression <code>edm:UrlRef</code></a></h3>
 <p>The <code>edm:UrlRef</code> expression MAY be provided using element notation or attribute notation.</p>
@@ -3135,7 +3143,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <li><p>MUST NOT return the Unicode facet for terms, parameters, and return types</p></li>
 <li><p>MUST NOT include collections of <code>Edm.ComplexType</code> or <code>Edm.Untyped</code></p></li>
 <li><p>MUST NOT specify a key as a property of a related entity</p></li>
-<li><p>SHOULD NOT include new/unknown values for <a href="#Applicability"><code>$AppliesTo</code></a></p></li>
+<li><p>SHOULD NOT include new/unknown values for the <a href="#Applicability"><code>AppliesTo</code></a> attribute</p></li>
 <li><p>MAY include new CSDL annotations</p></li>
 </ol>
 <p>In addition, OData 4.01 services:</p>
@@ -3470,14 +3478,14 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </div>
 <hr />
 <h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
-<!-- Required section -->
-
-<p><code>Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.</code></p>
 <h2 id="c1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
-<!-- This is an optional subsection to call out contributions from TC members. If a TC wants to thank non-TC members then they should avoid using the term "contribution" and instead thank them for their "expertise" or "assistance". -->
-
-<p>Substantial contributions to this document from the following individuals are gratefully acknowledged:</p>
-<p>Participant Name, Affiliation or "Individual Member"</p>
+<p>The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see <a href="#_OpenUI5">OpenUI5</a>, is gratefully acknowledged, especially the contributions of</p>
+<ul>
+<li>Thomas Chadzelek (SAP SE)</li>
+<li>Jens Ittel (SAP SE)</li>
+<li>Patric Ksinsik (SAP SE)</li>
+</ul>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">ODataProtocol</a>, are gratefully acknowledged.</p>
 <h2 id="c2-participants"><a name="Participants" href="#Participants">C.2 Participants</a></h2>
 <!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
 
@@ -3529,26 +3537,45 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">specname-v1.0-wd01</td>
-<td style="text-align: left;">yyyy-mm-dd</td>
-<td style="text-align: left;">Editor Name</td>
-<td style="text-align: left;">Initial working draft</td>
+<td style="text-align: left;">Committee Specification Draft 01</td>
+<td style="text-align: left;">2023-07-14</td>
+<td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
-<!-- Required section. Do not modify. -->
+<!--
+Working Draft 01                |2016-11-16|Ralf Handl|Initial version
+Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
+Committee Specification Draft 02|2017-09-22|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Changed defaults of `$Nullable`, `$Scale`, and `$Precision`
+Committee Specification Draft 03|2017-11-10|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Stable order of action and function parameters
+Committee Specification 01      |2017-12-19|Michael Pizzo<br>Ralf Handl| Non-material Changes
+Committee Specification Draft 04|2019-06-21|Michael Pizzo<br>Ralf Handl| External targeting for annotations on action/function overloads, parameters, and return types<br> Key and index segments for path expressions in annotations<br> Nullable singletons<br> Simplified syntax of entity container children and constant annotation expressions
+Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| Redefining entity sets and singletons when extending entity containers
+Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-material Changes
+Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
+-->
 
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
-<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
-<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
+<h1 id="appendix-e-notices-"><a name="Notices" href="#Notices">Appendix E. Notices </a></h1>
+<!-- Required section. Do not modify. -->              
+
+<p>Copyright © OASIS Open 2023. All Rights Reserved.-------------- Michael Pizzo All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.<br />
+Ralf Handl<br />
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
-<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
-<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).</p>
-<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
-<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
-<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-------------- Michael Pizzo As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).<br />
+Ralf Handl<br />
+[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]-------------- Michael Pizzo [OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]<br />
+Ralf Handl<br />
+[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<hr />
+<p>Michael Pizzo<br />
+Ralf Handl</p>
+<hr />
+<h2 id="michael-pizzo-ralf-handl">Michael Pizzo<br />
+Ralf Handl</h2>
+<p>Michael Pizzo<br />
+Ralf Handl</p>
 </body>
 </html>

@@ -235,7 +235,7 @@ For complete copyright information please see the full Notices section in an App
   - [C.1 Special Thanks](#SpecialThanks)
   - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [E Notices              ](#Notices)
 :::
 
 -------
@@ -309,9 +309,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
-
 <!-- These source files can be used to produce the JSON variant or the XML variant,
-     by using either new Number("...", "json") or new Number("...", "xml"). -->
+     by using either new Number("...", "json") or new Number("...", "xml").
+     Lines between here and the closing : belong to the JSON variant only. -->
+
+<!-- Lines between here and the closing : belong to the XML variant only. -->
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
 OData CSDL XML is a full representation of the OData Common Schema
@@ -496,7 +498,7 @@ Type|Meaning
 `Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
-`Edm.Int16 `                     |Signed 16-bit integer
+`Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
@@ -528,7 +530,7 @@ years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying
 persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
-`Edm.Decimal with a `[`Scale`](#Scale)` value of floating`,
+`Edm.Decimal` with a [`Scale`](#Scale) value of `floating`,
 `Edm.Double`, and `Edm.Single` allow the special numeric values `-INF`,
 `INF`, and `NaN`.
 
@@ -623,9 +625,11 @@ combination of term and qualifier.
 
 # <a name="CSDLXMLDocument" href="#CSDLXMLDocument">4 CSDL XML Document</a>
 
+<!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 
 
-::: {.varxml .rep}  <!-- Lines from here to the closing ::: belong to the XML variant only. -->
+<!-- Lines from here to the closing ::: belong to the XML variant only. -->
+::: {.varxml .rep}
 ### <a name="ElementedmxEdmx1" href="#ElementedmxEdmx1"> Element `edmx:Edmx`</a>
 
 The `edmx:Edmx` element is the root element of a CSDL XML document. It
@@ -1236,18 +1240,18 @@ Key properties MUST NOT be nullable and MUST be typed with an
 types](#PrimitiveTypes), or a [type definition](#TypeDefinition) based
 on one of these primitive types:
 
--   `Edm.Boolean `
--   `Edm.Byte `
--   `Edm.Date `
--   `Edm.DateTimeOffset `
--   `Edm.Decimal `
--   `Edm.Duration `
--   `Edm.Guid `
--   `Edm.Int16 `
--   `Edm.Int32 `
--   `Edm.Int64 `
--   `Edm.SByte `
--   `Edm.String `
+-   `Edm.Boolean`
+-   `Edm.Byte`
+-   `Edm.Date`
+-   `Edm.DateTimeOffset`
+-   `Edm.Decimal`
+-   `Edm.Duration`
+-   `Edm.Guid`
+-   `Edm.Int16`
+-   `Edm.Int32`
+-   `Edm.Int64`
+-   `Edm.SByte`
+-   `Edm.String`
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
@@ -1698,7 +1702,7 @@ by the European Petroleum Survey Group [EPSG](#_EPSG).
 ::: {.varxml .rep}
 ### <a name="AttributeSRID11.8" href="#AttributeSRID11.8"> Attribute `SRID`</a>
 
-The value of `$SRID` is a number or the symbolic value `variable`.
+The value of `SRID` is a number or the symbolic value `variable`.
 :::
 
 ### <a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a>
@@ -1873,7 +1877,7 @@ navigation property is defined on a type derived from the type of the
 partner navigation property.
 
 
-::: csdlHeadline
+::: {.varxml .rep}
 ### <a name="AttributePartner12.4" href="#AttributePartner12.4"> Attribute `Partner`</a>
 
 The value of `Partner` is the path to the of the partner navigation
@@ -4212,7 +4216,7 @@ Example 63: property segments in instance path
 ```
 
 ```
-.../Addresses/\$count
+.../Addresses/$count
 ```
 :::
 
@@ -4968,7 +4972,7 @@ the value of the `edm:If` expression (or so it was long ago)
 
 ### <a name="IsOf" href="#IsOf">14.4.8 Is-Of</a>
 
-The i`s-of` expression checks whether the value obtained from its single
+The `is-of` expression checks whether the value obtained from its single
 child expression is compatible with the specified type. It returns
 `true` if the child expression returns a type that is compatible with
 the specified type, and `false` otherwise.
@@ -5075,7 +5079,6 @@ Example 83:
 
 The null expression indicates the absence of a value. The null
 expression MAY be annotated.
-
 
 
 
@@ -5515,8 +5518,9 @@ types
 
 10. MUST NOT specify a key as a property of a related entity
 
-11. SHOULD NOT include new/unknown values for
-[`$AppliesTo`](#Applicability)
+
+11. SHOULD NOT include new/unknown values for the
+[`AppliesTo`](#Applicability) attribute
 
 12. MAY include new CSDL annotations
 
@@ -5816,17 +5820,18 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 
 # <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-<!-- Required section -->
-
-`Note: A Work Product approved by the TC must include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list shall be initially compiled by the Chair, and any Member of the TC may add or remove their names from the list by request. Remove this note before submitting for publication.`
-
 ## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
-<!-- This is an optional subsection to call out contributions from TC members. If a TC wants to thank non-TC members then they should avoid using the term "contribution" and instead thank them for their "expertise" or "assistance". -->
+The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
+[OpenUI5](#_OpenUI5), is gratefully acknowledged,
+especially the contributions of
+- Thomas Chadzelek (SAP SE)
+- Jens Ittel (SAP SE)
+- Patric Ksinsik (SAP SE)
 
-Substantial contributions to this document from the following individuals are gratefully acknowledged:
-
-Participant Name, Affiliation or "Individual Member"
+The contributions of the OASIS OData Technical Committee members,
+enumerated in [ODataProtocol](#ODataProtocol), are gratefully
+acknowledged.
 
 ## <a name="Participants" href="#Participants">C.2 Participants</a>
 
@@ -5851,31 +5856,68 @@ Darren | Anstman | Big Networks
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| specname-v1.0-wd01 | yyyy-mm-dd | Editor Name | Initial working draft |
+Committee Specification Draft 01|2023-07-14|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+<!--
+Working Draft 01                |2016-11-16|Ralf Handl|Initial version
+Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
+Committee Specification Draft 02|2017-09-22|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Changed defaults of `$Nullable`, `$Scale`, and `$Precision`
+Committee Specification Draft 03|2017-11-10|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Stable order of action and function parameters
+Committee Specification 01      |2017-12-19|Michael Pizzo<br>Ralf Handl| Non-material Changes
+Committee Specification Draft 04|2019-06-21|Michael Pizzo<br>Ralf Handl| External targeting for annotations on action/function overloads, parameters, and return types<br> Key and index segments for path expressions in annotations<br> Nullable singletons<br> Simplified syntax of entity container children and constant annotation expressions
+Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| Redefining entity sets and singletons when extending entity containers
+Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-material Changes
+Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
+-->
 
--------
-
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
-
-<!-- Required section. Do not modify. -->
-
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
-
-All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
-
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
-
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
-
-This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-
-As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).
-
-[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]
-
-[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]
-
-[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]
-
-The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
+# <a name="Notices" href="#Notices">Appendix E. Notices              </a>
+              
+<!-- Required section. Do not modify. -->              
+              
+Copyright &copy; OASIS Open 2023. All Rights Reserved.--------------
+Michael Pizzo All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.              
+Ralf Handl    
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.              
+              
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.              
+              
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.--------------
+Michael Pizzo As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).              
+Ralf Handl    
+[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]--------------
+Michael Pizzo [OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]              
+Ralf Handl    
+[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]              
+              
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+--------------
+Michael Pizzo               
+Ralf Handl    
+              
+              
+              
+--------------
+Michael Pizzo               
+Ralf Handl    
+--------------
+Michael Pizzo               
+Ralf Handl    
 

@@ -69,7 +69,10 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
-: varjson  <!-- Lines between here and the closing : belong to the JSON variant only. -->
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml").
+     Lines between here and the closing : belong to the JSON variant only. -->
+: varjson
 # ##sec JSON Representation
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -187,7 +190,7 @@ To avoid name collisions, all fixed member names are prefixed with a
 dollar (`$`) sign and otherwise have the same name and capitalization as
 their counterparts in the CSDL XML representation
 [OData-CSDLXML](#ODataCSDL) (with one exception: the
-counterpart of the `EntitySet` element's `EntityType` attribute is
+counterpart of the `EntitySet` element's `EntityType` member is
 [`$Type`](#EntitySet), to harmonize it with all other type references).
 
 Additional fixed members introduced by this specification and without
@@ -230,9 +233,8 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 :
 
-<!-- These source files can be used to produce the JSON variant or the XML variant,
-     by using either new Number("...", "json") or new Number("...", "xml"). -->
-: varxml  <!-- Lines between here and the closing : belong to the XML variant only. -->
+<!-- Lines between here and the closing : belong to the XML variant only. -->
+: varxml
 # ##sec XML Representation
 
 OData CSDL XML is a full representation of the OData Common Schema
@@ -418,7 +420,7 @@ Type|Meaning
 `Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
-`Edm.Int16 `                     |Signed 16-bit integer
+`Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
@@ -450,7 +452,7 @@ years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying
 persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
-`Edm.Decimal with a `[`Scale`](#Scale)` value of floating`,
+`Edm.Decimal` with a [`Scale`](#Scale) value of `floating`,
 `Edm.Double`, and `Edm.Single` allow the special numeric values `-INF`,
 `INF`, and `NaN`.
 

@@ -465,18 +465,18 @@ Key properties MUST NOT be nullable and MUST be typed with an
 types](#PrimitiveTypes), or a [type definition](#TypeDefinition) based
 on one of these primitive types:
 
--   `Edm.Boolean `
--   `Edm.Byte `
--   `Edm.Date `
--   `Edm.DateTimeOffset `
--   `Edm.Decimal `
--   `Edm.Duration `
--   `Edm.Guid `
--   `Edm.Int16 `
--   `Edm.Int32 `
--   `Edm.Int64 `
--   `Edm.SByte `
--   `Edm.String `
+-   `Edm.Boolean`
+-   `Edm.Byte`
+-   `Edm.Date`
+-   `Edm.DateTimeOffset`
+-   `Edm.Decimal`
+-   `Edm.Duration`
+-   `Edm.Guid`
+-   `Edm.Int16`
+-   `Edm.Int32`
+-   `Edm.Int64`
+-   `Edm.SByte`
+-   `Edm.String`
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
