@@ -3604,7 +3604,6 @@ These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-::: example-table
 Model element| Can be targeted with path expression (see also [section 14.4.1.1](#PathSyntax))| <div class="example"><p>Example 42: Target expressions</p></div>
 -----|-----|-----
 [Action](#Action) overload| qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| <pre>`MySchema.MyAction(MySchema.MyBindingType)` <br>`MySchema.MyAction(Collection(MySchema.BindingType))` <br>`MySchema.MyAction()`</pre>
@@ -3631,7 +3630,6 @@ all overloads of a [Function](#Function)| qualified name of function| <pre>`MySc
 [Singleton](#Singleton)| qualified name of entity container followed by a segment containing a singleton name| <pre>`MySchema.MyEntityContainer/MySingleton`</pre>
 [Term](#Term)| qualified name of term| <pre>`MySchema.MyTerm`</pre>
 [Type Definition](#TypeDefinition)| qualified name of type definition
-:::
 
 All [qualified names](#QualifiedName) used in a target path MUST be in scope.
 
