@@ -3605,11 +3605,11 @@ identifier), and all direct children of an entity container.
 
 ::: example-table
 Model element| Can be targeted with path expression (see also [section 14.4.1.1](#PathSyntax))| <div class="example"><p>Example 42: Target expressions</p></div>
--------------|----------------------------------------------------------------------|------------------
+-----|-----|-----
 [Action](#Action) overload| qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| <pre>`MySchema.MyAction(MySchema.MyBindingType)` <br>`MySchema.MyAction(Collection(MySchema.BindingType))` <br>`MySchema.MyAction()`</pre>
 all overloads of an [Action](#Action)| qualified name of action| <pre>`MySchema.MyAction`</pre>
 [Action Import](#ActionImport)| qualified name of entity container followed by a segment containing the action import name| <pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
-[Annotation](#Annotation) on a model element| path expression identifying the model element followed by a segment containing an at (@) prepended to the qualified name of a term, optionally suffixed with a hash (#) and the qualifier of an annotation|
+[Annotation](#Annotation) on a model element| path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation|
 [Complex Type](#ComplexType)| qualified name of complex type| <pre>`MySchema.MyComplexType`</pre>
 [Entity Container](#EntityContainer)| qualified name of entity container| <pre>`MySchema.MyEntityContainer`</pre>
 [Entity Set](#EntitySet)| qualified name of entity container followed by a segment containing the entity set name| <pre>`MySchema.MyEntityContainer/MyEntitySet`</pre>
