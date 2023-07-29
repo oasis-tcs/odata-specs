@@ -405,9 +405,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
-     Lines between here and the closing : belong to the JSON variant only. -->
+     Lines between the next and the closing : belong to the JSON variant only. -->
 
-<!-- Lines between here and the closing : belong to the XML variant only. -->
+<!-- Lines between the next and the closing : belong to the XML variant only. -->
 
 <h1 id="2-xml-representation"><a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a></h1>
 <p>OData CSDL XML is a full representation of the OData Common Schema Definition Language in the Extensible Markup Language (XML) 1.1 (Second Edition) <a href="#XML-11">XML-1.1</a> with further building blocks from the W3C XML Schema Definition Language (XSD) 1.1 as described in <a href="#XML-Schema1">XML-Schema-1</a> and <a href="#XML-Schema2">XML-Schema-2</a>.</p>
@@ -895,10 +895,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </section>
 <div class="varxml example">
 <p>Example 9: a derived entity type based on the previous example</p>
-<pre><code>EntityType Name=&quot;Manager&quot; BaseType=&quot;self.Employee&quot;&gt;
-  &lt;Property Name=&quot;AnnualBudget&quot; Type=&quot;Edm.Decimal&quot; /&gt;
-  &lt;NavigationProperty Name=&quot;Employees&quot; Type=&quot;Collection(self.Employee)&quot; /&gt;
-&lt;/EntityType&gt;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Manager&quot;</span><span class="ot"> BaseType=</span><span class="st">&quot;self.Employee&quot;</span>&gt;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;AnnualBudget&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Employees&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(self.Employee)&quot;</span> /&gt;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
 <p>Note: the derived type has the same name as one of the properties of its base type.</p>
@@ -1045,8 +1045,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h2 id="71-type"><a name="Type" href="#Type">7.1 Type</a></h2>
 <p>The property's type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
-<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in<br />
-<a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="-attribute-type" class="varxml rep">
 <h3><a name="AttributeType11.2" href="#AttributeType11.2"> Attribute <code>Type</code></a></h3>
@@ -1122,7 +1121,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <div class="varxml example">
 <p>Example 21: <code>Precision=7</code> and a floating <code>Scale</code>. Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and 1e97 due to the limited precision.</p>
-<pre><code>&lt;Property Name=&quot;Amount7f&quot; Type=&quot;Edm.Decimal&quot; Precision=&quot;7&quot; Scale=&quot;floating&quot; /&gt;</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Amount7f&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Precision=</span><span class="st">&quot;7&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;floating&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <h3 id="725-unicode"><a name="Unicode" href="#Unicode">7.2.5 Unicode</a></h3>
 <p>For a string property the <code>Unicode</code> facet indicates whether the property might contain and accept string values with Unicode characters (code points) beyond the ASCII character set. The value <code>false</code> indicates that the property will only contain and accept string values with characters limited to the ASCII character set.</p>
@@ -1179,8 +1178,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a><strong>)</strong>, to specify that it supports a stable ordering.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a><strong>)</strong>, to specify that it supports inserting items into a specific ordinal position.</p>
+<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="-attribute-type-1" class="varxml rep">
 <h3><a name="AttributeType12.2" href="#AttributeType12.2"> Attribute <code>Type</code></a></h3>
 <p>For single-valued navigation properties the value of <code>Type</code> is the qualified name of the navigation property's type.</p>
@@ -1208,7 +1207,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Containment navigation properties define an implicit entity set for each instance of its declaring structured type. This implicit entity set is identified by the read URL of the navigation property for that structured type instance.</p>
 <p>Instances of the structured type that declares the navigation property, either directly or indirectly via a property of complex type, contain the entities referenced by the containment navigation property. The canonical URL for contained entities is the canonical URL of the containing instance, followed by the path segment of the navigation property and the key of the contained entity, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>Entity types used in collection-valued containment navigation properties MUST have a <a href="#Key">key</a> defined.</p>
-<p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a><strong>)</strong>, the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
+<p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
 <p>OData 4.0 responses MUST NOT specify a complex type declaring a containment navigation property as the type of a collection-valued property.</p>
 <p>An entity cannot be referenced by more than one containment relationship, and cannot both belong to an entity set declared within the entity container and be referenced by a containment relationship.</p>
 <p>Containment navigation properties MUST NOT be specified as the last path segment in the path of a <a href="#NavigationPropertyBinding">navigation property binding</a>.</p>
@@ -1605,13 +1604,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Other entity models may expose multiple entity sets per type.</p>
 <div class="varxml example">
 <p>Example 32: three entity sets referring to the two entity types</p>
-<pre><code>&lt;EntitySet Name=&quot;StandardCustomers&quot; EntityType=&quot;self.Customer&quot;&gt;
-  &lt;NavigationPropertyBinding Path=&quot;Orders&quot; Target=&quot;Orders&quot; /&gt;
-&lt;/EntitySet&gt;
-&lt;EntitySet Name=&quot;PreferredCustomers&quot; EntityType=&quot;self.Customer&quot;&gt;
-  &lt;NavigationPropertyBinding Path=&quot;Orders&quot; Target=&quot;Orders&quot; /&gt;
-&lt;/EntitySet&gt;
-&lt;EntitySet Name=&quot;Orders&quot; EntityType=&quot;self.Order&quot; /&gt;</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;StandardCustomers&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Customer&quot;</span>&gt;</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Orders&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Orders&quot;</span> /&gt;</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;PreferredCustomers&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Customer&quot;</span>&gt;</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Orders&quot;</span><span class="ot"> Target=</span><span class="st">&quot;Orders&quot;</span> /&gt;</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntitySet</span>&gt;</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Orders&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Order&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <p>There are separate entity sets for standard customers and preferred customers, but only one entity set for orders. The entity sets for standard customers and preferred customers both have <a href="#NavigationPropertyBinding">navigation property bindings</a> to the orders entity set, but the orders entity set does not have a navigation property binding for the Customer navigation property, since it could lead to either set of customers.</p>
 <p>An entity set can expose instances of the specified entity type as well as any entity type inherited from the specified entity type.</p>
@@ -1727,17 +1726,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <div class="varxml example">
 <p>Example 36: for an entity set in any container in scope</p>
-<pre><code>&lt;EntitySet Name=&quot;Categories&quot; EntityType=&quot;self.Category&quot;&gt;
-  &lt;NavigationPropertyBinding Path=&quot;Products&quot;
-                             Target=&quot;SomeModel.SomeContainer/SomeSet&quot; /&gt;
-&lt;/EntitySet&gt;</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Categories&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Category&quot;</span>&gt;</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products&quot;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ot">                             Target=</span><span class="st">&quot;SomeModel.SomeContainer/SomeSet&quot;</span> /&gt;</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntitySet</span>&gt;</span></code></pre></div>
 </div>
 <div class="varxml example">
 <p>Example 37: binding <code>Supplier</code> on <code>Products</code> contained within <code>Categories – binding applies to all suppliers of all products of all categories</code></p>
-<pre><code>&lt;EntitySet Name=&quot;Categories&quot; EntityType=&quot;self.Category&quot;&gt;
-  &lt;NavigationPropertyBinding Path=&quot;Products/Supplier&quot;
-                             Target=&quot;Suppliers&quot; /&gt;
-&lt;/EntitySet&gt;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Categories&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Category&quot;</span>&gt;</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Products/Supplier&quot;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ot">                             Target=</span><span class="st">&quot;Suppliers&quot;</span> /&gt;</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntitySet</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="135-action-import"><a name="ActionImport" href="#ActionImport">13.5 Action Import</a></h2>
 <p>Action imports sets are top-level resources that are never included in the service document.</p>
@@ -2194,11 +2193,11 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 </section>
 <div class="varxml example">
 <p>Example 49:</p>
-<pre><code>&lt;Annotation Term=&quot;org.example.task.duration&quot; Duration=&quot;P7D&quot; /&gt;
-
-&lt;Annotation Term=&quot;org.example.task.duration&quot;&gt;
-  &lt;Duration&gt;P11DT23H59M59.999999999999S&lt;/Duration&gt;
-&lt;/Annotation&gt;</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.task.duration&quot;</span><span class="ot"> Duration=</span><span class="st">&quot;P7D&quot;</span> /&gt;</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.task.duration&quot;</span>&gt;</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Duration</span>&gt;P11DT23H59M59.999999999999S&lt;/<span class="kw">Duration</span>&gt;</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="1437-enumeration-member"><a name="EnumerationMember" href="#EnumerationMember">14.3.7 Enumeration Member</a></h3>
 <section id="-expression-edmenummember" class="varxml rep">
@@ -2215,7 +2214,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EnumMember</span>&gt;org.example.Pattern/Red&lt;/<span class="kw">EnumMember</span>&gt;</span>
 <span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
-<div class="example">
+<div class="varxml example">
 <p>Example 51: combined value for <code>IsFlags</code> enumeration type</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.HasPattern&quot;</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           EnumMember=</span><span class="st">&quot;org.example.Pattern/Red org.example.Pattern/Striped&quot;</span> /&gt;</span>
@@ -2261,7 +2260,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 </section>
 <div class="varxml example">
 <p>Example 54: attribute notation</p>
-<pre><code>&lt;Annotation Term=&quot;org.example.display.Width&quot; Int=&quot;42&quot; /&gt;</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.display.Width&quot;</span><span class="ot"> Int=</span><span class="st">&quot;42&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <div class="varxml example">
 <p>Example 55: element notation</p>
@@ -2355,7 +2354,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <p>An instance path MAY contain path segments starting with an entity set or a collection-valued navigation property, then followed by a key predicate using parentheses-style convention, see <a href="#ODataURL">OData-URL</a>. The key values are either primitive literals or instance paths. If the key value is a relative instance path, it is interpreted according to the same rule below as the instance path it is part of, <em>not</em> relative to the instance identified by the preceding path part.</p>
 <div class="example">
 <p>Example 65: instance path with entity set and key predicate</p>
-<pre><code>/self.container/SettingsCollection(\&#39;FeatureXxx\&#39;)/IsAvailable</code></pre>
+<pre><code>/self.container/SettingsCollection(&#39;FeatureXxx&#39;)/IsAvailable</code></pre>
 <pre><code>/self.container/Products(ID=ProductID)/Name</code></pre>
 </div>
 <p>An instance path MAY contain an index segment immediately following a path segment representing an ordered collection-valued structural property. The index is zero-based and MUST be an integer literal. Negative integers count from the end of the collection, with -1 representing the last item in the collection. Remaining path segments are evaluated relative to the identified item of the collection.</p>
@@ -2543,13 +2542,13 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varxml rep">
-<h3 id="-expressions-edmand-and--edmor"><a name="ExpressionsedmAnd48" href="#ExpressionsedmAnd48"> Expressions <code>edm:And</code> </a>and <a name="edmOr48.1" href="#edmOr48.1"> <code>edm:Or</code></a></h3>
+<h3 id="-expressions-edmand-and--edmor"><a name="ExpressionsedmAnd48" href="#ExpressionsedmAnd48"> Expressions <code>edm:And</code></a> and <a name="edmOr48.1" href="#edmOr48.1"> <code>edm:Or</code></a></h3>
 <p>The <code>And</code> and <code>Or</code> logical expressions are represented as elements <code>edm:And</code> and <code>edm:Or</code> that MUST contain two annotation expressions.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 <h3 id="-expression-edmnot"><a name="ExpressionedmNot49" href="#ExpressionedmNot49"> Expression <code>edm:Not</code></a></h3>
 <p>Negation expressions are represented as an element <code>edm:Not</code> that MUST contain a single annotation expression.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-expressions-edmeq---edmne---edmgt---edmge---edmlt---edmle---edmhas-and--edmin"><a name="ExpressionsedmEq50" href="#ExpressionsedmEq50"> Expressions <code>edm:Eq</code>, </a> <a name="edmNe50.1" href="#edmNe50.1"> <code>edm:Ne</code>, </a> <a name="edmGt50.2" href="#edmGt50.2"> <code>edm:Gt</code>, </a> <a name="edmGe50.3" href="#edmGe50.3"> <code>edm:Ge</code>, </a> <a name="edmLt50.4" href="#edmLt50.4"> <code>edm:Lt</code>, </a> <a name="edmLe50.5" href="#edmLe50.5"> <code>edm:Le</code>, </a> <a name="edmHas50.6" href="#edmHas50.6"> <code>edm:Has</code>, </a>and <a name="edmIn50.7" href="#edmIn50.7"> <code>edm:In</code></a></h3>
+<h3 id="-expressions-edmeq--edmne--edmgt--edmge--edmlt--edmle--edmhas-and--edmin"><a name="ExpressionsedmEq50" href="#ExpressionsedmEq50"> Expressions <code>edm:Eq</code></a>, <a name="edmNe50.1" href="#edmNe50.1"> <code>edm:Ne</code></a>, <a name="edmGt50.2" href="#edmGt50.2"> <code>edm:Gt</code></a>, <a name="edmGe50.3" href="#edmGe50.3"> <code>edm:Ge</code></a>, <a name="edmLt50.4" href="#edmLt50.4"> <code>edm:Lt</code></a>, <a name="edmLe50.5" href="#edmLe50.5"> <code>edm:Le</code></a>, <a name="edmHas50.6" href="#edmHas50.6"> <code>edm:Has</code></a>, and <a name="edmIn50.7" href="#edmIn50.7"> <code>edm:In</code></a></h3>
 <p>All comparison expressions are represented as an element that MUST contain two annotation expressions.</p>
 <p>They MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </div>
@@ -2647,7 +2646,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <h3 id="-expression-edmneg"><a name="ExpressionedmNeg51" href="#ExpressionedmNeg51"> Expression <code>edm:Neg</code></a></h3>
 <p>Negation expressions are represented as an element <code>edm:Neg</code> that MUST contain a single annotation expression.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-expressions-edmadd---edmsub---edmmul---edmdiv---edmdivby-and--edmmod"><a name="ExpressionsedmAdd52" href="#ExpressionsedmAdd52"> Expressions <code>edm:Add</code>, </a> <a name="edmSub52.1" href="#edmSub52.1"> <code>edm:Sub</code>, </a> <a name="edmMul52.2" href="#edmMul52.2"> <code>edm:Mul</code>, </a> <a name="edmDiv52.3" href="#edmDiv52.3"> <code>edm:Div</code>, </a> <a name="edmDivBy52.4" href="#edmDivBy52.4"> <code>edm:DivBy</code>, </a>and <a name="edmMod52.5" href="#edmMod52.5"> <code>edm:Mod</code></a></h3>
+<h3 id="-expressions-edmadd--edmsub--edmmul--edmdiv--edmdivby-and--edmmod"><a name="ExpressionsedmAdd52" href="#ExpressionsedmAdd52"> Expressions <code>edm:Add</code></a>, <a name="edmSub52.1" href="#edmSub52.1"> <code>edm:Sub</code></a>, <a name="edmMul52.2" href="#edmMul52.2"> <code>edm:Mul</code></a>, <a name="edmDiv52.3" href="#edmDiv52.3"> <code>edm:Div</code></a>, <a name="edmDivBy52.4" href="#edmDivBy52.4"> <code>edm:DivBy</code></a>, and <a name="edmMod52.5" href="#edmMod52.5"> <code>edm:Mod</code></a></h3>
 <p>These arithmetic expressions are represented as an element that MUST contain two annotation expressions.</p>
 <p>They MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </div>
@@ -2892,25 +2891,25 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 </div>
 <div class="varxml example">
 <p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
-<pre><code>&lt;Annotation Term=&quot;org.example.person.Employee&quot;&gt;
-  &lt;Record&gt;
-    &lt;Annotation Term=&quot;Core.Description&quot; String=&quot;Annotation on record&quot; /&gt;
-    &lt;PropertyValue Property=&quot;GivenName&quot; Path=&quot;FirstName&quot;&gt;
-      &lt;Annotation Term=&quot;Core.Description&quot;
-                  String=&quot;Annotation on record member&quot; /&gt;
-    &lt;/PropertyValue&gt;
-    &lt;PropertyValue Property=&quot;Surname&quot; Path=&quot;LastName&quot; /&gt;
-    &lt;PropertyValue Property=&quot;DirectSupervisor&quot; Path=&quot;Manager&quot; /&gt;
-    &lt;PropertyValue Property=&quot;CostCenter&quot;&gt;
-      &lt;UrlRef&gt;
-        &lt;Apply Function=&quot;odata.fillUriTemplate&quot;&gt;
-          &lt;String&gt;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&lt;/String&gt;
-          &lt;LabeledElement Name=&quot;ccid&quot; Path=&quot;CostCenterID&quot; /&gt;
-        &lt;/Apply&gt;
-      &lt;/UrlRef&gt;
-    &lt;/PropertyValue&gt;
-  &lt;/Record&gt;
-&lt;/Annotation&gt;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Employee&quot;</span>&gt;</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Record</span>&gt;</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Annotation on record&quot;</span> /&gt;</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GivenName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span>&gt;</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  String=</span><span class="st">&quot;Annotation on record member&quot;</span> /&gt;</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Surname&quot;</span><span class="ot"> Path=</span><span class="st">&quot;LastName&quot;</span> /&gt;</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;DirectSupervisor&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Manager&quot;</span> /&gt;</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;CostCenter&quot;</span>&gt;</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;ccid&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CostCenterID&quot;</span> /&gt;</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">UrlRef</span>&gt;</span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
@@ -3091,41 +3090,41 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <h2 id="162-annotations-for-products-and-categories-example"><a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a></h2>
 <div class="varxml example">
 <p>Example 90:</p>
-<pre><code>&lt;edmx:Edmx xmlns:edmx=&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;
-           Version=&quot;4.01&quot;&gt;
-  &lt;edmx:Reference Uri=&quot;http://host/service/$metadata&quot;&gt;
-    &lt;edmx:Include Namespace=&quot;ODataDemo&quot; Alias=&quot;target&quot; /&gt;
-  &lt;/edmx:Reference&gt;
-  &lt;edmx:Reference Uri=&quot;http://somewhere/Vocabulary/V1&quot;&gt;
-    &lt;edmx:Include Alias=&quot;Vocabulary1&quot; Namespace=&quot;Some.Vocabulary.V1&quot; /&gt;
-  &lt;/edmx:Reference&gt;
-  &lt;edmx:DataServices&gt;
-    &lt;Schema xmlns=&quot;http://docs.oasis-open.org/odata/ns/edm&quot;
-            Namespace=&quot;External.Annotations&quot;&gt;
-      &lt;Annotations Target=&quot;ODataDemo.Supplier&quot;&gt;
-        &lt;Annotation Term=&quot;Vocabulary1.EMail&quot;&gt;
-          &lt;Null /&gt;
-        &lt;/Annotation&gt;
-        &lt;Annotation Term=&quot;Vocabulary1.AccountID&quot; Path=&quot;ID&quot; /&gt;
-        &lt;Annotation Term=&quot;Vocabulary1.Title&quot; String=&quot;Supplier Info&quot; /&gt;
-        &lt;Annotation Term=&quot;Vocabulary1.DisplayName&quot;&gt;
-        &lt;Apply Function=&quot;odata.concat&quot;&gt;
-            &lt;Path&gt;Name&lt;/Path&gt;
-            &lt;String&gt; in &lt;/String&gt;
-            &lt;Path&gt;Address/CountryName&lt;/Path&gt;
-          &lt;/Apply&gt;
-        &lt;/Annotation&gt;
-      &lt;/Annotations&gt;
-      &lt;Annotations Target=&quot;ODataDemo.Product&quot;&gt;
-        &lt;Annotation Term=&quot;Vocabulary1.Tags&quot;&gt;
-          &lt;Collection&gt;
-            &lt;String&gt;MasterData&lt;/String&gt;
-          &lt;/Collection&gt;
-        &lt;/Annotation&gt;
-      &lt;/Annotations&gt;
-  &lt;/Schema&gt;
-  &lt;/edmx:DataServices&gt;
-&lt;/edmx:Edmx&gt;</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.01&quot;</span>&gt;</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://host/service/$metadata&quot;</span>&gt;</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Namespace=</span><span class="st">&quot;ODataDemo&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;target&quot;</span> /&gt;</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://somewhere/Vocabulary/V1&quot;</span>&gt;</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Vocabulary1&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;Some.Vocabulary.V1&quot;</span> /&gt;</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            Namespace=</span><span class="st">&quot;External.Annotations&quot;</span>&gt;</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Supplier&quot;</span>&gt;</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.EMail&quot;</span>&gt;</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Null</span> /&gt;</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.AccountID&quot;</span><span class="ot"> Path=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Title&quot;</span><span class="ot"> String=</span><span class="st">&quot;Supplier Info&quot;</span> /&gt;</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.DisplayName&quot;</span>&gt;</span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.concat&quot;</span>&gt;</span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Name&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt; in &lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Path</span>&gt;Address/CountryName&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Apply</span>&gt;</span>
+<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;ODataDemo.Product&quot;</span>&gt;</span>
+<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Vocabulary1.Tags&quot;</span>&gt;</span>
+<span id="cb94-28"><a href="#cb94-28" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-29"><a href="#cb94-29" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">String</span>&gt;MasterData&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb94-30"><a href="#cb94-30" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-31"><a href="#cb94-31" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-32"><a href="#cb94-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-33"><a href="#cb94-33" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Schema</span>&gt;</span>
+<span id="cb94-34"><a href="#cb94-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-35"><a href="#cb94-35" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
@@ -3424,7 +3423,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <li><a href="#ExpressionedmNavigationPropertyPath45">Expression <code>edm:NavigationPropertyPath</code></a></li>
 <li><a href="#ExpressionedmPropertyPath46">Expression <code>edm:PropertyPath</code></a></li>
 <li><a href="#ExpressionedmPath47">Expression <code>edm:Path</code></a></li>
-<li><a href="#ExpressionsedmAnd48">Expressions <code>edm:And</code> </a>
+<li><a href="#ExpressionsedmAnd48">Expressions <code>edm:And</code></a>
 <ul>
 <li><a href="#edmOr48.1"><code>edm:Or</code></a></li>
 </ul></li>

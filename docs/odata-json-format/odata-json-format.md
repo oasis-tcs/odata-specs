@@ -177,7 +177,7 @@ For complete copyright information please see the full Notices section in an App
 - [23 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References ](#InformativeReferences)
+  - [A.2 Informative References](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
 - [C Acknowledgments](#Acknowledgments)
   - [C.1 Special Thanks](#SpecialThanks)
@@ -3752,7 +3752,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 

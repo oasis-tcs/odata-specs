@@ -21,7 +21,7 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### ##subisec `$Version`
 
-The value of `$Version` is a string containing either 4.0 or 4.01.
+The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### ##subisec `$EntityContainer`
 

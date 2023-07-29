@@ -237,7 +237,7 @@ For complete copyright information please see the full Notices section in an App
   - [C.1 Special Thanks](#SpecialThanks)
   - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
-- [E Notices              ](#Notices)
+- [E Notices             ](#Notices)
 :::
 
 -------
@@ -313,7 +313,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
-     Lines between here and the closing : belong to the JSON variant only. -->
+     Lines between the next and the closing : belong to the JSON variant only. -->
 # <a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a>
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -473,7 +473,7 @@ additional rules that correct CSDL JSON documents MUST fulfill. In case
 of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 
-<!-- Lines between here and the closing : belong to the XML variant only. -->
+<!-- Lines between the next and the closing : belong to the XML variant only. -->
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -699,7 +699,7 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a name="Version1.1" href="#Version1.1"> `$Version`</a>
 
-The value of `$Version` is a string containing either 4.0 or 4.01.
+The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
@@ -1540,7 +1540,7 @@ scope, or a collection of one of these types.
 
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in\
+term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
@@ -1550,7 +1550,7 @@ term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### <a name="Type5.1" href="#Type5.1"> `$Type` </a>and <a name="Collection5.2" href="#Collection5.2"> `$Collection`</a>
+### <a name="Type5.1" href="#Type5.1"> `$Type`</a> and <a name="Collection5.2" href="#Collection5.2"> `$Collection`</a>
 
 For single-valued properties the value of `$Type` is the qualified name
 of the property's type.
@@ -1713,7 +1713,7 @@ Absence of `$Scale` means `variable`.
 :::
 
 ::: {.varjson .example}
-Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.\
+Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.  
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```json
 "Amount32": {
@@ -1726,7 +1726,7 @@ Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 :::
 
 ::: {.varjson .example}
-Example 19: `Precision=2` equals `Scale`.\
+Example 19: `Precision=2` equals `Scale`.  
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```json
 "Amount22": {
@@ -1739,7 +1739,7 @@ Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 :::
 
 ::: {.varjson .example}
-Example 20: `Precision=3` and a variable `Scale`.\
+Example 20: `Precision=3` and a variable `Scale`.  
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```json
@@ -1752,7 +1752,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 :::
 
 ::: {.varjson .example}
-Example 21: `Precision=7` and a floating `Scale`.\
+Example 21: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```json
@@ -1928,16 +1928,16 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### <a name="Type6.1" href="#Type6.1"> `$Type` </a>and <a name="Collection6.2" href="#Collection6.2"> `$Collection`</a>
+### <a name="Type6.1" href="#Type6.1"> `$Type`</a> and <a name="Collection6.2" href="#Collection6.2"> `$Collection`</a>
 
 For single-valued navigation properties the value of `$Type` is the
 qualified name of the navigation property's type.
@@ -2031,7 +2031,7 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-VocCore](#ODataVocCore)**)**, the canonical URL
+term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
 an unordered collection of complex types do not have a canonical URL.
@@ -2827,7 +2827,7 @@ and [`$SRID`](#SRID).
 
 It also MAY contain [annotations](#Annotation).
 
-### <a name="Type12.5" href="#Type12.5"> `$Type` </a>and <a name="Collection12.6" href="#Collection12.6"> `$Collection`</a>
+### <a name="Type12.5" href="#Type12.5"> `$Type`</a> and <a name="Collection12.6" href="#Collection12.6"> `$Collection`</a>
 
 For single-valued return types the value of `$Type` is the qualified
 name of the returned type.
@@ -2901,7 +2901,7 @@ Parameter objects MAY also contain [annotations](#Annotation).
 
 The value of `$Name` is a string containing the parameter name.
 
-### <a name="Type13.2" href="#Type13.2"> `$Type` </a>and <a name="Collection13.3" href="#Collection13.3"> `$Collection`</a>
+### <a name="Type13.2" href="#Type13.2"> `$Type`</a> and <a name="Collection13.3" href="#Collection13.3"> `$Collection`</a>
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
@@ -3239,7 +3239,7 @@ can vary per related entity.
 ### <a name="NavigationPropertyPathBinding" href="#NavigationPropertyPathBinding">13.4.1 Navigation Property Path Binding</a>
 
 A navigation property binding MUST specify a path to a navigation
-property of the entity set's or singleton\'s declared entity type, or a
+property of the entity set's or singleton's declared entity type, or a
 navigation property reached through a chain of type casts, complex
 properties, or containment navigation properties. If the navigation
 property is defined on a subtype, the path MUST contain the [qualified
@@ -3573,7 +3573,7 @@ It MAY contain the members `$Type`, `$Collection`,
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Type19.1" href="#Type19.1"> `$Type` </a>and <a name="Collection19.2" href="#Collection19.2"> `$Collection`</a>
+### <a name="Type19.1" href="#Type19.1"> `$Type`</a> and <a name="Collection19.2" href="#Collection19.2"> `$Collection`</a>
 
 For single-valued terms the value of `$Type` is the qualified name of
 the term's type.
@@ -3768,7 +3768,7 @@ named properties of a base type.
 
 It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated model
-element is used, and whether they can be overridden. E.g. a \"Label\"
+element is used, and whether they can be overridden. E.g. a "Label"
 annotation for a UI can propagate from a type definition to all
 properties using that type definition and may be overridden at each
 property with a more specific label, whereas an annotation marking a
@@ -3952,7 +3952,7 @@ Boolean expressions are represented as the literals `true` or `false`.
 
 ::: {.varjson .example}
 Example 44:
-```
+```json
 "@UI.ReadOnly": true
 ```
 :::
@@ -4077,17 +4077,6 @@ symbolic value
 
 
 
-::: example
-Example 52: combined value for `IsFlags` enumeration type
-```xml
-<Annotation Term="org.example.HasPattern"
-           EnumMember="org.example.Pattern/Red org.example.Pattern/Striped" />
-
-<Annotation Term="org.example.HasPattern">
-  <EnumMember>org.example.Pattern/Red org.example.Pattern/Striped</EnumMember>
-</Annotation>
-```
-:::
 
 ### <a name="FloatingPointNumber" href="#FloatingPointNumber">14.3.8 Floating-Point Number</a>
 
@@ -4097,7 +4086,7 @@ containing one of the special values `INF`, `-INF`, or `NaN`.
 :::
 
 ::: {.varjson .example}
-Example 53:
+Example 52:
 ```json
 "@UI.FloatWidth": 3.14
 ```
@@ -4118,7 +4107,7 @@ The value MUST conform to the rule `guidValue` in
 :::
 
 ::: {.varjson .example}
-Example 54:
+Example 53:
 ```json
 "@UI.Id": "21EC2020-3AEA-1069-A2DD-08002B30309D"
 ```
@@ -4135,14 +4124,14 @@ depending on the media type parameter
 :::
 
 ::: {.varjson .example}
-Example 55: default representation as a number
+Example 54: default representation as a number
 ```json
 "@An.Int": 42
 ```
 :::
 
 ::: {.varjson .example}
-Example 56: "safe" representation as a string
+Example 55: "safe" representation as a string
 ```json
 "@A.Very.Long.Int": "9007199254740992"
 ```
@@ -4158,7 +4147,7 @@ String expressions are represented as a JSON string.
 :::
 
 ::: {.varjson .example}
-Example 57:
+Example 56:
 ```json
 "@UI.DisplayName": "Product Catalog"
 ```
@@ -4175,7 +4164,7 @@ in [OData-ABNF](#ODataABNF).
 :::
 
 ::: {.varjson .example}
-Example 58:
+Example 57:
 ```json
 "@UI.EndTime": "21:45:00"
 ```
@@ -4221,7 +4210,7 @@ an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
 ::: example
-Example 59: absolute path to an entity set
+Example 58: absolute path to an entity set
 ```
 /My.Schema.MyEntityContainer/MyEntitySet
 ```
@@ -4232,7 +4221,7 @@ annotation target, following the rules specified in section "[Path
 Evaluation](#PathEvaluation)".
 
 ::: example
-Example 60: relative path to a property
+Example 59: relative path to a property
 ```
 Address/City
 ```
@@ -4245,7 +4234,7 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 ::: example
-Example 61: type-cast segment
+Example 60: type-cast segment
 ```
 .../self.Manager/...
 ```
@@ -4270,7 +4259,7 @@ properties:
 -   `odata.mediaEtag`
 
 ::: example
-Example 62: term-cast segments
+Example 61: term-cast segments
 ```
 .../@Capabilities.SortRestrictions/...
 ```
@@ -4290,7 +4279,7 @@ collection-valued structural or navigation properties. The result of the
 expression is the model element reached via this path.
 
 ::: example
-Example 63: property segments in model path
+Example 62: property segments in model path
 ```
 .../Orders/Items/Product/...
 ```
@@ -4310,7 +4299,7 @@ segment is collection-valued, in which case the path evaluates to the
 number of items in the collection identified by the preceding segment.
 
 ::: example
-Example 64: property segments in instance path
+Example 63: property segments in instance path
 ```
 .../Addresses/Street
 ```
@@ -4333,7 +4322,7 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 65: model path addressing an annotation on a navigation property
+Example 64: model path addressing an annotation on a navigation property
 ```
 .../Items@Capabilities.InsertRestrictions/Insertable
 ```
@@ -4349,9 +4338,9 @@ part of, *not* relative to the instance identified by the preceding path
 part.
 
 ::: example
-Example 66: instance path with entity set and key predicate
+Example 65: instance path with entity set and key predicate
 ```
-/self.container/SettingsCollection(\'FeatureXxx\')/IsAvailable
+/self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
 
 ```
@@ -4367,7 +4356,7 @@ representing the last item in the collection. Remaining path segments
 are evaluated relative to the identified item of the collection.
 
 ::: example
-Example 67: instance path with collection-valued structural property and
+Example 66: instance path with collection-valued structural property and
 index segment
 ```
 Addresses/1
@@ -4448,7 +4437,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 68:
+Example 67:
 ```json
 "@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
 "@UI.CollectionFacet#Contacts": [
@@ -4476,7 +4465,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 69:
+Example 68:
 ```json
 "@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
@@ -4505,7 +4494,7 @@ containing a path.
 :::
 
 ::: {.varjson .example}
-Example 70:
+Example 69:
 ```json
 "@UI.HyperLink": "Supplier",
 
@@ -4541,7 +4530,7 @@ Property path expressions are represented as a string containing a path.
 :::
 
 ::: {.varjson .example}
-Example 71:
+Example 70:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
 
@@ -4575,7 +4564,7 @@ Path expressions are represented as an object with a single member
 :::
 
 ::: {.varjson .example}
-Example 72:
+Example 71:
 ```json
 "@UI.DisplayName": {
   "$Path": "FirstName"
@@ -4620,7 +4609,7 @@ The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
 ::: {.varjson .rep}
-### <a name="And20.2" href="#And20.2"> `$And` </a>and <a name="Or20.3" href="#Or20.3"> `$Or`</a>
+### <a name="And20.2" href="#And20.2"> `$And`</a> and <a name="Or20.3" href="#Or20.3"> `$Or`</a>
 
 The `And` and `Or` logical expressions are represented as an object with
 a single member whose value is an array with two annotation expressions.
@@ -4635,7 +4624,7 @@ Negation expressions are represented as an object with a single member
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Eq20.5" href="#Eq20.5"> `$Eq`, </a>    <a name="Ne20.6" href="#Ne20.6"> `$Ne`, </a>    <a name="Gt20.7" href="#Gt20.7"> `$Gt`, </a>    <a name="Ge20.8" href="#Ge20.8"> `$Ge`, </a>    <a name="Lt20.9" href="#Lt20.9"> `$Lt`, </a>    <a name="Le20.10" href="#Le20.10"> `$Le`, </a>    <a name="Has20.11" href="#Has20.11"> `$Has`, </a>and <a name="In20.12" href="#In20.12"> `$In`</a>
+### <a name="Eq20.5" href="#Eq20.5"> `$Eq`</a>,     <a name="Ne20.6" href="#Ne20.6"> `$Ne`</a>,     <a name="Gt20.7" href="#Gt20.7"> `$Gt`</a>,     <a name="Ge20.8" href="#Ge20.8"> `$Ge`</a>,     <a name="Lt20.9" href="#Lt20.9"> `$Lt`</a>,     <a name="Le20.10" href="#Le20.10"> `$Le`</a>,     <a name="Has20.11" href="#Has20.11"> `$Has`</a>, and <a name="In20.12" href="#In20.12"> `$In`</a>
 
 All comparison expressions are represented as an object with a single
 member whose value is an array with two annotation expressions. The
@@ -4646,7 +4635,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 73:
+Example 72:
 ```json
 {
   "$And": [
@@ -4775,7 +4764,7 @@ Negation expressions are represented as an object with a single member
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Add20.14" href="#Add20.14"> `$Add`, </a>    <a name="Sub20.15" href="#Sub20.15"> `$Sub`, </a>    <a name="Mul20.16" href="#Mul20.16"> `$Mul`, </a>    <a name="Div20.17" href="#Div20.17"> `$Div`, </a>    <a name="DivBy20.18" href="#DivBy20.18"> `$DivBy`, </a>and <a name="Mod20.19" href="#Mod20.19"> `$Mod`</a>
+### <a name="Add20.14" href="#Add20.14"> `$Add`</a>,     <a name="Sub20.15" href="#Sub20.15"> `$Sub`</a>,     <a name="Mul20.16" href="#Mul20.16"> `$Mul`</a>,     <a name="Div20.17" href="#Div20.17"> `$Div`</a>,     <a name="DivBy20.18" href="#DivBy20.18"> `$DivBy`</a>, and <a name="Mod20.19" href="#Mod20.19"> `$Mod`</a>
 
 These arithmetic expressions are represented as an object with as single
 member whose value is an array with two annotation expressions. The
@@ -4786,7 +4775,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 74:
+Example 73:
 ```json
 {
   "$Add": [
@@ -4899,7 +4888,7 @@ are represented according to the appropriate alternative in the
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: {.varjson .example}
-Example 75:
+Example 74:
 ```json
 "@UI.DisplayName": {
   "$Apply": [
@@ -4958,7 +4947,7 @@ types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
 ::: {.varjson .example}
-Example 76: assuming there are no special characters in values of the
+Example 75: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
   "$Apply": [
@@ -4988,7 +4977,7 @@ expression, using syntax and semantics of
 [ECMAScript](#_ECMAScript) regular expressions.
 
 ::: {.varjson .example}
-Example 77: all non-empty `FirstName` values not containing the letters
+Example 76: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```json
 {
@@ -5014,7 +5003,7 @@ Note: string literals are surrounded by single quotes as required by the
 paren-style key syntax.
 
 ::: {.varjson .example}
-Example 78:
+Example 77:
 ```json
 {
   "$Apply": [
@@ -5063,7 +5052,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 79:
+Example 78:
 ```json
 "@UI.Threshold": {
   "$Cast": {
@@ -5090,7 +5079,7 @@ item expression within the collection expression.
 :::
 
 ::: {.varjson .example}
-Example 80:
+Example 79:
 ```json
 "@seo.SeoTerms": [
   "Product",
@@ -5137,7 +5126,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 81: the condition is a [value path expression](#ValuePath)
+Example 80: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `$If` expression (or so it was long ago)
 ```json
@@ -5181,7 +5170,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 82:
+Example 81:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5220,7 +5209,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 83:
+Example 82:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5249,7 +5238,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 83:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5270,7 +5259,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 84:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5284,7 +5273,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 86:
+Example 85:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5331,7 +5320,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5397,7 +5386,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 88:
+Example 87:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5480,7 +5469,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 89: Target expressions
+Example 88: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5501,7 +5490,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 90:
+Example 89:
 ```json
 {
   "$Version": "4.0",
@@ -5723,7 +5712,7 @@ Example 90:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 91:
+Example 90:
 ```json
 {
   "$Version": "4.01",
@@ -5974,7 +5963,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$HasStream`](#HasStream4.4)
   - [`$Key`](#Key4.5)
 - [Property Object](#PropertyObject5)
-  - [`$Type` ](#Type5.1)
+  - [`$Type`](#Type5.1)
   - [`$Collection`](#Collection5.2)
   - [`$Nullable`](#Nullable5.3)
   - [`$MaxLength`](#MaxLength5.4)
@@ -5984,7 +5973,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$SRID`](#SRID5.8)
   - [`$DefaultValue`](#DefaultValue5.9)
 - [Navigation Property Object](#NavigationPropertyObject6)
-  - [`$Type` ](#Type6.1)
+  - [`$Type`](#Type6.1)
   - [`$Collection`](#Collection6.2)
   - [`$Nullable`](#Nullable6.3)
   - [`$Partner`](#Partner6.4)
@@ -6007,13 +5996,13 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$EntitySetPath`](#EntitySetPath12.2)
   - [`$IsComposable`](#IsComposable12.3)
   - [`$ReturnType`](#ReturnType12.4)
-  - [`$Type` ](#Type12.5)
+  - [`$Type`](#Type12.5)
   - [`$Collection`](#Collection12.6)
   - [`$Nullable`](#Nullable12.7)
   - [`$Parameter`](#Parameter12.8)
 - [Parameter Object](#ParameterObject13)
   - [`$Name`](#Name13.1)
-  - [`$Type` ](#Type13.2)
+  - [`$Type`](#Type13.2)
   - [`$Collection`](#Collection13.3)
   - [`$Nullable`](#Nullable13.4)
 - [Entity Container Object](#EntityContainerObject14)
@@ -6034,14 +6023,14 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$EntitySet`](#EntitySet18.2)
   - [`$IncludeInServiceDocument`](#IncludeInServiceDocument18.3)
 - [Term Object](#TermObject19)
-  - [`$Type` ](#Type19.1)
+  - [`$Type`](#Type19.1)
   - [`$Collection`](#Collection19.2)
   - [`$DefaultValue`](#DefaultValue19.3)
   - [`$BaseTerm`](#BaseTerm19.4)
   - [`$AppliesTo`](#AppliesTo19.5)
 - [Annotation Member](#AnnotationMember20)
   - [`$Path`](#Path20.1)
-  - [`$And` ](#And20.2)
+  - [`$And`](#And20.2)
   - [`$Or`](#Or20.3)
   - [`$Not`](#Not20.4)
   - [`$Eq`](#Eq20.5)
@@ -6122,7 +6111,7 @@ Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-mat
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
 -->
 
-# <a name="Notices" href="#Notices">Appendix E. Notices              </a>
+# <a name="Notices" href="#Notices">Appendix E. Notices             </a> 
               
 <!-- Required section. Do not modify. -->              
               

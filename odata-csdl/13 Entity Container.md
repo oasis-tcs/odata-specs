@@ -67,7 +67,7 @@ Example ##ex: three entity sets referring to the two entity types
 
 ::: {.varxml .example}
 Example ##ex: three entity sets referring to the two entity types
-```
+```xml
 <EntitySet Name="StandardCustomers" EntityType="self.Customer">
   <NavigationPropertyBinding Path="Orders" Target="Orders" />
 </EntitySet>
@@ -409,7 +409,7 @@ can vary per related entity.
 ### ##subsubsec Navigation Property Path Binding
 
 A navigation property binding MUST specify a path to a navigation
-property of the entity set's or singleton\'s declared entity type, or a
+property of the entity set's or singleton's declared entity type, or a
 navigation property reached through a chain of type casts, complex
 properties, or containment navigation properties. If the navigation
 property is defined on a subtype, the path MUST contain the [qualified
@@ -542,7 +542,7 @@ entity set `Categories`
 
 ::: {.varxml .example}
 Example ##ex: for an entity set in any container in scope
-```
+```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products"
                              Target="SomeModel.SomeContainer/SomeSet" />
@@ -553,7 +553,7 @@ Example ##ex: for an entity set in any container in scope
 ::: {.varxml .example}
 Example ##ex: binding `Supplier` on `Products` contained within
 `Categories – binding applies to all suppliers of all products of all categories`
-```
+```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"
                              Target="Suppliers" />

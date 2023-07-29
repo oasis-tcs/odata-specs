@@ -331,8 +331,8 @@ The value of `BaseType` is the qualified name of the base type.
 
 ::: {.varxml .example}
 Example ##ex: a derived entity type based on the previous example
-```
-EntityType Name="Manager" BaseType="self.Employee">
+```xml
+<EntityType Name="Manager" BaseType="self.Employee">
   <Property Name="AnnualBudget" Type="Edm.Decimal" />
   <NavigationProperty Name="Employees" Type="Collection(self.Employee)" />
 </EntityType>

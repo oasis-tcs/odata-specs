@@ -235,7 +235,7 @@ For complete copyright information please see the full Notices section in an App
   - [C.1 Special Thanks](#SpecialThanks)
   - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
-- [E Notices              ](#Notices)
+- [E Notices             ](#Notices)
 :::
 
 -------
@@ -311,9 +311,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
-     Lines between here and the closing : belong to the JSON variant only. -->
+     Lines between the next and the closing : belong to the JSON variant only. -->
 
-<!-- Lines between here and the closing : belong to the XML variant only. -->
+<!-- Lines between the next and the closing : belong to the XML variant only. -->
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
 OData CSDL XML is a full representation of the OData Common Schema
@@ -1124,8 +1124,8 @@ The value of `BaseType` is the qualified name of the base type.
 
 ::: {.varxml .example}
 Example 9: a derived entity type based on the previous example
-```
-EntityType Name="Manager" BaseType="self.Employee">
+```xml
+<EntityType Name="Manager" BaseType="self.Employee">
   <Property Name="AnnualBudget" Type="Edm.Decimal" />
   <NavigationProperty Name="Employees" Type="Collection(self.Employee)" />
 </EntityType>
@@ -1447,7 +1447,7 @@ scope, or a collection of one of these types.
 
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in\
+term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
@@ -1662,7 +1662,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 Example 21: `Precision=7` and a floating `Scale`.
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
-```
+```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
 ```
 :::
@@ -1807,12 +1807,12 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 
@@ -1910,7 +1910,7 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-VocCore](#ODataVocCore)**)**, the canonical URL
+term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
 an unordered collection of complex types do not have a canonical URL.
@@ -2831,7 +2831,7 @@ Other entity models may expose multiple entity sets per type.
 
 ::: {.varxml .example}
 Example 32: three entity sets referring to the two entity types
-```
+```xml
 <EntitySet Name="StandardCustomers" EntityType="self.Customer">
   <NavigationPropertyBinding Path="Orders" Target="Orders" />
 </EntitySet>
@@ -3047,7 +3047,7 @@ can vary per related entity.
 ### <a name="NavigationPropertyPathBinding" href="#NavigationPropertyPathBinding">13.4.1 Navigation Property Path Binding</a>
 
 A navigation property binding MUST specify a path to a navigation
-property of the entity set's or singleton\'s declared entity type, or a
+property of the entity set's or singleton's declared entity type, or a
 navigation property reached through a chain of type casts, complex
 properties, or containment navigation properties. If the navigation
 property is defined on a subtype, the path MUST contain the [qualified
@@ -3133,7 +3133,7 @@ entity set `Categories`
 
 ::: {.varxml .example}
 Example 36: for an entity set in any container in scope
-```
+```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products"
                              Target="SomeModel.SomeContainer/SomeSet" />
@@ -3144,7 +3144,7 @@ Example 36: for an entity set in any container in scope
 ::: {.varxml .example}
 Example 37: binding `Supplier` on `Products` contained within
 `Categories – binding applies to all suppliers of all products of all categories`
-```
+```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"
                              Target="Suppliers" />
@@ -3559,7 +3559,7 @@ named properties of a base type.
 
 It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated model
-element is used, and whether they can be overridden. E.g. a \"Label\"
+element is used, and whether they can be overridden. E.g. a "Label"
 annotation for a UI can propagate from a type definition to all
 properties using that type definition and may be overridden at each
 property with a more specific label, whereas an annotation marking a
@@ -3890,7 +3890,7 @@ attribute notation.
 
 ::: {.varxml .example}
 Example 49:
-```
+```xml
 <Annotation Term="org.example.task.duration" Duration="P7D" />
 
 <Annotation Term="org.example.task.duration">
@@ -3933,7 +3933,7 @@ Example 50: single value
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example 51: combined value for `IsFlags` enumeration type
 ```xml
 <Annotation Term="org.example.HasPattern"
@@ -4016,7 +4016,7 @@ attribute notation.
 
 ::: {.varxml .example}
 Example 54: attribute notation
-```
+```xml
 <Annotation Term="org.example.display.Width" Int="42" />
 ```
 :::
@@ -4251,7 +4251,7 @@ part.
 ::: example
 Example 65: instance path with entity set and key predicate
 ```
-/self.container/SettingsCollection(\'FeatureXxx\')/IsAvailable
+/self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
 
 ```
@@ -4546,7 +4546,7 @@ evaluate to comparable values.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionsedmAnd48" href="#ExpressionsedmAnd48"> Expressions `edm:And` </a>and <a name="edmOr48.1" href="#edmOr48.1"> `edm:Or`</a>
+### <a name="ExpressionsedmAnd48" href="#ExpressionsedmAnd48"> Expressions `edm:And`</a> and <a name="edmOr48.1" href="#edmOr48.1"> `edm:Or`</a>
 
 The `And` and `Or` logical expressions are represented as elements
 `edm:And` and `edm:Or` that MUST contain two annotation expressions.
@@ -4560,7 +4560,7 @@ contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="ExpressionsedmEq50" href="#ExpressionsedmEq50"> Expressions `edm:Eq`, </a>    <a name="edmNe50.1" href="#edmNe50.1"> `edm:Ne`, </a>    <a name="edmGt50.2" href="#edmGt50.2"> `edm:Gt`, </a>    <a name="edmGe50.3" href="#edmGe50.3"> `edm:Ge`, </a>    <a name="edmLt50.4" href="#edmLt50.4"> `edm:Lt`, </a>    <a name="edmLe50.5" href="#edmLe50.5"> `edm:Le`, </a>    <a name="edmHas50.6" href="#edmHas50.6"> `edm:Has`, </a>and <a name="edmIn50.7" href="#edmIn50.7"> `edm:In`</a>
+### <a name="ExpressionsedmEq50" href="#ExpressionsedmEq50"> Expressions `edm:Eq`</a>,     <a name="edmNe50.1" href="#edmNe50.1"> `edm:Ne`</a>,     <a name="edmGt50.2" href="#edmGt50.2"> `edm:Gt`</a>,     <a name="edmGe50.3" href="#edmGe50.3"> `edm:Ge`</a>,     <a name="edmLt50.4" href="#edmLt50.4"> `edm:Lt`</a>,     <a name="edmLe50.5" href="#edmLe50.5"> `edm:Le`</a>,     <a name="edmHas50.6" href="#edmHas50.6"> `edm:Has`</a>, and <a name="edmIn50.7" href="#edmIn50.7"> `edm:In`</a>
 
 All comparison expressions are represented as an element that MUST
 contain two annotation expressions.
@@ -4653,7 +4653,7 @@ contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="ExpressionsedmAdd52" href="#ExpressionsedmAdd52"> Expressions `edm:Add`, </a>    <a name="edmSub52.1" href="#edmSub52.1"> `edm:Sub`, </a>    <a name="edmMul52.2" href="#edmMul52.2"> `edm:Mul`, </a>    <a name="edmDiv52.3" href="#edmDiv52.3"> `edm:Div`, </a>    <a name="edmDivBy52.4" href="#edmDivBy52.4"> `edm:DivBy`, </a>and <a name="edmMod52.5" href="#edmMod52.5"> `edm:Mod`</a>
+### <a name="ExpressionsedmAdd52" href="#ExpressionsedmAdd52"> Expressions `edm:Add`</a>,     <a name="edmSub52.1" href="#edmSub52.1"> `edm:Sub`</a>,     <a name="edmMul52.2" href="#edmMul52.2"> `edm:Mul`</a>,     <a name="edmDiv52.3" href="#edmDiv52.3"> `edm:Div`</a>,     <a name="edmDivBy52.4" href="#edmDivBy52.4"> `edm:DivBy`</a>, and <a name="edmMod52.5" href="#edmMod52.5"> `edm:Mod`</a>
 
 These arithmetic expressions are represented as an element that MUST
 contain two annotation expressions.
@@ -5168,7 +5168,7 @@ a structured type with two structural properties `GivenName` and
 `CostCenter`. The first three properties simply rename properties of the
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
-```
+```xml
 <Annotation Term="org.example.person.Employee">
   <Record>
     <Annotation Term="Core.Description" String="Annotation on record" />
@@ -5440,7 +5440,7 @@ Example 89:
 
 ::: {.varxml .example}
 Example 90:
-```
+```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">
@@ -5780,7 +5780,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 - [Expression `edm:NavigationPropertyPath`](#ExpressionedmNavigationPropertyPath45)
 - [Expression `edm:PropertyPath`](#ExpressionedmPropertyPath46)
 - [Expression `edm:Path`](#ExpressionedmPath47)
-- [Expressions `edm:And` ](#ExpressionsedmAnd48)
+- [Expressions `edm:And`](#ExpressionsedmAnd48)
   - [`edm:Or`](#edmOr48.1)
 - [Expression `edm:Not`](#ExpressionedmNot49)
 - [Expressions `edm:Eq`](#ExpressionsedmEq50)
@@ -5869,7 +5869,7 @@ Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-mat
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
 -->
 
-# <a name="Notices" href="#Notices">Appendix E. Notices              </a>
+# <a name="Notices" href="#Notices">Appendix E. Notices             </a> 
               
 <!-- Required section. Do not modify. -->              
               

@@ -71,7 +71,7 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
-     Lines between here and the closing : belong to the JSON variant only. -->
+     Lines between the next and the closing : belong to the JSON variant only. -->
 : varjson
 # ##sec JSON Representation
 
@@ -233,7 +233,7 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 :
 
-<!-- Lines between here and the closing : belong to the XML variant only. -->
+<!-- Lines between the next and the closing : belong to the XML variant only. -->
 : varxml
 # ##sec XML Representation
 

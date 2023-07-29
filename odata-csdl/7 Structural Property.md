@@ -99,7 +99,7 @@ scope, or a collection of one of these types.
 
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in\
+term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
@@ -346,7 +346,7 @@ Absence of `$Scale` means `variable`.
 :::
 
 ::: {.varjson .example}
-Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
+Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.  
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```json
 "Amount32": {
@@ -359,7 +359,7 @@ Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 :::
 
 ::: {.varjson .example}
-Example ##ex: `Precision=2` equals `Scale`.\
+Example ##ex: `Precision=2` equals `Scale`.  
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```json
 "Amount22": {
@@ -372,7 +372,7 @@ Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 :::
 
 ::: {.varjson .example}
-Example ##ex: `Precision=3` and a variable `Scale`.\
+Example ##ex: `Precision=3` and a variable `Scale`.  
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```json
@@ -385,7 +385,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 :::
 
 ::: {.varjson .example}
-Example ##ex: `Precision=7` and a floating `Scale`.\
+Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```json
@@ -439,7 +439,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 Example ##ex: `Precision=7` and a floating `Scale`.
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
-```
+```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
 ```
 :::
@@ -660,12 +660,12 @@ entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term, defined in [OData-VocCore](#ODataVocCore)**)**, to specify that it
+term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
@@ -786,7 +786,7 @@ MUST have a [key](#Key) defined.
 For items of an ordered collection of complex types (those annotated
 with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
-term defined in [OData-VocCore](#ODataVocCore)**)**, the canonical URL
+term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
 an unordered collection of complex types do not have a canonical URL.

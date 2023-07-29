@@ -471,7 +471,7 @@ named properties of a base type.
 
 It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated model
-element is used, and whether they can be overridden. E.g. a \"Label\"
+element is used, and whether they can be overridden. E.g. a "Label"
 annotation for a UI can propagate from a type definition to all
 properties using that type definition and may be overridden at each
 property with a more specific label, whereas an annotation marking a
@@ -691,7 +691,7 @@ Boolean expressions are represented as the literals `true` or `false`.
 
 ::: {.varjson .example}
 Example ##ex:
-```
+```json
 "@UI.ReadOnly": true
 ```
 :::
@@ -889,7 +889,7 @@ attribute notation.
 
 ::: {.varxml .example}
 Example ##ex:
-```
+```xml
 <Annotation Term="org.example.task.duration" Duration="P7D" />
 
 <Annotation Term="org.example.task.duration">
@@ -957,7 +957,7 @@ Example ##ex: single value
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: combined value for `IsFlags` enumeration type
 ```xml
 <Annotation Term="org.example.HasPattern"
@@ -1082,7 +1082,7 @@ attribute notation.
 
 ::: {.varxml .example}
 Example ##ex: attribute notation
-```
+```xml
 <Annotation Term="org.example.display.Width" Int="42" />
 ```
 :::
@@ -1337,7 +1337,7 @@ part.
 ::: example
 Example ##ex: instance path with entity set and key predicate
 ```
-/self.container/SettingsCollection(\'FeatureXxx\')/IsAvailable
+/self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
 
 ```
@@ -2854,7 +2854,7 @@ a structured type with two structural properties `GivenName` and
 `CostCenter`. The first three properties simply rename properties of the
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
-```
+```xml
 <Annotation Term="org.example.person.Employee">
   <Record>
     <Annotation Term="Core.Description" String="Annotation on record" />

@@ -469,7 +469,7 @@ Example ##ex:
 
 ::: {.varxml .example}
 Example ##ex:
-```
+```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">
