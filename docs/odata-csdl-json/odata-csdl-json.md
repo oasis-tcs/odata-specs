@@ -783,7 +783,7 @@ Example 3: references to other CSDL documents
 
 ## <a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a>
 
-A reference MAY include zero or more schemas from the referenced
+A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
 
 The included schemas are identified via their [namespace](#Namespace).
@@ -878,7 +878,7 @@ vocabulary terms
 ## <a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a>
 
 In addition to including whole schemas with all model constructs defined
-within that schema, annotations can be included with more flexibility.
+within that schema, a [reference](#Reference) may include annotations.
 
 Annotations are selectively included by specifying the
 [namespace](#Namespace) of the annotations' term. Consumers can opt not
