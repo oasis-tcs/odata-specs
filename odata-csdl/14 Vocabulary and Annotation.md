@@ -249,10 +249,9 @@ The value of `BaseTerm` is the qualified name of the base term.
 
 ### ##subsubsec Applicability
 
-The applicability of a term MAY be restricted to a list of model
-elements. If no list is supplied, the term is not intended to be
-restricted in its application. The list of model elements MAY be
-extended in future versions of the vocabulary. As the intended usage may
+Applicability specifies a list of model elements to which the term MAY be applied.
+If no list is supplied, the term MAY be applied to any model element.
+The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may
 evolve over time, clients SHOULD be prepared for any term to be applied
 to any model element and SHOULD be prepared to handle unknown values
 within the list of model constructs. Applicability is expressed using
