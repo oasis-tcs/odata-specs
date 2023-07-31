@@ -267,7 +267,6 @@ Symbolic Value|Model Element
 `Cast`                    |Type Cast annotation expression
 `Collection`              |Entity Set or collection-valued Property or Navigation Property
 `ComplexType`             |Complex Type
-`Entity`                  |Singleton or single-valued Navigation Property
 `EntityContainer`         |Entity Container
 `EntitySet`               |Entity Set
 `EntityType`              |Entity Type
@@ -281,7 +280,6 @@ Symbolic Value|Model Element
 `Member`                  |Enumeration Member
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
-`Object`                  |Singleton or single-valued complex Property or Navigation Property
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
 `Property`                |Property of a structured type
@@ -291,8 +289,7 @@ Symbolic Value|Model Element
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Single`                  |Singleton or single-valued Property or Navigation Property
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
