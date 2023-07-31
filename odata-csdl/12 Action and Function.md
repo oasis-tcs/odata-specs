@@ -402,22 +402,22 @@ year. In this case the year must be specified as a parameter of the
 function with the `$Parameter` member.
 ```json
 "TopSellingProducts": [
-  {
-    "$Kind": "Function",
-    "$Parameter": [
-      {
-        "$Name": "Year",
-        "$Nullable": true,
-        "$Type": "Edm.Decimal",
-        "$Precision": 4,
-        "$Scale": 0
-      }
-    ],
-    "$ReturnType": {
-      "$Collection": true,
-      "$Type": "self.Product"
-    }
-  }
+  {
+    "$Kind": "Function",
+    "$Parameter": [
+      {
+        "$Name": "Year",
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "$Precision": 4,
+        "$Scale": 0
+      }
+    ],
+    "$ReturnType": {
+      "$Collection": true,
+      "$Type": "self.Product"
+    }
+  }
 ]
 ```
 :::

@@ -1000,8 +1000,8 @@ Example 6: schema `org.example` with an alias and a description for the
 schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
-  <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  <Annotation Term="Core.Description" String="Example schema" />
+  ...
 </Schema>
 ```
 :::
@@ -1582,7 +1582,7 @@ Example 17: [`Precision`](#Precision) facet applied to the
 `DateTimeOffset` type
 ```xml
 <Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
-          Precision="6" />
+          Precision="6" />
 ```
 :::
 
@@ -2094,7 +2094,7 @@ products in that category
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"
                   String="Delete all products in this category" />
-    </OnDelete
+    </OnDelete>
   </NavigationProperty>
 </EntityType>
 ```
@@ -2268,10 +2268,10 @@ The value of `Name` is the enumeration type's name.
 Example 26: a simple flags-enabled enumeration
 ```xml
 <EnumType Name="FileAccess" UnderlyingType="Edm.Int32" IsFlags="true">
-  <Member Name="Read"   Value="1" />
-  <Member Name="Write"  Value="2" />
-  <Member Name="Create" Value="4" />
-  <Member Name="Delete" Value="8" />
+  <Member Name="Read"   Value="1" />
+  <Member Name="Write"  Value="2" />
+  <Member Name="Create" Value="4" />
+  <Member Name="Delete" Value="8" />
 </EnumType>
 ```
 :::
@@ -2313,18 +2313,18 @@ Example 27: pattern values can be combined, and some combined values
 have explicit names
 ```xml
 <EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true">
-  <Member Name="Plain"             Value="0" />
-  <Member Name="Red"               Value="1" />
-  <Member Name="Blue"              Value="2" />
-  <Member Name="Yellow"            Value="4" />
-  <Member Name="Solid"             Value="8" />
-  <Member Name="Striped"           Value="16" />
-  <Member Name="SolidRed"          Value="9" />
-  <Member Name="SolidBlue"         Value="10" />
-  <Member Name="SolidYellow"       Value="12" />
-  <Member Name="RedBlueStriped"    Value="19" />
-  <Member Name="RedYellowStriped"  Value="21" />
-  <Member Name="BlueYellowStriped" Value="22" />
+  <Member Name="Plain"             Value="0" />
+  <Member Name="Red"               Value="1" />
+  <Member Name="Blue"              Value="2" />
+  <Member Name="Yellow"            Value="4" />
+  <Member Name="Solid"             Value="8" />
+  <Member Name="Striped"           Value="16" />
+  <Member Name="SolidRed"          Value="9" />
+  <Member Name="SolidBlue"         Value="10" />
+  <Member Name="SolidYellow"       Value="12" />
+  <Member Name="RedBlueStriped"    Value="19" />
+  <Member Name="RedYellowStriped"  Value="21" />
+  <Member Name="BlueYellowStriped" Value="22" />
 </EnumType>
 ```
 :::

@@ -42,37 +42,37 @@ representing [structural properties](#StructuralProperty) and
 Example ##ex: a complex type used by two entity types
 ```json
 "Dimensions": {
-  "$Kind": "ComplexType",
-  "Height": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Weight": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Length": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  }
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Weight": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  }
 },
 "Product": {
-  ...
-  "ProductDimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  },
-  "ShippingDimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  }
+  ...
+  "ProductDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  },
+  "ShippingDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
 },
 "ShipmentBox": {
-  ...
-  "Dimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  }
+  ...
+  "Dimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
 }
 ```
 :::
@@ -236,13 +236,13 @@ The enumeration type object MAY contain [annotations](#Annotation).
 Example ##ex: a simple flags-enabled enumeration
 ```json
 "FileAccess": {
-  "$Kind": "EnumType",
-  "$UnderlyingType": "Edm.Int32",
-  "$IsFlags": true,
-  "Read": 1,
-  "Write": 2,
-  "Create": 4,
-  "Delete": 8
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Read": 1,
+  "Write": 2,
+  "Create": 4,
+  "Delete": 8
 }
 ```
 :::
@@ -268,10 +268,10 @@ The value of `Name` is the enumeration type's name.
 Example ##ex: a simple flags-enabled enumeration
 ```xml
 <EnumType Name="FileAccess" UnderlyingType="Edm.Int32" IsFlags="true">
-  <Member Name="Read"   Value="1" />
-  <Member Name="Write"  Value="2" />
-  <Member Name="Create" Value="4" />
-  <Member Name="Delete" Value="8" />
+  <Member Name="Read"   Value="1" />
+  <Member Name="Write"  Value="2" />
+  <Member Name="Create" Value="4" />
+  <Member Name="Delete" Value="8" />
 </EnumType>
 ```
 :::
@@ -317,21 +317,21 @@ Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```json
 "Pattern": {
-  "$Kind": "EnumType",
-  "$UnderlyingType": "Edm.Int32",
-  "$IsFlags": true,
-  "Plain": 0,
-  "Red": 1,
-  "Blue": 2,
-  "Yellow": 4,
-  "Solid": 8,
-  "Striped": 16,
-  "SolidRed": 9,
-  "SolidBlue": 10,
-  "SolidYellow": 12,
-  "RedBlueStriped": 19,
-  "RedYellowStriped": 21,
-  "BlueYellowStriped": 22
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Plain": 0,
+  "Red": 1,
+  "Blue": 2,
+  "Yellow": 4,
+  "Solid": 8,
+  "Striped": 16,
+  "SolidRed": 9,
+  "SolidBlue": 10,
+  "SolidYellow": 12,
+  "RedBlueStriped": 19,
+  "RedYellowStriped": 21,
+  "BlueYellowStriped": 22
 }
 ```
 :::
@@ -348,18 +348,18 @@ Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```xml
 <EnumType Name="Pattern" UnderlyingType="Edm.Int32" IsFlags="true">
-  <Member Name="Plain"             Value="0" />
-  <Member Name="Red"               Value="1" />
-  <Member Name="Blue"              Value="2" />
-  <Member Name="Yellow"            Value="4" />
-  <Member Name="Solid"             Value="8" />
-  <Member Name="Striped"           Value="16" />
-  <Member Name="SolidRed"          Value="9" />
-  <Member Name="SolidBlue"         Value="10" />
-  <Member Name="SolidYellow"       Value="12" />
-  <Member Name="RedBlueStriped"    Value="19" />
-  <Member Name="RedYellowStriped"  Value="21" />
-  <Member Name="BlueYellowStriped" Value="22" />
+  <Member Name="Plain"             Value="0" />
+  <Member Name="Red"               Value="1" />
+  <Member Name="Blue"              Value="2" />
+  <Member Name="Yellow"            Value="4" />
+  <Member Name="Solid"             Value="8" />
+  <Member Name="Striped"           Value="16" />
+  <Member Name="SolidRed"          Value="9" />
+  <Member Name="SolidBlue"         Value="10" />
+  <Member Name="SolidYellow"       Value="12" />
+  <Member Name="RedBlueStriped"    Value="19" />
+  <Member Name="RedYellowStriped"  Value="21" />
+  <Member Name="BlueYellowStriped" Value="22" />
 </EnumType>
 ```
 :::
@@ -406,14 +406,14 @@ Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```json
 "ShippingMethod": {
-  "$Kind": "EnumType",
-  "FirstClass": 0,
-  "FirstClass@Core.Description": "Shipped with highest priority",
-  "TwoDay": 1,
-  "TwoDay@Core.Description": "Shipped within two days",
-  "Overnight": 2,
-  "Overnight@Core.Description": "Shipped overnight",
-  "@Core.Description": "Method of shipping"
+  "$Kind": "EnumType",
+  "FirstClass": 0,
+  "FirstClass@Core.Description": "Shipped with highest priority",
+  "TwoDay": 1,
+  "TwoDay@Core.Description": "Shipped within two days",
+  "Overnight": 2,
+  "Overnight@Core.Description": "Shipped overnight",
+  "@Core.Description": "Method of shipping"
 }
 ```
 :::
@@ -506,25 +506,25 @@ and it MAY contain [annotations](#Annotation).
 Example ##ex:
 ```json
 "Length": {
-  "$Kind": "TypeDefinition",
-  "$UnderlyingType": "Edm.Int32",
-  "@Measures.Unit": "Centimeters"
+  "$Kind": "TypeDefinition",
+  "$UnderlyingType": "Edm.Int32",
+  "@Measures.Unit": "Centimeters"
 },
 "Weight": {
-  "$Kind": "TypeDefinition",
-  "$UnderlyingType": "Edm.Int32",
-  "@Measures.Unit": "Kilograms"
+  "$Kind": "TypeDefinition",
+  "$UnderlyingType": "Edm.Int32",
+  "@Measures.Unit": "Kilograms"
 },
 "Size": {
-  "$Kind": "ComplexType",
-  "Height": {
-    "$Nullable": true,
-    "$Type": "self.Length"
-  },
-  "Weight": {
-    "$Nullable": true,
-    "$Type": "self.Weight"
-  }
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Nullable": true,
+    "$Type": "self.Length"
+  },
+  "Weight": {
+    "$Nullable": true,
+    "$Type": "self.Weight"
+  }
 }
 ```
 :::

@@ -49,16 +49,16 @@ It also MAY contain [annotations](#Annotation).
 Example ##ex: complex type with two properties `Dimension` and `Length`
 ```json
 "Measurement": {
-  "$Kind": "ComplexType",
-  "Dimension": {
-    "$MaxLength": 50,
-    "$DefaultValue": "Unspecified"
-  },
-  "Length": {
-    "$Type": "Edm.Decimal",
-    "$Precision": 18,
-    "$Scale": 2
-  }
+  "$Kind": "ComplexType",
+  "Dimension": {
+    "$MaxLength": 50,
+    "$DefaultValue": "Unspecified"
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Precision": 18,
+    "$Scale": 2
+  }
 }
 ```
 :::
@@ -128,7 +128,7 @@ Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```json
 "Units": {
-  "$Collection": true
+  "$Collection": true
 }
 ```
 :::
@@ -275,9 +275,9 @@ Absence of `$Precision` means arbitrary precision.
 Example ##ex: `Precision` facet applied to the `DateTimeOffset` type
 ```json
 "SuggestedTimes": {
-  "$Type": Edm.DateTimeOffset",
-  "$Collection": true,
-  "$Precision": 6
+  "$Type": "Edm.DateTimeOffset",
+  "$Collection": true,
+  "$Precision": 6
 }
 ```
 :::
@@ -299,7 +299,7 @@ Example ##ex: [`Precision`](#Precision) facet applied to the
 `DateTimeOffset` type
 ```xml
 <Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
-          Precision="6" />
+          Precision="6" />
 ```
 :::
 
@@ -350,10 +350,10 @@ Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```json
 "Amount32": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3,
-  "$Scale": 2
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3,
+  "$Scale": 2
 }
 ```
 :::
@@ -363,10 +363,10 @@ Example ##ex: `Precision=2` equals `Scale`.
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```json
 "Amount22": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 2,
-  "$Scale": 2
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 2,
+  "$Scale": 2
 }
 ```
 :::
@@ -377,9 +377,9 @@ Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```json
 "Amount3v": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3
 }
 ```
 :::
@@ -390,10 +390,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```json
 "Amount7f": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 7,
-  "$Scale": "floating"
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 7,
+  "$Scale": "floating"
 }
 ```
 :::
@@ -574,32 +574,32 @@ Example ##ex: the `Product` entity type has a navigation property to a
 `Category`, which has a navigation link back to one or more products
 ```json
 "Product": {
-  "$Kind": "EntityType",
-  ...
-  "Category": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Category",
-    "$Partner": "Products",
-    "$ReferentialConstraint": {
-      "CategoryID": "ID"
-    }
-  },
-  "Supplier": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Supplier"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID"
+    }
+  },
+  "Supplier": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Supplier"
+  }
 },
 "Category": {
-  "$Kind": "EntityType",
-  ...
-  "Products": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$Partner": "Category",
-    "$OnDelete": "Cascade",
-    "$OnDelete@Core.Description": "Delete all related entities"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all related entities"
+  }
 }
 ```
 :::
@@ -888,31 +888,31 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```json
 "Product": {
-  "$Kind": "EntityType",
-  ...
-  "CategoryID": {},
-  "CategoryKind": {},
-  "Category": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Category",
-    "$Partner": "Products",
-    "$ReferentialConstraint": {
-      "CategoryID": "ID",
-      "CategoryKind": "Kind"
-      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
-    }
-  }
+  "$Kind": "EntityType",
+  ...
+  "CategoryID": {},
+  "CategoryKind": {},
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID",
+      "CategoryKind": "Kind",
+      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
+    }
+  }
 },
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {},
-  "Kind": {
-    "$Nullable": true
-  },
-  ...
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "Kind": {
+    "$Nullable": true
+  },
+  ...
 }
 ```
 :::
@@ -1015,16 +1015,16 @@ Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  ...
-  "Products": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$Partner": "Category",
-    "$OnDelete": "Cascade",
-    "$OnDelete@Core.Description": "Delete all products in this category"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all products in this category"
+  }
 }
 ```
 :::
@@ -1052,7 +1052,7 @@ products in that category
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"
                   String="Delete all products in this category" />
-    </OnDelete
+    </OnDelete>
   </NavigationProperty>
 </EntityType>
 ```

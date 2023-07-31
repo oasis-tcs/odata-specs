@@ -21,12 +21,12 @@ Simple entity models frequently have one entity set per entity type.
 Example ##ex: one entity set per entity type
 ```json
 "Products": {
-  "$Collection": true,
-  "$Type": "self.Product"
+  "$Collection": true,
+  "$Type": "self.Product"
 },
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category"
+  "$Collection": true,
+  "$Type": "self.Category"
 }
 ```
 :::
@@ -45,22 +45,22 @@ Other entity models may expose multiple entity sets per type.
 Example ##ex: three entity sets referring to the two entity types
 ```json
 "StandardCustomers": {
-  "$Collection": true,
-  "$Type": "self.Customer",
-  "$NavigationPropertyBinding": {
-    "Orders": "Orders"
-  }
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
 },
 "PreferredCustomers": {
-  "$Collection": true,
-  "$Type": "self.Customer",
-  "$NavigationPropertyBinding": {
-    "Orders": "Orders"
-  }
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
 },
 "Orders": {
-  "$Collection": true,
-  "$Type": "self.Order"
+  "$Collection": true,
+  "$Type": "self.Order"
 }
 ```
 :::
@@ -119,41 +119,41 @@ Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
 ```json
 "DemoService": {
-  "$Kind": "EntityContainer",
-  "Products": {
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$NavigationPropertyBinding": {
-      "Category": "Categories",
-      "Supplier": "Suppliers"
-    },
-    "@UI.DisplayName": "Product Catalog"
-  },
-  "Categories": {
-    "$Collection": true,
-    "$Type": "self.Category",
-    "$NavigationPropertyBinding": {
-      "Products": "Products"
-    }
-  },
-  "Suppliers": {
-    "$Collection": true,
-    "$Type": "self.Supplier",
-    "$NavigationPropertyBinding": {
-      "Products": "Products"
-    },
-    "@UI.DisplayName": "Supplier Directory"
-  },
-  "MainSupplier": {
-    "$Type": "self.Supplier"
-  },
-  "LeaveRequestApproval": {
-    "$Action": "self.Approval"
-  },
-  "ProductsByRating": {
-    "$EntitySet": "Products",
-    "$Function": "self.ProductsByRating"
-  }
+  "$Kind": "EntityContainer",
+  "Products": {
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$NavigationPropertyBinding": {
+      "Category": "Categories",
+      "Supplier": "Suppliers"
+    },
+    "@UI.DisplayName": "Product Catalog"
+  },
+  "Categories": {
+    "$Collection": true,
+    "$Type": "self.Category",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    }
+  },
+  "Suppliers": {
+    "$Collection": true,
+    "$Type": "self.Supplier",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    },
+    "@UI.DisplayName": "Supplier Directory"
+  },
+  "MainSupplier": {
+    "$Type": "self.Supplier"
+  },
+  "LeaveRequestApproval": {
+    "$Action": "self.Approval"
+  },
+  "ProductsByRating": {
+    "$EntitySet": "Products",
+    "$Function": "self.ProductsByRating"
+  }
 }
 ```
 :::
@@ -227,9 +227,9 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```json
 "Extending": {
-  "$Kind": "EntityContainer",
-  "$Extends": "Some.Other.Schema.Base",
-   ...
+  "$Kind": "EntityContainer",
+  "$Extends": "Some.Other.Schema.Base",
+   ...
 }
 ```
 :::
@@ -478,11 +478,11 @@ Example ##ex: for an entity set in the same container as the enclosing
 entity set `Categories`
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products": "SomeSet"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeSet"
+  }
 }
 ```
 :::
@@ -491,11 +491,11 @@ entity set `Categories`
 Example ##ex: for an entity set in any container in scope
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products": "SomeModel.SomeContainer/SomeSet"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeModel.SomeContainer/SomeSet"
+  }
 }
 ```
 :::
@@ -505,11 +505,11 @@ Example ##ex: binding `Supplier` on `Products` contained within
 `Categories` – binding applies to all suppliers of all products of all categories
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products/Supplier": "Suppliers"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products/Supplier": "Suppliers"
+  }
 }
 ```
 :::

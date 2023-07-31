@@ -101,13 +101,13 @@ Example ##ex: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
-  ...
-  "org.example": {
-    "$Alias": "self",
-    "@Core.Description": "Example schema",
-    ...
-  },
-  ...
+  ...
+  "org.example": {
+    "$Alias": "self",
+    "@Core.Description": "Example schema",
+    ...
+  },
+  ...
 }
 ```
 :::
@@ -123,8 +123,8 @@ Example ##ex: schema `org.example` with an alias and a description for the
 schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
-  <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  <Annotation Term="Core.Description" String="Example schema" />
+  ...
 </Schema>
 ```
 :::
@@ -145,14 +145,14 @@ Example ##ex: annotations targeting the `Person` type with qualifier
 `Tablet`
 ```json
 "org.example": {
-  "$Alias": "self",
-  "$Annotations": {
-    "self.Person": {
-      "@Core.Description#Tablet": "Dummy",
-      ...
-    }
-  }
-},
+  "$Alias": "self",
+  "$Annotations": {
+    "self.Person": {
+      "@Core.Description#Tablet": "Dummy",
+      ...
+    }
+  }
+}
 ```
 :::
 
@@ -232,18 +232,18 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 Example ##ex_entitytype: a simple entity type
 ```json
 "Employee": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {},
-  "FirstName": {},
-  "LastName": {},
-  "Manager": {
-    "$Kind": "NavigationProperty",
-    "$Nullable": true,
-    "$Type": "self.Manager"
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "FirstName": {},
+  "LastName": {},
+  "Manager": {
+    "$Kind": "NavigationProperty",
+    "$Nullable": true,
+    "$Type": "self.Manager"
+  }
 }
 ```
 :::
@@ -307,18 +307,18 @@ The value of `$BaseType` is the qualified name of the base type.
 Example ##ex: a derived entity type based on the previous example
 ```json
 "Manager": {
-  "$Kind": "EntityType",
-  "$BaseType": "self.Employee",
-  "AnnualBudget": {
-    "$Nullable": true,
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Employees": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Employee"
-  }
+  "$Kind": "EntityType",
+  "$BaseType": "self.Employee",
+  "AnnualBudget": {
+    "$Nullable": true,
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Employees": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Employee"
+  }
 }
 ```
 :::
@@ -528,17 +528,17 @@ containing the path to the property.
 Example ##ex: entity type with a simple key
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {
-    "$Type": "Edm.Int32"
-  },
-  "Name": {
-    "$Nullable": true,
-    "@Core.IsLanguageDependent": true
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true,
+    "@Core.IsLanguageDependent": true
+  }
 }
 ```
 :::
@@ -548,28 +548,28 @@ Example ##ex_complexkey: entity type with a simple key referencing a property of
 [complex type](#ComplexType)
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    {
-      "EntityInfoID": "Info/ID"
-    }
-  ],
-  "Info": {
-    "$Type": "self.EntityInfo"
-  },
-  "Name": {
-    "$Nullable": true
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    {
+      "EntityInfoID": "Info/ID"
+    }
+  ],
+  "Info": {
+    "$Type": "self.EntityInfo"
+  },
+  "Name": {
+    "$Nullable": true
+  }
 },
 "EntityInfo": {
-  "$Kind": "ComplexType",
-  "ID": {
-    "$Type": "Edm.Int32"
-  },
-  "Created": {
-    "$Type": "Edm.DateTimeOffset",
-    "$Precision": 0
-  }
+  "$Kind": "ComplexType",
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Created": {
+    "$Type": "Edm.DateTimeOffset",
+    "$Precision": 0
+  }
 }
 ```
 :::
@@ -578,17 +578,17 @@ Example ##ex_complexkey: entity type with a simple key referencing a property of
 Example ##ex: entity type with a composite key
 ```json
 "OrderLine": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "OrderID",
-    "LineNumber"
-  ],
-  "OrderID": {
-    "$Type": "Edm.Int32"
-  },
-  "LineNumber": {
-    "$Type": "Edm.Int32"
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "OrderID",
+    "LineNumber"
+  ],
+  "OrderID": {
+    "$Type": "Edm.Int32"
+  },
+  "LineNumber": {
+    "$Type": "Edm.Int32"
+  }
 }
 ```
 :::

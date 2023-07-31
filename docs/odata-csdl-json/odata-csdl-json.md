@@ -1059,13 +1059,13 @@ Example 6: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
-  ...
-  "org.example": {
-    "$Alias": "self",
-    "@Core.Description": "Example schema",
-    ...
-  },
-  ...
+  ...
+  "org.example": {
+    "$Alias": "self",
+    "@Core.Description": "Example schema",
+    ...
+  },
+  ...
 }
 ```
 :::
@@ -1088,14 +1088,14 @@ Example 7: annotations targeting the `Person` type with qualifier
 `Tablet`
 ```json
 "org.example": {
-  "$Alias": "self",
-  "$Annotations": {
-    "self.Person": {
-      "@Core.Description#Tablet": "Dummy",
-      ...
-    }
-  }
-},
+  "$Alias": "self",
+  "$Annotations": {
+    "self.Person": {
+      "@Core.Description#Tablet": "Dummy",
+      ...
+    }
+  }
+}
 ```
 :::
 
@@ -1148,18 +1148,18 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
 ```json
 "Employee": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {},
-  "FirstName": {},
-  "LastName": {},
-  "Manager": {
-    "$Kind": "NavigationProperty",
-    "$Nullable": true,
-    "$Type": "self.Manager"
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "FirstName": {},
+  "LastName": {},
+  "Manager": {
+    "$Kind": "NavigationProperty",
+    "$Nullable": true,
+    "$Type": "self.Manager"
+  }
 }
 ```
 :::
@@ -1188,18 +1188,18 @@ The value of `$BaseType` is the qualified name of the base type.
 Example 9: a derived entity type based on the previous example
 ```json
 "Manager": {
-  "$Kind": "EntityType",
-  "$BaseType": "self.Employee",
-  "AnnualBudget": {
-    "$Nullable": true,
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Employees": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Employee"
-  }
+  "$Kind": "EntityType",
+  "$BaseType": "self.Employee",
+  "AnnualBudget": {
+    "$Nullable": true,
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Employees": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Employee"
+  }
 }
 ```
 :::
@@ -1377,17 +1377,17 @@ containing the path to the property.
 Example 10: entity type with a simple key
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {
-    "$Type": "Edm.Int32"
-  },
-  "Name": {
-    "$Nullable": true,
-    "@Core.IsLanguageDependent": true
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Name": {
+    "$Nullable": true,
+    "@Core.IsLanguageDependent": true
+  }
 }
 ```
 :::
@@ -1397,28 +1397,28 @@ Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simpl
 [complex type](#ComplexType)
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    {
-      "EntityInfoID": "Info/ID"
-    }
-  ],
-  "Info": {
-    "$Type": "self.EntityInfo"
-  },
-  "Name": {
-    "$Nullable": true
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    {
+      "EntityInfoID": "Info/ID"
+    }
+  ],
+  "Info": {
+    "$Type": "self.EntityInfo"
+  },
+  "Name": {
+    "$Nullable": true
+  }
 },
 "EntityInfo": {
-  "$Kind": "ComplexType",
-  "ID": {
-    "$Type": "Edm.Int32"
-  },
-  "Created": {
-    "$Type": "Edm.DateTimeOffset",
-    "$Precision": 0
-  }
+  "$Kind": "ComplexType",
+  "ID": {
+    "$Type": "Edm.Int32"
+  },
+  "Created": {
+    "$Type": "Edm.DateTimeOffset",
+    "$Precision": 0
+  }
 }
 ```
 :::
@@ -1427,17 +1427,17 @@ Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simpl
 Example 12: entity type with a composite key
 ```json
 "OrderLine": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "OrderID",
-    "LineNumber"
-  ],
-  "OrderID": {
-    "$Type": "Edm.Int32"
-  },
-  "LineNumber": {
-    "$Type": "Edm.Int32"
-  }
+  "$Kind": "EntityType",
+  "$Key": [
+    "OrderID",
+    "LineNumber"
+  ],
+  "OrderID": {
+    "$Type": "Edm.Int32"
+  },
+  "LineNumber": {
+    "$Type": "Edm.Int32"
+  }
 }
 ```
 :::
@@ -1516,16 +1516,16 @@ It also MAY contain [annotations](#Annotation).
 Example 15: complex type with two properties `Dimension` and `Length`
 ```json
 "Measurement": {
-  "$Kind": "ComplexType",
-  "Dimension": {
-    "$MaxLength": 50,
-    "$DefaultValue": "Unspecified"
-  },
-  "Length": {
-    "$Type": "Edm.Decimal",
-    "$Precision": 18,
-    "$Scale": 2
-  }
+  "$Kind": "ComplexType",
+  "Dimension": {
+    "$MaxLength": 50,
+    "$DefaultValue": "Unspecified"
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Precision": 18,
+    "$Scale": 2
+  }
 }
 ```
 :::
@@ -1568,7 +1568,7 @@ Example 16: property `Units` that can have zero or more strings as its
 value
 ```json
 "Units": {
-  "$Collection": true
+  "$Collection": true
 }
 ```
 :::
@@ -1661,9 +1661,9 @@ Absence of `$Precision` means arbitrary precision.
 Example 17: `Precision` facet applied to the `DateTimeOffset` type
 ```json
 "SuggestedTimes": {
-  "$Type": Edm.DateTimeOffset",
-  "$Collection": true,
-  "$Precision": 6
+  "$Type": "Edm.DateTimeOffset",
+  "$Collection": true,
+  "$Precision": 6
 }
 ```
 :::
@@ -1717,10 +1717,10 @@ Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```json
 "Amount32": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3,
-  "$Scale": 2
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3,
+  "$Scale": 2
 }
 ```
 :::
@@ -1730,10 +1730,10 @@ Example 19: `Precision=2` equals `Scale`.
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```json
 "Amount22": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 2,
-  "$Scale": 2
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 2,
+  "$Scale": 2
 }
 ```
 :::
@@ -1744,9 +1744,9 @@ Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```json
 "Amount3v": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3
 }
 ```
 :::
@@ -1757,10 +1757,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```json
 "Amount7f": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 7,
-  "$Scale": "floating"
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 7,
+  "$Scale": "floating"
 }
 ```
 :::
@@ -1879,32 +1879,32 @@ Example 22: the `Product` entity type has a navigation property to a
 `Category`, which has a navigation link back to one or more products
 ```json
 "Product": {
-  "$Kind": "EntityType",
-  ...
-  "Category": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Category",
-    "$Partner": "Products",
-    "$ReferentialConstraint": {
-      "CategoryID": "ID"
-    }
-  },
-  "Supplier": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Supplier"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID"
+    }
+  },
+  "Supplier": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Supplier"
+  }
 },
 "Category": {
-  "$Kind": "EntityType",
-  ...
-  "Products": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$Partner": "Category",
-    "$OnDelete": "Cascade",
-    "$OnDelete@Core.Description": "Delete all related entities"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all related entities"
+  }
 }
 ```
 :::
@@ -2127,31 +2127,31 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```json
 "Product": {
-  "$Kind": "EntityType",
-  ...
-  "CategoryID": {},
-  "CategoryKind": {},
-  "Category": {
-    "$Kind": "NavigationProperty",
-    "$Type": "self.Category",
-    "$Partner": "Products",
-    "$ReferentialConstraint": {
-      "CategoryID": "ID",
-      "CategoryKind": "Kind"
-      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
-    }
-  }
+  "$Kind": "EntityType",
+  ...
+  "CategoryID": {},
+  "CategoryKind": {},
+  "Category": {
+    "$Kind": "NavigationProperty",
+    "$Type": "self.Category",
+    "$Partner": "Products",
+    "$ReferentialConstraint": {
+      "CategoryID": "ID",
+      "CategoryKind": "Kind",
+      "CategoryKind@Core.Description": "Referential Constraint to non-key property"
+    }
+  }
 },
 "Category": {
-  "$Kind": "EntityType",
-  "$Key": [
-    "ID"
-  ],
-  "ID": {},
-  "Kind": {
-    "$Nullable": true
-  },
-  ...
+  "$Kind": "EntityType",
+  "$Key": [
+    "ID"
+  ],
+  "ID": {},
+  "Kind": {
+    "$Nullable": true
+  },
+  ...
 }
 ```
 :::
@@ -2197,16 +2197,16 @@ Example 24: deletion of a category implies deletion of the related
 products in that category
 ```json
 "Category": {
-  "$Kind": "EntityType",
-  ...
-  "Products": {
-    "$Kind": "NavigationProperty",
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$Partner": "Category",
-    "$OnDelete": "Cascade",
-    "$OnDelete@Core.Description": "Delete all products in this category"
-  }
+  "$Kind": "EntityType",
+  ...
+  "Products": {
+    "$Kind": "NavigationProperty",
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$Partner": "Category",
+    "$OnDelete": "Cascade",
+    "$OnDelete@Core.Description": "Delete all products in this category"
+  }
 }
 ```
 :::
@@ -2257,37 +2257,37 @@ representing [structural properties](#StructuralProperty) and
 Example 25: a complex type used by two entity types
 ```json
 "Dimensions": {
-  "$Kind": "ComplexType",
-  "Height": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Weight": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  },
-  "Length": {
-    "$Type": "Edm.Decimal",
-    "$Scale": 0
-  }
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Weight": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  },
+  "Length": {
+    "$Type": "Edm.Decimal",
+    "$Scale": 0
+  }
 },
 "Product": {
-  ...
-  "ProductDimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  },
-  "ShippingDimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  }
+  ...
+  "ProductDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  },
+  "ShippingDimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
 },
 "ShipmentBox": {
-  ...
-  "Dimensions": {
-    "$Nullable": true,
-    "$Type": "self.Dimensions"
-  }
+  ...
+  "Dimensions": {
+    "$Nullable": true,
+    "$Type": "self.Dimensions"
+  }
 }
 ```
 :::
@@ -2395,13 +2395,13 @@ The enumeration type object MAY contain [annotations](#Annotation).
 Example 26: a simple flags-enabled enumeration
 ```json
 "FileAccess": {
-  "$Kind": "EnumType",
-  "$UnderlyingType": "Edm.Int32",
-  "$IsFlags": true,
-  "Read": 1,
-  "Write": 2,
-  "Create": 4,
-  "Delete": 8
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Read": 1,
+  "Write": 2,
+  "Create": 4,
+  "Delete": 8
 }
 ```
 :::
@@ -2443,21 +2443,21 @@ Example 27: pattern values can be combined, and some combined values
 have explicit names
 ```json
 "Pattern": {
-  "$Kind": "EnumType",
-  "$UnderlyingType": "Edm.Int32",
-  "$IsFlags": true,
-  "Plain": 0,
-  "Red": 1,
-  "Blue": 2,
-  "Yellow": 4,
-  "Solid": 8,
-  "Striped": 16,
-  "SolidRed": 9,
-  "SolidBlue": 10,
-  "SolidYellow": 12,
-  "RedBlueStriped": 19,
-  "RedYellowStriped": 21,
-  "BlueYellowStriped": 22
+  "$Kind": "EnumType",
+  "$UnderlyingType": "Edm.Int32",
+  "$IsFlags": true,
+  "Plain": 0,
+  "Red": 1,
+  "Blue": 2,
+  "Yellow": 4,
+  "Solid": 8,
+  "Striped": 16,
+  "SolidRed": 9,
+  "SolidBlue": 10,
+  "SolidYellow": 12,
+  "RedBlueStriped": 19,
+  "RedYellowStriped": 21,
+  "BlueYellowStriped": 22
 }
 ```
 :::
@@ -2506,14 +2506,14 @@ Example 28: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```json
 "ShippingMethod": {
-  "$Kind": "EnumType",
-  "FirstClass": 0,
-  "FirstClass@Core.Description": "Shipped with highest priority",
-  "TwoDay": 1,
-  "TwoDay@Core.Description": "Shipped within two days",
-  "Overnight": 2,
-  "Overnight@Core.Description": "Shipped overnight",
-  "@Core.Description": "Method of shipping"
+  "$Kind": "EnumType",
+  "FirstClass": 0,
+  "FirstClass@Core.Description": "Shipped with highest priority",
+  "TwoDay": 1,
+  "TwoDay@Core.Description": "Shipped within two days",
+  "Overnight": 2,
+  "Overnight@Core.Description": "Shipped overnight",
+  "@Core.Description": "Method of shipping"
 }
 ```
 :::
@@ -2559,25 +2559,25 @@ and it MAY contain [annotations](#Annotation).
 Example 29:
 ```json
 "Length": {
-  "$Kind": "TypeDefinition",
-  "$UnderlyingType": "Edm.Int32",
-  "@Measures.Unit": "Centimeters"
+  "$Kind": "TypeDefinition",
+  "$UnderlyingType": "Edm.Int32",
+  "@Measures.Unit": "Centimeters"
 },
 "Weight": {
-  "$Kind": "TypeDefinition",
-  "$UnderlyingType": "Edm.Int32",
-  "@Measures.Unit": "Kilograms"
+  "$Kind": "TypeDefinition",
+  "$UnderlyingType": "Edm.Int32",
+  "@Measures.Unit": "Kilograms"
 },
 "Size": {
-  "$Kind": "ComplexType",
-  "Height": {
-    "$Nullable": true,
-    "$Type": "self.Length"
-  },
-  "Weight": {
-    "$Nullable": true,
-    "$Type": "self.Weight"
-  }
+  "$Kind": "ComplexType",
+  "Height": {
+    "$Nullable": true,
+    "$Type": "self.Length"
+  },
+  "Weight": {
+    "$Nullable": true,
+    "$Type": "self.Weight"
+  }
 }
 ```
 :::
@@ -2932,22 +2932,22 @@ year. In this case the year must be specified as a parameter of the
 function with the `$Parameter` member.
 ```json
 "TopSellingProducts": [
-  {
-    "$Kind": "Function",
-    "$Parameter": [
-      {
-        "$Name": "Year",
-        "$Nullable": true,
-        "$Type": "Edm.Decimal",
-        "$Precision": 4,
-        "$Scale": 0
-      }
-    ],
-    "$ReturnType": {
-      "$Collection": true,
-      "$Type": "self.Product"
-    }
-  }
+  {
+    "$Kind": "Function",
+    "$Parameter": [
+      {
+        "$Name": "Year",
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "$Precision": 4,
+        "$Scale": 0
+      }
+    ],
+    "$ReturnType": {
+      "$Collection": true,
+      "$Type": "self.Product"
+    }
+  }
 ]
 ```
 :::
@@ -2977,12 +2977,12 @@ Simple entity models frequently have one entity set per entity type.
 Example 31: one entity set per entity type
 ```json
 "Products": {
-  "$Collection": true,
-  "$Type": "self.Product"
+  "$Collection": true,
+  "$Type": "self.Product"
 },
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category"
+  "$Collection": true,
+  "$Type": "self.Category"
 }
 ```
 :::
@@ -2994,22 +2994,22 @@ Other entity models may expose multiple entity sets per type.
 Example 32: three entity sets referring to the two entity types
 ```json
 "StandardCustomers": {
-  "$Collection": true,
-  "$Type": "self.Customer",
-  "$NavigationPropertyBinding": {
-    "Orders": "Orders"
-  }
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
 },
 "PreferredCustomers": {
-  "$Collection": true,
-  "$Type": "self.Customer",
-  "$NavigationPropertyBinding": {
-    "Orders": "Orders"
-  }
+  "$Collection": true,
+  "$Type": "self.Customer",
+  "$NavigationPropertyBinding": {
+    "Orders": "Orders"
+  }
 },
 "Orders": {
-  "$Collection": true,
-  "$Type": "self.Order"
+  "$Collection": true,
+  "$Type": "self.Order"
 }
 ```
 :::
@@ -3056,41 +3056,41 @@ Example 33: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
 ```json
 "DemoService": {
-  "$Kind": "EntityContainer",
-  "Products": {
-    "$Collection": true,
-    "$Type": "self.Product",
-    "$NavigationPropertyBinding": {
-      "Category": "Categories",
-      "Supplier": "Suppliers"
-    },
-    "@UI.DisplayName": "Product Catalog"
-  },
-  "Categories": {
-    "$Collection": true,
-    "$Type": "self.Category",
-    "$NavigationPropertyBinding": {
-      "Products": "Products"
-    }
-  },
-  "Suppliers": {
-    "$Collection": true,
-    "$Type": "self.Supplier",
-    "$NavigationPropertyBinding": {
-      "Products": "Products"
-    },
-    "@UI.DisplayName": "Supplier Directory"
-  },
-  "MainSupplier": {
-    "$Type": "self.Supplier"
-  },
-  "LeaveRequestApproval": {
-    "$Action": "self.Approval"
-  },
-  "ProductsByRating": {
-    "$EntitySet": "Products",
-    "$Function": "self.ProductsByRating"
-  }
+  "$Kind": "EntityContainer",
+  "Products": {
+    "$Collection": true,
+    "$Type": "self.Product",
+    "$NavigationPropertyBinding": {
+      "Category": "Categories",
+      "Supplier": "Suppliers"
+    },
+    "@UI.DisplayName": "Product Catalog"
+  },
+  "Categories": {
+    "$Collection": true,
+    "$Type": "self.Category",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    }
+  },
+  "Suppliers": {
+    "$Collection": true,
+    "$Type": "self.Supplier",
+    "$NavigationPropertyBinding": {
+      "Products": "Products"
+    },
+    "@UI.DisplayName": "Supplier Directory"
+  },
+  "MainSupplier": {
+    "$Type": "self.Supplier"
+  },
+  "LeaveRequestApproval": {
+    "$Action": "self.Approval"
+  },
+  "ProductsByRating": {
+    "$EntitySet": "Products",
+    "$Function": "self.ProductsByRating"
+  }
 }
 ```
 :::
@@ -3128,9 +3128,9 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```json
 "Extending": {
-  "$Kind": "EntityContainer",
-  "$Extends": "Some.Other.Schema.Base",
-   ...
+  "$Kind": "EntityContainer",
+  "$Extends": "Some.Other.Schema.Base",
+   ...
 }
 ```
 :::
@@ -3308,11 +3308,11 @@ Example 35: for an entity set in the same container as the enclosing
 entity set `Categories`
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products": "SomeSet"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeSet"
+  }
 }
 ```
 :::
@@ -3321,11 +3321,11 @@ entity set `Categories`
 Example 36: for an entity set in any container in scope
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products": "SomeModel.SomeContainer/SomeSet"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products": "SomeModel.SomeContainer/SomeSet"
+  }
 }
 ```
 :::
@@ -3335,11 +3335,11 @@ Example 37: binding `Supplier` on `Products` contained within
 `Categories` – binding applies to all suppliers of all products of all categories
 ```json
 "Categories": {
-  "$Collection": true,
-  "$Type": "self.Category",
-  "$NavigationPropertyBinding": {
-    "Products/Supplier": "Suppliers"
-  }
+  "$Collection": true,
+  "$Type": "self.Category",
+  "$NavigationPropertyBinding": {
+    "Products/Supplier": "Suppliers"
+  }
 }
 ```
 :::
@@ -4950,6 +4950,7 @@ first property is used as key, the second property as value.
 Example 75: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
+{
   "$Apply": [
     "http://host/someAPI/Actors/{actorName}/CV",
     {

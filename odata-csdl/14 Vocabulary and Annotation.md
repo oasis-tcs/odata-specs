@@ -2222,6 +2222,7 @@ first property is used as key, the second property as value.
 Example ##ex: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
+{
   "$Apply": [
     "http://host/someAPI/Actors/{actorName}/CV",
     {

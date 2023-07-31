@@ -835,8 +835,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml example">
 <p>Example 6: schema <code>org.example</code> with an alias and a description for the schema</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;self&quot;</span>&gt;</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Example schema&quot;</span> /&gt;</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Example schema&quot;</span> /&gt;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
@@ -1092,7 +1092,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml example">
 <p>Example 17: <a href="#Precision"><code>Precision</code></a> facet applied to the <code>DateTimeOffset</code> type</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;SuggestedTimes&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.DateTimeOffset)&quot;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          Precision=</span><span class="st">&quot;6&quot;</span> /&gt;</span></code></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ot">          Precision=</span><span class="st">&quot;6&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <h3 id="724-scale"><a name="Scale" href="#Scale">7.2.4 Scale</a></h3>
 <p>A non-negative integer value specifying the maximum number of digits allowed to the right of the decimal point, or one of the symbolic values <code>floating</code> or <code>variable</code>.</p>
@@ -1283,8 +1283,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">OnDelete</span><span class="ot"> Action=</span><span class="st">&quot;Cascade&quot;</span>&gt;</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  String=</span><span class="st">&quot;Delete all products in this category&quot;</span> /&gt;</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">OnDelete</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;/NavigationProperty</span>&gt;</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">OnDelete</span>&gt;</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 </div>
 <hr />
@@ -1360,10 +1360,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml example">
 <p>Example 26: a simple flags-enabled enumeration</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EnumType</span><span class="ot"> Name=</span><span class="st">&quot;FileAccess&quot;</span><span class="ot"> UnderlyingType=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> IsFlags=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Read&quot;</span><span class="ot">   Value=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Write&quot;</span><span class="ot">  Value=</span><span class="st">&quot;2&quot;</span> /&gt;</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Create&quot;</span><span class="ot"> Value=</span><span class="st">&quot;4&quot;</span> /&gt;</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Delete&quot;</span><span class="ot"> Value=</span><span class="st">&quot;8&quot;</span> /&gt;</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Read&quot;</span><span class="ot">   Value=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Write&quot;</span><span class="ot">  Value=</span><span class="st">&quot;2&quot;</span> /&gt;</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Create&quot;</span><span class="ot"> Value=</span><span class="st">&quot;4&quot;</span> /&gt;</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Delete&quot;</span><span class="ot"> Value=</span><span class="st">&quot;8&quot;</span> /&gt;</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EnumType</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="101-underlying-integer-type"><a name="UnderlyingIntegerType" href="#UnderlyingIntegerType">10.1 Underlying Integer Type</a></h2>
@@ -1383,18 +1383,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml example">
 <p>Example 27: pattern values can be combined, and some combined values have explicit names</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EnumType</span><span class="ot"> Name=</span><span class="st">&quot;Pattern&quot;</span><span class="ot"> UnderlyingType=</span><span class="st">&quot;Edm.Int32&quot;</span><span class="ot"> IsFlags=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Plain&quot;</span><span class="ot">             Value=</span><span class="st">&quot;0&quot;</span> /&gt;</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Red&quot;</span><span class="ot">               Value=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Blue&quot;</span><span class="ot">              Value=</span><span class="st">&quot;2&quot;</span> /&gt;</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Yellow&quot;</span><span class="ot">            Value=</span><span class="st">&quot;4&quot;</span> /&gt;</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Solid&quot;</span><span class="ot">             Value=</span><span class="st">&quot;8&quot;</span> /&gt;</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Striped&quot;</span><span class="ot">           Value=</span><span class="st">&quot;16&quot;</span> /&gt;</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidRed&quot;</span><span class="ot">          Value=</span><span class="st">&quot;9&quot;</span> /&gt;</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidBlue&quot;</span><span class="ot">         Value=</span><span class="st">&quot;10&quot;</span> /&gt;</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidYellow&quot;</span><span class="ot">       Value=</span><span class="st">&quot;12&quot;</span> /&gt;</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;RedBlueStriped&quot;</span><span class="ot">    Value=</span><span class="st">&quot;19&quot;</span> /&gt;</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;RedYellowStriped&quot;</span><span class="ot">  Value=</span><span class="st">&quot;21&quot;</span> /&gt;</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;BlueYellowStriped&quot;</span><span class="ot"> Value=</span><span class="st">&quot;22&quot;</span> /&gt;</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Plain&quot;</span><span class="ot">             Value=</span><span class="st">&quot;0&quot;</span> /&gt;</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Red&quot;</span><span class="ot">               Value=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Blue&quot;</span><span class="ot">              Value=</span><span class="st">&quot;2&quot;</span> /&gt;</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Yellow&quot;</span><span class="ot">            Value=</span><span class="st">&quot;4&quot;</span> /&gt;</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Solid&quot;</span><span class="ot">             Value=</span><span class="st">&quot;8&quot;</span> /&gt;</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;Striped&quot;</span><span class="ot">           Value=</span><span class="st">&quot;16&quot;</span> /&gt;</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidRed&quot;</span><span class="ot">          Value=</span><span class="st">&quot;9&quot;</span> /&gt;</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidBlue&quot;</span><span class="ot">         Value=</span><span class="st">&quot;10&quot;</span> /&gt;</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;SolidYellow&quot;</span><span class="ot">       Value=</span><span class="st">&quot;12&quot;</span> /&gt;</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;RedBlueStriped&quot;</span><span class="ot">    Value=</span><span class="st">&quot;19&quot;</span> /&gt;</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;RedYellowStriped&quot;</span><span class="ot">  Value=</span><span class="st">&quot;21&quot;</span> /&gt;</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Member</span><span class="ot"> Name=</span><span class="st">&quot;BlueYellowStriped&quot;</span><span class="ot"> Value=</span><span class="st">&quot;22&quot;</span> /&gt;</span>
 <span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EnumType</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="103-enumeration-type-member"><a name="EnumerationTypeMember" href="#EnumerationTypeMember">10.3 Enumeration Type Member</a></h2>
