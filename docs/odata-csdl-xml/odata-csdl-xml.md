@@ -2855,9 +2855,9 @@ in an entity model as a top level resource.
 ::: {.varxml .rep}
 ### <a name="ElementedmEntityContainer23" href="#ElementedmEntityContainer23"> Element `edm:EntityContainer`</a>
 
-The `edm:EntityContainer` MUST contain one or more
+The `edm:EntityContainer` MAY contain
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
-[`edm:ActionImport`](#ActionImport), or
+[`edm:ActionImport`](#ActionImport), and
 [`edm:FunctionImport`](#FunctionImport) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.

@@ -161,9 +161,9 @@ action imports, and function imports.
 ::: {.varxml .rep}
 ### ##isec Element `edm:EntityContainer`
 
-The `edm:EntityContainer` MUST contain one or more
+The `edm:EntityContainer` MAY contain
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
-[`edm:ActionImport`](#ActionImport), or
+[`edm:ActionImport`](#ActionImport), and
 [`edm:FunctionImport`](#FunctionImport) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
