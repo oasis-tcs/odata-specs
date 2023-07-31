@@ -320,7 +320,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -457,7 +457,7 @@ Example ##ex: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::

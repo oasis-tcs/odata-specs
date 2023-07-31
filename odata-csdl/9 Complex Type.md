@@ -402,7 +402,7 @@ member name.
 :::
 
 ::: {.varjson .example}
-Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
+Example ##ex: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```json
 "ShippingMethod": {

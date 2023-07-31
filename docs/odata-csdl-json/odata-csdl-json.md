@@ -662,9 +662,9 @@ be used anywhere a corresponding concrete type can be used, except:
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
 - `Edm.NavigationPropertyPath`
-- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or `Edm.NavigationPropertyPath`)
-- `Edm.ModelElementPath `(any model element, including
-`Edm.AnnotationPath`,` Edm.NavigationPropertyPath`, and
+- `Edm.AnyPropertyPath` (`Edm.PropertyPath` or `Edm.NavigationPropertyPath`)
+- `Edm.ModelElementPath` (any model element, including
+`Edm.AnnotationPath`, `Edm.NavigationPropertyPath`, and
 `Edm.PropertyPath`)
 
 as the type of a primitive term, or the type of a property of a complex
@@ -1166,7 +1166,6 @@ Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
 
 
 
-
 ## <a name="DerivedEntityType" href="#DerivedEntityType">6.1 Derived Entity Type</a>
 
 An entity type can inherit from another entity type by specifying it as
@@ -1441,9 +1440,6 @@ Example 12: entity type with a composite key
 }
 ```
 :::
-
-
-
 
 
 
@@ -2502,7 +2498,7 @@ member name.
 :::
 
 ::: {.varjson .example}
-Example 28: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
+Example 28: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```json
 "ShippingMethod": {
@@ -2729,7 +2725,7 @@ string value of `Function`.
 
 It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
 contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
-[`$EntitySetPath`](#EntitySetPath), and` `[`$Parameter`](#Parameter),
+[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
 and it MAY contain [annotations](#Annotation).
 :::
 
@@ -3734,7 +3730,7 @@ value, once with a path value
   "$Type": "Edm.Decimal",
   "$Scale": 0,
   "@Measures.ISOCurrency": "USD",
-  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"
+  "@Measures.ISOCurrency@Core.Description": "The parent company's currency"
 },
 "AmountInTransactionCurrency": {
   "$Nullable": true,
@@ -4969,7 +4965,7 @@ Name property of the Actor entity
 #### <a name="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function `odata.matchesPattern`</a>
 
 The `odata.matchesPattern` client-side function takes two string
-expressions as arguments and returns a Boolean value`.`
+expressions as arguments and returns a Boolean value.
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -5373,7 +5369,7 @@ containing the URL reference expression, or relative to a base URL
 specified in a format-specific way.
 
 The response body of the `GET` request MUST be returned as the result of
-the` `URL reference expression. The result of the` `URL reference
+the URL reference expression. The result of the URL reference
 expression MUST be type compatible with the type expected by the
 surrounding expression.
 

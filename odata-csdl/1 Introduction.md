@@ -524,9 +524,9 @@ be used anywhere a corresponding concrete type can be used, except:
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
 - `Edm.NavigationPropertyPath`
-- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or `Edm.NavigationPropertyPath`)
-- `Edm.ModelElementPath `(any model element, including
-`Edm.AnnotationPath`,` Edm.NavigationPropertyPath`, and
+- `Edm.AnyPropertyPath` (`Edm.PropertyPath` or `Edm.NavigationPropertyPath`)
+- `Edm.ModelElementPath` (any model element, including
+`Edm.AnnotationPath`, `Edm.NavigationPropertyPath`, and
 `Edm.PropertyPath`)
 
 as the type of a primitive term, or the type of a property of a complex

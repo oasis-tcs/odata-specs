@@ -263,9 +263,7 @@ properties of the entity type.
 It MAY contain one [`edm:Key`](#Key) element.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
-:::
 
-::: {.varxml .rep}
 ### ##subisec Attribute `Name`
 
 The value of `Name` is the entity type's name.
@@ -394,7 +392,7 @@ The value of `$OpenType` is one of the Boolean literals `true` or
 :::
 
 ::: {.varxml .rep}
-### ##subisecAttribute `OpenType`
+### ##subisec Attribute `OpenType`
 
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -598,24 +596,18 @@ Example ##ex: entity type with a composite key
 
 The `edm:Key` element MUST contain at least one `edm:PropertyRef`
 element.
-:::
 
-::: {.varxml .rep}
 ### ##isec Element `edm:PropertyRef`
 
 The `edm:PropertyRef` element MUST contain the `Name` attribute and MAY
 contain the `Alias` attribute.
-:::
 
-::: {.varxml .rep}
 ### ##subisec Attribute `Name`
 
 The value of `Name` is a path expression leading to a primitive
 property. The names of the properties in the path are joined together by
 forward slashes.
-:::
 
-::: {.varxml .rep}
 ### ##subisec Attribute `Alias`
 
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).

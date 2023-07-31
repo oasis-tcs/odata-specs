@@ -127,7 +127,7 @@ string value of `Function`.
 
 It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
 contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
-[`$EntitySetPath`](#EntitySetPath), and` `[`$Parameter`](#Parameter),
+[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
 and it MAY contain [annotations](#Annotation).
 :::
 

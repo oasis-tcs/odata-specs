@@ -602,9 +602,9 @@ be used anywhere a corresponding concrete type can be used, except:
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
 - `Edm.NavigationPropertyPath`
-- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or `Edm.NavigationPropertyPath`)
-- `Edm.ModelElementPath `(any model element, including
-`Edm.AnnotationPath`,` Edm.NavigationPropertyPath`, and
+- `Edm.AnyPropertyPath` (`Edm.PropertyPath` or `Edm.NavigationPropertyPath`)
+- `Edm.ModelElementPath` (any model element, including
+`Edm.AnnotationPath`, `Edm.NavigationPropertyPath`, and
 `Edm.PropertyPath`)
 
 as the type of a primitive term, or the type of a property of a complex
@@ -813,7 +813,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -900,7 +900,7 @@ Example 5: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1080,9 +1080,7 @@ properties of the entity type.
 It MAY contain one [`edm:Key`](#Key) element.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
-:::
 
-::: {.varxml .rep}
 ### <a name="AttributeName8.1" href="#AttributeName8.1"> Attribute `Name`</a>
 
 The value of `Name` is the entity type's name.
@@ -1175,7 +1173,7 @@ properties on instances of any structured type, see
 
 
 ::: {.varxml .rep}
-### undefined.1 `OpenType`
+### <a name="AttributeOpenType8.4" href="#AttributeOpenType8.4"> Attribute `OpenType`</a>
 
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1204,7 +1202,7 @@ see [OData-VocCore](#ODataVocCore).
 
 
 ::: {.varxml .rep}
-### <a name="AttributeHasStream8.4" href="#AttributeHasStream8.4"> Attribute `HasStream`</a>
+### <a name="AttributeHasStream8.5" href="#AttributeHasStream8.5"> Attribute `HasStream`</a>
 
 The value of `HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1295,24 +1293,18 @@ special encoding and are a standard constituent of expressions anyway.
 
 The `edm:Key` element MUST contain at least one `edm:PropertyRef`
 element.
-:::
 
-::: {.varxml .rep}
 ### <a name="ElementedmPropertyRef10" href="#ElementedmPropertyRef10"> Element `edm:PropertyRef`</a>
 
 The `edm:PropertyRef` element MUST contain the `Name` attribute and MAY
 contain the `Alias` attribute.
-:::
 
-::: {.varxml .rep}
 ### <a name="AttributeName10.1" href="#AttributeName10.1"> Attribute `Name`</a>
 
 The value of `Name` is a path expression leading to a primitive
 property. The names of the properties in the path are joined together by
 forward slashes.
-:::
 
-::: {.varxml .rep}
 ### <a name="AttributeAlias10.2" href="#AttributeAlias10.2"> Attribute `Alias`</a>
 
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
@@ -3534,7 +3526,7 @@ value, once with a path value
 <Property Name="AmountInReportingCurrency" Type="Edm.Decimal">
   <Annotation Term="Measures.ISOCurrency" String="USD">
     <Annotation Term="Core.Description"
-                String="The parent company’s currency" />
+                String="The parent company's currency" />
   </Annotation>
 </Property>
 <Property Name="AmountInTransactionCurrency" Type="Edm.Decimal">
@@ -3824,7 +3816,7 @@ MUST also conform to rule `dateTimeOffsetValue` in
 fragment (24:00:00).
 
 The datetimestamp expression MAY be provided using element notation or
-attribute notation`.`
+attribute notation.
 :::
 
 ::: {.varxml .example}
@@ -3983,7 +3975,7 @@ expression MUST be assigned a value conforming to the rule `guidValue`
 in [OData-ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
-notation`.`
+notation.
 :::
 
 ::: {.varxml .example}
@@ -4804,7 +4796,7 @@ Name property of the Actor entity
 #### <a name="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function `odata.matchesPattern`</a>
 
 The `odata.matchesPattern` client-side function takes two string
-expressions as arguments and returns a Boolean value`.`
+expressions as arguments and returns a Boolean value.
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -5203,7 +5195,7 @@ containing the URL reference expression, or relative to a base URL
 specified in a format-specific way.
 
 The response body of the `GET` request MUST be returned as the result of
-the` `URL reference expression. The result of the` `URL reference
+the URL reference expression. The result of the URL reference
 expression MUST be type compatible with the type expected by the
 surrounding expression.
 
@@ -5676,7 +5668,8 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [Attribute `Name`](#AttributeName8.1)
   - [Attribute `BaseType`](#AttributeBaseType8.2)
   - [Attribute `Abstract`](#AttributeAbstract8.3)
-  - [Attribute `HasStream`](#AttributeHasStream8.4)
+  - [Attribute `OpenType`](#AttributeOpenType8.4)
+  - [Attribute `HasStream`](#AttributeHasStream8.5)
 - [Element `edm:Key`](#ElementedmKey9)
 - [Element `edm:PropertyRef`](#ElementedmPropertyRef10)
   - [Attribute `Name`](#AttributeName10.1)

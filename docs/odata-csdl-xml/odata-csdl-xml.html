@@ -665,8 +665,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><code>Edm.AnnotationPath</code></li>
 <li><code>Edm.PropertyPath</code></li>
 <li><code>Edm.NavigationPropertyPath</code></li>
-<li><code>Edm.AnyPropertyPath </code>(<code>Edm.PropertyPath </code>or <code>Edm.NavigationPropertyPath</code>)</li>
-<li><code>Edm.ModelElementPath </code>(any model element, including <code>Edm.AnnotationPath</code>,<code> Edm.NavigationPropertyPath</code>, and <code>Edm.PropertyPath</code>)</li>
+<li><code>Edm.AnyPropertyPath</code> (<code>Edm.PropertyPath</code> or <code>Edm.NavigationPropertyPath</code>)</li>
+<li><code>Edm.ModelElementPath</code> (any model element, including <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, and <code>Edm.PropertyPath</code>)</li>
 </ul>
 <p>as the type of a primitive term, or the type of a property of a complex type (recursively) that is exclusively used as the type of a term. See section "<a href="#PathExpressions">Path Expressions</a>" for details.</p>
 <h2 id="36-annotations"><a name="Annotations" href="#Annotations">3.6 Annotations</a></h2>
@@ -761,7 +761,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;http://example.org/display/v1&quot;</span>&gt;</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;UI&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example.display&quot;</span> /&gt;</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;…&lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;...&lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="43-included-annotations"><a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a></h2>
@@ -797,7 +797,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ot">                             Qualifier=</span><span class="st">&quot;Tablet&quot;</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ot">                             TargetNamespace=</span><span class="st">&quot;com.example.Person&quot;</span> /&gt;</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;…&lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;...&lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
@@ -862,17 +862,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The entity type's name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>An entity type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to another entity type or collection of entity types.</p>
 <p>All properties MUST have a unique name within an entity type. Properties MUST NOT have the same name as the declaring entity type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
-<section id="-element-edmentitytype" class="varxml rep">
-<h3><a name="ElementedmEntityType8" href="#ElementedmEntityType8"> Element <code>edm:EntityType</code></a></h3>
+<div class="varxml rep">
+<h3 id="-element-edmentitytype"><a name="ElementedmEntityType8" href="#ElementedmEntityType8"> Element <code>edm:EntityType</code></a></h3>
 <p>The <code>edm:EntityType</code> element MUST contain the <code>Name</code> attribute, and it MAY contain the <a href="#DerivedEntityType"><code>BaseType</code></a>, <a href="#AbstractEntityType"><code>Abstract</code></a>, <a href="#OpenEntityType"><code>OpenType</code></a>, and <a href="#MediaEntityType"><code>HasStream</code></a> attributes.</p>
 <p>It MAY contain <a href="#StructuralProperty"><code>edm:Property</code></a> and <a href="#NavigationProperty"><code>edm:NavigationProperty</code></a> elements describing the properties of the entity type.</p>
 <p>It MAY contain one <a href="#Key"><code>edm:Key</code></a> element.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-</section>
-<section id="-attribute-name" class="varxml rep">
-<h3><a name="AttributeName8.1" href="#AttributeName8.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name"><a name="AttributeName8.1" href="#AttributeName8.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the entity type's name.</p>
-</section>
+</div>
 <div class="varxml example">
 <p>Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Employee&quot;</span>&gt;</span>
@@ -915,8 +913,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>An entity type derived from an open entity type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
-<section id="undefined1-opentype" class="varxml rep">
-<h3>undefined.1 <code>OpenType</code></h3>
+<section id="-attribute-opentype" class="varxml rep">
+<h3><a name="AttributeOpenType8.4" href="#AttributeOpenType8.4"> Attribute <code>OpenType</code></a></h3>
 <p>The value of <code>OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="64-media-entity-type"><a name="MediaEntityType" href="#MediaEntityType">6.4 Media Entity Type</a></h2>
@@ -924,7 +922,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
 <p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section id="-attribute-hasstream" class="varxml rep">
-<h3><a name="AttributeHasStream8.4" href="#AttributeHasStream8.4"> Attribute <code>HasStream</code></a></h3>
+<h3><a name="AttributeHasStream8.5" href="#AttributeHasStream8.5"> Attribute <code>HasStream</code></a></h3>
 <p>The value of <code>HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="65-key"><a name="Key" href="#Key">6.5 Key</a></h2>
@@ -955,22 +953,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>
 <p>An alias MUST NOT be defined if the key property is a primitive property of the entity type itself.</p>
 <p>For key properties that are a property of a complex or navigation property, the alias MUST be used in the key predicate of URLs instead of the path to the property because the required percent-encoding of the forward slash separating segments of the path to the property would make URL construction and parsing rather complicated. The alias MUST NOT be used in the query part of URLs, where paths to properties don't require special encoding and are a standard constituent of expressions anyway.</p>
-<section id="-element-edmkey" class="varxml rep">
-<h3><a name="ElementedmKey9" href="#ElementedmKey9"> Element <code>edm:Key</code></a></h3>
+<div class="varxml rep">
+<h3 id="-element-edmkey"><a name="ElementedmKey9" href="#ElementedmKey9"> Element <code>edm:Key</code></a></h3>
 <p>The <code>edm:Key</code> element MUST contain at least one <code>edm:PropertyRef</code> element.</p>
-</section>
-<section id="-element-edmpropertyref" class="varxml rep">
-<h3><a name="ElementedmPropertyRef10" href="#ElementedmPropertyRef10"> Element <code>edm:PropertyRef</code></a></h3>
+<h3 id="-element-edmpropertyref"><a name="ElementedmPropertyRef10" href="#ElementedmPropertyRef10"> Element <code>edm:PropertyRef</code></a></h3>
 <p>The <code>edm:PropertyRef</code> element MUST contain the <code>Name</code> attribute and MAY contain the <code>Alias</code> attribute.</p>
-</section>
-<section id="-attribute-name-1" class="varxml rep">
-<h3><a name="AttributeName10.1" href="#AttributeName10.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-1"><a name="AttributeName10.1" href="#AttributeName10.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is a path expression leading to a primitive property. The names of the properties in the path are joined together by forward slashes.</p>
-</section>
-<section id="-attribute-alias-2" class="varxml rep">
-<h3><a name="AttributeAlias10.2" href="#AttributeAlias10.2"> Attribute <code>Alias</code></a></h3>
+<h3 id="-attribute-alias-2"><a name="AttributeAlias10.2" href="#AttributeAlias10.2"> Attribute <code>Alias</code></a></h3>
 <p>The value of <code>Alias</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
-</section>
+</div>
 <div class="varxml example">
 <p>Example 10: entity type with a simple key</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Category&quot;</span>&gt;</span>
@@ -1339,7 +1331,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A complex type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>A complex type derived from an open complex type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData‑Protocol</a>.</p>
-<section id="-attribute-opentype" class="varxml rep">
+<section id="-attribute-opentype-1" class="varxml rep">
 <h3><a name="AttributeOpenType15.4" href="#AttributeOpenType15.4"> Attribute <code>OpenType</code></a></h3>
 <p>The value of <code>OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
@@ -2015,7 +2007,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="sourceCode" id="cb41"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;AmountInReportingCurrency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Measures.ISOCurrency&quot;</span><span class="ot"> String=</span><span class="st">&quot;USD&quot;</span>&gt;</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="ot">                String=</span><span class="st">&quot;The parent company’s currency&quot;</span> /&gt;</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="ot">                String=</span><span class="st">&quot;The parent company&#39;s currency&quot;</span> /&gt;</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Property</span>&gt;</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;AmountInTransactionCurrency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
@@ -2157,7 +2149,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <section id="-expression-edmdatetimeoffset" class="varxml rep">
 <h3><a name="ExpressionedmDateTimeOffset34" href="#ExpressionedmDateTimeOffset34"> Expression <code>edm:DateTimeOffset</code></a></h3>
 <p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <code>dateTimeOffsetValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
-<p>The datetimestamp expression MAY be provided using element notation or attribute notation<code>.</code></p>
+<p>The datetimestamp expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
 <p>Example 46:</p>
@@ -2241,7 +2233,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <section id="-expression-edmguid" class="varxml rep">
 <h3><a name="ExpressionedmGuid39" href="#ExpressionedmGuid39"> Expression <code>edm:Guid</code></a></h3>
 <p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <code>guidValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The guid expression MAY be provided using element notation or attribute notation<code>.</code></p>
+<p>The guid expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
 <p>Example 53:</p>
@@ -2723,7 +2715,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Apply</span>&gt;</span></code></pre></div>
 </div>
 <h4 id="14443-function-odatamatchespattern"><a name="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function <code>odata.matchesPattern</code></a></h4>
-<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value<code>.</code></p>
+<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value.</p>
 <p>The function returns true if the second expression evaluates to an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression and the result of the first argument expression matches that regular expression, using syntax and semantics of <a href="#_ECMAScript">ECMAScript</a> regular expressions.</p>
 <div class="varxml example">
 <p>Example 76: all non-empty <code>FirstName</code> values not containing the letters <code>b</code>, <code>c</code>, or <code>d</code> evaluate to <code>true</code></p>
@@ -2914,7 +2906,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
 <p>The URL reference expression MUST contain exactly one expression of type <code>Edm.String</code>. Its value is treated as a URL that MAY be relative or absolute; relative URLs are relative to the URL of the document containing the URL reference expression, or relative to a base URL specified in a format-specific way.</p>
-<p>The response body of the <code>GET</code> request MUST be returned as the result of the<code> </code>URL reference expression. The result of the<code> </code>URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
+<p>The response body of the <code>GET</code> request MUST be returned as the result of the URL reference expression. The result of the URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
 <section id="-expression-edmurlref-1" class="varxml rep">
 <h3><a name="ExpressionedmUrlRef63" href="#ExpressionedmUrlRef63"> Expression <code>edm:UrlRef</code></a></h3>
 <p>The <code>edm:UrlRef</code> expression MAY be provided using element notation or attribute notation.</p>
@@ -3276,7 +3268,8 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <li><a href="#AttributeName8.1">Attribute <code>Name</code></a></li>
 <li><a href="#AttributeBaseType8.2">Attribute <code>BaseType</code></a></li>
 <li><a href="#AttributeAbstract8.3">Attribute <code>Abstract</code></a></li>
-<li><a href="#AttributeHasStream8.4">Attribute <code>HasStream</code></a></li>
+<li><a href="#AttributeOpenType8.4">Attribute <code>OpenType</code></a></li>
+<li><a href="#AttributeHasStream8.5">Attribute <code>HasStream</code></a></li>
 </ul></li>
 <li><a href="#ElementedmKey9">Element <code>edm:Key</code></a></li>
 <li><a href="#ElementedmPropertyRef10">Element <code>edm:PropertyRef</code></a>

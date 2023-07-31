@@ -392,7 +392,7 @@ value, once with a path value
   "$Type": "Edm.Decimal",
   "$Scale": 0,
   "@Measures.ISOCurrency": "USD",
-  "@Measures.ISOCurrency@Core.Description": "The parent company’s currency"
+  "@Measures.ISOCurrency@Core.Description": "The parent company's currency"
 },
 "AmountInTransactionCurrency": {
   "$Nullable": true,
@@ -446,7 +446,7 @@ value, once with a path value
 <Property Name="AmountInReportingCurrency" Type="Edm.Decimal">
   <Annotation Term="Measures.ISOCurrency" String="USD">
     <Annotation Term="Core.Description"
-                String="The parent company’s currency" />
+                String="The parent company's currency" />
   </Annotation>
 </Property>
 <Property Name="AmountInTransactionCurrency" Type="Edm.Decimal">
@@ -792,7 +792,7 @@ MUST also conform to rule `dateTimeOffsetValue` in
 fragment (24:00:00).
 
 The datetimestamp expression MAY be provided using element notation or
-attribute notation`.`
+attribute notation.
 :::
 
 ::: {.varxml .example}
@@ -1032,7 +1032,7 @@ expression MUST be assigned a value conforming to the rule `guidValue`
 in [OData-ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
-notation`.`
+notation.
 :::
 
 ::: {.varxml .example}
@@ -2251,7 +2251,7 @@ Name property of the Actor entity
 #### ##subsubsubsec Function `odata.matchesPattern`
 
 The `odata.matchesPattern` client-side function takes two string
-expressions as arguments and returns a Boolean value`.`
+expressions as arguments and returns a Boolean value.
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -2890,7 +2890,7 @@ containing the URL reference expression, or relative to a base URL
 specified in a format-specific way.
 
 The response body of the `GET` request MUST be returned as the result of
-the` `URL reference expression. The result of the` `URL reference
+the URL reference expression. The result of the URL reference
 expression MUST be type compatible with the type expected by the
 surrounding expression.
 

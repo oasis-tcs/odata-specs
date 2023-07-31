@@ -671,8 +671,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><code>Edm.AnnotationPath</code></li>
 <li><code>Edm.PropertyPath</code></li>
 <li><code>Edm.NavigationPropertyPath</code></li>
-<li><code>Edm.AnyPropertyPath </code>(<code>Edm.PropertyPath </code>or <code>Edm.NavigationPropertyPath</code>)</li>
-<li><code>Edm.ModelElementPath </code>(any model element, including <code>Edm.AnnotationPath</code>,<code> Edm.NavigationPropertyPath</code>, and <code>Edm.PropertyPath</code>)</li>
+<li><code>Edm.AnyPropertyPath</code> (<code>Edm.PropertyPath</code> or <code>Edm.NavigationPropertyPath</code>)</li>
+<li><code>Edm.ModelElementPath</code> (any model element, including <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, and <code>Edm.PropertyPath</code>)</li>
 </ul>
 <p>as the type of a primitive term, or the type of a property of a complex type (recursively) that is exclusively used as the type of a term. See section "<a href="#PathExpressions">Path Expressions</a>" for details.</p>
 <h2 id="36-annotations"><a name="Annotations" href="#Annotations">3.6 Annotations</a></h2>
@@ -1539,7 +1539,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Annotations for enumeration members are prefixed with the enumeration member name.</p>
 </section>
 <div class="varjson example">
-<p>Example 28: <code>FirstClass</code> has a value of <code>0</code>, <code>TwoDay</code> a value of 1, and <code>Overnight</code> a value of 2.</p>
+<p>Example 28: <code>FirstClass</code> has a value of 0, <code>TwoDay</code> a value of 1, and <code>Overnight</code> a value of 2.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;ShippingMethod&quot;:</span> <span class="fu">{</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EnumType&quot;</span><span class="fu">,</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstClass&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
@@ -1639,7 +1639,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a name="FunctionOverloadObject12" href="#FunctionOverloadObject12"> Function Overload Object</a></h3>
 <p>A function is represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
 <p>The function overload object MUST contain the member <code>$Kind</code> with a string value of <code>Function</code>.</p>
-<p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and<code> </code><a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
+<p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and <a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <h2 id="125-bound-or-unbound-action-or-function-overloads"><a name="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a></h2>
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
@@ -2208,7 +2208,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Scale&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Measures.ISOCurrency&quot;</span><span class="fu">:</span> <span class="st">&quot;USD&quot;</span><span class="fu">,</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Measures.ISOCurrency@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;The parent company’s currency&quot;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Measures.ISOCurrency@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;The parent company&#39;s currency&quot;</span></span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;AmountInTransactionCurrency&quot;:</span> <span class="fu">{</span></span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
@@ -2924,7 +2924,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="14443-function-odatamatchespattern"><a name="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function <code>odata.matchesPattern</code></a></h4>
-<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value<code>.</code></p>
+<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value.</p>
 <p>The function returns true if the second expression evaluates to an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression and the result of the first argument expression matches that regular expression, using syntax and semantics of <a href="#_ECMAScript">ECMAScript</a> regular expressions.</p>
 <div class="varjson example">
 <p>Example 76: all non-empty <code>FirstName</code> values not containing the letters <code>b</code>, <code>c</code>, or <code>d</code> evaluate to <code>true</code></p>
@@ -3124,7 +3124,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
 <p>The URL reference expression MUST contain exactly one expression of type <code>Edm.String</code>. Its value is treated as a URL that MAY be relative or absolute; relative URLs are relative to the URL of the document containing the URL reference expression, or relative to a base URL specified in a format-specific way.</p>
-<p>The response body of the <code>GET</code> request MUST be returned as the result of the<code> </code>URL reference expression. The result of the<code> </code>URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
+<p>The response body of the <code>GET</code> request MUST be returned as the result of the URL reference expression. The result of the URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
 <section id="-urlref" class="varjson rep">
 <h3><a name="UrlRef20.27" href="#UrlRef20.27"> <code>$UrlRef</code></a></h3>
 <p>URL reference expressions are represented as an object with a single member <code>$UrlRef</code> whose value is an annotation expression.</p>
