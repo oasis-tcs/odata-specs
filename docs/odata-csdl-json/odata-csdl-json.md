@@ -3221,10 +3221,10 @@ If the entity type of an entity set or singleton declares navigation
 properties, a navigation property binding allows describing which entity
 set or singleton will contain the related entities.
 
-An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD specify
-a navigation property binding for each [navigation
-property](#NavigationProperty) of its entity type, including navigation
-properties defined on complex typed properties or derived types.
+An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD contain a navigation
+property binding for each non-containment navigation property that can be reached
+from the entity type through a sequence of type casts, complex properties,
+or containment navigation properties.
 
 If omitted, clients MUST assume that the target entity set or singleton
 can vary per related entity.
