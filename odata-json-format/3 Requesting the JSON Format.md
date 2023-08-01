@@ -77,7 +77,7 @@ information](#metadataminimalodatametadataminimal).
 Note that in OData 4.0 the `metadata` format parameter was
 prefixed with `odata.`. Payloads with an `OData-Version` header equal to
 `4.0` MUST include the `odata.` prefix. Payloads with an
-`OData-Version `header equal to `4.01` or greater SHOULD NOT
+`OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
 ### ##subsubsec `metadata=minimal` (`odata.metadata=minimal`)
