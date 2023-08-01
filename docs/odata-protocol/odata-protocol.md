@@ -6244,37 +6244,36 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1. MUST publish a [service document](#ServiceDocumentRequest) at the
-service root (section 11.1.1)
-2. MUST return data according to the[OData-JSON](#ODataJSON) format
-3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
-partial results (section 11.2.6.7) and not use any other mechanism
-4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
-header (section 8.1.5)
+1. MUST publish a service document at the
+service root ([section 11.1.1](#ServiceDocumentRequest))
+2. MUST return data according to the [OData-JSON](#ODataJSON) format
+3. MUST use server-driven paging when returning
+partial results ([section 11.2.6.7](#ServerDrivenPaging)) and not use any other mechanism
+4. MUST return the appropriate `OData-Version`
+header ([section 8.1.5](#HeaderODataVersion))
 5. MUST conform to the semantics the following headers, or fail the
 request
-   1. [`Accept`](#HeaderAccept) (section 8.2.1)
-   2. [`OData-MaxVersion`](#HeaderODataMaxVersion) (section 8.2.7)
-6. MUST follow OData guidelines for [extensibility](#Extensibility)
-(section 6 and all subsections)
+   1. `Accept` ([section 8.2.1](#HeaderAccept))
+   2. `OData-MaxVersion` ([section 8.2.7](#HeaderODataMaxVersion))
+6. MUST follow OData guidelines for extensibility
+([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
-unsupported functionality (section 9.3.1)
+[`501 Not Implemented`] for any
+unsupported functionality ([section 1501NotImplemented])
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
-annotations (section 6.4), custom headers (section 6.5), or custom
-content (section 6.2) in the payload in order to correctly consume the
+annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
+content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
 service
-10. MUST NOT violate any OData [update semantics](#DataModification)
-(section 11.4 and all subsections)
+10. MUST NOT violate any OData update semantics
+([section 11.4](#DataModification)) and all subsections)
 11. MUST NOT violate any other OData-defined semantics
-12. SHOULD support [`$expand`](#SystemQueryOptionexpand) (section
-11.2.5.2)
+12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
-[OData-CSDLJSON](#ODataCSDL) (section 11.1.2)
+[OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 14. MUST support prefixed variants of supported headers and preference
 values
 15. MUST support enumeration and duration literals in URLs with the
@@ -6293,33 +6292,33 @@ To be considered an *Updatable OData Service*, the service additionally:
 18. MUST include edit links (explicitly or implicitly) for all
 updatable or deletable resources according to [OData-JSON](#ODataJSON)
 19. MUST support `POST` of new entities to insertable entity sets
-(section 11.4.1.5 and 11.4.2.1)
+([section 11.4.1.5](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
-properties (section 11.4.2)
+properties ([section 11.4.2](#CreateanEntity))
 21. MUST support `POST` to `$ref` to add an existing entity to an
-updatable related collection (section 11.4.6.1)
+updatable related collection ([section 11.4.6.1](#AddaReferencetoaCollectionValuedNavigationProperty))
 22. MUST support `PUT` to `$ref` to set an existing single updatable
-related entity (section 11.4.6.3)
+related entity ([section 11.4.6.3](#ChangetheReferenceinaSingleValuedNavigationProperty))
 23. MUST support `PATCH` to all edit URLs for updatable resources
-(section 11.4.3)
+([section 11.4.3](#UpdateanEntity))
 24. MUST support `DELETE` to all edit URLs for deletable resources
-(section 11.4.5)
+([section 11.4.5](#DeleteanEntity))
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
-from an updatable navigation property (section 11.4.6.2)
+from an updatable navigation property ([section 11.4.6.2](#RemoveaReferencetoanEntity))
 26. MUST support `If-Match` header in update/delete of any resources
-returned with an ETag (section 11.4.1.1)
+returned with an ETag ([section 11.4.1.1](#UseofETagsforAvoidingUpdateConflicts))
 27. MUST return a `Location` header with the edit URL or read URL of a
-created resource (section 11.4.2)
+created resource ([section 11.4.2](#CreateanEntity))
 28. MUST include the `OData-EntityId` header in response to any create
-or upsert operation that returns `204 No Content`(section 8.3.4)
-29. MUST support Upserts (section 11.4.4)
+or upsert operation that returns `204 No Content` ([section 8.3.4](#HeaderODataEntityId))
+29. MUST support Upserts ([section 11.4.4](#UpsertanEntity))
 30. SHOULD support `PUT` and `PATCH` to an individual primitive
-(section 11.4.9.1) or complex (section 11.4.9.3) property (respectively)
+([section 11.4.9.1](#UpdateaPrimitiveProperty)) or complex ([section 11.4.9.3](#UpdateaComplexProperty)) property (respectively)
 31. SHOULD support `DELETE` to set an individual property to null
-(section 11.4.9.2)
-32. SHOULD support deep inserts (section 11.4.2.2)
-33. MAY support set-based updates (section 11.4.13) or deletes (section
-11.4.14) to members of a collection
+([section 11.4.9.2](#SetaValuetoNull))
+32. SHOULD support deep inserts ([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))
+33. MAY support set-based updates ([section 11.4.13](#UpdateMembersofaCollection)) or deletes
+([section 11.4.14](#DeleteMembersofaCollection)) to members of a collection
 
 ### <a name="OData40IntermediateConformanceLevel" href="#OData40IntermediateConformanceLevel">12.1.2 OData 4.0 Intermediate Conformance Level</a>
 
@@ -6330,41 +6329,41 @@ service:
 Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
-unsupported functionality (section 9.3.1)
-3. MUST support `$select (section 11.2.5.1)`
+unsupported functionality ([section 2501NotImplemented])
+3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))`
 4. MUST support casting to a derived type according to
-[OData‑URL](#ODataURL) if derived types are present in the model
-5. MUST support `$top (section 11.2.6.3)`
+[OData URL](#ODataURL) if derived types are present in the model
+5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
 6. MUST support `/$value` on media entities (section 4.12 in
-[OData‑URL](#ODataURL)) and individual properties (section 11.2.4.1)
-7. MUST support `$filter (section 11.2.6.1)`
+[OData URL](#ODataURL)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
-in the requested entity set (section 11.2.6.1.1)
-   2. MUST support aliases in `$filter` expressions (section 11.2.6.1.3)
-   3. SHOULD support additional filter operations (section 11.2.6.1.1)
+in the requested entity set ([section 11.2.6.1](#SystemQueryOptionfilter))
+   2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.2](#ParameterAliases))
+   3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinQueryFunctions))
 and MUST return `501 Not Implemented` for any unsupported filter
-operations (section 9.3.1)
-   4. SHOULD support the canonical functions (section 11.2.6.1.2) and
+operations ([section 3501NotImplemented])
+   4. SHOULD support the canonical functions ([section 11.2.6.1.1](#BuiltinQueryFunctions)) and
 MUST return `501 Not Implemented` for any unsupported canonical
-functions (section 9.3.1)
-   5. SHOULD support `$filter` on expanded entities (section 11.2.5.2.1)
+functions ([section 4501NotImplemented])
+   5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) (section 11.1.2)
+[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 9. SHOULD support the [OData-JSON](#ODataJSON) format
 10. SHOULD consider supporting basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS for the highest level of interoperability
 with generic clients
-11. SHOULD support the `$search system query option (section 11.2.6.6)`
-12. SHOULD support the `$skip system query option (section 11.2.6.4)`
-13. SHOULD support the `$count system query option (section 11.2.6.5)`
-14. SHOULD support `$expand` (section 11.2.5.2)
+11. SHOULD support the `$search` system query option ([section 11.2.6.6](#SystemQueryOptionsearch))
+12. SHOULD support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
+13. SHOULD support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
+14. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 15. SHOULD support the lambda operators `any` and `all` on navigation-
 and collection-valued properties (section 5.1.1.10 in
-[OData‑URL](#ODataURL))
+[OData URL](#ODataURL))
 16. SHOULD support the `/$count` segment on navigation and collection
-properties (section 11.2.10)
+properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 17. SHOULD support `$orderby asc` and `desc` on individual properties
-(section 11.2.6.2)
+([section 11.2.6.2](#SystemQueryOptionorderby))
 
 ### <a name="OData40AdvancedConformanceLevel" href="#OData40AdvancedConformanceLevel">12.1.3 OData 4.0 Advanced Conformance Level</a>
 
@@ -6373,18 +6372,18 @@ In order to conform to the OData Advanced Conformance Level, a service:
 1. MUST conform to at least the [OData 4.0 Intermediate Conformance
 Level](#OData40IntermediateConformanceLevel)
 2. MUST publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) (section 11.1.2)
+[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 3. MUST support the [OData-JSON](#ODataJSON) format
 4. MUST support the `/$count` segment on navigation and collection
-properties (section 11.2.10)
+properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 5. MUST support the lambda operators `any` and `all` on navigation- and
 collection-valued properties (section 5.1.1.10 in
-[OData‑URL](#ODataURL))
-6. MUST support the `$skip` system query option (section `11.2.6.4`)
-7. MUST support the `$count` system query option (section `11.2.6.5`)
+[OData URL](#ODataURL))
+6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
+7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 8. MUST support `$orderby` `asc` and `desc` on individual properties
-(section 11.2.6.2)
-9. MUST support `$expand` (section 11.2.5.2)
+([section 11.2.6.2](#SystemQueryOptionorderby))
+9. MUST support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
    1. MUST support returning references for expanded properties
    2. MUST support `$filter` on expanded collection-valued properties
    3. MUST support cast segment in expand with derived types
@@ -6394,21 +6393,19 @@ collection-valued properties
    6. SHOULD support `$top` and `$skip` on expanded collection-valued
 properties
    7. SHOULD support `$search` on expanded collection-valued properties
-   8. SHOULD support `$levels` for recursive expand (section
-11.2.5.2.1.1)
+   8. SHOULD support `$levels` for recursive expand ([section 11.2.5.2.1.1](#ExpandOptionlevels))
    9. MAY support `$compute` on expanded properties
-10. MUST support the `$search` system query option (section 11.2.6.6)
+10. MUST support the `$search` system query option ([section 11.2.6.6](#SystemQueryOptionsearch))
 11. MUST support batch requests according to the multipart format
-(section 11.7 and all subsections) and MAY support batch requests
+([section 11.7](#BatchRequests) and all subsections) and MAY support batch requests
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
-[OData‑URL](#ODataURL)
+[OData URL](#ODataURL)
 13. SHOULD support [asynchronous requests](#AsynchronousRequests)
-(section 11.6)
-14. SHOULD support [Delta change tracking](#RequestingChanges) (section
-11.3)
-15. SHOULD support cross-join queries defined in [OData‑URL](#ODataURL)
-16. MAY support the `$compute` system query option (section 11.2.5.3)
+([section 11.6](#AsynchronousRequests))
+14. SHOULD support [Delta change tracking](#RequestingChanges) ([section 11.3](#RequestingChanges))
+15. SHOULD support cross-join queries defined in [OData URL](#ODataURL)
+16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
 ## <a name="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
 
@@ -6467,7 +6464,7 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData‑URL](#ODataURL)) or include URLs in payload
+[OData URL](#ODataURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
@@ -6494,10 +6491,10 @@ service:
 18. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel) for an Updateable service.
 19. MUST support `DELETE` to the reference of a collection member to be
-removed, identified by key (section 11.4.6.2)
+removed, identified by key ([section 11.4.6.2](#RemoveaReferencetoanEntity))
 20. SHOULD support `PUT` against single entity with nested content
-21. SHOULD support deep updates (section 11.4.3.1) and deep inserts
-(section 11.4.2.2)
+21. SHOULD support deep updates ([section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity)) and deep inserts
+([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))
 22. SHOULD support `PUT` or `DELETE` to `$ref` of a collection-valued
 nav prop
 23. MAY support `POST` to collections of complex/primitive types
@@ -6552,9 +6549,9 @@ properties
 properties
    5. SHOULD support `$search` on selected collection-valued properties
 6. MUST publish metadata at `$metadata` according to
-[OData-CSDLJSON](#ODataCSDL) (section 11.1.2)
+[OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 7. MUST support batch requests according both to the multipart format
-(section 11.7 and all subsections) and the JSON Batch format defined in
+([section 11.7](#BatchRequests) and all subsections) and the JSON Batch format defined in
 [OData-JSON](#ODataJSON)
 8. SHOULD support filtering a collection using a `/$filter` path
 segment
@@ -6575,16 +6572,16 @@ To be generally interoperable, OData clients      
 
 1. MUST specify the `OData-MaxVersion` header in requests (section
 8.2.7)
-2. MUST specify `OData-Version` (section 8.1.5) and `Content-Type`
-(section 8.1.1) in any request with a payload
+2. MUST specify `OData-Version` ([section 8.1.5](#HeaderODataVersion)) and `Content-Type`
+([section 8.1.1](#HeaderContentType)) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
 [OData-JSON](#ODataJSON)
-4. MUST follow redirects (section 9.1.5)
-5. MUST correctly handle next links (section 11.2.6.7)
+4. MUST follow redirects ([section 53xxRedirection])
+5. MUST correctly handle next links ([section 11.2.6.7](#ServerDrivenPaging))
 6. MUST support instances returning properties and navigation
-properties not specified in metadata (section 11.2)
+properties not specified in metadata ([section 11.2](#RequestingData))
 7. MUST generate `PATCH` requests for updates, if the client supports
-updates (section 11.4.3)
+updates ([section 11.4.3](#UpdateanEntity))
 8. MUST include the `$` prefix when specifying OData-defined system
 query options
 9. MUST use case-sensitive query options, operators, and canonical
@@ -6592,10 +6589,10 @@ functions
 10. SHOULD support basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS
 11. MAY request entity references in place of entities previously
-returned in the response (section 11.2.8)
+returned in the response ([section 11.2.8](#RequestingEntityReferences))
 12. MAY support deleted entities, link entities, deleted link entities
-in a delta response (section 11.3)
-13. MAY support asynchronous responses (section 11.6)
+in a delta response ([section 11.3](#RequestingChanges))
+13. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
 15. MAY support `streaming `in a JSON response (see
