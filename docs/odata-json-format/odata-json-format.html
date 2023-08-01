@@ -358,7 +358,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If a client prefers a very small wire size and is intelligent enough to compute data using metadata expressions, the <code>Accept</code> header should include <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a>. If computation is more critical than wire size or the client is incapable of computing control information, <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> directs the service to inline the control information that normally would be computed from metadata expressions in the payload. <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is an option for clients that have out-of-band knowledge or don't require control information.</p>
 <p>In addition, the client may use the <code>include-annotations</code> preference in the <code>Prefer</code> header to request additional control information. Services supporting this MUST NOT omit control information required by the chosen <code>metadata</code> parameter, and services MUST NOT exclude the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a>, and <a href="#ControlInformationcountodatacount"><code>count</code></a> if they are required by the response type.</p>
 <p>If the client includes the <code>OData-MaxVersion</code> header in a request and does not specify the <code>metadata</code> format parameter in either the <code>Accept</code> header or <code>$format</code> query option, the service MUST return at least the <a href="#metadataminimalodatametadataminimal">minimal control information</a>.</p>
-<p>Note that in OData 4.0 the <code>metadata</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version </code>header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
+<p>Note that in OData 4.0 the <code>metadata</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 <h3 id="311-metadataminimal-odatametadataminimal"><a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 <code>metadata=minimal</code> (<code>odata.metadata=minimal</code>)</a></h3>
 <p>The <code>metadata=minimal</code> format parameter indicates that the service SHOULD remove computable control information from the payload wherever possible. The response payload MUST contain at least the following <a href="#ControlInformation">control information</a>:</p>
 <ul>
@@ -476,7 +476,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>All other control information can appear anywhere in the payload as long as it does not violate any of the above rules.</li>
 <li>For 4.0 payloads, annotations and control information for navigation properties MUST appear after all structural properties. 4.01 clients MUST NOT assume this ordering.</li>
 </ul>
-<p>Note that in OData 4.0 the <code>streaming</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version </code>header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
+<p>Note that in OData 4.0 the <code>streaming</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 <h2 id="45-control-information"><a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a></h2>
 <p>In addition to the "pure data" a message body MAY contain <a href="#InstanceAnnotations">annotations</a> and control information that is represented as name/value pairs whose names start with <code>@</code>.</p>
 <p>In requests and responses with an <code>OData-Version</code> header with a value of <code>4.0</code> control information names are prefixed with <code>@odata.</code>, e.g. <code>@odata.context</code>. In requests and responses without such a header the <code>odata.</code> prefix SHOULD be omitted, e.g. <code>@context</code>.</p>
@@ -2085,8 +2085,6 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </table>
 <hr />
 <h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
-<!-- Optional section -->
-
 <table>
 <thead>
 <tr class="header">

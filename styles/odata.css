@@ -3,14 +3,14 @@ a:target {
 }
 
 a[href^="#_"],
-a[href^="#OData"],
+a[href^="#OData"]:not(a[href^="#OData4"]),
 a[href^="#rfc"],
 a[href^="#XML-"] {
 	font-weight: bold;
 }
 
 a[href^="#_"]::before,
-a[href^="#OData"]::before,
+a[href^="#OData"]:not(a[href^="#OData4"])::before,
 a[href^="#rfc"]::before,
 a[href^="#XML-"]::before {
 	content: "[";
@@ -18,7 +18,7 @@ a[href^="#XML-"]::before {
 }
 
 a[href^="#_"]::after,
-a[href^="#OData"]::after,
+a[href^="#OData"]:not(a[href^="#OData4"])::after,
 a[href^="#rfc"]::after,
 a[href^="#XML-"]::after {
 	content: "]";

@@ -180,7 +180,7 @@ constraints have to be met:
 Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `odata.`. Payloads with an `OData-Version` header equal to
 `4.0` MUST include the `odata.` prefix. Payloads with an
-`OData-Version `header equal to `4.01` or greater SHOULD NOT
+`OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
 ## ##subsec Control Information

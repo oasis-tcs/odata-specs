@@ -8,10 +8,8 @@
     "pdf": "node lib/build-pdf.js",
     "start": "node lib/server",
     "test": "c8 -r html -r text mocha",
-    "clean-csdl-json": "node lib/clean.mjs odata-csdl-json/temp odata-csdl-json-v4.01-os",
-    "clean-csdl-xml": "node lib/clean.mjs odata-csdl-xml/temp odata-csdl-xml-v4.01-os",
-    "clean-protocol": "node lib/clean.mjs odata-protocol/temp odata-v4.01-os-part1-protocol",
-    "clean-url": "node lib/clean.mjs odata-url-conventions/temp odata-v4.01-os-part2-url-conventions"
+    "clean-url": "node lib/clean.mjs odata-url-conventions/temp odata-v4.01-os-part2-url-conventions",
+    "clean-temporal": "node lib/clean.mjs odata-temporal-ext/temp odata-temporal-ext-v4.01"
   },
   "author": "",
   "license": "ISC",

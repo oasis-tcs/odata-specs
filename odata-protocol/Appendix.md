@@ -14,6 +14,10 @@ The following documents are referenced in such a way that some or all of their c
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataAggregation">[OData-Aggregation]</a>
+_OData Extension for Data Aggregation Version 4.02._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
@@ -21,8 +25,8 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.02. Part 1: Protocol._  
+###### <a name="ODataJSON">[OData-JSON]</a>
+_OData JSON Format Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
@@ -37,8 +41,11 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="rfc2046">[RFC2046\]]</a>
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
+https://tools.ietf.org/html/rfc2046.
+
 ###### <a name="rfc2119">[RFC2119]</a>
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3986">[RFC3986]</a>
@@ -57,12 +64,36 @@ https://tools.ietf.org/html/rfc4648.
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
 http://tools.ietf.org/html/rfc5646.
 
+###### <a name="rfc5789">[RFC5789]</a>
+_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
+http://tools.ietf.org/html/rfc5789.
+
 ###### <a name="rfc7493">[RFC7493]</a>
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
 https://tools.ietf.org/html/rfc7493.
 
+###### <a name="rfc7230">[RFC7230]</a>
+_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
+https://tools.ietf.org/html/rfc7230.
+
+###### <a name="rfc7231">[RFC7231]</a>
+_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
+https://tools.ietf.org/html/rfc7231.
+
+###### <a name="rfc7232">[RFC7232]</a>
+_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
+https://tools.ietf.org/html/rfc7232.
+
+*###### <a name="rfc7240">[RFC7240]</a>
+_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
+https://tools.ietf.org/html/rfc7240.
+
+###### <a name="rfc7617">[RFC7617]</a>
+_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
+https://tools.ietf.org/html/rfc7617.
+
 ###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016._
+_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
 http://tools.ietf.org/html/rfc7946.
 
 ###### <a name="rfc8174">[RFC8174]</a>
@@ -73,7 +104,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## ##subasec Informative References 
+## ##subasec Informative References
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. 
@@ -87,11 +118,24 @@ http://geojson.org/geojson-spec.html.
 
 # Appendix ##asec Safety, Security and Privacy Considerations
 
-This specification raises no security issues.
+This section is provided as a service to the application developers,
+information providers, and users of OData version 4.0 giving some
+references to starting points for securing OData services as specified.
+OData is a REST-full multi-format service that depends on other services
+and thus inherits both sides of the coin, security enhancements and
+concerns alike from the latter.
 
-This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.
+For HTTP relevant security implications please cf. the relevant sections
+of [RFC7231](#rfc7231) (9. Security Considerations) and for the
+HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
+starting points.
 
-For JSON-relevant security implications please cf. at least the relevant subsections of [RFC8259](#rfc8259) as starting point.
+## ##subasec Authentication
+
+OData Services requiring authentication SHOULD consider supporting basic
+authentication as defined in [RFC7617](#rfc7617) over HTTPS for the
+highest level of interoperability with generic clients. They MAY support
+other authentication methods.
 
 -------
 
@@ -99,7 +143,72 @@ For JSON-relevant security implications please cf. at least the relevant subsect
 
 ## ##subasec Special Thanks
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
+The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:
+- Howard Abrams (CA Technologies)
+- Ken Baclawski (Northeastern University)
+- Jay Balunas (Red Hat)
+- Stephen Berard (Schneider Electric Industries SAS)
+- Mark Biamonte (Progress Software)
+- Matthew Borges (SAP SE)
+- Edmond Bourne (BlackBerry)
+- Joseph Boyle (Planetwork, Inc.)
+- Peter Brown (Individual)
+- Antonio Campanile (Bank of America)
+- Pablo Castro (Microsoft)
+- Axel Conrad (BlackBerry)
+- Robin Cover (OASIS)
+- Erik de Voogd (SDL)
+- Yi Ding (Microsoft)
+- Diane Downie (Citrix Systems)
+- Patrick Durusau (Individual)
+- Andrew Eisenberg (IBM)
+- Chet Ensign (OASIS)
+- Davina Erasmus (SDL)
+- George Ericson (Dell)
+- Colleen Evans (Microsoft)
+- Jason Fam (IBM)
+- Senaka Fernando (WSO2)
+- Josh Gavant (Microsoft)
+- Brent Gross (IBM)
+- Zhun Guo (Individual)
+- Anila Kumar GVN (CA Technologies)
+- Stefan Hagen (Individual)
+- Ralf Handl (SAP SE)
+- Barbara Hartel (SAP SE)
+- Hubert Heijkers (IBM)
+- Jens Hüsken (SAP SE)
+- Evan Ireland (SAP SE)
+- Gershon Janssen (Individual)
+- Ram Jeyaraman (Microsoft)
+- Ling Jin (IBM)
+- Ted Jones (Red Hat)
+- Diane Jordan (IBM)
+- Stephan Klevenz (SAP SE)
+- Gerald Krause (SAP SE)
+- Nuno Linhares (SDL)
+- Paul Lipton (CA Technologies)
+- Susan Malaika (IBM)
+- Ramanjaneyulu Malisetti (CA Technologies)
+- Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)
+- Stan Mitranic (CA Technologies)
+- Dale Moberg (Axway Software)
+- Graham Moore (BrightstarDB Ltd.)
+- Farrukh Najmi (Individual)
+- Shishir Pardikar (Citrix Systems)
+- Sanjay Patil (SAP SE)
+- Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
+- Michael Pizzo (Microsoft)
+- Ramesh Reddy (Red Hat)
+- Robert Richards (Mashery)
+- Sumedha Rubasinghe (WSO2)
+- James Snell (IBM)
+- Christof Sprenger (Microsoft)
+- Heiko Theißen (SAP SE)
+- Jeffrey Turpin (Axway Software)
+- John Willson (Individual)
+- John Wilmes (Individual)
+- Christopher Woodruff (Perficient, Inc.)
+- Martin Zurmuehl (SAP SE)
 
 ## ##subasec Participants
 
@@ -116,8 +225,6 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
-| Mark | Biamonte | Progress Software |
-| Martin | Zurmühl | SAP SE |
 
 -------
 
