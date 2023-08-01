@@ -6261,7 +6261,7 @@ request
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
 [`501 Not Implemented`](#ResponseCode501NotImplemented) for any
-unsupported functionality ([section 1501NotImplemented])
+unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
@@ -6329,7 +6329,7 @@ service:
 Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
-unsupported functionality ([section 2501NotImplemented])
+unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))`
 4. MUST support casting to a derived type according to
 [OData URL](#ODataURL) if derived types are present in the model
@@ -6341,10 +6341,10 @@ in the requested entity set ([section 11.2.6.1](#SystemQueryOptionfilter))
    2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.2](#ParameterAliases))
    3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinQueryFunctions))
 and MUST return `501 Not Implemented` for any unsupported filter
-operations ([section 3501NotImplemented])
+operations ([section 9.3.1](#ResponseCode501NotImplemented))
    4. SHOULD support the canonical functions ([section 11.2.6.1.1](#BuiltinQueryFunctions)) and
 MUST return `501 Not Implemented` for any unsupported canonical
-functions ([section 4501NotImplemented])
+functions ([section 9.3.1](#ResponseCode501NotImplemented))
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6575,7 +6575,7 @@ To be generally interoperable, OData clients
 ([section 8.1.1](#HeaderContentType)) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
 [OData-JSON](#ODataJSON)
-4. MUST follow redirects ([section 53xxRedirection])
+4. MUST follow redirects ([section 9.1.5](#ResponseCode3xxRedirection))
 5. MUST correctly handle next links ([section 11.2.6.7](#ServerDrivenPaging))
 6. MUST support instances returning properties and navigation
 properties not specified in metadata ([section 11.2](#RequestingData))
