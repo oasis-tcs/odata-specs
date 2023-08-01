@@ -187,7 +187,7 @@ overwrites. This is a deviation from [RFC7232](#rfc7232).
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#DataModification) or [Action
 Request](#Actions), the service MUST respond with
-[`412 Precondition Failed`](#ResponseCodePreconditionFailed) and MUST
+[`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request. In
 the case of an [upsert](#UpsertanEntity), if the addressed entity does
 not exist the provided ETag value is considered not to match.
@@ -211,10 +211,10 @@ value does not match the current ETag value of the resource, using the
 weak comparison function (see [RFC7232](#rfc7232)). If the value
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
-[`304 Not Modified`](#ResponseCodeNotModified), and for a [Data
+[`304 Not Modified`](#ResponseCode304NotModified), and for a [Data
 Modification Request](#DataModification) or [Action Request](#Actions),
 the service MUST respond with
-[`412 Precondition Failed`](#ResponseCodePreconditionFailed) and MUST
+[`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request.
 
 An `If-None-Match` header with a value of `*` in a `PUT` or `PATCH`
@@ -255,8 +255,8 @@ The `Isolation` header has no effect on links other than the next link.
 Navigation links, read links, and edit links return the current version
 of the data.
 
-A service returns [`410 Gone`](#ResponseCodeGone) or
-[`404 Not Found`](#ResponseCodeNotFound) if a consumer tries to
+A service returns [`410 Gone`](#ResponseCode410Gone) or
+[`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
 The syntax of the `Isolation` header is defined in
@@ -377,12 +377,12 @@ When the `callback` preference is applied to asynchronous requests, the
 OData service invokes the callback endpoint once it has finished
 processing the request. The status monitor resource, returned in the
 [`Location` header](#HeaderLocation) of the previously returned
-[`202 Accepted`](#ResponseCodeAccepted) response, can then be used to
+[`202 Accepted`](#ResponseCode202Accepted) response, can then be used to
 retrieve the results of the asynchronously executed request.
 
 When the `callback` preference is specified on a `GET` request to a
 delta link and there are no changes available, the OData service returns
-a [`202 Accepted`](#ResponseCodeAccepted) response with a [`Location`
+a [`202 Accepted`](#ResponseCode202Accepted) response with a [`Location`
 header](#HeaderLocation) specifying the delta link to be used to check
 for future updates. The OData service then invokes the specified
 callback endpoint once new changes become available.
@@ -393,7 +393,7 @@ a `GET` request to a delta-link might influence the response in a couple
 of ways.
 
 -  If the service processes the request synchronously, and no updates are available, then the response is the same as if the respond-async hadn’t been specified and results in a response as described above.
--  If the service processes the request asynchronously, then it responds with a [`202 Accepted`](#ResponseCodeAccepted) response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned [`202 Accepted`](#ResponseCodeAccepted) response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.
+-  If the service processes the request asynchronously, then it responds with a [`202 Accepted`](#ResponseCode202Accepted) response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned [`202 Accepted`](#ResponseCode202Accepted) response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.
 
 If the consumer specifies the same URL as callback endpoint in multiple
 requests, the service MAY collate them into a single notification once
@@ -640,7 +640,7 @@ batch request itself.
 A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
-[`204 No Content`](#ResponseCodeNoContent) in which case it MAY
+[`204 No Content`](#ResponseCode204NoContent) in which case it MAY
 include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
 header containing the `return=minimal `preference.
 
@@ -664,7 +664,7 @@ asynchronously.
 
 If the client has specified` respond-async` in the request, the service
 MAY process the request asynchronously and return a
-[`202 Accepted`](#ResponseCodeAccepted) response.
+[`202 Accepted`](#ResponseCode202Accepted) response.
 
 The `respond-async` preference MAY be used for batch requests, in which
 case it applies to the batch request as a whole and not to individual
@@ -756,7 +756,7 @@ response headers have defined meaning in OData.
 ### ##subsubsec Header `AsyncResult`
 
 A 4.01 service MUST include the `AsyncResult` header in
-[`200 OK`](#ResponseCodeOK)response from a status monitor resource in
+[`200 OK`](#ResponseCode200OK)response from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
@@ -805,7 +805,7 @@ The `Location` header MUST be returned in the response from a [Create
 Entity](#CreateanEntity) or [Create Media Entity](#CreateaMediaEntity)
 request to specify the edit URL, or for read-only entities the read URL,
 of the created entity, and in responses returning
-[`202 Accepted`](#ResponseCodeAccepted) to specify the URL that the
+[`202 Accepted`](#ResponseCode202Accepted) to specify the URL that the
 client can use to request the status of an asynchronous request.
 
 The `Location` header SHOULD NOT be included for the overall batch
@@ -814,7 +814,7 @@ response, but MAY be included in individual responses within a batch.
 ### ##subsubsec Header `OData-EntityId`
 
 A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
-operation that returns [`204 No Content`](#ResponseCodeNoContent)
+operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
 that was acted on by the request. The syntax of the `OData-EntityId`
@@ -854,8 +854,8 @@ to the overall batch.
 ### ##subsubsec Header `Retry-After`
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCodeAccepted)
-and in [`3xx Redirect`](#ResponseCodexxRedirection) responses
+[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCode202Accepted)
+and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
 that the client is asked to wait before retrying the request or issuing

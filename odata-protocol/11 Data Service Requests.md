@@ -98,8 +98,8 @@ complete details on the syntax for building requests, see
 OData services are hypermedia driven services that return URLs to the
 client. If a client subsequently requests the advertised resource and
 the URL has expired, then the service SHOULD respond with
-[`410 Gone`](#ResponseCodeGone). If this is not feasible, the service
-MUST respond with [`404 Not Found`](#ResponseCodeNotFound).
+[`410 Gone`](#ResponseCode410Gone). If this is not feasible, the service
+MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
 format specified by the client, either in the [`Accept`
@@ -169,7 +169,7 @@ annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None.`
 
 If no entity exists with the specified request URL, the service responds
-with [`404 Not Found`](#ResponseCodeNotFound).
+with [`404 Not Found`](#ResponseCode404NotFound).
 
 ### ##subsubsec Requesting the Media Stream of a Media Entity using `$value`
 
@@ -193,7 +193,7 @@ Appending `/$value` to an entity that is not a media entity returns
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
-[`404 Not Found`](#ResponseCodeNotFound).
+[`404 Not Found`](#ResponseCode404NotFound).
 
 ### ##subsubsec Requesting Individual Properties
 
@@ -207,10 +207,10 @@ name of an individual property of the complex type.
 See [OData‑URL](#ODataURL) for details.
 
 If the property is single-valued and has the `null` value, the service
-responds with [`204 No Content`](#ResponseCodeNoContent).
+responds with [`204 No Content`](#ResponseCode204NoContent).
 
 If the property is not available, for example due to permissions, the
-service responds with [`404 Not Found`](#ResponseCodeNotFound).
+service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example ##ex:
@@ -253,10 +253,10 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 [OData-ABNF](#ODataABNF).
 
 A `$value` request for a property that is `null` results in a
-[`204 No Content`](#ResponseCodeNoContent) response.
+[`204 No Content`](#ResponseCode204NoContent) response.
 
 If the property is not available, for example due to permissions, the
-service responds with [`404 Not Found`](#ResponseCodeNotFound).
+service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example ##ex:
@@ -540,7 +540,7 @@ any resource.
 An OData service MAY support some or all of the system query options
 defined. If a data service does not support a system query option, it
 MUST fail any request that contains the unsupported option and SHOULD
-return [`501 Not Implemented`](#ResponseCodeNotImplemented).
+return [`501 Not Implemented`](#ResponseCode501NotImplemented).
 
 #### ##subsubsubsec System Query Option `$filter`
 
@@ -1011,7 +1011,7 @@ representing the relationship.
 
 If the navigation property does not exist on the entity indicated by the
 request URL, the service returns
-[`404 Not Found`](#ResponseCodeNotFound).
+[`404 Not Found`](#ResponseCode404NotFound).
 
 If the relationship terminates on a collection, the response MUST be the
 format-specific representation of the collection of related entities. If
@@ -1021,7 +1021,7 @@ representation of an empty collection.
 If the relationship terminates on a single entity, the response MUST be
 the format-specific representation of the related single entity. If no
 entity is related, the service returns
-[`204 No Content`](#ResponseCodeNoContent).
+[`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
 Example ##ex: return the supplier of the product with `ID=1 `in the
@@ -1059,8 +1059,8 @@ ETag can never change.
 
 If the resource path terminates on a single entity and no such entity
 exists, the service returns either
-[`204 No Content`](#ResponseCodeNoContent) or
-[`404 Not Found`](#ResponseCodeNotFound).
+[`204 No Content`](#ResponseCode204NoContent) or
+[`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example ##ex: collection with an entity reference for each Order related
@@ -1265,7 +1265,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCodeNotFound). The response
+[response code `404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## ##subsec Requesting Changes
@@ -1363,7 +1363,7 @@ used to specify the desired response format.
 Clients SHOULD specify the same
 [`Accept-Language`](#HeaderAcceptLanguage) header when querying the
 delta link as was specified in the defining query. Services MAY return
-[`406 Not Acceptable`](#ResponseCodeNotAcceptable) if a different
+[`406 Not Acceptable`](#ResponseCode406NotAcceptable) if a different
 `Accept-Language` is specified. If a service does support an
 `Accept-Language` header it MAY return changes only visible in that
 language, or MAY include records that have changes not visible in the
@@ -1397,7 +1397,7 @@ link MAY be identical to the delta link resulting in the empty
 collection of changes.
 
 If the delta link is no longer valid, the service responds with
-[`410 Gone`](#ResponseCodeGone), and SHOULD include the URL for
+[`410 Gone`](#ResponseCode410Gone), and SHOULD include the URL for
 refetching the entire set in the `Location` header of the response.
 
 ### ##subsubsec Delta Payloads

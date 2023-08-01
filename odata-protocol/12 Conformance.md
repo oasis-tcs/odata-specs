@@ -59,7 +59,7 @@ request
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCodeNotImplemented) for any
+[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
 unsupported functionality (section 9.3.1)
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
@@ -416,5 +416,5 @@ the requested format
 20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
-[`501 Not Implemented`](#ResponseCodeNotImplemented) or
+[`501 Not Implemented`](#ResponseCode501NotImplemented) or
 `400 Bad Request`

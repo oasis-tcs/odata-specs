@@ -535,7 +535,7 @@ option are specified on a request, the value specified in the `$format`
 query option MUST be used.
 
 If the service does not support the requested format, it replies with a
-[`406 Not Acceptable`](#ResponseCodeNotAcceptable) error response.
+[`406 Not Acceptable`](#ResponseCode406NotAcceptable) error response.
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term

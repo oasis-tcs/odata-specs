@@ -856,7 +856,7 @@ option are specified on a request, the value specified in the `$format`
 query option MUST be used.
 
 If the service does not support the requested format, it replies with a
-[`406 Not Acceptable`](#ResponseCodeNotAcceptable) error response.
+[`406 Not Acceptable`](#ResponseCode406NotAcceptable) error response.
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
@@ -1068,7 +1068,7 @@ overwrites. This is a deviation from [RFC7232](#rfc7232).
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#DataModification) or [Action
 Request](#Actions), the service MUST respond with
-[`412 Precondition Failed`](#ResponseCodePreconditionFailed) and MUST
+[`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request. In
 the case of an [upsert](#UpsertanEntity), if the addressed entity does
 not exist the provided ETag value is considered not to match.
@@ -1092,10 +1092,10 @@ value does not match the current ETag value of the resource, using the
 weak comparison function (see [RFC7232](#rfc7232)). If the value
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
-[`304 Not Modified`](#ResponseCodeNotModified), and for a [Data
+[`304 Not Modified`](#ResponseCode304NotModified), and for a [Data
 Modification Request](#DataModification) or [Action Request](#Actions),
 the service MUST respond with
-[`412 Precondition Failed`](#ResponseCodePreconditionFailed) and MUST
+[`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request.
 
 An `If-None-Match` header with a value of `*` in a `PUT` or `PATCH`
@@ -1136,8 +1136,8 @@ The `Isolation` header has no effect on links other than the next link.
 Navigation links, read links, and edit links return the current version
 of the data.
 
-A service returns [`410 Gone`](#ResponseCodeGone) or
-[`404 Not Found`](#ResponseCodeNotFound) if a consumer tries to
+A service returns [`410 Gone`](#ResponseCode410Gone) or
+[`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
 The syntax of the `Isolation` header is defined in
@@ -1258,12 +1258,12 @@ When the `callback` preference is applied to asynchronous requests, the
 OData service invokes the callback endpoint once it has finished
 processing the request. The status monitor resource, returned in the
 [`Location` header](#HeaderLocation) of the previously returned
-[`202 Accepted`](#ResponseCodeAccepted) response, can then be used to
+[`202 Accepted`](#ResponseCode202Accepted) response, can then be used to
 retrieve the results of the asynchronously executed request.
 
 When the `callback` preference is specified on a `GET` request to a
 delta link and there are no changes available, the OData service returns
-a [`202 Accepted`](#ResponseCodeAccepted) response with a [`Location`
+a [`202 Accepted`](#ResponseCode202Accepted) response with a [`Location`
 header](#HeaderLocation) specifying the delta link to be used to check
 for future updates. The OData service then invokes the specified
 callback endpoint once new changes become available.
@@ -1274,7 +1274,7 @@ a `GET` request to a delta-link might influence the response in a couple
 of ways.
 
 -  If the service processes the request synchronously, and no updates are available, then the response is the same as if the respond-async hadn’t been specified and results in a response as described above.
--  If the service processes the request asynchronously, then it responds with a [`202 Accepted`](#ResponseCodeAccepted) response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned [`202 Accepted`](#ResponseCodeAccepted) response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.
+-  If the service processes the request asynchronously, then it responds with a [`202 Accepted`](#ResponseCode202Accepted) response specifying the URL to the status monitor resource as it would have with any other asynchronous request. Once the service has finished processing the asynchronous request to the delta link resource, if changes are available it invokes the specified callback endpoint. If no changes are available, the service SHOULD wait to notify the client until changes are available. Once notified, the client uses the status monitor resource from the Location header of the previously returned [`202 Accepted`](#ResponseCode202Accepted) response to retrieve the results. In case no updates were available after processing the initial request, the result will contain no updates and the client can use the delta-link contained in the result to retrieve the updates that have since become available.
 
 If the consumer specifies the same URL as callback endpoint in multiple
 requests, the service MAY collate them into a single notification once
@@ -1518,7 +1518,7 @@ batch request itself.
 A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
-[`204 No Content`](#ResponseCodeNoContent) in which case it MAY
+[`204 No Content`](#ResponseCode204NoContent) in which case it MAY
 include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
 header containing the `return=minimal `preference.
 
@@ -1542,7 +1542,7 @@ asynchronously.
 
 If the client has specified` respond-async` in the request, the service
 MAY process the request asynchronously and return a
-[`202 Accepted`](#ResponseCodeAccepted) response.
+[`202 Accepted`](#ResponseCode202Accepted) response.
 
 The `respond-async` preference MAY be used for batch requests, in which
 case it applies to the batch request as a whole and not to individual
@@ -1634,7 +1634,7 @@ response headers have defined meaning in OData.
 ### <a name="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
 A 4.01 service MUST include the `AsyncResult` header in
-[`200 OK`](#ResponseCodeOK)response from a status monitor resource in
+[`200 OK`](#ResponseCode200OK)response from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
@@ -1683,7 +1683,7 @@ The `Location` header MUST be returned in the response from a [Create
 Entity](#CreateanEntity) or [Create Media Entity](#CreateaMediaEntity)
 request to specify the edit URL, or for read-only entities the read URL,
 of the created entity, and in responses returning
-[`202 Accepted`](#ResponseCodeAccepted) to specify the URL that the
+[`202 Accepted`](#ResponseCode202Accepted) to specify the URL that the
 client can use to request the status of an asynchronous request.
 
 The `Location` header SHOULD NOT be included for the overall batch
@@ -1692,7 +1692,7 @@ response, but MAY be included in individual responses within a batch.
 ### <a name="HeaderODataEntityId" href="#HeaderODataEntityId">8.3.4 Header `OData-EntityId`</a>
 
 A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
-operation that returns [`204 No Content`](#ResponseCodeNoContent)
+operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
 that was acted on by the request. The syntax of the `OData-EntityId`
@@ -1732,8 +1732,8 @@ to the overall batch.
 ### <a name="HeaderRetryAfter" href="#HeaderRetryAfter">8.3.7 Header `Retry-After`</a>
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCodeAccepted)
-and in [`3xx Redirect`](#ResponseCodexxRedirection) responses
+[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCode202Accepted)
+and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
 that the client is asked to wait before retrying the request or issuing
@@ -2636,8 +2636,8 @@ complete details on the syntax for building requests, see
 OData services are hypermedia driven services that return URLs to the
 client. If a client subsequently requests the advertised resource and
 the URL has expired, then the service SHOULD respond with
-[`410 Gone`](#ResponseCodeGone). If this is not feasible, the service
-MUST respond with [`404 Not Found`](#ResponseCodeNotFound).
+[`410 Gone`](#ResponseCode410Gone). If this is not feasible, the service
+MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
 format specified by the client, either in the [`Accept`
@@ -2706,7 +2706,7 @@ annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None.`
 
 If no entity exists with the specified request URL, the service responds
-with [`404 Not Found`](#ResponseCodeNotFound).
+with [`404 Not Found`](#ResponseCode404NotFound).
 
 ### <a name="RequestingtheMediaStreamofaMediaEntityusingvalue" href="#RequestingtheMediaStreamofaMediaEntityusingvalue">11.2.3 Requesting the Media Stream of a Media Entity using `$value`</a>
 
@@ -2730,7 +2730,7 @@ Appending `/$value` to an entity that is not a media entity returns
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
-[`404 Not Found`](#ResponseCodeNotFound).
+[`404 Not Found`](#ResponseCode404NotFound).
 
 ### <a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 
@@ -2744,10 +2744,10 @@ name of an individual property of the complex type.
 See [OData‑URL](#ODataURL) for details.
 
 If the property is single-valued and has the `null` value, the service
-responds with [`204 No Content`](#ResponseCodeNoContent).
+responds with [`204 No Content`](#ResponseCode204NoContent).
 
 If the property is not available, for example due to permissions, the
-service responds with [`404 Not Found`](#ResponseCodeNotFound).
+service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example 31:
@@ -2790,10 +2790,10 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 [OData-ABNF](#ODataABNF).
 
 A `$value` request for a property that is `null` results in a
-[`204 No Content`](#ResponseCodeNoContent) response.
+[`204 No Content`](#ResponseCode204NoContent) response.
 
 If the property is not available, for example due to permissions, the
-service responds with [`404 Not Found`](#ResponseCodeNotFound).
+service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example 32:
@@ -3077,7 +3077,7 @@ any resource.
 An OData service MAY support some or all of the system query options
 defined. If a data service does not support a system query option, it
 MUST fail any request that contains the unsupported option and SHOULD
-return [`501 Not Implemented`](#ResponseCodeNotImplemented).
+return [`501 Not Implemented`](#ResponseCode501NotImplemented).
 
 #### <a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">11.2.6.1 System Query Option `$filter`</a>
 
@@ -3548,7 +3548,7 @@ representing the relationship.
 
 If the navigation property does not exist on the entity indicated by the
 request URL, the service returns
-[`404 Not Found`](#ResponseCodeNotFound).
+[`404 Not Found`](#ResponseCode404NotFound).
 
 If the relationship terminates on a collection, the response MUST be the
 format-specific representation of the collection of related entities. If
@@ -3558,7 +3558,7 @@ representation of an empty collection.
 If the relationship terminates on a single entity, the response MUST be
 the format-specific representation of the related single entity. If no
 entity is related, the service returns
-[`204 No Content`](#ResponseCodeNoContent).
+[`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
 Example 65: return the supplier of the product with `ID=1 `in the
@@ -3596,8 +3596,8 @@ ETag can never change.
 
 If the resource path terminates on a single entity and no such entity
 exists, the service returns either
-[`204 No Content`](#ResponseCodeNoContent) or
-[`404 Not Found`](#ResponseCodeNotFound).
+[`204 No Content`](#ResponseCode204NoContent) or
+[`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
 Example 66: collection with an entity reference for each Order related
@@ -3802,7 +3802,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCodeNotFound). The response
+[response code `404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## <a name="RequestingChanges" href="#RequestingChanges">11.3 Requesting Changes</a>
@@ -3899,7 +3899,7 @@ used to specify the desired response format.
 Clients SHOULD specify the same
 [`Accept-Language`](#HeaderAcceptLanguage) header when querying the
 delta link as was specified in the defining query. Services MAY return
-[`406 Not Acceptable`](#ResponseCodeNotAcceptable) if a different
+[`406 Not Acceptable`](#ResponseCode406NotAcceptable) if a different
 `Accept-Language` is specified. If a service does support an
 `Accept-Language` header it MAY return changes only visible in that
 language, or MAY include records that have changes not visible in the
@@ -3933,7 +3933,7 @@ link MAY be identical to the delta link resulting in the empty
 collection of changes.
 
 If the delta link is no longer valid, the service responds with
-[`410 Gone`](#ResponseCodeGone), and SHOULD include the URL for
+[`410 Gone`](#ResponseCode410Gone), and SHOULD include the URL for
 refetching the entire set in the `Location` header of the response.
 
 ### <a name="DeltaPayloads" href="#DeltaPayloads">11.3.3 Delta Payloads</a>
@@ -4137,8 +4137,8 @@ header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity.
 
 Upon successful completion the service MUST respond with either
-[`201 Created`](#ResponseCodeCreated) and a representation of the
-created entity, or [`204 No Content`](#ResponseCodeNoContent) if the
+[`201 Created`](#ResponseCode201Created) and a representation of the
+created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
 request included a [Prefer
 header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
@@ -4311,7 +4311,7 @@ update.
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, if the entity representation in the request body includes an
 ETag value, the update MUST NOT be performed and SHOULD return
-[`412 Precondition Failed`](#ResponseCodePreconditionFailed) if the
+[`412 Precondition Failed`](#ResponseCode412PreconditionFailed) if the
 supplied ETag value is not `*` and does not match the current ETag value
 for the entity. ETag values in request bodies MUST be ignored for
 requests containing an OData-Version header with a value of `4.0`.
@@ -4334,8 +4334,8 @@ MUST fail if it is unable to persist all updatable property values
 specified in the request.
 
 Upon successful completion the service responds with either
-[`200 OK`](#ResponseCodeOK) and a representation of the updated
-entity, or [`204 No Content`](#ResponseCodeNoContent). The client may
+[`200 OK`](#ResponseCode200OK) and a representation of the updated
+entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
 request that the response SHOULD include a body by specifying a
 [`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
@@ -4523,7 +4523,7 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 [OData-VocCap](#ODataVocCap).
 
 On successful completion of the delete, the response MUST be
-[`204 No Content`](#ResponseCodeNoContent) and contain an empty body.
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -4553,7 +4553,7 @@ MUST contain a single entity reference that identifies the entity to be
 added. See the appropriate format document for details.
 
 On successful completion, the response MUST be
-[`204 No Content`](#ResponseCodeNoContent) and contain an empty body.
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
 
 Note that if the two entities are already related prior to the request,
 the request is completed successfully.
@@ -4578,7 +4578,7 @@ The `DELETE` request MUST NOT violate any [integrity
 constraints](#HandlingofIntegrityConstraints) in the data model.
 
 On successful completion, the response MUST be
-[`204 No Content`](#ResponseCodeNoContent) and contain an empty body.
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
 
 #### <a name="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.6.3 Change the Reference in a Single-Valued Navigation Property</a>
 
@@ -4588,7 +4588,7 @@ contain a single entity reference that identifies the existing entity to
 be related. See the appropriate format document for details.
 
 On successful completion, the response MUST be
-[`204 No Content`](#ResponseCodeNoContent) and contain an empty body.
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
 
 Alternatively, a relationship MAY be updated as part of an update to the
 source entity by including the required binding information for the new
@@ -4597,7 +4597,7 @@ target entity. This binding information is format-specific, see
 
 If the single-valued navigation property is used in the key definition
 of an entity type, it cannot be changed and the request MUST fail with
-[`405 Method Not Allowed`](#ResponseCodeMethodNotAllowed) or an other
+[`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed) or an other
 appropriate error.
 
 #### <a name="ReplaceallReferencesinaCollectionvaluedNavigationProperty" href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a>
@@ -4637,8 +4637,8 @@ header](#HeaderLocation) that contains the edit URL of the created media
 entity.
 
 Upon successful completion the service responds with either
-[`201 Created`](#ResponseCodeCreated), or
-[`204 No Content`](#ResponseCodeNoContent)if the request included a
+[`201 Created`](#ResponseCode201Created), or
+[`204 No Content`](#ResponseCode204NoContent)if the request included a
 [Prefer header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
 
@@ -4655,8 +4655,8 @@ media type MUST be specified in a [`Content-Type`](#HeaderContentType)
 header.
 
 On success, the service MUST respond with either
-[`204 No Content`](#ResponseCodeNoContent) and an empty body, or
-[`200 OK`](#ResponseCodeOK) if the client specified the preference
+[`204 No Content`](#ResponseCode204NoContent) and an empty body, or
+[`200 OK`](#ResponseCode200OK) if the client specified the preference
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), in
 which case the response body MUST contain the updated media entity.
 
@@ -4696,8 +4696,8 @@ annotation with term
 see [OData-VocCore](#ODataVocCore).
 
 On success, the service MUST respond with either
-[`204 No Content`](#ResponseCodeNoContent) and an empty body, or
-[`200 OK`](#ResponseCodeOK) if the client specified the preference
+[`204 No Content`](#ResponseCode204NoContent) and an empty body, or
+[`200 OK`](#ResponseCode200OK) if the client specified the preference
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), in
 which case the response body MUST contain the updated media value for
 the stream.
@@ -4715,7 +4715,7 @@ attempts to set the property to null and results in an error if the
 property is non-nullable.
 
 Attempting to request a stream property whose value is null results in
-[`204 No Content`](#ResponseCodeNoContent).
+[`204 No Content`](#ResponseCode204NoContent).
 
 ### <a name="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.9 Managing Values and Properties Directly</a>
 
@@ -4741,8 +4741,8 @@ The same rules apply whether this is a regular property or a dynamic
 property.
 
 Upon successful completion the service responds with either
-[`200 OK`](#ResponseCodeOK) or
-[`204 No Content`](#ResponseCodeNoContent). The client may request
+[`200 OK`](#ResponseCode200OK) or
+[`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a [Prefer
 header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal).
@@ -4789,8 +4789,8 @@ replace the entire complex property with the values specified in the
 request body and set all unspecified properties to their default value.
 
 Upon successful completion the service responds with either
-[`200 OK`](#ResponseCodeOK) or
-[`204 No Content`](#ResponseCodeNoContent). The client may request
+[`200 OK`](#ResponseCode200OK) or
+[`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a [Prefer
 header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal).
@@ -4822,8 +4822,8 @@ Since collection members have no individual identity, `PATCH` is not
 supported for collection properties.
 
 Upon successful completion the service responds with either
-[`200 OK`](#ResponseCodeOK) or
-[`204 No Content`](#ResponseCodeNoContent). The client may request
+[`200 OK`](#ResponseCode200OK) or
+[`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a [Prefer
 header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal).
@@ -4939,7 +4939,7 @@ processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
 annotated with term `Core.DataModificationException` and SHOULD specify
-a `responseCode` of `424` ([Failed Dependency](#ResponseCodeFailedDependency)).
+a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 Alternatively, the verb `PUT` can be used, in which case the request
 body MUST be the representation of a collection of entities. In this
@@ -5275,11 +5275,11 @@ If a collection-valued function has no result for a given parameter
 value combination, the response is the format-specific representation of
 an empty collection. If a single-valued function with a nullable
 return-type has no result, the service returns
-[`204 No Content`](#ResponseCodeNoContent).
+[`204 No Content`](#ResponseCode204NoContent).
 
 If a single-valued function with a non-nullable return type has no
 result, the service returns `4xx`. For functions that return a single
-entity [`404 Not Found`](#ResponseCodeNotFound) is the appropriate
+entity [`404 Not Found`](#ResponseCode404NotFound) is the appropriate
 response code.
 
 For a composable function the processing is stopped when the function
@@ -5462,7 +5462,7 @@ header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity.
 
 Actions without a return type respond with
-[`204 No Content`](#ResponseCodeNoContent) on success.
+[`204 No Content`](#ResponseCode204NoContent) on success.
 
 To request processing of the action only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
@@ -5513,7 +5513,7 @@ Request](#DataServiceRequests) asynchronously.
 
 If the client has specified` respond-async` in the request, the service
 MAY process the request asynchronously and return a
-[`202 Accepted`](#ResponseCodeAccepted) response. A service MUST
+[`202 Accepted`](#ResponseCode202Accepted) response. A service MUST
 NOT reply to a [Data Service Request](#DataServiceRequests) with
 `202 Accepted` if the request has not included the `respond-async`
 preference.
@@ -5557,11 +5557,11 @@ use the returned [`Location` header](#HeaderLocation) (which MUST be
 different from the status monitor resource of the initial request) to
 query for the status of the cancellation. If a delete request is not
 supported by the service, the service returns
-[`405 Method Not Allowed`](#ResponseCodeMethodNotAllowed).
+[`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed).
 
 After a successful `DELETE` request against the status monitor resource,
 any subsequent `GET` requests for the same status monitor resource
-returns [`404 Not Found`](#ResponseCodeNotFound).
+returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If an asynchronous request is cancelled for reasons other than the
 consumers issuing a `DELETE` request against the status monitor
@@ -5574,8 +5574,8 @@ The service MUST ensure that no observable change has occurred as a
 result of a canceled request.
 
 If the client waits too long to request the result of the asynchronous
-processing, the service responds with a [`410 Gone`](#ResponseCodeGone) or
-[`404 Not Found`](#ResponseCodeNotFound).
+processing, the service responds with a [`410 Gone`](#ResponseCode410Gone) or
+[`404 Not Found`](#ResponseCode404NotFound).
 
 The status monitor resource URL MUST differ from any other resource URL.
 
@@ -5643,7 +5643,7 @@ or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
 
 If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCodeOK) HTTP response code to
+MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, but the
 processing is yet to be completed. The individual requests within the
 body of the batch request may subsequently fail or be malformed;
@@ -5663,7 +5663,7 @@ other requests that must be successfully processed before the current
 request. In addition, requests may be specified as part of an *atomicity
 group* whose members MUST either all succeed, or all fail. If a request
 fails, then any dependent requests within the JSON format return
-[`424 Failed Dependency`](#ResponseCodeFailedDependency).
+[`424 Failed Dependency`](#ResponseCode424FailedDependency).
 
 In the Multipart format, [data modification](#DataModification) requests
 or [action invocation](#InvokinganAction) requests may be grouped as
@@ -6104,13 +6104,13 @@ Requests](#AsynchronousRequests)).
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a `GET` request to
 the monitor resource and including a
-[`202 Accepted`](#ResponseCodeAccepted) response as the last part of
+[`202 Accepted`](#ResponseCode202Accepted) response as the last part of
 the multipart response. The client can use the monitor URL returned in
-this [`202 Accepted`](#ResponseCodeAccepted) response to continue
+this [`202 Accepted`](#ResponseCode202Accepted) response to continue
 processing the batch response.
 
 Since a change set is executed atomically,
-[`202 Accepted`](#ResponseCodeAccepted) MUST NOT be returned within
+[`202 Accepted`](#ResponseCode202Accepted) MUST NOT be returned within
 a change set.
 
 ::: example
@@ -6260,7 +6260,7 @@ request
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCodeNotImplemented) for any
+[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
 unsupported functionality (section 9.3.1)
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
@@ -6615,7 +6615,7 @@ the requested format
 20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
-[`501 Not Implemented`](#ResponseCodeNotImplemented) or
+[`501 Not Implemented`](#ResponseCode501NotImplemented) or
 `400 Bad Request`
 
 -------
