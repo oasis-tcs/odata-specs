@@ -2573,8 +2573,8 @@ Content-Length: ###
 <h3 id="1211-odata-40-minimal-conformance-level"><a name="OData40MinimalConformanceLevel" href="#OData40MinimalConformanceLevel">12.1.1 OData 4.0 Minimal Conformance Level</a></h3>
 <p>In order to conform to the OData 4.0 Minimal conformance level, a service:</p>
 <ol type="1">
-<li>MUST publish a <a href="#ServiceDocumentRequest">service document</a> at the service root (section 11.1.1)</li>
-<li>MUST return data according to the<a href="#ODataJSON">OData-JSON</a> format</li>
+<li>MUST publish a <a href="#ServiceDocumentRequest">service document</a> at the service root (<a href="#ServiceDocumentRequest">section 11.1.1</a>)</li>
+<li>MUST return data according to the <a href="#ODataJSON">OData-JSON</a> format</li>
 <li>MUST use <a href="#ServerDrivenPaging">server-driven paging</a> when returning partial results (section 11.2.6.7) and not use any other mechanism</li>
 <li>MUST return the appropriate <a href="#HeaderODataVersion"><code>OData-Version</code></a> header (section 8.1.5)</li>
 <li>MUST conform to the semantics the following headers, or fail the request
@@ -2699,7 +2699,7 @@ Content-Length: ###
 <li>MUST support parameter aliases for key values and function parameter values if they allow the octets <code>00</code> (NUL), <code>2F</code> (forward slash), or <code>5C</code> (backslash) in string literals</li>
 <li>SHOULD support implicit aliasing of parameters</li>
 <li>SHOULD support <code>eq/ne null</code> comparison for navigation properties with a maximum cardinality of one</li>
-<li>SHOULD support the <a href="#BuiltinFilterOperations"><code>in</code></a><code> </code>operator</li>
+<li>SHOULD support the <a href="#BuiltinFilterOperations"><code>in</code></a> operator</li>
 <li>SHOULD support <code>divby</code></li>
 <li>SHOULD support negative indexes for the substring function</li>
 <li>MAY support Key-As-Segment URL convention
