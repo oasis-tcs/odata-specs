@@ -2575,20 +2575,20 @@ Content-Length: ###
 <ol type="1">
 <li>MUST publish a <a href="#ServiceDocumentRequest">service document</a> at the service root (<a href="#ServiceDocumentRequest">section 11.1.1</a>)</li>
 <li>MUST return data according to the <a href="#ODataJSON">OData-JSON</a> format</li>
-<li>MUST use <a href="#ServerDrivenPaging">server-driven paging</a> when returning partial results (section 11.2.6.7) and not use any other mechanism</li>
-<li>MUST return the appropriate <a href="#HeaderODataVersion"><code>OData-Version</code></a> header (section 8.1.5)</li>
+<li>MUST use <a href="#ServerDrivenPaging">server-driven paging</a> when returning partial results (<a href="#ServerDrivenPaging">section 11.2.6.7</a>) and not use any other mechanism</li>
+<li>MUST return the appropriate <a href="#HeaderODataVersion"><code>OData-Version</code></a> header (<a href="#HeaderODataVersion">section 8.1.5</a>)</li>
 <li>MUST conform to the semantics the following headers, or fail the request
 <ol type="1">
-<li><code>Accept</code> (<a href="#HeaderAccept">section 8.2.1</a>)</li>
-<li><code>OData-MaxVersion</code> (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
+<li><a href="#HeaderAccept"><code>Accept</code></a> (<a href="#HeaderAccept">section 8.2.1</a>)</li>
+<li><a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a> (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 </ol></li>
-<li>MUST follow OData guidelines for extensibility (<a href="#Extensibility">section 6</a> and all subsections)</li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or return [<code>501 Not Implemented</code>] for any unsupported functionality ([section 1501NotImplemented])</li>
+<li>MUST follow OData guidelines for <a href="#Extensibility">extensibility</a> (<a href="#Extensibility">section 6</a> and all subsections)</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or return <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> for any unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
 <li>MUST expose only data types defined in <a href="#ODataCSDL">OData-CSDLXML</a></li>
 <li>MUST NOT require clients to understand any metadata or instance annotations (<a href="#VocabularyExtensibility">section 6.4</a>), custom headers (<a href="#HeaderFieldExtensibility">section 6.5</a>), or custom content (<a href="#PayloadExtensibility">section 6.2</a>) in the payload in order to correctly consume the service</li>
-<li>MUST NOT violate any OData update semantics (<a href="#DataModification">section 11.4</a>) and all subsections)</li>
+<li>MUST NOT violate any OData <a href="#DataModification">update semantics</a> (<a href="#DataModification">section 11.4</a> and all subsections)</li>
 <li>MUST NOT violate any other OData-defined semantics</li>
-<li>SHOULD support <code>$expand</code> (<a href="#SystemQueryOptionexpand">section 11.2.5.2</a>)</li>
+<li>SHOULD support <a href="#SystemQueryOptionexpand"><code>$expand</code></a> (<a href="#SystemQueryOptionexpand">section 11.2.5.2</a>)</li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> and MAY publish metadata according to <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>MUST support prefixed variants of supported headers and preference values</li>
 <li>MUST support enumeration and duration literals in URLs with the type prefix</li>
@@ -2621,17 +2621,17 @@ Content-Length: ###
 <p>In order to conform to the OData Intermediate Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
-<li>MUST successfully parse the <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or return <code>501 Not Implemented</code> for any unsupported functionality ([section 2501NotImplemented])</li>
+<li>MUST successfully parse the <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or return <code>501 Not Implemented</code> for any unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)`</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
-<li>MUST support <code>/$value</code> on media entities (section 4.12 in <a href="#ODataURL">OData URL</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.1</a>)</li>
+<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.1</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)</li>
 <li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.2</a>)</li>
-<li>SHOULD support additional filter operations (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported filter operations ([section 3501NotImplemented])</li>
-<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported canonical functions ([section 4501NotImplemented])</li>
+<li>SHOULD support additional filter operations (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported filter operations (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported canonical functions (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
@@ -2682,7 +2682,7 @@ Content-Length: ###
 <p>In order to conform to the OData 4.01 Minimal Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
-<li>MUST be compliant with version 4.01 of the <a href="#ODataJSON">OData-JSON</a> format</li>
+<li>MUST be compliant with version 4.01 of the <a href="#ODataJSON">OData-JSON</a> format</li>
 <li>MUST return the <a href="#HeaderAsyncResult"><code>AsyncResult</code></a> result header in the final response to an asynchronous request if asynchronous operations are supported.</li>
 <li>MUST support both prefixed and non-prefixed variants of supported headers and preference values</li>
 <li>MUST reject a request with an incompatible <a href="#SystemQueryOptionschemaversion"><code>$schemaversion</code></a> system query option if a <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is returned in <code>$metadata</code></li>
@@ -2709,7 +2709,7 @@ Content-Length: ###
 <li>MAY support the count of a filtered collection in a common expression</li>
 <li>MAY support equal and non-equal structural comparison</li>
 </ol></li>
-<li>SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDL">OData-CSDLXML</a> and <a href="#ODataCSDL">OData-CSDLJSON</a> (section 11.1.2)</li>
+<li>SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDL">OData-CSDLXML</a> and <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 <li>SHOULD return the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> annotation</li>
 <li>SHOULD report capabilities through the Capabilities vocabulary</li>
@@ -2718,7 +2718,7 @@ Content-Length: ###
 <li>MAY support <code>$search</code> for all collections</li>
 <li>MAY support 4.01 behavior, including returning 4.01 content and payloads, if the client does not specify the <code>OData-MaxVersion:4.0</code> request header</li>
 </ol>
-<p> In addition, to be considered an <em>Updatable OData 4.01 Service</em>, the service:</p>
+<p>In addition, to be considered an <em>Updatable OData 4.01 Service</em>, the service:</p>
 <ol start="18" type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a> for an Updateable service.</li>
 <li>MUST support <code>DELETE</code> to the reference of a collection member to be removed, identified by key (<a href="#RemoveaReferencetoanEntity">section 11.4.6.2</a>)</li>
@@ -2765,16 +2765,16 @@ Content-Length: ###
 <li>MUST support batch requests according both to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and the JSON Batch format defined in <a href="#ODataJSON">OData-JSON</a></li>
 <li>SHOULD support filtering a collection using a <code>/$filter</code> path segment</li>
 <li>SHOULD support nested parameter alias assignments in <code>$select</code> and <code>$expand</code></li>
-<li>MAY support case-insensitive comparison of identifiers in URLs and request payloads if no exact match is found, using the same lookup sequence as for <a href="#DefaultNamespaces">default namespaces</a> with a case-insensitive comparison </li>
+<li>MAY support case-insensitive comparison of identifiers in URLs and request payloads if no exact match is found, using the same lookup sequence as for <a href="#DefaultNamespaces">default namespaces</a> with a case-insensitive comparison</li>
 </ol>
 <h2 id="123-interoperable-odata-clients"><a name="InteroperableODataClients" href="#InteroperableODataClients">12.3 Interoperable OData Clients</a></h2>
 <p>Interoperable OData clients can expect to work with OData Services that comply with at least the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a> and implement the <a href="#ODataJSON">OData-JSON</a> format.</p>
-<p>To be generally interoperable, OData clients      </p>
+<p>To be generally interoperable, OData clients</p>
 <ol type="1">
-<li>MUST specify the <code>OData-MaxVersion</code> header in requests (section 8.2.7)</li>
+<li>MUST specify the <code>OData-MaxVersion</code> header in requests (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 <li>MUST specify <code>OData-Version</code> (<a href="#HeaderODataVersion">section 8.1.5</a>) and <code>Content-Type</code> (<a href="#HeaderContentType">section 8.1.1</a>) in any request with a payload</li>
 <li>MUST be a conforming consumer of OData as defined in <a href="#ODataJSON">OData-JSON</a></li>
-<li>MUST follow redirects ([section 53xxRedirection])</li>
+<li>MUST follow redirects (<a href="#ResponseCode3xxRedirection">section 9.1.5</a>)</li>
 <li>MUST correctly handle next links (<a href="#ServerDrivenPaging">section 11.2.6.7</a>)</li>
 <li>MUST support instances returning properties and navigation properties not specified in metadata (<a href="#RequestingData">section 11.2</a>)</li>
 <li>MUST generate <code>PATCH</code> requests for updates, if the client supports updates (<a href="#UpdateanEntity">section 11.4.3</a>)</li>

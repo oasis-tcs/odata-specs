@@ -6248,29 +6248,29 @@ service:
 service root ([section 11.1.1](#ServiceDocumentRequest))
 2. MUST return data according to the [OData-JSON](#ODataJSON) format
 3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
-partial results (section 11.2.6.7) and not use any other mechanism
+partial results ([section 11.2.6.7](#ServerDrivenPaging)) and not use any other mechanism
 4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
-header (section 8.1.5)
+header ([section 8.1.5](#HeaderODataVersion))
 5. MUST conform to the semantics the following headers, or fail the
 request
-   1. `Accept` ([section 8.2.1](#HeaderAccept))
-   2. `OData-MaxVersion` ([section 8.2.7](#HeaderODataMaxVersion))
-6. MUST follow OData guidelines for extensibility
+   1. [`Accept`](#HeaderAccept) ([section 8.2.1](#HeaderAccept))
+   2. [`OData-MaxVersion`](#HeaderODataMaxVersion) ([section 8.2.7](#HeaderODataMaxVersion))
+6. MUST follow OData guidelines for [extensibility](#Extensibility)
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`] for any
-unsupported functionality ([section 1501NotImplemented])
+[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
+unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
 content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
 service
-10. MUST NOT violate any OData update semantics
-([section 11.4](#DataModification)) and all subsections)
+10. MUST NOT violate any OData [update semantics](#DataModification)
+([section 11.4](#DataModification)  and all subsections)
 11. MUST NOT violate any other OData-defined semantics
-12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
+12. SHOULD support [`$expand`](#SystemQueryOptionexpand) ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6329,23 +6329,22 @@ service:
 Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
-unsupported functionality ([section 2501NotImplemented])
+unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))`
 4. MUST support casting to a derived type according to
 [OData URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities (section 4.12 in
-[OData URL](#ODataURL)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1](#SystemQueryOptionfilter))
    2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.2](#ParameterAliases))
    3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinQueryFunctions))
 and MUST return `501 Not Implemented` for any unsupported filter
-operations ([section 3501NotImplemented])
+operations ([section 9.3.1](#ResponseCode501NotImplemented))
    4. SHOULD support the canonical functions ([section 11.2.6.1.1](#BuiltinQueryFunctions)) and
 MUST return `501 Not Implemented` for any unsupported canonical
-functions ([section 4501NotImplemented])
+functions ([section 9.3.1](#ResponseCode501NotImplemented))
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6424,7 +6423,7 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) format
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations
 are supported.
@@ -6469,8 +6468,8 @@ with a maximum cardinality of one
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) (section
-11.1.2)
+[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section
+11.1.2](#MetadataDocumentRequest))
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -6485,7 +6484,7 @@ annotation
 payloads, if the client does not specify the `OData-MaxVersion:4.0`
 request header
 
- In addition, to be considered an *Updatable OData 4.01 Service*, the
+In addition, to be considered an *Updatable OData 4.01 Service*, the
 service:
 
 18. MUST conform to the [OData 4.0 Minimal Conformance
@@ -6560,7 +6559,8 @@ segment
 10. MAY support case-insensitive comparison of identifiers in URLs and
 request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
-case-insensitive comparison 
+case-insensitive comparison
+
 ## <a name="InteroperableODataClients" href="#InteroperableODataClients">12.3 Interoperable OData Clients</a>
 
 Interoperable OData clients can expect to work with OData Services that
@@ -6568,15 +6568,14 @@ comply with at least the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel) and implement the
 [OData-JSON](#ODataJSON) format.
 
-To be generally interoperable, OData clients      
+To be generally interoperable, OData clients
 
-1. MUST specify the `OData-MaxVersion` header in requests (section
-8.2.7)
+1. MUST specify the `OData-MaxVersion` header in requests ([section 8.2.7](#HeaderODataMaxVersion))
 2. MUST specify `OData-Version` ([section 8.1.5](#HeaderODataVersion)) and `Content-Type`
 ([section 8.1.1](#HeaderContentType)) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
 [OData-JSON](#ODataJSON)
-4. MUST follow redirects ([section 53xxRedirection])
+4. MUST follow redirects ([section 9.1.5](#ResponseCode3xxRedirection))
 5. MUST correctly handle next links ([section 11.2.6.7](#ServerDrivenPaging))
 6. MUST support instances returning properties and navigation
 properties not specified in metadata ([section 11.2](#RequestingData))
