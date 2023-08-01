@@ -24,12 +24,20 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Resolve references
 - Replace placeholders like `$$$pagetitle$$$` with values from a [`meta.yaml`](../odata-data-aggregation-ext/meta.yaml) file
 - Join multiple lines that end with a single space into one line
+- Sections of the file between `: varXXX` and `:` or between `::: {.varXXX` ...}` and `:::` belong to a variant. One source file can contain several variants.
 
 The single Markdown document is output into a writable stream:
 
 ```js
 import * as Number from './lib/number.js';
 new Number("odata-data-aggregation-ext").build(«writable stream»);
+```
+
+or, if variant `XXX` shall be produced:
+
+```js
+import * as Number from './lib/number.js';
+new Number("odata-data-aggregation-ext", "XXX").build(«writable stream»);
 ```
 
 The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects [pandoc 3.1.2](https://github.com/jgm/pandoc/releases/tag/3.1.2) to be set up, for example in a GitHub Action with the step

@@ -6244,13 +6244,13 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1. MUST publish a service document at the
+1. MUST publish a [service document](#ServiceDocumentRequest) at the
 service root ([section 11.1.1](#ServiceDocumentRequest))
 2. MUST return data according to the [OData-JSON](#ODataJSON) format
-3. MUST use server-driven paging when returning
-partial results ([section 11.2.6.7](#ServerDrivenPaging)) and not use any other mechanism
-4. MUST return the appropriate `OData-Version`
-header ([section 8.1.5](#HeaderODataVersion))
+3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
+partial results (section 11.2.6.7) and not use any other mechanism
+4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
+header (section 8.1.5)
 5. MUST conform to the semantics the following headers, or fail the
 request
    1. `Accept` ([section 8.2.1](#HeaderAccept))
@@ -6459,7 +6459,7 @@ values if they allow the octets `00` (NUL), `2F` (forward slash), or
    7. SHOULD support implicit aliasing of parameters
    8. SHOULD support `eq/ne null` comparison for navigation properties
 with a maximum cardinality of one
-   9. SHOULD support the [`in`](#BuiltinFilterOperations)` `operator
+   9. SHOULD support the [`in`](#BuiltinFilterOperations) operator
    10. SHOULD support `divby`
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
