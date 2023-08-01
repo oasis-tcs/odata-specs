@@ -95,7 +95,7 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from earlier Versions](#ChangesfromearlierVersions)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
     - [1.2.1 Definitions of terms](#Definitionsofterms)
     - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
@@ -253,10 +253,7 @@ This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
 modifications made necessary to fully cover OData CSDL Version 4.01.
 
-## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
-
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -268,7 +265,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
