@@ -104,7 +104,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## ##subasec Informative References 
+## ##subasec Informative References
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. 
