@@ -133,8 +133,7 @@ unsupported functionality ([section ##ResponseCode501NotImplemented])
 4. MUST support casting to a derived type according to
 [OData URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section ##SystemQueryOptiontop])
-6. MUST support `/$value` on media entities (section 4.12 in
-[OData URL](#ODataURL)) and individual properties ([section ##RequestingaPropertysRawValueusingvalue])
+6. MUST support `/$value` on media entities ([section ##MetadataDocumentRequest]) and individual properties ([section ##RequestingaPropertysRawValueusingvalue])
 7. MUST support `$filter` ([section ##SystemQueryOptionfilter])
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section ##SystemQueryOptionfilter])
@@ -269,8 +268,8 @@ with a maximum cardinality of one
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) (section
-11.1.2)
+[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section
+##MetadataDocumentRequest])
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -371,8 +370,7 @@ Level](#OData40MinimalConformanceLevel) and implement the
 
 To be generally interoperable, OData clients      
 
-1. MUST specify the `OData-MaxVersion` header in requests (section
-8.2.7)
+1. MUST specify the `OData-MaxVersion` header in requests ([section ##HeaderODataMaxVersion])
 2. MUST specify `OData-Version` ([section ##HeaderODataVersion]) and `Content-Type`
 ([section ##HeaderContentType]) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
