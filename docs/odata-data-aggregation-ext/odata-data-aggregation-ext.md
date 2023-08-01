@@ -236,7 +236,7 @@ The following non-exhaustive list contains variable names that are used througho
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -2063,7 +2063,7 @@ GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Customers())",
+  "@context": "$metadata#Sales(Customers())",
   "value": [
     { "Customers@context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
@@ -2189,7 +2189,7 @@ GET /service/Products
 results in
 ```json
 {
-  "@context":"$metadata#Products(Sales(Total))",
+  "@context": "$metadata#Products(Sales(Total))",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
       "Sales": [ { "Total@type": "Decimal", "Total":   12 } ] },
@@ -3767,7 +3767,7 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
 returns the different combinations of products sold per country:
 ```json
 {
-  "@context":"$metadata#Customers(Country,ProductSales())",
+  "@context": "$metadata#Customers(Country,ProductSales())",
   "value": [
     { "Country": "Netherlands",
       "ProductSales@context": "#Sales(Product(Name))/$entity",
@@ -4151,21 +4151,21 @@ results in
   "@context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
     { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":   7 },
     { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":  12 },
     { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 9.5 },
     { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
     { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@type":"Decimal",
+    { "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 7.25 }
   ]
 }
@@ -4836,7 +4836,7 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Product(Category(ID)),Customers())",
+  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
   "value": [
     { "Product": { "Category": { "ID": "PG1" } },
       "Customers@context": "#Sales(Customer(ID))",
