@@ -284,7 +284,7 @@ annotation
 payloads, if the client does not specify the `OData-MaxVersion:4.0`
 request header
 
- In addition, to be considered an *Updatable OData 4.01 Service*, the
+In addition, to be considered an *Updatable OData 4.01 Service*, the
 service:
 
 18. MUST conform to the [OData 4.0 Minimal Conformance
@@ -359,7 +359,7 @@ segment
 10. MAY support case-insensitive comparison of identifiers in URLs and
 request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
-case-insensitive comparison 
+case-insensitive comparison
 
 ## ##subsec Interoperable OData Clients
 
