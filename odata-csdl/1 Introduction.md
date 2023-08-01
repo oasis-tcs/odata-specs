@@ -11,10 +11,7 @@ This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
 modifications made necessary to fully cover OData CSDL Version 4.01.
 
-## ##subsec Changes from earlier Versions
-
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+## ##subsec Changes from Earlier Versions
 
 ## ##subsec Glossary
 
@@ -26,7 +23,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ### ##subsubsec Document conventions
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
