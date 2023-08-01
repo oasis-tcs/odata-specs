@@ -2,19 +2,25 @@ a:target {
 	background-color: yellow;
 }
 
+a[href^="#_"],
 a[href^="#OData"],
-a[href^="#rfc"] {
+a[href^="#rfc"],
+a[href^="#XML-"] {
 	font-weight: bold;
 }
 
+a[href^="#_"]::before,
 a[href^="#OData"]::before,
-a[href^="#rfc"]::before {
+a[href^="#rfc"]::before,
+a[href^="#XML-"]::before {
 	content: "[";
 	font-weight: bold;
 }
 
+a[href^="#_"]::after,
 a[href^="#OData"]::after,
-a[href^="#rfc"]::after {
+a[href^="#rfc"]::after,
+a[href^="#XML-"]::after {
 	content: "]";
 	font-weight: bold;
 }
@@ -31,6 +37,11 @@ a[href^="#rfc"]::after {
 .example p,
 .example li {
 	font-style: italic;
+}
+
+.rep {
+	border-left: solid windowtext 1pt;
+	padding-left: 8pt;
 }
 
 table {
@@ -122,7 +133,8 @@ h2 code,
 h3 code,
 h4 code,
 h5 code,
-h6 code {
+h6 code,
+td>code {
 	font-family: MJXZERO, MJXTEX-T;
 	font-size: 1em;
 	line-height: 0;
@@ -133,7 +145,8 @@ h6 code {
 	font-style: initial;
 }
 
-.example pre {
+.example pre,
+.rep {
 	margin-left: 40px;
 }
 
