@@ -69,6 +69,9 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml").
+     Lines between the next and the closing : belong to the JSON variant only. -->
 : varjson
 # ##sec JSON Representation
 
@@ -101,8 +104,8 @@ The response MUST contain the `Content-Type` header with a value of
 `application/json`, optionally followed by media type parameters.
 
 Possible media type parameters are:
-- [`IEEE754Compatible`](#ControllingtheRepresentationofNumber)
-- [`metadata`](#ControllingtheAmountofControlInforma)
+- [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+- [`metadata`](#ControllingtheAmountofControlInformation)
 
 The names and values of these parameters are case-insensitive.
 
@@ -187,7 +190,7 @@ To avoid name collisions, all fixed member names are prefixed with a
 dollar (`$`) sign and otherwise have the same name and capitalization as
 their counterparts in the CSDL XML representation
 [OData-CSDLXML](#ODataCSDL) (with one exception: the
-counterpart of the `EntitySet` element's `EntityType` attribute is
+counterpart of the `EntitySet` element's `EntityType` member is
 [`$Type`](#EntitySet), to harmonize it with all other type references).
 
 Additional fixed members introduced by this specification and without
@@ -230,15 +233,16 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 :
 
+<!-- Lines between the next and the closing : belong to the XML variant only. -->
 : varxml
 # ##sec XML Representation
 
 OData CSDL XML is a full representation of the OData Common Schema
 Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML11) with further building blocks from the
+Edition) [XML-1.1](#XML-11) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
-[XML-Schema-1](#XMLSchema1) and
-[XML-Schema-2](#XMLSchema2).
+[XML-Schema-1](#XML-Schema1) and
+[XML-Schema-2](#XML-Schema2).
 
 It is an alternative to the CSDL JSON representation defined in
 [OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
@@ -416,7 +420,7 @@ Type|Meaning
 `Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
-`Edm.Int16 `                     |Signed 16-bit integer
+`Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
@@ -442,13 +446,13 @@ Type|Meaning
 `Edm.GeometryCollection`         |Collection of arbitrary Geometry values
 
 `Edm.Date` and `Edm.DateTimeOffset` follow
-[XML-Schema-2](#XMLSchema2) and use the proleptic Gregorian
+[XML-Schema-2](#XML-Schema2) and use the proleptic Gregorian
 calendar, allowing the year `0000` (equivalent to 1 BCE) and negative
 years (year `-0001` being equivalent to 2 BCE etc.). The supported date
 range is service-specific and typically depends on the underlying
 persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
-`Edm.Decimal with a `[`Scale`](#Scale)` value of floating`,
+`Edm.Decimal` with a [`Scale`](#Scale) value of `floating`,
 `Edm.Double`, and `Edm.Single` allow the special numeric values `-INF`,
 `INF`, and `NaN`.
 
@@ -520,9 +524,9 @@ be used anywhere a corresponding concrete type can be used, except:
 - `Edm.AnnotationPath`
 - `Edm.PropertyPath`
 - `Edm.NavigationPropertyPath`
-- `Edm.AnyPropertyPath `(`Edm.PropertyPath `or `Edm.NavigationPropertyPath`)
-- `Edm.ModelElementPath `(any model element, including
-`Edm.AnnotationPath`,` Edm.NavigationPropertyPath`, and
+- `Edm.AnyPropertyPath` (`Edm.PropertyPath` or `Edm.NavigationPropertyPath`)
+- `Edm.ModelElementPath` (any model element, including
+`Edm.AnnotationPath`, `Edm.NavigationPropertyPath`, and
 `Edm.PropertyPath`)
 
 as the type of a primitive term, or the type of a property of a complex

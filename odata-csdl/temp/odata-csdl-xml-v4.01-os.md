@@ -130,7 +130,7 @@ Keywords defined by this specification use this `monospaced` font.
 Some sections of this specification are illustrated with non-normative
 examples.
 
-::: example
+::: {.varxml .example}
 Example ##ex: text describing an example uses this paragraph style
 ```
 Non-normative examples use this paragraph style.
@@ -141,7 +141,7 @@ All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Representation-Specific Headline
 :::
 
@@ -475,7 +475,7 @@ combination of term and qualifier.
 
 # ##sec CSDL XML Document
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edmx:Edmx`
 :::
 
@@ -488,7 +488,7 @@ It MAY contain [`edmx:Reference`](#Reference) elements to reference
 other CSDL documents.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Version`
 :::
 
@@ -500,7 +500,7 @@ service. For OData 4.0 responses the value of this attribute MUST be
 made with an `OData-MaxVersion `header with a value of `4.0`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edmx:DataServices`
 :::
 
@@ -510,7 +510,7 @@ The `edmx:DataServices` element MUST contain one or more
 OData service.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
@@ -548,7 +548,7 @@ annotation is present, the `$schemaversion` system query option, defined
 [OData‑Protocol](#ODataProtocol), SHOULD be used when retrieving the
 referenced schema document.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edmx:Reference`
 :::
 
@@ -567,7 +567,7 @@ MUST contain at least one [`edmx:Include`](#IncludedSchema) or
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Uri`
 :::
 
@@ -577,7 +577,7 @@ relative to the `xml:base` attribute, see
 [**\[XML‑Base\]**](#BMXMLBase).
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: references to other CSDL documents
 ```
 [[\<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?\>\
@@ -640,7 +640,7 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edmx:Include`
 :::
 
@@ -652,7 +652,7 @@ it MAY provide the `Alias` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Namespace`
 :::
 
@@ -661,7 +661,7 @@ The value of `Namespace` is the namespace of a schema defined in the
 referenced CSDL document.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Alias`
 :::
 
@@ -670,7 +670,7 @@ The value of `Alias` is a [simple identifier](#SimpleIdentifier) that
 can be used in qualified names instead of the namespace.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: references to entity models containing definitions of
 vocabulary terms
 ```
@@ -739,7 +739,7 @@ namespaces are present in the referenced document. If the consumer is
 not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edmx:IncludeAnnotations`
 :::
 
@@ -755,7 +755,7 @@ attribute, and it MAY provide the `Qualifier` and `TargetNamespace`
 attribute.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `TermNamespace`
 :::
 
@@ -763,7 +763,7 @@ Attribute `TermNamespace`
 The value of `TermNamespace` is a namespace.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Qualifier`
 :::
 
@@ -771,7 +771,7 @@ Attribute `Qualifier`
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `TargetNamespace`
 :::
 
@@ -779,7 +779,7 @@ Attribute `TargetNamespace`
 The value of `TargetNamespace` is a namespace.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: reference documents that contain annotations
 ```
 [[\<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?\>\
@@ -841,7 +841,7 @@ that differ only in case.
 The `namespace` MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: csdlHeadline
+::: {.varxml .rep}
 [[Element
 ]{lang="DE"}]{#_Toc37318849}[[edm:Schema]{lang="DE"}]{.Datatype}
 :::
@@ -860,7 +860,7 @@ It MAY contain elements [`edm:Action`](#Action),
 [`edm:TypeDefinition`](#TypeDefinition).
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Namespace`
 :::
 
@@ -892,7 +892,7 @@ them.
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Alias`
 :::
 
@@ -900,7 +900,7 @@ Attribute `Alias`
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: schema `org.example` with an alias and a description for the
 schema
 ```
@@ -913,7 +913,7 @@ schema
 
 ## ##subsec [[ ]{lang="DE"}Annotations with External Targeting](#AnnotationswithExternalTargeting)
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Annotations`
 :::
 
@@ -925,7 +925,7 @@ MAY contain the `Qualifier` attribute.
 It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Target`
 :::
 
@@ -934,7 +934,7 @@ The value of `Target` is a path expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Qualifier`
 :::
 
@@ -942,7 +942,7 @@ Attribute `Qualifier`
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: annotations should only be applied to tablet devices
 ```
 [[\<Annotations Target=\"org.example.Person\" Qualifier=\"Tablet\"\>\
@@ -976,7 +976,7 @@ MUST NOT have the same name as the declaring entity type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:EntityType`
 :::
 
@@ -995,7 +995,7 @@ It MAY contain one [`edm:Key`](#Key) element.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -1003,7 +1003,7 @@ Attribute `Name`
 The value of `Name` is the entity type's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: a simple entity type
 ```
 [[\<EntityType Name=\"Employee\"\>\
@@ -1031,7 +1031,7 @@ navigation properties of its base type.
 An entity type MUST NOT introduce an inheritance cycle via the base type
 attribute.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `BaseType`
 :::
 
@@ -1039,7 +1039,7 @@ Attribute `BaseType`
 The value of `BaseType` is the qualified name of the base type.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: a derived entity type based on the previous example
 ```
 [[\<EntityType Name=\"Manager\" BaseType=\"self.Employee\"\>\
@@ -1065,7 +1065,7 @@ defined key.
 An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Abstract`
 :::
 
@@ -1090,7 +1090,7 @@ marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `OpenType`
 :::
 
@@ -1120,7 +1120,7 @@ annotation with term
 [`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
 see [OData‑VocCore](#ODataVocCore).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `HasStream`
 :::
 
@@ -1205,7 +1205,7 @@ URL construction and parsing rather complicated. The alias MUST NOT be
 used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Key`
 :::
 
@@ -1214,7 +1214,7 @@ The `edm:Key` element MUST contain at least one `edm:PropertyRef`
 element.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:PropertyRef`
 :::
 
@@ -1223,7 +1223,7 @@ The `edm:PropertyRef` element MUST contain the `Name` attribute and MAY
 contain the `Alias` attribute.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -1233,7 +1233,7 @@ property. The names of the properties in the path are joined together by
 forward slashes.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Alias`
 :::
 
@@ -1241,7 +1241,7 @@ Attribute `Alias`
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: entity type with a simple key
 ```
 [[\<EntityType Name=\"Category\"\>\
@@ -1254,7 +1254,7 @@ Example ##ex: entity type with a simple key
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```
@@ -1276,7 +1276,7 @@ Example ##ex: entity type with a simple key referencing a property of a
 \</ComplexType\>]{style="color:black"}]{.Datatype}
 ```
 
-::: example
+::: {.varxml .example}
 Example ##ex: entity type with a composite key
 ```
 [[\<EntityType Name=\"OrderLine\"\>\
@@ -1330,7 +1330,7 @@ property of any of this type's base types for OData 4.0 responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Property`
 :::
 
@@ -1344,7 +1344,7 @@ attribute, and it MAY contain the facet attributes
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -1352,7 +1352,7 @@ Attribute `Name`
 The value of `Name` is the property's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: complex type with two properties
 ```
 [[\<ComplexType Name=\"Measurement\"\>\
@@ -1384,7 +1384,7 @@ A collection-valued property may be annotated with the
 term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -1397,7 +1397,7 @@ sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: property `Units` that can have zero or more strings as its
 value
 ```
@@ -1418,7 +1418,7 @@ items in the collection.
 A Boolean value specifying whether the property can have the value
 `null`.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Nullable`
 :::
 
@@ -1455,7 +1455,7 @@ length of the binary data, for string values it is the character length
 If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `MaxLength`
 :::
 
@@ -1493,7 +1493,7 @@ Note: duration properties supporting a granularity less than seconds
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Precision`
 :::
 
@@ -1507,7 +1507,7 @@ If not specified for a temporal property, the temporal property has a
 precision of zero.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: [`Precision`](#Precision) facet applied to the
 `DateTimeOffset` type
 ```
@@ -1546,7 +1546,7 @@ use a [`Precision`](#Precision) with the absolute value of the negative
 scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Scale`
 :::
 
@@ -1560,7 +1560,7 @@ case-insensitive manner.
 If not specified, the `Scale` facet defaults to zero.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.\
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
@@ -1568,7 +1568,7 @@ Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: `Precision=2` equals `Scale`.\
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
@@ -1576,7 +1576,7 @@ Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: `Precision=3` and a variable `Scale`.\
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
@@ -1585,7 +1585,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: `Precision=7` and a floating `Scale`.\
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
@@ -1604,7 +1604,7 @@ limited to the ASCII character set.
 
 If no value is specified, the `Unicode` facet defaults to `true`.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Unicode`
 :::
 
@@ -1626,7 +1626,7 @@ defaults to `0` for `Geometry` types or `4326` for `Geography` types.
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [**\[EPSG\]**](#BMEPSG)**.**
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `SRID`
 :::
 
@@ -1642,7 +1642,7 @@ the body of a `POST` or `PUT` request.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `DefaultValue`
 :::
 
@@ -1677,7 +1677,7 @@ responses.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:NavigationProperty`
 :::
 
@@ -1695,7 +1695,7 @@ child element [`edm:OnDelete`](#OnDeleteAction).
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -1703,7 +1703,7 @@ Attribute `Name`
 The value of `Name` is the navigation property's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: the Product entity type has a navigation property to a
 Category, which has a navigation link back to one or more products
 ```
@@ -1753,7 +1753,7 @@ A collection-valued navigation property may be annotated with the
 term, defined in [OData-CoreVoc](#ODataVocCore)**)**, to specify that it
 supports inserting items into a specific ordinal position.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -1775,7 +1775,7 @@ MUST always have a related entity.
 Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Nullable`
 :::
 
@@ -1816,7 +1816,7 @@ navigation property is defined on a complex type, or if the current
 navigation property is defined on a type derived from the type of the
 partner navigation property.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Partner`
 :::
 
@@ -1892,7 +1892,7 @@ for a client to determine which entity contains a given contained
 entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `ContainsTarget`
 :::
 
@@ -1926,7 +1926,7 @@ dependent property MUST also be nullable. If both the navigation
 property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:ReferentialConstraint`
 :::
 
@@ -1937,7 +1937,7 @@ The `edm:ReferentialConstraint` element MUST contain the attributes
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Property`
 :::
 
@@ -1951,7 +1951,7 @@ joined together by forward slashes. The path is relative to the
 dependent structured type declaring the navigation property.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `ReferencedProperty`
 :::
 
@@ -1965,7 +1965,7 @@ entity type. The path is relative to the entity type that is the target
 of the navigation property.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: the category must exist for a product in that category to
 exist. The `CategoryID` of the product is identical to the `ID` of the
 category, and the `CategoryKind` property of the product is identical to
@@ -2028,7 +2028,7 @@ The action can have one of the following values:
 If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:OnDelete`
 :::
 
@@ -2038,7 +2038,7 @@ The `edm:OnDelete` element MUST contain the `Action` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Action`
 :::
 
@@ -2047,7 +2047,7 @@ The value of `Action` is one of the values `Cascade`, `None`, `SetNull`,
 or `SetDefault`.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```
@@ -2090,7 +2090,7 @@ MUST NOT have the same name as the declaring complex type. They MAY have
 the same name as one of the direct or indirect base types or derived
 types.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:ComplexType`
 :::
 
@@ -2107,7 +2107,7 @@ properties of the complex type.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2115,7 +2115,7 @@ Attribute `Name`
 The value of `Name` is the complex type's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: a complex type used by two entity types
 ```
 [[\<ComplexType Name=\"Dimensions\"\>\
@@ -2158,7 +2158,7 @@ base type.
 The rules for annotations of derived complex types are described in
 section 14.2.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `BaseType`
 :::
 
@@ -2171,7 +2171,7 @@ The value of `BaseType` is the qualified name of the base type.
 A complex type MAY indicate that it is abstract and cannot have
 instances.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Abstract`
 :::
 
@@ -2196,7 +2196,7 @@ marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `OpenType`
 :::
 
@@ -2223,7 +2223,7 @@ annotated with the `AllowedValues` annotation defined in
 Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:EnumType`
 :::
 
@@ -2238,7 +2238,7 @@ elements defining the members of the enumeration type.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2246,7 +2246,7 @@ Attribute `Name`
 The value of `Name` is the enumeration type's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: a simple flags-enabled enumeration
 ```
 [[\<EnumType Name=\"FileAccess\" UnderlyingType=\"Edm.Int32\"
@@ -2266,7 +2266,7 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `UnderlyingType`
 :::
 
@@ -2283,7 +2283,7 @@ multiple members to be selected simultaneously.
 If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `IsFlags`
 :::
 
@@ -2292,7 +2292,7 @@ The value of `IsFlags` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: pattern values can be combined, and some combined values
 have explicit names
 ```
@@ -2331,7 +2331,7 @@ numeric value can be used interchangeably.
 
 Enumeration members are sorted by their numeric value.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Member`
 :::
 
@@ -2342,7 +2342,7 @@ contain the `Value` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2350,7 +2350,7 @@ Attribute `Name`
 The value of `Name` is the enumeration member's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Value`
 :::
 
@@ -2369,7 +2369,7 @@ attribute. A combined value is equivalent to the bitwise OR of the
 discrete values.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: `FirstClass` has a value of `0`, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
 ```
@@ -2414,7 +2414,7 @@ It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:TypeDefinition`
 :::
 
@@ -2425,7 +2425,7 @@ The `edm:TypeDefinition` element MUST contain the `Name` and
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2433,7 +2433,7 @@ Attribute `Name`
 The value of `Name` is the type definition's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 \<TypeDefinition Name=\"Length\" UnderlyingType=\"Edm.Int32\"\>
@@ -2471,7 +2471,7 @@ Example ##ex:
 The underlying type of a type definition MUST be a [primitive
 type](#PrimitiveTypes) that MUST NOT be another type definition.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `UnderlyingType`
 :::
 
@@ -2531,7 +2531,7 @@ schema.
 
 An unbound action MAY have the same name as a bound action.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Action`
 :::
 
@@ -2546,7 +2546,7 @@ MAY contain [`edm:Parameter`](#Parameter) elements.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2602,7 +2602,7 @@ Note that [type definitions](#ActionandFunction) can be used to
 disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Function`
 :::
 
@@ -2617,7 +2617,7 @@ contain [`edm:Parameter`](#Parameter) elements.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2640,7 +2640,7 @@ Unbound functions are invoked as static functions within a filter or
 orderby expression, or from the entity container through a [function
 import](#FunctionImport).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `IsBound`
 :::
 
@@ -2668,7 +2668,7 @@ the [navigation property](#NavigationProperty) to be traversed. A
 type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `EntitySetPath`
 :::
 
@@ -2686,7 +2686,7 @@ key predicates appended to the resource path that identifies the
 composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `IsComposable`
 :::
 
@@ -2705,7 +2705,7 @@ The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:ReturnType`
 :::
 
@@ -2718,7 +2718,7 @@ MAY contain the attributes `Nullable`, [`MaxLength`](#MaxLength),
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -2731,7 +2731,7 @@ sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Nullable`
 :::
 
@@ -2773,7 +2773,7 @@ The facets [`MaxLength`](#MaxLength), [`Precision`](#Precision),
 specify value restrictions of the parameter, as well as the
 [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Parameter`
 :::
 
@@ -2786,7 +2786,7 @@ attribute, and it MAY contain the attributes `Nullable`,
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2794,7 +2794,7 @@ Attribute `Name`
 The value of `Name` is the parameter's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -2807,7 +2807,7 @@ sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Nullable`
 :::
 
@@ -2818,7 +2818,7 @@ The value of `Nullable` is one of the Boolean literals `true` or
 The value `true` means that the parameter accepts a `null` value.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: a function returning the top-selling products for a given
 year. In this case the year must be specified as a parameter of the
 function with the `edm:Parameter` element.
@@ -2851,7 +2851,7 @@ unique within an entity container.
 An [*entity set*](#EntitySet) allows access to entity type instances.
 Simple entity models frequently have one entity set per entity type.
 
-::: example
+::: {.varxml .example}
 Example ##ex: one entity set per entity type
 ```
 [[\<EntitySet Name=\"Products\"   EntityType=\"self.Product\" /\>\
@@ -2862,7 +2862,7 @@ Example ##ex: one entity set per entity type
 
 Other entity models may expose multiple entity sets per type.
 
-::: example
+::: {.varxml .example}
 Example ##ex: three entity sets referring to the two entity types
 ```
 [[\<EntitySet Name=\"StandardCustomers\" EntityType=\"self.Customer\"\>\
@@ -2898,7 +2898,7 @@ A [*function import*](#FunctionImport) or an [*action
 import*](#ActionImport) is used to expose a function or action defined
 in an entity model as a top level resource.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:EntityContainer`
 :::
 
@@ -2911,7 +2911,7 @@ The `edm:EntityContainer` MUST contain one or more
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -2919,7 +2919,7 @@ Attribute `Name`
 The value of `Name` is the entity container's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
 ```
@@ -2972,7 +2972,7 @@ Note: services should not introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Extends`
 :::
 
@@ -2981,7 +2981,7 @@ The value of `Extends` is the qualified name of the entity container to
 be extended.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: the entity container `Extending` will contain all child
 elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
@@ -3015,7 +3015,7 @@ document. If not explicitly indicated, it is included.
 Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:EntitySet`
 :::
 
@@ -3030,7 +3030,7 @@ It MAY contain
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -3038,7 +3038,7 @@ Attribute `Name`
 The value of `Name` is the entity set's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `EntityType`
 :::
 
@@ -3047,7 +3047,7 @@ The value of `EntityType` is the qualified name of an entity type in
 scope.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `IncludeInServiceDocument`
 :::
 
@@ -3068,7 +3068,7 @@ A singleton MUST specify a type that MUST be an entity type in scope.
 
 A singleton MUST reference an instance its entity type.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Singleton`
 :::
 
@@ -3082,7 +3082,7 @@ It MAY contain
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -3090,7 +3090,7 @@ Attribute `Name`
 The value of `Name` is the singleton's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -3099,7 +3099,7 @@ The value of `Type` is whose value is the [qualified
 name](#QualifiedName) of an entity type in scope.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Nullable`
 :::
 
@@ -3183,7 +3183,7 @@ containment navigation properties or single-valued complex properties
 before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:NavigationPropertyBinding`
 :::
 
@@ -3192,7 +3192,7 @@ The `edm:NavigationPropertyBinding` element MUST contain the attributes
 `Path` and `Target`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Path`
 :::
 
@@ -3200,7 +3200,7 @@ Attribute `Path`
 The value of `Path` is a path expression.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Target`
 :::
 
@@ -3208,7 +3208,7 @@ Attribute `Target`
 The value of `Target` is a [target path](#TargetPath).
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: for an entity set in the same container as the enclosing
 entity set `Categories`
 ```
@@ -3221,7 +3221,7 @@ entity set `Categories`
 </EntitySet>
 ```
 
-::: example
+::: {.varxml .example}
 Example ##ex: for an entity set in any container in scope
 ```
 [[\<EntitySet Name=\"Categories\" EntityType=\"self.Category\"\>\
@@ -3233,7 +3233,7 @@ Example ##ex: for an entity set in any container in scope
 </EntitySet>
 ```
 
-::: example
+::: {.varxml .example}
 Example ##ex: binding `Supplier` on `Products` contained within
 `Categories – binding applies to all suppliers of all products of all categories`
 ```
@@ -3265,7 +3265,7 @@ specified, it MUST resolve to an entity set defined in the same entity
 container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:ActionImport`
 :::
 
@@ -3276,7 +3276,7 @@ The `edm:ActionImport` element MUST contain the attributes `Name` and
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -3284,7 +3284,7 @@ Attribute `Name`
 The value of `Name` is the action import's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Action`
 :::
 
@@ -3292,7 +3292,7 @@ Attribute `Action`
 The value of `Action` is the qualified name of an unbound action.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `EntitySet`
 :::
 
@@ -3326,7 +3326,7 @@ A function import for a parameterless function MAY indicate whether it
 is included in the service document. If not explicitly indicated, it is
 not included.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:FunctionImport`
 :::
 
@@ -3336,7 +3336,7 @@ The `edm:FunctionImport` element MUST contain the attributes `Name` and
 `IncludeInServiceDocument`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -3344,7 +3344,7 @@ Attribute `Name`
 The value of `Name` is the function import's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Function`
 :::
 
@@ -3352,7 +3352,7 @@ Attribute `Function`
 The value of `Function` is the qualified name of an unbound function.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `EntitySet`
 :::
 
@@ -3362,7 +3362,7 @@ in the same entity container or a path to an entity set in a different
 entity container.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `IncludeInServiceDocument`
 :::
 
@@ -3419,7 +3419,7 @@ invalid targets, etc.) as an unknown value for the term. Unknown or
 invalid annotations should never result in an error, as long as the
 payload remains well-formed.
 
-::: example
+::: {.varxml .example}
 Example ##ex: the `Product` entity type is extended with a `DisplayName`
 by a metadata annotation that binds the term `DisplayName` to the value
 of the property `Name`. The `Product` entity type also includes an
@@ -3469,7 +3469,7 @@ unique within its schema.
 The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Term`
 :::
 
@@ -3490,7 +3490,7 @@ enumeration type MAY define a value for the `DefaultValue` attribute.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -3498,7 +3498,7 @@ Attribute `Name`
 The value of `Name` is the term's name.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -3511,7 +3511,7 @@ sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `DefaultValue`
 :::
 
@@ -3540,7 +3540,7 @@ When applying a term with a base term, the base term MUST also be
 applied with the same qualifier, and so on until a term without a base
 term is reached.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `BaseTerm`
 :::
 
@@ -3595,7 +3595,7 @@ following symbolic values:
   `TypeDefinition`          Type Definition
   `UrlRef`                  UrlRef annotation expression
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `AppliesTo`
 :::
 
@@ -3605,7 +3605,7 @@ values from the table above that identify model elements the term is
 intended to be applied to.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: the `IsURL` term can be applied to properties and terms that
 are of type `Edm.String` (the `Core.Tag` type and the two `Core` terms
 are defined in [OData‑VocCore](#ODataVocCore))
@@ -3641,7 +3641,7 @@ expression](#DynamicExpression). The most common construct for assigning
 an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:Annotation`
 :::
 
@@ -3669,7 +3669,7 @@ An `edm:Annotation` element MAY contain [`edm:Annotation`](#Annotation)
 elements that annotate the annotation.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Term`
 :::
 
@@ -3677,7 +3677,7 @@ Attribute `Term`
 The value of `Term` is the qualified name of a [term](#Term) in scope.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: term `Measures.ISOCurrency`, once applied with a constant
 value, once with a path value
 ```
@@ -3733,7 +3733,7 @@ providing a qualifier to distinguish the annotations. The qualifier is a
 The combination of target model element, term, and qualifier uniquely
 identifies an annotation.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Qualifier`
 :::
 
@@ -3745,7 +3745,7 @@ provide a value for the qualifier attribute if the parent
 a value for the qualifier attribute.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: annotation should only be applied to tablet devices
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"
@@ -3851,7 +3851,7 @@ forward slash and either a parameter name or `$ReturnType`
 All [qualified names](#QualifiedName) used in a target path MUST be in
 scope.
 
-::: example
+::: {.varxml .example}
 Example ##ex: Target expressions
 ```
 MySchema.MyEntityType
@@ -3923,7 +3923,7 @@ term.
 
 ### ##subsubsec Binary
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Binary`
 :::
 
@@ -3936,7 +3936,7 @@ The binary expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: base64url-encoded binary value (OData)
 ```
 [[\<Annotation Term=\"org.example.display.Thumbnail\" Binary=\"T0RhdGE\"
@@ -3950,7 +3950,7 @@ Example ##ex: base64url-encoded binary value (OData)
 
 ### ##subsubsec Boolean
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Bool`
 :::
 
@@ -3962,7 +3962,7 @@ The Boolean expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.ReadOnly\" Bool=\"true\" /\>\
@@ -3975,7 +3975,7 @@ Example ##ex:
 
 ### ##subsubsec Date
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Date`
 :::
 
@@ -3991,7 +3991,7 @@ The date expression MAY be provided using element notation or attribute
 notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.vCard.birthDay\" Date=\"2000-01-01\"
@@ -4005,7 +4005,7 @@ Example ##ex:
 
 ### ##subsubsec DateTimeOffset
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:DateTimeOffset`
 :::
 
@@ -4023,7 +4023,7 @@ The datetimestamp expression MAY be provided using element notation or
 attribute notation`.`
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="org.example.display.LastUpdated" `
@@ -4038,7 +4038,7 @@ Example ##ex:
 
 ### ##subsubsec Decimal
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Decimal`
 :::
 
@@ -4051,14 +4051,14 @@ The decimal expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: attribute notation
 ```
 <Annotation Term="org.example.display.Width" Decimal="3.14" />
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: element notation
 ```
 [[\<Annotation Term=\"org.example.display.Width\"\>\
@@ -4069,7 +4069,7 @@ Example ##ex: element notation
 
 ### ##subsubsec Duration
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Duration`
 :::
 
@@ -4083,7 +4083,7 @@ The duration expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.task.duration\" Duration=\"P7D\" /\>\
@@ -4096,7 +4096,7 @@ Example ##ex:
 
 ### ##subsubsec Enumeration Member
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:EnumMember  `
 :::
 
@@ -4115,7 +4115,7 @@ The enumeration member expression MAY be provided using element notation
 or attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: single value
 ```
 [[\<Annotation Term=\"org.example.HasPattern\"\
@@ -4127,7 +4127,7 @@ Example ##ex: single value
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: combined value for `IsFlags` enumeration type
 ```
 [[\<Annotation Term=\"org.example.HasPattern\"\
@@ -4143,7 +4143,7 @@ org.example.Pattern/Striped\</EnumMember\>\
 
 ### ##subsubsec Floating-Point Number
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Float`
 :::
 
@@ -4156,7 +4156,7 @@ The float expression MAY be provided using element notation or attribute
 notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.Width\" Float=\"3.14\" /\>\
@@ -4169,7 +4169,7 @@ Example ##ex:
 
 ### ##subsubsec Guid
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Guid`
 :::
 
@@ -4182,7 +4182,7 @@ The guid expression MAY be provided using element notation or attribute
 notation`.`
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="org.example.display.Id" `
@@ -4197,7 +4197,7 @@ Example ##ex:
 
 ### ##subsubsec Integer
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Int`
 :::
 
@@ -4210,14 +4210,14 @@ The integer expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: attribute notation
 ```
 <Annotation Term="org.example.display.Width" Int="42" />
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: element notation
 ```
 [[\<Annotation Term=\"org.example.display.Width\"\>\
@@ -4228,7 +4228,7 @@ Example ##ex: element notation
 
 ### ##subsubsec String
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:String`
 :::
 
@@ -4242,7 +4242,7 @@ The string expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\" String=\"Product
@@ -4256,7 +4256,7 @@ Catalog\" /\>\
 
 ### ##subsubsec Time of Day
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:TimeOfDay`
 :::
 
@@ -4269,7 +4269,7 @@ The time-of-day expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.EndTime\"
@@ -4319,7 +4319,7 @@ first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
-::: example
+::: {.varxml .example}
 Example ##ex: absolute path to an entity set
 ```
 /self.MyEntityContainer/MyEntitySet
@@ -4330,7 +4330,7 @@ Paths not starting with a forward slash are interpreted relative to the
 annotation target, following the rules specified in section "[Path
 Evaluation](#PathEvaluation)".
 
-::: example
+::: {.varxml .example}
 Example ##ex: relative path to a property
 ```
 Address/City
@@ -4343,7 +4343,7 @@ in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
-::: example
+::: {.varxml .example}
 Example ##ex: type-cast segment
 ```
 .../self.Manager/...
@@ -4368,7 +4368,7 @@ properties:
 -   `odata.mediaContentType`
 -   `odata.mediaEtag`
 
-::: example
+::: {.varxml .example}
 Example ##ex: term-cast segment
 ```
 .../@Capabilities.SortRestrictions/...
@@ -4388,7 +4388,7 @@ A model path MAY contain any number of segments representing
 collection-valued structural or navigation properties. The result of the
 expression is the model element reached via this path.
 
-::: example
+::: {.varxml .example}
 Example ##ex: property segment in model path
 ```
 .../Orders/Items/Product/...
@@ -4408,7 +4408,7 @@ An instance path MAY terminate in a `$count` segment if the previous
 segment is collection-valued, in which case the path evaluates to the
 number of items in the collection identified by the preceding segment.
 
-::: example
+::: {.varxml .example}
 Example ##ex: property segments in instance path
 ```
 .../Addresses/Street
@@ -4429,7 +4429,7 @@ annotations on the navigation property itself; annotations on the entity
 type specified by the navigation property are addressed via a [term-cast
 segment](#ref_TermCast).
 
-::: example
+::: {.varxml .example}
 Example ##ex: model path addressing an annotation on a navigation property
 ```
 .../Items@Capabilities.InsertRestrictions/Insertable
@@ -4445,7 +4445,7 @@ interpreted according to the same rule below as the instance path it is
 part of, *not* relative to the instance identified by the preceding path
 part.
 
-::: example
+::: {.varxml .example}
 Example ##ex: instance path with entity set and key predicate
 ```
 /self.container/SettingsCollection(\'FeatureXxx\')/IsAvailable
@@ -4461,7 +4461,7 @@ Negative integers count from the end of the collection, with -1
 representing the last item in the collection. Remaining path segments
 are evaluated relative to the identified item of the collection.
 
-::: example
+::: {.varxml .example}
 Example ##ex: instance path with collection-valued structural property and
 index segment
 ```
@@ -4535,7 +4535,7 @@ The value of the annotation path expression is the path itself, not the
 value of the annotation identified by the path. This is useful for terms
 that reuse or refer to other terms.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:AnnotationPath`
 :::
 
@@ -4544,7 +4544,7 @@ The `edm:AnnotationPath` expression MAY be provided using element
 notation or attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [\<Annotation Term=\"UI.ReferenceFacet\"\
@@ -4577,7 +4577,7 @@ argument is a [model path](#PathExpressions).
 The value of the model element path expression is the path itself, not
 the instance(s) identified by the path.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:ModelElementPath`
 :::
 
@@ -4586,7 +4586,7 @@ The `edm:ModelElementPath` expression MAY be provided using element
 notation or attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="org.example.MyFavoriteModelElement" 
@@ -4613,7 +4613,7 @@ e.g. a navigation property.
 The value of the navigation property path expression is the path itself,
 not the instance(s) identified by the path.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:NavigationPropertyPath`
 :::
 
@@ -4622,7 +4622,7 @@ The `edm:NavigationPropertyPath` expression MAY be provided using
 element notation or attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
@@ -4659,7 +4659,7 @@ The value of the property path expression is the path itself, not the
 value of the property or the value of the term cast identified by the
 path.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:PropertyPath`
 :::
 
@@ -4668,7 +4668,7 @@ The `edm:PropertyPath` MAY be provided using either element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
@@ -4700,7 +4700,7 @@ argument is an [instance path](#PathExpressions).
 The value of the path expression is the instance or collection of
 instances identified by the path.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Path`
 :::
 
@@ -4709,7 +4709,7 @@ The `edm:Path` expression MAY be provided using element notation or
 attribute notation.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"
@@ -4751,7 +4751,7 @@ handling for comparison operators see [OData‑URL](#ODataURL).
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
-::: csdlHeadline
+::: {.varxml .rep}
 `Expressions edm:And and edm:Or`
 :::
 
@@ -4762,7 +4762,7 @@ The `And` and `Or` logical expressions are represented as elements
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 `Expression ``edm:Not`
 :::
 
@@ -4773,7 +4773,7 @@ contain a single annotation expression.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 `Expressions ``edm:Eq, edm:Ne, edm:Gt, edm:Ge, edm:Lt, edm:Le, edm:Has, and edm:In`
 :::
 
@@ -4784,7 +4784,7 @@ contain two annotation expressions.
 They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <And>
@@ -4859,7 +4859,7 @@ The `Neg` operator requires a single operand expression that evaluates
 to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
-::: csdlHeadline
+::: {.varxml .rep}
 `Expression ``edm:Neg`
 :::
 
@@ -4870,7 +4870,7 @@ contain a single annotation expression.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 `Expressions ``edm:Add, edm:Sub, edm:Mul, edm:Div, edm:DivBy, and edm:Mod`
 :::
 
@@ -4881,7 +4881,7 @@ contain two annotation expressions.
 They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Add>
@@ -4920,7 +4920,7 @@ The apply expression enables a value to be obtained by applying a
 client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the function.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Apply`
 :::
 
@@ -4931,7 +4931,7 @@ contain annotation expressions as operands for the applied function.
 It MAY contain more [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Function`
 :::
 
@@ -4961,7 +4961,7 @@ are represented according to the appropriate alternative in the
 `primitiveValue` rule of [OData‑ABNF](#ODataABNF), i.e. `Edm.Binary` as
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"\>\
@@ -5016,7 +5016,7 @@ expressions](#LabeledElement) that evaluate to a collection of complex
 types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
-::: example
+::: {.varxml .example}
 Example ##ex: assuming there are no special characters in values of the
 `Name property of the Actor` entity
 ```
@@ -5041,7 +5041,7 @@ the result of the first argument expression matches that regular
 expression, using syntax and semantics of
 [**\[ECMAScript\]**](#ECMAScript) regular expressions.
 
-::: example
+::: {.varxml .example}
 Example ##ex: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```
@@ -5064,7 +5064,7 @@ used as a key value in OData URLs or in the query part of OData URLs.
 Note: string literals are surrounded by single quotes as required by the
 paren-style key syntax.
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 \<Apply Function=\"odata.fillUriTemplate\"\>
@@ -5092,7 +5092,7 @@ expression to the specified type. The cast expression follows the same
 rules as the `cast` canonical function defined in
 [OData‑URL](#ODataURL).
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Cast`
 :::
 
@@ -5103,7 +5103,7 @@ contain exactly one expression.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -5120,7 +5120,7 @@ primitive type. If the facet attributes are not specified, their values
 are considered unspecified.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.Threshold\"\>\
@@ -5139,7 +5139,7 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Collection`
 :::
 
@@ -5147,7 +5147,7 @@ Expression `edm:Collection`
 The `edm:Collection` element contains zero or more child expressions.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.seo.SeoTerms\"\>\
@@ -5186,7 +5186,7 @@ MUST be returned as the result of the if-then-else expression. If no
 third child element is present, nothing is added to the surrounding
 collection.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:If`
 :::
 
@@ -5197,7 +5197,7 @@ MUST use element notation.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale` ,whose value then determines
 the value of the `edm:If` expression
@@ -5219,7 +5219,7 @@ child expression is compatible with the specified type. It returns
 `true` if the child expression returns a type that is compatible with
 the specified type, and `false` otherwise.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:IsOf`
 :::
 
@@ -5230,7 +5230,7 @@ contain exactly one child expression.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -5247,7 +5247,7 @@ primitive type. If the facet attributes are not specified, their values
 are considered unspecified.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"self.IsPreferredCustomer\"\>\
@@ -5273,7 +5273,7 @@ A labeled element expression MUST provide a [simple
 identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:LabeledElement`
 :::
 
@@ -5286,7 +5286,7 @@ or element notation.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Name`
 :::
 
@@ -5294,7 +5294,7 @@ Attribute `Name`
 The value of `Name` is the labeled element's name.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"\>\
@@ -5318,7 +5318,7 @@ name](#QualifiedName) of a [labeled element expression](#LabeledElement)
 in scope and returns the value of the identified labeled element
 expression as its value.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:LabeledElementReference`
 :::
 
@@ -5327,7 +5327,7 @@ The edm:LabeledElementReference element MUST contain the qualified name
 of a labeled element expression in its body.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"\>\
@@ -5344,7 +5344,7 @@ expression MAY be annotated.
 
 The null expression MUST be written with element notation.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Null`
 :::
 
@@ -5353,7 +5353,7 @@ The edm:Null element MAY contain [`edm:Annotation`](#Annotation)
 elements.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.display.DisplayName\"\>\
@@ -5362,7 +5362,7 @@ Example ##ex:
 ```
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <Annotation Term="@UI.Address">
@@ -5395,7 +5395,7 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:Record`
 :::
 
@@ -5406,7 +5406,7 @@ contain `edm:PropertyValue` elements.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Type`
 :::
 
@@ -5414,7 +5414,7 @@ Attribute `Type`
 The value of `Type` is the qualified name of a structured type in scope.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Element `edm:PropertyValue`
 :::
 
@@ -5426,7 +5426,7 @@ either element notation or attribute notation.
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
-::: csdlHeadline
+::: {.varxml .rep}
 Attribute `Property`
 :::
 
@@ -5435,7 +5435,7 @@ The value of `Property` is the name of a property of the type of the
 enclosing `edm:Record` expression.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex: this annotation "morphs" the entity type from example 8 into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
@@ -5487,7 +5487,7 @@ the` `URL reference expression. The result of the` edm:UrlRef`
 expression MUST be type compatible with the type expected by the
 surrounding element or expression.
 
-::: csdlHeadline
+::: {.varxml .rep}
 Expression `edm:UrlRef`
 :::
 
@@ -5502,7 +5502,7 @@ In element notation it MAY contain [`edm:Annotation`](#Annotation)
 elements.
 :::
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<Annotation Term=\"org.example.person.Supplier\"\>\
@@ -5578,7 +5578,7 @@ path of a container child followed by a forward slash and one or more
 forward-slash separated property, navigation property, or type-cast
 segments
 
-::: example
+::: {.varxml .example}
 Example ##ex: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
@@ -5600,7 +5600,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 ## ##subsec [Products and Categories Example](#ProductsandCategoriesExample)
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"`
@@ -5763,7 +5763,7 @@ Target=\"Products\" /\>]{style="color:black"}]{.Datatype}
 
 ## ##subsec [Annotations for Products and Categories Example](#AnnotationsforProductsandCategoriesE)
 
-::: example
+::: {.varxml .example}
 Example ##ex:
 ```
 [[\<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\"\

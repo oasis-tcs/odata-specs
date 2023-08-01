@@ -7,6 +7,7 @@
 # ##sec CSDL XML Document
 :
 
+<!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
 ### ##isec Document Object
 
@@ -20,7 +21,7 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### ##subisec `$Version`
 
-The value of `$Version` is a string containing either 4.0 or 4.01.
+The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### ##subisec `$EntityContainer`
 
@@ -38,6 +39,7 @@ Example ##ex:
 ```
 :::
 
+<!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
 ### ##isec Element `edmx:Edmx`
 
@@ -56,7 +58,7 @@ service. For OData 4.0 responses the value of this attribute MUST be
 `4.01.` Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion `header with a value of `4.0`.
 
-### ##subisec Element `edmx:DataServices`
+### ##isec Element `edmx:DataServices`
 
 The `edmx:DataServices` element MUST contain one or more
 [`edm:Schema`](#Schema) elements which define the schemas exposed by the
@@ -157,7 +159,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 
 The value of `Uri` is an absolute or relative URI; relative URIs are
 relative to the `xml:base` attribute, see
-[XML-Base](#XMLBase).
+[XML-Base](#XML-Base).
 :::
 
 ::: {.varxml .example}
@@ -318,7 +320,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -455,7 +457,7 @@ Example ##ex: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>…</edmx:DataServices>
+  <edmx:DataServices>...</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
