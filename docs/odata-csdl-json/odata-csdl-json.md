@@ -259,6 +259,28 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 >>>>>>> 1d2fbf2 Changes from Earlier Versions
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
+OASIS issue|Description|GitHub commit containing the changes
+-----------|-----------|------------------------------------
+[ODATA-1366](https://issues.oasis-open.org/browse/ODATA-1366)|remove superfluous text| 
+[ODATA-1368](https://issues.oasis-open.org/browse/ODATA-1368)|clarify Term applicability| 
+[ODATA-1371](https://issues.oasis-open.org/browse/ODATA-1371)|improve structure of section 4| 
+[ODATA-1397](https://issues.oasis-open.org/browse/ODATA-1397)|clarify example for entity-valued annotation| 
+[ODATA-1417](https://issues.oasis-open.org/browse/ODATA-1417)|rephrase [section 14.2.2](#Target)| 
+[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)|[path evaluation](#PathEvaluation) for annotation targeting annotations| 
+[ODATA-1434](https://issues.oasis-open.org/browse/ODATA-1434)|complete list of recommended [navigation property bindings](#NavigationPropertyPathBinding)| 
+[ODATA-1435](https://issues.oasis-open.org/browse/ODATA-1435)|conditionally add an element to a collection| 
+[ODATA-1464](https://issues.oasis-open.org/browse/ODATA-1464)|explain redundancy of [section 14.4.4.3](#FunctionodatamatchesPattern)| 
+[ODATA-1478](https://issues.oasis-open.org/browse/ODATA-1478)|clarify meaning of absence of `$Precision`| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)|allow `Edm.Stream` for non-binding parameters| 
+[ODATA-1491](https://issues.oasis-open.org/browse/ODATA-1491)|remove `HasStream` from example in [section 16.1](#ProductsandCategoriesExample)| 
+[ODATA-1498](https://issues.oasis-open.org/browse/ODATA-1498)|clarify non-usage of `Collection(Edm.PrimitiveType)`| 
+[ODATA-1501](https://issues.oasis-open.org/browse/ODATA-1501)|annotations targeting contained singletons| 
+[ODATA-1517](https://issues.oasis-open.org/browse/ODATA-1517)|annotations targeting a navigation property or its addressed resource| 
+[ODATA-1531](https://issues.oasis-open.org/browse/ODATA-1531)|`AppliesTo="Property"` means structural property| 
+[ODATA-1562](https://issues.oasis-open.org/browse/ODATA-1562)|clarify uniqueness of bound action and function names| 
+[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)|allow empty entity containers| 
+[ODATA-1577](https://issues.oasis-open.org/browse/ODATA-1577)|write "entity-id" instead of "entity id"| 
+
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
