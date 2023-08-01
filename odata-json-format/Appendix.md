@@ -1,4 +1,3 @@
-
 -------
 
 # Appendix ##asec References
@@ -123,8 +122,6 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 -------
 
 # Appendix ##asec Revision History
-
-<!-- Optional section -->
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |

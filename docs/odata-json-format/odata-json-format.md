@@ -177,7 +177,7 @@ For complete copyright information please see the full Notices section in an App
 - [23 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References ](#InformativeReferences)
+  - [A.2 Informative References](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
 - [C Acknowledgments](#Acknowledgments)
   - [C.1 Special Thanks](#SpecialThanks)
@@ -375,7 +375,7 @@ information](#metadataminimalodatametadataminimal).
 Note that in OData 4.0 the `metadata` format parameter was
 prefixed with `odata.`. Payloads with an `OData-Version` header equal to
 `4.0` MUST include the `odata.` prefix. Payloads with an
-`OData-Version `header equal to `4.01` or greater SHOULD NOT
+`OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
 ### <a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 `metadata=minimal` (`odata.metadata=minimal`)</a>
@@ -714,7 +714,7 @@ constraints have to be met:
 Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `odata.`. Payloads with an `OData-Version` header equal to
 `4.0` MUST include the `odata.` prefix. Payloads with an
-`OData-Version `header equal to `4.01` or greater SHOULD NOT
+`OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
 ## <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
@@ -3676,7 +3676,6 @@ In addition, in order to comply with the OData 4.01 JSON format, a service:
 28. MUST honor the `odata.etag` control information within `PUT`, `PATCH` or `DELETE` payloads, if specified
 29. MUST support returning, in the final response to an asynchronous request, the `application/json` payload that would have been returned had the operation completed synchronously
 
-
 -------
 
 # <a name="References" href="#References">Appendix A. References</a>
@@ -3752,8 +3751,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
-
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
@@ -3800,8 +3798,6 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 -------
 
 # <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
-
-<!-- Optional section -->
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
