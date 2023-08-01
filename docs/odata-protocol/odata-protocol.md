@@ -6567,7 +6567,7 @@ comply with at least the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel) and implement the
 [OData-JSON](#ODataJSON) format.
 
-To be generally interoperable, OData clients      
+To be generally interoperable, OData clients
 
 1. MUST specify the `OData-MaxVersion` header in requests ([section 8.2.7](#HeaderODataMaxVersion))
 2. MUST specify `OData-Version` ([section 8.1.5](#HeaderODataVersion)) and `Content-Type`
