@@ -160,21 +160,21 @@ For complete copyright information please see the full Notices section in an App
     - [8.3.8 Header `Vary`](#HeaderVary)
 - [9 Common Response Status Codes](#CommonResponseStatusCodes)
   - [9.1 Success Responses](#SuccessResponses)
-    - [9.1.1 Response Code `200 OK`](#ResponseCodeOK)
-    - [9.1.2 Response Code `201 Created`](#ResponseCodeCreated)
-    - [9.1.3 Response Code `202 Accepted`](#ResponseCodeAccepted)
-    - [9.1.4 Response Code `204 No Content`](#ResponseCodeNoContent)
-    - [9.1.5 Response Code `3xx Redirection`](#ResponseCodexxRedirection)
-    - [9.1.6 Response Code `304 Not Modified`](#ResponseCodeNotModified)
+    - [9.1.1 Response Code `200 OK`](#ResponseCode200OK)
+    - [9.1.2 Response Code `201 Created`](#ResponseCode201Created)
+    - [9.1.3 Response Code `202 Accepted`](#ResponseCode202Accepted)
+    - [9.1.4 Response Code `204 No Content`](#ResponseCode204NoContent)
+    - [9.1.5 Response Code `3xx Redirection`](#ResponseCode3xxRedirection)
+    - [9.1.6 Response Code `304 Not Modified`](#ResponseCode304NotModified)
   - [9.2 Client Error Responses](#ClientErrorResponses)
-    - [9.2.1 Response Code `404 Not Found`](#ResponseCodeNotFound)
-    - [9.2.2 Response Code `405 Method Not Allowed`](#ResponseCodeMethodNotAllowed)
-    - [9.2.3 Response Code `406 Not Acceptable`](#ResponseCodeNotAcceptable)
-    - [9.2.4 Response Code `410 Gone`](#ResponseCodeGone)
-    - [9.2.5 Response Code `412 Precondition Failed`](#ResponseCodePreconditionFailed)
-    - [9.2.6 Response Code `424 Failed Dependency`](#ResponseCodeFailedDependency)
+    - [9.2.1 Response Code `404 Not Found`](#ResponseCode404NotFound)
+    - [9.2.2 Response Code `405 Method Not Allowed`](#ResponseCode405MethodNotAllowed)
+    - [9.2.3 Response Code `406 Not Acceptable`](#ResponseCode406NotAcceptable)
+    - [9.2.4 Response Code `410 Gone`](#ResponseCode410Gone)
+    - [9.2.5 Response Code `412 Precondition Failed`](#ResponseCode412PreconditionFailed)
+    - [9.2.6 Response Code `424 Failed Dependency`](#ResponseCode424FailedDependency)
   - [9.3 Server Error Responses](#ServerErrorResponses)
-    - [9.3.1 Response Code `501 Not Implemented`](#ResponseCodeNotImplemented)
+    - [9.3.1 Response Code `501 Not Implemented`](#ResponseCode501NotImplemented)
   - [9.4 Error Response Body](#ErrorResponseBody)
   - [9.5 In-Stream Errors](#InStreamErrors)
 - [10 Context URL](#ContextURL)
@@ -298,18 +298,18 @@ For complete copyright information please see the full Notices section in an App
       - [11.7.7.5 Multipart Batch Response](#MultipartBatchResponse)
       - [11.7.7.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [12 Conformance](#Conformance)
-  - [12.1 OData 4.0 Service Conformance Levels](#ODataServiceConformanceLevels)
-    - [12.1.1 OData 4.0 Minimal Conformance Level](#ODataMinimalConformanceLevel)
-    - [12.1.2 OData 4.0 Intermediate Conformance Level](#ODataIntermediateConformanceLevel)
-    - [12.1.3 OData 4.0 Advanced Conformance Level](#ODataAdvancedConformanceLevel)
-  - [12.2 OData 4.01 Service Conformance Levels](#ODataServiceConformanceLevels)
-    - [12.2.1 OData 4.01 Minimal Conformance Level](#ODataMinimalConformanceLevel)
-    - [12.2.2 OData 4.01 Intermediate Conformance Level](#ODataIntermediateConformanceLevel)
-    - [12.2.3 OData 4.01 Advanced Conformance Level](#ODataAdvancedConformanceLevel)
+  - [12.1 OData 4.0 Service Conformance Levels](#OData40ServiceConformanceLevels)
+    - [12.1.1 OData 4.0 Minimal Conformance Level](#OData40MinimalConformanceLevel)
+    - [12.1.2 OData 4.0 Intermediate Conformance Level](#OData40IntermediateConformanceLevel)
+    - [12.1.3 OData 4.0 Advanced Conformance Level](#OData40AdvancedConformanceLevel)
+  - [12.2 OData 4.01 Service Conformance Levels](#OData401ServiceConformanceLevels)
+    - [12.2.1 OData 4.01 Minimal Conformance Level](#OData401MinimalConformanceLevel)
+    - [12.2.2 OData 4.01 Intermediate Conformance Level](#OData401IntermediateConformanceLevel)
+    - [12.2.3 OData 4.01 Advanced Conformance Level](#OData401AdvancedConformanceLevel)
   - [12.3 Interoperable OData Clients](#InteroperableODataClients)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References](#InformativeReferences)
+  - [A.2 Informative References ](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
   - [B.1 Authentication](#Authentication)
 - [C Acknowledgments](#Acknowledgments)
@@ -1776,21 +1776,21 @@ cases, a service MAY respond with a more specific success code.
 
 The following response codes represent successful requests.
 
-### <a name="ResponseCodeOK" href="#ResponseCodeOK">9.1.1 Response Code `200 OK`</a>
+### <a name="ResponseCode200OK" href="#ResponseCode200OK">9.1.1 Response Code `200 OK`</a>
 
 A request that does not create a resource returns `200 OK` if it is
 completed successfully and the value of the resource is not `null`. In
 this case, the response body MUST contain the value of the resource
 specified in the request URL.
 
-### <a name="ResponseCodeCreated" href="#ResponseCodeCreated">9.1.2 Response Code `201 Created`</a>
+### <a name="ResponseCode201Created" href="#ResponseCode201Created">9.1.2 Response Code `201 Created`</a>
 
 A [Create Entity](#CreateanEntity), [Create Media
 Entity](#CreateaMediaEntity), or [Invoke Action](#InvokinganAction)
 request that successfully creates a resource returns `201 Created`. In
 this case, the response body MUST contain the resource created.
 
-### <a name="ResponseCodeAccepted" href="#ResponseCodeAccepted">9.1.3 Response Code `202 Accepted`</a>
+### <a name="ResponseCode202Accepted" href="#ResponseCode202Accepted">9.1.3 Response Code `202 Accepted`</a>
 
 `202 Accepted` indicates that the [Data Service
 Request](#DataServiceRequests) has been accepted and has not yet
@@ -1799,7 +1799,7 @@ requests is defined in the sections on [Asynchronous
 Requests](#AsynchronousRequests) and [Asynchronous Batch
 Requests](#AsynchronousBatchRequests).
 
-### <a name="ResponseCodeNoContent" href="#ResponseCodeNoContent">9.1.4 Response Code `204 No Content`</a>
+### <a name="ResponseCode204NoContent" href="#ResponseCode204NoContent">9.1.4 Response Code `204 No Content`</a>
 
 A request returns `204 No Content` if the requested resource has the
 `null` value, or if the service applies a [`return=minimal`
@@ -1821,7 +1821,7 @@ server-side values corresponding to the `ETag` value sent in the
 `If-Match` header of the `PATCH` request, i.e. the previous values
 "known" to the client.
 
-### <a name="ResponseCodexxRedirection" href="#ResponseCodexxRedirection">9.1.5 Response Code `3xx Redirection`</a>
+### <a name="ResponseCode3xxRedirection" href="#ResponseCode3xxRedirection">9.1.5 Response Code `3xx Redirection`</a>
 
 As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
@@ -1830,7 +1830,7 @@ header](#HeaderLocation), as appropriate, with the URL from which the
 result can be obtained; it MAY include a [`Retry-After`
 header](#HeaderRetryAfter).
 
-### <a name="ResponseCodeNotModified" href="#ResponseCodeNotModified">9.1.6 Response Code `304 Not Modified`</a>
+### <a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code `304 Not Modified`</a>
 
 As per [RFC7232](#rfc7232), a `304 Not Modified` is returned
 when the client performs a `GET` request containing an
@@ -1855,12 +1855,12 @@ status code.
 In the case that a response body is defined for the error code, the body
 of the error is as defined for the appropriate [format](#Formats).
 
-### <a name="ResponseCodeNotFound" href="#ResponseCodeNotFound">9.2.1 Response Code `404 Not Found`</a>
+### <a name="ResponseCode404NotFound" href="#ResponseCode404NotFound">9.2.1 Response Code `404 Not Found`</a>
 
 `404 Not Found `indicates that the resource specified by the request URL
 does not exist. The response body MAY provide additional information.
 
-### <a name="ResponseCodeMethodNotAllowed" href="#ResponseCodeMethodNotAllowed">9.2.2 Response Code `405 Method Not Allowed`</a>
+### <a name="ResponseCode405MethodNotAllowed" href="#ResponseCode405MethodNotAllowed">9.2.2 Response Code `405 Method Not Allowed`</a>
 
 `405 Method Not Allowed` indicates that the resource specified by the
 request URL does not support the request method. In this case the
@@ -1868,7 +1868,7 @@ response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
 [RFC7231](#rfc7231).
 
-### <a name="ResponseCodeNotAcceptable" href="#ResponseCodeNotAcceptable">9.2.3 Response Code `406 Not Acceptable`</a>
+### <a name="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code `406 Not Acceptable`</a>
 
 `406 Not Acceptable` indicates that the resource specified by the
 request URL does not have a current representation that would be
@@ -1878,7 +1878,7 @@ headers [`Accept`](#HeaderAccept),
 [`Accept-Language`](#HeaderAcceptLanguage), and that the service is
 unwilling to supply a default representation.
 
-### <a name="ResponseCodeGone" href="#ResponseCodeGone">9.2.4 Response Code `410 Gone`</a>
+### <a name="ResponseCode410Gone" href="#ResponseCode410Gone">9.2.4 Response Code `410 Gone`</a>
 
 `410 Gone` indicates that the requested resource is no longer available.
 This can happen if a client has waited too long to follow a [delta
@@ -1886,14 +1886,14 @@ link](#DeltaLinks) or a [status-monitor-resource](#AsynchronousRequests)
 link, or a next link on a collection that was requested with [snapshot
 isolation](#HeaderIsolationODataIsolation).
 
-### <a name="ResponseCodePreconditionFailed" href="#ResponseCodePreconditionFailed">9.2.5 Response Code `412 Precondition Failed`</a>
+### <a name="ResponseCode412PreconditionFailed" href="#ResponseCode412PreconditionFailed">9.2.5 Response Code `412 Precondition Failed`</a>
 
 As defined in [RFC7232](#rfc7232), `412 Precondition Failed`
 indicates that the client has performed a conditional request and the
 resource fails the condition. The service MUST ensure that no observable
 change occurs as a result of the request.
 
-### <a name="ResponseCodeFailedDependency" href="#ResponseCodeFailedDependency">9.2.6 Response Code `424 Failed Dependency`</a>
+### <a name="ResponseCode424FailedDependency" href="#ResponseCode424FailedDependency">9.2.6 Response Code `424 Failed Dependency`</a>
 
 `424 Failed Dependency` indicates that a request was not performed due
 to a failed dependency; for example, a request within a batch that
@@ -1904,7 +1904,7 @@ depended upon a request that failed.
 As defined in [RFC7231](#rfc7231), error codes in the `5xx` range
 indicate service errors.
 
-### <a name="ResponseCodeNotImplemented" href="#ResponseCodeNotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
+### <a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
 
 If the client requests functionality not implemented by the OData
 Service, the service responds with `501 Not Implemented` and SHOULD
@@ -6215,7 +6215,7 @@ multiple levels of conformance for an OData Service, as well as the
 [minimal requirements](#InteroperableODataClients) for an OData Client
 to be interoperable across OData services.
 
-## <a name="ODataServiceConformanceLevels" href="#ODataServiceConformanceLevels">12.1 OData 4.0 Service Conformance Levels</a>
+## <a name="OData40ServiceConformanceLevels" href="#OData40ServiceConformanceLevels">12.1 OData 4.0 Service Conformance Levels</a>
 
 OData 4.0 defines three levels of conformance for an OData Service.
 
@@ -6239,7 +6239,7 @@ Note: Services are encouraged to support as much additional
 functionality beyond their level of conformance as is appropriate for
 their intended scenario.
 
-### <a name="ODataMinimalConformanceLevel" href="#ODataMinimalConformanceLevel">12.1.1 OData 4.0 Minimal Conformance Level</a>
+### <a name="OData40MinimalConformanceLevel" href="#OData40MinimalConformanceLevel">12.1.1 OData 4.0 Minimal Conformance Level</a>
 
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
@@ -6321,7 +6321,7 @@ or upsert operation that returns `204 No Content`(section 8.3.4)
 33. MAY support set-based updates (section 11.4.13) or deletes (section
 11.4.14) to members of a collection
 
-### <a name="ODataIntermediateConformanceLevel" href="#ODataIntermediateConformanceLevel">12.1.2 OData 4.0 Intermediate Conformance Level</a>
+### <a name="OData40IntermediateConformanceLevel" href="#OData40IntermediateConformanceLevel">12.1.2 OData 4.0 Intermediate Conformance Level</a>
 
 In order to conform to the OData Intermediate Conformance Level, a
 service:
@@ -6366,7 +6366,7 @@ properties (section 11.2.10)
 17. SHOULD support `$orderby asc` and `desc` on individual properties
 (section 11.2.6.2)
 
-### <a name="ODataAdvancedConformanceLevel" href="#ODataAdvancedConformanceLevel">12.1.3 OData 4.0 Advanced Conformance Level</a>
+### <a name="OData40AdvancedConformanceLevel" href="#OData40AdvancedConformanceLevel">12.1.3 OData 4.0 Advanced Conformance Level</a>
 
 In order to conform to the OData Advanced Conformance Level, a service:
 
@@ -6410,7 +6410,7 @@ according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 15. SHOULD support cross-join queries defined in [OData‑URL](#ODataURL)
 16. MAY support the `$compute` system query option (section 11.2.5.3)
 
-## <a name="ODataServiceConformanceLevels" href="#ODataServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
+## <a name="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
@@ -6420,7 +6420,7 @@ annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
 4.01 services do not need to separately list `4.0` as a supported
 version.
 
-### <a name="ODataMinimalConformanceLevel" href="#ODataMinimalConformanceLevel">12.2.1 OData 4.01 Minimal Conformance Level</a>
+### <a name="OData401MinimalConformanceLevel" href="#OData401MinimalConformanceLevel">12.2.1 OData 4.01 Minimal Conformance Level</a>
 
 In order to conform to the OData 4.01 Minimal Conformance Level, a
 service:
@@ -6508,7 +6508,7 @@ terminating in a type cast segment
 format
 27. MAY support `$select` and `$expand` on data modification requests
 
-### <a name="ODataIntermediateConformanceLevel" href="#ODataIntermediateConformanceLevel">12.2.2 OData 4.01 Intermediate Conformance Level</a>
+### <a name="OData401IntermediateConformanceLevel" href="#OData401IntermediateConformanceLevel">12.2.2 OData 4.01 Intermediate Conformance Level</a>
 
 In order to conform to the OData 4.01 Intermediate Conformance Level, a
 service:
@@ -6530,7 +6530,7 @@ expression
 `$select` and `$expand`
 11. MAY support filtering a collection using a `/$filter` path segment
 
-### <a name="ODataAdvancedConformanceLevel" href="#ODataAdvancedConformanceLevel">12.2.3 OData 4.01 Advanced Conformance Level</a>
+### <a name="OData401AdvancedConformanceLevel" href="#OData401AdvancedConformanceLevel">12.2.3 OData 4.01 Advanced Conformance Level</a>
 
 In order to conform to the OData 4.01 Advanced Conformance Level, a
 service:
@@ -6724,7 +6724,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References </a>
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
