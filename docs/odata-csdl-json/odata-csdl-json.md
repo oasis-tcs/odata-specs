@@ -255,9 +255,6 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
@@ -268,7 +265,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
