@@ -179,7 +179,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#ServiceModel">4 Service Model</a>
 <ul>
-<li><a href="#EntityIdsandEntityReferences">4.1 Entity-Ids and Entity References</a></li>
+<li><a href="#EntityIdsandEntityReferences">4.1 Entity Ids and Entity References</a></li>
 <li><a href="#ReadURLsandEditURLs">4.2 Read URLs and Edit URLs</a></li>
 <li><a href="#TransientEntities">4.3 Transient Entities</a></li>
 <li><a href="#DefaultNamespaces">4.4 Default Namespaces</a></li>
@@ -339,7 +339,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#RequestingRelatedEntities">11.2.7 Requesting Related Entities</a></li>
 <li><a href="#RequestingEntityReferences">11.2.8 Requesting Entity References</a></li>
-<li><a href="#ResolvinganEntityId">11.2.9 Resolving an Entity-Id</a></li>
+<li><a href="#ResolvinganEntityId">11.2.9 Resolving an Entity Id</a></li>
 <li><a href="#RequestingtheNumberofItemsinaCollection">11.2.10 Requesting the Number of Items in a Collection</a></li>
 <li><a href="#SystemQueryOptionformat">11.2.11 System Query Option <code>$format</code></a></li>
 <li><a href="#SystemQueryOptionschemaversion">11.2.12 System Query Option <code>$schemaversion</code></a></li>
@@ -551,7 +551,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Relationships from one entity to another are represented as <em>navigation properties.</em> Navigation properties are generally defined as part of an entity type, but can also appear on entity instances as undeclared <em>dynamic navigation properties</em>. Each relationship has a cardinality.</p>
 <p><em>Enumeration types</em> are named primitive types whose values are named constants with underlying integer values.</p>
 <p><em>Type definitions</em> are named primitive types with fixed facet values such as maximum length or precision. Type definitions can be used in place of primitive typed properties, for example, within property definitions.</p>
-<p><em>Entity sets</em> are named collections of entities (e.g. <code>Customers</code> is an entity set containing <code>Customer</code> entities). An entity's key uniquely identifies the entity within an entity set. If multiple entity sets use the same entity type, the same combination of key values can appear in more than one entity set and identifies different entities, one per entity set where this key combination appears. Each of these entities has a different <a href="#EntityIdsandEntityReferences">entity-id</a>. Entity sets provide entry points into the data model.</p>
+<p><em>Entity sets</em> are named collections of entities (e.g. <code>Customers</code> is an entity set containing <code>Customer</code> entities). An entity's key uniquely identifies the entity within an entity set. If multiple entity sets use the same entity type, the same combination of key values can appear in more than one entity set and identifies different entities, one per entity set where this key combination appears. Each of these entities has a different <a href="#EntityIdsandEntityReferences">entity id</a>. Entity sets provide entry points into the data model.</p>
 <p><em>Operations</em> allow the execution of custom logic on parts of a data model. <a href="#Functions"><em>Functions</em></a> are operations that do not have side effects and may support further composition, for example, with additional filter operations, functions or an action. <a href="#Actions"><em>Actions</em></a> are operations that allow side effects, such as data modification, and cannot be further composed in order to avoid non-deterministic behavior. Actions and functions are either <em>bound</em> to a type, enabling them to be called as members of an instance of that type, or unbound, in which case they are called as static operations. <em>Action imports</em> and <em>function imports</em> enable unbound actions and functions to be called from the service root.</p>
 <p><em>Singletons</em> are named entities which can be accessed as direct children of the entity container. A singleton may also be a member of an entity set.</p>
 <p>An OData <em>resource</em> is anything in the model that can be addressed (an entity set, entity, property, or operation).</p>
@@ -570,18 +570,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="#MetadataDocumentRequest"><em>metadata document</em></a> describes the types, sets, functions and actions understood by the OData service. Clients can use the metadata document to understand how to query and interact with entities in the service.</p>
 <p>In addition to these two "fixed" resources, an OData service consists of dynamic resources. The URLs for many of these resources can be computed from the information in the metadata document.</p>
 <p>See <a href="#RequestingData">Requesting Data</a> and <a href="#DataModification">Data Modification</a> for details.</p>
-<h2 id="41-entity-ids-and-entity-references"><a name="EntityIdsandEntityReferences" href="#EntityIdsandEntityReferences">4.1 Entity-Ids and Entity References</a></h2>
-<p>Whereas entities within an entity set are uniquely identified by their key values, entities are also uniquely identified by a durable, opaque, globally unique <em>entity-id</em>. The entity-id MUST be an IRI as defined in <a href="#rfc3987">RFC3987</a> and MAY be expressed in payloads, headers, and URLs as a relative reference as appropriate. While the client MUST be prepared to accept any IRI, services MUST use valid URIs in this version of the specification since there is currently no lossless representation of an IRI in the <a href="#HeaderODataEntityId"><code>EntityId</code></a> header.</p>
-<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> as its entity-id, but clients cannot assume the entity-id can be used to locate the entity unless the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs"><code>Core.DereferenceableIDs</code></a> term is applied to the entity container, nor can the client assume any semantics from the structure of the entity-id. The canonical resource <code>$entity</code> provides a general mechanism for <a href="#ResolvinganEntityId">resolving an entity-id</a> into an entity representation.</p>
-<p>Services that use the standard URL conventions for entity-ids annotate their entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ConventionalIDs"><code>Core.ConventionalIDs</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p><em>Entity references</em> refer to an entity using the entity's entity-id.</p>
+<h2 id="41-entity-ids-and-entity-references"><a name="EntityIdsandEntityReferences" href="#EntityIdsandEntityReferences">4.1 Entity Ids and Entity References</a></h2>
+<p>Whereas entities within an entity set are uniquely identified by their key values, entities are also uniquely identified by a durable, opaque, globally unique <em>entity id</em>. The entity id MUST be an IRI as defined in <a href="#rfc3987">RFC3987</a> and MAY be expressed in payloads, headers, and URLs as a relative reference as appropriate. While the client MUST be prepared to accept any IRI, services MUST use valid URIs in this version of the specification since there is currently no lossless representation of an IRI in the <a href="#HeaderODataEntityId"><code>EntityId</code></a> header.</p>
+<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> as its entity id, but clients cannot assume the entity id can be used to locate the entity unless the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs"><code>Core.DereferenceableIDs</code></a> term is applied to the entity container, nor can the client assume any semantics from the structure of the entity id. The canonical resource <code>$entity</code> provides a general mechanism for <a href="#ResolvinganEntityId">resolving an entity id</a> into an entity representation.</p>
+<p>Services that use the standard URL conventions for entity ids annotate their entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ConventionalIDs"><code>Core.ConventionalIDs</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p><em>Entity references</em> refer to an entity using the entity's entity id.</p>
 <h2 id="42-read-urls-and-edit-urls"><a name="ReadURLsandEditURLs" href="#ReadURLsandEditURLs">4.2 Read URLs and Edit URLs</a></h2>
 <p>The read URL of an entity is the URL that can be used to read the entity.</p>
 <p>The edit URL of an entity is the URL that can be used to update or delete the entity.</p>
 <p>The edit URL of a property is the edit URL of the entity with appended segment(s) containing the path to the property.</p>
 <p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
 <h2 id="43-transient-entities"><a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a></h2>
-<p>Transient entities are instances of an entity type that are "calculated on the fly" and only exist within a single payload. They cannot be reread or updated and consequently possess neither a stable entity-id nor a read URL or an update URL.</p>
+<p>Transient entities are instances of an entity type that are "calculated on the fly" and only exist within a single payload. They cannot be reread or updated and consequently possess neither a stable entity id nor a read URL or an update URL.</p>
 <h2 id="44-default-namespaces"><a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a></h2>
 <p>References to actions, functions, and types within a URL typically requires prefixing the name of the action, function, or type with the namespace or alias in which it is defined. This namespace qualification enables differentiating between similarly named elements across schema, or between properties and bound functions, actions, or types with the same name.</p>
 <p>Services MAY define one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Functions, actions and types in a default namespace can be referenced in URLs with or without namespace or alias qualification.</p>
@@ -860,7 +860,7 @@ A service MAY specify a list of acceptable content codings using an annotation w
 <p>The <code>Location</code> header MUST be returned in the response from a <a href="#CreateanEntity">Create Entity</a> or <a href="#CreateaMediaEntity">Create Media Entity</a> request to specify the edit URL, or for read-only entities the read URL, of the created entity, and in responses returning <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> to specify the URL that the client can use to request the status of an asynchronous request.</p>
 <p>The <code>Location</code> header SHOULD NOT be included for the overall batch response, but MAY be included in individual responses within a batch.</p>
 <h3 id="834-header-odata-entityid"><a name="HeaderODataEntityId" href="#HeaderODataEntityId">8.3.4 Header <code>OData-EntityId</code></a></h3>
-<p>A response to a <a href="#CreateanEntity">create</a> or <a href="#UpsertanEntity">upsert</a> operation that returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> MUST include an <code>OData-EntityId</code> response header. The value of the header is the <a href="#EntityIdsandEntityReferences">entity-id</a> of the entity that was acted on by the request. The syntax of the <code>OData-EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A response to a <a href="#CreateanEntity">create</a> or <a href="#UpsertanEntity">upsert</a> operation that returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> MUST include an <code>OData-EntityId</code> response header. The value of the header is the <a href="#EntityIdsandEntityReferences">entity id</a> of the entity that was acted on by the request. The syntax of the <code>OData-EntityId</code> header is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The <code>OData-EntityID</code> header SHOULD NOT be included for the overall batch response, but MAY be included in individual responses within a batch.</p>
 <h3 id="835-header-odata-error"><a name="HeaderODataError" href="#HeaderODataError">8.3.5 Header <code>OData-Error</code></a></h3>
 <p>A response with an <a href="#InStreamErrors">in-stream error</a> MAY include an <code>OData-Error</code> trailing header if the transport protocol supports trailing headers (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
@@ -1635,16 +1635,16 @@ clothing</code></pre>
 <p>Example 66: collection with an entity reference for each Order related to the Product with <code>ID=0</code></p>
 <pre><code>GET http://host/service/Products(0)/Orders/$ref</code></pre>
 </div>
-<h3 id="1129-resolving-an-entity-id"><a name="ResolvinganEntityId" href="#ResolvinganEntityId">11.2.9 Resolving an Entity-Id</a></h3>
-<p>To resolve an <a href="#EntityIdsandEntityReferences">entity-id</a>, e.g. obtained in an entity reference, into a representation of the identified entity, the client issues a <code>GET</code> request to the <code>$entity</code> resource located at the URL <code>$entity</code> relative to the service root. The entity-id MUST be specified using the system query option <code>$id</code>.</p>
+<h3 id="1129-resolving-an-entity-id"><a name="ResolvinganEntityId" href="#ResolvinganEntityId">11.2.9 Resolving an Entity Id</a></h3>
+<p>To resolve an <a href="#EntityIdsandEntityReferences">entity id</a>, e.g. obtained in an entity reference, into a representation of the identified entity, the client issues a <code>GET</code> request to the <code>$entity</code> resource located at the URL <code>$entity</code> relative to the service root. The entity id MUST be specified using the system query option <code>$id</code>.</p>
 <div class="example">
-<p>Example 67: return the entity representation for a given entity-id</p>
+<p>Example 67: return the entity representation for a given entity id</p>
 <pre><code>GET http://host/service/$entity?$id=http://host/service/Products(0)</code></pre>
 </div>
 <p>A type segment following the <code>$entity</code> resource casts the resource to the specified type. If the identified entity is not of the specified type, or a type derived from the specified type, the service returns <code>404 Not Found</code>.</p>
 <p>After applying a type-cast segment to cast to a specific type, the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a> can be specified in <code>GET</code> requests to the <code>$entity</code> resource.</p>
 <div class="example">
-<p>Example 68: return the entity representation for a given entity-id and specify properties to return</p>
+<p>Example 68: return the entity representation for a given entity id and specify properties to return</p>
 <pre><code>GET http://host/service/$entity/Model.Customer
       ?$id=http://host/service/Customers(&#39;ALFKI&#39;)
       &amp;$select=CompanyName,ContactName
@@ -1785,7 +1785,7 @@ clothing</code></pre>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 77: using the JSON format, 4.01 clients can create a new manager entity with links to two existing employees by including the entity-ids within the <code>DirectReports</code> navigation property</p>
+<p>Example 77: using the JSON format, 4.01 clients can create a new manager entity with links to two existing employees by including the entity ids within the <code>DirectReports</code> navigation property</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>

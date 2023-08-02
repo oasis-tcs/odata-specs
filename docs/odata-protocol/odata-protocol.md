@@ -108,7 +108,7 @@ For complete copyright information please see the full Notices section in an App
 - [3 Data Model](#DataModel)
   - [3.1 Annotations](#Annotations)
 - [4 Service Model](#ServiceModel)
-  - [4.1 Entity-Ids and Entity References](#EntityIdsandEntityReferences)
+  - [4.1 Entity Ids and Entity References](#EntityIdsandEntityReferences)
   - [4.2 Read URLs and Edit URLs](#ReadURLsandEditURLs)
   - [4.3 Transient Entities](#TransientEntities)
   - [4.4 Default Namespaces](#DefaultNamespaces)
@@ -227,7 +227,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.2.6.8 Requesting an Individual Member of an Ordered Collection](#RequestinganIndividualMemberofanOrderedCollection)
     - [11.2.7 Requesting Related Entities](#RequestingRelatedEntities)
     - [11.2.8 Requesting Entity References](#RequestingEntityReferences)
-    - [11.2.9 Resolving an Entity-Id](#ResolvinganEntityId)
+    - [11.2.9 Resolving an Entity Id](#ResolvinganEntityId)
     - [11.2.10 Requesting the Number of Items in a Collection](#RequestingtheNumberofItemsinaCollection)
     - [11.2.11 System Query Option `$format`](#SystemQueryOptionformat)
     - [11.2.12 System Query Option `$schemaversion`](#SystemQueryOptionschemaversion)
@@ -489,7 +489,7 @@ identifies the entity within an entity set. If multiple entity sets use
 the same entity type, the same combination of key values can appear in
 more than one entity set and identifies different entities, one per
 entity set where this key combination appears. Each of these entities
-has a different [entity-id](#EntityIdsandEntityReferences). Entity sets
+has a different [entity id](#EntityIdsandEntityReferences). Entity sets
 provide entry points into the data model.
 
 *Operations* allow the execution of custom logic on parts of a data
@@ -558,11 +558,11 @@ from the information in the metadata document.
 
 See [Requesting Data](#RequestingData) and [Data Modification](#DataModification) for details.
 
-## <a name="EntityIdsandEntityReferences" href="#EntityIdsandEntityReferences">4.1 Entity-Ids and Entity References</a>
+## <a name="EntityIdsandEntityReferences" href="#EntityIdsandEntityReferences">4.1 Entity Ids and Entity References</a>
 
 Whereas entities within an entity set are uniquely identified by their
 key values, entities are also uniquely identified by a durable, opaque,
-globally unique *entity-id*. The entity-id MUST be an IRI as defined in
+globally unique *entity id*. The entity id MUST be an IRI as defined in
 [RFC3987](#rfc3987) and MAY be expressed in payloads, headers, and URLs
 as a relative reference as appropriate. While the client MUST be
 prepared to accept any IRI, services MUST use valid URIs in this version
@@ -570,20 +570,20 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** as its entity-id, but clients cannot assume
-the entity-id can be used to locate the entity unless the
+as defined in **OData-URL** as its entity id, but clients cannot assume
+the entity id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
-semantics from the structure of the entity-id. The canonical resource
+semantics from the structure of the entity id. The canonical resource
 `$entity` provides a general mechanism for
-[resolving an entity-id](#ResolvinganEntityId) into an entity representation.
+[resolving an entity id](#ResolvinganEntityId) into an entity representation.
 
-Services that use the standard URL conventions for entity-ids annotate
+Services that use the standard URL conventions for entity ids annotate
 their entity container with the term
 [`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
 see [OData-VocCore](#ODataVocCore).
 
-*Entity references* refer to an entity using the entity's entity-id.
+*Entity references* refer to an entity using the entity's entity id.
 
 ## <a name="ReadURLsandEditURLs" href="#ReadURLsandEditURLs">4.2 Read URLs and Edit URLs</a>
 
@@ -609,7 +609,7 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are "calculated
 on the fly" and only exist within a single payload. They cannot be
-reread or updated and consequently possess neither a stable entity-id
+reread or updated and consequently possess neither a stable entity id
 nor a read URL or an update URL.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
@@ -1694,7 +1694,7 @@ response, but MAY be included in individual responses within a batch.
 A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
-header is the [entity-id](#EntityIdsandEntityReferences) of the entity
+header is the [entity id](#EntityIdsandEntityReferences) of the entity
 that was acted on by the request. The syntax of the `OData-EntityId`
 header is defined in [OData-ABNF](#ODataABNF).
 
@@ -3607,16 +3607,16 @@ GET http://host/service/Products(0)/Orders/$ref
 ```
 :::
 
-### <a name="ResolvinganEntityId" href="#ResolvinganEntityId">11.2.9 Resolving an Entity-Id</a>
+### <a name="ResolvinganEntityId" href="#ResolvinganEntityId">11.2.9 Resolving an Entity Id</a>
 
-To resolve an [entity-id](#EntityIdsandEntityReferences), e.g. obtained
+To resolve an [entity id](#EntityIdsandEntityReferences), e.g. obtained
 in an entity reference, into a representation of the identified entity,
 the client issues a `GET` request to the `$entity` resource located at
-the URL `$entity` relative to the service root. The entity-id MUST be
+the URL `$entity` relative to the service root. The entity id MUST be
 specified using the system query option `$id`.
 
 ::: example
-Example 67: return the entity representation for a given entity-id
+Example 67: return the entity representation for a given entity id
 ```
 GET http://host/service/$entity?$id=http://host/service/Products(0)
 ```
@@ -3633,7 +3633,7 @@ system query options [`$select`](#SystemQueryOptionselect) and
 to the `$entity` resource.
 
 ::: example
-Example 68: return the entity representation for a given entity-id and
+Example 68: return the entity representation for a given entity id and
 specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
@@ -4173,7 +4173,7 @@ annotation to the `DirectReports` navigation property
 
 ::: example
 Example 77: using the JSON format, 4.01 clients can create a new manager
-entity with links to two existing employees by including the entity-ids
+entity with links to two existing employees by including the entity ids
 within the `DirectReports` navigation property
 ```json
 {

@@ -168,7 +168,7 @@ identifies the entity within an entity set. If multiple entity sets use
 the same entity type, the same combination of key values can appear in
 more than one entity set and identifies different entities, one per
 entity set where this key combination appears. Each of these entities
-has a different [entity-id](#EntityIdsandEntityReferences). Entity sets
+has a different [entity id](#EntityIdsandEntityReferences). Entity sets
 provide entry points into the data model.
 
 *Operations* allow the execution of custom logic on parts of a data
@@ -237,11 +237,11 @@ from the information in the metadata document.
 
 See [Requesting Data](#RequestingData) and [Data Modification](#DataModification) for details.
 
-## ##subsec Entity-Ids and Entity References
+## ##subsec Entity Ids and Entity References
 
 Whereas entities within an entity set are uniquely identified by their
 key values, entities are also uniquely identified by a durable, opaque,
-globally unique *entity-id*. The entity-id MUST be an IRI as defined in
+globally unique *entity id*. The entity id MUST be an IRI as defined in
 [RFC3987](#rfc3987) and MAY be expressed in payloads, headers, and URLs
 as a relative reference as appropriate. While the client MUST be
 prepared to accept any IRI, services MUST use valid URIs in this version
@@ -249,20 +249,20 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** as its entity-id, but clients cannot assume
-the entity-id can be used to locate the entity unless the
+as defined in **OData-URL** as its entity id, but clients cannot assume
+the entity id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
-semantics from the structure of the entity-id. The canonical resource
+semantics from the structure of the entity id. The canonical resource
 `$entity` provides a general mechanism for
-[resolving an entity-id](#ResolvinganEntityId) into an entity representation.
+[resolving an entity id](#ResolvinganEntityId) into an entity representation.
 
-Services that use the standard URL conventions for entity-ids annotate
+Services that use the standard URL conventions for entity ids annotate
 their entity container with the term
 [`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
 see [OData-VocCore](#ODataVocCore).
 
-*Entity references* refer to an entity using the entity's entity-id.
+*Entity references* refer to an entity using the entity's entity id.
 
 ## ##subsec Read URLs and Edit URLs
 
@@ -288,7 +288,7 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are "calculated
 on the fly" and only exist within a single payload. They cannot be
-reread or updated and consequently possess neither a stable entity-id
+reread or updated and consequently possess neither a stable entity id
 nor a read URL or an update URL.
 
 ## ##subsec Default Namespaces

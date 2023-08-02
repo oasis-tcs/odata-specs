@@ -1070,16 +1070,16 @@ GET http://host/service/Products(0)/Orders/$ref
 ```
 :::
 
-### ##subsubsec Resolving an Entity-Id
+### ##subsubsec Resolving an Entity Id
 
-To resolve an [entity-id](#EntityIdsandEntityReferences), e.g. obtained
+To resolve an [entity id](#EntityIdsandEntityReferences), e.g. obtained
 in an entity reference, into a representation of the identified entity,
 the client issues a `GET` request to the `$entity` resource located at
-the URL `$entity` relative to the service root. The entity-id MUST be
+the URL `$entity` relative to the service root. The entity id MUST be
 specified using the system query option `$id`.
 
 ::: example
-Example ##ex: return the entity representation for a given entity-id
+Example ##ex: return the entity representation for a given entity id
 ```
 GET http://host/service/$entity?$id=http://host/service/Products(0)
 ```
@@ -1096,7 +1096,7 @@ system query options [`$select`](#SystemQueryOptionselect) and
 to the `$entity` resource.
 
 ::: example
-Example ##ex: return the entity representation for a given entity-id and
+Example ##ex: return the entity representation for a given entity id and
 specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
