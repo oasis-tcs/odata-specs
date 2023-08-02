@@ -22,10 +22,6 @@ _European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
 _OData ABNF Construction Rules Version 4.02_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
-_OData CSDL JSON Schema_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
-
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
 : varjson
@@ -43,6 +39,13 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 This document.
 :
 
+: varjson
+###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
+_OData CSDL JSON Schema_.  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+:
+
+: varxml
 ###### <a name="ODataEDM">[OData-EDM]</a>
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
@@ -50,6 +53,7 @@ See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page
 ###### <a name="ODataEDMX">[OData-EDMX]</a>
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+:
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
 _OData JSON Format Version 4.02_.  

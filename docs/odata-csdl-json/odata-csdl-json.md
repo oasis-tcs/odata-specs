@@ -40,7 +40,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/os/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -50,7 +50,7 @@ This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/abnf/
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
 * _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
@@ -5826,10 +5826,6 @@ _European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
 _OData ABNF Construction Rules Version 4.02_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
-_OData CSDL JSON Schema_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
-
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
 This document.
@@ -5837,13 +5833,10 @@ This document.
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataEDM">[OData-EDM]</a>
-_OData EDM XML Schema_.  
+###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
+_OData CSDL JSON Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataEDMX">[OData-EDMX]</a>
-_OData EDM XML Schema_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
 _OData JSON Format Version 4.02_.  
