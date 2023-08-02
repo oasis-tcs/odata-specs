@@ -44,7 +44,7 @@ This prose specification is one component of a Work Product that also includes:
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
-* _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html.
+* _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html.
 
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
@@ -245,7 +245,7 @@ For complete copyright information please see the full Notices section in an App
 
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
-defines a representation of the entity data model exposed by an OData
+defines a representation of the entity model exposed by an OData
 service using the Extensible Markup Language (XML) 1.1 (Second Edition)
 [XML-1.1](#XML-11) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in

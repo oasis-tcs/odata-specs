@@ -16,7 +16,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 : varxml
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
-defines a representation of the entity data model exposed by an OData
+defines a representation of the entity model exposed by an OData
 service using the Extensible Markup Language (XML) 1.1 (Second Edition)
 [XML-1.1](#XML-11) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in
