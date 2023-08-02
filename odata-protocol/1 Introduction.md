@@ -30,16 +30,13 @@ resource representations that are exchanged using OData.
 
 ### ##subsubsec Definitions of terms
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### ##subsubsec Acronyms and abbreviations
 
 <!-- TODO -->
 
 ### ##subsubsec Document conventions
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
