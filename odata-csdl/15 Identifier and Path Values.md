@@ -520,47 +520,33 @@ In addition, conforming services MUST NOT return 4.01 CSDL constructs
 for requests made with `OData-MaxVersion:4.0`.
 
 Specifically, they
-
 1. MUST NOT include properties in derived types that overwrite a
 property defined in the base type
-
 2. MUST NOT include `Edm.Untyped`
-
 3. MUST NOT use [path syntax](#PathSyntax) added with 4.01
-
 4. MUST NOT use `Edm.ModelElementPath` and `Edm.AnyPropertyPath`
-
 5. MUST NOT specify [referential constraints](#ReferentialConstraint)
 to complex types and navigation properties
-
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
-
 7. MUST NOT include the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
-
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
-
 9. MUST NOT include collections of `Edm.ComplexType` or `Edm.Untyped`
-
 10. MUST NOT specify a key as a property of a related entity
-
 : varjson
 11. SHOULD NOT include new/unknown values for
 [`$AppliesTo`](#Applicability)
 :
-
 : varxml
 11. SHOULD NOT include new/unknown values for the
 [`AppliesTo`](#Applicability) attribute
 :
-
 12. MAY include new CSDL annotations
 
 In addition, OData 4.01 services:
-
 13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
