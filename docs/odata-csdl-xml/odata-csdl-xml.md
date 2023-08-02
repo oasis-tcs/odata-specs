@@ -44,7 +44,7 @@ This prose specification is one component of a Work Product that also includes:
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
-* _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html.
+* _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html.
 
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
@@ -242,14 +242,15 @@ For complete copyright information please see the full Notices section in an App
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
 
+
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
-defines a representation of the entity model exposed by an OData service
-using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
-
-This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
-[OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+defines a representation of the entity data model exposed by an OData
+service using the Extensible Markup Language (XML) 1.1 (Second Edition)
+[XML-1.1](#XML-11) with further building blocks from the W3C XML
+Schema Definition Language (XSD) 1.1 as described in
+[XML-Schema-1](#XML-Schema1) and
+[XML-Schema-2](#XML-Schema2).
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
@@ -5582,17 +5583,11 @@ https://www.rfc-editor.org/info/rfc2119.
 _Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
 http://tools.ietf.org/html/rfc6570.
 
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
 http://www.rfc-editor.org/info/rfc8174.
 
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
 
 ###### <a name="XML-11">[XML-1.1]</a>
 _Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  

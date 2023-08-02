@@ -87,18 +87,23 @@ https://www.rfc-editor.org/info/rfc2119.
 _Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
 http://tools.ietf.org/html/rfc6570.
 
+: varjson
 ###### <a name="rfc7493">[RFC7493]</a>
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
 https://tools.ietf.org/html/rfc7493.
+:
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
 http://www.rfc-editor.org/info/rfc8174.
 
+: varjson
 ###### <a name="rfc8259">[RFC8259]</a>
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
 http://tools.ietf.org/html/rfc8259.
+:
 
+: varxml
 ###### <a name="XML-11">[XML-1.1]</a>
 _Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
 http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
@@ -110,6 +115,7 @@ http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at htt
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
+:
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
