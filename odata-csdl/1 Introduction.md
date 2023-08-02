@@ -220,7 +220,7 @@ they have the default value.
 ## ##subsec JSON Schema Definition
 
 The structure of CSDL JSON documents can be verified with the JSON
-Schema [OData-CSDL-Schema](#ODataCSDL) provided as an
+Schema [OData-CSDL-Schema](#ODataCSDLSchema) provided as an
 additional artifact of this prose specification. This schema only
 defines the shape of a well-formed CSDL JSON document but is not
 descriptive enough to define what a correct CSDL JSON document MUST be
@@ -242,7 +242,7 @@ W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-2](#XML-Schema2).
 
 It is an alternative to the CSDL JSON representation defined in
-[OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
+[OData-CSDLJSON](#ODataCSDL) and neither adds nor
 removes features.
 
 ## ##subsec Requesting the XML Representation
