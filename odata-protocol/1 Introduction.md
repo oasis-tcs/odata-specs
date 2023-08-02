@@ -8,7 +8,7 @@ Locators (URLs) and defined in a data model, to be published and edited
 by Web clients using simple HTTP messages. This specification defines
 the core semantics and the behavioral aspects of the protocol.
 
-The [OData‑URL](#ODataURL) specification defines a set of rules for
+The [OData-URL](#ODataURL) specification defines a set of rules for
 constructing URLs to identify the data and metadata exposed by an OData
 service as well as a set of reserved URL query options.
 
@@ -30,16 +30,13 @@ resource representations that are exchanged using OData.
 
 ### ##subsubsec Definitions of terms
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### ##subsubsec Acronyms and abbreviations
 
 <!-- TODO -->
 
 ### ##subsubsec Document conventions
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 

@@ -42,9 +42,6 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
-* XML schemas: (list file names or directory name)
-* Other parts (list titles and/or file names)
-* `(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)`
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -216,8 +213,9 @@ For complete copyright information please see the full Notices section in an App
       - [11.2.5.3 System Query Option `$compute`](#SystemQueryOptioncompute)
     - [11.2.6 Querying Collections](#QueryingCollections)
       - [11.2.6.1 System Query Option `$filter`](#SystemQueryOptionfilter)
-        - [11.2.6.1.1 Built-in Query Functions](#BuiltinQueryFunctions)
-        - [11.2.6.1.2 Parameter Aliases](#ParameterAliases)
+        - [11.2.6.1.1 Built-in Filter Operations](#BuiltinFilterOperations)
+        - [11.2.6.1.2 Built-in Query Functions](#BuiltinQueryFunctions)
+        - [11.2.6.1.3 Parameter Aliases](#ParameterAliases)
       - [11.2.6.2 System Query Option `$orderby`](#SystemQueryOptionorderby)
       - [11.2.6.3 System Query Option `$top`](#SystemQueryOptiontop)
       - [11.2.6.4 System Query Option `$skip`](#SystemQueryOptionskip)
@@ -329,7 +327,7 @@ Locators (URLs) and defined in a data model, to be published and edited
 by Web clients using simple HTTP messages. This specification defines
 the core semantics and the behavioral aspects of the protocol.
 
-The [OData‑URL](#ODataURL) specification defines a set of rules for
+The [OData-URL](#ODataURL) specification defines a set of rules for
 constructing URLs to identify the data and metadata exposed by an OData
 service as well as a set of reserved URL query options.
 
@@ -351,16 +349,13 @@ resource representations that are exchanged using OData.
 
 ### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
 ### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
 
 <!-- TODO -->
 
 ### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -2511,7 +2506,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData‑URL](#ODataURL)) use the built-in abstract entity type. Each
+[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -2522,19 +2517,8 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(...)` (see
-[OData‑URL](#ODataURL)) use the built-in abstract complex type. Single
+[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
-
-##### <a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">10.20.0.0.1 Built-in Filter Operations</a>
-
-OData supports a set of built-in filter operations, as described in this
-section.
-
-4.01 services MUST support case-insensitive operation names. Clients
-that want to work with 4.0 services MUST use lower case operation names.
-
-For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
 
 -------
 
@@ -2631,7 +2615,7 @@ options.
 
 This section describes the types of data requests defined by OData. For
 complete details on the syntax for building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData services are hypermedia driven services that return URLs to the
 client. If a client subsequently requests the advertised resource and
@@ -2689,7 +2673,7 @@ The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
 [OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData‑URL](#ODataURL).
+key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -2741,7 +2725,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData‑URL](#ODataURL) for details.
+See [OData-URL](#ODataURL) for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -2760,7 +2744,7 @@ GET http://host/service/Products(1)/Name
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
-[OData‑URL](#ODataURL) document for details.
+[OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -2930,7 +2914,7 @@ filtering, sorting, selecting, paging, or expanding the related
 entities).
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 ::: example
 Example 38: for each customer entity within the Customers entity set the
@@ -2961,7 +2945,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
 [`$select`](#SystemQueryOptionselect),
@@ -3104,38 +3088,44 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 The value of the `$filter` option is a Boolean expression as defined in
 [OData-ABNF](#ODataABNF).
 
+##### <a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a>
+
+OData supports a set of built-in filter operations, as described in this
+section.
+
+4.01 services MUST support case-insensitive operation names. Clients
+that want to work with 4.0 services MUST use lower case operation names.
+
+For a full description of the syntax used when building requests, see
+[OData-URL](#ODataURL).
+
 <table>
 <tr><th>Operator</th><th>Description</th><th>Example</th></tr>
-
-<tr><td colspan="3"><b>Comparison Operators</b></td></tr>
-<tr><td><code>eq</code></td><td>Equal</td><td><code>Address/City eq 'Redmond'</code></tr>
-<tr><td><code>ne</code></td><td>Not equal</td><td><code>Address/City ne 'London'</code></td></tr>
-<tr><td><code>gt</code></td><td>Greater than</td><td><code>Price gt 20</code></td></tr>
-<tr><td><code>ge</code></td><td>Greater than or equal</td><td><code>Price ge 10</code></td></tr>
-<tr><td><code>lt</code></td><td>Less than</td><td><code>Price lt 20</code></td></tr>
-<tr><td><code>le</code></td><td>Less than or equal</td><td><code>Price le 100</code></td></tr>
-<tr><td><code>has</code></td><td>Has flags</td><td><code>Style has Sales.Color'Yellow'</code></td></tr>
-<tr><td><code>in</code></td><td>Is a member of</td><td><code>Address/City in ('Redmond', 'London')</code></td></tr>
-
-<tr><td colspan="3"><b>Logical Operators</b></td></tr>
-<tr><td><code>and</code></td><td>Logical and</td><td><code>Price le 200 and Price gt 3.5</code></td></tr>
-<tr><td><code>or</code></td><td>Logical or</td><td><code>Price le 3.5 or Price gt 200</code></td></tr>
-<tr><td><code>not</code></td><td>Logical negation</td><td><code>not endswith(Description,'milk')</code></td></tr>
-
-<tr><td colspan="3"><b>Arithmetic Operators</b></td></tr>
-<tr><td><code>add</code></td><td>Addition</td><td><code>Price add 5 gt 10</code></td></tr>
-<tr><td><code>sub</code></td><td>Subtraction</td><td><code>Price sub 5 gt 10</code></td></tr>
-<tr><td><code>mul</code></td><td>Multiplication</td><td><code>Price mul 2 gt 2000</code></td></tr>
-<tr><td><code>div</code></td><td>Division</td><td><code>Price div 2 gt 4</code></td></tr>
-<tr><td><code>divby</code></td><td>Decimal Division</td><td><code>Price divby 2 gt 3.5</code></td></tr>
-<tr><td><code>mod</code></td><td>Modulo</td><td><code>Price mod 2 eq 0</code></td></tr>
-
-<tr><td colspan="3"><b>Grouping Operators</b></td></tr>
-<tr><td><code>( )</code></td><td>Precedence grouping</td><td><code>(Price sub 5) gt 10</code></td></tr>
-
+<tr><td colspan="3"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>eq</code></td><td>Equal                </td><td><pre><code>Address/City eq 'Redmond'</code></pre></td></tr>
+<tr><td><code>ne</code></td><td>Not equal            </td><td><pre><code>Address/City ne 'London'</code></pre></td></tr>
+<tr><td><code>gt</code></td><td>Greater than         </td><td><pre><code>Price gt 20</code></pre></td></tr>
+<tr><td><code>ge</code></td><td>Greater than or equal</td><td><pre><code>Price ge 10</code></pre></td></tr>
+<tr><td><code>lt</code></td><td>Less than            </td><td><pre><code>Price lt 20</code></pre></td></tr>
+<tr><td><code>le</code></td><td>Less than or equal   </td><td><pre><code>Price le 100</code></pre></td></tr>
+<tr><td><code>has</code></td><td>Has flags           </td><td><pre><code>Style has Sales.Color'Yellow'</code></pre></td></tr>
+<tr><td><code>in</code></td><td>Is a member of       </td><td><pre><code>Address/City in ('Redmond', 'London')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>and</code></td><td>Logical and         </td><td><pre><code>Price le 200 and Price gt 3.5</code></pre></td></tr>
+<tr><td><code>or</code></td><td>Logical or           </td><td><pre><code>Price le 3.5 or Price gt 200</code></pre></td></tr>
+<tr><td><code>not</code></td><td>Logical negation    </td><td><pre><code>not endswith(Description,'milk')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Arithmetic Operators</strong></td></tr>
+<tr><td><code>add</code></td><td>Addition            </td><td><pre><code>Price add 5 gt 10</code></pre></td></tr>
+<tr><td><code>sub</code></td><td>Subtraction         </td><td><pre><code>Price sub 5 gt 10</code></pre></td></tr>
+<tr><td><code>mul</code></td><td>Multiplication      </td><td><pre><code>Price mul 2 gt 2000</code></pre></td></tr>
+<tr><td><code>div</code></td><td>Division            </td><td><pre><code>Price div 2 gt 4</code></pre></td></tr>
+<tr><td><code>divby</code></td><td>Decimal Division  </td><td><pre><code>Price divby 2 gt 3.5</code></pre></td></tr>
+<tr><td><code>mod</code></td><td>Modulo              </td><td><pre><code>Price mod 2 eq 0</code></pre></td></tr>
+<tr><td colspan="3"><strong>Grouping Operators</strong></td></tr>
+<tr><td><code>( )</code></td><td>Precedence grouping </td><td><pre><code>(Price sub 5) gt 10</code></pre></td></tr>
 </table>
 
-##### <a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.1 Built-in Query Functions</a>
+##### <a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.2 Built-in Query Functions</a>
 
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
@@ -3144,70 +3134,61 @@ OData supports a set of built-in functions that can be used within
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
 <table>
 <tr><th>Function</th><th>Example</th></tr>
-
-<tr><td colspan="2"><b>String and Collection Functions</b></td></tr>
-<tr><td><code>concat</code></td><td><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></td></tr>
-<tr><td><code>contains</code></td><td><code>contains(CompanyName,'freds')</code></td></tr>
-<tr><td><code>endswith</code></td><td><code>endswith(CompanyName,'Futterkiste')</code></td></tr>
-<tr><td><code>indexof</code></td><td><code>indexof(CompanyName,'lfreds') eq 1</code></td></tr>
-<tr><td><code>length</code></td><td><code>length(CompanyName) eq 19</code></td></tr>
-<tr><td><code>startswith</code></td><td><code>startswith(CompanyName,’Alfr’)</code></td></tr>
-<tr><td><code>substring</code></td><td><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Collection Functions</b></td></tr>
-<tr><td><code>hassubset</code></td><td><code>hassubset([4,1,3],[3,1])</code></td></tr>
-<tr><td><code>hassubsequence</code></td><td><code>hassubsequence([4,1,3,1],[1,1])</code></td></tr>
-
-<tr><td colspan="2"><b>String Functions</b></td></tr>
-<tr><td><code>matchesPattern</code></td><td><code>matchesPattern(CompanyName,'%5EA.*e$')</code></td></tr>
-<tr><td><code>tolower</code></td><td><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></td></tr>
-<tr><td><code>toupper</code></td><td><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></td></tr>
-<tr><td><code>trim  </code></td><td><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Date and Time Functions</b></td></tr>
-<tr><td><code>day</code></td><td><code>day(StartTime) eq 8</code></td></tr>
-<tr><td><code>date</code></td><td><code>date(StartTime) ne date(EndTime) </code></td></tr>
-<tr><td><code>fractionalseconds</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>hour</code></td><td><code>hour(StartTime) eq 1 </code></td></tr>
-<tr><td><code>maxdatetime</code></td><td><code>EndTime eq maxdatetime()</code></td></tr>
-<tr><td><code>mindatetime</code></td><td><code>StartTime eq mindatetime()</code></td></tr>
-<tr><td><code>minute</code></td><td><code>minute(StartTime) eq 0</code></td></tr>
-<tr><td><code>month</code></td><td><code>month(BirthDate) eq 12</code></td></tr>
-<tr><td><code>now</code></td><td><code>StartTime ge now()</code></td></tr>
-<tr><td><code>second</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>time</code></td><td><code>time(StartTime) le StartOfDay</code></td></tr>
-<tr><td><code>totaloffsetminutes</code></td><td><code>totaloffsetminutes(StartTime) eq 60</code></td></tr>
-<tr><td><code>totalseconds</code></td><td><code>totalseconds(duration'PT1M') eq 60</code></td></tr>
-<tr><td><code>year</code></td><td><code>year(BirthDate) eq 0</code></td></tr>
-
-<tr><td colspan="2"><b>Arithmetic Functions</b></td></tr>
-<tr><td><code>ceiling</code></td><td><code>ceiling(Freight) eq 33</code></td></tr>
-<tr><td><code>floor</code></td><td><code>floor(Freight) eq 32</code></td></tr>
-<tr><td><code>round</code></td><td><code>round(Freight) eq 32</code></td></tr>
-
-<tr><td colspan="2"><b>Type Functions</b></td></tr>
-<tr><td><code>cast</code></td><td><code>cast(ShipCountry,Edm.String)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(NorthwindModel.Order)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(ShipCountry,Edm.String)</code></td></tr>
-
-<tr><td colspan="2"><b>Geo Functions</b></td></tr>
-<tr><td><code>geo.distance</code></td><td><code>geo.distance(CurrentPosition,TargetPosition)</code></td></tr>
-<tr><td><code>geo.intersects</code></td><td><code>geo.intersects(Position,TargetArea)</code></td></tr>
-<tr><td><code>geo.length</code></td><td><code>geo.length(DirectRoute)</code></td></tr>
-
-<tr><td colspan="2"><b>Conditional Functions</b></td></tr>
-<tr><td><code>case</code></td><td><code>case(X gt 0:1,X lt 0:-1,true:0)</code></td></tr>
-
+<tr><td colspan="2"><strong>String and Collection Functions</strong></td></tr>
+<tr><td><code>concat</code></td><td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td></tr>
+<tr><td><code>contains</code></td><td><pre><code>contains(CompanyName,'freds')</code></pre></td></tr>
+<tr><td><code>endswith</code></td><td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td></tr>
+<tr><td><code>indexof</code></td><td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td></tr>
+<tr><td><code>length</code></td><td><pre><code>length(CompanyName) eq 19</code></pre></td></tr>
+<tr><td><code>startswith</code></td><td><pre><code>startswith(CompanyName,’Alfr’)</code></pre></td></tr>
+<tr><td><code>substring</code></td><td><pre><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Collection Functions</strong></td></tr>
+<tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
+<tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
+<tr><td colspan="2"><strong>String Functions</strong></td></tr>
+<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
+<tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
+<tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Date and Time Functions</strong></td></tr>
+<tr><td><code>day</code></td><td><pre><code>day(StartTime) eq 8</code></pre></td></tr>
+<tr><td><code>date</code></td><td><pre><code>date(StartTime) ne date(EndTime)</code></pre></td></tr>
+<tr><td><code>fractionalseconds</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>hour</code></td><td><pre><code>hour(StartTime) eq 1</code></pre></td></tr>
+<tr><td><code>maxdatetime</code></td><td><pre><code>EndTime eq maxdatetime()</code></pre></td></tr>
+<tr><td><code>mindatetime</code></td><td><pre><code>StartTime eq mindatetime()</code></pre></td></tr>
+<tr><td><code>minute</code></td><td><pre><code>minute(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>month</code></td><td><pre><code>month(BirthDate) eq 12</code></pre></td></tr>
+<tr><td><code>now</code></td><td><pre><code>StartTime ge now()</code></pre></td></tr>
+<tr><td><code>second</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>time</code></td><td><pre><code>time(StartTime) le StartOfDay</code></pre></td></tr>
+<tr><td><code>totaloffsetminutes</code></td><td><pre><code>totaloffsetminutes(StartTime) eq 60</code></pre></td></tr>
+<tr><td><code>totalseconds</code></td><td><pre><code>totalseconds(duration'PT1M') eq 60</code></pre></td></tr>
+<tr><td><code>year</code></td><td><pre><code>year(BirthDate) eq 0</code></pre></td></tr>
+<tr><td colspan="2"><strong>Arithmetic Functions</strong></td></tr>
+<tr><td><code>ceiling</code></td><td><pre><code>ceiling(Freight) eq 33</code></pre></td></tr>
+<tr><td><code>floor</code></td><td><pre><code>floor(Freight) eq 32</code></pre></td></tr>
+<tr><td><code>round</code></td><td><pre><code>round(Freight) eq 32</code></pre></td></tr>
+<tr><td colspan="2"><strong>Type Functions</strong></td></tr>
+<tr><td><code>cast</code></td><td><pre><code>cast(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(NorthwindModel.Order)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Geo Functions</strong></td></tr>
+<tr><td><code>geo.distance</code></td><td><pre><code>geo.distance(CurrentPosition,TargetPosition)</code></pre></td></tr>
+<tr><td><code>geo.intersects</code></td><td><pre><code>geo.intersects(Position,TargetArea)</code></pre></td></tr>
+<tr><td><code>geo.length</code></td><td><pre><code>geo.length(DirectRoute)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Conditional Functions</strong></td></tr>
+<tr><td><code>case</code></td><td><pre><code>case(X gt 0:1,X lt 0:-1,true:0)</code></pre></td></tr>
 </table>
 
-##### <a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.2 Parameter Aliases</a>
+##### <a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.3 Parameter Aliases</a>
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
@@ -4543,7 +4524,7 @@ deleted, the dependent entity is also deleted.
 
 Relationships between entities are represented by navigation properties
 as described in [Data Model](#DataModel). URL conventions for navigation
-properties are described in [OData‑URL](#ODataURL).
+properties are described in [OData-URL](#ODataURL).
 
 #### <a name="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a>
 
@@ -4569,7 +4550,7 @@ collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
 services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
-described in [OData‑URL](#ODataURL).
+described in [OData-URL](#ODataURL).
 
 For single-valued navigation properties, the
 [`$id`](#ResolvinganEntityId) query option MUST NOT be specified.
@@ -4722,7 +4703,7 @@ Attempting to request a stream property whose value is null results in
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
 segment(s) specifying the individual property. The edit URL allows
-properties to be individually modified. See [OData‑URL](#ODataURL) for
+properties to be individually modified. See [OData-URL](#ODataURL) for
 details on addressing individual properties.
 
 #### <a name="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a>
@@ -4966,7 +4947,7 @@ describes an update to each member of the collection, not an update to
 the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
-segments to subset the collection, see [OData‑URL](#ODataURL).
+segments to subset the collection, see [OData-URL](#ODataURL).
 
 For primitive-typed collections the body of the request MUST be a
 primitive value. Each member of the potentially filtered collection is
@@ -5179,7 +5160,7 @@ bound to the entity
 An efficient format that assumes client knowledge of metadata may omit
 actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
@@ -5288,7 +5269,7 @@ result requires a `4xx` response, and continues otherwise.
 Function imports preceded by the `$root` literal MAY be used in the
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 ##### <a name="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
 
@@ -5376,7 +5357,7 @@ If the function is bound and the binding parameter type is part of an
 inheritance hierarchy, the function overload is selected based on the
 type of the URL segment preceding the function name. A type-cast segment
 can be used to select a function defined on a particular type in the
-hierarchy, see [OData‑URL](#ODataURL).
+hierarchy, see [OData-URL](#ODataURL).
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
@@ -5502,7 +5483,7 @@ If the action is bound and the binding parameter type is part of an
 inheritance hierarchy, the action overload is selected based on the type
 of the URL segment preceding the action name. A type-cast segment can be
 used to select an action defined on a particular type in the hierarchy,
-see [OData‑URL](#ODataURL).
+see [OData-URL](#ODataURL).
 
 ## <a name="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
@@ -6330,19 +6311,19 @@ Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
 unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
-3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))`
+3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
-[OData URL](#ODataURL) if derived types are present in the model
+[OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
 6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
-in the requested entity set ([section 11.2.6.1](#SystemQueryOptionfilter))
-   2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.2](#ParameterAliases))
-   3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinQueryFunctions))
+in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
+   2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.3](#ParameterAliases))
+   3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinFilterOperations))
 and MUST return `501 Not Implemented` for any unsupported filter
 operations ([section 9.3.1](#ResponseCode501NotImplemented))
-   4. SHOULD support the canonical functions ([section 11.2.6.1.1](#BuiltinQueryFunctions)) and
+   4. SHOULD support the canonical functions ([section 11.2.6.1.2](#BuiltinQueryFunctions)) and
 MUST return `501 Not Implemented` for any unsupported canonical
 functions ([section 9.3.1](#ResponseCode501NotImplemented))
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
@@ -6358,7 +6339,7 @@ with generic clients
 14. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 15. SHOULD support the lambda operators `any` and `all` on navigation-
 and collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -6377,7 +6358,7 @@ Level](#OData40IntermediateConformanceLevel)
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 5. MUST support the lambda operators `any` and `all` on navigation- and
 collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 8. MUST support `$orderby` `asc` and `desc` on individual properties
@@ -6399,11 +6380,11 @@ properties
 ([section 11.7](#BatchRequests) and all subsections) and MAY support batch requests
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
-[OData URL](#ODataURL)
+[OData-URL](#ODataURL)
 13. SHOULD support [asynchronous requests](#AsynchronousRequests)
 ([section 11.6](#AsynchronousRequests))
 14. SHOULD support [Delta change tracking](#RequestingChanges) ([section 11.3](#RequestingChanges))
-15. SHOULD support cross-join queries defined in [OData URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
 ## <a name="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
@@ -6463,13 +6444,12 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData URL](#ODataURL)) or include URLs in payload
+[OData-URL](#ODataURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section
-11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
