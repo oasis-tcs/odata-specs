@@ -816,7 +816,7 @@ response, but MAY be included in individual responses within a batch.
 A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
-header is the [entity id](#EntityIdsandEntityReferences) of the entity
+header is the [entity-id](#EntityIdsandEntityReferences) of the entity
 that was acted on by the request. The syntax of the `OData-EntityId`
 header is defined in [OData-ABNF](#ODataABNF).
 
