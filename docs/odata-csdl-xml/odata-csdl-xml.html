@@ -2466,67 +2466,22 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <h3 id="1442-comparison-and-logical-operators"><a name="ComparisonandLogicalOperators" href="#ComparisonandLogicalOperators">14.4.2 Comparison and Logical Operators</a></h3>
 <p>Annotations MAY use the following logical and comparison expressions which evaluate to a Boolean value. These expressions MAY be combined and they MAY be used anywhere instead of a Boolean expression.</p>
 <table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Logical Operators</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>And</code></td>
-<td>Logical and</td>
-</tr>
-<tr class="odd">
-<td><code>Or</code></td>
-<td>Logical or</td>
-</tr>
-<tr class="even">
-<td><code>Not</code></td>
-<td>Logical negation</td>
-</tr>
-<tr class="odd">
-<td><strong>Comparison Operators</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>Eq</code></td>
-<td>Equal</td>
-</tr>
-<tr class="odd">
-<td><code>Ne</code></td>
-<td>Not equal</td>
-</tr>
-<tr class="even">
-<td><code>Gt</code></td>
-<td>Greater than</td>
-</tr>
-<tr class="odd">
-<td><code>Ge</code></td>
-<td>Greater than or equal</td>
-</tr>
-<tr class="even">
-<td><code>Lt</code></td>
-<td>Less than</td>
-</tr>
-<tr class="odd">
-<td><code>Le</code></td>
-<td>Less than or equal</td>
-</tr>
-<tr class="even">
-<td><code>Has</code></td>
-<td>Has enumeration flag(s) set</td>
-</tr>
-<tr class="odd">
-<td><code>In</code></td>
-<td>Is in collection</td>
-</tr>
-</tbody>
+<tr><th>Operator</th><th>Description</th></tr>
+<tr><td colspan="2"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>And</code></td><td>Logical and     </td></tr>
+<tr><td><code>Or</code></td><td>Logical or      </td></tr>
+<tr><td><code>Not</code></td><td>Logical negation</td></tr>
+<tr><td colspan="2"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>Eq</code></td><td>Equal                      </td></tr>
+<tr><td><code>Ne</code></td><td>Not equal                  </td></tr>
+<tr><td><code>Gt</code></td><td>Greater than               </td></tr>
+<tr><td><code>Ge</code></td><td>Greater than or equal      </td></tr>
+<tr><td><code>Lt</code></td><td>Less than                  </td></tr>
+<tr><td><code>Le</code></td><td>Less than or equal         </td></tr>
+<tr><td><code>Has</code></td><td>Has enumeration flag(s) set</td></tr>
+<tr><td><code>In</code></td><td>Is in collection           </td></tr>
 </table>
+
 <p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varxml rep">

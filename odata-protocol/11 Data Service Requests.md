@@ -578,30 +578,31 @@ that want to work with 4.0 services MUST use lower case operation names.
 For a full description of the syntax used when building requests, see
 [OData-URL](#ODataURL).
 
-Operator|Description|Example
---------|-----------|-------
-**Comparison Operators**||
-`eq`   |Equal                |<pre>`Address/City eq 'Redmond'`</pre>
-`ne`   |Not equal            |<pre>`Address/City ne 'London'`</pre>
-`gt`   |Greater than         |<pre>`Price gt 20`</pre>
-`ge`   |Greater than or equal|<pre>`Price ge 10`</pre>
-`lt`   |Less than            |<pre>`Price lt 20`</pre>
-`le`   |Less than or equal   |<pre>`Price le 100`</pre>
-`has`  |Has flags            |<pre>`Style has Sales.Color'Yellow'`</pre>
-`in`   |Is a member of       |<pre>`Address/City in ('Redmond', 'London')`</pre>
-**Logical Operators**||
-`and`  |Logical and          |<pre>`Price le 200 and Price gt 3.5`</pre>
-`or`   |Logical or           |<pre>`Price le 3.5 or Price gt 200`</pre>
-`not`  |Logical negation     |<pre>`not endswith(Description,'milk')`</pre>
-**Arithmetic Operators**||
-`add`  |Addition             |<pre>`Price add 5 gt 10`</pre>
-`sub`  |Subtraction          |<pre>`Price sub 5 gt 10`</pre>
-`mul`  |Multiplication       |<pre>`Price mul 2 gt 2000`</pre>
-`div`  |Division             |<pre>`Price div 2 gt 4`</pre>
-`divby`|Decimal Division     |<pre>`Price divby 2 gt 3.5`</pre>
-`mod`  |Modulo               |<pre>`Price mod 2 eq 0`</pre>
-**Grouping Operators**||
-`( )`  |Precedence grouping  |<pre>`(Price sub 5) gt 10`</pre>
+<table>
+<tr><th>Operator</th><th>Description</th><th>Example</th></tr>
+<tr><td colspan="3"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>eq</code></td><td>Equal                </td><td><pre><code>Address/City eq 'Redmond'</code></pre></td></tr>
+<tr><td><code>ne</code></td><td>Not equal            </td><td><pre><code>Address/City ne 'London'</code></pre></td></tr>
+<tr><td><code>gt</code></td><td>Greater than         </td><td><pre><code>Price gt 20</code></pre></td></tr>
+<tr><td><code>ge</code></td><td>Greater than or equal</td><td><pre><code>Price ge 10</code></pre></td></tr>
+<tr><td><code>lt</code></td><td>Less than            </td><td><pre><code>Price lt 20</code></pre></td></tr>
+<tr><td><code>le</code></td><td>Less than or equal   </td><td><pre><code>Price le 100</code></pre></td></tr>
+<tr><td><code>has</code></td><td>Has flags           </td><td><pre><code>Style has Sales.Color'Yellow'</code></pre></td></tr>
+<tr><td><code>in</code></td><td>Is a member of       </td><td><pre><code>Address/City in ('Redmond', 'London')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>and</code></td><td>Logical and         </td><td><pre><code>Price le 200 and Price gt 3.5</code></pre></td></tr>
+<tr><td><code>or</code></td><td>Logical or           </td><td><pre><code>Price le 3.5 or Price gt 200</code></pre></td></tr>
+<tr><td><code>not</code></td><td>Logical negation    </td><td><pre><code>not endswith(Description,'milk')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Arithmetic Operators</strong></td></tr>
+<tr><td><code>add</code></td><td>Addition            </td><td><pre><code>Price add 5 gt 10</code></pre></td></tr>
+<tr><td><code>sub</code></td><td>Subtraction         </td><td><pre><code>Price sub 5 gt 10</code></pre></td></tr>
+<tr><td><code>mul</code></td><td>Multiplication      </td><td><pre><code>Price mul 2 gt 2000</code></pre></td></tr>
+<tr><td><code>div</code></td><td>Division            </td><td><pre><code>Price div 2 gt 4</code></pre></td></tr>
+<tr><td><code>divby</code></td><td>Decimal Division  </td><td><pre><code>Price divby 2 gt 3.5</code></pre></td></tr>
+<tr><td><code>mod</code></td><td>Modulo              </td><td><pre><code>Price mod 2 eq 0</code></pre></td></tr>
+<tr><td colspan="3"><strong>Grouping Operators</strong></td></tr>
+<tr><td><code>( )</code></td><td>Precedence grouping </td><td><pre><code>(Price sub 5) gt 10</code></pre></td></tr>
+</table>
 
 ##### ##subsubsubsubsec Built-in Query Functions
 
@@ -617,53 +618,54 @@ For a full description of the syntax used when building requests, see
 OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
-Function|Example
---------|-------
-**String and Collection Functions**|
-`concat`            |<pre>`concat(concat(City,', '), Country) eq 'Berlin, Germany'`</pre>
-`contains`          |<pre>`contains(CompanyName,'freds')`</pre>
-`endswith`          |<pre>`endswith(CompanyName,'Futterkiste')`</pre>
-`indexof`           |<pre>`indexof(CompanyName,'lfreds') eq 1`</pre>
-`length`            |<pre>`length(CompanyName) eq 19`</pre>
-`startswith`        |<pre>`startswith(CompanyName,’Alfr’)`</pre>
-`substring`         |<pre>`substring(CompanyName,1) eq 'lfreds Futterkiste'`</pre>
-**Collection Functions**|
-`hassubset`         |<pre>`hassubset([4,1,3],[3,1])`</pre>
-`hassubsequence`    |<pre>`hassubsequence([4,1,3,1],[1,1])`</pre>
-**String Functions**|
-`matchesPattern`    |<pre>`matchesPattern(CompanyName,'%5EA.*e$')`</pre>
-`tolower`           |<pre>`tolower(CompanyName) eq 'alfreds futterkiste'`</pre>
-`toupper`           |<pre>`toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'`</pre>
-`trim	`             |<pre>`trim(CompanyName) eq 'Alfreds Futterkiste'`</pre>
-**Date and Time Functions**|
-`day`               |<pre>`day(StartTime) eq 8`</pre>
-`date`              |<pre>`date(StartTime) ne date(EndTime)`</pre>
-`fractionalseconds` |<pre>`second(StartTime) eq 0`</pre>
-`hour`              |<pre>`hour(StartTime) eq 1`</pre>
-`maxdatetime`       |<pre>`EndTime eq maxdatetime()`</pre>
-`mindatetime`       |<pre>`StartTime eq mindatetime()`</pre>
-`minute`            |<pre>`minute(StartTime) eq 0`</pre>
-`month`             |<pre>`month(BirthDate) eq 12`</pre>
-`now`               |<pre>`StartTime ge now()`</pre>
-`second`            |<pre>`second(StartTime) eq 0`</pre>
-`time`              |<pre>`time(StartTime) le StartOfDay`</pre>
-`totaloffsetminutes`|<pre>`totaloffsetminutes(StartTime) eq 60`</pre>
-`totalseconds`      |<pre>`totalseconds(duration'PT1M') eq 60`</pre>
-`year`              |<pre>`year(BirthDate) eq 0`</pre>
-**Arithmetic Functions**|
-`ceiling`           |<pre>`ceiling(Freight) eq 33`</pre>
-`floor`             |<pre>`floor(Freight) eq 32`</pre>
-`round`             |<pre>`round(Freight) eq 32`</pre>
-**Type Functions**|
-`cast`              |<pre>`cast(ShipCountry,Edm.String)`</pre>
-`isof`              |<pre>`isof(NorthwindModel.Order)`</pre>
-`isof`              |<pre>`isof(ShipCountry,Edm.String)`</pre>
-**Geo Functions**|
-`geo.distance`      |<pre>`geo.distance(CurrentPosition,TargetPosition)`</pre>
-`geo.intersects`    |<pre>`geo.intersects(Position,TargetArea)`</pre>
-`geo.length`        |<pre>`geo.length(DirectRoute)`</pre>
-**Conditional Functions**|
-`case`              |<pre>`case(X gt 0:1,X lt 0:-1,true:0)`</pre>
+<table>
+<tr><th>Function</th><th>Example</th></tr>
+<tr><td colspan="2"><strong>String and Collection Functions</strong></td></tr>
+<tr><td><code>concat</code></td><td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td></tr>
+<tr><td><code>contains</code></td><td><pre><code>contains(CompanyName,'freds')</code></pre></td></tr>
+<tr><td><code>endswith</code></td><td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td></tr>
+<tr><td><code>indexof</code></td><td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td></tr>
+<tr><td><code>length</code></td><td><pre><code>length(CompanyName) eq 19</code></pre></td></tr>
+<tr><td><code>startswith</code></td><td><pre><code>startswith(CompanyName,’Alfr’)</code></pre></td></tr>
+<tr><td><code>substring</code></td><td><pre><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Collection Functions</strong></td></tr>
+<tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
+<tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
+<tr><td colspan="2"><strong>String Functions</strong></td></tr>
+<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
+<tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
+<tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Date and Time Functions</strong></td></tr>
+<tr><td><code>day</code></td><td><pre><code>day(StartTime) eq 8</code></pre></td></tr>
+<tr><td><code>date</code></td><td><pre><code>date(StartTime) ne date(EndTime)</code></pre></td></tr>
+<tr><td><code>fractionalseconds</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>hour</code></td><td><pre><code>hour(StartTime) eq 1</code></pre></td></tr>
+<tr><td><code>maxdatetime</code></td><td><pre><code>EndTime eq maxdatetime()</code></pre></td></tr>
+<tr><td><code>mindatetime</code></td><td><pre><code>StartTime eq mindatetime()</code></pre></td></tr>
+<tr><td><code>minute</code></td><td><pre><code>minute(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>month</code></td><td><pre><code>month(BirthDate) eq 12</code></pre></td></tr>
+<tr><td><code>now</code></td><td><pre><code>StartTime ge now()</code></pre></td></tr>
+<tr><td><code>second</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>time</code></td><td><pre><code>time(StartTime) le StartOfDay</code></pre></td></tr>
+<tr><td><code>totaloffsetminutes</code></td><td><pre><code>totaloffsetminutes(StartTime) eq 60</code></pre></td></tr>
+<tr><td><code>totalseconds</code></td><td><pre><code>totalseconds(duration'PT1M') eq 60</code></pre></td></tr>
+<tr><td><code>year</code></td><td><pre><code>year(BirthDate) eq 0</code></pre></td></tr>
+<tr><td colspan="2"><strong>Arithmetic Functions</strong></td></tr>
+<tr><td><code>ceiling</code></td><td><pre><code>ceiling(Freight) eq 33</code></pre></td></tr>
+<tr><td><code>floor</code></td><td><pre><code>floor(Freight) eq 32</code></pre></td></tr>
+<tr><td><code>round</code></td><td><pre><code>round(Freight) eq 32</code></pre></td></tr>
+<tr><td colspan="2"><strong>Type Functions</strong></td></tr>
+<tr><td><code>cast</code></td><td><pre><code>cast(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(NorthwindModel.Order)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Geo Functions</strong></td></tr>
+<tr><td><code>geo.distance</code></td><td><pre><code>geo.distance(CurrentPosition,TargetPosition)</code></pre></td></tr>
+<tr><td><code>geo.intersects</code></td><td><pre><code>geo.intersects(Position,TargetArea)</code></pre></td></tr>
+<tr><td><code>geo.length</code></td><td><pre><code>geo.length(DirectRoute)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Conditional Functions</strong></td></tr>
+<tr><td><code>case</code></td><td><pre><code>case(X gt 0:1,X lt 0:-1,true:0)</code></pre></td></tr>
+</table>
 
 ##### ##subsubsubsubsec Parameter Aliases
 
