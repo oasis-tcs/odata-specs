@@ -8,7 +8,7 @@ Locators (URLs) and defined in a data model, to be published and edited
 by Web clients using simple HTTP messages. This specification defines
 the core semantics and the behavioral aspects of the protocol.
 
-The [OData‑URL](#ODataURL) specification defines a set of rules for
+The [OData-URL](#ODataURL) specification defines a set of rules for
 constructing URLs to identify the data and metadata exposed by an OData
 service as well as a set of reserved URL query options.
 

@@ -326,8 +326,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><a href="#SystemQueryOptionfilter">11.2.6.1 System Query Option <code>$filter</code></a>
 <ul>
-<li><a href="#BuiltinQueryFunctions">11.2.6.1.1 Built-in Query Functions</a></li>
-<li><a href="#ParameterAliases">11.2.6.1.2 Parameter Aliases</a></li>
+<li><a href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a></li>
+<li><a href="#BuiltinQueryFunctions">11.2.6.1.2 Built-in Query Functions</a></li>
+<li><a href="#ParameterAliases">11.2.6.1.3 Parameter Aliases</a></li>
 </ul></li>
 <li><a href="#SystemQueryOptionorderby">11.2.6.2 System Query Option <code>$orderby</code></a></li>
 <li><a href="#SystemQueryOptiontop">11.2.6.3 System Query Option <code>$top</code></a></li>
@@ -478,7 +479,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <hr />
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services which allow resources, identified using Uniform Resource Locators (URLs) and defined in a data model, to be published and edited by Web clients using simple HTTP messages. This specification defines the core semantics and the behavioral aspects of the protocol.</p>
-<p>The <a href="#ODataURL">OData‑URL</a> specification defines a set of rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query options.</p>
+<p>The <a href="#ODataURL">OData-URL</a> specification defines a set of rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query options.</p>
 <p>The <a href="#ODataCSDL">OData-CSDLJSON</a> specification defines a JSON representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
@@ -1171,15 +1172,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="1019-all-response"><a name="allResponse" href="#allResponse">10.19 <code>$all</code> Response</a></h2>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.EntityType)</code></pre>
-<p>Responses to requests to the virtual collection <code>$all</code> (see <a href="#ODataURL">OData‑URL</a>) use the built-in abstract entity type. Each single entity in such a response has its individual context URL that identifies the entity set or singleton.</p>
+<p>Responses to requests to the virtual collection <code>$all</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract entity type. Each single entity in such a response has its individual context URL that identifies the entity set or singleton.</p>
 <h2 id="1020-crossjoin-response"><a name="crossjoinResponse" href="#crossjoinResponse">10.20 <code>$crossjoin</code> Response</a></h2>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.ComplexType)</code></pre>
-<p>Responses to requests to the virtual collections <code>$crossjoin(...)</code> (see <a href="#ODataURL">OData‑URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
-<h5 id="1020001-built-in-filter-operations"><a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">10.20.0.0.1 Built-in Filter Operations</a></h5>
-<p>OData supports a set of built-in filter operations, as described in this section.</p>
-<p>4.01 services MUST support case-insensitive operation names. Clients that want to work with 4.0 services MUST use lower case operation names.</p>
-<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>Responses to requests to the virtual collections <code>$crossjoin(...)</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
 <hr />
 <h1 id="11-data-service-requests"><a name="DataServiceRequests" href="#DataServiceRequests">11 Data Service Requests</a></h1>
 <p>This chapter describes the semantics of the HTTP verbs <code>GET</code>, <code>POST</code>, <code>PATCH</code>, <code>PUT</code>, and <code>DELETE</code> for OData resources.</p>
@@ -1235,7 +1232,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="112-requesting-data"><a name="RequestingData" href="#RequestingData">11.2 Requesting Data</a></h2>
 <p>OData services support requests for data via HTTP <code>GET</code> requests.</p>
 <p>The path of the URL specifies the target of the request (for example; the collection of entities, entity, navigation property, structural property, or operation). Additional query operators, such as filter, sort, page, and projection operations are specified through query options.</p>
-<p>This section describes the types of data requests defined by OData. For complete details on the syntax for building requests, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>This section describes the types of data requests defined by OData. For complete details on the syntax for building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>OData services are hypermedia driven services that return URLs to the client. If a client subsequently requests the advertised resource and the URL has expired, then the service SHOULD respond with <a href="#ResponseCode410Gone"><code>410 Gone</code></a>. If this is not feasible, the service MUST respond with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <p>The format of the returned data is dependent upon the request and the format specified by the client, either in the <a href="#HeaderAccept"><code>Accept</code> header</a> or using the <a href="#SystemQueryOptionformat"><code>$format</code></a> query option. If the client specifies neither an <a href="#HeaderAccept"><code>Accept</code> header</a> nor the <a href="#SystemQueryOptionformat"><code>$format</code></a> query option, the service is allowed to return the response in any format.</p>
 <h3 id="1121-system-query-options"><a name="SystemQueryOptions" href="#SystemQueryOptions">11.2.1 System Query Options</a></h3>
@@ -1263,7 +1260,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </ul>
 <h3 id="1122-requesting-individual-entities"><a name="RequestingIndividualEntities" href="#RequestingIndividualEntities">11.2.2 Requesting Individual Entities</a></h3>
 <p>To retrieve an individual entity, the client makes a <code>GET</code> request to a URL that identifies the entity, e.g. its read URL.</p>
-<p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="#ODataJSON">OData-JSON</a>[ payload]{.Hyperlink1}. In addition, services MAY support conventions for constructing a read URL using the entity's key value(s), as described in <a href="#ODataURL">OData‑URL</a>.</p>
+<p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="#ODataJSON">OData-JSON</a>[ payload]{.Hyperlink1}. In addition, services MAY support conventions for constructing a read URL using the entity's key value(s), as described in <a href="#ODataURL">OData-URL</a>.</p>
 <p>The set of structural or navigation properties to return may be specified through <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>system query options.</p>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open.</p>
 <p>Properties that are not available, for example due to permissions, are not returned. In this case, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None.</code></p>
@@ -1277,7 +1274,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1124-requesting-individual-properties"><a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a></h3>
 <p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with "/" and the property name appended.</p>
 <p>For complex typed properties, the path can be further extended with the name of an individual property of the complex type.</p>
-<p>See <a href="#ODataURL">OData‑URL</a> for details.</p>
+<p>See <a href="#ODataURL">OData-URL</a> for details.</p>
 <p>If the property is single-valued and has the <code>null</code> value, the service responds with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <div class="example">
@@ -1285,7 +1282,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Products(1)/Name</code></pre>
 </div>
 <h4 id="11241-requesting-a-propertys-raw-value-using-value"><a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using <code>$value</code></a></h4>
-<p>To retrieve the raw value of a primitive type property, the client sends a <code>GET</code> request to the property value URL. See the <a href="#ODataURL">OData‑URL</a> document for details.</p>
+<p>To retrieve the raw value of a primitive type property, the client sends a <code>GET</code> request to the property value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
 <p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
 <p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
@@ -1332,7 +1329,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The <code>$expand</code> system query option indicates the related entities and stream values that MUST be represented inline. The service MUST return the specified content, and MAY choose to return additional information.</p>
 <p>The value of the <code>$expand</code> query option is a comma-separated list of navigation property names, stream property names, or <code>$value</code> indicating the stream content of a media-entity.</p>
 <p>For navigation properties, the navigation property name is optionally followed by a <code>/$ref</code> path segment or a <code>/$count</code> path segment, and optionally a parenthesized set of <a href="#ExpandOptions">expand options</a> (for filtering, sorting, selecting, paging, or expanding the related entities).</p>
-<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <div class="example">
 <p>Example 38: for each customer entity within the Customers entity set the value of all related Orders will be represented inline</p>
 <pre><code>GET http://host/service.svc/Customers?$expand=Orders</code></pre>
@@ -1346,7 +1343,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service.svc/Customers?$expand=Photo</code></pre>
 </div>
 <h5 id="112521-expand-options"><a name="ExpandOptions" href="#ExpandOptions">11.2.5.2.1 Expand Options</a></h5>
-<p>The set of expanded entities can be further refined through the application of expand options, expressed as a semicolon-separated list of system query options, enclosed in parentheses, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>The set of expanded entities can be further refined through the application of expand options, expressed as a semicolon-separated list of system query options, enclosed in parentheses, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a><code>,</code> <a href="#SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> and <a href="#ExpandOptionlevels"><code>$levels</code></a>.</p>
 <div class="example">
 <p>Example 41: for each customer entity within the <code>Customers</code> entity set, the value of those related <code>Orders</code> whose <code>Amount</code> is greater than 100 will be represented inline</p>
@@ -1403,101 +1400,327 @@ http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</co
 <pre><code>GET http://host/service/Categories?$filter=Products/$count lt 10</code></pre>
 </div>
 <p>The value of the <code>$filter</code> option is a Boolean expression as defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<h5 id="112611-built-in-filter-operations"><a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a></h5>
+<p>OData supports a set of built-in filter operations, as described in this section.</p>
+<p>4.01 services MUST support case-insensitive operation names. Clients that want to work with 4.0 services MUST use lower case operation names.</p>
+<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <table>
-<tr><th>Operator</th><th>Description</th><th>Example</th></tr>
-
-<tr><td colspan="3"><b>Comparison Operators</b></td></tr>
-<tr><td><code>eq</code></td><td>Equal</td><td><code>Address/City eq 'Redmond'</code></tr>
-<tr><td><code>ne</code></td><td>Not equal</td><td><code>Address/City ne 'London'</code></td></tr>
-<tr><td><code>gt</code></td><td>Greater than</td><td><code>Price gt 20</code></td></tr>
-<tr><td><code>ge</code></td><td>Greater than or equal</td><td><code>Price ge 10</code></td></tr>
-<tr><td><code>lt</code></td><td>Less than</td><td><code>Price lt 20</code></td></tr>
-<tr><td><code>le</code></td><td>Less than or equal</td><td><code>Price le 100</code></td></tr>
-<tr><td><code>has</code></td><td>Has flags</td><td><code>Style has Sales.Color'Yellow'</code></td></tr>
-<tr><td><code>in</code></td><td>Is a member of</td><td><code>Address/City in ('Redmond', 'London')</code></td></tr>
-
-<tr><td colspan="3"><b>Logical Operators</b></td></tr>
-<tr><td><code>and</code></td><td>Logical and</td><td><code>Price le 200 and Price gt 3.5</code></td></tr>
-<tr><td><code>or</code></td><td>Logical or</td><td><code>Price le 3.5 or Price gt 200</code></td></tr>
-<tr><td><code>not</code></td><td>Logical negation</td><td><code>not endswith(Description,'milk')</code></td></tr>
-
-<tr><td colspan="3"><b>Arithmetic Operators</b></td></tr>
-<tr><td><code>add</code></td><td>Addition</td><td><code>Price add 5 gt 10</code></td></tr>
-<tr><td><code>sub</code></td><td>Subtraction</td><td><code>Price sub 5 gt 10</code></td></tr>
-<tr><td><code>mul</code></td><td>Multiplication</td><td><code>Price mul 2 gt 2000</code></td></tr>
-<tr><td><code>div</code></td><td>Division</td><td><code>Price div 2 gt 4</code></td></tr>
-<tr><td><code>divby</code></td><td>Decimal Division</td><td><code>Price divby 2 gt 3.5</code></td></tr>
-<tr><td><code>mod</code></td><td>Modulo</td><td><code>Price mod 2 eq 0</code></td></tr>
-
-<tr><td colspan="3"><b>Grouping Operators</b></td></tr>
-<tr><td><code>( )</code></td><td>Precedence grouping</td><td><code>(Price sub 5) gt 10</code></td></tr>
-
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Comparison Operators</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>eq</code></td>
+<td>Equal</td>
+<td><pre><code>Address/City eq 'Redmond'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>ne</code></td>
+<td>Not equal</td>
+<td><pre><code>Address/City ne 'London'</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>gt</code></td>
+<td>Greater than</td>
+<td><pre><code>Price gt 20</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>ge</code></td>
+<td>Greater than or equal</td>
+<td><pre><code>Price ge 10</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>lt</code></td>
+<td>Less than</td>
+<td><pre><code>Price lt 20</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>le</code></td>
+<td>Less than or equal</td>
+<td><pre><code>Price le 100</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>has</code></td>
+<td>Has flags</td>
+<td><pre><code>Style has Sales.Color'Yellow'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>in</code></td>
+<td>Is a member of</td>
+<td><pre><code>Address/City in ('Redmond', 'London')</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Logical Operators</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>and</code></td>
+<td>Logical and</td>
+<td><pre><code>Price le 200 and Price gt 3.5</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>or</code></td>
+<td>Logical or</td>
+<td><pre><code>Price le 3.5 or Price gt 200</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>not</code></td>
+<td>Logical negation</td>
+<td><pre><code>not endswith(Description,'milk')</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Arithmetic Operators</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>add</code></td>
+<td>Addition</td>
+<td><pre><code>Price add 5 gt 10</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>sub</code></td>
+<td>Subtraction</td>
+<td><pre><code>Price sub 5 gt 10</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>mul</code></td>
+<td>Multiplication</td>
+<td><pre><code>Price mul 2 gt 2000</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>div</code></td>
+<td>Division</td>
+<td><pre><code>Price div 2 gt 4</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>divby</code></td>
+<td>Decimal Division</td>
+<td><pre><code>Price divby 2 gt 3.5</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>mod</code></td>
+<td>Modulo</td>
+<td><pre><code>Price mod 2 eq 0</code></pre></td>
+</tr>
+<tr class="odd">
+<td><strong>Grouping Operators</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>( )</code></td>
+<td>Precedence grouping</td>
+<td><pre><code>(Price sub 5) gt 10</code></pre></td>
+</tr>
+</tbody>
 </table>
-
-<h5 id="112611-built-in-query-functions"><a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.1 Built-in Query Functions</a></h5>
+<h5 id="112612-built-in-query-functions"><a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.2 Built-in Query Functions</a></h5>
 <p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions.</p>
 <p>4.01 services MUST support case-insensitive built-in function names. Clients that want to work with 4.0 services MUST use lower case names.</p>
-<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>OData does not define an ISNULL or COALESCE operator. Instead, there is a <code>null</code> literal that can be used in comparisons.</p>
 <table>
-<tr><th>Function</th><th>Example</th></tr>
-
-<tr><td colspan="2"><b>String and Collection Functions</b></td></tr>
-<tr><td><code>concat</code></td><td><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></td></tr>
-<tr><td><code>contains</code></td><td><code>contains(CompanyName,'freds')</code></td></tr>
-<tr><td><code>endswith</code></td><td><code>endswith(CompanyName,'Futterkiste')</code></td></tr>
-<tr><td><code>indexof</code></td><td><code>indexof(CompanyName,'lfreds') eq 1</code></td></tr>
-<tr><td><code>length</code></td><td><code>length(CompanyName) eq 19</code></td></tr>
-<tr><td><code>startswith</code></td><td><code>startswith(CompanyName,’Alfr’)</code></td></tr>
-<tr><td><code>substring</code></td><td><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Collection Functions</b></td></tr>
-<tr><td><code>hassubset</code></td><td><code>hassubset([4,1,3],[3,1])</code></td></tr>
-<tr><td><code>hassubsequence</code></td><td><code>hassubsequence([4,1,3,1],[1,1])</code></td></tr>
-
-<tr><td colspan="2"><b>String Functions</b></td></tr>
-<tr><td><code>matchesPattern</code></td><td><code>matchesPattern(CompanyName,'%5EA.*e$')</code></td></tr>
-<tr><td><code>tolower</code></td><td><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></td></tr>
-<tr><td><code>toupper</code></td><td><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></td></tr>
-<tr><td><code>trim  </code></td><td><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Date and Time Functions</b></td></tr>
-<tr><td><code>day</code></td><td><code>day(StartTime) eq 8</code></td></tr>
-<tr><td><code>date</code></td><td><code>date(StartTime) ne date(EndTime) </code></td></tr>
-<tr><td><code>fractionalseconds</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>hour</code></td><td><code>hour(StartTime) eq 1 </code></td></tr>
-<tr><td><code>maxdatetime</code></td><td><code>EndTime eq maxdatetime()</code></td></tr>
-<tr><td><code>mindatetime</code></td><td><code>StartTime eq mindatetime()</code></td></tr>
-<tr><td><code>minute</code></td><td><code>minute(StartTime) eq 0</code></td></tr>
-<tr><td><code>month</code></td><td><code>month(BirthDate) eq 12</code></td></tr>
-<tr><td><code>now</code></td><td><code>StartTime ge now()</code></td></tr>
-<tr><td><code>second</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>time</code></td><td><code>time(StartTime) le StartOfDay</code></td></tr>
-<tr><td><code>totaloffsetminutes</code></td><td><code>totaloffsetminutes(StartTime) eq 60</code></td></tr>
-<tr><td><code>totalseconds</code></td><td><code>totalseconds(duration'PT1M') eq 60</code></td></tr>
-<tr><td><code>year</code></td><td><code>year(BirthDate) eq 0</code></td></tr>
-
-<tr><td colspan="2"><b>Arithmetic Functions</b></td></tr>
-<tr><td><code>ceiling</code></td><td><code>ceiling(Freight) eq 33</code></td></tr>
-<tr><td><code>floor</code></td><td><code>floor(Freight) eq 32</code></td></tr>
-<tr><td><code>round</code></td><td><code>round(Freight) eq 32</code></td></tr>
-
-<tr><td colspan="2"><b>Type Functions</b></td></tr>
-<tr><td><code>cast</code></td><td><code>cast(ShipCountry,Edm.String)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(NorthwindModel.Order)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(ShipCountry,Edm.String)</code></td></tr>
-
-<tr><td colspan="2"><b>Geo Functions</b></td></tr>
-<tr><td><code>geo.distance</code></td><td><code>geo.distance(CurrentPosition,TargetPosition)</code></td></tr>
-<tr><td><code>geo.intersects</code></td><td><code>geo.intersects(Position,TargetArea)</code></td></tr>
-<tr><td><code>geo.length</code></td><td><code>geo.length(DirectRoute)</code></td></tr>
-
-<tr><td colspan="2"><b>Conditional Functions</b></td></tr>
-<tr><td><code>case</code></td><td><code>case(X gt 0:1,X lt 0:-1,true:0)</code></td></tr>
-
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>String and Collection Functions</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>concat</code></td>
+<td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>contains</code></td>
+<td><pre><code>contains(CompanyName,'freds')</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>endswith</code></td>
+<td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>indexof</code></td>
+<td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>length</code></td>
+<td><pre><code>length(CompanyName) eq 19</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>startswith</code></td>
+<td><pre><code>startswith(CompanyName,’Alfr’)</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>substring</code></td>
+<td><pre><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><strong>Collection Functions</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>hassubset</code></td>
+<td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>hassubsequence</code></td>
+<td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>String Functions</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>matchesPattern</code></td>
+<td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>tolower</code></td>
+<td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>toupper</code></td>
+<td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>trim   </code></td>
+<td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td>
+</tr>
+<tr class="odd">
+<td><strong>Date and Time Functions</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>day</code></td>
+<td><pre><code>day(StartTime) eq 8</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>date</code></td>
+<td><pre><code>date(StartTime) ne date(EndTime)</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>fractionalseconds</code></td>
+<td><pre><code>second(StartTime) eq 0</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>hour</code></td>
+<td><pre><code>hour(StartTime) eq 1</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>maxdatetime</code></td>
+<td><pre><code>EndTime eq maxdatetime()</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>mindatetime</code></td>
+<td><pre><code>StartTime eq mindatetime()</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>minute</code></td>
+<td><pre><code>minute(StartTime) eq 0</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>month</code></td>
+<td><pre><code>month(BirthDate) eq 12</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>now</code></td>
+<td><pre><code>StartTime ge now()</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>second</code></td>
+<td><pre><code>second(StartTime) eq 0</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>time</code></td>
+<td><pre><code>time(StartTime) le StartOfDay</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>totaloffsetminutes</code></td>
+<td><pre><code>totaloffsetminutes(StartTime) eq 60</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>totalseconds</code></td>
+<td><pre><code>totalseconds(duration'PT1M') eq 60</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>year</code></td>
+<td><pre><code>year(BirthDate) eq 0</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Arithmetic Functions</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>ceiling</code></td>
+<td><pre><code>ceiling(Freight) eq 33</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>floor</code></td>
+<td><pre><code>floor(Freight) eq 32</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>round</code></td>
+<td><pre><code>round(Freight) eq 32</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Type Functions</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>cast</code></td>
+<td><pre><code>cast(ShipCountry,Edm.String)</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>isof</code></td>
+<td><pre><code>isof(NorthwindModel.Order)</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>isof</code></td>
+<td><pre><code>isof(ShipCountry,Edm.String)</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Geo Functions</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>geo.distance</code></td>
+<td><pre><code>geo.distance(CurrentPosition,TargetPosition)</code></pre></td>
+</tr>
+<tr class="even">
+<td><code>geo.intersects</code></td>
+<td><pre><code>geo.intersects(Position,TargetArea)</code></pre></td>
+</tr>
+<tr class="odd">
+<td><code>geo.length</code></td>
+<td><pre><code>geo.length(DirectRoute)</code></pre></td>
+</tr>
+<tr class="even">
+<td><strong>Conditional Functions</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>case</code></td>
+<td><pre><code>case(X gt 0:1,X lt 0:-1,true:0)</code></pre></td>
+</tr>
+</tbody>
 </table>
-
-<h5 id="112612-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.2 Parameter Aliases</a></h5>
+<h5 id="112613-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.3 Parameter Aliases</a></h5>
 <p>Parameter aliases can be used in place of literal values in entity keys, <a href="#InvokingaFunction">function parameters</a>, or within a <a href="#SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression. Parameters aliases are names beginning with an at sign (<code>@</code>).</p>
 <p>Actual parameter values are specified as query options in the query part of the request URL. The query option name is the name of the parameter alias, and the query option value is the value to be used for the specified parameter alias.</p>
 <div class="example">
@@ -1905,14 +2128,14 @@ clothing</code></pre>
 <p>Services MAY implicitly delete or modify related entities if required by <a href="#HandlingofIntegrityConstraints">integrity constraints</a>. If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code> element, services MUST modify affected related entities according to the declared integrity constraints, e.g. by deleting dependent entities, or setting dependent properties to <code>null</code> or their default value.</p>
 <p>One such integrity constraint results from using a navigation property in a key definition of an entity type. If the related "key" entity is deleted, the dependent entity is also deleted.</p>
 <h3 id="1146-modifying-relationships-between-entities"><a name="ModifyingRelationshipsbetweenEntities" href="#ModifyingRelationshipsbetweenEntities">11.4.6 Modifying Relationships between Entities</a></h3>
-<p>Relationships between entities are represented by navigation properties as described in <a href="#DataModel">Data Model</a>. URL conventions for navigation properties are described in <a href="#ODataURL">OData‑URL</a>.</p>
+<p>Relationships between entities are represented by navigation properties as described in <a href="#DataModel">Data Model</a>. URL conventions for navigation properties are described in <a href="#ODataURL">OData-URL</a>.</p>
 <h4 id="11461-add-a-reference-to-a-collection-valued-navigation-property"><a name="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a></h4>
 <p>A successful <code>POST</code> request to a navigation property's references collection adds a relationship to an existing entity. The request body MUST contain a single entity reference that identifies the entity to be added. See the appropriate format document for details.</p>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
 <p>Note that if the two entities are already related prior to the request, the request is completed successfully.</p>
 <h4 id="11462-remove-a-reference-to-an-entity"><a name="RemoveaReferencetoanEntity" href="#RemoveaReferencetoanEntity">11.4.6.2 Remove a Reference to an Entity</a></h4>
 <p>A successful <code>DELETE</code> request to the URL that represents a reference to a related entity removes the relationship to that entity.</p>
-<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="#ODataURL">OData‑URL</a>.</p>
+<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="#ODataURL">OData-URL</a>.</p>
 <p>For single-valued navigation properties, the <a href="#ResolvinganEntityId"><code>$id</code></a> query option MUST NOT be specified.</p>
 <p>The <code>DELETE</code> request MUST NOT violate any <a href="#HandlingofIntegrityConstraints">integrity constraints</a> in the data model.</p>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
@@ -1953,7 +2176,7 @@ clothing</code></pre>
 <p>A successful <code>DELETE</code> request to the edit URL of a stream property attempts to set the property to null and results in an error if the property is non-nullable.</p>
 <p>Attempting to request a stream property whose value is null results in <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <h3 id="1149-managing-values-and-properties-directly"><a name="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.9 Managing Values and Properties Directly</a></h3>
-<p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData‑URL</a> for details on addressing individual properties.</p>
+<p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData-URL</a> for details on addressing individual properties.</p>
 <h4 id="11491-update-a-primitive-property"><a name="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL for a primitive property updates the value of the property. The message body MUST contain the new value, formatted as a single property according to the specified format.</p>
 <p>A successful <code>PUT</code> request to the edit URL for the <a href="#RequestingaPropertysRawValueusingvalue">raw value</a> of a primitive property updates the property with the raw value specified in the payload. The payload MUST be formatted as an appropriate content type for the raw value of the property.</p>
@@ -2015,7 +2238,7 @@ clothing</code></pre>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
 <h3 id="11413-update-members-of-a-collection"><a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a></h3>
 <p>Members of a collection can be updated by submitting a <code>PATCH</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the request body describes an update to each member of the collection, not an update to the collection itself.</p>
-<p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>For primitive-typed collections the body of the request MUST be a primitive value. Each member of the potentially filtered collection is updated to the specified primitive value.</p>
 <p>For collections of structured type, the body of the request MUST be a full or partial representation of an instance of the collection's structured type. Each member of the potentially filtered collection is <a href="#UpdateanEntity">updated</a> using <code>PATCH</code> semantics. Structured types MAY include nested collections or delta collections, in which case the semantics described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a> applies.</p>
 <div class="example">
@@ -2095,7 +2318,7 @@ clothing</code></pre>
 <span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
 <span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload  whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData‑URL</a>.</p>
+<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload  whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
 <div class="example">
 <p>Example 89: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer 'ALFKI'</p>
@@ -2125,7 +2348,7 @@ clothing</code></pre>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
 <p>For a composable function the processing is stopped when the function result requires a <code>4xx</code> response, and continues otherwise.</p>
-<p>Function imports preceded by the <code>$root</code> literal MAY be used in the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>Function imports preceded by the <code>$root</code> literal MAY be used in the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, see <a href="#ODataURL">OData-URL</a>.</p>
 <h5 id="115411-inline-parameter-syntax"><a name="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a></h5>
 <p>Parameter values are specified inline by appending a comma-separated list of parameter values, enclosed by parenthesis to the function name.</p>
 <p>Each parameter value is represented as a name/value pair in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
@@ -2152,7 +2375,7 @@ clothing</code></pre>
 <h4 id="11542-function-overload-resolution"><a name="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a></h4>
 <p>The same function name may be used multiple times within a schema, each with a different set of parameters. For unbound overloads the combination of the function name and the unordered set of parameter names MUST identify a particular function overload. For bound overloads the combination of the function name, the binding parameter type, and the unordered set of names of the non-binding parameters MUST identify a particular function overload.</p>
 <p>All unbound overloads MUST have the same return type. Also, all bound overloads with a given binding parameter type MUST have the same return type.</p>
-<p>If the function is bound and the binding parameter type is part of an inheritance hierarchy, the function overload is selected based on the type of the URL segment preceding the function name. A type-cast segment can be used to select a function defined on a particular type in the hierarchy, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>If the function is bound and the binding parameter type is part of an inheritance hierarchy, the function overload is selected based on the type of the URL segment preceding the function name. A type-cast segment can be used to select a function defined on a particular type in the hierarchy, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>Non-binding parameters MAY be marked as optional by annotating them with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>. All parameters marked as optional MUST come after any parameters not marked as optional.</p>
 <p>A function overload is selected if</p>
 <ul>
@@ -2189,7 +2412,7 @@ clothing</code></pre>
 </div>
 <h4 id="11552-action-overload-resolution"><a name="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a></h4>
 <p>The same action name may be used multiple times within a schema provided there is at most one unbound overload, and each bound overload specifies a different binding parameter type.</p>
-<p>If the action is bound and the binding parameter type is part of an inheritance hierarchy, the action overload is selected based on the type of the URL segment preceding the action name. A type-cast segment can be used to select an action defined on a particular type in the hierarchy, see <a href="#ODataURL">OData‑URL</a>.</p>
+<p>If the action is bound and the binding parameter type is part of an inheritance hierarchy, the action overload is selected based on the type of the URL segment preceding the action name. A type-cast segment can be used to select an action defined on a particular type in the hierarchy, see <a href="#ODataURL">OData-URL</a>.</p>
 <h2 id="116-asynchronous-requests"><a name="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a></h2>
 <p>A <a href="#HeaderPrefer">Prefer</a> header with a <a href="#Preferencerespondasync"><code>respond-async</code></a> preference allows clients to request that the service process a <a href="#DataServiceRequests">Data Service Request</a> asynchronously.</p>
 <p>If the client has specified<code> respond-async</code> in the request, the service MAY process the request asynchronously and return a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response. A service MUST NOT reply to a <a href="#DataServiceRequests">Data Service Request</a> with <code>202 Accepted</code> if the request has not included the <code>respond-async</code> preference.</p>
@@ -2622,16 +2845,16 @@ Content-Length: ###
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
 <li>MUST successfully parse the <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or return <code>501 Not Implemented</code> for any unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
-<li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)`</li>
-<li>MUST support casting to a derived type according to <a href="#ODataURL">OData URL</a> if derived types are present in the model</li>
+<li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
+<li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
 <li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.1</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
-<li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)</li>
-<li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.2</a>)</li>
-<li>SHOULD support additional filter operations (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported filter operations (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
-<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported canonical functions (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
+<li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.3</a>)</li>
+<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported filter operations (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST return <code>501 Not Implemented</code> for any unsupported canonical functions (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
@@ -2641,7 +2864,7 @@ Content-Length: ###
 <li>SHOULD support the <code>$skip</code> system query option (<a href="#SystemQueryOptionskip">section 11.2.6.4</a>)</li>
 <li>SHOULD support the <code>$count</code> system query option (<a href="#SystemQueryOptioncount">section 11.2.6.5</a>)</li>
 <li>SHOULD support <code>$expand</code> (<a href="#SystemQueryOptionexpand">section 11.2.5.2</a>)</li>
-<li>SHOULD support the lambda operators <code>any</code> and <code>all</code> on navigation- and collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData URL</a>)</li>
+<li>SHOULD support the lambda operators <code>any</code> and <code>all</code> on navigation- and collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData-URL</a>)</li>
 <li>SHOULD support the <code>/$count</code> segment on navigation and collection properties (<a href="#RequestingtheNumberofItemsinaCollection">section 11.2.10</a>)</li>
 <li>SHOULD support <code>$orderby asc</code> and <code>desc</code> on individual properties (<a href="#SystemQueryOptionorderby">section 11.2.6.2</a>)</li>
 </ol>
@@ -2652,7 +2875,7 @@ Content-Length: ###
 <li>MUST publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>MUST support the <a href="#ODataJSON">OData-JSON</a> format</li>
 <li>MUST support the <code>/$count</code> segment on navigation and collection properties (<a href="#RequestingtheNumberofItemsinaCollection">section 11.2.10</a>)</li>
-<li>MUST support the lambda operators <code>any</code> and <code>all</code> on navigation- and collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData URL</a>)</li>
+<li>MUST support the lambda operators <code>any</code> and <code>all</code> on navigation- and collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData-URL</a>)</li>
 <li>MUST support the <code>$skip</code> system query option (<a href="#SystemQueryOptionskip">section 11.2.6.4</a>)</li>
 <li>MUST support the <code>$count</code> system query option (<a href="#SystemQueryOptioncount">section 11.2.6.5</a>)</li>
 <li>MUST support <code>$orderby</code> <code>asc</code> and <code>desc</code> on individual properties (<a href="#SystemQueryOptionorderby">section 11.2.6.2</a>)</li>
@@ -2670,10 +2893,10 @@ Content-Length: ###
 </ol></li>
 <li>MUST support the <code>$search</code> system query option (<a href="#SystemQueryOptionsearch">section 11.2.6.6</a>)</li>
 <li>MUST support batch requests according to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and MAY support batch requests according to the JSON Batch format defined in <a href="#ODataJSON">OData-JSON</a></li>
-<li>MUST support the resource path conventions defined in <a href="#ODataURL">OData URL</a></li>
+<li>MUST support the resource path conventions defined in <a href="#ODataURL">OData-URL</a></li>
 <li>SHOULD support <a href="#AsynchronousRequests">asynchronous requests</a> (<a href="#AsynchronousRequests">section 11.6</a>)</li>
 <li>SHOULD support <a href="#RequestingChanges">Delta change tracking</a> (<a href="#RequestingChanges">section 11.3</a>)</li>
-<li>SHOULD support cross-join queries defined in <a href="#ODataURL">OData URL</a></li>
+<li>SHOULD support cross-join queries defined in <a href="#ODataURL">OData-URL</a></li>
 <li>MAY support the <code>$compute</code> system query option (<a href="#SystemQueryOptioncompute">section 11.2.5.3</a>)</li>
 </ol>
 <h2 id="122-odata-401-service-conformance-levels"><a name="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a></h2>
@@ -2704,7 +2927,7 @@ Content-Length: ###
 <li>SHOULD support negative indexes for the substring function</li>
 <li>MAY support Key-As-Segment URL convention
 <ol type="1">
-<li>MUST also support canonical URL conventions (described in <a href="#ODataURL">OData URL</a>) or include URLs in payload</li>
+<li>MUST also support canonical URL conventions (described in <a href="#ODataURL">OData-URL</a>) or include URLs in payload</li>
 </ol></li>
 <li>MAY support the count of a filtered collection in a common expression</li>
 <li>MAY support equal and non-equal structural comparison</li>
