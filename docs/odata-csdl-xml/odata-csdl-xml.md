@@ -252,13 +252,6 @@ Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
 
-<<<<<<< Upstream, based on origin/main
-=======
-This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
-[OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
-
->>>>>>> 1d2fbf2 Changes from Earlier Versions
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 OASIS issue|Description|GitHub commit containing the changes
