@@ -32,8 +32,7 @@ jobs:
           do
               doc=${dir%/}   # remove the trailing "/"
               doc=${doc##*/} # retain everything after the final "/"
-
-              git diff-index --quiet HEAD $dir/*.html $dir/*.md $dir/styles/* || npm run pdf $doc
+              git diff-index --quiet HEAD $dir/*.html $dir/styles/* || npm run pdf $doc
           done
           git add docs/*/*.pdf
           git diff-index --quiet HEAD docs/*/*.html docs/*/*.md docs/*/styles/* docs/*/*.pdf || git commit -m "auto-refreshed"
