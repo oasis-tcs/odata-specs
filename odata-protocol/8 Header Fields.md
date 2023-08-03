@@ -170,7 +170,7 @@ If an operation on an existing resource requires an ETag, (see term
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
-in ** **[OData-VocCap](#ODataVocCap)) and the client does not specify an
+in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
 an action bound to the resource, the service responds with a
