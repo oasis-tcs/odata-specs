@@ -9,7 +9,7 @@
 
 ## 14 July 2023
 
-&nbsp;
+$\hbox{}$
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
