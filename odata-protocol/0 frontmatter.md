@@ -3,7 +3,7 @@
 
 -------
 
-# $$$pagetitle$$$ dummy
+# $$$pagetitle$$$
 
 ## $$$subtitle$$$
 
