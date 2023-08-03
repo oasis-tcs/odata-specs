@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.02. Part 1: Protocol
+# OData Version 4.02. Part 1: Protocol dummy change
 
 ## Committee Specification Draft 01
 
