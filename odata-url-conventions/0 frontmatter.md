@@ -3,13 +3,13 @@
 
 -------
 
-# OData Version 4.02. Part 2: URL Conventions
+# $$$pagetitle$$$
 
-## Committee Specification Draft 01
+## $$$subtitle$$$
 
 ## 14 July 2023
 
-&nbsp;
+$\hbox{}$
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
