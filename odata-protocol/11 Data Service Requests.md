@@ -1031,7 +1031,7 @@ of the actual entities, the client issues a `GET` request with `/$ref`
 appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns `404 Not Found`.
+entities, the service returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -1081,7 +1081,7 @@ GET http://host/service/$entity?$id=http://host/service/Products(0)
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
 type, or a type derived from the specified type, the service returns
-`404 Not Found`.
+[`404 Not Found`](#ResponseCode404NotFound).
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#SystemQueryOptionselect) and
@@ -1258,7 +1258,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCode404NotFound). The response
+response code [`404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## ##subsec Requesting Changes

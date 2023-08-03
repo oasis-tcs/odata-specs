@@ -232,7 +232,7 @@ from external changes. The only supported value for this header is
 
 If the service doesn't support `Isolation:snapshot` and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with `412 Precondition Failed.`
+MUST respond with [`412 Precondition Failed`](#ResponseCode412PreconditionFailed).
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#BatchRequests) or results

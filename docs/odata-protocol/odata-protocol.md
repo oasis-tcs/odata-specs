@@ -1108,7 +1108,7 @@ from external changes. The only supported value for this header is
 
 If the service doesn't support `Isolation:snapshot` and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with `412 Precondition Failed.`
+MUST respond with [`412 Precondition Failed`](#ResponseCode412PreconditionFailed).
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#BatchRequests) or results
@@ -3552,7 +3552,7 @@ of the actual entities, the client issues a `GET` request with `/$ref`
 appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns `404 Not Found`.
+entities, the service returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -3602,7 +3602,7 @@ GET http://host/service/$entity?$id=http://host/service/Products(0)
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
 type, or a type derived from the specified type, the service returns
-`404 Not Found`.
+[`404 Not Found`](#ResponseCode404NotFound).
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#SystemQueryOptionselect) and
@@ -3779,7 +3779,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCode404NotFound). The response
+response code [`404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## <a name="RequestingChanges" href="#RequestingChanges">11.3 Requesting Changes</a>
@@ -4060,7 +4060,7 @@ If one or more of these query options are present and the service
 returns a representation, then the service MUST apply the specified
 query options. If it cannot apply the specified query options
 appropriately, it MUST NOT fail the request solely due to the presence
-of these query options and instead MUST return `204 No Content`.
+of these query options and instead MUST return [`204 No Content`](#ResponseCode204NoContent).
 
 ### <a name="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a>
 
@@ -4194,14 +4194,14 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with `201 Created`, the response MUST be expanded to at
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
 least the level that was present in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `201 Created` SHOULD annotate the entities in the response using
+with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4213,7 +4213,7 @@ term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
 [`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)` `for
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID) for
 the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4439,7 +4439,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4742,7 +4742,7 @@ property or the value of a dynamic property. A missing dynamic property
 is defined to be the same as a dynamic property with value `null`. All
 dynamic properties are nullable.
 
-On success, the service MUST respond with `204 No Content` and an empty
+On success, the service MUST respond with [`204 No Content`](#ResponseCode204NoContent) and an empty
 body.
 
 Services MUST return an error if the property is not updatable.
@@ -4866,7 +4866,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request.
@@ -4916,12 +4916,12 @@ processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
 annotated with term `Core.DataModificationException` and SHOULD specify
-a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
+a `responseCode` of [`424 Failed Dependency`](#ResponseCode424FailedDependency).
 
 Alternatively, the verb `PUT` can be used, in which case the request
 body MUST be the representation of a collection of entities. In this
 case all entities provided in the request are applied as
-[upserts,](#UpsertanEntity) and any entities not provided in the request
+[upserts](#UpsertanEntity), and any entities not provided in the request
 are deleted. In this case, if the `continue-on-error` preference has
 been specified, and the request returns a success response code, then a
 response MUST be returned regardless of the
@@ -5504,17 +5504,16 @@ status. Services MAY include a response body, for example, to provide
 additional status information.
 
 A `GET` request to the status monitor resource again returns
-`202 Accepted `response if the asynchronous processing has not finished.
-This response MUST again` `include a [`Location`
-header](#HeaderLocation) and MAY include a [`Retry-After`
-header](#HeaderRetryAfter) to be used for a subsequent request. The
+`202 Accepted` response if the asynchronous processing has not finished.
+This response MUST again include a [`Location` header](#HeaderLocation)
+and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a subsequent request. The
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
-A `GET` request to the status monitor resource returns `200 OK` once the
+A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
 responses, or OData 4.0 requests that include an `Accept `header that
-does not specify `application/http,` the response MUST include the
+does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
 asynchronous operation. If the `GET` request to the status monitor
@@ -5526,7 +5525,7 @@ HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
-`204 No Content` response indicates that the asynchronous processing has
+[`204 No Content`](#ResponseCode204NoContent) response indicates that the asynchronous processing has
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
@@ -5544,7 +5543,7 @@ If an asynchronous request is cancelled for reasons other than the
 consumers issuing a `DELETE` request against the status monitor
 resource, a `GET` request to the status monitor resource returns
 `200 OK` with a response body containing a single HTTP response with a
-status code in the `5xx Server Error` range indicating that the
+status code in the [`5xx Server Error`](#ServerErrorResponses) range indicating that the
 operation was cancelled.
 
 The service MUST ensure that no observable change has occurred as a
@@ -6079,15 +6078,15 @@ request against the *status monitor resource* URL (see [Asynchronous
 Requests](#AsynchronousRequests)).
 
 A service MAY return interim results to an asynchronously executing
-batch. It does this by responding with `200 OK` to a `GET` request to
+batch. It does this by responding with [`200 OK`](#ResponseCode200OK) to a `GET` request to
 the monitor resource and including a
 [`202 Accepted`](#ResponseCode202Accepted) response as the last part of
 the multipart response. The client can use the monitor URL returned in
-this [`202 Accepted`](#ResponseCode202Accepted) response to continue
+this `202 Accepted` response to continue
 processing the batch response.
 
 Since a change set is executed atomically,
-[`202 Accepted`](#ResponseCode202Accepted) MUST NOT be returned within
+`202 Accepted` MUST NOT be returned within
 a change set.
 
 ::: example
