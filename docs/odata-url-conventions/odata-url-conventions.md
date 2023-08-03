@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.01. Part 2: URL Conventions
+# OData Version 4.02. Part 2: URL Conventions
 
 ## Committee Specification Draft 01
 
@@ -154,7 +154,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --mathjax
        --eol=lf
        --wrap=none
-       --metadata pagetitle="OData Version 4.01. Part 2: URL Conventions"
+       --metadata pagetitle="OData Version 4.02. Part 2: URL Conventions"
        odata-v4.02-csd01-part2-url-conventions.md
 ```
 
