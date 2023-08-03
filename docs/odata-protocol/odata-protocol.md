@@ -4915,8 +4915,8 @@ membership of the collection as it exists in the service after
 processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with term `Core.DataModificationException` and SHOULD specify
-a `responseCode` of [`424 Failed Dependency`](#ResponseCode424FailedDependency).
+annotated with term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
+a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 Alternatively, the verb `PUT` can be used, in which case the request
 body MUST be the representation of a collection of entities. In this
