@@ -452,14 +452,14 @@ the payload according to the specified
 [OData-Version](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-`OData-Version`[` `]{.Hyperlink1}header.
+[`OData-Version`](#HeaderODataVersion) header.
 
 ## ##subsec Action/Function Extensibility
 
 [Actions](#Actions) and [Functions](#Functions) extend the set of
 operations that can be performed on or with a service or resource.
-[Actions]{.Hyperlink1} can have side-effects. For example,
-[Actions]{.Hyperlink1} can be used to modify data or to invoke custom
+Actions can have side-effects. For example,
+Actions can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
 invoked from a URL that addresses a resource or within an expression to
 a [`$filter`](#SystemQueryOptionfilter) or

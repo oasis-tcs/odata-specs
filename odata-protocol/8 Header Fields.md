@@ -648,8 +648,8 @@ A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the
 successfully modified resource in the body of the response, formatted
-according to the rules specified for the requested [format](#Formats)[.
-In this case the service]{.Hyperlink1} MAY include a
+according to the rules specified for the requested [format](#Formats).
+In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 

@@ -150,7 +150,7 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
+[OData-JSON](#ODataJSON) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL](#ODataURL).
 

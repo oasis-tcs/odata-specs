@@ -771,14 +771,14 @@ the payload according to the specified
 [OData-Version](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-`OData-Version`[` `]{.Hyperlink1}header.
+[`OData-Version`](#HeaderODataVersion) header.
 
 ## <a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a>
 
 [Actions](#Actions) and [Functions](#Functions) extend the set of
 operations that can be performed on or with a service or resource.
-[Actions]{.Hyperlink1} can have side-effects. For example,
-[Actions]{.Hyperlink1} can be used to modify data or to invoke custom
+Actions can have side-effects. For example,
+Actions can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
 invoked from a URL that addresses a resource or within an expression to
 a [`$filter`](#SystemQueryOptionfilter) or
@@ -1521,8 +1521,8 @@ A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the
 successfully modified resource in the body of the response, formatted
-according to the rules specified for the requested [format](#Formats)[.
-In this case the service]{.Hyperlink1} MAY include a
+according to the rules specified for the requested [format](#Formats).
+In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
@@ -2671,7 +2671,7 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
+[OData-JSON](#ODataJSON) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL](#ODataURL).
 
