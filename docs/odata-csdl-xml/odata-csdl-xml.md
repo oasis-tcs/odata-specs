@@ -256,25 +256,34 @@ Schema Definition Language (XSD) 1.1 as described in
 
 OASIS issue|Description|GitHub commit containing the changes
 -----------|-----------|------------------------------------
-[ODATA-1366](https://issues.oasis-open.org/browse/ODATA-1366)|remove superfluous text| 
-[ODATA-1368](https://issues.oasis-open.org/browse/ODATA-1368)|clarify Term applicability| 
-[ODATA-1371](https://issues.oasis-open.org/browse/ODATA-1371)|improve structure of section 4| 
-[ODATA-1397](https://issues.oasis-open.org/browse/ODATA-1397)|clarify example for entity-valued annotation| 
-[ODATA-1417](https://issues.oasis-open.org/browse/ODATA-1417)|rephrase [section 14.2.2](#Target)| 
-[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)|[path evaluation](#PathEvaluation) for annotation targeting annotations| 
-[ODATA-1434](https://issues.oasis-open.org/browse/ODATA-1434)|complete list of recommended [navigation property bindings](#NavigationPropertyPathBinding)| 
-[ODATA-1435](https://issues.oasis-open.org/browse/ODATA-1435)|conditionally add an element to a collection| 
-[ODATA-1464](https://issues.oasis-open.org/browse/ODATA-1464)|explain redundancy of [section 14.4.4.3](#FunctionodatamatchesPattern)| 
-[ODATA-1478](https://issues.oasis-open.org/browse/ODATA-1478)|clarify meaning of absence of `$Precision`| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)|allow `Edm.Stream` for non-binding parameters| 
-[ODATA-1491](https://issues.oasis-open.org/browse/ODATA-1491)|remove `HasStream` from example in [section 16.1](#ProductsandCategoriesExample)| 
-[ODATA-1498](https://issues.oasis-open.org/browse/ODATA-1498)|clarify non-usage of `Collection(Edm.PrimitiveType)`| 
-[ODATA-1501](https://issues.oasis-open.org/browse/ODATA-1501)|annotations targeting contained singletons| 
-[ODATA-1517](https://issues.oasis-open.org/browse/ODATA-1517)|annotations targeting a navigation property or its addressed resource| 
+[ODATA-1366](https://issues.oasis-open.org/browse/ODATA-1366)|Remove superfluous text| 
+[ODATA-1368](https://issues.oasis-open.org/browse/ODATA-1368)|Clarify Term applicability| 
+[ODATA-1371](https://issues.oasis-open.org/browse/ODATA-1371)|Improve structure of section 4| 
+[ODATA-1397](https://issues.oasis-open.org/browse/ODATA-1397)|Clarify example for entity-valued annotation| 
+[ODATA-1417](https://issues.oasis-open.org/browse/ODATA-1417)|Rephrase [section 14.2.2](#Target)| 
+[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)|[Path evaluation](#PathEvaluation) for annotations targeting annotations| 
+[ODATA-1434](https://issues.oasis-open.org/browse/ODATA-1434)|Complete list of recommended [navigation property bindings](#NavigationPropertyPathBinding)| 
+[ODATA-1435](https://issues.oasis-open.org/browse/ODATA-1435)|Conditionally add an element to a collection| 
+[ODATA-1464](https://issues.oasis-open.org/browse/ODATA-1464)|Explain redundancy of [section 14.4.4.3](#FunctionodatamatchesPattern)| 
+[ODATA-1478](https://issues.oasis-open.org/browse/ODATA-1478)|Clarify meaning of absence of `$Precision`| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)|Allow `Edm.Stream` for non-binding parameters| 
+[ODATA-1491](https://issues.oasis-open.org/browse/ODATA-1491)|Remove `HasStream` from example in [section 16.1](#ProductsandCategoriesExample)| 
+[ODATA-1497](https://issues.oasis-open.org/browse/ODATA-1497)|3.6 Function Import: annotations allowed but not mentioned|
+
+[ODATA-1498](https://issues.oasis-open.org/browse/ODATA-1498)|Clarify non-usage of `Collection(Edm.PrimitiveType)`| 
+[ODATA-1501](https://issues.oasis-open.org/browse/ODATA-1501)|Annotations targeting contained singletons| 
+[ODATA-1517](https://issues.oasis-open.org/browse/ODATA-1517)|Annotations targeting a navigation property or its addressed resource| 
 [ODATA-1531](https://issues.oasis-open.org/browse/ODATA-1531)|`AppliesTo="Property"` means structural property| 
-[ODATA-1562](https://issues.oasis-open.org/browse/ODATA-1562)|clarify uniqueness of bound action and function names| 
-[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)|allow empty entity containers| 
-[ODATA-1577](https://issues.oasis-open.org/browse/ODATA-1577)|write "entity-id" instead of "entity id"| 
+[ODATA-1536](https://issues.oasis-open.org/browse/ODATA-1536)|16.1 Example CSDL has missing alias|
+
+[ODATA-1562](https://issues.oasis-open.org/browse/ODATA-1562)|Clarify uniqueness of bound action and function names| 
+::: varxml
+[ODATA-1570](https://issues.oasis-open.org/browse/ODATA-1570)|CSDL XML is defined with reference to XML 1.1 but none of the examples use XML version 1.1 documents|
+::: [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)|Allow empty entity containers| 
+[ODATA-1577](https://issues.oasis-open.org/browse/ODATA-1577)|Write "entity-id" instead of "entity id"| 
+[ODATA-1578](https://issues.oasis-open.org/browse/ODATA-1578)|Consistently use "annotated with the term" instead of "annotated with term"| 
+[ODATA-1592](https://issues.oasis-open.org/browse/ODATA-1592)|Correct vocabulary URIs in examples|
+
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
