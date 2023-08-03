@@ -561,7 +561,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="4-service-model"><a name="ServiceModel" href="#ServiceModel">4 Service Model</a></h1>
 <p>OData services are defined using a common data model. The service advertises its concrete data model in a machine-readable form, allowing generic clients to interact with the service in a well-defined way.</p>
 <p>An OData service exposes two well-defined resources that describe its data model; a service document and a metadata document.</p>
-<p>The <a href="#ServiceDocumentRequest"><em>service document</em></a>lists entity sets, functions, and singletons that can be retrieved. Clients can use the service document to navigate the model in a hypermedia-driven fashion.</p>
+<p>The <a href="#ServiceDocumentRequest"><em>service document</em></a> lists entity sets, functions, and singletons that can be retrieved. Clients can use the service document to navigate the model in a hypermedia-driven fashion.</p>
 <p>The <a href="#MetadataDocumentRequest"><em>metadata document</em></a> describes the types, sets, functions and actions understood by the OData service. Clients can use the metadata document to understand how to query and interact with entities in the service.</p>
 <p>In addition to these two "fixed" resources, an OData service consists of dynamic resources. The URLs for many of these resources can be computed from the information in the metadata document.</p>
 <p>See <a href="#RequestingData">Requesting Data</a> and <a href="#DataModification">Data Modification</a> for details.</p>

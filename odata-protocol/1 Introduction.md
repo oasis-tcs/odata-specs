@@ -219,7 +219,7 @@ generic clients to interact with the service in a well-defined way.
 An OData service exposes two well-defined resources that describe its
 data model; a service document and a metadata document.
 
-The [*service document*](#ServiceDocumentRequest)lists entity sets,
+The [*service document*](#ServiceDocumentRequest) lists entity sets,
 functions, and singletons that can be retrieved. Clients can use the
 service document to navigate the model in a hypermedia-driven fashion.
 
