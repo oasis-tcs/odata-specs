@@ -686,7 +686,7 @@ respond
 - asynchronously if the synchronous processing of the request will take longer than 10 seconds
 - synchronously after 5 seconds
 - asynchronously (ignoring the [`wait`](#Preferencewait) preference)
-- synchronously after 15 seconds (ignoring `respond-`async preference and the
+- synchronously after 15 seconds (ignoring `respond-async` preference and the
 [`wait`](#Preferencewait) preference)
 ```
 Prefer: respond-async, wait=10
