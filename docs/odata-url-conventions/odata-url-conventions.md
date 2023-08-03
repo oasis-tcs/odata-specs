@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.02. Part 2: URL Conventions
+# OData Version 4.01. Part 2: URL Conventions
 
 ## Committee Specification Draft 01
 
