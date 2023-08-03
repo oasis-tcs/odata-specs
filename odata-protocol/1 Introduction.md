@@ -449,10 +449,10 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[OData-Version](#HeaderODataVersion) header. Thus, clients and services
+[`OData-Version`](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-[`OData-Version`](#HeaderODataVersion) header.
+`OData-Version` header.
 
 ## ##subsec Action/Function Extensibility
 
@@ -525,7 +525,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
 [RFC7231](#rfc7231), or through the system query option
-[\$format](#SystemQueryOptionformat).
+[`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
 option are specified on a request, the value specified in the `$format`

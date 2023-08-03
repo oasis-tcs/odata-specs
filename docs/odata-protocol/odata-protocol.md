@@ -768,10 +768,10 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[OData-Version](#HeaderODataVersion) header. Thus, clients and services
+[`OData-Version`](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-[`OData-Version`](#HeaderODataVersion) header.
+`OData-Version` header.
 
 ## <a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a>
 
@@ -844,7 +844,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
 [RFC7231](#rfc7231), or through the system query option
-[\$format](#SystemQueryOptionformat).
+[`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
 option are specified on a request, the value specified in the `$format`
@@ -910,7 +910,7 @@ parameters within the `Content-Type` header.
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
-content codings have been applied to the entity-body.\
+content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
 [`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
@@ -2285,7 +2285,7 @@ Example 22: resource URL and corresponding context URL -- expand with
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
         &$expand=DirectReports($select=FirstName,LastName;$levels=4)
-http://host/service/$metadata\
+http://host/service/$metadata
         #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
@@ -4233,7 +4233,7 @@ entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
 The semantics of `PATCH`, as defined in [RFC5789](#rfc5789), is to merge
-the content in the request payload with the \[entity's\] current state,
+the content in the request payload with the entity's current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
@@ -6632,7 +6632,7 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046\]]</a>
+###### <a name="rfc2046">[RFC2046]</a>
 _Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
 https://tools.ietf.org/html/rfc2046.
 

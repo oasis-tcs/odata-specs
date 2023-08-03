@@ -41,7 +41,7 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046\]]</a>
+###### <a name="rfc2046">[RFC2046]</a>
 _Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
 https://tools.ietf.org/html/rfc2046.
 

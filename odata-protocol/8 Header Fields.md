@@ -34,7 +34,7 @@ parameters within the `Content-Type` header.
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
-content codings have been applied to the entity-body.\
+content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
 [`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
