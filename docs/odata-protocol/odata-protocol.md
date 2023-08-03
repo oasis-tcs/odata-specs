@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.01. Part 1: Protocol
+# OData Version 4.02. Part 1: Protocol
 
 ## Committee Specification Draft 01
 
@@ -383,7 +383,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --mathjax
        --eol=lf
        --wrap=none
-       --metadata pagetitle="OData Version 4.01. Part 1: Protocol"
+       --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
        odata-v4.02-csd01-part1-protocol.md
 ```
 
