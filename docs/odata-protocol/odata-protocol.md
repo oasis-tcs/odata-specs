@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.01. Part 1: Protocol
+# OData Version 4.02. Part 1: Protocol
 
 ## Committee Specification Draft 01
 
@@ -82,7 +82,7 @@ https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-prot
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2023. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -383,7 +383,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --mathjax
        --eol=lf
        --wrap=none
-       --metadata pagetitle="OData Version 4.01. Part 1: Protocol"
+       --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
        odata-v4.02-csd01-part1-protocol.md
 ```
 
@@ -538,7 +538,7 @@ generic clients to interact with the service in a well-defined way.
 An OData service exposes two well-defined resources that describe its
 data model; a service document and a metadata document.
 
-The [*service document*](#ServiceDocumentRequest)lists entity sets,
+The [*service document*](#ServiceDocumentRequest) lists entity sets,
 functions, and singletons that can be retrieved. Clients can use the
 service document to navigate the model in a hypermedia-driven fashion.
 
@@ -768,17 +768,17 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[OData-Version](#HeaderODataVersion) header. Thus, clients and services
+[`OData-Version`](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-`OData-Version`[` `]{.Hyperlink1}header.
+`OData-Version` header.
 
 ## <a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a>
 
 [Actions](#Actions) and [Functions](#Functions) extend the set of
 operations that can be performed on or with a service or resource.
-[Actions]{.Hyperlink1} can have side-effects. For example,
-[Actions]{.Hyperlink1} can be used to modify data or to invoke custom
+Actions can have side-effects. For example,
+Actions can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
 invoked from a URL that addresses a resource or within an expression to
 a [`$filter`](#SystemQueryOptionfilter) or
@@ -844,7 +844,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
 [RFC7231](#rfc7231), or through the system query option
-[\$format](#SystemQueryOptionformat).
+[`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
 option are specified on a request, the value specified in the `$format`
@@ -910,7 +910,7 @@ parameters within the `Content-Type` header.
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
-content codings have been applied to the entity-body.\
+content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
 [`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
@@ -1046,7 +1046,7 @@ If an operation on an existing resource requires an ETag, (see term
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
-in ** **[OData-VocCap](#ODataVocCap)) and the client does not specify an
+in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
 an action bound to the resource, the service responds with a
@@ -1108,7 +1108,7 @@ from external changes. The only supported value for this header is
 
 If the service doesn't support `Isolation:snapshot` and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with `412 Precondition Failed.`
+MUST respond with [`412 Precondition Failed`](#ResponseCode412PreconditionFailed).
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#BatchRequests) or results
@@ -1521,8 +1521,8 @@ A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the
 successfully modified resource in the body of the response, formatted
-according to the rules specified for the requested [format](#Formats)[.
-In this case the service]{.Hyperlink1} MAY include a
+according to the rules specified for the requested [format](#Formats).
+In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
@@ -1559,7 +1559,7 @@ respond
 - asynchronously if the synchronous processing of the request will take longer than 10 seconds
 - synchronously after 5 seconds
 - asynchronously (ignoring the [`wait`](#Preferencewait) preference)
-- synchronously after 15 seconds (ignoring `respond-`async preference and the
+- synchronously after 15 seconds (ignoring `respond-async` preference and the
 [`wait`](#Preferencewait) preference)
 ```
 Prefer: respond-async, wait=10
@@ -2285,7 +2285,7 @@ Example 22: resource URL and corresponding context URL -- expand with
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
         &$expand=DirectReports($select=FirstName,LastName;$levels=4)
-http://host/service/$metadata\
+http://host/service/$metadata
         #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
@@ -2671,7 +2671,7 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
+[OData-JSON](#ODataJSON) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL](#ODataURL).
 
@@ -3552,7 +3552,7 @@ of the actual entities, the client issues a `GET` request with `/$ref`
 appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns `404 Not Found`.
+entities, the service returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -3602,7 +3602,7 @@ GET http://host/service/$entity?$id=http://host/service/Products(0)
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
 type, or a type derived from the specified type, the service returns
-`404 Not Found`.
+[`404 Not Found`](#ResponseCode404NotFound).
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#SystemQueryOptionselect) and
@@ -3779,7 +3779,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCode404NotFound). The response
+response code [`404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## <a name="RequestingChanges" href="#RequestingChanges">11.3 Requesting Changes</a>
@@ -4060,7 +4060,7 @@ If one or more of these query options are present and the service
 returns a representation, then the service MUST apply the specified
 query options. If it cannot apply the specified query options
 appropriately, it MUST NOT fail the request solely due to the presence
-of these query options and instead MUST return `204 No Content`.
+of these query options and instead MUST return [`204 No Content`](#ResponseCode204NoContent).
 
 ### <a name="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a>
 
@@ -4194,14 +4194,14 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with `201 Created`, the response MUST be expanded to at
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
 least the level that was present in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `201 Created` SHOULD annotate the entities in the response using
+with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4213,7 +4213,7 @@ term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
 [`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)` `for
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID) for
 the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4233,7 +4233,7 @@ entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
 The semantics of `PATCH`, as defined in [RFC5789](#rfc5789), is to merge
-the content in the request payload with the \[entity's\] current state,
+the content in the request payload with the entity's current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
@@ -4439,7 +4439,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4742,7 +4742,7 @@ property or the value of a dynamic property. A missing dynamic property
 is defined to be the same as a dynamic property with value `null`. All
 dynamic properties are nullable.
 
-On success, the service MUST respond with `204 No Content` and an empty
+On success, the service MUST respond with [`204 No Content`](#ResponseCode204NoContent) and an empty
 body.
 
 Services MUST return an error if the property is not updatable.
@@ -4866,7 +4866,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request.
@@ -4915,13 +4915,13 @@ membership of the collection as it exists in the service after
 processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with term `Core.DataModificationException` and SHOULD specify
+annotated with term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 Alternatively, the verb `PUT` can be used, in which case the request
 body MUST be the representation of a collection of entities. In this
 case all entities provided in the request are applied as
-[upserts,](#UpsertanEntity) and any entities not provided in the request
+[upserts](#UpsertanEntity), and any entities not provided in the request
 are deleted. In this case, if the `continue-on-error` preference has
 been specified, and the request returns a success response code, then a
 response MUST be returned regardless of the
@@ -5504,17 +5504,16 @@ status. Services MAY include a response body, for example, to provide
 additional status information.
 
 A `GET` request to the status monitor resource again returns
-`202 Accepted `response if the asynchronous processing has not finished.
-This response MUST again` `include a [`Location`
-header](#HeaderLocation) and MAY include a [`Retry-After`
-header](#HeaderRetryAfter) to be used for a subsequent request. The
+`202 Accepted` response if the asynchronous processing has not finished.
+This response MUST again include a [`Location` header](#HeaderLocation)
+and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a subsequent request. The
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
-A `GET` request to the status monitor resource returns `200 OK` once the
+A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
 responses, or OData 4.0 requests that include an `Accept `header that
-does not specify `application/http,` the response MUST include the
+does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
 asynchronous operation. If the `GET` request to the status monitor
@@ -5526,7 +5525,7 @@ HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
-`204 No Content` response indicates that the asynchronous processing has
+[`204 No Content`](#ResponseCode204NoContent) response indicates that the asynchronous processing has
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
@@ -5544,7 +5543,7 @@ If an asynchronous request is cancelled for reasons other than the
 consumers issuing a `DELETE` request against the status monitor
 resource, a `GET` request to the status monitor resource returns
 `200 OK` with a response body containing a single HTTP response with a
-status code in the `5xx Server Error` range indicating that the
+status code in the [`5xx Server Error`](#ServerErrorResponses) range indicating that the
 operation was cancelled.
 
 The service MUST ensure that no observable change has occurred as a
@@ -6079,15 +6078,15 @@ request against the *status monitor resource* URL (see [Asynchronous
 Requests](#AsynchronousRequests)).
 
 A service MAY return interim results to an asynchronously executing
-batch. It does this by responding with `200 OK` to a `GET` request to
+batch. It does this by responding with [`200 OK`](#ResponseCode200OK) to a `GET` request to
 the monitor resource and including a
 [`202 Accepted`](#ResponseCode202Accepted) response as the last part of
 the multipart response. The client can use the monitor URL returned in
-this [`202 Accepted`](#ResponseCode202Accepted) response to continue
+this `202 Accepted` response to continue
 processing the batch response.
 
 Since a change set is executed atomically,
-[`202 Accepted`](#ResponseCode202Accepted) MUST NOT be returned within
+`202 Accepted` MUST NOT be returned within
 a change set.
 
 ::: example
@@ -6633,7 +6632,7 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046\]]</a>
+###### <a name="rfc2046">[RFC2046]</a>
 _Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
 https://tools.ietf.org/html/rfc2046.
 
@@ -6831,7 +6830,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2023. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
