@@ -453,8 +453,7 @@ the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 - The `Customer` related to each order returned.
 ```
-GET
-http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
+GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
 ```
 :::
 
@@ -466,8 +465,7 @@ are not of type `VipCustomer`, or any of its subtypes, that entity may
 be returned with no inline representation for the expanded navigation
 property `InHouseStaff` (the service can always send more than requested)
 ```
-GET
-http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
+GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
 ```
 :::
 
@@ -494,8 +492,7 @@ Example ##ex: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
 ```
-GET
-http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
+GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 ```
 :::
 
@@ -940,8 +937,7 @@ expressions.
 Example ##ex: return all Products that match either "mountain" or
 "bike" and do not match clothing
 ```
-GET http://host/service/Products?$search=(mountain OR bike) AND NOT
-clothing
+GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
 :::
 

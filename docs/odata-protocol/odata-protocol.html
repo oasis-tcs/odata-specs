@@ -1349,13 +1349,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>The <code>Items</code> related to the <code>Orders</code> identified by the resource path section of the URL and the products related to each order item.</li>
 <li>The <code>Customer</code> related to each order returned.</li>
 </ul>
-<pre><code>GET
-http://host/service.svc/Orders?$expand=Items($expand=Product),Customer</code></pre>
+<pre><code>GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer</code></pre>
 </div>
 <div class="example">
 <p>Example 43: for each customer entity in the Customers entity set, the value of all related InHouseStaff will be represented inline if the entity is of type VipCustomer or a subtype of that. For entities that are not of type <code>VipCustomer</code>, or any of its subtypes, that entity may be returned with no inline representation for the expanded navigation property <code>InHouseStaff</code> (the service can always send more than requested)</p>
-<pre><code>GET
-http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</code></pre>
+<pre><code>GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</code></pre>
 </div>
 <h6 id="1125211-expand-option-levels"><a name="ExpandOptionlevels" href="#ExpandOptionlevels">11.2.5.2.1.1 Expand Option <code>$levels</code></a></h6>
 <p>The <code>$levels</code> expand option can be used to specify the number of levels of recursion for a hierarchy in which the related entity type is the same as, or can be cast to, the source entity type. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion. The same expand options are applied at each level of the hierarchy.</p>
@@ -1364,8 +1362,7 @@ http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</
 <p>4.01 services that support <code>max</code> SHOULD do so in a case-insensitive manner. Clients that want to work with 4.0 services MUST use lower case.</p>
 <div class="example">
 <p>Example 44: return each employee from the Employees entity set and, for each employee that is a manager, return all direct reports, recursively to four levels</p>
-<pre><code>GET
-http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</code></pre>
+<pre><code>GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</code></pre>
 </div>
 <h4 id="11253-system-query-option-compute"><a name="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">11.2.5.3 System Query Option <code>$compute</code></a></h4>
 <p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in a <a href="#SystemQueryOptionselect"><code>$select</code></a> or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
@@ -1579,8 +1576,7 @@ http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</co
 <p>Parentheses within the search expression group together multiple expressions.</p>
 <div class="example">
 <p>Example 63: return all Products that match either "mountain" or "bike" and do not match clothing</p>
-<pre><code>GET http://host/service/Products?$search=(mountain OR bike) AND NOT
-clothing</code></pre>
+<pre><code>GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing</code></pre>
 </div>
 <p>The operations within a search expression MUST be evaluated in the following order: grouping operator, <code>NOT</code> operator, <code>AND</code> operator, <code>OR</code> operator</p>
 <p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are specified in the same request, only those items satisfying both criteria are returned.</p>
