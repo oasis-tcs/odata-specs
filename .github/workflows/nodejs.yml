@@ -1,6 +1,7 @@
 name: Node CI
 
-on: push
+on: 
+  push:
 
 jobs:
   build:
@@ -24,11 +25,17 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          npm run build --if-present
+          npm run build
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
           git add docs/*/*.html docs/*/*.md docs/*/styles/*
-          git diff-index --quiet HEAD docs/*/*.html docs/*/*.md docs/*/styles/* || (npm run pdf --if-present && git add docs/*/*.pdf && git commit -m "auto-refreshed")
-          test `git branch --show-current` && git push
+          for dir in docs/*/ # list directories in the form "docs/dirname/"
+          do
+              doc=${dir%/}   # remove the trailing "/"
+              doc=${doc##*/} # retain everything after the final "/"
+              git diff-index --quiet HEAD $dir/*.html $dir/styles/* || npm run pdf $doc
+          done
+          git add docs/*/*.pdf
+          git diff-index --quiet HEAD docs/* || ( git commit -m "auto-refreshed" && git push )
         env:
           PUSHER_EMAIL: ${{ github.event.pusher.email }}
