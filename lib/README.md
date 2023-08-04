@@ -24,7 +24,7 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Resolve references
 - Replace placeholders like `$$$pagetitle$$$` with values from a [`meta.yaml`](../odata-data-aggregation-ext/meta.yaml) file
 - Join multiple lines that end with a single space into one line
-- Sections of the file between `: varXXX` and `:` or between `::: {.varXXX` ...}` and `:::` belong to a variant. One source file can contain several variants.
+- Sections of the file between `: varXXX` and `:` or between `::: {.varXXX` ...}`and`:::` belong to a variant. One source file can contain several variants.
 
 The single Markdown document is output into a writable stream:
 
