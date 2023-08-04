@@ -1069,7 +1069,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For a decimal value: the maximum number of significant decimal digits of the property's value; it MUST be a positive integer.</p>
 <p>For a temporal value (datetime-with-timezone-offset, duration, or time-of-day): the number of decimal places allowed in the seconds portion of the value; it MUST be a non-negative integer between zero and twelve.</p>
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal properties and 7 for temporal properties. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified properties will reduce the risk for unintended data loss.</p>
-<p>Note: duration properties supporting a granularity less than seconds (e.g. minutes, hours, days) can be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
+<p>Note: duration properties supporting a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 <section id="-attribute-precision" class="varxml rep">
 <h3><a name="AttributePrecision11.5" href="#AttributePrecision11.5"> Attribute <code>Precision</code></a></h3>
 <p>The value of <code>Precision</code> is a number.</p>
@@ -2363,7 +2363,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <ul>
 <li>A non-null path MUST resolve to an annotation.</li>
 </ul>
-<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
+<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <section id="-expression-edmannotationpath" class="varxml rep">
 <h3><a name="ExpressionedmAnnotationPath43" href="#ExpressionedmAnnotationPath43"> Expression <code>edm:AnnotationPath</code></a></h3>

@@ -259,7 +259,7 @@ via `PATCH` and exclusively specifying modified properties will reduce
 the risk for unintended data loss.
 
 Note: duration properties supporting a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 

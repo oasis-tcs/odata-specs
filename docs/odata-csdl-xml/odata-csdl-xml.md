@@ -1549,7 +1549,7 @@ via `PATCH` and exclusively specifying modified properties will reduce
 the risk for unintended data loss.
 
 Note: duration properties supporting a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
@@ -4324,7 +4324,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 

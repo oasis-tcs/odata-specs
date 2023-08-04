@@ -1420,7 +1420,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
