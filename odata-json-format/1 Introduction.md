@@ -18,8 +18,11 @@ An OData JSON payload may represent:
 
 ## ##subsec Changes from earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+OASIS issue|Description|GitHub commit containing the changes
+-----------|-----------|------------------------------------
+[ODATA-1360](https://issues.oasis-open.org/browse/ODATA-1360)|Clarify that clients have to do content-ID replacing to interpret Location headers in batch results|
+[ODATA-1476](https://issues.oasis-open.org/browse/ODATA-1476)|JSON batch body encoding for "text" content types may cause conversion errors or data loss|
+[ODATA-1485](https://issues.oasis-open.org/browse/ODATA-1485)|Clarify canonical URLs for stream properties|
 
 ## ##subsec Glossary
 
