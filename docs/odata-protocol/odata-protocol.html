@@ -481,10 +481,62 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></h2>
-<!-- TODO -->
-
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-
+<table>
+<thead>
+<tr class="header">
+<th>OASIS issue</th>
+<th>Description</th>
+<th>GitHub commit containing the changes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1360">ODATA-1360</a></td>
+<td>Clarify that clients have to do content-ID replacing to interpret Location headers in batch results</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1450">ODATA-1450</a></td>
+<td>Key with PropertyRef using navigation path incompatible with Protocol 11.4.2 "Create an Entity"</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1485">ODATA-1485</a></td>
+<td>Clarify canonical URLs for stream properties</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1530">ODATA-1530</a></td>
+<td>Specify when and how stream valued properties are included</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1564">ODATA-1564</a></td>
+<td>Protocol 11.7.7.1 misleading text on request formats</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1568">ODATA-1568</a></td>
+<td>Allow handling of in-stream errors on protocol level</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1576">ODATA-1576</a></td>
+<td>Consistently use "instances of structured types" instead of "structured instances"</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1578">ODATA-1578</a></td>
+<td>Consistently use "annotated with the term" instead of "annotated with term"</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1582">ODATA-1582</a></td>
+<td>Mention use of ETag with bound function: only process if binding entity matches ETag</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a></h3>
 <h3 id="122-acronyms-and-abbreviations"><a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></h3>
@@ -561,7 +613,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="4-service-model"><a name="ServiceModel" href="#ServiceModel">4 Service Model</a></h1>
 <p>OData services are defined using a common data model. The service advertises its concrete data model in a machine-readable form, allowing generic clients to interact with the service in a well-defined way.</p>
 <p>An OData service exposes two well-defined resources that describe its data model; a service document and a metadata document.</p>
-<p>The <a href="#ServiceDocumentRequest"><em>service document</em></a> lists entity sets, functions, and singletons that can be retrieved. Clients can use the service document to navigate the model in a hypermedia-driven fashion.</p>
+<p>The <a href="#ServiceDocumentRequest"><em>service document</em></a>lists entity sets, functions, and singletons that can be retrieved. Clients can use the service document to navigate the model in a hypermedia-driven fashion.</p>
 <p>The <a href="#MetadataDocumentRequest"><em>metadata document</em></a> describes the types, sets, functions and actions understood by the OData service. Clients can use the metadata document to understand how to query and interact with entities in the service.</p>
 <p>In addition to these two "fixed" resources, an OData service consists of dynamic resources. The URLs for many of these resources can be computed from the information in the metadata document.</p>
 <p>See <a href="#RequestingData">Requesting Data</a> and <a href="#DataModification">Data Modification</a> for details.</p>
@@ -621,9 +673,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In many cases OData services return URLs to identify resources that are later requested by clients. Where possible, interoperability is enhanced by providing all identifying information in the path portion of the URL. However, clients should be prepared for such URLs to include custom query options and propagate any such custom query options in future requests to the identified resource.</p>
 <h2 id="62-payload-extensibility"><a name="PayloadExtensibility" href="#PayloadExtensibility">6.2 Payload Extensibility</a></h2>
 <p>OData supports extensibility in the payload, according to the specific format.</p>
-<p>Regardless of the format, additional content MUST NOT be present if it needs to be understood by the receiver in order to correctly interpret the payload according to the specified <a href="#HeaderODataVersion"><code>OData-Version</code></a> header. Thus, clients and services MUST be prepared to handle or safely ignore any content not specifically defined in the version of the payload specified by the <code>OData-Version</code> header.</p>
+<p>Regardless of the format, additional content MUST NOT be present if it needs to be understood by the receiver in order to correctly interpret the payload according to the specified <a href="#HeaderODataVersion">OData-Version</a> header. Thus, clients and services MUST be prepared to handle or safely ignore any content not specifically defined in the version of the payload specified by the <code>OData-Version</code>[<code> </code>]{.Hyperlink1}header.</p>
 <h2 id="63-actionfunction-extensibility"><a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a></h2>
-<p><a href="#Actions">Actions</a> and <a href="#Functions">Functions</a> extend the set of operations that can be performed on or with a service or resource. Actions can have side-effects. For example, Actions can be used to modify data or to invoke custom operations. Functions MUST NOT have side-effects. Functions can be invoked from a URL that addresses a resource or within an expression to a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
+<p><a href="#Actions">Actions</a> and <a href="#Functions">Functions</a> extend the set of operations that can be performed on or with a service or resource. [Actions]{.Hyperlink1} can have side-effects. For example, [Actions]{.Hyperlink1} can be used to modify data or to invoke custom operations. Functions MUST NOT have side-effects. Functions can be invoked from a URL that addresses a resource or within an expression to a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
 <p>Fully qualified action and function names include a namespace or alias prefix. The <code>Edm</code>, <code>odata</code> and <code>geo</code> namespaces are reserved for the use of this specification.</p>
 <p>An OData service MUST fail any request that contains actions or functions that it does not understand.</p>
 <h2 id="64-vocabulary-extensibility"><a name="VocabularyExtensibility" href="#VocabularyExtensibility">6.4 Vocabulary Extensibility</a></h2>
@@ -640,7 +692,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An OData service MUST support <a href="#ODataJSON">OData-JSON</a> and MAY support additional formats for both request and response bodies.</p>
 <hr />
 <h1 id="7-formats"><a name="Formats" href="#Formats">7 Formats</a></h1>
-<p>The client MAY request a particular response format through the <a href="#HeaderAccept"><code>Accept</code></a> header, as defined in <a href="#rfc7231">RFC7231</a>, or through the system query option <a href="#SystemQueryOptionformat"><code>$format</code></a>.</p>
+<p>The client MAY request a particular response format through the <a href="#HeaderAccept"><code>Accept</code></a> header, as defined in <a href="#rfc7231">RFC7231</a>, or through the system query option <a href="#SystemQueryOptionformat">$format</a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> system query option are specified on a request, the value specified in the <code>$format</code> query option MUST be used.</p>
 <p>If the service does not support the requested format, it replies with a <a href="#ResponseCode406NotAcceptable"><code>406 Not Acceptable</code></a> error response.</p>
 <p>Services SHOULD advertise their supported formats in the metadata document by annotating their entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a>, as defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>

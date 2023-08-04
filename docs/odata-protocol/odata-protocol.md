@@ -342,8 +342,17 @@ resource representations that are exchanged using OData.
 
 ## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+OASIS issue|Description|GitHub commit containing the changes
+-----------|-----------|------------------------------------
+[ODATA-1360](https://issues.oasis-open.org/browse/ODATA-1360)|Clarify that clients have to do content-ID replacing to interpret Location headers in batch results|
+[ODATA-1450](https://issues.oasis-open.org/browse/ODATA-1450)|Key with PropertyRef using navigation path incompatible with Protocol 11.4.2 "Create an Entity"|
+[ODATA-1485](https://issues.oasis-open.org/browse/ODATA-1485)|Clarify canonical URLs for stream properties|
+[ODATA-1530](https://issues.oasis-open.org/browse/ODATA-1530)|Specify when and how stream valued properties are included|
+[ODATA-1564](https://issues.oasis-open.org/browse/ODATA-1564)|Protocol 11.7.7.1 misleading text on request formats|
+[ODATA-1568](https://issues.oasis-open.org/browse/ODATA-1568)|Allow handling of in-stream errors on protocol level|
+[ODATA-1576](https://issues.oasis-open.org/browse/ODATA-1576)|Consistently use "instances of structured types" instead of "structured instances"|
+[ODATA-1578](https://issues.oasis-open.org/browse/ODATA-1578)|Consistently use "annotated with the term" instead of "annotated with term"|
+[ODATA-1582](https://issues.oasis-open.org/browse/ODATA-1582)|Mention use of ETag with bound function: only process if binding entity matches ETag|
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -538,7 +547,7 @@ generic clients to interact with the service in a well-defined way.
 An OData service exposes two well-defined resources that describe its
 data model; a service document and a metadata document.
 
-The [*service document*](#ServiceDocumentRequest) lists entity sets,
+The [*service document*](#ServiceDocumentRequest)lists entity sets,
 functions, and singletons that can be retrieved. Clients can use the
 service document to navigate the model in a hypermedia-driven fashion.
 
@@ -768,17 +777,17 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[`OData-Version`](#HeaderODataVersion) header. Thus, clients and services
+[OData-Version](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-`OData-Version` header.
+`OData-Version`[` `]{.Hyperlink1}header.
 
 ## <a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a>
 
 [Actions](#Actions) and [Functions](#Functions) extend the set of
 operations that can be performed on or with a service or resource.
-Actions can have side-effects. For example,
-Actions can be used to modify data or to invoke custom
+[Actions]{.Hyperlink1} can have side-effects. For example,
+[Actions]{.Hyperlink1} can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
 invoked from a URL that addresses a resource or within an expression to
 a [`$filter`](#SystemQueryOptionfilter) or
@@ -844,7 +853,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
 [RFC7231](#rfc7231), or through the system query option
-[`$format`](#SystemQueryOptionformat).
+[\$format](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
 option are specified on a request, the value specified in the `$format`
