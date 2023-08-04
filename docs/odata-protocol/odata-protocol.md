@@ -96,11 +96,11 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from earlier Versions](#ChangesfromearlierVersions)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
-    - [1.2.1 Definitions of terms](#Definitionsofterms)
-    - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
-    - [1.2.3 Document conventions](#Documentconventions)
+    - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
+    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
+    - [1.2.3 Document Conventions](#DocumentConventions)
 - [2 Overview](#Overview)
 - [3 Data Model](#DataModel)
   - [3.1 Annotations](#Annotations)
@@ -251,7 +251,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.6.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
       - [11.4.6.2 Remove a Reference to an Entity](#RemoveaReferencetoanEntity)
       - [11.4.6.3 Change the Reference in a Single-Valued Navigation Property](#ChangetheReferenceinaSingleValuedNavigationProperty)
-      - [11.4.6.4 Replace all References in a Collection-valued Navigation Property](#ReplaceallReferencesinaCollectionvaluedNavigationProperty)
+      - [11.4.6.4 Replace all References in a Collection-Valued Navigation Property](#ReplaceallReferencesinaCollectionValuedNavigationProperty)
     - [11.4.7 Managing Media Entities](#ManagingMediaEntities)
       - [11.4.7.1 Create a Media Entity](#CreateaMediaEntity)
       - [11.4.7.2 Update a Media Entity Stream](#UpdateaMediaEntityStream)
@@ -340,20 +340,20 @@ representation of the entity data model exposed by an OData service.
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
 resource representations that are exchanged using OData.
 
-## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
+### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -4577,7 +4577,7 @@ of an entity type, it cannot be changed and the request MUST fail with
 [`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed) or an other
 appropriate error.
 
-#### <a name="ReplaceallReferencesinaCollectionvaluedNavigationProperty" href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a>
+#### <a name="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a>
 
 A successful `PUT` request to a collection-valued navigation property's
 reference resource replaces the set of related entities. The request

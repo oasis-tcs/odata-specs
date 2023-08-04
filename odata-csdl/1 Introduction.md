@@ -28,13 +28,13 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Glossary
 
-### ##subsubsec Definitions of terms
+### ##subsubsec Definitions of Terms
 
-### ##subsubsec Acronyms and abbreviations
+### ##subsubsec Acronyms and Abbreviations
 
 <!-- TODO -->
 
-### ##subsubsec Document conventions
+### ##subsubsec Document Conventions
 
 Keywords defined by this specification use `this  monospaced  font`.
 

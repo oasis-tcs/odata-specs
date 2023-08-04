@@ -1,7 +1,6 @@
 name: Node CI
 
-on: 
-  push:
+on: push
 
 jobs:
   build:
@@ -28,7 +27,7 @@ jobs:
           npm run build
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
-          git add docs/*/*.html docs/*/*.md docs/*/styles/*
+          git add docs/index.md docs/*/*.html docs/*/*.md docs/*/styles/*
           for dir in docs/*/ # list directories in the form "docs/dirname/"
           do
               doc=${dir%/}   # remove the trailing "/"
