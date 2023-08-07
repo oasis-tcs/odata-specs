@@ -21,22 +21,27 @@ Services are encouraged to follow the URL construction conventions
 defined in this specification when possible as consistency promotes an
 ecosystem of reusable client components and libraries.
 
-## ##subsec Changes from earlier Versions
+## ##subsec Changes from Earlier Versions
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## ##subsec Glossary
 
-### ##subsubsec Definitions of terms
+### ##subsubsec Definitions of Terms
 
-### ##subsubsec Acronyms and abbreviations
+### ##subsubsec Acronyms and Abbreviations
 
 <!-- TODO -->
 
-### ##subsubsec Document conventions
+### ##subsubsec Document Conventions
 
 Keywords defined by this specification use `this  monospaced  font`.
+
+Function signatures in this specification use the following paragraph style:
+```
+Type FunctionName(Type Param1, Type Param2)
+```
 
 Some sections of this specification are illustrated with non-normative examples.
 

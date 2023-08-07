@@ -69,7 +69,7 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
@@ -6675,7 +6675,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 

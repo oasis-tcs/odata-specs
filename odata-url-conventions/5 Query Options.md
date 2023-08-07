@@ -57,7 +57,7 @@ it is prefixed with a `$`, MUST NOT be specified more than once for any
 resource.
 
 The semantics of all system query options are defined in the
-[OData-Protocol] document.
+[OData-Protocol](#ODataProtocol) document.
 
 The grammar and syntax rules for system query options are defined in
 [OData-ABNF](#ODataABNF).
@@ -537,8 +537,7 @@ signatures:
 ```
 Edm.String concat(Edm.String,Edm.String)
 Collection concat(Collection,Collection)
-OrderedCollection
-concat(OrderedCollection,OrderedCollection)
+OrderedCollection concat(OrderedCollection,OrderedCollection)
 ```
 
 The `concat` function with string parameter values returns a string that
@@ -554,8 +553,8 @@ is invoked.
 ::: example
 Example ##ex: all customers from Berlin, Germany
 ```
-http://host/service/Customers?$filter=concat(concat(City,',
-'),Country) eq 'Berlin, Germany'
+http://host/service/Customers?$filter=concat(concat(City,', '),
+Country) eq 'Berlin, Germany'
 ```
 :::
 
@@ -566,8 +565,7 @@ signatures:
 
 ```
 Edm.Boolean contains(Edm.String,Edm.String)
-Edm.Boolean
-contains(OrderedCollection,OrderedCollection)
+Edm.Boolean contains(OrderedCollection,OrderedCollection)
 ```
 
 The `contains` function with string parameter values returns true if the
@@ -598,8 +596,7 @@ signatures:
 
 ```
 Edm.Boolean endswith(Edm.String,Edm.String)
-Edm.Boolean
-endswith(OrderedCollection,OrderedCollection)
+Edm.Boolean endswith(OrderedCollection,OrderedCollection)
 ```
 
 The `endswith` function with string parameter values returns true if the
@@ -723,8 +720,7 @@ signatures:
 Edm.String substring(Edm.String,Edm.Int32)
 Edm.String substring(Edm.String,Edm.Int32,Edm.Int32)
 OrderedCollection substring(OrderedCollection,Edm.Int32)
-OrderedCollection
-substring(OrderedCollection,Edm.Int32,Edm.Int32)
+OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)
 ```
 
 The two-argument `substring` function with string parameter values
@@ -1007,8 +1003,7 @@ non-negative decimal value less than 1. The
 Example ##ex: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
-http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt
-0.1]{lang="DE" style="color:black"}
+http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1
 ```
 :::
 
@@ -1302,13 +1297,13 @@ object referred to by the expression cast to the type specified.
 The `cast` function follows these assignment rules:
 
 1.  The `null` value can be cast to any type.
-2.  Primitive types are cast to `Edm.String` or a type definition based on it by using the literal representation used in payloads, and WKT well-known
-    text `format` for `Geo`, see rules
+2.  Primitive types are cast to `Edm.String` or a type definition based on it by using the literal representation used in payloads, and WKT (well-known
+    text) format for `Geo` types, see rules
     `fullCollectionLiteral`, `fullLineStringLiteral`,
     `fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
     `fullMultiPolygonLiteral`, `fullPointLiteral`, and
     `fullPolygonLiteral` in
-    [OData-ABNF](#ODataABNF)`. The cast fails if the target type specifies an insufficient `MaxLength`.
+    [OData-ABNF](#ODataABNF). The cast fails if the target type specifies an insufficient `MaxLength`.
 3.  `Edm.String`, or a type definition based on `Edm.String`, can be cast to a primitive type if the string contains a literal representation for the target type.
 4.  Numeric primitive types are cast to each other with appropriate rounding. The cast fails if the integer part doesn't fit into the target type.
 5.  `Edm.DateTimeOffset`, `Edm.Duration`, and `Edm.TimeOfDay` values can be cast to the same type with a different precision with appropriate rounding.
@@ -1370,8 +1365,7 @@ The `geo.distance` function has the following signatures:
 
 ```
 Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
-Edm.Double
-geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)
+Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)
 ```
 
 The `geo.distance` function returns the shortest distance between the
@@ -1384,8 +1378,7 @@ The `geo.intersects` function has the following signatures:
 
 ```
 Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
-Edm.Boolean
-geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
+Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
 ```
 
 The `geo.intersects` function returns true if the specified point lies
@@ -1537,7 +1530,6 @@ according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 Example ##ex: expressions using primitive literals
 ```
 NullValue eq null
-:::
 
 TrueValue eq true
 
@@ -1569,14 +1561,15 @@ GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
 
 Int64Value eq 0
 
-ColorEnumValue eq `Sales.Pattern'Yellow'`,
+ColorEnumValue eq Sales.Pattern'Yellow',
 
-ColorEnumValue eq `'Yellow'`,
+ColorEnumValue eq 'Yellow',
 
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
+:::
 
-Duration literals in OData 4.0 required prefixing with "duration".
+Duration literals in OData 4.0 required prefixing with "`duration`".
 Enumeration literals in OData 4.0 required prefixing with the qualified
 type name of the enumeration.
 
@@ -1613,8 +1606,7 @@ http://host/service/ProductsByColors(colors=@c)?@c=["red","green"]
 Example ##ex: check whether a pair of properties has one of several
 possible pair values
 ```
-$filter=[FirstName,LastName] in
-[["John","Doe"],["Jane","Smith"]]
+$filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
@@ -1799,7 +1791,7 @@ Example ##ex: Return Employees that have any error messages in the
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity
-eq `'`error`'`)
+eq 'error')
 ```
 :::
 
@@ -1807,7 +1799,7 @@ Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol].
+default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
 alias](#ParameterAliases), then any occurrence of the parameter alias
@@ -2078,7 +2070,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example ##ex: Include the `Product’s `media stream along with other
+Example ##ex: Include the `Product`'s media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -2195,7 +2187,7 @@ complex type (and so on for nested complex types).
 Example ##ex: the `AccountRepresentative` property of any supplier that
 is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
-`Address, and the Location property of the derived complex type Namespace.AddressWithLocation`
+`Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
 http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
@@ -2225,9 +2217,9 @@ omitted from the response.
 
 Annotations requested in `$select` MUST be included in the response;
 `$select` overrules the `include-annotations` preference (see
-[OData-Protocol]) for the explicitly requested annotations.
+[OData-Protocol](#ODataProtocol)) for the explicitly requested annotations.
 Additional annotations matching the preference can be included even if
-not requested via `$select`. The `Preference-Applied response` header
+not requested via `$select`. The `Preference-Applied` response header
 only reflects the set of annotations included due to the
 `include-annotations` preference and not those only included due to
 `$select`.
@@ -2268,7 +2260,7 @@ the component is treated as `null` as well.
 The `$orderby` system query option allows clients to request resources
 in a particular order.
 
-The semantics of `$orderby` are covered in the [OData-Protocol]
+The semantics of `$orderby` are covered in the [OData-Protocol](#ODataProtocol)
 document.
 
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
@@ -2283,7 +2275,7 @@ to be skipped and not included in the result. A client can request a
 particular page of items by combining `$top` and `$skip`.
 
 The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol] document. The [OData-ABNF](#ODataABNF) `top`
+[OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip `query options respectively.
 
@@ -2293,7 +2285,7 @@ The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
 `$count` query option has a Boolean value of `true` or `false`.
 
-The semantics of `$count` is covered in the [OData-Protocol]
+The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
 document.
 
 ### ##subsubsec System Query Option `$search`
@@ -2368,7 +2360,7 @@ in a particular format and is useful for clients without access to
 request headers for standard content-type negotiation. Where present
 `$format` takes precedence over standard content-type negotiation.
 
-The semantics of `$format` is covered in the [OData-Protocol]
+The semantics of `$format` is covered in the [OData-Protocol](#ODataProtocol)
 document.
 
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
@@ -2426,7 +2418,7 @@ grammar of the `$index` query option.
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol] document.
+of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
 
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
@@ -2458,7 +2450,7 @@ Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
-[OData-Protocol]. The [OData-ABNF](#ODataABNF) rule
+[OData-Protocol](#ODataProtocol). The [OData-ABNF](#ODataABNF) rule
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
@@ -2472,8 +2464,7 @@ http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ::: example
 Example ##ex:
 ```
-http://host/service/Movies?$filter=Title eq @title&@title='Wizard of
-Oz'
+http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
@@ -2491,4 +2482,4 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots"
 # ##sec Conformance
 
 The conformance requirements for OData clients and services are
-described in [OData-Protocol].
+described in [OData-Protocol](#ODataProtocol).

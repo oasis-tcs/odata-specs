@@ -331,7 +331,7 @@ http://host/service/$entity?$id=Products(0)
 ```
 :::
 
-The semantics of `$entity` are covered in the [OData-Protocol]((#ODataProtocol))
+The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
 document.
 
 ### ##subsubsec Alternate Keys
@@ -425,7 +425,7 @@ such
 2. matches a qualified bound function, bound action, or type name,
 treat it as such
 3. matches an unqualified bound function, bound action, or type name
-defined in a default namespace (see [OData-Protocol]((#ODataProtocol))) treat it
+defined in a default namespace (see [OData-Protocol](#ODataProtocol)) treat it
 as such
 4. treat as a key value
 
@@ -467,7 +467,7 @@ addressing a collection of references MUST be followed by the system
 query option `$id` in order to identify a single entity reference within
 the collection to be removed. The entity-id specified by `$id` may be
 expressed absolute or relative to the request URL. For details see
-[OData-Protocol]((#ODataProtocol)).
+[OData-Protocol](#ODataProtocol).
 
 ::: example
 Example ##ex: three ways of unrelating `Categories(1)` and
@@ -484,14 +484,14 @@ DELETE http://host/service/Products(0)/Category/$ref
 ## ##subsec Addressing Operations
 
 The semantic rules for addressing and invoking actions and functions are
-defined in the [OData-Protocol]((#ODataProtocol)) document.
+defined in the [OData-Protocol](#ODataProtocol) document.
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
 defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol]((#ODataProtocol)).
+default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
 ### ##subsubsec Addressing Actions
 
@@ -538,7 +538,7 @@ syntax rules define the grammar for invoking functions to help filter
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol]((#ODataProtocol)).
+Alias Syntax, see [OData-Protocol](#ODataProtocol).
 
 ## ##subsec Addressing a Property
 
@@ -682,7 +682,7 @@ derived type in a URL by defining one or more default namespaces through
 the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol]((#ODataProtocol)).
+default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
 Services MAY also support treating an instance as a type outside of the
 type hierarchy using the same syntax and semantics as when addressing a

@@ -84,7 +84,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 

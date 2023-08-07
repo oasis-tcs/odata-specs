@@ -145,7 +145,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [<a href="#rfc2119">RFC2119</a>] and [<a href="#rfc8174">RFC8174</a>] when, and only when, they appear in all capitals, as shown here.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-v4.02-Part2]</strong></p>
@@ -161,12 +161,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><a href="#Introduction">1 Introduction</a>
 <ul>
-<li><a href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></li>
+<li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
 <li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#Definitionsofterms">1.2.1 Definitions of terms</a></li>
-<li><a href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></li>
-<li><a href="#Documentconventions">1.2.3 Document conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#URLComponents">2 URL Components</a>
@@ -361,18 +361,20 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in a data model, to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators, which if accepted by an OData service, MUST be implemented as required by this document.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the format of the resource representations that are exchanged using OData and the <a href="#ODataProtocol">OData-Protocol</a> document describes the actions that can be performed on the URLs (optionally constructed following the conventions defined in this document) embedded in those representations.</p>
 <p>Services are encouraged to follow the URL construction conventions defined in this specification when possible as consistency promotes an ecosystem of reusable client components and libraries.</p>
-<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></h2>
+<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
 <!-- TODO -->
 
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
-<h3 id="121-definitions-of-terms"><a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a></h3>
-<h3 id="122-acronyms-and-abbreviations"><a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></h3>
+<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 <!-- TODO -->
 
-<h3 id="123-document-conventions"><a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a></h3>
+<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
+<p>Function signatures in this specification use the following paragraph style:</p>
+<pre><code>Type FunctionName(Type Param1, Type Param2)</code></pre>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
@@ -614,7 +616,7 @@ http://host/service`/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <p>Example 23: request the entity representation for an entity-id</p>
 <pre><code>http://host/service/$entity?$id=Products(0)</code></pre>
 </div>
-<p>The semantics of <code>$entity</code> are covered in the <a href="(#ODataProtocol)">OData-Protocol</a> document.</p>
+<p>The semantics of <code>$entity</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <h3 id="435-alternate-keys"><a name="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a></h3>
 <p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Entities can be addressed via an alternate key using the same parentheses-style convention as for the canonical key, with one difference: single-part alternate keys MUST specify the key property name to unambiguously determine the alternate key.</p>
 <div class="example">
@@ -655,7 +657,7 @@ https://host/service/OrderItems/1/2</code></pre>
 <ol type="1">
 <li>matches a defined OData segment (starting with "<code>$</code>"), treat it as such</li>
 <li>matches a qualified bound function, bound action, or type name, treat it as such</li>
-<li>matches an unqualified bound function, bound action, or type name defined in a default namespace (see <a href="(#ODataProtocol)">OData-Protocol</a>) treat it as such</li>
+<li>matches an unqualified bound function, bound action, or type name defined in a default namespace (see <a href="#ODataProtocol">OData-Protocol</a>) treat it as such</li>
 <li>treat as a key value</li>
 </ol>
 <p>For maximum interoperability, services that support the key-as-segment convention SHOULD also support the canonical <a href="#CanonicalURL">parentheses-style convention</a> for addressing an entity within a collection, otherwise they MUST specify the URL for each returned entity in a response, as specified by the particular format.</p>
@@ -667,7 +669,7 @@ https://host/service/OrderItems/1/2</code></pre>
 <p>Example 28: URL addressing the references between <code>Categories(1)</code> and <code>Products</code></p>
 <pre><code>http://host/service/Categories(1)/Products/$ref</code></pre>
 </div>
-<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="(#ODataProtocol)">OData-Protocol</a>.</p>
+<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <div class="example">
 <p>Example 29: three ways of unrelating <code>Categories(1)</code> and <code>Products(0)</code>; the second option is supported only in OData 4.01</p>
 <pre><code>DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
@@ -677,8 +679,8 @@ DELETE http://host/service/Categories(1)/Products(0)/$ref
 DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <h2 id="45-addressing-operations"><a name="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
-<p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="(#ODataProtocol)">OData-Protocol</a> document.</p>
-<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="(#ODataProtocol)">OData-Protocol</a>.</p>
+<p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <h3 id="451-addressing-actions"><a name="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a></h3>
 <p>The grammar for addressing and invoking actions is defined by the following syntax grammar rules in <a href="#ODataABNF">OData-ABNF</a>:</p>
 <ul>
@@ -693,7 +695,7 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 <li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
 <li>The <code>boundOperation</code> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
 <li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>filter</code> and <code>orderby</code> syntax rules define the grammar for invoking functions to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
-<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="(#ODataProtocol)">OData-Protocol</a>.</li>
+<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ul>
 <h2 id="46-addressing-a-property"><a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a></h2>
 <p>To address an entity property clients append a path segment containing the property name to the URL of the entity. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
@@ -740,7 +742,7 @@ gt 5.00) gt 2</code></pre>
 <h2 id="411-addressing-derived-types"><a name="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a></h2>
 <p>Any resource path or path expression identifying a collection of entities or complex type instances can be appended with a path segment containing the qualified name of a type derived from the declared type of the collection. The result will be restricted to instances of the derived type and may be empty.</p>
 <p>Any resource path or path expression identifying a single entity or complex type instance can be appended with a path segment containing the qualified name of a type derived from the declared type of the identified resource. If used in a resource path and the identified resource is not an instance of the derived type, the request will result in a <code>404 Not Found</code> response. If used in a path expression that is part of a Boolean expression, the type cast will evaluate to <code>null</code>.</p>
-<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="(#ODataProtocol)">OData-Protocol</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>Services MAY also support treating an instance as a type outside of the type hierarchy using the same syntax and semantics as when addressing a derived type. In this case, the set and values of properties of the addressed type may be different than the properties of the source type. The set of such possible target types outside of the type hierarchy SHOULD be called out using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MayImplement"><code>Core.MayImplement</code></a> annotation term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <div class="example">
 <p>Example 36: entity set restricted to <code>VipCustomer</code> instances</p>
@@ -809,24 +811,24 @@ gt 80</code></pre>
 <pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq
 Sales/ProductID                </code></pre>
 <p>and would result in</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="416-addressing-all-entities-in-a-service"><a name="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a></h2>
 <p>The symbolic resource <code>$all</code>, located at the service root, identifies the collection of all entities in a service, i.e. the union of all entity sets plus all singletons.</p>
@@ -869,7 +871,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>System query options SHOULD NOT be applied to a <code>DELETE</code> request.</p>
 <p>An OData service may support some or all of the system query options defined. If a data service does not support a system query option, it MUST reject any request that contains the unsupported option.</p>
 <p>The same system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once for any resource.</p>
-<p>The semantics of all system query options are defined in the [OData-Protocol] document.</p>
+<p>The semantics of all system query options are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The grammar and syntax rules for system query options are defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Dynamic properties can be used in the same way as declared properties. If they are not defined on an instance, they evaluate to <code>null</code>.</p>
 <h3 id="511-common-expression-syntax"><a name="CommonExpressionSyntax" href="#CommonExpressionSyntax">5.1.1 Common Expression Syntax</a></h3>
@@ -1066,21 +1068,19 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The <code>concat</code> function has three overloads, with the following signatures:</p>
 <pre><code>Edm.String concat(Edm.String,Edm.String)
 Collection concat(Collection,Collection)
-OrderedCollection
-concat(OrderedCollection,OrderedCollection)</code></pre>
+OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>concat</code> function with string parameter values returns a string that appends the second parameter string value to the first.</p>
 <p>The concat function with collection parameter values returns a collection that appends all items of the second collection to the first. If both collections are ordered, the result is also ordered.</p>
 <p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
 <p>Example 69: all customers from Berlin, Germany</p>
-<pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;,
-&#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),
+Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
 <h5 id="51152-contains"><a name="contains" href="#contains">5.1.1.5.2 <code>contains</code></a></h5>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean contains(Edm.String,Edm.String)
-Edm.Boolean
-contains(OrderedCollection,OrderedCollection)</code></pre>
+Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function with string parameter values returns true if the second string is a substring of the first string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
@@ -1091,8 +1091,7 @@ contains(OrderedCollection,OrderedCollection)</code></pre>
 <h5 id="51153-endswith"><a name="endswith" href="#endswith">5.1.1.5.3 <code>endswith</code></a></h5>
 <p>The <code>endswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean endswith(Edm.String,Edm.String)
-Edm.Boolean
-endswith(OrderedCollection,OrderedCollection)</code></pre>
+Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with string parameter values returns true if the first string ends with the second string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
@@ -1139,8 +1138,7 @@ Edm.Boolean startswith(Collection,Collection)</code></pre>
 <pre><code>Edm.String substring(Edm.String,Edm.Int32)
 Edm.String substring(Edm.String,Edm.Int32,Edm.Int32)
 OrderedCollection substring(OrderedCollection,Edm.Int32)
-OrderedCollection
-substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
+OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The two-argument <code>substring</code> function with string parameter values returns a substring of the first parameter string value, starting at the Nth character and finishing at the last character (where N is the second parameter integer value). The three-argument <code>substring</code> function with string parameter values returns a substring of the first parameter string value identified by selecting up to M characters starting at the Nth character (where N is the second parameter integer value and M is the third parameter integer value).</p>
 <p>The two-argument <code>substring</code> function with ordered collection parameter values returns an ordered collection consisting of all items of the first collection starting at the Nth item and finishing at the last item. The three-argument <code>substring</code> function with ordered collection parameter values returns an ordered collection consisting of up to M items of the first collection starting at the Nth item (where N is the second parameter integer value and M is the third parameter integer value).</p>
 <p>The start index N is zero-based.</p>
@@ -1259,8 +1257,7 @@ Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
 <p>The <code>fractionalseconds</code> function returns the fractional seconds component of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value as a non-negative decimal value less than 1. The <code>fractionalsecondsMethodCallExpr</code> syntax rule defines how the <code>fractionalseconds</code> function is invoked.</p>
 <div class="example">
 <p>Example 86: all employees born less than 100 milliseconds after a full second of any minute of any hour on any day</p>
-<pre><code>http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt
-0.1]{lang=&quot;DE&quot; style=&quot;color:black&quot;}</code></pre>
+<pre><code>http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1</code></pre>
 </div>
 <h5 id="51184-hour"><a name="hour" href="#hour">5.1.1.8.4 <code>hour</code></a></h5>
 <p>The <code>hour</code> function has the following signatures:</p>
@@ -1373,7 +1370,7 @@ type cast(expression,type)</code></pre>
 <p>The <code>cast</code> function follows these assignment rules:</p>
 <ol type="1">
 <li>The <code>null</code> value can be cast to any type.</li>
-<li>Primitive types are cast to <code>Edm.String</code> or a type definition based on it by using the literal representation used in payloads, and WKT well-known text <code>format</code> for <code>Geo</code>, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a><code>. The cast fails if the target type specifies an insufficient </code>MaxLength`.</li>
+<li>Primitive types are cast to <code>Edm.String</code> or a type definition based on it by using the literal representation used in payloads, and WKT (well-known text) format for <code>Geo</code> types, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. The cast fails if the target type specifies an insufficient <code>MaxLength</code>.</li>
 <li><code>Edm.String</code>, or a type definition based on <code>Edm.String</code>, can be cast to a primitive type if the string contains a literal representation for the target type.</li>
 <li>Numeric primitive types are cast to each other with appropriate rounding. The cast fails if the integer part doesn't fit into the target type.</li>
 <li><code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, and <code>Edm.TimeOfDay</code> values can be cast to the same type with a different precision with appropriate rounding.</li>
@@ -1406,14 +1403,12 @@ http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)</code></pre
 <h5 id="511111-geodistance"><a name="geodistance" href="#geodistance">5.1.1.11.1 <code>geo.distance</code></a></h5>
 <p>The <code>geo.distance</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
-Edm.Double
-geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
+Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
 <p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points' SRIDs.</p>
 <h5 id="511112-geointersects"><a name="geointersects" href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></h5>
 <p>The <code>geo.intersects</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
-Edm.Boolean
-geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
+Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
 <p>The <code>geo.intersects</code> function returns true if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns false.</p>
 <h5 id="511113-geolength"><a name="geolength" href="#geolength">5.1.1.11.3 <code>geo.length</code></a></h5>
 <p>The <code>geo.length</code> function has the following signatures:</p>
@@ -1467,1127 +1462,743 @@ ne UnitPrice)</code></pre>
 <p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <code>primitiveLiteral</code> rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <div class="example">
 <p>Example 102: expressions using primitive literals</p>
-<pre><code>NullValue eq null</code></pre>
+<pre><code>NullValue eq null
+
+TrueValue eq true
+
+FalseValue eq false
+
+Custom.Base64UrlDecode(binary&#39;T0RhdGE&#39;) eq &#39;OData&#39;
+
+IntegerValue lt -128
+
+DoubleValue ge 0.31415926535897931e1
+
+SingleValue eq INF
+
+DecimalValue eq 34.95
+
+StringValue eq &#39;Say Hello,then go&#39;
+
+DateValue eq 2012-12-03
+
+DateTimeOffsetValue eq 2012-12-03T07:16:23Z
+
+DurationValue eq duration&#39;P12DT23H59M59.999999999999S&#39;
+
+DurationValue eq &#39;P12DT23H59M59.999999999999S&#39;
+
+TimeOfDayValue eq 07:59:59.999
+
+GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
+
+Int64Value eq 0
+
+ColorEnumValue eq Sales.Pattern&#39;Yellow&#39;,
+
+ColorEnumValue eq &#39;Yellow&#39;,
+
+geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
-<p>TrueValue eq true</p>
-<p>FalseValue eq false</p>
-<p>Custom.Base64UrlDecode(binary'T0RhdGE') eq 'OData'</p>
-<p>IntegerValue lt -128</p>
-<p>DoubleValue ge 0.31415926535897931e1</p>
-<p>SingleValue eq INF</p>
-<p>DecimalValue eq 34.95</p>
-<p>StringValue eq 'Say Hello,then go'</p>
-<p>DateValue eq 2012-12-03</p>
-<p>DateTimeOffsetValue eq 2012-12-03T07:16:23Z</p>
-<p>DurationValue eq duration'P12DT23H59M59.999999999999S'</p>
-<p>DurationValue eq 'P12DT23H59M59.999999999999S'</p>
-<p>TimeOfDayValue eq 07:59:59.999</p>
-<p>GuidValue eq 01234567-89ab-cdef-0123-456789abcdef</p>
-<p>Int64Value eq 0</p>
-<p>ColorEnumValue eq <code>Sales.Pattern'Yellow'</code>,</p>
-<p>ColorEnumValue eq <code>'Yellow'</code>,</p>
-<p>geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')</p>
-<pre><code>
-Duration literals in OData 4.0 required prefixing with &quot;duration&quot;.
-Enumeration literals in OData 4.0 required prefixing with the qualified
-type name of the enumeration.
-
-In OData 4.01, services MUST support duration and enumeration literals
-with or without the type prefix. OData clients that want to operate
-across OData 4.0 and OData 4.01 services should always include the
-prefix for duration and enumeration types.
-
-##### &lt;a name=&quot;ComplexandCollectionLiterals&quot; href=&quot;#ComplexandCollectionLiterals&quot;&gt;5.1.1.14.2 Complex and Collection Literals&lt;/a&gt;
-
-Complex literals and collection literals in URLs are represented as JSON
-objects and arrays according to the `arrayOrObject` rule in
-[OData-ABNF](#ODataABNF). Such literals MUST NOT appear in the path
-portion of the URL but can be passed to bound
-[functions](#AddressingFunctions) and function imports in path segments
-by using [parameter aliases](#ParameterAliases).
-
-Object member values and array items can be expressions, including other
-objects and arrays, arithmetic expressions, property names, and of
-course primitive values.
-
-Note that the special characters `{`, `}`, `[`, `]`, and `&quot;` MUST be
-percent-encoded in URLs although some browsers will accept and pass them
-on unencoded.
-
-::: example
-Example 103: collection of string literals</code></pre>
-<p>http://host/service/ProductsByColors(colors=@c)?@c=["red","green"]</p>
-<pre><code>:::
-
-::: example
-Example 104: check whether a pair of properties has one of several
-possible pair values</code></pre>
-<p>$filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]</p>
-<pre><code>:::
-
-##### &lt;a name=&quot;null&quot; href=&quot;#null&quot;&gt;5.1.1.14.3 `null`&lt;/a&gt;
-
-The `null` literal can be used to compare a value to null, or to pass a
-null value to a function.
-
-##### &lt;a name=&quot;it&quot; href=&quot;#it&quot;&gt;5.1.1.14.4 `$it`&lt;/a&gt;
-
-The `$it` literal can be used in expressions to refer to the current
-instance of the resource identified by the resource path. For a
-collection-valued resource the current instance is the instance
-currently being evaluated by the system query option. For a
-single-valued resource it is the resource itself.
-
-It allows comparing properties of related entities to properties of the
-current instance in expressions within lambda operators or in
-[`$filter`](#SystemQueryOptionfilter) expressions nested within
-[`$expand`](#SystemQueryOptionexpand) or
-[`$select`](#SystemQueryOptionselect).
-
-It also can be used in [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby) expressions on collections of
-primitive types to refer to the current primitive instance, but using
-the [`$this`](#this) literal is preferred as [`$this`](#this) can also
-be used in [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby) expressions nested within
-[`$select`](#SystemQueryOptionselect).
-
-Note: property names and property paths in
-[`$filter`](#SystemQueryOptionfilter) expressions nested within
-[`$expand`](#SystemQueryOptionexpand) are evaluated in the context of
-the declared type of the expanded navigation property, so property names
-and property paths for the current instance of the collection identified
-by the resource path MUST be prefixed with `$it/`.
-
-The `$it` literal can also be used as a path prefix to invoke a bound
-function overload on the current instance within an expression. Function
-names without a path prefix refer to an unbound function overload.
-
-::: example
-Example 105: email addresses ending with `.com` assuming
-`EmailAddresses` is a collection of strings</code></pre>
-<p>http://host/service/Customers(1)/EmailAddresses?<span class="math inline">\(filter=endswith(\)</span>it,'.com')</p>
-<pre><code>:::
-
-::: example
-Example 106: customers along with their orders that shipped to the same
-city as the customer&#39;s address. The nested filter expression is
-evaluated in the context of Orders; `$it` allows referring to values in
-the outer context of Customers.</code></pre>
-<p>http://host/service/Customers?<span class="math inline">\(expand=Orders(\)</span>filter=$it/Address/City eq ShipTo/City)</p>
-<pre><code>:::
-
-::: example
-Example 107: products with at least 10 positive reviews.
-`Model.PositiveReviews` is a function bound to `Model.Product` returning
-a collection of reviews.</code></pre>
-<p>http://host/service/Products?<span class="math inline">\(filter=\)</span>it/Model.PositiveReviews()/$count ge 10</p>
-<pre><code>:::
-
-##### &lt;a name=&quot;root&quot; href=&quot;#root&quot;&gt;5.1.1.14.5 `$root`&lt;/a&gt;
-
-The `$root` literal can be used in expressions to refer to resources of
-the same service. It can be used as a single-valued expression or within
-[complex or collection literals](#ComplexandCollectionLiterals).
-
-::: example
-Example 108: all employees with the same last name as employee `A1235`</code></pre>
-<p>http://host/service/Employees?<span class="math inline">\(filter=LastName eq
-\)</span>root/Employees('A1245')/LastName</p>
-<pre><code>:::
-
-::: example
-Example 109: products ordered by a set of customers, where the set of
-customers is passed as a JSON array containing the resource paths from
-`$root` to each customer.</code></pre>
-<p>http://host/service/ProductsOrderedBy(Customers=@c)?@c=[<span class="math inline">\(root/Customers(&#39;ALFKI&#39;),\)</span>root/Customers('BLAUS')]</p>
-<pre><code>:::
-
-##### &lt;a name=&quot;this&quot; href=&quot;#this&quot;&gt;5.1.1.14.6 `$this`&lt;/a&gt;
-
-The `$this` literal can be used in [`$filter`](#SystemQueryOptionfilter)
-and [`$orderby`](#SystemQueryOptionorderby) expressions nested within
-[`$expand`](#SystemQueryOptionexpand) and
-[`$select`](#SystemQueryOptionselect) for collection-valued properties
-and navigation properties. It refers to the current instance of the
-collection.
-
-::: example
-Example 110: select only email addresses ending with `.com`</code></pre>
-<p>http://host/service/Customers?<span class="math inline">\(select=EmailAddresses(\)</span>filter=endswith($this,'.com'))</p>
-<pre><code>:::
-
-#### &lt;a name=&quot;PathExpressions&quot; href=&quot;#PathExpressions&quot;&gt;5.1.1.15 Path Expressions&lt;/a&gt;
-
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
-or function parameters, as shown in the preceding examples.
-
-Properties of complex properties can be used via the same syntax as in
-resource paths, i.e. by specifying the name of a complex property,
-followed by a forward slash (`/)` and the name of a property of the
-complex property, and so on,
-
-Properties and navigation properties of entities related with a target
-cardinality 0..1 or 1 can be used by specifying the navigation property,
-followed by a forward slash (`/)` and the name of a property of the
-related entity, and so on.
-
-If a complex property is `null`, or no entity is related (in case of
-target cardinality 0..1), its value, and the values of its components,
-are treated as `null`.
-
-::: example
-Example 111: similar behavior whether `HeadquarterAddress` is a nullable
-complex type or a nullable navigation property</code></pre>
-<p>Companies(1)/HeadquarterAddress/Street</p>
-<pre><code>:::
-
-To access properties of derived types, the property name MUST be
-prefixed with the qualified name of the derived type on which the
-property is defined, followed by a forward slash (`/`), see [addressing
-derived types](#AddressingDerivedTypes). If the current instance is not
-of the specified derived type, the path expression returns `null`.
-
-If the property or navigation property is not defined for the type of
-the resource and that type supports dynamic properties or navigation
-properties, then the property or navigation property is treated as null
-for all instances on which it has no value.
-
-If the property or navigation property is not defined for the type of
-the resource and that type does not support dynamic properties or
-navigation properties, then the request may be considered malformed.
-
-#### &lt;a name=&quot;AnnotationValuesinExpressions&quot; href=&quot;#AnnotationValuesinExpressions&quot;&gt;5.1.1.16 Annotation Values in Expressions&lt;/a&gt;
-
-Services MAY support the use of annotation values as operands or
-function parameters, and they MAY advertise this by annotating the
-entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
-see [OData-VocCap](#ODataVocCap).
-
-Annotation values are referenced by the annotation name which consists
-of an at sign (`@`) followed by the qualified term name, optionally
-followed by a percent-encoded hash (`%23`) and an annotation qualifier.
-The annotation name can be prefixed with a [path
-expression](#PathExpressions) leading to the annotated resource or
-property.
-
-If an annotation is not applied to the resource or property, then its
-value, and the values of its components, are treated as `null`.
-
-::: example
-Example 112: Return Products that have prices in Euro</code></pre>
-<p>http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'</p>
-<pre><code>:::
-
-::: example
-Example 113: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
-annotation</code></pre>
-<p>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq <code>'</code>error<code>'</code>)</p>
-<pre><code>:::
-
-Services MAY additionally support the use of the unqualified term name
-by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `annotation
-term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol].
-This short notation however uses the same name pattern as parameter
-aliases. If a query option is specified as a [parameter
-alias](#ParameterAliases), then any occurrence of the parameter alias
-name in an expression MUST evaluate to the parameter alias value and
-MUST NOT evaluate to the annotation value of an identical unqualified
-term name.
-
-#### &lt;a name=&quot;OperatorPrecedence&quot; href=&quot;#OperatorPrecedence&quot;&gt;5.1.1.17 Operator Precedence&lt;/a&gt;
-
-OData services MUST use the following operator precedence for supported
-operators when evaluating [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby) expressions. Operators are
-listed by category in order of precedence from highest to lowest.
-Operators in the same category have equal precedence:
-
-Group|Operator|Description|ABNF Expression
------|--------|-----------|---------------
-Grouping        | `( )`           | Precedence grouping      | `parenExpr`&lt;br&gt;`boolParenExpr`
-Primary         | `/`             | Navigation      | `firstMemberExpr`&lt;br&gt;`memberExpr`
-                | `has`           | Enumeration Flags     | `hasExpr`
-                | `in`            | Is a member of  | `inExpr`
-                | `xxx( )`        | Method Call     | `methodCallExpr`&lt;br&gt;`boolMethodCallExpr`&lt;br&gt;`functionExpr`
-Unary           | `-`             | Negation        | `negateExpr`
-                | `not`           | Logical Negation| `notExpr`
-                | `cast( )`       | Type Casting    | `castExpr`
-Multiplicative  | `mul`           | Multiplication  | `mulExpr`
-                | `div`           | Division        | `divExpr`
-                | `divby`         | Decimal Division| `divbyExpr`
-                | `mod`           | Modulo          | `modExpr`
-Additive        | `add`           | Addition        | `addExpr`
-                | `sub`           | Subtraction     | `subExpr`
-Relational      | `gt`            | Greater Than    | `gtExpr`
-                | `ge`            | Greater than or Equal| `geExpr`
-                | `lt`            | Less Than       | `ltExpr`
-                | `le`            | Less than or Equal   | `leExpr`
-                | `isof`          | Type Testing    | `isofExpr`
-Equality        | `eq`            | Equal           | `eqExpr`
-                | `ne`            | Not Equal       | `neExpr`
-Conditional AND | `and`           | Logical And     | `andExpr`
-Conditional OR  | `or`            | Logical Or      | `orExpr`
-
-#### &lt;a name=&quot;NumericPromotion&quot; href=&quot;#NumericPromotion&quot;&gt;5.1.1.18 Numeric Promotion&lt;/a&gt;
-
-Services SHOULD NOT require explicit cast operations between numeric
-types used in comparison expressions. Wherever possible, such
-comparisons should be performed using underlying types of sufficient
-size.
-
-Services MAY support numeric promotion for arithmetic operations or when
-comparing two operands of comparable types by applying the following
-rules, in order:
-- If either operand is `Edm.Double`, the other operand is converted to type `Edm.Double`.
-- Otherwise, if either operand is `Edm.Single`, the other operand is converted to type `Edm.Single`.
-- Otherwise, if either operand is of type `Edm.Decimal`, the other operand is converted to `Edm.Decimal`.
-- Otherwise, if either operand is `Edm.Int64`, the other operand is converted to type `Edm.Int64.`
-- Otherwise, if either operand is `Edm.Int32`, the other operand is converted to type `Edm.Int32.`
-- Otherwise, if either operand is `Edm.Int16`, the other operand is converted to type `Edm.Int16. `
-
-Each of these promotions uses the same semantics as a `castExpression`
-to promote an operand to the target type.
-
-OData does not define an implicit conversion between string and numeric
-types.
-
-### &lt;a name=&quot;SystemQueryOptionfilter&quot; href=&quot;#SystemQueryOptionfilter&quot;&gt;5.1.2 System Query Option `$filter`&lt;/a&gt;
-
-The `$filter` system query option allows clients to filter a collection
-of resources that are addressed by a request URL. The expression
-specified with `$filter` is evaluated for each resource in the
-collection, and only items where the expression evaluates to true are
-included in the response. Resources for which the expression evaluates
-to false or to null, or which reference properties that are unavailable
-due to permissions, are omitted from the response.
-
-The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
-grammar of the `$filter` query option.
-
-### &lt;a name=&quot;SystemQueryOptionexpand&quot; href=&quot;#SystemQueryOptionexpand&quot;&gt;5.1.3 System Query Option `$expand`&lt;/a&gt;
-
-The `$expand` system query option specifies the related resources or
-media streams to be included in line with retrieved resources.
-
-The [OData-ABNF](#ODataABNF) `expand` syntax rule defines the formal
-grammar of the `$expand` query option.
-
-The value of `$expand` is a comma-separated list of expand items. Each
-expand item is evaluated relative to the retrieved resource being
-expanded. An expand item is either a path or one of the symbols `*` or
-`$value`.
-
-A path consists of segments separated by a forward slash (`/`). Segments
-are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
-derived from the type identified by the preceding path segment to reach
-properties defined on the derived type.
-
-A path can end with
-- the name of a stream property to include
-that stream property,
-- a star (`*`) to expand all navigation
-properties of the identified structured instance, optionally followed by
-`/$ref` to expand only entity references, or
-- a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
-to expand only related entities of that derived type or one of its
-sub-types, optionally followed by `/$ref` to expand only entity
-references.
-- an entity-valued instance annotation to
-expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
-or one of its sub-types.
-
-If a structured type traversed by the path supports neither dynamic
-properties nor instance annotations, then a corresponding property
-segment MUST specify a declared property of that structured type.
-Otherwise, if a traversed type does support dynamic navigation
-properties or instance annotations and the corresponding property
-segment does not specify a declared property, then the expanded property
-appears only for those instances on which it has a value.
-
-::: example
-Example 114: expand a navigation property of an entity type</code></pre>
-<p>http://host/service/Products?$expand=Category</p>
-<pre><code>:::
-
-::: example
-Example 115: expand a navigation property of a complex type</code></pre>
-<p>http://host/service/Customers?$expand=Addresses/Country</p>
-<pre><code>:::
-
-A property MUST NOT appear in more than one expand item.
-
-Query options can be applied to an expanded navigation property by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. Allowed system query
-options are [`$filter`](#SystemQueryOptionfilter),
-[`$select`](#SystemQueryOptionselect),
-[`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and `$expand`.
-
-::: example
-Example 116: all categories and for each category all related products
-with a discontinued date equal to `null`</code></pre>
-<p>http://host/service/Categories? <span class="math inline">\(expand=Products(\)</span>filter=DiscontinuedDate eq null)</p>
-<pre><code>:::
-
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a navigation
-property name to return just the count of the related entities. The
-`$filter` and `$search` system query options can be used to limit the
-number of related entities included in the count.
-
-::: example
-Example 117: all categories and for each category the number of all
-related products</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=Products/\)</span>count</p>
-<pre><code>:::
-
-::: example
-Example 118: all categories and for each category the number of all
-related blue products</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=Products/\)</span>count($search=blue)</p>
-<pre><code>:::
-
-To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
-The system query options [`$filter`](#SystemQueryOptionfilter),
-[`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
-[`$count`](#SystemQueryOptioncount) can be used to limit the number of
-expanded entity references.
-
-::: example
-Example 119: all categories and for each category the references of all
-related products</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=Products/\)</span>ref</p>
-<pre><code>:::
-
-::: example
-Example 120: all categories and for each category the references of all
-related products of the derived type `Sales.PremierProduct`</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=Products/Sales.PremierProduct/\)</span>ref</p>
-<pre><code>:::
-
-::: example
-Example 121: all categories and for each category the references of all
-related premier products with a current promotion equal to `null`</code></pre>
-<p>http://host/service/Categories? <span class="math inline">\(expand=Products/Sales.PremierProduct/\)</span>ref($filter=CurrentPromotion eq null)</p>
-<pre><code>:::
-
-Cyclic navigation properties (whose target type is identical or can be
-cast to its source type) can be recursively expanded using the special
-`$levels` option. The value of the `$levels` option is either a positive
-integer to specify the number of levels to expand, or the literal string
-`max` to specify the maximum expansion level supported by that service.
-A `$levels` option with a value of 1 specifies a single expand with no
-recursion.
-
-::: example
-Example 122: all employees with their manager, manager&#39;s manager, and
-manager&#39;s manager&#39;s manager</code></pre>
-<p>http://host/service/Employees?<span class="math inline">\(expand=ReportsTo(\)</span>levels=3)</p>
-<pre><code>:::
-
-It is also possible to expand all declared and dynamic navigation
-properties using a star (`*`). To retrieve references to all related
-entities use `*/$ref`, and to expand all related entities with a certain
-distance use the star operator with the `$levels` option. The star
-operator can be combined with explicitly named navigation properties,
-which take precedence over the star operator.
-
-The star operator does not implicitly include stream properties.
-
-::: example
-Example 123: expand `Supplier` and include references for all other
-related entities</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=*/\)</span>ref,Supplier</p>
-<pre><code>:::
-
-::: example
-Example 124: expand all related entities and their related entities</code></pre>
-<p>http://host/service/Categories?<span class="math inline">\(expand=*(\)</span>levels=2)</p>
-<pre><code>:::
-
-Specifying a stream property includes the media stream inline according
-to the specified format.
-
-::: example
-Example 125: include Employee&#39;s `Photo `stream property along with other
-properties of the customer</code></pre>
-<p>http://host/service/Employees?$expand=Photo</p>
-<pre><code>:::
-
-Specifying `$value` for a media entity includes the media entity&#39;s
-stream value inline according to the specified format.
-
-::: example
-Example 126: Include the `Product’s `media stream along with other
-properties of the product</code></pre>
-<p>http://host/service/Products?<span class="math inline">\(expand=\)</span>value</p>
-<pre><code>:::
-
-### &lt;a name=&quot;SystemQueryOptionselect&quot; href=&quot;#SystemQueryOptionselect&quot;&gt;5.1.4 System Query Option `$select`&lt;/a&gt;
-
-The `$select` system query option allows clients to request a specific
-set of properties for each entity or complex type.
-
-The `$select` query option is often used in conjunction with the
-[`$expand`](#SystemQueryOptionexpand) system query option, to define the
-extent of the resource graph to return (`$expand`) and then specify a
-subset of properties for each resource in the graph (`$select`).
-Expanded navigation properties MUST be returned, even if they are not
-specified in `$select`.
-
-The [OData-ABNF](#ODataABNF) `select` syntax rule defines the formal
-grammar of the `$select` query option.
-
-The value of `$select` is a comma-separated list of select items. Each
-select item is one of the following:
-- a path, to include a property,
-- a star (`*`), to include all declared or
-dynamic properties of the type, or
-- a qualified schema name followed by a
-dot (`.`) followed by a star (`*`) to request all applicable actions or
-functions from that schema
-
-A path consists of segments separated by a forward slash (`/`). Segments
-are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
-derived from the type identified by the preceding path segment to reach
-properties defined on the derived type.
-
-A path can end with
-- the name of a property or
-non-entity-valued instance annotation of the identified structured
-instance,
-- the qualified name of a bound action,
-- the qualified name of a bound function
-to include all matching overloads, or
-- the qualified name of a bound function
-followed by parentheses containing the comma-separated lists of
-non-binding parameters identifying a single overload.
-
-The `$select` system query option is interpreted relative to the entity
-type or complex type of the resources identified by the resource path
-section of the URL. Each select item in the `$select` clause indicates
-that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. The simplest form
-of a select item explicitly requests a property defined on the entity
-type of the resources identified by the resource path section of the
-URL.
-
-::: example
-Example 127: rating and release date of all products</code></pre>
-<p>http://host/service/Products?$select=Rating,ReleaseDate</p>
-<pre><code>:::
-
-It is also possible to request all declared and dynamic structural
-properties using a star (`*`).
-
-::: example
-Example 128: all structural properties of all products</code></pre>
-<p>http://host/service/Products?$select=*</p>
-<pre><code>:::
-
-If the select item is not defined for the type of the resource, and that
-type supports dynamic properties or instance annotations, then the
-property is treated as null for all instances on which it is not
-defined.
-
-If the select item is not defined for the type of the resource, and that
-type does not support dynamic properties or instance annotations, then
-the request is considered malformed.
-
-If the select item is an instance annotation of type entity or
-collection of entities, then the request is considered malformed.
-Entity-valued annotations can be included using
-[`$expand`](#SystemQueryOptionexpand).
-
-If the select item is a navigation property, then the corresponding
-navigation link is represented in the response. If the navigation
-property also appears in an [`$expand`](#SystemQueryOptionexpand) query
-option, then it is additionally represented as inline content. This
-inline content can itself be restricted with a nested `$select` query
-option, see section 5.1.2.
-
-::: example
-Example 129: name and description of all products, plus name of expanded
-category</code></pre>
-<p>http://host/service/Products?<span class="math inline">\(select=Name,Description&amp;\)</span>expand=Category($select=Name)</p>
-<pre><code>:::
-
-The select item MUST be prefixed with a qualified structured type name
-in order to select a property defined on a type derived from the type of
-the resource segment.
-
-A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
-complex type (and so on for nested complex types).
-
-::: example
-Example 130: the `AccountRepresentative` property of any supplier that
-is of the derived type `Namespace.PreferredSupplier`, together with the
-`Street` property of the complex property
-`Address, and the Location property of the derived complex type Namespace.AddressWithLocation`</code></pre>
-<p>http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location</p>
-<pre><code>:::
-
-Query options can be applied to a select item that is a path to a single
-complex value or a collection of primitive or complex values by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
-
-::: example
-Example 131: select up to five addresses whose `City` starts with an
-`H`, sorted, and with the `Country` expanded</code></pre>
-<p>http://host/service/Customers?<span class="math inline">\(select=Addresses(\)</span>filter=startswith(City,'H');<span class="math inline">\(top=5;\)</span>orderby=Country/Name,City,Street)&amp;$expand=Addresses/Country</p>
-<pre><code>:::
-
-Any structural property, non-expanded navigation property, or operation
-not requested as a select item (explicitly or via a star) SHOULD be
-omitted from the response.
-
-Annotations requested in `$select` MUST be included in the response;
-`$select` overrules the `include-annotations` preference (see
-[OData-Protocol]) for the explicitly requested annotations.
-Additional annotations matching the preference can be included even if
-not requested via `$select`. The `Preference-Applied response` header
-only reflects the set of annotations included due to the
-`include-annotations` preference and not those only included due to
-`$select`.
-
-If any select item (including a star) is specified, actions and
-functions SHOULD be omitted unless explicitly requested.
-
-If an action or function is requested as a select item, either
-explicitly by using its qualified name, or implicitly by requesting all
-operations in a schema, then the service includes information about how
-to invoke that operation for each entity identified by the last path
-segment in the request URL for which the operation can be bound.
-
-If an action or function is requested in a select item using its
-qualified name and that operation cannot be bound to the entities
-requested, the service MUST ignore the select item.
-
-::: example
-Example 132: the `ID` property, the `ActionName` action defined in
-`Model` and all actions and functions defined in the `Model2` for each
-product if those actions and functions can be bound to that product</code></pre>
-<p>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</p>
-<pre><code>:::
-
-When multiple select item exist in a `select clause`, then the total set
-of properties, open properties, navigation properties, actions and
-functions to be returned is equal to the union of the set of those
-identified by each select item.
-
-If a select item is a path expression requesting a component of a
-complex property and the complex property is `null` on an instance, then
-the component is treated as `null` as well.
-
-### &lt;a name=&quot;SystemQueryOptionorderby&quot; href=&quot;#SystemQueryOptionorderby&quot;&gt;5.1.5 System Query Option `$orderby`&lt;/a&gt;
-
-The `$orderby` system query option allows clients to request resources
-in a particular order.
-
-The semantics of `$orderby` are covered in the [OData-Protocol]
-document.
-
-The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
-grammar of the `$orderby` query option.
-
-### &lt;a name=&quot;SystemQueryOptionstopandskip&quot; href=&quot;#SystemQueryOptionstopandskip&quot;&gt;5.1.6 System Query Options `$top` and `$skip`&lt;/a&gt;
-
-The `$top` system query option requests the number of items in the
-queried collection to be included in the result. The `$skip` query
-option requests the number of items in the queried collection that are
-to be skipped and not included in the result. A client can request a
-particular page of items by combining `$top` and `$skip`.
-
-The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol] document. The [OData-ABNF](#ODataABNF) `top`
-and `skip` syntax rules define the formal grammar of the `$top` and
-`$skip `query options respectively.
-
-### &lt;a name=&quot;SystemQueryOptioncount&quot; href=&quot;#SystemQueryOptioncount&quot;&gt;5.1.7 System Query Option `$count`&lt;/a&gt;
-
-The `$count` system query option allows clients to request a count of
-the matching resources included with the resources in the response. The
-`$count` query option has a Boolean value of `true` or `false`.
-
-The semantics of `$count` is covered in the [OData-Protocol]
-document.
-
-### &lt;a name=&quot;SystemQueryOptionsearch&quot; href=&quot;#SystemQueryOptionsearch&quot;&gt;5.1.8 System Query Option `$search`&lt;/a&gt;
-
-The `$search` system query option allows clients to request items within
-a collection matching a free-text [search
-expression](#SearchExpressions).
-
-The `$search` query option can be applied to a URL representing a
-collection of entity, complex, or primitive typed instances, to return
-all matching items within the collection. Applying the `$search` query
-option to the [`$all`](#AddressingAllEntitiesinaService) resource
-requests all matching entities in the service.
-
-If both `$search` and [`$filter`](#SystemQueryOptionfilter) are applied
-to the same request, the results include only those items that match
-both criteria.
-
-The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
-grammar of the `$search` query option.
-
-::: example
-Example 133: all products that are blue or green. It is up to the
-service to decide what makes a product blue or green.</code></pre>
-<p>http://host/service/Products?$search=blue OR green</p>
-<pre><code>:::
-
-#### &lt;a name=&quot;SearchExpressions&quot; href=&quot;#SearchExpressions&quot;&gt;5.1.8.1 Search Expressions&lt;/a&gt;
-
-Search expressions are used within the
-[`$search`](#SystemQueryOptionsearch) system query option to request
-entities matching the specified expression.
-
-*Terms* can be any single word to be matched within the expression.
-
-Terms enclosed in double-quotes comprise a *phrase*.
-
-Each individual term or phrase comprises a Boolean expression that
-returns true if the term or phrase is matched, otherwise false. The
-semantics of what is considered a match is dependent upon the service.
-
-Expressions enclosed in parenthesis comprise a *group expression*.
-
-The search expression can contain any number of terms, phrases, or group
-expressions, along with the case-sensitive keywords `NOT`, `AND`, and
-`OR`, evaluated in that order.
-
-Expressions prefaced with `NOT` evaluate to true if the expression is
-not matched, otherwise false.
-
-Two expressions not enclosed in quotes and separated by a space are
-equivalent to the same two expressions separated by the `AND` keyword.
-Such expressions evaluate to `true` if both expressions evaluate to
-true, otherwise false.
-
-Expressions separated by an `OR` evaluate to true if either of the
-expressions evaluate to true, otherwise false.
-
-To support type-ahead use cases, incomplete search expressions can be
-sent as OData string literals enclosed in single-quotes, and
-single-quotes within the search expression doubled.
-
-The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
-grammar of the search expression.
-
-### &lt;a name=&quot;SystemQueryOptionformat&quot; href=&quot;#SystemQueryOptionformat&quot;&gt;5.1.9 System Query Option `$format`&lt;/a&gt;
-
-The `$format` system query option allows clients to request a response
-in a particular format and is useful for clients without access to
-request headers for standard content-type negotiation. Where present
-`$format` takes precedence over standard content-type negotiation.
-
-The semantics of `$format` is covered in the [OData-Protocol]
-document.
-
-The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
-grammar of the `$format` query option.
-
-### &lt;a name=&quot;SystemQueryOptioncompute&quot; href=&quot;#SystemQueryOptioncompute&quot;&gt;5.1.10 System Query Option `$compute`&lt;/a&gt;
-
-The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
-
-The `$compute` system query option is interpreted relative to the entity
-type or complex type of the resources identified by the resource path
-section of the URL.
-
-The value of `$compute` is a comma-separated list of compute
-instructions, each consisting of a [common
-expression](#CommonExpressionSyntax) followed by the keyword `as`,
-followed by the name for the computed dynamic property. This name MUST
-differ from the names of declared or dynamic properties of the
-identified resources.
-
-The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
-grammar of the `$compute` query option.
-
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
-
-::: example
-Example 134: compute total price for order items</code></pre>
-<p>http://host/service/Orders(10)/Items?<span class="math inline">\(select=Product/Description,Total&amp;\)</span>filter=Total gt 100&amp;<span class="math inline">\(orderby=Total&amp;\)</span>compute=Product/Price mul Quantity as Total</p>
-<pre><code>:::
-
-### &lt;a name=&quot;SystemQueryOptionindex&quot; href=&quot;#SystemQueryOptionindex&quot;&gt;5.1.11 System Query Option `$index`&lt;/a&gt;
-
-The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
-term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
-system query option is the zero-based ordinal position where the item is
-to be inserted. The ordinal of items within the collection greater than
-or equal to the inserted position are increased by one. A negative
-ordinal indexes from the end of the collection, with -1 representing an
-insert at the end of the collection.
-
-The [OData-ABNF](#ODataABNF) `index` syntax rule defines the formal
-grammar of the `$index` query option.
-
-### &lt;a name=&quot;SystemQueryOptionschemaversion&quot; href=&quot;#SystemQueryOptionschemaversion&quot;&gt;5.1.12 System Query Option `$schemaversion`&lt;/a&gt;
-
-The `$schemaversion` system query option allows clients to specify the
-version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol] document.
-
-The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
-formal grammar of the `$schemaversion` query option
-
-## &lt;a name=&quot;CustomQueryOptions&quot; href=&quot;#CustomQueryOptions&quot;&gt;5.2 Custom Query Options&lt;/a&gt;
-
-Custom query options provide an extensible mechanism for
-service-specific information to be placed in a URL query string. A
-custom query option is any query option of the form shown by the rule
-`customQueryOption` in [OData-ABNF](#ODataABNF).
-
-Custom query options MUST NOT begin with a `$` or `@` character.
-
-::: example
-Example 135: service-specific custom query option `debug-mode`</code></pre>
-<p>http://host/service/Products?debug-mode=true</p>
-<pre><code>:::
-
-## &lt;a name=&quot;ParameterAliases&quot; href=&quot;#ParameterAliases&quot;&gt;5.3 Parameter Aliases&lt;/a&gt;
-
-Parameter aliases can be used in place of literal values in entity keys,
-[function](#AddressingFunctions) parameters, or within a
-[`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
-
-Parameter aliases MUST start with an `@` character, see rule
-`parameterAlias` in [OData-ABNF](#ODataABNF).
-
-The semantics of parameter aliases are covered in
-[OData-Protocol]. The [OData-ABNF](#ODataABNF) rule
-`aliasAndValue` defines the formal grammar for passing parameter alias
-values as query options.
-
-::: example
-Example 136:</code></pre>
-<p>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word='Black'</p>
-<pre><code>:::
-
-::: example
-Example 137:</code></pre>
-<p>http://host/service/Movies?$filter=Title eq @title&amp;@title='Wizard of Oz'</p>
-<pre><code>:::
-
-::: example
-Example 138: JSON array of strings as parameter alias value -- note that
-`[`, `]`, and `&quot;` need to be percent-encoded in real URLs, the
-clear-text representation used here is just for readability</code></pre>
-<p>http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]</p>
-<pre><code>:::
-
--------
-
-# &lt;a name=&quot;Conformance&quot; href=&quot;#Conformance&quot;&gt;6 Conformance&lt;/a&gt;
-
-The conformance requirements for OData clients and services are
-described in [OData-Protocol].
-
--------
-
-# &lt;a name=&quot;References&quot; href=&quot;#References&quot;&gt;Appendix A. References&lt;/a&gt;
-
-This appendix contains the normative and informative references that are used in this document.
-
-While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
-
-## &lt;a name=&quot;NormativeReferences&quot; href=&quot;#NormativeReferences&quot;&gt;A.1 Normative References&lt;/a&gt;
-
-The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
-
-###### &lt;a name=&quot;ODataABNF&quot;&gt;[OData-ABNF]&lt;/a&gt;
-_ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataAggregation&quot;&gt;[OData-Aggregation]&lt;/a&gt;
-_OData Extension for Data Aggregation Version 4.02._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataCSDL&quot;&gt;[OData-CSDL]&lt;/a&gt;
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataJSON&quot;&gt;[OData-JSON]&lt;/a&gt;
-_OData JSON Format Version 4.02._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataProtocol&quot;&gt;[OData-Protocol]&lt;/a&gt;
-_OData Version 4.02. Part 1: Protocol._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataVocCap&quot;&gt;[OData-VocCap]&lt;/a&gt;
-_OData Vocabularies Version 4.0: Capabilities Vocabulary._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;ODataVocCore&quot;&gt;[OData-VocCore]&lt;/a&gt;
-_OData Vocabularies Version 4.0: Core Vocabulary._  
-See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
-
-###### &lt;a name=&quot;rfc2046&quot;&gt;[RFC2046]&lt;/a&gt;
-_Freed, N. and N. Borenstein, &quot;Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types&quot;, RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
-
-###### &lt;a name=&quot;rfc2119&quot;&gt;[RFC2119]&lt;/a&gt;
-https://www.rfc-editor.org/info/rfc2119.
-
-###### &lt;a name=&quot;rfc3986&quot;&gt;[RFC3986]&lt;/a&gt;
-_Berners-Lee, T., Fielding, R., and L. Masinter, &quot;Uniform Resource Identifier (URI): Generic Syntax&quot;, IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
-
-###### &lt;a name=&quot;rfc3987&quot;&gt;[RFC3987]&lt;/a&gt;
-_Duerst, M. and, M. Suignard, &quot;Internationalized Resource Identifiers (IRIs)&quot;, RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
-
-###### &lt;a name=&quot;rfc4648&quot;&gt;[RFC4648]&lt;/a&gt;
-_Josefsson, S,, &quot;The Base16, Base32, and Base64 Data Encodings&quot;, RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
-
-###### &lt;a name=&quot;rfc5646&quot;&gt;[RFC5646]&lt;/a&gt;
-_Phillips, A., Ed., and M. Davis, Ed., &quot;Tags for Identifying Languages&quot;, BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
-
-###### &lt;a name=&quot;rfc5789&quot;&gt;[RFC5789]&lt;/a&gt;
-_Dusseault, L., and J. Snell, &quot;Patch Method for HTTP&quot;, RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### &lt;a name=&quot;rfc7493&quot;&gt;[RFC7493]&lt;/a&gt;
-_Bray, T., Ed., &quot;The I-JSON Message Format&quot;, RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
-
-###### &lt;a name=&quot;rfc7230&quot;&gt;[RFC7230]&lt;/a&gt;
-_Fielding, R., Ed. and J. Reschke, Ed., &quot;Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing&quot;, RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
-
-###### &lt;a name=&quot;rfc7231&quot;&gt;[RFC7231]&lt;/a&gt;
-_Fielding, R., Ed. and J. Reschke, Ed., &quot;Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content&quot;, RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
-
-###### &lt;a name=&quot;rfc7232&quot;&gt;[RFC7232]&lt;/a&gt;
-_Fielding, R., Ed. and J. Reschke, Ed., &quot;Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests&quot;, RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
-
-*###### &lt;a name=&quot;rfc7240&quot;&gt;[RFC7240]&lt;/a&gt;
-_Snell, J., &quot;Prefer Header for HTTP&quot;, RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
-
-###### &lt;a name=&quot;rfc7617&quot;&gt;[RFC7617]&lt;/a&gt;
-_Reschke, J., &quot;The &#39;Basic&#39; HTTP Authentication Scheme&quot;, RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
-
-###### &lt;a name=&quot;rfc7946&quot;&gt;[RFC7946]&lt;/a&gt;
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, &quot;The GeoJSON Format&quot;, RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
-###### &lt;a name=&quot;rfc8174&quot;&gt;[RFC8174]&lt;/a&gt;
-_Leiba, B., &quot;Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words&quot;, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
-https://www.rfc-editor.org/info/rfc8174.
-
-###### &lt;a name=&quot;rfc8259&quot;&gt;[RFC8259]&lt;/a&gt;
-_Bray, T., Ed., &quot;The JavaScript Object Notation (JSON) Data Interchange Format&quot;, RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
-
-###### &lt;a name=&quot;XML-Schema2&quot;&gt;[XML-Schema-2]&lt;/a&gt;
-_W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
-http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
-
-## &lt;a name=&quot;InformativeReferences&quot; href=&quot;#InformativeReferences&quot;&gt;A.2 Informative References&lt;/a&gt;
-
-###### &lt;a name=&quot;ECMAScript&quot;&gt;[ECMAScript]&lt;/a&gt;
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### &lt;a name=&quot;GeoJSON-2008&quot;&gt;[GeoJSON-2008]&lt;/a&gt;
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, &quot;The GeoJSON Format Specification&quot;, June 2008_
-http://geojson.org/geojson-spec.html.
-
--------
-
-# &lt;a name=&quot;SafetySecurityandPrivacyConsiderations&quot; href=&quot;#SafetySecurityandPrivacyConsiderations&quot;&gt;Appendix B. Safety, Security and Privacy Considerations&lt;/a&gt;
-
-This section is provided as a service to the application developers,
-information providers, and users of OData version 4.0 giving some
-references to starting points for securing OData services as specified.
-OData is a REST-full multi-format service that depends on other services
-and thus inherits both sides of the coin, security enhancements and
-concerns alike from the latter.
-
-For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
-HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
-starting points.
-
-## &lt;a name=&quot;Authentication&quot; href=&quot;#Authentication&quot;&gt;B.1 Authentication&lt;/a&gt;
-
-OData Services requiring authentication SHOULD consider supporting basic
-authentication as defined in [RFC7617](#rfc7617) over HTTPS for the
-highest level of interoperability with generic clients. They MAY support
-other authentication methods.
-
--------
-
-# &lt;a name=&quot;Acknowledgments&quot; href=&quot;#Acknowledgments&quot;&gt;Appendix C. Acknowledgments&lt;/a&gt;
-
-## &lt;a name=&quot;SpecialThanks&quot; href=&quot;#SpecialThanks&quot;&gt;C.1 Special Thanks&lt;/a&gt;
-
-The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:
-- Howard Abrams (CA Technologies)
-- Ken Baclawski (Northeastern University)
-- Jay Balunas (Red Hat)
-- Stephen Berard (Schneider Electric Industries SAS)
-- Mark Biamonte (Progress Software)
-- Matthew Borges (SAP SE)
-- Edmond Bourne (BlackBerry)
-- Joseph Boyle (Planetwork, Inc.)
-- Peter Brown (Individual)
-- Antonio Campanile (Bank of America)
-- Pablo Castro (Microsoft)
-- Axel Conrad (BlackBerry)
-- Robin Cover (OASIS)
-- Erik de Voogd (SDL)
-- Yi Ding (Microsoft)
-- Diane Downie (Citrix Systems)
-- Patrick Durusau (Individual)
-- Andrew Eisenberg (IBM)
-- Chet Ensign (OASIS)
-- Davina Erasmus (SDL)
-- George Ericson (Dell)
-- Colleen Evans (Microsoft)
-- Jason Fam (IBM)
-- Senaka Fernando (WSO2)
-- Josh Gavant (Microsoft)
-- Brent Gross (IBM)
-- Zhun Guo (Individual)
-- Anila Kumar GVN (CA Technologies)
-- Stefan Hagen (Individual)
-- Ralf Handl (SAP SE)
-- Barbara Hartel (SAP SE)
-- Hubert Heijkers (IBM)
-- Jens Hüsken (SAP SE)
-- Evan Ireland (SAP SE)
-- Gershon Janssen (Individual)
-- Ram Jeyaraman (Microsoft)
-- Ling Jin (IBM)
-- Ted Jones (Red Hat)
-- Diane Jordan (IBM)
-- Stephan Klevenz (SAP SE)
-- Gerald Krause (SAP SE)
-- Nuno Linhares (SDL)
-- Paul Lipton (CA Technologies)
-- Susan Malaika (IBM)
-- Ramanjaneyulu Malisetti (CA Technologies)
-- Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)
-- Stan Mitranic (CA Technologies)
-- Dale Moberg (Axway Software)
-- Graham Moore (BrightstarDB Ltd.)
-- Farrukh Najmi (Individual)
-- Shishir Pardikar (Citrix Systems)
-- Sanjay Patil (SAP SE)
-- Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
-- Michael Pizzo (Microsoft)
-- Ramesh Reddy (Red Hat)
-- Robert Richards (Mashery)
-- Sumedha Rubasinghe (WSO2)
-- James Snell (IBM)
-- Christof Sprenger (Microsoft)
-- Heiko Theißen (SAP SE)
-- Jeffrey Turpin (Axway Software)
-- John Willson (Individual)
-- John Wilmes (Individual)
-- Christopher Woodruff (Perficient, Inc.)
-- Martin Zurmuehl (SAP SE)
-
-## &lt;a name=&quot;Participants&quot; href=&quot;#Participants&quot;&gt;C.2 Participants&lt;/a&gt;
-
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
-
--------
-
-# &lt;a name=&quot;RevisionHistory&quot; href=&quot;#RevisionHistory&quot;&gt;Appendix D. Revision History&lt;/a&gt;
-
-| Revision | Date | Editor | Changes Made |
-| :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
-
--------
-
-# &lt;a name=&quot;Notices&quot; href=&quot;#Notices&quot;&gt;Appendix E. Notices&lt;/a&gt;
-
-&lt;!-- Required section. Do not modify. --&gt;
-
-Copyright © OASIS Open 2023. All Rights Reserved.
-
-All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the &quot;OASIS IPR Policy&quot;). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
-
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
-
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
-
-This document and the information contained herein is provided on an &quot;AS IS&quot; basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-
-As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
-
-\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
-
-\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
-
-\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS&#39; procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
-
-The name &quot;OASIS&quot; is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
-
-</code></pre>
+<p>Duration literals in OData 4.0 required prefixing with "<code>duration</code>". Enumeration literals in OData 4.0 required prefixing with the qualified type name of the enumeration.</p>
+<p>In OData 4.01, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 services should always include the prefix for duration and enumeration types.</p>
+<h5 id="511142-complex-and-collection-literals"><a name="ComplexandCollectionLiterals" href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a></h5>
+<p>Complex literals and collection literals in URLs are represented as JSON objects and arrays according to the <code>arrayOrObject</code> rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear in the path portion of the URL but can be passed to bound <a href="#AddressingFunctions">functions</a> and function imports in path segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
+<p>Object member values and array items can be expressions, including other objects and arrays, arithmetic expressions, property names, and of course primitive values.</p>
+<p>Note that the special characters <code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, and <code>"</code> MUST be percent-encoded in URLs although some browsers will accept and pass them on unencoded.</p>
+<div class="example">
+<p>Example 103: collection of string literals</p>
+<pre><code>http://host/service/ProductsByColors(colors=@c)?@c=[&quot;red&quot;,&quot;green&quot;]</code></pre>
+</div>
+<div class="example">
+<p>Example 104: check whether a pair of properties has one of several possible pair values</p>
+<pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
+</div>
+<h5 id="511143-null"><a name="null" href="#null">5.1.1.14.3 <code>null</code></a></h5>
+<p>The <code>null</code> literal can be used to compare a value to null, or to pass a null value to a function.</p>
+<h5 id="511144-it"><a name="it" href="#it">5.1.1.14.4 <code>$it</code></a></h5>
+<p>The <code>$it</code> literal can be used in expressions to refer to the current instance of the resource identified by the resource path. For a collection-valued resource the current instance is the instance currently being evaluated by the system query option. For a single-valued resource it is the resource itself.</p>
+<p>It allows comparing properties of related entities to properties of the current instance in expressions within lambda operators or in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> or <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
+<p>It also can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions on collections of primitive types to refer to the current primitive instance, but using the <a href="#this"><code>$this</code></a> literal is preferred as <a href="#this"><code>$this</code></a> can also be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
+<p>Note: property names and property paths in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> are evaluated in the context of the declared type of the expanded navigation property, so property names and property paths for the current instance of the collection identified by the resource path MUST be prefixed with <code>$it/</code>.</p>
+<p>The <code>$it</code> literal can also be used as a path prefix to invoke a bound function overload on the current instance within an expression. Function names without a path prefix refer to an unbound function overload.</p>
+<div class="example">
+<p>Example 105: email addresses ending with <code>.com</code> assuming <code>EmailAddresses</code> is a collection of strings</p>
+<pre><code>http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,&#39;.com&#39;)</code></pre>
+</div>
+<div class="example">
+<p>Example 106: customers along with their orders that shipped to the same city as the customer's address. The nested filter expression is evaluated in the context of Orders; <code>$it</code> allows referring to values in the outer context of Customers.</p>
+<pre><code>http://host/service/Customers?$expand=Orders($filter=$it/Address/City
+eq ShipTo/City)</code></pre>
+</div>
+<div class="example">
+<p>Example 107: products with at least 10 positive reviews. <code>Model.PositiveReviews</code> is a function bound to <code>Model.Product</code> returning a collection of reviews.</p>
+<pre><code>http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count
+ge 10</code></pre>
+</div>
+<h5 id="511145-root"><a name="root" href="#root">5.1.1.14.5 <code>$root</code></a></h5>
+<p>The <code>$root</code> literal can be used in expressions to refer to resources of the same service. It can be used as a single-valued expression or within <a href="#ComplexandCollectionLiterals">complex or collection literals</a>.</p>
+<div class="example">
+<p>Example 108: all employees with the same last name as employee <code>A1235</code></p>
+<pre><code>http://host/service/Employees?$filter=LastName eq
+$root/Employees(&#39;A1245&#39;)/LastName</code></pre>
+</div>
+<div class="example">
+<p>Example 109: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer.</p>
+<pre><code>http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
+</div>
+<h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
+<p>The <code>$this</code> literal can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for collection-valued properties and navigation properties. It refers to the current instance of the collection.</p>
+<div class="example">
+<p>Example 110: select only email addresses ending with <code>.com</code></p>
+<pre><code>http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,&#39;.com&#39;))</code></pre>
+</div>
+<h4 id="51115-path-expressions"><a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a></h4>
+<p>Properties and navigation properties of the entity type of the set of resources that are addressed by the request URL can be used as operands or function parameters, as shown in the preceding examples.</p>
+<p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/)</code> and the name of a property of the complex property, and so on,</p>
+<p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/)</code> and the name of a property of the related entity, and so on.</p>
+<p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
+<div class="example">
+<p>Example 111: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
+<pre><code>Companies(1)/HeadquarterAddress/Street</code></pre>
+</div>
+<p>To access properties of derived types, the property name MUST be prefixed with the qualified name of the derived type on which the property is defined, followed by a forward slash (<code>/</code>), see <a href="#AddressingDerivedTypes">addressing derived types</a>. If the current instance is not of the specified derived type, the path expression returns <code>null</code>.</p>
+<p>If the property or navigation property is not defined for the type of the resource and that type supports dynamic properties or navigation properties, then the property or navigation property is treated as null for all instances on which it has no value.</p>
+<p>If the property or navigation property is not defined for the type of the resource and that type does not support dynamic properties or navigation properties, then the request may be considered malformed.</p>
+<h4 id="51116-annotation-values-in-expressions"><a name="AnnotationValuesinExpressions" href="#AnnotationValuesinExpressions">5.1.1.16 Annotation Values in Expressions</a></h4>
+<p>Services MAY support the use of annotation values as operands or function parameters, and they MAY advertise this by annotating the entity container with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported"><code>Capabilities.AnnotationValuesInQuerySupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>Annotation values are referenced by the annotation name which consists of an at sign (<code>@</code>) followed by the qualified term name, optionally followed by a percent-encoded hash (<code>%23</code>) and an annotation qualifier. The annotation name can be prefixed with a <a href="#PathExpressions">path expression</a> leading to the annotated resource or property.</p>
+<p>If an annotation is not applied to the resource or property, then its value, and the values of its components, are treated as <code>null</code>.</p>
+<div class="example">
+<p>Example 112: Return Products that have prices in Euro</p>
+<pre><code>http://host/service/Products?$filter=Price/@Measures.Currency eq
+&#39;EUR&#39;</code></pre>
+</div>
+<div class="example">
+<p>Example 113: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
+<pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity
+eq &#39;error&#39;)</code></pre>
+</div>
+<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
+<h4 id="51117-operator-precedence"><a name="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
+<p>OData services MUST use the following operator precedence for supported operators when evaluating <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions. Operators are listed by category in order of precedence from highest to lowest. Operators in the same category have equal precedence:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Operator</th>
+<th>Description</th>
+<th>ABNF Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Grouping</td>
+<td><code>( )</code></td>
+<td>Precedence grouping</td>
+<td><code>parenExpr</code><br><code>boolParenExpr</code></td>
+</tr>
+<tr class="even">
+<td>Primary</td>
+<td><code>/</code></td>
+<td>Navigation</td>
+<td><code>firstMemberExpr</code><br><code>memberExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>has</code></td>
+<td>Enumeration Flags</td>
+<td><code>hasExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>in</code></td>
+<td>Is a member of</td>
+<td><code>inExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>xxx( )</code></td>
+<td>Method Call</td>
+<td><code>methodCallExpr</code><br><code>boolMethodCallExpr</code><br><code>functionExpr</code></td>
+</tr>
+<tr class="even">
+<td>Unary</td>
+<td><code>-</code></td>
+<td>Negation</td>
+<td><code>negateExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>not</code></td>
+<td>Logical Negation</td>
+<td><code>notExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>cast( )</code></td>
+<td>Type Casting</td>
+<td><code>castExpr</code></td>
+</tr>
+<tr class="odd">
+<td>Multiplicative</td>
+<td><code>mul</code></td>
+<td>Multiplication</td>
+<td><code>mulExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>div</code></td>
+<td>Division</td>
+<td><code>divExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>divby</code></td>
+<td>Decimal Division</td>
+<td><code>divbyExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>mod</code></td>
+<td>Modulo</td>
+<td><code>modExpr</code></td>
+</tr>
+<tr class="odd">
+<td>Additive</td>
+<td><code>add</code></td>
+<td>Addition</td>
+<td><code>addExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>sub</code></td>
+<td>Subtraction</td>
+<td><code>subExpr</code></td>
+</tr>
+<tr class="odd">
+<td>Relational</td>
+<td><code>gt</code></td>
+<td>Greater Than</td>
+<td><code>gtExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>ge</code></td>
+<td>Greater than or Equal</td>
+<td><code>geExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>lt</code></td>
+<td>Less Than</td>
+<td><code>ltExpr</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>le</code></td>
+<td>Less than or Equal</td>
+<td><code>leExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>isof</code></td>
+<td>Type Testing</td>
+<td><code>isofExpr</code></td>
+</tr>
+<tr class="even">
+<td>Equality</td>
+<td><code>eq</code></td>
+<td>Equal</td>
+<td><code>eqExpr</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>ne</code></td>
+<td>Not Equal</td>
+<td><code>neExpr</code></td>
+</tr>
+<tr class="even">
+<td>Conditional AND</td>
+<td><code>and</code></td>
+<td>Logical And</td>
+<td><code>andExpr</code></td>
+</tr>
+<tr class="odd">
+<td>Conditional OR</td>
+<td><code>or</code></td>
+<td>Logical Or</td>
+<td><code>orExpr</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="51118-numeric-promotion"><a name="NumericPromotion" href="#NumericPromotion">5.1.1.18 Numeric Promotion</a></h4>
+<p>Services SHOULD NOT require explicit cast operations between numeric types used in comparison expressions. Wherever possible, such comparisons should be performed using underlying types of sufficient size.</p>
+<p>Services MAY support numeric promotion for arithmetic operations or when comparing two operands of comparable types by applying the following rules, in order:</p>
+<ul>
+<li>If either operand is <code>Edm.Double</code>, the other operand is converted to type <code>Edm.Double</code>.</li>
+<li>Otherwise, if either operand is <code>Edm.Single</code>, the other operand is converted to type <code>Edm.Single</code>.</li>
+<li>Otherwise, if either operand is of type <code>Edm.Decimal</code>, the other operand is converted to <code>Edm.Decimal</code>.</li>
+<li>Otherwise, if either operand is <code>Edm.Int64</code>, the other operand is converted to type <code>Edm.Int64.</code></li>
+<li>Otherwise, if either operand is <code>Edm.Int32</code>, the other operand is converted to type <code>Edm.Int32.</code></li>
+<li>Otherwise, if either operand is <code>Edm.Int16</code>, the other operand is converted to type <code>Edm.Int16. </code></li>
+</ul>
+<p>Each of these promotions uses the same semantics as a <code>castExpression</code> to promote an operand to the target type.</p>
+<p>OData does not define an implicit conversion between string and numeric types.</p>
+<h3 id="512-system-query-option-filter"><a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option <code>$filter</code></a></h3>
+<p>The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Resources for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, are omitted from the response.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>filter</code> syntax rule defines the formal grammar of the <code>$filter</code> query option.</p>
+<h3 id="513-system-query-option-expand"><a name="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">5.1.3 System Query Option <code>$expand</code></a></h3>
+<p>The <code>$expand</code> system query option specifies the related resources or media streams to be included in line with retrieved resources.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>expand</code> syntax rule defines the formal grammar of the <code>$expand</code> query option.</p>
+<p>The value of <code>$expand</code> is a comma-separated list of expand items. Each expand item is evaluated relative to the retrieved resource being expanded. An expand item is either a path or one of the symbols <code>*</code> or <code>$value</code>.</p>
+<p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or type-cast segments consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
+<p>A path can end with</p>
+<ul>
+<li>the name of a stream property to include that stream property,</li>
+<li>a star (<code>*</code>) to expand all navigation properties of the identified structured instance, optionally followed by <code>/$ref</code> to expand only entity references, or</li>
+<li>a navigation property to expand the related entity or entities, optionally followed by a type-cast segment to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references.</li>
+<li>an entity-valued instance annotation to expand the related entity or entities, optionally followed by a type-cast segment to expand only related entities of that derived type or one of its sub-types.</li>
+</ul>
+<p>If a structured type traversed by the path supports neither dynamic properties nor instance annotations, then a corresponding property segment MUST specify a declared property of that structured type. Otherwise, if a traversed type does support dynamic navigation properties or instance annotations and the corresponding property segment does not specify a declared property, then the expanded property appears only for those instances on which it has a value.</p>
+<div class="example">
+<p>Example 114: expand a navigation property of an entity type</p>
+<pre><code>http://host/service/Products?$expand=Category</code></pre>
+</div>
+<div class="example">
+<p>Example 115: expand a navigation property of a complex type</p>
+<pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
+</div>
+<p>A property MUST NOT appear in more than one expand item.</p>
+<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
+<div class="example">
+<p>Example 116: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
+<pre><code>http://host/service/Categories?
+$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
+</div>
+<p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name to return just the count of the related entities. The <code>$filter</code> and <code>$search</code> system query options can be used to limit the number of related entities included in the count.</p>
+<div class="example">
+<p>Example 117: all categories and for each category the number of all related products</p>
+<pre><code>http://host/service/Categories?$expand=Products/$count</code></pre>
+</div>
+<div class="example">
+<p>Example 118: all categories and for each category the number of all related blue products</p>
+<pre><code>http://host/service/Categories?$expand=Products/$count($search=blue)</code></pre>
+</div>
+<p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The system query options <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to limit the number of expanded entity references.</p>
+<div class="example">
+<p>Example 119: all categories and for each category the references of all related products</p>
+<pre><code>http://host/service/Categories?$expand=Products/$ref</code></pre>
+</div>
+<div class="example">
+<p>Example 120: all categories and for each category the references of all related products of the derived type <code>Sales.PremierProduct</code></p>
+<pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref</code></pre>
+</div>
+<div class="example">
+<p>Example 121: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
+<pre><code>http://host/service/Categories?
+$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion
+eq null)</code></pre>
+</div>
+<p>Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
+<div class="example">
+<p>Example 122: all employees with their manager, manager's manager, and manager's manager's manager</p>
+<pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
+</div>
+<p>It is also possible to expand all declared and dynamic navigation properties using a star (<code>*</code>). To retrieve references to all related entities use <code>*/$ref</code>, and to expand all related entities with a certain distance use the star operator with the <code>$levels</code> option. The star operator can be combined with explicitly named navigation properties, which take precedence over the star operator.</p>
+<p>The star operator does not implicitly include stream properties.</p>
+<div class="example">
+<p>Example 123: expand <code>Supplier</code> and include references for all other related entities</p>
+<pre><code>http://host/service/Categories?$expand=*/$ref,Supplier</code></pre>
+</div>
+<div class="example">
+<p>Example 124: expand all related entities and their related entities</p>
+<pre><code>http://host/service/Categories?$expand=*($levels=2)</code></pre>
+</div>
+<p>Specifying a stream property includes the media stream inline according to the specified format.</p>
+<div class="example">
+<p>Example 125: include Employee's <code>Photo </code>stream property along with other properties of the customer</p>
+<pre><code>http://host/service/Employees?$expand=Photo</code></pre>
+</div>
+<p>Specifying <code>$value</code> for a media entity includes the media entity's stream value inline according to the specified format.</p>
+<div class="example">
+<p>Example 126: Include the <code>Product</code>'s media stream along with other properties of the product</p>
+<pre><code>http://host/service/Products?$expand=$value</code></pre>
+</div>
+<h3 id="514-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></h3>
+<p>The <code>$select</code> system query option allows clients to request a specific set of properties for each entity or complex type.</p>
+<p>The <code>$select</code> query option is often used in conjunction with the <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query option, to define the extent of the resource graph to return (<code>$expand</code>) and then specify a subset of properties for each resource in the graph (<code>$select</code>). Expanded navigation properties MUST be returned, even if they are not specified in <code>$select</code>.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>select</code> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
+<p>The value of <code>$select</code> is a comma-separated list of select items. Each select item is one of the following:</p>
+<ul>
+<li>a path, to include a property,</li>
+<li>a star (<code>*</code>), to include all declared or dynamic properties of the type, or</li>
+<li>a qualified schema name followed by a dot (<code>.</code>) followed by a star (<code>*</code>) to request all applicable actions or functions from that schema</li>
+</ul>
+<p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or type-cast segments consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
+<p>A path can end with</p>
+<ul>
+<li>the name of a property or non-entity-valued instance annotation of the identified structured instance,</li>
+<li>the qualified name of a bound action,</li>
+<li>the qualified name of a bound function to include all matching overloads, or</li>
+<li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
+</ul>
+<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
+<div class="example">
+<p>Example 127: rating and release date of all products</p>
+<pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
+</div>
+<p>It is also possible to request all declared and dynamic structural properties using a star (<code>*</code>).</p>
+<div class="example">
+<p>Example 128: all structural properties of all products</p>
+<pre><code>http://host/service/Products?$select=*</code></pre>
+</div>
+<p>If the select item is not defined for the type of the resource, and that type supports dynamic properties or instance annotations, then the property is treated as null for all instances on which it is not defined.</p>
+<p>If the select item is not defined for the type of the resource, and that type does not support dynamic properties or instance annotations, then the request is considered malformed.</p>
+<p>If the select item is an instance annotation of type entity or collection of entities, then the request is considered malformed. Entity-valued annotations can be included using <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+<p>If the select item is a navigation property, then the corresponding navigation link is represented in the response. If the navigation property also appears in an <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option, then it is additionally represented as inline content. This inline content can itself be restricted with a nested <code>$select</code> query option, see section 5.1.2.</p>
+<div class="example">
+<p>Example 129: name and description of all products, plus name of expanded category</p>
+<pre><code>http://host/service/Products?$select=Name,Description&amp;$expand=Category($select=Name)</code></pre>
+</div>
+<p>The select item MUST be prefixed with a qualified structured type name in order to select a property defined on a type derived from the type of the resource segment.</p>
+<p>A select item that is a complex type or collection of complex type can be followed by a forward slash, an optional <a href="#AddressingDerivedTypes">type-cast segment</a>, and the name of a property of the complex type (and so on for nested complex types).</p>
+<div class="example">
+<p>Example 130: the <code>AccountRepresentative</code> property of any supplier that is of the derived type <code>Namespace.PreferredSupplier</code>, together with the <code>Street</code> property of the complex property <code>Address</code>, and the Location property of the derived complex type <code>Namespace.AddressWithLocation</code></p>
+<pre><code>http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
+</div>
+<p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
+<div class="example">
+<p>Example 131: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
+<pre><code>http://host/service/Customers?$select=Addresses($filter=startswith(City,&#39;H&#39;);$top=5;$orderby=Country/Name,City,Street)&amp;$expand=Addresses/Country</code></pre>
+</div>
+<p>Any structural property, non-expanded navigation property, or operation not requested as a select item (explicitly or via a star) SHOULD be omitted from the response.</p>
+<p>Annotations requested in <code>$select</code> MUST be included in the response; <code>$select</code> overrules the <code>include-annotations</code> preference (see <a href="#ODataProtocol">OData-Protocol</a>) for the explicitly requested annotations. Additional annotations matching the preference can be included even if not requested via <code>$select</code>. The <code>Preference-Applied</code> response header only reflects the set of annotations included due to the <code>include-annotations</code> preference and not those only included due to <code>$select</code>.</p>
+<p>If any select item (including a star) is specified, actions and functions SHOULD be omitted unless explicitly requested.</p>
+<p>If an action or function is requested as a select item, either explicitly by using its qualified name, or implicitly by requesting all operations in a schema, then the service includes information about how to invoke that operation for each entity identified by the last path segment in the request URL for which the operation can be bound.</p>
+<p>If an action or function is requested in a select item using its qualified name and that operation cannot be bound to the entities requested, the service MUST ignore the select item.</p>
+<div class="example">
+<p>Example 132: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
+<pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
+</div>
+<p>When multiple select item exist in a <code>select clause</code>, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
+<p>If a select item is a path expression requesting a component of a complex property and the complex property is <code>null</code> on an instance, then the component is treated as <code>null</code> as well.</p>
+<h3 id="515-system-query-option-orderby"><a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
+<p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
+<p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
+<h3 id="516-system-query-options-top-and-skip"><a name="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></h3>
+<p>The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The <code>$skip</code> query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining <code>$top</code> and <code>$skip</code>.</p>
+<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip </code>query options respectively.</p>
+<h3 id="517-system-query-option-count"><a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></h3>
+<p>The <code>$count</code> system query option allows clients to request a count of the matching resources included with the resources in the response. The <code>$count</code> query option has a Boolean value of <code>true</code> or <code>false</code>.</p>
+<p>The semantics of <code>$count</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<h3 id="518-system-query-option-search"><a name="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option <code>$search</code></a></h3>
+<p>The <code>$search</code> system query option allows clients to request items within a collection matching a free-text <a href="#SearchExpressions">search expression</a>.</p>
+<p>The <code>$search</code> query option can be applied to a URL representing a collection of entity, complex, or primitive typed instances, to return all matching items within the collection. Applying the <code>$search</code> query option to the <a href="#AddressingAllEntitiesinaService"><code>$all</code></a> resource requests all matching entities in the service.</p>
+<p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are applied to the same request, the results include only those items that match both criteria.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>search</code> syntax rule defines the formal grammar of the <code>$search</code> query option.</p>
+<div class="example">
+<p>Example 133: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
+<pre><code>http://host/service/Products?$search=blue OR green</code></pre>
+</div>
+<h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
+<p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression.</p>
+<p><em>Terms</em> can be any single word to be matched within the expression.</p>
+<p>Terms enclosed in double-quotes comprise a <em>phrase</em>.</p>
+<p>Each individual term or phrase comprises a Boolean expression that returns true if the term or phrase is matched, otherwise false. The semantics of what is considered a match is dependent upon the service.</p>
+<p>Expressions enclosed in parenthesis comprise a <em>group expression</em>.</p>
+<p>The search expression can contain any number of terms, phrases, or group expressions, along with the case-sensitive keywords <code>NOT</code>, <code>AND</code>, and <code>OR</code>, evaluated in that order.</p>
+<p>Expressions prefaced with <code>NOT</code> evaluate to true if the expression is not matched, otherwise false.</p>
+<p>Two expressions not enclosed in quotes and separated by a space are equivalent to the same two expressions separated by the <code>AND</code> keyword. Such expressions evaluate to <code>true</code> if both expressions evaluate to true, otherwise false.</p>
+<p>Expressions separated by an <code>OR</code> evaluate to true if either of the expressions evaluate to true, otherwise false.</p>
+<p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>searchExpr</code> syntax rule defines the formal grammar of the search expression.</p>
+<h3 id="519-system-query-option-format"><a name="SystemQueryOptionformat" href="#SystemQueryOptionformat">5.1.9 System Query Option <code>$format</code></a></h3>
+<p>The <code>$format</code> system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation. Where present <code>$format</code> takes precedence over standard content-type negotiation.</p>
+<p>The semantics of <code>$format</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>format</code> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
+<h3 id="5110-system-query-option-compute"><a name="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">5.1.10 System Query Option <code>$compute</code></a></h3>
+<p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in a <a href="#SystemQueryOptionselect"><code>$select</code></a> or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
+<p>The <code>$compute</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL.</p>
+<p>The value of <code>$compute</code> is a comma-separated list of compute instructions, each consisting of a <a href="#CommonExpressionSyntax">common expression</a> followed by the keyword <code>as</code>, followed by the name for the computed dynamic property. This name MUST differ from the names of declared or dynamic properties of the identified resources.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>compute</code> syntax rule defines the formal grammar of the <code>$compute</code> query option.</p>
+<p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
+<div class="example">
+<p>Example 134: compute total price for order items</p>
+<pre><code>http://host/service/Orders(10)/Items?$select=Product/Description,Total&amp;$filter=Total
+gt 100&amp;$orderby=Total&amp;$compute=Product/Price mul Quantity as Total</code></pre>
+</div>
+<h3 id="5111-system-query-option-index"><a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option <code>$index</code></a></h3>
+<p>The <code>$index</code> system query option allows clients to do a positional insert into a collection annotated with using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal indexes from the end of the collection, with -1 representing an insert at the end of the collection.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>index</code> syntax rule defines the formal grammar of the <code>$index</code> query option.</p>
+<h3 id="5112-system-query-option-schemaversion"><a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option <code>$schemaversion</code></a></h3>
+<p>The <code>$schemaversion</code> system query option allows clients to specify the version of the schema against which the request is made. The semantics of <code>$schemaversion</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <code>schemaversion</code> syntax rule defines the formal grammar of the <code>$schemaversion</code> query option</p>
+<h2 id="52-custom-query-options"><a name="CustomQueryOptions" href="#CustomQueryOptions">5.2 Custom Query Options</a></h2>
+<p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <code>customQueryOption</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Custom query options MUST NOT begin with a <code>$</code> or <code>@</code> character.</p>
+<div class="example">
+<p>Example 135: service-specific custom query option <code>debug-mode</code></p>
+<pre><code>http://host/service/Products?debug-mode=true</code></pre>
+</div>
+<h2 id="53-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a></h2>
+<p>Parameter aliases can be used in place of literal values in entity keys, <a href="#AddressingFunctions">function</a> parameters, or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
+<p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The semantics of parameter aliases are covered in <a href="#ODataProtocol">OData-Protocol</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
+<div class="example">
+<p>Example 136:</p>
+<pre><code>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word=&#39;Black&#39;</code></pre>
+</div>
+<div class="example">
+<p>Example 137:</p>
+<pre><code>http://host/service/Movies?$filter=Title eq @title&amp;@title=&#39;Wizard of Oz&#39;</code></pre>
+</div>
+<div class="example">
+<p>Example 138: JSON array of strings as parameter alias value -- note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
+<pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
+</div>
+<hr />
+<h1 id="6-conformance"><a name="Conformance" href="#Conformance">6 Conformance</a></h1>
+<p>The conformance requirements for OData clients and services are described in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<hr />
+<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+<p>This appendix contains the normative and informative references that are used in this document.</p>
+<p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+<p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
+<h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
+<p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-aggregation"><a name="ODataAggregation">[OData-Aggregation]</a></h6>
+<p><em>OData Extension for Data Aggregation Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-json"><a name="ODataJSON">[OData-JSON]</a></h6>
+<p><em>OData JSON Format Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
+<p><em>OData Version 4.02. Part 1: Protocol.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-voccap"><a name="ODataVocCap">[OData-VocCap]</a></h6>
+<p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
+<p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="rfc2046"><a name="rfc2046">[RFC2046]</a></h6>
+<p><em>Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996</em> <a href="https://tools.ietf.org/html/rfc2046">https://tools.ietf.org/html/rfc2046</a>.</p>
+<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
+<p><a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
+<h6 id="rfc3986"><a name="rfc3986">[RFC3986]</a></h6>
+<p><em>Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005</em> <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
+<h6 id="rfc3987"><a name="rfc3987">[RFC3987]</a></h6>
+<p><em>Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005</em> <a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>.</p>
+<h6 id="rfc4648"><a name="rfc4648">[RFC4648]</a></h6>
+<p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> <a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
+<h6 id="rfc5646"><a name="rfc5646">[RFC5646]</a></h6>
+<p><em>Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009</em> <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.org/html/rfc5646</a>.</p>
+<h6 id="rfc5789"><a name="rfc5789">[RFC5789]</a></h6>
+<p><em>Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010</em> <a href="http://tools.ietf.org/html/rfc5789">http://tools.ietf.org/html/rfc5789</a>.</p>
+<h6 id="rfc7493"><a name="rfc7493">[RFC7493]</a></h6>
+<p><em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em> <a href="https://tools.ietf.org/html/rfc7493">https://tools.ietf.org/html/rfc7493</a>.</p>
+<h6 id="rfc7230"><a name="rfc7230">[RFC7230]</a></h6>
+<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014</em> <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a>.</p>
+<h6 id="rfc7231"><a name="rfc7231">[RFC7231]</a></h6>
+<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014</em> <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a>.</p>
+<h6 id="rfc7232"><a name="rfc7232">[RFC7232]</a></h6>
+<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014</em> <a href="https://tools.ietf.org/html/rfc7232">https://tools.ietf.org/html/rfc7232</a>.</p>
+<h6 id="rfc7240"><a name="rfc7240">[RFC7240]</a></h6>
+<p><em>Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014</em> <a href="https://tools.ietf.org/html/rfc7240">https://tools.ietf.org/html/rfc7240</a>.</p>
+<h6 id="rfc7617"><a name="rfc7617">[RFC7617]</a></h6>
+<p><em>Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015</em> <a href="https://tools.ietf.org/html/rfc7617">https://tools.ietf.org/html/rfc7617</a>.</p>
+<h6 id="rfc7946"><a name="rfc7946">[RFC7946]</a></h6>
+<p><em>Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016</em> <a href="http://tools.ietf.org/html/rfc7946">http://tools.ietf.org/html/rfc7946</a>.</p>
+<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
+<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
+<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
+<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em> <a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
+<h6 id="xml-schema-2"><a name="XML-Schema2">[XML-Schema-2]</a></h6>
+<p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
+<a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
+<h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+<h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
+<p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+<h6 id="geojson-2008"><a name="GeoJSON-2008">[GeoJSON-2008]</a></h6>
+<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008</em> <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>.</p>
+<hr />
+<h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
+<p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
+<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#rfc7231">RFC7231</a> (9. Security Considerations) and for the HTTP <code>PATCH</code> method <a href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting points.</p>
+<h2 id="b1-authentication"><a name="Authentication" href="#Authentication">B.1 Authentication</a></h2>
+<p>OData Services requiring authentication SHOULD consider supporting basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS for the highest level of interoperability with generic clients. They MAY support other authentication methods.</p>
+<hr />
+<h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
+<h2 id="c1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
+<p>The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:</p>
+<ul>
+<li>Howard Abrams (CA Technologies)</li>
+<li>Ken Baclawski (Northeastern University)</li>
+<li>Jay Balunas (Red Hat)</li>
+<li>Stephen Berard (Schneider Electric Industries SAS)</li>
+<li>Mark Biamonte (Progress Software)</li>
+<li>Matthew Borges (SAP SE)</li>
+<li>Edmond Bourne (BlackBerry)</li>
+<li>Joseph Boyle (Planetwork, Inc.)</li>
+<li>Peter Brown (Individual)</li>
+<li>Antonio Campanile (Bank of America)</li>
+<li>Pablo Castro (Microsoft)</li>
+<li>Axel Conrad (BlackBerry)</li>
+<li>Robin Cover (OASIS)</li>
+<li>Erik de Voogd (SDL)</li>
+<li>Yi Ding (Microsoft)</li>
+<li>Diane Downie (Citrix Systems)</li>
+<li>Patrick Durusau (Individual)</li>
+<li>Andrew Eisenberg (IBM)</li>
+<li>Chet Ensign (OASIS)</li>
+<li>Davina Erasmus (SDL)</li>
+<li>George Ericson (Dell)</li>
+<li>Colleen Evans (Microsoft)</li>
+<li>Jason Fam (IBM)</li>
+<li>Senaka Fernando (WSO2)</li>
+<li>Josh Gavant (Microsoft)</li>
+<li>Brent Gross (IBM)</li>
+<li>Zhun Guo (Individual)</li>
+<li>Anila Kumar GVN (CA Technologies)</li>
+<li>Stefan Hagen (Individual)</li>
+<li>Ralf Handl (SAP SE)</li>
+<li>Barbara Hartel (SAP SE)</li>
+<li>Hubert Heijkers (IBM)</li>
+<li>Jens Hüsken (SAP SE)</li>
+<li>Evan Ireland (SAP SE)</li>
+<li>Gershon Janssen (Individual)</li>
+<li>Ram Jeyaraman (Microsoft)</li>
+<li>Ling Jin (IBM)</li>
+<li>Ted Jones (Red Hat)</li>
+<li>Diane Jordan (IBM)</li>
+<li>Stephan Klevenz (SAP SE)</li>
+<li>Gerald Krause (SAP SE)</li>
+<li>Nuno Linhares (SDL)</li>
+<li>Paul Lipton (CA Technologies)</li>
+<li>Susan Malaika (IBM)</li>
+<li>Ramanjaneyulu Malisetti (CA Technologies)</li>
+<li>Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)</li>
+<li>Stan Mitranic (CA Technologies)</li>
+<li>Dale Moberg (Axway Software)</li>
+<li>Graham Moore (BrightstarDB Ltd.)</li>
+<li>Farrukh Najmi (Individual)</li>
+<li>Shishir Pardikar (Citrix Systems)</li>
+<li>Sanjay Patil (SAP SE)</li>
+<li>Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)</li>
+<li>Michael Pizzo (Microsoft)</li>
+<li>Ramesh Reddy (Red Hat)</li>
+<li>Robert Richards (Mashery)</li>
+<li>Sumedha Rubasinghe (WSO2)</li>
+<li>James Snell (IBM)</li>
+<li>Christof Sprenger (Microsoft)</li>
+<li>Heiko Theißen (SAP SE)</li>
+<li>Jeffrey Turpin (Axway Software)</li>
+<li>John Willson (Individual)</li>
+<li>John Wilmes (Individual)</li>
+<li>Christopher Woodruff (Perficient, Inc.)</li>
+<li>Martin Zurmuehl (SAP SE)</li>
+</ul>
+<h2 id="c2-participants"><a name="Participants" href="#Participants">C.2 Participants</a></h2>
+<p><strong>OData TC Members:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">First Name</th>
+<th style="text-align: left;">Last Name</th>
+<th style="text-align: left;">Company</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">George</td>
+<td style="text-align: left;">Ericson</td>
+<td style="text-align: left;">Dell</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hubert</td>
+<td style="text-align: left;">Heijkers</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ling</td>
+<td style="text-align: left;">Jin</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stefan</td>
+<td style="text-align: left;">Hagen</td>
+<td style="text-align: left;">Individual</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Michael</td>
+<td style="text-align: left;">Pizzo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Christof</td>
+<td style="text-align: left;">Sprenger</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ralf</td>
+<td style="text-align: left;">Handl</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gerald</td>
+<td style="text-align: left;">Krause</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heiko</td>
+<td style="text-align: left;">Theißen</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Revision</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Changes Made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Working Draft 01</td>
+<td style="text-align: left;">2023-07-20</td>
+<td style="text-align: left;">Ralf Handl</td>
+<td style="text-align: left;">Import material from OData JSON Format Version 4.01</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
+<!-- Required section. Do not modify. -->
+
+<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
+<p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
+<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
+<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
+<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
 </body>
 </html>
