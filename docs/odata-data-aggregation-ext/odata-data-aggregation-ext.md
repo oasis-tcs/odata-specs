@@ -982,7 +982,7 @@ USA||Food|Sugar|2
 USA||Food|Coffee|12
 USA||Non-Food|Paper|5
 Netherlands||Food|Sugar|2
-Netherlands||Non-Food|Paper|1
+Netherlands||Non-Food|Paper|3
 USA|Joe|Food||6
 USA|Joe|Non-Food||1
 USA|Sue|Food||8
