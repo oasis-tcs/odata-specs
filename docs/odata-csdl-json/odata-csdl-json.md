@@ -765,10 +765,10 @@ Example 3: references to other CSDL documents
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml": {
       ...
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml": {
       ...
     },
     "http://example.org/display/v1": {
@@ -843,7 +843,7 @@ vocabulary terms
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Capabilities.V1",
@@ -851,7 +851,7 @@ vocabulary terms
         }
       ]
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Core.V1",
