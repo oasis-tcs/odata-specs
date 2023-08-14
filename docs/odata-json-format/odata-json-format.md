@@ -3793,7 +3793,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
 | Mark | Biamonte | Progress Software |
-| Martin | Zurmühl | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
