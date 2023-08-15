@@ -569,7 +569,8 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <li>By invoking a function bound to a collection of entities that returns a collection of entities (see rule: <code>boundOperation</code>)</li>
 </ul>
 <div class="example">
-<p>Example 18: http://host/service/Categories(1)/Products/Model.AllOrders()</p>
+<p>Example 18:</p>
+<pre><code>http://host/service/Categories(1)/Products/Model.AllOrders()</code></pre>
 </div>
 <ul>
 <li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: <code>boundOperation</code>)</li>
@@ -603,8 +604,8 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <div class="example">
 <p>Example 22: shortened key predicate of related entity</p>
 <pre><code>https://host/service/Orders(1)/Items(2)</code></pre>
-</div>
 <p>The two above examples are equivalent if the navigation property <code>Items</code> from <code>Order</code> to <code>OrderItem</code> has a partner navigation property from <code>OrderItem</code> to <code>Order</code> with a referential constraint tying the value of the <code>OrderID</code> key property of the <code>OrderItem</code> to the value of the <code>ID</code> key property of the <code>Order</code>.</p>
+</div>
 <p>The shorter form that does not specify the constrained key parts redundantly is preferred. If the value of the constrained key is redundantly specified, then it MUST match the principal key value.</p>
 <h3 id="434-resolving-an-entity-id"><a name="ResolvinganEntityId" href="#ResolvinganEntityId">4.3.4 Resolving an Entity-Id</a></h3>
 <p>To resolve an entity-id into a representation of the identified entity, the client issues a <code>GET</code> request to the <code>$entity</code> resource located at the URL <code>$entity</code> relative to the service root URL. The entity-id MUST be specified using the system query option <code>$id</code>. The entity-id may be expressed as an absolute IRI or relative to the request root URL.</p>
@@ -644,10 +645,10 @@ https://host/service/OrderItems/1/2</code></pre>
 </div>
 <p>If a navigation property leading to a related entity type has a partner navigation property that specifies a referential constraint, then those key properties of the related entity that take part in the referential constraint MUST be omitted from URLs using key-as-segment convention.</p>
 <div class="example">
-<p>Example 27: key predicate of related entity -- no key segments for key properties of related entity with a referential constraint to preceding key segments</p>
+<p>Example 27: key predicate of related entity - no key segments for key properties of related entity with a referential constraint to preceding key segments</p>
 <pre><code>https://host/service/Orders/1/Items/2</code></pre>
-</div>
 <p>The above example assumes that the navigation property <code>Items</code> from <code>Order</code> to <code>OrderItem</code> has a partner navigation property from <code>OrderItem</code> to <code>Order</code> with a referential constraint tying the value of the <code>OrderID</code> key property of the <code>OrderItem</code> to the value of the <code>ID</code> key property of the <code>Order</code>.</p>
+</div>
 <p>Because representing key values as segments could be ambiguous with other URL construction conventions, services that support key-as segment MUST implement the following precedence rules:</p>
 <p>If a segment following an entity collection:</p>
 <ol type="1">
@@ -700,8 +701,8 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 <p>Properties of type <code>Edm.Stream</code> already return the raw value of the media stream and do not support appending the <code>/$value</code> segment.</p>
 <h2 id="48-addressing-the-count-of-a-collection"><a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a></h2>
 <p>To address the raw value of the number of items in a collection, clients append <code>/$count</code> to the resource path of the URL identifying the entity set or collection.</p>
-<p>The <code>/$count </code>path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options [ ]{.MsoCommentReference}<a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
-<p>The count is calculated after applying any <a href="#AddressingaSubsetofaCollection"><code>/$filter</code></a> path segments, or <code>$filter</code> or <code>$search</code> system query options to the collection.</p>
+<p>The <code>/$count </code>path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
+<p>The count is calculated after applying any <a href="#AddressingaSubsetofaCollection"><code>/$filter</code></a> path segments, or <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options to the collection.</p>
 <div class="example">
 <p>Example 30: the number of related entities</p>
 <pre><code>http://host/service/Categories(1)/Products/$count</code></pre>
@@ -711,16 +712,15 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 <pre><code>http://host/service/Products/$count</code></pre>
 </div>
 <div class="example">
-<p>Example 32: entity count in a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expression. Note that the spaces around <code>gt</code> are for readability of the example only; in real URLs they must be percent-encoded as <code>%20</code>.</p>
+<p>Example 32: entity count in a <code>$filter</code> expression. Note that the spaces around <code>gt</code> are for readability of the example only; in real URLs they must be percent-encoded as <code>%20</code>.</p>
 <pre><code>http://host/service/Categories?$filter=Products/$count gt 0</code></pre>
 </div>
 <div class="example">
-<p>Example 33: count of a filtered collection in a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expression; returns all Categories containing more than two products whose price is greater than 5.00.</p>
-<pre><code>http://host/service/Categories?$filter=Products/$count($filter=Price
-gt 5.00) gt 2</code></pre>
+<p>Example 33: count of a filtered collection in a <code>$filter</code> expression; returns all Categories containing more than two products whose price is greater than 5.00.</p>
+<pre><code>http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt 2</code></pre>
 </div>
 <div class="example">
-<p>Example 34: entity count in an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression</p>
+<p>Example 34: entity count in an <code>$orderby</code> expression</p>
 <pre><code>http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
 <h2 id="49-addressing-a-member-within-an-entity-collection"><a name="AddressingaMemberwithinanEntityCollection" href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a></h2>
@@ -756,8 +756,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
 <p>Example 39: filter expression with type cast; will evaluate to <code>null</code> for all non-<code>VipCustomer</code> instances and thus return only instances of <code>VipCustomer</code></p>
-<pre><code>http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
-gt 80</code></pre>
+<pre><code>http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
 </div>
 <div class="example">
 <p>Example 40: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
@@ -773,8 +772,7 @@ gt 80</code></pre>
 </div>
 <div class="example">
 <p>Example 42: red products that cost less than 10 -- combine two path segments</p>
-<pre><code>GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&amp;@c=Color eq
-&#39;red&#39;</code></pre>
+<pre><code>GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&amp;@c=Color eq &#39;red&#39;</code></pre>
 </div>
 <div class="example">
 <p>Example 43: categories with less than ten products older than three</p>
@@ -804,27 +802,26 @@ gt 80</code></pre>
 <p>The <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a> query options can also be used with no special semantics.</p>
 <div class="example">
 <p>Example 46: if <code>Sales</code> had a structural property <code>ProductID</code> instead of a navigation property <code>Product</code>, a "cross join" between <code>Sales</code> and <code>Products</code> could be addressed</p>
-<pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq
-Sales/ProductID                </code></pre>
+<pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                </code></pre>
 <p>and would result in</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="416-addressing-all-entities-in-a-service"><a name="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a></h2>
 <p>The symbolic resource <code>$all</code>, located at the service root, identifies the collection of all entities in a service, i.e. the union of all entity sets plus all singletons.</p>

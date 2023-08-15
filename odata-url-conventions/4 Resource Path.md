@@ -222,7 +222,9 @@ collection of entities that returns a collection of entities (see rule:
 
 ::: example
 Example ##ex:
+```
 http://host/service/Categories(1)/Products/Model.AllOrders()
+```
 :::
 
 - By invoking an action bound to a
@@ -304,13 +306,12 @@ Example ##ex: shortened key predicate of related entity
 ```
 https://host/service/Orders(1)/Items(2)
 ```
-:::
-
 The two above examples are equivalent if the navigation property `Items`
 from `Order` to `OrderItem` has a partner navigation property from
 `OrderItem` to `Order` with a referential constraint tying the value of
 the `OrderID` key property of the `OrderItem` to the value of the `ID`
 key property of the `Order`.
+:::
 
 The shorter form that does not specify the constrained key parts
 redundantly is preferred. If the value of the constrained key is
@@ -401,19 +402,18 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example ##ex: key predicate of related entity -- no key segments for key
+Example ##ex: key predicate of related entity - no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
 https://host/service/Orders/1/Items/2
 ```
-:::
-
 The above example assumes that the navigation property `Items` from
 `Order` to `OrderItem` has a partner navigation property from
 `OrderItem` to `Order` with a referential constraint tying the value of
 the `OrderID` key property of the `OrderItem` to the value of the `ID`
 key property of the `Order`.
+:::
 
 Because representing key values as segments could be ambiguous with
 other URL construction conventions, services that support key-as segment
@@ -563,7 +563,7 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -572,7 +572,8 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-`$filter` or `$search` system query options to the collection.
+[`$filter`](#SystemQueryOptionfilter) or 
+[`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
 Example ##ex: the number of related entities
@@ -589,7 +590,7 @@ http://host/service/Products/$count
 :::
 
 ::: example
-Example ##ex: entity count in a [`$filter`](#SystemQueryOptionfilter)
+Example ##ex: entity count in a `$filter`
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 ```
@@ -599,17 +600,15 @@ http://host/service/Categories?$filter=Products/$count gt 0
 
 ::: example
 Example ##ex: count of a filtered collection in a
-[`$filter`](#SystemQueryOptionfilter) expression; returns all Categories
+`$filter` expression; returns all Categories
 containing more than two products whose price is greater than 5.00.
 ```
-http://host/service/Categories?$filter=Products/$count($filter=Price
-gt 5.00) gt 2
+http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt 2
 ```
 :::
 
 ::: example
-Example ##ex: entity count in an
-[`$orderby`](#SystemQueryOptionorderby) expression
+Example ##ex: entity count in an `$orderby` expression
 ```
 http://host/service/Categories?$orderby=Products/$count
 ```
@@ -723,8 +722,7 @@ Example ##ex: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
-gt 80
+http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
@@ -768,8 +766,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 Example ##ex: red products that cost less than 10 -- combine two path
 segments
 ```
-GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq
-'red'
+GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
 ```
 :::
 
@@ -873,8 +870,7 @@ Example ##ex: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
-http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq
-Sales/ProductID                
+http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                
 ```
 and would result in
 ```json
