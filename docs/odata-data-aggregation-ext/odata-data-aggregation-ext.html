@@ -2273,7 +2273,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without entity id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.</p>
 <div class="example">
 <p>Example 40:</p>
-<pre><code>GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))</code></pre>
+<pre><code>GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Customers())&quot;</span><span class="fu">,</span></span>
