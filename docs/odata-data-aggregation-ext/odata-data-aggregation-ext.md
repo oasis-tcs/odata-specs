@@ -2058,7 +2058,7 @@ The output set consists of a single instance of the [input type](#TypeStructurea
 ::: example
 Example 40:
 ```
-GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
+GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers)
 ```
 results in
 ```json
