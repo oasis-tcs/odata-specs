@@ -6,3 +6,8 @@ previousStage: n/a
 pubdate: 14 July 2023
 pubdateISO: '2023-07-14'
 copyright: © OASIS Open 2023
+description:
+  The Open Data Protocol (OData) enables the creation of REST-based data services,
+  which allow resources, identified using Uniform Resource Locators (URLs) and
+  defined in an Entity Data Model (EDM), to be published and edited by Web clients
+  using simple HTTP messages. This document defines the core semantics and facilities of the protocol.
