@@ -47,7 +47,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
