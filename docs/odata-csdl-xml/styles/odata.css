@@ -193,6 +193,10 @@ h6 {
 	page-break-after: avoid;
 }
 
+td {
+	page-break-inside: avoid;
+}
+
 h2[id="22-example-data"] {
 	page-break-before: always;
 }

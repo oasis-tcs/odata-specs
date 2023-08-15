@@ -2059,7 +2059,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#Annotation">Annotation</a> on a model element</td>
 <td>path expression identifying the model element followed by a segment containing an at (<code>@</code>) prepended to the qualified name of a term, optionally suffixed with a hash (<code>#</code>) and the qualifier of an annotation</td>
-<td></td>
+<td><pre><code>MySchema.MyEntityType/@MyVocabulary.MyTerm</code> <br><code>MySchema.MyEntityType/@MyVocabulary.MyTerm#MyQualifier</code></pre></td>
 </tr>
 <tr class="odd">
 <td><a href="#ComplexType">Complex Type</a></td>
@@ -2094,7 +2094,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="odd">
 <td><a href="#Function">Function</a> overload</td>
 <td>qualified name of function followed by parentheses containing the comma-separated list of the parameter types of a bound or unbound function overload in the order of their definition in the function overload</td>
-<td><pre><code>MySchema.MyFunction(MySchema.MyBindingParamType,First.NonBinding.ParamType)</code> <br><code>MySchema.MyFunction(First.NonBinding.ParamType,Secnd.NonBinding.ParamType)</code></pre></td>
+<td><pre><code>MySchema.MyFunction(MySchema.MyBindingParamType,</code> <br><code>  First.NonBinding.ParamType)</code> <br><code>MySchema.MyFunction(First.NonBinding.ParamType,</code> <br><code>  Second.NonBinding.ParamType)</code></pre></td>
 </tr>
 <tr class="even">
 <td>all overloads of a <a href="#Function">Function</a></td>
@@ -2109,7 +2109,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#NavigationProperty">Navigation Property</a> via container</td>
 <td>qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast</td>
-<td><pre><code>MySchema.MyEntityContainer/MyEntitySet/MyNavigationProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyNavProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavProperty</code> <br><code>MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavProperty</code></pre></td>
+<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code>  /MyNavigationProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code>  /MySchema.MyEntityType/MyNavProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code>  /MyComplexProperty/MyNavProperty</code> <br><code>MySchema.MyEntityContainer/MySingleton</code> <br><code>  /MyComplexProperty/MyNavProperty</code></pre></td>
 </tr>
 <tr class="odd">
 <td><a href="#NavigationProperty">Navigation Property</a> via structured type</td>
@@ -2119,7 +2119,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#Parameter">Parameter</a></td>
 <td>qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name</td>
-<td></td>
+<td><pre><code>MySchema.MyEntityContainer/MyFunctionImport/MyParameter</code></pre></td>
 </tr>
 <tr class="odd">
 <td><a href="#Parameter">Parameter</a></td>
@@ -2129,7 +2129,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#StructuralProperty">Property</a> via container</td>
 <td>qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast</td>
-<td><pre><code>MySchema.MyEntityContainer/MyEntitySet/MyProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyProperty</code></pre></td>
+<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MySchema.MyEntityType/MyProperty</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code>  /MyComplexProperty/MyProperty</code></pre></td>
 </tr>
 <tr class="odd">
 <td><a href="#StructuralProperty">Property</a> via structured type</td>
@@ -2139,12 +2139,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#ReturnType">Return Type</a></td>
 <td>qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing <code>$ReturnType</code></td>
-<td></td>
+<td><pre><code>MySchema.MyEntityContainer/MyFunctionImport/$ReturnType</code></pre></td>
 </tr>
 <tr class="odd">
 <td><a href="#ReturnType">Return Type</a></td>
 <td>qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing <code>$ReturnType</code></td>
-<td></td>
+<td><pre><code>MySchema.MyFunction/$ReturnType</code> <br><code>MySchema.MyFunction(MySchema.MyBindingParamType,</code> <br><code>  First.NonBinding.ParamType)/$ReturnType</code></pre></td>
 </tr>
 <tr class="even">
 <td><a href="#Singleton">Singleton</a></td>
@@ -2159,7 +2159,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="even">
 <td><a href="#TypeDefinition">Type Definition</a></td>
 <td>qualified name of type definition</td>
-<td></td>
+<td><pre><code>MySchema.MyTypeDefinition</code></pre></td>
 </tr>
 </tbody>
 </table>
