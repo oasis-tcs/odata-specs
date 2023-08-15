@@ -41,7 +41,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -57,7 +57,7 @@ This specification is related to:
 * _OData Extension for Temporal Data Version 4.0_. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html
 
 #### Abstract:
-The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.
+The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.
 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
@@ -234,10 +234,8 @@ For complete copyright information please see the full Notices section in an App
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-  - [B.1 Authentication](#Authentication)
 - [C Acknowledgments](#Acknowledgments)
-  - [C.1 Special Thanks](#SpecialThanks)
-  - [C.2 Participants](#Participants)
+  - [C.1 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
 - [E Notices](#Notices)
 :::
@@ -378,8 +376,9 @@ specification document defines additional rules that a correct OData URL
 MUST fulfill. In case of doubt on what makes an OData URL correct the
 rules defined in this specification document take precedence. Note also
 that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
-parts have been percent-encoding normalized as described in section
-6.2.2.2 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
+parts have been percent-encoding normalized as described in
+[section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
+of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
 all characters in the unreserved set (see rule `unreserved` in [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
@@ -399,18 +398,18 @@ http://host/service/People(%27O%27%27Neil%27)
 
 http://host/service/People%28%27O%27%27Neil%27%29
 
-http://host/service/`Categories`('Smartphone%2FTablet')
+http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
 
 ::: example
 Example 4: invalid OData URLs:
 ```
-http://host/service`/People('O'Neil')
+http://host/service/People('O'Neil')
 
-http://host/service`/People('O%27Neil')
+http://host/service/People('O%27Neil')
 
-http://host/service`/Categories('Smartphone/Tablet')
+http://host/service/Categories('Smartphone/Tablet')
 ```
 :::
 
@@ -657,7 +656,9 @@ collection of entities that returns a collection of entities (see rule:
 
 ::: example
 Example 18:
+```
 http://host/service/Categories(1)/Products/Model.AllOrders()
+```
 :::
 
 - By invoking an action bound to a
@@ -739,13 +740,12 @@ Example 22: shortened key predicate of related entity
 ```
 https://host/service/Orders(1)/Items(2)
 ```
-:::
-
 The two above examples are equivalent if the navigation property `Items`
 from `Order` to `OrderItem` has a partner navigation property from
 `OrderItem` to `Order` with a referential constraint tying the value of
 the `OrderID` key property of the `OrderItem` to the value of the `ID`
 key property of the `Order`.
+:::
 
 The shorter form that does not specify the constrained key parts
 redundantly is preferred. If the value of the constrained key is
@@ -836,19 +836,18 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example 27: key predicate of related entity -- no key segments for key
+Example 27: key predicate of related entity - no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
 https://host/service/Orders/1/Items/2
 ```
-:::
-
 The above example assumes that the navigation property `Items` from
 `Order` to `OrderItem` has a partner navigation property from
 `OrderItem` to `Order` with a referential constraint tying the value of
 the `OrderID` key property of the `OrderItem` to the value of the `ID`
 key property of the `Order`.
+:::
 
 Because representing key values as segments could be ambiguous with
 other URL construction conventions, services that support key-as segment
@@ -998,7 +997,7 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -1007,7 +1006,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-`$filter` or `$search` system query options to the collection.
+[`$filter`](#SystemQueryOptionfilter) or [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
 Example 30: the number of related entities
@@ -1024,7 +1023,7 @@ http://host/service/Products/$count
 :::
 
 ::: example
-Example 32: entity count in a [`$filter`](#SystemQueryOptionfilter)
+Example 32: entity count in a `$filter`
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 ```
@@ -1034,17 +1033,15 @@ http://host/service/Categories?$filter=Products/$count gt 0
 
 ::: example
 Example 33: count of a filtered collection in a
-[`$filter`](#SystemQueryOptionfilter) expression; returns all Categories
+`$filter` expression; returns all Categories
 containing more than two products whose price is greater than 5.00.
 ```
-http://host/service/Categories?$filter=Products/$count($filter=Price
-gt 5.00) gt 2
+http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt 2
 ```
 :::
 
 ::: example
-Example 34: entity count in an
-[`$orderby`](#SystemQueryOptionorderby) expression
+Example 34: entity count in an `$orderby` expression
 ```
 http://host/service/Categories?$orderby=Products/$count
 ```
@@ -1158,8 +1155,7 @@ Example 39: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered
-gt 80
+http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
@@ -1203,8 +1199,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 Example 42: red products that cost less than 10 -- combine two path
 segments
 ```
-GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq
-'red'
+GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
 ```
 :::
 
@@ -1308,8 +1303,7 @@ Example 46: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
-http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq
-Sales/ProductID                
+http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                
 ```
 and would result in
 ```json
@@ -1647,14 +1641,14 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 50: all products with a `Name` equal to '`Milk'`
+Example 50: all products with a `Name` equal to 'Milk'
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 51: all products with a `Name` not equal to '`Milk'`
+Example 51: all products with a `Name` not equal to 'Milk'
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
@@ -1744,9 +1738,7 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-add B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is ${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
 operands:
@@ -1757,8 +1749,8 @@ a `DateTimeOffset`
 - `Date add Duration` results in a `Date`
 
 The rules for time-related operands are defined in
-[XML-Schema-2](#XML-Schema2), section E.3.3. Specifically, for
-adding a duration to a date:
+[XML-Schema-2](#XML-Schema2), [section E.3.3](https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith).
+Specifically, for adding a duration to a date:
 - Convert date to datetime (in any timezone) with a zero time component
 - Add/subtract duration
 - Convert to date by removing the time and timezone components
@@ -1771,9 +1763,8 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-sub B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is ${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
 operands:
@@ -1787,8 +1778,8 @@ results in a `Duration`
 - `Date sub Date` results in a `Duration`
 
 The rules for time-related operands are defined in
-[XML-Schema-2]#XML-Schema2), section E.3.3. Specifically for
-subtracting a duration from a date see the preceding
+[XML-Schema-2](#XML-Schema2), [section E.3.3](https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith).
+Specifically for subtracting a duration from a date see the preceding
 [section](#Addition).
 
 ##### <a name="Negation" href="#Negation">5.1.1.2.3 Negation</a>
@@ -1802,9 +1793,10 @@ The `mul` operator multiplies the left and right numeric operands. The
 `mul` operator is also valid for multiplying a `Duration` value with a
 numeric value.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-mul B) = scaleof(A) + scaleof(B), floating if any operand has floating
-scale, or else variable if any operand has variable scale.
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)$,
+`floating` if any operand has floating
+scale, or else `variable` if any operand has variable scale.
 
 ##### <a name="Division" href="#Division">5.1.1.2.5 Division</a>
 
@@ -1839,9 +1831,9 @@ is divided by the right numeric operand.  The sign of the result is the
 same as the sign of the left operand. If the right operand is zero, the
 request fails.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-mod B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+or `variable` if any operand has variable scale.
 
 ##### <a name="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a>
 
@@ -1916,7 +1908,9 @@ In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
 [parameter alias](#ParameterAliases) values. The following sections
-describe the available functions. Note: ISNULL or COALESCE operators are
+describe the available functions.
+
+Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
@@ -1954,8 +1948,7 @@ is invoked.
 ::: example
 Example 69: all customers from Berlin, Germany
 ```
-http://host/service/Customers?$filter=concat(concat(City,', '),
-Country) eq 'Berlin, Germany'
+http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
 ```
 :::
 
@@ -2050,8 +2043,7 @@ function is invoked.
 Example 72: all customers with a `CompanyName` containing '`lfreds'`
 starting at the second character
 ```
-http://host/service/Customers?$filter=indexof(CompanyName,'lfreds')
-eq 1
+http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
 ```
 :::
 
@@ -2163,8 +2155,7 @@ function is invoked.
 Example 75: all customers with a `CompanyName` of `'lfreds Futterkiste'`
 once the first character has been removed
 ```
-http://host/service/Customers?$filter=substring(CompanyName,1) eq
-'lfreds Futterkiste'
+http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
 ```
 :::
 
@@ -2172,8 +2163,7 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq
 Example 76: all customers with a `CompanyName` that has '`lf' `as the
 second and third characters, e.g, '`Alfreds Futterkiste`'
 ```
-http://host/service/Customers?$filter=substring(CompanyName,1,2) eq
-'lf'
+http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
 :::
 
@@ -2295,8 +2285,7 @@ Example 82: all customers with a `CompanyName` that equals
 `'alfreds futterkiste'` once any uppercase characters have been
 converted to lowercase
 ```
-http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds
-futterkiste'
+http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
 ```
 :::
 
@@ -2318,8 +2307,7 @@ Example 83: all customers with a `CompanyName` that equals
 `'ALFREDS FUTTERKISTE'` once any lowercase characters have been
 converted to uppercase
 ```
-http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS
-FUTTERKISTE'
+http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
 ```
 :::
 
@@ -2714,9 +2702,8 @@ The `cast` function follows these assignment rules:
 9.  Enumeration types are cast to integer types based on the numeric value of the enumeration member. The cast fails if the numeric value is not in the value range of the target type.
 10. Integer types are cast to enumeration types based on the numeric value of the enumeration members of the target type. For non-flag enumeration types the cast fails if there is no enumeration member with the same numeric value as the integer value. For flag enumeration types the cast fails if the integer value is not in the value range of the underlying integer type of the enumeration type.
 11. String values containing a representation of a date-time value according to [XML-Schema-2](#XML-Schema2),
-    section 3.3.7 dateTime, can be cast to `Edm.DateTimeOffset`. If the
-    string value does not contain a time-zone offset, it is treated as
-    UTC.
+    [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
+    If the string value does not contain a time-zone offset, it is treated as UTC.
 
 The `cast` function is optional for primitive values (first five rules)
 and up-casts (seventh rule).
@@ -2886,8 +2873,7 @@ Example 99: all customers having an order with a deviating shipping
 address. The `Address` in the argument expression is evaluated in the
 scope of the `Customers` collection.
 ```
-http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne
-Address)
+http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)
 ```
 :::
 
@@ -2896,8 +2882,7 @@ Example 100: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice
-ne UnitPrice)
+http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
@@ -2962,9 +2947,9 @@ GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
 
 Int64Value eq 0
 
-ColorEnumValue eq Sales.Pattern'Yellow',
+ColorEnumValue eq Sales.Pattern'Yellow'
 
-ColorEnumValue eq 'Yellow',
+ColorEnumValue eq 'Yellow'
 
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
@@ -3063,8 +3048,7 @@ city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
 ```
-http://host/service/Customers?$expand=Orders($filter=$it/Address/City
-eq ShipTo/City)
+http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
 :::
 
@@ -3073,8 +3057,7 @@ Example 107: products with at least 10 positive reviews.
 `Model.PositiveReviews` is a function bound to `Model.Product` returning
 a collection of reviews.
 ```
-http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count
-ge 10
+http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ```
 :::
 
@@ -3087,8 +3070,7 @@ the same service. It can be used as a single-valued expression or within
 ::: example
 Example 108: all employees with the same last name as employee `A1235`
 ```
-http://host/service/Employees?$filter=LastName eq
-$root/Employees('A1245')/LastName
+http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastName
 ```
 :::
 
@@ -3125,12 +3107,12 @@ or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
 resource paths, i.e. by specifying the name of a complex property,
-followed by a forward slash (`/)` and the name of a property of the
+followed by a forward slash (`/`) and the name of a property of the
 complex property, and so on,
 
 Properties and navigation properties of entities related with a target
 cardinality 0..1 or 1 can be used by specifying the navigation property,
-followed by a forward slash (`/)` and the name of a property of the
+followed by a forward slash (`/`) and the name of a property of the
 related entity, and so on.
 
 If a complex property is `null`, or no entity is related (in case of
@@ -3181,8 +3163,7 @@ value, and the values of its components, are treated as `null`.
 ::: example
 Example 112: Return Products that have prices in Euro
 ```
-http://host/service/Products?$filter=Price/@Measures.Currency eq
-'EUR'
+http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
@@ -3191,8 +3172,7 @@ Example 113: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
-http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity
-eq 'error')
+http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
 ```
 :::
 
@@ -3353,8 +3333,7 @@ options are [`$filter`](#SystemQueryOptionfilter),
 Example 116: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
-http://host/service/Categories?
-$expand=Products($filter=DiscontinuedDate eq null)
+http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
 ```
 :::
 
@@ -3410,9 +3389,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example 121: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?
-$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion
-eq null)
+http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -3460,7 +3437,7 @@ Specifying a stream property includes the media stream inline according
 to the specified format.
 
 ::: example
-Example 125: include Employee's `Photo `stream property along with other
+Example 125: include Employee's `Photo` stream property along with other
 properties of the customer
 ```
 http://host/service/Employees?$expand=Photo
@@ -3565,7 +3542,7 @@ navigation link is represented in the response. If the navigation
 property also appears in an [`$expand`](#SystemQueryOptionexpand) query
 option, then it is additionally represented as inline content. This
 inline content can itself be restricted with a nested `$select` query
-option, see section 5.1.2.
+option, see [section 5.1.2](#SystemQueryOptionfilter).
 
 ::: example
 Example 129: name and description of all products, plus name of expanded
@@ -3795,8 +3772,11 @@ property name, or star (`*`).
 ::: example
 Example 134: compute total price for order items
 ```
-http://host/service/Orders(10)/Items?$select=Product/Description,Total&$filter=Total
-gt 100&$orderby=Total&$compute=Product/Price mul Quantity as Total
+http://host/service/Orders(10)/Items
+  ?$select=Product/Description,Total
+  &$filter=Total gt 100
+  &$orderby=Total
+  &$compute=Product/Price mul Quantity as Total
 ```
 :::
 
@@ -3901,10 +3881,6 @@ The following documents are referenced in such a way that some or all of their c
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataAggregation">[OData-Aggregation]</a>
-_OData Extension for Data Aggregation Version 4.02._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
@@ -3928,10 +3904,6 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046]</a>
-_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
-
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
@@ -3939,57 +3911,9 @@ https://www.rfc-editor.org/info/rfc2119.
 _Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
 https://tools.ietf.org/html/rfc3986.
 
-###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
-
-###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
-
-###### <a name="rfc5789">[RFC5789]</a>
-_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
-
-###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
-
-###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
-
-###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
-
-###### <a name="rfc7240">[RFC7240]</a>
-_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
-
-###### <a name="rfc7617">[RFC7617]</a>
-_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
-
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
@@ -4000,107 +3924,17 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
-
 -------
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-This section is provided as a service to the application developers,
-information providers, and users of OData version 4.0 giving some
-references to starting points for securing OData services as specified.
-OData is a REST-full multi-format service that depends on other services
-and thus inherits both sides of the coin, security enhancements and
-concerns alike from the latter.
-
-For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
-HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
-starting points.
-
-## <a name="Authentication" href="#Authentication">B.1 Authentication</a>
-
-OData Services requiring authentication SHOULD consider supporting basic
-authentication as defined in [RFC7617](#rfc7617) over HTTPS for the
-highest level of interoperability with generic clients. They MAY support
-other authentication methods.
+TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 
 -------
 
 # <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
-
-The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:
-- Howard Abrams (CA Technologies)
-- Ken Baclawski (Northeastern University)
-- Jay Balunas (Red Hat)
-- Stephen Berard (Schneider Electric Industries SAS)
-- Mark Biamonte (Progress Software)
-- Matthew Borges (SAP SE)
-- Edmond Bourne (BlackBerry)
-- Joseph Boyle (Planetwork, Inc.)
-- Peter Brown (Individual)
-- Antonio Campanile (Bank of America)
-- Pablo Castro (Microsoft)
-- Axel Conrad (BlackBerry)
-- Robin Cover (OASIS)
-- Erik de Voogd (SDL)
-- Yi Ding (Microsoft)
-- Diane Downie (Citrix Systems)
-- Patrick Durusau (Individual)
-- Andrew Eisenberg (IBM)
-- Chet Ensign (OASIS)
-- Davina Erasmus (SDL)
-- George Ericson (Dell)
-- Colleen Evans (Microsoft)
-- Jason Fam (IBM)
-- Senaka Fernando (WSO2)
-- Josh Gavant (Microsoft)
-- Brent Gross (IBM)
-- Zhun Guo (Individual)
-- Anila Kumar GVN (CA Technologies)
-- Stefan Hagen (Individual)
-- Ralf Handl (SAP SE)
-- Barbara Hartel (SAP SE)
-- Hubert Heijkers (IBM)
-- Jens Hüsken (SAP SE)
-- Evan Ireland (SAP SE)
-- Gershon Janssen (Individual)
-- Ram Jeyaraman (Microsoft)
-- Ling Jin (IBM)
-- Ted Jones (Red Hat)
-- Diane Jordan (IBM)
-- Stephan Klevenz (SAP SE)
-- Gerald Krause (SAP SE)
-- Nuno Linhares (SDL)
-- Paul Lipton (CA Technologies)
-- Susan Malaika (IBM)
-- Ramanjaneyulu Malisetti (CA Technologies)
-- Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)
-- Stan Mitranic (CA Technologies)
-- Dale Moberg (Axway Software)
-- Graham Moore (BrightstarDB Ltd.)
-- Farrukh Najmi (Individual)
-- Shishir Pardikar (Citrix Systems)
-- Sanjay Patil (SAP SE)
-- Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
-- Michael Pizzo (Microsoft)
-- Ramesh Reddy (Red Hat)
-- Robert Richards (Mashery)
-- Sumedha Rubasinghe (WSO2)
-- James Snell (IBM)
-- Christof Sprenger (Microsoft)
-- Heiko Theißen (SAP SE)
-- Jeffrey Turpin (Axway Software)
-- John Willson (Individual)
-- John Wilmes (Individual)
-- Christopher Woodruff (Perficient, Inc.)
-- Martin Zurmuehl (SAP SE)
-
-## <a name="Participants" href="#Participants">C.2 Participants</a>
+## <a name="Participants" href="#Participants">C.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4122,7 +3956,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
 
 -------
 
