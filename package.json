@@ -18,7 +18,7 @@
     "express": "^4",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",
-    "puppeteer": "^20.7.4"
+    "puppeteer": "^21.0.3"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
