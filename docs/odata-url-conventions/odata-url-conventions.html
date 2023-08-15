@@ -928,11 +928,11 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
-<p>Example 50: all products with a <code>Name</code> equal to '<code>Milk'</code></p>
+<p>Example 50: all products with a <code>Name</code> equal to 'Milk'</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 51: all products with a <code>Name</code> not equal to '<code>Milk'</code></p>
+<p>Example 51: all products with a <code>Name</code> not equal to 'Milk'</p>
 <pre><code>http://host/service/Products?$filter=Name ne &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
@@ -977,14 +977,14 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <h5 id="51121-addition"><a name="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
 <p>The <code>add</code> operator adds the left and right numeric operands.</p>
-<p>For operands of type <code>Edm.Decimal</code> the scale of the result is scaleof(A add B) = max(scaleof(A), scaleof(B)), or variable if any operand has variable scale.</p>
+<p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <p>The <code>add</code> operator is also valid for the following time-related operands:</p>
 <ul>
 <li><code>DateTimeOffset add Duration</code> results in a <code>DateTimeOffset</code></li>
 <li><code>Duration add Duration</code> results in a <code>Duration</code></li>
 <li><code>Date add Duration</code> results in a <code>Date</code></li>
 </ul>
-<p>The rules for time-related operands are defined in <a href="#XML-Schema2">XML-Schema-2</a>, section E.3.3. Specifically, for adding a duration to a date:</p>
+<p>The rules for time-related operands are defined in <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith">section E.3.3</a>. Specifically, for adding a duration to a date:</p>
 <ul>
 <li>Convert date to datetime (in any timezone) with a zero time component</li>
 <li>Add/subtract duration</li>
@@ -993,7 +993,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>Thus, today plus a positive duration smaller than one day is today; today minus a positive duration smaller than one day is yesterday.</p>
 <h5 id="51122-subtraction"><a name="Subtraction" href="#Subtraction">5.1.1.2.2 Subtraction</a></h5>
 <p>The <code>sub</code> operator subtracts the right numeric operand from the left numeric operand.</p>
-<p>For operands of type <code>Edm.Decimal</code> the scale of the result is scaleof(A sub B) = max(scaleof(A), scaleof(B)), or variable if any operand has variable scale.</p>
+<p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <p>The <code>sub</code> operator is also valid for the following time-related operands:</p>
 <ul>
 <li><code>DateTimeOffset</code> <code>sub</code> <code>Duration</code> results in a <code>DateTimeOffset</code></li>
@@ -1002,12 +1002,12 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <li><code>Date sub Duration</code> results in a <code>Date</code></li>
 <li><code>Date sub Date</code> results in a <code>Duration</code></li>
 </ul>
-<p>The rules for time-related operands are defined in [XML-Schema-2]#XML-Schema2), section E.3.3. Specifically for subtracting a duration from a date see the preceding <a href="#Addition">section</a>.</p>
+<p>The rules for time-related operands are defined in <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith">section E.3.3</a>. Specifically for subtracting a duration from a date see the preceding <a href="#Addition">section</a>.</p>
 <h5 id="51123-negation"><a name="Negation" href="#Negation">5.1.1.2.3 Negation</a></h5>
 <p>The negation operator, represented by a minus (<code>-</code>) sign, changes the sign of its numeric or <code>Duration</code> operand.</p>
 <h5 id="51124-multiplication"><a name="Multiplication" href="#Multiplication">5.1.1.2.4 Multiplication</a></h5>
 <p>The <code>mul</code> operator multiplies the left and right numeric operands. The <code>mul</code> operator is also valid for multiplying a <code>Duration</code> value with a numeric value.</p>
-<p>For operands of type <code>Edm.Decimal</code> the scale of the result is scaleof(A mul B) = scaleof(A) + scaleof(B), floating if any operand has floating scale, or else variable if any operand has variable scale.</p>
+<p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)\)</span>, <code>floating</code> if any operand has floating scale, or else <code>variable</code> if any operand has variable scale.</p>
 <h5 id="51125-division"><a name="Division" href="#Division">5.1.1.2.5 Division</a></h5>
 <p>The <code>div</code> and<code> divby</code> operators divide the left numeric operand by the right numeric operand. They are also valid for dividing a <code>Duration</code> value by a numeric value.</p>
 <p>If the left operand is of type <code>Edm.Decimal</code> with floating scale, <code>Edm.Double</code>, or <code>Edm.Single</code>, then positive <code>div</code> zero returns <code>INF</code>, negative <code>div</code> zero returns <code>-INF</code>, and zero <code>div</code> zero returns <code>NaN</code>. For all other types the request fails.</p>
@@ -1015,7 +1015,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The <code>div</code> and<code> divby</code> operators differ in their handling of integers. If both operands to <code>div</code> are of an integer type, the result is an integer representing the whole number of times the right operator fits into the left operator. The <code>divby</code> operator, on the other hand, promotes both operands to decimal before computing the result, may yield a fractional result, and does not fail for <code>divby</code> zero, returning <code>-INF</code>, <code>INF</code>, or <code>NaN</code> depending on the sign of the left operand.</p>
 <h5 id="51126-modulo"><a name="Modulo" href="#Modulo">5.1.1.2.6 Modulo</a></h5>
 <p>The <code>mod</code> operator returns the remainder when the left numeric operand is divided by the right numeric operand. The sign of the result is the same as the sign of the left operand. If the right operand is zero, the request fails.</p>
-<p>For operands of type <code>Edm.Decimal</code> the scale of the result is scaleof(A mod B) = max(scaleof(A), scaleof(B)), or variable if any operand has variable scale.</p>
+<p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <h5 id="51127-arithmetic-operator-examples"><a name="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators.</p>
 <div class="example">
@@ -1053,7 +1053,8 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <pre><code>http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0</code></pre>
 </div>
 <h4 id="5114-canonical-functions"><a name="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a></h4>
-<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions. Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
+<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
+<p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 <h4 id="5115-string-and-collection-functions"><a name="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a></h4>
@@ -1067,8 +1068,7 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
 <p>Example 69: all customers from Berlin, Germany</p>
-<pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),
-Country) eq &#39;Berlin, Germany&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
 <h5 id="51152-contains"><a name="contains" href="#contains">5.1.1.5.2 <code>contains</code></a></h5>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
@@ -1101,8 +1101,7 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>indexOfMethodCallExpr</code> syntax rule defines how the <code>indexof</code> function is invoked.</p>
 <div class="example">
 <p>Example 72: all customers with a <code>CompanyName</code> containing '<code>lfreds'</code> starting at the second character</p>
-<pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;)
-eq 1</code></pre>
+<pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
 </div>
 <h5 id="51155-length"><a name="length" href="#length">5.1.1.5.5 <code>length</code></a></h5>
 <p>The <code>length</code> function has two overloads, with the following signatures:</p>
@@ -1142,13 +1141,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The <code>substringMethodCallExpr</code> syntax rule defines how the <code>substring</code> function is invoked.</p>
 <div class="example">
 <p>Example 75: all customers with a <code>CompanyName</code> of <code>'lfreds Futterkiste'</code> once the first character has been removed</p>
-<pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq
-&#39;lfreds Futterkiste&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq &#39;lfreds Futterkiste&#39;</code></pre>
 </div>
 <div class="example">
 <p>Example 76: all customers with a <code>CompanyName</code> that has '<code>lf' </code>as the second and third characters, e.g, '<code>Alfreds Futterkiste</code>'</p>
-<pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq
-&#39;lf&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq &#39;lf&#39;</code></pre>
 </div>
 <h4 id="5116-collection-functions"><a name="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a></h4>
 <h5 id="51161-hassubset"><a name="hassubset" href="#hassubset">5.1.1.6.1 <code>hassubset</code></a></h5>
@@ -1208,8 +1205,7 @@ hassubsequence([1,2],[1,1,2])</code></pre>
 <p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <code>toLowerMethodCallExpr</code> syntax rule defines how the <code>tolower</code> function is invoked.</p>
 <div class="example">
 <p>Example 82: all customers with a <code>CompanyName</code> that equals <code>'alfreds futterkiste'</code> once any uppercase characters have been converted to lowercase</p>
-<pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds
-futterkiste&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds futterkiste&#39;</code></pre>
 </div>
 <h5 id="51173-toupper"><a name="toupper" href="#toupper">5.1.1.7.3 <code>toupper</code></a></h5>
 <p>The <code>toupper</code> function has the following signature:</p>
@@ -1217,8 +1213,7 @@ futterkiste&#39;</code></pre>
 <p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <code>toUpperMethodCallExpr</code> syntax rule defines how the <code>toupper</code> function is invoked.</p>
 <div class="example">
 <p>Example 83: all customers with a <code>CompanyName</code> that equals <code>'ALFREDS FUTTERKISTE'</code> once any lowercase characters have been converted to uppercase</p>
-<pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS
-FUTTERKISTE&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS FUTTERKISTE&#39;</code></pre>
 </div>
 <h5 id="51174-trim"><a name="trim" href="#trim">5.1.1.7.4 <code>trim</code></a></h5>
 <p>The <code>trim</code> function has the following signature:</p>
@@ -1372,7 +1367,7 @@ type cast(expression,type)</code></pre>
 <li>Collections are cast item by item.</li>
 <li>Enumeration types are cast to integer types based on the numeric value of the enumeration member. The cast fails if the numeric value is not in the value range of the target type.</li>
 <li>Integer types are cast to enumeration types based on the numeric value of the enumeration members of the target type. For non-flag enumeration types the cast fails if there is no enumeration member with the same numeric value as the integer value. For flag enumeration types the cast fails if the integer value is not in the value range of the underlying integer type of the enumeration type.</li>
-<li>String values containing a representation of a date-time value according to <a href="#XML-Schema2">XML-Schema-2</a>, section 3.3.7 dateTime, can be cast to <code>Edm.DateTimeOffset</code>. If the string value does not contain a time-zone offset, it is treated as UTC.</li>
+<li>String values containing a representation of a date-time value according to <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">section 3.3.7 dateTime</a>, can be cast to <code>Edm.DateTimeOffset</code>. If the string value does not contain a time-zone offset, it is treated as UTC.</li>
 </ol>
 <p>The <code>cast</code> function is optional for primitive values (first five rules) and up-casts (seventh rule).</p>
 <p>If the cast fails, the <code>cast</code> function returns <code>null</code>.</p>
@@ -1435,13 +1430,11 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <div class="example">
 <p>Example 99: all customers having an order with a deviating shipping address. The <code>Address</code> in the argument expression is evaluated in the scope of the <code>Customers</code> collection.</p>
-<pre><code>http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne
-Address)</code></pre>
+<pre><code>http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)</code></pre>
 </div>
 <div class="example">
 <p>Example 100: all categories along with their products used in some order with a deviating unit price. The unprefixed <code>UnitPrice</code> in the argument expression is evaluated in the scope of the expanded <code>Products</code>.</p>
-<pre><code>http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice
-ne UnitPrice)</code></pre>
+<pre><code>http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))</code></pre>
 </div>
 <h5 id="511132-all"><a name="all" href="#all">5.1.1.13.2 <code>all</code></a></h5>
 <p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns true if the expression is true for all members of the collection, otherwise it returns false. This implies that the <code>all</code> operator always returns true for an empty collection.</p>
@@ -1487,9 +1480,9 @@ GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
 
 Int64Value eq 0
 
-ColorEnumValue eq Sales.Pattern&#39;Yellow&#39;,
+ColorEnumValue eq Sales.Pattern&#39;Yellow&#39;
 
-ColorEnumValue eq &#39;Yellow&#39;,
+ColorEnumValue eq &#39;Yellow&#39;
 
 geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
@@ -1521,20 +1514,17 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
 <div class="example">
 <p>Example 106: customers along with their orders that shipped to the same city as the customer's address. The nested filter expression is evaluated in the context of Orders; <code>$it</code> allows referring to values in the outer context of Customers.</p>
-<pre><code>http://host/service/Customers?$expand=Orders($filter=$it/Address/City
-eq ShipTo/City)</code></pre>
+<pre><code>http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)</code></pre>
 </div>
 <div class="example">
 <p>Example 107: products with at least 10 positive reviews. <code>Model.PositiveReviews</code> is a function bound to <code>Model.Product</code> returning a collection of reviews.</p>
-<pre><code>http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count
-ge 10</code></pre>
+<pre><code>http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10</code></pre>
 </div>
 <h5 id="511145-root"><a name="root" href="#root">5.1.1.14.5 <code>$root</code></a></h5>
 <p>The <code>$root</code> literal can be used in expressions to refer to resources of the same service. It can be used as a single-valued expression or within <a href="#ComplexandCollectionLiterals">complex or collection literals</a>.</p>
 <div class="example">
 <p>Example 108: all employees with the same last name as employee <code>A1235</code></p>
-<pre><code>http://host/service/Employees?$filter=LastName eq
-$root/Employees(&#39;A1245&#39;)/LastName</code></pre>
+<pre><code>http://host/service/Employees?$filter=LastName eq $root/Employees(&#39;A1245&#39;)/LastName</code></pre>
 </div>
 <div class="example">
 <p>Example 109: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer.</p>
@@ -1548,8 +1538,8 @@ $root/Employees(&#39;A1245&#39;)/LastName</code></pre>
 </div>
 <h4 id="51115-path-expressions"><a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a></h4>
 <p>Properties and navigation properties of the entity type of the set of resources that are addressed by the request URL can be used as operands or function parameters, as shown in the preceding examples.</p>
-<p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/)</code> and the name of a property of the complex property, and so on,</p>
-<p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/)</code> and the name of a property of the related entity, and so on.</p>
+<p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/</code>) and the name of a property of the complex property, and so on,</p>
+<p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
 <p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
 <p>Example 111: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
@@ -1564,13 +1554,11 @@ $root/Employees(&#39;A1245&#39;)/LastName</code></pre>
 <p>If an annotation is not applied to the resource or property, then its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
 <p>Example 112: Return Products that have prices in Euro</p>
-<pre><code>http://host/service/Products?$filter=Price/@Measures.Currency eq
-&#39;EUR&#39;</code></pre>
+<pre><code>http://host/service/Products?$filter=Price/@Measures.Currency eq &#39;EUR&#39;</code></pre>
 </div>
 <div class="example">
 <p>Example 113: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
-<pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity
-eq &#39;error&#39;)</code></pre>
+<pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
 <p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
 <h4 id="51117-operator-precedence"><a name="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
@@ -1766,8 +1754,7 @@ eq &#39;error&#39;)</code></pre>
 <p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
 <div class="example">
 <p>Example 116: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
-<pre><code>http://host/service/Categories?
-$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
+<pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
 </div>
 <p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name to return just the count of the related entities. The <code>$filter</code> and <code>$search</code> system query options can be used to limit the number of related entities included in the count.</p>
 <div class="example">
@@ -1789,9 +1776,7 @@ $expand=Products($filter=DiscontinuedDate eq null)</code></pre>
 </div>
 <div class="example">
 <p>Example 121: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
-<pre><code>http://host/service/Categories?
-$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion
-eq null)</code></pre>
+<pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
 <p>Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
 <div class="example">
@@ -1810,7 +1795,7 @@ eq null)</code></pre>
 </div>
 <p>Specifying a stream property includes the media stream inline according to the specified format.</p>
 <div class="example">
-<p>Example 125: include Employee's <code>Photo </code>stream property along with other properties of the customer</p>
+<p>Example 125: include Employee's <code>Photo</code> stream property along with other properties of the customer</p>
 <pre><code>http://host/service/Employees?$expand=Photo</code></pre>
 </div>
 <p>Specifying <code>$value</code> for a media entity includes the media entity's stream value inline according to the specified format.</p>
@@ -1849,7 +1834,7 @@ eq null)</code></pre>
 <p>If the select item is not defined for the type of the resource, and that type supports dynamic properties or instance annotations, then the property is treated as null for all instances on which it is not defined.</p>
 <p>If the select item is not defined for the type of the resource, and that type does not support dynamic properties or instance annotations, then the request is considered malformed.</p>
 <p>If the select item is an instance annotation of type entity or collection of entities, then the request is considered malformed. Entity-valued annotations can be included using <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
-<p>If the select item is a navigation property, then the corresponding navigation link is represented in the response. If the navigation property also appears in an <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option, then it is additionally represented as inline content. This inline content can itself be restricted with a nested <code>$select</code> query option, see section 5.1.2.</p>
+<p>If the select item is a navigation property, then the corresponding navigation link is represented in the response. If the navigation property also appears in an <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option, then it is additionally represented as inline content. This inline content can itself be restricted with a nested <code>$select</code> query option, see <a href="#SystemQueryOptionfilter">section 5.1.2</a>.</p>
 <div class="example">
 <p>Example 129: name and description of all products, plus name of expanded category</p>
 <pre><code>http://host/service/Products?$select=Name,Description&amp;$expand=Category($select=Name)</code></pre>
@@ -1919,8 +1904,11 @@ eq null)</code></pre>
 <p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
 <div class="example">
 <p>Example 134: compute total price for order items</p>
-<pre><code>http://host/service/Orders(10)/Items?$select=Product/Description,Total&amp;$filter=Total
-gt 100&amp;$orderby=Total&amp;$compute=Product/Price mul Quantity as Total</code></pre>
+<pre><code>http://host/service/Orders(10)/Items
+  ?$select=Product/Description,Total
+  &amp;$filter=Total gt 100
+  &amp;$orderby=Total
+  &amp;$compute=Product/Price mul Quantity as Total</code></pre>
 </div>
 <h3 id="5111-system-query-option-index"><a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option <code>$index</code></a></h3>
 <p>The <code>$index</code> system query option allows clients to do a positional insert into a collection annotated with using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal indexes from the end of the collection, with -1 representing an insert at the end of the collection.</p>

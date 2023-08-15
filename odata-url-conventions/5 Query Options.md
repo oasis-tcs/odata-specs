@@ -246,14 +246,14 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example ##ex: all products with a `Name` equal to '`Milk'`
+Example ##ex: all products with a `Name` equal to 'Milk'
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a `Name` not equal to '`Milk'`
+Example ##ex: all products with a `Name` not equal to 'Milk'
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
@@ -343,9 +343,9 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-add B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is 
+${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, 
+or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
 operands:
@@ -356,8 +356,8 @@ a `DateTimeOffset`
 - `Date add Duration` results in a `Date`
 
 The rules for time-related operands are defined in
-[XML-Schema-2](#XML-Schema2), section E.3.3. Specifically, for
-adding a duration to a date:
+[XML-Schema-2](#XML-Schema2), [section E.3.3](https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith).
+Specifically, for adding a duration to a date:
 - Convert date to datetime (in any timezone) with a zero time component
 - Add/subtract duration
 - Convert to date by removing the time and timezone components
@@ -370,9 +370,9 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-sub B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is 
+${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
 operands:
@@ -386,8 +386,8 @@ results in a `Duration`
 - `Date sub Date` results in a `Duration`
 
 The rules for time-related operands are defined in
-[XML-Schema-2]#XML-Schema2), section E.3.3. Specifically for
-subtracting a duration from a date see the preceding
+[XML-Schema-2](#XML-Schema2), [section E.3.3](https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith).
+Specifically for subtracting a duration from a date see the preceding
 [section](#Addition).
 
 ##### ##subsubsubsubsec Negation
@@ -401,9 +401,10 @@ The `mul` operator multiplies the left and right numeric operands. The
 `mul` operator is also valid for multiplying a `Duration` value with a
 numeric value.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-mul B) = scaleof(A) + scaleof(B), floating if any operand has floating
-scale, or else variable if any operand has variable scale.
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)$,
+`floating` if any operand has floating
+scale, or else `variable` if any operand has variable scale.
 
 ##### ##subsubsubsubsec Division
 
@@ -438,9 +439,9 @@ is divided by the right numeric operand.  The sign of the result is the
 same as the sign of the left operand. If the right operand is zero, the
 request fails.
 
-For operands of type `Edm.Decimal` the scale of the result is scaleof(A
-mod B) = max(scaleof(A), scaleof(B)), or variable if any operand has
-variable scale.
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+or `variable` if any operand has variable scale.
 
 ##### ##subsubsubsubsec Arithmetic Operator Examples
 
@@ -515,7 +516,9 @@ In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
 [parameter alias](#ParameterAliases) values. The following sections
-describe the available functions. Note: ISNULL or COALESCE operators are
+describe the available functions.
+
+Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
@@ -553,8 +556,7 @@ is invoked.
 ::: example
 Example ##ex: all customers from Berlin, Germany
 ```
-http://host/service/Customers?$filter=concat(concat(City,', '),
-Country) eq 'Berlin, Germany'
+http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
 ```
 :::
 
@@ -649,8 +651,7 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` containing '`lfreds'`
 starting at the second character
 ```
-http://host/service/Customers?$filter=indexof(CompanyName,'lfreds')
-eq 1
+http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
 ```
 :::
 
@@ -762,8 +763,7 @@ function is invoked.
 Example ##ex: all customers with a `CompanyName` of `'lfreds Futterkiste'`
 once the first character has been removed
 ```
-http://host/service/Customers?$filter=substring(CompanyName,1) eq
-'lfreds Futterkiste'
+http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
 ```
 :::
 
@@ -771,8 +771,7 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq
 Example ##ex: all customers with a `CompanyName` that has '`lf' `as the
 second and third characters, e.g, '`Alfreds Futterkiste`'
 ```
-http://host/service/Customers?$filter=substring(CompanyName,1,2) eq
-'lf'
+http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
 :::
 
@@ -894,8 +893,7 @@ Example ##ex: all customers with a `CompanyName` that equals
 `'alfreds futterkiste'` once any uppercase characters have been
 converted to lowercase
 ```
-http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds
-futterkiste'
+http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
 ```
 :::
 
@@ -917,8 +915,7 @@ Example ##ex: all customers with a `CompanyName` that equals
 `'ALFREDS FUTTERKISTE'` once any lowercase characters have been
 converted to uppercase
 ```
-http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS
-FUTTERKISTE'
+http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
 ```
 :::
 
@@ -1313,9 +1310,8 @@ The `cast` function follows these assignment rules:
 9.  Enumeration types are cast to integer types based on the numeric value of the enumeration member. The cast fails if the numeric value is not in the value range of the target type.
 10. Integer types are cast to enumeration types based on the numeric value of the enumeration members of the target type. For non-flag enumeration types the cast fails if there is no enumeration member with the same numeric value as the integer value. For flag enumeration types the cast fails if the integer value is not in the value range of the underlying integer type of the enumeration type.
 11. String values containing a representation of a date-time value according to [XML-Schema-2](#XML-Schema2),
-    section 3.3.7 dateTime, can be cast to `Edm.DateTimeOffset`. If the
-    string value does not contain a time-zone offset, it is treated as
-    UTC.
+    [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
+    If the string value does not contain a time-zone offset, it is treated as UTC.
 
 The `cast` function is optional for primitive values (first five rules)
 and up-casts (seventh rule).
@@ -1485,8 +1481,7 @@ Example ##ex: all customers having an order with a deviating shipping
 address. The `Address` in the argument expression is evaluated in the
 scope of the `Customers` collection.
 ```
-http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne
-Address)
+http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)
 ```
 :::
 
@@ -1495,8 +1490,7 @@ Example ##ex: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice
-ne UnitPrice)
+http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
@@ -1561,9 +1555,9 @@ GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
 
 Int64Value eq 0
 
-ColorEnumValue eq Sales.Pattern'Yellow',
+ColorEnumValue eq Sales.Pattern'Yellow'
 
-ColorEnumValue eq 'Yellow',
+ColorEnumValue eq 'Yellow'
 
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
@@ -1662,8 +1656,7 @@ city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
 ```
-http://host/service/Customers?$expand=Orders($filter=$it/Address/City
-eq ShipTo/City)
+http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
 :::
 
@@ -1672,8 +1665,7 @@ Example ##ex: products with at least 10 positive reviews.
 `Model.PositiveReviews` is a function bound to `Model.Product` returning
 a collection of reviews.
 ```
-http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count
-ge 10
+http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ```
 :::
 
@@ -1686,8 +1678,7 @@ the same service. It can be used as a single-valued expression or within
 ::: example
 Example ##ex: all employees with the same last name as employee `A1235`
 ```
-http://host/service/Employees?$filter=LastName eq
-$root/Employees('A1245')/LastName
+http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastName
 ```
 :::
 
@@ -1724,12 +1715,12 @@ or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
 resource paths, i.e. by specifying the name of a complex property,
-followed by a forward slash (`/)` and the name of a property of the
+followed by a forward slash (`/`) and the name of a property of the
 complex property, and so on,
 
 Properties and navigation properties of entities related with a target
 cardinality 0..1 or 1 can be used by specifying the navigation property,
-followed by a forward slash (`/)` and the name of a property of the
+followed by a forward slash (`/`) and the name of a property of the
 related entity, and so on.
 
 If a complex property is `null`, or no entity is related (in case of
@@ -1780,8 +1771,7 @@ value, and the values of its components, are treated as `null`.
 ::: example
 Example ##ex: Return Products that have prices in Euro
 ```
-http://host/service/Products?$filter=Price/@Measures.Currency eq
-'EUR'
+http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
@@ -1790,8 +1780,7 @@ Example ##ex: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
-http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity
-eq 'error')
+http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
 ```
 :::
 
@@ -1952,8 +1941,7 @@ options are [`$filter`](#SystemQueryOptionfilter),
 Example ##ex: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
-http://host/service/Categories?
-$expand=Products($filter=DiscontinuedDate eq null)
+http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
 ```
 :::
 
@@ -2009,9 +1997,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example ##ex: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?
-$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion
-eq null)
+http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -2059,7 +2045,7 @@ Specifying a stream property includes the media stream inline according
 to the specified format.
 
 ::: example
-Example ##ex: include Employee's `Photo `stream property along with other
+Example ##ex: include Employee's `Photo` stream property along with other
 properties of the customer
 ```
 http://host/service/Employees?$expand=Photo
@@ -2164,7 +2150,7 @@ navigation link is represented in the response. If the navigation
 property also appears in an [`$expand`](#SystemQueryOptionexpand) query
 option, then it is additionally represented as inline content. This
 inline content can itself be restricted with a nested `$select` query
-option, see section 5.1.2.
+option, see [section ##SystemQueryOptionfilter].
 
 ::: example
 Example ##ex: name and description of all products, plus name of expanded
@@ -2394,8 +2380,11 @@ property name, or star (`*`).
 ::: example
 Example ##ex: compute total price for order items
 ```
-http://host/service/Orders(10)/Items?$select=Product/Description,Total&$filter=Total
-gt 100&$orderby=Total&$compute=Product/Price mul Quantity as Total
+http://host/service/Orders(10)/Items
+  ?$select=Product/Description,Total
+  &$filter=Total gt 100
+  &$orderby=Total
+  &$compute=Product/Price mul Quantity as Total
 ```
 :::
 
