@@ -120,7 +120,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
 <li><em>OData Version 4.02 Part 1: Protocol</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a></li>
-<li><em>OData Version 4.02 Part 2: URL Conventions</em>. (this document) <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html</a></li>
+<li><em>OData Version 4.02 Part 2: URL Conventions</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html</a></li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -138,7 +138,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData Extension for Temporal Data Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html</a></li>
 </ul>
 <h4 id="abstract">Abstract:</h4>
-<p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.</p>
+<p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.</p>
 <h4 id="status">Status:</h4>
 <p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
 <p>TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
@@ -343,14 +343,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
 <li><a href="#InformativeReferences">A.2 Informative References</a></li>
 </ul></li>
-<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a>
-<ul>
-<li><a href="#Authentication">B.1 Authentication</a></li>
-</ul></li>
+<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a></li>
 <li><a href="#Acknowledgments">C Acknowledgments</a>
 <ul>
-<li><a href="#SpecialThanks">C.1 Special Thanks</a></li>
-<li><a href="#Participants">C.2 Participants</a></li>
+<li><a href="#Participants">C.1 Participants</a></li>
 </ul></li>
 <li><a href="#RevisionHistory">D Revision History</a></li>
 <li><a href="#Notices">E Notices</a></li>
@@ -423,7 +419,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>Interpret path segments, query option names, and query option values according to OData rules</li>
 </ul>
 <h2 id="22-url-syntax"><a name="URLSyntax" href="#URLSyntax">2.2 URL Syntax</a></h2>
-<p>The OData syntax rules for URLs are defined in this document and the <a href="#ODataABNF">OData-ABNF</a>. Note that the ABNF is not expressive enough to define what a correct OData URL is in every imaginable use case. This specification document defines additional rules that a correct OData URL MUST fulfill. In case of doubt on what makes an OData URL correct the rules defined in this specification document take precedence. Note also that the rules in <a href="#ODataABNF">OData-ABNF</a> assume that URLs and URL parts have been percent-encoding normalized as described in section 6.2.2.2 of <a href="#rfc3986">RFC3986</a> before applying the grammar to them, i.e. all characters in the unreserved set (see rule <code>unreserved</code> in <a href="#ODataABNF">OData-ABNF</a>) are plain literals and not percent-encoded. For characters outside of the unreserved set that are significant to OData the ABNF rules explicitly state whether the percent-encoded representation is treated identical to the plain literal representation. This is done to make the input strings in the ABNF test cases more readable.</p>
+<p>The OData syntax rules for URLs are defined in this document and the <a href="#ODataABNF">OData-ABNF</a>. Note that the ABNF is not expressive enough to define what a correct OData URL is in every imaginable use case. This specification document defines additional rules that a correct OData URL MUST fulfill. In case of doubt on what makes an OData URL correct the rules defined in this specification document take precedence. Note also that the rules in <a href="#ODataABNF">OData-ABNF</a> assume that URLs and URL parts have been percent-encoding normalized as described in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2">section 6.2.2.2</a> of <a href="#rfc3986">RFC3986</a> before applying the grammar to them, i.e. all characters in the unreserved set (see rule <code>unreserved</code> in <a href="#ODataABNF">OData-ABNF</a>) are plain literals and not percent-encoded. For characters outside of the unreserved set that are significant to OData the ABNF rules explicitly state whether the percent-encoded representation is treated identical to the plain literal representation. This is done to make the input strings in the ABNF test cases more readable.</p>
 <p>For example, one of these rules is that single quotes within string literals are represented as two consecutive single quotes.</p>
 <div class="example">
 <p>Example 3: valid OData URLs:</p>
@@ -433,15 +429,15 @@ http://host/service/People(%27O%27%27Neil%27)
 
 http://host/service/People%28%27O%27%27Neil%27%29
 
-http://host/service/`Categories`(&#39;Smartphone%2FTablet&#39;)</code></pre>
+http://host/service/Categories(&#39;Smartphone%2FTablet&#39;)</code></pre>
 </div>
 <div class="example">
 <p>Example 4: invalid OData URLs:</p>
-<pre><code>http://host/service`/People(&#39;O&#39;Neil&#39;)
+<pre><code>http://host/service/People(&#39;O&#39;Neil&#39;)
 
-http://host/service`/People(&#39;O%27Neil&#39;)
+http://host/service/People(&#39;O%27Neil&#39;)
 
-http://host/service`/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
+http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 </div>
 <p>The first and second examples are invalid because a single quote in a string literal must be represented as two consecutive single quotes. The third example is invalid because forward slashes are interpreted as path segment separators and <code>Categories('Smartphone</code> is not a valid OData path segment, nor is <code>Tablet')</code>.</p>
 <hr />
@@ -1970,9 +1966,6 @@ gt 100&amp;$orderby=Total&amp;$compute=Product/Price mul Quantity as Total</code
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-aggregation"><a name="ODataAggregation">[OData-Aggregation]</a></h6>
-<p><em>OData Extension for Data Aggregation Version 4.02.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
@@ -1990,125 +1983,25 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
 <p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="rfc2046"><a name="rfc2046">[RFC2046]</a></h6>
-<p><em>Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996</em> <a href="https://tools.ietf.org/html/rfc2046">https://tools.ietf.org/html/rfc2046</a>.</p>
 <h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
 <p><a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6 id="rfc3986"><a name="rfc3986">[RFC3986]</a></h6>
 <p><em>Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005</em> <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
-<h6 id="rfc3987"><a name="rfc3987">[RFC3987]</a></h6>
-<p><em>Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005</em> <a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>.</p>
-<h6 id="rfc4648"><a name="rfc4648">[RFC4648]</a></h6>
-<p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> <a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
-<h6 id="rfc5646"><a name="rfc5646">[RFC5646]</a></h6>
-<p><em>Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009</em> <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.org/html/rfc5646</a>.</p>
-<h6 id="rfc5789"><a name="rfc5789">[RFC5789]</a></h6>
-<p><em>Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010</em> <a href="http://tools.ietf.org/html/rfc5789">http://tools.ietf.org/html/rfc5789</a>.</p>
-<h6 id="rfc7493"><a name="rfc7493">[RFC7493]</a></h6>
-<p><em>Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015</em> <a href="https://tools.ietf.org/html/rfc7493">https://tools.ietf.org/html/rfc7493</a>.</p>
-<h6 id="rfc7230"><a name="rfc7230">[RFC7230]</a></h6>
-<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014</em> <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a>.</p>
-<h6 id="rfc7231"><a name="rfc7231">[RFC7231]</a></h6>
-<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014</em> <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a>.</p>
-<h6 id="rfc7232"><a name="rfc7232">[RFC7232]</a></h6>
-<p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014</em> <a href="https://tools.ietf.org/html/rfc7232">https://tools.ietf.org/html/rfc7232</a>.</p>
-<h6 id="rfc7240"><a name="rfc7240">[RFC7240]</a></h6>
-<p><em>Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014</em> <a href="https://tools.ietf.org/html/rfc7240">https://tools.ietf.org/html/rfc7240</a>.</p>
-<h6 id="rfc7617"><a name="rfc7617">[RFC7617]</a></h6>
-<p><em>Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015</em> <a href="https://tools.ietf.org/html/rfc7617">https://tools.ietf.org/html/rfc7617</a>.</p>
-<h6 id="rfc7946"><a name="rfc7946">[RFC7946]</a></h6>
-<p><em>Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016</em> <a href="http://tools.ietf.org/html/rfc7946">http://tools.ietf.org/html/rfc7946</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
-<h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
-<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em> <a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
 <h6 id="xml-schema-2"><a name="XML-Schema2">[XML-Schema-2]</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
-<h6 id="geojson-2008"><a name="GeoJSON-2008">[GeoJSON-2008]</a></h6>
-<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008</em> <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
-<p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
-<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#rfc7231">RFC7231</a> (9. Security Considerations) and for the HTTP <code>PATCH</code> method <a href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting points.</p>
-<h2 id="b1-authentication"><a name="Authentication" href="#Authentication">B.1 Authentication</a></h2>
-<p>OData Services requiring authentication SHOULD consider supporting basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS for the highest level of interoperability with generic clients. They MAY support other authentication methods.</p>
+<p>TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?</p>
 <hr />
 <h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
-<h2 id="c1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
-<p>The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:</p>
-<ul>
-<li>Howard Abrams (CA Technologies)</li>
-<li>Ken Baclawski (Northeastern University)</li>
-<li>Jay Balunas (Red Hat)</li>
-<li>Stephen Berard (Schneider Electric Industries SAS)</li>
-<li>Mark Biamonte (Progress Software)</li>
-<li>Matthew Borges (SAP SE)</li>
-<li>Edmond Bourne (BlackBerry)</li>
-<li>Joseph Boyle (Planetwork, Inc.)</li>
-<li>Peter Brown (Individual)</li>
-<li>Antonio Campanile (Bank of America)</li>
-<li>Pablo Castro (Microsoft)</li>
-<li>Axel Conrad (BlackBerry)</li>
-<li>Robin Cover (OASIS)</li>
-<li>Erik de Voogd (SDL)</li>
-<li>Yi Ding (Microsoft)</li>
-<li>Diane Downie (Citrix Systems)</li>
-<li>Patrick Durusau (Individual)</li>
-<li>Andrew Eisenberg (IBM)</li>
-<li>Chet Ensign (OASIS)</li>
-<li>Davina Erasmus (SDL)</li>
-<li>George Ericson (Dell)</li>
-<li>Colleen Evans (Microsoft)</li>
-<li>Jason Fam (IBM)</li>
-<li>Senaka Fernando (WSO2)</li>
-<li>Josh Gavant (Microsoft)</li>
-<li>Brent Gross (IBM)</li>
-<li>Zhun Guo (Individual)</li>
-<li>Anila Kumar GVN (CA Technologies)</li>
-<li>Stefan Hagen (Individual)</li>
-<li>Ralf Handl (SAP SE)</li>
-<li>Barbara Hartel (SAP SE)</li>
-<li>Hubert Heijkers (IBM)</li>
-<li>Jens Hüsken (SAP SE)</li>
-<li>Evan Ireland (SAP SE)</li>
-<li>Gershon Janssen (Individual)</li>
-<li>Ram Jeyaraman (Microsoft)</li>
-<li>Ling Jin (IBM)</li>
-<li>Ted Jones (Red Hat)</li>
-<li>Diane Jordan (IBM)</li>
-<li>Stephan Klevenz (SAP SE)</li>
-<li>Gerald Krause (SAP SE)</li>
-<li>Nuno Linhares (SDL)</li>
-<li>Paul Lipton (CA Technologies)</li>
-<li>Susan Malaika (IBM)</li>
-<li>Ramanjaneyulu Malisetti (CA Technologies)</li>
-<li>Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)</li>
-<li>Stan Mitranic (CA Technologies)</li>
-<li>Dale Moberg (Axway Software)</li>
-<li>Graham Moore (BrightstarDB Ltd.)</li>
-<li>Farrukh Najmi (Individual)</li>
-<li>Shishir Pardikar (Citrix Systems)</li>
-<li>Sanjay Patil (SAP SE)</li>
-<li>Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)</li>
-<li>Michael Pizzo (Microsoft)</li>
-<li>Ramesh Reddy (Red Hat)</li>
-<li>Robert Richards (Mashery)</li>
-<li>Sumedha Rubasinghe (WSO2)</li>
-<li>James Snell (IBM)</li>
-<li>Christof Sprenger (Microsoft)</li>
-<li>Heiko Theißen (SAP SE)</li>
-<li>Jeffrey Turpin (Axway Software)</li>
-<li>John Willson (Individual)</li>
-<li>John Wilmes (Individual)</li>
-<li>Christopher Woodruff (Perficient, Inc.)</li>
-<li>Martin Zurmuehl (SAP SE)</li>
-</ul>
-<h2 id="c2-participants"><a name="Participants" href="#Participants">C.2 Participants</a></h2>
+<h2 id="c1-participants"><a name="Participants" href="#Participants">C.1 Participants</a></h2>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -2181,8 +2074,8 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <tr class="odd">
 <td style="text-align: left;">Working Draft 01</td>
 <td style="text-align: left;">2023-07-20</td>
-<td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Import material from OData JSON Format Version 4.01</td>
+<td style="text-align: left;">Heiko Theißen</td>
+<td style="text-align: left;">Import material from OData Version 4.01 Part 2: URL Conventions</td>
 </tr>
 </tbody>
 </table>

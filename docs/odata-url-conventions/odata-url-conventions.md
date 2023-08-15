@@ -41,7 +41,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -57,7 +57,7 @@ This specification is related to:
 * _OData Extension for Temporal Data Version 4.0_. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html
 
 #### Abstract:
-The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.
+The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.
 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
@@ -234,10 +234,8 @@ For complete copyright information please see the full Notices section in an App
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-  - [B.1 Authentication](#Authentication)
 - [C Acknowledgments](#Acknowledgments)
-  - [C.1 Special Thanks](#SpecialThanks)
-  - [C.2 Participants](#Participants)
+  - [C.1 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
 - [E Notices](#Notices)
 :::
@@ -378,8 +376,9 @@ specification document defines additional rules that a correct OData URL
 MUST fulfill. In case of doubt on what makes an OData URL correct the
 rules defined in this specification document take precedence. Note also
 that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
-parts have been percent-encoding normalized as described in section
-6.2.2.2 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
+parts have been percent-encoding normalized as described in
+[section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
+of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
 all characters in the unreserved set (see rule `unreserved` in [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
@@ -399,18 +398,18 @@ http://host/service/People(%27O%27%27Neil%27)
 
 http://host/service/People%28%27O%27%27Neil%27%29
 
-http://host/service/`Categories`('Smartphone%2FTablet')
+http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
 
 ::: example
 Example 4: invalid OData URLs:
 ```
-http://host/service`/People('O'Neil')
+http://host/service/People('O'Neil')
 
-http://host/service`/People('O%27Neil')
+http://host/service/People('O%27Neil')
 
-http://host/service`/Categories('Smartphone/Tablet')
+http://host/service/Categories('Smartphone/Tablet')
 ```
 :::
 
@@ -3901,10 +3900,6 @@ The following documents are referenced in such a way that some or all of their c
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataAggregation">[OData-Aggregation]</a>
-_OData Extension for Data Aggregation Version 4.02._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
@@ -3928,10 +3923,6 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046]</a>
-_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
-
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
@@ -3939,57 +3930,9 @@ https://www.rfc-editor.org/info/rfc2119.
 _Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
 https://tools.ietf.org/html/rfc3986.
 
-###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
-
-###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
-
-###### <a name="rfc5789">[RFC5789]</a>
-_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
-
-###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
-
-###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
-
-###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
-
-###### <a name="rfc7240">[RFC7240]</a>
-_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
-
-###### <a name="rfc7617">[RFC7617]</a>
-_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
-
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
@@ -4000,107 +3943,17 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
-
 -------
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-This section is provided as a service to the application developers,
-information providers, and users of OData version 4.0 giving some
-references to starting points for securing OData services as specified.
-OData is a REST-full multi-format service that depends on other services
-and thus inherits both sides of the coin, security enhancements and
-concerns alike from the latter.
-
-For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
-HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
-starting points.
-
-## <a name="Authentication" href="#Authentication">B.1 Authentication</a>
-
-OData Services requiring authentication SHOULD consider supporting basic
-authentication as defined in [RFC7617](#rfc7617) over HTTPS for the
-highest level of interoperability with generic clients. They MAY support
-other authentication methods.
+TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 
 -------
 
 # <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
-
-The following individuals were members of the OASIS OData Technical Committee during the creation of this specification and its predecessors, and their contributions are gratefully acknowledged:
-- Howard Abrams (CA Technologies)
-- Ken Baclawski (Northeastern University)
-- Jay Balunas (Red Hat)
-- Stephen Berard (Schneider Electric Industries SAS)
-- Mark Biamonte (Progress Software)
-- Matthew Borges (SAP SE)
-- Edmond Bourne (BlackBerry)
-- Joseph Boyle (Planetwork, Inc.)
-- Peter Brown (Individual)
-- Antonio Campanile (Bank of America)
-- Pablo Castro (Microsoft)
-- Axel Conrad (BlackBerry)
-- Robin Cover (OASIS)
-- Erik de Voogd (SDL)
-- Yi Ding (Microsoft)
-- Diane Downie (Citrix Systems)
-- Patrick Durusau (Individual)
-- Andrew Eisenberg (IBM)
-- Chet Ensign (OASIS)
-- Davina Erasmus (SDL)
-- George Ericson (Dell)
-- Colleen Evans (Microsoft)
-- Jason Fam (IBM)
-- Senaka Fernando (WSO2)
-- Josh Gavant (Microsoft)
-- Brent Gross (IBM)
-- Zhun Guo (Individual)
-- Anila Kumar GVN (CA Technologies)
-- Stefan Hagen (Individual)
-- Ralf Handl (SAP SE)
-- Barbara Hartel (SAP SE)
-- Hubert Heijkers (IBM)
-- Jens Hüsken (SAP SE)
-- Evan Ireland (SAP SE)
-- Gershon Janssen (Individual)
-- Ram Jeyaraman (Microsoft)
-- Ling Jin (IBM)
-- Ted Jones (Red Hat)
-- Diane Jordan (IBM)
-- Stephan Klevenz (SAP SE)
-- Gerald Krause (SAP SE)
-- Nuno Linhares (SDL)
-- Paul Lipton (CA Technologies)
-- Susan Malaika (IBM)
-- Ramanjaneyulu Malisetti (CA Technologies)
-- Neil McEvoy (iFOSSF – International Free and Open Source Solutions Foundation)
-- Stan Mitranic (CA Technologies)
-- Dale Moberg (Axway Software)
-- Graham Moore (BrightstarDB Ltd.)
-- Farrukh Najmi (Individual)
-- Shishir Pardikar (Citrix Systems)
-- Sanjay Patil (SAP SE)
-- Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
-- Michael Pizzo (Microsoft)
-- Ramesh Reddy (Red Hat)
-- Robert Richards (Mashery)
-- Sumedha Rubasinghe (WSO2)
-- James Snell (IBM)
-- Christof Sprenger (Microsoft)
-- Heiko Theißen (SAP SE)
-- Jeffrey Turpin (Axway Software)
-- John Willson (Individual)
-- John Wilmes (Individual)
-- Christopher Woodruff (Perficient, Inc.)
-- Martin Zurmuehl (SAP SE)
-
-## <a name="Participants" href="#Participants">C.2 Participants</a>
+## <a name="Participants" href="#Participants">C.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4122,7 +3975,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
 
 -------
 
