@@ -1478,7 +1478,7 @@ Example 14: partial collection of strings with next link
 
 A collection of primitive values that occurs in a property of type `Edm.Untyped`
 is interpreted as a collection of `Edm.Boolean`, `Edm.String` and `Edm.Decimal`,
-depending on the Javascript type.
+depending on the JavaScript type.
 
 ## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
 
