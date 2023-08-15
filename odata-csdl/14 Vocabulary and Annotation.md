@@ -550,7 +550,9 @@ qualified name of action|
 qualified name of entity container followed by a segment containing the action import name| 
 <pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
 [Annotation](#Annotation) on a model element| 
-path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation|
+path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation| 
+<pre>`MySchema.MyEntityType/@MyVocabulary.MyTerm` 
+<br>`MySchema.MyEntityType/@MyVocabulary.MyTerm#MyQualifier`</pre>
 [Complex Type](#ComplexType)| 
 qualified name of complex type| 
 <pre>`MySchema.MyComplexType`</pre>
@@ -571,8 +573,10 @@ qualified name of enumeration type followed by a segment containing the name of 
 <pre>`MySchema.MyEnumType/MyMember`</pre>
 [Function](#Function) overload| 
 qualified name of function followed by parentheses containing the comma-separated list of the parameter types of a bound or unbound function overload in the order of their definition in the function overload| 
-<pre>`MySchema.MyFunction(MySchema.MyBindingParamType,First.NonBinding.ParamType)` 
-<br>`MySchema.MyFunction(First.NonBinding.ParamType,Secnd.NonBinding.ParamType)`</pre>
+<pre>`MySchema.MyFunction(MySchema.MyBindingParamType,` 
+<br>`  First.NonBinding.ParamType)` 
+<br>`MySchema.MyFunction(First.NonBinding.ParamType,` 
+<br>`  Second.NonBinding.ParamType)`</pre>
 all overloads of a [Function](#Function)| 
 qualified name of function| 
 <pre>`MySchema.MyFunction`</pre>
@@ -581,32 +585,44 @@ qualified name of entity container followed by a segment containing the function
 <pre>`MySchema.MyEntityContainer/MyFunctionImport`
 [Navigation Property](#NavigationProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet/MyNavigationProperty` 
-<br>`MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyNavProperty` 
-<br>`MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavProperty` 
-<br>`MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavProperty`</pre>
+<pre>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyNavigationProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MySchema.MyEntityType/MyNavProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyComplexProperty/MyNavProperty` 
+<br>`MySchema.MyEntityContainer/MySingleton` 
+<br>`  /MyComplexProperty/MyNavProperty`</pre>
 [Navigation Property](#NavigationProperty) via structured type| 
 qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityType/MyNavigationProperty` 
 <br>`MySchema.MyComplexType/MyNavigationProperty`</pre>
 [Parameter](#Parameter)| 
-qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name|
+qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name| 
+<pre>`MySchema.MyEntityContainer/MyFunctionImport/MyParameter`</pre>
 [Parameter](#Parameter)| 
 qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing the name of a child element| 
 <pre>`MySchema.MyFunction/MyParameter`</pre>
 [Property](#StructuralProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet/MyProperty` 
-<br>`MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyProperty` 
-<br>`MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyProperty`</pre>
+<pre>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MyProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MySchema.MyEntityType/MyProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyComplexProperty/MyProperty`</pre>
 [Property](#StructuralProperty) via structured type| 
 qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityType/MyProperty` 
 <br>`MySchema.MyComplexType/MyProperty`</pre>
 [Return Type](#ReturnType)| 
-qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing `$ReturnType`|
+qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing `$ReturnType`| 
+<pre>`MySchema.MyEntityContainer/MyFunctionImport/$ReturnType`</pre>
 [Return Type](#ReturnType)| 
-qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing `$ReturnType`
+qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing `$ReturnType`| 
+<pre>`MySchema.MyFunction/$ReturnType` 
+<br>`MySchema.MyFunction(MySchema.MyBindingParamType,` 
+<br>`  First.NonBinding.ParamType)/$ReturnType`</pre>
 [Singleton](#Singleton)| 
 qualified name of entity container followed by a segment containing a singleton name| 
 <pre>`MySchema.MyEntityContainer/MySingleton`</pre>
@@ -614,7 +630,8 @@ qualified name of entity container followed by a segment containing a singleton 
 qualified name of term| 
 <pre>`MySchema.MyTerm`</pre>
 [Type Definition](#TypeDefinition)| 
-qualified name of type definition
+qualified name of type definition| 
+<pre>`MySchema.MyTypeDefinition`</pre>
 
 All [qualified names](#QualifiedName) used in a target path MUST be in scope.
 
