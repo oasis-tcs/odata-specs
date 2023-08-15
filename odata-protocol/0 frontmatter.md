@@ -40,11 +40,8 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/odata-v4.02-csd01-part2-url-conventions.html
-* XML schemas: (list file names or directory name)
-* Other parts (list titles and/or file names)
-* `(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)`
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -72,20 +69,20 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
 
 **[OData-v4.02-Part1]**
 
-_OData Version 4.02. Part 1: Protocol_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
+_$$$pagetitle$$$_.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright $$$copyright$$$. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 

@@ -129,16 +129,16 @@ Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
 unsupported functionality ([section ##ResponseCode501NotImplemented])
-3. MUST support `$select` ([section ##SystemQueryOptionselect])`
+3. MUST support `$select` ([section ##SystemQueryOptionselect])
 4. MUST support casting to a derived type according to
-[OData URL](#ODataURL) if derived types are present in the model
+[OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section ##SystemQueryOptiontop])
 6. MUST support `/$value` on media entities ([section ##MetadataDocumentRequest]) and individual properties ([section ##RequestingaPropertysRawValueusingvalue])
 7. MUST support `$filter` ([section ##SystemQueryOptionfilter])
    1. MUST support `eq`, `ne` filter operations on properties of entities
-in the requested entity set ([section ##SystemQueryOptionfilter])
+in the requested entity set ([section ##BuiltinFilterOperations])
    2. MUST support aliases in `$filter` expressions ([section ##ParameterAliases])
-   3. SHOULD support additional filter operations ([section ##BuiltinQueryFunctions])
+   3. SHOULD support additional filter operations ([section ##BuiltinFilterOperations])
 and MUST return `501 Not Implemented` for any unsupported filter
 operations ([section ##ResponseCode501NotImplemented])
    4. SHOULD support the canonical functions ([section ##BuiltinQueryFunctions]) and
@@ -157,7 +157,7 @@ with generic clients
 14. SHOULD support `$expand` ([section ##SystemQueryOptionexpand])
 15. SHOULD support the lambda operators `any` and `all` on navigation-
 and collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section ##RequestingtheNumberofItemsinaCollection])
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -176,7 +176,7 @@ Level](#OData40IntermediateConformanceLevel)
 properties ([section ##RequestingtheNumberofItemsinaCollection])
 5. MUST support the lambda operators `any` and `all` on navigation- and
 collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section ##SystemQueryOptionskip])
 7. MUST support the `$count` system query option ([section ##SystemQueryOptioncount])
 8. MUST support `$orderby` `asc` and `desc` on individual properties
@@ -198,11 +198,11 @@ properties
 ([section ##BatchRequests] and all subsections) and MAY support batch requests
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
-[OData URL](#ODataURL)
+[OData-URL](#ODataURL)
 13. SHOULD support [asynchronous requests](#AsynchronousRequests)
 ([section ##AsynchronousRequests])
 14. SHOULD support [Delta change tracking](#RequestingChanges) ([section ##RequestingChanges])
-15. SHOULD support cross-join queries defined in [OData URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section ##SystemQueryOptioncompute])
 
 ## ##subsec OData 4.01 Service Conformance Levels
@@ -263,13 +263,12 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData URL](#ODataURL)) or include URLs in payload
+[OData-URL](#ODataURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section
-##MetadataDocumentRequest])
+[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case

@@ -39,48 +39,48 @@ document are to be interpreted as described in [RFC2119](#rfc2119).
 
 ## ##subsec Normative References
 
-[\[ECMAScript\]]{.Refterm}[[                
+[\[ECMAScript\]]{.Refterm}[[                
 ]{style="font-weight:normal"}]{.Refterm}*ECMAScript 2016 Language
 Specification, 7^th^ Edition,* June 2016. Standard ECMA-262.
 <http://www.ecma-international.org/publications/standards/Ecma-262.htm>.
 
-[\[OData-ABNF\]]{.Refterm}                 *OData ABNF Construction
+[\[OData-ABNF\]]{.Refterm}                 *OData ABNF Construction
 Rules Version 4.01*.\
 See the link in \"Additional artifacts\" section on cover page.
 
-[\[OData-CSDLJSON\]]{.Refterm}        *OData Common Schema Definition
+[\[OData-CSDLJSON\]]{.Refterm}        *OData Common Schema Definition
 Language (CSDL) JSON Representation Version 4.01)*. See link in
 \"Related work\" section on cover page.[ ]{.Refterm}
 
-[OData-CSDLXML]{#ODataCSDLXMLRef}**         ** *OData Common Schema
+[OData-CSDLXML]{#ODataCSDLXMLRef}**         ** *OData Common Schema
 Definition Language (CSDL) XML Representation Version 4.01.* See link in
 \"Related work\" section on cover page
 
-OData-JSON                 *OData JSON Format Version 4.01.*\
+OData-JSON                 *OData JSON Format Version 4.01.*\
 See link in \"Related work\" section on cover page.
 
-[\[OData-Protocol\]]{.Refterm}            *OData Version 4.01 Part 1:
+[\[OData-Protocol\]]{.Refterm}            *OData Version 4.01 Part 1:
 Protocol*.\
 See link in \"Additional artifacts\" section on cover page.[ ]{.Refterm}
 
-OData-VocCap              *OData Vocabularies Version 4.0: Capabilities
+OData-VocCap              *OData Vocabularies Version 4.0: Capabilities
 Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-OData-VocCore            *OData Vocabularies Version 4.0: Core
+OData-VocCore            *OData Vocabularies Version 4.0: Core
 Vocabulary.*\
 See link in \"Related work\" section on cover page.
 
-[\[RFC2119\]]{.Refterm}                      Bradner, S., "Key words for
+[\[RFC2119\]]{.Refterm}                      Bradner, S., "Key words for
 use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March
 1997. <https://tools.ietf.org/html/rfc2119>.
 
-[\[RFC3986\]]{.Refterm}                      Berners-Lee, T., Fielding,
+[\[RFC3986\]]{.Refterm}                      Berners-Lee, T., Fielding,
 R., and L. Masinter, "Uniform Resource Identifier (URI): Generic
 Syntax", STD 66, RFC 3986, January 2005.
 <https://tools.ietf.org/html/rfc3986>.
 
-[[\[]{.Refterm}]{#_Toc371341726}[[XML-Schema-2]{.Refterm}]{#BMXMLSchema2}[\]]{.Refterm}            
+[[\[]{.Refterm}]{#_Toc371341726}[[XML-Schema-2]{.Refterm}]{#BMXMLSchema2}[\]]{.Refterm}            
 W3C XML Schema Definition Language (XSD) 1.1 Part 2: DatatypesW3C XML
 Schema Definition Language (XSD) 1.1 Part 2: Datatypes, D. Peterson, S.
 Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra,
@@ -124,8 +124,8 @@ Example ##ex: OData URL broken down into its component parts:
 ```
 http://host:port/path/SampleService.svc/Categories(1)/Products?\$top=2&\$orderby=Name[\
 ]{style="font-size:6.0pt;color:black"}`\______________________________________/\____________________/ \__________________/`[\
-]{style="font-size:6.0pt;color:black"}`                  |                               |                       |`[\
-]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options
+]{style="font-size:6.0pt;color:black"}`                  |                               |                       |`[\
+]{style="font-size:6.0pt;color:black"}`          service root URL                  resource path           query options
 ```
 :::
 
@@ -169,7 +169,7 @@ rules defined in this specification document take precedence. Note also
 that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in section
 6.2.2.2 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
-all characters in the unreserved set (see rule `unreserved` in 
+all characters in the unreserved set (see rule `unreserved` in 
 [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
@@ -186,7 +186,7 @@ Example ##ex: valid OData URLs:
 http://host/service/People(\'O\'\'Neil\')
 :::
 
-http://host/service/People(%27O%27%27Neil%27) 
+http://host/service/People(%27O%27%27Neil%27) 
 
 http://host/service/People%28%27O%27%27Neil%27%29
 
@@ -196,12 +196,12 @@ http://host/service/`Categories`(\'Smartphone%2FTablet\')
 ::: example
 Example ##ex: invalid OData URLs:
 ```
-http://host/service`/People('O'Neil') `
+http://host/service`/People('O'Neil') `
 :::
 
-http://host/service`/People('O%27Neil') `
+http://host/service`/People('O%27Neil') `
 
-http://host/service`/Categories('Smartphone/Tablet') 
+http://host/service`/Categories('Smartphone/Tablet') 
 ```
 
 The first and second examples are invalid because a single quote in a
@@ -296,19 +296,19 @@ entity are covered in the `resourcePath` syntax rule in
 
 Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
 
-resourcePath = entitySetName                  \[collectionNavigation\]\
-             / singleton                      \[singleNavigation\]\
-             / actionImportCall\
-             / entityColFunctionImportCall    \[ collectionNavigation
+resourcePath = entitySetName                  \[collectionNavigation\]\
+             / singleton                      \[singleNavigation\]\
+             / actionImportCall\
+             / entityColFunctionImportCall    \[ collectionNavigation
 \]\
-             / entityFunctionImportCall       \[ singleNavigation \]\
-             / complexColFunctionImportCall   \[ collectionPath \]\
-             / complexFunctionImportCall      \[ complexPath \]\
-             / primitiveColFunctionImportCall \[ collectionPath \]\
-             / primitiveFunctionImportCall    \[ singlePath \]\
-             / functionImportCallNoParens\
-             / crossjoin\
-             / \'\$all\'                  \[ \"/\"
+             / entityFunctionImportCall       \[ singleNavigation \]\
+             / complexColFunctionImportCall   \[ collectionPath \]\
+             / complexFunctionImportCall      \[ complexPath \]\
+             / primitiveColFunctionImportCall \[ collectionPath \]\
+             / primitiveFunctionImportCall    \[ singlePath \]\
+             / functionImportCallNoParens\
+             / crossjoin\
+             / \'\$all\'                  \[ \"/\"
 qualifiedEntityTypeName \]
 
 Since OData has a uniform composable URL syntax and associated rules
@@ -595,7 +595,7 @@ http://host/service/Employees/A1245
 
 http://host/service/People/O\'Neil
 
-http://host/service/People/O%27Neil 
+http://host/service/People/O%27Neil 
 
 http://host/service/`Categories`/Smartphone%2FTablet
 ```
@@ -787,7 +787,7 @@ set or collection.
 
 The `/$count `path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -798,7 +798,7 @@ The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
 `$filter` or `$search` system query options to the collection.
 
- 
+ 
 
 ::: example
 Example ##ex: the number of related entities
@@ -833,7 +833,7 @@ gt 5.00) gt 2
 ```
 :::
 
-[ ]{lang="DE"}Example 34: entity count in an
+[ ]{lang="DE"}Example 34: entity count in an
 [`$orderby`](#SystemQueryOptionorderby) expression
 ```
 http://host/service/Categories?\$orderby=Products/\$count
@@ -891,7 +891,7 @@ Any resource path or path expression identifying a collection of
 entities or complex type instances can be appended with a path segment
 containing the qualified name of a type derived from the declared type
 of the collection. The result will be restricted to instances of the
-derived type and may be empty. 
+derived type and may be empty. 
 
 Any resource path or path expression identifying a single entity or
 complex type instance can be appended with a path segment containing the
@@ -899,7 +899,7 @@ qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
 in a `404 Not Found` response. If used in a path expression that is part
-of a Boolean expression, the type cast will evaluate to `null`. 
+of a Boolean expression, the type cast will evaluate to `null`. 
 
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
@@ -974,14 +974,14 @@ resource path and the parentheses contain a filter expression, that
 expression MUST NOT use forward slashes.
 
 The collection will be restricted to instances matching the filter
-expression assigned to the parameter alias and may be empty. 
+expression assigned to the parameter alias and may be empty. 
 
 The `/$filter` path segment MAY occur multiple times and it MAY be
 combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example ##ex: red products that cost less than 10  -- combining path
+Example ##ex: red products that cost less than 10  -- combining path
 segment and system query option
 ```
 GET Products/\$filter(@foo)?@foo=Price lt 10&\$filter=Color eq \'red\'
@@ -1039,7 +1039,7 @@ of the bound operation. If the bound operation returns a collection, the
 response is a collection of collections. System query options applied to
 the response can use [`$it`](#it) to reference an item in the outermost
 collection, followed by [`/any`](#any), [`/all`](#all), or
-[`/$count`](#AddressingtheCountofaCollection). 
+[`/$count`](#AddressingtheCountofaCollection). 
 
 The resource path of the collection preceding `/$each` MAY contain
 [type-cast](#AddressingDerivedTypes) or [filter path
@@ -1098,30 +1098,30 @@ a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
 http://host/service/\$crossjoin(Products,Sales)?\$filter=Products/ID eq
-Sales/ProductID                
+Sales/ProductID                
 ```
 :::
 
 and would result in
 ```
 [{\
- 
+ 
 \"@odata.context\":\"http://host/service/\$metadata#]{style="color:black"}`Collection(Edm.ComplexType)`[\",\
-  \"value\":\[\
-    {\
-      \"Products@odata.navigationLink\":\"Products(0)\",\
-      \"Sales@odata.navigationLink\":\"Sales(42)\",\
-    },\
-    {\
-      \"Products@odata.navigationLink\":\"Products(0)\",\
-      \"Sales@odata.navigationLink\":\"Sales(57)\",\
-    },\
-    \...\
-    {\
-      \"Products@odata.navigationLink\":\"Products(99)\",\
-      \"Sales@odata.navigationLink\":\"Sales(21)\",\
-    }\
-  \]]{style="color:black"}
+  \"value\":\[\
+    {\
+      \"Products@odata.navigationLink\":\"Products(0)\",\
+      \"Sales@odata.navigationLink\":\"Sales(42)\",\
+    },\
+    {\
+      \"Products@odata.navigationLink\":\"Products(0)\",\
+      \"Sales@odata.navigationLink\":\"Sales(57)\",\
+    },\
+    \...\
+    {\
+      \"Products@odata.navigationLink\":\"Products(99)\",\
+      \"Sales@odata.navigationLink\":\"Sales(21)\",\
+    }\
+  \]]{style="color:black"}
 
 }
 ```
@@ -1189,7 +1189,7 @@ POST http://host/service/People/\$query
 
 Content-Type: text/plain
 
- 
+ 
 
 \$filter=\[FirstName,LastName\]%20in%20\[\[\"John\",\"Doe\"\],\[\"Jane\",\"Smith\"\]\]
 ```
@@ -1275,7 +1275,7 @@ Logical operators are typically used to filter a collection of
 resources.
 
 The syntax rules for the logical operators are defined in
-[OData-ABNF](#ODataABNF).  4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF).  4.01 Services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
@@ -1547,9 +1547,9 @@ variable scale.[\
 The `add` operator is also valid for the following time-related
 operands:
 - `DateTimeOffset add Duration` results in
-a `DateTimeOffset` 
+a `DateTimeOffset` 
 - `Duration add Duration` results in a
-`Duration` 
+`Duration` 
 - `Date add Duration` results in a `Date`
 
 The rules for time-related operands are defined in
@@ -1576,13 +1576,13 @@ variable scale.
 The `sub` operator is also valid for the following time-related
 operands:
 - `DateTimeOffset` `sub` `Duration`
-results in a `DateTimeOffset` 
+results in a `DateTimeOffset` 
 - `Duration sub Duration` results in a
-`Duration` 
+`Duration` 
 - `DateTimeOffset sub DateTimeOffset`
-results in a `Duration` 
+results in a `Duration` 
 - `Date sub Duration` results in a `Date`
-- `Date sub Date` results in a `Duration` 
+- `Date sub Date` results in a `Duration` 
 
 The rules for time-related operands are defined in
 [**\[XML‑Schema‑2\]**](#BMXMLSchema2), section E.3.3. Specifically for
@@ -1633,7 +1633,7 @@ result, and does not fail for `divby` zero, returning `-INF`, `INF`, or
 ##### ##subsubsubsubsec [Modulo](#Modulo)
 
 The `mod` operator returns the remainder when the left numeric operand
-is divided by the right numeric operand.  The sign of the result is the
+is divided by the right numeric operand.  The sign of the result is the
 same as the sign of the left operand. If the right operand is zero, the
 request fails.
 
@@ -2965,12 +2965,12 @@ Operators in the same category have equal precedence:
 |                 |                 |                 |                 |
 |                 |                 |                 | `memberExpr`    |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `has`           | Enumeration     | `hasExpr`       |
+|                 | `has`           | Enumeration     | `hasExpr`       |
 |                 |                 | Flags           |                 |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `in`            | Is a member of  | `inExpr`        |
+|                 | `in`            | Is a member of  | `inExpr`        |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `xxx( )`        | Method Call     | `               |
+|                 | `xxx( )`        | Method Call     | `               |
 |                 |                 |                 | methodCallExpr` |
 |                 |                 |                 |                 |
 |                 |                 |                 | `bool           |
@@ -2980,39 +2980,39 @@ Operators in the same category have equal precedence:
 +-----------------+-----------------+-----------------+-----------------+
 | Unary           | `-`             | Negation        | `negateExpr`    |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `not`           | Logical         | `notExpr`       |
+|                 | `not`           | Logical         | `notExpr`       |
 |                 |                 | Negation        |                 |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `cast( )`       | Type Casting    | `castExpr`      |
+|                 | `cast( )`       | Type Casting    | `castExpr`      |
 +-----------------+-----------------+-----------------+-----------------+
 | Multiplicative  | `mul`           | Multiplication  | `mulExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `div`           | Division        | `divExpr`       |
+|                 | `div`           | Division        | `divExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `divby`         | Decimal         | `divbyExpr`     |
+|                 | `divby`         | Decimal         | `divbyExpr`     |
 |                 |                 | Division        |                 |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `mod`           | Modulo          | `modExpr`       |
+|                 | `mod`           | Modulo          | `modExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
 | Additive        | `add`           | Addition        | `addExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `sub`           | Subtraction     | `subExpr`       |
+|                 | `sub`           | Subtraction     | `subExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
 | Relational      | `gt`            | Greater Than    | `gtExpr`        |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `ge`            | Greater than or | `geExpr`        |
+|                 | `ge`            | Greater than or | `geExpr`        |
 |                 |                 | Equal           |                 |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `lt`            | Less Than       | `ltExpr`        |
+|                 | `lt`            | Less Than       | `ltExpr`        |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `le`            | Less than or    | `leExpr`        |
+|                 | `le`            | Less than or    | `leExpr`        |
 |                 |                 | Equal           |                 |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `isof`          | Type Testing    | `isofExpr`      |
+|                 | `isof`          | Type Testing    | `isofExpr`      |
 +-----------------+-----------------+-----------------+-----------------+
 | Equality        | `eq`            | Equal           | `eqExpr`        |
 +-----------------+-----------------+-----------------+-----------------+
-|                 | `ne`            | Not Equal       | `neExpr`        |
+|                 | `ne`            | Not Equal       | `neExpr`        |
 +-----------------+-----------------+-----------------+-----------------+
 | Conditional AND | `and`           | Logical And     | `andExpr`       |
 +-----------------+-----------------+-----------------+-----------------+
@@ -3821,4 +3821,4 @@ Appendix B. [Revision History](#RevisionHistory)
 | 02              |                 | Ralf Handl      |                 |
 +-----------------+-----------------+-----------------+-----------------+
 
- 
+ 
