@@ -4140,6 +4140,7 @@ annotation to the `DirectReports` navigation property
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
+  "Manager@odata.bind": "http://host/service/Employees(0)",
   "DirectReports@odata.bind": [
     "http://host/service/Employees(5)",
     "http://host/service/Employees(6)"
@@ -4158,6 +4159,7 @@ within the `DirectReports` navigation property
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
+  "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
     {"@id": "Employees(5)"},
     {"@id": "Employees(6)"}
