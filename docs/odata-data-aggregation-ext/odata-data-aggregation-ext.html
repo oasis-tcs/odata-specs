@@ -1791,7 +1791,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
                   /aggregate(Forecast with average as DailyAverage)</code></pre>
 </div>
 <div class="example">
-<p>⚠ Example 18: the maximal daily average for sales of a product</p>
+<p>⚠ Example 18: the maximal daily average for sales of any product</p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
                                            with max as MaxDailyAverage)</code></pre>
 <p>results in</p>

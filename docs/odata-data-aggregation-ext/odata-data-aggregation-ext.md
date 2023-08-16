@@ -1401,7 +1401,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Forecast))
 :::
 
 ::: example
-⚠ Example 18: the maximal daily average for sales of a product
+⚠ Example 18: the maximal daily average for sales of any product
 ```
 GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
                                            with max as MaxDailyAverage)
