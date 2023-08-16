@@ -1066,7 +1066,7 @@ bindings that end in a type-cast segment, a type-cast segment MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
-with term
+with the term
 [`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
@@ -3783,7 +3783,7 @@ http://host/service/Orders(10)/Items
 ### <a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option `$index`</a>
 
 The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
+insert into a collection annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
