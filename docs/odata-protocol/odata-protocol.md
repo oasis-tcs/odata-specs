@@ -3,7 +3,7 @@
 
 -------
 
-# OData Version 4.01. Part 1: Protocol
+# OData Version 4.02. Part 1: Protocol
 
 ## Committee Specification Draft 01
 
@@ -40,11 +40,8 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
-* XML schemas: (list file names or directory name)
-* Other parts (list titles and/or file names)
-* `(Note: Any normative computer language definitions that are part of the Work Product, such as XML instances, schemas and Java(TM) code, including fragments of such, must be (a) well formed and valid, (b) provided in separate plain text files, (c) referenced from the Work Product; and (d) where any definition in these separate files disagrees with the definition found in the specification, the definition in the separate file prevails. Remove this note before submitting for publication.)`
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -72,7 +69,7 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
@@ -85,7 +82,7 @@ https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-prot
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2023. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -99,11 +96,11 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from earlier Versions](#ChangesfromearlierVersions)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
-    - [1.2.1 Definitions of terms](#Definitionsofterms)
-    - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
-    - [1.2.3 Document conventions](#Documentconventions)
+    - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
+    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
+    - [1.2.3 Document Conventions](#DocumentConventions)
 - [2 Overview](#Overview)
 - [3 Data Model](#DataModel)
   - [3.1 Annotations](#Annotations)
@@ -216,8 +213,9 @@ For complete copyright information please see the full Notices section in an App
       - [11.2.5.3 System Query Option `$compute`](#SystemQueryOptioncompute)
     - [11.2.6 Querying Collections](#QueryingCollections)
       - [11.2.6.1 System Query Option `$filter`](#SystemQueryOptionfilter)
-        - [11.2.6.1.1 Built-in Query Functions](#BuiltinQueryFunctions)
-        - [11.2.6.1.2 Parameter Aliases](#ParameterAliases)
+        - [11.2.6.1.1 Built-in Filter Operations](#BuiltinFilterOperations)
+        - [11.2.6.1.2 Built-in Query Functions](#BuiltinQueryFunctions)
+        - [11.2.6.1.3 Parameter Aliases](#ParameterAliases)
       - [11.2.6.2 System Query Option `$orderby`](#SystemQueryOptionorderby)
       - [11.2.6.3 System Query Option `$top`](#SystemQueryOptiontop)
       - [11.2.6.4 System Query Option `$skip`](#SystemQueryOptionskip)
@@ -253,7 +251,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.6.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
       - [11.4.6.2 Remove a Reference to an Entity](#RemoveaReferencetoanEntity)
       - [11.4.6.3 Change the Reference in a Single-Valued Navigation Property](#ChangetheReferenceinaSingleValuedNavigationProperty)
-      - [11.4.6.4 Replace all References in a Collection-valued Navigation Property](#ReplaceallReferencesinaCollectionvaluedNavigationProperty)
+      - [11.4.6.4 Replace all References in a Collection-Valued Navigation Property](#ReplaceallReferencesinaCollectionValuedNavigationProperty)
     - [11.4.7 Managing Media Entities](#ManagingMediaEntities)
       - [11.4.7.1 Create a Media Entity](#CreateaMediaEntity)
       - [11.4.7.2 Update a Media Entity Stream](#UpdateaMediaEntityStream)
@@ -329,7 +327,7 @@ Locators (URLs) and defined in a data model, to be published and edited
 by Web clients using simple HTTP messages. This specification defines
 the core semantics and the behavioral aspects of the protocol.
 
-The [OData‑URL](#ODataURL) specification defines a set of rules for
+The [OData-URL](#ODataURL) specification defines a set of rules for
 constructing URLs to identify the data and metadata exposed by an OData
 service as well as a set of reserved URL query options.
 
@@ -342,25 +340,22 @@ representation of the entity data model exposed by an OData service.
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
 resource representations that are exchanged using OData.
 
-## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-<!-- TODO -->
-TODO: find out why we need a $dummy$ formula to get `monospace` look as we want it.
-
-### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
+### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -371,7 +366,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
@@ -388,7 +383,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --mathjax
        --eol=lf
        --wrap=none
-       --metadata pagetitle="OData Version 4.01. Part 1: Protocol"
+       --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
        odata-v4.02-csd01-part1-protocol.md
 ```
 
@@ -543,7 +538,7 @@ generic clients to interact with the service in a well-defined way.
 An OData service exposes two well-defined resources that describe its
 data model; a service document and a metadata document.
 
-The [*service document*](#ServiceDocumentRequest)lists entity sets,
+The [*service document*](#ServiceDocumentRequest) lists entity sets,
 functions, and singletons that can be retrieved. Clients can use the
 service document to navigate the model in a hypermedia-driven fashion.
 
@@ -773,17 +768,17 @@ format.
 Regardless of the format, additional content MUST NOT be present if it
 needs to be understood by the receiver in order to correctly interpret
 the payload according to the specified
-[OData-Version](#HeaderODataVersion) header. Thus, clients and services
+[`OData-Version`](#HeaderODataVersion) header. Thus, clients and services
 MUST be prepared to handle or safely ignore any content not specifically
 defined in the version of the payload specified by the
-`OData-Version`[` `]{.Hyperlink1}header.
+`OData-Version` header.
 
 ## <a name="ActionFunctionExtensibility" href="#ActionFunctionExtensibility">6.3 Action/Function Extensibility</a>
 
 [Actions](#Actions) and [Functions](#Functions) extend the set of
 operations that can be performed on or with a service or resource.
-[Actions]{.Hyperlink1} can have side-effects. For example,
-[Actions]{.Hyperlink1} can be used to modify data or to invoke custom
+Actions can have side-effects. For example,
+Actions can be used to modify data or to invoke custom
 operations. Functions MUST NOT have side-effects. Functions can be
 invoked from a URL that addresses a resource or within an expression to
 a [`$filter`](#SystemQueryOptionfilter) or
@@ -849,7 +844,7 @@ additional formats for both request and response bodies.
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
 [RFC7231](#rfc7231), or through the system query option
-[\$format](#SystemQueryOptionformat).
+[`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
 option are specified on a request, the value specified in the `$format`
@@ -915,7 +910,7 @@ parameters within the `Content-Type` header.
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
-content codings have been applied to the entity-body.\
+content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
 [`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
@@ -1051,7 +1046,7 @@ If an operation on an existing resource requires an ETag, (see term
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
-in ** **[OData-VocCap](#ODataVocCap)) and the client does not specify an
+in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
 an action bound to the resource, the service responds with a
@@ -1113,7 +1108,7 @@ from external changes. The only supported value for this header is
 
 If the service doesn't support `Isolation:snapshot` and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with `412 Precondition Failed.`
+MUST respond with [`412 Precondition Failed`](#ResponseCode412PreconditionFailed).
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#BatchRequests) or results
@@ -1526,8 +1521,8 @@ A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the
 successfully modified resource in the body of the response, formatted
-according to the rules specified for the requested [format](#Formats)[.
-In this case the service]{.Hyperlink1} MAY include a
+according to the rules specified for the requested [format](#Formats).
+In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
@@ -1564,7 +1559,7 @@ respond
 - asynchronously if the synchronous processing of the request will take longer than 10 seconds
 - synchronously after 5 seconds
 - asynchronously (ignoring the [`wait`](#Preferencewait) preference)
-- synchronously after 15 seconds (ignoring `respond-`async preference and the
+- synchronously after 15 seconds (ignoring `respond-async` preference and the
 [`wait`](#Preferencewait) preference)
 ```
 Prefer: respond-async, wait=10
@@ -2290,7 +2285,7 @@ Example 22: resource URL and corresponding context URL -- expand with
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
         &$expand=DirectReports($select=FirstName,LastName;$levels=4)
-http://host/service/$metadata\
+http://host/service/$metadata
         #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
@@ -2511,7 +2506,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData‑URL](#ODataURL)) use the built-in abstract entity type. Each
+[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -2522,19 +2517,8 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(...)` (see
-[OData‑URL](#ODataURL)) use the built-in abstract complex type. Single
+[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
-
-##### <a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">10.20.0.0.1 Built-in Filter Operations</a>
-
-OData supports a set of built-in filter operations, as described in this
-section.
-
-4.01 services MUST support case-insensitive operation names. Clients
-that want to work with 4.0 services MUST use lower case operation names.
-
-For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
 
 -------
 
@@ -2631,7 +2615,7 @@ options.
 
 This section describes the types of data requests defined by OData. For
 complete details on the syntax for building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData services are hypermedia driven services that return URLs to the
 client. If a client subsequently requests the advertised resource and
@@ -2687,9 +2671,9 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
+[OData-JSON](#ODataJSON) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData‑URL](#ODataURL).
+key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -2741,7 +2725,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData‑URL](#ODataURL) for details.
+See [OData-URL](#ODataURL) for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -2760,7 +2744,7 @@ GET http://host/service/Products(1)/Name
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
-[OData‑URL](#ODataURL) document for details.
+[OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -2930,7 +2914,7 @@ filtering, sorting, selecting, paging, or expanding the related
 entities).
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 ::: example
 Example 38: for each customer entity within the Customers entity set the
@@ -2961,7 +2945,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
 [`$select`](#SystemQueryOptionselect),
@@ -2990,8 +2974,7 @@ the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 - The `Customer` related to each order returned.
 ```
-GET
-http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
+GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
 ```
 :::
 
@@ -3003,8 +2986,7 @@ are not of type `VipCustomer`, or any of its subtypes, that entity may
 be returned with no inline representation for the expanded navigation
 property `InHouseStaff` (the service can always send more than requested)
 ```
-GET
-http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
+GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
 ```
 :::
 
@@ -3031,8 +3013,7 @@ Example 44: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
 ```
-GET
-http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
+GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 ```
 :::
 
@@ -3104,38 +3085,44 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 The value of the `$filter` option is a Boolean expression as defined in
 [OData-ABNF](#ODataABNF).
 
+##### <a name="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a>
+
+OData supports a set of built-in filter operations, as described in this
+section.
+
+4.01 services MUST support case-insensitive operation names. Clients
+that want to work with 4.0 services MUST use lower case operation names.
+
+For a full description of the syntax used when building requests, see
+[OData-URL](#ODataURL).
+
 <table>
 <tr><th>Operator</th><th>Description</th><th>Example</th></tr>
-
-<tr><td colspan="3"><b>Comparison Operators</b></td></tr>
-<tr><td><code>eq</code></td><td>Equal</td><td><code>Address/City eq 'Redmond'</code></tr>
-<tr><td><code>ne</code></td><td>Not equal</td><td><code>Address/City ne 'London'</code></td></tr>
-<tr><td><code>gt</code></td><td>Greater than</td><td><code>Price gt 20</code></td></tr>
-<tr><td><code>ge</code></td><td>Greater than or equal</td><td><code>Price ge 10</code></td></tr>
-<tr><td><code>lt</code></td><td>Less than</td><td><code>Price lt 20</code></td></tr>
-<tr><td><code>le</code></td><td>Less than or equal</td><td><code>Price le 100</code></td></tr>
-<tr><td><code>has</code></td><td>Has flags</td><td><code>Style has Sales.Color'Yellow'</code></td></tr>
-<tr><td><code>in</code></td><td>Is a member of</td><td><code>Address/City in ('Redmond', 'London')</code></td></tr>
-
-<tr><td colspan="3"><b>Logical Operators</b></td></tr>
-<tr><td><code>and</code></td><td>Logical and</td><td><code>Price le 200 and Price gt 3.5</code></td></tr>
-<tr><td><code>or</code></td><td>Logical or</td><td><code>Price le 3.5 or Price gt 200</code></td></tr>
-<tr><td><code>not</code></td><td>Logical negation</td><td><code>not endswith(Description,'milk')</code></td></tr>
-
-<tr><td colspan="3"><b>Arithmetic Operators</b></td></tr>
-<tr><td><code>add</code></td><td>Addition</td><td><code>Price add 5 gt 10</code></td></tr>
-<tr><td><code>sub</code></td><td>Subtraction</td><td><code>Price sub 5 gt 10</code></td></tr>
-<tr><td><code>mul</code></td><td>Multiplication</td><td><code>Price mul 2 gt 2000</code></td></tr>
-<tr><td><code>div</code></td><td>Division</td><td><code>Price div 2 gt 4</code></td></tr>
-<tr><td><code>divby</code></td><td>Decimal Division</td><td><code>Price divby 2 gt 3.5</code></td></tr>
-<tr><td><code>mod</code></td><td>Modulo</td><td><code>Price mod 2 eq 0</code></td></tr>
-
-<tr><td colspan="3"><b>Grouping Operators</b></td></tr>
-<tr><td><code>( )</code></td><td>Precedence grouping</td><td><code>(Price sub 5) gt 10</code></td></tr>
-
+<tr><td colspan="3"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>eq</code></td><td>Equal                </td><td><pre><code>Address/City eq 'Redmond'</code></pre></td></tr>
+<tr><td><code>ne</code></td><td>Not equal            </td><td><pre><code>Address/City ne 'London'</code></pre></td></tr>
+<tr><td><code>gt</code></td><td>Greater than         </td><td><pre><code>Price gt 20</code></pre></td></tr>
+<tr><td><code>ge</code></td><td>Greater than or equal</td><td><pre><code>Price ge 10</code></pre></td></tr>
+<tr><td><code>lt</code></td><td>Less than            </td><td><pre><code>Price lt 20</code></pre></td></tr>
+<tr><td><code>le</code></td><td>Less than or equal   </td><td><pre><code>Price le 100</code></pre></td></tr>
+<tr><td><code>has</code></td><td>Has flags           </td><td><pre><code>Style has Sales.Color'Yellow'</code></pre></td></tr>
+<tr><td><code>in</code></td><td>Is a member of       </td><td><pre><code>Address/City in ('Redmond', 'London')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>and</code></td><td>Logical and         </td><td><pre><code>Price le 200 and Price gt 3.5</code></pre></td></tr>
+<tr><td><code>or</code></td><td>Logical or           </td><td><pre><code>Price le 3.5 or Price gt 200</code></pre></td></tr>
+<tr><td><code>not</code></td><td>Logical negation    </td><td><pre><code>not endswith(Description,'milk')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Arithmetic Operators</strong></td></tr>
+<tr><td><code>add</code></td><td>Addition            </td><td><pre><code>Price add 5 gt 10</code></pre></td></tr>
+<tr><td><code>sub</code></td><td>Subtraction         </td><td><pre><code>Price sub 5 gt 10</code></pre></td></tr>
+<tr><td><code>mul</code></td><td>Multiplication      </td><td><pre><code>Price mul 2 gt 2000</code></pre></td></tr>
+<tr><td><code>div</code></td><td>Division            </td><td><pre><code>Price div 2 gt 4</code></pre></td></tr>
+<tr><td><code>divby</code></td><td>Decimal Division  </td><td><pre><code>Price divby 2 gt 3.5</code></pre></td></tr>
+<tr><td><code>mod</code></td><td>Modulo              </td><td><pre><code>Price mod 2 eq 0</code></pre></td></tr>
+<tr><td colspan="3"><strong>Grouping Operators</strong></td></tr>
+<tr><td><code>( )</code></td><td>Precedence grouping </td><td><pre><code>(Price sub 5) gt 10</code></pre></td></tr>
 </table>
 
-##### <a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.1 Built-in Query Functions</a>
+##### <a name="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.2 Built-in Query Functions</a>
 
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
@@ -3144,70 +3131,61 @@ OData supports a set of built-in functions that can be used within
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
 <table>
 <tr><th>Function</th><th>Example</th></tr>
-
-<tr><td colspan="2"><b>String and Collection Functions</b></td></tr>
-<tr><td><code>concat</code></td><td><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></td></tr>
-<tr><td><code>contains</code></td><td><code>contains(CompanyName,'freds')</code></td></tr>
-<tr><td><code>endswith</code></td><td><code>endswith(CompanyName,'Futterkiste')</code></td></tr>
-<tr><td><code>indexof</code></td><td><code>indexof(CompanyName,'lfreds') eq 1</code></td></tr>
-<tr><td><code>length</code></td><td><code>length(CompanyName) eq 19</code></td></tr>
-<tr><td><code>startswith</code></td><td><code>startswith(CompanyName,’Alfr’)</code></td></tr>
-<tr><td><code>substring</code></td><td><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Collection Functions</b></td></tr>
-<tr><td><code>hassubset</code></td><td><code>hassubset([4,1,3],[3,1])</code></td></tr>
-<tr><td><code>hassubsequence</code></td><td><code>hassubsequence([4,1,3,1],[1,1])</code></td></tr>
-
-<tr><td colspan="2"><b>String Functions</b></td></tr>
-<tr><td><code>matchesPattern</code></td><td><code>matchesPattern(CompanyName,'%5EA.*e$')</code></td></tr>
-<tr><td><code>tolower</code></td><td><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></td></tr>
-<tr><td><code>toupper</code></td><td><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></td></tr>
-<tr><td><code>trim  </code></td><td><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Date and Time Functions</b></td></tr>
-<tr><td><code>day</code></td><td><code>day(StartTime) eq 8</code></td></tr>
-<tr><td><code>date</code></td><td><code>date(StartTime) ne date(EndTime) </code></td></tr>
-<tr><td><code>fractionalseconds</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>hour</code></td><td><code>hour(StartTime) eq 1 </code></td></tr>
-<tr><td><code>maxdatetime</code></td><td><code>EndTime eq maxdatetime()</code></td></tr>
-<tr><td><code>mindatetime</code></td><td><code>StartTime eq mindatetime()</code></td></tr>
-<tr><td><code>minute</code></td><td><code>minute(StartTime) eq 0</code></td></tr>
-<tr><td><code>month</code></td><td><code>month(BirthDate) eq 12</code></td></tr>
-<tr><td><code>now</code></td><td><code>StartTime ge now()</code></td></tr>
-<tr><td><code>second</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>time</code></td><td><code>time(StartTime) le StartOfDay</code></td></tr>
-<tr><td><code>totaloffsetminutes</code></td><td><code>totaloffsetminutes(StartTime) eq 60</code></td></tr>
-<tr><td><code>totalseconds</code></td><td><code>totalseconds(duration'PT1M') eq 60</code></td></tr>
-<tr><td><code>year</code></td><td><code>year(BirthDate) eq 0</code></td></tr>
-
-<tr><td colspan="2"><b>Arithmetic Functions</b></td></tr>
-<tr><td><code>ceiling</code></td><td><code>ceiling(Freight) eq 33</code></td></tr>
-<tr><td><code>floor</code></td><td><code>floor(Freight) eq 32</code></td></tr>
-<tr><td><code>round</code></td><td><code>round(Freight) eq 32</code></td></tr>
-
-<tr><td colspan="2"><b>Type Functions</b></td></tr>
-<tr><td><code>cast</code></td><td><code>cast(ShipCountry,Edm.String)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(NorthwindModel.Order)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(ShipCountry,Edm.String)</code></td></tr>
-
-<tr><td colspan="2"><b>Geo Functions</b></td></tr>
-<tr><td><code>geo.distance</code></td><td><code>geo.distance(CurrentPosition,TargetPosition)</code></td></tr>
-<tr><td><code>geo.intersects</code></td><td><code>geo.intersects(Position,TargetArea)</code></td></tr>
-<tr><td><code>geo.length</code></td><td><code>geo.length(DirectRoute)</code></td></tr>
-
-<tr><td colspan="2"><b>Conditional Functions</b></td></tr>
-<tr><td><code>case</code></td><td><code>case(X gt 0:1,X lt 0:-1,true:0)</code></td></tr>
-
+<tr><td colspan="2"><strong>String and Collection Functions</strong></td></tr>
+<tr><td><code>concat</code></td><td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td></tr>
+<tr><td><code>contains</code></td><td><pre><code>contains(CompanyName,'freds')</code></pre></td></tr>
+<tr><td><code>endswith</code></td><td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td></tr>
+<tr><td><code>indexof</code></td><td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td></tr>
+<tr><td><code>length</code></td><td><pre><code>length(CompanyName) eq 19</code></pre></td></tr>
+<tr><td><code>startswith</code></td><td><pre><code>startswith(CompanyName,’Alfr’)</code></pre></td></tr>
+<tr><td><code>substring</code></td><td><pre><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Collection Functions</strong></td></tr>
+<tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
+<tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
+<tr><td colspan="2"><strong>String Functions</strong></td></tr>
+<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
+<tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
+<tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Date and Time Functions</strong></td></tr>
+<tr><td><code>day</code></td><td><pre><code>day(StartTime) eq 8</code></pre></td></tr>
+<tr><td><code>date</code></td><td><pre><code>date(StartTime) ne date(EndTime)</code></pre></td></tr>
+<tr><td><code>fractionalseconds</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>hour</code></td><td><pre><code>hour(StartTime) eq 1</code></pre></td></tr>
+<tr><td><code>maxdatetime</code></td><td><pre><code>EndTime eq maxdatetime()</code></pre></td></tr>
+<tr><td><code>mindatetime</code></td><td><pre><code>StartTime eq mindatetime()</code></pre></td></tr>
+<tr><td><code>minute</code></td><td><pre><code>minute(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>month</code></td><td><pre><code>month(BirthDate) eq 12</code></pre></td></tr>
+<tr><td><code>now</code></td><td><pre><code>StartTime ge now()</code></pre></td></tr>
+<tr><td><code>second</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>time</code></td><td><pre><code>time(StartTime) le StartOfDay</code></pre></td></tr>
+<tr><td><code>totaloffsetminutes</code></td><td><pre><code>totaloffsetminutes(StartTime) eq 60</code></pre></td></tr>
+<tr><td><code>totalseconds</code></td><td><pre><code>totalseconds(duration'PT1M') eq 60</code></pre></td></tr>
+<tr><td><code>year</code></td><td><pre><code>year(BirthDate) eq 0</code></pre></td></tr>
+<tr><td colspan="2"><strong>Arithmetic Functions</strong></td></tr>
+<tr><td><code>ceiling</code></td><td><pre><code>ceiling(Freight) eq 33</code></pre></td></tr>
+<tr><td><code>floor</code></td><td><pre><code>floor(Freight) eq 32</code></pre></td></tr>
+<tr><td><code>round</code></td><td><pre><code>round(Freight) eq 32</code></pre></td></tr>
+<tr><td colspan="2"><strong>Type Functions</strong></td></tr>
+<tr><td><code>cast</code></td><td><pre><code>cast(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(NorthwindModel.Order)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Geo Functions</strong></td></tr>
+<tr><td><code>geo.distance</code></td><td><pre><code>geo.distance(CurrentPosition,TargetPosition)</code></pre></td></tr>
+<tr><td><code>geo.intersects</code></td><td><pre><code>geo.intersects(Position,TargetArea)</code></pre></td></tr>
+<tr><td><code>geo.length</code></td><td><pre><code>geo.length(DirectRoute)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Conditional Functions</strong></td></tr>
+<tr><td><code>case</code></td><td><pre><code>case(X gt 0:1,X lt 0:-1,true:0)</code></pre></td></tr>
 </table>
 
-##### <a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.2 Parameter Aliases</a>
+##### <a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.3 Parameter Aliases</a>
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
@@ -3480,8 +3458,7 @@ expressions.
 Example 63: return all Products that match either "mountain" or
 "bike" and do not match clothing
 ```
-GET http://host/service/Products?$search=(mountain OR bike) AND NOT
-clothing
+GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
 :::
 
@@ -3575,7 +3552,7 @@ of the actual entities, the client issues a `GET` request with `/$ref`
 appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns `404 Not Found`.
+entities, the service returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -3625,7 +3602,7 @@ GET http://host/service/$entity?$id=http://host/service/Products(0)
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
 type, or a type derived from the specified type, the service returns
-`404 Not Found`.
+[`404 Not Found`](#ResponseCode404NotFound).
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#SystemQueryOptionselect) and
@@ -3802,7 +3779,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCode404NotFound). The response
+response code [`404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## <a name="RequestingChanges" href="#RequestingChanges">11.3 Requesting Changes</a>
@@ -4083,7 +4060,7 @@ If one or more of these query options are present and the service
 returns a representation, then the service MUST apply the specified
 query options. If it cannot apply the specified query options
 appropriately, it MUST NOT fail the request solely due to the presence
-of these query options and instead MUST return `204 No Content`.
+of these query options and instead MUST return [`204 No Content`](#ResponseCode204NoContent).
 
 ### <a name="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a>
 
@@ -4217,14 +4194,14 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with `201 Created`, the response MUST be expanded to at
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
 least the level that was present in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `201 Created` SHOULD annotate the entities in the response using
+with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4236,7 +4213,7 @@ term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
 [`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)` `for
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID) for
 the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4256,7 +4233,7 @@ entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
 The semantics of `PATCH`, as defined in [RFC5789](#rfc5789), is to merge
-the content in the request payload with the \[entity's\] current state,
+the content in the request payload with the entity's current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
@@ -4462,7 +4439,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
@@ -4543,7 +4520,7 @@ deleted, the dependent entity is also deleted.
 
 Relationships between entities are represented by navigation properties
 as described in [Data Model](#DataModel). URL conventions for navigation
-properties are described in [OData‑URL](#ODataURL).
+properties are described in [OData-URL](#ODataURL).
 
 #### <a name="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a>
 
@@ -4569,7 +4546,7 @@ collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
 services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
-described in [OData‑URL](#ODataURL).
+described in [OData-URL](#ODataURL).
 
 For single-valued navigation properties, the
 [`$id`](#ResolvinganEntityId) query option MUST NOT be specified.
@@ -4600,7 +4577,7 @@ of an entity type, it cannot be changed and the request MUST fail with
 [`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed) or an other
 appropriate error.
 
-#### <a name="ReplaceallReferencesinaCollectionvaluedNavigationProperty" href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a>
+#### <a name="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a>
 
 A successful `PUT` request to a collection-valued navigation property's
 reference resource replaces the set of related entities. The request
@@ -4722,7 +4699,7 @@ Attempting to request a stream property whose value is null results in
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
 segment(s) specifying the individual property. The edit URL allows
-properties to be individually modified. See [OData‑URL](#ODataURL) for
+properties to be individually modified. See [OData-URL](#ODataURL) for
 details on addressing individual properties.
 
 #### <a name="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a>
@@ -4765,7 +4742,7 @@ property or the value of a dynamic property. A missing dynamic property
 is defined to be the same as a dynamic property with value `null`. All
 dynamic properties are nullable.
 
-On success, the service MUST respond with `204 No Content` and an empty
+On success, the service MUST respond with [`204 No Content`](#ResponseCode204NoContent) and an empty
 body.
 
 Services MUST return an error if the property is not updatable.
@@ -4889,7 +4866,7 @@ Clients MAY associate an id with individual nested entities in the
 request by using the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
-with `200 OK` SHOULD annotate the entities in the response using the
+with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request.
@@ -4938,13 +4915,13 @@ membership of the collection as it exists in the service after
 processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with term `Core.DataModificationException` and SHOULD specify
+annotated with term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 Alternatively, the verb `PUT` can be used, in which case the request
 body MUST be the representation of a collection of entities. In this
 case all entities provided in the request are applied as
-[upserts,](#UpsertanEntity) and any entities not provided in the request
+[upserts](#UpsertanEntity), and any entities not provided in the request
 are deleted. In this case, if the `continue-on-error` preference has
 been specified, and the request returns a success response code, then a
 response MUST be returned regardless of the
@@ -4966,7 +4943,7 @@ describes an update to each member of the collection, not an update to
 the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
-segments to subset the collection, see [OData‑URL](#ODataURL).
+segments to subset the collection, see [OData-URL](#ODataURL).
 
 For primitive-typed collections the body of the request MUST be a
 primitive value. Each member of the potentially filtered collection is
@@ -5179,7 +5156,7 @@ bound to the entity
 An efficient format that assumes client knowledge of metadata may omit
 actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
@@ -5288,7 +5265,7 @@ result requires a `4xx` response, and continues otherwise.
 Function imports preceded by the `$root` literal MAY be used in the
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 ##### <a name="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
 
@@ -5376,7 +5353,7 @@ If the function is bound and the binding parameter type is part of an
 inheritance hierarchy, the function overload is selected based on the
 type of the URL segment preceding the function name. A type-cast segment
 can be used to select a function defined on a particular type in the
-hierarchy, see [OData‑URL](#ODataURL).
+hierarchy, see [OData-URL](#ODataURL).
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
@@ -5502,7 +5479,7 @@ If the action is bound and the binding parameter type is part of an
 inheritance hierarchy, the action overload is selected based on the type
 of the URL segment preceding the action name. A type-cast segment can be
 used to select an action defined on a particular type in the hierarchy,
-see [OData‑URL](#ODataURL).
+see [OData-URL](#ODataURL).
 
 ## <a name="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
@@ -5527,17 +5504,16 @@ status. Services MAY include a response body, for example, to provide
 additional status information.
 
 A `GET` request to the status monitor resource again returns
-`202 Accepted `response if the asynchronous processing has not finished.
-This response MUST again` `include a [`Location`
-header](#HeaderLocation) and MAY include a [`Retry-After`
-header](#HeaderRetryAfter) to be used for a subsequent request. The
+`202 Accepted` response if the asynchronous processing has not finished.
+This response MUST again include a [`Location` header](#HeaderLocation)
+and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a subsequent request. The
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
-A `GET` request to the status monitor resource returns `200 OK` once the
+A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
 responses, or OData 4.0 requests that include an `Accept `header that
-does not specify `application/http,` the response MUST include the
+does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
 asynchronous operation. If the `GET` request to the status monitor
@@ -5549,7 +5525,7 @@ HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
-`204 No Content` response indicates that the asynchronous processing has
+[`204 No Content`](#ResponseCode204NoContent) response indicates that the asynchronous processing has
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
@@ -5567,7 +5543,7 @@ If an asynchronous request is cancelled for reasons other than the
 consumers issuing a `DELETE` request against the status monitor
 resource, a `GET` request to the status monitor resource returns
 `200 OK` with a response body containing a single HTTP response with a
-status code in the `5xx Server Error` range indicating that the
+status code in the [`5xx Server Error`](#ServerErrorResponses) range indicating that the
 operation was cancelled.
 
 The service MUST ensure that no observable change has occurred as a
@@ -6102,15 +6078,15 @@ request against the *status monitor resource* URL (see [Asynchronous
 Requests](#AsynchronousRequests)).
 
 A service MAY return interim results to an asynchronously executing
-batch. It does this by responding with `200 OK` to a `GET` request to
+batch. It does this by responding with [`200 OK`](#ResponseCode200OK) to a `GET` request to
 the monitor resource and including a
 [`202 Accepted`](#ResponseCode202Accepted) response as the last part of
 the multipart response. The client can use the monitor URL returned in
-this [`202 Accepted`](#ResponseCode202Accepted) response to continue
+this `202 Accepted` response to continue
 processing the batch response.
 
 Since a change set is executed atomically,
-[`202 Accepted`](#ResponseCode202Accepted) MUST NOT be returned within
+`202 Accepted` MUST NOT be returned within
 a change set.
 
 ::: example
@@ -6330,19 +6306,19 @@ Level](#OData40MinimalConformanceLevel)
 2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
 follow the specification or return `501 Not Implemented` for any
 unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
-3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))`
+3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
-[OData URL](#ODataURL) if derived types are present in the model
+[OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
 6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
-in the requested entity set ([section 11.2.6.1](#SystemQueryOptionfilter))
-   2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.2](#ParameterAliases))
-   3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinQueryFunctions))
+in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
+   2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.3](#ParameterAliases))
+   3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinFilterOperations))
 and MUST return `501 Not Implemented` for any unsupported filter
 operations ([section 9.3.1](#ResponseCode501NotImplemented))
-   4. SHOULD support the canonical functions ([section 11.2.6.1.1](#BuiltinQueryFunctions)) and
+   4. SHOULD support the canonical functions ([section 11.2.6.1.2](#BuiltinQueryFunctions)) and
 MUST return `501 Not Implemented` for any unsupported canonical
 functions ([section 9.3.1](#ResponseCode501NotImplemented))
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
@@ -6358,7 +6334,7 @@ with generic clients
 14. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 15. SHOULD support the lambda operators `any` and `all` on navigation-
 and collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -6377,7 +6353,7 @@ Level](#OData40IntermediateConformanceLevel)
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 5. MUST support the lambda operators `any` and `all` on navigation- and
 collection-valued properties (section 5.1.1.10 in
-[OData URL](#ODataURL))
+[OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 8. MUST support `$orderby` `asc` and `desc` on individual properties
@@ -6399,11 +6375,11 @@ properties
 ([section 11.7](#BatchRequests) and all subsections) and MAY support batch requests
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
-[OData URL](#ODataURL)
+[OData-URL](#ODataURL)
 13. SHOULD support [asynchronous requests](#AsynchronousRequests)
 ([section 11.6](#AsynchronousRequests))
 14. SHOULD support [Delta change tracking](#RequestingChanges) ([section 11.3](#RequestingChanges))
-15. SHOULD support cross-join queries defined in [OData URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
 ## <a name="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
@@ -6463,13 +6439,12 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData URL](#ODataURL)) or include URLs in payload
+[OData-URL](#ODataURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section
-11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -6657,24 +6632,16 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046\]]</a>
+###### <a name="rfc2046">[RFC2046]</a>
 _Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
 https://tools.ietf.org/html/rfc2046.
 
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
-
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
 https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
@@ -6700,7 +6667,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 
@@ -6708,17 +6675,9 @@ https://tools.ietf.org/html/rfc7240.
 _Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
 https://tools.ietf.org/html/rfc7617.
 
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
@@ -6847,7 +6806,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
 
 -------
 
@@ -6855,7 +6814,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2023. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

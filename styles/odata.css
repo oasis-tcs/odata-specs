@@ -150,6 +150,11 @@ td>code {
 	margin-left: 40px;
 }
 
+td pre {
+	padding: 0;
+	margin: 0;
+}
+
 h1 code,
 h2 code,
 h3 code,

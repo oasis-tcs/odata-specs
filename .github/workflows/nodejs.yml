@@ -24,11 +24,11 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          npm run build --if-present
+          npm run build
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
-          git add docs/*/*.html docs/*/*.md docs/*/styles/*
-          git diff-index --quiet HEAD docs/*/*.html docs/*/*.md docs/*/styles/* || (npm run pdf --if-present && git add docs/*/*.pdf && git commit -m "auto-refreshed")
-          test `git branch --show-current` && git push
+          git add docs/*
+          git diff-index --quiet HEAD docs/* || git commit -m "auto-refreshed"
+          git push
         env:
           PUSHER_EMAIL: ${{ github.event.pusher.email }}

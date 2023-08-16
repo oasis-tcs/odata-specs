@@ -220,7 +220,7 @@ length.
 
 The value of `$MaxLength` is a positive integer.
 
-Note: [OData-CSDL-XML](#ODataCSDLXML) defines a symbolic
+Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
 value `max` that is only allowed in OData 4.0 responses. This symbolic
 value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the
