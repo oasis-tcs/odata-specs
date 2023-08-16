@@ -1798,7 +1798,8 @@ If the actual stream data is included inline, the control information
 MUST be present to indicate how the included stream property value is
 represented. Stream property values of media type `application/json` or
 one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of top-level type `text`, for example
+as native JSON. Values of top-level type `text` with an explicit or
+default `charset` of `utf-8` or `us-ascii`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. Included stream data of other media types is
 represented as a base64url-encoded string value, see
