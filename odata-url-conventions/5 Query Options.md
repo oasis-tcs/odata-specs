@@ -1881,8 +1881,8 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segment](#AddressingDerivedTypes)
+consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -1893,13 +1893,13 @@ that stream property,
 properties of the identified structured instance, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
+related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
 references.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
+[type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
 
 If a structured type traversed by the path supports neither dynamic
@@ -1968,8 +1968,7 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The system query options [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -2089,8 +2088,8 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or 
+[type-cast segment](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -2165,8 +2164,7 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example

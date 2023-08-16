@@ -243,7 +243,7 @@ section, the canonical form of an absolute URL identifying a
 non-contained entity is formed by adding a single path segment to the
 service root URL. The path segment is made up of the name of the entity
 set associated with the entity followed by the key predicate identifying
-the entity within the collection. No type-cast segment is added to the
+the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -272,7 +272,7 @@ For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
-- A type-cast segment if the navigation
+- A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
 the entity set,
 - A path segment for the containment
@@ -629,7 +629,8 @@ or by using the [key-as-segment convention](#KeyasSegmentConvention) if
 supported by the service.
 
 For collection-valued navigation properties with navigation property
-bindings that end in a type-cast segment, a type-cast segment MUST be
+bindings that end in a [type-cast segment](#AddressingDerivedTypes),
+a [type-cast segment](#AddressingDerivedTypes) MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -663,13 +664,13 @@ http://host/service/MainSupplier/Addresses/0
 ## ##subsec Addressing Derived Types
 
 Any resource path or path expression identifying a collection of
-entities or complex type instances can be appended with a path segment
-containing the qualified name of a type derived from the declared type
+entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
+containing the qualified name of a type derived from the declared item type
 of the collection. The result will be restricted to instances of the
 derived type and may be empty.
 
 Any resource path or path expression identifying a single entity or
-complex type instance can be appended with a path segment containing the
+complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
@@ -815,7 +816,7 @@ collection, followed by [`/any`](#any), [`/all`](#all), or
 [`/$count`](#AddressingtheCountofaCollection).
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#AddressingDerivedTypes) or [filter path
+[type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## ##subsec Addressing the Media Stream of a Media Entity
