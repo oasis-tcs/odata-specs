@@ -4133,7 +4133,7 @@ The representation for referencing related entities is format-specific.
 ::: example
 Example 76: using the JSON format, 4.0 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by applying the `odata.bind`
-annotation to the `DirectReports` navigation property
+annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
   "@odata.type":"#Northwind.Manager",
@@ -4152,7 +4152,7 @@ annotation to the `DirectReports` navigation property
 ::: example
 Example 77: using the JSON format, 4.01 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
-within the `DirectReports` navigation property
+within the `Manager` and `DirectReports` navigation properties
 ```json
 {
   "@type":"#Northwind.Manager",
