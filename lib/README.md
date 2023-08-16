@@ -24,7 +24,7 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Resolve references
 - Replace placeholders like `$$$pagetitle$$$` with values from a [`meta.yaml`](../odata-data-aggregation-ext/meta.yaml) file
 - Join multiple lines that end with a single space into one line
-- Sections of the file between `: varXXX` and `:` or between `::: {.varXXX` ...}` and `:::` belong to a variant. One source file can contain several variants.
+- Sections of the file between `: varXXX` and `:` or between `::: {.varXXX ...}` and `:::` belong to a variant. One source file can contain several variants.
 
 The single Markdown document is output into a writable stream:
 
@@ -95,7 +95,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
 
 ## A note on diagrams
 
-Mermaid has not been used, instead the diagrams in section 2 have been produced
+Mermaid has not been used, instead the diagrams in section 2 of [`odata-data-aggregation-ext`](../odata-data-aggregation-ext) have been produced
 
 - in section 2.1 with Visio and exported as SVG (as described [here](../odata-data-aggregation-ext/diagrams))
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.

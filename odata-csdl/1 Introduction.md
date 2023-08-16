@@ -28,13 +28,13 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Glossary
 
-### ##subsubsec Definitions of terms
+### ##subsubsec Definitions of Terms
 
-### ##subsubsec Acronyms and abbreviations
+### ##subsubsec Acronyms and Abbreviations
 
 <!-- TODO -->
 
-### ##subsubsec Document conventions
+### ##subsubsec Document Conventions
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -47,7 +47,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
