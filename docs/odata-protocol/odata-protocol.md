@@ -5760,7 +5760,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 ::: example
 Example 99:
 ```
-GET /path/service/People(1) HTTP/1.1
+PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 ```
 :::
@@ -5770,7 +5770,7 @@ Host: myserver.mydomain.org:1234
 ::: example
 Example 100:
 ```
-GET People(1) HTTP/1.1
+DELETE People(1) HTTP/1.1
 ```
 :::
 
