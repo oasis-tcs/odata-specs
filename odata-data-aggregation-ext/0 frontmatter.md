@@ -41,7 +41,7 @@ Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
 Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
-Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
+Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
@@ -62,7 +62,7 @@ This specification is related to:
 * _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
 
 #### Abstract:
-This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.
+$$$description$$$
 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.

@@ -48,17 +48,9 @@ https://tools.ietf.org/html/rfc2046.
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
-
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
 https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
@@ -84,7 +76,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 
@@ -92,17 +84,9 @@ https://tools.ietf.org/html/rfc7240.
 _Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
 https://tools.ietf.org/html/rfc7617.
 
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ## ##subasec Informative References
 
@@ -232,7 +216,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
 
 -------
 
