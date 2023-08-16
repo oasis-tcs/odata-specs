@@ -265,8 +265,12 @@ ecosystem of reusable client components and libraries.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+OASIS issue|Description|GitHub commit containing the changes
+-----------|-----------|------------------------------------
+[ODATA-1456](https://issues.oasis-open.org/browse/ODATA-1456)|Navigation path from instance to lambda operator|
+[ODATA-1520](https://issues.oasis-open.org/browse/ODATA-1520)|Central definition for type-cast and term-cast segments|
+[ODATA-1576](https://issues.oasis-open.org/browse/ODATA-1576)|Consistently use "instances of structured types" instead of "structured instances"|
+[ODATA-1578](https://issues.oasis-open.org/browse/ODATA-1578)|Consistently use "annotated with the term" instead of "annotated with term"|
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
