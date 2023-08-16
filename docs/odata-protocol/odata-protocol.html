@@ -1918,7 +1918,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Deleting a media entity also deletes the media associated with the entity.</p>
 <h3 id="1148-managing-stream-properties"><a name="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a></h3>
 <p>An entity may have one or more <em>stream properties</em>. Stream properties are properties of type <code>Edm.Stream</code>.</p>
-<p>The values for stream properties do not usually appear in the entity payload. Instead, the values are generally read or written through URLs.</p>
+<p>The values for stream properties do not usually appear in the entity payload unless explicitly requested with <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. Instead, the values are generally read or written through URLs.</p>
 <h4 id="11481-update-stream-values"><a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL of a stream property changes the media stream associated with that property.</p>
 <p>If the stream metadata includes an ETag value, the client SHOULD include an <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the ETag value.</p>
