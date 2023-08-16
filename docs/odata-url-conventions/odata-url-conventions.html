@@ -876,7 +876,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
-<p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with structured operands.</p>
+<p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
 <h5 id="51111-equals"><a name="Equals" href="#Equals">5.1.1.1.1 Equals</a></h5>
 <p>The <code>eq</code> operator returns true if the left operand is equal to the right operand, otherwise it returns false.</p>
 <p>When applied to operands of entity types, the <code>eq</code> operator returns true if both operands represent the same entity, or both operands represent null.</p>
@@ -1738,7 +1738,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>A path can end with</p>
 <ul>
 <li>the name of a stream property to include that stream property,</li>
-<li>a star (<code>*</code>) to expand all navigation properties of the identified structured instance, optionally followed by <code>/$ref</code> to expand only entity references, or</li>
+<li>a star (<code>*</code>) to expand all navigation properties of the identified instances of a structured type, optionally followed by <code>/$ref</code> to expand only entity references, or</li>
 <li>a navigation property to expand the related entity or entities, optionally followed by a type-cast segment to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references.</li>
 <li>an entity-valued instance annotation to expand the related entity or entities, optionally followed by a type-cast segment to expand only related entities of that derived type or one of its sub-types.</li>
 </ul>
@@ -1817,7 +1817,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or type-cast segments consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>
-<li>the name of a property or non-entity-valued instance annotation of the identified structured instance,</li>
+<li>the name of a property or non-entity-valued instance annotation of the identified instance of a structured type,</li>
 <li>the qualified name of a bound action,</li>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>

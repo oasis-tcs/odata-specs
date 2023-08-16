@@ -95,8 +95,8 @@ When applied to operands of numeric types, [numeric
 promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
-operands, and the `eq` and `ne` operators can be used with structured
-operands.
+operands, and the `eq` and `ne` operators can be used with operands of a
+structured type.
 
 ##### ##subsubsubsubsec Equals
 
@@ -1890,7 +1890,7 @@ A path can end with
 - the name of a stream property to include
 that stream property,
 - a star (`*`) to expand all navigation
-properties of the identified structured instance, optionally followed by
+properties of the identified instances of a structured type, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
 related entity or entities, optionally followed by a type-cast segment
@@ -2096,8 +2096,8 @@ properties defined on the derived type.
 
 A path can end with
 - the name of a property or
-non-entity-valued instance annotation of the identified structured
-instance,
+non-entity-valued instance annotation of the identified
+instance of a structured type,
 - the qualified name of a bound action,
 - the qualified name of a bound function
 to include all matching overloads, or
