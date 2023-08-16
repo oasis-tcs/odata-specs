@@ -5759,7 +5759,8 @@ set can use one of the following three formats:
 ::: example
 Example 98:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1 ```
+GET https://host:1234/path/service/People(1) HTTP/1.1
+```
 :::
 
 - Absolute resource path and separate `Host` header
@@ -5767,7 +5768,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 ::: example
 Example 99:
 ```
-GET /path/service/People(1) HTTP/1.1
+PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 ```
 :::
@@ -5777,7 +5778,7 @@ Host: myserver.mydomain.org:1234
 ::: example
 Example 100:
 ```
-GET People(1) HTTP/1.1
+DELETE People(1) HTTP/1.1
 ```
 :::
 
