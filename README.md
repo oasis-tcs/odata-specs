@@ -23,15 +23,8 @@ Documents are generated from a Markdown source using Node.js modules described [
 
 To view mathematical formulas, install pandoc as explained in the section on [Document Conventions](odata-data-aggregation-ext/1%20Introduction.md). This is invoked by the Node.js module [`lib/pandoc.js`](lib/pandoc.js).
 
-Clone this repository, run `npm install` and `npm start` to start a Node.js server and access the HTML pages at, for example, `http://localhost:8080/odata-data-aggregation-ext` (see [`lib/server.js`](lib/server.js)).
+Clone this repository, run `npm install` and `npm start` to start a Node.js server and access the HTML pages at `http://localhost:8080` (see [`lib/server.js`](lib/server.js)).
 
 Run `npm run build` to build HTML and Markdown files for publication on github.io (see [`lib/build.js`](lib/build.js)).
 
-Run `npm run pdf` to convert the HTML files into PDF files (using puppeteer, see [`lib/pdf.js`](lib/pdf.js)).
-
-## To Do
-
-- [ ] Check MD/HTML for broken and inconsistent links (similar to what we currently do with the `ExtractHyperlinksToExcel` Word macro)
-  - [x] Check for use of undefined anchors
-  - [ ] Check for hyperlinks with the same link target and different texts
-  - [ ] Check for hyperlinks with the same text and different link targets
+Run `npm run pdf` to convert the HTML files into PDF files (using puppeteer, see [`lib/pdf.js`](lib/build-pdf.js)).
