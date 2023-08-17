@@ -23,6 +23,7 @@ jobs:
           pandoc-version: 3.1.2
       - name: Build docs
         run: |
+          echo IS_MAIN: $IS_MAIN
           npm ci
           npm run build
           git config user.name ${GITHUB_ACTOR}
@@ -31,4 +32,5 @@ jobs:
           git diff-index --quiet HEAD docs/* || git commit -m "auto-refreshed"
           git push
         env:
+          IS_MAIN:      ${{ github.ref == 'refs/heads/main' }}
           PUSHER_EMAIL: ${{ github.event.pusher.email }}
