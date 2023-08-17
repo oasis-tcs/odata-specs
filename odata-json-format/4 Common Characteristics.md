@@ -616,11 +616,11 @@ Example ##ex: Annotating primitive values within a collection
   "EmailAddresses@collectionAnnotations": [
     {
       "index": 0,
-      "@emailType": "Personal"
+      "@OfficeCommunication.emailType": "Personal"
     },
     {
       "index": 2,
-      "@emailType": "Work"
+      "@OfficeCommunication.emailType": "Work"
     }
   ],
   "EmailAddresses": [
