@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -24,7 +26,7 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          npm run build
+          npm run html
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
           git add docs/*
