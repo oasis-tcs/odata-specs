@@ -5,7 +5,7 @@
 
 # OData JSON Format Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 01 Change 6
 
 ## 14 July 2023
 
