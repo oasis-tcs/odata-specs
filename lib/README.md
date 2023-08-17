@@ -74,7 +74,7 @@ proc.stdout.pipe(«HTML file»);
 new Number("odata-data-aggregation-ext").build(proc.stdin);
 ```
 
-The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
+The HTML file uses CSS stylesheets contained in the [`docs/*/styles`](../docs/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
 
 | Keyword occurs     | Markdown source                      | Rendered result                      |
 | ------------------ | ------------------------------------ | ------------------------------------ |
@@ -83,14 +83,14 @@ The HTML file uses CSS stylesheets contained in the [`doc/*/styles`](../doc/odat
 
 A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
 
-[`npm start`](server.js) starts a web server that serves such HTML files and the static `.css` files without writing intermediate files. This allows authors to see the effects of every change to the source folder in the working tree after refreshing the browser.
+[`npm start`](server.js) starts a web server that serves such HTML files and the static `.css` files without writing intermediate files. This allows authors to see the effects of every change to the source folder in the working tree after saving the source files which triggers a browser auto-refresh.
 
-The [`pdf.js`](pdf.js) module uses an embedded browser ([`puppeteer`](https://github.com/puppeteer/puppeteer#puppeteer)) to convert the HTML file into a PDF file with OASIS headers and footers.
+The [`pdf.js`](pdf.js) module uses a headless browser ([`puppeteer`](https://github.com/puppeteer/puppeteer#puppeteer)) to convert the HTML file into a PDF file with OASIS headers and footers.
 
 The following scripts can be executed manually or as part of a GitHub Action:
 
-- [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`doc/*`](../doc/odata-data-aggregation-ext) folder. The Markdown file starts with a byte-order mark (`EF BB BF`) so that it is recognized as UTF-8 when loaded from github.io.
-- [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`doc/*`](../doc/odata-data-aggregation-ext) folder.
+- [`npm run html`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`docs/*`](../docs) folder. The Markdown file starts with a byte-order mark (`EF BB BF`) so that it is recognized as UTF-8 when loaded from github.io.
+- [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`docs/*`](../docs) folder.
 - [`npm test`](../test) runs a test suite.
 
 ## A note on diagrams

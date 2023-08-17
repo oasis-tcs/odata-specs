@@ -4,7 +4,6 @@
   "description": "",
   "main": "number.js",
   "scripts": {
-    "build": "npm run html && npm run pdf",
     "html": "node lib/build.js",
     "pdf": "node lib/build-pdf.js",
     "start": "node lib/server",
