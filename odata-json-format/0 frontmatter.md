@@ -16,7 +16,7 @@ https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filenam
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
-#### Previous stage:
+#### Previous stage: Change 1
 N/A
 
 #### Latest stage:

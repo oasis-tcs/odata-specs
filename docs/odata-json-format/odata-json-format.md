@@ -16,7 +16,7 @@ https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-forma
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.pdf
 
-#### Previous stage:
+#### Previous stage: Change 1
 N/A
 
 #### Latest stage:
