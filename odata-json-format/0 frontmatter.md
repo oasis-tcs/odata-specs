@@ -19,7 +19,7 @@ https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filenam
 #### Previous stage: Change 1
 N/A
 
-#### Latest stage:
+#### Latest stage: Change 3
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.pdf
