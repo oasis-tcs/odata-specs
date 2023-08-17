@@ -23,7 +23,7 @@ jobs:
           pandoc-version: 3.1.2
       - name: Build docs
         run: |
-          echo IS_MAIN: ${IS_MAIN}
+          echo "IS_MAIN: ${IS_MAIN}"
           npm ci
           npm run build
           git config user.name ${GITHUB_ACTOR}
