@@ -509,6 +509,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The type is derived from the type specified for the (collection of) entities or (collection of) complex type instances, or</li>
 <li>The type is for a property whose type is not declared in <code>$metadata</code>.</li>
 </ul>
+<p>It MAY appear in other cases in requests and responses if its value does not contradict the type declared in <code>$metadata</code>.</p>
 <p>The following heuristics are used to determine the primitive type of a dynamic property in the absence of the <code>type</code> control information:</p>
 <ul>
 <li>Boolean values have a first-class representation in JSON and do not need any additional control information.</li>
