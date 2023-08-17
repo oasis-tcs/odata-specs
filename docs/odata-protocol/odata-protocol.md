@@ -2947,15 +2947,16 @@ application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
 [OData-URL](#ODataURL).
 
-Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
+Allowed system query options are
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$compute`](#SystemQueryOptioncompute), plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
 [`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch),
-[`$expand`](#SystemQueryOptionexpand)`,`
-[`$compute`](#SystemQueryOptioncompute)`,` and
-[`$levels`](#ExpandOptionlevels).
+[`$search`](#SystemQueryOptionsearch), and
+[`$levels`](#ExpandOptionlevels) for collection-valued navigation properties.
 
 ::: example
 Example 41: for each customer entity within the `Customers` entity set,
@@ -2995,8 +2996,8 @@ GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseSta
 The `$levels` expand option can be used to specify the number of levels
 of recursion for a hierarchy in which the related entity type is the
 same as, or can be cast to, the source entity type. A `$levels` option
-with a value of 1 specifies a single expand with no recursion. The same
-expand options are applied at each level of the hierarchy.
+with a value of 1 specifies a single expand with no recursion. All provided
+expand options except `$levels` are applied at each level of the hierarchy.
 
 Services MAY support the symbolic value `max` in addition to numeric
 values. In that case they MUST solve circular dependencies by injecting

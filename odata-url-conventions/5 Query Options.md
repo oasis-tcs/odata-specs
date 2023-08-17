@@ -1928,14 +1928,17 @@ A property MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. Allowed system query
-options are [`$filter`](#SystemQueryOptionfilter),
+parentheses, to the navigation property name. 
+Allowed system query options are
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$compute`](#SystemQueryOptioncompute), plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
 [`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and `$expand`.
+[`$search`](#SystemQueryOptionsearch), and
+[`$levels`](#ExpandOptionlevels) for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
@@ -2001,7 +2004,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filte
 ```
 :::
 
-Cyclic navigation properties (whose target type is identical or can be
+<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
 `$levels` option. The value of the `$levels` option is either a positive
 integer to specify the number of levels to expand, or the literal string
