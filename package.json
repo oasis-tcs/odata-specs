@@ -4,7 +4,7 @@
   "description": "",
   "main": "number.js",
   "scripts": {
-    "html": "node lib/build.js",
+    "build": "node lib/build.js",
     "pdf": "node lib/build-pdf.js",
     "start": "node lib/server",
     "test": "c8 -r html -r text mocha",

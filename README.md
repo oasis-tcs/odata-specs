@@ -25,6 +25,6 @@ To view mathematical formulas, install pandoc as explained in the section on [Do
 
 Clone this repository, run `npm install` and `npm start` to start a Node.js server and access the HTML pages at `http://localhost:8080` (see [`lib/server.js`](lib/server.js)).
 
-Run `npm run html` to build HTML and Markdown files for publication on github.io (see [`lib/build.js`](lib/build.js)).
+Run `npm run build` to build HTML and Markdown files for publication on github.io (see [`lib/build.js`](lib/build.js)).
 
 Run `npm run pdf` to convert the HTML files into PDF files (using puppeteer, see [`lib/pdf.js`](lib/build-pdf.js)).
