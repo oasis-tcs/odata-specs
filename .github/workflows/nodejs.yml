@@ -26,7 +26,7 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          npm run build
+          npm run html
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
           git add docs/*
