@@ -3999,7 +3999,7 @@ for the record being updated.
 Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
 possible. However, where the underlying storage does not support offset
 services may be forced to normalize the value to some common time zone
-(i.e. UTC) in which case the result would be returned with that time
+(for example UTC) in which case the result would be returned with that time
 zone offset. If the service normalizes values, it MUST fail evaluation
 of the [query functions](#BuiltinQueryFunctions) `year`, `month`, `day`,
 `hour`, and `time` for literal values that are not stated in the time

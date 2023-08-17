@@ -2361,7 +2361,7 @@ parameter value. The `dayMethodCallExpr` syntax rule defines how the
 `day` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `day` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2411,7 +2411,7 @@ zone of the `DateTimeOffset` parameter value. The `hourMethodCallExpr`
 syntax rule defines how the `hour` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `hour` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2482,7 +2482,7 @@ The `month` function returns the month component of the `Date` or
 defines how the `month` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `month` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2505,11 +2505,11 @@ Edm.DateTimeOffset now()
 The `now` function returns the current point in time (date and time with
 time zone) as a `DateTimeOffset` value.
 
-Services are free to choose the time zone for the current point, e.g.
+Services are free to choose the time zone for the current point, for example
 UTC. Services that are unable to preserve the offset of
 `Edm.DateTimeOffset` values and instead normalize the values to some
 common time zone SHOULD return a value in the normalized time zone
-(i.e., UTC).
+(for example UTC).
 
 ##### <a name="second" href="#second">5.1.1.8.10 `second`</a>
 
@@ -2547,7 +2547,7 @@ parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2590,7 +2590,7 @@ The `year` function returns the year component of the `Date` or
 defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `year` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
