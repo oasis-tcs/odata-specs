@@ -26,12 +26,12 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          if ${IS_MAIN}
-          then
-            npm run build
-          else
-            npm run html
-          fi
+          # if ${IS_MAIN}
+          # then
+          npm run build
+          # else
+          #   npm run html
+          # fi
           git config user.name ${GITHUB_ACTOR}
           git config user.email ${PUSHER_EMAIL}
           git add docs/*

@@ -5,21 +5,21 @@
 
 # $$$pagetitle$$$
 
-## $$$subtitle$$$ Change 2
+## $$$subtitle$$$
 
 ## $$$pubdate$$$
 
 $\hbox{}$
 
-#### This stage: Change 4
+#### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
-#### Previous stage: Change 1
+#### Previous stage:
 N/A
 
-#### Latest stage: Change 3
+#### Latest stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.pdf

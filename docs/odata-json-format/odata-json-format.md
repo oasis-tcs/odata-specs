@@ -5,21 +5,21 @@
 
 # OData JSON Format Version 4.02
 
-## Committee Specification Draft 01 Change 2
+## Committee Specification Draft 01
 
 ## 14 July 2023
 
 $\hbox{}$
 
-#### This stage: Change 4
+#### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.pdf
 
-#### Previous stage: Change 1
+#### Previous stage:
 N/A
 
-#### Latest stage: Change 3
+#### Latest stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.pdf
