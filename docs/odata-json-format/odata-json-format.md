@@ -3,7 +3,7 @@
 
 -------
 
-# OData JSON Format Version 4.02
+# OData JSON Format Version 4.02 Change 1
 
 ## Committee Specification Draft 01
 
