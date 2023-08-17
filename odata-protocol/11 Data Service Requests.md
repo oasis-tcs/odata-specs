@@ -386,11 +386,10 @@ The value of the `$expand` query option is a comma-separated list of
 navigation property names, stream property names, or `$value` indicating
 the stream content of a media-entity.
 
-For navigation properties, the navigation property name is optionally
-followed by a `/$ref` path segment or a `/$count` path segment, and
-optionally a parenthesized set of [expand options](#ExpandOptions) (for
-filtering, sorting, selecting, paging, or expanding the related
-entities).
+The value of `$expand` is a comma-separated list of expand items. Each
+expand item is evaluated relative to the retrieved resource being
+expanded. An expand item is either a path or one of the symbols `*` or
+`$value`.
 
 For a full description of the syntax used when building requests, see
 [OData-URL](#ODataURL).
