@@ -797,7 +797,7 @@ http://host/service/Employees('A1245')
 ### <a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a>
 
 Services MAY support an alternate convention for addressing entities by
-appending a segment containing the unquoted key value to the URL of the
+appending a segment containing the unprefixed and unquoted key value to the URL of the
 collection containing the entity. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
@@ -813,6 +813,10 @@ http://host/service/People/O'Neil
 http://host/service/People/O%27Neil
 
 http://host/service/Categories/Smartphone%2FTablet
+
+http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+
+http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
 
