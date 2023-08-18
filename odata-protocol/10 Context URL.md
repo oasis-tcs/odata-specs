@@ -310,8 +310,8 @@ parentheses is omitted from the select-list if it does not contain a
 nested `$select `or` $expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
-There is no shortcut for representing the list of all navigation properties;
-`$expand=*` is treated as if the corresponding navigation properties were explicitly expanded.
+The context URL has no shortcut for representing the list of all navigation properties;
+`$expand=*` is treated as if all navigation properties were explicitly expanded.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
