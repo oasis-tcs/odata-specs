@@ -154,10 +154,10 @@ value
 
 ## ##subsec Type Facets
 
-Facets modify or constrain the acceptable values of a property.
+Facets modify or constrain the acceptable values of a type.
 
-For single-valued properties the facets apply to the value of the
-property. For collection-valued properties the facets apply to the items
+For single-valued model elements the facets apply to the value of the
+model element. For collection-valued model elements the facets apply to the items
 in the collection.
 
 ### ##subsubsec Nullable

@@ -1571,10 +1571,10 @@ value
 
 ## <a name="TypeFacets" href="#TypeFacets">7.2 Type Facets</a>
 
-Facets modify or constrain the acceptable values of a property.
+Facets modify or constrain the acceptable values of a type.
 
-For single-valued properties the facets apply to the value of the
-property. For collection-valued properties the facets apply to the items
+For single-valued model elements the facets apply to the value of the
+property. For collection-valued model elements the facets apply to the items
 in the collection.
 
 ### <a name="Nullable" href="#Nullable">7.2.1 Nullable</a>
