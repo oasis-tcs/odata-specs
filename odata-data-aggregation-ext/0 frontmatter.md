@@ -29,7 +29,7 @@ https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-agg
 #### Technical Committee:
 [OASIS Open Data Protocol (OData) TC](https://www.oasis-open.org/committees/odata/)
 
-#### Chairs:
+#### Sofas:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/)
