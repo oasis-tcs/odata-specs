@@ -77,17 +77,17 @@ Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
 
 ```
 resourcePath = entitySetName                  [collectionNavigation]
-             / singleton                      [singleNavigation]
+             / singletonEntity                [singleNavigation]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]
              / complexColFunctionImportCall   [ collectionPath ]
              / complexFunctionImportCall      [ complexPath ]
              / primitiveColFunctionImportCall [ collectionPath ]
-             / primitiveFunctionImportCall    [ singlePath ]
-             / functionImportCallNoParens
-             / crossjoin
-             / '$all'                         [ "/" qualifiedEntityTypeName ]
+             / primitiveFunctionImportCall    [ primitivePath ]
+             / functionImportCallNoParens     [ querySegment ]
+             / crossjoin                      [ querySegment ]
+             / %s"$all"                       [ "/" optionallyQualifiedEntityTypeName ]
 ```
 
 Since OData has a uniform composable URL syntax and associated rules
@@ -104,8 +104,8 @@ http://host/service/Products
 
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
-- By invoking a function that returns a
-collection of entities (see rule: `entityColFunctionCall`)
+- By invoking a function import that returns a
+collection of entities (see rule: `entityColFunctionImportCall`)
 
 ::: example
 Example ##ex: function with parameters in resource path
@@ -121,16 +121,16 @@ http://host/service/ProductsByColor(color=@color)?@color='red'
 ```
 :::
 
-- By invoking an action that returns a
-collection of entities (see rule: `actionCall`)
+- By invoking an action import that returns a
+collection of entities (see rule: `actionImportCall`)
 
 Likewise there are many ways to address a single entity.
 
 Sometimes a single entity can be accessed directly, for example by:
-- Invoking a function that returns a
-single entity (see rule: `entityFunctionCall`)
-- Invoking an action that returns a single
-entity (see rule: `actionCall`)
+- Invoking a function import that returns a
+single entity (see rule: `entityFunctionImportCall`)
+- Invoking an action import that returns a single
+entity (see rule: `actionImportCall`)
 - Addressing a singleton
 
 ::: example
