@@ -1574,7 +1574,7 @@ value
 Facets modify or constrain the acceptable values of a type.
 
 For single-valued model elements the facets apply to the value of the
-property. For collection-valued model elements the facets apply to the items
+model element. For collection-valued model elements the facets apply to the items
 in the collection.
 
 ### <a name="Nullable" href="#Nullable">7.2.1 Nullable</a>
