@@ -1188,7 +1188,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 41: red products that cost less than 10  -- combining path
+Example 41: red products that cost less than 10 - combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -1196,7 +1196,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example 42: red products that cost less than 10 -- combine two path
+Example 42: red products that cost less than 10 - combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -2796,8 +2796,8 @@ expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression - the condition - MUST be a Boolean
+expression, and the second expression - the result - may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -2806,6 +2806,10 @@ It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
 specify a last pair whose condition is `true` to get a non-null
 "default/else/otherwise" result.
+
+Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
+the optional seconds part will introduce ambiguity for parsers.
+Clients SHOULD use whitespace or parentheses to avoid ambiguity.
 
 Clients SHOULD ensure that the results in all pairs are compatible. If
 all results are of the same type, the type of the `case` expression is
@@ -3850,7 +3854,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example 138: JSON array of strings as parameter alias value -- note that
+Example 138: JSON array of strings as parameter alias value - note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```

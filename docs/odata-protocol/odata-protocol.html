@@ -1056,12 +1056,12 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity</code></pre>
 http://host/service/$metadata#Customers(Name,Address/Country())</code></pre>
 </div>
 <div class="example">
-<p>Example 21: resource URL and corresponding context URL -- expand <code>$ref</code></p>
+<p>Example 21: resource URL and corresponding context URL - expand <code>$ref</code></p>
 <pre><code>http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers</code></pre>
 </div>
 <div class="example">
-<p>Example 22: resource URL and corresponding context URL -- expand with <code>$levels</code></p>
+<p>Example 22: resource URL and corresponding context URL - expand with <code>$levels</code></p>
 <pre><code>http://host/service/Employees/Sales.Manager?$select=DirectReports
         &amp;$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
@@ -1237,7 +1237,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </ul>
 <p>Prior to applying any <a href="#ServerDrivenPaging">server-driven paging</a>:</p>
 <ul>
-<li><code>$apply</code> -- defined in <a href="#ODataAggregation">OData-Aggregation</a></li>
+<li><code>$apply</code> - defined in <a href="#ODataAggregation">OData-Aggregation</a></li>
 <li><a href="#SystemQueryOptioncompute"><code>$compute</code></a></li>
 <li><a href="#SystemQueryOptionsearch"><code>$search</code></a></li>
 <li><a href="#SystemQueryOptionfilter"><code>$filter</code></a></li>

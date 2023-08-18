@@ -768,11 +768,11 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <p>The collection will be restricted to instances matching the filter expression assigned to the parameter alias and may be empty.</p>
 <p>The <code>/$filter</code> path segment MAY occur multiple times and it MAY be combined with the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> system query option.</p>
 <div class="example">
-<p>Example 41: red products that cost less than 10 -- combining path segment and system query option</p>
+<p>Example 41: red products that cost less than 10 - combining path segment and system query option</p>
 <pre><code>GET Products/$filter(@foo)?@foo=Price lt 10&amp;$filter=Color eq &#39;red&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 42: red products that cost less than 10 -- combine two path segments</p>
+<p>Example 42: red products that cost less than 10 - combine two path segments</p>
 <pre><code>GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&amp;@c=Color eq &#39;red&#39;</code></pre>
 </div>
 <div class="example">
@@ -1408,8 +1408,9 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h5 id="511121-case"><a name="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>
 <p>The <code>case</code> function has the following signature:</p>
 <pre><code>expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)</code></pre>
-<p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression -- the condition -- MUST be a Boolean expression, and the second expression -- the result -- may evaluate to any type.</p>
+<p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression - the condition - MUST be a Boolean expression, and the second expression - the result - may evaluate to any type.</p>
 <p>The case function evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-null "default/else/otherwise" result.</p>
+<p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
 <p>Services MAY support <code>case</code> expressions containing parameters of incompatible types, in which case the case expression is treated as <code>Edm.Untyped</code> and its value has the type of the parameter expression selected by the case statement.</p>
 <div class="example">
@@ -1937,7 +1938,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/Movies?$filter=Title eq @title&amp;@title=&#39;Wizard of Oz&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 138: JSON array of strings as parameter alias value -- note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
+<p>Example 138: JSON array of strings as parameter alias value - note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
 <hr />

@@ -2272,7 +2272,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL -- expand `$ref`
+Example 21: resource URL and corresponding context URL - expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2280,7 +2280,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL -- expand with
+Example 22: resource URL and corresponding context URL - expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2649,7 +2649,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` - defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)
