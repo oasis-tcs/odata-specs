@@ -2173,8 +2173,7 @@ entities in the collection, see system query option
 ::: example
 Example 18: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)
+http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
 ```
 :::
 

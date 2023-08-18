@@ -1023,8 +1023,7 @@ http://host/service/$metadata#Customers/Model.VipCustomer/$entity</code></pre>
 <p>OData 4.01 responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for entities in the collection, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <div class="example">
 <p>Example 18: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/Customers?$`select`=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)</code></pre>
+<pre><code>http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)</code></pre>
 </div>
 <h2 id="108-projected-entity"><a name="ProjectedEntity" href="#ProjectedEntity">10.8 Projected Entity</a></h2>
 <p>Context URL templates:</p>
