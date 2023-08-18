@@ -1532,7 +1532,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
 </div>
 <div class="example">
-<p>Example 110: function call returning the average rating of a given employee by their peers (employees in the same department)</p>
+<p>Example 110: function call returning the average rating of a given employee by their peers (employees in department D1)</p>
 <pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
 </div>
 <h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
