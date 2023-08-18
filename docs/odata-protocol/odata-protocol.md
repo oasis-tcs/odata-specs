@@ -4237,8 +4237,10 @@ the content in the request payload with the entity's current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
-the corresponding property in the entity or complex type. Missing
-properties of the containing entity or complex property, including
+the corresponding property in the entity or complex type.
+Complex properties are updated by applying `PATCH` semantics recursively,
+see also [section 11.4.9.3](#UpdateaComplexProperty).
+Missing properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
@@ -4755,10 +4757,14 @@ property to null.
 
 A successful `PATCH` request to the edit URL for a complex typed
 property updates that property. The request body MUST contain a single
-valid representation for the target complex type.
+valid representation for the target complex type or one of its derived types.
 
 The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
+
+A complex-typed property can be set to different type in a `PATCH` request by specifying a different type in the update payload.
+Properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
 a URL that specifies a complex type. In this case, the service MUST
