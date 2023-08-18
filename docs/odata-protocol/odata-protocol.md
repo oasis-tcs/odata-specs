@@ -4184,7 +4184,7 @@ A request to create an entity that includes related entities,
 represented using the appropriate inline representation, is referred to
 as a "deep insert".
 
-Media entities MUST contain the base64url-encoded representation of
+Media entities MUST contain the format-specific representation of
 their media stream as a virtual property `$value` when nested within a
 deep insert.
 
@@ -4256,7 +4256,7 @@ removed or set to `null`.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying
-the base64url-encoded representation of the media stream as a virtual
+the format-specific representation of the media stream as a virtual
 property `$value`.
 
 Updating a dependent property that is tied to a key property of the
