@@ -154,7 +154,7 @@ value
 
 ## ##subsec Type Facets
 
-Facets modify or constrain the acceptable values of a model element's type.
+Facets modify or constrain the acceptable values for a model element of a given type.
 
 For single-valued model elements the facets apply to the value of the
 model element. For collection-valued model elements the facets apply to the items
