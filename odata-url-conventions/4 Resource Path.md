@@ -755,7 +755,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example ##ex: red products that cost less than 10  -- combining path
+Example ##ex: red products that cost less than 10 - combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -763,7 +763,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example ##ex: red products that cost less than 10 -- combine two path
+Example ##ex: red products that cost less than 10 - combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'

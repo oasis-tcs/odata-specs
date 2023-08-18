@@ -1404,8 +1404,8 @@ expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression - the condition - MUST be a Boolean
+expression, and the second expression - the result - may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -1414,6 +1414,10 @@ It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
 specify a last pair whose condition is `true` to get a non-null
 "default/else/otherwise" result.
+
+Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
+the optional seconds part will introduce ambiguity for parsers.
+Clients SHOULD use whitespace or parentheses to avoid ambiguity.
 
 Clients SHOULD ensure that the results in all pairs are compatible. If
 all results are of the same type, the type of the `case` expression is
@@ -2458,7 +2462,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example ##ex: JSON array of strings as parameter alias value -- note that
+Example ##ex: JSON array of strings as parameter alias value - note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```

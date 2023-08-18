@@ -328,7 +328,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example ##ex: resource URL and corresponding context URL -- expand `$ref`
+Example ##ex: resource URL and corresponding context URL - expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -336,7 +336,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example ##ex: resource URL and corresponding context URL -- expand with
+Example ##ex: resource URL and corresponding context URL - expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
