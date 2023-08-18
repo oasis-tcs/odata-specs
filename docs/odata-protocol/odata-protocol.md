@@ -1907,9 +1907,9 @@ include a response body describing the functionality not implemented.
 
 ## <a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a>
 
-The representation of an error response body is format-specific.
+An error response body can be the result of a failure of OData processing or of the underlying infrastructure.
 An OData-specific error response (which can be recognized by the presence
-of the [`OData-Version`](#HeaderODataVersion) header)
+of the [`OData-Version`](#HeaderODataVersion) header) is format-specific and
 consists at least of the following information:
 - `code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
