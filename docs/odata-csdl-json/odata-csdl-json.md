@@ -1299,8 +1299,8 @@ require a key. In OData 4.0 responses entity types used for
 [singletons](#Singleton) or single-valued [navigation
 properties](#NavigationProperty) MUST have a key defined.
 
-An entity type (whether or not it is marked as abstract) MAY define a
-key only if it doesn't inherit one.
+An entity type (whether or not it is marked as abstract) MUST NOT define a
+key if it inherits one.
 
 An entity type's key refers to the set of properties whose values
 uniquely identify an instance of the entity type within an entity set.
