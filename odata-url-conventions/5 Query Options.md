@@ -2109,7 +2109,11 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. The simplest form
+actions and functions identified by that select item. 
+If a select item is a path expression requesting a component of an entity or
+complex property and the entity or complex property is `null` on an instance, then
+the entity or complex property is included and represented as `null`.
+The simplest form
 of a select item explicitly requests a property defined on the entity
 type of the resources identified by the resource path section of the
 URL.
@@ -2236,10 +2240,6 @@ When multiple select item exist in a `select clause`, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
-
-If a select item is a path expression requesting a component of a
-complex property and the complex property is `null` on an instance, then
-the component is treated as `null` as well.
 
 ### ##subsubsec System Query Option `$orderby`
 
