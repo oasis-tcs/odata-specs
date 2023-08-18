@@ -38,14 +38,15 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
+https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
