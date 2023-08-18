@@ -1333,17 +1333,17 @@ Example 11: entity with `metadata=full`
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
 
 A property within an entity or complex type instance is represented as a
-name/value pair. The name MUST be the name of the property; the value is
+name/value pair. The name MUST be the name of the property; a non-null value is
 represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
+
+Null values are represented as the JSON literal `null`.
 
 ## <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
 
 Primitive values are represented following the rules of
 [RFC8259](#rfc8259).
-
-Null values are represented as the JSON literal `null`.
 
 Values of type `Edm.Boolean` are represented as the JSON
 literals `true` and `false`
