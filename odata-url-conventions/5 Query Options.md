@@ -1693,7 +1693,7 @@ http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI')
 ::: example
 Example ##ex: function call returning the average rating of a given employee by their peers (employees in the same department)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq $it/Department)
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
