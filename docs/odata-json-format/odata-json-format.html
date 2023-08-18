@@ -1524,6 +1524,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For media types of top-level type <code>text</code>, for example <code>text/plain</code>, the value of <code>body</code> is a string containing the value of the request body.</p>
 <p>For all other media types the value of <code>body</code> is a string containing the base64url-encoded value of the request body. In this case the body content can be compressed or chunked if this is correctly reflected in the <code>Transfer-Encoding</code> header.</p>
 <p>A <code>body</code> MUST NOT be specified if the <code>method</code> is <code>get</code> or <code>delete</code>.</p>
+<p>The request object and the <code>headers</code> object MUST NOT contain name/value pairs with duplicate names. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <div class="example">
 <p>Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
