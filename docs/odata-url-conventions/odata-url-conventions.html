@@ -1417,11 +1417,11 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>$compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX</code></pre>
 </div>
 <h4 id="51113-lambda-operators"><a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a></h4>
-<p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a navigation path that identifies a collection.</p>
+<p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a path expression that identifies a collection.</p>
 <p>4.01 Services MUST support case-insensitive lambda operator names. Clients that want to work with 4.0 services MUST use lower case lambda operator names.</p>
-<p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of members of the collection identified by the navigation path.</p>
+<p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of members of the collection identified by the path expression.</p>
 <p>If the name chosen for the lambda variable matches a property name of the current resource referenced by the resource path, the lambda variable takes precedence. Clients can prefix properties of the current resource referenced by the resource path with <a href="#it"><code>$it</code></a>.</p>
-<p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the collection instances at the origin of the navigation path prepended to the lambda operator.</p>
+<p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the collection instances at the origin of the path expression prepended to the lambda operator.</p>
 <h5 id="511131-any"><a name="any" href="#any">5.1.1.13.1 <code>any</code></a></h5>
 <p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns true if and only if the expression is true for any member of the collection, otherwise it returns false. This implies that the <code>any</code> operator always returns false for an empty collection.</p>
 <p>The <code>any</code> operator can be used without an argument expression. This short form returns false if and only if the collection is empty.</p>

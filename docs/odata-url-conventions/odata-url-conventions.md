@@ -2828,7 +2828,7 @@ $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 #### <a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a>
 
 OData defines two operators that evaluate a Boolean expression on a
-collection. Both must be prepended with a navigation path that
+collection. Both must be prepended with a path expression that
 identifies a collection.
 
 4.01 Services MUST support case-insensitive lambda operator names.
@@ -2838,7 +2838,7 @@ operator names.
 The argument of a lambda operator is a case-sensitive lambda variable
 name followed by a colon (`:`) and a Boolean expression that uses the
 lambda variable name to refer to properties of members of the collection
-identified by the navigation path.
+identified by the path expression.
 
 If the name chosen for the lambda variable matches a property name of
 the current resource referenced by the resource path, the lambda
@@ -2847,7 +2847,7 @@ resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
-collection instances at the origin of the navigation path prepended to
+collection instances at the origin of the path expression prepended to
 the lambda operator.
 
 ##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
