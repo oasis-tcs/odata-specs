@@ -3401,7 +3401,7 @@ cast to its source type) can be recursively expanded using the special
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
-recursion.
+recursion.</a>
 
 ::: example
 Example 122: all employees with their manager, manager's manager, and
