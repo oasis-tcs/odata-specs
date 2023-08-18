@@ -27,10 +27,4 @@ jobs:
         run: |
           npm ci
           npm run build
-          git config user.name ${GITHUB_ACTOR}
-          git config user.email ${PUSHER_EMAIL}
-          git add docs/*
-          git diff-index --quiet HEAD docs/* || git commit -m "auto-refreshed"
-          git push
-        env:
-          PUSHER_EMAIL: ${{ github.event.pusher.email }}
+          git diff --exit-code HEAD docs/*
