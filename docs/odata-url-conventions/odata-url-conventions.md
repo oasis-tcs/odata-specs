@@ -1180,10 +1180,6 @@ part of the request URL. If the filter path segment appears in the
 resource path, the filter expression in parentheses MUST NOT use forward slashes,
 it must be specified with a parameter alias instead.
 
---If the filter path segment appears in the
-resource path and the parentheses contain a filter expression, that
-expression MUST NOT use forward slashes.
-
 The collection will be restricted to instances matching the filter
 expression assigned to the parameter alias and may be empty.
 
