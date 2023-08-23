@@ -36,9 +36,9 @@ A single-valued property or operation response that has the
 [OData-Protocol](#ODataProtocol).
 
 A property or operation response that is of a primitive type is
-represented as an object with a single name/value pair, whose name is
+represented as an object with a single name/value pair whose name is
 `value` and whose value is a [primitive
-value](#PrimitiveValue).
+value](#PrimitiveValue) or a [stream value](#StreamProperty).
 
 A property or operation response that is of complex type is represented
 as a [complex value](#ComplexValue).

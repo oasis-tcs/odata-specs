@@ -1001,7 +1001,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="11-individual-property-or-operation-response"><a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
 <p>An individual property or operation response is represented as a JSON object.</p>
 <p>A single-valued property or operation response that has the <code>null</code> value does not have a representation; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
-<p>A property or operation response that is of a primitive type is represented as an object with a single name/value pair, whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a>.</p>
+<p>A property or operation response that is of a primitive type is represented as an object with a single name/value pair whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a> or a <a href="#StreamProperty">stream value</a>.</p>
 <p>A property or operation response that is of complex type is represented as a <a href="#ComplexValue">complex value</a>.</p>
 <p>A property or operation response that is of a collection type is represented as an object with a single name/value pair whose name is <code>value</code>. Its value is the JSON representation of a <a href="#CollectionofComplexValues">collection of complex type values</a> or <a href="#CollectionofPrimitiveValues">collection of primitive values</a>.</p>
 <div class="example">
