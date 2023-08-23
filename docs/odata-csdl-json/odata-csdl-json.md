@@ -195,6 +195,7 @@ For complete copyright information please see the full Notices section in an App
     - [14.3.10 Integer](#Integer)
     - [14.3.11 String](#String)
     - [14.3.12 Time of Day](#TimeofDay)
+    - [14.3.13 Geo and Stream Values](#GeoandStreamValues)
   - [14.4 Dynamic Expression](#DynamicExpression)
     - [14.4.1 Path Expressions](#PathExpressions)
       - [14.4.1.1 Path Syntax](#PathSyntax)
@@ -4164,6 +4165,22 @@ Example 57:
 ```
 :::
 
+
+
+### <a name="GeoandStreamValues" href="#GeoandStreamValues">14.3.13 Geo and Stream Values</a>
+
+CSDL documents with a version of `4.02` or greater MAY use constant Geo or Stream values in annotations.
+
+::: {.varjson .rep}
+Constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes
+are represented as GeoJSON values, see [OData-JSON](#ODataJSON).
+:::
+
+
+::: {.varjson .rep}
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON), including
+the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+:::
 
 
 ## <a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a>

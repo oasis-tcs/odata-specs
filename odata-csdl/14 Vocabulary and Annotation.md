@@ -1169,6 +1169,26 @@ Example ##ex:
 ```
 :::
 
+### ##subsubsec Geo and Stream Values
+
+CSDL documents with a version of `4.02` or greater MAY use constant Geo or Stream values in annotations.
+
+::: {.varjson .rep}
+Constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes
+are represented as GeoJSON values, see [OData-JSON](#ODataJSON).
+:::
+
+::: {.varxml .rep}
+:::
+
+::: {.varjson .rep}
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON), including
+the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+:::
+
+::: {.varxml .rep}
+:::
+
 ## ##subsec Dynamic Expression
 
 Dynamic expressions allow assigning a calculated value to an applied

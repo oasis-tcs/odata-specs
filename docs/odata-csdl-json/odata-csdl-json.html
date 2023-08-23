@@ -304,6 +304,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Integer">14.3.10 Integer</a></li>
 <li><a href="#String">14.3.11 String</a></li>
 <li><a href="#TimeofDay">14.3.12 Time of Day</a></li>
+<li><a href="#GeoandStreamValues">14.3.13 Geo and Stream Values</a></li>
 </ul></li>
 <li><a href="#DynamicExpression">14.4 Dynamic Expression</a>
 <ul>
@@ -2415,6 +2416,14 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <div class="varjson example">
 <p>Example 57:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.EndTime&quot;:</span> <span class="er">&quot;21:45:00&quot;</span></span></code></pre></div>
+</div>
+<h3 id="14313-geo-and-stream-values"><a name="GeoandStreamValues" href="#GeoandStreamValues">14.3.13 Geo and Stream Values</a></h3>
+<p>CSDL documents with a version of <code>4.02</code> or greater MAY use constant Geo or Stream values in annotations.</p>
+<div class="varjson rep">
+<p>Constant values of type <code>Edm.Geography</code>, <code>Edm.Geometry</code>, or one of their subtypes are represented as GeoJSON values, see <a href="#ODataJSON">OData-JSON</a>.</p>
+</div>
+<div class="varjson rep">
+<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a>, including the control information <code>@mediaContentType</code> to indicate how the stream value is to be interpreted.</p>
 </div>
 <h2 id="144-dynamic-expression"><a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a></h2>
 <p>Dynamic expressions allow assigning a calculated value to an applied term.</p>
