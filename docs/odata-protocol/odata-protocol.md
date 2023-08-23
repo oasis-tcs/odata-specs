@@ -204,7 +204,7 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.2 Requesting Individual Entities](#RequestingIndividualEntities)
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
-      - [11.2.4.1 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
+      - [11.2.4.1 Requesting a Raw Value using `$value`](#RequestingaRawValueusingvalue)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -2740,11 +2740,10 @@ GET http://host/service/Products(1)/Name
 ```
 :::
 
-#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using `$value`</a>
+#### <a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.1 Requesting a Raw Value using `$value`</a>
 
-To retrieve the raw value of a primitive type property, the client sends
-a `GET` request to the property value URL. See the
-[OData-URL](#ODataURL) document for details.
+To retrieve the raw value of a primitive property or operation result, the client sends
+a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -4709,7 +4708,7 @@ updates the value of the property. The message body MUST contain the new
 value, formatted as a single property according to the specified format.
 
 A successful `PUT` request to the edit URL for the [raw
-value](#RequestingaPropertysRawValueusingvalue) of a primitive property
+value](#RequestingaRawValueusingvalue) of a primitive property
 updates the property with the raw value specified in the payload. The
 payload MUST be formatted as an appropriate content type for the raw
 value of the property.
@@ -4730,7 +4729,7 @@ Services MUST return an error if the property is not updatable.
 
 A successful `DELETE` request to the edit URL for a structural property,
 or to the edit URL of the [raw
-value](#RequestingaPropertysRawValueusingvalue) of a primitive property,
+value](#RequestingaRawValueusingvalue) of a primitive property,
 sets the property to null. The request body is ignored and should be
 empty.
 
@@ -6310,7 +6309,7 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))

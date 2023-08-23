@@ -120,7 +120,7 @@ For complete copyright information please see the full Notices section in an App
     - [4.5.1 Addressing Actions](#AddressingActions)
     - [4.5.2 Addressing Functions](#AddressingFunctions)
   - [4.6 Addressing a Property](#AddressingaProperty)
-  - [4.7 Addressing a Property Value](#AddressingaPropertyValue)
+  - [4.7 Addressing a Raw Value](#AddressingaRawValue)
   - [4.8 Addressing the Count of a Collection](#AddressingtheCountofaCollection)
   - [4.9 Addressing a Member within an Entity Collection](#AddressingaMemberwithinanEntityCollection)
   - [4.10 Addressing a Member of an Ordered Collection](#AddressingaMemberofanOrderedCollection)
@@ -981,12 +981,12 @@ the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## <a name="AddressingaPropertyValue" href="#AddressingaPropertyValue">4.7 Addressing a Property Value</a>
+## <a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a>
 
-To address the raw value of a primitive property, clients append the
-path segment `/$value` to the property URL.
+To address the raw value of a primitive property or operation result, clients append the
+path segment `/$value` to the property or operation URL.
 
-Properties of type `Edm.Stream` already return the raw value of the
+Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
 ## <a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a>

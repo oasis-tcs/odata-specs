@@ -196,7 +196,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#AddressingFunctions">4.5.2 Addressing Functions</a></li>
 </ul></li>
 <li><a href="#AddressingaProperty">4.6 Addressing a Property</a></li>
-<li><a href="#AddressingaPropertyValue">4.7 Addressing a Property Value</a></li>
+<li><a href="#AddressingaRawValue">4.7 Addressing a Raw Value</a></li>
 <li><a href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a></li>
 <li><a href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a></li>
 <li><a href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a></li>
@@ -697,9 +697,9 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </ul>
 <h2 id="46-addressing-a-property"><a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a></h2>
 <p>To address an entity property clients append a path segment containing the property name to the URL of the entity. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
-<h2 id="47-addressing-a-property-value"><a name="AddressingaPropertyValue" href="#AddressingaPropertyValue">4.7 Addressing a Property Value</a></h2>
-<p>To address the raw value of a primitive property, clients append the path segment <code>/$value</code> to the property URL.</p>
-<p>Properties of type <code>Edm.Stream</code> already return the raw value of the media stream and do not support appending the <code>/$value</code> segment.</p>
+<h2 id="47-addressing-a-raw-value"><a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a></h2>
+<p>To address the raw value of a primitive property or operation result, clients append the path segment <code>/$value</code> to the property or operation URL.</p>
+<p>Properties and operation results of type <code>Edm.Stream</code> already return the raw value of the media stream and do not support appending the <code>/$value</code> segment.</p>
 <h2 id="48-addressing-the-count-of-a-collection"><a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a></h2>
 <p>To address the raw value of the number of items in a collection, clients append <code>/$count</code> to the resource path of the URL identifying the entity set or collection.</p>
 <p>The <code>/$count </code>path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
