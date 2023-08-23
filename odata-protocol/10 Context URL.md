@@ -341,7 +341,7 @@ Example ##ex: resource URL and corresponding context URL -- expand with
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
         &$expand=DirectReports($select=FirstName,LastName;$levels=4)
-http://host/service/$metadata\
+http://host/service/$metadata
         #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
@@ -563,7 +563,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData‑URL](#ODataURL)) use the built-in abstract entity type. Each
+[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -574,16 +574,5 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(...)` (see
-[OData‑URL](#ODataURL)) use the built-in abstract complex type. Single
+[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
-
-##### ##subsubsubsubsec Built-in Filter Operations
-
-OData supports a set of built-in filter operations, as described in this
-section.
-
-4.01 services MUST support case-insensitive operation names. Clients
-that want to work with 4.0 services MUST use lower case operation names.
-
-For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).

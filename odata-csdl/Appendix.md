@@ -12,11 +12,6 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### [OData-v4.02]
-- _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
-  - _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
-  - _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-
 ###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
@@ -24,21 +19,33 @@ _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-
 _European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
-_OData ABNF Construction Rules Version 4.01_.  
+_OData ABNF Construction Rules Version 4.02_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL-Schema]</a>
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
+: varjson
+This document.
+:
+: varxml
+See link in "[Related work](#RelatedWork)" section on cover page.
+:
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._
+: varjson
+See link in "[Related work](#RelatedWork)" section on cover page.
+:
+: varxml
+This document.
+:
+
+: varjson
+###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
 _OData CSDL JSON Schema_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+:
 
-###### <a name="ODataCSDLJSON">[OData-CSDL-JSON]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataCSDLXML">[OData-CSDL-XML]</a>
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
+: varxml
 ###### <a name="ODataEDM">[OData-EDM]</a>
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
@@ -46,17 +53,18 @@ See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page
 ###### <a name="ODataEDMX">[OData-EDMX]</a>
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+:
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01_.  
+_OData JSON Format Version 4.02_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01 Part 1: Protocol_.  
+_OData Version 4.02 Part 1: Protocol_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01 Part 2: URL Conventions_.  
+_OData Version 4.02 Part 2: URL Conventions_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocCore">[OData-VocCore]</a>
@@ -79,18 +87,23 @@ https://www.rfc-editor.org/info/rfc2119.
 _Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
 http://tools.ietf.org/html/rfc6570.
 
+: varjson
 ###### <a name="rfc7493">[RFC7493]</a>
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
 https://tools.ietf.org/html/rfc7493.
+:
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
 http://www.rfc-editor.org/info/rfc8174.
 
+: varjson
 ###### <a name="rfc8259">[RFC8259]</a>
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
 http://tools.ietf.org/html/rfc8259.
+:
 
+: varxml
 ###### <a name="XML-11">[XML-1.1]</a>
 _Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
 http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
@@ -102,6 +115,7 @@ http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at htt
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
+:
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
@@ -145,18 +159,20 @@ acknowledged.
 
 ## ##subasec Participants
 
-<!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
-
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
-
-**OpenC2 TC Members:**
+**OData TC Members:**
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alman | Something Networks
-Alex | Amirnovman | Company B
-Kris | Anderman | Mini Micro
-Darren | Anstman | Big Networks
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
@@ -193,60 +209,24 @@ Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl|
 Non-material Changes
 -->
 
-# Appendix ##asec Notices              
-              
-<!-- Required section. Do not modify. -->              
-              
-Copyright &copy; OASIS Open 2023. All Rights Reserved.--------------
-Michael Pizzo 
-All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.              
-Ralf Handl    
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.              
-              
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.              
-              
-This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.--------------
-Michael Pizzo 
-As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).              
-Ralf Handl    
-[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]--------------
-Michael Pizzo 
-[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]              
-Ralf Handl    
-[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]              
-              
-The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
---------------
-Michael Pizzo 
-              
-Ralf Handl    
-              
-              
-              
---------------
-Michael Pizzo 
-              
-Ralf Handl    
---------------
-Michael Pizzo 
-              
-Ralf Handl    
+# Appendix ##asec Notices
+
+Copyright $$$copyright$$$. All Rights Reserved.
+
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
+
+\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
+
+\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
+
+\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
+
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
