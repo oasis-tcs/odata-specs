@@ -710,7 +710,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 
