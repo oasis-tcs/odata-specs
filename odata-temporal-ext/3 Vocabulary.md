@@ -44,7 +44,7 @@ structured type with the following properties:
 ::: example
 Example ##ex: `Employees` entity set from [example model api-1](#api1)
 annotated with temporal terms
-```
+```json
 "Employees": {
   "$Collection": true,
   "$Type": "OrgModel.Employee",
@@ -62,9 +62,8 @@ annotated with temporal terms
 
 ::: example
 Example ##ex: `history` navigation property in entity set `Employees` from
-[example model api-2](#api2)
-annotated with temporal terms
-```
+[example model api-2](#api2) annotated with temporal terms
+```json
 "$Annotations": {
   "OrgModel.Default/Employees/history": {
     "@Temporal.ApplicationTimeSupport": {
@@ -88,10 +87,10 @@ annotated with temporal terms
 :::
 
 ::: example
-Example ##ex: `CostCenters` entity set containing time slices for multiple
+Example ##ex_CostCenters: `CostCenters` entity set containing time slices for multiple
 temporal objects, the temporal objects identified by combination of
 `AreaID` and `CostCenterID`
-```
+```json
 "CostCenter": {
   "$Kind": "EntityType",
   "$Key": ["tsid"],

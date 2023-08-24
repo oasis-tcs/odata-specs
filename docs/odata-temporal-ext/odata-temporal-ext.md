@@ -500,7 +500,7 @@ structured type with the following properties:
 ::: example
 Example 6: `Employees` entity set from [example model api-1](#api1)
 annotated with temporal terms
-```
+```json
 "Employees": {
   "$Collection": true,
   "$Type": "OrgModel.Employee",
@@ -518,9 +518,8 @@ annotated with temporal terms
 
 ::: example
 Example 7: `history` navigation property in entity set `Employees` from
-[example model api-2](#api2)
-annotated with temporal terms
-```
+[example model api-2](#api2) annotated with temporal terms
+```json
 "$Annotations": {
   "OrgModel.Default/Employees/history": {
     "@Temporal.ApplicationTimeSupport": {
@@ -544,10 +543,10 @@ annotated with temporal terms
 :::
 
 ::: example
-Example 8: `CostCenters` entity set containing time slices for multiple
+Example <a name="CostCenters" href="#CostCenters">8</a>: `CostCenters` entity set containing time slices for multiple
 temporal objects, the temporal objects identified by combination of
 `AreaID` and `CostCenterID`
-```
+```json
 "CostCenter": {
   "$Kind": "EntityType",
   "$Key": ["tsid"],
@@ -596,15 +595,10 @@ temporal objects, the temporal objects identified by combination of
 ## <a name="TemporalExpressions" href="#TemporalExpressions">4.1 Temporal Expressions</a>
 
 A temporal expression is
-- A date in the form `dateValue`, see
-[OData-ABNF](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataABNF)
-- A timestamp in the form
-`dateTimeOffsetValueInUrl`, see
-[OData-ABNF](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataABNF)
-- One of the literals `min`
-or `max`
-- An expression resulting in a date or
-timestamp value
+- A date in the form `dateValue`, see   [OData-ABNF](#ODataABNF)
+- A timestamp in the form `dateTimeOffsetValueInUrl`, see   [OData-ABNF](#ODataABNF)
+- One of the literals `min` or `max`
+- An expression resulting in a date or timestamp value
 
 The literals `min` and `max` are interpreted depending on the data type
 of the time period start and end. They represent the minimum and maximum
@@ -637,10 +631,8 @@ they only affect the response. That is, they only influence the
 "implicit `GET`" after successful data modification.
 
 If no temporal query options are specified,
-- timeline entity sets return all time
-slices, and
-- snapshot entity sets return the snapshot
-valid at the time of the request.
+- timeline entity sets return all time slices, and
+- snapshot entity sets return the snapshot valid at the time of the request.
 
 ### <a name="PropagationofTemporalQueryOptions" href="#PropagationofTemporalQueryOptions">4.2.1 Propagation of Temporal Query Options</a>
 
@@ -660,38 +652,23 @@ resource does not track time. In this case the temporal query options do
 not have any effect other than being propagated along `$expand`.
 
 For entities in a [snapshot entity
-set](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SnapshotEntitySet)
+set](#SnapshotEntitySet)
 the point in time for representing data is determined by the first
 applicable rule:
 
-1\. by the query option
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-nested within `$expand`
+1. by the query option [`$at`](#QueryOptionat) nested within `$expand`
+2. by a [`$at`](#QueryOptionat) value propagated along `$expand`
+3. by [`$at`](#QueryOptionat) in the query option part of the request URL, which applies to every
+   segment of the resource path and paths that occur in system query options
+4. by the default value "now" - the logic for determining this value is service-specific
 
-2\. by a
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-value propagated along `$expand`
-
-3\. by
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-in the query option part of the request URL, which applies to every
-segment of the resource path and paths that occur in system query
-options
-
-4\. by the default value \"now\" -- the logic for determining this value
-is service-specific
-
-For entities in a [timeline entity
-set](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TimelineEntitySet)
+For entities in a [timeline entity set](#TimelineEntitySet)
 the time interval for filtering time slices is determined by the first
 applicable rule:
 
-1\. by nested temporal query options within `$expand`
-
-2\. by temporal query option values propagated along `$expand`
-
-3\. by temporal query options in the query option part of the request
-URL
+1. by nested temporal query options within `$expand`
+2. by temporal query option values propagated along `$expand`
+3. by temporal query options in the query option part of the request URL
 
 ### <a name="QueryOptionat" href="#QueryOptionat">4.2.2 Query Option `$at`</a>
 
@@ -702,7 +679,8 @@ of `$at`.
 For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
-[\$from](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[\$toInclusive](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+<!-- TODO: css for block-quote -->
+> [`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 
 The query option `$at` can be combined with `$filter` and `$search`.
 Only entities satisfying all specified criteria are returned.
@@ -712,76 +690,55 @@ Example 9: Retrieve current data of an employee
 ```
 GET /api-1/Employees('E314')
 ```
-:::
-
 results in
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees/\$entity\",
-
-  \"ID\": \"E314\",
-
-  \"Name\": \"McDevitt\",
-
-  \"Jobtitle\": \"Senior\"
-
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Senior"
 }
 ```
+:::
 
 ::: example
 Example 10: retrieve employee at a specific point in application time
 ```
-GET /api-1/Employees('E314')?\$at=2012-01-01
+GET /api-1/Employees('E314')?$at=2012-01-01
+```
+results in
+```json
+{
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior"
+}
 ```
 :::
 
-results in
-```
-{
-
-  \"@odata.context\": \"\$metadata#Employees/\$entity\",
-
-  \"ID\": \"E314\",
-
-  \"Name\": \"McDevitt\",
-
-  \"Jobtitle\": \"Junior\"
-
-}
-```
 
 ::: example
 Example 11: retrieve multiple employees at a past point in time
 ```
-GET /api-1/Employees?\$filter=contains(Name,'i')&\$at=2012-01-01
+GET /api-1/Employees?$filter=contains(Name,'i')&$at=2012-01-01
 ```
-:::
-
 results in one time slice for each employee matching the filter at the
-specified point in time -- note that E401 back then does not satisfy
+specified point in time - note that E401 back then does not satisfy
 this condition
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees\",
-
-  \"value\": \[
-
+  "@odata.context": "$metadata#Employees",
+  "value": [
     {
-
-      \"ID\": \"E314\",
-
-      \"Name\": \"McDevitt\",
-
-      \"Jobtitle\": \"Junior\"
-
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Junior"
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 Expanding related entities in combination with `$at` is
 straight-forward: the response consists of the time slices of related
@@ -795,77 +752,50 @@ Example 12: retrieve employee in the past, show the past department as
 of a later point in time
 ```
 GET
-/api-1/Employees('E314')?\$at=2012-01-01&\$expand=Department(\$at=2021-11-23)
+/api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 ```
-:::
-
 results in
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees/\$entity\",
-
-  \"ID\": \"E314\",
-
-  \"Name\": \"McDevitt\",
-
-  \"Jobtitle\": \"Junior\",
-
-  \"Department\": {
-
-    \"ID\": \"D08\",
-
-    \"Name\": \"1st Level Support\"
-
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior",
+  "Department": {
+    "ID": "D08",
+    "Name": "1st Level Support"
   }
-
 }
 ```
+:::
 
 ::: example
 Example 13: retrieve department in the future with expanded employees at
 the same point in time
 ```
-GET /api-1/Departments('D15')?\$at=2015-01-01&\$expand=Employees
+GET /api-1/Departments('D15')?$at=2015-01-01&$expand=Employees
 ```
-:::
-
 results in
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Departments/\$entity\",
-
-  \"ID\": \"D15\",
-
-  \"Name\": \"Services\",
-
-  \"Employees\": \[
-
+  "@odata.context": "$metadata#Departments/$entity",
+  "ID": "D15",
+  "Name": "Services",
+  "Employees": [
     {
-
-      \"ID\": \"E314\",
-
-      \"Name\": \"McDevitt\",
-
-      \"Jobtitle\": \"Senior\"
-
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Senior"
     },
-
     {
-
-      \"ID\": \"E401\",
-
-      \"Name\": \"Gibson\",
-
-      \"Jobtitle\": \"Expert\"
-
+      "ID": "E401",
+      "Name": "Gibson",
+      "Jobtitle": "Expert"
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 ### <a name="QueryOptionsfromtoandtoInclusive" href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options `$from`, `$to`, and `$toInclusive`</a>
 
@@ -874,19 +804,15 @@ on timeline entity sets and collection-valued navigation to timeline
 entity sets. They each take a temporal expression as their argument.
 
 Allowed combinations are:
-- `$from` and `$to` defines a closed-open
-interval
-- `$from` and `$toInclusive` defines a
-closed-closed interval
-- `$from` and neither `$to` nor
-`$toInclusive` defines a closed-closed interval with right boundary
-`max`.
+- `$from` and `$to` defines a closed-open interval
+- `$from` and `$toInclusive` defines a closed-closed interval
+- `$from` and neither `$to` nor `$toInclusive` defines a
+   closed-closed interval with right boundary `max`.
 
 It is not allowed to combine `$from` and `$to`/`$toInclusive` with
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-because `$at=<point-in-time>` is shorthand for
+[`$at`](#QueryOptionat) because `$at=<point-in-time>` is shorthand for
 
-`$from=<point-in-time>&$toInclusive=<point-in-time>`
+> `$from=<point-in-time>&$toInclusive=<point-in-time>`
 
 The result is restricted to time slices whose application-time period
 overlaps with the interval defined by the query option values, taking
@@ -899,20 +825,20 @@ all comparison operators right.
 For timeline entity sets with closed-open semantics
 `$from=<start>&$to=<end>` is shorthand for
 
-`$filter=<time-slice-start> lt <end> and <time-slice-end> gt <start>`
+> `$filter=<time-slice-start> lt <end> and <time-slice-end> gt <start>`
 
 and for timeline entity sets with closed-closed semantics shorthand for
 
-`$filter=<time-slice-start> lt <end> and <time-slice-end> ge <start>`
+> `$filter=<time-slice-start> lt <end> and <time-slice-end> ge <start>`
 
 For timeline entity sets with closed-open semantics
 `$from=<start>&$toInclusive=<end>` is shorthand for
 
-`$filter=<time-slice-start> le <end> and <time-slice-end> gt <start>`
+> `$filter=<time-slice-start> le <end> and <time-slice-end> gt <start>`
 
 and for timeline entity sets with closed-closed semantics shorthand for
 
-`$filter=<time-slice-start> le <end> and <time-slice-end> ge <start>`
+> `$filter=<time-slice-start> le <end> and <time-slice-end> ge <start>`
 
 The query options `$from` and `$to`/`$toInclusive` can be combined with
 `$filter` and `$search`. Only entities satisfying all specified criteria
@@ -922,397 +848,229 @@ If no `$select` is specified, each returned entity SHOULD contain the
 application-time period boundaries as part of the default selection.
 
 ::: example
-Example 14: retrieve employee history over a period of application time
+Example <a name="employeeHistory" href="#employeeHistory">14</a>: retrieve employee history over a period of application time
 ```
-GET /api-2/Employees?\$expand=history(\$select=Name,Jobtitle)
-:::
-
-                    &\$from=2012-03-01&\$to=2025-01-01
+GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
+                    &$from=2012-03-01&$to=2025-01-01
 ```
-
 results in one entity for each employee with time slices that overlap
 the specified application-time period:
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees\",
-
-  \"value\": \[
-
+  "@odata.context": "$metadata#Employees",
+  "value": [
     {
-
-      \"ID\": \"E314\",
-
-      \"history\": \[
-
+      "ID": "E314",
+      "history": [
         {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Junior\",
-
-          \"From\": \"2011-01-01\",
-
-          \"To\": \"2013-10-01\"
-
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01"
         },
-
         {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2013-10-01\",
-
-          \"To\": \"2014-01-01\"
-
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
         },
-
         {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2014-01-01\",
-
-          \"To\": \"9999-12-31\"
-
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
         }
-
-      \]
-
+      ]
     },
-
     {
-
-      \"ID\": \"E401\",
-
-      \"history\": \[
-
+      "ID": "E401",
+      "history": [
         {
-
-          \"Name\": \"Gibson\",
-
-          \"Jobtitle\": \"Expert\",
-
-          \"From\": \"2012-03-01\",
-
-          \"To\": \"9999-12-31\"
-
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
         }
-
-      \]
-
+      ]
     }
-
-  \]
-
+  ]
 }
 ```
-
 The history for the first employee contains two time slices that do not
 differ in the represented properties, caused by a department change, and
 the department is not part of the representation.
 
 The service could have combined these two time slices into one.
+:::
 
 ::: example
 Example 15: retrieve all employees that ever worked for department D15,
 with their full history, and the department's data at the start of each
 employee history time slice
 ```
-[GET /api-2/Departments('D15')/Employees?\
-  \$expand=history(\
-    \@emp=\$this;\
-    \$expand=Department(\
-      \$expand=history(\$at=@emp/From)\
-    )\
-  )]{style="color:black"}
+GET /api-2/Departments('D15')/Employees?
+    $expand=history(
+      @emp=$this;
+      $expand=Department(
+        $expand=history($at=@emp/From)
+      )
+    )
+```
+has the following result with department names and budgets as of the
+beginning of each employee time slice:
+```json
+{
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "Support",
+              "Budget": 1000,
+              "From": "2010-01-01",
+              "To": "2012-10-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "1st Level Support",
+              "Budget": 1250,
+              "From": "2012-06-01",
+              "To": "2014-01-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Norman",
+          "Jobtitle": "Expert",
+          "From": "2009-11-01",
+          "To": "2012-03-01",
+          "Department": {
+            "ID": "D15",
+            "history": []
+          }
+        },
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    }
+  ]
+}
 ```
 :::
 
-has the following result with department names and budgets as of the
-beginning of each employee time slice:
-```
-{
-
-  \"@odata.context\": \"\$metadata#Employees\",
-
-  \"value\": \[
-
-    {
-
-      \"ID\": \"E314\",
-
-      \"history\": \[
-
-        {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Junior\",
-
-          \"From\": \"2011-01-01\",
-
-          \"To\": \"2013-10-01\",
-
-          \"Department\": {
-
-            \"ID\": \"D08\",
-
-            \"history\": \[{
-
-              \"Name\": \"Support\",
-
-              \"Budget\": 1000,
-
-              \"From\": \"2010-01-01\",
-
-              \"To\": \"2012-10-01\"
-
-            }\]
-
-          }
-
-        },
-
-        {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2013-10-01\",
-
-          \"To\": \"2014-01-01\",
-
-          \"Department\": {
-
-            \"ID\": \"D08\",
-
-            \"history\": \[{
-
-              \"Name\": \"1st Level Support\",
-
-              \"Budget\": 1250,
-
-              \"From\": \"2012-06-01\",
-
-              \"To\": \"2014-01-01\"
-
-            }\]
-
-          }
-
-        },
-
-        {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2014-01-01\",
-
-          \"To\": \"9999-12-31\",
-
-          \"Department\": {
-
-            \"ID\": \"D15\",
-
-            \"history\": \[{
-
-              \"Name\": \"Services\",
-
-              \"Budget\": 1170,
-
-              \"From\": \"2011-01-01\",
-
-              \"To\": \"9999-12-31\"
-
-            }\]
-
-          }
-
-        }
-
-      \]
-
-    },
-
-    {
-
-      \"ID\": \"E401\",
-
-      \"history\": \[
-
-        {
-
-          \"Name\": \"Norman\",
-
-          \"Jobtitle\": \"Expert\",
-
-          \"From\": \"2009-11-01\",
-
-          \"To\": \"2012-03-01\",
-
-          \"Department\": {
-
-            \"ID\": \"D15\",
-
-            \"history\": \[\]
-
-          }
-
-        },
-
-        {
-
-          \"Name\": \"Gibson\",
-
-          \"Jobtitle\": \"Expert\",
-
-          \"From\": \"2012-03-01\",
-
-          \"To\": \"9999-12-31\",
-
-          \"Department\": {
-
-            \"ID\": \"D15\",
-
-            \"history\": \[{
-
-              \"Name\": \"Services\",
-
-              \"Budget\": 1170,
-
-              \"From\": \"2011-01-01\",
-
-              \"To\": \"9999-12-31\"
-
-            }\]
-
-          }
-
-        }
-
-      \]
-
-    }
-
-  \]
-
-}
-```
-
 ### <a name="InteractionwithStandardSystemQueryOptions" href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a>
 
-For [snapshot entity
-sets](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SnapshotEntitySet)
+For [snapshot entity sets](#SnapshotEntitySet)
 the point in time for representing data is determined following the
-rules in section "[Propagation of Temporal Query
-Options](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#PropagationofTemporalQueryOptions)"
+rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
 and evaluated *first*, then all other system query options are evaluated
 on the data valid at that point in time, including the query option
-`$apply` defined in
-[OData-Aggregation](http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html).
+`$apply` defined in [OData-Aggregation](#ODataAggregation).
 
 For timeline entity sets the interval for filtering data is determined
-following the rules in section "[Propagation of Temporal Query
-Options](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#PropagationofTemporalQueryOptions)"
+following the rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
 and evaluated as an additional criterion for `$filter` in the evaluation
-sequence defined in [OData-Protocol, section System Query
-Options](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptions),
-which is evaluated *after* the query option `$apply`.
+sequence defined in [OData-Protocol, section System Query Options](#ODataProtocol),
+which is evaluated _after_ the query option `$apply`.
 
 ::: example
 Example 16: retrieve employee history over a period of application time
 and filter on job title
 ```
-GET /api-2/Employees?\$expand=history(
-:::
-
-                       \$select=Name,Jobtitle;
-
-                       \$from=2012-03-01&\$to=2025-01-01;
-
-                       \$filter=contains(Jobtitle,'e')
-
+GET /api-2/Employees?$expand=history(
+                       $select=Name,Jobtitle;
+                       $from=2012-03-01&$to=2025-01-01;
+                       $filter=contains(Jobtitle,'e')
                      )
 ```
-
 results in one entity for each employee with time slices that overlap
 the specified application-time period and satisfy the filter condition
-(one less than in Example 14):
-```
+(one less than in [example 14](#employeeHistory)):
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees\",
-
-  \"value\": \[
-
+  "@odata.context": "$metadata#Employees",
+  "value": [
     {
-
-      \"ID\": \"E314\",
-
-      \"history\": \[
-
+      "ID": "E314",
+      "history": [
         {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2013-10-01\",
-
-          \"To\": \"2014-01-01\"
-
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
         },
-
         {
-
-          \"Name\": \"McDevitt\",
-
-          \"Jobtitle\": \"Senior\",
-
-          \"From\": \"2014-01-01\",
-
-          \"To\": \"9999-12-31\"
-
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
         }
-
-      \]
-
+      ]
     },
-
     {
-
-      \"ID\": \"E401\",
-
-      \"history\": \[
-
+      "ID": "E401",
+      "history": [
         {
-
-          \"Name\": \"Gibson\",
-
-          \"Jobtitle\": \"Expert\",
-
-          \"From\": \"2012-03-01\",
-
-          \"To\": \"9999-12-31\"
-
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
         }
-
-      \]
-
+      ]
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 The lambda operators `any()` and `all()` are not influenced by temporal
 query options, they are interpreted for each time slice on the filtered
@@ -1324,49 +1082,31 @@ the period boundaries.
 ::: example
 Example 17: filter employees on their name at any point in time
 ```
-GET /api-2/Employees?\$expand=history(\$select=Name,Jobtitle)
-:::
-
-                     &\$from=2015-01-01
-
-                     &\$filter=history/any(h:startswith(h/Name,'N'))
+GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
+                     &$from=2015-01-01
+                     &$filter=history/any(h:startswith(h/Name,'N'))
 ```
-
 results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period
-```
+```json
 {
-
-  \"@odata.context\": \"\$metadata#Employees\",
-
-  \"value\": \[
-
+  "@odata.context": "$metadata#Employees",
+  "value": [
     {
-
-      \"ID\": \"E401\",
-
-      \"history\": \[
-
+      "ID": "E401",
+      "history": [
         {
-
-          \"Name\": \"Gibson\",
-
-          \"Jobtitle\": \"Expert\",
-
-          \"From\": \"2012-03-01\",
-
-          \"To\": \"9999-12-31\"
-
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
         }
-
-      \]
-
+      ]
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 ### <a name="RequestingChangestoTemporalData" href="#RequestingChangestoTemporalData">4.2.5 Requesting Changes to Temporal Data</a>
 
@@ -1375,47 +1115,40 @@ entity sets. If the entity set supports change-tracking combined with
 filtering on application-time period boundaries, the corresponding
 declared properties SHOULD be listed as
 [`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
-see
-[OData-VocCap](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataVocCap).
+see [OData-VocCap](#ODataVocCap).
 Clients can then use these properties in `$filter` or use the
-convenience shortcuts
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-or [`$from` and
-`$to`/`$toInclusive`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive).
+convenience shortcuts [`$at`](#QueryOptionat)
+or [`$from` and `$to`/`$toInclusive`](#QueryOptionsfromtoandtoInclusive).
 
 Change tracking for snapshot entity sets only reports changes to time
 slices that contain the point in time specified via
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat),
-or the point in time at which the defining query was received if no
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-is specified. Mere passage of time does not lead to reported changes.
+[`$at`](#QueryOptionat), or the point in time at which the defining query was received if no
+[`$at`](#QueryOptionat) is specified. Mere passage of time does not lead to reported changes.
 
 ## <a name="ModifyingTemporalData" href="#ModifyingTemporalData">4.3 Modifying Temporal Data</a>
 
 This section and its subsections describe modifications in application
 time, both for
-- *snapshot entity sets* with hidden
-application time, where time slices exist in the data persistency but
-are not directly visible in the entity set, each OData entity
-corresponds to a temporal object and only represents data at one point
-in time, and for
-- *timeline entity sets* with visible
-application time, where each OData entity corresponds to an
-application-time slice and all application-time slices of a temporal
-object are part of the entity set.
+- _snapshot entity sets_ with hidden
+  application time, where time slices exist in the data persistency but
+  are not directly visible in the entity set, each OData entity
+  corresponds to a temporal object and only represents data at one point
+  in time, and for
+- _timeline entity sets_ with visible
+  application time, where each OData entity corresponds to an
+  application-time slice and all application-time slices of a temporal
+  object are part of the entity set.
 
 Modification operations fall into two categories:
 - Direct modification of time slices, and
 - Changes to a temporal object over a
-period of application time that can affect multiple time slices without
-explicitly addressing each single affected time slice.
+  period of application time that can affect multiple time slices without
+  explicitly addressing each single affected time slice.
 
 ### <a name="DirectModificationofTimeSlices" href="#DirectModificationofTimeSlices">4.3.1 Direct Modification of Time Slices</a>
 
-The temporal query options
-[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat),
-[`$from` and
-`$to`/`$toInclusive`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive)
+The temporal query options [`$at`](#QueryOptionat),
+[`$from` and `$to`/`$toInclusive`](#QueryOptionsfromtoandtoInclusive)
 can be used with data modification operations, in which case they do not
 alter the modification semantics of the request, they only affect the
 response of the "implicit `GET`" after the data modification.
@@ -1446,11 +1179,9 @@ snapshot entity sets that do not allow direct manipulation of time
 slices.
 
 These convenience operations are modeled as bound actions and defined in
-the vocabulary for temporal data
-[OData-VocTemporal](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocTemporal).
+the vocabulary for temporal data [OData-VocTemporal](#ODataVocTemporal).
 Implementations SHOULD consider the preferences `return=representation`
-and `return=minimal` as specified in
-[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+and `return=minimal` as specified inv[OData-Protocol](#ODataProtocol).
 The convenience operations are atomic (all or nothing): they either
 succeed and produce the result described below, or they fail and do not
 change the temporal objects.
@@ -1458,15 +1189,12 @@ change the temporal objects.
 All actions define a collection of entities as their binding parameter.
 This collection can be
 - A snapshot entity set
-- A timeline entity set containing time
-slices for a single temporal object, or
-- A timeline entity set containing time
-slices for multiple temporal objects.
+- A timeline entity set containing time slices for a single temporal object, or
+- A timeline entity set containing time slices for multiple temporal objects.
 
 Services MAY support any or all of these convenience actions. Services
-SHOULD advertise the supported actions with property [`SupportedActions`
-of term
-`TemporalSupport`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData).
+SHOULD advertise the supported actions with property `SupportedActions`
+of term [`ApplicationTimeSupport`](#VocabularyforTemporalData).
 
 Services may define specialized convenience operations for use cases not
 covered by this specification.
@@ -1484,8 +1212,7 @@ time slices whose temporal object keys match and whose periods overlap.
 Its non-binding parameter `deltaTimeslices` is a collection of a
 structure containing the period boundaries, the properties to update,
 and optionally temporal object key values. The period boundaries are
-interpreted according to the
-[`UnitOfTime`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
+interpreted according to the [`UnitOfTime`](#VocabularyforTemporalData)
 of the collection. In particular, `ClosedClosedPeriods` governs whether
 the period end of type `Edm.Date` is the last day in the period or the
 first day after the period. The upper period boundary for items in
@@ -1494,69 +1221,45 @@ value, it defaults to `max`.
 
 This works identical to the SQL statement UPDATE FOR PORTION OF:
 
-1\. The "delta time slices" in `deltaTimeslices` are processed in the
-order of the collection.
-
-2\. For each delta time slice all time slices from the bound collection
-are selected whose temporal object key values are identical to the
-values of corresponding properties present in the delta time slice, and
-whose application-time period overlaps with the period of the delta time
-slice.
-
-3\. Selected time slices whose period is not fully included in the
-period of the delta time slice are split into two or three consecutive
-time slices, one with fully included period, and one or two with a
-non-overlapping period immediately before or after the delta time
-slice's period.
-
-4\. Then all fully included time slices (including ones created in the
-previous step) are updated following the rules for updating entities
-specified in
-[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
-
-5\. Gaps between selected time slices in the period to update are not
-affected.
+1. The "delta time slices" in `deltaTimeslices` are processed in the
+   order of the collection.
+2. For each delta time slice all time slices from the bound collection
+   are selected whose temporal object key values are identical to the
+   values of corresponding properties present in the delta time slice, and
+   whose application-time period overlaps with the period of the delta time
+   slice.
+3. Selected time slices whose period is not fully included in the
+   period of the delta time slice are split into two or three consecutive
+   time slices, one with fully included period, and one or two with a
+   non-overlapping period immediately before or after the delta time
+   slice's period.
+4. Then all fully included time slices (including ones created in the
+   previous step) are updated following the rules for updating entities
+   specified in [OData-Protocol](#ODataProtocol).
+5. Gaps between selected time slices in the period to update are not affected.
 
 On success it returns the created or updated time slices.
 
 ::: example
 Example 18: Change a department's budget during a period of application
-time with
-[`api-2`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_2)
-(visible timeline)
-```
+time with [`api-2`](#api2) (visible timeline)
+```json
 POST \~/Departments('D08')/history/Temporal.Update
-:::
-
 Content-Type: application/json
 
- 
-
 {
-
-  \"deltaTimeslices\": \[
-
+  "deltaTimeslices": [
     {
-
-      \"Timeslice\": {
-
-        \"From\": \"2012-04-01\",
-
-        \"To\": \"2014-07-01\",
-
-        \"Budget\": 1320
-
+      "Timeslice": {
+        "From": "2012-04-01",
+        "To": "2014-07-01",
+        "Budget": 1320
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
-
-Given the [example department
-data](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ExampleData)
+Given the [example department data](#ExampleData)
 the operation will split the time slice starting at 2012-01-01 creating
 a new time slice starting at 2012-04-01 which is then updated with the
 desired budget. It will then update the time slice starting at
@@ -1579,157 +1282,84 @@ the new time slice starting at 2014-07-01 untouched:
   D15      2011-01-01   max          Services            1170
 
 It returns the resulting created or updated time slices
-```
+```json
 {
-
-  \"@odata.context\":
-
-    \"../../\$metadata#Collection(Temporal.TimesliceWithPeriod)\",
-
-  \"value\": \[
-
+  "@odata.context": "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
-
-        \"From\": \"2012-01-01\",
-
-        \"To\": \"2012-04-01\",
-
-        \"Name\": \"Support\",
-
-        \"Budget\": 1250
-
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-01-01",
+        "To": "2012-04-01",
+        "Name": "Support",
+        "Budget": 1250
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
-
-        \"From\": \"2012-04-01\",
-
-        \"To\": \"2012-06-01\",
-
-        \"Name\": \"Support\",
-
-        \"Budget\": 1320
-
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-04-01",
+        "To": "2012-06-01",
+        "Name": "Support",
+        "Budget": 1320
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
-
-        \"From\": \"2012-06-01\",
-
-        \"To\": \"2014-01-01\",
-
-        \"Name\": \"1st Level Support\",
-
-        \"Budget\": 1320
-
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-06-01",
+        "To": "2014-01-01",
+        "Name": "1st Level Support",
+        "Budget": 1320
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
-
-        \"From\": \"2014-01-01\",
-
-        \"To\": \"2014-07-01\",
-
-        \"Name\": \"1st Level Support\",
-
-        \"Budget\": 1320
-
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2014-01-01",
+        "To": "2014-07-01",
+        "Name": "1st Level Support",
+        "Budget": 1320
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
-
-        \"From\": \"2014-07-01\",
-
-        \"To\": \"9999-12-31\",
-
-        \"Name\": \"1st Level Support\",
-
-        \"Budget\": 1400
-
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2014-07-01",
+        "To": "9999-12-31",
+        "Name": "1st Level Support",
+        "Budget": 1400
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
-
 The service could have joined the third and fourth time slice because
 they do not significantly differ.
-
- 
+:::
 
 ::: example
 Example 19: Change an employee's job title during a period of
-application time with
-[`api-1`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_1)
-(snapshot). Note that the period boundaries are not visible in
-[`api-1`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_1)
-and are provided as `PeriodStart` and `PeriodEnd` next to the
-`Timeslice` data. The `PeriodEnd` is omitted, meaning the end of
-application time.
-```
+application time with [`api-1`](#api1) (snapshot). Note that the period boundaries are not visible in
+[`api-1`](#api1) and are provided as `PeriodStart` and `PeriodEnd` next to the
+`Timeslice` data. The `PeriodEnd` is omitted, meaning the end of application time.
+```json
 POST \~/Employees/Temporal.Update
-:::
-
 Content-Type: application/json
-
  
-
 {
-
-  \"deltaTimeslices\": \[
-
+  "deltaTimeslices": [
     {
-
-      \"PeriodStart\": \"2021-10-01\",
-
-      \"Timeslice\": {
-
-        \"ID\": \"E401\",
-
-        \"Jobtitle\": \"Ultimate Expert\"
-
+      "PeriodStart": "2021-10-01",
+      "Timeslice": {
+        "ID": "E401",
+        "Jobtitle": "Ultimate Expert"
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
-
-Given the [example employee
-data](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ExampleData)
+Given the [example employee data](#ExampleData)
 the operation will split the time slice for employee `E401` starting at
 2012-03-01 creating a new time slice starting at 2021-10-01 which is
 then updated with the desired job title.
@@ -1746,58 +1376,34 @@ then updated with the desired job title.
   E401     2021-10-01   max          Gibson     Ultimate Expert   D15
 
 It returns the resulting created or updated time slices
-```
+```json
 {
-
-  \"@odata.context\":
-\"../\$metadata#Collection(Temporal.TimesliceWithPeriod)\",
-
-  \"value\": \[
-
+  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
     {
-
-      \"PeriodStart\": \"2012-03-01\",
-
-      \"PeriodEnd\": \"2021-10-01\",
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Employees/\$entity\",
-
-        \"ID\": \"E401\",
-
-        \"Name\": \"Gibson\",
-
-        \"Jobtitle\": \"Expert\"
-
+      "PeriodStart": "2012-03-01",
+      "PeriodEnd": "2021-10-01",
+      "Timeslice": {
+        "@odata.context": "#Employees/$entity",
+        "ID": "E401",
+        "Name": "Gibson",
+        "Jobtitle": "Expert"
       }
-
     },
-
     {
-
-      \"PeriodStart\": \"2021-10-01\",
-
-      \"PeriodEnd\": \"9999-12-31\",
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#Employees/\$entity\",
-
-        \"ID\": \"E401\",
-
-        \"Name\": \"Gibson\",
-
-        \"Jobtitle\": \"Ultimate Expert\"
-
+      "PeriodStart": "2021-10-01",
+      "PeriodEnd": "9999-12-31",
+      "Timeslice": {
+        "@odata.context": "#Employees/$entity",
+        "ID": "E401",
+        "Name": "Gibson",
+        "Jobtitle": "Ultimate Expert"
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 #### <a name="UpsertduringaPeriod" href="#UpsertduringaPeriod">4.3.2.2 Upsert during a Period</a>
 
@@ -1806,86 +1412,54 @@ time slices whose temporal object keys match and whose periods overlap,
 and in addition creates new time slices to close gaps in the matching
 time period.
 
-It has the same signature as
-[`Update`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#UpdateduringaPeriod),
-and steps 1 to 4 work identical to
-[`Update`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#UpdateduringaPeriod).
+It has the same signature as [`Update`](#UpdateduringaPeriod),
+and steps 1 to 4 work identical to [`Update`](#UpdateduringaPeriod).
 Step 5 is
 
-5\. Gaps between selected time slices in the period to update are closed
-by creating new adjacent time slices: for each gap that has an
-immediately preceding time slice, a new time slice is created by
+5. Gaps between selected time slices in the period to update are closed
+   by creating new adjacent time slices: for each gap that has an
+   immediately preceding time slice, a new time slice is created by
 
-a\. copying the property values of the preceding time slice (except for
-computed properties),
+   1. copying the property values of the preceding time slice
+      (except for computed properties),
+   2. setting the period boundaries to close the gap, and then
+   3. updating the new time slice following the rules for updating
+      entities specified in [OData-Protocol](#ODataProtocol).
 
-b\. setting the period boundaries to close the gap, and then
-
-c\. updating the new time slice following the rules for updating
-entities specified in
-[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
-
-If no preceding time slice exists, the time slice is created following
-the rules for creating entities specified in
-[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+   If no preceding time slice exists, the time slice is created following
+   the rules for creating entities specified in [OData-Protocol](#ODataProtocol).
 
 On success it returns the created or updated time slices.
 
 ::: example
-Example 20: Upsert two [cost
-centers](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_costcenters)
+Example 20: Upsert two [cost centers](#CostCenters)
 during a period of application time using the model from Example 8
-```
+```json
 POST \~/CostCenters/Temporal.Upsert
-:::
-
 Content-Type: application/json
 
- 
-
 {
-
-  \"deltaTimeslices\": \[
-
+  "deltaTimeslices": [
     {
-
-      \"Timeslice\": {
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C1\",
-
-        \"ValidTo\": \"2001-03-31\",
-
-        \"ValidFrom\": \"1984-04-01\",
-
-        \"ProfitCenterID\": \"P2\"
-
+      "Timeslice": {
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "2001-03-31",
+        "ValidFrom": "1984-04-01",
+        "ProfitCenterID": "P2"
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C2\",
-
-        \"ValidFrom\": \"2012-04-01\",
-
-        \"DepartmentID\": \"D04\"
-
+      "Timeslice": {
+        "AreaID": "51",
+        "CostCenterID": "C2",
+        "ValidFrom": "2012-04-01",
+        "DepartmentID": "D04"
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
-
 Given this example data
 
 **CostCenters (before)**
@@ -1894,7 +1468,7 @@ Given this example data
   ---------- ------------ ------------------ ------------- ------------ ---------------- --------------
   n          51           C1                 max           1955-04-01   P1               D02
 
-[t]{style="color:white"}he operation will split the time slice `n` for
+the operation will split the time slice `n` for
 cost center `C1` starting at 1955-04-01 creating two new time slices,
 the one starting at 1984-04-01 is then updated with the desired profit
 center. It will also insert a new time slice for the not yet existing
@@ -1912,116 +1486,63 @@ ends the day before the start of the next adjacent time slice.
   p          51           C1                 max           2001-04-01   P1               D02
   q          51           C2                 max           2012-04-01                    D04
 
-[It returns the ]{style="color:white"}resulting created or updated time
-slices per affected temporal object
-```
+It returns the resulting created or updated time slices per affected temporal object
+```json
 {
-
-  \"@odata.context\":
-\"../\$metadata#Collection(Temporal.TimesliceWithPeriod)\",
-
-  \"value\": \[
-
+  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#CostCenters/\$entity\",
-
-        \"tsid\": \"n\",
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C1\",
-
-        \"ValidTo\": \"1984-03-31\",
-
-        \"ValidFrom\": \"1955-04-01\",
-
-        \"ProfitCenterID\": \"P1\",
-
-        \"DepartmentID\": \"D02\"
-
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "n",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "1984-03-31",
+        "ValidFrom": "1955-04-01",
+        "ProfitCenterID": "P1",
+        "DepartmentID": "D02"
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#CostCenters/\$entity\",
-
-        \"tsid\": \"o\",
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C1\",
-
-        \"ValidTo\": \"2001-03-31\",
-
-        \"ValidFrom\": \"1984-04-01\",
-
-        \"ProfitCenterID\": \"P2\",
-
-        \"DepartmentID\": \"D02\"
-
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "o",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "2001-03-31",
+        "ValidFrom": "1984-04-01",
+        "ProfitCenterID": "P2",
+        "DepartmentID": "D02"
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#CostCenters/\$entity\",
-
-        \"tsid\": \"p\",
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C1\",
-
-        \"ValidTo\": \"9999-12-31\",
-
-        \"ValidFrom\": \"2001-04-01\",
-
-        \"ProfitCenterID\": \"P1\",
-
-        \"DepartmentID\": \"D02\"
-
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "p",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "9999-12-31",
+        "ValidFrom": "2001-04-01",
+        "ProfitCenterID": "P1",
+        "DepartmentID": "D02"
       }
-
     },
-
     {
-
-      \"Timeslice\": {
-
-        \"@odata.context\": \"#CostCenters/\$entity\",
-
-        \"tsid\": \"q\",
-
-        \"AreaID\": \"51\",
-
-        \"CostCenterID\": \"C2\",
-
-        \"ValidTo\": \"9999-12-31\",
-
-        \"ValidFrom\": \"2012-04-01\",
-
-        \"ProfitCenterID\": null,
-
-        \"DepartmentID\": \"D04\"
-
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "q",
+        "AreaID": "51",
+        "CostCenterID": "C2",
+        "ValidTo": "9999-12-31",
+        "ValidFrom": "2012-04-01",
+        "ProfitCenterID": null,
+        "DepartmentID": "D04"
       }
-
     }
-
-  \]
-
+  ]
 }
 ```
+:::
 
 #### <a name="DeleteduringaPeriod" href="#DeleteduringaPeriod">4.3.2.3 Delete during a Period</a>
 
@@ -2030,31 +1551,26 @@ The `Delete` action deletes (sub-periods of) time slices.
 Its non-binding parameter `deltaTimeslices` is a collection of a
 structure containing the period boundaries and optionally temporal
 object key values. The period boundaries are interpreted according to
-the
-[`UnitOfTime`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
+the [`UnitOfTime`](#VocabularyforTemporalData)
 of the collection. In particular, `ClosedClosedPeriods` governs whether
 the period end of type `Edm.Date` is the last day in the period or the
 first day after the period.
 
 This works identical to the SQL statement DELETE FOR PORTION OF:
-
-1\. The "delta time slices" in `deltaTimeslices` are processed in the
-order of the collection.
-
-2\. For each delta time slice all time slices from the bound collection
-are selected whose temporal object key values are identical to the
-values of corresponding properties present in the delta time slice, and
-whose application-time period overlaps with the period of the delta time
-slice.
-
-3\. Selected time slices whose period is not fully included in the
-period of the delta time slice are split into two consecutive time
-slices, one with non-overlapping, and one with fully included period.
-
-4\. Then all fully included time slices (including ones created in the
-previous step) are deleted following the rules for deleting entities
-specified in
-[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+ 
+1. The "delta time slices" in `deltaTimeslices` are processed in the
+   order of the collection.
+2. For each delta time slice all time slices from the bound collection
+   are selected whose temporal object key values are identical to the
+   values of corresponding properties present in the delta time slice, and
+   whose application-time period overlaps with the period of the delta time
+   slice.
+3. Selected time slices whose period is not fully included in the
+   period of the delta time slice are split into two consecutive time
+   slices, one with non-overlapping, and one with fully included period.
+4. Then all fully included time slices (including ones created in the
+   previous step) are deleted following the rules for deleting entities
+   specified in [OData-Protocol](#ODataProtocol).
 
 On success it returns the deleted time slices.
 
