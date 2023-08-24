@@ -1,0 +1,3817 @@
+<html>
+
+<head>
+<base href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html">
+<meta name="description" content="This specification defines how to represent and interact with time-dependent data using OData.">
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>OData Extension for Temporal Data Version 4.0</title>
+
+
+</head>
+
+<body>
+<h1>##sec Introduction</h1>
+
+</div>
+
+<p class=MsoNormal style='margin:0in'>This specification adds the notion of
+time-dependency to the Open Data Protocol (OData) without changing any of the
+base principles of OData. It defines semantics and a representation for
+temporal data, especially:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='margin-top:0in;margin-bottom:0in'>Semantics and
+     operations for querying and modifying temporal data,</li>
+ <li class=MsoNormal style='margin-top:0in;margin-bottom:0in'>Vocabulary terms
+     to annotate which data depends on time, and how.</li>
+</ul>
+
+<h2>##subsec Terminology</h2>
+
+<p class=MsoNormal>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”,
+“SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in
+this document are to be interpreted as described in <span class=Refterm>[RFC2119]</span>.</p>
+
+<h2>##subsec Normative
+References</h2>
+
+<p class=MsoNormal style='margin-left:141.75pt;text-indent:-127.55pt'><a
+name=ABNF><span class=Refterm>[OData-ABNF]</span></a>                     <i>OData
+ABNF Construction Rules Version 4.01</i>. <br>
+See the link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=MsoNormal style='margin-left:141.75pt;text-indent:-127.55pt'><a
+name=ABNFTemp><b>[</b></a><a name=ODataAggregationRef><b>OData-Aggregation</b></a><b>]           </b><i>OData
+Extension for Data Aggregation Version 4.0</i>. <br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><span
+class=Refterm>[OData-CSDLJSON]</span>             <i>OData
+Common Schema Definition Language (CSDL) JSON Representation Version 4.01</i>. <br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><span
+class=Refterm>[OData-CSDLXML]</span>               <i>OData Common Schema
+Definition Language (CSDL) XML Representation Version 4.01</i>. <br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><span
+class=Refterm>[OData-Protocol]</span>                 <i>OData
+Version 4.01 Part 1: Protocol</i>. <br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><a name=url><span
+class=Refterm>[OData-Temporal-ABNF]</span>     <i>OData Temporal ABNF
+Construction Rules Version 4.0</i>. <br>
+See link in &quot;</a><a href="#AdditionalArtifacts">Additional artifacts</a>&quot;
+section on cover page. </p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><span
+class=Refterm>[OData-URL]</span>                        <i>OData Version 4.01
+Part 2: URL Conventions</i>. <br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=MsoNormal style='margin-left:141.75pt;text-indent:-127.55pt'><a name=VocCore><b>[</b></a><a name=VocCapabilities><b>OData-VocCap</b></a><b>]</b>                  <i>OData
+Vocabularies Version 4.0: Capabilities Vocabulary. </i><br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'>OData-VocCore                 <i>OData
+Vocabularies Version 4.0: Core Vocabulary</i><i>. </i><br>
+See link in &quot;<a href="#RelatedWork">Related work</a>&quot; section on
+cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'>OData-VocTemporal          <i>OData Temporal
+Vocabulary</i>. <br>
+See link in &quot;<a href="#AdditionalArtifacts">Additional artifacts</a>&quot;
+section on cover page.</p>
+
+<p class=Ref style='margin-left:141.75pt;text-indent:-127.55pt'><a
+name=rfc2119><span class=Refterm>[RFC2119]</span></a>                           Bradner,
+S.,“Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC
+2119, March 1997.<a href="http://www.ietf.org/rfc/rfc2119.txt">http://www.ietf.org/rfc/rfc2119.txt</a>.</p>
+
+<h2>##subsec Non-Normative
+References</h2>
+
+<p class=Ref><a name=Rollup><span class=Refterm>[Fowler]</span></a><span
+class=Refterm>            </span><span class=Refterm><i><span style='font-weight:
+normal'>Temporal Patterns</span></i></span><span class=Refterm><span
+style='font-weight:normal'>, Martin Fowler,</span></span><a
+href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
+
+<p class=Ref><a name=Kulkarni><span class=Refterm>[Kulkarni]</span></a><span
+class=Refterm>         </span><i>Temporal Features in SQL standard</i>, Krishna
+Kulkarni, September, 2012,<a
+href="https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf">https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf</a>.</p>
+
+<p class=Ref><b>[Snodgrass]</b>     <i>Developing Time-Oriented Database
+Applications in SQL</i>, Richard T. Snodgrass, Morgan Kaufmann Publishers,
+Inc., San Francisco, July, 1999, ISBN 1-55860-436-7, <a
+href="http://www2.cs.arizona.edu/people/rts/tdbbook.pdf">http://www2.cs.arizona.edu/people/rts/tdbbook.pdf</a>
+and <a href="http://www2.cs.arizona.edu/people/rts/pp30-31.pdf">http://www2.cs.arizona.edu/people/rts/pp30-31.pdf</a>.</p>
+
+<p class=Ref><a name=SQL2011><span class=Refterm>[SQL:2011]</span></a><span
+class=Refterm>       </span>ISO/IEC 9075-2:2011 Information technology -
+Database languages - SQL - Part 2: Foundation (SQL/Foundation).</p>
+
+<h2>##subsec Typographical Conventions</h2>
+
+<p class=MsoNormal>Keywords defined by this specification use this <code>monospaced</code> font.</p>
+
+<p class=SourceCode><code>Normative source code uses this paragraph style.</code></p>
+
+<p class=MsoNormal>Some sections of this specification are illustrated with
+non-normative examples.</p>
+
+<p class=MsoCaption>Example 1: text describing an example uses this paragraph
+style</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Non-normative examples use this paragraph style.</p>
+
+</div>
+
+<p class=MsoNormal>All examples in this document are non-normative and
+informative only.</p>
+
+<p class=MsoNormal>All other text is normative unless otherwise labeled.</p>
+
+
+
+<h1>##sec Overview</h1>
+
+
+
+<p class=MsoNormal>When keeping track of time, the most important questions
+are:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>When did or will something happen?</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>When did we learn that it happened?</p>
+
+<p class=MsoBodyText>This leads to two “directions” or “dimensions” of time
+(measured as a date or date-plus-time value):</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><a href="#ApplicationTime">Application time</a>, also called
+actual time, business time, effective time, or valid time, and</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><a href="#SystemTime">System time</a>, also called recording
+time, audit time, or transaction time.</p>
+
+<p class=MsoBodyText>Keeping track of time is typically done by storing data
+together with the time period for which that data is deemed valid or effective,
+using separate periods for application time and system time, and the time
+periods are part of the logical key for “records”. See <a href="#SQL2011"><b>[SQL:2011]</b></a>
+or <a href="#Kulkarni"><b>[Kulkarni]</b></a> on how this is done in the SQL
+standard.</p>
+
+<p class=MsoNormal>A consumer's perspective on this data can be different: even
+if time is tracked internally, the period of time may or may not be visible in
+a consumer's perspective, and even if visible the related properties are often
+not considered part of an entity’s identity. For example, an employee is still
+the same person even after switching to another department.</p>
+
+<p class=MsoNormal>The goals of this extension are:</p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:39.0pt;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Keep the API models as simple as possible by allowing to hide
+time-dependency,</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:39.0pt;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Provide easy means for <a href="#QueryOptionat">point-in-time
+queries</a> even if time-dependency is hidden,</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:39.0pt;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Provide easy means for <a
+href="#QueryOptionsfromtoandtoInclusive">time-range queries</a> if time-dependency
+is visible, and</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:39.0pt;text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Provide easy means for modifying time-dependent data.</p>
+
+<h2>##subsec Definitions</h2>
+
+<h3>##subsubsec Application
+Time</h3>
+
+<p class=MsoNormal>Application time is used to describe data that is known to
+change over time, for example the budget of a department, or which department
+an employee works for. Application time may capture planned changes in the
+future, for example transferring an employee to a new department next month or
+capturing next year's budget for a department. Both future and past data can be
+changed.</p>
+
+<h3>##subsubsec System Time</h3>
+
+<p class=MsoNormal>System time is used to record when data became known by the
+“system of record”. System time does not extend into the future, and record
+entries are only added and are never changed.</p>
+
+<p class=MsoNormal>System time is never manipulated directly, and typically not
+visible in APIs, except for “last changed at” time stamps, and the
+corresponding properties are read-only.</p>
+
+<p class=MsoNormal>As system time is typically not visible in APIs, we do not
+consider this in the remainder of this document.</p>
+
+<h3>##subsubsec Temporal Object</h3>
+
+<p class=MsoNormal>A temporal object is a set of data whose change over time is
+tracked by the service as a sequence of <a href="#TimeSlice">time slices</a>.</p>
+
+<h3>##subsubsec Time Slice</h3>
+
+<p class=MsoNormal>A piece of temporal data with attached time period,
+documenting that the data did not change during this time period.</p>
+
+<p class=MsoNormal>Time slices for the same <a href="#TemporalObject">temporal
+object</a> are non-overlapping, so for any given point in time there is at most
+one slice whose time period contains that point in time. </p>
+
+<p class=MsoNormal>Time slices for a temporal object need not cover the
+complete timeline. There can be points in time for which no time slice exists,
+indicating that the object’s values are not known to the service.</p>
+
+<h4>##subsubsubsec Closed-Open Semantics</h4>
+
+<p class=MsoNormal>Time slices typically use closed-open semantics, following <a
+href="#SQL2011"><b>[SQL:2011]</b></a>. This means the start is part of the
+period, the end is not part of the period, and for directly adjacent time
+slices the end of the earlier time slice is identical to the start of the next
+time slice. The period start must be less than the period end.</p>
+
+<h4>##subsubsubsec Closed-Closed Semantics</h4>
+
+<p class=MsoNormal>Some software systems predating the availability of temporal
+databases and with data type <i>date</i> for the application-time period start
+and end use closed-closed semantics. Temporal services on top of these systems
+can either convert their period end boundaries on-the-fly by adding one day on
+the way out and subtracting one day on the way in, or alternatively express the
+used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
+
+<h3 style='margin-left:.25in;text-indent:-.25in'>2.1.5 Snapshot Entity Set</h3>
+
+<p class=MsoNormal>An entity in a snapshot entity set represents a <a
+href="#TemporalObject">temporal object</a> at a specified point in time.
+When the entity is addressed via a resource path (directly or via related
+resources), the point in time must be specified, see section “<a
+href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query
+Options</a>” for details on how to determine this point in time.</p>
+
+<p class=MsoNormal><span class=cf01>The
+entity’s id and its canonical URL are independent of this point in time. Hence,
+they are sufficient to </span><span class=cf11>reference</span><span class=cf01> the entity but not </span><span
+class=cf11>address</span><span
+class=cf01> it. In other words:
+The entity can be considered a function that maps each point in time to an
+instance of the entity type. That function can be </span><span
+class=cf11>referenced</span><span
+class=cf01> but only its values
+can be </span><span class=cf11>addressed</span><span
+class=cf01>.</span></p>
+
+<p class=MsoNormal><span class=cf01>Without
+a point in time, statements about individual structural or navigation properties
+of the entity or even about its existence cannot be made, and </span><a
+href="#RequestingChangestoTemporalData">change tracking</a><span
+class=cf01> is not possible.</span></p>
+
+<p class=MsoNormal>Snapshot entity sets MUST be <a
+href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineSnapshot</code>.</p>
+
+<h3>##subsubsec Timeline Entity Set</h3>
+
+<p class=MsoNormal>An entity in a timeline entity set represents one <a
+href="#TimeSlice">time slice</a> of a <a href="#TemporalObject">temporal
+object</a>, and all time slices of that temporal object are part of the entity
+set.</p>
+
+<p class=MsoNormal><span class=cf01>The
+entity’s id and its canonical URL depend on the period of application time of
+the corresponding time slice. </span><span class=cf11>Referencing</span><span
+class=cf01> and </span><span
+class=cf11>addressing</span><span
+class=cf01> the entity are
+equivalent concepts, unlike in the snapshot case.</span></p>
+
+<p class=MsoNormal>The response to a time-range request need not reflect the
+time-slice cut of the underlying data model.</p>
+
+<p class=MsoNormal>Services MAY condense/defragment adjacent time slices that
+do not differ in represented properties other than the period boundaries. This
+reduces the payload size, and it also avoids potential information leakage if
+the service only publishes a projection of the underlying data model.</p>
+
+<p class=MsoNormal>Services MAY also split time slices to align their
+boundaries with nested expanded time slices to represent a “coarsest common
+slicing” across an expand tree.</p>
+
+<p class=MsoNormal>Timeline
+entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with
+a <code>Timeline</code> of type <code>TimelineVisible</code>.</p>
+
+<h2>##subsec Example Model</h2>
+
+<p class=MsoNormal>Assume a simple scenario: employees will work in different
+roles and in different departments during their career, and sometimes they even
+change their name. At each point in time the employee has exactly one name, one
+job title, and is assigned to one department. </p>
+
+<p class=MsoNormal>Employees are assigned an immutable ID when first entering
+the company, and all employee-related data will be recorded with an
+application-time period attached. This allows entering planned changes ahead of
+time, using a future application-time start date: if an employee will get a
+different job title or switch to a different department, this data can already
+be entered into the system and stored as a new record.</p>
+
+<p class=MsoNormal>In the sections below we will discuss two different API
+models that can be backed by the same storage model:</p>
+
+<p class=MsoCaption>Example 2: model for <code>api-1</code> with snapshot entity sets (hidden application
+time), key properties marked with {id}</p>
+
+<p class=MsoNormal style='margin-left:21.3pt'><img border=0 width=473
+height=96 id="Picture 4" src="odata-temporal-ext-v4.0-cs01_files/image002.png"></p>
+
+<p class=MsoNormal>and</p>
+
+<p class=MsoCaption>Example 3: model for <code>api-2</code> with timeline entity sets (visible application
+time), key properties marked with {id}</p>
+
+<p class=MsoNormal style='margin-left:21.3pt'><img border=0 width=473
+height=217 id="Picture 3" src="odata-temporal-ext-v4.0-cs01_files/image003.png"></p>
+
+<h2>##subsec Example Data</h2>
+
+<p class=MsoNormal>Both API models in the previous section are views on the
+same underlying data. A possible storage model for this data is:</p>
+
+<p class=MsoCaption>Example 4: simple storage model: object keys in dark green,
+temporal sub-keys in light green, foreign keys in orange, non-key fields in
+blue</p>
+
+<p class=MsoNormal style='margin-left:21.3pt'><img border=0 width=386
+height=186 id="Picture 5" src="odata-temporal-ext-v4.0-cs01_files/image004.png"></p>
+
+<p class=MsoNormal>The period start date is used as the temporal sub-key for
+identifying time slices together with the key of the temporal object.</p>
+
+<p class=MsoNormal>Note: alternatively, the period end date could have been
+used as temporal sub-key, or the primary key of the time slice tables could
+have been an artificial key (sequence number, UUID, …) with both the temporal
+object key and the period boundaries as non-key fields.</p>
+
+<p class=MsoNormal>The following example data will be used to further
+illustrate the capabilities introduced by this extension. It assumes that the
+example services only support four-digit years.</p>
+
+<p class=MsoCaption>Example 5: example data: object key in dark green, temporal
+sub-key in light green, foreign keys in orange, non-key fields in blue</p>
+
+<p class=MsoNormal style='text-indent:21.3pt'><b>Employees</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+   background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>ID</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>From</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>To</p>
+   </td>
+   <td width=76 valign=top style='width:56.7pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Name</p>
+   </td>
+   <td width=66 valign=top style='width:49.6pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Jobtitle</p>
+   </td>
+   <td width=64 valign=top style='width:48.2pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#FBD4B4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Department.ID</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2011-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2013-10-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Junior</p>
+  </td>
+  <td width=64 valign=top style='width:48.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D08</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2013-10-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2014-01-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Senior</p>
+  </td>
+  <td width=64 valign=top style='width:48.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D08</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2014-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Senior</p>
+  </td>
+  <td width=64 valign=top style='width:48.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E401</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2009-11-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2012-03-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Norman</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Expert</p>
+  </td>
+  <td width=64 valign=top style='width:48.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E401</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2012-03-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Gibson</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Expert</p>
+  </td>
+  <td width=64 valign=top style='width:48.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.25pt;page-break-after:avoid'><b>Departments</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+   background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'><b>ID</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'><b>From</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>To</p>
+   </td>
+   <td width=123 valign=top style='width:92.15pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>Name</p>
+   </td>
+   <td width=66 valign=top style='width:49.6pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>Budget</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2010-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1000</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-06-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1250</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-06-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1st Level Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1250</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>max</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1st Level Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1400</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D15</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2010-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2011-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Services</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1100</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D15</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2011-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>max</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Services</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1170</p>
+  </td>
+ </tr>
+</table>
+
+<h2>##subsec Example Use Cases</h2>
+
+<p class=MsoNormal>A client might wish to query the example APIs in several
+ways:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Snapshot API</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>a. Retrieve a
+current employee, together with the employee’s current department.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>b. Retrieve
+an employee as of a particular point in time, including the employee’s
+department as of that same point in time.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Timeline API</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>a. Retrieve
+employees that worked for the “Services” department in 2010.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>b. Retrieve
+all time slices of an employee.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>c. Retrieve
+all time slices of an employee for a given application-time period, including
+all time slices of the related departments within the application-time period
+of each employee time slice.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>d. Change a
+department's budget in the past, present, or future.</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'>e. Change an
+employee’s association to a department in the past, present, or future.</p>
+
+
+
+<h1>##sec Vocabulary for Temporal Data</h1>
+
+
+
+<p class=MsoNormal>The vocabulary for temporal data <a href="#VocTemporal">OData-VocTemporal</a>
+defines a structured term for describing temporal query and modification
+capabilities of temporal services.</p>
+
+<p class=MsoNormal>The term <code>ApplicationTimeSupport</code>
+describes the temporal capabilities of an entity set. It can be applied to an entity
+set, or to a containment navigation property to describe its implicit entity
+sets. It has a structured type with the following properties:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span style='font-family:Symbol'>· </span><code>UnitOfTime</code> describes the data type of
+the application-time period start and end values. Its value is a record of either
+type <code>UnitOfTimeDate</code> or <code>UnitOfTimeDateTimeOffset</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><code>o </code>Records of type <code>UnitOfTimeDateTimeOffset</code>
+MUST specify the property <code>Precision</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><code>o </code>Records of type <code>UnitOfTimeDate</code> MAY
+specify the property <code>ClosedClosedPeriods</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><code>Timeline</code> describes the kind of
+temporal entity set. Its value is a record of either type <code>TimelineSnapshot</code>
+or <code>TimelineVisible</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><code>o </code>Records of type <code>TimelineSnapshot</code> MUST
+NOT specify any properties.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><code>o </code>Records of type <code>TimelineVisible</code> MUST
+specify the properties <code>PeriodStart</code> and <code>PeriodEnd</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§ </span>These properties MUST point to properties of the annotated entity
+set whose values are the period start and end of a time slice.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§ </span>The start is always included in the time slice, the end is
+included if and only if the sibling property <code>UnitOfTime</code>
+is of type <code>UnitOfTimeDate</code> and specifies property <code>ClosedClosedPeriods</code> as <code>true</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§ </span>If the period end property does not specify a default value, a
+default value of “ad infinitum” is assumed.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in'>Records of type <code>TimelineVisible</code> MAY specify the property <code>ObjectKey</code>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+class=Datatype><span style='font-family:Wingdings'>§ </span></span><code>ObjectKey is the “sub-key” or “alternate key”
+that identifies time slices for a single temporal object. </code>It is
+only necessary if the annotated entity set can contain time slices for more
+than one temporal object. <code>The
+object key is </code>a collection of property paths whose value
+combination uniquely identifies a temporal object. </p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><code>SupportedActions</code> is a collection of
+qualified names of temporal actions that may be bound to the annotated entity
+set. These can be the <a href="#ModifyingTemporalData">standard actions
+defined in this specification</a>, or service-specific actions.</p>
+
+<p class=MsoCaption>Example 6: <code>Employees</code> entity set
+from <a href="#example_api_1">example model api-1</a> annotated
+with temporal terms</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&quot;Employees&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;$Collection&quot;: true,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;$Type&quot;: &quot;OrgModel.Employee&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@Temporal.ApplicationTimeSupport&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;Timeline&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;@odata.type&quot;:
+&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;UnitOfTime&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>},</p>
+
+</div>
+
+<p class=MsoCaption>Example 7: <code>history</code> navigation
+property in entity set <code>Employees</code> from <a
+href="#example_api_2">example model api-2</a> annotated
+with temporal terms</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><a
+name="_Toc498519477">&quot;$Annotations&quot;: {</a></p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;OrgModel.Default/Employees/history&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;@Temporal.ApplicationTimeSupport&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeline&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.type&quot;:
+&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;TimeSliceStart&quot;: &quot;From&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;TimeSliceEnd&quot;: &quot;To&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;SupportedActions&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Temporal.Update&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Temporal.Upsert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Temporal.Delete&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;UnitOfTime&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.type&quot;:
+&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Example
+8: <code>CostCenters</code> entity set containing time
+slices for multiple temporal objects, the temporal objects identified by
+combination of <code>AreaID</code> and <code>CostCenterID</code></p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&quot;CostCenter&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;$Kind&quot;: &quot;EntityType&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;$Key&quot;: [&quot;tsid&quot;],</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;tsid&quot;: {},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;AreaID&quot;: {},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;CostCenterID&quot;: {},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ValidTo&quot;: { &quot;$Type&quot;:
+&quot;Edm.Date&quot; },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ValidFrom&quot;: { &quot;$Type&quot;:
+&quot;Edm.Date&quot; },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ProfitCenterID&quot;: { &quot;$Nullable&quot;: true
+},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;DepartmentID&quot;: { &quot;$Nullable&quot;: true }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&quot;Default&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;$Kind&quot;: &quot;EntityContainer&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;CostCenters&quot;: { &quot;$Collection&quot;: true,
+&quot;$Type&quot;: &quot;this.CostCenter&quot; }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>},</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&quot;$Annotations&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;this.Default/CostCenters&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;@Temporal.ApplicationTimeSupport&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;UnitOfTime&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.type&quot;:
+&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ClosedClosedPeriods&quot;: true</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeline&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;PeriodStart&quot;: &quot;ValidFrom&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;PeriodEnd&quot;: &quot;ValidTo&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ObjectKey&quot;: [&quot;AreaID&quot;, &quot;CostCenterID&quot;]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;SupportedActions&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Temporal.Update&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Temporal.Upsert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Temporal.Delete&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+
+
+<h1>##sec Temporal Requests</h1>
+
+
+
+<h2>##subsec Temporal
+Expressions</h2>
+
+<p class=MsoNormal>A temporal expression is</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>A date in the form <code>dateValue</code>, see <a
+href="#ODataABNF">OData-ABNF</a></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>A timestamp in the form <code>dateTimeOffsetValueInUrl</code>,
+see <a href="#ODataABNF">OData-ABNF</a></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+class=Datatype><span style='font-family:Symbol'>· </span></span>One of the literals <code>min</code> or <code>max</code></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>An expression resulting in a date or timestamp value</p>
+
+<p class=MsoNormal>The literals <code>min</code> and <code>max</code> are interpreted depending on the data type of the
+time period start and end. They represent the minimum and maximum values of the
+time period that the service will allow. Their values are service specific as
+they can depend on the capabilities of the underlying data model.</p>
+
+<p class=MsoNormal>Note that there is no literal for “today” as clients and
+services can be in different time zones and thus can have different notions of
+which date is “today”. Clients are advised to use concrete temporal values and
+should avoid using the URL function <code>now()</code> with
+period start and end of type <code>Edm.Date</code>.</p>
+
+<p class=MsoNormal>Note that services may allow service-defined functions for
+temporal expressions, for example to deal with fiscal years in a particular
+company.</p>
+
+<h2>##subsec Querying Temporal Data</h2>
+
+<p class=MsoNormal>Temporal query options allow point-in-time as well as time-range
+queries. They take a temporal expression as their argument whose result type
+MUST match the type of the corresponding time period start and end.</p>
+
+<p class=MsoNormal>Adding temporal query options to a request does not alter
+the response shape, it only affects the returned data.</p>
+
+<p class=MsoNormal>Temporal query options can be used with data modification
+operations, in which case they do not alter the modification semantics of the
+request, they only affect the response. That is, they only influence the
+“implicit <code>GET</code>” after successful data modification.</p>
+
+<p class=MsoNormal>If no temporal query options are specified,</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>timeline entity sets return all time slices, and</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>snapshot entity sets return the snapshot valid at the time of the
+request.</p>
+
+<h3>##subsubsec Propagation of Temporal
+Query Options</h3>
+
+<p class=MsoNormal>Temporal query options can be specified for the requested
+resource, and for expanded navigation properties. They are propagated along
+navigation paths and <code>$expand</code> until overridden on an
+expanded navigation property, and the overridden query option values are
+propagated from there to further expanded navigation properties.</p>
+
+<p class=MsoNormal>If any temporal query option is specified for an expanded
+navigation property, all temporal query options are overridden, and only the
+explicitly specified temporal query options take effect and are propagated
+further.</p>
+
+<p class=MsoNormal>Temporal query options can be specified even if the directly
+addressed resource does not track time. In this case the temporal query options
+do not have any effect other than being propagated along <code>$expand</code>.
+</p>
+
+<p class=MsoNormal>For entities in a <a href="#SnapshotEntitySet">snapshot
+entity set</a> the point in time for representing data is determined by the
+first applicable rule:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1. by the
+query option <a href="#QueryOptionat"><code>$at</code></a>
+nested within <code>$expand</code></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2. by a <a
+href="#QueryOptionat"><code>$at</code></a>
+value propagated along <code>$expand</code></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3. by <a
+href="#QueryOptionat"><code>$at</code></a>
+in the query option part of the request URL, which applies to every segment of
+the resource path and paths that occur in system query options</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4. by the
+default value &quot;now&quot; – the logic for determining this value is
+service-specific</p>
+
+<p class=MsoNormal>For entities in a <a href="#TimelineEntitySet">timeline
+entity set</a> the time interval for filtering time slices is determined by the
+first applicable rule:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1. by nested temporal
+query options within <code>$expand</code></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2. by
+temporal query option values propagated along <code>$expand</code></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>3. by temporal
+query options in the query option part of the request URL</p>
+
+<h3>##subsubsec Query Option <code>$at</code></h3>
+
+<p class=MsoNormal>The <code>$at</code> query option takes a
+temporal expression as its argument. It retrieves the snapshot whose
+application time period contains the value of <code>$at</code>.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'>For timeline entity sets and
+collection-valued navigation to timeline entity sets, <code>$at=&lt;point-in-time&gt;</code>
+is shorthand for</p>
+
+<p class=SourceCode><a href="#QueryOptionsfromtoandtoInclusive">$from</a><code>=&lt;point-in-time&gt;&amp;</code><a
+href="#QueryOptionsfromtoandtoInclusive">$toInclusive</a><code>=&lt;point-in-time&gt;</code></p>
+
+<p class=MsoNormal>The query option <code>$at</code> can be
+combined with <code>$filter</code> and <code>$search</code>.
+Only entities satisfying all specified criteria are returned.</p>
+
+<p class=MsoCaption>Example 9: Retrieve current data of an employee</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-1/Employees('E314')</p>
+
+</div>
+
+<p class=MsoCaption>results in</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Jobtitle&quot;: &quot;Senior&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Example 10: retrieve employee at a specific point in
+application time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-1/Employees('E314')?$at=2012-01-01</p>
+
+</div>
+
+<p class=MsoCaption>results in</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Jobtitle&quot;: &quot;Junior&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Example
+11: retrieve multiple employees at a past point in time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-1/Employees?$filter=contains(Name,'i')&amp;$at=2012-01-01</p>
+
+</div>
+
+<p class=MsoCaption>results in one time slice for each employee matching the
+filter at the specified point in time – note that E401 back then does not
+satisfy this condition</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Jobtitle&quot;: &quot;Junior&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoNormal>Expanding related entities in combination with <code>$at</code> is straight-forward: the response
+consists of the time slices of related entities that are valid at the requested
+point in time. The period boundaries of the nested entities reflect the actual
+validity of the related entities and are independent of the period boundaries
+of the base entity.</p>
+
+<p class=MsoCaption>Example 12: retrieve employee in the past, show the past department
+as of a later point in time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-1/Employees('E314')?$at=2012-01-01&amp;$expand=Department($at=2021-11-23)</p>
+
+</div>
+
+<p class=MsoCaption>results in</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Jobtitle&quot;: &quot;Junior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;ID&quot;: &quot;D08&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;Name&quot;: &quot;1st Level Support&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Example 13: retrieve department in the future with expanded
+employees at the same point in time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-1/Departments('D15')?$at=2015-01-01&amp;$expand=Employees</p>
+
+</div>
+
+<p class=MsoCaption>results in</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Departments/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;ID&quot;: &quot;D15&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Name&quot;: &quot;Services&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;Employees&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Jobtitle&quot;: &quot;Senior&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Jobtitle&quot;: &quot;Expert&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<h3>##subsubsec Query Options <code>$from</code>, <code>$to</code>,
+and <code>$toInclusive</code></h3>
+
+<p class=MsoNormal>The query options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code> only
+have an effect on timeline entity sets and collection-valued navigation to
+timeline entity sets. They each take a temporal expression as their argument.</p>
+
+<p class=MsoNormal>Allowed combinations are:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><code>$from</code> and <code>$to</code>
+defines a closed-open interval</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><code>$from</code> and <code>$toInclusive</code>
+defines a closed-closed interval</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><code>$from</code> and neither <code>$to</code> nor <code>$toInclusive</code>
+defines a closed-closed interval with right boundary <code>max</code>.</p>
+
+<p class=MsoNormal>It is not allowed to combine <code>$from</code>
+and <code>$to</code>/<code>$toInclusive</code>
+with <a href="#QueryOptionat"><code>$at</code></a>
+because <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
+
+<p class=SourceCode><code>$from=&lt;point-in-time&gt;&amp;$toInclusive=&lt;point-in-time&gt;</code></p>
+
+<p class=MsoNormal>The result is restricted to time slices whose
+application-time period overlaps with the interval defined by the query option
+values, taking the closed-open or closed-closed semantics of the entity set’s
+time slices into account. The benefit of the query options is that the client
+does not have to inspect the temporal annotations to determine the property
+names of the period boundaries, the period semantics, and get all comparison
+operators right. </p>
+
+<p class=MsoNormal>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$to=&lt;end&gt;</code> is shorthand for</p>
+
+<p class=SourceCode><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt;
+and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
+
+<p class=MsoNormal>and for timeline entity sets with closed-closed semantics
+shorthand for</p>
+
+<p class=SourceCode><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt;
+and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
+
+<p class=MsoNormal>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$toInclusive=&lt;end&gt;</code> is
+shorthand for</p>
+
+<p class=SourceCode><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt;
+and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
+
+<p class=MsoNormal>and for timeline entity sets with closed-closed semantics
+shorthand for</p>
+
+<p class=SourceCode><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt;
+and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
+
+<p class=MsoNormal>The query options <code>$from</code> and <code>$to</code>/<code>$toInclusive</code> can be
+combined with <code>$filter</code> and <code>$search</code>.
+Only entities satisfying all specified criteria are returned.</p>
+
+<p class=MsoNormal>If no <code>$select</code> is specified, each
+returned entity SHOULD contain the application-time period boundaries as part
+of the default selection.</p>
+
+<p class=MsoCaption>Example 14:
+retrieve employee history over a period of application time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-2/Employees?$expand=history($select=Name,Jobtitle)</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                    &amp;$from=2012-03-01&amp;$to=2025-01-01</p>
+
+</div>
+
+<p class=MsoCaption>results in one entity for each employee with time slices
+that overlap the specified application-time period:</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Junior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2011-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2013-10-01&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2013-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2014-01-01&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Expert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>The history for the first
+employee contains two time slices that do not differ in the represented
+properties, caused by a department change, and the department is not part of
+the representation.</p>
+
+<p class=MsoCaption>The service could have combined these two time slices into
+one.</p>
+
+<p class=MsoCaption>Example 15:
+retrieve all employees that ever worked for department D15, with their full
+history, and the department’s data at the start of each employee history time slice</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'><span
+style='color:black'>GET /api-2/Departments('D15')/Employees?<br>
+  $expand=history(<br>
+    @emp=$this;<br>
+    $expand=Department(<br>
+      $expand=history($at=@emp/From)<br>
+    )<br>
+  )</span></p>
+
+</div>
+
+<p class=MsoCaption>has the following result with department names and budgets
+as of the beginning of each employee time slice:</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;: &quot;$metadata#Employees&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Junior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2011-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2013-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;ID&quot;: &quot;D08&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;history&quot;: [{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Name&quot;: &quot;Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Budget&quot;: 1000,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;From&quot;: &quot;2010-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;To&quot;: &quot;2012-10-01&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            }]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2013-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;ID&quot;: &quot;D08&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;history&quot;: [{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Name&quot;: &quot;1st Level Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Budget&quot;: 1250,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;From&quot;: &quot;2012-06-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;To&quot;: &quot;2014-01-01&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            }]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;ID&quot;: &quot;D15&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;history&quot;: [{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Name&quot;: &quot;Services&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Budget&quot;: 1170,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;From&quot;: &quot;2011-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            }]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;Norman&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Expert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2009-11-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;ID&quot;: &quot;D15&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;history&quot;: []</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Expert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Department&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;ID&quot;: &quot;D15&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            &quot;history&quot;: [{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Name&quot;: &quot;Services&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;Budget&quot;: 1170,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;From&quot;: &quot;2011-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>              &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>            }]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<h3>##subsubsec Interaction with
+Standard System Query Options</h3>
+
+<p class=MsoNormal>For <a href="#SnapshotEntitySet">snapshot entity sets</a>
+the point in time for representing data is determined following the rules in
+section “<a href="#PropagationofTemporalQueryOptions">Propagation of
+Temporal Query Options</a>” and evaluated <i>first</i>, then all other system
+query options are evaluated on the data valid at that point in time, including
+the query option <code>$apply</code> defined in <a
+href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">OData-Aggregation</a>.</p>
+
+<p class=MsoNormal>For timeline entity sets the interval for filtering data is
+determined following the rules in section “<a
+href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query
+Options</a>” and evaluated as an additional criterion for <code>$filter</code>
+in the evaluation sequence defined in <a
+href="https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptions">OData-Protocol,
+section System Query Options</a>, which is evaluated <i>after</i> the
+query option <code>$apply</code>.</p>
+
+<p class=MsoCaption>Example 16: retrieve employee history over a period of
+application time and filter on job title</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-2/Employees?$expand=history(</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                       $select=Name,Jobtitle;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                       $from=2012-03-01&amp;$to=2025-01-01;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                       $filter=contains(Jobtitle,'e')</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                     )</p>
+
+</div>
+
+<p class=MsoCaption>results in one entity for each employee with time slices
+that overlap the specified application-time period and satisfy the filter
+condition (one less than in Example 14):</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E314&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2013-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;2014-01-01&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;McDevitt&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Senior&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Expert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoNormal>The lambda operators <code>any()</code> and <code>all()</code> are not influenced by temporal query options, they
+are interpreted for each time slice on the filtered collection, meaning “any
+related time slice satisfying the lambda expression” and “all related time
+slices satisfy the lambda expression”. The lambda expressions however can
+contain sub-expressions working on the period boundaries.</p>
+
+<p class=MsoCaption>Example 17: filter employees on their name at any point in
+time</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>GET /api-2/Employees?$expand=history($select=Name,Jobtitle)</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                     &amp;$from=2015-01-01</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>                    
+&amp;$filter=history/any(h:startswith(h/Name,'N'))</p>
+
+</div>
+
+<p class=MsoCaption>results in one employee whose name matches in the past, and
+the matching time slice is not in the requested time period</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:
+&quot;$metadata#Employees&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;history&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;Jobtitle&quot;: &quot;Expert&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;From&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>          &quot;To&quot;: &quot;9999-12-31&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<h3>##subsubsec Requesting Changes to Temporal
+Data</h3>
+
+<p class=MsoNormal>Change tracking for timeline entity sets works identical to
+non-temporal entity sets. If the entity set supports change-tracking combined
+with filtering on application-time period boundaries, the corresponding
+declared properties SHOULD be listed as <a
+href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType"><code>FilterableProperties</code></a>, see <a
+href="#ODataVocCap">OData-VocCap</a>. Clients can then use these
+properties in <code>$filter</code> or use the convenience
+shortcuts <a href="#QueryOptionat"><code>$at</code></a>
+or <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a>.</p>
+
+<p class=MsoNormal>Change tracking for snapshot entity sets only reports
+changes to time slices that contain the point in time specified via <a
+href="#QueryOptionat"><code>$at</code></a>,
+or the point in time at which the defining query was received if no <a
+href="#QueryOptionat"><code>$at</code></a>
+is specified. Mere passage of time does not lead to reported changes.</p>
+
+<h2>##subsec Modifying Temporal Data</h2>
+
+<p class=MsoNormal>This section and its subsections describe modifications in
+application time, both for </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><i>snapshot entity sets</i> with hidden application time, where
+time slices exist in the data persistency but are not directly visible in the
+entity set, each OData entity corresponds to a temporal object and only represents
+data at one point in time, and for</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span><i>timeline entity sets</i> with visible application time, where
+each OData entity corresponds to an application-time slice and all application-time
+slices of a temporal object are part of the entity set.</p>
+
+<p class=MsoNormal>Modification operations fall into two categories: </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Direct modification of time slices, and </p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>Changes to a temporal object over a period of application time
+that can affect multiple time slices without explicitly addressing each single affected
+time slice.</p>
+
+<h3>##subsubsec Direct Modification of Time
+Slices</h3>
+
+<p class=MsoNormal>The temporal query options <a href="#QueryOptionat"><code>$at</code></a>, <a
+href="#QueryOptionsfromtoandtoInclusive"><code>$from</code>
+and <code>$to</code>/<code>$toInclusive</code></a> can be used with data modification
+operations, in which case they do not alter the modification semantics of the
+request, they only affect the response of the “implicit <code>GET</code>”
+after the data modification.</p>
+
+<p class=MsoNormal>Modification of time slices SHOULD be done with the temporal
+actions defined in the next section and its subsections. </p>
+
+<p class=MsoNormal>This specification does not define the behavior of standard
+insert, update, upsert, or delete requests on temporal entity sets, and
+potential side-effects of direct modification requests to period boundaries and
+adjacent time slices are beyond the scope of this specification as the
+underlying business logic will vary from service to service.</p>
+
+<h3>##subsubsec Operations on Temporal Objects</h3>
+
+<p class=MsoNormal>Changes to a temporal object over a period of application
+time can affect multiple time slices. For timeline entity sets this can in
+principle be achieved by constructing batch requests with multiple operations
+on individual time slices. This puts burden on the client, and it also makes it
+harder for services to check whether the request represents a consistent change
+of the temporal data.</p>
+
+<p class=MsoNormal>Both can be avoided by providing convenience operations
+expressing the intent of the modification and leaving the actual time slice
+manipulation to the service. These operations can then also be used with
+snapshot entity sets that do not allow direct manipulation of time slices.</p>
+
+<p class=MsoNormal>These convenience operations are modeled as bound actions
+and defined in the vocabulary for temporal data <a href="#VocTemporal">OData-VocTemporal</a>.
+Implementations SHOULD consider the preferences <code>return=representation</code>
+and <code>return=minimal</code> as specified in <a href="#odata">OData-Protocol</a>.
+The convenience operations are atomic (all or nothing): they either succeed and
+produce the result described below, or they fail and do not change the temporal
+objects.</p>
+
+<p class=MsoNormal>All actions define a collection of entities as their binding
+parameter. This collection can be</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>A snapshot entity set</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>A timeline entity set containing time slices for a single
+temporal object, or </p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>· </span>A timeline entity set containing time slices for multiple
+temporal objects.</p>
+
+<p class=MsoNormal>Services MAY support any or all of these convenience
+actions. Services SHOULD advertise the supported actions with property <a
+href="#VocabularyforTemporalData"><code>SupportedActions</code>
+of term <code>TemporalSupport</code></a>.</p>
+
+<p class=MsoNormal>Services may define specialized convenience operations for
+use cases not covered by this specification.</p>
+
+<p class=MsoNormal>All actions return a collection of triples that consist of
+period start and end and a time slice, which has the same entity set as the
+binding parameter and advertises this through <code>odata.context</code>
+control information.</p>
+
+<h4>##subsubsubsec Update during a Period</h4>
+
+<p class=MsoNormal>The <code>Update</code> action updates
+existing time slices with values from delta time slices whose temporal object
+keys match and whose periods overlap.</p>
+
+<p class=MsoNormal>Its non-binding parameter <code>deltaTimeslices</code>
+is a collection of a structure containing the period boundaries, the properties
+to update, and optionally temporal object key values. The period boundaries are
+interpreted according to the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a> of the collection. In particular,
+<code>ClosedClosedPeriods</code> governs whether the period end of
+type <code>Edm.Date</code> is the last day in the period or the
+first day after the period. The upper period boundary for items in <code>deltaTimeslices</code> need not be supplied; if it has no
+declared default value, it defaults to <code>max</code>.</p>
+
+<p class=MsoNormal>This works identical to the SQL statement UPDATE FOR PORTION
+OF: </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1. The “delta
+time slices” in <code>deltaTimeslices</code> are processed in
+the order of the collection.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2. For each
+delta time slice all time slices from the bound collection are selected whose
+temporal object key values are identical to the values of corresponding
+properties present in the delta time slice, and whose application-time period
+overlaps with the period of the delta time slice. </p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3. Selected
+time slices whose period is not fully included in the period of the delta time
+slice are split into two or three consecutive time slices, one with fully
+included period, and one or two with a non-overlapping period immediately
+before or after the delta time slice’s period. </p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4. Then all
+fully included time slices (including ones created in the previous step) are
+updated following the rules for updating entities specified in <a href="#odata">OData-Protocol</a>.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>5. Gaps
+between selected time slices in the period to update are not affected.</p>
+
+<p class=MsoNormal>On success it returns the created or updated time slices.</p>
+
+<p class=MsoCaption>Example 18: Change a department's budget during a period of
+application time with <a href="#example_api_2"><code>api-2</code></a>
+(visible timeline)</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>POST ~/Departments('D08')/history/Temporal.Update</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Content-Type: application/json</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;deltaTimeslices&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2012-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;2014-07-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1320</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Given the <a href="#ExampleData">example department
+data</a> the operation will split the time slice
+starting at 2012-01-01 creating a new time slice starting at 2012-04-01 which
+is then updated with the desired budget. It will then update the time slice
+starting at 2012-06-01 with the desired budget, and finally it will split the
+time slice starting at 2014-01-01 creating a new time slice starting at
+2014-07-01, then update the original with the desired budget, leaving the new
+time slice starting at 2014-07-01 untouched:</p>
+
+<p class=MsoNormal style='text-indent:21.25pt;page-break-after:avoid'><b>Departments
+(after)</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+   background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'><b>ID</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'><b>From</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>To</p>
+   </td>
+   <td width=123 valign=top style='width:92.15pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>Name</p>
+   </td>
+   <td width=66 valign=top style='width:49.6pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in;page-break-after:avoid'>Budget</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2010-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1000</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-04-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1250</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-04-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-06-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1320</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2012-06-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1st
+  Level Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1320</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-07-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1st
+  Level Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1320</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D08</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2014-07-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>max</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1st
+  Level Support</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1400</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D15</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2010-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2011-01-01</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Services</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1100</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D15</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2011-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>max</p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Services</p>
+  </td>
+  <td width=66 valign=top style='width:49.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>1170</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoCaption>It returns the resulting created or updated time slices</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;:</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    &quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Departments('D08')/history/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2012-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;2012-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1250</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Departments('D08')/history/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2012-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;2012-06-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1320</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Departments('D08')/history/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2012-06-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;1st Level Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1320</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Departments('D08')/history/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2014-01-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;2014-07-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;1st Level Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1320</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Departments('D08')/history/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;From&quot;: &quot;2014-07-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;To&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;1st Level Support&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Budget&quot;: 1400</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>The service could have joined the third and fourth time
+slice because they do not significantly differ.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoCaption>Example 19: Change an employee's job title during a period
+of application time with <a href="#example_api_1"><code>api-1</code></a> (snapshot). Note that the period boundaries are
+not visible in <a href="#example_api_1"><code>api-1</code></a>
+and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code>
+data. The <code>PeriodEnd</code> is omitted, meaning the end of
+application time.</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>POST ~/Employees/Temporal.Update</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Content-Type: application/json</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;deltaTimeslices&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;PeriodStart&quot;: &quot;2021-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Jobtitle&quot;: &quot;Ultimate Expert&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Given the <a
+href="#ExampleData">example employee data</a> the
+operation will split the time slice for employee <code>E401</code>
+starting at 2012-03-01 creating a new time slice starting at 2021-10-01 which
+is then updated with the desired job title.</p>
+
+<p class=MsoNormal style='text-indent:21.3pt'><b>Employees (after)</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+   background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>ID</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>From</b></p>
+   </td>
+   <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>To</p>
+   </td>
+   <td width=76 valign=top style='width:56.7pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Name</p>
+   </td>
+   <td width=113 valign=top style='width:85.05pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Jobtitle</p>
+   </td>
+   <td width=104 valign=top style='width:77.95pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#FBD4B4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>Department.ID</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2011-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2013-10-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Junior</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D08</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2013-10-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2014-01-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Senior</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D08</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E314</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2014-01-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>McDevitt</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Senior</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E401</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2009-11-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2012-03-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Norman</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Expert</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>E401</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2012-03-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2021-10-01</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Gibson</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>Expert</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=47 valign=top style='width:35.4pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>E401</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>2021-10-01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>max</p>
+  </td>
+  <td width=76 valign=top style='width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Gibson</p>
+  </td>
+  <td width=113 valign=top style='width:85.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>Ultimate
+  Expert</p>
+  </td>
+  <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in;page-break-after:avoid'>D15</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoCaption>It returns the resulting created or updated time slices</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;: &quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;PeriodStart&quot;: &quot;2012-03-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;PeriodEnd&quot;: &quot;2021-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Employees/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Jobtitle&quot;: &quot;Expert&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;PeriodStart&quot;: &quot;2021-10-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;PeriodEnd&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#Employees/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ID&quot;: &quot;E401&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Name&quot;: &quot;Gibson&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;Jobtitle&quot;: &quot;Ultimate Expert&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<h4>##subsubsubsec Upsert during a Period</h4>
+
+<p class=MsoNormal>The <code>Upsert</code> action upserts
+existing time slices with values from delta time slices whose temporal object
+keys match and whose periods overlap, and in addition creates new time slices
+to close gaps in the matching time period.</p>
+
+<p class=MsoNormal>It has the same signature as <a
+href="#UpdateduringaPeriod"><code>Update</code></a>,
+and steps 1 to 4 work identical to <a href="#UpdateduringaPeriod"><code>Update</code></a>. Step 5 is</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>5. Gaps
+between selected time slices in the period to update are closed by creating new
+adjacent time slices: for each gap that has an immediately preceding time
+slice, a new time slice is created by</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>a. copying
+the property values of the preceding time slice (except for computed
+properties), </p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>b. setting
+the period boundaries to close the gap, and then </p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'>c. updating
+the new time slice following the rules for updating entities specified in <a
+href="#odata">OData-Protocol</a>. </p>
+
+<p class=MsoNormal style='margin-left:.5in'>If no preceding time slice exists,
+the time slice is created following the rules for creating entities specified
+in <a href="#odata">OData-Protocol</a>.</p>
+
+<p class=MsoNormal>On success it returns the created or updated time slices.</p>
+
+<p class=MsoCaption>Example 20: Upsert two <a href="#example_costcenters">cost
+centers</a> during a period of application time using the model from Example 8</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>POST ~/CostCenters/Temporal.Upsert</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>Content-Type: application/json</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>&nbsp;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;deltaTimeslices&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidTo&quot;: &quot;2001-03-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;1984-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ProfitCenterID&quot;: &quot;P2&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C2&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;2012-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;DepartmentID&quot;: &quot;D04&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<p class=MsoCaption>Given this example data</p>
+
+<p class=MsoNormal style='text-indent:21.3pt'><b>CostCenters (before)</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+   background:#EEECE1;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>tsid</b></p>
+   </td>
+   <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>AreaID</b></p>
+   </td>
+   <td width=100 valign=top style='width:74.7pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>CostCenterID</b></p>
+   </td>
+   <td width=83 valign=top style='width:62.35pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>ValidTo</b></p>
+   </td>
+   <td width=83 valign=top style='width:62.35pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>ValidFrom</p>
+   </td>
+   <td width=111 valign=top style='width:83.05pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>ProfitCenterID</p>
+   </td>
+   <td width=104 valign=top style='width:77.85pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>DepartmentID</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>n</p>
+  </td>
+  <td width=57 valign=top style='width:43.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>51</p>
+  </td>
+  <td width=100 valign=top style='width:74.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>C1</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>1955-04-01</p>
+  </td>
+  <td width=111 valign=top style='width:83.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>P1</p>
+  </td>
+  <td width=104 valign=top style='width:77.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D02</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoCaption><span style='color:white'>t</span>he operation will split
+the time slice <code>n</code> for cost center <code>C1</code> starting at 1955-04-01 creating two new time slices,
+the one starting at 1984-04-01 is then updated with the desired profit center.
+It will also insert a new time slice for the not yet existing cost center <code>C2</code> with the desired values.</p>
+
+<p class=MsoCaption>Note that this example uses closed-closed periods, so each
+time slice ends the day before the start of the next adjacent time slice.</p>
+
+<p class=MsoNormal style='text-indent:21.3pt'><b>CostCenters (after)</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.05pt;border-collapse:collapse;border:none'>
+ <thead>
+  <tr>
+   <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+   background:#EEECE1;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>tsid</b></p>
+   </td>
+   <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>AreaID</b></p>
+   </td>
+   <td width=100 valign=top style='width:74.7pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#C2D69B;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>CostCenterID</b></p>
+   </td>
+   <td width=83 valign=top style='width:62.35pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#EAF1DD;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'><b>ValidTo</b></p>
+   </td>
+   <td width=83 valign=top style='width:62.35pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>ValidFrom</p>
+   </td>
+   <td width=111 valign=top style='width:83.05pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>ProfitCenterID</p>
+   </td>
+   <td width=104 valign=top style='width:77.85pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#B8CCE4;padding:0in 5.4pt 0in 5.4pt'>
+   <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+   3.0pt;margin-left:0in'>DepartmentID</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>n</p>
+  </td>
+  <td width=57 valign=top style='width:43.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>51</p>
+  </td>
+  <td width=100 valign=top style='width:74.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>C1</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>1984-03-31</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>1955-04-01</p>
+  </td>
+  <td width=111 valign=top style='width:83.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>P1</p>
+  </td>
+  <td width=104 valign=top style='width:77.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D02</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>o</p>
+  </td>
+  <td width=57 valign=top style='width:43.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>51</p>
+  </td>
+  <td width=100 valign=top style='width:74.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>C1</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2001-03-31</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>1984-04-01</p>
+  </td>
+  <td width=111 valign=top style='width:83.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>P2</p>
+  </td>
+  <td width=104 valign=top style='width:77.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D02</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>p</p>
+  </td>
+  <td width=57 valign=top style='width:43.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>51</p>
+  </td>
+  <td width=100 valign=top style='width:74.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>C1</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2001-04-01</p>
+  </td>
+  <td width=111 valign=top style='width:83.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>P1</p>
+  </td>
+  <td width=104 valign=top style='width:77.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D02</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=57 valign=top style='width:43.05pt;border:solid windowtext 1.0pt;
+  border-top:none;background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>q</p>
+  </td>
+  <td width=57 valign=top style='width:43.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>51</p>
+  </td>
+  <td width=100 valign=top style='width:74.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>C2</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>max</p>
+  </td>
+  <td width=83 valign=top style='width:62.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>2012-04-01</p>
+  </td>
+  <td width=111 valign=top style='width:83.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>&nbsp;</p>
+  </td>
+  <td width=104 valign=top style='width:77.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:#E5DFEC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-top:3.0pt;margin-right:0in;margin-bottom:
+  3.0pt;margin-left:0in'>D04</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoCaption><span style='color:white'>It returns the </span>resulting
+created or updated time slices per affected temporal object</p>
+
+<div style='border-top:solid windowtext 1.0pt;border-left:none;border-bottom:
+solid windowtext 1.0pt;border-right:none;padding:3.0pt 0in 3.0pt 0in;
+background:#D9D9D9;margin-left:.3in;margin-right:.3in'>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>{</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;@odata.context&quot;: &quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  &quot;value&quot;: [</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#CostCenters/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;tsid&quot;: &quot;n&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidTo&quot;: &quot;1984-03-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;1955-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ProfitCenterID&quot;: &quot;P1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;DepartmentID&quot;: &quot;D02&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#CostCenters/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;tsid&quot;: &quot;o&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidTo&quot;: &quot;2001-03-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;1984-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ProfitCenterID&quot;: &quot;P2&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;DepartmentID&quot;: &quot;D02&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#CostCenters/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;tsid&quot;: &quot;p&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidTo&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;2001-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ProfitCenterID&quot;: &quot;P1&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;DepartmentID&quot;: &quot;D02&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    },</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      &quot;Timeslice&quot;: {</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;@odata.context&quot;: &quot;#CostCenters/$entity&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;tsid&quot;: &quot;q&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;AreaID&quot;: &quot;51&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;CostCenterID&quot;: &quot;C2&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidTo&quot;: &quot;9999-12-31&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ValidFrom&quot;: &quot;2012-04-01&quot;,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;ProfitCenterID&quot;: null,</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>        &quot;DepartmentID&quot;: &quot;D04&quot;</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>      }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>    }</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>  ]</p>
+
+<p class=Code style='margin:0in;margin-bottom:.0001pt;background:#D9D9D9'>}</p>
+
+</div>
+
+<h4>##subsubsubsec Delete during a Period</h4>
+
+<p class=MsoNormal>The <code>Delete</code> action deletes
+(sub-periods of) time slices. </p>
+
+<p class=MsoNormal>Its non-binding parameter <code>deltaTimeslices</code>
+is a collection of a structure containing the period boundaries and optionally
+temporal object key values. The period boundaries are interpreted according to
+the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a>
+of the collection. In particular, <code>ClosedClosedPeriods</code>
+governs whether the period end of type <code>Edm.Date</code> is
+the last day in the period or the first day after the period.</p>
+
+<p class=MsoNormal>This works identical to the SQL statement DELETE FOR PORTION
+OF: </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1. The “delta
+time slices” in <code>deltaTimeslices</code> are processed in
+the order of the collection.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2. For each
+delta time slice all time slices from the bound collection are selected whose
+temporal object key values are identical to the values of corresponding
+properties present in the delta time slice, and whose application-time period
+overlaps with the period of the delta time slice. </p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3. Selected
+time slices whose period is not fully included in the period of the delta time
+slice are split into two consecutive time slices, one with non-overlapping, and
+one with fully included period. </p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4. Then all
+fully included time slices (including ones created in the previous step) are
+deleted following the rules for deleting entities specified in <a href="#odata">OData-Protocol</a>.</p>
+
+<p class=MsoNormal>On success it returns the deleted time slices.</p>
+
+<h3>##subsubsec ETags</h3>
+
+<p class=MsoNormal>Timeline entity sets need no special consideration as each
+time slice is an OData entity.</p>
+
+<p class=MsoNormal>This specification does not define the behavior of standard
+insert, update, upsert, or delete requests for snapshot entity sets and
+consequently defines no rules for ETags of entities in snapshot entity sets.
+Services supporting these requests are advised to associate ETags with time
+slices rather than with temporal objects. </p>
+
+<h3>##subsubsec Read, Edit, Navigation, and
+Association URLs</h3>
+
+<p class=MsoNormal>Timeline entity sets need no special consideration as each
+time slice is an OData entity.</p>
+
+<p class=MsoNormal>For snapshot entity sets read, edit, navigation, and
+association URLs are not specific to time slices, they are specific to the
+time-independent OData entity.</p>
+
+
+
+<h1>##sec Conformance</h1>
+
+
+
+<p class=MsoNormal>Conforming services MUST follow all rules of this
+specification for the temporal system query options they support.</p>
+
+<p class=MsoNormal>Conforming clients MUST be prepared to consume a model that
+uses any or all constructs defined in this specification.</p>
+
+
+
+<p class=AppendixHeading1>Appendix A. <a href="#Acknowledgments">Acknowledgments</a></p>
+
+
+
+<p class=MsoNormal>The contributions of the OASIS OData Technical Committee
+members, enumerated in <a href="#odata">OData-Protocol</a>, are
+gratefully acknowledged.</p>
+
+<p class=MsoNormal>Special thanks to Andrew Eisenberg, whose contributions in
+the early stages of the OData TC were invaluable to getting this extension
+specification on track.</p>
+
+
+
+<p class=AppendixHeading1>Appendix B. <a href="#RevisionHistory">Revision
+History</a></p>
+
+
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b>Revision</b></p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b>Date</b></p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b>Editor</b></p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b>Changes Made</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Working Draft 01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>2013-09-05</p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Ralf Handl</p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Initial working draft</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Committee Specification Draft 01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>2021-07-22</p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Ralf Handl</p>
+  <p class=MsoNormal>Hubert Heijkers</p>
+  <p class=MsoNormal>Gerald Krause</p>
+  <p class=MsoNormal>Michael Pizzo</p>
+  <p class=MsoNormal>Heiko Theißen</p>
+  <p class=MsoNormal>Martin Zurmuehl</p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Timeline entity sets for manipulating time slices</p>
+  <p class=MsoNormal>Snapshot entity sets for hiding application-time
+  dependency</p>
+  <p class=MsoNormal>Modification during a period via actions</p>
+  <p class=MsoNormal>Closed-closed application time</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Committee Specification Draft 02</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>2021-10-15</p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Ralf Handl</p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Example model with object key</p>
+  <p class=MsoNormal>Example for Update action on snapshot entity set</p>
+  <p class=MsoNormal>Example for Upsert action with object key</p>
+  <p class=MsoNormal>Semantics of omitting upper period boundaries in action parameters</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Committee Specification Draft 03</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>2021-12-02</p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Ralf Handl</p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Removed the “stop on change” actions</p>
+  <p class=MsoNormal>Minor clarifications</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=106 valign=top style='width:79.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Committee Specification 01</p>
+  </td>
+  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>2022-01-07</p>
+  </td>
+  <td width=139 valign=top style='width:104.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Ralf Handl</p>
+  </td>
+  <td width=287 valign=top style='width:214.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal>Non-material changes</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>&nbsp;</p>
+
+
+
+<p class=AppendixHeading1>Appendix C. <a
+href="#Notices">Notices</a></p>
+
+
+
+<p class=MsoNormal>Copyright © OASIS Open 2022. All Rights Reserved.</p>
+
+<p class=MsoNormal>All capitalized terms in the following text have the
+meanings assigned to them in the OASIS Intellectual Property Rights Policy (the
+&quot;OASIS IPR Policy&quot;). The full <a
+href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be
+found at the OASIS website: [<a
+href="https://www.oasis-open.org/policies-guidelines/ipr/">https://www.oasis-open.org/policies-guidelines/ipr/</a>].</p>
+
+<p class=MsoNormal>This document and translations of it may be copied and
+furnished to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published, and
+distributed, in whole or in part, without restriction of any kind, provided
+that the above copyright notice and this section are included on all such
+copies and derivative works. However, this document itself may not be modified
+in any way, including by removing the copyright notice or references to OASIS,
+except as needed for the purpose of developing any document or deliverable
+produced by an OASIS Technical Committee (in which case the rules applicable to
+copyrights, as set forth in the OASIS IPR Policy, must be followed) or as
+required to translate it into languages other than English.</p>
+
+<p class=MsoNormal>The limited permissions granted above are perpetual and will
+not be revoked by OASIS or its successors or assigns.</p>
+
+<p class=MsoNormal>This document and the information contained herein is
+provided on an &quot;AS IS&quot; basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF
+THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED
+WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. OASIS AND
+ITS MEMBERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES ARISING OUT OF ANY USE OF THIS DOCUMENT OR ANY PART
+THEREOF.</p>
+
+<p class=MsoNormal>As stated in the OASIS IPR Policy, the following three
+paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee
+Specifications, OASIS Standards, or Approved Errata).</p>
+
+<p class=MsoNormal>[OASIS requests that any OASIS Party or any other party that
+believes it has patent claims that would necessarily be infringed by
+implementations of this OASIS Standards Final Deliverable, to notify OASIS TC
+Administrator and provide an indication of its willingness to grant patent
+licenses to such patent claims in a manner consistent with the IPR Mode of the
+OASIS Technical Committee that produced this deliverable.]</p>
+
+<p class=MsoNormal>[OASIS invites any party to contact the OASIS TC
+Administrator if it is aware of a claim of ownership of any patent claims that
+would necessarily be infringed by implementations of this OASIS Standards Final
+Deliverable by a patent holder that is not willing to provide a license to such
+patent claims in a manner consistent with the IPR Mode of the OASIS Technical
+Committee that produced this OASIS Standards Final Deliverable. OASIS may
+include such claims on its website, but disclaims any obligation to do so.]</p>
+
+<p class=MsoNormal>[OASIS takes no position regarding the validity or scope of
+any intellectual property or other rights that might be claimed to pertain to
+the implementation or use of the technology described in this OASIS Standards
+Final Deliverable or the extent to which any license under such rights might or
+might not be available; neither does it represent that it has made any effort
+to identify any such rights. Information on OASIS' procedures with respect to
+rights in any document or deliverable produced by an OASIS Technical Committee
+can be found on the OASIS website. Copies of claims of rights made available
+for publication and any assurances of licenses to be made available, or the
+result of an attempt made to obtain a general license or permission for the use
+of such proprietary rights by implementers or users of this OASIS Standards
+Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes
+no representation that any information or list of intellectual property rights
+will at any time be complete, or that any claims in such list are, in fact,
+Essential Claims.]</p>
+
+<p class=MsoNormal>The name &quot;OASIS&quot; is a trademark of <a
+href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this document,
+and should be used only to refer to the organization and its official outputs.
+OASIS welcomes reference to, and implementation and use of, documents, while
+reserving the right to enforce its marks against misleading uses. Please see <a
+href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a>
+for above guidance.</p>
+
+</div>
+
+</body>
+
+</html>

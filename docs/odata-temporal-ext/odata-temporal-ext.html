@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData)." />
+  <title>OData Extension for Temporal Data Version 4.0</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
+  <link rel="stylesheet" href="styles/odata.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
+<hr />
+<h1 id="odata-extension-for-temporal-data-version-40">OData Extension for Temporal Data Version 4.0</h1>
+<h2 id="committee-specification-draft-04">Committee Specification Draft 04</h2>
+<h2 id="25-january-2022">25 January 2022</h2>
+<p><span class="math inline">\(\hbox{}\)</span></p>
+<h4 id="this-stage">This stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.md">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.pdf">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.pdf</a></p>
+<h4 id="previous-stage">Previous stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.docx">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.docx</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.pdf">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.pdf</a></p>
+<h4 id="latest-stage">Latest stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.md">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.pdf">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.pdf</a></p>
+<h4 id="technical-committee">Technical Committee:</h4>
+<p><a href="https://www.oasis-open.org/committees/odata/">OASIS Open Data Protocol (OData) TC</a></p>
+<h4 id="chairs">Chairs:</h4>
+<p>Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a><br />
+Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a></p>
+<h4 id="editors">Editors:</h4>
+<p>Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
+Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.ibm.com</a>), <a href="https://www.ibm.com/">IBM</a><br />
+Gerald Krause (<a href="mailto:gerald.krause@sap.com">gerald.krause@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
+Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="https://www.microsoft.com/">Microsoft</a><br />
+Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
+Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a></p>
+<h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
+<p>This document is one component of a Work Product that also includes:</p>
+<ul>
+<li>ABNF components: <em>OData Temporal ABNF Construction Rules Version 4.0 and OData Temporal ABNF Test Cases</em>: <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/abnf/">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/abnf/</a></li>
+<li>OData Temporal Vocabulary:
+<ul>
+<li><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.json">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.json</a></li>
+<li><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.xml">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.xml</a></li>
+</ul></li>
+</ul>
+<h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
+<p>This specification is related to:</p>
+<ul>
+<li><em>OData Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
+<ul>
+<li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html</a></li>
+<li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a></li>
+<li><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.0/csd04/abnf/">https://docs.oasis-open.org/odata/odata/v4.0/csd04/abnf/</a></li>
+</ul></li>
+<li><em>OData Vocabularies Version 4.0</em>. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.0/odata-csdl-json-v4.0.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.0/odata-csdl-json-v4.0.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.0/odata-csdl-xml-v4.0.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.0/odata-csdl-xml-v4.0.html</a></li>
+<li><em>OData JSON Format Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a></li>
+<li><em>OData Data Aggregation Extension Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a></li>
+</ul>
+<h4 id="abstract">Abstract:</h4>
+<p>This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).</p>
+<h4 id="status">Status:</h4>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
+<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.</p>
+<h4 id="key-words">Key words:</h4>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
+<h4 id="citation-format">Citation format:</h4>
+<p>When referencing this specification the following citation format should be used:</p>
+<p><strong>[OData-Temporal-v4.0]</strong></p>
+<p><em>OData Extension for Temporal Data Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 25 January 2022. OASIS Committee Specification Draft 04. <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html</a>.</p>
+<h4 id="notices">Notices</h4>
+<p>Copyright © OASIS Open 2022. All Rights Reserved.</p>
+<p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
+<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
+<p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
+<hr />
+<h1 id="table-of-contents">Table of Contents</h1>
+<div class="toc">
+<ul>
+<li><a href="#Introduction">1 Introduction</a>
+<ul>
+<li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
+<li><a href="#Glossary">1.2 Glossary</a>
+<ul>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#Overview">2 Overview</a></li>
+<li><a href="#References">A References</a>
+<ul>
+<li><a href="#NormativeReferences">A.1 Normative References</a></li>
+<li><a href="#InformativeReferences">A.2 Informative References</a></li>
+</ul></li>
+<li><a href="#Acknowledgments">B Acknowledgments</a>
+<ul>
+<li><a href="#SpecialThanks">B.1 Special Thanks</a></li>
+<li><a href="#Participants">B.2 Participants</a></li>
+</ul></li>
+<li><a href="#RevisionHistory">C Revision History</a></li>
+<li><a href="#Notices">D Notices</a></li>
+</ul>
+</div>
+<hr />
+<h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+<p>This specification adds the notion of time-dependency to the Open Data Protocol (OData) without changing any of the base principles of OData. It defines semantics and a representation for temporal data, especially:</p>
+<ul>
+<li>Semantics and operations for querying and modifying temporal data,</li>
+<li>Vocabulary terms to annotate which data depends on time, and how.</li>
+</ul>
+<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
+<!-- TODO -->
+
+<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+
+<h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
+<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
+<!-- TODO -->
+
+<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
+<p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
+<p>Some sections of this specification are illustrated with non-normative examples.</p>
+<div class="example">
+<p>Example 1: text describing an example uses this paragraph style</p>
+<pre><code>Non-normative examples use this paragraph style.</code></pre>
+</div>
+<p>All examples in this document are non-normative and informative only.</p>
+<p>All other text is normative unless otherwise labeled.</p>
+<div class="example">
+<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-temporal-ext-v4.0-csd04.md</code>). Line breaks are added for readability only:</p>
+<pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs
+       -t html
+       -o odata-temporal-ext-v4.0-csd04.html
+       -c styles/markdown-styles-v1.7.3b.css
+       -c styles/odata.css
+       -s
+       --mathjax
+       --eol=lf
+       --wrap=none
+       --metadata pagetitle=&quot;OData Extension for Temporal Data Version 4.0&quot;
+       odata-temporal-ext-v4.0-csd04.md</code></pre>
+<p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
+</div>
+<hr />
+<h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
+<!-- TODO -->
+
+<hr />
+<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+<p>This appendix contains the normative and informative references that are used in this document.</p>
+<p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+<p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
+<h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
+<p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-aggregation"><a name="ODataAggregation">[OData-Aggregation]</a></h6>
+<p><em>OData Extension for Data Aggregation Version 4.0.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
+<p><em>OData Version 4.02. Part 1: Protocol.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
+<p><em>OData Version 4.02. Part 2: URL Conventions.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-voccap"><a name="ODataVocCap">[OData-VocCap]</a></h6>
+<p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
+<p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
+See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
+<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
+<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
+<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
+<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
+<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+<h6 id="fowler"><a name="Fowler">[Fowler]</a></h6>
+<p><em>Martin Fowler, "Temporal Patterns", 16 February 2005</em><br />
+<a href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
+<h6 id="kulkarni"><a name="Kulkarni">[Kulkarni]</a></h6>
+<p><em>Krishna Kulkarni, "Temporal Features in SQL standard", September 2012</em><br />
+<a href="https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf">https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf</a>.</p>
+<h6 id="fowsnodgrassler"><a name="Snodgrass">[FowSnodgrassler]</a></h6>
+<p><em>Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7</em><br />
+<a href="http://www2.cs.arizona.edu/people/rts/tdbbook.pdf">http://www2.cs.arizona.edu/people/rts/tdbbook.pdf</a> and <a href="http://www2.cs.arizona.edu/people/rts/pp30-31.pdf">http://www2.cs.arizona.edu/people/rts/pp30-31.pdf</a>.</p>
+<h6 id="sql2011"><a name="SQL">[SQL:2011]</a></h6>
+<p><em>ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)</em>.</p>
+<hr />
+<h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+<h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a> are gratefully acknowledged.</p>
+<p>Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.</p>
+<h2 id="b2-participants"><a name="Participants" href="#Participants">B.2 Participants</a></h2>
+<p><strong>OData TC Members:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">First Name</th>
+<th style="text-align: left;">Last Name</th>
+<th style="text-align: left;">Company</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">George</td>
+<td style="text-align: left;">Ericson</td>
+<td style="text-align: left;">Dell</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hubert</td>
+<td style="text-align: left;">Heijkers</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ling</td>
+<td style="text-align: left;">Jin</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stefan</td>
+<td style="text-align: left;">Hagen</td>
+<td style="text-align: left;">Individual</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Michael</td>
+<td style="text-align: left;">Pizzo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Christof</td>
+<td style="text-align: left;">Sprenger</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ralf</td>
+<td style="text-align: left;">Handl</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gerald</td>
+<td style="text-align: left;">Krause</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heiko</td>
+<td style="text-align: left;">Theißen</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mark</td>
+<td style="text-align: left;">Biamonte</td>
+<td style="text-align: left;">Progress Software</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Martin</td>
+<td style="text-align: left;">Zurmuehl</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Revision</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Changes Made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Working Draft 01</td>
+<td style="text-align: left;">2013-09-05</td>
+<td style="text-align: left;">Ralf Handl</td>
+<td style="text-align: left;">Initial working draft</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Committee Specification Draft 01</td>
+<td style="text-align: left;">2021-07-22</td>
+<td style="text-align: left;">Ralf Handl<br>Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen<br> Martin Zurmuehl</td>
+<td style="text-align: left;">Timeline entity sets for manipulating time slices<br> Snapshot entity sets for hiding application-time dependency<br> Modification during a period via actions<br> Closed-closed application time</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Committee Specification Draft 02</td>
+<td style="text-align: left;">2021-10-15</td>
+<td style="text-align: left;">Ralf Handl</td>
+<td style="text-align: left;">Example model with object key<br> Example for Update action on snapshot entity set<br> Example for Upsert action with object key<br> Semantics of omitting upper period boundaries in action parameters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Committee Specification Draft 03</td>
+<td style="text-align: left;">2021-12-02</td>
+<td style="text-align: left;">Ralf Handl</td>
+<td style="text-align: left;">Removed the “stop on change” actions<br> Minor clarifications</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Committee Specification 01</td>
+<td style="text-align: left;">2022-01-07</td>
+<td style="text-align: left;">Ralf Handl</td>
+<td style="text-align: left;">Non-material changes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
+<!-- Required section. Do not modify. -->
+
+<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
+<p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
+<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
+<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
+<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+</body>
+</html>
