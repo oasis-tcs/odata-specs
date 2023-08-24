@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol." />
   <title>OData Version 4.02. Part 1: Protocol</title>
   <style>
     code{white-space: pre-wrap;}
@@ -119,7 +120,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="additional-artifacts">Additional artifacts:</h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
-<li><em>OData Version 4.02 Part 1: Protocol</em>. (this document) <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a></li>
+<li><em>OData Version 4.02 Part 1: Protocol</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a></li>
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html</a></li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
@@ -145,7 +146,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [<a href="#rfc2119">RFC2119</a>] and [<a href="#rfc8174">RFC8174</a>] when, and only when, they appear in all capitals, as shown here.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-v4.02-Part1]</strong></p>
@@ -161,12 +162,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><a href="#Introduction">1 Introduction</a>
 <ul>
-<li><a href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></li>
+<li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
 <li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#Definitionsofterms">1.2.1 Definitions of terms</a></li>
-<li><a href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></li>
-<li><a href="#Documentconventions">1.2.3 Document conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#Overview">2 Overview</a></li>
@@ -374,7 +375,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a></li>
 <li><a href="#RemoveaReferencetoanEntity">11.4.6.2 Remove a Reference to an Entity</a></li>
 <li><a href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.6.3 Change the Reference in a Single-Valued Navigation Property</a></li>
-<li><a href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a></li>
+<li><a href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a></li>
 </ul></li>
 <li><a href="#ManagingMediaEntities">11.4.7 Managing Media Entities</a>
 <ul>
@@ -480,24 +481,24 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="#ODataCSDL">OData-CSDLJSON</a> specification defines a JSON representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
-<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a></h2>
+<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
 <!-- TODO -->
 
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
-<h3 id="121-definitions-of-terms"><a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a></h3>
-<h3 id="122-acronyms-and-abbreviations"><a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></h3>
+<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 <!-- TODO -->
 
-<h3 id="123-document-conventions"><a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a></h3>
+<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
 <pre><code>Non-normative examples use this paragraph style.</code></pre>
 </div>
-<p>All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.</p>
+<p>All examples in this document are non-normative and informative only.</p>
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
 <p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-v4.02-csd01-part1-protocol.md</code>). Line breaks are added for readability only:</p>
@@ -830,7 +831,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>track-changes</code> preference is used to request that the service return a <a href="#DeltaLinks">delta link</a> that can subsequently be used to obtain <a href="#RequestingChanges">changes</a> (deltas) to this result. The syntax of the <code>track-changes</code> preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>For <a href="#ServerDrivenPaging">paged results</a>, the preference MUST be specified on the initial request. Services MUST ignore the <a href="#Preferencetrackchangesodatatrackchanges"><code>track-changes</code></a> preference if applied to the next link.</p>
 <p>The delta link MUST only be returned on the final page of results in place of the next link.</p>
-<p>The service includes a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response header in the first page of the response containing the <code>track-changes</code> preference to signal that changes are being tracked.</p>
+<p>The service includes a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header in the first page of the response containing the <code>track-changes</code> preference to signal that changes are being tracked.</p>
 <p>A service MAY specify the support for the <code>track-changes</code> preference using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking"><code>Capabilities.ChangeTracking</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The <code>track-changes</code> preference SHOULD NOT be applied to a batch request, but MAY be applied to individual requests within a batch.</p>
 <p>Note: The <code>track-changes</code> preference was named <code>odata.track-changes</code> in OData version 4.0. Services that support the<code> track-changes</code> preference SHOULD also support <code>odata.track-changes</code> for OData 4.0 clients and clients SHOULD use <code>odata.track-changes</code> for compatibility with OData 4.0 services.</p>
@@ -1897,7 +1898,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
 <p>Alternatively, a relationship MAY be updated as part of an update to the source entity by including the required binding information for the new target entity. This binding information is format-specific, see <a href="#ODataJSON">OData-JSON</a> for details.</p>
 <p>If the single-valued navigation property is used in the key definition of an entity type, it cannot be changed and the request MUST fail with <a href="#ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a> or an other appropriate error.</p>
-<h4 id="11464-replace-all-references-in-a-collection-valued-navigation-property"><a name="ReplaceallReferencesinaCollectionvaluedNavigationProperty" href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a></h4>
+<h4 id="11464-replace-all-references-in-a-collection-valued-navigation-property"><a name="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a></h4>
 <p>A successful <code>PUT</code> request to a collection-valued navigation property's reference resource replaces the set of related entities. The request body MUST contain a collection of entity references in the same format as returned by a <code>GET</code> request to the navigation property's reference resource.</p>
 <p>A successful <code>DELETE</code> request to a collection-valued navigation property's reference resource removes all related references from the collection.</p>
 <h3 id="1147-managing-media-entities"><a name="ManagingMediaEntities" href="#ManagingMediaEntities">11.4.7 Managing Media Entities</a></h3>
@@ -2804,12 +2805,8 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p><em>Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996</em> <a href="https://tools.ietf.org/html/rfc2046">https://tools.ietf.org/html/rfc2046</a>.</p>
 <h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
 <p><a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc3986"><a name="rfc3986">[RFC3986]</a></h6>
-<p><em>Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005</em> <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
 <h6 id="rfc3987"><a name="rfc3987">[RFC3987]</a></h6>
 <p><em>Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005</em> <a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>.</p>
-<h6 id="rfc4648"><a name="rfc4648">[RFC4648]</a></h6>
-<p><em>Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006</em> <a href="https://tools.ietf.org/html/rfc4648">https://tools.ietf.org/html/rfc4648</a>.</p>
 <h6 id="rfc5646"><a name="rfc5646">[RFC5646]</a></h6>
 <p><em>Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009</em> <a href="http://tools.ietf.org/html/rfc5646">http://tools.ietf.org/html/rfc5646</a>.</p>
 <h6 id="rfc5789"><a name="rfc5789">[RFC5789]</a></h6>
@@ -2822,16 +2819,13 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014</em> <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a>.</p>
 <h6 id="rfc7232"><a name="rfc7232">[RFC7232]</a></h6>
 <p><em>Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014</em> <a href="https://tools.ietf.org/html/rfc7232">https://tools.ietf.org/html/rfc7232</a>.</p>
-<p>*###### <a name="rfc7240">[RFC7240]</a> <em>Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014</em> <a href="https://tools.ietf.org/html/rfc7240">https://tools.ietf.org/html/rfc7240</a>.</p>
+<h6 id="rfc7240"><a name="rfc7240">[RFC7240]</a></h6>
+<p><em>Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014</em> <a href="https://tools.ietf.org/html/rfc7240">https://tools.ietf.org/html/rfc7240</a>.</p>
 <h6 id="rfc7617"><a name="rfc7617">[RFC7617]</a></h6>
 <p><em>Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015</em> <a href="https://tools.ietf.org/html/rfc7617">https://tools.ietf.org/html/rfc7617</a>.</p>
-<h6 id="rfc7946"><a name="rfc7946">[RFC7946]</a></h6>
-<p><em>Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016</em> <a href="http://tools.ietf.org/html/rfc7946">http://tools.ietf.org/html/rfc7946</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
-<h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
-<p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em> <a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
@@ -2988,7 +2982,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <td style="text-align: left;">Working Draft 01</td>
 <td style="text-align: left;">2023-07-20</td>
 <td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Import material from OData JSON Format Version 4.01</td>
+<td style="text-align: left;">Import material from OData Version 4.01 Part 1: Protocol</td>
 </tr>
 </tbody>
 </table>

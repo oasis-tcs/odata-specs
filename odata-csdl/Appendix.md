@@ -172,7 +172,7 @@ acknowledged.
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
-| Martin | Zurmühl | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 

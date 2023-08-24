@@ -40,7 +40,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
 
 #### <a name="RelatedWork">Related work:</a>
@@ -69,7 +69,7 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
@@ -96,11 +96,11 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from earlier Versions](#ChangesfromearlierVersions)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
-    - [1.2.1 Definitions of terms](#Definitionsofterms)
-    - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
-    - [1.2.3 Document conventions](#Documentconventions)
+    - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
+    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
+    - [1.2.3 Document Conventions](#DocumentConventions)
 - [2 Overview](#Overview)
 - [3 Data Model](#DataModel)
   - [3.1 Annotations](#Annotations)
@@ -251,7 +251,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.6.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
       - [11.4.6.2 Remove a Reference to an Entity](#RemoveaReferencetoanEntity)
       - [11.4.6.3 Change the Reference in a Single-Valued Navigation Property](#ChangetheReferenceinaSingleValuedNavigationProperty)
-      - [11.4.6.4 Replace all References in a Collection-valued Navigation Property](#ReplaceallReferencesinaCollectionvaluedNavigationProperty)
+      - [11.4.6.4 Replace all References in a Collection-Valued Navigation Property](#ReplaceallReferencesinaCollectionValuedNavigationProperty)
     - [11.4.7 Managing Media Entities](#ManagingMediaEntities)
       - [11.4.7.1 Create a Media Entity](#CreateaMediaEntity)
       - [11.4.7.2 Update a Media Entity Stream](#UpdateaMediaEntityStream)
@@ -340,20 +340,20 @@ representation of the entity data model exposed by an OData service.
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
 resource representations that are exchanged using OData.
 
-## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
+### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -366,7 +366,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
@@ -1583,7 +1583,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 
@@ -4577,7 +4577,7 @@ of an entity type, it cannot be changed and the request MUST fail with
 [`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed) or an other
 appropriate error.
 
-#### <a name="ReplaceallReferencesinaCollectionvaluedNavigationProperty" href="#ReplaceallReferencesinaCollectionvaluedNavigationProperty">11.4.6.4 Replace all References in a Collection-valued Navigation Property</a>
+#### <a name="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a>
 
 A successful `PUT` request to a collection-valued navigation property's
 reference resource replaces the set of related entities. The request
@@ -6639,17 +6639,9 @@ https://tools.ietf.org/html/rfc2046.
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
-
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
 https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
@@ -6675,7 +6667,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 
@@ -6683,17 +6675,9 @@ https://tools.ietf.org/html/rfc7240.
 _Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
 https://tools.ietf.org/html/rfc7617.
 
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
@@ -6822,7 +6806,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
 
 -------
 
