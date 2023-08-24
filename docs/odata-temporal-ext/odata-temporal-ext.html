@@ -119,14 +119,45 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <ul>
 <li><a href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></li>
 <li><a href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></li>
-<li><a href="#SnapshotEntitySet">1.2.1.4.3 Snapshot Entity Set</a></li>
 </ul></li>
-<li><a href="#TimelineEntitySet">1.2.1.5 Timeline Entity Set</a></li>
+<li><a href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a></li>
+<li><a href="#TimelineEntitySet">1.2.1.6 Timeline Entity Set</a></li>
 </ul></li>
 <li><a href="#DocumentConventions">1.2.2 Document Conventions</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#Overview">2 Overview</a></li>
+<li><a href="#Overview">2 Overview</a>
+<ul>
+<li><a href="#ExampleModel">2.1 Example Model</a></li>
+<li><a href="#ExampleData">2.2 Example Data</a></li>
+<li><a href="#ExampleUseCases">2.3 Example Use Cases</a></li>
+</ul></li>
+<li><a href="#VocabularyforTemporalData">3 Vocabulary for Temporal Data</a></li>
+<li><a href="#TemporalRequests">4 Temporal Requests</a>
+<ul>
+<li><a href="#TemporalExpressions">4.1 Temporal Expressions</a></li>
+<li><a href="#QueryingTemporalData">4.2 Querying Temporal Data</a>
+<ul>
+<li><a href="#PropagationofTemporalQueryOptions">4.2.1 Propagation of Temporal Query Options</a></li>
+<li><a href="#QueryOptionat">4.2.2 Query Option <code>$at</code></a></li>
+<li><a href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code></a></li>
+<li><a href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a></li>
+<li><a href="#RequestingChangestoTemporalData">4.2.5 Requesting Changes to Temporal Data</a></li>
+</ul></li>
+<li><a href="#ModifyingTemporalData">4.3 Modifying Temporal Data</a>
+<ul>
+<li><a href="#DirectModificationofTimeSlices">4.3.1 Direct Modification of Time Slices</a></li>
+<li><a href="#OperationsonTemporalObjects">4.3.2 Operations on Temporal Objects</a>
+<ul>
+<li><a href="#UpdateduringaPeriod">4.3.2.1 Update during a Period</a></li>
+<li><a href="#UpsertduringaPeriod">4.3.2.2 Upsert during a Period</a></li>
+<li><a href="#DeleteduringaPeriod">4.3.2.3 Delete during a Period</a></li>
+</ul></li>
+<li><a href="#ETags">4.3.3 ETags</a></li>
+<li><a href="#ReadEditNavigationandAssociationURLs">4.3.4 Read, Edit, Navigation, and Association URLs</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#Conformance">5 Conformance</a></li>
 <li><a href="#References">A References</a>
 <ul>
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
@@ -171,12 +202,12 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Time slices typically use closed-open semantics, following <strong><a href="#SQL">[SQL:2011]</a></strong>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
 <h5 id="12142-closed-closed-semantics"><a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></h5>
 <p>Some software systems predating the availability of temporal databases and with data type <em>date</em> for the application-time period start and end use closed-closed semantics. Temporal services on top of these systems can either convert their period end boundaries on-the-fly by adding one day on the way out and subtracting one day on the way in, or alternatively express the used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
-<h4 id="12143-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.4.3 Snapshot Entity Set</a></h4>
+<h4 id="1215-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a></h4>
 <p>An entity in a snapshot entity set represents a <a href="#TemporalObject">temporal object</a> at a specified point in time. When the entity is addressed via a resource path (directly or via related resources), the point in time must be specified, see section "<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>" for details on how to determine this point in time.</p>
 <p>The entity's id and its canonical URL are independent of this point in time. Hence, they are sufficient to <em>reference</em> the entity but not <em>address</em> it. In other words: the entity can be considered a function that maps each point in time to an instance of the entity type. That function can be <em>referenced</em> but only its values can be <em>addressed</em>.</p>
 <p>Without a point in time, statements about individual structural or navigation properties of the entity or even about its existence cannot be made, and <a href="#RequestingChangestoTemporalData">change tracking</a> is not possible.</p>
 <p>Snapshot entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineSnapshot</code>.</p>
-<h4 id="1215-timeline-entity-set"><a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.5 Timeline Entity Set</a></h4>
+<h4 id="1216-timeline-entity-set"><a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.6 Timeline Entity Set</a></h4>
 <p>An entity in a timeline entity set represents one <a href="#TimeSlice">time slice</a> of a <a href="#TemporalObject">temporal object</a>, and all time slices of that temporal object are part of the entity set.</p>
 <p>The entity's id and its canonical URL depend on the period of application time of the corresponding time slice. <em>Referencing</em> and <em>addressing</em> the entity are equivalent concepts, unlike in the snapshot case.</p>
 <p>The response to a time-range request need not reflect the time-slice cut of the underlying data model.</p>
@@ -228,183 +259,1263 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>Provide easy means for <a href="#QueryOptionsfromtoandtoInclusive">time-range queries</a> if time-dependency is visible, and</li>
 <li>Provide easy means for modifying time-dependent data.</li>
 </ul>
+<h2 id="21-example-model"><a name="ExampleModel" href="#ExampleModel">2.1 Example Model</a></h2>
+<p>Assume a simple scenario: employees will work in different roles and in different departments during their career, and sometimes they even change their name. At each point in time the employee has exactly one name, one job title, and is assigned to one department.</p>
+<p>Employees are assigned an immutable ID when first entering the company, and all employee-related data will be recorded with an application-time period attached. This allows entering planned changes ahead of time, using a future application-time start date: if an employee will get a different job title or switch to a different department, this data can already be entered into the system and stored as a new record.</p>
+<p>In the sections below we will discuss two different API models that can be backed by the same storage model:</p>
+<div class="example">
+<p>Example <a name="api1" href="#api1">2</a>: model for <code>api-1</code> with snapshot entity sets (hidden application time), key properties marked with {id}</p>
+</div>
+<p><strong>TODO: SVG image</strong></p>
+<p><img src="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01_files/image002.png" /></p>
+<p>and</p>
+<div class="example">
+<p>Example <a name="api2" href="#api2">3</a>: model for <code>api-2</code> with timeline entity sets (visible application time), key properties marked with {id}</p>
+</div>
+<p><strong>TODO: SVG image</strong></p>
+<p><img src="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01_files/image003.png" /></p>
+<h2 id="22-example-data"><a name="ExampleData" href="#ExampleData">2.2 Example Data</a></h2>
+<p>Both API models in the previous section are views on the same underlying data. A possible storage model for this data is:</p>
+<div class="example">
+<p>Example 4: simple storage model: object keys in dark green, temporal sub-keys in light green, foreign keys in orange, non-key fields in blue</p>
+</div>
+<p><strong>TODO: SVG image</strong></p>
+<p><img src="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01_files/image004.png" /></p>
+<p>The period start date is used as the temporal sub-key for identifying time slices together with the key of the temporal object.</p>
+<p>Note: alternatively, the period end date could have been used as temporal sub-key, or the primary key of the time slice tables could have been an artificial key (sequence number, UUID, ...) with both the temporal object key and the period boundaries as non-key fields.</p>
+<p>The following example data will be used to further illustrate the capabilities introduced by this extension. It assumes that the example services only support four-digit years.</p>
+<div class="example">
+<p>Example 5: example data: object key in dark green, temporal sub-key in light green, foreign keys in orange, non-key fields in blue</p>
+</div>
+<p><strong>Employees</strong></p>
+<p><strong>ID</strong> <strong>From</strong> To Name Jobtitle Department.ID</p>
 <hr />
-<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
-<p>This appendix contains the normative and informative references that are used in this document.</p>
-<p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
-<h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
-<p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
-<p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-aggregation"><a name="ODataAggregation">[OData-Aggregation]</a></h6>
-<p><em>OData Extension for Data Aggregation Version 4.0.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
-<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
-<p><em>OData Version 4.02. Part 1: Protocol.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
-<p><em>OData Version 4.02. Part 2: URL Conventions.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-voccap"><a name="ODataVocCap">[OData-VocCap]</a></h6>
-<p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
-<p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
-<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
-<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
-<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
-<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
-<h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="fowler"><a name="Fowler">[Fowler]</a></h6>
-<p><em>Martin Fowler, "Temporal Patterns", 16 February 2005</em><br />
-<a href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
-<h6 id="kulkarni"><a name="Kulkarni">[Kulkarni]</a></h6>
-<p><em>Krishna Kulkarni, "Temporal Features in SQL standard", September 2012</em><br />
-<a href="https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf">https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf</a>.</p>
-<h6 id="fowsnodgrassler"><a name="Snodgrass">[FowSnodgrassler]</a></h6>
-<p><em>Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7</em><br />
-<a href="http://www2.cs.arizona.edu/people/rts/tdbbook.pdf">http://www2.cs.arizona.edu/people/rts/tdbbook.pdf</a> and <a href="http://www2.cs.arizona.edu/people/rts/pp30-31.pdf">http://www2.cs.arizona.edu/people/rts/pp30-31.pdf</a>.</p>
-<h6 id="sql2011"><a name="SQL">[SQL:2011]</a></h6>
-<p><em>ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)</em>.</p>
+<p>E314 2011-01-01 2013-10-01 McDevitt Junior D08 E314 2013-10-01 2014-01-01 McDevitt Senior D08 E314 2014-01-01 max McDevitt Senior D15 E401 2009-11-01 2012-03-01 Norman Expert D15 E401 2012-03-01 max Gibson Expert D15</p>
+<p><strong>Departments</strong></p>
+<p><strong>ID</strong> <strong>From</strong> To Name Budget</p>
 <hr />
-<h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
-<h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
-<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a> are gratefully acknowledged.</p>
-<p>Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.</p>
-<h2 id="b2-participants"><a name="Participants" href="#Participants">B.2 Participants</a></h2>
-<p><strong>OData TC Members:</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">First Name</th>
-<th style="text-align: left;">Last Name</th>
-<th style="text-align: left;">Company</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">George</td>
-<td style="text-align: left;">Ericson</td>
-<td style="text-align: left;">Dell</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hubert</td>
-<td style="text-align: left;">Heijkers</td>
-<td style="text-align: left;">IBM</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Ling</td>
-<td style="text-align: left;">Jin</td>
-<td style="text-align: left;">IBM</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Stefan</td>
-<td style="text-align: left;">Hagen</td>
-<td style="text-align: left;">Individual</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Michael</td>
-<td style="text-align: left;">Pizzo</td>
-<td style="text-align: left;">Microsoft</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Christof</td>
-<td style="text-align: left;">Sprenger</td>
-<td style="text-align: left;">Microsoft</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Ralf</td>
-<td style="text-align: left;">Handl</td>
-<td style="text-align: left;">SAP SE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Gerald</td>
-<td style="text-align: left;">Krause</td>
-<td style="text-align: left;">SAP SE</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Heiko</td>
-<td style="text-align: left;">Theißen</td>
-<td style="text-align: left;">SAP SE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Mark</td>
-<td style="text-align: left;">Biamonte</td>
-<td style="text-align: left;">Progress Software</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Martin</td>
-<td style="text-align: left;">Zurmuehl</td>
-<td style="text-align: left;">SAP SE</td>
-</tr>
-</tbody>
-</table>
+<p>D08 2010-01-01 2012-01-01 Support 1000 D08 2012-01-01 2012-06-01 Support 1250 D08 2012-06-01 2014-01-01 1st Level Support 1250 D08 2014-01-01 max 1st Level Support 1400 D15 2010-01-01 2011-01-01 Services 1100 D15 2011-01-01 max Services 1170</p>
+<h2 id="23-example-use-cases"><a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
+<p>A client might wish to query the example APIs in several ways:</p>
+<ul>
+<li>Snapshot API
+<ol type="1">
+<li>Retrieve a current employee, together with the employee's current department.</li>
+<li>Retrieve an employee as of a particular point in time, including the employee's department as of that same point in time.</li>
+</ol></li>
+<li>Timeline API
+<ol type="1">
+<li>Retrieve employees that worked for the "Services" department in 2010.</li>
+<li>Retrieve all time slices of an employee.</li>
+<li>Retrieve all time slices of an employee for a given application-time period, including all time slices of the related departments within the application-time period of each employee time slice.</li>
+<li>Change a department's budget in the past, present, or future.</li>
+<li>Change an employee's association to a department in the past, present, or future.</li>
+</ol></li>
+</ul>
 <hr />
-<h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Revision</th>
-<th style="text-align: left;">Date</th>
-<th style="text-align: left;">Editor</th>
-<th style="text-align: left;">Changes Made</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Working Draft 01</td>
-<td style="text-align: left;">2013-09-05</td>
-<td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Initial working draft</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Committee Specification Draft 01</td>
-<td style="text-align: left;">2021-07-22</td>
-<td style="text-align: left;">Ralf Handl<br>Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen<br> Martin Zurmuehl</td>
-<td style="text-align: left;">Timeline entity sets for manipulating time slices<br> Snapshot entity sets for hiding application-time dependency<br> Modification during a period via actions<br> Closed-closed application time</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Committee Specification Draft 02</td>
-<td style="text-align: left;">2021-10-15</td>
-<td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Example model with object key<br> Example for Update action on snapshot entity set<br> Example for Upsert action with object key<br> Semantics of omitting upper period boundaries in action parameters</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Committee Specification Draft 03</td>
-<td style="text-align: left;">2021-12-02</td>
-<td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Removed the “stop on change” actions<br> Minor clarifications</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Committee Specification 01</td>
-<td style="text-align: left;">2022-01-07</td>
-<td style="text-align: left;">Ralf Handl</td>
-<td style="text-align: left;">Non-material changes</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
-<!-- Required section. Do not modify. -->
+<h1 id="3-vocabulary-for-temporal-data"><a name="VocabularyforTemporalData" href="#VocabularyforTemporalData">3 Vocabulary for Temporal Data</a></h1>
+<p>The vocabulary for temporal data <a href="#ODataVocTemporal">OData-VocTemporal</a> defines a structured term for describing temporal query and modification capabilities of temporal services.</p>
+<p>The term <code>ApplicationTimeSupport</code> describes the temporal capabilities of an entity set. It can be applied to an entity set, or to a containment navigation property to describe its implicit entity sets. It has a structured type with the following properties:</p>
+<ul>
+<li><code>UnitOfTime</code> describes the data type of the application-time period start and end values. Its value is a record of either type <code>UnitOfTimeDate</code> or <code>UnitOfTimeDateTimeOffset</code>.
+<ul>
+<li>Records of type <code>UnitOfTimeDateTimeOffset</code> MUST specify the property <code>Precision</code>.</li>
+<li>Records of type <code>UnitOfTimeDate</code> MAY specify the property <code>ClosedClosedPeriods</code>.</li>
+</ul></li>
+<li><code>Timeline</code> describes the kind of temporal entity set. Its value is a record of either type <code>TimelineSnapshot</code> or <code>TimelineVisible</code>.
+<ul>
+<li><p>Records of type <code>TimelineSnapshot</code> MUST NOT specify any properties.</p></li>
+<li><p>Records of type <code>TimelineVisible</code> MUST specify the properties <code>PeriodStart</code> and <code>PeriodEnd</code>.</p>
+<ul>
+<li>These properties MUST point to properties of the annotated entity set whose values are the period start and end of a time slice.</li>
+<li>The start is always included in the time slice, the end is included if and only if the sibling property <code>UnitOfTime</code> is of type <code>UnitOfTimeDate</code> and specifies property <code>ClosedClosedPeriods</code> as <code>true</code>.</li>
+<li>If the period end property does not specify a default value, a default value of "ad infinitum" is assumed.</li>
+</ul>
+<p>Records of type <code>TimelineVisible</code> MAY specify the property <code>ObjectKey</code>.</p>
+<ul>
+<li><code>ObjectKey</code> is the “sub-key” or “alternate key” that identifies time slices for a single temporal object. It is only necessary if the annotated entity set can contain time slices for more than one temporal object. <code>The object key is </code>a collection of property paths whose value combination uniquely identifies a temporal object.</li>
+</ul></li>
+</ul></li>
+<li><code>SupportedActions</code> is a collection of qualified names of temporal actions that may be bound to the annotated entity set. These can be the <a href="#ModifyingTemporalData">standard actions defined in this specification</a>, or service-specific actions.</li>
+</ul>
+<div class="example">
+<p>Example 6: <code>Employees</code> entity set from <a href="#api1">example model api-1</a> annotated with temporal terms</p>
+<pre><code>&quot;Employees&quot;: {
+  &quot;$Collection&quot;: true,
+  &quot;$Type&quot;: &quot;OrgModel.Employee&quot;,
+  &quot;@Temporal.ApplicationTimeSupport&quot;: {
+    &quot;Timeline&quot;: {
+      &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;
+    },
+    &quot;UnitOfTime&quot;: {
+      &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;
+    }
+  }
+},</code></pre>
+</div>
+<div class="example">
+<p>Example 7: <code>history</code> navigation property in entity set <code>Employees</code> from <a href="#api2">example model api-2</a> annotated with temporal terms</p>
+<pre><code>&quot;$Annotations&quot;: {
+  &quot;OrgModel.Default/Employees/history&quot;: {
+    &quot;@Temporal.ApplicationTimeSupport&quot;: {
+      &quot;Timeline&quot;: {
+        &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;,
+        &quot;TimeSliceStart&quot;: &quot;From&quot;,
+        &quot;TimeSliceEnd&quot;: &quot;To&quot;,
+        &quot;SupportedActions&quot;: [
+          &quot;Temporal.Update&quot;,
+          &quot;Temporal.Upsert&quot;,
+          &quot;Temporal.Delete&quot;
+        ]
+      },
+      &quot;UnitOfTime&quot;: {
+        &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;
+      }
+    }
+  }
+}</code></pre>
+</div>
+<div class="example">
+<p>Example 8: <code>CostCenters</code> entity set containing time slices for multiple temporal objects, the temporal objects identified by combination of <code>AreaID</code> and <code>CostCenterID</code></p>
+<pre><code>&quot;CostCenter&quot;: {
+  &quot;$Kind&quot;: &quot;EntityType&quot;,
+  &quot;$Key&quot;: [&quot;tsid&quot;],
+  &quot;tsid&quot;: {},
+  &quot;AreaID&quot;: {},
+  &quot;CostCenterID&quot;: {},
+  &quot;ValidTo&quot;: { &quot;$Type&quot;: &quot;Edm.Date&quot; },
+  &quot;ValidFrom&quot;: { &quot;$Type&quot;: &quot;Edm.Date&quot; },
+  &quot;ProfitCenterID&quot;: { &quot;$Nullable&quot;: true },
+  &quot;DepartmentID&quot;: { &quot;$Nullable&quot;: true }
+},
 
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
-<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
-<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
-<p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
-<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
-<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
-<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
-<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
-<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
-<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+&quot;Default&quot;: {
+  &quot;$Kind&quot;: &quot;EntityContainer&quot;,
+  &quot;CostCenters&quot;: { &quot;$Collection&quot;: true, &quot;$Type&quot;: &quot;this.CostCenter&quot; }
+},
+
+&quot;$Annotations&quot;: {
+  &quot;this.Default/CostCenters&quot;: {
+    &quot;@Temporal.ApplicationTimeSupport&quot;: {
+      &quot;UnitOfTime&quot;: {
+        &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;,
+        &quot;ClosedClosedPeriods&quot;: true
+      },
+      &quot;Timeline&quot;: {
+        &quot;@odata.type&quot;: &quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;,
+        &quot;PeriodStart&quot;: &quot;ValidFrom&quot;,
+        &quot;PeriodEnd&quot;: &quot;ValidTo&quot;,
+        &quot;ObjectKey&quot;: [&quot;AreaID&quot;, &quot;CostCenterID&quot;]
+      },
+      &quot;SupportedActions&quot;: [
+        &quot;Temporal.Update&quot;,
+        &quot;Temporal.Upsert&quot;,
+        &quot;Temporal.Delete&quot;
+      ]
+    }
+  }
+}</code></pre>
+</div>
+<hr />
+<h1 id="4-temporal-requests"><a name="TemporalRequests" href="#TemporalRequests">4 Temporal Requests</a></h1>
+<h2 id="41-temporal-expressions"><a name="TemporalExpressions" href="#TemporalExpressions">4.1 Temporal Expressions</a></h2>
+<p>A temporal expression is</p>
+<ul>
+<li>A date in the form <code>dateValue</code>, see <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataABNF">OData-ABNF</a></li>
+<li>A timestamp in the form <code>dateTimeOffsetValueInUrl</code>, see <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataABNF">OData-ABNF</a></li>
+<li>One of the literals <code>min</code> or <code>max</code></li>
+<li>An expression resulting in a date or timestamp value</li>
+</ul>
+<p>The literals <code>min</code> and <code>max</code> are interpreted depending on the data type of the time period start and end. They represent the minimum and maximum values of the time period that the service will allow. Their values are service specific as they can depend on the capabilities of the underlying data model.</p>
+<p>Note that there is no literal for "today" as clients and services can be in different time zones and thus can have different notions of which date is "today". Clients are advised to use concrete temporal values and should avoid using the URL function <code>now()</code> with period start and end of type <code>Edm.Date</code>.</p>
+<p>Note that services may allow service-defined functions for temporal expressions, for example to deal with fiscal years in a particular company.</p>
+<h2 id="42-querying-temporal-data"><a name="QueryingTemporalData" href="#QueryingTemporalData">4.2 Querying Temporal Data</a></h2>
+<p>Temporal query options allow point-in-time as well as time-range queries. They take a temporal expression as their argument whose result type MUST match the type of the corresponding time period start and end.</p>
+<p>Adding temporal query options to a request does not alter the response shape, it only affects the returned data.</p>
+<p>Temporal query options can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response. That is, they only influence the "implicit <code>GET</code>" after successful data modification.</p>
+<p>If no temporal query options are specified,</p>
+<ul>
+<li>timeline entity sets return all time slices, and</li>
+<li>snapshot entity sets return the snapshot valid at the time of the request.</li>
+</ul>
+<h3 id="421-propagation-of-temporal-query-options"><a name="PropagationofTemporalQueryOptions" href="#PropagationofTemporalQueryOptions">4.2.1 Propagation of Temporal Query Options</a></h3>
+<p>Temporal query options can be specified for the requested resource, and for expanded navigation properties. They are propagated along navigation paths and <code>$expand</code> until overridden on an expanded navigation property, and the overridden query option values are propagated from there to further expanded navigation properties.</p>
+<p>If any temporal query option is specified for an expanded navigation property, all temporal query options are overridden, and only the explicitly specified temporal query options take effect and are propagated further.</p>
+<p>Temporal query options can be specified even if the directly addressed resource does not track time. In this case the temporal query options do not have any effect other than being propagated along <code>$expand</code>.</p>
+<p>For entities in a <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SnapshotEntitySet">snapshot entity set</a> the point in time for representing data is determined by the first applicable rule:</p>
+<p>1. by the query option <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat"><code>$at</code></a> nested within <code>$expand</code></p>
+<p>2. by a <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat"><code>$at</code></a> value propagated along <code>$expand</code></p>
+<p>3. by <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat"><code>$at</code></a> in the query option part of the request URL, which applies to every segment of the resource path and paths that occur in system query options</p>
+<p>4. by the default value "now" -- the logic for determining this value is service-specific</p>
+<p>For entities in a <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TimelineEntitySet">timeline entity set</a> the time interval for filtering time slices is determined by the first applicable rule:</p>
+<p>1. by nested temporal query options within <code>$expand</code></p>
+<p>2. by temporal query option values propagated along <code>$expand</code></p>
+<p>3. by temporal query options in the query option part of the request URL</p>
+<h3 id="422-query-option-at"><a name="QueryOptionat" href="#QueryOptionat">4.2.2 Query Option <code>$at</code></a></h3>
+<p>The <code>$at</code> query option takes a temporal expression as its argument. It retrieves the snapshot whose application time period contains the value of <code>$at</code>.</p>
+<p>For timeline entity sets and collection-valued navigation to timeline entity sets, <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
+<p><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive">$from</a><code>=&lt;point-in-time&gt;&amp;</code><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive">$toInclusive</a><code>=&lt;point-in-time&gt;</code></p>
+<p>The query option <code>$at</code> can be combined with <code>$filter</code> and <code>$search</code>. Only entities satisfying all specified criteria are returned.</p>
+<div class="example">
+<p>Example 9: Retrieve current data of an employee</p>
+<pre><code>GET /api-1/Employees(&#39;E314&#39;)</code></pre>
+</div>
+<p>results in</p>
+<pre><code>{
+
+  \&quot;@odata.context\&quot;: \&quot;\$metadata#Employees/\$entity\&quot;,
+
+  \&quot;ID\&quot;: \&quot;E314\&quot;,
+
+  \&quot;Name\&quot;: \&quot;McDevitt\&quot;,
+
+  \&quot;Jobtitle\&quot;: \&quot;Senior\&quot;
+
+}</code></pre>
+<div class="example">
+<p>Example 10: retrieve employee at a specific point in application time</p>
+<pre><code>GET /api-1/Employees(&#39;E314&#39;)?\$at=2012-01-01</code></pre>
+</div>
+<p>results in</p>
+<pre><code>{
+
+  \&quot;@odata.context\&quot;: \&quot;\$metadata#Employees/\$entity\&quot;,
+
+  \&quot;ID\&quot;: \&quot;E314\&quot;,
+
+  \&quot;Name\&quot;: \&quot;McDevitt\&quot;,
+
+  \&quot;Jobtitle\&quot;: \&quot;Junior\&quot;
+
+}</code></pre>
+<div class="example">
+<p>Example 11: retrieve multiple employees at a past point in time</p>
+<pre><code>GET /api-1/Employees?\$filter=contains(Name,&#39;i&#39;)&amp;\$at=2012-01-01</code></pre>
+</div>
+<p>results in one time slice for each employee matching the filter at the specified point in time -- note that E401 back then does not satisfy this condition</p>
+<pre><code>{
+
+  \&quot;@odata.context\&quot;: \&quot;\$metadata#Employees\&quot;,
+
+  \&quot;value\&quot;: \[
+
+    {
+
+      \&quot;ID\&quot;: \&quot;E314\&quot;,
+
+      \&quot;Name\&quot;: \&quot;McDevitt\&quot;,
+
+      \&quot;Jobtitle\&quot;: \&quot;Junior\&quot;
+
+    }
+
+  \]
+
+}</code></pre>
+<p>Expanding related entities in combination with <code>$at</code> is straight-forward: the response consists of the time slices of related entities that are valid at the requested point in time. The period boundaries of the nested entities reflect the actual validity of the related entities and are independent of the period boundaries of the base entity.</p>
+<div class="example">
+<p>Example 12: retrieve employee in the past, show the past department as of a later point in time</p>
+<pre><code>GET
+/api-1/Employees(&#39;E314&#39;)?\$at=2012-01-01&amp;\$expand=Department(\$at=2021-11-23)</code></pre>
+</div>
+<p>results in</p>
+<pre><code>{
+
+  \&quot;@odata.context\&quot;: \&quot;\$metadata#Employees/\$entity\&quot;,
+
+  \&quot;ID\&quot;: \&quot;E314\&quot;,
+
+  \&quot;Name\&quot;: \&quot;McDevitt\&quot;,
+
+  \&quot;Jobtitle\&quot;: \&quot;Junior\&quot;,
+
+  \&quot;Department\&quot;: {
+
+    \&quot;ID\&quot;: \&quot;D08\&quot;,
+
+    \&quot;Name\&quot;: \&quot;1st Level Support\&quot;
+
+  }
+
+}</code></pre>
+<div class="example">
+<p>Example 13: retrieve department in the future with expanded employees at the same point in time</p>
+<pre><code>GET /api-1/Departments(&#39;D15&#39;)?\$at=2015-01-01&amp;\$expand=Employees</code></pre>
+</div>
+<p>results in</p>
+<pre><code>{
+
+  \&quot;@odata.context\&quot;: \&quot;\$metadata#Departments/\$entity\&quot;,
+
+  \&quot;ID\&quot;: \&quot;D15\&quot;,
+
+  \&quot;Name\&quot;: \&quot;Services\&quot;,
+
+  \&quot;Employees\&quot;: \[
+
+    {
+
+      \&quot;ID\&quot;: \&quot;E314\&quot;,
+
+      \&quot;Name\&quot;: \&quot;McDevitt\&quot;,
+
+      \&quot;Jobtitle\&quot;: \&quot;Senior\&quot;
+
+    },
+
+    {
+
+      \&quot;ID\&quot;: \&quot;E401\&quot;,
+
+      \&quot;Name\&quot;: \&quot;Gibson\&quot;,
+
+      \&quot;Jobtitle\&quot;: \&quot;Expert\&quot;
+
+    }
+
+  \]
+
+}</code></pre>
+<h3 id="423-query-options-from-to-and-toinclusive"><a name="QueryOptionsfromtoandtoInclusive" href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code></a></h3>
+<p>The query options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code> only have an effect on timeline entity sets and collection-valued navigation to timeline entity sets. They each take a temporal expression as their argument.</p>
+<p>Allowed combinations are:</p>
+<ul>
+<li><code>$from</code> and <code>$to</code> defines a closed-open interval</li>
+<li><code>$from</code> and <code>$toInclusive</code> defines a closed-closed interval</li>
+<li><code>$from</code> and neither <code>$to</code> nor <code>$toInclusive</code> defines a closed-closed interval with right boundary <code>max</code>.</li>
+</ul>
+<p>It is not allowed to combine <code>$from</code> and <code>$to</code>/<code>$toInclusive</code> with <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat"><code>$at</code></a> because <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
+<p><code>$from=&lt;point-in-time&gt;&amp;$toInclusive=&lt;point-in-time&gt;</code></p>
+<p>The result is restricted to time slices whose application-time period overlaps with the interval defined by the query option values, taking the closed-open or closed-closed semantics of the entity set's time slices into account. The benefit of the query options is that the client does not have to inspect the temporal annotations to determine the property names of the period boundaries, the period semantics, and get all comparison operators right.</p>
+<p>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$to=&lt;end&gt;</code> is shorthand for</p>
+<p><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt; and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
+<p>and for timeline entity sets with closed-closed semantics shorthand for</p>
+<p><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt; and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
+<p>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$toInclusive=&lt;end&gt;</code> is shorthand for</p>
+<p><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt; and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
+<p>and for timeline entity sets with closed-closed semantics shorthand for</p>
+<p><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt; and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
+<p>The query options <code>$from</code> and <code>$to</code>/<code>$toInclusive</code> can be combined with <code>$filter</code> and <code>$search</code>. Only entities satisfying all specified criteria are returned.</p>
+<p>If no <code>$select</code> is specified, each returned entity SHOULD contain the application-time period boundaries as part of the default selection.</p>
+<div class="example">
+<p>Example 14: retrieve employee history over a period of application time</p>
+<pre><code>GET /api-2/Employees?\$expand=history(\$select=Name,Jobtitle)</code></pre>
+</div>
+<p>                    &amp;$from=2012-03-01&amp;$to=2025-01-01</p>
+<pre><code>
+results in one entity for each employee with time slices that overlap
+the specified application-time period:</code></pre>
+<p>{</p>
+<p>  "@odata.context": "$metadata#Employees",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "ID": "E314",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Junior",</p>
+<p>          "From": "2011-01-01",</p>
+<p>          "To": "2013-10-01"</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2013-10-01",</p>
+<p>          "To": "2014-01-01"</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2014-01-01",</p>
+<p>          "To": "9999-12-31"</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "ID": "E401",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "Gibson",</p>
+<p>          "Jobtitle": "Expert",</p>
+<p>          "From": "2012-03-01",</p>
+<p>          "To": "9999-12-31"</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+The history for the first employee contains two time slices that do not
+differ in the represented properties, caused by a department change, and
+the department is not part of the representation.
+
+The service could have combined these two time slices into one.
+
+::: example
+Example 15: retrieve all employees that ever worked for department D15,
+with their full history, and the department&#39;s data at the start of each
+employee history time slice</code></pre>
+<p>[GET /api-2/Departments('D15')/Employees?<br />
+  $expand=history(<br />
+    @emp=$this;<br />
+    $expand=Department(<br />
+      $expand=history($at=@emp/From)<br />
+    )<br />
+  )]{style="color:black"}</p>
+<pre><code>:::
+
+has the following result with department names and budgets as of the
+beginning of each employee time slice:</code></pre>
+<p>{</p>
+<p>  "@odata.context": "$metadata#Employees",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "ID": "E314",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Junior",</p>
+<p>          "From": "2011-01-01",</p>
+<p>          "To": "2013-10-01",</p>
+<p>          "Department": {</p>
+<p>            "ID": "D08",</p>
+<p>            "history": [{</p>
+<p>              "Name": "Support",</p>
+<p>              "Budget": 1000,</p>
+<p>              "From": "2010-01-01",</p>
+<p>              "To": "2012-10-01"</p>
+<p>            }]</p>
+<p>          }</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2013-10-01",</p>
+<p>          "To": "2014-01-01",</p>
+<p>          "Department": {</p>
+<p>            "ID": "D08",</p>
+<p>            "history": [{</p>
+<p>              "Name": "1st Level Support",</p>
+<p>              "Budget": 1250,</p>
+<p>              "From": "2012-06-01",</p>
+<p>              "To": "2014-01-01"</p>
+<p>            }]</p>
+<p>          }</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2014-01-01",</p>
+<p>          "To": "9999-12-31",</p>
+<p>          "Department": {</p>
+<p>            "ID": "D15",</p>
+<p>            "history": [{</p>
+<p>              "Name": "Services",</p>
+<p>              "Budget": 1170,</p>
+<p>              "From": "2011-01-01",</p>
+<p>              "To": "9999-12-31"</p>
+<p>            }]</p>
+<p>          }</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "ID": "E401",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "Norman",</p>
+<p>          "Jobtitle": "Expert",</p>
+<p>          "From": "2009-11-01",</p>
+<p>          "To": "2012-03-01",</p>
+<p>          "Department": {</p>
+<p>            "ID": "D15",</p>
+<p>            "history": []</p>
+<p>          }</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "Gibson",</p>
+<p>          "Jobtitle": "Expert",</p>
+<p>          "From": "2012-03-01",</p>
+<p>          "To": "9999-12-31",</p>
+<p>          "Department": {</p>
+<p>            "ID": "D15",</p>
+<p>            "history": [{</p>
+<p>              "Name": "Services",</p>
+<p>              "Budget": 1170,</p>
+<p>              "From": "2011-01-01",</p>
+<p>              "To": "9999-12-31"</p>
+<p>            }]</p>
+<p>          }</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+### &lt;a name=&quot;InteractionwithStandardSystemQueryOptions&quot; href=&quot;#InteractionwithStandardSystemQueryOptions&quot;&gt;4.2.4 Interaction with Standard System Query Options&lt;/a&gt;
+
+For [snapshot entity
+sets](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SnapshotEntitySet)
+the point in time for representing data is determined following the
+rules in section &quot;[Propagation of Temporal Query
+Options](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#PropagationofTemporalQueryOptions)&quot;
+and evaluated *first*, then all other system query options are evaluated
+on the data valid at that point in time, including the query option
+`$apply` defined in
+[OData-Aggregation](http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html).
+
+For timeline entity sets the interval for filtering data is determined
+following the rules in section &quot;[Propagation of Temporal Query
+Options](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#PropagationofTemporalQueryOptions)&quot;
+and evaluated as an additional criterion for `$filter` in the evaluation
+sequence defined in [OData-Protocol, section System Query
+Options](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptions),
+which is evaluated *after* the query option `$apply`.
+
+::: example
+Example 16: retrieve employee history over a period of application time
+and filter on job title</code></pre>
+<p>GET /api-2/Employees?$expand=history( :::</p>
+<p>                       $select=Name,Jobtitle;</p>
+<p>                       $from=2012-03-01&amp;$to=2025-01-01;</p>
+<p>                       $filter=contains(Jobtitle,'e')</p>
+<p>                     )</p>
+<pre><code>
+results in one entity for each employee with time slices that overlap
+the specified application-time period and satisfy the filter condition
+(one less than in Example 14):</code></pre>
+<p>{</p>
+<p>  "@odata.context": "$metadata#Employees",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "ID": "E314",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2013-10-01",</p>
+<p>          "To": "2014-01-01"</p>
+<p>        },</p>
+<p>        {</p>
+<p>          "Name": "McDevitt",</p>
+<p>          "Jobtitle": "Senior",</p>
+<p>          "From": "2014-01-01",</p>
+<p>          "To": "9999-12-31"</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "ID": "E401",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "Gibson",</p>
+<p>          "Jobtitle": "Expert",</p>
+<p>          "From": "2012-03-01",</p>
+<p>          "To": "9999-12-31"</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+The lambda operators `any()` and `all()` are not influenced by temporal
+query options, they are interpreted for each time slice on the filtered
+collection, meaning &quot;any related time slice satisfying the lambda
+expression&quot; and &quot;all related time slices satisfy the lambda expression&quot;.
+The lambda expressions however can contain sub-expressions working on
+the period boundaries.
+
+::: example
+Example 17: filter employees on their name at any point in time</code></pre>
+<p>GET /api-2/Employees?$expand=history($select=Name,Jobtitle) :::</p>
+<p>                     &amp;$from=2015-01-01</p>
+<p>                     &amp;$filter=history/any(h:startswith(h/Name,'N'))</p>
+<pre><code>
+results in one employee whose name matches in the past, and the matching
+time slice is not in the requested time period</code></pre>
+<p>{</p>
+<p>  "@odata.context": "$metadata#Employees",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "ID": "E401",</p>
+<p>      "history": [</p>
+<p>        {</p>
+<p>          "Name": "Gibson",</p>
+<p>          "Jobtitle": "Expert",</p>
+<p>          "From": "2012-03-01",</p>
+<p>          "To": "9999-12-31"</p>
+<p>        }</p>
+<p>      ]</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+### &lt;a name=&quot;RequestingChangestoTemporalData&quot; href=&quot;#RequestingChangestoTemporalData&quot;&gt;4.2.5 Requesting Changes to Temporal Data&lt;/a&gt;
+
+Change tracking for timeline entity sets works identical to non-temporal
+entity sets. If the entity set supports change-tracking combined with
+filtering on application-time period boundaries, the corresponding
+declared properties SHOULD be listed as
+[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
+see
+[OData-VocCap](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ODataVocCap).
+Clients can then use these properties in `$filter` or use the
+convenience shortcuts
+[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
+or [`$from` and
+`$to`/`$toInclusive`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive).
+
+Change tracking for snapshot entity sets only reports changes to time
+slices that contain the point in time specified via
+[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat),
+or the point in time at which the defining query was received if no
+[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
+is specified. Mere passage of time does not lead to reported changes.
+
+## &lt;a name=&quot;ModifyingTemporalData&quot; href=&quot;#ModifyingTemporalData&quot;&gt;4.3 Modifying Temporal Data&lt;/a&gt;
+
+This section and its subsections describe modifications in application
+time, both for
+- *snapshot entity sets* with hidden
+application time, where time slices exist in the data persistency but
+are not directly visible in the entity set, each OData entity
+corresponds to a temporal object and only represents data at one point
+in time, and for
+- *timeline entity sets* with visible
+application time, where each OData entity corresponds to an
+application-time slice and all application-time slices of a temporal
+object are part of the entity set.
+
+Modification operations fall into two categories:
+- Direct modification of time slices, and
+- Changes to a temporal object over a
+period of application time that can affect multiple time slices without
+explicitly addressing each single affected time slice.
+
+### &lt;a name=&quot;DirectModificationofTimeSlices&quot; href=&quot;#DirectModificationofTimeSlices&quot;&gt;4.3.1 Direct Modification of Time Slices&lt;/a&gt;
+
+The temporal query options
+[`$at`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat),
+[`$from` and
+`$to`/`$toInclusive`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive)
+can be used with data modification operations, in which case they do not
+alter the modification semantics of the request, they only affect the
+response of the &quot;implicit `GET`&quot; after the data modification.
+
+Modification of time slices SHOULD be done with the temporal actions
+defined in the next section and its subsections.
+
+This specification does not define the behavior of standard insert,
+update, upsert, or delete requests on temporal entity sets, and
+potential side-effects of direct modification requests to period
+boundaries and adjacent time slices are beyond the scope of this
+specification as the underlying business logic will vary from service to
+service.
+
+### &lt;a name=&quot;OperationsonTemporalObjects&quot; href=&quot;#OperationsonTemporalObjects&quot;&gt;4.3.2 Operations on Temporal Objects&lt;/a&gt;
+
+Changes to a temporal object over a period of application time can
+affect multiple time slices. For timeline entity sets this can in
+principle be achieved by constructing batch requests with multiple
+operations on individual time slices. This puts burden on the client,
+and it also makes it harder for services to check whether the request
+represents a consistent change of the temporal data.
+
+Both can be avoided by providing convenience operations expressing the
+intent of the modification and leaving the actual time slice
+manipulation to the service. These operations can then also be used with
+snapshot entity sets that do not allow direct manipulation of time
+slices.
+
+These convenience operations are modeled as bound actions and defined in
+the vocabulary for temporal data
+[OData-VocTemporal](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocTemporal).
+Implementations SHOULD consider the preferences `return=representation`
+and `return=minimal` as specified in
+[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+The convenience operations are atomic (all or nothing): they either
+succeed and produce the result described below, or they fail and do not
+change the temporal objects.
+
+All actions define a collection of entities as their binding parameter.
+This collection can be
+- A snapshot entity set
+- A timeline entity set containing time
+slices for a single temporal object, or
+- A timeline entity set containing time
+slices for multiple temporal objects.
+
+Services MAY support any or all of these convenience actions. Services
+SHOULD advertise the supported actions with property [`SupportedActions`
+of term
+`TemporalSupport`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData).
+
+Services may define specialized convenience operations for use cases not
+covered by this specification.
+
+All actions return a collection of triples that consist of period start
+and end and a time slice, which has the same entity set as the binding
+parameter and advertises this through `odata.context` control
+information.
+
+#### &lt;a name=&quot;UpdateduringaPeriod&quot; href=&quot;#UpdateduringaPeriod&quot;&gt;4.3.2.1 Update during a Period&lt;/a&gt;
+
+The `Update` action updates existing time slices with values from delta
+time slices whose temporal object keys match and whose periods overlap.
+
+Its non-binding parameter `deltaTimeslices` is a collection of a
+structure containing the period boundaries, the properties to update,
+and optionally temporal object key values. The period boundaries are
+interpreted according to the
+[`UnitOfTime`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
+of the collection. In particular, `ClosedClosedPeriods` governs whether
+the period end of type `Edm.Date` is the last day in the period or the
+first day after the period. The upper period boundary for items in
+`deltaTimeslices` need not be supplied; if it has no declared default
+value, it defaults to `max`.
+
+This works identical to the SQL statement UPDATE FOR PORTION OF:
+
+1\. The &quot;delta time slices&quot; in `deltaTimeslices` are processed in the
+order of the collection.
+
+2\. For each delta time slice all time slices from the bound collection
+are selected whose temporal object key values are identical to the
+values of corresponding properties present in the delta time slice, and
+whose application-time period overlaps with the period of the delta time
+slice.
+
+3\. Selected time slices whose period is not fully included in the
+period of the delta time slice are split into two or three consecutive
+time slices, one with fully included period, and one or two with a
+non-overlapping period immediately before or after the delta time
+slice&#39;s period.
+
+4\. Then all fully included time slices (including ones created in the
+previous step) are updated following the rules for updating entities
+specified in
+[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+
+5\. Gaps between selected time slices in the period to update are not
+affected.
+
+On success it returns the created or updated time slices.
+
+::: example
+Example 18: Change a department&#39;s budget during a period of application
+time with
+[`api-2`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_2)
+(visible timeline)</code></pre>
+<p>POST ~/Departments('D08')/history/Temporal.Update :::</p>
+<p>Content-Type: application/json</p>
+<p> </p>
+<p>{</p>
+<p>  "deltaTimeslices": [</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "From": "2012-04-01",</p>
+<p>        "To": "2014-07-01",</p>
+<p>        "Budget": 1320</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+Given the [example department
+data](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ExampleData)
+the operation will split the time slice starting at 2012-01-01 creating
+a new time slice starting at 2012-04-01 which is then updated with the
+desired budget. It will then update the time slice starting at
+2012-06-01 with the desired budget, and finally it will split the time
+slice starting at 2014-01-01 creating a new time slice starting at
+2014-07-01, then update the original with the desired budget, leaving
+the new time slice starting at 2014-07-01 untouched:
+
+**Departments (after)**
+
+  **ID**   **From**     To           Name                Budget
+  -------- ------------ ------------ ------------------- --------
+  D08      2010-01-01   2012-01-01   Support             1000
+  D08      2012-01-01   2012-04-01   Support             1250
+  D08      2012-04-01   2012-06-01   Support             1320
+  D08      2012-06-01   2014-01-01   1st Level Support   1320
+  D08      2014-01-01   2014-07-01   1st Level Support   1320
+  D08      2014-07-01   max          1st Level Support   1400
+  D15      2010-01-01   2011-01-01   Services            1100
+  D15      2011-01-01   max          Services            1170
+
+It returns the resulting created or updated time slices</code></pre>
+<p>{</p>
+<p>  "@odata.context":</p>
+<p>    "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Departments('D08')/history/$entity",</p>
+<p>        "From": "2012-01-01",</p>
+<p>        "To": "2012-04-01",</p>
+<p>        "Name": "Support",</p>
+<p>        "Budget": 1250</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Departments('D08')/history/$entity",</p>
+<p>        "From": "2012-04-01",</p>
+<p>        "To": "2012-06-01",</p>
+<p>        "Name": "Support",</p>
+<p>        "Budget": 1320</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Departments('D08')/history/$entity",</p>
+<p>        "From": "2012-06-01",</p>
+<p>        "To": "2014-01-01",</p>
+<p>        "Name": "1st Level Support",</p>
+<p>        "Budget": 1320</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Departments('D08')/history/$entity",</p>
+<p>        "From": "2014-01-01",</p>
+<p>        "To": "2014-07-01",</p>
+<p>        "Name": "1st Level Support",</p>
+<p>        "Budget": 1320</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Departments('D08')/history/$entity",</p>
+<p>        "From": "2014-07-01",</p>
+<p>        "To": "9999-12-31",</p>
+<p>        "Name": "1st Level Support",</p>
+<p>        "Budget": 1400</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+The service could have joined the third and fourth time slice because
+they do not significantly differ.
+
+ 
+
+::: example
+Example 19: Change an employee&#39;s job title during a period of
+application time with
+[`api-1`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_1)
+(snapshot). Note that the period boundaries are not visible in
+[`api-1`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_1)
+and are provided as `PeriodStart` and `PeriodEnd` next to the
+`Timeslice` data. The `PeriodEnd` is omitted, meaning the end of
+application time.</code></pre>
+<p>POST ~/Employees/Temporal.Update :::</p>
+<p>Content-Type: application/json</p>
+<p> </p>
+<p>{</p>
+<p>  "deltaTimeslices": [</p>
+<p>    {</p>
+<p>      "PeriodStart": "2021-10-01",</p>
+<p>      "Timeslice": {</p>
+<p>        "ID": "E401",</p>
+<p>        "Jobtitle": "Ultimate Expert"</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+Given the [example employee
+data](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ExampleData)
+the operation will split the time slice for employee `E401` starting at
+2012-03-01 creating a new time slice starting at 2021-10-01 which is
+then updated with the desired job title.
+
+**Employees (after)**
+
+  **ID**   **From**     To           Name       Jobtitle          Department.ID
+  -------- ------------ ------------ ---------- ----------------- ---------------
+  E314     2011-01-01   2013-10-01   McDevitt   Junior            D08
+  E314     2013-10-01   2014-01-01   McDevitt   Senior            D08
+  E314     2014-01-01   max          McDevitt   Senior            D15
+  E401     2009-11-01   2012-03-01   Norman     Expert            D15
+  E401     2012-03-01   2021-10-01   Gibson     Expert            D15
+  E401     2021-10-01   max          Gibson     Ultimate Expert   D15
+
+It returns the resulting created or updated time slices</code></pre>
+<p>{</p>
+<p>  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "PeriodStart": "2012-03-01",</p>
+<p>      "PeriodEnd": "2021-10-01",</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Employees/$entity",</p>
+<p>        "ID": "E401",</p>
+<p>        "Name": "Gibson",</p>
+<p>        "Jobtitle": "Expert"</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "PeriodStart": "2021-10-01",</p>
+<p>      "PeriodEnd": "9999-12-31",</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#Employees/$entity",</p>
+<p>        "ID": "E401",</p>
+<p>        "Name": "Gibson",</p>
+<p>        "Jobtitle": "Ultimate Expert"</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+#### &lt;a name=&quot;UpsertduringaPeriod&quot; href=&quot;#UpsertduringaPeriod&quot;&gt;4.3.2.2 Upsert during a Period&lt;/a&gt;
+
+The `Upsert` action upserts existing time slices with values from delta
+time slices whose temporal object keys match and whose periods overlap,
+and in addition creates new time slices to close gaps in the matching
+time period.
+
+It has the same signature as
+[`Update`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#UpdateduringaPeriod),
+and steps 1 to 4 work identical to
+[`Update`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#UpdateduringaPeriod).
+Step 5 is
+
+5\. Gaps between selected time slices in the period to update are closed
+by creating new adjacent time slices: for each gap that has an
+immediately preceding time slice, a new time slice is created by
+
+a\. copying the property values of the preceding time slice (except for
+computed properties),
+
+b\. setting the period boundaries to close the gap, and then
+
+c\. updating the new time slice following the rules for updating
+entities specified in
+[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+
+If no preceding time slice exists, the time slice is created following
+the rules for creating entities specified in
+[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+
+On success it returns the created or updated time slices.
+
+::: example
+Example 20: Upsert two [cost
+centers](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_costcenters)
+during a period of application time using the model from Example 8</code></pre>
+<p>POST ~/CostCenters/Temporal.Upsert :::</p>
+<p>Content-Type: application/json</p>
+<p> </p>
+<p>{</p>
+<p>  "deltaTimeslices": [</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C1",</p>
+<p>        "ValidTo": "2001-03-31",</p>
+<p>        "ValidFrom": "1984-04-01",</p>
+<p>        "ProfitCenterID": "P2"</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C2",</p>
+<p>        "ValidFrom": "2012-04-01",</p>
+<p>        "DepartmentID": "D04"</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+Given this example data
+
+**CostCenters (before)**
+
+  **tsid**   **AreaID**   **CostCenterID**   **ValidTo**   ValidFrom    ProfitCenterID   DepartmentID
+  ---------- ------------ ------------------ ------------- ------------ ---------------- --------------
+  n          51           C1                 max           1955-04-01   P1               D02
+
+[t]{style=&quot;color:white&quot;}he operation will split the time slice `n` for
+cost center `C1` starting at 1955-04-01 creating two new time slices,
+the one starting at 1984-04-01 is then updated with the desired profit
+center. It will also insert a new time slice for the not yet existing
+cost center `C2` with the desired values.
+
+Note that this example uses closed-closed periods, so each time slice
+ends the day before the start of the next adjacent time slice.
+
+**CostCenters (after)**
+
+  **tsid**   **AreaID**   **CostCenterID**   **ValidTo**   ValidFrom    ProfitCenterID   DepartmentID
+  ---------- ------------ ------------------ ------------- ------------ ---------------- --------------
+  n          51           C1                 1984-03-31    1955-04-01   P1               D02
+  o          51           C1                 2001-03-31    1984-04-01   P2               D02
+  p          51           C1                 max           2001-04-01   P1               D02
+  q          51           C2                 max           2012-04-01                    D04
+
+[It returns the ]{style=&quot;color:white&quot;}resulting created or updated time
+slices per affected temporal object</code></pre>
+<p>{</p>
+<p>  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",</p>
+<p>  "value": [</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#CostCenters/$entity",</p>
+<p>        "tsid": "n",</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C1",</p>
+<p>        "ValidTo": "1984-03-31",</p>
+<p>        "ValidFrom": "1955-04-01",</p>
+<p>        "ProfitCenterID": "P1",</p>
+<p>        "DepartmentID": "D02"</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#CostCenters/$entity",</p>
+<p>        "tsid": "o",</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C1",</p>
+<p>        "ValidTo": "2001-03-31",</p>
+<p>        "ValidFrom": "1984-04-01",</p>
+<p>        "ProfitCenterID": "P2",</p>
+<p>        "DepartmentID": "D02"</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#CostCenters/$entity",</p>
+<p>        "tsid": "p",</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C1",</p>
+<p>        "ValidTo": "9999-12-31",</p>
+<p>        "ValidFrom": "2001-04-01",</p>
+<p>        "ProfitCenterID": "P1",</p>
+<p>        "DepartmentID": "D02"</p>
+<p>      }</p>
+<p>    },</p>
+<p>    {</p>
+<p>      "Timeslice": {</p>
+<p>        "@odata.context": "#CostCenters/$entity",</p>
+<p>        "tsid": "q",</p>
+<p>        "AreaID": "51",</p>
+<p>        "CostCenterID": "C2",</p>
+<p>        "ValidTo": "9999-12-31",</p>
+<p>        "ValidFrom": "2012-04-01",</p>
+<p>        "ProfitCenterID": null,</p>
+<p>        "DepartmentID": "D04"</p>
+<p>      }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+<pre><code>
+#### &lt;a name=&quot;DeleteduringaPeriod&quot; href=&quot;#DeleteduringaPeriod&quot;&gt;4.3.2.3 Delete during a Period&lt;/a&gt;
+
+The `Delete` action deletes (sub-periods of) time slices.
+
+Its non-binding parameter `deltaTimeslices` is a collection of a
+structure containing the period boundaries and optionally temporal
+object key values. The period boundaries are interpreted according to
+the
+[`UnitOfTime`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
+of the collection. In particular, `ClosedClosedPeriods` governs whether
+the period end of type `Edm.Date` is the last day in the period or the
+first day after the period.
+
+This works identical to the SQL statement DELETE FOR PORTION OF:
+
+1\. The &quot;delta time slices&quot; in `deltaTimeslices` are processed in the
+order of the collection.
+
+2\. For each delta time slice all time slices from the bound collection
+are selected whose temporal object key values are identical to the
+values of corresponding properties present in the delta time slice, and
+whose application-time period overlaps with the period of the delta time
+slice.
+
+3\. Selected time slices whose period is not fully included in the
+period of the delta time slice are split into two consecutive time
+slices, one with non-overlapping, and one with fully included period.
+
+4\. Then all fully included time slices (including ones created in the
+previous step) are deleted following the rules for deleting entities
+specified in
+[OData-Protocol](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#odata).
+
+On success it returns the deleted time slices.
+
+### &lt;a name=&quot;ETags&quot; href=&quot;#ETags&quot;&gt;4.3.3 ETags&lt;/a&gt;
+
+Timeline entity sets need no special consideration as each time slice is
+an OData entity.
+
+This specification does not define the behavior of standard insert,
+update, upsert, or delete requests for snapshot entity sets and
+consequently defines no rules for ETags of entities in snapshot entity
+sets. Services supporting these requests are advised to associate ETags
+with time slices rather than with temporal objects.
+
+### &lt;a name=&quot;ReadEditNavigationandAssociationURLs&quot; href=&quot;#ReadEditNavigationandAssociationURLs&quot;&gt;4.3.4 Read, Edit, Navigation, and Association URLs&lt;/a&gt;
+
+Timeline entity sets need no special consideration as each time slice is
+an OData entity.
+
+For snapshot entity sets read, edit, navigation, and association URLs
+are not specific to time slices, they are specific to the
+time-independent OData entity.
+
+-------
+
+# &lt;a name=&quot;Conformance&quot; href=&quot;#Conformance&quot;&gt;5 Conformance&lt;/a&gt;
+
+Conforming services MUST follow all rules of this specification for the
+temporal system query options they support.
+
+Conforming clients MUST be prepared to consume a model that uses any or
+all constructs defined in this specification.
+
+-------
+
+# &lt;a name=&quot;References&quot; href=&quot;#References&quot;&gt;Appendix A. References&lt;/a&gt;
+
+This appendix contains the normative and informative references that are used in this document.
+
+While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
+
+## &lt;a name=&quot;NormativeReferences&quot; href=&quot;#NormativeReferences&quot;&gt;A.1 Normative References&lt;/a&gt;
+
+The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
+
+###### &lt;a name=&quot;ODataABNF&quot;&gt;[OData-ABNF]&lt;/a&gt;
+_ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataAggregation&quot;&gt;[OData-Aggregation]&lt;/a&gt;
+_OData Extension for Data Aggregation Version 4.0._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataCSDL&quot;&gt;[OData-CSDL]&lt;/a&gt;
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataProtocol&quot;&gt;[OData-Protocol]&lt;/a&gt;
+_OData Version 4.02. Part 1: Protocol._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataURL&quot;&gt;[OData-URL]&lt;/a&gt;
+_OData Version 4.02. Part 2: URL Conventions._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataVocCap&quot;&gt;[OData-VocCap]&lt;/a&gt;
+_OData Vocabularies Version 4.0: Capabilities Vocabulary._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataVocCore&quot;&gt;[OData-VocCore]&lt;/a&gt;
+_OData Vocabularies Version 4.0: Core Vocabulary._  
+See link in &quot;[Related work](#RelatedWork)&quot; section on cover page.
+
+###### &lt;a name=&quot;ODataVocTemporal&quot;&gt;[OData-VocTemporal]&lt;/a&gt;
+_OData Temporal Vocabulary._  
+See link in &quot;[Additional artifacts](#AdditionalArtifacts)&quot; section on cover page.
+
+###### &lt;a name=&quot;rfc2119&quot;&gt;[RFC2119]&lt;/a&gt;
+_Bradner, S., &quot;Key words for use in RFCs to Indicate Requirement Levels&quot;, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
+https://www.rfc-editor.org/info/rfc2119.
+
+###### &lt;a name=&quot;rfc8174&quot;&gt;[RFC8174]&lt;/a&gt;
+_Leiba, B., &quot;Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words&quot;, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+https://www.rfc-editor.org/info/rfc8174.
+
+## &lt;a name=&quot;InformativeReferences&quot; href=&quot;#InformativeReferences&quot;&gt;A.2 Informative References&lt;/a&gt; 
+###### &lt;a name=&quot;Fowler&quot;&gt;[Fowler]&lt;/a&gt;
+_Martin Fowler, &quot;Temporal Patterns&quot;, 16 February 2005_  
+http://martinfowler.com/eaaDev/timeNarrative.html.
+
+###### &lt;a name=&quot;Kulkarni&quot;&gt;[Kulkarni]&lt;/a&gt;
+_Krishna Kulkarni, &quot;Temporal Features in SQL standard&quot;, September 2012_  
+https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf.
+
+###### &lt;a name=&quot;Snodgrass&quot;&gt;[FowSnodgrassler]&lt;/a&gt;
+_Richard T. Snodgrass, &quot;Developing Time-Oriented Database Applications in SQL&quot;, Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7_  
+http://www2.cs.arizona.edu/people/rts/tdbbook.pdf and
+http://www2.cs.arizona.edu/people/rts/pp30-31.pdf.
+
+###### &lt;a name=&quot;SQL&quot;&gt;[SQL:2011]&lt;/a&gt;
+_ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)_.
+
+-------
+
+# &lt;a name=&quot;Acknowledgments&quot; href=&quot;#Acknowledgments&quot;&gt;Appendix B. Acknowledgments&lt;/a&gt;
+
+## &lt;a name=&quot;SpecialThanks&quot; href=&quot;#SpecialThanks&quot;&gt;B.1 Special Thanks&lt;/a&gt;
+
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
+
+Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.
+
+## &lt;a name=&quot;Participants&quot; href=&quot;#Participants&quot;&gt;B.2 Participants&lt;/a&gt;
+
+**OData TC Members:**
+
+| First Name | Last Name | Company |
+| :--- | :--- | :--- |
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Mark | Biamonte | Progress Software |
+| Martin | Zurmuehl | SAP SE |
+
+-------
+
+# &lt;a name=&quot;RevisionHistory&quot; href=&quot;#RevisionHistory&quot;&gt;Appendix C. Revision History&lt;/a&gt;
+
+| Revision | Date | Editor | Changes Made |
+| :--- | :--- | :--- | :--- |
+| Working Draft 01                 | 2013-09-05 | Ralf Handl | Initial working draft |
+| Committee Specification Draft 01 | 2021-07-22 | Ralf Handl&lt;br&gt;Hubert Heijkers&lt;br&gt; Gerald Krause&lt;br&gt; Michael Pizzo&lt;br&gt; Heiko Theißen&lt;br&gt; Martin Zurmuehl | Timeline entity sets for manipulating time slices&lt;br&gt; Snapshot entity sets for hiding application-time dependency&lt;br&gt; Modification during a period via actions&lt;br&gt; Closed-closed application time |
+| Committee Specification Draft 02 | 2021-10-15 |Ralf Handl | Example model with object key&lt;br&gt; Example for Update action on snapshot entity set&lt;br&gt; Example for Upsert action with object key&lt;br&gt; Semantics of omitting upper period boundaries in action parameters |
+| Committee Specification Draft 03 | 2021-12-02 |Ralf Handl | Removed the “stop on change” actions&lt;br&gt; Minor clarifications |
+| Committee Specification 01       | 2022-01-07 |Ralf Handl | Non-material changes |
+
+-------
+
+# &lt;a name=&quot;Notices&quot; href=&quot;#Notices&quot;&gt;Appendix D. Notices&lt;/a&gt;
+
+&lt;!-- Required section. Do not modify. --&gt;
+
+Copyright &amp;copy; OASIS Open 2023. All Rights Reserved.
+
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the &quot;OASIS IPR Policy&quot;). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an &quot;AS IS&quot; basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
+
+\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
+
+\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
+
+\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS&#39; procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
+
+The name &quot;OASIS&quot; is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
+
+</code></pre>
 </body>
 </html>

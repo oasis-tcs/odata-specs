@@ -41,6 +41,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataVocTemporal">[OData-VocTemporal]</a>
+_OData Temporal Vocabulary._  
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.

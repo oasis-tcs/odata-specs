@@ -76,7 +76,7 @@ day on the way out and subtracting one day on the way in, or
 alternatively express the used time slice semantics via
 [annotations](#VocabularyforTemporalData).
 
-#### ##subsubsubsubsec Snapshot Entity Set
+#### ##subsubsubsec Snapshot Entity Set
 
 An entity in a snapshot entity set represents a [temporal object](#TemporalObject)
 at a specified point in time. When the entity is addressed via a
@@ -161,42 +161,3 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
-
--------
-
-# ##sec Overview
-
-When keeping track of time, the most important questions are:
-- When did or will something happen?
-- When did we learn that it happened?
-
-This leads to two "directions" or "dimensions" of time (measured as a
-date or date-plus-time value):
-- [Application time](#ApplicationTime), also called actual time,
-  business time, effective time, or valid time, and
-- [System time](#SystemTime), also called recording time, audit time,
-  or transaction time.
-
-Keeping track of time is typically done by storing data together with
-the time period for which that data is deemed valid or effective, using
-separate periods for application time and system time, and the time
-periods are part of the logical key for "records". See
-**[[SQL:2011]](#SQL)**
-or
-**[[Kulkarni]](#Kulkarni)**
-on how this is done in the SQL standard.
-
-A consumer's perspective on this data can be different: even if time is
-tracked internally, the period of time may or may not be visible in a
-consumer's perspective, and even if visible the related properties are
-often not considered part of an entity's identity. For example, an
-employee is still the same person even after switching to another
-department.
-
-The goals of this extension are:
-- Keep the API models as simple as possible by allowing to hide time-dependency,
-- Provide easy means for [point-in-time queries](#QueryOptionat)
-even if time-dependency is hidden,
-- Provide easy means for [time-range queries](#QueryOptionsfromtoandtoInclusive)
-if time-dependency is visible, and
-- Provide easy means for modifying time-dependent data.
