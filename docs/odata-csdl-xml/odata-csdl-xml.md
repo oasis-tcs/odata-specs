@@ -193,7 +193,8 @@ For complete copyright information please see the full Notices section in an App
     - [14.3.10 Integer](#Integer)
     - [14.3.11 String](#String)
     - [14.3.12 Time of Day](#TimeofDay)
-    - [14.3.13 Geo and Stream Values](#GeoandStreamValues)
+    - [14.3.13 Geo Values](#GeoValues)
+    - [14.3.14 Stream Values](#StreamValues)
   - [14.4 Dynamic Expression](#DynamicExpression)
     - [14.4.1 Path Expressions](#PathExpressions)
       - [14.4.1.1 Path Syntax](#PathSyntax)
@@ -254,6 +255,11 @@ Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-2](#XML-Schema2).
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+
+Section | Feature / Change | OData Issue
+--------|------------------|------------
+[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
+[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -641,9 +647,9 @@ other CSDL documents.
 ### <a name="AttributeVersion1.1" href="#AttributeVersion1.1"> Attribute `Version`</a>
 
 The `Version` attribute specifies the OData protocol version of the
-service. For OData 4.0 responses the value of this attribute MUST be
-`4.0.` For OData 4.01 responses the value of this attribute MUST be
-`4.01.` Services MUST return an OData 4.0 response if the request was
+document, either `4.0`, `4.01`, or `4.02`.
+
+Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion `header with a value of `4.0`.
 
 ### <a name="ElementedmxDataServices2" href="#ElementedmxDataServices2"> Element `edmx:DataServices`</a>
@@ -4074,16 +4080,66 @@ Example 57:
 ```
 :::
 
-### <a name="GeoandStreamValues" href="#GeoandStreamValues">14.3.13 Geo and Stream Values</a>
+### <a name="GeoValues" href="#GeoValues">14.3.13 Geo Values</a>
 
-CSDL documents with a version of `4.02` or greater MAY use constant Geo or Stream values in annotations.
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes in annotations.
+
 
 
 ::: {.varxml .rep}
+Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
+`fullCollectionLiteral`, `fullLineStringLiteral`,
+`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
+`fullMultiPolygonLiteral`, `fullPointLiteral`, and
+`fullPolygonLiteral` in
+[OData-ABNF](#ODataABNF).
 :::
 
+::: {.varxml .example}
+Example 58:
+```xml
+<PropertyValue Property="Location" String="geography'SRID=0;Point(142.1 64.1)'" />
+```
+:::
+
+### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
+
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Stream` in annotations.
+
 
 ::: {.varxml .rep}
+Constant values of type `Edm.Stream` with media type `application/json` or one of its subtypes,
+optionally with format parameters, are represented as [string expressions](#String) containing the stringified JSON.
+
+Constant values of type `Edm.Stream` with top-level type `text`, for example `text/plain`,
+are represented as [string expressions](#String) containing the raw text.
+
+Constant values of type `Edm.Stream` with other media types are represented as [binary expressions](#Binary) containing the base64url-encoded binary value.
+:::
+
+The annotation (property) being assigned a stream value MUST be annotated with term
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+and the media type of the stream as its value.
+
+
+::: {.varxml .example}
+Example 59:
+```xml
+<PropertyValue Property="JsonStream">
+  <String>{"foo":true,"bar":42}</String>
+  <Annotation Term="Core.MediaType" String="application/json" />
+</PropertyValue>
+
+<PropertyValue Property="TextStream">
+  <String>Hello World!</String>
+  <Annotation Term="Core.MediaType" String="text/plain" />
+</PropertyValue>
+
+<PropertyValue Property="OtherStream">
+  <String>T0RhdGE</String>
+  <Annotation Term="Core.MediaType" String="application/octet-stream" />
+</PropertyValue>
+```
 :::
 
 ## <a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a>
@@ -4124,7 +4180,7 @@ an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
 ::: example
-Example 58: absolute path to an entity set
+Example 60: absolute path to an entity set
 ```
 /My.Schema.MyEntityContainer/MyEntitySet
 ```
@@ -4135,7 +4191,7 @@ annotation target, following the rules specified in section "[Path
 Evaluation](#PathEvaluation)".
 
 ::: example
-Example 59: relative path to a property
+Example 61: relative path to a property
 ```
 Address/City
 ```
@@ -4148,7 +4204,7 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 ::: example
-Example 60: type-cast segment
+Example 62: type-cast segment
 ```
 .../self.Manager/...
 ```
@@ -4173,7 +4229,7 @@ properties:
 -   `odata.mediaEtag`
 
 ::: example
-Example 61: term-cast segments
+Example 63: term-cast segments
 ```
 .../@Capabilities.SortRestrictions/...
 ```
@@ -4193,7 +4249,7 @@ collection-valued structural or navigation properties. The result of the
 expression is the model element reached via this path.
 
 ::: example
-Example 62: property segments in model path
+Example 64: property segments in model path
 ```
 .../Orders/Items/Product/...
 ```
@@ -4213,7 +4269,7 @@ segment is collection-valued, in which case the path evaluates to the
 number of items in the collection identified by the preceding segment.
 
 ::: example
-Example 63: property segments in instance path
+Example 65: property segments in instance path
 ```
 .../Addresses/Street
 ```
@@ -4236,7 +4292,7 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 66: model path addressing an annotation on a navigation property
 ```
 .../Items@Capabilities.InsertRestrictions/Insertable
 ```
@@ -4252,7 +4308,7 @@ part of, *not* relative to the instance identified by the preceding path
 part.
 
 ::: example
-Example 65: instance path with entity set and key predicate
+Example 67: instance path with entity set and key predicate
 ```
 /self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
@@ -4270,7 +4326,7 @@ representing the last item in the collection. Remaining path segments
 are evaluated relative to the identified item of the collection.
 
 ::: example
-Example 66: instance path with collection-valued structural property and
+Example 68: instance path with collection-valued structural property and
 index segment
 ```
 Addresses/1
@@ -4355,7 +4411,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 67:
+Example 69:
 ```xml
 <Annotation Term="UI.ReferenceFacet"
             AnnotationPath="Product/Supplier/@UI.LineItem" />
@@ -4389,7 +4445,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 68:
+Example 70:
 ```xml
 <Annotation Term="org.example.MyFavoriteModelElement"
             ModelElementPath="/org.example.someAction" />
@@ -4425,7 +4481,7 @@ element notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 69:
+Example 71:
 ```xml
 <Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
 
@@ -4468,7 +4524,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 70:
+Example 72:
 ```xml
 <Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
 
@@ -4506,7 +4562,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 71:
+Example 73:
 ```xml
 <Annotation Term="org.example.display.DisplayName" Path="FirstName" />
 
@@ -4573,7 +4629,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 72:
+Example 74:
 ```xml
 <And>
   <Path>IsMale</Path>
@@ -4666,7 +4722,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 73:
+Example 75:
 ```xml
 <Add>
   <Path>StartDate</Path>
@@ -4743,7 +4799,7 @@ are represented according to the appropriate alternative in the
 
 
 ::: {.varxml .example}
-Example 74:
+Example 76:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
@@ -4795,7 +4851,7 @@ first property is used as key, the second property as value.
 
 
 ::: {.varxml .example}
-Example 75: assuming there are no special characters in values of the
+Example 77: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```xml
 <Apply Function="odata.fillUriTemplate">
@@ -4818,7 +4874,7 @@ expression, using syntax and semantics of
 
 
 ::: {.varxml .example}
-Example 76: all non-empty `FirstName` values not containing the letters
+Example 78: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```xml
 <Apply Function="odata.matchesPattern">
@@ -4839,7 +4895,7 @@ paren-style key syntax.
 
 
 ::: {.varxml .example}
-Example 77:
+Example 79:
 ```xml
 <Apply Function="odata.fillUriTemplate">
   <String>http://host/service/Genres({genreName})</String>
@@ -4884,7 +4940,7 @@ are considered unspecified.
 :::
 
 ::: {.varxml .example}
-Example 78:
+Example 80:
 ```xml
 <Annotation Term="org.example.display.Threshold">
   <Cast Type="Edm.Decimal">
@@ -4911,7 +4967,7 @@ The `edm:Collection` element contains zero or more child expressions.
 :::
 
 ::: {.varxml .example}
-Example 79:
+Example 81:
 ```xml
 <Annotation Term="org.example.seo.SeoTerms">
   <Collection>
@@ -4960,7 +5016,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 80: the condition is a [value path expression](#ValuePath)
+Example 82: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `edm:If` expression (or so it was long ago)
 ```xml
@@ -4997,7 +5053,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 81:
+Example 83:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -5040,7 +5096,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 82:
+Example 84:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -5071,7 +5127,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 83:
+Example 85:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5096,7 +5152,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 86:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5105,7 +5161,7 @@ Example 84:
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 87:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5166,7 +5222,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 88: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5227,7 +5283,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 89:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5303,7 +5359,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 90: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5325,7 +5381,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 89:
+Example 91:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
@@ -5443,7 +5499,7 @@ Example 89:
 
 
 ::: {.varxml .example}
-Example 90:
+Example 92:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
@@ -5491,8 +5547,8 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 CSDL constructs
-for requests made with `OData-MaxVersion:4.0`.
+In addition, conforming services MUST NOT return 4.01 or 4.02 CSDL constructs
+for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -5513,12 +5569,15 @@ types
 10. MUST NOT specify a key as a property of a related entity
 11. SHOULD NOT include new/unknown values for the
 [`AppliesTo`](#Applicability) attribute
-12. MAY include new CSDL annotations
+12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+13. MAY include new CSDL annotations
 
 In addition, OData 4.01 services:
-13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+
+14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom

@@ -1169,24 +1169,92 @@ Example ##ex:
 ```
 :::
 
-### ##subsubsec Geo and Stream Values
+### ##subsubsec Geo Values
 
-CSDL documents with a version of `4.02` or greater MAY use constant Geo or Stream values in annotations.
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes in annotations.
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes
-are represented as GeoJSON values, see [OData-JSON](#ODataJSON).
+Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+:::
+
+::: {.varjson .example}
+Example ##ex:
+```json
+"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+```
 :::
 
 ::: {.varxml .rep}
+Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
+`fullCollectionLiteral`, `fullLineStringLiteral`,
+`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
+`fullMultiPolygonLiteral`, `fullPointLiteral`, and
+`fullPolygonLiteral` in
+[OData-ABNF](#ODataABNF).
 :::
 
+::: {.varxml .example}
+Example ##ex:
+```xml
+<PropertyValue Property="Location" String="geography'SRID=0;Point(142.1 64.1)'" />
+```
+:::
+
+### ##subsubsec Stream Values
+
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Stream` in annotations.
+
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON), including
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
 the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
 :::
 
 ::: {.varxml .rep}
+Constant values of type `Edm.Stream` with media type `application/json` or one of its subtypes,
+optionally with format parameters, are represented as [string expressions](#String) containing the stringified JSON.
+
+Constant values of type `Edm.Stream` with top-level type `text`, for example `text/plain`,
+are represented as [string expressions](#String) containing the raw text.
+
+Constant values of type `Edm.Stream` with other media types are represented as [binary expressions](#Binary) containing the base64url-encoded binary value.
+:::
+
+The annotation (property) being assigned a stream value MUST be annotated with term
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+and the media type of the stream as its value.
+
+::: {.varjson .example}
+Example ##ex:
+```json
+"JsonStream": {"foo":true,"bar":42},
+"JsonStream@Core.MediaType": "application/json",
+
+"TextStream": "Hello World!",
+"TextStream@Core.MediaType": "text/plain",
+
+"OtherStream": "T0RhdGE",
+"OtherStream@Core.MediaType": "application/octet-stream"
+```
+:::
+
+::: {.varxml .example}
+Example ##ex:
+```xml
+<PropertyValue Property="JsonStream">
+  <String>{"foo":true,"bar":42}</String>
+  <Annotation Term="Core.MediaType" String="application/json" />
+</PropertyValue>
+
+<PropertyValue Property="TextStream">
+  <String>Hello World!</String>
+  <Annotation Term="Core.MediaType" String="text/plain" />
+</PropertyValue>
+
+<PropertyValue Property="OtherStream">
+  <String>T0RhdGE</String>
+  <Annotation Term="Core.MediaType" String="application/octet-stream" />
+</PropertyValue>
+```
 :::
 
 ## ##subsec Dynamic Expression

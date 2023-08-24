@@ -195,7 +195,8 @@ For complete copyright information please see the full Notices section in an App
     - [14.3.10 Integer](#Integer)
     - [14.3.11 String](#String)
     - [14.3.12 Time of Day](#TimeofDay)
-    - [14.3.13 Geo and Stream Values](#GeoandStreamValues)
+    - [14.3.13 Geo Values](#GeoValues)
+    - [14.3.14 Stream Values](#StreamValues)
   - [14.4 Dynamic Expression](#DynamicExpression)
     - [14.4.1 Path Expressions](#PathExpressions)
       - [14.4.1.1 Path Syntax](#PathSyntax)
@@ -256,6 +257,11 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+
+Section | Feature / Change | OData Issue
+--------|------------------|------------
+[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
+[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -698,7 +704,7 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a name="Version1.1" href="#Version1.1"> `$Version`</a>
 
-The value of `$Version` is a string containing either `4.0` or `4.01`.
+The value of `$Version` is a string containing either `4.0`, `4.01`, or `4.02`.
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
@@ -4167,19 +4173,48 @@ Example 57:
 
 
 
-### <a name="GeoandStreamValues" href="#GeoandStreamValues">14.3.13 Geo and Stream Values</a>
+### <a name="GeoValues" href="#GeoValues">14.3.13 Geo Values</a>
 
-CSDL documents with a version of `4.02` or greater MAY use constant Geo or Stream values in annotations.
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes in annotations.
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes
-are represented as GeoJSON values, see [OData-JSON](#ODataJSON).
+Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+:::
+
+::: {.varjson .example}
+Example 58:
+```json
+"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+```
 :::
 
 
+
+### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
+
+CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Stream` in annotations.
+
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON), including
-the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+:::
+
+
+The annotation (property) being assigned a stream value MUST be annotated with term
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+and the media type of the stream as its value.
+
+::: {.varjson .example}
+Example 59:
+```json
+"JsonStream": {"foo":true,"bar":42},
+"JsonStream@Core.MediaType": "application/json",
+
+"TextStream": "Hello World!",
+"TextStream@Core.MediaType": "text/plain",
+
+"OtherStream": "T0RhdGE",
+"OtherStream@Core.MediaType": "application/octet-stream"
+```
 :::
 
 
@@ -4221,7 +4256,7 @@ an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
 ::: example
-Example 58: absolute path to an entity set
+Example 60: absolute path to an entity set
 ```
 /My.Schema.MyEntityContainer/MyEntitySet
 ```
@@ -4232,7 +4267,7 @@ annotation target, following the rules specified in section "[Path
 Evaluation](#PathEvaluation)".
 
 ::: example
-Example 59: relative path to a property
+Example 61: relative path to a property
 ```
 Address/City
 ```
@@ -4245,7 +4280,7 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 ::: example
-Example 60: type-cast segment
+Example 62: type-cast segment
 ```
 .../self.Manager/...
 ```
@@ -4270,7 +4305,7 @@ properties:
 -   `odata.mediaEtag`
 
 ::: example
-Example 61: term-cast segments
+Example 63: term-cast segments
 ```
 .../@Capabilities.SortRestrictions/...
 ```
@@ -4290,7 +4325,7 @@ collection-valued structural or navigation properties. The result of the
 expression is the model element reached via this path.
 
 ::: example
-Example 62: property segments in model path
+Example 64: property segments in model path
 ```
 .../Orders/Items/Product/...
 ```
@@ -4310,7 +4345,7 @@ segment is collection-valued, in which case the path evaluates to the
 number of items in the collection identified by the preceding segment.
 
 ::: example
-Example 63: property segments in instance path
+Example 65: property segments in instance path
 ```
 .../Addresses/Street
 ```
@@ -4333,7 +4368,7 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 66: model path addressing an annotation on a navigation property
 ```
 .../Items@Capabilities.InsertRestrictions/Insertable
 ```
@@ -4349,7 +4384,7 @@ part of, *not* relative to the instance identified by the preceding path
 part.
 
 ::: example
-Example 65: instance path with entity set and key predicate
+Example 67: instance path with entity set and key predicate
 ```
 /self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
@@ -4367,7 +4402,7 @@ representing the last item in the collection. Remaining path segments
 are evaluated relative to the identified item of the collection.
 
 ::: example
-Example 66: instance path with collection-valued structural property and
+Example 68: instance path with collection-valued structural property and
 index segment
 ```
 Addresses/1
@@ -4448,7 +4483,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 67:
+Example 69:
 ```json
 "@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
 "@UI.CollectionFacet#Contacts": [
@@ -4476,7 +4511,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 68:
+Example 70:
 ```json
 "@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
@@ -4505,7 +4540,7 @@ containing a path.
 :::
 
 ::: {.varjson .example}
-Example 69:
+Example 71:
 ```json
 "@UI.HyperLink": "Supplier",
 
@@ -4541,7 +4576,7 @@ Property path expressions are represented as a string containing a path.
 :::
 
 ::: {.varjson .example}
-Example 70:
+Example 72:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
 
@@ -4575,7 +4610,7 @@ Path expressions are represented as an object with a single member
 :::
 
 ::: {.varjson .example}
-Example 71:
+Example 73:
 ```json
 "@UI.DisplayName": {
   "$Path": "FirstName"
@@ -4647,7 +4682,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 72:
+Example 74:
 ```json
 {
   "$And": [
@@ -4787,7 +4822,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 73:
+Example 75:
 ```json
 {
   "$Add": [
@@ -4900,7 +4935,7 @@ are represented according to the appropriate alternative in the
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: {.varjson .example}
-Example 74:
+Example 76:
 ```json
 "@UI.DisplayName": {
   "$Apply": [
@@ -4959,7 +4994,7 @@ types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
 ::: {.varjson .example}
-Example 75: assuming there are no special characters in values of the
+Example 77: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
 {
@@ -4990,7 +5025,7 @@ expression, using syntax and semantics of
 [ECMAScript](#_ECMAScript) regular expressions.
 
 ::: {.varjson .example}
-Example 76: all non-empty `FirstName` values not containing the letters
+Example 78: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```json
 {
@@ -5016,7 +5051,7 @@ Note: string literals are surrounded by single quotes as required by the
 paren-style key syntax.
 
 ::: {.varjson .example}
-Example 77:
+Example 79:
 ```json
 {
   "$Apply": [
@@ -5065,7 +5100,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 78:
+Example 80:
 ```json
 "@UI.Threshold": {
   "$Cast": {
@@ -5092,7 +5127,7 @@ item expression within the collection expression.
 :::
 
 ::: {.varjson .example}
-Example 79:
+Example 81:
 ```json
 "@seo.SeoTerms": [
   "Product",
@@ -5139,7 +5174,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 80: the condition is a [value path expression](#ValuePath)
+Example 82: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `$If` expression (or so it was long ago)
 ```json
@@ -5183,7 +5218,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 81:
+Example 83:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5222,7 +5257,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 82:
+Example 84:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5251,7 +5286,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 83:
+Example 85:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5272,7 +5307,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 86:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5286,7 +5321,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 87:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5333,7 +5368,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 88: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5399,7 +5434,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 87:
+Example 89:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5482,7 +5517,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 90: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5503,7 +5538,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 89:
+Example 91:
 ```json
 {
   "$Version": "4.0",
@@ -5725,7 +5760,7 @@ Example 89:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 90:
+Example 92:
 ```json
 {
   "$Version": "4.01",
@@ -5787,8 +5822,8 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 CSDL constructs
-for requests made with `OData-MaxVersion:4.0`.
+In addition, conforming services MUST NOT return 4.01 or 4.02 CSDL constructs
+for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -5809,12 +5844,15 @@ types
 10. MUST NOT specify a key as a property of a related entity
 11. SHOULD NOT include new/unknown values for
 [`$AppliesTo`](#Applicability)
-12. MAY include new CSDL annotations
+12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+13. MAY include new CSDL annotations
 
 In addition, OData 4.01 services:
-13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+
+14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
