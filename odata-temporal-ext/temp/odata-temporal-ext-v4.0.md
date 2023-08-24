@@ -1,166 +1,3 @@
-# ##sec Overview
-
-When keeping track of time, the most important questions are:
-- When did or will something happen?
-- When did we learn that it happened?
-
-This leads to two "directions" or "dimensions" of time (measured as a
-date or date-plus-time value):
-- [Application
-time](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#ApplicationTime),
-also called actual time, business time, effective time, or valid time,
-and
-- [System
-time](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SystemTime),
-also called recording time, audit time, or transaction time.
-
-Keeping track of time is typically done by storing data together with
-the time period for which that data is deemed valid or effective, using
-separate periods for application time and system time, and the time
-periods are part of the logical key for "records". See
-[**\[SQL:2011\]**](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SQL2011)
-or
-[**\[Kulkarni\]**](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#Kulkarni)
-on how this is done in the SQL standard.
-
-A consumer\'s perspective on this data can be different: even if time is
-tracked internally, the period of time may or may not be visible in a
-consumer\'s perspective, and even if visible the related properties are
-often not considered part of an entity's identity. For example, an
-employee is still the same person even after switching to another
-department.
-
-The goals of this extension are:
-- Keep the API models as simple as
-possible by allowing to hide time-dependency,
-- Provide easy means for [point-in-time
-queries](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionat)
-even if time-dependency is hidden,
-- Provide easy means for [time-range
-queries](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#QueryOptionsfromtoandtoInclusive)
-if time-dependency is visible, and
-- Provide easy means for modifying
-time-dependent data.
-
-## ##subsec Definitions
-
-### ##subsubsec Application Time
-
-Application time is used to describe data that is known to change over
-time, for example the budget of a department, or which department an
-employee works for. Application time may capture planned changes in the
-future, for example transferring an employee to a new department next
-month or capturing next year\'s budget for a department. Both future and
-past data can be changed.
-
-### ##subsubsec System Time
-
-System time is used to record when data became known by the "system of
-record". System time does not extend into the future, and record entries
-are only added and are never changed.
-
-System time is never manipulated directly, and typically not visible in
-APIs, except for "last changed at" time stamps, and the corresponding
-properties are read-only.
-
-As system time is typically not visible in APIs, we do not consider this
-in the remainder of this document.
-
-### ##subsubsec Temporal Object
-
-A temporal object is a set of data whose change over time is tracked by
-the service as a sequence of [time
-slices](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TimeSlice).
-
-### ##subsubsec Time Slice
-
-A piece of temporal data with attached time period, documenting that the
-data did not change during this time period.
-
-Time slices for the same [temporal
-object](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TemporalObject)
-are non-overlapping, so for any given point in time there is at most one
-slice whose time period contains that point in time.
-
-Time slices for a temporal object need not cover the complete timeline.
-There can be points in time for which no time slice exists, indicating
-that the object's values are not known to the service.
-
-#### ##subsubsubsec Closed-Open Semantics
-
-Time slices typically use closed-open semantics, following
-[**\[SQL:2011\]**](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#SQL2011).
-This means the start is part of the period, the end is not part of the
-period, and for directly adjacent time slices the end of the earlier
-time slice is identical to the start of the next time slice. The period
-start must be less than the period end.
-
-#### ##subsubsubsec Closed-Closed Semantics
-
-Some software systems predating the availability of temporal databases
-and with data type *date* for the application-time period start and end
-use closed-closed semantics. Temporal services on top of these systems
-can either convert their period end boundaries on-the-fly by adding one
-day on the way out and subtracting one day on the way in, or
-alternatively express the used time slice semantics via
-[annotations](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData).
-
-### ##subsubsubsec Snapshot Entity Set
-
-An entity in a snapshot entity set represents a [temporal
-object](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TemporalObject)
-at a specified point in time. When the entity is addressed via a
-resource path (directly or via related resources), the point in time
-must be specified, see section "[Propagation of Temporal Query
-Options](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#PropagationofTemporalQueryOptions)"
-for details on how to determine this point in time.
-
-[The entity's id and its canonical URL are independent of this point in
-time. Hence, they are sufficient to ]{.cf01}[reference]{.cf11}[ the
-entity but not ]{.cf01}[address]{.cf11}[ it. In other words: The entity
-can be considered a function that maps each point in time to an instance
-of the entity type. That function can be ]{.cf01}[referenced]{.cf11}[
-but only its values can be ]{.cf01}[addressed]{.cf11}[.]{.cf01}
-
-[Without a point in time, statements about individual structural or
-navigation properties of the entity or even about its existence cannot
-be made, and ]{.cf01}[change
-tracking](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#RequestingChangestoTemporalData)[
-is not possible.]{.cf01}
-
-Snapshot entity sets MUST be
-[annotated](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
-with a `Timeline` of type `TimelineSnapshot`.
-
-### ##subsubsec Timeline Entity Set
-
-An entity in a timeline entity set represents one [time
-slice](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TimeSlice)
-of a [temporal
-object](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#TemporalObject),
-and all time slices of that temporal object are part of the entity set.
-
-[The entity's id and its canonical URL depend on the period of
-application time of the corresponding time slice.
-]{.cf01}[Referencing]{.cf11}[ and ]{.cf01}[addressing]{.cf11}[ the
-entity are equivalent concepts, unlike in the snapshot case.]{.cf01}
-
-The response to a time-range request need not reflect the time-slice cut
-of the underlying data model.
-
-Services MAY condense/defragment adjacent time slices that do not differ
-in represented properties other than the period boundaries. This reduces
-the payload size, and it also avoids potential information leakage if
-the service only publishes a projection of the underlying data model.
-
-Services MAY also split time slices to align their boundaries with
-nested expanded time slices to represent a "coarsest common slicing"
-across an expand tree.
-
-Timeline entity sets MUST be
-[annotated](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#VocabularyforTemporalData)
-with a `Timeline` of type `TimelineVisible`.
-
 ## ##subsec Example Model
 
 Assume a simple scenario: employees will work in different roles and in
@@ -268,7 +105,7 @@ c\. Retrieve all time slices of an employee for a given application-time
 period, including all time slices of the related departments within the
 application-time period of each employee time slice.
 
-d\. Change a department\'s budget in the past, present, or future.
+d\. Change a department's budget in the past, present, or future.
 
 e\. Change an employee's association to a department in the past,
 present, or future.
@@ -614,7 +451,7 @@ Only entities satisfying all specified criteria are returned.
 ::: example
 Example ##ex: Retrieve current data of an employee
 ```
-GET /api-1/Employees(\'E314\')
+GET /api-1/Employees('E314')
 ```
 :::
 
@@ -636,7 +473,7 @@ results in
 ::: example
 Example ##ex: retrieve employee at a specific point in application time
 ```
-GET /api-1/Employees(\'E314\')?\$at=2012-01-01
+GET /api-1/Employees('E314')?\$at=2012-01-01
 ```
 :::
 
@@ -658,7 +495,7 @@ results in
 ::: example
 Example ##ex: retrieve multiple employees at a past point in time
 ```
-GET /api-1/Employees?\$filter=contains(Name,\'i\')&\$at=2012-01-01
+GET /api-1/Employees?\$filter=contains(Name,'i')&\$at=2012-01-01
 ```
 :::
 
@@ -699,7 +536,7 @@ Example ##ex: retrieve employee in the past, show the past department as
 of a later point in time
 ```
 GET
-/api-1/Employees(\'E314\')?\$at=2012-01-01&\$expand=Department(\$at=2021-11-23)
+/api-1/Employees('E314')?\$at=2012-01-01&\$expand=Department(\$at=2021-11-23)
 ```
 :::
 
@@ -730,7 +567,7 @@ results in
 Example ##ex: retrieve department in the future with expanded employees at
 the same point in time
 ```
-GET /api-1/Departments(\'D15\')?\$at=2015-01-01&\$expand=Employees
+GET /api-1/Departments('D15')?\$at=2015-01-01&\$expand=Employees
 ```
 :::
 
@@ -927,7 +764,7 @@ Example ##ex: retrieve all employees that ever worked for department D15,
 with their full history, and the department's data at the start of each
 employee history time slice
 ```
-[GET /api-2/Departments(\'D15\')/Employees?\
+[GET /api-2/Departments('D15')/Employees?\
   \$expand=history(\
     \@emp=\$this;\
     \$expand=Department(\
@@ -1142,7 +979,7 @@ GET /api-2/Employees?\$expand=history(
 
                        \$from=2012-03-01&\$to=2025-01-01;
 
-                       \$filter=contains(Jobtitle,\'e\')
+                       \$filter=contains(Jobtitle,'e')
 
                      )
 ```
@@ -1233,7 +1070,7 @@ GET /api-2/Employees?\$expand=history(\$select=Name,Jobtitle)
 
                      &\$from=2015-01-01
 
-                     &\$filter=history/any(h:startswith(h/Name,\'N\'))
+                     &\$filter=history/any(h:startswith(h/Name,'N'))
 ```
 
 results in one employee whose name matches in the past, and the matching
@@ -1424,12 +1261,12 @@ affected.
 On success it returns the created or updated time slices.
 
 ::: example
-Example ##ex: Change a department\'s budget during a period of application
+Example ##ex: Change a department's budget during a period of application
 time with
 [`api-2`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_2)
 (visible timeline)
 ```
-POST \~/Departments(\'D08\')/history/Temporal.Update
+POST \~/Departments('D08')/history/Temporal.Update
 :::
 
 Content-Type: application/json
@@ -1496,7 +1333,7 @@ It returns the resulting created or updated time slices
 
       \"Timeslice\": {
 
-        \"@odata.context\": \"#Departments(\'D08\')/history/\$entity\",
+        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
 
         \"From\": \"2012-01-01\",
 
@@ -1514,7 +1351,7 @@ It returns the resulting created or updated time slices
 
       \"Timeslice\": {
 
-        \"@odata.context\": \"#Departments(\'D08\')/history/\$entity\",
+        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
 
         \"From\": \"2012-04-01\",
 
@@ -1532,7 +1369,7 @@ It returns the resulting created or updated time slices
 
       \"Timeslice\": {
 
-        \"@odata.context\": \"#Departments(\'D08\')/history/\$entity\",
+        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
 
         \"From\": \"2012-06-01\",
 
@@ -1550,7 +1387,7 @@ It returns the resulting created or updated time slices
 
       \"Timeslice\": {
 
-        \"@odata.context\": \"#Departments(\'D08\')/history/\$entity\",
+        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
 
         \"From\": \"2014-01-01\",
 
@@ -1568,7 +1405,7 @@ It returns the resulting created or updated time slices
 
       \"Timeslice\": {
 
-        \"@odata.context\": \"#Departments(\'D08\')/history/\$entity\",
+        \"@odata.context\": \"#Departments('D08')/history/\$entity\",
 
         \"From\": \"2014-07-01\",
 
@@ -1593,7 +1430,7 @@ they do not significantly differ.
  
 
 ::: example
-Example ##ex: Change an employee\'s job title during a period of
+Example ##ex: Change an employee's job title during a period of
 application time with
 [`api-1`](https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/cs01/odata-temporal-ext-v4.0-cs01.html#example_api_1)
 (snapshot). Note that the period boundaries are not visible in

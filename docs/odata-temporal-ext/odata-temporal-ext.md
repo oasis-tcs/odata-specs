@@ -106,8 +106,15 @@ For complete copyright information please see the full Notices section in an App
   - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
     - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
-    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
-    - [1.2.3 Document Conventions](#DocumentConventions)
+      - [1.2.1.1 Application Time](#ApplicationTime)
+      - [1.2.1.2 System Time](#SystemTime)
+      - [1.2.1.3 Temporal Object](#TemporalObject)
+      - [1.2.1.4 Time Slice](#TimeSlice)
+        - [1.2.1.4.1 Closed-Open Semantics](#ClosedOpenSemantics)
+        - [1.2.1.4.2 Closed-Closed Semantics](#ClosedClosedSemantics)
+        - [1.2.1.4.3 Snapshot Entity Set](#SnapshotEntitySet)
+      - [1.2.1.5 Timeline Entity Set](#TimelineEntitySet)
+    - [1.2.2 Document Conventions](#DocumentConventions)
 - [2 Overview](#Overview)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
@@ -139,11 +146,114 @@ It defines semantics and a representation for temporal data, especially:
 
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
+#### <a name="ApplicationTime" href="#ApplicationTime">1.2.1.1 Application Time</a>
 
-<!-- TODO -->
+Application time is used to describe data that is known to change over
+time, for example the budget of a department, or which department an
+employee works for. Application time may capture planned changes in the
+future, for example transferring an employee to a new department next
+month or capturing next year's budget for a department. Both future and
+past data can be changed.
 
-### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
+#### <a name="SystemTime" href="#SystemTime">1.2.1.2 System Time</a>
+
+System time is used to record when data became known by the "system of
+record". System time does not extend into the future, and record entries
+are only added and are never changed.
+
+System time is never manipulated directly, and typically not visible in
+APIs, except for "last changed at" time stamps, and the corresponding
+properties are read-only.
+
+As system time is typically not visible in APIs, we do not consider this
+in the remainder of this document.
+
+#### <a name="TemporalObject" href="#TemporalObject">1.2.1.3 Temporal Object</a>
+
+A temporal object is a set of data whose change over time is tracked by
+the service as a sequence of [time slices](#TimeSlice).
+
+#### <a name="TimeSlice" href="#TimeSlice">1.2.1.4 Time Slice</a>
+
+A piece of temporal data with attached time period, documenting that the
+data did not change during this time period.
+
+Time slices for the same [temporal object](#TemporalObject)
+are non-overlapping, so for any given point in time there is at most one
+slice whose time period contains that point in time.
+
+Time slices for a temporal object need not cover the complete timeline.
+There can be points in time for which no time slice exists, indicating
+that the object's values are not known to the service.
+
+##### <a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a>
+
+Time slices typically use closed-open semantics, following **[[SQL:2011]](#SQL)**.
+This means the start is part of the period, the end is not part of the
+period, and for directly adjacent time slices the end of the earlier
+time slice is identical to the start of the next time slice. The period
+start must be less than the period end.
+
+##### <a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a>
+
+Some software systems predating the availability of temporal databases
+and with data type *date* for the application-time period start and end
+use closed-closed semantics. Temporal services on top of these systems
+can either convert their period end boundaries on-the-fly by adding one
+day on the way out and subtracting one day on the way in, or
+alternatively express the used time slice semantics via
+[annotations](#VocabularyforTemporalData).
+
+#### <a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.4.3 Snapshot Entity Set</a>
+
+An entity in a snapshot entity set represents a [temporal object](#TemporalObject)
+at a specified point in time. When the entity is addressed via a
+resource path (directly or via related resources), the point in time
+must be specified, see section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+for details on how to determine this point in time.
+
+The entity's id and its canonical URL are independent of this point in
+time. Hence, they are sufficient to _reference_ the
+entity but not _address_ it. In other words: the entity
+can be considered a function that maps each point in time to an instance
+of the entity type. That function can be _referenced_
+but only its values can be _addressed_.
+
+Without a point in time, statements about individual structural or
+navigation properties of the entity or even about its existence cannot
+be made, and [change tracking](#RequestingChangestoTemporalData)
+is not possible.
+
+Snapshot entity sets MUST be [annotated](#VocabularyforTemporalData)
+with a `Timeline` of type `TimelineSnapshot`.
+
+#### <a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.5 Timeline Entity Set</a>
+
+An entity in a timeline entity set represents one [time slice](#TimeSlice)
+of a [temporal object](#TemporalObject),
+and all time slices of that temporal object are part of the entity set.
+
+The entity's id and its canonical URL depend on the period of
+application time of the corresponding time slice.
+_Referencing_ and _addressing_ the
+entity are equivalent concepts, unlike in the snapshot case.
+
+The response to a time-range request need not reflect the time-slice cut
+of the underlying data model.
+
+Services MAY condense/defragment adjacent time slices that do not differ
+in represented properties other than the period boundaries. This reduces
+the payload size, and it also avoids potential information leakage if
+the service only publishes a projection of the underlying data model.
+
+Services MAY also split time slices to align their boundaries with
+nested expanded time slices to represent a "coarsest common slicing"
+across an expand tree.
+
+Timeline entity sets MUST be [annotated](#VocabularyforTemporalData)
+with a `Timeline` of type `TimelineVisible`.
+
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.2 Document Conventions</a>
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -184,7 +294,40 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 
 # <a name="Overview" href="#Overview">2 Overview</a>
 
-<!-- TODO -->
+When keeping track of time, the most important questions are:
+- When did or will something happen?
+- When did we learn that it happened?
+
+This leads to two "directions" or "dimensions" of time (measured as a
+date or date-plus-time value):
+- [Application time](#ApplicationTime), also called actual time,
+  business time, effective time, or valid time, and
+- [System time](#SystemTime), also called recording time, audit time,
+  or transaction time.
+
+Keeping track of time is typically done by storing data together with
+the time period for which that data is deemed valid or effective, using
+separate periods for application time and system time, and the time
+periods are part of the logical key for "records". See
+**[[SQL:2011]](#SQL)**
+or
+**[[Kulkarni]](#Kulkarni)**
+on how this is done in the SQL standard.
+
+A consumer's perspective on this data can be different: even if time is
+tracked internally, the period of time may or may not be visible in a
+consumer's perspective, and even if visible the related properties are
+often not considered part of an entity's identity. For example, an
+employee is still the same person even after switching to another
+department.
+
+The goals of this extension are:
+- Keep the API models as simple as possible by allowing to hide time-dependency,
+- Provide easy means for [point-in-time queries](#QueryOptionat)
+even if time-dependency is hidden,
+- Provide easy means for [time-range queries](#QueryOptionsfromtoandtoInclusive)
+if time-dependency is visible, and
+- Provide easy means for modifying time-dependent data.
 
 -------
 

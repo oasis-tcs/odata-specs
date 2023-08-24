@@ -110,9 +110,20 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
 <li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
-<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
-<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
+<ul>
+<li><a href="#ApplicationTime">1.2.1.1 Application Time</a></li>
+<li><a href="#SystemTime">1.2.1.2 System Time</a></li>
+<li><a href="#TemporalObject">1.2.1.3 Temporal Object</a></li>
+<li><a href="#TimeSlice">1.2.1.4 Time Slice</a>
+<ul>
+<li><a href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></li>
+<li><a href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></li>
+<li><a href="#SnapshotEntitySet">1.2.1.4.3 Snapshot Entity Set</a></li>
+</ul></li>
+<li><a href="#TimelineEntitySet">1.2.1.5 Timeline Entity Set</a></li>
+</ul></li>
+<li><a href="#DocumentConventions">1.2.2 Document Conventions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#Overview">2 Overview</a></li>
@@ -144,10 +155,35 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
-<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
-<!-- TODO -->
-
-<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
+<h4 id="1211-application-time"><a name="ApplicationTime" href="#ApplicationTime">1.2.1.1 Application Time</a></h4>
+<p>Application time is used to describe data that is known to change over time, for example the budget of a department, or which department an employee works for. Application time may capture planned changes in the future, for example transferring an employee to a new department next month or capturing next year's budget for a department. Both future and past data can be changed.</p>
+<h4 id="1212-system-time"><a name="SystemTime" href="#SystemTime">1.2.1.2 System Time</a></h4>
+<p>System time is used to record when data became known by the "system of record". System time does not extend into the future, and record entries are only added and are never changed.</p>
+<p>System time is never manipulated directly, and typically not visible in APIs, except for "last changed at" time stamps, and the corresponding properties are read-only.</p>
+<p>As system time is typically not visible in APIs, we do not consider this in the remainder of this document.</p>
+<h4 id="1213-temporal-object"><a name="TemporalObject" href="#TemporalObject">1.2.1.3 Temporal Object</a></h4>
+<p>A temporal object is a set of data whose change over time is tracked by the service as a sequence of <a href="#TimeSlice">time slices</a>.</p>
+<h4 id="1214-time-slice"><a name="TimeSlice" href="#TimeSlice">1.2.1.4 Time Slice</a></h4>
+<p>A piece of temporal data with attached time period, documenting that the data did not change during this time period.</p>
+<p>Time slices for the same <a href="#TemporalObject">temporal object</a> are non-overlapping, so for any given point in time there is at most one slice whose time period contains that point in time.</p>
+<p>Time slices for a temporal object need not cover the complete timeline. There can be points in time for which no time slice exists, indicating that the object's values are not known to the service.</p>
+<h5 id="12141-closed-open-semantics"><a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></h5>
+<p>Time slices typically use closed-open semantics, following <strong><a href="#SQL">[SQL:2011]</a></strong>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
+<h5 id="12142-closed-closed-semantics"><a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></h5>
+<p>Some software systems predating the availability of temporal databases and with data type <em>date</em> for the application-time period start and end use closed-closed semantics. Temporal services on top of these systems can either convert their period end boundaries on-the-fly by adding one day on the way out and subtracting one day on the way in, or alternatively express the used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
+<h4 id="12143-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.4.3 Snapshot Entity Set</a></h4>
+<p>An entity in a snapshot entity set represents a <a href="#TemporalObject">temporal object</a> at a specified point in time. When the entity is addressed via a resource path (directly or via related resources), the point in time must be specified, see section "<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>" for details on how to determine this point in time.</p>
+<p>The entity's id and its canonical URL are independent of this point in time. Hence, they are sufficient to <em>reference</em> the entity but not <em>address</em> it. In other words: the entity can be considered a function that maps each point in time to an instance of the entity type. That function can be <em>referenced</em> but only its values can be <em>addressed</em>.</p>
+<p>Without a point in time, statements about individual structural or navigation properties of the entity or even about its existence cannot be made, and <a href="#RequestingChangestoTemporalData">change tracking</a> is not possible.</p>
+<p>Snapshot entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineSnapshot</code>.</p>
+<h4 id="1215-timeline-entity-set"><a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.5 Timeline Entity Set</a></h4>
+<p>An entity in a timeline entity set represents one <a href="#TimeSlice">time slice</a> of a <a href="#TemporalObject">temporal object</a>, and all time slices of that temporal object are part of the entity set.</p>
+<p>The entity's id and its canonical URL depend on the period of application time of the corresponding time slice. <em>Referencing</em> and <em>addressing</em> the entity are equivalent concepts, unlike in the snapshot case.</p>
+<p>The response to a time-range request need not reflect the time-slice cut of the underlying data model.</p>
+<p>Services MAY condense/defragment adjacent time slices that do not differ in represented properties other than the period boundaries. This reduces the payload size, and it also avoids potential information leakage if the service only publishes a projection of the underlying data model.</p>
+<p>Services MAY also split time slices to align their boundaries with nested expanded time slices to represent a "coarsest common slicing" across an expand tree.</p>
+<p>Timeline entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineVisible</code>.</p>
+<h3 id="122-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.2 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
@@ -173,8 +209,25 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <hr />
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
-<!-- TODO -->
-
+<p>When keeping track of time, the most important questions are:</p>
+<ul>
+<li>When did or will something happen?</li>
+<li>When did we learn that it happened?</li>
+</ul>
+<p>This leads to two "directions" or "dimensions" of time (measured as a date or date-plus-time value):</p>
+<ul>
+<li><a href="#ApplicationTime">Application time</a>, also called actual time, business time, effective time, or valid time, and</li>
+<li><a href="#SystemTime">System time</a>, also called recording time, audit time, or transaction time.</li>
+</ul>
+<p>Keeping track of time is typically done by storing data together with the time period for which that data is deemed valid or effective, using separate periods for application time and system time, and the time periods are part of the logical key for "records". See <strong><a href="#SQL">[SQL:2011]</a></strong> or <strong><a href="#Kulkarni">[Kulkarni]</a></strong> on how this is done in the SQL standard.</p>
+<p>A consumer's perspective on this data can be different: even if time is tracked internally, the period of time may or may not be visible in a consumer's perspective, and even if visible the related properties are often not considered part of an entity's identity. For example, an employee is still the same person even after switching to another department.</p>
+<p>The goals of this extension are:</p>
+<ul>
+<li>Keep the API models as simple as possible by allowing to hide time-dependency,</li>
+<li>Provide easy means for <a href="#QueryOptionat">point-in-time queries</a> even if time-dependency is hidden,</li>
+<li>Provide easy means for <a href="#QueryOptionsfromtoandtoInclusive">time-range queries</a> if time-dependency is visible, and</li>
+<li>Provide easy means for modifying time-dependent data.</li>
+</ul>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
