@@ -41,7 +41,7 @@ Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
 Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
-Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
+Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
@@ -236,7 +236,7 @@ The following non-exhaustive list contains variable names that are used througho
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -4939,7 +4939,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
-| Martin | Zurmühl | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 

@@ -341,7 +341,7 @@ Example ##ex: resource URL and corresponding context URL -- expand with
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
         &$expand=DirectReports($select=FirstName,LastName;$levels=4)
-http://host/service/$metadata\
+http://host/service/$metadata
         #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::

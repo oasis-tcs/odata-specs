@@ -34,7 +34,7 @@ parameters within the `Content-Type` header.
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
-content codings have been applied to the entity-body.\
+content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
 [`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
@@ -170,7 +170,7 @@ If an operation on an existing resource requires an ETag, (see term
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
-in ** **[OData-VocCap](#ODataVocCap)) and the client does not specify an
+in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
 an action bound to the resource, the service responds with a
@@ -232,7 +232,7 @@ from external changes. The only supported value for this header is
 
 If the service doesn't support `Isolation:snapshot` and this header was
 specified on the request, the service MUST NOT process the request and
-MUST respond with `412 Precondition Failed.`
+MUST respond with [`412 Precondition Failed`](#ResponseCode412PreconditionFailed).
 
 *Snapshot isolation* guarantees that all data returned for a request,
 including multiple requests within a [batch](#BatchRequests) or results
@@ -648,8 +648,8 @@ A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
 apply this preference by returning the representation of the
 successfully modified resource in the body of the response, formatted
-according to the rules specified for the requested [format](#Formats)[.
-In this case the service]{.Hyperlink1} MAY include a
+according to the rules specified for the requested [format](#Formats).
+In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
@@ -686,7 +686,7 @@ respond
 - asynchronously if the synchronous processing of the request will take longer than 10 seconds
 - synchronously after 5 seconds
 - asynchronously (ignoring the [`wait`](#Preferencewait) preference)
-- synchronously after 15 seconds (ignoring `respond-`async preference and the
+- synchronously after 15 seconds (ignoring `respond-async` preference and the
 [`wait`](#Preferencewait) preference)
 ```
 Prefer: respond-async, wait=10
@@ -710,7 +710,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 

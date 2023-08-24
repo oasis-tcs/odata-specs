@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL XML Representation) specifically defines the XML representation of CSDL." />
   <title>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02</title>
   <style>
     code{white-space: pre-wrap;}
@@ -139,7 +140,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a></li>
 </ul>
 <h4 id="abstract">Abstract:</h4>
-<p>OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.</p>
+<p>OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL XML Representation) specifically defines the XML representation of CSDL.</p>
 <h4 id="status">Status:</h4>
 <p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
 <p>TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
@@ -165,9 +166,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
 <li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#Definitionsofterms">1.2.1 Definitions of terms</a></li>
-<li><a href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></li>
-<li><a href="#Documentconventions">1.2.3 Document conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#XMLRepresentation">2 XML Representation</a>
@@ -445,18 +446,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml">
 <p><a href="https://issues.oasis-open.org/browse/ODATA-1570">ODATA-1570</a>|CSDL XML is defined with reference to XML 1.1 but none of the examples use XML version 1.1 documents| ::: <a href="https://issues.oasis-open.org/browse/ODATA-1571">ODATA-1571</a>|Allow empty entity containers| <a href="https://issues.oasis-open.org/browse/ODATA-1577">ODATA-1577</a>|Write "entity-id" instead of "entity id"| <a href="https://issues.oasis-open.org/browse/ODATA-1578">ODATA-1578</a>|Consistently use "annotated with the term" instead of "annotated with term"| <a href="https://issues.oasis-open.org/browse/ODATA-1592">ODATA-1592</a>|Correct vocabulary URIs in examples|</p>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
-<h3 id="121-definitions-of-terms"><a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a></h3>
-<h3 id="122-acronyms-and-abbreviations"><a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></h3>
+<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 <!-- TODO -->
 
-<h3 id="123-document-conventions"><a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a></h3>
+<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
 <pre><code>Non-normative examples use this paragraph style.</code></pre>
 </div>
-<p>All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.</p>
+<p>All examples in this document are non-normative and informative only.</p>
 <p>Representation-specific text is indented and marked with vertical lines.</p>
 <section id="representation-specific-headline" class="rep">
 <h3>Representation-Specific Headline</h3>
@@ -3543,7 +3544,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Martin</td>
-<td style="text-align: left;">Zurmühl</td>
+<td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
 </tbody>
