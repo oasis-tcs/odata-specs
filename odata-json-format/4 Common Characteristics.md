@@ -28,8 +28,8 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section [Payload
-Ordering Constraints](#PayloadOrderingConstraints).
+a value of `true` or `false`, see section 
+"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## ##subsec Message Body
 

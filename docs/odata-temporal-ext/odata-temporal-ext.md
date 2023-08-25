@@ -692,8 +692,9 @@ of `$at`.
 For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
-<!-- TODO: css for block-quote -->
-> [`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+::: indent
+[`$fromge`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+:::
 
 The query option `$at` can be combined with `$filter` and `$search`.
 Only entities satisfying all specified criteria are returned.
@@ -825,7 +826,9 @@ Allowed combinations are:
 It is not allowed to combine `$from` and `$to`/`$toInclusive` with
 [`$at`](#QueryOptionat) because `$at=<point-in-time>` is shorthand for
 
-> `$from=<point-in-time>&$toInclusive=<point-in-time>`
+::: indent
+`$from=<point-in-time>&$toInclusive=<point-in-time>`
+:::
 
 The result is restricted to time slices whose application-time period
 overlaps with the interval defined by the query option values, taking
@@ -838,20 +841,28 @@ all comparison operators right.
 For timeline entity sets with closed-open semantics
 `$from=<start>&$to=<end>` is shorthand for
 
-> `$filter=<time-slice-start> lt <end> and <time-slice-end> gt <start>`
+::: indent
+`$filter=<time-slice-start> lt <end> and <time-slice-end> gt <start>`
+:::
 
 and for timeline entity sets with closed-closed semantics shorthand for
 
-> `$filter=<time-slice-start> lt <end> and <time-slice-end> ge <start>`
+::: indent
+`$filter=<time-slice-start> lt <end> and <time-slice-end> ge <start>`
+:::
 
 For timeline entity sets with closed-open semantics
 `$from=<start>&$toInclusive=<end>` is shorthand for
 
-> `$filter=<time-slice-start> le <end> and <time-slice-end> gt <start>`
+::: indent
+`$filter=<time-slice-start> le <end> and <time-slice-end> gt <start>`
+:::
 
 and for timeline entity sets with closed-closed semantics shorthand for
 
-> `$filter=<time-slice-start> le <end> and <time-slice-end> ge <start>`
+::: indent
+`$filter=<time-slice-start> le <end> and <time-slice-end> ge <start>`
+:::
 
 The query options `$from` and `$to`/`$toInclusive` can be combined with
 `$filter` and `$search`. Only entities satisfying all specified criteria

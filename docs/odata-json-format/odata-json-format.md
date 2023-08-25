@@ -450,8 +450,8 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section [Control Information: type
-  (odata.type)](#ControlInformationtypeodatatype).
+  the data value, see section
+  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
 
 Media entities and stream properties may in addition contain the
 following control information:
@@ -562,8 +562,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section [Payload
-Ordering Constraints](#PayloadOrderingConstraints).
+a value of `true` or `false`, see section "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 

@@ -640,11 +640,9 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h3 id="422-query-option-at"><a name="QueryOptionat" href="#QueryOptionat">4.2.2 Query Option <code>$at</code></a></h3>
 <p>The <code>$at</code> query option takes a temporal expression as its argument. It retrieves the snapshot whose application time period contains the value of <code>$at</code>.</p>
 <p>For timeline entity sets and collection-valued navigation to timeline entity sets, <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
-<!-- TODO: css for block-quote -->
-
-<blockquote>
-<p><a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code></a>=<code>&lt;point-in-time&gt;&amp;</code><a href="#QueryOptionsfromtoandtoInclusive"><code>$toInclusive</code></a><code>=&lt;point-in-time&gt;</code></p>
-</blockquote>
+<div class="indent">
+<p><a href="#QueryOptionsfromtoandtoInclusive"><code>$fromge</code></a>=<code>&lt;point-in-time&gt;&amp;</code><a href="#QueryOptionsfromtoandtoInclusive"><code>$toInclusive</code></a><code>=&lt;point-in-time&gt;</code></p>
+</div>
 <p>The query option <code>$at</code> can be combined with <code>$filter</code> and <code>$search</code>. Only entities satisfying all specified criteria are returned.</p>
 <div class="example">
 <p>Example 9: Retrieve current data of an employee</p>
@@ -731,26 +729,26 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><code>$from</code> and neither <code>$to</code> nor <code>$toInclusive</code> defines a closed-closed interval with right boundary <code>max</code>.</li>
 </ul>
 <p>It is not allowed to combine <code>$from</code> and <code>$to</code>/<code>$toInclusive</code> with <a href="#QueryOptionat"><code>$at</code></a> because <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
-<blockquote>
+<div class="indent">
 <p><code>$from=&lt;point-in-time&gt;&amp;$toInclusive=&lt;point-in-time&gt;</code></p>
-</blockquote>
+</div>
 <p>The result is restricted to time slices whose application-time period overlaps with the interval defined by the query option values, taking the closed-open or closed-closed semantics of the entity set's time slices into account. The benefit of the query options is that the client does not have to inspect the temporal annotations to determine the property names of the period boundaries, the period semantics, and get all comparison operators right.</p>
 <p>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$to=&lt;end&gt;</code> is shorthand for</p>
-<blockquote>
+<div class="indent">
 <p><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt; and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
-</blockquote>
+</div>
 <p>and for timeline entity sets with closed-closed semantics shorthand for</p>
-<blockquote>
+<div class="indent">
 <p><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt; and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
-</blockquote>
+</div>
 <p>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$toInclusive=&lt;end&gt;</code> is shorthand for</p>
-<blockquote>
+<div class="indent">
 <p><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt; and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
-</blockquote>
+</div>
 <p>and for timeline entity sets with closed-closed semantics shorthand for</p>
-<blockquote>
+<div class="indent">
 <p><code>$filter=&lt;time-slice-start&gt; le &lt;end&gt; and &lt;time-slice-end&gt; ge &lt;start&gt;</code></p>
-</blockquote>
+</div>
 <p>The query options <code>$from</code> and <code>$to</code>/<code>$toInclusive</code> can be combined with <code>$filter</code> and <code>$search</code>. Only entities satisfying all specified criteria are returned.</p>
 <p>If no <code>$select</code> is specified, each returned entity SHOULD contain the application-time period boundaries as part of the default selection.</p>
 <div class="example">
