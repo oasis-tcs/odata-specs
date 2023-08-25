@@ -54,6 +54,10 @@ table {
 	padding: 2pt 6pt;
 	white-space: nowrap;
 }
+.example td em {
+	font-weight: bold;
+	color: blue;
+}
 
 .example td[rowspan] {
 	text-align: right;

@@ -1288,19 +1288,18 @@ slice starting at 2014-01-01 creating a new time slice starting at
 the new time slice starting at 2014-07-01 untouched:
 
 :::: {.obj-1 .temp-2}
-<!-- TODO: color changed cells -->
 **Departments (after)**
 
-ID     | From       | To         | Name              | Budget
--------|------------|------------|-------------------|--------
-D08    | 2010-01-01 | 2012-01-01 | Support           | 1000
-D08    | 2012-01-01 | 2012-04-01 | Support           | 1250
-D08    | 2012-04-01 | 2012-06-01 | Support           | 1320
-D08    | 2012-06-01 | 2014-01-01 | 1st Level Support | 1320
-D08    | 2014-01-01 | 2014-07-01 | 1st Level Support | 1320
-D08    | 2014-07-01 | max        | 1st Level Support | 1400
-D15    | 2010-01-01 | 2011-01-01 | Services          | 1100
-D15    | 2011-01-01 | max        | Services          | 1170
+ID     | From         | To           | Name                | Budget
+-------|--------------|--------------|---------------------|-------
+D08    | 2010-01-01   | 2012-01-01   | Support             | 1000
+D08    | 2012-01-01   | *2012-04-01* | Support             | 1250
+*D08*  | *2012-04-01* | *2012-06-01* | *Support*           | *1320*
+D08    | 2012-06-01   | 2014-01-01   | 1st Level Support   | *1320*
+D08    | 2014-01-01   | *2014-07-01* | 1st Level Support   | *1320*
+*D08*  | *2014-07-01* | *max*        | *1st Level Support* | *1400*
+D15    | 2010-01-01   | 2011-01-01   | Services            | 1100
+D15    | 2011-01-01   | max          | Services            | 1170
 ::::
 
 It returns the resulting created or updated time slices
@@ -1390,14 +1389,14 @@ then updated with the desired job title.
 <!-- TODO: color changed cells -->
 **Employees (after)**
 
-ID     | From       | To         | Name     | Jobtitle        | Department.ID
--------|------------|------------|----------|-----------------|--------------
-E314   | 2011-01-01 | 2013-10-01 | McDevitt | Junior          | D08
-E314   | 2013-10-01 | 2014-01-01 | McDevitt | Senior          | D08
-E314   | 2014-01-01 | max        | McDevitt | Senior          | D15
-E401   | 2009-11-01 | 2012-03-01 | Norman   | Expert          | D15
-E401   | 2012-03-01 | 2021-10-01 | Gibson   | Expert          | D15
-E401   | 2021-10-01 | max        | Gibson   | Ultimate Expert | D15
+ID     | From         | To           | Name     | Jobtitle          | Department.ID
+-------|--------------|--------------|----------|-------------------|--------------
+E314   | 2011-01-01   | 2013-10-01   | McDevitt | Junior            | D08
+E314   | 2013-10-01   | 2014-01-01   | McDevitt | Senior            | D08
+E314   | 2014-01-01   | max          | McDevitt | Senior            | D15
+E401   | 2009-11-01   | 2012-03-01   | Norman   | Expert            | D15
+E401   | 2012-03-01   | *2021-10-01* | Gibson   | Expert            | D15
+*E401* | *2021-10-01* | *max*        | *Gibson* | *Ultimate Expert* | *D15*
 ::::
 
 It returns the resulting created or updated time slices
@@ -1508,12 +1507,12 @@ ends the day before the start of the next adjacent time slice.
 :::: {.key-1 .obj-2 .obj-3 .temp-4}
 **CostCenters (after)**
 
-tsid | AreaID | CostCenterID | ValidTo    | ValidFrom  | ProfitCenterID | DepartmentID
------|--------|--------------|------------|------------|----------------|-------------
-n    | 51     | C1           | 1984-03-31 | 1955-04-01 | P1             | D02
-o    | 51     | C1           | 2001-03-31 | 1984-04-01 | P2             | D02
-p    | 51     | C1           | max        | 2001-04-01 | P1             | D02
-q    | 51     | C2           | max        | 2012-04-01 |                | D04
+tsid | AreaID | CostCenterID | ValidTo      | ValidFrom    | ProfitCenterID | DepartmentID
+-----|--------|--------------|--------------|--------------|----------------|-------------
+n    | 51     | C1           | *1984-03-31* | 1955-04-01   | P1             | D02
+*o*  | *51*   | *C1*         | *2001-03-31* | *1984-04-01* | *P2*           | *D02*
+*p*  | *51*   | *C1*         | *max*        | *2001-04-01* | *P1*           | *D02*
+*q*  | *51*   | *C2*         | *max*        | *2012-04-01* |                | *D04*
 ::::
 
 It returns the resulting created or updated time slices per affected temporal object
