@@ -5,6 +5,7 @@
 ## ##subsec Temporal Expressions
 
 A temporal expression is
+
 - A date in the form `dateValue`, see   [OData-ABNF](#ODataABNF)
 - A timestamp in the form `dateTimeOffsetValueInUrl`, see   [OData-ABNF](#ODataABNF)
 - One of the literals `min` or `max`
@@ -90,7 +91,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$fromge`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.
@@ -162,8 +163,7 @@ base entity.
 Example ##ex: retrieve employee in the past, show the past department as
 of a later point in time
 ```
-GET
-/api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
+GET /api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 ```
 results in
 ```json
@@ -440,7 +440,7 @@ on the data valid at that point in time, including the query option
 For timeline entity sets the interval for filtering data is determined
 following the rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
 and evaluated as an additional criterion for `$filter` in the evaluation
-sequence defined in [OData-Protocol, section System Query Options](#ODataProtocol),
+sequence defined in [OData-Protocol, section "System Query Options"](#ODataProtocol),
 which is evaluated _after_ the query option `$apply`.
 
 ::: example
@@ -504,8 +504,8 @@ the period boundaries.
 Example ##ex: filter employees on their name at any point in time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                     &$from=2015-01-01
-                     &$filter=history/any(h:startswith(h/Name,'N'))
+                    &$from=2015-01-01
+                    &$filter=history/any(h:startswith(h/Name,'N'))
 ```
 results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period

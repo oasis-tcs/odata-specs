@@ -10,6 +10,7 @@ The term `ApplicationTimeSupport` describes the temporal capabilities of
 an entity set. It can be applied to an entity set, or to a containment
 navigation property to describe its implicit entity sets. It has a
 structured type with the following properties:
+
 - `UnitOfTime` describes the data type of
   the application-time period start and end values. Its value is a record
   of either type `UnitOfTimeDate` or `UnitOfTimeDateTimeOffset`.
@@ -29,8 +30,7 @@ structured type with the following properties:
       `ClosedClosedPeriods` as `true`.
     - If the period end property does not
       specify a default value, a default value of "ad infinitum" is assumed.
-    
-    Records of type `TimelineVisible` MAY specify the property `ObjectKey`.
+  - Records of type `TimelineVisible` MAY specify the property `ObjectKey`.
     - `ObjectKey` is the “sub-key” or “alternate key” that identifies time slices for a single temporal object. 
       It is only necessary if the annotated entity set can contain time slices
       for more than one temporal object. `The object key is `a collection of
@@ -42,7 +42,7 @@ structured type with the following properties:
   or service-specific actions.
 
 ::: example
-Example ##ex: `Employees` entity set from [example model api-1](#api1)
+Example ##ex: `Employees` entity set from [example model `api-1`](#api1)
 annotated with temporal terms
 ```json
 "Employees": {
@@ -62,7 +62,7 @@ annotated with temporal terms
 
 ::: example
 Example ##ex: `history` navigation property in entity set `Employees` from
-[example model api-2](#api2) annotated with temporal terms
+[example model `api-2`](#api2) annotated with temporal terms
 ```json
 "$Annotations": {
   "OrgModel.Default/Employees/history": {

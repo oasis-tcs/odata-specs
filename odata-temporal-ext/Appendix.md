@@ -63,7 +63,7 @@ http://martinfowler.com/eaaDev/timeNarrative.html.
 _Krishna Kulkarni, "Temporal Features in SQL standard", September 2012_  
 https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf.
 
-###### <a name="Snodgrass">[FowSnodgrassler]</a>
+###### <a name="Snodgrass">[Snodgrass]</a>
 _Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7_  
 http://www2.cs.arizona.edu/people/rts/tdbbook.pdf and
 http://www2.cs.arizona.edu/people/rts/pp30-31.pdf.
