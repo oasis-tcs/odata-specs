@@ -107,12 +107,26 @@ table {
 	background-color: green;
 }
 
-.nav th:nth-of-type(2),
-.nav-2 th:nth-of-type(3),
-.nav-2 th:nth-of-type(4),
-.nav-2 th:nth-of-type(5),
+.nav-2 th:nth-of-type(2),
+.nav-3 th:nth-of-type(3),
+.nav-4 th:nth-of-type(4),
+.nav-5 th:nth-of-type(5),
+.nav-6 th:nth-of-type(6),
 .legend tbody tr:last-of-type {
 	background-color: rgb(255, 128, 0);
+}
+
+.key-1 th:first-of-type {
+	background-color: olive;
+}
+.obj-1 th:first-of-type,
+.obj-2 th:nth-of-type(2),
+.obj-3 th:nth-of-type(3) {
+	background-color: green;
+}
+.temp-2 th:nth-of-type(2),
+.temp-4 th:nth-of-type(4) {
+	background-color: mediumseagreen;
 }
 
 .legend td {

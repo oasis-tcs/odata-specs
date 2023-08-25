@@ -101,28 +101,47 @@ services only support four-digit years.
 ::: example
 Example ##ex: example data: object key in dark green, temporal sub-key in
 light green, foreign keys in orange, non-key fields in blue
-:::
 
-**Employees**
+:::: {.example-data style=width:600px;height:440px}
+<svg viewBox="0 0 600 700">
+  <defs>
+    <marker id="begin" viewBox="0 0 10 10" refX="0" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M10,0 L0,5 L10,10 z" />
+    </marker>
+    <marker id="end" viewBox="0 0 10 10" refX="10" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M0,0 L10,5 L0,10 z" />
+    </marker>
+  </defs>
+  <path d="M20,190 l0,40 l320,0 l0,40" marker-start="url(#begin)" marker-end="url(#end)" />
+</svg>
 
-  **ID**   **From**     To           Name       Jobtitle   Department.ID
-  -------- ------------ ------------ ---------- ---------- ---------------
-  E314     2011-01-01   2013-10-01   McDevitt   Junior     D08
-  E314     2013-10-01   2014-01-01   McDevitt   Senior     D08
-  E314     2014-01-01   max          McDevitt   Senior     D15
-  E401     2009-11-01   2012-03-01   Norman     Expert     D15
-  E401     2012-03-01   max          Gibson     Expert     D15
-
+::::: {.temp-2}
 **Departments**
 
-  **ID**   **From**     To           Name                Budget
-  -------- ------------ ------------ ------------------- --------
-  D08      2010-01-01   2012-01-01   Support             1000
-  D08      2012-01-01   2012-06-01   Support             1250
-  D08      2012-06-01   2014-01-01   1st Level Support   1250
-  D08      2014-01-01   max          1st Level Support   1400
-  D15      2010-01-01   2011-01-01   Services            1100
-  D15      2011-01-01   max          Services            1170
+ID     | From       | To         | Name              | Budget
+-------|------------|------------|-------------------|--------
+D08    | 2010-01-01 | 2012-01-01 | Support           | 1000
+D08    | 2012-01-01 | 2012-06-01 | Support           | 1250
+D08    | 2012-06-01 | 2014-01-01 | 1st Level Support | 1250
+D08    | 2014-01-01 | max        | 1st Level Support | 1400
+D15    | 2010-01-01 | 2011-01-01 | Services          | 1100
+D15    | 2011-01-01 | max        | Services          | 1170
+:::::
+
+::::: {.temp-2 .nav-6 style=top:240px}
+**Employees**
+
+ID     | From       | To         | Name     | Jobtitle | Department.ID
+-------|------------|------------|----------|----------|---------------
+E314   | 2011-01-01 | 2013-10-01 | McDevitt | Junior   | D08
+E314   | 2013-10-01 | 2014-01-01 | McDevitt | Senior   | D08
+E314   | 2014-01-01 | max        | McDevitt | Senior   | D15
+E401   | 2009-11-01 | 2012-03-01 | Norman   | Expert   | D15
+E401   | 2012-03-01 | max        | Gibson   | Expert   | D15
+:::::
+
+::::
+:::
 
 ## ##subsec Example Use Cases
 

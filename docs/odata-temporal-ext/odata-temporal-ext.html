@@ -350,15 +350,136 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>The following example data will be used to further illustrate the capabilities introduced by this extension. It assumes that the example services only support four-digit years.</p>
 <div class="example">
 <p>Example 5: example data: object key in dark green, temporal sub-key in light green, foreign keys in orange, non-key fields in blue</p>
-</div>
-<p><strong>Employees</strong></p>
-<p><strong>ID</strong> <strong>From</strong> To Name Jobtitle Department.ID</p>
-<hr />
-<p>E314 2011-01-01 2013-10-01 McDevitt Junior D08 E314 2013-10-01 2014-01-01 McDevitt Senior D08 E314 2014-01-01 max McDevitt Senior D15 E401 2009-11-01 2012-03-01 Norman Expert D15 E401 2012-03-01 max Gibson Expert D15</p>
+<div class="example-data" style="width:600px;height:440px">
+<svg viewBox="0 0 600 700">
+  <defs>
+    <marker id="begin" viewBox="0 0 10 10" refX="0" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M10,0 L0,5 L10,10 z" />
+    </marker>
+    <marker id="end" viewBox="0 0 10 10" refX="10" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M0,0 L10,5 L0,10 z" />
+    </marker>
+  </defs>
+  <path d="M20,190 l0,40 l320,0 l0,40" marker-start="url(#begin)" marker-end="url(#end)" />
+</svg>
+
+<div class="temp-2">
 <p><strong>Departments</strong></p>
-<p><strong>ID</strong> <strong>From</strong> To Name Budget</p>
-<hr />
-<p>D08 2010-01-01 2012-01-01 Support 1000 D08 2012-01-01 2012-06-01 Support 1250 D08 2012-06-01 2014-01-01 1st Level Support 1250 D08 2014-01-01 max 1st Level Support 1400 D15 2010-01-01 2011-01-01 Services 1100 D15 2011-01-01 max Services 1170</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>From</th>
+<th>To</th>
+<th>Name</th>
+<th>Budget</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D08</td>
+<td>2010-01-01</td>
+<td>2012-01-01</td>
+<td>Support</td>
+<td>1000</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>2012-01-01</td>
+<td>2012-06-01</td>
+<td>Support</td>
+<td>1250</td>
+</tr>
+<tr class="odd">
+<td>D08</td>
+<td>2012-06-01</td>
+<td>2014-01-01</td>
+<td>1st Level Support</td>
+<td>1250</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>2014-01-01</td>
+<td>max</td>
+<td>1st Level Support</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>D15</td>
+<td>2010-01-01</td>
+<td>2011-01-01</td>
+<td>Services</td>
+<td>1100</td>
+</tr>
+<tr class="even">
+<td>D15</td>
+<td>2011-01-01</td>
+<td>max</td>
+<td>Services</td>
+<td>1170</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="temp-2 nav-6" style="top:240px">
+<p><strong>Employees</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>From</th>
+<th>To</th>
+<th>Name</th>
+<th>Jobtitle</th>
+<th>Department.ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E314</td>
+<td>2011-01-01</td>
+<td>2013-10-01</td>
+<td>McDevitt</td>
+<td>Junior</td>
+<td>D08</td>
+</tr>
+<tr class="even">
+<td>E314</td>
+<td>2013-10-01</td>
+<td>2014-01-01</td>
+<td>McDevitt</td>
+<td>Senior</td>
+<td>D08</td>
+</tr>
+<tr class="odd">
+<td>E314</td>
+<td>2014-01-01</td>
+<td>max</td>
+<td>McDevitt</td>
+<td>Senior</td>
+<td>D15</td>
+</tr>
+<tr class="even">
+<td>E401</td>
+<td>2009-11-01</td>
+<td>2012-03-01</td>
+<td>Norman</td>
+<td>Expert</td>
+<td>D15</td>
+</tr>
+<tr class="odd">
+<td>E401</td>
+<td>2012-03-01</td>
+<td>max</td>
+<td>Gibson</td>
+<td>Expert</td>
+<td>D15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 <h2 id="23-example-use-cases"><a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
 <p>A client might wish to query the example APIs in several ways:</p>
 <ul>
@@ -907,10 +1028,80 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Given the <a href="#ExampleData">example department data</a> the operation will split the time slice starting at 2012-01-01 creating a new time slice starting at 2012-04-01 which is then updated with the desired budget. It will then update the time slice starting at 2012-06-01 with the desired budget, and finally it will split the time slice starting at 2014-01-01 creating a new time slice starting at 2014-07-01, then update the original with the desired budget, leaving the new time slice starting at 2014-07-01 untouched:</p>
+<div class="obj-1 temp-2">
+<!-- TODO: color changed cells -->
+
 <p><strong>Departments (after)</strong></p>
-<p><strong>ID</strong> <strong>From</strong> To Name Budget</p>
-<hr />
-<p>D08 2010-01-01 2012-01-01 Support 1000 D08 2012-01-01 2012-04-01 Support 1250 D08 2012-04-01 2012-06-01 Support 1320 D08 2012-06-01 2014-01-01 1st Level Support 1320 D08 2014-01-01 2014-07-01 1st Level Support 1320 D08 2014-07-01 max 1st Level Support 1400 D15 2010-01-01 2011-01-01 Services 1100 D15 2011-01-01 max Services 1170</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>From</th>
+<th>To</th>
+<th>Name</th>
+<th>Budget</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D08</td>
+<td>2010-01-01</td>
+<td>2012-01-01</td>
+<td>Support</td>
+<td>1000</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>2012-01-01</td>
+<td>2012-04-01</td>
+<td>Support</td>
+<td>1250</td>
+</tr>
+<tr class="odd">
+<td>D08</td>
+<td>2012-04-01</td>
+<td>2012-06-01</td>
+<td>Support</td>
+<td>1320</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>2012-06-01</td>
+<td>2014-01-01</td>
+<td>1st Level Support</td>
+<td>1320</td>
+</tr>
+<tr class="odd">
+<td>D08</td>
+<td>2014-01-01</td>
+<td>2014-07-01</td>
+<td>1st Level Support</td>
+<td>1320</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>2014-07-01</td>
+<td>max</td>
+<td>1st Level Support</td>
+<td>1400</td>
+</tr>
+<tr class="odd">
+<td>D15</td>
+<td>2010-01-01</td>
+<td>2011-01-01</td>
+<td>Services</td>
+<td>1100</td>
+</tr>
+<tr class="even">
+<td>D15</td>
+<td>2011-01-01</td>
+<td>max</td>
+<td>Services</td>
+<td>1170</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
@@ -981,10 +1172,73 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Given the <a href="#ExampleData">example employee data</a> the operation will split the time slice for employee <code>E401</code> starting at 2012-03-01 creating a new time slice starting at 2021-10-01 which is then updated with the desired job title.</p>
+<div class="obj-1 temp-2 nav-6">
+<!-- TODO: color changed cells -->
+
 <p><strong>Employees (after)</strong></p>
-<p><strong>ID</strong> <strong>From</strong> To Name Jobtitle Department.ID</p>
-<hr />
-<p>E314 2011-01-01 2013-10-01 McDevitt Junior D08 E314 2013-10-01 2014-01-01 McDevitt Senior D08 E314 2014-01-01 max McDevitt Senior D15 E401 2009-11-01 2012-03-01 Norman Expert D15 E401 2012-03-01 2021-10-01 Gibson Expert D15 E401 2021-10-01 max Gibson Ultimate Expert D15</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>From</th>
+<th>To</th>
+<th>Name</th>
+<th>Jobtitle</th>
+<th>Department.ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E314</td>
+<td>2011-01-01</td>
+<td>2013-10-01</td>
+<td>McDevitt</td>
+<td>Junior</td>
+<td>D08</td>
+</tr>
+<tr class="even">
+<td>E314</td>
+<td>2013-10-01</td>
+<td>2014-01-01</td>
+<td>McDevitt</td>
+<td>Senior</td>
+<td>D08</td>
+</tr>
+<tr class="odd">
+<td>E314</td>
+<td>2014-01-01</td>
+<td>max</td>
+<td>McDevitt</td>
+<td>Senior</td>
+<td>D15</td>
+</tr>
+<tr class="even">
+<td>E401</td>
+<td>2009-11-01</td>
+<td>2012-03-01</td>
+<td>Norman</td>
+<td>Expert</td>
+<td>D15</td>
+</tr>
+<tr class="odd">
+<td>E401</td>
+<td>2012-03-01</td>
+<td>2021-10-01</td>
+<td>Gibson</td>
+<td>Expert</td>
+<td>D15</td>
+</tr>
+<tr class="even">
+<td>E401</td>
+<td>2021-10-01</td>
+<td>max</td>
+<td>Gibson</td>
+<td>Ultimate Expert</td>
+<td>D15</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
@@ -1051,17 +1305,92 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
 <span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Given this example data</p>
+<p>Given this example data (primary key in olive)</p>
+<div class="key-1 obj-2 obj-3 temp-4">
 <p><strong>CostCenters (before)</strong></p>
-<p><strong>tsid</strong> <strong>AreaID</strong> <strong>CostCenterID</strong> <strong>ValidTo</strong> ValidFrom ProfitCenterID DepartmentID</p>
-<hr />
-<p>n 51 C1 max 1955-04-01 P1 D02</p>
+<table>
+<thead>
+<tr class="header">
+<th>tsid</th>
+<th>AreaID</th>
+<th>CostCenterID</th>
+<th>ValidTo</th>
+<th>ValidFrom</th>
+<th>ProfitCenterID</th>
+<th>DepartmentID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>n</td>
+<td>51</td>
+<td>C1</td>
+<td>max</td>
+<td>1955-04-01</td>
+<td>P1</td>
+<td>D02</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>the operation will split the time slice <code>n</code> for cost center <code>C1</code> starting at 1955-04-01 creating two new time slices, the one starting at 1984-04-01 is then updated with the desired profit center. It will also insert a new time slice for the not yet existing cost center <code>C2</code> with the desired values.</p>
 <p>Note that this example uses closed-closed periods, so each time slice ends the day before the start of the next adjacent time slice.</p>
+<!-- TODO: color changed cells -->
+
+<div class="key-1 obj-2 obj-3 temp-4">
 <p><strong>CostCenters (after)</strong></p>
-<p><strong>tsid</strong> <strong>AreaID</strong> <strong>CostCenterID</strong> <strong>ValidTo</strong> ValidFrom ProfitCenterID DepartmentID</p>
-<hr />
-<p>n 51 C1 1984-03-31 1955-04-01 P1 D02 o 51 C1 2001-03-31 1984-04-01 P2 D02 p 51 C1 max 2001-04-01 P1 D02 q 51 C2 max 2012-04-01   D04</p>
+<table>
+<thead>
+<tr class="header">
+<th>tsid</th>
+<th>AreaID</th>
+<th>CostCenterID</th>
+<th>ValidTo</th>
+<th>ValidFrom</th>
+<th>ProfitCenterID</th>
+<th>DepartmentID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>n</td>
+<td>51</td>
+<td>C1</td>
+<td>1984-03-31</td>
+<td>1955-04-01</td>
+<td>P1</td>
+<td>D02</td>
+</tr>
+<tr class="even">
+<td>o</td>
+<td>51</td>
+<td>C1</td>
+<td>2001-03-31</td>
+<td>1984-04-01</td>
+<td>P2</td>
+<td>D02</td>
+</tr>
+<tr class="odd">
+<td>p</td>
+<td>51</td>
+<td>C1</td>
+<td>max</td>
+<td>2001-04-01</td>
+<td>P1</td>
+<td>D02</td>
+</tr>
+<tr class="even">
+<td>q</td>
+<td>51</td>
+<td>C2</td>
+<td>max</td>
+<td>2012-04-01</td>
+<td> </td>
+<td>D04</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>It returns the resulting created or updated time slices per affected temporal object</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>

@@ -414,28 +414,47 @@ services only support four-digit years.
 ::: example
 Example 5: example data: object key in dark green, temporal sub-key in
 light green, foreign keys in orange, non-key fields in blue
-:::
 
-**Employees**
+:::: {.example-data style=width:600px;height:440px}
+<svg viewBox="0 0 600 700">
+  <defs>
+    <marker id="begin" viewBox="0 0 10 10" refX="0" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M10,0 L0,5 L10,10 z" />
+    </marker>
+    <marker id="end" viewBox="0 0 10 10" refX="10" refY="5" orient="auto" markerWidth="5" markerHeight="5">
+      <path d="M0,0 L10,5 L0,10 z" />
+    </marker>
+  </defs>
+  <path d="M20,190 l0,40 l320,0 l0,40" marker-start="url(#begin)" marker-end="url(#end)" />
+</svg>
 
-  **ID**   **From**     To           Name       Jobtitle   Department.ID
-  -------- ------------ ------------ ---------- ---------- ---------------
-  E314     2011-01-01   2013-10-01   McDevitt   Junior     D08
-  E314     2013-10-01   2014-01-01   McDevitt   Senior     D08
-  E314     2014-01-01   max          McDevitt   Senior     D15
-  E401     2009-11-01   2012-03-01   Norman     Expert     D15
-  E401     2012-03-01   max          Gibson     Expert     D15
-
+::::: {.temp-2}
 **Departments**
 
-  **ID**   **From**     To           Name                Budget
-  -------- ------------ ------------ ------------------- --------
-  D08      2010-01-01   2012-01-01   Support             1000
-  D08      2012-01-01   2012-06-01   Support             1250
-  D08      2012-06-01   2014-01-01   1st Level Support   1250
-  D08      2014-01-01   max          1st Level Support   1400
-  D15      2010-01-01   2011-01-01   Services            1100
-  D15      2011-01-01   max          Services            1170
+ID     | From       | To         | Name              | Budget
+-------|------------|------------|-------------------|--------
+D08    | 2010-01-01 | 2012-01-01 | Support           | 1000
+D08    | 2012-01-01 | 2012-06-01 | Support           | 1250
+D08    | 2012-06-01 | 2014-01-01 | 1st Level Support | 1250
+D08    | 2014-01-01 | max        | 1st Level Support | 1400
+D15    | 2010-01-01 | 2011-01-01 | Services          | 1100
+D15    | 2011-01-01 | max        | Services          | 1170
+:::::
+
+::::: {.temp-2 .nav-6 style=top:240px}
+**Employees**
+
+ID     | From       | To         | Name     | Jobtitle | Department.ID
+-------|------------|------------|----------|----------|---------------
+E314   | 2011-01-01 | 2013-10-01 | McDevitt | Junior   | D08
+E314   | 2013-10-01 | 2014-01-01 | McDevitt | Senior   | D08
+E314   | 2014-01-01 | max        | McDevitt | Senior   | D15
+E401   | 2009-11-01 | 2012-03-01 | Norman   | Expert   | D15
+E401   | 2012-03-01 | max        | Gibson   | Expert   | D15
+:::::
+
+::::
+:::
 
 ## <a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a>
 
@@ -1268,18 +1287,21 @@ slice starting at 2014-01-01 creating a new time slice starting at
 2014-07-01, then update the original with the desired budget, leaving
 the new time slice starting at 2014-07-01 untouched:
 
+:::: {.obj-1 .temp-2}
+<!-- TODO: color changed cells -->
 **Departments (after)**
 
-  **ID**   **From**     To           Name                Budget
-  -------- ------------ ------------ ------------------- --------
-  D08      2010-01-01   2012-01-01   Support             1000
-  D08      2012-01-01   2012-04-01   Support             1250
-  D08      2012-04-01   2012-06-01   Support             1320
-  D08      2012-06-01   2014-01-01   1st Level Support   1320
-  D08      2014-01-01   2014-07-01   1st Level Support   1320
-  D08      2014-07-01   max          1st Level Support   1400
-  D15      2010-01-01   2011-01-01   Services            1100
-  D15      2011-01-01   max          Services            1170
+ID     | From       | To         | Name              | Budget
+-------|------------|------------|-------------------|--------
+D08    | 2010-01-01 | 2012-01-01 | Support           | 1000
+D08    | 2012-01-01 | 2012-04-01 | Support           | 1250
+D08    | 2012-04-01 | 2012-06-01 | Support           | 1320
+D08    | 2012-06-01 | 2014-01-01 | 1st Level Support | 1320
+D08    | 2014-01-01 | 2014-07-01 | 1st Level Support | 1320
+D08    | 2014-07-01 | max        | 1st Level Support | 1400
+D15    | 2010-01-01 | 2011-01-01 | Services          | 1100
+D15    | 2011-01-01 | max        | Services          | 1170
+::::
 
 It returns the resulting created or updated time slices
 ```json
@@ -1364,16 +1386,19 @@ the operation will split the time slice for employee `E401` starting at
 2012-03-01 creating a new time slice starting at 2021-10-01 which is
 then updated with the desired job title.
 
+:::: {.obj-1 .temp-2 .nav-6}
+<!-- TODO: color changed cells -->
 **Employees (after)**
 
-  **ID**   **From**     To           Name       Jobtitle          Department.ID
-  -------- ------------ ------------ ---------- ----------------- ---------------
-  E314     2011-01-01   2013-10-01   McDevitt   Junior            D08
-  E314     2013-10-01   2014-01-01   McDevitt   Senior            D08
-  E314     2014-01-01   max          McDevitt   Senior            D15
-  E401     2009-11-01   2012-03-01   Norman     Expert            D15
-  E401     2012-03-01   2021-10-01   Gibson     Expert            D15
-  E401     2021-10-01   max          Gibson     Ultimate Expert   D15
+ID     | From       | To         | Name     | Jobtitle        | Department.ID
+-------|------------|------------|----------|-----------------|--------------
+E314   | 2011-01-01 | 2013-10-01 | McDevitt | Junior          | D08
+E314   | 2013-10-01 | 2014-01-01 | McDevitt | Senior          | D08
+E314   | 2014-01-01 | max        | McDevitt | Senior          | D15
+E401   | 2009-11-01 | 2012-03-01 | Norman   | Expert          | D15
+E401   | 2012-03-01 | 2021-10-01 | Gibson   | Expert          | D15
+E401   | 2021-10-01 | max        | Gibson   | Ultimate Expert | D15
+::::
 
 It returns the resulting created or updated time slices
 ```json
@@ -1460,13 +1485,15 @@ Content-Type: application/json
   ]
 }
 ```
-Given this example data
+Given this example data (primary key in olive)
 
+:::: {.key-1 .obj-2 .obj-3 .temp-4}
 **CostCenters (before)**
 
-  **tsid**   **AreaID**   **CostCenterID**   **ValidTo**   ValidFrom    ProfitCenterID   DepartmentID
-  ---------- ------------ ------------------ ------------- ------------ ---------------- --------------
-  n          51           C1                 max           1955-04-01   P1               D02
+tsid | AreaID | CostCenterID | ValidTo    | ValidFrom  | ProfitCenterID | DepartmentID
+-----|--------|--------------|------------|------------|----------------|-------------
+n    | 51     | C1           | max        | 1955-04-01 | P1             | D02
+::::
 
 the operation will split the time slice `n` for
 cost center `C1` starting at 1955-04-01 creating two new time slices,
@@ -1477,14 +1504,17 @@ cost center `C2` with the desired values.
 Note that this example uses closed-closed periods, so each time slice
 ends the day before the start of the next adjacent time slice.
 
+<!-- TODO: color changed cells -->
+:::: {.key-1 .obj-2 .obj-3 .temp-4}
 **CostCenters (after)**
 
-  **tsid**   **AreaID**   **CostCenterID**   **ValidTo**   ValidFrom    ProfitCenterID   DepartmentID
-  ---------- ------------ ------------------ ------------- ------------ ---------------- --------------
-  n          51           C1                 1984-03-31    1955-04-01   P1               D02
-  o          51           C1                 2001-03-31    1984-04-01   P2               D02
-  p          51           C1                 max           2001-04-01   P1               D02
-  q          51           C2                 max           2012-04-01                    D04
+tsid | AreaID | CostCenterID | ValidTo    | ValidFrom  | ProfitCenterID | DepartmentID
+-----|--------|--------------|------------|------------|----------------|-------------
+n    | 51     | C1           | 1984-03-31 | 1955-04-01 | P1             | D02
+o    | 51     | C1           | 2001-03-31 | 1984-04-01 | P2             | D02
+p    | 51     | C1           | max        | 2001-04-01 | P1             | D02
+q    | 51     | C2           | max        | 2012-04-01 |                | D04
+::::
 
 It returns the resulting created or updated time slices per affected temporal object
 ```json
