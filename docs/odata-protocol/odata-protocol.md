@@ -6575,7 +6575,7 @@ in a delta response ([section 11.3](#RequestingChanges))
 In addition, interoperable OData 4.01 clients
 
 16. MUST send OData 4.0-compliant payloads to services that don't
-advertise support for 4.01 or greater through the
+advertise support for 4.01 and greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 17. MUST specify identifiers in payloads and URLs in the case they are

@@ -2348,7 +2348,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">PropertyValue</span>&gt;</span>
 <span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;OtherStream&quot;</span>&gt;</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">String</span>&gt;T0RhdGE&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Binary</span>&gt;T0RhdGE&lt;/<span class="kw">Binary</span>&gt;</span>
 <span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.MediaType&quot;</span><span class="ot"> String=</span><span class="st">&quot;application/octet-stream&quot;</span> /&gt;</span>
 <span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">PropertyValue</span>&gt;</span></code></pre></div>
 </div>
@@ -3140,7 +3140,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
 <p>Conforming services MUST follow all rules of this specification document for the types, sets, functions, actions, containers and annotations they expose.</p>
-<p>In addition, conforming services MUST NOT return 4.01 or 4.02 CSDL constructs for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
+<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 and greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
 <p>Specifically, they</p>
 <ol type="1">
 <li>MUST NOT include properties in derived types that overwrite a property defined in the base type</li>
@@ -3157,9 +3157,12 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 <li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, OData 4.01 services:</p>
+<p>In addition, OData 4.01 and greater services:</p>
 <ol start="14" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
+</ol>
+<p>In addition, OData 4.01 services:</p>
+<ol start="15" type="1">
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 </ol>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification, including custom annotations, and MUST ignore constructs not defined in this version of the specification.</p>

@@ -1251,7 +1251,7 @@ Example ##ex:
 </PropertyValue>
 
 <PropertyValue Property="OtherStream">
-  <String>T0RhdGE</String>
+  <Binary>T0RhdGE</Binary>
   <Annotation Term="Core.MediaType" String="application/octet-stream" />
 </PropertyValue>
 ```

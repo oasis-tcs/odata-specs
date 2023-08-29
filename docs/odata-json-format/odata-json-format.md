@@ -795,7 +795,7 @@ unqualified name of the primitive type. For payloads described by an
 of `4.0`, this name MUST be prefixed with the hash symbol
 (`#`); for non-OData 4.0 payloads,
 built-in primitive type values SHOULD be represented without the hash
-symbol, but consumers of 4.01 or greater payloads MUST support values
+symbol, but consumers of 4.01 and greater payloads MUST support values
 with or without the hash symbol. For all other types, the URI may be
 absolute or relative to the `type` of the containing object.
 The root `type` may be absolute or relative to the root

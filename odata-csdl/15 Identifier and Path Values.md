@@ -516,7 +516,7 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 or 4.02 CSDL constructs
+In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 and greater 
 for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
@@ -547,11 +547,14 @@ types
 12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 13. MAY include new CSDL annotations
 
-In addition, OData 4.01 services:
+In addition, OData 4.01 and greater services:
 
 14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+
+In addition, OData 4.01 services:
+
 15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
