@@ -152,8 +152,8 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section [Control Information: type
-  (odata.type)](#ControlInformationtypeodatatype).
+  the data value, see section
+  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
 
 Media entities and stream properties may in addition contain the
 following control information:
