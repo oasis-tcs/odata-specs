@@ -1268,7 +1268,7 @@ On success it returns the created or updated time slices.
 Example 18: Change a department's budget during a period of application
 time with [`api-2`](#api2) (visible timeline)
 ```json
-POST \~/Departments('D08')/history/Temporal.Update
+POST /api-2/Departments('D08')/history/Temporal.Update
 Content-Type: application/json
 
 {
@@ -1370,7 +1370,7 @@ application time with [`api-1`](#api1) (snapshot). Note that the period boundari
 [`api-1`](#api1) and are provided as `PeriodStart` and `PeriodEnd` next to the
 `Timeslice` data. The `PeriodEnd` is omitted, meaning the end of application time.
 ```json
-POST \~/Employees/Temporal.Update
+POST /api-1/Employees/Temporal.Update
 Content-Type: application/json
  
 {
@@ -1460,10 +1460,9 @@ Step 5 is
 On success it returns the created or updated time slices.
 
 ::: example
-Example 20: Upsert two [cost centers](#CostCenters)
-during a period of application time using the model from Example 8
+Example 20: Upsert two cost centers during a period of application time using the model from [example 8](#CostCenters)
 ```json
-POST \~/CostCenters/Temporal.Upsert
+POST /api-3/CostCenters/Temporal.Upsert
 Content-Type: application/json
 
 {

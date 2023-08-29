@@ -1007,7 +1007,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
 <p>Example 18: Change a department's budget during a period of application time with <a href="#api2"><code>api-2</code></a> (visible timeline)</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">\~/Departments(&#39;D08&#39;)/history/Temporal.Update</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-2/Departments(&#39;D08&#39;)/history/Temporal.Update</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1149,7 +1149,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <div class="example">
 <p>Example 19: Change an employee's job title during a period of application time with <a href="#api1"><code>api-1</code></a> (snapshot). Note that the period boundaries are not visible in <a href="#api1"><code>api-1</code></a> and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code> data. The <code>PeriodEnd</code> is omitted, meaning the end of application time.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">\~/Employees/Temporal.Update</span></span>
+<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-1/Employees/Temporal.Update</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1270,8 +1270,8 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </ol>
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
-<p>Example 20: Upsert two <a href="#CostCenters">cost centers</a> during a period of application time using the model from Example 8</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">\~/CostCenters/Temporal.Upsert</span></span>
+<p>Example 20: Upsert two cost centers during a period of application time using the model from <a href="#CostCenters">example 8</a></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-3/CostCenters/Temporal.Upsert</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
