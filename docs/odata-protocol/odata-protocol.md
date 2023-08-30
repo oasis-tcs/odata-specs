@@ -317,6 +317,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -873,6 +874,7 @@ requests in any format.
 Client libraries MUST retain the order of objects within an array in
 JSON responses, and elements in document order for XML responses,
 including CSDL documents.
+
 
 -------
 
@@ -1583,7 +1585,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 
@@ -1941,6 +1943,7 @@ the entire response as being in error.
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
 trailing header if supported by the transport protocol (e.g. HTTP/1.1
 with chunked transfer encoding, or HTTP/2).
+
 
 -------
 
@@ -2519,6 +2522,7 @@ Context URL template:
 Responses to requests to the virtual collections `$crossjoin(...)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
+
 
 -------
 
@@ -6175,6 +6179,7 @@ Content-Length: ###
 --b_243234_25424_ef_892u748--
 ```
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">12 Conformance</a>
@@ -6588,6 +6593,7 @@ determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
 [`501 Not Implemented`](#ResponseCode501NotImplemented) or
 `400 Bad Request`
+
 
 -------
 
