@@ -2903,14 +2903,9 @@ The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
 the specified content, and MAY choose to return additional information.
 
-The value of the `$expand` query option is a comma-separated list of
-navigation property names, stream property names, or `$value` indicating
-the stream content of a media-entity.
-
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
-expanded. An expand item is either a path or one of the symbols `*` or
-`$value`.
+expanded.
 
 For a full description of the syntax used when building requests, see
 [OData-URL](#ODataURL).
