@@ -1673,8 +1673,7 @@ http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ##### ##subsubsubsubsec `$root`
 
 The `$root` literal can be used in expressions to refer to resources of
-the same service. It can be used as a single-valued expression or within
-[complex or collection literals](#ComplexandCollectionLiterals).
+the same service.
 
 ::: example
 Example ##ex: all employees with the same last name as employee `A1235`
@@ -1686,9 +1685,16 @@ http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastN
 ::: example
 Example ##ex: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
-`$root` to each customer.
+`$root` to each customer
 ```
 http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+```
+:::
+
+::: example
+Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
+```
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
