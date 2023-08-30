@@ -197,6 +197,7 @@ For complete copyright information please see the full Notices section in an App
 - [D Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -996,6 +997,7 @@ Netherlands||Non-Food||3
 
 Note that this result contains seven fully qualified aggregate values, followed by fifteen rollup rows with subtotal values.
 :::
+
 
 -------
 
@@ -2208,6 +2210,7 @@ results in
 
 The normative ABNF construction rules for this specification are defined in [OData-Agg-ABNF](#ODataAggABNF). They incrementally extend the rules defined in [OData-ABNF](#ODataABNF).
 
+
 -------
 
 # <a name="CrossJoinsandAggregation" href="#CrossJoinsandAggregation">4 Cross-Joins and Aggregation</a>
@@ -2267,6 +2270,7 @@ results in
 :::
 
 The entity container may be annotated in the same way as entity sets to express which aggregate queries are supported, see [section 5](#VocabularyforDataAggregation).
+
 
 -------
 
@@ -2665,6 +2669,7 @@ Service-defined bound functions that serve as set transformations MAY be annotat
 ::: example
 Example 59: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.
 :::
+
 
 -------
 
@@ -3146,6 +3151,7 @@ results in
 }
 ```
 :::
+
 
 
 -------
@@ -4852,6 +4858,7 @@ results in
 }
 ```
 :::
+
 
 -------
 

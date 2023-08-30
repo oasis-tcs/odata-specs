@@ -240,6 +240,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -431,6 +432,7 @@ The service root URL MUST terminate in a forward slash.
 
 The service document enables simple hypermedia-driven clients to
 enumerate and explore the resources published by the OData service.
+
 
 -------
 
@@ -1392,6 +1394,7 @@ Content-Type: text/plain
 $filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
 ```
 :::
+
 
 -------
 
@@ -3864,6 +3867,7 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots"
 
 The conformance requirements for OData clients and services are
 described in [OData-Protocol](#ODataProtocol).
+
 
 -------
 

@@ -403,6 +403,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
+<hr />
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
 
 <h1 id="2-xml-representation"><a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a></h1>
@@ -448,6 +449,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="24-xml-document-order"><a name="XMLDocumentOrder" href="#XMLDocumentOrder">2.4 XML Document Order</a></h2>
 <p>Client libraries MUST retain the document order of XML elements for CSDL XML documents because for some elements the order of child elements is significant. This includes, but is not limited to, <a href="#EnumerationTypeMember">members of enumeration types</a> and items within a <a href="#Collection">collection expression</a>.</p>
 <p>OData does not impose any ordering constraints on XML attributes within XML elements.</p>
+<hr />
 <h1 id="3-entity-model"><a name="EntityModel" href="#EntityModel">3 Entity Model</a></h1>
 <p>An OData service exposes a single entity model. This model may be distributed over several <a href="#Schema">schemas</a>, and these schemas may be distributed over several documents.</p>
 <p>A service is defined by a single CSDL document which can be accessed by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. This document is called the metadata document. It MAY <a href="#Reference">reference</a> other CSDL documents.</p>

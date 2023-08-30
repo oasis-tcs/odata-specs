@@ -186,6 +186,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -295,6 +296,7 @@ To optimize streaming scenarios, there are a few restrictions that MAY
 be imposed on the sequence in which name/value pairs appear within JSON
 objects. For details on the ordering requirements see [Payload Ordering
 Constraints](#PayloadOrderingConstraints).
+
 
 -------
 
@@ -531,6 +533,7 @@ digits, and an optional decimal point followed by digits.
 Payloads with an `OData-Version` header equal to `4.01`
 or greater always allow exponential notation for numbers and the
 `ExponentialDecimals` format parameter is not needed or used.
+
 
 -------
 
@@ -1166,6 +1169,7 @@ Example 8: Annotating primitive values within a collection
 ```
 :::
 
+
 -------
 
 # <a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a>
@@ -1326,6 +1330,7 @@ Example 11: entity with `metadata=full`
 }
 ```
 :::
+
 
 -------
 
@@ -1824,6 +1829,7 @@ Example 24:
 ```
 :::
 
+
 -------
 
 # <a name="MediaEntity" href="#MediaEntity">10 Media Entity</a>
@@ -2056,6 +2062,7 @@ Example 32: collection of entity references
 }
 ```
 :::
+
 
 -------
 
@@ -2551,6 +2558,7 @@ inline as a delta
 ```
 :::
 
+
 -------
 
 # <a name="BoundFunction" href="#BoundFunction">16 Bound Function</a>
@@ -2816,6 +2824,7 @@ Example 46:
 In order to invoke an action with no non-binding parameters, the client
 passes an empty JSON object in the body of the request. 4.01 Services
 MUST also support clients passing an empty request body for this case.
+
 
 -------
 
@@ -3336,6 +3345,7 @@ Content-Type: application/json
 }
 ```
 ::: 
+
 -------
 
 # <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
@@ -3595,6 +3605,7 @@ receiving party in order to correctly interpret the rest of the payload
 as the receiving party MUST ignore unknown annotations not defined in
 this version of the OData JSON Specification.
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">23 Conformance</a>
@@ -3674,6 +3685,7 @@ In addition, in order to comply with the OData 4.01 JSON format, a service:
 27. MUST support the OData JSON 4.01 format in request payloads for requests with an `OData-Version` header value of `4.01`
 28. MUST honor the `odata.etag` control information within `PUT`, `PATCH` or `DELETE` payloads, if specified
 29. MUST support returning, in the final response to an asynchronous request, the `application/json` payload that would have been returned had the operation completed synchronously
+
 
 -------
 

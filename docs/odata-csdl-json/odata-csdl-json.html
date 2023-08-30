@@ -408,6 +408,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
+<hr />
 <h1 id="2-json-representation"><a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a></h1>
 <p>OData CSDL JSON is a full representation of the OData Common Schema Definition Language in the JavaScript Object Notation (JSON) defined in <a href="#rfc8259">RFC8259</a>. It additionally follows the rules for "Internet JSON" (I-JSON) defined in <a href="#rfc7493">RFC7493</a> for e.g. objects, numbers, date values, and duration values.</p>
 <p>It is an alternative to the CSDL XML representation defined in <a href="#ODataCSDL">OData-CSDLXML</a> and neither adds nor removes features.</p>
@@ -455,6 +456,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The structure of CSDL JSON documents can be verified with the JSON Schema <a href="#ODataCSDLSchema">OData-CSDL-Schema</a> provided as an additional artifact of this prose specification. This schema only defines the shape of a well-formed CSDL JSON document but is not descriptive enough to define what a correct CSDL JSON document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL JSON documents MUST fulfill. In case of doubt on what makes a CSDL JSON document correct the rules defined in this specification document take precedence.</p>
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
 
+<hr />
 <h1 id="3-entity-model"><a name="EntityModel" href="#EntityModel">3 Entity Model</a></h1>
 <p>An OData service exposes a single entity model. This model may be distributed over several <a href="#Schema">schemas</a>, and these schemas may be distributed over several documents.</p>
 <p>A service is defined by a single CSDL document which can be accessed by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. This document is called the metadata document. It MAY <a href="#Reference">reference</a> other CSDL documents.</p>
