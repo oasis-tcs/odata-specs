@@ -5511,7 +5511,7 @@ and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a sub
 contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
-asynchronous processing has completed. For OData 4.01 and greater
+asynchronous processing has completed. For OData 4.01 or greater
 responses, or OData 4.0 requests that include an `Accept `header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
@@ -6572,10 +6572,10 @@ in a delta response ([section 11.3](#RequestingChanges))
 15. MAY support `streaming `in a JSON response (see
 [OData-JSON](#ODataJSON))
 
-In addition, interoperable OData 4.01 clients
+In addition, interoperable OData 4.01 or greater clients
 
 16. MUST send OData 4.0-compliant payloads to services that don't
-advertise support for 4.01 and greater through the
+advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 17. MUST specify identifiers in payloads and URLs in the case they are

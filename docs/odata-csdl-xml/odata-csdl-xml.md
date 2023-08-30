@@ -1535,7 +1535,7 @@ the service.
 
 Note: the symbolic value `max` is only allowed in OData 4.0 responses;
 it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value, OData 4.01 or greater services MUST NOT return the
 symbolic value `max` and MAY instead specify the concrete maximum length
 supported for the type by the service or omit the attribute entirely.
 :::
@@ -2683,7 +2683,7 @@ scope, or a collection of any type in scope.
 The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
-well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+well as the [`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For a single-valued return type the facets apply to the returned value.
 For a collection-valued return type the facets apply to the items in the
@@ -2746,7 +2746,7 @@ collection of any type in scope.
 The facets [`MaxLength`](#MaxLength), [`Precision`](#Precision),
 [`Scale`](#Scale), or [`SRID`](#SRID) can be used as appropriate to
 specify value restrictions of the parameter, as well as the
-[`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+[`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in
@@ -3352,7 +3352,7 @@ It MAY specify values for the [`Nullable`](#Nullable),
 [ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
 attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
+4.01 or greater payloads. These facets and their implications are
 described in section 7.2.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
@@ -5549,7 +5549,7 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 and greater for requests made with `OData-MaxVersion: 4.0`.
+In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -5573,7 +5573,7 @@ types
 12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 13. MAY include new CSDL annotations
 
-In addition, OData 4.01 and greater services:
+In addition, OData 4.01 or greater services:
 
 14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by

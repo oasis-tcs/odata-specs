@@ -151,7 +151,7 @@ It MAY contain the members `$Type`, `$Collection`,
 [`$AppliesTo`](#Applicability), [`$Nullable`](#Nullable),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
 [`$Scale`](#Scale), [`$SRID`](#SRID), and `$DefaultValue`, as well as
-[`$Unicode`](#Unicode) for 4.01 and greater payloads.
+[`$Unicode`](#Unicode) for 4.01 or greater payloads.
 
 It MAY contain [annotations](#Annotation).
 
@@ -188,7 +188,7 @@ It MAY specify values for the [`Nullable`](#Nullable),
 [ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
 attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
+4.01 or greater payloads. These facets and their implications are
 described in section 7.2.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or

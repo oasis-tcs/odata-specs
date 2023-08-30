@@ -242,7 +242,7 @@ scope, or a collection of any type in scope.
 The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
-well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+well as the [`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For a single-valued return type the facets apply to the returned value.
 For a collection-valued return type the facets apply to the items in the
@@ -345,7 +345,7 @@ collection of any type in scope.
 The facets [`MaxLength`](#MaxLength), [`Precision`](#Precision),
 [`Scale`](#Scale), or [`SRID`](#SRID) can be used as appropriate to
 specify value restrictions of the parameter, as well as the
-[`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+[`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in

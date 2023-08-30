@@ -1698,7 +1698,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </section>
 <h2 id="128-return-type"><a name="ReturnType" href="#ReturnType">12.8 Return Type</a></h2>
 <p>The return type of an action or function overload MAY be any type in scope, or a collection of any type in scope.</p>
-<p>The facets <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
+<p>The facets <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 or greater payloads.</p>
 <p>For a single-valued return type the facets apply to the returned value. For a collection-valued return type the facets apply to the items in the returned collection.</p>
 <div class="varjson rep">
 <h3 id="-returntype"><a name="ReturnType12.4" href="#ReturnType12.4"> <code>$ReturnType</code></a></h3>
@@ -1719,7 +1719,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A bound action or function overload MUST specify at least one parameter; the first parameter is its binding parameter. The order of parameters MUST NOT change unless the schema version changes.</p>
 <p>Each parameter MUST have a name that is a <a href="#SimpleIdentifier">simple identifier</a>. The parameter name MUST be unique within the action or function overload.</p>
 <p>The parameter MUST specify a type. It MAY be any type in scope, or a collection of any type in scope.</p>
-<p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
+<p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 or greater payloads.</p>
 <p>For single-valued parameters the facets apply to the parameter value. If the parameter value is a collection, the facets apply to the items in the collection.</p>
 <div class="varjson rep">
 <h3 id="-parameter"><a name="Parameter12.8" href="#Parameter12.8"> <code>$Parameter</code></a></h3>
@@ -2042,7 +2042,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="-term-object"><a name="TermObject19" href="#TermObject19"> Term Object</a></h3>
 <p>A term is represented as a member of the schema object whose name is the unqualified name of the term and whose value is an object.</p>
 <p>The term object MUST contain the member <code>$Kind</code> with a string value of <code>Term</code>.</p>
-<p>It MAY contain the members <code>$Type</code>, <code>$Collection</code>, <a href="#Applicability"><code>$AppliesTo</code></a>, <a href="#Nullable"><code>$Nullable</code></a>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, <a href="#SRID"><code>$SRID</code></a>, and <code>$DefaultValue</code>, as well as <a href="#Unicode"><code>$Unicode</code></a> for 4.01 and greater payloads.</p>
+<p>It MAY contain the members <code>$Type</code>, <code>$Collection</code>, <a href="#Applicability"><code>$AppliesTo</code></a>, <a href="#Nullable"><code>$Nullable</code></a>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, <a href="#SRID"><code>$SRID</code></a>, and <code>$DefaultValue</code>, as well as <a href="#Unicode"><code>$Unicode</code></a> for 4.01 or greater payloads.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 <h3 id="-type-and--collection-4"><a name="Type19.1" href="#Type19.1"> <code>$Type</code></a> and <a name="Collection19.2" href="#Collection19.2"> <code>$Collection</code></a></h3>
 <p>For single-valued terms the value of <code>$Type</code> is the qualified name of the term's type.</p>
@@ -3472,7 +3472,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
 <p>Conforming services MUST follow all rules of this specification document for the types, sets, functions, actions, containers and annotations they expose.</p>
-<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 and greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
+<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
 <p>Specifically, they</p>
 <ol type="1">
 <li>MUST NOT include properties in derived types that overwrite a property defined in the base type</li>
@@ -3489,7 +3489,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 <li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, OData 4.01 and greater services:</p>
+<p>In addition, OData 4.01 or greater services:</p>
 <ol start="14" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 </ol>

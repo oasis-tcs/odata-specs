@@ -1098,7 +1098,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <section id="-attribute-maxlength" class="varxml rep">
 <h3><a name="AttributeMaxLength11.4" href="#AttributeMaxLength11.4"> Attribute <code>MaxLength</code></a></h3>
 <p>The value of <code>MaxLength</code> is a positive integer or the symbolic value <code>max</code> as a shorthand for the maximum length supported for the type by the service.</p>
-<p>Note: the symbolic value <code>max</code> is only allowed in OData 4.0 responses; it is deprecated in OData 4.01. While clients MUST be prepared for this symbolic value, OData 4.01 and greater services MUST NOT return the symbolic value <code>max</code> and MAY instead specify the concrete maximum length supported for the type by the service or omit the attribute entirely.</p>
+<p>Note: the symbolic value <code>max</code> is only allowed in OData 4.0 responses; it is deprecated in OData 4.01. While clients MUST be prepared for this symbolic value, OData 4.01 or greater services MUST NOT return the symbolic value <code>max</code> and MAY instead specify the concrete maximum length supported for the type by the service or omit the attribute entirely.</p>
 </section>
 <h3 id="723-precision"><a name="Precision" href="#Precision">7.2.3 Precision</a></h3>
 <p>For a decimal value: the maximum number of significant decimal digits of the property's value; it MUST be a positive integer.</p>
@@ -1569,7 +1569,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </section>
 <h2 id="128-return-type"><a name="ReturnType" href="#ReturnType">12.8 Return Type</a></h2>
 <p>The return type of an action or function overload MAY be any type in scope, or a collection of any type in scope.</p>
-<p>The facets <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
+<p>The facets <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 or greater payloads.</p>
 <p>For a single-valued return type the facets apply to the returned value. For a collection-valued return type the facets apply to the items in the returned collection.</p>
 <div class="varxml rep">
 <h3 id="-element-edmreturntype"><a name="ElementedmReturnType21" href="#ElementedmReturnType21"> Element <code>edm:ReturnType</code></a></h3>
@@ -1589,7 +1589,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A bound action or function overload MUST specify at least one parameter; the first parameter is its binding parameter. The order of parameters MUST NOT change unless the schema version changes.</p>
 <p>Each parameter MUST have a name that is a <a href="#SimpleIdentifier">simple identifier</a>. The parameter name MUST be unique within the action or function overload.</p>
 <p>The parameter MUST specify a type. It MAY be any type in scope, or a collection of any type in scope.</p>
-<p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
+<p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 or greater payloads.</p>
 <p>For single-valued parameters the facets apply to the parameter value. If the parameter value is a collection, the facets apply to the items in the collection.</p>
 <div class="varxml rep">
 <h3 id="-element-edmparameter"><a name="ElementedmParameter22" href="#ElementedmParameter22"> Element <code>edm:Parameter</code></a></h3>
@@ -1839,7 +1839,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="varxml rep">
 <h3 id="-element-edmterm"><a name="ElementedmTerm29" href="#ElementedmTerm29"> Element <code>edm:Term</code></a></h3>
 <p>The <code>edm:Term</code> element MUST contain the attributes <code>Name</code> and <code>Type</code>. It MAY contain the attributes <code>BaseTerm</code> and <code>AppliesTo</code>.</p>
-<p>It MAY specify values for the <a href="#Nullable"><code>Nullable</code></a>, [ ]{.apple-converted-space}<a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> facet attributes, as well as the <a href="#Unicode"><code>Unicode</code></a> facet attribute for 4.01 and greater payloads. These facets and their implications are described in section 7.2.</p>
+<p>It MAY specify values for the <a href="#Nullable"><code>Nullable</code></a>, [ ]{.apple-converted-space}<a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> facet attributes, as well as the <a href="#Unicode"><code>Unicode</code></a> facet attribute for 4.01 or greater payloads. These facets and their implications are described in section 7.2.</p>
 <p>A <code>edm:Term</code> element whose <code>Type</code> attribute specifies a primitive or enumeration type MAY define a value for the <code>DefaultValue</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 <h3 id="-attribute-name-16"><a name="AttributeName29.1" href="#AttributeName29.1"> Attribute <code>Name</code></a></h3>
@@ -3140,7 +3140,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
 <p>Conforming services MUST follow all rules of this specification document for the types, sets, functions, actions, containers and annotations they expose.</p>
-<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 and greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
+<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
 <p>Specifically, they</p>
 <ol type="1">
 <li>MUST NOT include properties in derived types that overwrite a property defined in the base type</li>
@@ -3157,7 +3157,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 <li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, OData 4.01 and greater services:</p>
+<p>In addition, OData 4.01 or greater services:</p>
 <ol start="14" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 </ol>
