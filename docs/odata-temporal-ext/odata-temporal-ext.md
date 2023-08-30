@@ -147,6 +147,7 @@ For complete copyright information please see the full Notices section in an App
 - [D Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -311,6 +312,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 :::
 
+
 -------
 
 # <a name="Overview" href="#Overview">2 Overview</a>
@@ -468,6 +470,7 @@ employee's department as of that same point in time.
   4. Change a department's budget in the past, present, or future.
   5. Change an employee's association to a department in the past, present, or future.
 
+
 -------
 
 # <a name="VocabularyforTemporalData" href="#VocabularyforTemporalData">3 Vocabulary for Temporal Data</a>
@@ -600,6 +603,7 @@ temporal objects, the temporal objects identified by combination of
 }
 ```
 :::
+
 
 -------
 
@@ -1625,6 +1629,7 @@ For snapshot entity sets read, edit, navigation, and association URLs
 are not specific to time slices, they are specific to the
 time-independent OData entity.
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">5 Conformance</a>
@@ -1634,6 +1639,7 @@ temporal system query options they support.
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification.
+
 
 -------
 

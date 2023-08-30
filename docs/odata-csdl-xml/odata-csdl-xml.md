@@ -238,6 +238,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -310,6 +311,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
+
+-------
+
 
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
@@ -412,6 +416,8 @@ enumeration types](#EnumerationTypeMember) and items within a
 
 OData does not impose any ordering constraints on XML attributes within
 XML elements.
+
+-------
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -618,6 +624,7 @@ multiple times to the same model element.
 
 A model element MUST NOT specify more than one annotation for a given
 combination of term and qualifier.
+
 
 -------
 
@@ -917,6 +924,7 @@ a term from the `org.example.hcm` namespace to an element of the
 a term from the `org.example.hcm` namespace to an element of the
 `com.example.Person` namespace and specify a `Tablet` qualifier.
 :::
+
 
 -------
 
@@ -1369,6 +1377,7 @@ the name attribute must be used
 GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
 ```
 :::
+
 
 -------
 
@@ -2090,6 +2099,7 @@ products in that category
 ```
 :::
 
+
 -------
 
 # <a name="ComplexType" href="#ComplexType">9 Complex Type</a>
@@ -2479,6 +2489,7 @@ Where type definitions are used, the type definition is returned in
 place of the primitive type wherever the type is specified in a
 response.
 
+
 -------
 
 # <a name="ActionandFunction" href="#ActionandFunction">12 Action and Function</a>
@@ -2787,6 +2798,7 @@ function with the `edm:Parameter` element.
 </Function>
 ```
 :::
+
 
 -------
 
@@ -3236,6 +3248,7 @@ entity container.
 The value of `IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the attribute means `false`.
 :::
+
 
 -------
 
@@ -5237,6 +5250,7 @@ Example 87:
 ```
 :::
 
+
 -------
 
 # <a name="IdentifierandPathValues" href="#IdentifierandPathValues">15 Identifier and Path Values</a>
@@ -5511,6 +5525,7 @@ Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
 
 -------
 
