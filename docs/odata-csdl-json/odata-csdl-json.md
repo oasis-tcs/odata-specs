@@ -708,7 +708,7 @@ The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
-The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
 ::: {.varjson .example}
@@ -791,7 +791,7 @@ Example 3: references to other CSDL documents
 
 ## <a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a>
 
-A reference MAY include zero or more schemas from the referenced
+A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
 
 The included schemas are identified via their [namespace](#Namespace).
@@ -886,7 +886,7 @@ vocabulary terms
 ## <a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a>
 
 In addition to including whole schemas with all model constructs defined
-within that schema, annotations can be included with more flexibility.
+within that schema, a [reference](#Reference) may include annotations.
 
 Annotations are selectively included by specifying the
 [namespace](#Namespace) of the annotations' term. Consumers can opt not
@@ -2751,9 +2751,9 @@ MAY be [nullable](#Nullable).
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
-Unbound functions are invoked as static functions within a filter or
-orderby expression, or from the entity container through a [function
-import](#FunctionImport).
+Unbound functions are invoked as static functions within a common expression
+(see [OData-URL](#ODataURL), section 5.1.1),
+or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
 ### <a name="IsBound12.1" href="#IsBound12.1"> `$IsBound`</a>
@@ -3621,10 +3621,9 @@ The value of `$BaseTerm` is the qualified name of the base term.
 
 ### <a name="Applicability" href="#Applicability">14.1.2 Applicability</a>
 
-The applicability of a term MAY be restricted to a list of model
-elements. If no list is supplied, the term is not intended to be
-restricted in its application. The list of model elements MAY be
-extended in future versions of the vocabulary. As the intended usage may
+Applicability specifies a list of model elements to which the term MAY be applied.
+If no list is supplied, the term MAY be applied to any model element.
+The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may
 evolve over time, clients SHOULD be prepared for any term to be applied
 to any model element and SHOULD be prepared to handle unknown values
 within the list of model constructs. Applicability is expressed using

@@ -1631,10 +1631,11 @@ response headers have defined meaning in OData.
 ### <a name="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
 A 4.01 service MUST include the `AsyncResult` header in
-[`200 OK`](#ResponseCode200OK)response from a status monitor resource in
+[`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -5516,7 +5517,7 @@ contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
-responses, or OData 4.0 requests that include an `Accept `header that
+responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
