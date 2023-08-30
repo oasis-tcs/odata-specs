@@ -734,7 +734,7 @@ ID|Customer|Time|Product|Sales Organization|Amount
 5|C2|2022-11-09|P3|US East|4
 6|C3|2022-04-01|P1|EMEA Central|2
 7|C3|2022-08-06|P3|EMEA Central|1
-8|C3|2022-11-22|P1|EMEA Central|2
+8|C3|2022-11-22|P3|EMEA Central|2
 :::::
 
 ::::: {.legend style=top:470px;left:500px}
@@ -784,7 +784,7 @@ USA||Food|Sugar|2
 USA||Food|Coffee|12
 USA||Non-Food|Paper|5
 Netherlands||Food|Sugar|2
-Netherlands||Non-Food|Paper|1
+Netherlands||Non-Food|Paper|3
 USA|Joe|Food||6
 USA|Joe|Non-Food||1
 USA|Sue|Food||8
