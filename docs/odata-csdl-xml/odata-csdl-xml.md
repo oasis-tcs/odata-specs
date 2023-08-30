@@ -3611,45 +3611,119 @@ element.
 
 This external targeting is only possible for model elements that are
 uniquely identified within their parent, and all their ancestor elements
-are uniquely identified within their parent.
+are uniquely identified within their parent:
+
+-   [Action](#Action) (single or all overloads)
+-   [Action Import](#ActionImport)
+-   [Complex Type](#ComplexType)
+-   [Entity Container](#EntityContainer)
+-   [Entity Set](#EntitySet)
+-   [Entity Type](#EntityType)
+-   [Enumeration Type](#EnumerationType)
+-   [Enumeration Type Member](#EnumerationTypeMember)
+-   [Function](#Function) (single or all overloads)
+-   [Function Import](#FunctionImport)
+-   [Navigation Property](#NavigationProperty) (via type, entity set, or
+    singleton)
+-   [Parameter](#Parameter) of an action or function (single overloads
+    or all overloads defining the
+    parameter)
+-   [Property](#StructuralProperty) (via type, entity set, or singleton)
+-   [Return Type](#ReturnType) of an action or function (single or all
+    overloads)
+-   [Singleton](#Singleton)
+-   [Type Definition](#TypeDefinition)
 
 These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-Model element| Can be targeted with path expression (see also [section 14.4.1.1](#PathSyntax))| <div class="example"><p>Example 42: Target expressions</p></div>
------|-----|-----
-[Action](#Action) overload| qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| <pre>`MySchema.MyAction(MySchema.MyBindingType)` <br>`MySchema.MyAction(Collection(MySchema.BindingType))` <br>`MySchema.MyAction()`</pre>
-all overloads of an [Action](#Action)| qualified name of action| <pre>`MySchema.MyAction`</pre>
-[Action Import](#ActionImport)| qualified name of entity container followed by a segment containing the action import name| <pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
-[Annotation](#Annotation) on a model element| path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation| <pre>`MySchema.MyEntityType/@MyVocabulary.MyTerm` <br>`MySchema.MyEntityType/@MyVocabulary.MyTerm#MyQualifier`</pre>
-[Complex Type](#ComplexType)| qualified name of complex type| <pre>`MySchema.MyComplexType`</pre>
-[Entity Container](#EntityContainer)| qualified name of entity container| <pre>`MySchema.MyEntityContainer`</pre>
-[Entity Set](#EntitySet)| qualified name of entity container followed by a segment containing the entity set name| <pre>`MySchema.MyEntityContainer/MyEntitySet`</pre>
-[Entity Type](#EntityType)| qualified name of entity type| <pre>`MySchema.MyEntityType`</pre>
-[Enumeration Type](#EnumerationType)| qualified name of enumeration type| <pre>`MySchema.MyEnumType`</pre>
-[Enumeration Type Member](#EnumerationTypeMember)| qualified name of enumeration type followed by a segment containing the name of a child element| <pre>`MySchema.MyEnumType/MyMember`</pre>
-[Function](#Function) overload| qualified name of function followed by parentheses containing the comma-separated list of the parameter types of a bound or unbound function overload in the order of their definition in the function overload| <pre>`MySchema.MyFunction(MySchema.MyBindingParamType,` <br>`  First.NonBinding.ParamType)` <br>`MySchema.MyFunction(First.NonBinding.ParamType,` <br>`  Second.NonBinding.ParamType)`</pre>
-all overloads of a [Function](#Function)| qualified name of function| <pre>`MySchema.MyFunction`</pre>
-[Function Import](#FunctionImport)| qualified name of entity container followed by a segment containing the function import name| <pre>`MySchema.MyEntityContainer/MyFunctionImport`
-[Navigation Property](#NavigationProperty) via container| qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyNavigationProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MySchema.MyEntityType/MyNavProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyComplexProperty/MyNavProperty` <br>`MySchema.MyEntityContainer/MySingleton` <br>`  /MyComplexProperty/MyNavProperty`</pre>
-[Navigation Property](#NavigationProperty) via structured type| qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityType/MyNavigationProperty` <br>`MySchema.MyComplexType/MyNavigationProperty`</pre>
-[Parameter](#Parameter)| qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name| <pre>`MySchema.MyEntityContainer/MyFunctionImport/MyParameter`</pre>
-[Parameter](#Parameter)| qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing the name of a child element| <pre>`MySchema.MyFunction/MyParameter`</pre>
-[Property](#StructuralProperty) via container| qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityContainer/MyEntitySet` <br>` /MyProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>` /MySchema.MyEntityType/MyProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyComplexProperty/MyProperty`</pre>
-[Property](#StructuralProperty) via structured type| qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityType/MyProperty` <br>`MySchema.MyComplexType/MyProperty`</pre>
-[Return Type](#ReturnType)| qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing `$ReturnType`| <pre>`MySchema.MyEntityContainer/MyFunctionImport/$ReturnType`</pre>
-[Return Type](#ReturnType)| qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing `$ReturnType`| <pre>`MySchema.MyFunction/$ReturnType` <br>`MySchema.MyFunction(MySchema.MyBindingParamType,` <br>`  First.NonBinding.ParamType)/$ReturnType`</pre>
-[Singleton](#Singleton)| qualified name of entity container followed by a segment containing a singleton name| <pre>`MySchema.MyEntityContainer/MySingleton`</pre>
-[Term](#Term)| qualified name of term| <pre>`MySchema.MyTerm`</pre>
-[Type Definition](#TypeDefinition)| qualified name of type definition| <pre>`MySchema.MyTypeDefinition`</pre>
+External targeting is possible for actions, functions, their parameters,
+and their return type, either in a way that applies to all overloads of
+the action or function or all parameters of that name across all
+overloads, or in a way that identifies a single overload.
 
-All [qualified names](#QualifiedName) used in a target path MUST be in scope.
-
-External targeting is possible for properties and navigation
+External targeting is also possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
+
+The allowed path expressions are:
+- [qualified name](#QualifiedName)
+of schema child
+- [qualified
+name](#QualifiedName) of schema child followed by a forward slash and
+name of child element
+- [qualified
+name](#QualifiedName) of structured type followed by zero or more
+property, navigation property, or type-cast segments, each segment
+starting with a forward slash
+- [qualified name](#QualifiedName)
+of an entity container followed by a segment containing a singleton or
+entity set name and zero or more property, navigation property, or
+type-cast segments
+- [qualified
+name](#QualifiedName) of an action followed by parentheses containing
+the [qualified name](#QualifiedName) of the binding parameter *type* of
+a bound action overload to identify that bound overload, or by empty
+parentheses to identify the unbound overload
+- [qualified name](#QualifiedName) of a
+function followed by parentheses containing the comma-separated list of
+[qualified names](#QualifiedName) of the parameter *types* of a bound
+or unbound function overload in the order of their definition in the
+function overload
+- [qualified
+name](#QualifiedName) of an action or function, optionally followed by
+parentheses as described in the two previous bullet points to identify a
+single overload, followed by a forward slash and either a parameter name
+or `$ReturnType`
+- [qualified
+name](#QualifiedName) of an entity container followed by a segment
+containing an action or function import name, optionally followed by a
+forward slash and either a parameter name or `$ReturnType`
+
+-   One of the preceding, followed by a forward slash, an at (`@`), the
+    [qualified name](#QualifiedName) of a term, and optionally a hash
+    (`#`) and the qualifier of an
+    annotation
+
+All [qualified names](#QualifiedName) used in a target path MUST be in
+scope.
+
+::: example
+Example 42: Target expressions
+```
+MySchema.MyEntityType
+MySchema.MyEntityType/MyProperty
+MySchema.MyEntityType/MyNavigationProperty
+MySchema.MyComplexType
+MySchema.MyComplexType/MyProperty
+MySchema.MyComplexType/MyNavigationProperty
+MySchema.MyEnumType
+MySchema.MyEnumType/MyMember
+MySchema.MyTypeDefinition
+MySchema.MyTerm
+MySchema.MyEntityContainer
+MySchema.MyEntityContainer/MyEntitySet
+MySchema.MyEntityContainer/MySingleton
+MySchema.MyEntityContainer/MyActionImport
+MySchema.MyEntityContainer/MyFunctionImport
+MySchema.MyAction
+MySchema.MyAction(MySchema.MyBindingType)
+MySchema.MyAction()
+MySchema.MyFunction
+MySchema.MyFunction(MySchema.MyBindingParamType,First.NonBinding.ParamType)
+MySchema.MyFunction(First.NonBinding.ParamType,Second.NonBinding.ParamType)
+MySchema.MyFunction/MyParameter
+MySchema.MyEntityContainer/MyEntitySet/MyProperty
+MySchema.MyEntityContainer/MyEntitySet/MyNavigationProperty
+MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyProperty
+MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyNavProperty
+MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyProperty
+MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavigationProperty
+MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty
+```
+:::
 
 ## <a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
