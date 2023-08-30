@@ -6572,7 +6572,7 @@ in a delta response ([section 11.3](#RequestingChanges))
 15. MAY support `streaming `in a JSON response (see
 [OData-JSON](#ODataJSON))
 
-In addition, interoperable OData 4.01 or greater clients
+In addition, interoperable OData 4.01 clients
 
 16. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
