@@ -2751,9 +2751,9 @@ MAY be [nullable](#Nullable).
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
-Unbound functions are invoked as static functions within a filter or
-orderby expression, or from the entity container through a [function
-import](#FunctionImport).
+Unbound functions are invoked as static functions within a common expression
+(see [OData-URL](#ODataURL), section 5.1.1),
+or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
 ### <a name="IsBound12.1" href="#IsBound12.1"> `$IsBound`</a>

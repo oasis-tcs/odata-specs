@@ -1514,7 +1514,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be <a href="#Nullable">nullable</a>.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a filter or orderby expression, or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="-attribute-isbound" class="varxml rep">
 <h3><a name="AttributeIsBound20.2" href="#AttributeIsBound20.2"> Attribute <code>IsBound</code></a></h3>
 <p>The value of <code>IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
