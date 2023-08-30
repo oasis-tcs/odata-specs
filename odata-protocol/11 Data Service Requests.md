@@ -429,7 +429,7 @@ of system query options, enclosed in parentheses, see
 Allowed system query options are
 [`$select`](#SystemQueryOptionselect),
 `$expand`, and
-[`$compute`](#SystemQueryOptioncompute), plus
+[`$compute`](#SystemQueryOptioncompute) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
