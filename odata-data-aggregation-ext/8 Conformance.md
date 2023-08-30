@@ -119,7 +119,7 @@ Michael Pizzo<br>
 Martin Zurmuehl| 
 Added compute transformation<br> 
 Minor clean-up
-$$$subtitle$$$|$$$pubdateISO$$$| 
+Committee Specification Draft 03|2023-07-05| 
 Ralf Handl<br> 
 Hubert Heijkers<br> 
 Gerald Krause<br> 
@@ -133,6 +133,11 @@ Added transformations for recursive hierarchies, updated related filter function
 Added functions evaluable on a collection, introduced keyword $these<br> 
 Merged section 4 "Representation of Aggregated Instances" into section 3<br> 
 Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
+$$$subtitle$$$|$$$pubdateISO$$$| 
+Ralf Handl<br> 
+Gerald Krause<br> 
+Heiko Theißen| 
+Non-material changes from public review feedback
 
 -------
 
