@@ -732,7 +732,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="42-included-schema"><a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a></h2>
-<p>A reference MAY include zero or more schemas from the referenced document.</p>
+<p>A <a href="#Reference">reference</a> MAY include zero or more schemas from the referenced document.</p>
 <p>The included schemas are identified via their <a href="#Namespace">namespace</a>. The same namespace MUST NOT be included more than once, even if it is declared in more than one referenced document.</p>
 <p>When including a schema, a <a href="#SimpleIdentifier">simple identifier</a> value MAY be specified as an alias for the schema that is used in qualified names instead of the namespace. For example, an alias of <code>display</code> might be assigned to the namespace <code>org.example.vocabularies.display</code>. An alias-qualified name is resolved to a fully qualified name by examining aliases for included schemas and schemas defined within the document.</p>
 <div class="varjson rep">
@@ -785,7 +785,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="43-included-annotations"><a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a></h2>
-<p>In addition to including whole schemas with all model constructs defined within that schema, annotations can be included with more flexibility.</p>
+<p>In addition to including whole schemas with all model constructs defined within that schema, a <a href="#Reference">reference</a> may include annotations.</p>
 <p>Annotations are selectively included by specifying the <a href="#Namespace">namespace</a> of the annotations' term. Consumers can opt not to inspect the referenced document if none of the term namespaces is of interest for the consumer.</p>
 <p>In addition, the <a href="#Qualifier">qualifier</a> of annotations to be included MAY be specified. For instance, a service author might want to supply a different set of annotations for various device form factors. If a qualifier is specified, only those annotations from the specified term namespace with the specified qualifier (applied to a model element of the target namespace, if present) SHOULD be included. If no qualifier is specified, all annotations within the referenced document from the specified term namespace (taking into account the target namespace, if present) SHOULD be included.</p>
 <p>The qualifier also provides consumers insight about what qualifiers are present in the referenced document. If the consumer is not interested in that particular qualifier, the consumer can opt not to inspect the referenced document.</p>
