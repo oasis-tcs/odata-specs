@@ -317,6 +317,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -873,6 +874,7 @@ requests in any format.
 Client libraries MUST retain the order of objects within an array in
 JSON responses, and elements in document order for XML responses,
 including CSDL documents.
+
 
 -------
 
@@ -1583,7 +1585,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 
@@ -1629,10 +1631,11 @@ response headers have defined meaning in OData.
 ### <a name="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
 A 4.01 service MUST include the `AsyncResult` header in
-[`200 OK`](#ResponseCode200OK)response from a status monitor resource in
+[`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1941,6 +1944,7 @@ the entire response as being in error.
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
 trailing header if supported by the transport protocol (e.g. HTTP/1.1
 with chunked transfer encoding, or HTTP/2).
+
 
 -------
 
@@ -2519,6 +2523,7 @@ Context URL template:
 Responses to requests to the virtual collections `$crossjoin(...)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
+
 
 -------
 
@@ -5506,7 +5511,7 @@ contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
-responses, or OData 4.0 requests that include an `Accept `header that
+responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
@@ -6169,6 +6174,7 @@ Content-Length: ###
 --b_243234_25424_ef_892u748--
 ```
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">12 Conformance</a>
@@ -6582,6 +6588,7 @@ determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
 [`501 Not Implemented`](#ResponseCode501NotImplemented) or
 `400 Bad Request`
+
 
 -------
 
