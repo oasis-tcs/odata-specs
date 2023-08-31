@@ -242,6 +242,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -321,6 +322,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
+
+-------
+
 # <a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a>
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -481,6 +485,8 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
+
+-------
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -688,6 +694,7 @@ multiple times to the same model element.
 A model element MUST NOT specify more than one annotation for a given
 combination of term and qualifier.
 
+
 -------
 
 # <a name="CSDLJSONDocument" href="#CSDLJSONDocument">4 CSDL JSON Document</a>
@@ -710,7 +717,7 @@ The value of `$Version` is a string containing either `4.0`, `4.01`, or `4.02`.
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
-The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
 ::: {.varjson .example}
@@ -793,7 +800,7 @@ Example 3: references to other CSDL documents
 
 ## <a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a>
 
-A reference MAY include zero or more schemas from the referenced
+A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
 
 The included schemas are identified via their [namespace](#Namespace).
@@ -888,7 +895,7 @@ vocabulary terms
 ## <a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a>
 
 In addition to including whole schemas with all model constructs defined
-within that schema, annotations can be included with more flexibility.
+within that schema, a [reference](#Reference) may include annotations.
 
 Annotations are selectively included by specifying the
 [namespace](#Namespace) of the annotations' term. Consumers can opt not
@@ -991,6 +998,7 @@ a term from the `org.example.hcm` namespace to an element of the
 a term from the `org.example.hcm` namespace to an element of the
 `com.example.Person` namespace and specify a `Tablet` qualifier.
 :::
+
 
 -------
 
@@ -1467,6 +1475,7 @@ the name attribute must be used
 GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
 ```
 :::
+
 
 -------
 
@@ -2216,6 +2225,7 @@ products in that category
 
 
 
+
 -------
 
 # <a name="ComplexType" href="#ComplexType">9 Complex Type</a>
@@ -2619,6 +2629,7 @@ Where type definitions are used, the type definition is returned in
 place of the primitive type wherever the type is specified in a
 response.
 
+
 -------
 
 # <a name="ActionandFunction" href="#ActionandFunction">12 Action and Function</a>
@@ -2749,9 +2760,9 @@ MAY be [nullable](#Nullable).
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
-Unbound functions are invoked as static functions within a filter or
-orderby expression, or from the entity container through a [function
-import](#FunctionImport).
+Unbound functions are invoked as static functions within a common expression
+(see [OData-URL](#ODataURL), section 5.1.1),
+or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
 ### <a name="IsBound12.1" href="#IsBound12.1"> `$IsBound`</a>
@@ -2954,6 +2965,7 @@ function with the `$Parameter` member.
 ]
 ```
 :::
+
 
 
 
@@ -3451,6 +3463,7 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 :::
 
 
+
 -------
 
 # <a name="VocabularyandAnnotation" href="#VocabularyandAnnotation">14 Vocabulary and Annotation</a>
@@ -3617,10 +3630,9 @@ The value of `$BaseTerm` is the qualified name of the base term.
 
 ### <a name="Applicability" href="#Applicability">14.1.2 Applicability</a>
 
-The applicability of a term MAY be restricted to a list of model
-elements. If no list is supplied, the term is not intended to be
-restricted in its application. The list of model elements MAY be
-extended in future versions of the vocabulary. As the intended usage may
+Applicability specifies a list of model elements to which the term MAY be applied.
+If no list is supplied, the term MAY be applied to any model element.
+The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may
 evolve over time, clients SHOULD be prepared for any term to be applied
 to any model element and SHOULD be prepared to handle unknown values
 within the list of model constructs. Applicability is expressed using
@@ -5466,6 +5478,7 @@ Example 89:
 
 
 
+
 -------
 
 # <a name="IdentifierandPathValues" href="#IdentifierandPathValues">15 Identifier and Path Values</a>
@@ -5862,6 +5875,7 @@ Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
 
 -------
 
