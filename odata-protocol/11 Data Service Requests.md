@@ -387,7 +387,7 @@ expand item is evaluated relative to the retrieved resource being
 expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL).
+[OData-URL](#ODataURL), section 5.1.3.
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
