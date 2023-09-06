@@ -933,7 +933,7 @@ ID|Customer|Time|Product|Sales Organization|Amount
 5|C2|2022-11-09|P3|US East|4
 6|C3|2022-04-01|P1|EMEA Central|2
 7|C3|2022-08-06|P3|EMEA Central|1
-8|C3|2022-11-22|P1|EMEA Central|2
+8|C3|2022-11-22|P3|EMEA Central|2
 :::::
 
 ::::: {.legend style=top:470px;left:500px}
@@ -983,7 +983,7 @@ USA||Food|Sugar|2
 USA||Food|Coffee|12
 USA||Non-Food|Paper|5
 Netherlands||Food|Sugar|2
-Netherlands||Non-Food|Paper|1
+Netherlands||Non-Food|Paper|3
 USA|Joe|Food||6
 USA|Joe|Non-Food||1
 USA|Sue|Food||8
@@ -1403,7 +1403,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Forecast))
 :::
 
 ::: example
-⚠ Example 18: the maximal daily average for sales of a product
+⚠ Example 18: the maximal daily average for sales of any product
 ```
 GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
                                            with max as MaxDailyAverage)
@@ -2060,12 +2060,12 @@ The output set consists of a single instance of the [input type](#TypeStructurea
 ::: example
 Example 40:
 ```
-GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
+GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers)
 ```
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Customers())",
+  "@context": "$metadata#Sales(Customers())",
   "value": [
     { "Customers@context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
@@ -2191,7 +2191,7 @@ GET /service/Products
 results in
 ```json
 {
-  "@context":"$metadata#Products(Sales(Total))",
+  "@context": "$metadata#Products(Sales(Total))",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
       "Sales": [ { "Total@type": "Decimal", "Total":   12 } ] },
@@ -2247,8 +2247,7 @@ Example 48: using the `$crossjoin` resource for aggregate queries
 GET /service/$crossjoin(Products,Sales)
     ?$apply=filter(Products/ID eq Sales/ProductID)
            /groupby((Products/Name),
-            addnested(Sales,aggregate(Amount with sum as Total)
-                      as AggregatedSales))
+                    aggregate(Sales/Amount with sum as Total))
 ```
 results in
 ```json
@@ -2256,14 +2255,11 @@ results in
   "@context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
     { "Products": { "Name": "Coffee" },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total": 12 } },
+      "Total@type": "Decimal", "Total": 12 },
     { "Products": { "Name": "Paper"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  8 } },
+      "Total@type": "Decimal", "Total":  8 },
     { "Products": { "Name": "Sugar"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  4 } }
+      "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
@@ -3773,7 +3769,7 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
 returns the different combinations of products sold per country:
 ```json
 {
-  "@context":"$metadata#Customers(Country,ProductSales())",
+  "@context": "$metadata#Customers(Country,ProductSales())",
   "value": [
     { "Country": "Netherlands",
       "ProductSales@context": "#Sales(Product(Name))/$entity",
@@ -4157,21 +4153,21 @@ results in
   "@context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
     { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":   7 },
     { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":  12 },
     { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 9.5 },
     { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
     { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@type":"Decimal",
+    { "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 7.25 }
   ]
 }
@@ -4842,7 +4838,7 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Product(Category(ID)),Customers())",
+  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
   "value": [
     { "Product": { "Category": { "ID": "PG1" } },
       "Customers@context": "#Sales(Customer(ID))",
