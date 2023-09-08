@@ -2111,7 +2111,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 <h3 id="335-transformation-skip"><a name="Transformationskip" href="#Transformationskip">3.3.5 Transformation <code>skip</code></a></h3>
 <p>The <code>skip</code> transformation takes a non-negative integer <span class="math inline">\(c\)</span> as argument. Let <span class="math inline">\(A\)</span> be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
-<p>The transformation excludes from the output set the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. It keeps all remaining instances in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
+<p>If <span class="math inline">\(A\)</span> contains <span class="math inline">\(c\)</span> or fewer instances, the output set is empty. Otherwise, the transformation excludes from the output set the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. It keeps all remaining instances in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 34:</p>
 <pre><code>GET /service/Sales?$apply=orderby(Customer/Name desc)/skip(2)/top(2)</code></pre>

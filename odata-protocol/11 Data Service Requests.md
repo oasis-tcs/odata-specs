@@ -789,12 +789,15 @@ GET http://host/service/Categories?$orderby=Products/$count
 The `$top` system query option specifies a non-negative integer $n$ that
 limits the number of items returned from a collection.
 
-Let $A$ be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service.
-If no unique ordering is imposed through an
-[`$orderby`](#SystemQueryOptionorderby) query option, the service MUST
-choose a stable ordering across requests that include `$top`.
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include `$top` .
 
-If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$ consists of the first $n$ instances in $A$. Otherwise, the result equals $A$. The instances in the result are in the same order as they occur in $A$.
+If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$
+consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
+The instances in the result are in the same order as they occur in $A$.
 
 ::: example
 Example ##ex: return only the first five products of the Products entity
@@ -809,9 +812,14 @@ GET http://host/service/Products?$top=5
 The `$skip` system query option specifies a non-negative integer $n$ that
 excludes the first $n$ items of the queried collection from the result.
 
-Let $A$ be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.
+Let $A$ be a copy of the input set with a total order that extends any
+existing order of the input set but is otherwise chosen by the service. The
+total order MUST be stable across requests.
 
-The effect of ${\tt \$skip}=n$ is to exclude from the result the first $n$ instances in $A$. All remaining instances are kept in $A$ in the same order as they occur in $A$.
+If $A$ contains $n$ or fewer instances, the result of ${\tt \$skip}=n$
+is empty. Otherwise, the first $n$ instances in $A$ are omitted
+from the result and all remaining instances are kept in the same order as
+they occur in $A$.
 
 ::: example
 Example ##ex: return products starting with the 6th product of the
