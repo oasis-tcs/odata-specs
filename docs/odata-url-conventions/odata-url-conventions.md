@@ -1385,10 +1385,9 @@ It contains the query portion of the URL.
 For content-type `text/plain`, it MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
-For content-type `application/x-www-form-urlencoded`, it MUST first percent-decode
-the request body except for `%26` (ampersand) and `%3D` (equals) and then
-replace `+` with `%20`. The result MUST then be treated as the query portion
-of the URL like for content-type `text/plain`.
+For content-type `application/x-www-form-urlencoded`, it MUST percent-decode
+the request body except for `%26` (ampersand) and `%3D` (equals) and treat
+the result as the query portion of the URL like for content-type `text/plain`.
 
 ::: example
 Example 49: passing a filter condition in the request body
