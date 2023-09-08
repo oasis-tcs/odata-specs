@@ -1380,10 +1380,14 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use the content-type `text/plain` or `application/x-www-form-urlencoded`. It contains the
-query portion of the URL and MUST use the same percent-encoding as in
+The request body MUST use the content-type `text/plain` or `application/x-www-form-urlencoded`.
+It contains the query portion of the URL.
+For content-type `text/plain`, it MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
+For content-type `application/x-www-form-urlencoded`, it MUST first percent-decode
+the request body and then replace `+` with `%20`. The result MUST then be
+treated as the query portion of the URL like for content-type `text/plain`.
 
 ::: example
 Example 49: passing a filter condition in the request body
