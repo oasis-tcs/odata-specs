@@ -1386,8 +1386,9 @@ For content-type `text/plain`, it MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
 For content-type `application/x-www-form-urlencoded`, it MUST first percent-decode
-the request body and then replace `+` with `%20`. The result MUST then be
-treated as the query portion of the URL like for content-type `text/plain`.
+the request body except for `%26` (ampersand) and `%3D` (equals) and then
+replace `+` with `%20`. The result MUST then be treated as the query portion
+of the URL like for content-type `text/plain`.
 
 ::: example
 Example 49: passing a filter condition in the request body
@@ -1413,20 +1414,18 @@ Example 50: passing multiple system query options in the request body
 POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
 
-%24filter=[FirstName,LastName]+in+[["John","Doe"],["Jane","Smith"]]&
-%24select=FirstName,LastName
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName,LastName
 ```
 This POST request would result from submitting the HTML form
 ```html
 <form method="post" action="http://host/service/People/$query"
       enctype="application/x-www-form-urlencoded">
-  <input name="$filter"
-    value='[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]'>
+  <input name="$filter" value="LastName eq 'P&G'">
   <input name="$select" value="FirstName,LastName">
 </form>
 ```
-Note `enctype="text/plain"` would not encode the spaces and would produce a newline
-instead of the `&` demanded by the OData syntax.
+Note `enctype="text/plain"` would not encode the spaces and ampersand and would
+separate the options with a newline instead of the `&` demanded by the OData syntax.
 :::
 
 
