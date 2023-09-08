@@ -946,7 +946,7 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use the content-type `text/plain`. It contains the
+The request body MUST use the content-type `text/plain` or `application/x-www-form-urlencoded`. It contains the
 query portion of the URL and MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
@@ -959,4 +959,34 @@ Content-Type: text/plain
 
 $filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
 ```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="text/plain">
+  <input name="$filter"
+    value='[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]'>
+</form>
+```
+:::
+
+::: example
+Example ##ex: passing multiple system query options in the request body
+```
+POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]&
+$select=FirstName,LastName
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="application/x-www-form-urlencoded">
+  <input name="$filter"
+    value='[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]'>
+  <input name="$select" value="FirstName,LastName">
+</form>
+```
+Note `enctype="text/plain"` would not encode the spaces and would produce a newline
+instead of the `&` demanded by the OData syntax.
 :::
