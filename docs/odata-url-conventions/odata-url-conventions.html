@@ -859,8 +859,8 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <pre><code>POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
 
-$filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]&amp;
-$select=FirstName,LastName</code></pre>
+%24filter=[FirstName,LastName]+in+[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]&amp;
+%24select=FirstName,LastName</code></pre>
 <p>This POST request would result from submitting the HTML form</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;form</span> <span class="er">method</span><span class="ot">=</span><span class="st">&quot;post&quot;</span> <span class="er">action</span><span class="ot">=</span><span class="st">&quot;http://host/service/People/$query&quot;</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="ot">      enctype=</span><span class="st">&quot;application/x-www-form-urlencoded&quot;</span><span class="kw">&gt;</span></span>

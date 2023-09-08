@@ -979,8 +979,8 @@ Example ##ex: passing multiple system query options in the request body
 POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
 
-$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]&
-$select=FirstName,LastName
+%24filter=[FirstName,LastName]+in+[["John","Doe"],["Jane","Smith"]]&
+%24select=FirstName,LastName
 ```
 This POST request would result from submitting the HTML form
 ```html
