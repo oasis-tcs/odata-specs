@@ -840,7 +840,8 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
-<p>The request body MUST use the content-type <code>text/plain</code> or <code>application/x-www-form-urlencoded</code>. It contains the query portion of the URL. For content-type <code>text/plain</code>, it MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options. For content-type <code>application/x-www-form-urlencoded</code>, it MUST percent-decode the request body except for <code>%26</code> (ampersand) and <code>%3D</code> (equals) and treat the result as the query portion of the URL like for content-type <code>text/plain</code>.</p>
+<p>The request body MUST use the content-type <code>text/plain</code> or <code>application/x-www-form-urlencoded</code>. It contains the query portion of the URL.</p>
+<p>For content-type <code>text/plain</code>, the individual query options MUST be separated by <code>&amp;</code> or newlines and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options.</p>
 <div class="example">
 <p>Example 49: passing a filter condition in the request body</p>
 <pre><code>POST http://host/service/People/$query
@@ -854,6 +855,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    value=</span><span class="st">&#39;[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]&#39;</span><span class="kw">&gt;</span></span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/form&gt;</span></span></code></pre></div>
 </div>
+<p>For content-type <code>application/x-www-form-urlencoded</code>, the individual query options MUST be separated by <code>&amp;</code> and their names and values MAY be percent-encoded even for characters other than <code>%26</code> (ampersand) and <code>%3D</code> (equals).</p>
 <div class="example">
 <p>Example 50: passing multiple system query options in the request body</p>
 <pre><code>POST http://host/service/People/$query
@@ -866,7 +868,9 @@ Content-Type: application/x-www-form-urlencoded
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;$filter&quot;</span> <span class="er">value</span><span class="ot">=</span><span class="st">&quot;LastName eq &#39;P</span><span class="er">&amp;</span><span class="st">G&#39;&quot;</span><span class="kw">&gt;</span></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;$select&quot;</span> <span class="er">value</span><span class="ot">=</span><span class="st">&quot;FirstName,LastName&quot;</span><span class="kw">&gt;</span></span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/form&gt;</span></span></code></pre></div>
-<p>Note <code>enctype="text/plain"</code> would not encode the spaces and ampersand and would separate the options with a newline instead of the <code>&amp;</code> demanded by the OData syntax.</p>
+<p>and the server must treat it like</p>
+<pre><code>GET http://host/service/People?
+  $filter=LastName%20eq%20&#39;P%26G&#39;&amp;$select=FirstName,LastName</code></pre>
 </div>
 <hr />
 <h1 id="5-query-options"><a name="QueryOptions" href="#QueryOptions">5 Query Options</a></h1>

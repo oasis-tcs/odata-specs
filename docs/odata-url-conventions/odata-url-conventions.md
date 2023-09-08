@@ -1382,12 +1382,10 @@ request URL are processed together.
 
 The request body MUST use the content-type `text/plain` or `application/x-www-form-urlencoded`.
 It contains the query portion of the URL.
-For content-type `text/plain`, it MUST use the same percent-encoding as in
-URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
-follow the syntax rules described in chapter Query Options.
-For content-type `application/x-www-form-urlencoded`, it MUST percent-decode
-the request body except for `%26` (ampersand) and `%3D` (equals) and treat
-the result as the query portion of the URL like for content-type `text/plain`.
+
+For content-type `text/plain`, the individual query options MUST be separated by `&` or newlines
+and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
+and MUST follow the syntax rules described in chapter Query Options.
 
 ::: example
 Example 49: passing a filter condition in the request body
@@ -1407,6 +1405,10 @@ This POST request would result from submitting the HTML form
 ```
 :::
 
+For content-type `application/x-www-form-urlencoded`, the individual query options MUST be separated by `&`
+and their names and values MAY be percent-encoded even for characters other than `%26` (ampersand) and
+`%3D` (equals).
+
 ::: example
 Example 50: passing multiple system query options in the request body
 ```
@@ -1423,8 +1425,11 @@ This POST request would result from submitting the HTML form
   <input name="$select" value="FirstName,LastName">
 </form>
 ```
-Note `enctype="text/plain"` would not encode the spaces and ampersand and would
-separate the options with a newline instead of the `&` demanded by the OData syntax.
+and the server must treat it like
+```
+GET http://host/service/People?
+  $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
 :::
 
 
