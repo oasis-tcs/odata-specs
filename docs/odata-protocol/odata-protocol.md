@@ -3318,7 +3318,7 @@ Let $A$ be a copy of the result set with a total order that extends any
 existing order of the result set but is otherwise chosen by the service. If no
 unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
 query option, the service MUST choose a stable
-ordering across requests that include `$top` .
+ordering across requests that include `$top`.
 
 If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$
 consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
@@ -3337,9 +3337,11 @@ GET http://host/service/Products?$top=5
 The `$skip` system query option specifies a non-negative integer $n$ that
 excludes the first $n$ items of the queried collection from the result.
 
-Let $A$ be a copy of the input set with a total order that extends any
-existing order of the input set but is otherwise chosen by the service. The
-total order MUST be stable across requests.
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include `$skip`.
 
 If $A$ contains $n$ or fewer instances, the result of ${\tt \$skip}=n$
 is empty. Otherwise, the first $n$ instances in $A$ are omitted
