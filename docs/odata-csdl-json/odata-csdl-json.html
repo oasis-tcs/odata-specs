@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL." />
   <title>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</title>
   <style>
     code{white-space: pre-wrap;}
@@ -119,7 +120,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
-<li>XML schemas: <em>OData EDMX XML Schema and OData EDM XML Schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/</a></li>
+<li>JSON schemas: <em>OData CSDL JSON schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/</a>.</li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -132,11 +133,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
-<li><em>ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/">https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/</a></li>
+<li><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/</a></li>
 </ul></li>
 <li><em>OData Vocabularies Version 4.0</em>. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html</a></li>
-<li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html</a></li>
-<li><em>OData JSON Format Version 4.01</em>. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html">https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html</a></li>
+<li><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a></li>
 </ul>
 <h4 id="abstract">Abstract:</h4>
 <p>OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.</p>
@@ -165,9 +166,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
 <li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#Definitionsofterms">1.2.1 Definitions of terms</a></li>
-<li><a href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></li>
-<li><a href="#Documentconventions">1.2.3 Document conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#JSONRepresentation">2 JSON Representation</a>
@@ -361,7 +362,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Participants">C.2 Participants</a></li>
 </ul></li>
 <li><a href="#RevisionHistory">D Revision History</a></li>
-<li><a href="#Notices">E Notices </a></li>
+<li><a href="#Notices">E Notices</a></li>
 </ul>
 </div>
 <hr />
@@ -370,18 +371,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>This format is based on the OpenUI5 OData V4 Metadata JSON Format, see <a href="#_OpenUI5">OpenUI5</a>, with some extensions and modifications made necessary to fully cover OData CSDL Version 4.01.</p>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
-<h3 id="121-definitions-of-terms"><a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a></h3>
-<h3 id="122-acronyms-and-abbreviations"><a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a></h3>
+<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 <!-- TODO -->
 
-<h3 id="123-document-conventions"><a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a></h3>
+<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
 <pre><code>Non-normative examples use this paragraph style.</code></pre>
 </div>
-<p>All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.</p>
+<p>All examples in this document are non-normative and informative only.</p>
 <p>Representation-specific text is indented and marked with vertical lines.</p>
 <section id="representation-specific-headline" class="rep">
 <h3>Representation-Specific Headline</h3>
@@ -407,6 +408,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
+<hr />
 <h1 id="2-json-representation"><a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a></h1>
 <p>OData CSDL JSON is a full representation of the OData Common Schema Definition Language in the JavaScript Object Notation (JSON) defined in <a href="#rfc8259">RFC8259</a>. It additionally follows the rules for "Internet JSON" (I-JSON) defined in <a href="#rfc7493">RFC7493</a> for e.g. objects, numbers, date values, and duration values.</p>
 <p>It is an alternative to the CSDL XML representation defined in <a href="#ODataCSDL">OData-CSDLXML</a> and neither adds nor removes features.</p>
@@ -451,9 +453,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>To further reduce size the member <code>$Kind</code> is optional for <a href="#StructuralProperty">structural properties</a> as these are more common than <a href="#NavigationProperty">navigation properties</a>, and the member <a href="#Type"><code>$Type</code></a> is optional for string properties, parameters, and return types, as this type is more common than other primitive types.</p>
 <p>In general, all members that have a default value SHOULD be omitted if they have the default value.</p>
 <h2 id="23-json-schema-definition"><a name="JSONSchemaDefinition" href="#JSONSchemaDefinition">2.3 JSON Schema Definition</a></h2>
-<p>The structure of CSDL JSON documents can be verified with the JSON Schema <a href="#ODataCSDL">OData-CSDL-Schema</a> provided as an additional artifact of this prose specification. This schema only defines the shape of a well-formed CSDL JSON document but is not descriptive enough to define what a correct CSDL JSON document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL JSON documents MUST fulfill. In case of doubt on what makes a CSDL JSON document correct the rules defined in this specification document take precedence.</p>
+<p>The structure of CSDL JSON documents can be verified with the JSON Schema <a href="#ODataCSDLSchema">OData-CSDL-Schema</a> provided as an additional artifact of this prose specification. This schema only defines the shape of a well-formed CSDL JSON document but is not descriptive enough to define what a correct CSDL JSON document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL JSON documents MUST fulfill. In case of doubt on what makes a CSDL JSON document correct the rules defined in this specification document take precedence.</p>
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
 
+<hr />
 <h1 id="3-entity-model"><a name="EntityModel" href="#EntityModel">3 Entity Model</a></h1>
 <p>An OData service exposes a single entity model. This model may be distributed over several <a href="#Schema">schemas</a>, and these schemas may be distributed over several documents.</p>
 <p>A service is defined by a single CSDL document which can be accessed by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. This document is called the metadata document. It MAY <a href="#Reference">reference</a> other CSDL documents.</p>
@@ -687,7 +690,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h3>
 <p>The value of <code>$Version</code> is a string containing either <code>4.0</code> or <code>4.01</code>.</p>
 <h3 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h3>
-<p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
+<p>The value of <code>$EntityContainer</code> is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>
 <div class="varjson example">
 <p>Example 2:</p>
@@ -729,7 +732,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="42-included-schema"><a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a></h2>
-<p>A reference MAY include zero or more schemas from the referenced document.</p>
+<p>A <a href="#Reference">reference</a> MAY include zero or more schemas from the referenced document.</p>
 <p>The included schemas are identified via their <a href="#Namespace">namespace</a>. The same namespace MUST NOT be included more than once, even if it is declared in more than one referenced document.</p>
 <p>When including a schema, a <a href="#SimpleIdentifier">simple identifier</a> value MAY be specified as an alias for the schema that is used in qualified names instead of the namespace. For example, an alias of <code>display</code> might be assigned to the namespace <code>org.example.vocabularies.display</code>. An alias-qualified name is resolved to a fully qualified name by examining aliases for included schemas and schemas defined within the document.</p>
 <div class="varjson rep">
@@ -782,7 +785,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="43-included-annotations"><a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a></h2>
-<p>In addition to including whole schemas with all model constructs defined within that schema, annotations can be included with more flexibility.</p>
+<p>In addition to including whole schemas with all model constructs defined within that schema, a <a href="#Reference">reference</a> may include annotations.</p>
 <p>Annotations are selectively included by specifying the <a href="#Namespace">namespace</a> of the annotations' term. Consumers can opt not to inspect the referenced document if none of the term namespaces is of interest for the consumer.</p>
 <p>In addition, the <a href="#Qualifier">qualifier</a> of annotations to be included MAY be specified. For instance, a service author might want to supply a different set of annotations for various device form factors. If a qualifier is specified, only those annotations from the specified term namespace with the specified qualifier (applied to a model element of the target namespace, if present) SHOULD be included. If no qualifier is specified, all annotations within the referenced document from the specified term namespace (taking into account the target namespace, if present) SHOULD be included.</p>
 <p>The qualifier also provides consumers insight about what qualifiers are present in the referenced document. If the consumer is not interested in that particular qualifier, the consumer can opt not to inspect the referenced document.</p>
@@ -1137,7 +1140,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <section id="-maxlength" class="varjson rep">
 <h3><a name="MaxLength5.4" href="#MaxLength5.4"> <code>$MaxLength</code></a></h3>
 <p>The value of <code>$MaxLength</code> is a positive integer.</p>
-<p>Note: <a href="#ODataCSDLXML">OData-CSDL-XML</a> defines a symbolic value <code>max</code> that is only allowed in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON documents at all. Services MAY instead specify the concrete maximum length supported for the type by the service or omit the member entirely.</p>
+<p>Note: <a href="#ODataCSDL">OData-CSDL-XML</a> defines a symbolic value <code>max</code> that is only allowed in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON documents at all. Services MAY instead specify the concrete maximum length supported for the type by the service or omit the member entirely.</p>
 </section>
 <h3 id="723-precision"><a name="Precision" href="#Precision">7.2.3 Precision</a></h3>
 <p>For a decimal value: the maximum number of significant decimal digits of the property's value; it MUST be a positive integer.</p>
@@ -1641,7 +1644,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be <a href="#Nullable">nullable</a>.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a filter or orderby expression, or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="-isbound" class="varjson rep">
 <h3><a name="IsBound12.1" href="#IsBound12.1"> <code>$IsBound</code></a></h3>
 <p>The value of <code>$IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
@@ -2026,7 +2029,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The value of <code>$BaseTerm</code> is the qualified name of the base term.</p>
 </section>
 <h3 id="1412-applicability"><a name="Applicability" href="#Applicability">14.1.2 Applicability</a></h3>
-<p>The applicability of a term MAY be restricted to a list of model elements. If no list is supplied, the term is not intended to be restricted in its application. The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may evolve over time, clients SHOULD be prepared for any term to be applied to any model element and SHOULD be prepared to handle unknown values within the list of model constructs. Applicability is expressed using the following symbolic values:</p>
+<p>Applicability specifies a list of model elements to which the term MAY be applied. If no list is supplied, the term MAY be applied to any model element. The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may evolve over time, clients SHOULD be prepared for any term to be applied to any model element and SHOULD be prepared to handle unknown values within the list of model constructs. Applicability is expressed using the following symbolic values:</p>
 <table>
 <thead>
 <tr class="header">
@@ -2578,67 +2581,22 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty</c
 <h3 id="1442-comparison-and-logical-operators"><a name="ComparisonandLogicalOperators" href="#ComparisonandLogicalOperators">14.4.2 Comparison and Logical Operators</a></h3>
 <p>Annotations MAY use the following logical and comparison expressions which evaluate to a Boolean value. These expressions MAY be combined and they MAY be used anywhere instead of a Boolean expression.</p>
 <table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Logical Operators</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>And</code></td>
-<td>Logical and</td>
-</tr>
-<tr class="odd">
-<td><code>Or</code></td>
-<td>Logical or</td>
-</tr>
-<tr class="even">
-<td><code>Not</code></td>
-<td>Logical negation</td>
-</tr>
-<tr class="odd">
-<td><strong>Comparison Operators</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>Eq</code></td>
-<td>Equal</td>
-</tr>
-<tr class="odd">
-<td><code>Ne</code></td>
-<td>Not equal</td>
-</tr>
-<tr class="even">
-<td><code>Gt</code></td>
-<td>Greater than</td>
-</tr>
-<tr class="odd">
-<td><code>Ge</code></td>
-<td>Greater than or equal</td>
-</tr>
-<tr class="even">
-<td><code>Lt</code></td>
-<td>Less than</td>
-</tr>
-<tr class="odd">
-<td><code>Le</code></td>
-<td>Less than or equal</td>
-</tr>
-<tr class="even">
-<td><code>Has</code></td>
-<td>Has enumeration flag(s) set</td>
-</tr>
-<tr class="odd">
-<td><code>In</code></td>
-<td>Is in collection</td>
-</tr>
-</tbody>
+<tr><th>Operator</th><th>Description</th></tr>
+<tr><td colspan="2"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>And</code></td><td>Logical and     </td></tr>
+<tr><td><code>Or</code></td><td>Logical or      </td></tr>
+<tr><td><code>Not</code></td><td>Logical negation</td></tr>
+<tr><td colspan="2"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>Eq</code></td><td>Equal                      </td></tr>
+<tr><td><code>Ne</code></td><td>Not equal                  </td></tr>
+<tr><td><code>Gt</code></td><td>Greater than               </td></tr>
+<tr><td><code>Ge</code></td><td>Greater than or equal      </td></tr>
+<tr><td><code>Lt</code></td><td>Less than                  </td></tr>
+<tr><td><code>Le</code></td><td>Less than or equal         </td></tr>
+<tr><td><code>Has</code></td><td>Has enumeration flag(s) set</td></tr>
+<tr><td><code>In</code></td><td>Is in collection           </td></tr>
 </table>
+
 <p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varjson rep">
@@ -3459,23 +3417,20 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <p>In addition, conforming services MUST NOT return 4.01 CSDL constructs for requests made with <code>OData-MaxVersion:4.0</code>.</p>
 <p>Specifically, they</p>
 <ol type="1">
-<li><p>MUST NOT include properties in derived types that overwrite a property defined in the base type</p></li>
-<li><p>MUST NOT include <code>Edm.Untyped</code></p></li>
-<li><p>MUST NOT use <a href="#PathSyntax">path syntax</a> added with 4.01</p></li>
-<li><p>MUST NOT use <code>Edm.ModelElementPath</code> and <code>Edm.AnyPropertyPath</code></p></li>
-<li><p>MUST NOT specify <a href="#ReferentialConstraint">referential constraints</a> to complex types and navigation properties</p></li>
-<li><p>MUST NOT include a non-abstract entity type with no inherited or defined <a href="#Key">entity key</a></p></li>
-<li><p>MUST NOT include the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation on <a href="#IncludedSchema">included schemas</a></p></li>
-<li><p>MUST NOT return the Unicode facet for terms, parameters, and return types</p></li>
-<li><p>MUST NOT include collections of <code>Edm.ComplexType</code> or <code>Edm.Untyped</code></p></li>
-<li><p>MUST NOT specify a key as a property of a related entity</p></li>
-<li><p>SHOULD NOT include new/unknown values for <a href="#Applicability"><code>$AppliesTo</code></a></p></li>
-<li><p>MAY include new CSDL annotations</p></li>
+<li>MUST NOT include properties in derived types that overwrite a property defined in the base type</li>
+<li>MUST NOT include <code>Edm.Untyped</code></li>
+<li>MUST NOT use <a href="#PathSyntax">path syntax</a> added with 4.01</li>
+<li>MUST NOT use <code>Edm.ModelElementPath</code> and <code>Edm.AnyPropertyPath</code></li>
+<li>MUST NOT specify <a href="#ReferentialConstraint">referential constraints</a> to complex types and navigation properties</li>
+<li>MUST NOT include a non-abstract entity type with no inherited or defined <a href="#Key">entity key</a></li>
+<li>MUST NOT include the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation on <a href="#IncludedSchema">included schemas</a></li>
+<li>MUST NOT return the Unicode facet for terms, parameters, and return types</li>
+<li>MUST NOT include collections of <code>Edm.ComplexType</code> or <code>Edm.Untyped</code></li>
+<li>MUST NOT specify a key as a property of a related entity</li>
+<li>SHOULD NOT include new/unknown values for <a href="#Applicability"><code>$AppliesTo</code></a></li>
+<li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, OData 4.01 services:</p>
-<ol start="13" type="1">
-<li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
-</ol>
+<p>In addition, OData 4.01 services: 13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</p>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification, including custom annotations, and MUST ignore constructs not defined in this version of the specification.</p>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
@@ -3485,44 +3440,27 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
 <h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<h6 id="odata-v402">[OData-v4.02]</h6>
-<ul>
-<li><em>OData Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
-<ul>
-<li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
-<li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
-</ul></li>
-</ul>
 <h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2016 Language Specification, 7th Edition</em>. June 2016. Standard ECMA-262. <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">http://www.ecma-international.org/publications/standards/Ecma-262.htm</a>.</p>
 <h6 id="epsg"><a name="_EPSG">[EPSG]</a></h6>
 <p><em>European Petroleum Survey Group (EPSG)</em>. <a href="http://www.epsg.org/">http://www.epsg.org/</a>.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
-<p><em>OData ABNF Construction Rules Version 4.01</em>.<br />
+<p><em>OData ABNF Construction Rules Version 4.02</em>.<br />
 See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
-<h6 id="odata-csdl-schema"><a name="ODataCSDL">[OData-CSDL-Schema]</a></h6>
+<h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em> This document.</p>
+<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em> See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+<h6 id="odata-csdl-schema"><a name="ODataCSDLSchema">[OData-CSDL-Schema]</a></h6>
 <p><em>OData CSDL JSON Schema</em>.<br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-csdl-json"><a name="ODataCSDLJSON">[OData-CSDL-JSON]</a></h6>
-<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01</em>.<br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-csdl-xml"><a name="ODataCSDLXML">[OData-CSDL-XML]</a></h6>
-<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01</em>.<br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
-<h6 id="odata-edm"><a name="ODataEDM">[OData-EDM]</a></h6>
-<p><em>OData EDM XML Schema</em>.<br />
-See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
-<h6 id="odata-edmx"><a name="ODataEDMX">[OData-EDMX]</a></h6>
-<p><em>OData EDM XML Schema</em>.<br />
 See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
 <h6 id="odata-json"><a name="ODataJSON">[OData-JSON]</a></h6>
-<p><em>OData JSON Format Version 4.01</em>.<br />
+<p><em>OData JSON Format Version 4.02</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
-<p><em>OData Version 4.01 Part 1: Protocol</em>.<br />
+<p><em>OData Version 4.02 Part 1: Protocol</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
-<p><em>OData Version 4.01 Part 2: URL Conventions</em>.<br />
+<p><em>OData Version 4.02 Part 2: URL Conventions</em>.<br />
 See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
 <p><em>OData Vocabularies Version 4.0: Core Vocabulary</em>.<br />
@@ -3548,15 +3486,6 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
 <p><em>Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017</em>.<br />
 <a href="http://tools.ietf.org/html/rfc8259">http://tools.ietf.org/html/rfc8259</a>.</p>
-<h6 id="xml-11"><a name="XML-11">[XML-1.1]</a></h6>
-<p><em>Extensible Markup Language (XML) 1.1 (Second Edition)</em>. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.<br />
-<a href="http://www.w3.org/TR/2006/REC-xml11-20060816">http://www.w3.org/TR/2006/REC-xml11-20060816</a>. Latest version available at <a href="http://www.w3.org/TR/xml11/">http://www.w3.org/TR/xml11/</a>.</p>
-<h6 id="xml-base"><a name="XML-Base">[XML-Base]</a></h6>
-<p><em>XML Base (Second Edition)</em>. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.<br />
-<a href="http://www.w3.org/TR/2009/REC-xmlbase-20090128/">http://www.w3.org/TR/2009/REC-xmlbase-20090128/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlbase/">http://www.w3.org/TR/xmlbase/</a>.</p>
-<h6 id="xml-schema-1"><a name="XML-Schema1">[XML-Schema-1]</a></h6>
-<p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures</em>. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.<br />
-<a href="http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-1/">http://www.w3.org/TR/xmlschema11-1/</a>.</p>
 <h6 id="xml-schema-2"><a name="XML-Schema2">[XML-Schema-2]</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
@@ -3732,10 +3661,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </ul>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">ODataProtocol</a>, are gratefully acknowledged.</p>
 <h2 id="c2-participants"><a name="Participants" href="#Participants">C.2 Participants</a></h2>
-<!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
-
-<p>The following individuals have participated in the creation of this specification and are gratefully acknowledged:</p>
-<p><strong>OpenC2 TC Members:</strong></p>
+<p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
 <tr class="header">
@@ -3746,24 +3672,54 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Philippe</td>
-<td style="text-align: left;">Alman</td>
-<td style="text-align: left;">Something Networks</td>
+<td style="text-align: left;">George</td>
+<td style="text-align: left;">Ericson</td>
+<td style="text-align: left;">Dell</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Alex</td>
-<td style="text-align: left;">Amirnovman</td>
-<td style="text-align: left;">Company B</td>
+<td style="text-align: left;">Hubert</td>
+<td style="text-align: left;">Heijkers</td>
+<td style="text-align: left;">IBM</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Kris</td>
-<td style="text-align: left;">Anderman</td>
-<td style="text-align: left;">Mini Micro</td>
+<td style="text-align: left;">Ling</td>
+<td style="text-align: left;">Jin</td>
+<td style="text-align: left;">IBM</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Darren</td>
-<td style="text-align: left;">Anstman</td>
-<td style="text-align: left;">Big Networks</td>
+<td style="text-align: left;">Stefan</td>
+<td style="text-align: left;">Hagen</td>
+<td style="text-align: left;">Individual</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Michael</td>
+<td style="text-align: left;">Pizzo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Christof</td>
+<td style="text-align: left;">Sprenger</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ralf</td>
+<td style="text-align: left;">Handl</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gerald</td>
+<td style="text-align: left;">Krause</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heiko</td>
+<td style="text-align: left;">Theißen</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Martin</td>
+<td style="text-align: left;">Zurmuehl</td>
+<td style="text-align: left;">SAP SE</td>
 </tr>
 </tbody>
 </table>
@@ -3801,26 +3757,16 @@ Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-mat
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
 -->
 
-<h1 id="appendix-e-notices-"><a name="Notices" href="#Notices">Appendix E. Notices </a></h1>
-<!-- Required section. Do not modify. -->              
-
-<p>Copyright © OASIS Open 2023. All Rights Reserved.-------------- Michael Pizzo All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.<br />
-Ralf Handl<br />
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
+<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
+<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
-<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-------------- Michael Pizzo As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).<br />
-Ralf Handl<br />
-[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]-------------- Michael Pizzo [OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]<br />
-Ralf Handl<br />
-[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
+<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
+<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
-<hr />
-<p>Michael Pizzo<br />
-Ralf Handl</p>
-<hr />
-<h2 id="michael-pizzo-ralf-handl">Michael Pizzo<br />
-Ralf Handl</h2>
-<p>Michael Pizzo<br />
-Ralf Handl</p>
 </body>
 </html>

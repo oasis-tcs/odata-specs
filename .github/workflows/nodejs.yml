@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,11 +24,5 @@ jobs:
       - name: Build docs
         run: |
           npm ci
-          npm run build --if-present
-          git config user.name ${GITHUB_ACTOR}
-          git config user.email ${PUSHER_EMAIL}
-          git add docs/*/*.html docs/*/*.md docs/*/styles/*
-          git diff-index --quiet HEAD docs/*/*.html docs/*/*.md docs/*/styles/* || (npm run pdf --if-present && git add docs/*/*.pdf && git commit -m "auto-refreshed")
-          test `git branch --show-current` && git push
-        env:
-          PUSHER_EMAIL: ${{ github.event.pusher.email }}
+          npm run build
+          git diff --exit-code docs
