@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData." />
   <title>OData Extension for Data Aggregation Version 4.0</title>
   <style>
     code{white-space: pre-wrap;}
@@ -94,17 +95,17 @@
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <h1 id="odata-extension-for-data-aggregation-version-40">OData Extension for Data Aggregation Version 4.0</h1>
-<h2 id="committee-specification-draft-04">Committee Specification Draft 04</h2>
-<h2 id="05-july-2023">05 July 2023</h2>
+<h2 id="committee-specification-03">Committee Specification 03</h2>
+<h2 id="30-august-2023">30 August 2023</h2>
 <p> </p>
 <h4 id="this-stage">This stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.md">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.pdf">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.pdf</a></p>
+<h4 id="previous-stage">Previous stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html</a><br />
 <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.pdf">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.pdf</a></p>
-<h4 id="previous-stage">Previous stage:</h4>
-<p><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.docx">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.docx</a> (Authoritative)<br />
-<a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html</a><br />
-<a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.pdf">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.pdf</a></p>
 <h4 id="latest-stage">Latest stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.md">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a><br />
@@ -120,15 +121,15 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 Gerald Krause (<a href="mailto:gerald.krause@sap.com">gerald.krause@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
 Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="https://www.microsoft.com/">Microsoft</a><br />
 Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
-Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a></p>
+Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a></p>
 <h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This document is one component of a Work Product that also includes:</p>
 <ul>
-<li>ABNF components: <em>OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases</em>: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/</a></li>
+<li>ABNF components: <em>OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases</em>: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/</a></li>
 <li>OData Aggregation Vocabulary:
 <ul>
-<li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json</a></li>
-<li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml</a></li>
+<li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.json">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.json</a></li>
+<li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml</a></li>
 </ul></li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
@@ -157,7 +158,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-Data-Agg-v4.0]</strong></p>
-<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 05 July 2023. OASIS Committee Specification Draft 04. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
+<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 30 August 2023. OASIS Committee Specification 03. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
 <h4 id="notices">Notices</h4>
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
@@ -346,7 +347,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><span class="math inline">\(σ(x)\)</span> – instance containing a grouping property that represents a node <span class="math inline">\(x\)</span>, defined in <a href="#Transformationtraverse">section 6.2.2</a></li>
 </ul>
 <h3 id="113-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
-<p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
+<p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
@@ -355,10 +356,10 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.</p>
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
-<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-data-aggregation-ext-v4.0-csd04.md</code>). Line breaks are added for readability only:</p>
+<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-data-aggregation-ext-v4.0-cs03.md</code>). Line breaks are added for readability only:</p>
 <pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs
        -t html
-       -o odata-data-aggregation-ext-v4.0-csd04.html
+       -o odata-data-aggregation-ext-v4.0-cs03.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -366,7 +367,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
        --eol=lf
        --wrap=none
        --metadata pagetitle=&quot;OData Extension for Data Aggregation Version 4.0&quot;
-       odata-data-aggregation-ext-v4.0-csd04.md</code></pre>
+       odata-data-aggregation-ext-v4.0-cs03.md</code></pre>
 <p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
 </div>
 <hr />
@@ -931,7 +932,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
   <path d="M525,300 l-40,-20" marker-end="url(#end)" />
 </svg>
 
-<div class="nav" style="left:250px">
+<div class="nav-2" style="left:250px">
 <p>Products</p>
 <table>
 <thead>
@@ -1083,7 +1084,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </tbody>
 </table>
 </div>
-<div class="nav" style="top:260px;left:360px">
+<div class="nav-2" style="top:260px;left:360px">
 <p>Sales Organizations</p>
 <table>
 <thead>
@@ -1161,7 +1162,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </tbody>
 </table>
 </div>
-<div class="nav nav-2" style="top:450px">
+<div class="nav-2 nav-3 nav-4 nav-5" style="top:450px">
 <p>Sales</p>
 <table>
 <thead>
@@ -1235,7 +1236,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <td>8</td>
 <td>C3</td>
 <td>2022-11-22</td>
-<td>P1</td>
+<td>P3</td>
 <td>EMEA Central</td>
 <td style="text-align: right;">2</td>
 </tr>
@@ -1430,7 +1431,7 @@ Martin Zurmühl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <td></td>
 <td>Non-Food</td>
 <td>Paper</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
 </tr>
 <tr class="odd">
 <td>USA</td>
@@ -1790,7 +1791,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
                   /aggregate(Forecast with average as DailyAverage)</code></pre>
 </div>
 <div class="example">
-<p>⚠ Example 18: the maximal daily average for sales of a product</p>
+<p>⚠ Example 18: the maximal daily average for sales of any product</p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
                                            with max as MaxDailyAverage)</code></pre>
 <p>results in</p>
@@ -2273,10 +2274,10 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without entity id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.</p>
 <div class="example">
 <p>Example 40:</p>
-<pre><code>GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))</code></pre>
+<pre><code>GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Customers())&quot;</span><span class="fu">,</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Customers())&quot;</span><span class="fu">,</span></span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
@@ -2364,7 +2365,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
   ?$expand=Sales($apply=aggregate(Amount with sum as Total))</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Products(Sales(Total))&quot;</span><span class="fu">,</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products(Sales(Total))&quot;</span><span class="fu">,</span></span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>   <span class="dv">12</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
@@ -2404,23 +2405,19 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <pre><code>GET /service/$crossjoin(Products,Sales)
     ?$apply=filter(Products/ID eq Sales/ProductID)
            /groupby((Products/Name),
-            addnested(Sales,aggregate(Amount with sum as Total)
-                      as AggregatedSales))</code></pre>
+                    aggregate(Sales/Amount with sum as Total))</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span> <span class="fu">},</span></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">12</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span>  <span class="fu">},</span></span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">8</span> <span class="fu">}</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span>  <span class="fu">},</span></span>
-<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
-<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">4</span> <span class="fu">}</span> <span class="fu">}</span></span>
-<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">12</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span>  <span class="fu">},</span></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">8</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Products&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span>  <span class="fu">},</span></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">4</span> <span class="fu">}</span></span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The entity container may be annotated in the same way as entity sets to express which aggregate queries are supported, see <a href="#VocabularyforDataAggregation">section 5</a>.</p>
 <hr />
@@ -2601,7 +2598,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <div class="sourceCode" id="cb94"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://docs.oasis-open.org/odata/odata-data-</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="st">    aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml&quot;</span>&gt;</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="st">    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml&quot;</span>&gt;</span>
 <span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Aggregation&quot;</span></span>
 <span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  Namespace=</span><span class="st">&quot;Org.OData.Aggregation.V1&quot;</span> /&gt;</span>
 <span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
@@ -3554,7 +3551,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
                        /groupby((Country,ProductSales/Product/Name))</code></pre>
 <p>returns the different combinations of products sold per country:</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Customers(Country,ProductSales())&quot;</span><span class="fu">,</span></span>
+<span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Country,ProductSales())&quot;</span><span class="fu">,</span></span>
 <span id="cb175-3"><a href="#cb175-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb175-4"><a href="#cb175-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;Netherlands&quot;</span><span class="fu">,</span></span>
 <span id="cb175-5"><a href="#cb175-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ProductSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Product(Name))/$entity&quot;</span><span class="fu">,</span></span>
@@ -3849,21 +3846,21 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb204-2"><a href="#cb204-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(CustomerCountryAverage)&quot;</span><span class="fu">,</span></span>
 <span id="cb204-3"><a href="#cb204-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb204-4"><a href="#cb204-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;USA&quot;</span><span class="fu">,</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span> <span class="fu">},</span></span>
-<span id="cb204-5"><a href="#cb204-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-5"><a href="#cb204-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-6"><a href="#cb204-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span>   <span class="dv">7</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb204-7"><a href="#cb204-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;USA&quot;</span><span class="fu">,</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span> <span class="fu">},</span></span>
-<span id="cb204-8"><a href="#cb204-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-8"><a href="#cb204-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-9"><a href="#cb204-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span>  <span class="dv">12</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb204-10"><a href="#cb204-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;USA&quot;</span> <span class="fu">},</span></span>
-<span id="cb204-11"><a href="#cb204-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-11"><a href="#cb204-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-12"><a href="#cb204-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span> <span class="fl">9.5</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb204-13"><a href="#cb204-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;Netherlands&quot;</span><span class="fu">,</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;C3&quot;</span> <span class="fu">},</span></span>
-<span id="cb204-14"><a href="#cb204-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-14"><a href="#cb204-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-15"><a href="#cb204-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span> <span class="dv">5</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb204-16"><a href="#cb204-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Country&quot;</span><span class="fu">:</span> <span class="st">&quot;Netherlands&quot;</span> <span class="fu">},</span></span>
-<span id="cb204-17"><a href="#cb204-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-17"><a href="#cb204-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-18"><a href="#cb204-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span> <span class="dv">5</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb204-19"><a href="#cb204-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span><span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
+<span id="cb204-19"><a href="#cb204-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;CustomerCountryAverage@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb204-20"><a href="#cb204-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerCountryAverage&quot;</span><span class="fu">:</span> <span class="fl">7.25</span> <span class="fu">}</span></span>
 <span id="cb204-21"><a href="#cb204-21" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb204-22"><a href="#cb204-22" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -4443,7 +4440,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
                       nest(groupby((Customer/ID)) as Customers))</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb251-1"><a href="#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb251-2"><a href="#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
+<span id="cb251-2"><a href="#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Product(Category(ID)),Customers())&quot;</span><span class="fu">,</span></span>
 <span id="cb251-3"><a href="#cb251-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb251-4"><a href="#cb251-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Category&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;PG1&quot;</span> <span class="fu">}</span> <span class="fu">},</span></span>
 <span id="cb251-5"><a href="#cb251-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Customers@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Customer(ID))&quot;</span><span class="fu">,</span></span>
@@ -4562,7 +4559,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Martin</td>
-<td style="text-align: left;">Zurmühl</td>
+<td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
 </tbody>
@@ -4608,6 +4605,12 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <td>2023-07-05</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen</td>
 <td>Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"</td>
+</tr>
+<tr class="even">
+<td>Committee Specification 03</td>
+<td>2023-08-30</td>
+<td>Ralf Handl<br> Gerald Krause<br> Heiko Theißen</td>
+<td>Non-material changes from public review feedback</td>
 </tr>
 </tbody>
 </table>
