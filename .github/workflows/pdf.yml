@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -21,9 +23,9 @@ jobs:
       - name: Generate PDF
         run: |
           npm ci
-          npm run pdf --if-present
+          npm run pdf
           git config user.name ${GITHUB_ACTOR}
           git config user.email github-actions@github.com
           git add docs/*/*.pdf
-          git diff-index --quiet HEAD || git commit -m "PDF generation"
+          git diff-index --quiet HEAD docs/*/*.pdf || git commit -m "PDF generation"
           git push

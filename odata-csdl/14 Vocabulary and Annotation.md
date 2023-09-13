@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Vocabulary and Annotation
@@ -249,10 +250,9 @@ The value of `BaseTerm` is the qualified name of the base term.
 
 ### ##subsubsec Applicability
 
-The applicability of a term MAY be restricted to a list of model
-elements. If no list is supplied, the term is not intended to be
-restricted in its application. The list of model elements MAY be
-extended in future versions of the vocabulary. As the intended usage may
+Applicability specifies a list of model elements to which the term MAY be applied.
+If no list is supplied, the term MAY be applied to any model element.
+The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may
 evolve over time, clients SHOULD be prepared for any term to be applied
 to any model element and SHOULD be prepared to handle unknown values
 within the list of model constructs. Applicability is expressed using
@@ -1663,21 +1663,22 @@ Annotations MAY use the following logical and comparison expressions
 which evaluate to a Boolean value. These expressions MAY be combined and
 they MAY be used anywhere instead of a Boolean expression.
 
-Operator|Description
---------|-----------
-**Logical Operators**|
-`And`                      |Logical and
-`Or`                       |Logical or
-`Not`                      |Logical negation
-**Comparison Operators**|
-`Eq`                       |Equal
-`Ne`                       |Not equal
-`Gt`                       |Greater than
-`Ge`                       |Greater than or equal
-`Lt`                       |Less than
-`Le`                       |Less than or equal
-`Has`                      |Has enumeration flag(s) set
-`In`                       |Is in collection
+<table>
+<tr><th>Operator</th><th>Description</th></tr>
+<tr><td colspan="2"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>And</code></td><td>Logical and     </td></tr>
+<tr><td><code>Or</code></td><td>Logical or      </td></tr>
+<tr><td><code>Not</code></td><td>Logical negation</td></tr>
+<tr><td colspan="2"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>Eq</code></td><td>Equal                      </td></tr>
+<tr><td><code>Ne</code></td><td>Not equal                  </td></tr>
+<tr><td><code>Gt</code></td><td>Greater than               </td></tr>
+<tr><td><code>Ge</code></td><td>Greater than or equal      </td></tr>
+<tr><td><code>Lt</code></td><td>Less than                  </td></tr>
+<tr><td><code>Le</code></td><td>Less than or equal         </td></tr>
+<tr><td><code>Has</code></td><td>Has enumeration flag(s) set</td></tr>
+<tr><td><code>In</code></td><td>Is in collection           </td></tr>
+</table>
 
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
