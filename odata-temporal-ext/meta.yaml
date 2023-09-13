@@ -1,0 +1,10 @@
+pagetitle: OData Extension for Temporal Data Version 4.0
+subtitle: Committee Specification Draft 04
+filename: odata-temporal-ext-v4.0-csd04
+stage: csd04
+previousStage: cs01
+pubdate: 25 January 2022
+pubdateISO: '2022-01-25'
+copyright: © OASIS Open 2022
+description:
+  This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).
