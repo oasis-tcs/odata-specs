@@ -2792,6 +2792,7 @@ value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
