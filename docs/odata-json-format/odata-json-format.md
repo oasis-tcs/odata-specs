@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -92,11 +92,11 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from earlier Versions](#ChangesfromearlierVersions)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
-    - [1.2.1 Definitions of terms](#Definitionsofterms)
-    - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
-    - [1.2.3 Document conventions](#Documentconventions)
+    - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
+    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
+    - [1.2.3 Document Conventions](#DocumentConventions)
 - [2 JSON Format Design](#JSONFormatDesign)
 - [3 Requesting the JSON Format](#RequestingtheJSONFormat)
   - [3.1 Controlling the Amount of Control Information in Responses](#ControllingtheAmountofControlInformationinResponses)
@@ -186,6 +186,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -204,22 +205,22 @@ An OData JSON payload may represent:
 - a [service document](#ServiceDocument) describing the top-level resources exposed by the service
 - an [error](#ErrorResponse).
 
-## <a name="ChangesfromearlierVersions" href="#ChangesfromearlierVersions">1.1 Changes from earlier Versions</a>
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
+### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -295,6 +296,7 @@ To optimize streaming scenarios, there are a few restrictions that MAY
 be imposed on the sequence in which name/value pairs appear within JSON
 objects. For details on the ordering requirements see [Payload Ordering
 Constraints](#PayloadOrderingConstraints).
+
 
 -------
 
@@ -450,8 +452,8 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section [Control Information: type
-  (odata.type)](#ControlInformationtypeodatatype).
+  the data value, see section
+  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
 
 Media entities and stream properties may in addition contain the
 following control information:
@@ -532,6 +534,7 @@ Payloads with an `OData-Version` header equal to `4.01`
 or greater always allow exponential notation for numbers and the
 `ExponentialDecimals` format parameter is not needed or used.
 
+
 -------
 
 # <a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a>
@@ -562,8 +565,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section [Payload
-Ordering Constraints](#PayloadOrderingConstraints).
+a value of `true` or `false`, see section "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
@@ -1170,6 +1172,7 @@ Example 8: Annotating primitive values within a collection
 ```
 :::
 
+
 -------
 
 # <a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a>
@@ -1330,6 +1333,7 @@ Example 11: entity with `metadata=full`
 }
 ```
 :::
+
 
 -------
 
@@ -1832,6 +1836,7 @@ Example 24:
 ```
 :::
 
+
 -------
 
 # <a name="MediaEntity" href="#MediaEntity">10 Media Entity</a>
@@ -2064,6 +2069,7 @@ Example 32: collection of entity references
 }
 ```
 :::
+
 
 -------
 
@@ -2559,6 +2565,7 @@ inline as a delta
 ```
 :::
 
+
 -------
 
 # <a name="BoundFunction" href="#BoundFunction">16 Bound Function</a>
@@ -2824,6 +2831,7 @@ Example 46:
 In order to invoke an action with no non-binding parameters, the client
 passes an empty JSON object in the body of the request. 4.01 Services
 MUST also support clients passing an empty request body for this case.
+
 
 -------
 
@@ -3344,6 +3352,7 @@ Content-Type: application/json
 }
 ```
 ::: 
+
 -------
 
 # <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
@@ -3603,6 +3612,7 @@ receiving party in order to correctly interpret the rest of the payload
 as the receiving party MUST ignore unknown annotations not defined in
 this version of the OData JSON Specification.
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">23 Conformance</a>
@@ -3682,6 +3692,7 @@ In addition, in order to comply with the OData 4.01 JSON format, a service:
 27. MUST support the OData JSON 4.01 format in request payloads for requests with an `OData-Version` header value of `4.01`
 28. MUST honor the `odata.etag` control information within `PUT`, `PATCH` or `DELETE` payloads, if specified
 29. MUST support returning, in the final response to an asynchronous request, the `application/json` payload that would have been returned had the operation completed synchronously
+
 
 -------
 
@@ -3800,7 +3811,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
 | Mark | Biamonte | Progress Software |
-| Martin | Zurmühl | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
