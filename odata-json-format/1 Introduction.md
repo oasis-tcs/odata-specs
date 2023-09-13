@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Introduction
@@ -16,22 +17,22 @@ An OData JSON payload may represent:
 - a [service document](#ServiceDocument) describing the top-level resources exposed by the service
 - an [error](#ErrorResponse).
 
-## ##subsec Changes from earlier Versions
+## ##subsec Changes from Earlier Versions
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
 ## ##subsec Glossary
 
-### ##subsubsec Definitions of terms
+### ##subsubsec Definitions of Terms
 
-### ##subsubsec Acronyms and abbreviations
+### ##subsubsec Acronyms and Abbreviations
 
 <!-- TODO -->
 
-### ##subsubsec Document conventions
+### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this monospaced font`.
+Keywords defined by this specification use `this  monospaced  font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 

@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Cross-Joins and Aggregation
@@ -34,8 +35,7 @@ Example ##ex: using the `$crossjoin` resource for aggregate queries
 GET /service/$crossjoin(Products,Sales)
     ?$apply=filter(Products/ID eq Sales/ProductID)
            /groupby((Products/Name),
-            addnested(Sales,aggregate(Amount with sum as Total)
-                      as AggregatedSales))
+                    aggregate(Sales/Amount with sum as Total))
 ```
 results in
 ```json
@@ -43,14 +43,11 @@ results in
   "@context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
     { "Products": { "Name": "Coffee" },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total": 12 } },
+      "Total@type": "Decimal", "Total": 12 },
     { "Products": { "Name": "Paper"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  8 } },
+      "Total@type": "Decimal", "Total":  8 },
     { "Products": { "Name": "Sugar"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  4 } }
+      "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
