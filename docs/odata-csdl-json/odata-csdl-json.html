@@ -408,6 +408,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
+<hr />
 <h1 id="2-json-representation"><a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a></h1>
 <p>OData CSDL JSON is a full representation of the OData Common Schema Definition Language in the JavaScript Object Notation (JSON) defined in <a href="#rfc8259">RFC8259</a>. It additionally follows the rules for "Internet JSON" (I-JSON) defined in <a href="#rfc7493">RFC7493</a> for e.g. objects, numbers, date values, and duration values.</p>
 <p>It is an alternative to the CSDL XML representation defined in <a href="#ODataCSDL">OData-CSDLXML</a> and neither adds nor removes features.</p>
@@ -455,6 +456,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The structure of CSDL JSON documents can be verified with the JSON Schema <a href="#ODataCSDLSchema">OData-CSDL-Schema</a> provided as an additional artifact of this prose specification. This schema only defines the shape of a well-formed CSDL JSON document but is not descriptive enough to define what a correct CSDL JSON document MUST be in every imaginable use case. This specification document defines additional rules that correct CSDL JSON documents MUST fulfill. In case of doubt on what makes a CSDL JSON document correct the rules defined in this specification document take precedence.</p>
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
 
+<hr />
 <h1 id="3-entity-model"><a name="EntityModel" href="#EntityModel">3 Entity Model</a></h1>
 <p>An OData service exposes a single entity model. This model may be distributed over several <a href="#Schema">schemas</a>, and these schemas may be distributed over several documents.</p>
 <p>A service is defined by a single CSDL document which can be accessed by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. This document is called the metadata document. It MAY <a href="#Reference">reference</a> other CSDL documents.</p>
@@ -688,7 +690,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="-version"><a name="Version1.1" href="#Version1.1"> <code>$Version</code></a></h3>
 <p>The value of <code>$Version</code> is a string containing either <code>4.0</code> or <code>4.01</code>.</p>
 <h3 id="-entitycontainer"><a name="EntityContainer1.2" href="#EntityContainer1.2"> <code>$EntityContainer</code></a></h3>
-<p>The value of <code>$EntityContainer</code> is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
+<p>The value of <code>$EntityContainer</code> is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>
 <div class="varjson example">
 <p>Example 2:</p>
@@ -730,7 +732,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="42-included-schema"><a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a></h2>
-<p>A reference MAY include zero or more schemas from the referenced document.</p>
+<p>A <a href="#Reference">reference</a> MAY include zero or more schemas from the referenced document.</p>
 <p>The included schemas are identified via their <a href="#Namespace">namespace</a>. The same namespace MUST NOT be included more than once, even if it is declared in more than one referenced document.</p>
 <p>When including a schema, a <a href="#SimpleIdentifier">simple identifier</a> value MAY be specified as an alias for the schema that is used in qualified names instead of the namespace. For example, an alias of <code>display</code> might be assigned to the namespace <code>org.example.vocabularies.display</code>. An alias-qualified name is resolved to a fully qualified name by examining aliases for included schemas and schemas defined within the document.</p>
 <div class="varjson rep">
@@ -783,7 +785,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="43-included-annotations"><a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a></h2>
-<p>In addition to including whole schemas with all model constructs defined within that schema, annotations can be included with more flexibility.</p>
+<p>In addition to including whole schemas with all model constructs defined within that schema, a <a href="#Reference">reference</a> may include annotations.</p>
 <p>Annotations are selectively included by specifying the <a href="#Namespace">namespace</a> of the annotations' term. Consumers can opt not to inspect the referenced document if none of the term namespaces is of interest for the consumer.</p>
 <p>In addition, the <a href="#Qualifier">qualifier</a> of annotations to be included MAY be specified. For instance, a service author might want to supply a different set of annotations for various device form factors. If a qualifier is specified, only those annotations from the specified term namespace with the specified qualifier (applied to a model element of the target namespace, if present) SHOULD be included. If no qualifier is specified, all annotations within the referenced document from the specified term namespace (taking into account the target namespace, if present) SHOULD be included.</p>
 <p>The qualifier also provides consumers insight about what qualifiers are present in the referenced document. If the consumer is not interested in that particular qualifier, the consumer can opt not to inspect the referenced document.</p>
@@ -1642,7 +1644,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be <a href="#Nullable">nullable</a>.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a filter or orderby expression, or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="-isbound" class="varjson rep">
 <h3><a name="IsBound12.1" href="#IsBound12.1"> <code>$IsBound</code></a></h3>
 <p>The value of <code>$IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
@@ -2027,7 +2029,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The value of <code>$BaseTerm</code> is the qualified name of the base term.</p>
 </section>
 <h3 id="1412-applicability"><a name="Applicability" href="#Applicability">14.1.2 Applicability</a></h3>
-<p>The applicability of a term MAY be restricted to a list of model elements. If no list is supplied, the term is not intended to be restricted in its application. The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may evolve over time, clients SHOULD be prepared for any term to be applied to any model element and SHOULD be prepared to handle unknown values within the list of model constructs. Applicability is expressed using the following symbolic values:</p>
+<p>Applicability specifies a list of model elements to which the term MAY be applied. If no list is supplied, the term MAY be applied to any model element. The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may evolve over time, clients SHOULD be prepared for any term to be applied to any model element and SHOULD be prepared to handle unknown values within the list of model constructs. Applicability is expressed using the following symbolic values:</p>
 <table>
 <thead>
 <tr class="header">
