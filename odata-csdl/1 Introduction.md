@@ -1,7 +1,9 @@
+
 -------
 
 # ##sec Introduction
 
+: varjson
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData service
@@ -10,18 +12,30 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
 modifications made necessary to fully cover OData CSDL Version 4.01.
+:
+
+: varxml
+OData services are described in terms of an [Entity
+Model](#EntityModel). The Common Schema Definition Language (CSDL)
+defines a representation of the entity model exposed by an OData
+service using the Extensible Markup Language (XML) 1.1 (Second Edition)
+[XML-1.1](#XML-11) with further building blocks from the W3C XML
+Schema Definition Language (XSD) 1.1 as described in
+[XML-Schema-1](#XML-Schema1) and
+[XML-Schema-2](#XML-Schema2).
+:
 
 ## ##subsec Changes from Earlier Versions
 
 ## ##subsec Glossary
 
-### ##subsubsec Definitions of terms
+### ##subsubsec Definitions of Terms
 
-### ##subsubsec Acronyms and abbreviations
+### ##subsubsec Acronyms and Abbreviations
 
 <!-- TODO -->
 
-### ##subsubsec Document conventions
+### ##subsubsec Document Conventions
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -34,7 +48,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
@@ -69,6 +83,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
+
+-------
+
 : varjson
 # ##sec JSON Representation
 
@@ -220,7 +237,7 @@ they have the default value.
 ## ##subsec JSON Schema Definition
 
 The structure of CSDL JSON documents can be verified with the JSON
-Schema [OData-CSDL-Schema](#ODataCSDL) provided as an
+Schema [OData-CSDL-Schema](#ODataCSDLSchema) provided as an
 additional artifact of this prose specification. This schema only
 defines the shape of a well-formed CSDL JSON document but is not
 descriptive enough to define what a correct CSDL JSON document MUST be
@@ -242,7 +259,7 @@ W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-2](#XML-Schema2).
 
 It is an alternative to the CSDL JSON representation defined in
-[OData-CSDLJSON](#ODataCSDLJSON) and neither adds nor
+[OData-CSDLJSON](#ODataCSDL) and neither adds nor
 removes features.
 
 ## ##subsec Requesting the XML Representation
@@ -333,6 +350,8 @@ enumeration types](#EnumerationTypeMember) and items within a
 OData does not impose any ordering constraints on XML attributes within
 XML elements.
 :
+
+-------
 
 # ##sec Entity Model
 
