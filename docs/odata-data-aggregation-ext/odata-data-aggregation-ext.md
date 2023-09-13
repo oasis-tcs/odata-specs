@@ -1,25 +1,25 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
 
 # OData Extension for Data Aggregation Version 4.0
 
-## Committee Specification Draft 04
+## Committee Specification 03
 
-## 05 July 2023
+## 30 August 2023
 
 &nbsp;
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.docx (Authoritative) \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.md (Authoritative) \
@@ -41,14 +41,14 @@ Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
 Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
-Martin Zurmühl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
+Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
-* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/
+* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/
 * OData Aggregation Vocabulary:
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.json
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
@@ -82,8 +82,8 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 05 July 2023. OASIS Committee Specification Draft 04.
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 30 August 2023. OASIS Committee Specification 03.
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
 #### Notices
@@ -197,6 +197,7 @@ For complete copyright information please see the full Notices section in an App
 - [D Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -252,12 +253,12 @@ All examples in this document are non-normative and informative only. Examples l
 All other text is normative unless otherwise labeled.
 
 ::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-csd04.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-cs03.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs
        -t html
-       -o odata-data-aggregation-ext-v4.0-csd04.html
+       -o odata-data-aggregation-ext-v4.0-cs03.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -265,7 +266,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
-       odata-data-aggregation-ext-v4.0-csd04.md
+       odata-data-aggregation-ext-v4.0-cs03.md
 ```
 
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
@@ -843,7 +844,7 @@ Example 4: The following entity sets and sample data will be used to further ill
   <path d="M525,300 l-40,-20" marker-end="url(#end)" />
 </svg>
 
-::::: {.nav style=left:250px}
+::::: {.nav-2 style=left:250px}
 Products
 
 ID|Category|Name|Color|TaxRate
@@ -896,7 +897,7 @@ PG1|Food
 PG2|Non-Food
 :::::
 
-::::: {.nav style=top:260px;left:360px}
+::::: {.nav-2 style=top:260px;left:360px}
 Sales Organizations
 
 ID|Superordinate|Name
@@ -920,7 +921,7 @@ C3|Sue|Netherlands
 C4|Luc|France
 :::::
 
-::::: {.nav .nav-2 style=top:450px}
+::::: {.nav-2 .nav-3 .nav-4 .nav-5 style=top:450px}
 Sales
 
 ID|Customer|Time|Product|Sales Organization|Amount
@@ -932,7 +933,7 @@ ID|Customer|Time|Product|Sales Organization|Amount
 5|C2|2022-11-09|P3|US East|4
 6|C3|2022-04-01|P1|EMEA Central|2
 7|C3|2022-08-06|P3|EMEA Central|1
-8|C3|2022-11-22|P1|EMEA Central|2
+8|C3|2022-11-22|P3|EMEA Central|2
 :::::
 
 ::::: {.legend style=top:470px;left:500px}
@@ -982,7 +983,7 @@ USA||Food|Sugar|2
 USA||Food|Coffee|12
 USA||Non-Food|Paper|5
 Netherlands||Food|Sugar|2
-Netherlands||Non-Food|Paper|1
+Netherlands||Non-Food|Paper|3
 USA|Joe|Food||6
 USA|Joe|Non-Food||1
 USA|Sue|Food||8
@@ -996,6 +997,7 @@ Netherlands||Non-Food||3
 
 Note that this result contains seven fully qualified aggregate values, followed by fifteen rollup rows with subtotal values.
 :::
+
 
 -------
 
@@ -1401,7 +1403,7 @@ GET /service/Sales?$apply=groupby((Time),aggregate(Forecast))
 :::
 
 ::: example
-⚠ Example 18: the maximal daily average for sales of a product
+⚠ Example 18: the maximal daily average for sales of any product
 ```
 GET /service/Sales?$apply=aggregate(Amount with average from Time,Product/Name
                                            with max as MaxDailyAverage)
@@ -2058,12 +2060,12 @@ The output set consists of a single instance of the [input type](#TypeStructurea
 ::: example
 Example 40:
 ```
-GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers))
+GET /service/Sales?$apply=nest(groupby((Customer/ID)) as Customers)
 ```
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Customers())",
+  "@context": "$metadata#Sales(Customers())",
   "value": [
     { "Customers@context": "#Sales(Customer(ID))",
       "Customers": [ { "Customer": { "ID": "C1" } },
@@ -2189,7 +2191,7 @@ GET /service/Products
 results in
 ```json
 {
-  "@context":"$metadata#Products(Sales(Total))",
+  "@context": "$metadata#Products(Sales(Total))",
   "value": [
     { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
       "Sales": [ { "Total@type": "Decimal", "Total":   12 } ] },
@@ -2207,6 +2209,7 @@ results in
 ## <a name="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.9 ABNF for Extended URL Conventions</a>
 
 The normative ABNF construction rules for this specification are defined in [OData-Agg-ABNF](#ODataAggABNF). They incrementally extend the rules defined in [OData-ABNF](#ODataABNF).
+
 
 -------
 
@@ -2244,8 +2247,7 @@ Example 48: using the `$crossjoin` resource for aggregate queries
 GET /service/$crossjoin(Products,Sales)
     ?$apply=filter(Products/ID eq Sales/ProductID)
            /groupby((Products/Name),
-            addnested(Sales,aggregate(Amount with sum as Total)
-                      as AggregatedSales))
+                    aggregate(Sales/Amount with sum as Total))
 ```
 results in
 ```json
@@ -2253,20 +2255,18 @@ results in
   "@context": "$metadata#Collection(Edm.ComplexType)",
   "value": [
     { "Products": { "Name": "Coffee" },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total": 12 } },
+      "Total@type": "Decimal", "Total": 12 },
     { "Products": { "Name": "Paper"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  8 } },
+      "Total@type": "Decimal", "Total":  8 },
     { "Products": { "Name": "Sugar"  },
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": { "Total@type": "Decimal", "Total":  4 } }
+      "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
 :::
 
 The entity container may be annotated in the same way as entity sets to express which aggregate queries are supported, see [section 5](#VocabularyforDataAggregation).
+
 
 -------
 
@@ -2490,7 +2490,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
-    aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">
+    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml">
     <edmx:Include Alias="Aggregation"
                   Namespace="Org.OData.Aggregation.V1" />
   </edmx:Reference>
@@ -2665,6 +2665,7 @@ Service-defined bound functions that serve as set transformations MAY be annotat
 ::: example
 Example 59: assume the product is an implicit input for a function bound to a collection of `Sales`, then aggregating away the product makes this function inapplicable.
 :::
+
 
 -------
 
@@ -3146,6 +3147,7 @@ results in
 }
 ```
 :::
+
 
 
 -------
@@ -3767,7 +3769,7 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
 returns the different combinations of products sold per country:
 ```json
 {
-  "@context":"$metadata#Customers(Country,ProductSales())",
+  "@context": "$metadata#Customers(Country,ProductSales())",
   "value": [
     { "Country": "Netherlands",
       "ProductSales@context": "#Sales(Product(Name))/$entity",
@@ -4151,21 +4153,21 @@ results in
   "@context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
     { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":   7 },
     { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":  12 },
     { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 9.5 },
     { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
     { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@type":"Decimal",
+    { "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 7.25 }
   ]
 }
@@ -4836,7 +4838,7 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Product(Category(ID)),Customers())",
+  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
   "value": [
     { "Product": { "Category": { "ID": "PG1" } },
       "Customers@context": "#Sales(Customer(ID))",
@@ -4852,6 +4854,7 @@ results in
 }
 ```
 :::
+
 
 -------
 
@@ -4939,7 +4942,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
-| Martin | Zurmühl | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
@@ -4952,6 +4955,7 @@ Committee Specification Draft 01|2013-07-25| Ralf Handl<br> Hubert Heijkers<br> 
 Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
 Committee Specification Draft 04|2023-07-05| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
+Committee Specification 03|2023-08-30| Ralf Handl<br> Gerald Krause<br> Heiko Theißen| Non-material changes from public review feedback
 
 -------
 

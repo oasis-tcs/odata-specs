@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -40,7 +40,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. (this document) https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
 
 #### <a name="RelatedWork">Related work:</a>
@@ -69,7 +69,7 @@ This specification is provided under the [RF on RAND Terms Mode](https://www.oas
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
 #### Key words:
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119](#rfc2119) and [RFC8174](#rfc8174) when, and only when, they appear in all capitals, as shown here.
 
 #### Citation format:
 When referencing this specification the following citation format should be used:
@@ -317,6 +317,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -366,7 +367,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
@@ -873,6 +874,7 @@ requests in any format.
 Client libraries MUST retain the order of objects within an array in
 JSON responses, and elements in document order for XML responses,
 including CSDL documents.
+
 
 -------
 
@@ -1583,7 +1585,7 @@ The delta link MUST only be returned on the final page of results in
 place of the next link.
 
 The service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header in
+[`Preference-Applied`](#HeaderPreferenceApplied) response header in
 the first page of the response containing the `track-changes` preference
 to signal that changes are being tracked.
 
@@ -1629,10 +1631,11 @@ response headers have defined meaning in OData.
 ### <a name="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
 A 4.01 service MUST include the `AsyncResult` header in
-[`200 OK`](#ResponseCode200OK)response from a status monitor resource in
+[`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1941,6 +1944,7 @@ the entire response as being in error.
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
 trailing header if supported by the transport protocol (e.g. HTTP/1.1
 with chunked transfer encoding, or HTTP/2).
+
 
 -------
 
@@ -2519,6 +2523,7 @@ Context URL template:
 Responses to requests to the virtual collections `$crossjoin(...)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
+
 
 -------
 
@@ -5512,7 +5517,7 @@ contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
 asynchronous processing has completed. For OData 4.01 and greater
-responses, or OData 4.0 requests that include an `Accept `header that
+responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
 along with the response body, represent the result of the completed
@@ -6175,6 +6180,7 @@ Content-Length: ###
 --b_243234_25424_ef_892u748--
 ```
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">12 Conformance</a>
@@ -6589,6 +6595,7 @@ prepared to handle either
 [`501 Not Implemented`](#ResponseCode501NotImplemented) or
 `400 Bad Request`
 
+
 -------
 
 # <a name="References" href="#References">Appendix A. References</a>
@@ -6639,17 +6646,9 @@ https://tools.ietf.org/html/rfc2046.
 ###### <a name="rfc2119">[RFC2119]</a>
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
-
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
 https://tools.ietf.org/html/rfc3987.
-
-###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
@@ -6675,7 +6674,7 @@ https://tools.ietf.org/html/rfc7231.
 _Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
 https://tools.ietf.org/html/rfc7232.
 
-*###### <a name="rfc7240">[RFC7240]</a>
+###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
 
@@ -6683,17 +6682,9 @@ https://tools.ietf.org/html/rfc7240.
 _Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
 https://tools.ietf.org/html/rfc7617.
 
-###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016_
-http://tools.ietf.org/html/rfc7946.
-
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
-
-###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
@@ -6822,7 +6813,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
 
 -------
 
