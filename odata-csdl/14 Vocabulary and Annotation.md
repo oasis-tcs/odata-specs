@@ -1408,14 +1408,14 @@ annotations targeting the declared entity type of the entity set or singleton.
 For annotations hosted by an entity type or complex type, the path is
 evaluated starting at the type, i.e. an empty path resolves to the type, and
 the first segment of a non-empty path MUST be a structural or navigation
-property of the type, a [type cast] (#TypeCast), or a [term cast] (#TermCast).
+property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
 For annotations hosted by a structural or navigation property in container
 mode, the path is evaluated starting at the declared type of the property. An
 empty path resolves to the declared type of the property, and non-empty paths
 MUST follow the rules for annotations targeting the declared type of the
 property. If the type is primitive, the first segment of a non-empty path MUST
-be a [type cast] (#TypeCast), or a [term cast] (#TermCast).
+be a [type cast](#TypeCast), or a [term cast](#TermCast).
 
 For annotations hosted by a structural or navigation property of an entity
 type or complex type in embedded mode, the path is evaluated starting at the
@@ -1430,7 +1430,7 @@ type or complex type in targeting mode, the path is evaluated starting at the *o
 entity type or complex type named in the target of the annotation, i.e. an
 empty path resolves to the outermost type, and the first segment of a
 non-empty path MUST be a structural or navigation property of the outermost
-type, a [type cast] (#TypeCast), or a [term cast] (#TermCast).
+type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
 For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be a
