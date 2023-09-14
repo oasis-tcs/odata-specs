@@ -5035,7 +5035,7 @@ The if-then-else expression is called a collection-if-then-else expression if
 
 An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is collection-if-then-else expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
