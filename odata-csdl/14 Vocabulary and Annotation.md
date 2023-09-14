@@ -1366,17 +1366,18 @@ Addresses/-1/Street
 
 #### ##subsubsubsec Path Evaluation
 
-Annotations MAY be embedded within their target, or specified
-separately, e.g. as part of a different schema, and specify a path to
-their target model element. The latter situation is referred to as
-*targeting* in the remainder of this section. In this subsection, we say that
-an annotation is *hosted* by its target, or if that target is another
-annotation, by that annotation's target, and so on.
+Annotations MAY be embedded within their target, or specified separately,
+e.g. as part of a different schema, and specify a path to their target model
+element. The latter situation is referred to as *targeting* in the remainder of
+this section. In this subsection, an annotation said to be *hosted* by its
+target, or if that target is another annotation, by that annotation's target,
+and so on.
 
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend on the model
 element by which the annotation is hosted and the *mode* ("container",
-"embedded", or "targeting") in which this hosting happens. More precisely:
+"embedded", or "targeting") in which this hosting happens. More precisely,
+this subsection defines:
 - An annotation embedded within or targeting another annotation or a
   collection, record or property value of another annotation is hosted by the
   same model element as that other annotation.
