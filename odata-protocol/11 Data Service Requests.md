@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Data Service Requests
@@ -93,7 +94,7 @@ options.
 
 This section describes the types of data requests defined by OData. For
 complete details on the syntax for building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData services are hypermedia driven services that return URLs to the
 client. If a client subsequently requests the advertised resource and
@@ -150,9 +151,9 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON)[ payload]{.Hyperlink1}. In addition, services
+[OData-JSON](#ODataJSON) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData‑URL](#ODataURL).
+key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -204,7 +205,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData‑URL](#ODataURL) for details.
+See [OData-URL](#ODataURL) for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -223,7 +224,7 @@ GET http://host/service/Products(1)/Name
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
-[OData‑URL](#ODataURL) document for details.
+[OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -393,7 +394,7 @@ filtering, sorting, selecting, paging, or expanding the related
 entities).
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
@@ -424,7 +425,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
 [`$select`](#SystemQueryOptionselect),
@@ -453,8 +454,7 @@ the `Orders` identified by the resource path section of the URL and the
 products related to each order item.
 - The `Customer` related to each order returned.
 ```
-GET
-http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
+GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
 ```
 :::
 
@@ -466,8 +466,7 @@ are not of type `VipCustomer`, or any of its subtypes, that entity may
 be returned with no inline representation for the expanded navigation
 property `InHouseStaff` (the service can always send more than requested)
 ```
-GET
-http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
+GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff
 ```
 :::
 
@@ -494,8 +493,7 @@ Example ##ex: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
 ```
-GET
-http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
+GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 ```
 :::
 
@@ -567,35 +565,41 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 The value of the `$filter` option is a Boolean expression as defined in
 [OData-ABNF](#ODataABNF).
 
+##### ##subsubsubsubsec Built-in Filter Operations
+
+OData supports a set of built-in filter operations, as described in this
+section.
+
+4.01 services MUST support case-insensitive operation names. Clients
+that want to work with 4.0 services MUST use lower case operation names.
+
+For a full description of the syntax used when building requests, see
+[OData-URL](#ODataURL).
+
 <table>
 <tr><th>Operator</th><th>Description</th><th>Example</th></tr>
-
-<tr><td colspan="3"><b>Comparison Operators</b></td></tr>
-<tr><td><code>eq</code></td><td>Equal</td><td><code>Address/City eq 'Redmond'</code></tr>
-<tr><td><code>ne</code></td><td>Not equal</td><td><code>Address/City ne 'London'</code></td></tr>
-<tr><td><code>gt</code></td><td>Greater than</td><td><code>Price gt 20</code></td></tr>
-<tr><td><code>ge</code></td><td>Greater than or equal</td><td><code>Price ge 10</code></td></tr>
-<tr><td><code>lt</code></td><td>Less than</td><td><code>Price lt 20</code></td></tr>
-<tr><td><code>le</code></td><td>Less than or equal</td><td><code>Price le 100</code></td></tr>
-<tr><td><code>has</code></td><td>Has flags</td><td><code>Style has Sales.Color'Yellow'</code></td></tr>
-<tr><td><code>in</code></td><td>Is a member of</td><td><code>Address/City in ('Redmond', 'London')</code></td></tr>
-
-<tr><td colspan="3"><b>Logical Operators</b></td></tr>
-<tr><td><code>and</code></td><td>Logical and</td><td><code>Price le 200 and Price gt 3.5</code></td></tr>
-<tr><td><code>or</code></td><td>Logical or</td><td><code>Price le 3.5 or Price gt 200</code></td></tr>
-<tr><td><code>not</code></td><td>Logical negation</td><td><code>not endswith(Description,'milk')</code></td></tr>
-
-<tr><td colspan="3"><b>Arithmetic Operators</b></td></tr>
-<tr><td><code>add</code></td><td>Addition</td><td><code>Price add 5 gt 10</code></td></tr>
-<tr><td><code>sub</code></td><td>Subtraction</td><td><code>Price sub 5 gt 10</code></td></tr>
-<tr><td><code>mul</code></td><td>Multiplication</td><td><code>Price mul 2 gt 2000</code></td></tr>
-<tr><td><code>div</code></td><td>Division</td><td><code>Price div 2 gt 4</code></td></tr>
-<tr><td><code>divby</code></td><td>Decimal Division</td><td><code>Price divby 2 gt 3.5</code></td></tr>
-<tr><td><code>mod</code></td><td>Modulo</td><td><code>Price mod 2 eq 0</code></td></tr>
-
-<tr><td colspan="3"><b>Grouping Operators</b></td></tr>
-<tr><td><code>( )</code></td><td>Precedence grouping</td><td><code>(Price sub 5) gt 10</code></td></tr>
-
+<tr><td colspan="3"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>eq</code></td><td>Equal                </td><td><pre><code>Address/City eq 'Redmond'</code></pre></td></tr>
+<tr><td><code>ne</code></td><td>Not equal            </td><td><pre><code>Address/City ne 'London'</code></pre></td></tr>
+<tr><td><code>gt</code></td><td>Greater than         </td><td><pre><code>Price gt 20</code></pre></td></tr>
+<tr><td><code>ge</code></td><td>Greater than or equal</td><td><pre><code>Price ge 10</code></pre></td></tr>
+<tr><td><code>lt</code></td><td>Less than            </td><td><pre><code>Price lt 20</code></pre></td></tr>
+<tr><td><code>le</code></td><td>Less than or equal   </td><td><pre><code>Price le 100</code></pre></td></tr>
+<tr><td><code>has</code></td><td>Has flags           </td><td><pre><code>Style has Sales.Color'Yellow'</code></pre></td></tr>
+<tr><td><code>in</code></td><td>Is a member of       </td><td><pre><code>Address/City in ('Redmond', 'London')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>and</code></td><td>Logical and         </td><td><pre><code>Price le 200 and Price gt 3.5</code></pre></td></tr>
+<tr><td><code>or</code></td><td>Logical or           </td><td><pre><code>Price le 3.5 or Price gt 200</code></pre></td></tr>
+<tr><td><code>not</code></td><td>Logical negation    </td><td><pre><code>not endswith(Description,'milk')</code></pre></td></tr>
+<tr><td colspan="3"><strong>Arithmetic Operators</strong></td></tr>
+<tr><td><code>add</code></td><td>Addition            </td><td><pre><code>Price add 5 gt 10</code></pre></td></tr>
+<tr><td><code>sub</code></td><td>Subtraction         </td><td><pre><code>Price sub 5 gt 10</code></pre></td></tr>
+<tr><td><code>mul</code></td><td>Multiplication      </td><td><pre><code>Price mul 2 gt 2000</code></pre></td></tr>
+<tr><td><code>div</code></td><td>Division            </td><td><pre><code>Price div 2 gt 4</code></pre></td></tr>
+<tr><td><code>divby</code></td><td>Decimal Division  </td><td><pre><code>Price divby 2 gt 3.5</code></pre></td></tr>
+<tr><td><code>mod</code></td><td>Modulo              </td><td><pre><code>Price mod 2 eq 0</code></pre></td></tr>
+<tr><td colspan="3"><strong>Grouping Operators</strong></td></tr>
+<tr><td><code>( )</code></td><td>Precedence grouping </td><td><pre><code>(Price sub 5) gt 10</code></pre></td></tr>
 </table>
 
 ##### ##subsubsubsubsec Built-in Query Functions
@@ -607,67 +611,58 @@ OData supports a set of built-in functions that can be used within
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
-[OData‑URL](#ODataURL).
+[OData-URL](#ODataURL).
 
 OData does not define an ISNULL or COALESCE operator. Instead, there is
 a `null` literal that can be used in comparisons.
 
 <table>
 <tr><th>Function</th><th>Example</th></tr>
-
-<tr><td colspan="2"><b>String and Collection Functions</b></td></tr>
-<tr><td><code>concat</code></td><td><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></td></tr>
-<tr><td><code>contains</code></td><td><code>contains(CompanyName,'freds')</code></td></tr>
-<tr><td><code>endswith</code></td><td><code>endswith(CompanyName,'Futterkiste')</code></td></tr>
-<tr><td><code>indexof</code></td><td><code>indexof(CompanyName,'lfreds') eq 1</code></td></tr>
-<tr><td><code>length</code></td><td><code>length(CompanyName) eq 19</code></td></tr>
-<tr><td><code>startswith</code></td><td><code>startswith(CompanyName,’Alfr’)</code></td></tr>
-<tr><td><code>substring</code></td><td><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Collection Functions</b></td></tr>
-<tr><td><code>hassubset</code></td><td><code>hassubset([4,1,3],[3,1])</code></td></tr>
-<tr><td><code>hassubsequence</code></td><td><code>hassubsequence([4,1,3,1],[1,1])</code></td></tr>
-
-<tr><td colspan="2"><b>String Functions</b></td></tr>
-<tr><td><code>matchesPattern</code></td><td><code>matchesPattern(CompanyName,'%5EA.*e$')</code></td></tr>
-<tr><td><code>tolower</code></td><td><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></td></tr>
-<tr><td><code>toupper</code></td><td><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></td></tr>
-<tr><td><code>trim  </code></td><td><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></td></tr>
-
-<tr><td colspan="2"><b>Date and Time Functions</b></td></tr>
-<tr><td><code>day</code></td><td><code>day(StartTime) eq 8</code></td></tr>
-<tr><td><code>date</code></td><td><code>date(StartTime) ne date(EndTime) </code></td></tr>
-<tr><td><code>fractionalseconds</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>hour</code></td><td><code>hour(StartTime) eq 1 </code></td></tr>
-<tr><td><code>maxdatetime</code></td><td><code>EndTime eq maxdatetime()</code></td></tr>
-<tr><td><code>mindatetime</code></td><td><code>StartTime eq mindatetime()</code></td></tr>
-<tr><td><code>minute</code></td><td><code>minute(StartTime) eq 0</code></td></tr>
-<tr><td><code>month</code></td><td><code>month(BirthDate) eq 12</code></td></tr>
-<tr><td><code>now</code></td><td><code>StartTime ge now()</code></td></tr>
-<tr><td><code>second</code></td><td><code>second(StartTime) eq 0</code></td></tr>
-<tr><td><code>time</code></td><td><code>time(StartTime) le StartOfDay</code></td></tr>
-<tr><td><code>totaloffsetminutes</code></td><td><code>totaloffsetminutes(StartTime) eq 60</code></td></tr>
-<tr><td><code>totalseconds</code></td><td><code>totalseconds(duration'PT1M') eq 60</code></td></tr>
-<tr><td><code>year</code></td><td><code>year(BirthDate) eq 0</code></td></tr>
-
-<tr><td colspan="2"><b>Arithmetic Functions</b></td></tr>
-<tr><td><code>ceiling</code></td><td><code>ceiling(Freight) eq 33</code></td></tr>
-<tr><td><code>floor</code></td><td><code>floor(Freight) eq 32</code></td></tr>
-<tr><td><code>round</code></td><td><code>round(Freight) eq 32</code></td></tr>
-
-<tr><td colspan="2"><b>Type Functions</b></td></tr>
-<tr><td><code>cast</code></td><td><code>cast(ShipCountry,Edm.String)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(NorthwindModel.Order)</code></td></tr>
-<tr><td><code>isof</code></td><td><code>isof(ShipCountry,Edm.String)</code></td></tr>
-
-<tr><td colspan="2"><b>Geo Functions</b></td></tr>
-<tr><td><code>geo.distance</code></td><td><code>geo.distance(CurrentPosition,TargetPosition)</code></td></tr>
-<tr><td><code>geo.intersects</code></td><td><code>geo.intersects(Position,TargetArea)</code></td></tr>
-<tr><td><code>geo.length</code></td><td><code>geo.length(DirectRoute)</code></td></tr>
-
-<tr><td colspan="2"><b>Conditional Functions</b></td></tr>
-<tr><td><code>case</code></td><td><code>case(X gt 0:1,X lt 0:-1,true:0)</code></td></tr>
-
+<tr><td colspan="2"><strong>String and Collection Functions</strong></td></tr>
+<tr><td><code>concat</code></td><td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td></tr>
+<tr><td><code>contains</code></td><td><pre><code>contains(CompanyName,'freds')</code></pre></td></tr>
+<tr><td><code>endswith</code></td><td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td></tr>
+<tr><td><code>indexof</code></td><td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td></tr>
+<tr><td><code>length</code></td><td><pre><code>length(CompanyName) eq 19</code></pre></td></tr>
+<tr><td><code>startswith</code></td><td><pre><code>startswith(CompanyName,’Alfr’)</code></pre></td></tr>
+<tr><td><code>substring</code></td><td><pre><code>substring(CompanyName,1) eq 'lfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Collection Functions</strong></td></tr>
+<tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
+<tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
+<tr><td colspan="2"><strong>String Functions</strong></td></tr>
+<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
+<tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
+<tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
+<tr><td colspan="2"><strong>Date and Time Functions</strong></td></tr>
+<tr><td><code>day</code></td><td><pre><code>day(StartTime) eq 8</code></pre></td></tr>
+<tr><td><code>date</code></td><td><pre><code>date(StartTime) ne date(EndTime)</code></pre></td></tr>
+<tr><td><code>fractionalseconds</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>hour</code></td><td><pre><code>hour(StartTime) eq 1</code></pre></td></tr>
+<tr><td><code>maxdatetime</code></td><td><pre><code>EndTime eq maxdatetime()</code></pre></td></tr>
+<tr><td><code>mindatetime</code></td><td><pre><code>StartTime eq mindatetime()</code></pre></td></tr>
+<tr><td><code>minute</code></td><td><pre><code>minute(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>month</code></td><td><pre><code>month(BirthDate) eq 12</code></pre></td></tr>
+<tr><td><code>now</code></td><td><pre><code>StartTime ge now()</code></pre></td></tr>
+<tr><td><code>second</code></td><td><pre><code>second(StartTime) eq 0</code></pre></td></tr>
+<tr><td><code>time</code></td><td><pre><code>time(StartTime) le StartOfDay</code></pre></td></tr>
+<tr><td><code>totaloffsetminutes</code></td><td><pre><code>totaloffsetminutes(StartTime) eq 60</code></pre></td></tr>
+<tr><td><code>totalseconds</code></td><td><pre><code>totalseconds(duration'PT1M') eq 60</code></pre></td></tr>
+<tr><td><code>year</code></td><td><pre><code>year(BirthDate) eq 0</code></pre></td></tr>
+<tr><td colspan="2"><strong>Arithmetic Functions</strong></td></tr>
+<tr><td><code>ceiling</code></td><td><pre><code>ceiling(Freight) eq 33</code></pre></td></tr>
+<tr><td><code>floor</code></td><td><pre><code>floor(Freight) eq 32</code></pre></td></tr>
+<tr><td><code>round</code></td><td><pre><code>round(Freight) eq 32</code></pre></td></tr>
+<tr><td colspan="2"><strong>Type Functions</strong></td></tr>
+<tr><td><code>cast</code></td><td><pre><code>cast(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(NorthwindModel.Order)</code></pre></td></tr>
+<tr><td><code>isof</code></td><td><pre><code>isof(ShipCountry,Edm.String)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Geo Functions</strong></td></tr>
+<tr><td><code>geo.distance</code></td><td><pre><code>geo.distance(CurrentPosition,TargetPosition)</code></pre></td></tr>
+<tr><td><code>geo.intersects</code></td><td><pre><code>geo.intersects(Position,TargetArea)</code></pre></td></tr>
+<tr><td><code>geo.length</code></td><td><pre><code>geo.length(DirectRoute)</code></pre></td></tr>
+<tr><td colspan="2"><strong>Conditional Functions</strong></td></tr>
+<tr><td><code>case</code></td><td><pre><code>case(X gt 0:1,X lt 0:-1,true:0)</code></pre></td></tr>
 </table>
 
 ##### ##subsubsubsubsec Parameter Aliases
@@ -943,8 +938,7 @@ expressions.
 Example ##ex: return all Products that match either "mountain" or
 "bike" and do not match clothing
 ```
-GET http://host/service/Products?$search=(mountain OR bike) AND NOT
-clothing
+GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
 :::
 
@@ -1038,7 +1032,7 @@ of the actual entities, the client issues a `GET` request with `/$ref`
 appended to the resource path.
 
 If the resource path does not identify an entity or a collection of
-entities, the service returns `404 Not Found`.
+entities, the service returns [`404 Not Found`](#ResponseCode404NotFound).
 
 If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
@@ -1088,7 +1082,7 @@ GET http://host/service/$entity?$id=http://host/service/Products(0)
 A type segment following the `$entity` resource casts the resource to
 the specified type. If the identified entity is not of the specified
 type, or a type derived from the specified type, the service returns
-`404 Not Found`.
+[`404 Not Found`](#ResponseCode404NotFound).
 
 After applying a type-cast segment to cast to a specific type, the
 system query options [`$select`](#SystemQueryOptionselect) and
@@ -1265,7 +1259,7 @@ inherit the schema version of the overall batch request.
 
 If the `$schemaversion` system query option is specified, but the
 version of the schema doesn't exist, the request is answered with a
-[response code `404 Not Found`](#ResponseCode404NotFound). The response
+response code [`404 Not Found`](#ResponseCode404NotFound). The response
 body SHOULD provide additional information.
 
 ## ##subsec Requesting Changes

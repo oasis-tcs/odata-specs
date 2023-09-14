@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -40,7 +40,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/
+* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -50,10 +50,10 @@ This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
-* _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html
-* _OData JSON Format Version 4.01_. Edited by Ralf Handl, Mike Pizzo, and Mark Biamonte. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html
+* _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
+* _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
 
 #### Abstract:
 OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.
@@ -97,9 +97,9 @@ For complete copyright information please see the full Notices section in an App
 - [1 Introduction](#Introduction)
   - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
   - [1.2 Glossary](#Glossary)
-    - [1.2.1 Definitions of terms](#Definitionsofterms)
-    - [1.2.2 Acronyms and abbreviations](#Acronymsandabbreviations)
-    - [1.2.3 Document conventions](#Documentconventions)
+    - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
+    - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
+    - [1.2.3 Document Conventions](#DocumentConventions)
 - [2 JSON Representation](#JSONRepresentation)
   - [2.1 Requesting the JSON Representation](#RequestingtheJSONRepresentation)
     - [2.1.1 Controlling the Representation of Numbers](#ControllingtheRepresentationofNumbers)
@@ -237,8 +237,9 @@ For complete copyright information please see the full Notices section in an App
   - [C.1 Special Thanks](#SpecialThanks)
   - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
-- [E Notices             ](#Notices)
+- [E Notices](#Notices)
 :::
+
 
 -------
 
@@ -253,17 +254,18 @@ This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
 modifications made necessary to fully cover OData CSDL Version 4.01.
 
+
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="Definitionsofterms" href="#Definitionsofterms">1.2.1 Definitions of terms</a>
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="Acronymsandabbreviations" href="#Acronymsandabbreviations">1.2.2 Acronyms and abbreviations</a>
+### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="Documentconventions" href="#Documentconventions">1.2.3 Document conventions</a>
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
 Keywords defined by this specification use `this  monospaced  font`.
 
@@ -276,7 +278,7 @@ Non-normative examples use this paragraph style.
 ```
 :::
 
-All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
+All examples in this document are non-normative and informative only.
 
 Representation-specific text is indented and marked with vertical lines.
 
@@ -311,6 +313,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
+
+-------
+
 # <a name="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a>
 
 OData CSDL JSON is a full representation of the OData Common Schema
@@ -461,7 +466,7 @@ they have the default value.
 ## <a name="JSONSchemaDefinition" href="#JSONSchemaDefinition">2.3 JSON Schema Definition</a>
 
 The structure of CSDL JSON documents can be verified with the JSON
-Schema [OData-CSDL-Schema](#ODataCSDL) provided as an
+Schema [OData-CSDL-Schema](#ODataCSDLSchema) provided as an
 additional artifact of this prose specification. This schema only
 defines the shape of a well-formed CSDL JSON document but is not
 descriptive enough to define what a correct CSDL JSON document MUST be
@@ -471,6 +476,8 @@ of doubt on what makes a CSDL JSON document correct the rules defined in
 this specification document take precedence.
 
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
+
+-------
 
 # <a name="EntityModel" href="#EntityModel">3 Entity Model</a>
 
@@ -678,6 +685,7 @@ multiple times to the same model element.
 A model element MUST NOT specify more than one annotation for a given
 combination of term and qualifier.
 
+
 -------
 
 # <a name="CSDLJSONDocument" href="#CSDLJSONDocument">4 CSDL JSON Document</a>
@@ -700,7 +708,7 @@ The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
 
-The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
 ::: {.varjson .example}
@@ -783,7 +791,7 @@ Example 3: references to other CSDL documents
 
 ## <a name="IncludedSchema" href="#IncludedSchema">4.2 Included Schema</a>
 
-A reference MAY include zero or more schemas from the referenced
+A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
 
 The included schemas are identified via their [namespace](#Namespace).
@@ -878,7 +886,7 @@ vocabulary terms
 ## <a name="IncludedAnnotations" href="#IncludedAnnotations">4.3 Included Annotations</a>
 
 In addition to including whole schemas with all model constructs defined
-within that schema, annotations can be included with more flexibility.
+within that schema, a [reference](#Reference) may include annotations.
 
 Annotations are selectively included by specifying the
 [namespace](#Namespace) of the annotations' term. Consumers can opt not
@@ -981,6 +989,7 @@ a term from the `org.example.hcm` namespace to an element of the
 a term from the `org.example.hcm` namespace to an element of the
 `com.example.Person` namespace and specify a `Tablet` qualifier.
 :::
+
 
 -------
 
@@ -1458,6 +1467,7 @@ GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
 ```
 :::
 
+
 -------
 
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
@@ -1612,7 +1622,7 @@ length.
 
 The value of `$MaxLength` is a positive integer.
 
-Note: [OData-CSDL-XML](#ODataCSDLXML) defines a symbolic
+Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
 value `max` that is only allowed in OData 4.0 responses. This symbolic
 value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the
@@ -2206,6 +2216,7 @@ products in that category
 
 
 
+
 -------
 
 # <a name="ComplexType" href="#ComplexType">9 Complex Type</a>
@@ -2609,6 +2620,7 @@ Where type definitions are used, the type definition is returned in
 place of the primitive type wherever the type is specified in a
 response.
 
+
 -------
 
 # <a name="ActionandFunction" href="#ActionandFunction">12 Action and Function</a>
@@ -2739,9 +2751,9 @@ MAY be [nullable](#Nullable).
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
-Unbound functions are invoked as static functions within a filter or
-orderby expression, or from the entity container through a [function
-import](#FunctionImport).
+Unbound functions are invoked as static functions within a common expression
+(see [OData-URL](#ODataURL), section 5.1.1),
+or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
 ### <a name="IsBound12.1" href="#IsBound12.1"> `$IsBound`</a>
@@ -2944,6 +2956,7 @@ function with the `$Parameter` member.
 ]
 ```
 :::
+
 
 
 
@@ -3441,6 +3454,7 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 :::
 
 
+
 -------
 
 # <a name="VocabularyandAnnotation" href="#VocabularyandAnnotation">14 Vocabulary and Annotation</a>
@@ -3607,10 +3621,9 @@ The value of `$BaseTerm` is the qualified name of the base term.
 
 ### <a name="Applicability" href="#Applicability">14.1.2 Applicability</a>
 
-The applicability of a term MAY be restricted to a list of model
-elements. If no list is supplied, the term is not intended to be
-restricted in its application. The list of model elements MAY be
-extended in future versions of the vocabulary. As the intended usage may
+Applicability specifies a list of model elements to which the term MAY be applied.
+If no list is supplied, the term MAY be applied to any model element.
+The list of model elements MAY be extended in future versions of the vocabulary. As the intended usage may
 evolve over time, clients SHOULD be prepared for any term to be applied
 to any model element and SHOULD be prepared to handle unknown values
 within the list of model constructs. Applicability is expressed using
@@ -3802,119 +3815,45 @@ element.
 
 This external targeting is only possible for model elements that are
 uniquely identified within their parent, and all their ancestor elements
-are uniquely identified within their parent:
-
--   [Action](#Action) (single or all overloads)
--   [Action Import](#ActionImport)
--   [Complex Type](#ComplexType)
--   [Entity Container](#EntityContainer)
--   [Entity Set](#EntitySet)
--   [Entity Type](#EntityType)
--   [Enumeration Type](#EnumerationType)
--   [Enumeration Type Member](#EnumerationTypeMember)
--   [Function](#Function) (single or all overloads)
--   [Function Import](#FunctionImport)
--   [Navigation Property](#NavigationProperty) (via type, entity set, or
-    singleton)
--   [Parameter](#Parameter) of an action or function (single overloads
-    or all overloads defining the
-    parameter)
--   [Property](#StructuralProperty) (via type, entity set, or singleton)
--   [Return Type](#ReturnType) of an action or function (single or all
-    overloads)
--   [Singleton](#Singleton)
--   [Type Definition](#TypeDefinition)
+are uniquely identified within their parent.
 
 These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-External targeting is possible for actions, functions, their parameters,
-and their return type, either in a way that applies to all overloads of
-the action or function or all parameters of that name across all
-overloads, or in a way that identifies a single overload.
+Model element| Can be targeted with path expression (see also [section 14.4.1.1](#PathSyntax))| <div class="example"><p>Example 42: Target expressions</p></div>
+-----|-----|-----
+[Action](#Action) overload| qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| <pre>`MySchema.MyAction(MySchema.MyBindingType)` <br>`MySchema.MyAction(Collection(MySchema.BindingType))` <br>`MySchema.MyAction()`</pre>
+all overloads of an [Action](#Action)| qualified name of action| <pre>`MySchema.MyAction`</pre>
+[Action Import](#ActionImport)| qualified name of entity container followed by a segment containing the action import name| <pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
+[Annotation](#Annotation) on a model element| path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation| <pre>`MySchema.MyEntityType/@MyVocabulary.MyTerm` <br>`MySchema.MyEntityType/@MyVocabulary.MyTerm#MyQualifier`</pre>
+[Complex Type](#ComplexType)| qualified name of complex type| <pre>`MySchema.MyComplexType`</pre>
+[Entity Container](#EntityContainer)| qualified name of entity container| <pre>`MySchema.MyEntityContainer`</pre>
+[Entity Set](#EntitySet)| qualified name of entity container followed by a segment containing the entity set name| <pre>`MySchema.MyEntityContainer/MyEntitySet`</pre>
+[Entity Type](#EntityType)| qualified name of entity type| <pre>`MySchema.MyEntityType`</pre>
+[Enumeration Type](#EnumerationType)| qualified name of enumeration type| <pre>`MySchema.MyEnumType`</pre>
+[Enumeration Type Member](#EnumerationTypeMember)| qualified name of enumeration type followed by a segment containing the name of a child element| <pre>`MySchema.MyEnumType/MyMember`</pre>
+[Function](#Function) overload| qualified name of function followed by parentheses containing the comma-separated list of the parameter types of a bound or unbound function overload in the order of their definition in the function overload| <pre>`MySchema.MyFunction(MySchema.MyBindingParamType,` <br>`  First.NonBinding.ParamType)` <br>`MySchema.MyFunction(First.NonBinding.ParamType,` <br>`  Second.NonBinding.ParamType)`</pre>
+all overloads of a [Function](#Function)| qualified name of function| <pre>`MySchema.MyFunction`</pre>
+[Function Import](#FunctionImport)| qualified name of entity container followed by a segment containing the function import name| <pre>`MySchema.MyEntityContainer/MyFunctionImport`
+[Navigation Property](#NavigationProperty) via container| qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyNavigationProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MySchema.MyEntityType/MyNavProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyComplexProperty/MyNavProperty` <br>`MySchema.MyEntityContainer/MySingleton` <br>`  /MyComplexProperty/MyNavProperty`</pre>
+[Navigation Property](#NavigationProperty) via structured type| qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityType/MyNavigationProperty` <br>`MySchema.MyComplexType/MyNavigationProperty`</pre>
+[Parameter](#Parameter)| qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name| <pre>`MySchema.MyEntityContainer/MyFunctionImport/MyParameter`</pre>
+[Parameter](#Parameter)| qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing the name of a child element| <pre>`MySchema.MyFunction/MyParameter`</pre>
+[Property](#StructuralProperty) via container| qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityContainer/MyEntitySet` <br>` /MyProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>` /MySchema.MyEntityType/MyProperty` <br>`MySchema.MyEntityContainer/MyEntitySet` <br>`  /MyComplexProperty/MyProperty`</pre>
+[Property](#StructuralProperty) via structured type| qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| <pre>`MySchema.MyEntityType/MyProperty` <br>`MySchema.MyComplexType/MyProperty`</pre>
+[Return Type](#ReturnType)| qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing `$ReturnType`| <pre>`MySchema.MyEntityContainer/MyFunctionImport/$ReturnType`</pre>
+[Return Type](#ReturnType)| qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing `$ReturnType`| <pre>`MySchema.MyFunction/$ReturnType` <br>`MySchema.MyFunction(MySchema.MyBindingParamType,` <br>`  First.NonBinding.ParamType)/$ReturnType`</pre>
+[Singleton](#Singleton)| qualified name of entity container followed by a segment containing a singleton name| <pre>`MySchema.MyEntityContainer/MySingleton`</pre>
+[Term](#Term)| qualified name of term| <pre>`MySchema.MyTerm`</pre>
+[Type Definition](#TypeDefinition)| qualified name of type definition| <pre>`MySchema.MyTypeDefinition`</pre>
 
-External targeting is also possible for properties and navigation
+All [qualified names](#QualifiedName) used in a target path MUST be in scope.
+
+External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
-
-The allowed path expressions are:
-- [qualified name](#QualifiedName)
-of schema child
-- [qualified
-name](#QualifiedName) of schema child followed by a forward slash and
-name of child element
-- [qualified
-name](#QualifiedName) of structured type followed by zero or more
-property, navigation property, or type-cast segments, each segment
-starting with a forward slash
-- [qualified name](#QualifiedName)
-of an entity container followed by a segment containing a singleton or
-entity set name and zero or more property, navigation property, or
-type-cast segments
-- [qualified
-name](#QualifiedName) of an action followed by parentheses containing
-the [qualified name](#QualifiedName) of the binding parameter *type* of
-a bound action overload to identify that bound overload, or by empty
-parentheses to identify the unbound overload
-- [qualified name](#QualifiedName) of a
-function followed by parentheses containing the comma-separated list of
-[qualified names](#QualifiedName) of the parameter *types* of a bound
-or unbound function overload in the order of their definition in the
-function overload
-- [qualified
-name](#QualifiedName) of an action or function, optionally followed by
-parentheses as described in the two previous bullet points to identify a
-single overload, followed by a forward slash and either a parameter name
-or `$ReturnType`
-- [qualified
-name](#QualifiedName) of an entity container followed by a segment
-containing an action or function import name, optionally followed by a
-forward slash and either a parameter name or `$ReturnType`
-
--   One of the preceding, followed by a forward slash, an at (`@`), the
-    [qualified name](#QualifiedName) of a term, and optionally a hash
-    (`#`) and the qualifier of an
-    annotation
-
-All [qualified names](#QualifiedName) used in a target path MUST be in
-scope.
-
-::: example
-Example 42: Target expressions
-```
-MySchema.MyEntityType
-MySchema.MyEntityType/MyProperty
-MySchema.MyEntityType/MyNavigationProperty
-MySchema.MyComplexType
-MySchema.MyComplexType/MyProperty
-MySchema.MyComplexType/MyNavigationProperty
-MySchema.MyEnumType
-MySchema.MyEnumType/MyMember
-MySchema.MyTypeDefinition
-MySchema.MyTerm
-MySchema.MyEntityContainer
-MySchema.MyEntityContainer/MyEntitySet
-MySchema.MyEntityContainer/MySingleton
-MySchema.MyEntityContainer/MyActionImport
-MySchema.MyEntityContainer/MyFunctionImport
-MySchema.MyAction
-MySchema.MyAction(MySchema.MyBindingType)
-MySchema.MyAction()
-MySchema.MyFunction
-MySchema.MyFunction(MySchema.MyBindingParamType,First.NonBinding.ParamType)
-MySchema.MyFunction(First.NonBinding.ParamType,Second.NonBinding.ParamType)
-MySchema.MyFunction/MyParameter
-MySchema.MyEntityContainer/MyEntitySet/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MyNavigationProperty
-MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyNavProperty
-MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavigationProperty
-MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty
-```
-:::
 
 ## <a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
@@ -4577,21 +4516,22 @@ Annotations MAY use the following logical and comparison expressions
 which evaluate to a Boolean value. These expressions MAY be combined and
 they MAY be used anywhere instead of a Boolean expression.
 
-Operator|Description
---------|-----------
-**Logical Operators**|
-`And`                      |Logical and
-`Or`                       |Logical or
-`Not`                      |Logical negation
-**Comparison Operators**|
-`Eq`                       |Equal
-`Ne`                       |Not equal
-`Gt`                       |Greater than
-`Ge`                       |Greater than or equal
-`Lt`                       |Less than
-`Le`                       |Less than or equal
-`Has`                      |Has enumeration flag(s) set
-`In`                       |Is in collection
+<table>
+<tr><th>Operator</th><th>Description</th></tr>
+<tr><td colspan="2"><strong>Logical Operators</strong></td></tr>
+<tr><td><code>And</code></td><td>Logical and     </td></tr>
+<tr><td><code>Or</code></td><td>Logical or      </td></tr>
+<tr><td><code>Not</code></td><td>Logical negation</td></tr>
+<tr><td colspan="2"><strong>Comparison Operators</strong></td></tr>
+<tr><td><code>Eq</code></td><td>Equal                      </td></tr>
+<tr><td><code>Ne</code></td><td>Not equal                  </td></tr>
+<tr><td><code>Gt</code></td><td>Greater than               </td></tr>
+<tr><td><code>Ge</code></td><td>Greater than or equal      </td></tr>
+<tr><td><code>Lt</code></td><td>Less than                  </td></tr>
+<tr><td><code>Le</code></td><td>Less than or equal         </td></tr>
+<tr><td><code>Has</code></td><td>Has enumeration flag(s) set</td></tr>
+<tr><td><code>In</code></td><td>Is in collection           </td></tr>
+</table>
 
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
@@ -5410,6 +5350,7 @@ Example 87:
 
 
 
+
 -------
 
 # <a name="IdentifierandPathValues" href="#IdentifierandPathValues">15 Identifier and Path Values</a>
@@ -5772,41 +5713,27 @@ In addition, conforming services MUST NOT return 4.01 CSDL constructs
 for requests made with `OData-MaxVersion:4.0`.
 
 Specifically, they
-
 1. MUST NOT include properties in derived types that overwrite a
 property defined in the base type
-
 2. MUST NOT include `Edm.Untyped`
-
 3. MUST NOT use [path syntax](#PathSyntax) added with 4.01
-
 4. MUST NOT use `Edm.ModelElementPath` and `Edm.AnyPropertyPath`
-
 5. MUST NOT specify [referential constraints](#ReferentialConstraint)
 to complex types and navigation properties
-
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
-
 7. MUST NOT include the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
-
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
-
 9. MUST NOT include collections of `Edm.ComplexType` or `Edm.Untyped`
-
 10. MUST NOT specify a key as a property of a related entity
-
 11. SHOULD NOT include new/unknown values for
 [`$AppliesTo`](#Applicability)
-
-
 12. MAY include new CSDL annotations
 
 In addition, OData 4.01 services:
-
 13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -5815,6 +5742,7 @@ Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
 
 -------
 
@@ -5830,11 +5758,6 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### [OData-v4.02]
-- _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
-  - _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
-  - _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-
 ###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
@@ -5842,39 +5765,31 @@ _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-
 _European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
-_OData ABNF Construction Rules Version 4.01_.  
+_OData ABNF Construction Rules Version 4.02_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL-Schema]</a>
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
+This document.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
 _OData CSDL JSON Schema_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataCSDLJSON">[OData-CSDL-JSON]</a>
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataCSDLXML">[OData-CSDL-XML]</a>
-_OData Common Schema Definition Language (CSDL) XML Representation Version 4.01_.  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataEDM">[OData-EDM]</a>
-_OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataEDMX">[OData-EDMX]</a>
-_OData EDM XML Schema_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.01_.  
+_OData JSON Format Version 4.02_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.01 Part 1: Protocol_.  
+_OData Version 4.02 Part 1: Protocol_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataURL">[OData-URL]</a>
-_OData Version 4.01 Part 2: URL Conventions_.  
+_OData Version 4.02 Part 2: URL Conventions_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataVocCore">[OData-VocCore]</a>
@@ -5909,16 +5824,6 @@ http://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
 http://tools.ietf.org/html/rfc8259.
 
-###### <a name="XML-11">[XML-1.1]</a>
-_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
-http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
-
-###### <a name="XML-Base">[XML-Base]</a>
-_XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
-http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
-###### <a name="XML-Schema1">[XML-Schema-1]</a>
-_W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
-http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
@@ -6071,18 +5976,20 @@ acknowledged.
 
 ## <a name="Participants" href="#Participants">C.2 Participants</a>
 
-<!-- A TC can determine who they list here, however, TC Observers must not be listed. It is common practice for TCs to list everyone that was part of the TC during the creation of the document, but this is ultimately a TC decision on who they want to list and not list, and in what order. -->
-
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
-
-**OpenC2 TC Members:**
+**OData TC Members:**
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alman | Something Networks
-Alex | Amirnovman | Company B
-Kris | Anderman | Mini Micro
-Darren | Anstman | Big Networks
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
@@ -6105,55 +6012,25 @@ Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-mat
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
 -->
 
-# <a name="Notices" href="#Notices">Appendix E. Notices             </a> 
-              
-<!-- Required section. Do not modify. -->              
-              
-Copyright &copy; OASIS Open 2023. All Rights Reserved.--------------
-Michael Pizzo All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.              
-Ralf Handl    
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.              
-              
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.              
-              
-This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.--------------
-Michael Pizzo As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, OASIS Standard, or Approved Errata).              
-Ralf Handl    
-[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]--------------
-Michael Pizzo [OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]              
-Ralf Handl    
-[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]              
-              
-The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
---------------
-Michael Pizzo               
-Ralf Handl    
-              
-              
-              
---------------
-Michael Pizzo               
-Ralf Handl    
---------------
-Michael Pizzo               
-Ralf Handl    
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+
+Copyright © OASIS Open 2023. All Rights Reserved.
+
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
+
+\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
+
+\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
+
+\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
+
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
 
