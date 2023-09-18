@@ -286,7 +286,8 @@ returns the specified content, if available, along with any available
 and MAY return additional information.
 
 The value of the `$select` query option is a comma-separated list of
-properties, qualified action names, qualified function names, the star
+paths that end with properties, non-entity-valued instance annotations,
+qualified action names, or qualified function names, as well as of the star
 operator (`*`), or the star operator prefixed with the namespace or
 alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
