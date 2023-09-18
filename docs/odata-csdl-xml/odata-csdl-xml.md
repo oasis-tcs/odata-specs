@@ -4350,7 +4350,7 @@ type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
 For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be a
-parameter name or `$ReturnType` .
+parameter name or `$ReturnType`.
 
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
