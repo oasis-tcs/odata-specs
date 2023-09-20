@@ -4291,23 +4291,12 @@ and so on.
 
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend on the model
-element by which the annotation is hosted and the *mode* ("container",
-"embedded", or "targeting") in which this hosting happens. More precisely,
-this subsection defines:
+element by which the annotation is hosted. More precisely, this subsection defines:
 - An annotation embedded within or targeting another annotation or a
   collection, record or property value of another annotation is hosted by the
   same model element as that other annotation.
 - An annotation embedded within or targeting another kind of model element is
   hosted by that model element.
-- An annotation with external targeting whose target path starts with an
-  entity container is hosted in container mode.
-- An annotation with external targeting whose target path starts with another
-  kind of schema child is hosted in targeting mode.
-- An annotation embedded within another annotation or a collection, record or
-  property value of another annotation is hosted in the same mode as that
-  other annotation.
-- An annotation embedded within another kind of model element is hosted in
-  embedded mode.
 
 For annotations hosted by an entity container, the path is evaluated starting
 at the entity container, i.e. an empty path resolves to the entity container,
@@ -4325,6 +4314,22 @@ For annotations hosted by an entity type or complex type, the path is
 evaluated starting at the type, i.e. an empty path resolves to the type, and
 the first segment of a non-empty path MUST be a structural or navigation
 property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
+
+For annotations hosted by an action, action import, function, function
+import, parameter, or return type, the first segment of the path MUST be a
+parameter name or `$ReturnType`.
+
+For the remaining cases, the path evaluation rules additionally depend on the
+*mode* ("container", "embedded", or "targeting") in which the hosting happens:
+- An annotation with external targeting whose target path starts with an
+  entity container is hosted in container mode.
+- An annotation with external targeting whose target path starts with another
+  kind of schema child is hosted in targeting mode.
+- An annotation embedded within another annotation or a collection, record or
+  property value of another annotation is hosted in the same mode as that
+  other annotation.
+- An annotation embedded within another kind of model element is hosted in
+  embedded mode.
 
 For annotations hosted by a structural or navigation property in container
 mode, the path is evaluated starting at the declared type of the property. An
@@ -4347,10 +4352,6 @@ entity type or complex type named in the target of the annotation, i.e. an
 empty path resolves to the outermost type, and the first segment of a
 non-empty path MUST be a structural or navigation property of the outermost
 type, a [type cast](#TypeCast), or a [term cast](#TermCast).
-
-For annotations hosted by an action, action import, function, function
-import, parameter, or return type, the first segment of the path MUST be a
-parameter name or `$ReturnType`.
 
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
