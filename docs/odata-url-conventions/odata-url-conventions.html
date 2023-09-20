@@ -692,7 +692,7 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 <li>The function import call syntax rules <code>complexFunctionImportCall</code>, <code>complexColFunctionImportCall</code>, <code>entityFunctionImportCall</code>, <code>entityColFunctionImportCall</code>, <code>primitiveFunctionImportCall</code>, and <code>primitiveColFunctionImportCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function import directly from the service root.</li>
 <li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
 <li>The <code>boundOperation</code> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
-<li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>filter</code> and <code>orderby</code> syntax rules define the grammar for invoking functions to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
+<li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
 <li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ul>
 <h2 id="46-addressing-a-property"><a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a></h2>
@@ -1522,19 +1522,23 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10</code></pre>
 </div>
 <h5 id="511145-root"><a name="root" href="#root">5.1.1.14.5 <code>$root</code></a></h5>
-<p>The <code>$root</code> literal can be used in expressions to refer to resources of the same service. It can be used as a single-valued expression or within <a href="#ComplexandCollectionLiterals">complex or collection literals</a>.</p>
+<p>The <code>$root</code> literal can be used in expressions to refer to resources of the same service.</p>
 <div class="example">
 <p>Example 108: all employees with the same last name as employee <code>A1235</code></p>
 <pre><code>http://host/service/Employees?$filter=LastName eq $root/Employees(&#39;A1245&#39;)/LastName</code></pre>
 </div>
 <div class="example">
-<p>Example 109: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer.</p>
+<p>Example 109: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer</p>
 <pre><code>http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
+</div>
+<div class="example">
+<p>Example 110: function call returning the average rating of a given employee by their peers (employees in department D1)</p>
+<pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
 </div>
 <h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
 <p>The <code>$this</code> literal can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for collection-valued properties and navigation properties. It refers to the current instance of the collection.</p>
 <div class="example">
-<p>Example 110: select only email addresses ending with <code>.com</code></p>
+<p>Example 111: select only email addresses ending with <code>.com</code></p>
 <pre><code>http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,&#39;.com&#39;))</code></pre>
 </div>
 <h4 id="51115-path-expressions"><a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a></h4>
@@ -1543,7 +1547,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
 <p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
-<p>Example 111: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
+<p>Example 112: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
 <pre><code>Companies(1)/HeadquarterAddress/Street</code></pre>
 </div>
 <p>To access properties of derived types, the property name MUST be prefixed with the qualified name of the derived type on which the property is defined, followed by a forward slash (<code>/</code>), see <a href="#AddressingDerivedTypes">addressing derived types</a>. If the current instance is not of the specified derived type, the path expression returns <code>null</code>.</p>
@@ -1554,11 +1558,11 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Annotation values are referenced by the annotation name which consists of an at sign (<code>@</code>) followed by the qualified term name, optionally followed by a percent-encoded hash (<code>%23</code>) and an annotation qualifier. The annotation name can be prefixed with a <a href="#PathExpressions">path expression</a> leading to the annotated resource or property.</p>
 <p>If an annotation is not applied to the resource or property, then its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
-<p>Example 112: Return Products that have prices in Euro</p>
+<p>Example 113: Return Products that have prices in Euro</p>
 <pre><code>http://host/service/Products?$filter=Price/@Measures.Currency eq &#39;EUR&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 113: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
+<p>Example 114: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
 <pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
 <p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
@@ -1744,64 +1748,64 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </ul>
 <p>If a structured type traversed by the path supports neither dynamic properties nor instance annotations, then a corresponding property segment MUST specify a declared property of that structured type. Otherwise, if a traversed type does support dynamic navigation properties or instance annotations and the corresponding property segment does not specify a declared property, then the expanded property appears only for those instances on which it has a value.</p>
 <div class="example">
-<p>Example 114: expand a navigation property of an entity type</p>
+<p>Example 115: expand a navigation property of an entity type</p>
 <pre><code>http://host/service/Products?$expand=Category</code></pre>
 </div>
 <div class="example">
-<p>Example 115: expand a navigation property of a complex type</p>
+<p>Example 116: expand a navigation property of a complex type</p>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
 <p>A property MUST NOT appear in more than one expand item.</p>
 <p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
 <div class="example">
-<p>Example 116: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
+<p>Example 117: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
 </div>
 <p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name to return just the count of the related entities. The <code>$filter</code> and <code>$search</code> system query options can be used to limit the number of related entities included in the count.</p>
 <div class="example">
-<p>Example 117: all categories and for each category the number of all related products</p>
+<p>Example 118: all categories and for each category the number of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count</code></pre>
 </div>
 <div class="example">
-<p>Example 118: all categories and for each category the number of all related blue products</p>
+<p>Example 119: all categories and for each category the number of all related blue products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count($search=blue)</code></pre>
 </div>
 <p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The system query options <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to limit the number of expanded entity references.</p>
 <div class="example">
-<p>Example 119: all categories and for each category the references of all related products</p>
+<p>Example 120: all categories and for each category the references of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$ref</code></pre>
 </div>
 <div class="example">
-<p>Example 120: all categories and for each category the references of all related products of the derived type <code>Sales.PremierProduct</code></p>
+<p>Example 121: all categories and for each category the references of all related products of the derived type <code>Sales.PremierProduct</code></p>
 <pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref</code></pre>
 </div>
 <div class="example">
-<p>Example 121: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
+<p>Example 122: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
 <p>Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
 <div class="example">
-<p>Example 122: all employees with their manager, manager's manager, and manager's manager's manager</p>
+<p>Example 123: all employees with their manager, manager's manager, and manager's manager's manager</p>
 <pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
 </div>
 <p>It is also possible to expand all declared and dynamic navigation properties using a star (<code>*</code>). To retrieve references to all related entities use <code>*/$ref</code>, and to expand all related entities with a certain distance use the star operator with the <code>$levels</code> option. The star operator can be combined with explicitly named navigation properties, which take precedence over the star operator.</p>
 <p>The star operator does not implicitly include stream properties.</p>
 <div class="example">
-<p>Example 123: expand <code>Supplier</code> and include references for all other related entities</p>
+<p>Example 124: expand <code>Supplier</code> and include references for all other related entities</p>
 <pre><code>http://host/service/Categories?$expand=*/$ref,Supplier</code></pre>
 </div>
 <div class="example">
-<p>Example 124: expand all related entities and their related entities</p>
+<p>Example 125: expand all related entities and their related entities</p>
 <pre><code>http://host/service/Categories?$expand=*($levels=2)</code></pre>
 </div>
 <p>Specifying a stream property includes the media stream inline according to the specified format.</p>
 <div class="example">
-<p>Example 125: include Employee's <code>Photo</code> stream property along with other properties of the customer</p>
+<p>Example 126: include Employee's <code>Photo</code> stream property along with other properties of the customer</p>
 <pre><code>http://host/service/Employees?$expand=Photo</code></pre>
 </div>
 <p>Specifying <code>$value</code> for a media entity includes the media entity's stream value inline according to the specified format.</p>
 <div class="example">
-<p>Example 126: Include the <code>Product</code>'s media stream along with other properties of the product</p>
+<p>Example 127: Include the <code>Product</code>'s media stream along with other properties of the product</p>
 <pre><code>http://host/service/Products?$expand=$value</code></pre>
 </div>
 <h3 id="514-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></h3>
@@ -1824,12 +1828,12 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </ul>
 <p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
 <div class="example">
-<p>Example 127: rating and release date of all products</p>
+<p>Example 128: rating and release date of all products</p>
 <pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
 </div>
 <p>It is also possible to request all declared and dynamic structural properties using a star (<code>*</code>).</p>
 <div class="example">
-<p>Example 128: all structural properties of all products</p>
+<p>Example 129: all structural properties of all products</p>
 <pre><code>http://host/service/Products?$select=*</code></pre>
 </div>
 <p>If the select item is not defined for the type of the resource, and that type supports dynamic properties or instance annotations, then the property is treated as null for all instances on which it is not defined.</p>
@@ -1837,18 +1841,18 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>If the select item is an instance annotation of type entity or collection of entities, then the request is considered malformed. Entity-valued annotations can be included using <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
 <p>If the select item is a navigation property, then the corresponding navigation link is represented in the response. If the navigation property also appears in an <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option, then it is additionally represented as inline content. This inline content can itself be restricted with a nested <code>$select</code> query option, see <a href="#SystemQueryOptionfilter">section 5.1.2</a>.</p>
 <div class="example">
-<p>Example 129: name and description of all products, plus name of expanded category</p>
+<p>Example 130: name and description of all products, plus name of expanded category</p>
 <pre><code>http://host/service/Products?$select=Name,Description&amp;$expand=Category($select=Name)</code></pre>
 </div>
 <p>The select item MUST be prefixed with a qualified structured type name in order to select a property defined on a type derived from the type of the resource segment.</p>
 <p>A select item that is a complex type or collection of complex type can be followed by a forward slash, an optional <a href="#AddressingDerivedTypes">type-cast segment</a>, and the name of a property of the complex type (and so on for nested complex types).</p>
 <div class="example">
-<p>Example 130: the <code>AccountRepresentative</code> property of any supplier that is of the derived type <code>Namespace.PreferredSupplier</code>, together with the <code>Street</code> property of the complex property <code>Address</code>, and the Location property of the derived complex type <code>Namespace.AddressWithLocation</code></p>
+<p>Example 131: the <code>AccountRepresentative</code> property of any supplier that is of the derived type <code>Namespace.PreferredSupplier</code>, together with the <code>Street</code> property of the complex property <code>Address</code>, and the Location property of the derived complex type <code>Namespace.AddressWithLocation</code></p>
 <pre><code>http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
 </div>
 <p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
 <div class="example">
-<p>Example 131: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
+<p>Example 132: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
 <pre><code>http://host/service/Customers?$select=Addresses($filter=startswith(City,&#39;H&#39;);$top=5;$orderby=Country/Name,City,Street)&amp;$expand=Addresses/Country</code></pre>
 </div>
 <p>Any structural property, non-expanded navigation property, or operation not requested as a select item (explicitly or via a star) SHOULD be omitted from the response.</p>
@@ -1857,7 +1861,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>If an action or function is requested as a select item, either explicitly by using its qualified name, or implicitly by requesting all operations in a schema, then the service includes information about how to invoke that operation for each entity identified by the last path segment in the request URL for which the operation can be bound.</p>
 <p>If an action or function is requested in a select item using its qualified name and that operation cannot be bound to the entities requested, the service MUST ignore the select item.</p>
 <div class="example">
-<p>Example 132: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
+<p>Example 133: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
 <p>When multiple select item exist in a <code>select clause</code>, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
@@ -1878,7 +1882,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are applied to the same request, the results include only those items that match both criteria.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>search</code> syntax rule defines the formal grammar of the <code>$search</code> query option.</p>
 <div class="example">
-<p>Example 133: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
+<p>Example 134: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
@@ -1904,7 +1908,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>compute</code> syntax rule defines the formal grammar of the <code>$compute</code> query option.</p>
 <p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
 <div class="example">
-<p>Example 134: compute total price for order items</p>
+<p>Example 135: compute total price for order items</p>
 <pre><code>http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
   &amp;$filter=Total gt 100
@@ -1921,7 +1925,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <code>customQueryOption</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Custom query options MUST NOT begin with a <code>$</code> or <code>@</code> character.</p>
 <div class="example">
-<p>Example 135: service-specific custom query option <code>debug-mode</code></p>
+<p>Example 136: service-specific custom query option <code>debug-mode</code></p>
 <pre><code>http://host/service/Products?debug-mode=true</code></pre>
 </div>
 <h2 id="53-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a></h2>
@@ -1929,15 +1933,15 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The semantics of parameter aliases are covered in <a href="#ODataProtocol">OData-Protocol</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
 <div class="example">
-<p>Example 136:</p>
+<p>Example 137:</p>
 <pre><code>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word=&#39;Black&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 137:</p>
+<p>Example 138:</p>
 <pre><code>http://host/service/Movies?$filter=Title eq @title&amp;@title=&#39;Wizard of Oz&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 138: JSON array of strings as parameter alias value -- note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
+<p>Example 139: JSON array of strings as parameter alias value -- note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
 <hr />
