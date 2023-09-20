@@ -1,3 +1,4 @@
+
 -------
 
 : varjson
@@ -25,7 +26,7 @@ The value of `$Version` is a string containing either `4.0` or `4.01`.
 
 ### ##subisec `$EntityContainer`
 
-The value of `$EntityContainer` is value is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
+The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
 ::: {.varjson .example}
@@ -184,7 +185,7 @@ Example ##ex: references to other CSDL documents
 
 ## ##subsec Included Schema
 
-A reference MAY include zero or more schemas from the referenced
+A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
 
 The included schemas are identified via their [namespace](#Namespace).
@@ -328,7 +329,7 @@ vocabulary terms
 ## ##subsec Included Annotations
 
 In addition to including whole schemas with all model constructs defined
-within that schema, annotations can be included with more flexibility.
+within that schema, a [reference](#Reference) may include annotations.
 
 Annotations are selectively included by specifying the
 [namespace](#Namespace) of the annotations' term. Consumers can opt not
