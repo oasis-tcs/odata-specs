@@ -4337,7 +4337,7 @@ For annotations hosted by a structural or navigation property of an entity
 type or complex type in embedded mode, the path is evaluated starting at the
 directly enclosing type. This allows e.g. specifying the value of an
 annotation on one property to be calculated from values of other properties of
-the same type. An empty path resolves to the enclosing type, and non-empty
+the same enclosing type. An empty path resolves to the enclosing type, and non-empty
 paths MUST follow the rules for annotations targeting the directly enclosing
 type.
 
