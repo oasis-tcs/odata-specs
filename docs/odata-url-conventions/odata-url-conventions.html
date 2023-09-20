@@ -1755,7 +1755,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Example 116: expand a navigation property of a complex type</p>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
-<p>A property MUST NOT appear in more than one expand item.</p>
+<p>A path MUST NOT appear in more than one expand item.</p>
 <p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
 <div class="example">
 <p>Example 117: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>

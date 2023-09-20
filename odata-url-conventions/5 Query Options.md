@@ -1931,7 +1931,7 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A property MUST NOT appear in more than one expand item.
+A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
