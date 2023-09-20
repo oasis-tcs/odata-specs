@@ -1578,7 +1578,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
-<p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests.</p>
+<p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests. If the <code>Location</code> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request's URL even if that contains such a reference.</p>
 <div class="example">
 <p>Example 49: a batch request that contains the following operations in the order listed:</p>
 <ul>
