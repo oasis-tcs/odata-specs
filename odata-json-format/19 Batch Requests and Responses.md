@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Batch Requests and Responses
@@ -179,7 +180,9 @@ Content-Length: ###
 ## ##subsec Referencing New Entities
 
 The entity returned by a preceding request can be referenced in the
-request URL of subsequent requests.
+request URL of subsequent requests. If the `Location` header in the response
+contains a relative URL, clients MUST be able to resolve it relative to the
+request's URL even if that contains such a reference.
  
 ::: example
 Example ##ex: a batch request that contains the following operations in

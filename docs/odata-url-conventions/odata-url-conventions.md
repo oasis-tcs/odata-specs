@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -240,6 +240,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -431,6 +432,7 @@ The service root URL MUST terminate in a forward slash.
 
 The service document enables simple hypermedia-driven clients to
 enumerate and explore the resources published by the OData service.
+
 
 -------
 
@@ -971,8 +973,8 @@ encompasses the bound function call syntax rules), when used by the
 `resourcePath` syntax rule, illustrates how a bound function call can be
 appended to a `resourcePath`.
 - The `functionExpr` and
-`boundFunctionExpr` syntax rules as used by the `filter` and `orderby`
-syntax rules define the grammar for invoking functions to help filter
+`boundFunctionExpr` syntax rules as used by the `commonExpr`
+syntax rule define the grammar for invoking functions, for example to help filter
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
@@ -1396,6 +1398,7 @@ Content-Type: text/plain
 $filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
 ```
 :::
+
 
 -------
 
@@ -2365,7 +2368,7 @@ parameter value. The `dayMethodCallExpr` syntax rule defines how the
 `day` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `day` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2415,7 +2418,7 @@ zone of the `DateTimeOffset` parameter value. The `hourMethodCallExpr`
 syntax rule defines how the `hour` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `hour` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2486,7 +2489,7 @@ The `month` function returns the month component of the `Date` or
 defines how the `month` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `month` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2509,11 +2512,11 @@ Edm.DateTimeOffset now()
 The `now` function returns the current point in time (date and time with
 time zone) as a `DateTimeOffset` value.
 
-Services are free to choose the time zone for the current point, e.g.
+Services are free to choose the time zone for the current point, for example
 UTC. Services that are unable to preserve the offset of
 `Edm.DateTimeOffset` values and instead normalize the values to some
 common time zone SHOULD return a value in the normalized time zone
-(i.e., UTC).
+(for example UTC).
 
 ##### <a name="second" href="#second">5.1.1.8.10 `second`</a>
 
@@ -2551,7 +2554,7 @@ parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -2594,7 +2597,7 @@ The `year` function returns the year component of the `Date` or
 defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `year` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -3068,8 +3071,7 @@ http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ##### <a name="root" href="#root">5.1.1.14.5 `$root`</a>
 
 The `$root` literal can be used in expressions to refer to resources of
-the same service. It can be used as a single-valued expression or within
-[complex or collection literals](#ComplexandCollectionLiterals).
+the same service.
 
 ::: example
 Example 108: all employees with the same last name as employee `A1235`
@@ -3081,9 +3083,16 @@ http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastN
 ::: example
 Example 109: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
-`$root` to each customer.
+`$root` to each customer
 ```
 http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+```
+:::
+
+::: example
+Example 110: function call returning the average rating of a given employee by their peers (employees in department D1)
+```
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -3097,7 +3106,7 @@ and navigation properties. It refers to the current instance of the
 collection.
 
 ::: example
-Example 110: select only email addresses ending with `.com`
+Example 111: select only email addresses ending with `.com`
 ```
 http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.com'))
 ```
@@ -3124,7 +3133,7 @@ target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
 ::: example
-Example 111: similar behavior whether `HeadquarterAddress` is a nullable
+Example 112: similar behavior whether `HeadquarterAddress` is a nullable
 complex type or a nullable navigation property
 ```
 Companies(1)/HeadquarterAddress/Street
@@ -3165,14 +3174,14 @@ If an annotation is not applied to the resource or property, then its
 value, and the values of its components, are treated as `null`.
 
 ::: example
-Example 112: Return Products that have prices in Euro
+Example 113: Return Products that have prices in Euro
 ```
 http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
 ::: example
-Example 113: Return Employees that have any error messages in the
+Example 114: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
@@ -3307,20 +3316,20 @@ segment does not specify a declared property, then the expanded property
 appears only for those instances on which it has a value.
 
 ::: example
-Example 114: expand a navigation property of an entity type
+Example 115: expand a navigation property of an entity type
 ```
 http://host/service/Products?$expand=Category
 ```
 :::
 
 ::: example
-Example 115: expand a navigation property of a complex type
+Example 116: expand a navigation property of a complex type
 ```
 http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A property MUST NOT appear in more than one expand item.
+A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
@@ -3334,7 +3343,7 @@ options are [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch), and `$expand`.
 
 ::: example
-Example 116: all categories and for each category all related products
+Example 117: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
 http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
@@ -3348,7 +3357,7 @@ property name to return just the count of the related entities. The
 number of related entities included in the count.
 
 ::: example
-Example 117: all categories and for each category the number of all
+Example 118: all categories and for each category the number of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$count
@@ -3356,7 +3365,7 @@ http://host/service/Categories?$expand=Products/$count
 :::
 
 ::: example
-Example 118: all categories and for each category the number of all
+Example 119: all categories and for each category the number of all
 related blue products
 ```
 http://host/service/Categories?$expand=Products/$count($search=blue)
@@ -3374,7 +3383,7 @@ The system query options [`$filter`](#SystemQueryOptionfilter),
 expanded entity references.
 
 ::: example
-Example 119: all categories and for each category the references of all
+Example 120: all categories and for each category the references of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$ref
@@ -3382,7 +3391,7 @@ http://host/service/Categories?$expand=Products/$ref
 :::
 
 ::: example
-Example 120: all categories and for each category the references of all
+Example 121: all categories and for each category the references of all
 related products of the derived type `Sales.PremierProduct`
 ```
 http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
@@ -3390,7 +3399,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 :::
 
 ::: example
-Example 121: all categories and for each category the references of all
+Example 122: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
 http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
@@ -3406,7 +3415,7 @@ A `$levels` option with a value of 1 specifies a single expand with no
 recursion.
 
 ::: example
-Example 122: all employees with their manager, manager's manager, and
+Example 123: all employees with their manager, manager's manager, and
 manager's manager's manager
 ```
 http://host/service/Employees?$expand=ReportsTo($levels=3)
@@ -3423,7 +3432,7 @@ which take precedence over the star operator.
 The star operator does not implicitly include stream properties.
 
 ::: example
-Example 123: expand `Supplier` and include references for all other
+Example 124: expand `Supplier` and include references for all other
 related entities
 ```
 http://host/service/Categories?$expand=*/$ref,Supplier
@@ -3431,7 +3440,7 @@ http://host/service/Categories?$expand=*/$ref,Supplier
 :::
 
 ::: example
-Example 124: expand all related entities and their related entities
+Example 125: expand all related entities and their related entities
 ```
 http://host/service/Categories?$expand=*($levels=2)
 ```
@@ -3441,7 +3450,7 @@ Specifying a stream property includes the media stream inline according
 to the specified format.
 
 ::: example
-Example 125: include Employee's `Photo` stream property along with other
+Example 126: include Employee's `Photo` stream property along with other
 properties of the customer
 ```
 http://host/service/Employees?$expand=Photo
@@ -3452,7 +3461,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example 126: Include the `Product`'s media stream along with other
+Example 127: Include the `Product`'s media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -3511,7 +3520,7 @@ type of the resources identified by the resource path section of the
 URL.
 
 ::: example
-Example 127: rating and release date of all products
+Example 128: rating and release date of all products
 ```
 http://host/service/Products?$select=Rating,ReleaseDate
 ```
@@ -3521,7 +3530,7 @@ It is also possible to request all declared and dynamic structural
 properties using a star (`*`).
 
 ::: example
-Example 128: all structural properties of all products
+Example 129: all structural properties of all products
 ```
 http://host/service/Products?$select=*
 ```
@@ -3549,7 +3558,7 @@ inline content can itself be restricted with a nested `$select` query
 option, see [section 5.1.2](#SystemQueryOptionfilter).
 
 ::: example
-Example 129: name and description of all products, plus name of expanded
+Example 130: name and description of all products, plus name of expanded
 category
 ```
 http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
@@ -3566,7 +3575,7 @@ segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example
-Example 130: the `AccountRepresentative` property of any supplier that
+Example 131: the `AccountRepresentative` property of any supplier that
 is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
@@ -3586,7 +3595,7 @@ select options specified in more than one place in a request and MUST
 NOT be specified in more than one expand.
 
 ::: example
-Example 131: select up to five addresses whose `City` starts with an
+Example 132: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
 http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
@@ -3620,7 +3629,7 @@ qualified name and that operation cannot be bound to the entities
 requested, the service MUST ignore the select item.
 
 ::: example
-Example 132: the `ID` property, the `ActionName` action defined in
+Example 133: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
@@ -3690,7 +3699,7 @@ The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
-Example 133: all products that are blue or green. It is up to the
+Example 134: all products that are blue or green. It is up to the
 service to decide what makes a product blue or green.
 ```
 http://host/service/Products?$search=blue OR green
@@ -3774,7 +3783,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 134: compute total price for order items
+Example 135: compute total price for order items
 ```
 http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
@@ -3818,7 +3827,7 @@ custom query option is any query option of the form shown by the rule
 Custom query options MUST NOT begin with a `$` or `@` character.
 
 ::: example
-Example 135: service-specific custom query option `debug-mode`
+Example 136: service-specific custom query option `debug-mode`
 ```
 http://host/service/Products?debug-mode=true
 ```
@@ -3840,21 +3849,21 @@ The semantics of parameter aliases are covered in
 values as query options.
 
 ::: example
-Example 136:
+Example 137:
 ```
 http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 
 ::: example
-Example 137:
+Example 138:
 ```
 http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
 ::: example
-Example 138: JSON array of strings as parameter alias value -- note that
+Example 139: JSON array of strings as parameter alias value -- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
@@ -3868,6 +3877,7 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots"
 
 The conformance requirements for OData clients and services are
 described in [OData-Protocol](#ODataProtocol).
+
 
 -------
 
