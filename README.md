@@ -19,12 +19,26 @@
 
 ## How to view the documents
 
-Documents are generated from a Markdown source using Node.js modules described [here](lib).
+Documents are generated from Markdown sources using Node.js modules described [here](lib) and Pandoc.
 
-To view mathematical formulas, install pandoc as explained in the section on [Document Conventions](odata-data-aggregation-ext/1%20Introduction.md). This is invoked by the Node.js module [`lib/pandoc.js`](lib/pandoc.js).
+### Installation
 
-Clone this repository, run `npm install` and `npm start` to start a Node.js server and access the HTML pages at `http://localhost:8080` (see [`lib/server.js`](lib/server.js)).
+1. Download and install [Node.js](https://nodejs.org/), verify via `node -v`
+2. Download and install [Pandoc](https://pandoc.org/), verify via `pandoc -v`
+3. Download and install [git](https://git-scm.com/), verify via `git -v`
+4. Optionally download and install [GitHub Desktop](https://desktop.github.com/)
+5. Clone this repository
+6. In the local repository folder run `npm install`, verify via `npm test`
 
-Run `npm run build` to build HTML and Markdown files for publication on github.io (see [`lib/build.js`](lib/build.js)).
+### Document preparation
 
-Run `npm run pdf` to convert the HTML files into PDF files (using puppeteer, see [`lib/pdf.js`](lib/build-pdf.js)).
+- `npm start` starts a [local web server](lib/server.js) to serve the HTML pages at <http://localhost:8080>
+
+  - The HTML pages are rebuilt and the browser is auto-refreshed whenever one of the source files changes
+
+- `npm run build` builds HTML and Markdown files for publication on <https://oasis-tcs.github.io/odata-specs/>
+
+  - Do this before pushing to GitHub to avoid build errors
+
+- `npm run pdf` converts the HTML files to PDF
+  - This is only necessary for publication to the [OASIS Library](https://www.oasis-open.org/standards/)
