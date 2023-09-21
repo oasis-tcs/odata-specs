@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Introduction
@@ -644,7 +645,7 @@ Example ##ex: The following entity sets and sample data will be used to further 
   <path d="M525,300 l-40,-20" marker-end="url(#end)" />
 </svg>
 
-::::: {.nav style=left:250px}
+::::: {.nav-2 style=left:250px}
 Products
 
 ID|Category|Name|Color|TaxRate
@@ -697,7 +698,7 @@ PG1|Food
 PG2|Non-Food
 :::::
 
-::::: {.nav style=top:260px;left:360px}
+::::: {.nav-2 style=top:260px;left:360px}
 Sales Organizations
 
 ID|Superordinate|Name
@@ -721,7 +722,7 @@ C3|Sue|Netherlands
 C4|Luc|France
 :::::
 
-::::: {.nav .nav-2 style=top:450px}
+::::: {.nav-2 .nav-3 .nav-4 .nav-5 style=top:450px}
 Sales
 
 ID|Customer|Time|Product|Sales Organization|Amount
@@ -733,7 +734,7 @@ ID|Customer|Time|Product|Sales Organization|Amount
 5|C2|2022-11-09|P3|US East|4
 6|C3|2022-04-01|P1|EMEA Central|2
 7|C3|2022-08-06|P3|EMEA Central|1
-8|C3|2022-11-22|P1|EMEA Central|2
+8|C3|2022-11-22|P3|EMEA Central|2
 :::::
 
 ::::: {.legend style=top:470px;left:500px}
@@ -783,7 +784,7 @@ USA||Food|Sugar|2
 USA||Food|Coffee|12
 USA||Non-Food|Paper|5
 Netherlands||Food|Sugar|2
-Netherlands||Non-Food|Paper|1
+Netherlands||Non-Food|Paper|3
 USA|Joe|Food||6
 USA|Joe|Non-Food||1
 USA|Sue|Food||8
