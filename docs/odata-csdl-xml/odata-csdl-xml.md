@@ -4353,6 +4353,42 @@ empty path resolves to the outermost type, and the first segment of a
 non-empty path MUST be a structural or navigation property of the outermost
 type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
+
+::: {.varxml .example}
+Example 67: annotations hosted by property B in various modes
+```xml
+<Schema Namespace="self">
+  <EntityType Name="A">
+    ...
+    <Property Name="B" Type="Edm.String">
+      <Annotation Term="Core.Description" String="embedded">
+        <Annotation Term="Core.Description" String="embedded" />
+      </Annotation>
+    </Property>
+  </EntityType>
+  <EntityContainer Name="Container">
+    <EntitySet Name="SetA" EntityType="A" />
+  </EntityContainer>
+  <Annotations Target="self.Container/SetA/B">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="container">
+      <Annotation Term="Core.Description" String="container" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.A/B">
+    <Annotation Term="Core.Description" Qualifier="external" String="targeting">
+      <Annotation Term="Core.Description" String="targeting" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.Container/SetA/B/@Core.Description#viaset">
+    <Annotation Term="Core.Description" String="container" />
+  </Annotations>
+  <Annotations Target="self.A/B/@Core.Description">
+    <Annotation Term="Core.Description" String="targeting" />
+  </Annotations>
+</Schema>
+```
+:::
+
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
@@ -4381,7 +4417,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 67:
+Example 68:
 ```xml
 <Annotation Term="UI.ReferenceFacet"
             AnnotationPath="Product/Supplier/@UI.LineItem" />
@@ -4415,7 +4451,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 68:
+Example 69:
 ```xml
 <Annotation Term="org.example.MyFavoriteModelElement"
             ModelElementPath="/org.example.someAction" />
@@ -4451,7 +4487,7 @@ element notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 69:
+Example 70:
 ```xml
 <Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
 
@@ -4494,7 +4530,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 70:
+Example 71:
 ```xml
 <Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
 
@@ -4532,7 +4568,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 71:
+Example 72:
 ```xml
 <Annotation Term="org.example.display.DisplayName" Path="FirstName" />
 
@@ -4599,7 +4635,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 72:
+Example 73:
 ```xml
 <And>
   <Path>IsMale</Path>
@@ -4692,7 +4728,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 73:
+Example 74:
 ```xml
 <Add>
   <Path>StartDate</Path>
@@ -4769,7 +4805,7 @@ are represented according to the appropriate alternative in the
 
 
 ::: {.varxml .example}
-Example 74:
+Example 75:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
@@ -4821,7 +4857,7 @@ first property is used as key, the second property as value.
 
 
 ::: {.varxml .example}
-Example 75: assuming there are no special characters in values of the
+Example 76: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```xml
 <Apply Function="odata.fillUriTemplate">
@@ -4844,7 +4880,7 @@ expression, using syntax and semantics of
 
 
 ::: {.varxml .example}
-Example 76: all non-empty `FirstName` values not containing the letters
+Example 77: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```xml
 <Apply Function="odata.matchesPattern">
@@ -4865,7 +4901,7 @@ paren-style key syntax.
 
 
 ::: {.varxml .example}
-Example 77:
+Example 78:
 ```xml
 <Apply Function="odata.fillUriTemplate">
   <String>http://host/service/Genres({genreName})</String>
@@ -4910,7 +4946,7 @@ are considered unspecified.
 :::
 
 ::: {.varxml .example}
-Example 78:
+Example 79:
 ```xml
 <Annotation Term="org.example.display.Threshold">
   <Cast Type="Edm.Decimal">
@@ -4937,7 +4973,7 @@ The `edm:Collection` element contains zero or more child expressions.
 :::
 
 ::: {.varxml .example}
-Example 79:
+Example 80:
 ```xml
 <Annotation Term="org.example.seo.SeoTerms">
   <Collection>
@@ -4986,7 +5022,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 80: the condition is a [value path expression](#ValuePath)
+Example 81: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `edm:If` expression (or so it was long ago)
 ```xml
@@ -5023,7 +5059,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 81:
+Example 82:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -5066,7 +5102,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 82:
+Example 83:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -5097,7 +5133,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 83:
+Example 84:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5122,7 +5158,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 85:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5131,7 +5167,7 @@ Example 84:
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5192,7 +5228,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5253,7 +5289,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5330,7 +5366,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5352,7 +5388,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 89:
+Example 90:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
@@ -5470,7 +5506,7 @@ Example 89:
 
 
 ::: {.varxml .example}
-Example 90:
+Example 91:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">

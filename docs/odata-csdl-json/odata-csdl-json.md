@@ -4446,6 +4446,43 @@ empty path resolves to the outermost type, and the first segment of a
 non-empty path MUST be a structural or navigation property of the outermost
 type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
+::: {.varjson .example}
+Example 67: annotations hosted by property B in various modes
+```json
+"self": {
+  "A": {
+    "$Kind": "EntityType", ...,
+    "B": {
+      "$Nullable": true,
+      "@Core.Description@Core.Description": "embedded",
+      "@Core.Description": "embedded"
+    }
+  },
+  "Container": {
+    "$Kind": "EntityContainer",
+    "SetA": { "$Collection": true, "$Type": "A" }
+  },
+  "$Annotations": {
+    "self.Container/SetA/B": {
+      "@Core.Description#viaset@Core.Description": "container",
+      "@Core.Description#viaset": "container"
+    },
+    "self.A/B": {
+      "@Core.Description#external@Core.Description": "targeting",
+      "@Core.Description#external": "targeting"
+    },
+    "self.Container/SetA/B/@Core.Description#viaset": {
+      "@Core.Description": "container"
+    },
+    "self.A/B/@Core.Description": {
+      "@Core.Description": "targeting"
+    }
+  }
+}
+```
+:::
+
+
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
@@ -4470,7 +4507,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 67:
+Example 68:
 ```json
 "@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
 "@UI.CollectionFacet#Contacts": [
@@ -4498,7 +4535,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 68:
+Example 69:
 ```json
 "@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
@@ -4527,7 +4564,7 @@ containing a path.
 :::
 
 ::: {.varjson .example}
-Example 69:
+Example 70:
 ```json
 "@UI.HyperLink": "Supplier",
 
@@ -4563,7 +4600,7 @@ Property path expressions are represented as a string containing a path.
 :::
 
 ::: {.varjson .example}
-Example 70:
+Example 71:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
 
@@ -4597,7 +4634,7 @@ Path expressions are represented as an object with a single member
 :::
 
 ::: {.varjson .example}
-Example 71:
+Example 72:
 ```json
 "@UI.DisplayName": {
   "$Path": "FirstName"
@@ -4669,7 +4706,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 72:
+Example 73:
 ```json
 {
   "$And": [
@@ -4809,7 +4846,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 73:
+Example 74:
 ```json
 {
   "$Add": [
@@ -4922,7 +4959,7 @@ are represented according to the appropriate alternative in the
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: {.varjson .example}
-Example 74:
+Example 75:
 ```json
 "@UI.DisplayName": {
   "$Apply": [
@@ -4981,7 +5018,7 @@ types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
 ::: {.varjson .example}
-Example 75: assuming there are no special characters in values of the
+Example 76: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
 {
@@ -5012,7 +5049,7 @@ expression, using syntax and semantics of
 [ECMAScript](#_ECMAScript) regular expressions.
 
 ::: {.varjson .example}
-Example 76: all non-empty `FirstName` values not containing the letters
+Example 77: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```json
 {
@@ -5038,7 +5075,7 @@ Note: string literals are surrounded by single quotes as required by the
 paren-style key syntax.
 
 ::: {.varjson .example}
-Example 77:
+Example 78:
 ```json
 {
   "$Apply": [
@@ -5087,7 +5124,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 78:
+Example 79:
 ```json
 "@UI.Threshold": {
   "$Cast": {
@@ -5114,7 +5151,7 @@ item expression within the collection expression.
 :::
 
 ::: {.varjson .example}
-Example 79:
+Example 80:
 ```json
 "@seo.SeoTerms": [
   "Product",
@@ -5161,7 +5198,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 80: the condition is a [value path expression](#ValuePath)
+Example 81: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `$If` expression (or so it was long ago)
 ```json
@@ -5205,7 +5242,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 81:
+Example 82:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5244,7 +5281,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 82:
+Example 83:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5273,7 +5310,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 83:
+Example 84:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5294,7 +5331,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 85:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5308,7 +5345,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 86:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5355,7 +5392,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5421,7 +5458,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 87:
+Example 88:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5505,7 +5542,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5526,7 +5563,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 89:
+Example 90:
 ```json
 {
   "$Version": "4.0",
@@ -5748,7 +5785,7 @@ Example 89:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 90:
+Example 91:
 ```json
 {
   "$Version": "4.01",

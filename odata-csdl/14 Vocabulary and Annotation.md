@@ -1437,6 +1437,77 @@ empty path resolves to the outermost type, and the first segment of a
 non-empty path MUST be a structural or navigation property of the outermost
 type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
+::: {.varjson .example}
+Example ##ex: annotations hosted by property B in various modes
+```json
+"self": {
+  "A": {
+    "$Kind": "EntityType", ...,
+    "B": {
+      "$Nullable": true,
+      "@Core.Description@Core.Description": "embedded",
+      "@Core.Description": "embedded"
+    }
+  },
+  "Container": {
+    "$Kind": "EntityContainer",
+    "SetA": { "$Collection": true, "$Type": "A" }
+  },
+  "$Annotations": {
+    "self.Container/SetA/B": {
+      "@Core.Description#viaset@Core.Description": "container",
+      "@Core.Description#viaset": "container"
+    },
+    "self.A/B": {
+      "@Core.Description#external@Core.Description": "targeting",
+      "@Core.Description#external": "targeting"
+    },
+    "self.Container/SetA/B/@Core.Description#viaset": {
+      "@Core.Description": "container"
+    },
+    "self.A/B/@Core.Description": {
+      "@Core.Description": "targeting"
+    }
+  }
+}
+```
+:::
+
+::: {.varxml .example}
+Example ##ex: annotations hosted by property B in various modes
+```xml
+<Schema Namespace="self">
+  <EntityType Name="A">
+    ...
+    <Property Name="B" Type="Edm.String">
+      <Annotation Term="Core.Description" String="embedded">
+        <Annotation Term="Core.Description" String="embedded" />
+      </Annotation>
+    </Property>
+  </EntityType>
+  <EntityContainer Name="Container">
+    <EntitySet Name="SetA" EntityType="A" />
+  </EntityContainer>
+  <Annotations Target="self.Container/SetA/B">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="container">
+      <Annotation Term="Core.Description" String="container" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.A/B">
+    <Annotation Term="Core.Description" Qualifier="external" String="targeting">
+      <Annotation Term="Core.Description" String="targeting" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.Container/SetA/B/@Core.Description#viaset">
+    <Annotation Term="Core.Description" String="container" />
+  </Annotations>
+  <Annotations Target="self.A/B/@Core.Description">
+    <Annotation Term="Core.Description" String="targeting" />
+  </Annotations>
+</Schema>
+```
+:::
+
 #### ##subsubsubsec Annotation Path
 
 The annotation path expression provides a value for terms or term
