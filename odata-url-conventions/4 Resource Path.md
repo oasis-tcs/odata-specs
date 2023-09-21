@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Resource Path
@@ -533,8 +534,8 @@ encompasses the bound function call syntax rules), when used by the
 `resourcePath` syntax rule, illustrates how a bound function call can be
 appended to a `resourcePath`.
 - The `functionExpr` and
-`boundFunctionExpr` syntax rules as used by the `filter` and `orderby`
-syntax rules define the grammar for invoking functions to help filter
+`boundFunctionExpr` syntax rules as used by the `commonExpr`
+syntax rule define the grammar for invoking functions, for example to help filter
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter

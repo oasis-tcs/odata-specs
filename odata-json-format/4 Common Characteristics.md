@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Common Characteristics
@@ -28,8 +29,8 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section [Payload
-Ordering Constraints](#PayloadOrderingConstraints).
+a value of `true` or `false`, see section 
+"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## ##subsec Message Body
 
@@ -292,6 +293,8 @@ following is true:
   or (collection of) complex type instances, or
 - The type is for a property whose type is not declared in
   `$metadata`.
+
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
 
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
