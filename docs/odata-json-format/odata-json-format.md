@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -186,6 +186,7 @@ For complete copyright information please see the full Notices section in an App
 - [E Notices](#Notices)
 :::
 
+
 -------
 
 # <a name="Introduction" href="#Introduction">1 Introduction</a>
@@ -295,6 +296,7 @@ To optimize streaming scenarios, there are a few restrictions that MAY
 be imposed on the sequence in which name/value pairs appear within JSON
 objects. For details on the ordering requirements see [Payload Ordering
 Constraints](#PayloadOrderingConstraints).
+
 
 -------
 
@@ -450,8 +452,8 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section [Control Information: type
-  (odata.type)](#ControlInformationtypeodatatype).
+  the data value, see section
+  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
 
 Media entities and stream properties may in addition contain the
 following control information:
@@ -532,6 +534,7 @@ Payloads with an `OData-Version` header equal to `4.01`
 or greater always allow exponential notation for numbers and the
 `ExponentialDecimals` format parameter is not needed or used.
 
+
 -------
 
 # <a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a>
@@ -562,8 +565,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section [Payload
-Ordering Constraints](#PayloadOrderingConstraints).
+a value of `true` or `false`, see section "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
@@ -826,6 +828,8 @@ following is true:
   or (collection of) complex type instances, or
 - The type is for a property whose type is not declared in
   `$metadata`.
+
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
 
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
@@ -1167,6 +1171,7 @@ Example 8: Annotating primitive values within a collection
 ```
 :::
 
+
 -------
 
 # <a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a>
@@ -1327,6 +1332,7 @@ Example 11: entity with `metadata=full`
 }
 ```
 :::
+
 
 -------
 
@@ -1825,6 +1831,7 @@ Example 24:
 ```
 :::
 
+
 -------
 
 # <a name="MediaEntity" href="#MediaEntity">10 Media Entity</a>
@@ -2057,6 +2064,7 @@ Example 32: collection of entity references
 }
 ```
 :::
+
 
 -------
 
@@ -2552,6 +2560,7 @@ inline as a delta
 ```
 :::
 
+
 -------
 
 # <a name="BoundFunction" href="#BoundFunction">16 Bound Function</a>
@@ -2818,6 +2827,7 @@ In order to invoke an action with no non-binding parameters, the client
 passes an empty JSON object in the body of the request. 4.01 Services
 MUST also support clients passing an empty request body for this case.
 
+
 -------
 
 # <a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a>
@@ -2999,7 +3009,9 @@ Content-Length: ###
 ## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
 
 The entity returned by a preceding request can be referenced in the
-request URL of subsequent requests.
+request URL of subsequent requests. If the `Location` header in the response
+contains a relative URL, clients MUST be able to resolve it relative to the
+request's URL even if that contains such a reference.
  
 ::: example
 Example 49: a batch request that contains the following operations in
@@ -3337,6 +3349,7 @@ Content-Type: application/json
 }
 ```
 ::: 
+
 -------
 
 # <a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a>
@@ -3596,6 +3609,7 @@ receiving party in order to correctly interpret the rest of the payload
 as the receiving party MUST ignore unknown annotations not defined in
 this version of the OData JSON Specification.
 
+
 -------
 
 # <a name="Conformance" href="#Conformance">23 Conformance</a>
@@ -3675,6 +3689,7 @@ In addition, in order to comply with the OData 4.01 JSON format, a service:
 27. MUST support the OData JSON 4.01 format in request payloads for requests with an `OData-Version` header value of `4.01`
 28. MUST honor the `odata.etag` control information within `PUT`, `PATCH` or `DELETE` payloads, if specified
 29. MUST support returning, in the final response to an asynchronous request, the `application/json` payload that would have been returned had the operation completed synchronously
+
 
 -------
 
