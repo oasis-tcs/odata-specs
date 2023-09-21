@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "ABNF",
     "asec",
     "CSDL",
     "ETag",
@@ -9,6 +10,8 @@
     "subasec",
     "subsec",
     "subsubsec",
-    "subsubsubsec"
+    "subsubsubsec",
+    "subsubsubsubsec",
+    "upsert"
   ]
 }
