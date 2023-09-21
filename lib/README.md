@@ -89,7 +89,7 @@ The [`pdf.js`](pdf.js) module uses a headless browser ([`puppeteer`](https://git
 
 The following scripts can be executed manually or as part of a GitHub Action:
 
-- [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`docs/*`](../docs) folder. The Markdown file starts with a byte-order mark (`EF BB BF`) so that it is recognized as UTF-8 when loaded from github.io.
+- [`npm run build`](build.js) runs the conversion and writes the Markdown output as well as the HTML output into the [`docs/*`](../docs) folder.
 - [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`docs/*`](../docs) folder.
 - [`npm test`](../test) runs a test suite.
 
