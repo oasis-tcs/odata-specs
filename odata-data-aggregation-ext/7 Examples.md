@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Examples
@@ -617,7 +618,7 @@ GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
 returns the different combinations of products sold per country:
 ```json
 {
-  "@context":"$metadata#Customers(Country,ProductSales())",
+  "@context": "$metadata#Customers(Country,ProductSales())",
   "value": [
     { "Country": "Netherlands",
       "ProductSales@context": "#Sales(Product(Name))/$entity",
@@ -1001,21 +1002,21 @@ results in
   "@context": "$metadata#Sales(CustomerCountryAverage)",
   "value": [
     { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":   7 },
     { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage":  12 },
     { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 9.5 },
     { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
     { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@type":"Decimal",
+      "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@type":"Decimal",
+    { "CustomerCountryAverage@type": "Decimal",
       "CustomerCountryAverage": 7.25 }
   ]
 }
@@ -1686,7 +1687,7 @@ GET /service/Sales?$apply=groupby((Product/Category/ID),
 results in
 ```json
 {
-  "@context":"$metadata#Sales(Product(Category(ID)),Customers())",
+  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
   "value": [
     { "Product": { "Category": { "ID": "PG1" } },
       "Customers@context": "#Sales(Customer(ID))",
