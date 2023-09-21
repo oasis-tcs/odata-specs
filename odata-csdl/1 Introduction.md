@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Introduction
@@ -82,6 +83,9 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
+
+-------
+
 : varjson
 # ##sec JSON Representation
 
@@ -346,6 +350,8 @@ enumeration types](#EnumerationTypeMember) and items within a
 OData does not impose any ordering constraints on XML attributes within
 XML elements.
 :
+
+-------
 
 # ##sec Entity Model
 
