@@ -1418,7 +1418,7 @@ mode, the path is evaluated starting at the declared type of the property. An
 empty path resolves to the declared type of the property, and non-empty paths
 MUST follow the rules for annotations targeting the declared type of the
 property. If the type is primitive, the first segment of a non-empty path MUST
-be a [type cast](#TypeCast), or a [term cast](#TermCast).
+be a [type cast](#TypeCast) or a [term cast](#TermCast).
 
 For annotations hosted by a structural or navigation property of an entity
 type or complex type in embedded mode, the path is evaluated starting at the
