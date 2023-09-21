@@ -4379,8 +4379,8 @@ Annotations MAY be embedded within their target, or specified separately,
 e.g. as part of a different schema, and specify a path to their target model
 element. The latter situation is referred to as *targeting* in the remainder of
 this section. In this subsection, an annotation said to be *hosted* by its
-target, or if that target is another annotation, by that annotation's target,
-and so on.
+target, unless that target is another annotation, in which case it is hosted
+by that annotation's target, and so on.
 
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend on the model
@@ -4441,10 +4441,12 @@ type.
 
 For annotations hosted by a structural or navigation property of an entity
 type or complex type in targeting mode, the path is evaluated starting at the *outermost*
-entity type or complex type named in the target of the annotation, i.e. an
-empty path resolves to the outermost type, and the first segment of a
-non-empty path MUST be a structural or navigation property of the outermost
-type, a [type cast](#TypeCast), or a [term cast](#TermCast).
+entity type or complex type named in the target of the annotation. This allows
+e.g. specifying the value of an annotation on one property to be calculated
+from values of other properties of the outermost type. An empty path resolves
+to the outermost type, and the first segment of a non-empty path MUST be a
+structural or navigation property of the outermost type, a [type cast](#TypeCast),
+or a [term cast](#TermCast).
 
 ::: {.varjson .example}
 Example 67: annotations hosted by property B in various modes
