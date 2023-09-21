@@ -1,4 +1,4 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
@@ -4004,7 +4004,7 @@ for the record being updated.
 Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
 possible. However, where the underlying storage does not support offset
 services may be forced to normalize the value to some common time zone
-(i.e. UTC) in which case the result would be returned with that time
+(for example UTC) in which case the result would be returned with that time
 zone offset. If the service normalizes values, it MUST fail evaluation
 of the [query functions](#BuiltinQueryFunctions) `year`, `month`, `day`,
 `hour`, and `time` for literal values that are not stated in the time
@@ -5667,7 +5667,9 @@ the rules for which individual requests require an identifier.
 Entities created by an [insert](#CreateanEntity) request can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
-the request URL.
+the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
+clients MUST be able to resolve it relative to the request's URL even if
+that contains such a reference.
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin,` `$all,` `$entity`,
