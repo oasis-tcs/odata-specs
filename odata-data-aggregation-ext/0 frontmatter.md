@@ -17,7 +17,7 @@ https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.html \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$previousStage$$$/odata-data-aggregation-ext-v4.0-$$$previousStage$$$.pdf
 
