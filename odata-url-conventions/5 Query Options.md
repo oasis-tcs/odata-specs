@@ -1,3 +1,4 @@
+
 -------
 
 # ##sec Query Options
@@ -969,7 +970,7 @@ parameter value. The `dayMethodCallExpr` syntax rule defines how the
 `day` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `day` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1019,7 +1020,7 @@ zone of the `DateTimeOffset` parameter value. The `hourMethodCallExpr`
 syntax rule defines how the `hour` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `hour` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1090,7 +1091,7 @@ The `month` function returns the month component of the `Date` or
 defines how the `month` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `month` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1113,11 +1114,11 @@ Edm.DateTimeOffset now()
 The `now` function returns the current point in time (date and time with
 time zone) as a `DateTimeOffset` value.
 
-Services are free to choose the time zone for the current point, e.g.
+Services are free to choose the time zone for the current point, for example
 UTC. Services that are unable to preserve the offset of
 `Edm.DateTimeOffset` values and instead normalize the values to some
 common time zone SHOULD return a value in the normalized time zone
-(i.e., UTC).
+(for example UTC).
 
 ##### ##subsubsubsubsec `second`
 
@@ -1155,7 +1156,7 @@ parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1198,7 +1199,7 @@ The `year` function returns the year component of the `Date` or
 defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `year` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1672,8 +1673,7 @@ http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ##### ##subsubsubsubsec `$root`
 
 The `$root` literal can be used in expressions to refer to resources of
-the same service. It can be used as a single-valued expression or within
-[complex or collection literals](#ComplexandCollectionLiterals).
+the same service.
 
 ::: example
 Example ##ex: all employees with the same last name as employee `A1235`
@@ -1685,9 +1685,16 @@ http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastN
 ::: example
 Example ##ex: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
-`$root` to each customer.
+`$root` to each customer
 ```
 http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+```
+:::
+
+::: example
+Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
+```
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -1924,7 +1931,7 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A property MUST NOT appear in more than one expand item.
+A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
