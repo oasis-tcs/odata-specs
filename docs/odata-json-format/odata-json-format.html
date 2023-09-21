@@ -389,7 +389,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink"><code>editLink</code></a>: the link used to edit/update the entity, if the entity is updatable and the <code>id</code> does not represent a URL that can be used to edit the entity</li>
 <li><a href="#NavigationLink"><code>navigationLink</code></a>: the link used to retrieve the values of a navigation property</li>
 <li><a href="#AssociationLink"><code>associationLink</code></a>: the link used to describe the relationship between this entity and related entities</li>
-<li><a href="#ControlInformationtypeodatatype"><code>type</code></a>: the type of the containing object or targeted property if the type of the object or targeted property cannot be heuristically determined from the data value, see section <a href="#ControlInformationtypeodatatype">Control Information: type (odata.type)</a>.</li>
+<li><a href="#ControlInformationtypeodatatype"><code>type</code></a>: the type of the containing object or targeted property if the type of the object or targeted property cannot be heuristically determined from the data value, see section "<a href="#ControlInformationtypeodatatype">Control Information: type (odata.type)</a>".</li>
 </ul>
 <p>Media entities and stream properties may in addition contain the following control information:</p>
 <ul>
@@ -419,7 +419,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Requests MAY add the <code>charset</code> parameter to the content type. Allowed values are <code>UTF-8</code>,<code> UTF-16</code>, and <code>UTF-32</code>. If no <code>charset</code> parameter is present, <code>UTF-8</code> MUST be assumed.</p>
 <p>Responses MUST include the <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> parameter to specify the amount of metadata included in the response.</p>
 <p>Requests and responses MUST include the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> parameter if <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers are represented as strings.</p>
-<p>Requests and responses MAY add the <code>streaming</code> parameter with a value of <code>true</code> or <code>false</code>, see section <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
+<p>Requests and responses MAY add the <code>streaming</code> parameter with a value of <code>true</code> or <code>false</code>, see section "<a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>".</p>
 <h2 id="42-message-body"><a name="MessageBody" href="#MessageBody">4.2 Message Body</a></h2>
 <p>Each message body is represented as a single JSON object. This object is either the representation of an <a href="#Entity">entity</a>, an <a href="#EntityReference">entity reference</a> or a <a href="#ComplexValue">complex type instance</a>, or it contains a name/value pair whose name MUST be <code>value</code> and whose value is the correct representation for a <a href="#PrimitiveValue">primitive value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, a <a href="#CollectionofComplexValues">collection of complex values</a>, a <a href="#CollectionofEntities">collection of entities</a>, or a collection of objects that represent <a href="#DeltaPayload">changes to a previous result</a>.</p>
 <p>Client libraries MUST retain the order of objects within an array in JSON responses.</p>
@@ -509,6 +509,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The type is derived from the type specified for the (collection of) entities or (collection of) complex type instances, or</li>
 <li>The type is for a property whose type is not declared in <code>$metadata</code>.</li>
 </ul>
+<p>It MAY appear in other cases in requests and responses if its value does not contradict the type declared in <code>$metadata</code>.</p>
 <p>The following heuristics are used to determine the primitive type of a dynamic property in the absence of the <code>type</code> control information:</p>
 <ul>
 <li>Boolean values have a first-class representation in JSON and do not need any additional control information.</li>
@@ -1578,7 +1579,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
-<p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests.</p>
+<p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests. If the <code>Location</code> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request's URL even if that contains such a reference.</p>
 <div class="example">
 <p>Example 49: a batch request that contains the following operations in the order listed:</p>
 <ul>
