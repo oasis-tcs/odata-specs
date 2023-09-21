@@ -4285,7 +4285,7 @@ Addresses/-1/Street
 Annotations MAY be embedded within their target, or specified separately,
 e.g. as part of a different schema, and specify a path to their target model
 element. The latter situation is referred to as *targeting* in the remainder of
-this section. In this subsection, an annotation said to be *hosted* by its
+this section. In this subsection, an annotation is said to be *hosted* by its
 target, unless that target is another annotation, in which case it is hosted
 by that annotation's target, and so on.
 
