@@ -1,25 +1,25 @@
-﻿
+
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 
 -------
 
 # OData Extension for Data Aggregation Version 4.0
 
-## Committee Specification Draft 04
+## Committee Specification 03
 
-## 05 July 2023
+## 30 August 2023
 
 &nbsp;
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html \
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.docx (Authoritative) \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.md (Authoritative) \
@@ -45,10 +45,10 @@ Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
-* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/abnf/
+* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/
 * OData Aggregation Vocabulary:
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.json
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.json
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### <a name="RelatedWork">Related work:</a>
 This specification is related to:
@@ -82,8 +82,8 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 05 July 2023. OASIS Committee Specification Draft 04.
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd04/odata-data-aggregation-ext-v4.0-csd04.html.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 30 August 2023. OASIS Committee Specification 03.
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
 #### Notices
@@ -253,12 +253,12 @@ All examples in this document are non-normative and informative only. Examples l
 All other text is normative unless otherwise labeled.
 
 ::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-csd04.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-cs03.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs
        -t html
-       -o odata-data-aggregation-ext-v4.0-csd04.html
+       -o odata-data-aggregation-ext-v4.0-cs03.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -266,7 +266,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
-       odata-data-aggregation-ext-v4.0-csd04.md
+       odata-data-aggregation-ext-v4.0-cs03.md
 ```
 
 This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
@@ -2490,7 +2490,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
-    aggregation-ext/v4.0/csd04/vocabularies/Org.OData.Aggregation.V1.xml">
+    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml">
     <edmx:Include Alias="Aggregation"
                   Namespace="Org.OData.Aggregation.V1" />
   </edmx:Reference>
@@ -4955,6 +4955,7 @@ Committee Specification Draft 01|2013-07-25| Ralf Handl<br> Hubert Heijkers<br> 
 Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
 Committee Specification Draft 04|2023-07-05| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
+Committee Specification 03|2023-08-30| Ralf Handl<br> Gerald Krause<br> Heiko Theißen| Non-material changes from public review feedback
 
 -------
 
