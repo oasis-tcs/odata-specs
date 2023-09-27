@@ -4416,7 +4416,7 @@ Example 67: annotations hosted by property B in various modes
 The annotation path expression provides a value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
+`Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
