@@ -4388,7 +4388,7 @@ Example 67: annotations hosted by property B in various modes
   },
   "Container": {
     "$Kind": "EntityContainer",
-    "SetA": { "$Collection": true, "$Type": "A" }
+    "SetA": { "$Collection": true, "$Type": "self.A" }
   },
   "$Annotations": {
     "self.Container/SetA/B": {

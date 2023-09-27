@@ -4295,7 +4295,7 @@ Example 67: annotations hosted by property B in various modes
     </Property>
   </EntityType>
   <EntityContainer Name="Container">
-    <EntitySet Name="SetA" EntityType="A" />
+    <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/B">
     <Annotation Term="Core.Description" Qualifier="viaset" String="container">

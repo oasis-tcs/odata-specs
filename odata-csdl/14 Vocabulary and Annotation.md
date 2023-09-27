@@ -1451,7 +1451,7 @@ Example ##ex: annotations hosted by property B in various modes
   },
   "Container": {
     "$Kind": "EntityContainer",
-    "SetA": { "$Collection": true, "$Type": "A" }
+    "SetA": { "$Collection": true, "$Type": "self.A" }
   },
   "$Annotations": {
     "self.Container/SetA/B": {
@@ -1486,7 +1486,7 @@ Example ##ex: annotations hosted by property B in various modes
     </Property>
   </EntityType>
   <EntityContainer Name="Container">
-    <EntitySet Name="SetA" EntityType="A" />
+    <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/B">
     <Annotation Term="Core.Description" Qualifier="viaset" String="container">
