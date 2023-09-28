@@ -4339,16 +4339,16 @@ import, parameter, or return type, the first segment of the path MUST be a
 parameter name or `$ReturnType`.
 
 For the remaining cases, the path evaluation rules additionally depend on the
-*mode* ("container", "embedded", or "targeting") in which the hosting happens:
+mode ("container", "embedded", or "targeting") in which the hosting happens:
 - An annotation with external targeting whose target path starts with an
-  entity container is hosted in container mode.
+  entity container is hosted in *container mode*.
 - An annotation with external targeting whose target path starts with another
-  kind of schema child is hosted in targeting mode.
+  kind of schema child is hosted in *targeting mode*.
 - An annotation embedded within another annotation or a collection, record or
   property value of another annotation is hosted in the same mode as that
   other annotation.
 - An annotation embedded within another kind of model element is hosted in
-  embedded mode.
+  *embedded mode*.
 
 For annotations hosted by a structural or navigation property in container
 mode, the path is evaluated starting at the declared type of the property. An
