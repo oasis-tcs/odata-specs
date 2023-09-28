@@ -4304,18 +4304,14 @@ Addresses/-1/Street
 Annotations MAY be embedded within their target, or specified separately,
 e.g. as part of a different schema, and specify a path to their target model
 element. The latter situation is referred to as *targeting* in the remainder of
-this section. In this subsection, an annotation is said to be *hosted* by its
-target, unless that target is another annotation, in which case it is hosted
-by that annotation's target, and so on.
+this section.
 
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend on the model
-element by which the annotation is hosted. More precisely, this subsection defines:
-- An annotation embedded within or targeting another annotation or a
-  collection, record or property value of another annotation is hosted by the
-  same model element as that other annotation.
-- An annotation embedded within or targeting another kind of model element is
-  hosted by that model element.
+element by which the annotation is hosted. In this subsection, an annotation
+is said to be *hosted* by its target, unless that target is another annotation
+or a collection, record or property value of another annotation, in which case
+it is hosted by the same model element that also hosts that other annotation.
 
 For annotations hosted by an entity container, the path is evaluated starting
 at the entity container, i.e. an empty path resolves to the entity container,
@@ -4338,41 +4334,35 @@ For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be a
 parameter name or `$ReturnType`.
 
-For the remaining cases, the path evaluation rules additionally depend on the
-mode ("container", "embedded", or "targeting") in which the hosting happens:
-- An annotation with external targeting whose target path starts with an
-  entity container is hosted in *container mode*.
-- An annotation with external targeting whose target path starts with another
-  kind of schema child is hosted in *targeting mode*.
-- An annotation embedded within another annotation or a collection, record or
-  property value of another annotation is hosted in the same mode as that
-  other annotation.
-- An annotation embedded within another kind of model element is hosted in
-  *embedded mode*.
+For annotations hosted by a structural or navigation property, the path evaluation
+rules additionally depend on whether the annotation is embedded or uses targeting:
 
-For annotations hosted by a structural or navigation property in container
-mode, the path is evaluated starting at the declared type of the property. An
-empty path resolves to the declared type of the property, and non-empty paths
-MUST follow the rules for annotations targeting the declared type of the
-property. If the type is primitive, the first segment of a non-empty path MUST
-be a [type cast](#TypeCast) or a [term cast](#TermCast).
+- If the annotation uses targeting and the target path starts with
+  an entity container, or the annotation is directly or indirectly embedded in such an
+  annotation, the path is evaluated starting at the declared type of the
+  hosting property. An empty path resolves to the declared type of the
+  property, and non-empty paths MUST follow the rules for annotations
+  targeting the declared type of the property. If the type is primitive, the
+  first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
+  [term cast](#TermCast).
 
-For annotations hosted by a structural or navigation property of an entity
-type or complex type in embedded mode, the path is evaluated starting at the
-directly enclosing type. This allows e.g. specifying the value of an
-annotation on one property to be calculated from values of other properties of
-the same enclosing type. An empty path resolves to the enclosing type, and non-empty
-paths MUST follow the rules for annotations targeting the directly enclosing
-type.
+- If the annotation uses targeting and the target path does not
+  start with an entity container, or the annotation is directly or indirectly
+  embedded in such an annotation, the path is evaluated starting at the *outermost*
+  entity type or complex type named in the target path. This
+  allows e.g. specifying the value of an annotation on one property to be
+  calculated from values of other properties of the outermost type. An empty
+  path resolves to the outermost type, and the first segment of a non-empty
+  path MUST be a structural or navigation property of the outermost type, a
+  [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations hosted by a structural or navigation property of an entity
-type or complex type in targeting mode, the path is evaluated starting at the *outermost*
-entity type or complex type named in the target of the annotation. This allows
-e.g. specifying the value of an annotation on one property to be calculated
-from values of other properties of the outermost type. An empty path resolves
-to the outermost type, and the first segment of a non-empty path MUST be a
-structural or navigation property of the outermost type, a [type cast](#TypeCast),
-or a [term cast](#TermCast).
+- If the annotation is directly or indirectly embedded in the hosting
+  property, the path is evaluated starting at the directly enclosing type of
+  the hosting property. This allows e.g. specifying the value of an annotation
+  on one property to be calculated from values of other properties of the same
+  enclosing type. An empty path resolves to the enclosing type, and non-empty
+  paths MUST follow the rules for annotations targeting the directly enclosing
+  type.
 
 ::: {.varjson .example}
 Example 67: annotations hosted by property B in various modes
@@ -4382,8 +4372,8 @@ Example 67: annotations hosted by property B in various modes
     "$Kind": "EntityType", ...,
     "B": {
       "$Nullable": true,
-      "@Core.Description@Core.Description": "embedded",
-      "@Core.Description": "embedded"
+      "@Core.Description@Core.Description": "bullet point #3",
+      "@Core.Description": "bullet point #3"
     }
   },
   "Container": {
@@ -4392,18 +4382,18 @@ Example 67: annotations hosted by property B in various modes
   },
   "$Annotations": {
     "self.Container/SetA/B": {
-      "@Core.Description#viaset@Core.Description": "container",
-      "@Core.Description#viaset": "container"
+      "@Core.Description#viaset@Core.Description": "bullet point #1",
+      "@Core.Description#viaset": "bullet point #1"
     },
     "self.A/B": {
-      "@Core.Description#external@Core.Description": "targeting",
-      "@Core.Description#external": "targeting"
+      "@Core.Description#external@Core.Description": "bullet point #2",
+      "@Core.Description#external": "bullet point #2"
     },
     "self.Container/SetA/B/@Core.Description#viaset": {
-      "@Core.Description": "container"
+      "@Core.Description": "bullet point #1"
     },
     "self.A/B/@Core.Description": {
-      "@Core.Description": "targeting"
+      "@Core.Description": "bullet point #2"
     }
   }
 }
