@@ -58,7 +58,7 @@ Example ##ex_api1: model for `api-1` with snapshot entity sets (hidden
 application time), key properties marked with {id}
 :::
 
-![API-1](./images/api-1.drawio.svg)
+$$$include images/api-1.drawio.svg$$$
 
 and
 
@@ -67,8 +67,7 @@ Example ##ex_api2: model for `api-2` with timeline entity sets (visible
 application time), key properties marked with {id}
 :::
 
-![API-2](./images/api-2.drawio.svg)
-
+$$$include images/api-2.drawio.svg$$$
 
 ## ##subsec Example Data
 
@@ -80,7 +79,7 @@ Example ##ex: simple storage model: object key in dark green, temporal
 sub-key in light green, foreign keys in orange, non-key fields in blue
 :::
 
-![DB](./images/db.drawio.svg)
+$$$include images/db.drawio.svg$$$
 
 The period start date is used as the temporal sub-key for identifying
 time slices together with the key of the temporal object.

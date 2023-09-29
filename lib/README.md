@@ -22,6 +22,7 @@ The [`number.js`](number.js) module generates a single Markdown document by prep
 - Generate section and example numbers
 - Generate a table of contents
 - Resolve references
+- Include files like `$$$include images/drawing.svg$$$`
 - Replace placeholders like `$$$pagetitle$$$` with values from a [`meta.yaml`](../odata-data-aggregation-ext/meta.yaml) file
 - Join multiple lines that end with a single space into one line
 - Sections of the file between `: varXXX` and `:` or between `::: {.varXXX ...}` and `:::` belong to a variant. One source file can contain several variants.
