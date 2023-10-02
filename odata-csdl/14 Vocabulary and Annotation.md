@@ -1370,7 +1370,7 @@ element. The latter situation is referred to as *targeting* in the remainder of
 this section.
 
 If the value of an annotation is expressed dynamically with a path
-expression, the path evaluation rules for this expression depend on the model
+expression, the path evaluation rules for this expression depend upon the model
 element by which the annotation is hosted. In this subsection, an annotation
 is said to be *hosted* by its target, unless that target is another annotation
 or a collection, record or property value of another annotation, in which case
@@ -1397,8 +1397,9 @@ For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be a
 parameter name or `$ReturnType`.
 
-For annotations hosted by a structural or navigation property, the path evaluation
-rules additionally depend on whether the annotation is embedded or uses targeting:
+For annotations hosted by a structural or navigation property, the path
+evaluation rules additionally depend upon how the annotation target is
+specified, as follows:
 
 - If the annotation uses targeting and the target path starts with
   an entity container, or the annotation is directly or indirectly embedded in such an
