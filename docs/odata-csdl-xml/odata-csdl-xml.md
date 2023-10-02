@@ -4238,8 +4238,8 @@ the first segment of a non-empty path MUST be a structural or navigation
 property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
 For annotations hosted by an action, action import, function, function
-import, parameter, or return type, the first segment of the path MUST be a
-parameter name or `$ReturnType`.
+import, parameter, or return type, the first segment of the path MUST be the
+name of a parameter of the action or function or `$ReturnType`.
 
 For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
