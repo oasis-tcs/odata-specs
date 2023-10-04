@@ -4306,12 +4306,14 @@ e.g. as part of a different schema, and specify a path to their target model
 element. The latter situation is referred to as *targeting* in the remainder of
 this section.
 
+The *host* of an annotation is the model element targeted by the annotation,
+unless that target is another annotation or a model element (collection,
+record or property value) directly or indirectly contained in another
+annotation, in which case the host is the host of that other annotation.
+
 If the value of an annotation is expressed dynamically with a path
-expression, the path evaluation rules for this expression depend upon the model
-element by which the annotation is hosted. In this subsection, an annotation
-is said to be *hosted* by its target, unless that target is another annotation
-or a collection, record or property value of another annotation, in which case
-it is hosted by the same model element that also hosts that other annotation.
+expression, the path evaluation rules for this expression depend upon the
+model element by which the annotation is hosted.
 
 For annotations hosted by an entity container, the path is evaluated starting
 at the entity container, i.e. an empty path resolves to the entity container,
@@ -4365,42 +4367,58 @@ specified, as follows:
   paths MUST follow the rules for annotations targeting the directly enclosing
   type.
 
-::: {.varjson .example}
-Example 67: annotations hosted by property B in various modes
+::: example
+Example 67: Annotations hosted by property B in various modes
+
+The annotations in the first block are treated according to the third bullet point:
+:::: varjson
 ```json
 "self": {
   "A": {
     "$Kind": "EntityType", ...,
     "B": {
       "$Nullable": true,
-      "@Core.Description@Core.Description": "bullet point #3",
-      "@Core.Description": "bullet point #3"
+      "@Core.Description@Core.IsLanguageDependent": ...,
+      "@Core.Description": ...,
     }
   },
+```
+::::
+
+The annotations in the next block are treated according to the first bullet point:
+:::: varjson
+```json
   "Container": {
     "$Kind": "EntityContainer",
     "SetA": { "$Collection": true, "$Type": "self.A" }
   },
   "$Annotations": {
     "self.Container/SetA/B": {
-      "@Core.Description#viaset@Core.Description": "bullet point #1",
-      "@Core.Description#viaset": "bullet point #1"
-    },
-    "self.A/B": {
-      "@Core.Description#external@Core.Description": "bullet point #2",
-      "@Core.Description#external": "bullet point #2"
+      "@Core.Description#viaset@Core.IsLanguageDependent": ...,
+      "@Core.Description#viaset": ...
     },
     "self.Container/SetA/B/@Core.Description#viaset": {
-      "@Core.Description": "bullet point #1"
+      "@Core.IsLanguageDependent": ...
+    },
+```
+::::
+
+The annotations in the final block are treated according to the second bullet point:
+:::: varjson
+```json
+    "self.A/B": {
+      "@Core.Description#external@Core.IsLanguageDependent": ...,
+      "@Core.Description#external": ...
     },
     "self.A/B/@Core.Description": {
-      "@Core.Description": "bullet point #2"
+      "@Core.IsLanguageDependent": ...
     }
   }
 }
 ```
-:::
+::::
 
+:::
 
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
