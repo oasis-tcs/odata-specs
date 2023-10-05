@@ -257,6 +257,10 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
+Section | Feature / Change | OData Issue
+--------|------------------|------------
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
