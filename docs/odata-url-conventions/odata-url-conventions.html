@@ -1234,7 +1234,7 @@ hassubsequence([1,2],[1,1,2])</code></pre>
 <pre><code>Edm.Int32 day(Edm.Date)
 Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
 <p>The <code>day</code> function returns the day component <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>dayMethodCallExpr</code> syntax rule defines how the <code>day</code> function is invoked.</p>
-<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (i.e. UTC) MUST fail evaluation of the <code>day</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>day</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 85: all employees born on the 8th day of a month</p>
 <pre><code>http://host/service/Employees?$filter=day(BirthDate) eq 8</code></pre>
@@ -1253,7 +1253,7 @@ Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
 <pre><code>Edm.Int32 hour(Edm.DateTimeOffset)
 Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 <p>The <code>hour</code> function returns the hour component (<code>0</code> to <code>23</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>hourMethodCallExpr</code> syntax rule defines how the <code>hour</code> function is invoked.</p>
-<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (i.e. UTC) MUST fail evaluation of the <code>hour</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>hour</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 87: all employees born in hour 4, between 04:00 (inclusive) and 05:00 (exclusive)</p>
 <pre><code>http://host/service/Employees?$filter=hour(BirthDate) eq 4</code></pre>
@@ -1280,7 +1280,7 @@ Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
 <pre><code>Edm.Int32 month(Edm.Date)
 Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <p>The <code>month</code> function returns the month component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>monthMethodCallExpr</code> syntax rule defines how the <code>month</code> function is invoked.</p>
-<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (i.e. UTC) MUST fail evaluation of the <code>month</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>month</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 89: all employees born in May</p>
 <pre><code>http://host/service/Employees?$filter=month(BirthDate) eq 5</code></pre>
@@ -1289,7 +1289,7 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <p>The <code>now</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset now()</code></pre>
 <p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value.</p>
-<p>Services are free to choose the time zone for the current point, e.g. UTC. Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone SHOULD return a value in the normalized time zone (i.e., UTC).</p>
+<p>Services are free to choose the time zone for the current point, for example UTC. Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone SHOULD return a value in the normalized time zone (for example UTC).</p>
 <h5 id="511810-second"><a name="second" href="#second">5.1.1.8.10 <code>second</code></a></h5>
 <p>The <code>second</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 second(Edm.DateTimeOffset)
@@ -1303,7 +1303,7 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <p>The <code>time</code> function has the following signature:</p>
 <pre><code>Edm.TimeOfDay time(Edm.DateTimeOffset)</code></pre>
 <p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
-<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (i.e. UTC) MUST fail evaluation of the <code>time</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>time</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <h5 id="511812-totaloffsetminutes"><a name="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 <code>totaloffsetminutes</code></a></h5>
 <p>The <code>totaloffsetminutes</code> function has the following signature:</p>
 <pre><code>Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)</code></pre>
@@ -1317,7 +1317,7 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <pre><code>Edm.Int32 year(Edm.Date)
 Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
 <p>The <code>year</code> function returns the year component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>yearMethodCallExpr</code> syntax rule defines how the <code>year</code> function is invoked.</p>
-<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (i.e. UTC) MUST fail evaluation of the <code>year</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+<p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>year</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 91: all employees born in 1971</p>
 <pre><code>http://host/service/Employees?$filter=year(BirthDate) eq 1971</code></pre>
@@ -1755,7 +1755,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Example 116: expand a navigation property of a complex type</p>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
-<p>A property MUST NOT appear in more than one expand item.</p>
+<p>A path MUST NOT appear in more than one expand item.</p>
 <p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
 <div class="example">
 <p>Example 117: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
