@@ -1403,37 +1403,37 @@ For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
 specified, as follows:
 
-- If the annotation uses targeting and the target path starts with
-  an entity container, or the annotation is directly or indirectly embedded in such an
-  annotation, the path is evaluated starting at the declared type of the
-  hosting property. An empty path resolves to the declared type of the
-  property, and non-empty paths MUST follow the rules for annotations
-  targeting the declared type of the property. If the type is primitive, the
-  first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
-  [term cast](#TermCast).
+1. If the annotation is directly or indirectly embedded in the hosting
+   property, the path is evaluated starting at the directly enclosing type of
+   the hosting property. This allows e.g. specifying the value of an
+   annotation on one property to be calculated from values of other properties
+   of the same enclosing type. An empty path resolves to the enclosing type,
+   and non-empty paths MUST follow the rules for annotations targeting the
+   directly enclosing type.
 
-- If the annotation uses targeting and the target path does not
-  start with an entity container, or the annotation is directly or indirectly
-  embedded in such an annotation, the path is evaluated starting at the *outermost*
-  entity type or complex type named in the target path. This
-  allows e.g. specifying the value of an annotation on one property to be
-  calculated from values of other properties of the outermost type. An empty
-  path resolves to the outermost type, and the first segment of a non-empty
-  path MUST be a structural or navigation property of the outermost type, a
-  [type cast](#TypeCast), or a [term cast](#TermCast).
+2. If the annotation uses targeting and the target path starts with an entity
+   container, or the annotation is directly or indirectly embedded in such an
+   annotation, the path is evaluated starting at the declared type of the
+   hosting property. An empty path resolves to the declared type of the
+   property, and non-empty paths MUST follow the rules for annotations
+   targeting the declared type of the property. If the type is primitive, the
+   first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
+   [term cast](#TermCast).
 
-- If the annotation is directly or indirectly embedded in the hosting
-  property, the path is evaluated starting at the directly enclosing type of
-  the hosting property. This allows e.g. specifying the value of an annotation
-  on one property to be calculated from values of other properties of the same
-  enclosing type. An empty path resolves to the enclosing type, and non-empty
-  paths MUST follow the rules for annotations targeting the directly enclosing
-  type.
+3. If the annotation uses targeting and the target path does not start with
+   an entity container, or the annotation is directly or indirectly embedded
+   in such an annotation, the path is evaluated starting at the *outermost*
+   entity type or complex type named in the target path. This allows e.g.
+   specifying the value of an annotation on one property to be calculated from
+   values of other properties of the outermost type. An empty path resolves to
+   the outermost type, and the first segment of a non-empty path MUST be a
+   structural or navigation property of the outermost type, a [type cast](#TypeCast),
+   or a [term cast](#TermCast).
 
 ::: example
 Example ##ex: Annotations hosted by property B in various modes
 
-The annotations in the first block are treated according to the third bullet point:
+The annotations in the first block are treated according to case #1:
 :::: varjson
 ```json
 "self": {
@@ -1461,7 +1461,7 @@ The annotations in the first block are treated according to the third bullet poi
 ```
 ::::
 
-The annotations in the next block are treated according to the first bullet point:
+The annotations in the next block are treated according to case #2:
 :::: varjson
 ```json
   "Container": {
@@ -1494,7 +1494,7 @@ The annotations in the next block are treated according to the first bullet poin
 ```
 ::::
 
-The annotations in the final block are treated according to the second bullet point:
+The annotations in the final block are treated according to case #3:
 :::: varjson
 ```json
     "self.A/B": {

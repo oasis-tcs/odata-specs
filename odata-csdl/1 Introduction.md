@@ -27,8 +27,8 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | OData Issue
---------|------------------|------------
+Section | Feature / Change | Issue
+--------|------------------|------
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
