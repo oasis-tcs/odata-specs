@@ -1442,7 +1442,7 @@ The annotations in the first block are treated according to case #1:
     "B": {
       "$Nullable": true,
       "@Core.Description@Core.IsLanguageDependent": ...,
-      "@Core.Description": ...,
+      "@Core.Description": ...
     }
   },
 ```
