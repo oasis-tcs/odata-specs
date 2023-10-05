@@ -829,6 +829,8 @@ following is true:
 - The type is for a property whose type is not declared in
   `$metadata`.
 
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
+
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
 information:
@@ -3007,7 +3009,9 @@ Content-Length: ###
 ## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
 
 The entity returned by a preceding request can be referenced in the
-request URL of subsequent requests.
+request URL of subsequent requests. If the `Location` header in the response
+contains a relative URL, clients MUST be able to resolve it relative to the
+request's URL even if that contains such a reference.
  
 ::: example
 Example 49: a batch request that contains the following operations in

@@ -294,6 +294,8 @@ following is true:
 - The type is for a property whose type is not declared in
   `$metadata`.
 
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
+
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
 information:
