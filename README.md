@@ -28,7 +28,18 @@ Documents are generated from Markdown sources using Node.js modules described [h
 3. Download and install [git](https://git-scm.com/), verify via `git -v`
 4. Optionally download and install [GitHub Desktop](https://desktop.github.com/)
 5. Clone this repository
-6. In the local repository folder run `npm install`, verify via `npm test`
+6. In the local repository folder run `npm install`, verify via `npm test`  
+   Repeat this step if the test fails with an error message like the following after upgrading to a new Chrome version:
+   ```
+     1 failing
+   
+     1) OASIS doc build
+          Puppeteer:
+        Error: Could not find Chrome (ver. 116.0.5845.96). This can occur if either
+    1. you did not perform an installation before running the script (e.g. `npm install`) or
+    2. your cache path is incorrectly configured (which is: C:\Users\D024504\.cache\puppeteer).
+   For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
+   ```
 
 ### Document preparation
 
