@@ -4312,7 +4312,7 @@ this section.
 
 The *host* of an annotation is the model element targeted by the annotation,
 unless that target is another annotation or a model element (collection,
-record or property value) directly or indirectly contained in another
+record or property value) directly or indirectly embedded within another
 annotation, in which case the host is the host of that other annotation.
 
 If the value of an annotation is expressed dynamically with a path
@@ -4344,7 +4344,7 @@ For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
 specified, as follows:
 
-1. If the annotation is directly or indirectly embedded in the hosting
+1. If the annotation is directly or indirectly embedded within the hosting
    property, the path is evaluated starting at the directly enclosing type of
    the hosting property. This allows e.g. specifying the value of an
    annotation on one property to be calculated from values of other properties
@@ -4353,7 +4353,7 @@ specified, as follows:
    directly enclosing type.
 
 2. If the annotation uses targeting and the target path starts with an entity
-   container, or the annotation is directly or indirectly embedded in such an
+   container, or the annotation is directly or indirectly embedded within such an
    annotation, the path is evaluated starting at the declared type of the
    hosting property. An empty path resolves to the declared type of the
    property, and non-empty paths MUST follow the rules for annotations
@@ -4363,7 +4363,7 @@ specified, as follows:
 
 3. If the annotation uses targeting and the target path does not start with
    an entity container, or the annotation is directly or indirectly embedded
-   in such an annotation, the path is evaluated starting at the *outermost*
+   within such an annotation, the path is evaluated starting at the *outermost*
    entity type or complex type named in the target path. This allows e.g.
    specifying the value of an annotation on one property to be calculated from
    values of other properties of the outermost type. An empty path resolves to
