@@ -3886,8 +3886,8 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span multiple pages
-but MUST be ordered by the service across all pages in such a way as to
+The results of a request against the delta link may span one or more pages
+and MUST be ordered by the service across all pages in such a way as to
 guarantee consistency when applied in order to the response which
 contained the delta link.
 
