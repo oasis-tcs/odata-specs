@@ -461,11 +461,15 @@ An entity or complex type instance can have one or more stream properties.
 
 The actual stream data is not usually contained in the representation.
 Instead stream property data is generally read and edited via URLs.
+- Stream properties requested with `$select` or included in the default selection are represented by
+[`media*`](#ControlInformationmediaodatamedia) control information.
+- Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
+
+See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
-link, media type, and ETag of the media stream through a set of
-[`media*`](#ControlInformationmediaodatamedia) control information.
+link, media type, and ETag of the media stream through their `media*` control information.
 
 If the actual stream data is included inline, the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
