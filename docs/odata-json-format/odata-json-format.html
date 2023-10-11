@@ -687,7 +687,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="6-entity"><a name="Entity" href="#Entity">6 Entity</a></h1>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <p>Each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
-<p>An entity in a payload may be a complete entity, a projected entity (see <em>System Query Option</em> <code>$select</code> <a href="#ODataProtocol">OData-Protocol</a>), or a partial entity update (see <em>Update an Entity</em> in <a href="#ODataProtocol">OData-Protocol</a>).</p>
+<p>An entity in a payload may be a complete entity, a projected entity (see <em>System Query Option</em> <code>$select</code> in <a href="#ODataProtocol">OData-Protocol</a>), or a partial entity update (see <em>Update an Entity</em> in <a href="#ODataProtocol">OData-Protocol</a>).</p>
 <p>An entity representation can be (modified and) round-tripped to the service directly. The <a href="#ControlInformationcontextodatacontext">context URL</a> is used in requests only as a base for <a href="#RelativeURLs">relative URLs</a>.</p>
 <div class="example">
 <p>Example 10: entity with <code>metadata=minimal</code></p>
@@ -968,7 +968,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h1 id="9-stream-property"><a name="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
 <p>An entity or complex type instance can have one or more stream properties.</p>
 <p>The actual stream data is not usually contained in the representation. Instead stream property data is generally read and edited via URLs.</p>
-<p>Depending on the <a href="#ControllingtheAmountofControlInformationinResponses">metadata level</a>, the stream property MAY be annotated to provide the read link, edit link, media type, and ETag of the media stream through a set of <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
+<ul>
+<li>Stream properties requested with <code>$select</code> or included in the default selection are represented by <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</li>
+<li>Stream properties requested with <code>$expand</code> or implicitly expanded are represented as a property with its value.</li>
+</ul>
+<p>See <a href="#ODataProtocol">OData-Protocol</a> for details on the system query options <code>$select</code> and <code>$expand</code>.</p>
+<p>Depending on the <a href="#ControllingtheAmountofControlInformationinResponses">metadata level</a>, the stream property MAY be annotated to provide the read link, edit link, media type, and ETag of the media stream through their <code>media*</code> control information.</p>
 <p>If the actual stream data is included inline, the control information <a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a> MUST be present to indicate how the included stream property value is represented. Stream property values of media type <code>application/json</code> or one of its subtypes, optionally with format parameters, are represented as native JSON. Values of top-level type <code>text</code>, for example <code>text/plain</code>, are represented as a string, with JSON string escaping rules applied. Included stream data of other media types is represented as a base64url-encoded string value, see <a href="#rfc4648">RFC4648</a>, section 5.</p>
 <p>If the included stream property has no value, the non-existing stream data is represented as <code>null</code> and the control information <a href="#ControlInformationmediaodatamedia"><code>mediaContentType</code></a> is not necessary.</p>
 <div class="example">
