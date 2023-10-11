@@ -732,10 +732,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="7-structural-property"><a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a></h1>
-<p>A property within an entity or complex type instance is represented as a name/value pair. The name MUST be the name of the property; the value is represented depending on its type as a <a href="#PrimitiveValue">primitive value</a>, a <a href="#ComplexValue">complex value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, or a <a href="#CollectionofComplexValues">collection of complex values</a>.</p>
+<p>A property within an entity or complex type instance is represented as a name/value pair. The name MUST be the name of the property; a non-null value is represented depending on its type as a <a href="#PrimitiveValue">primitive value</a>, a <a href="#ComplexValue">complex value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, or a <a href="#CollectionofComplexValues">collection of complex values</a>.</p>
+<p>Null values are represented as the JSON literal <code>null</code>.</p>
 <h2 id="71-primitive-value"><a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a></h2>
 <p>Primitive values are represented following the rules of <a href="#rfc8259">RFC8259</a>.</p>
-<p>Null values are represented as the JSON literal <code>null</code>.</p>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
 <p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings.</p>
 <p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
