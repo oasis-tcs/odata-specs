@@ -4687,9 +4687,8 @@ GET http://host/service/Products(1)/Thumbnail
 can return [`200 OK`](#ResponseCode200OK) and the stream data, or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
 :::
 
-Note: if neither the canonical URL nor the media read link can be used
-and the stream value can only be accessed via [`$expand`](#SystemQueryOptionexpand),
-the modeler should have used a property of type `Edm.Binary` instead.
+Note: for scenarios in which the media value can only be inlined,
+the property should instead be modeled with type `Edm.Binary`.
 
 #### <a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a>
 

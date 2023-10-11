@@ -1939,7 +1939,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Products(1)/Thumbnail</code></pre>
 <p>can return <a href="#ResponseCode200OK"><code>200 OK</code></a> and the stream data, or a <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> to the media read link of the stream property.</p>
 </div>
-<p>Note: if neither the canonical URL nor the media read link can be used and the stream value can only be accessed via <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, the modeler should have used a property of type <code>Edm.Binary</code> instead.</p>
+<p>Note: for scenarios in which the media value can only be inlined, the property should instead be modeled with type <code>Edm.Binary</code>.</p>
 <h4 id="11481-update-stream-values"><a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL of a stream property changes the media stream associated with that property.</p>
 <p>If the stream metadata includes an ETag value, the client SHOULD include an <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the ETag value.</p>
