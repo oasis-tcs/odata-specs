@@ -422,15 +422,17 @@ of system query options, enclosed in parentheses, see
 [OData-URL](#ODataURL).
 
 Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
 `$expand`, and
-[`$compute`](#SystemQueryOptioncompute) for all navigation properties, plus
+[`$levels`](#ExpandOptionlevels)
+ for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and
-[`$levels`](#ExpandOptionlevels) for collection-valued navigation properties.
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+ for collection-valued navigation properties.
 
 ::: example
 Example ##ex: for each customer entity within the `Customers` entity set,

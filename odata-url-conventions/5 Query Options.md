@@ -1937,15 +1937,16 @@ Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name. 
 Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
-`$expand`, and
-[`$compute`](#SystemQueryOptioncompute), for all navigation properties, plus
+`$expand`, and 
+[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and
-[`$levels`](#ExpandOptionlevels) for collection-valued navigation properties.
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch) 
+ for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
