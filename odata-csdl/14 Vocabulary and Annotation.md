@@ -1433,90 +1433,124 @@ specified, as follows:
 ::: example
 Example ##ex: Annotations hosted by property B in various modes
 
-The annotations in the first block are treated according to case #1:
+Path evaluation for the annotations in the first block starts at the directly
+enclosing type `self.A` of the hosting property `B`.
 :::: varjson
 ```json
 "self": {
   "A": {
-    "$Kind": "EntityType", ...,
+    "$Kind": "EntityType",
     "B": {
+      "$Type": "self.C",
       "$Nullable": true,
-      "@Core.Description@Core.IsLanguageDependent": ...,
-      "@Core.Description": ...
+      "@Core.Description@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      },
+      "@Core.Description": "..."
+    },
+    "AFlag": {
+      "$Type": "Edm.Boolean",
+      "$Nullable": true
+    }
+  },
+  "C": {
+    "$Kind": "ComplexType",
+    "CFlag": {
+      "$Type": "Edm.Boolean",
+      "$Nullable": true
     }
   },
 ```
 ::::
+
 :::: varxml
 ```xml
 <Schema Namespace="self">
   <EntityType Name="A">
-    ...
-    <Property Name="B" Type="Edm.String">
-      <Annotation Term="Core.Description" ...>
-        <Annotation Term="Core.IsLanguageDependent" ... />
+    <Property Name="B" Type="self.C">
+      <Annotation Term="Core.Description" String="...">
+        <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
       </Annotation>
     </Property>
+    <Property Name="AFlag" Type="Edm.Boolean" />
   </EntityType>
+  <ComplexType Name="C">
+    <Property Name="CFlag" Type="Edm.Boolean" />
+  </ComplexType>
 ```
 ::::
 
-The annotations in the next block are treated according to case #2:
+Path evaluation for the annotations in the next block starts at the declared
+type `self.C` of the hosting property `B`.
 :::: varjson
 ```json
   "Container": {
     "$Kind": "EntityContainer",
-    "SetA": { "$Collection": true, "$Type": "self.A" }
+    "SetA": {
+      "$Collection": true,
+      "$Type": "self.A"
+    }
   },
   "$Annotations": {
     "self.Container/SetA/B": {
-      "@Core.Description#viaset@Core.IsLanguageDependent": ...,
-      "@Core.Description#viaset": ...
+      "@Core.Description#viaset@Core.IsLanguageDependent": {
+        "$Path": "CFlag"
+      },
+      "@Core.Description#viaset": "..."
     },
     "self.Container/SetA/B/@Core.Description#viaset": {
-      "@Core.IsLanguageDependent": ...
+      "@Core.IsLanguageDependent": {
+        "$Path": "CFlag"
+      }
     },
 ```
 ::::
+
 :::: varxml
 ```xml
   <EntityContainer Name="Container">
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/B">
-    <Annotation Term="Core.Description" Qualifier="viaset" ...>
-      <Annotation Term="Core.IsLanguageDependent" ... />
+    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="CFlag" />
     </Annotation>
   </Annotations>
   <Annotations Target="self.Container/SetA/B/@Core.Description#viaset">
-    <Annotation Term="Core.IsLanguageDependent" ... />
+    <Annotation Term="Core.IsLanguageDependent" Path="CFlag" />
   </Annotations>
 ```
 ::::
 
-The annotations in the final block are treated according to case #3:
+Path evaluation for the annotations in the final block starts at the outermost
+type `self.A` named in the target path.
 :::: varjson
 ```json
     "self.A/B": {
-      "@Core.Description#external@Core.IsLanguageDependent": ...,
-      "@Core.Description#external": ...
+      "@Core.Description#external@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      },
+      "@Core.Description#external": "..."
     },
     "self.A/B/@Core.Description": {
-      "@Core.IsLanguageDependent": ...
+      "@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      }
     }
   }
 }
 ```
 ::::
+
 :::: varxml
 ```xml
   <Annotations Target="self.A/B">
-    <Annotation Term="Core.Description" Qualifier="external" ...>
-      <Annotation Term="Core.IsLanguageDependent" ... />
+    <Annotation Term="Core.Description" Qualifier="external" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
     </Annotation>
   </Annotations>
   <Annotations Target="self.A/B/@Core.Description">
-    <Annotation Term="Core.IsLanguageDependent" ... />
+    <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
   </Annotations>
 </Schema>
 ```

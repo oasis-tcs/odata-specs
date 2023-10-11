@@ -4374,53 +4374,84 @@ specified, as follows:
 ::: example
 Example 67: Annotations hosted by property B in various modes
 
-The annotations in the first block are treated according to case #1:
+Path evaluation for the annotations in the first block starts at the directly
+enclosing type `self.A` of the hosting property `B`.
 :::: varjson
 ```json
 "self": {
   "A": {
-    "$Kind": "EntityType", ...,
+    "$Kind": "EntityType",
     "B": {
+      "$Type": "self.C",
       "$Nullable": true,
-      "@Core.Description@Core.IsLanguageDependent": ...,
-      "@Core.Description": ...
+      "@Core.Description@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      },
+      "@Core.Description": "..."
+    },
+    "AFlag": {
+      "$Type": "Edm.Boolean",
+      "$Nullable": true
+    }
+  },
+  "C": {
+    "$Kind": "ComplexType",
+    "CFlag": {
+      "$Type": "Edm.Boolean",
+      "$Nullable": true
     }
   },
 ```
 ::::
 
-The annotations in the next block are treated according to case #2:
+
+Path evaluation for the annotations in the next block starts at the declared
+type `self.C` of the hosting property `B`.
 :::: varjson
 ```json
   "Container": {
     "$Kind": "EntityContainer",
-    "SetA": { "$Collection": true, "$Type": "self.A" }
+    "SetA": {
+      "$Collection": true,
+      "$Type": "self.A"
+    }
   },
   "$Annotations": {
     "self.Container/SetA/B": {
-      "@Core.Description#viaset@Core.IsLanguageDependent": ...,
-      "@Core.Description#viaset": ...
+      "@Core.Description#viaset@Core.IsLanguageDependent": {
+        "$Path": "CFlag"
+      },
+      "@Core.Description#viaset": "..."
     },
     "self.Container/SetA/B/@Core.Description#viaset": {
-      "@Core.IsLanguageDependent": ...
+      "@Core.IsLanguageDependent": {
+        "$Path": "CFlag"
+      }
     },
 ```
 ::::
 
-The annotations in the final block are treated according to case #3:
+
+Path evaluation for the annotations in the final block starts at the outermost
+type `self.A` named in the target path.
 :::: varjson
 ```json
     "self.A/B": {
-      "@Core.Description#external@Core.IsLanguageDependent": ...,
-      "@Core.Description#external": ...
+      "@Core.Description#external@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      },
+      "@Core.Description#external": "..."
     },
     "self.A/B/@Core.Description": {
-      "@Core.IsLanguageDependent": ...
+      "@Core.IsLanguageDependent": {
+        "$Path": "AFlag"
+      }
     }
   }
 }
 ```
 ::::
+
 
 :::
 

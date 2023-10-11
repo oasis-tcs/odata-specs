@@ -2453,41 +2453,44 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ol>
 <div class="example">
 <p>Example 67: Annotations hosted by property B in various modes</p>
-<p>The annotations in the first block are treated according to case #1:</p>
+<p>Path evaluation for the annotations in the first block starts at the directly enclosing type <code>self.A</code> of the hosting property <code>B</code>.</p>
 <div class="varxml">
 <div class="sourceCode" id="cb70"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;self&quot;</span>&gt;</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;A&quot;</span>&gt;</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;B&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span>&gt;</span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span> <span class="er">...</span>&gt;</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> <span class="er">...</span> /&gt;</span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Property</span>&gt;</span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;B&quot;</span><span class="ot"> Type=</span><span class="st">&quot;self.C&quot;</span>&gt;</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;...&quot;</span>&gt;</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;AFlag&quot;</span> /&gt;</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Property</span>&gt;</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;AFlag&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Boolean&quot;</span> /&gt;</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntityType</span>&gt;</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ComplexType</span><span class="ot"> Name=</span><span class="st">&quot;C&quot;</span>&gt;</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;CFlag&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Boolean&quot;</span> /&gt;</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">ComplexType</span>&gt;</span></code></pre></div>
 </div>
-<p>The annotations in the next block are treated according to case #2:</p>
+<p>Path evaluation for the annotations in the next block starts at the declared type <code>self.C</code> of the hosting property <code>B</code>.</p>
 <div class="varxml">
 <div class="sourceCode" id="cb71"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntityContainer</span><span class="ot"> Name=</span><span class="st">&quot;Container&quot;</span>&gt;</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;SetA&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.A&quot;</span> /&gt;</span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntityContainer</span>&gt;</span>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;self.Container/SetA/B&quot;</span>&gt;</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;viaset&quot;</span> <span class="er">...</span>&gt;</span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> <span class="er">...</span> /&gt;</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;viaset&quot;</span><span class="ot"> String=</span><span class="st">&quot;...&quot;</span>&gt;</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CFlag&quot;</span> /&gt;</span>
 <span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotations</span>&gt;</span>
 <span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;self.Container/SetA/B/@Core.Description#viaset&quot;</span>&gt;</span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> <span class="er">...</span> /&gt;</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CFlag&quot;</span> /&gt;</span>
 <span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
 </div>
-<p>The annotations in the final block are treated according to case #3:</p>
+<p>Path evaluation for the annotations in the final block starts at the outermost type <code>self.A</code> named in the target path.</p>
 <div class="varxml">
 <div class="sourceCode" id="cb72"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;self.A/B&quot;</span>&gt;</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;external&quot;</span> <span class="er">...</span>&gt;</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> <span class="er">...</span> /&gt;</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;external&quot;</span><span class="ot"> String=</span><span class="st">&quot;...&quot;</span>&gt;</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;AFlag&quot;</span> /&gt;</span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotations</span>&gt;</span>
 <span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;self.A/B/@Core.Description&quot;</span>&gt;</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> <span class="er">...</span> /&gt;</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;AFlag&quot;</span> /&gt;</span>
 <span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotations</span>&gt;</span>
 <span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>/Schema&gt;</span></code></pre></div>
 </div>
