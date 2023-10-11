@@ -383,18 +383,12 @@ The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
 the specified content, and MAY choose to return additional information.
 
-The value of the `$expand` query option is a comma-separated list of
-navigation property names, stream property names, or `$value` indicating
-the stream content of a media-entity.
-
-For navigation properties, the navigation property name is optionally
-followed by a `/$ref` path segment or a `/$count` path segment, and
-optionally a parenthesized set of [expand options](#ExpandOptions) (for
-filtering, sorting, selecting, paging, or expanding the related
-entities).
+The value of `$expand` is a comma-separated list of expand items. Each
+expand item is evaluated relative to the retrieved resource being
+expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL).
+[OData-URL](#ODataURL), section 5.1.3.
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
@@ -1369,8 +1363,8 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span multiple pages
-but MUST be ordered by the service across all pages in such a way as to
+The results of a request against the delta link may span one or more pages
+and MUST be ordered by the service across all pages in such a way as to
 guarantee consistency when applied in order to the response which
 contained the delta link.
 
