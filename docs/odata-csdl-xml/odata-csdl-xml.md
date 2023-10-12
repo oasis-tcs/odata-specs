@@ -4279,7 +4279,7 @@ specified, as follows:
    or a [term cast](#TermCast).
 
 ::: example
-Example 67: Annotations hosted by property B in various modes
+Example 67: Annotations hosted by property `B` in various modes
 
 Path evaluation for the annotations in the first block starts at the directly
 enclosing type `self.A` of the hosting property `B`.

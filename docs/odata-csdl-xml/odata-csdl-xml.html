@@ -2452,7 +2452,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><p>If the annotation uses targeting and the target path does not start with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the <em>outermost</em> entity type or complex type named in the target path. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the outermost type. An empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a <a href="#TypeCast">type cast</a>, or a <a href="#TermCast">term cast</a>.</p></li>
 </ol>
 <div class="example">
-<p>Example 67: Annotations hosted by property B in various modes</p>
+<p>Example 67: Annotations hosted by property <code>B</code> in various modes</p>
 <p>Path evaluation for the annotations in the first block starts at the directly enclosing type <code>self.A</code> of the hosting property <code>B</code>.</p>
 <div class="varxml">
 <div class="sourceCode" id="cb70"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Schema</span><span class="ot"> Namespace=</span><span class="st">&quot;self&quot;</span>&gt;</span>
