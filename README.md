@@ -58,4 +58,4 @@ Documents are generated from Markdown sources using Node.js modules described [h
 
 Title|Stage|Files|Published at
 -----|-----|-----|------------
-OData Extension for Data Aggregation Version 4.0|Committee Specification 03|[Specification](/oasis-tcs/odata-specs/tree/odata-data-aggregation-ext/V4.0_CS03/docs/odata-data-aggregation-ext) [Vocabulary](/oasis-tcs/odata-vocabularies/tree/odata-data-aggregation-ext/V4.0_CS03/vocabularies) [ABNF](/oasis-tcs/odata-abnf/tree/odata-data-aggregation-ext/V4.0_CS03/abnf)|[OASIS](https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/)
+OData Extension for Data Aggregation Version 4.0|Committee Specification 03|[Specification](https://github.com/oasis-tcs/odata-specs/tree/odata-data-aggregation-ext/V4.0_CS03/docs/odata-data-aggregation-ext) [Vocabulary](https://github.com/oasis-tcs/odata-vocabularies/tree/odata-data-aggregation-ext/V4.0_CS03/vocabularies) [ABNF](https://github.com/oasis-tcs/odata-abnf/tree/odata-data-aggregation-ext/V4.0_CS03/abnf)|[OASIS](https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/)
