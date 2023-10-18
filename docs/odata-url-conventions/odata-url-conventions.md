@@ -3510,9 +3510,8 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. If a select item is a path expression requesting a component of an entity or
-complex property and the entity or complex property is `null` on an instance, then
-the entity or complex property is included and represented as `null`.
+actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
+the null-valued entity or complex property is included and represented as `null`.
 The simplest form
 of a select item explicitly requests a property defined on the entity
 type of the resources identified by the resource path section of the
