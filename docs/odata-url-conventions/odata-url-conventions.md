@@ -3512,10 +3512,8 @@ section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
 actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
-The simplest form
-of a select item explicitly requests a property defined on the entity
-type of the resources identified by the resource path section of the
-URL.
+The simplest form of a select item explicitly requests a property defined on the entity
+type of the resources identified by the resource path section of the URL.
 
 ::: example
 Example 128: rating and release date of all products
