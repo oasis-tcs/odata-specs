@@ -2831,7 +2831,7 @@ $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 #### <a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a>
 
 OData defines two operators that evaluate a Boolean expression on a
-collection. Both must be prepended with a navigation path that
+collection. Both must be prepended with a path expression that
 identifies a collection.
 
 4.01 Services MUST support case-insensitive lambda operator names.
@@ -2841,7 +2841,7 @@ operator names.
 The argument of a lambda operator is a case-sensitive lambda variable
 name followed by a colon (`:`) and a Boolean expression that uses the
 lambda variable name to refer to properties of members of the collection
-identified by the navigation path.
+identified by the path expression.
 
 If the name chosen for the lambda variable matches a property name of
 the current resource referenced by the resource path, the lambda
@@ -2850,7 +2850,7 @@ resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
-collection instances at the origin of the navigation path prepended to
+collection instances at the origin of the path expression prepended to
 the lambda operator.
 
 ##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
@@ -3329,14 +3329,15 @@ A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. Allowed system query
-options are [`$filter`](#SystemQueryOptionfilter),
+parentheses, to the navigation property name. Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and [`$levels`](#ExpandOptionlevels) for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and `$expand`.
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)  for collection-valued navigation properties.
 
 ::: example
 Example 117: all categories and for each category all related products
@@ -3402,13 +3403,13 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filte
 ```
 :::
 
-Cyclic navigation properties (whose target type is identical or can be
+<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
 `$levels` option. The value of the `$levels` option is either a positive
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
-recursion.
+recursion.</a>
 
 ::: example
 Example 123: all employees with their manager, manager's manager, and
