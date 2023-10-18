@@ -4279,43 +4279,43 @@ specified, as follows:
    or a [term cast](#TermCast).
 
 ::: example
-Example 67: Annotations hosted by property `B` in various modes
+Example 67: Annotations hosted by property `A2` in various modes
 
 Path evaluation for the annotations in the first block starts at the directly
-enclosing type `self.A` of the hosting property `B`.
+enclosing type `self.A` of the hosting property `A2`.
 
 :::: varxml
 ```xml
 <Schema Namespace="self">
   <EntityType Name="A">
-    <Property Name="B" Type="self.C">
+    <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
+    <Property Name="A2" Type="self.B" Nullable="false">
       <Annotation Term="Core.Description" String="...">
-        <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
+        <Annotation Term="Core.IsLanguageDependent" Path="A1" />
       </Annotation>
     </Property>
-    <Property Name="AFlag" Type="Edm.Boolean" />
   </EntityType>
-  <ComplexType Name="C">
-    <Property Name="CFlag" Type="Edm.Boolean" />
+  <ComplexType Name="B">
+    <Property Name="B1" Type="Edm.Boolean" Nullable="false" />
   </ComplexType>
 ```
 ::::
 
 Path evaluation for the annotations in the next block starts at the declared
-type `self.C` of the hosting property `B`.
+type `self.B` of the hosting property `A2`.
 
 :::: varxml
 ```xml
   <EntityContainer Name="Container">
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
-  <Annotations Target="self.Container/SetA/B">
+  <Annotations Target="self.Container/SetA/A2">
     <Annotation Term="Core.Description" Qualifier="viaset" String="...">
-      <Annotation Term="Core.IsLanguageDependent" Path="CFlag" />
+      <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
-  <Annotations Target="self.Container/SetA/B/@Core.Description#viaset">
-    <Annotation Term="Core.IsLanguageDependent" Path="CFlag" />
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+    <Annotation Term="Core.IsLanguageDependent" Path="B1" />
   </Annotations>
 ```
 ::::
@@ -4325,13 +4325,13 @@ type `self.A` named in the target path.
 
 :::: varxml
 ```xml
-  <Annotations Target="self.A/B">
+  <Annotations Target="self.A/A2">
     <Annotation Term="Core.Description" Qualifier="external" String="...">
-      <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
+      <Annotation Term="Core.IsLanguageDependent" Path="A1" />
     </Annotation>
   </Annotations>
-  <Annotations Target="self.A/B/@Core.Description">
-    <Annotation Term="Core.IsLanguageDependent" Path="AFlag" />
+  <Annotations Target="self.A/A2/@Core.Description">
+    <Annotation Term="Core.IsLanguageDependent" Path="A1" />
   </Annotations>
 </Schema>
 ```

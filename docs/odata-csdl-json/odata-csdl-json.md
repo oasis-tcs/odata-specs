@@ -4372,33 +4372,30 @@ specified, as follows:
    or a [term cast](#TermCast).
 
 ::: example
-Example 67: Annotations hosted by property `B` in various modes
+Example 67: Annotations hosted by property `A2` in various modes
 
 Path evaluation for the annotations in the first block starts at the directly
-enclosing type `self.A` of the hosting property `B`.
+enclosing type `self.A` of the hosting property `A2`.
 :::: varjson
 ```json
 "self": {
   "A": {
     "$Kind": "EntityType",
-    "B": {
-      "$Type": "self.C",
-      "$Nullable": true,
+    "A1": {
+      "$Type": "Edm.Boolean"
+    },
+    "A2": {
+      "$Type": "self.B"
       "@Core.Description@Core.IsLanguageDependent": {
-        "$Path": "AFlag"
+        "$Path": "A1"
       },
       "@Core.Description": "..."
-    },
-    "AFlag": {
-      "$Type": "Edm.Boolean",
-      "$Nullable": true
     }
   },
-  "C": {
+  "B": {
     "$Kind": "ComplexType",
-    "CFlag": {
-      "$Type": "Edm.Boolean",
-      "$Nullable": true
+    "B1": {
+      "$Type": "Edm.Boolean"
     }
   },
 ```
@@ -4406,7 +4403,7 @@ enclosing type `self.A` of the hosting property `B`.
 
 
 Path evaluation for the annotations in the next block starts at the declared
-type `self.C` of the hosting property `B`.
+type `self.B` of the hosting property `A2`.
 :::: varjson
 ```json
   "Container": {
@@ -4417,15 +4414,15 @@ type `self.C` of the hosting property `B`.
     }
   },
   "$Annotations": {
-    "self.Container/SetA/B": {
+    "self.Container/SetA/A2": {
       "@Core.Description#viaset@Core.IsLanguageDependent": {
-        "$Path": "CFlag"
+        "$Path": "B1"
       },
       "@Core.Description#viaset": "..."
     },
-    "self.Container/SetA/B/@Core.Description#viaset": {
+    "self.Container/SetA/A2/@Core.Description#viaset": {
       "@Core.IsLanguageDependent": {
-        "$Path": "CFlag"
+        "$Path": "B1"
       }
     },
 ```
@@ -4436,15 +4433,15 @@ Path evaluation for the annotations in the final block starts at the outermost
 type `self.A` named in the target path.
 :::: varjson
 ```json
-    "self.A/B": {
+    "self.A/A2": {
       "@Core.Description#external@Core.IsLanguageDependent": {
-        "$Path": "AFlag"
+        "$Path": "A1"
       },
       "@Core.Description#external": "..."
     },
-    "self.A/B/@Core.Description": {
+    "self.A/A2/@Core.Description": {
       "@Core.IsLanguageDependent": {
-        "$Path": "AFlag"
+        "$Path": "A1"
       }
     }
   }
