@@ -1826,7 +1826,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
 </ul>
-<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
+<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is <code>null</code> on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
 <div class="example">
 <p>Example 128: rating and release date of all products</p>
 <pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
@@ -1865,7 +1865,6 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
 <p>When multiple select item exist in a <code>select clause</code>, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
-<p>If a select item is a path expression requesting a component of a complex property and the complex property is <code>null</code> on an instance, then the component is treated as <code>null</code> as well.</p>
 <h3 id="515-system-query-option-orderby"><a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
 <p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
