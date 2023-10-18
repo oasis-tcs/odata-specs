@@ -1456,7 +1456,7 @@ resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
-collection instances at the origin of the navigation path prepended to
+collection instances at the origin of the path expression prepended to
 the lambda operator.
 
 ##### ##subsubsubsubsec `any`
