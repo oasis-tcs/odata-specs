@@ -255,6 +255,10 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
 ### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
@@ -3038,10 +3042,10 @@ If the entity type of an entity set or singleton declares navigation
 properties, a navigation property binding allows describing which entity
 set or singleton will contain the related entities.
 
-An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD specify
-a navigation property binding for each [navigation
-property](#NavigationProperty) of its entity type, including navigation
-properties defined on complex typed properties or derived types.
+An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD contain a navigation
+property binding for each non-containment navigation property that can be reached
+from the entity type through a sequence of type casts, complex properties,
+or containment navigation properties.
 
 If omitted, clients MUST assume that the target entity set or singleton
 can vary per related entity.
@@ -4208,56 +4212,139 @@ Addresses/-1/Street
 
 #### <a name="PathEvaluation" href="#PathEvaluation">14.4.1.2 Path Evaluation</a>
 
-Annotations MAY be embedded within their target, or specified
-separately, e.g. as part of a different schema, and specify a path to
-their target model element. The latter situation is referred to as
-*targeting* in the remainder of this section.
+Annotations MAY be embedded within their target, or specified separately,
+e.g. as part of a different schema, and specify a path to their target model
+element. The latter situation is referred to as *targeting* in the remainder of
+this section.
 
-For annotations embedded within or targeting an entity container, the
-path is evaluated starting at the entity container, i.e. an empty path
-resolves to the entity container, and non-empty paths MUST start with a
-segment identifying a container child (entity set, function import,
-action import, or singleton). The subsequent segments follow the rules
-for paths targeting the corresponding child element.
+The *host* of an annotation is the model element targeted by the annotation,
+unless that target is another annotation or a model element (collection,
+record or property value) directly or indirectly embedded within another
+annotation, in which case the host is the host of that other annotation.
 
-For annotations embedded within or targeting an entity set or a
-singleton, the path is evaluated starting at the entity set or
-singleton, i.e. an empty path resolves to the entity set or singleton,
-and non-empty paths MUST follow the rules for annotations targeting the
-declared entity type of the entity set or singleton.
+If the value of an annotation is expressed dynamically with a path
+expression, the path evaluation rules for this expression depend upon the
+model element by which the annotation is hosted.
 
-For annotations embedded within or targeting an entity type or complex
-type, the path is evaluated starting at the type, i.e. an empty path
-resolves to the type, and the first segment of a non-empty path MUST be
-a structural or navigation property of the type, a [type
-cast](#TypeCast), or a [term cast](#TermCast).
+For annotations hosted by an entity container, the path is evaluated starting
+at the entity container, i.e. an empty path resolves to the entity container,
+and non-empty paths MUST start with a segment identifying a container child
+(entity set, function import, action import, or singleton). The subsequent
+segments follow the rules for path expressions targeting the corresponding
+child element.
 
-For annotations embedded within a structural or navigation property of
-an entity type or complex type, the path is evaluated starting at the
-directly enclosing type. This allows e.g. specifying the value of an
-annotation on one property to be calculated from values of other
-properties of the same type. An empty path resolves to the enclosing
-type, and non-empty paths MUST follow the rules for annotations
-targeting the directly enclosing type.
+For annotations hosted by an entity set or a singleton, the path is evaluated
+starting at the entity set or singleton, i.e. an empty path resolves to the
+entity set or singleton, and non-empty paths MUST follow the rules for
+annotations targeting the declared entity type of the entity set or singleton.
 
-For annotations targeting a structural or navigation property of an
-entity type or complex type, the path is evaluated starting at the
-*outermost* entity type or complex type named in the target of the
-annotation, i.e. an empty path resolves to the outermost type, and the
-first segment of a non-empty path MUST be a structural or navigation
-property of the outermost type, a [type cast](#TypeCast), or a [term
-cast](#TermCast).
+For annotations hosted by an entity type or complex type, the path is
+evaluated starting at the type, i.e. an empty path resolves to the type, and
+the first segment of a non-empty path MUST be a structural or navigation
+property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations embedded within or targeting an action, action import,
-function, function import, parameter, or return type, the first segment
-of the path MUST be a parameter name or `$ReturnType`.
+For annotations hosted by an action, action import, function, function
+import, parameter, or return type, the first segment of the path MUST be the
+name of a parameter of the action or function or `$ReturnType`.
+
+For annotations hosted by a structural or navigation property, the path
+evaluation rules additionally depend upon how the annotation target is
+specified, as follows:
+
+1. If the annotation is directly or indirectly embedded within the hosting
+   property, the path is evaluated starting at the directly enclosing type of
+   the hosting property. This allows e.g. specifying the value of an
+   annotation on one property to be calculated from values of other properties
+   of the same enclosing type. An empty path resolves to the enclosing type,
+   and non-empty paths MUST follow the rules for annotations targeting the
+   directly enclosing type.
+
+2. If the annotation uses targeting and the target path starts with an entity
+   container, or the annotation is directly or indirectly embedded within such an
+   annotation, the path is evaluated starting at the declared type of the
+   hosting property. An empty path resolves to the declared type of the
+   property, and non-empty paths MUST follow the rules for annotations
+   targeting the declared type of the property. If the type is primitive, the
+   first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
+   [term cast](#TermCast).
+
+3. If the annotation uses targeting and the target path does not start with
+   an entity container, or the annotation is directly or indirectly embedded
+   within such an annotation, the path is evaluated starting at the *outermost*
+   entity type or complex type named in the target path. This allows e.g.
+   specifying the value of an annotation on one property to be calculated from
+   values of other properties of the outermost type. An empty path resolves to
+   the outermost type, and the first segment of a non-empty path MUST be a
+   structural or navigation property of the outermost type, a [type cast](#TypeCast),
+   or a [term cast](#TermCast).
+
+::: example
+Example 67: Annotations hosted by property `A2` in various modes
+
+Path evaluation for the annotations in the first block starts at the directly
+enclosing type `self.A` of the hosting property `A2`.
+
+:::: varxml
+```xml
+<Schema Namespace="self">
+  <EntityType Name="A">
+    <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
+    <Property Name="A2" Type="self.B" Nullable="false">
+      <Annotation Term="Core.Description" String="...">
+        <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+      </Annotation>
+    </Property>
+  </EntityType>
+  <ComplexType Name="B">
+    <Property Name="B1" Type="Edm.Boolean" Nullable="false" />
+  </ComplexType>
+```
+::::
+
+Path evaluation for the annotations in the next block starts at the declared
+type `self.B` of the hosting property `A2`.
+
+:::: varxml
+```xml
+  <EntityContainer Name="Container">
+    <EntitySet Name="SetA" EntityType="self.A" />
+  </EntityContainer>
+  <Annotations Target="self.Container/SetA/A2">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+    <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+  </Annotations>
+```
+::::
+
+Path evaluation for the annotations in the final block starts at the outermost
+type `self.A` named in the target path.
+
+:::: varxml
+```xml
+  <Annotations Target="self.A/A2">
+    <Annotation Term="Core.Description" Qualifier="external" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.A/A2/@Core.Description">
+    <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+  </Annotations>
+</Schema>
+```
+::::
+
+:::
 
 #### <a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
+`Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
@@ -4280,7 +4367,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 67:
+Example 68:
 ```xml
 <Annotation Term="UI.ReferenceFacet"
             AnnotationPath="Product/Supplier/@UI.LineItem" />
@@ -4314,7 +4401,7 @@ notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 68:
+Example 69:
 ```xml
 <Annotation Term="org.example.MyFavoriteModelElement"
             ModelElementPath="/org.example.someAction" />
@@ -4350,7 +4437,7 @@ element notation or attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 69:
+Example 70:
 ```xml
 <Annotation Term="UI.HyperLink" NavigationPropertyPath="Supplier" />
 
@@ -4393,7 +4480,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 70:
+Example 71:
 ```xml
 <Annotation Term="UI.RefreshOnChangeOf" PropertyPath="ChangedAt" />
 
@@ -4431,7 +4518,7 @@ attribute notation.
 :::
 
 ::: {.varxml .example}
-Example 71:
+Example 72:
 ```xml
 <Annotation Term="org.example.display.DisplayName" Path="FirstName" />
 
@@ -4498,7 +4585,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 72:
+Example 73:
 ```xml
 <And>
   <Path>IsMale</Path>
@@ -4591,7 +4678,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 73:
+Example 74:
 ```xml
 <Add>
   <Path>StartDate</Path>
@@ -4668,7 +4755,7 @@ are represented according to the appropriate alternative in the
 
 
 ::: {.varxml .example}
-Example 74:
+Example 75:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
@@ -4720,7 +4807,7 @@ first property is used as key, the second property as value.
 
 
 ::: {.varxml .example}
-Example 75: assuming there are no special characters in values of the
+Example 76: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```xml
 <Apply Function="odata.fillUriTemplate">
@@ -4734,6 +4821,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
+It is the counterpart of the identically named URL function [OData-URL, section 5.1.1.7.1](#ODataURL).
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -4743,7 +4831,7 @@ expression, using syntax and semantics of
 
 
 ::: {.varxml .example}
-Example 76: all non-empty `FirstName` values not containing the letters
+Example 77: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```xml
 <Apply Function="odata.matchesPattern">
@@ -4764,7 +4852,7 @@ paren-style key syntax.
 
 
 ::: {.varxml .example}
-Example 77:
+Example 78:
 ```xml
 <Apply Function="odata.fillUriTemplate">
   <String>http://host/service/Genres({genreName})</String>
@@ -4809,7 +4897,7 @@ are considered unspecified.
 :::
 
 ::: {.varxml .example}
-Example 78:
+Example 79:
 ```xml
 <Annotation Term="org.example.display.Threshold">
   <Cast Type="Edm.Decimal">
@@ -4836,7 +4924,7 @@ The `edm:Collection` element contains zero or more child expressions.
 :::
 
 ::: {.varxml .example}
-Example 79:
+Example 80:
 ```xml
 <Annotation Term="org.example.seo.SeoTerms">
   <Collection>
@@ -4885,7 +4973,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 80: the condition is a [value path expression](#ValuePath)
+Example 81: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `edm:If` expression (or so it was long ago)
 ```xml
@@ -4922,7 +5010,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 81:
+Example 82:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -4965,7 +5053,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 82:
+Example 83:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -4996,7 +5084,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 83:
+Example 84:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5021,7 +5109,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 85:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5030,7 +5118,7 @@ Example 84:
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5091,7 +5179,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5152,7 +5240,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5229,7 +5317,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 88: Target expressions
+Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
 MySchema.MyEntityContainer/MySingleton
@@ -5251,7 +5339,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 89:
+Example 90:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
@@ -5369,7 +5457,7 @@ Example 89:
 
 
 ::: {.varxml .example}
-Example 90:
+Example 91:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">

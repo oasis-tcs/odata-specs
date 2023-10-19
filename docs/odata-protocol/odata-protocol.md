@@ -2908,18 +2908,12 @@ The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
 the specified content, and MAY choose to return additional information.
 
-The value of the `$expand` query option is a comma-separated list of
-navigation property names, stream property names, or `$value` indicating
-the stream content of a media-entity.
-
-For navigation properties, the navigation property name is optionally
-followed by a `/$ref` path segment or a `/$count` path segment, and
-optionally a parenthesized set of [expand options](#ExpandOptions) (for
-filtering, sorting, selecting, paging, or expanding the related
-entities).
+The value of `$expand` is a comma-separated list of expand items. Each
+expand item is evaluated relative to the retrieved resource being
+expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL).
+[OData-URL](#ODataURL), section 5.1.3.
 
 ::: example
 Example 38: for each customer entity within the Customers entity set the
@@ -2952,15 +2946,18 @@ application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
 [OData-URL](#ODataURL).
 
-Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$levels`](#ExpandOptionlevels)
+ for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch),
-[`$expand`](#SystemQueryOptionexpand)`,`
-[`$compute`](#SystemQueryOptioncompute)`,` and
-[`$levels`](#ExpandOptionlevels).
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+ for collection-valued navigation properties.
 
 ::: example
 Example 41: for each customer entity within the `Customers` entity set,
@@ -3000,8 +2997,8 @@ GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseSta
 The `$levels` expand option can be used to specify the number of levels
 of recursion for a hierarchy in which the related entity type is the
 same as, or can be cast to, the source entity type. A `$levels` option
-with a value of 1 specifies a single expand with no recursion. The same
-expand options are applied at each level of the hierarchy.
+with a value of 1 specifies a single expand with no recursion. All provided
+expand options except `$levels` are applied at each level of the hierarchy.
 
 Services MAY support the symbolic value `max` in addition to numeric
 values. In that case they MUST solve circular dependencies by injecting
@@ -3892,8 +3889,8 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span multiple pages
-but MUST be ordered by the service across all pages in such a way as to
+The results of a request against the delta link may span one or more pages
+and MUST be ordered by the service across all pages in such a way as to
 guarantee consistency when applied in order to the response which
 contained the delta link.
 
@@ -4137,14 +4134,15 @@ The representation for referencing related entities is format-specific.
 
 ::: example
 Example 76: using the JSON format, 4.0 clients can create a new manager
-entity with links to two existing employees by applying the `odata.bind`
-annotation to the `DirectReports` navigation property
+entity with links to an existing manager (of managers) and to two existing employees by applying the `odata.bind`
+annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
   "@odata.type":"#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
+  "Manager@odata.bind": "http://host/service/Employees(0)",
   "DirectReports@odata.bind": [
     "http://host/service/Employees(5)",
     "http://host/service/Employees(6)"
@@ -4155,14 +4153,15 @@ annotation to the `DirectReports` navigation property
 
 ::: example
 Example 77: using the JSON format, 4.01 clients can create a new manager
-entity with links to two existing employees by including the entity-ids
-within the `DirectReports` navigation property
+entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
+within the `Manager` and `DirectReports` navigation properties
 ```json
 {
   "@type":"#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
+  "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
     {"@id": "Employees(5)"},
     {"@id": "Employees(6)"}
@@ -4203,9 +4202,9 @@ service responds with [`201 Created`](#ResponseCode201Created), the response MUS
 least the level that was present in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
-request by using the
+request by applying the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
-term defined in [OData-VocCore](#ODataVocCore). Services that respond
+term using the namespace or alias defined for the [OData-VocCore](#ODataVocCore) vocabulary in the service's `$metadata` document. Services that respond
 with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID)
@@ -4498,8 +4497,8 @@ To delete an individual entity, the client makes a `DELETE` request to a
 URL that identifies the entity. Services MAY restrict deletes only to
 requests addressing the [edit URL](#ReadURLsandEditURLs) of the entity.
 
-The request body SHOULD be empty. Singleton entities can be deleted if
-they are nullable. Services supporting this SHOULD advertise it by
+The request body SHOULD be empty. Top-level singleton entities can be deleted if
+they are nullable. Services supporting this MAY advertise it by
 annotating the singleton with the term `Capabilities.DeleteRestrictions`
 (nested property `Deletable` with value `true`) defined in
 [OData-VocCap](#ODataVocCap).
@@ -4659,6 +4658,42 @@ are properties of type `Edm.Stream`.
 The values for stream properties do not usually appear in the entity
 payload. Instead, the values are generally read or written through URLs.
 
+::: example
+Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
+```
+GET http://host/service/Products(1)?$select=Thumbnail
+```
+would only include control information for the stream property, not the stream data itself
+```json
+{
+  "@context": "http://host/service/$metadata#Products/$entity",
+  ...
+  "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
+  "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
+  ...
+}
+```
+The stream data can then be requested using the media read link:
+```
+GET http://server/Thumbnail546.jpg
+```
+:::
+
+Services SHOULD support direct property access to a stream property's canonical URL.
+The response MAY be a redirect to the media read link of the stream property
+if the media read link is different from the canonical URL.
+
+::: example
+Example 81: directly read a stream property of an entity
+```
+GET http://host/service/Products(1)/Thumbnail
+```
+can return [`200 OK`](#ResponseCode200OK) and the stream data, or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
+:::
+
+Note: for scenarios in which the media value can only be inlined,
+the property should instead be modeled with type `Edm.Binary`.
+
 #### <a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a>
 
 A successful `PUT` request to the edit URL of a stream property changes
@@ -4695,6 +4730,13 @@ defined in [OData-VocCap](#ODataVocCap).
 A successful `DELETE` request to the edit URL of a stream property
 attempts to set the property to null and results in an error if the
 property is non-nullable.
+
+::: example
+Example 82: delete the stream value using the media edit link retrieved in [example 80](#entityWithStreamProperty)
+```
+DELETE http://server/uploads/Thumbnail546.jpg
+```
+:::
 
 Attempting to request a stream property whose value is null results in
 [`204 No Content`](#ResponseCode204NoContent).
@@ -4792,10 +4834,9 @@ request body.
 A successful `POST` request to the edit URL of a collection property
 adds an item to the collection. The body of the request MUST be a single
 item to be added to the collection. If the collection is ordered, the
-item is added to the end of the collection, and
+item is added to the end of the collection, and if the collection supports positional insert
 [`$index`](#RequestinganIndividualMemberofanOrderedCollection) MAY be used to specify
-a zero-based ordinal position to insert the new value, with a negative
-value indicating an ordinal position from the end of the collection.
+the insert position.
 
 A successful `DELETE` request to the edit URL of a collection property
 deletes all items in that collection.
@@ -4804,7 +4845,7 @@ Since collection members have no individual identity, `PATCH` is not
 supported for collection properties.
 
 Upon successful completion the service responds with either
-[`200 OK`](#ResponseCode200OK) or
+[`200 OK`](#ResponseCode200OK) and a representation of the updated collection, or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a [Prefer
 header](#Preferencereturnrepresentationandreturnminimal) with a value of
@@ -4841,7 +4882,7 @@ ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
 ::: example
-Example 80: Insert a new email address at the second position
+Example 83: Insert a new email address at the second position
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
 Content-Type: application/json
@@ -4963,7 +5004,7 @@ semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
-Example 81: change the color of all beige-brown products
+Example 84: change the color of all beige-brown products
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq
 'beige-brown'
@@ -5008,7 +5049,7 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 ::: example
-Example 82: delete all products older than 3
+Example 85: delete all products older than 3
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
 ```
@@ -5058,7 +5099,7 @@ by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
 ::: example
-Example 83: the function `MostRecentOrder` can be bound to any URL that
+Example 86: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
@@ -5069,7 +5110,7 @@ identifies a `SampleModel.Customer`
 :::
 
 ::: example
-Example 84: invoke the `MostRecentOrder` function with the value of the
+Example 87: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
 ```
@@ -5078,7 +5119,7 @@ GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 ::: example
-Example 85: the function `Comparison` can be bound to any URL that
+Example 88: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
@@ -5089,7 +5130,7 @@ identifies a collection of entities
 :::
 
 ::: example
-Example 86: invoke the `Comparison` function on the set of red products
+Example 89: invoke the `Comparison` function on the set of red products
 ```
 GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
@@ -5112,7 +5153,7 @@ result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
 ::: example
-Example 87: invoke the `MostRecentOrder` function on each entity in the
+Example 90: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
 ```
 GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()
@@ -5140,7 +5181,7 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
 ::: example
-Example 88: given a `GET` request to
+Example 91: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
@@ -5167,7 +5208,7 @@ Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
 ::: example
-Example 89: the `SampleEntities.MostRecentOrder` function is not
+Example 92: the `SampleEntities.MostRecentOrder` function is not
 available for customer 'ALFKI'
 ```json
 {
@@ -5237,7 +5278,7 @@ segment is a multi-valued navigation property, a `POST` request may be
 used to create a new entity in the identified collection.
 
 ::: example
-Example 90: add a new item to the list of items of the shopping cart
+Example 93: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
@@ -5282,7 +5323,7 @@ Each parameter value is represented as a name/value pair in the format
 and `Value` is the parameter value.
 
 ::: example
-Example 91: invoke a `Sales.EmployeesByManager` function which takes a
+Example 94: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
@@ -5291,7 +5332,7 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 92: return all `Customers` whose City property returns
+Example 95: return all `Customers` whose City property returns
 "Western" when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
@@ -5304,7 +5345,7 @@ parameter value. The value for the alias is specified as a separate
 query option using the name of the parameter alias.
 
 ::: example
-Example 93: invoke a `Sales.EmployeesByManager` function via the
+Example 96: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
@@ -5324,7 +5365,7 @@ optional `$` prefix), the parameter name MUST be prefixed with an at
 (`@`) sign.
 
 ::: example
-Example 94: invoke a `Sales.EmployeesByManager` function via the
+Example 97: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
@@ -5454,7 +5495,7 @@ collection as a whole is transported in the `ETag` header of a
 collection response.
 
 ::: example
-Example 95: invoke the `SampleEntities.CreateOrder` action using
+Example 98: invoke the `SampleEntities.CreateOrder` action using
 `/Customers('ALFKI') `as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
@@ -5590,7 +5631,7 @@ format](#MultipartBatchFormat) MUST contain a
 [RFC2046](#rfc2046).
 
 ::: example
-Example 96: multipart batch request
+Example 99: multipart batch request
 ```
 POST /service/$batch HTTP/1.1`
 Host: odata.org
@@ -5605,7 +5646,7 @@ A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
 ::: example
-Example 97: JSON batch request
+Example 100: JSON batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -5757,7 +5798,7 @@ set can use one of the following three formats:
 - Absolute URI with schema, host, port, and absolute resource path.
 
 ::: example
-Example 98:
+Example 101:
 ```
 GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 :::
@@ -5765,7 +5806,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example 99:
+Example 102:
 ```
 GET /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -5775,7 +5816,7 @@ Host: myserver.mydomain.org:1234
 - Resource path relative to the batch request URI.
 
 ::: example
-Example 100:
+Example 103:
 ```
 GET People(1) HTTP/1.1
 ```
@@ -5800,7 +5841,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example 101: a batch request that contains the following individual
+Example 104: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -5879,7 +5920,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example 102: a batch request that contains the following operations in
+Example 105: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -5922,7 +5963,7 @@ Content-Length: ###
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
 
 ::: example
-Example 103: a batch request that contains the following operations in
+Example 106: a batch request that contains the following operations in
 the order listed:
 - Get an Employee (with `Content-ID = 1`)
 - Update the salary only if the employee has not changed
@@ -6020,7 +6061,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 104: referencing the batch request example 101 above, assume all
+Example 107: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6097,7 +6138,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 105: referencing the example 101 above again, assume that
+Example 108: referencing the example 101 above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
