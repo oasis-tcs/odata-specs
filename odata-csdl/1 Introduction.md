@@ -37,10 +37,10 @@ Section | Feature / Change | Issue
 :
 [Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section ##Conformance] | Additional conformance clauses for version 4.02 |
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
 

@@ -264,8 +264,8 @@ Section | Feature / Change | Issue
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
