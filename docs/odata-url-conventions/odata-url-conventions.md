@@ -2840,7 +2840,7 @@ operator names.
 
 The argument of a lambda operator is a case-sensitive lambda variable
 name followed by a colon (`:`) and a Boolean expression that uses the
-lambda variable name to refer to properties of members of the collection
+lambda variable name to refer to properties of the instance or of members of the collection
 identified by the path expression.
 
 If the name chosen for the lambda variable matches a property name of
@@ -2850,7 +2850,7 @@ resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
-collection instances at the origin of the path expression prepended to
+instance or of members of the collection at the origin of the path expression prepended to
 the lambda operator.
 
 ##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
