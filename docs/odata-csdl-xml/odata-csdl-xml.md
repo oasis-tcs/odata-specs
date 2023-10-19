@@ -1612,7 +1612,7 @@ that differ only in case.
 ### <a name="ElementedmProperty11" href="#ElementedmProperty11"> Element `edm:Property`</a>
 
 The `edm:Property` element MUST contain the `Name` and the `Type`
-attribute, and it MAY contain the facet attributes
+attribute, and it MAY contain the attributes
 [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 [`Unicode`](#Unicode), [`Precision`](#Precision), [`Scale`](#Scale),
 [`SRID`](#SRID), and [`DefaultValue`](#DefaultValue).

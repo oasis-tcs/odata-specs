@@ -1721,7 +1721,7 @@ the member value is an object.
 The property object MAY contain the member `$Kind` with a string value
 of `Property`. This member SHOULD be omitted to reduce document size.
 
-It MAY contain the member [`$Type`](#Type), [`$Collection`](#Type),
+It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 [`$Nullable`](#Nullable), [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),
 [`$SRID`](#SRID), and [`$DefaultValue`](#DefaultValue).

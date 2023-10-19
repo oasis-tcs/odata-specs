@@ -38,7 +38,7 @@ the member value is an object.
 The property object MAY contain the member `$Kind` with a string value
 of `Property`. This member SHOULD be omitted to reduce document size.
 
-It MAY contain the member [`$Type`](#Type), [`$Collection`](#Type),
+It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 [`$Nullable`](#Nullable), [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),
 [`$SRID`](#SRID), and [`$DefaultValue`](#DefaultValue).
@@ -68,7 +68,7 @@ Example ##ex: complex type with two properties `Dimension` and `Length`
 ### ##isec Element `edm:Property`
 
 The `edm:Property` element MUST contain the `Name` and the `Type`
-attribute, and it MAY contain the facet attributes
+attribute, and it MAY contain the attributes
 [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 [`Unicode`](#Unicode), [`Precision`](#Precision), [`Scale`](#Scale),
 [`SRID`](#SRID), and [`DefaultValue`](#DefaultValue).
