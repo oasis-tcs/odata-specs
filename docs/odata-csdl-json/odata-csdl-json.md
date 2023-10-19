@@ -635,7 +635,7 @@ If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
 ::: {.varjson .rep}
-### <a name="TypeFacets1" href="#TypeFacets1"> Type Facets</a>
+### <a name="TypeFacetMembers1" href="#TypeFacetMembers1"> Type Facet Members</a>
 ### <a name="MaxLength1.1" href="#MaxLength1.1"> `$MaxLength`</a>
 
 The value of `$MaxLength` is a positive integer.
@@ -5856,7 +5856,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 # <a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a>
 
 ::: toc
-- [Type Facets](#TypeFacets1)
+- [Type Facet Members](#TypeFacetMembers1)
   - [`$MaxLength`](#MaxLength1.1)
   - [`$Precision`](#Precision1.2)
   - [`$Scale`](#Scale1.3)
