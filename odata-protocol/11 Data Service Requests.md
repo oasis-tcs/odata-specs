@@ -270,7 +270,7 @@ GET http://host/service/Products(1)/Name/$value
 
 If the property being requested has type `Edm.Stream` (see
 [OData-URL, section 9](#ODataURL)), the media type of the response is the
-media type of the stream, subject to content negotiation based on the
+media type of the stream, subject to content type negotiation based on the
 [`Accept`](#HeaderAccept) header of the request.
 The response body is the octet-stream that represents the raw
 value of the stream with that media type.
