@@ -647,7 +647,6 @@ Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.
 Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
 ```json
 "Amount32": {
-  "$Nullable": true,
   "$Type": "Edm.Decimal",
   "$Precision": 3,
   "$Scale": 2
@@ -660,7 +659,6 @@ Example ##ex: `Precision=2` equals `Scale`.
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```json
 "Amount22": {
-  "$Nullable": true,
   "$Type": "Edm.Decimal",
   "$Precision": 2,
   "$Scale": 2
@@ -674,7 +672,6 @@ Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```json
 "Amount3v": {
-  "$Nullable": true,
   "$Type": "Edm.Decimal",
   "$Precision": 3
 }
@@ -687,7 +684,6 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```json
 "Amount7f": {
-  "$Nullable": true,
   "$Type": "Edm.Decimal",
   "$Precision": 7,
   "$Scale": "floating"
@@ -708,36 +704,37 @@ If not specified, the `Scale` facet defaults to zero.
 :::
 
 ::: {.varxml .example}
-Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.
-Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
+Example ##ex: [`Precision`](#Precision)`=3` and `Scale=2`.  
+Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3  
+(the [`Nullable`](#Nullable) attribute can be ignored in these examples)
 ```xml
-<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
+<Property Name="Amount32" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="2" />
 ```
 :::
 
 ::: {.varxml .example}
-Example ##ex: `Precision=2` equals `Scale`.
+Example ##ex: `Precision=2` equals `Scale`.  
 Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
 ```xml
-<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
+<Property Name="Amount22" Type="Edm.Decimal" Nullable="false" Precision="2" Scale="2" />
 ```
 :::
 
 ::: {.varxml .example}
-Example ##ex: `Precision=3` and a variable `Scale`.
+Example ##ex: `Precision=3` and a variable `Scale`.  
 Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
 values: 12.34, 1234 and 123.4 due to the limited precision.
 ```xml
-<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
+<Property Name="Amount3v" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="variable" />
 ```
 :::
 
 ::: {.varxml .example}
-Example ##ex: `Precision=7` and a floating `Scale`.
+Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 1e-102 and 1e97 due to the limited precision.
 ```xml
-<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
+<Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
 ```
 :::
 
