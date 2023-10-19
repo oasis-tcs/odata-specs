@@ -511,6 +511,7 @@ If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
 ::: {.varjson .rep}
+### ##isec Type Facets
 ### ##subisec `$MaxLength`
 
 The value of `$MaxLength` is a positive integer.
@@ -523,6 +524,7 @@ service or omit the member entirely.
 :::
 
 ::: {.varxml .rep}
+### ##isec Type Facet Attributes
 ### ##subisec Attribute `MaxLength`
 
 The value of `MaxLength` is a positive integer or the symbolic value
