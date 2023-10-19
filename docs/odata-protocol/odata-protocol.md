@@ -205,6 +205,7 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
       - [11.2.4.1 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
+      - [11.2.4.2 Requesting Stream Properties](#RequestingStreamProperties)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -2791,6 +2792,21 @@ GET http://host/service/Products(1)/Name/$value
 ```
 :::
 
+#### <a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.2 Requesting Stream Properties</a>
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
+
+Appending `/$value` to the property URL of a stream property returns
+`400 Bad Request`.
+
 ### <a name="SpecifyingPropertiestoReturn" href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 
 The [`$select`](#SystemQueryOptionselect) and
@@ -5286,6 +5302,10 @@ POST http://host/service/MyShoppingCart()/Items
 ...
 ```
 :::
+
+If the function returns a value of type `Edm.Stream` and no additional path
+segments follow the function invocation, the response to the `GET` request
+obeys the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for

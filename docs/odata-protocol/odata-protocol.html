@@ -307,6 +307,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 <ul>
 <li><a href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using <code>$value</code></a></li>
+<li><a href="#RequestingStreamProperties">11.2.4.2 Requesting Stream Properties</a></li>
 </ul></li>
 <li><a href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 <ul>
@@ -1287,6 +1288,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 32:</p>
 <pre><code>GET http://host/service/Products(1)/Name/$value</code></pre>
 </div>
+<h4 id="11242-requesting-stream-properties"><a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.2 Requesting Stream Properties</a></h4>
+<p>If the property being requested has type <code>Edm.Stream</code> (see <a href="#ODataURL">OData-URL, section 9</a>), the media type of the response is the media type of the stream, subject to content negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the stream with that media type.</p>
+<p>Note this response format disregards any <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
+<p>Appending <code>/$value</code> to the property URL of a stream property returns <code>400 Bad Request</code>.</p>
 <h3 id="1125-specifying-properties-to-return"><a name="SpecifyingPropertiestoReturn" href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a></h3>
 <p>The <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query options enable the client to specify the set of structural properties and navigation properties to include in a response. The service MAY include additional properties not specified in <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, including properties not defined in <a href="#MetadataDocumentRequest">the metadata document</a>.</p>
 <h4 id="11251-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">11.2.5.1 System Query Option <code>$select</code></a></h4>
@@ -2124,6 +2129,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
  
 ...</code></pre>
 </div>
+<p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request obeys the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.  </p>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
