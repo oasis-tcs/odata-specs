@@ -2804,8 +2804,8 @@ value of the stream with that media type.
 Note this response format disregards any [`$format`](#SystemQueryOptionformat)
 system query option.
 
-Appending `/$value` to the property URL of a stream property returns
-`400 Bad Request`.
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
 
 ### <a name="SpecifyingPropertiestoReturn" href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 
