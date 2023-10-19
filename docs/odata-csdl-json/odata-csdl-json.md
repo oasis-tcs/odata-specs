@@ -113,9 +113,15 @@ For complete copyright information please see the full Notices section in an App
   - [3.1 Nominal Types](#NominalTypes)
   - [3.2 Structured Types](#StructuredTypes)
   - [3.3 Primitive Types](#PrimitiveTypes)
-  - [3.4 Built-In Abstract Types](#BuiltInAbstractTypes)
-  - [3.5 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
-  - [3.6 Annotations](#Annotations)
+  - [3.4 Type Facets](#TypeFacets)
+    - [3.4.1 MaxLength](#MaxLength)
+    - [3.4.2 Precision](#Precision)
+    - [3.4.3 Scale](#Scale)
+    - [3.4.4 Unicode](#Unicode)
+    - [3.4.5 SRID](#SRID)
+  - [3.5 Built-In Abstract Types](#BuiltInAbstractTypes)
+  - [3.6 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
+  - [3.7 Annotations](#Annotations)
 - [4 CSDL JSON Document](#CSDLJSONDocument)
   - [4.1 Reference](#Reference)
   - [4.2 Included Schema](#IncludedSchema)
@@ -131,14 +137,8 @@ For complete copyright information please see the full Notices section in an App
   - [6.5 Key](#Key)
 - [7 Structural Property](#StructuralProperty)
   - [7.1 Type](#Type)
-  - [7.2 Type Facets](#TypeFacets)
-    - [7.2.1 Nullable](#Nullable)
-    - [7.2.2 MaxLength](#MaxLength)
-    - [7.2.3 Precision](#Precision)
-    - [7.2.4 Scale](#Scale)
-    - [7.2.5 Unicode](#Unicode)
-    - [7.2.6 SRID](#SRID)
-    - [7.2.7 Default Value](#DefaultValue)
+  - [7.2 Nullable](#Nullable)
+  - [7.3 Default Value](#DefaultValue)
 - [8 Navigation Property](#NavigationProperty)
   - [8.1 Navigation Property Type](#NavigationPropertyType)
   - [8.2 Nullable Navigation Property](#NullableNavigationProperty)
@@ -614,7 +614,221 @@ representation of primitive type values in URLs and
 [OData-JSON](#ODataJSON) for the representation in requests and
 responses.
 
-## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.4 Built-In Abstract Types</a>
+## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
+
+Facets modify or constrain the acceptable values for a model element of a given primitive type,
+for example a [structural property](#StructuralProperty),
+action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+
+For single-valued model elements the facets apply to the value of the
+model element. For collection-valued model elements the facets apply to the items
+in the collection.
+
+### <a name="MaxLength" href="#MaxLength">3.4.1 MaxLength</a>
+
+A positive integer value specifying the maximum length of a binary,
+stream or string value. For binary or stream values this is the octet
+length of the binary data, for string values it is the character length
+(number of code points for Unicode).
+
+If no maximum length is specified, clients SHOULD expect arbitrary
+length.
+
+::: {.varjson .rep}
+### <a name="MaxLengthundefined.1" href="#MaxLengthundefined.1"> `$MaxLength`</a>
+
+The value of `$MaxLength` is a positive integer.
+
+Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
+value `max` that is only allowed in OData 4.0 responses. This symbolic
+value is not allowed in CDSL JSON documents at all. Services MAY instead
+specify the concrete maximum length supported for the type by the
+service or omit the member entirely.
+:::
+
+
+### <a name="Precision" href="#Precision">3.4.2 Precision</a>
+
+For a decimal value: the maximum number of significant decimal digits of
+the model element's value; it MUST be a positive integer.
+
+For a temporal value (datetime-with-timezone-offset, duration, or
+time-of-day): the number of decimal places allowed in the seconds
+portion of the value; it MUST be a non-negative integer between zero and
+twelve.
+
+Note: service authors SHOULD be aware that some clients are unable to
+support a precision greater than 28 for decimal values and 7 for
+temporal values. Client developers MUST be aware of the potential
+for data loss when round-tripping values of greater precision. Updating
+via `PATCH` and exclusively specifying modified values will reduce
+the risk for unintended data loss.
+
+Note: model elements with duration values and a granularity less than seconds
+(e.g. minutes, hours, days) can be annotated with term
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+see [OData-VocMeasures](#ODataVocMeasures).
+
+::: {.varjson .rep}
+### <a name="Precisionundefined.2" href="#Precisionundefined.2"> `$Precision`</a>
+
+The value of `$Precision` is a number.
+
+Absence of `$Precision` means arbitrary precision.
+:::
+
+::: {.varjson .example}
+Example 2: `Precision` facet applied to the `DateTimeOffset` type
+```json
+"SuggestedTimes": {
+  "$Type": "Edm.DateTimeOffset",
+  "$Collection": true,
+  "$Precision": 6
+}
+```
+:::
+
+
+
+### <a name="Scale" href="#Scale">3.4.3 Scale</a>
+
+A non-negative integer value specifying the maximum number of digits
+allowed to the right of the decimal point, or one of the symbolic values
+`floating` or `variable`.
+
+The value `floating` means that the decimal value represents a
+decimal floating-point number whose number of significant digits is the
+value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
+NOT specify the value `floating`.
+
+The value `variable` means that the number of digits to the right of the
+decimal point can vary from zero to the value of the
+[`Precision`](#Precision) facet.
+
+An integer value means that the number of digits to the right of the
+decimal point may vary from zero to the value of the `Scale` facet, and
+the number of digits to the left of the decimal point may vary from one
+to the value of the `Precision` facet minus the value of the `Scale`
+facet. If `Precision` is equal to `Scale`, a single zero MUST precede
+the decimal point.
+
+The value of `Scale` MUST be less than or equal to the value of
+[`Precision`](#Precision).
+
+Note: if the underlying data store allows negative scale, services may
+use a [`Precision`](#Precision) with the absolute value of the negative
+scale added to the actual number of significant decimal digits, and
+client-provided values may have to be rounded before being stored.
+
+::: {.varjson .rep}
+### <a name="Scaleundefined.3" href="#Scaleundefined.3"> `$Scale`</a>
+
+The value of `$Scale` is a number or a string with one of the symbolic
+values `floating` or `variable`.
+
+Services SHOULD use lower-case values; clients SHOULD accept values in a
+case-insensitive manner.
+
+Absence of `$Scale` means `variable`.
+:::
+
+::: {.varjson .example}
+Example 3: [`Precision`](#Precision)`=3` and `Scale=2`.  
+Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
+```json
+"Amount32": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3,
+  "$Scale": 2
+}
+```
+:::
+
+::: {.varjson .example}
+Example 4: `Precision=2` equals `Scale`.  
+Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
+```json
+"Amount22": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 2,
+  "$Scale": 2
+}
+```
+:::
+
+::: {.varjson .example}
+Example 5: `Precision=3` and a variable `Scale`.  
+Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
+values: 12.34, 1234 and 123.4 due to the limited precision.
+```json
+"Amount3v": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 3
+}
+```
+:::
+
+::: {.varjson .example}
+Example 6: `Precision=7` and a floating `Scale`.  
+Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
+1e-102 and 1e97 due to the limited precision.
+```json
+"Amount7f": {
+  "$Nullable": true,
+  "$Type": "Edm.Decimal",
+  "$Precision": 7,
+  "$Scale": "floating"
+}
+```
+:::
+
+
+
+
+
+
+### <a name="Unicode" href="#Unicode">3.4.4 Unicode</a>
+
+For a string-typed model element the `Unicode` facet indicates whether the it
+might contain and accept string values with Unicode characters (code
+points) beyond the ASCII character set. The value `false` indicates that
+the it will only contain and accept string values with characters
+limited to the ASCII character set.
+
+If no value is specified, the `Unicode` facet defaults to `true`.
+
+::: {.varjson .rep}
+### <a name="Unicodeundefined.4" href="#Unicodeundefined.4"> `$Unicode`</a>
+
+The value of `$Unicode` is one of the Boolean literals `true` or
+`false`. Absence of the member means `true`.
+:::
+
+
+### <a name="SRID" href="#SRID">3.4.5 SRID</a>
+
+For a geometry- or geography-typed model element the `SRID` facet identifies which
+spatial reference system is applied to its values.
+
+The value of the `SRID` facet MUST be a non-negative integer or the
+special value `variable`. If no value is specified, the facet defaults
+to `0` for `Geometry` types or `4326` for `Geography` types.
+
+The valid values of the `SRID` facet and their meanings are as defined
+by the European Petroleum Survey Group [EPSG](#_EPSG).
+
+::: {.varjson .rep}
+### <a name="SRIDundefined.5" href="#SRIDundefined.5"> `$SRID`</a>
+
+The value of `$SRID` is a string containing a number or the symbolic
+value `variable`.
+:::
+
+
+## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.5 Built-In Abstract Types</a>
 
 The following built-in abstract types can be used within a model:
 - `Edm.PrimitiveType`
@@ -660,7 +874,7 @@ be used anywhere a corresponding concrete type can be used, except:
         of `4.0`. Services should treat untyped properties as dynamic
         properties in `4.0` payloads.
 
-## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.5 Built-In Types for defining Vocabulary Terms</a>
+## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.6 Built-In Types for defining Vocabulary Terms</a>
 
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
@@ -675,7 +889,7 @@ as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
 section "[Path Expressions](#PathExpressions)" for details.
 
-## <a name="Annotations" href="#Annotations">3.6 Annotations</a>
+## <a name="Annotations" href="#Annotations">3.7 Annotations</a>
 
 Many parts of the model can be decorated with additional information
 using [annotations](#Annotation). Annotations are identified by their
@@ -712,7 +926,7 @@ The value of `$EntityContainer` is the namespace-qualified name of the entity co
 :::
 
 ::: {.varjson .example}
-Example 2:
+Example 7:
 ```json
 {
   "$Version": "4.01",
@@ -767,7 +981,7 @@ The reference object MAY contain the members
 :::
 
 ::: {.varjson .example}
-Example 3: references to other CSDL documents
+Example 8: references to other CSDL documents
 ```json
 {
   ...
@@ -844,7 +1058,7 @@ schema.
 :::
 
 ::: {.varjson .example}
-Example 4: references to entity models containing definitions of
+Example 9: references to entity models containing definitions of
 vocabulary terms
 ```json
 {
@@ -942,7 +1156,7 @@ The value of `$TargetNamespace` is a namespace.
 :::
 
 ::: {.varjson .example}
-Example 5: reference documents that contain annotations
+Example 10: reference documents that contain annotations
 ```json
 {
   ...
@@ -1061,7 +1275,7 @@ The value of `$Alias` is a string containing the alias for the schema.
 :::
 
 ::: {.varjson .example}
-Example 6: document defining a schema `org.example` with an alias and a
+Example 11: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
@@ -1090,7 +1304,7 @@ target](#Target), the member value is an object containing
 :::
 
 ::: {.varjson .example}
-Example 7: annotations targeting the `Person` type with qualifier
+Example 12: annotations targeting the `Person` type with qualifier
 `Tablet`
 ```json
 "org.example": {
@@ -1151,7 +1365,7 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
+Example <a name="entitytype" href="#entitytype">13</a>: a simple entity type
 ```json
 "Employee": {
   "$Kind": "EntityType",
@@ -1190,7 +1404,7 @@ The value of `$BaseType` is the qualified name of the base type.
 :::
 
 ::: {.varjson .example}
-Example 9: a derived entity type based on the previous example
+Example 14: a derived entity type based on the previous example
 ```json
 "Manager": {
   "$Kind": "EntityType",
@@ -1379,7 +1593,7 @@ containing the path to the property.
 :::
 
 ::: {.varjson .example}
-Example 10: entity type with a simple key
+Example 15: entity type with a simple key
 ```json
 "Category": {
   "$Kind": "EntityType",
@@ -1398,7 +1612,7 @@ Example 10: entity type with a simple key
 :::
 
 ::: {.varjson .example}
-Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simple key referencing a property of a
+Example <a name="complexkey" href="#complexkey">16</a>: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```json
 "Category": {
@@ -1429,7 +1643,7 @@ Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simpl
 :::
 
 ::: {.varjson .example}
-Example 12: entity type with a composite key
+Example 17: entity type with a composite key
 ```json
 "OrderLine": {
   "$Kind": "EntityType",
@@ -1452,7 +1666,7 @@ Example 12: entity type with a composite key
 
 
 ::: example
-Example 13 (based on [example 11](#complexkey)): requests to an entity set `Categories`
+Example 18 (based on [example 16](#complexkey)): requests to an entity set `Categories`
 of type `Category` must use the alias
 ```
 GET http://host/service/Categories(EntityInfoID=1)
@@ -1460,7 +1674,7 @@ GET http://host/service/Categories(EntityInfoID=1)
 :::
 
 ::: example
-Example 14 (based on [example 11](#complexkey)): in a query part the value assigned to
+Example 19 (based on [example 16](#complexkey)): in a query part the value assigned to
 the name attribute must be used
 ```
 GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
@@ -1516,7 +1730,7 @@ It also MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 15: complex type with two properties `Dimension` and `Length`
+Example 20: complex type with two properties `Dimension` and `Length`
 ```json
 "Measurement": {
   "$Kind": "ComplexType",
@@ -1567,7 +1781,7 @@ member SHOULD be omitted for string properties to reduce document size.
 :::
 
 ::: {.varjson .example}
-Example 16: property `Units` that can have zero or more strings as its
+Example 21: property `Units` that can have zero or more strings as its
 value
 ```json
 "Units": {
@@ -1578,15 +1792,7 @@ value
 
 
 
-## <a name="TypeFacets" href="#TypeFacets">7.2 Type Facets</a>
-
-Facets modify or constrain the acceptable values for a model element of a given type.
-
-For single-valued model elements the facets apply to the value of the
-model element. For collection-valued model elements the facets apply to the items
-in the collection.
-
-### <a name="Nullable" href="#Nullable">7.2.1 Nullable</a>
+## <a name="Nullable" href="#Nullable">7.2 Nullable</a>
 
 A Boolean value specifying whether the property can have the value
 `null`.
@@ -1600,228 +1806,23 @@ The value of `$Nullable` is one of the Boolean literals `true` or
 For single-valued properties the value `true` means that the property
 allows the `null` value.
 
-For collection-valued properties the property value will always be a
+For collection-valued properties the value will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
 
 
-### <a name="MaxLength" href="#MaxLength">7.2.2 MaxLength</a>
+## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
-A positive integer value specifying the maximum length of a binary,
-stream or string value. For binary or stream values this is the octet
-length of the binary data, for string values it is the character length
-(number of code points for Unicode).
-
-If no maximum length is specified, clients SHOULD expect arbitrary
-length.
-
-::: {.varjson .rep}
-### <a name="MaxLength5.4" href="#MaxLength5.4"> `$MaxLength`</a>
-
-The value of `$MaxLength` is a positive integer.
-
-Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
-value `max` that is only allowed in OData 4.0 responses. This symbolic
-value is not allowed in CDSL JSON documents at all. Services MAY instead
-specify the concrete maximum length supported for the type by the
-service or omit the member entirely.
-:::
-
-
-### <a name="Precision" href="#Precision">7.2.3 Precision</a>
-
-For a decimal value: the maximum number of significant decimal digits of
-the property's value; it MUST be a positive integer.
-
-For a temporal value (datetime-with-timezone-offset, duration, or
-time-of-day): the number of decimal places allowed in the seconds
-portion of the value; it MUST be a non-negative integer between zero and
-twelve.
-
-Note: service authors SHOULD be aware that some clients are unable to
-support a precision greater than 28 for decimal properties and 7 for
-temporal properties. Client developers MUST be aware of the potential
-for data loss when round-tripping values of greater precision. Updating
-via `PATCH` and exclusively specifying modified properties will reduce
-the risk for unintended data loss.
-
-Note: duration properties supporting a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#ODataVocMeasures).
-
-::: {.varjson .rep}
-### <a name="Precision5.5" href="#Precision5.5"> `$Precision`</a>
-
-The value of `$Precision` is a number.
-
-Absence of `$Precision` means arbitrary precision.
-:::
-
-::: {.varjson .example}
-Example 17: `Precision` facet applied to the `DateTimeOffset` type
-```json
-"SuggestedTimes": {
-  "$Type": "Edm.DateTimeOffset",
-  "$Collection": true,
-  "$Precision": 6
-}
-```
-:::
-
-
-
-### <a name="Scale" href="#Scale">7.2.4 Scale</a>
-
-A non-negative integer value specifying the maximum number of digits
-allowed to the right of the decimal point, or one of the symbolic values
-`floating` or `variable`.
-
-The value `floating` means that the decimal property represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
-
-The value `variable` means that the number of digits to the right of the
-decimal point can vary from zero to the value of the
-[`Precision`](#Precision) facet.
-
-An integer value means that the number of digits to the right of the
-decimal point may vary from zero to the value of the `Scale` facet, and
-the number of digits to the left of the decimal point may vary from one
-to the value of the `Precision` facet minus the value of the `Scale`
-facet. If `Precision` is equal to `Scale`, a single zero MUST precede
-the decimal point.
-
-The value of `Scale` MUST be less than or equal to the value of
-[`Precision`](#Precision).
-
-Note: if the underlying data store allows negative scale, services may
-use a [`Precision`](#Precision) with the absolute value of the negative
-scale added to the actual number of significant decimal digits, and
-client-provided values may have to be rounded before being stored.
-
-::: {.varjson .rep}
-### <a name="Scale5.6" href="#Scale5.6"> `$Scale`</a>
-
-The value of `$Scale` is a number or a string with one of the symbolic
-values `floating` or `variable`.
-
-Services SHOULD use lower-case values; clients SHOULD accept values in a
-case-insensitive manner.
-
-Absence of `$Scale` means `variable`.
-:::
-
-::: {.varjson .example}
-Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.  
-Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
-```json
-"Amount32": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3,
-  "$Scale": 2
-}
-```
-:::
-
-::: {.varjson .example}
-Example 19: `Precision=2` equals `Scale`.  
-Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
-```json
-"Amount22": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 2,
-  "$Scale": 2
-}
-```
-:::
-
-::: {.varjson .example}
-Example 20: `Precision=3` and a variable `Scale`.  
-Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
-values: 12.34, 1234 and 123.4 due to the limited precision.
-```json
-"Amount3v": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 3
-}
-```
-:::
-
-::: {.varjson .example}
-Example 21: `Precision=7` and a floating `Scale`.  
-Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
-```json
-"Amount7f": {
-  "$Nullable": true,
-  "$Type": "Edm.Decimal",
-  "$Precision": 7,
-  "$Scale": "floating"
-}
-```
-:::
-
-
-
-
-
-
-### <a name="Unicode" href="#Unicode">7.2.5 Unicode</a>
-
-For a string property the `Unicode` facet indicates whether the property
-might contain and accept string values with Unicode characters (code
-points) beyond the ASCII character set. The value `false` indicates that
-the property will only contain and accept string values with characters
-limited to the ASCII character set.
-
-If no value is specified, the `Unicode` facet defaults to `true`.
-
-::: {.varjson .rep}
-### <a name="Unicode5.7" href="#Unicode5.7"> `$Unicode`</a>
-
-The value of `$Unicode` is one of the Boolean literals `true` or
-`false`. Absence of the member means `true`.
-:::
-
-
-### <a name="SRID" href="#SRID">7.2.6 SRID</a>
-
-For a geometry or geography property the `SRID` facet identifies which
-spatial reference system is applied to values of the property on type
-instances.
-
-The value of the `SRID` facet MUST be a non-negative integer or the
-special value `variable`. If no value is specified, the facet defaults
-to `0` for `Geometry` types or `4326` for `Geography` types.
-
-The valid values of the `SRID` facet and their meanings are as defined
-by the European Petroleum Survey Group [EPSG](#_EPSG).
-
-::: {.varjson .rep}
-### <a name="SRID5.8" href="#SRID5.8"> `$SRID`</a>
-
-The value of `$SRID` is a string containing a number or the symbolic
-value `variable`.
-:::
-
-
-### <a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a>
-
-A primitive or enumeration property MAY define a default value that is
-used if the property is not explicitly represented in an annotation or
+A primitive- or enumeration-typed model element MAY define a default value that is
+used if it is not explicitly represented in an annotation or
 the body of a request or response.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
 ::: {.varjson .rep}
-### <a name="DefaultValue5.9" href="#DefaultValue5.9"> `$DefaultValue`</a>
+### <a name="DefaultValue5.4" href="#DefaultValue5.4"> `$DefaultValue`</a>
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
@@ -2746,7 +2747,7 @@ explicitly indicated, it is unbound.
 
 Bound actions or functions are invoked on resources matching the type of
 the binding parameter. The binding parameter can be of any type, and it
-MAY be [nullable](#Nullable).
+MAY be nullable.
 
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
@@ -2813,7 +2814,7 @@ The value of `$IsComposable` is one of the Boolean literals `true` or
 The return type of an action or function overload MAY be any type in
 scope, or a collection of any type in scope.
 
-The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
+The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
@@ -3572,10 +3573,11 @@ unqualified name of the term and whose value is an object.
 The term object MUST contain the member `$Kind` with a string value of
 `Term`.
 
-It MAY contain the members `$Type`, `$Collection`,
-[`$AppliesTo`](#Applicability), [`$Nullable`](#Nullable),
+It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
+[`$BaseTerm`](#SpecializedTerm),
+[`$AppliesTo`](#Applicability),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
-[`$Scale`](#Scale), [`$SRID`](#SRID), and `$DefaultValue`, as well as
+[`$Scale`](#Scale), and [`$SRID`](#SRID), as well as
 [`$Unicode`](#Unicode) for 4.01 and greater payloads.
 
 It MAY contain [annotations](#Annotation).
@@ -3591,7 +3593,20 @@ with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a name="DefaultValue19.3" href="#DefaultValue19.3"> `$DefaultValue`</a>
+### <a name="Nullable19.3" href="#Nullable19.3"> `$Nullable`</a>
+
+The value of `$Nullable` is one of the Boolean literals `true` or
+`false`. Absence of the member means `false`.
+
+For single-valued terms  the value `true` means that annotations may have
+the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case `$Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
+
+### <a name="DefaultValue19.4" href="#DefaultValue19.4"> `$DefaultValue`</a>
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
@@ -3613,7 +3628,7 @@ with the same qualifier, and so on until a term without a base term is
 reached.
 
 ::: {.varjson .rep}
-### <a name="BaseTerm19.4" href="#BaseTerm19.4"> `$BaseTerm`</a>
+### <a name="BaseTerm19.5" href="#BaseTerm19.5"> `$BaseTerm`</a>
 
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
@@ -3666,7 +3681,7 @@ Symbolic Value|Model Element
 `UrlRef`                  |UrlRef annotation expression
 
 ::: {.varjson .rep}
-### <a name="AppliesTo19.5" href="#AppliesTo19.5"> `$AppliesTo`</a>
+### <a name="AppliesTo19.6" href="#AppliesTo19.6"> `$AppliesTo`</a>
 
 The value of `$AppliesTo` is an array whose items are strings containing
 symbolic values from the table above that identify model elements the
@@ -5254,7 +5269,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 86: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5865,12 +5880,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$Type`](#Type5.1)
   - [`$Collection`](#Collection5.2)
   - [`$Nullable`](#Nullable5.3)
-  - [`$MaxLength`](#MaxLength5.4)
-  - [`$Precision`](#Precision5.5)
-  - [`$Scale`](#Scale5.6)
-  - [`$Unicode`](#Unicode5.7)
-  - [`$SRID`](#SRID5.8)
-  - [`$DefaultValue`](#DefaultValue5.9)
+  - [`$DefaultValue`](#DefaultValue5.4)
 - [Navigation Property Object](#NavigationPropertyObject6)
   - [`$Type`](#Type6.1)
   - [`$Collection`](#Collection6.2)
@@ -5924,9 +5934,10 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 - [Term Object](#TermObject19)
   - [`$Type`](#Type19.1)
   - [`$Collection`](#Collection19.2)
-  - [`$DefaultValue`](#DefaultValue19.3)
-  - [`$BaseTerm`](#BaseTerm19.4)
-  - [`$AppliesTo`](#AppliesTo19.5)
+  - [`$Nullable`](#Nullable19.3)
+  - [`$DefaultValue`](#DefaultValue19.4)
+  - [`$BaseTerm`](#BaseTerm19.5)
+  - [`$AppliesTo`](#AppliesTo19.6)
 - [Annotation Member](#AnnotationMember20)
   - [`$Path`](#Path20.1)
   - [`$And`](#And20.2)

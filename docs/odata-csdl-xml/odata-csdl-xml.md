@@ -111,9 +111,15 @@ For complete copyright information please see the full Notices section in an App
   - [3.1 Nominal Types](#NominalTypes)
   - [3.2 Structured Types](#StructuredTypes)
   - [3.3 Primitive Types](#PrimitiveTypes)
-  - [3.4 Built-In Abstract Types](#BuiltInAbstractTypes)
-  - [3.5 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
-  - [3.6 Annotations](#Annotations)
+  - [3.4 Type Facets](#TypeFacets)
+    - [3.4.1 MaxLength](#MaxLength)
+    - [3.4.2 Precision](#Precision)
+    - [3.4.3 Scale](#Scale)
+    - [3.4.4 Unicode](#Unicode)
+    - [3.4.5 SRID](#SRID)
+  - [3.5 Built-In Abstract Types](#BuiltInAbstractTypes)
+  - [3.6 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
+  - [3.7 Annotations](#Annotations)
 - [4 CSDL XML Document](#CSDLXMLDocument)
   - [4.1 Reference](#Reference)
   - [4.2 Included Schema](#IncludedSchema)
@@ -129,14 +135,8 @@ For complete copyright information please see the full Notices section in an App
   - [6.5 Key](#Key)
 - [7 Structural Property](#StructuralProperty)
   - [7.1 Type](#Type)
-  - [7.2 Type Facets](#TypeFacets)
-    - [7.2.1 Nullable](#Nullable)
-    - [7.2.2 MaxLength](#MaxLength)
-    - [7.2.3 Precision](#Precision)
-    - [7.2.4 Scale](#Scale)
-    - [7.2.5 Unicode](#Unicode)
-    - [7.2.6 SRID](#SRID)
-    - [7.2.7 Default Value](#DefaultValue)
+  - [7.2 Nullable](#Nullable)
+  - [7.3 Default Value](#DefaultValue)
 - [8 Navigation Property](#NavigationProperty)
   - [8.1 Navigation Property Type](#NavigationPropertyType)
   - [8.2 Nullable Navigation Property](#NullableNavigationProperty)
@@ -554,7 +554,205 @@ representation of primitive type values in URLs and
 [OData-JSON](#ODataJSON) for the representation in requests and
 responses.
 
-## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.4 Built-In Abstract Types</a>
+## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
+
+Facets modify or constrain the acceptable values for a model element of a given primitive type,
+for example a [structural property](#StructuralProperty),
+action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+
+For single-valued model elements the facets apply to the value of the
+model element. For collection-valued model elements the facets apply to the items
+in the collection.
+
+### <a name="MaxLength" href="#MaxLength">3.4.1 MaxLength</a>
+
+A positive integer value specifying the maximum length of a binary,
+stream or string value. For binary or stream values this is the octet
+length of the binary data, for string values it is the character length
+(number of code points for Unicode).
+
+If no maximum length is specified, clients SHOULD expect arbitrary
+length.
+
+
+::: {.varxml .rep}
+### <a name="AttributeMaxLengthundefined.1" href="#AttributeMaxLengthundefined.1"> Attribute `MaxLength`</a>
+
+The value of `MaxLength` is a positive integer or the symbolic value
+`max` as a shorthand for the maximum length supported for the type by
+the service.
+
+Note: the symbolic value `max` is only allowed in OData 4.0 responses;
+it is deprecated in OData 4.01. While clients MUST be prepared for this
+symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value `max` and MAY instead specify the concrete maximum length
+supported for the type by the service or omit the attribute entirely.
+:::
+
+### <a name="Precision" href="#Precision">3.4.2 Precision</a>
+
+For a decimal value: the maximum number of significant decimal digits of
+the model element's value; it MUST be a positive integer.
+
+For a temporal value (datetime-with-timezone-offset, duration, or
+time-of-day): the number of decimal places allowed in the seconds
+portion of the value; it MUST be a non-negative integer between zero and
+twelve.
+
+Note: service authors SHOULD be aware that some clients are unable to
+support a precision greater than 28 for decimal values and 7 for
+temporal values. Client developers MUST be aware of the potential
+for data loss when round-tripping values of greater precision. Updating
+via `PATCH` and exclusively specifying modified values will reduce
+the risk for unintended data loss.
+
+Note: model elements with duration values and a granularity less than seconds
+(e.g. minutes, hours, days) can be annotated with term
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+see [OData-VocMeasures](#ODataVocMeasures).
+
+
+
+::: {.varxml .rep}
+### <a name="AttributePrecisionundefined.2" href="#AttributePrecisionundefined.2"> Attribute `Precision`</a>
+
+The value of `Precision` is a number.
+
+If not specified for a decimal value, the decimal value has
+arbitrary precision.
+
+If not specified for a temporal value, the temporal value has a
+precision of zero.
+:::
+
+::: {.varxml .example}
+Example 2: [`Precision`](#Precision) facet applied to the
+`DateTimeOffset` type
+```xml
+<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
+          Precision="6" />
+```
+:::
+
+### <a name="Scale" href="#Scale">3.4.3 Scale</a>
+
+A non-negative integer value specifying the maximum number of digits
+allowed to the right of the decimal point, or one of the symbolic values
+`floating` or `variable`.
+
+The value `floating` means that the decimal value represents a
+decimal floating-point number whose number of significant digits is the
+value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
+NOT specify the value `floating`.
+
+The value `variable` means that the number of digits to the right of the
+decimal point can vary from zero to the value of the
+[`Precision`](#Precision) facet.
+
+An integer value means that the number of digits to the right of the
+decimal point may vary from zero to the value of the `Scale` facet, and
+the number of digits to the left of the decimal point may vary from one
+to the value of the `Precision` facet minus the value of the `Scale`
+facet. If `Precision` is equal to `Scale`, a single zero MUST precede
+the decimal point.
+
+The value of `Scale` MUST be less than or equal to the value of
+[`Precision`](#Precision).
+
+Note: if the underlying data store allows negative scale, services may
+use a [`Precision`](#Precision) with the absolute value of the negative
+scale added to the actual number of significant decimal digits, and
+client-provided values may have to be rounded before being stored.
+
+
+
+
+
+
+::: {.varxml .rep}
+### <a name="AttributeScaleundefined.3" href="#AttributeScaleundefined.3"> Attribute `Scale`</a>
+
+The value of `Scale` is a number or one of the symbolic values
+`floating` or `variable`.
+
+Services SHOULD use lower-case values; clients SHOULD accept values in a
+case-insensitive manner.
+
+If not specified, the `Scale` facet defaults to zero.
+:::
+
+::: {.varxml .example}
+Example 3: [`Precision`](#Precision)`=3` and `Scale=2`.
+Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
+```xml
+<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
+```
+:::
+
+::: {.varxml .example}
+Example 4: `Precision=2` equals `Scale`.
+Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
+```xml
+<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
+```
+:::
+
+::: {.varxml .example}
+Example 5: `Precision=3` and a variable `Scale`.
+Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
+values: 12.34, 1234 and 123.4 due to the limited precision.
+```xml
+<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
+```
+:::
+
+::: {.varxml .example}
+Example 6: `Precision=7` and a floating `Scale`.
+Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
+1e-102 and 1e97 due to the limited precision.
+```xml
+<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
+```
+:::
+
+### <a name="Unicode" href="#Unicode">3.4.4 Unicode</a>
+
+For a string-typed model element the `Unicode` facet indicates whether the it
+might contain and accept string values with Unicode characters (code
+points) beyond the ASCII character set. The value `false` indicates that
+the it will only contain and accept string values with characters
+limited to the ASCII character set.
+
+If no value is specified, the `Unicode` facet defaults to `true`.
+
+
+::: {.varxml .rep}
+### <a name="AttributeUnicodeundefined.4" href="#AttributeUnicodeundefined.4"> Attribute `Unicode`</a>
+
+The value of `Unicode` is one of the Boolean literals `true` or `false`.
+Absence of the attribute means `true`.
+:::
+
+### <a name="SRID" href="#SRID">3.4.5 SRID</a>
+
+For a geometry- or geography-typed model element the `SRID` facet identifies which
+spatial reference system is applied to its values.
+
+The value of the `SRID` facet MUST be a non-negative integer or the
+special value `variable`. If no value is specified, the facet defaults
+to `0` for `Geometry` types or `4326` for `Geography` types.
+
+The valid values of the `SRID` facet and their meanings are as defined
+by the European Petroleum Survey Group [EPSG](#_EPSG).
+
+
+::: {.varxml .rep}
+### <a name="AttributeSRIDundefined.5" href="#AttributeSRIDundefined.5"> Attribute `SRID`</a>
+
+The value of `SRID` is a number or the symbolic value `variable`.
+:::
+
+## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.5 Built-In Abstract Types</a>
 
 The following built-in abstract types can be used within a model:
 - `Edm.PrimitiveType`
@@ -600,7 +798,7 @@ be used anywhere a corresponding concrete type can be used, except:
         of `4.0`. Services should treat untyped properties as dynamic
         properties in `4.0` payloads.
 
-## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.5 Built-In Types for defining Vocabulary Terms</a>
+## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.6 Built-In Types for defining Vocabulary Terms</a>
 
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
@@ -615,7 +813,7 @@ as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
 section "[Path Expressions](#PathExpressions)" for details.
 
-## <a name="Annotations" href="#Annotations">3.6 Annotations</a>
+## <a name="Annotations" href="#Annotations">3.7 Annotations</a>
 
 Many parts of the model can be decorated with additional information
 using [annotations](#Annotation). Annotations are identified by their
@@ -660,7 +858,7 @@ OData service.
 :::
 
 ::: {.varxml .example}
-Example 2:
+Example 7:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
@@ -722,7 +920,7 @@ relative to the `xml:base` attribute, see
 :::
 
 ::: {.varxml .example}
-Example 3: references to other CSDL documents
+Example 8: references to other CSDL documents
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -801,7 +999,7 @@ can be used in qualified names instead of the namespace.
 :::
 
 ::: {.varxml .example}
-Example 4: references to entity models containing definitions of
+Example 9: references to entity models containing definitions of
 vocabulary terms
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -890,7 +1088,7 @@ The value of `TargetNamespace` is a namespace.
 :::
 
 ::: {.varxml .example}
-Example 5: reference documents that contain annotations
+Example 10: reference documents that contain annotations
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -1002,7 +1200,7 @@ The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 6: schema `org.example` with an alias and a description for the
+Example 11: schema `org.example` with an alias and a description for the
 schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
@@ -1036,7 +1234,7 @@ The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 7: annotations should only be applied to tablet devices
+Example 12: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
@@ -1093,7 +1291,7 @@ The value of `Name` is the entity type's name.
 :::
 
 ::: {.varxml .example}
-Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
+Example <a name="entitytype" href="#entitytype">13</a>: a simple entity type
 ```xml
 <EntityType Name="Employee">
   <Key>
@@ -1127,7 +1325,7 @@ The value of `BaseType` is the qualified name of the base type.
 :::
 
 ::: {.varxml .example}
-Example 9: a derived entity type based on the previous example
+Example 14: a derived entity type based on the previous example
 ```xml
 <EntityType Name="Manager" BaseType="self.Employee">
   <Property Name="AnnualBudget" Type="Edm.Decimal" />
@@ -1317,7 +1515,7 @@ The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 10: entity type with a simple key
+Example 15: entity type with a simple key
 ```xml
 <EntityType Name="Category">
   <Key>
@@ -1330,7 +1528,7 @@ Example 10: entity type with a simple key
 :::
 
 ::: {.varxml .example}
-Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simple key referencing a property of a
+Example <a name="complexkey" href="#complexkey">16</a>: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```xml
 <EntityType Name="Category">
@@ -1349,7 +1547,7 @@ Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simpl
 :::
 
 ::: {.varxml .example}
-Example 12: entity type with a composite key
+Example 17: entity type with a composite key
 ```xml
 <EntityType Name="OrderLine">
   <Key>
@@ -1363,7 +1561,7 @@ Example 12: entity type with a composite key
 :::
 
 ::: example
-Example 13 (based on [example 11](#complexkey)): requests to an entity set `Categories`
+Example 18 (based on [example 16](#complexkey)): requests to an entity set `Categories`
 of type `Category` must use the alias
 ```
 GET http://host/service/Categories(EntityInfoID=1)
@@ -1371,7 +1569,7 @@ GET http://host/service/Categories(EntityInfoID=1)
 :::
 
 ::: example
-Example 14 (based on [example 11](#complexkey)): in a query part the value assigned to
+Example 19 (based on [example 16](#complexkey)): in a query part the value assigned to
 the name attribute must be used
 ```
 GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
@@ -1427,7 +1625,7 @@ The value of `Name` is the property's name.
 :::
 
 ::: {.varxml .example}
-Example 15: complex type with two properties
+Example 20: complex type with two properties
 ```xml
 <ComplexType Name="Measurement">
   <Property Name="Dimension" Type="Edm.String" Nullable="false" MaxLength="50"
@@ -1469,29 +1667,21 @@ item type, followed by a closing parenthesis `)`.
 :::
 
 ::: {.varxml .example}
-Example 16: property `Units` that can have zero or more strings as its
+Example 21: property `Units` that can have zero or more strings as its
 value
 ```xml
 <Property Name="Units" Type="Collection(Edm.String)" />
 ```
 :::
 
-## <a name="TypeFacets" href="#TypeFacets">7.2 Type Facets</a>
-
-Facets modify or constrain the acceptable values for a model element of a given type.
-
-For single-valued model elements the facets apply to the value of the
-model element. For collection-valued model elements the facets apply to the items
-in the collection.
-
-### <a name="Nullable" href="#Nullable">7.2.1 Nullable</a>
+## <a name="Nullable" href="#Nullable">7.2 Nullable</a>
 
 A Boolean value specifying whether the property can have the value
 `null`.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeNullable11.3" href="#AttributeNullable11.3"> Attribute `Nullable`</a>
+## <a name="AttributeNullable11.3" href="#AttributeNullable11.3"> Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
@@ -1499,7 +1689,7 @@ The value of `Nullable` is one of the Boolean literals `true` or
 For single-valued properties the value `true` means that the property
 allows the `null` value.
 
-For collection-valued properties the property value will always be a
+For collection-valued properties the value will always be a
 collection that MAY be empty. In this case the `Nullable` attribute
 applies to items of the collection and specifies whether the collection
 MAY contain `null` values.
@@ -1515,206 +1705,17 @@ cannot assume any default value. Clients SHOULD be prepared for this
 situation even in OData 4.01 responses.
 :::
 
-### <a name="MaxLength" href="#MaxLength">7.2.2 MaxLength</a>
+## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
-A positive integer value specifying the maximum length of a binary,
-stream or string value. For binary or stream values this is the octet
-length of the binary data, for string values it is the character length
-(number of code points for Unicode).
-
-If no maximum length is specified, clients SHOULD expect arbitrary
-length.
-
-
-::: {.varxml .rep}
-### <a name="AttributeMaxLength11.4" href="#AttributeMaxLength11.4"> Attribute `MaxLength`</a>
-
-The value of `MaxLength` is a positive integer or the symbolic value
-`max` as a shorthand for the maximum length supported for the type by
-the service.
-
-Note: the symbolic value `max` is only allowed in OData 4.0 responses;
-it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
-symbolic value `max` and MAY instead specify the concrete maximum length
-supported for the type by the service or omit the attribute entirely.
-:::
-
-### <a name="Precision" href="#Precision">7.2.3 Precision</a>
-
-For a decimal value: the maximum number of significant decimal digits of
-the property's value; it MUST be a positive integer.
-
-For a temporal value (datetime-with-timezone-offset, duration, or
-time-of-day): the number of decimal places allowed in the seconds
-portion of the value; it MUST be a non-negative integer between zero and
-twelve.
-
-Note: service authors SHOULD be aware that some clients are unable to
-support a precision greater than 28 for decimal properties and 7 for
-temporal properties. Client developers MUST be aware of the potential
-for data loss when round-tripping values of greater precision. Updating
-via `PATCH` and exclusively specifying modified properties will reduce
-the risk for unintended data loss.
-
-Note: duration properties supporting a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#ODataVocMeasures).
-
-
-
-::: {.varxml .rep}
-### <a name="AttributePrecision11.5" href="#AttributePrecision11.5"> Attribute `Precision`</a>
-
-The value of `Precision` is a number.
-
-If not specified for a decimal property, the decimal property has
-arbitrary precision.
-
-If not specified for a temporal property, the temporal property has a
-precision of zero.
-:::
-
-::: {.varxml .example}
-Example 17: [`Precision`](#Precision) facet applied to the
-`DateTimeOffset` type
-```xml
-<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
-          Precision="6" />
-```
-:::
-
-### <a name="Scale" href="#Scale">7.2.4 Scale</a>
-
-A non-negative integer value specifying the maximum number of digits
-allowed to the right of the decimal point, or one of the symbolic values
-`floating` or `variable`.
-
-The value `floating` means that the decimal property represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
-
-The value `variable` means that the number of digits to the right of the
-decimal point can vary from zero to the value of the
-[`Precision`](#Precision) facet.
-
-An integer value means that the number of digits to the right of the
-decimal point may vary from zero to the value of the `Scale` facet, and
-the number of digits to the left of the decimal point may vary from one
-to the value of the `Precision` facet minus the value of the `Scale`
-facet. If `Precision` is equal to `Scale`, a single zero MUST precede
-the decimal point.
-
-The value of `Scale` MUST be less than or equal to the value of
-[`Precision`](#Precision).
-
-Note: if the underlying data store allows negative scale, services may
-use a [`Precision`](#Precision) with the absolute value of the negative
-scale added to the actual number of significant decimal digits, and
-client-provided values may have to be rounded before being stored.
-
-
-
-
-
-
-::: {.varxml .rep}
-### <a name="AttributeScale11.6" href="#AttributeScale11.6"> Attribute `Scale`</a>
-
-The value of `Scale` is a number or one of the symbolic values
-`floating` or `variable`.
-
-Services SHOULD use lower-case values; clients SHOULD accept values in a
-case-insensitive manner.
-
-If not specified, the `Scale` facet defaults to zero.
-:::
-
-::: {.varxml .example}
-Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.
-Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
-```xml
-<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
-```
-:::
-
-::: {.varxml .example}
-Example 19: `Precision=2` equals `Scale`.
-Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
-```xml
-<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
-```
-:::
-
-::: {.varxml .example}
-Example 20: `Precision=3` and a variable `Scale`.
-Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
-values: 12.34, 1234 and 123.4 due to the limited precision.
-```xml
-<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
-```
-:::
-
-::: {.varxml .example}
-Example 21: `Precision=7` and a floating `Scale`.
-Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
-```xml
-<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
-```
-:::
-
-### <a name="Unicode" href="#Unicode">7.2.5 Unicode</a>
-
-For a string property the `Unicode` facet indicates whether the property
-might contain and accept string values with Unicode characters (code
-points) beyond the ASCII character set. The value `false` indicates that
-the property will only contain and accept string values with characters
-limited to the ASCII character set.
-
-If no value is specified, the `Unicode` facet defaults to `true`.
-
-
-::: {.varxml .rep}
-### <a name="AttributeUnicode11.7" href="#AttributeUnicode11.7"> Attribute `Unicode`</a>
-
-The value of `Unicode` is one of the Boolean literals `true` or `false`.
-Absence of the attribute means `true`.
-:::
-
-### <a name="SRID" href="#SRID">7.2.6 SRID</a>
-
-For a geometry or geography property the `SRID` facet identifies which
-spatial reference system is applied to values of the property on type
-instances.
-
-The value of the `SRID` facet MUST be a non-negative integer or the
-special value `variable`. If no value is specified, the facet defaults
-to `0` for `Geometry` types or `4326` for `Geography` types.
-
-The valid values of the `SRID` facet and their meanings are as defined
-by the European Petroleum Survey Group [EPSG](#_EPSG).
-
-
-::: {.varxml .rep}
-### <a name="AttributeSRID11.8" href="#AttributeSRID11.8"> Attribute `SRID`</a>
-
-The value of `SRID` is a number or the symbolic value `variable`.
-:::
-
-### <a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a>
-
-A primitive or enumeration property MAY define a default value that is
-used if the property is not explicitly represented in an annotation or
+A primitive- or enumeration-typed model element MAY define a default value that is
+used if it is not explicitly represented in an annotation or
 the body of a request or response.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeDefaultValue11.9" href="#AttributeDefaultValue11.9"> Attribute `DefaultValue`</a>
+### <a name="AttributeDefaultValue11.4" href="#AttributeDefaultValue11.4"> Attribute `DefaultValue`</a>
 
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
@@ -2616,7 +2617,7 @@ explicitly indicated, it is unbound.
 
 Bound actions or functions are invoked on resources matching the type of
 the binding parameter. The binding parameter can be of any type, and it
-MAY be [nullable](#Nullable).
+MAY be nullable.
 
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
@@ -2682,7 +2683,7 @@ The value of `IsComposable` is one of the Boolean literals `true` or
 The return type of an action or function overload MAY be any type in
 scope, or a collection of any type in scope.
 
-The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
+The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
@@ -3350,14 +3351,12 @@ scope.
 ### <a name="ElementedmTerm29" href="#ElementedmTerm29"> Element `edm:Term`</a>
 
 The `edm:Term` element MUST contain the attributes `Name` and `Type`. It
-MAY contain the attributes `BaseTerm` and `AppliesTo`.
+MAY contain the attributes `Nullable`, `DefaultValue`, [`BaseTerm`](#SpecializedTerm) and [`AppliesTo`](#Applicability).
 
-It MAY specify values for the [`Nullable`](#Nullable),
-[ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
-[`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
-attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
-described in section 7.2.
+The facets [`MaxLength`](#MaxLength),
+[`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
+used as appropriate, as well as the [`Unicode`](#Unicode) facet attribute for
+4.01 and greater payloads.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
 enumeration type MAY define a value for the `DefaultValue` attribute.
@@ -3370,14 +3369,36 @@ The value of `Name` is the term's name.
 
 ### <a name="AttributeType29.2" href="#AttributeType29.2"> Attribute `Type`</a>
 
-For single-valued properties the value of `Type` is the qualified name
-of the property's type.
+For single-valued terms the value of `Type` is the qualified name
+of the term's type.
 
 For collection-valued properties the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
 
-### <a name="AttributeDefaultValue29.3" href="#AttributeDefaultValue29.3"> Attribute `DefaultValue`</a>
+### <a name="AttributeNullable29.3" href="#AttributeNullable29.3"> Attribute `Nullable`</a>
+
+The value of `Nullable` is one of the Boolean literals `true` or
+`false`.
+
+For single-valued terms the value `true` means that annotations may have the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case the `Nullable` attribute
+applies to items of the collection and specifies whether the collection
+MAY contain `null` values.
+
+If no value is specified for a single-valued term, the `Nullable`
+attribute defaults to `true`.
+
+In OData 4.01 responses a collection-valued term MUST specify a
+value for the `Nullable` attribute.
+
+If no value is specified for a collection-valued term, the client
+cannot assume any default value. Clients SHOULD be prepared for this
+situation even in OData 4.01 responses.
+
+### <a name="AttributeDefaultValue29.4" href="#AttributeDefaultValue29.4"> Attribute `DefaultValue`</a>
 
 The value of this attribute determines the value of the term when
 applied in an [`edm:Annotation`](#Annotation) without providing an
@@ -3405,7 +3426,7 @@ reached.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeBaseTerm29.4" href="#AttributeBaseTerm29.4"> Attribute `BaseTerm`</a>
+### <a name="AttributeBaseTerm29.5" href="#AttributeBaseTerm29.5"> Attribute `BaseTerm`</a>
 
 The value of `BaseTerm` is the qualified name of the base term.
 :::
@@ -3459,7 +3480,7 @@ Symbolic Value|Model Element
 
 
 ::: {.varxml .rep}
-### <a name="AttributeAppliesTo29.5" href="#AttributeAppliesTo29.5"> Attribute `AppliesTo`</a>
+### <a name="AttributeAppliesTo29.6" href="#AttributeAppliesTo29.6"> Attribute `AppliesTo`</a>
 
 The value of `AppliesTo` is a whitespace-separated list of symbolic
 values from the table above that identify model elements the term is
@@ -5091,7 +5112,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 86: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 86: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5588,12 +5609,7 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [Attribute `Name`](#AttributeName11.1)
   - [Attribute `Type`](#AttributeType11.2)
   - [Attribute `Nullable`](#AttributeNullable11.3)
-  - [Attribute `MaxLength`](#AttributeMaxLength11.4)
-  - [Attribute `Precision`](#AttributePrecision11.5)
-  - [Attribute `Scale`](#AttributeScale11.6)
-  - [Attribute `Unicode`](#AttributeUnicode11.7)
-  - [Attribute `SRID`](#AttributeSRID11.8)
-  - [Attribute `DefaultValue`](#AttributeDefaultValue11.9)
+  - [Attribute `DefaultValue`](#AttributeDefaultValue11.4)
 - [Element `edm:NavigationProperty`](#ElementedmNavigationProperty12)
   - [Attribute `Name`](#AttributeName12.1)
   - [Attribute `Type`](#AttributeType12.2)
@@ -5660,9 +5676,10 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 - [Element `edm:Term`](#ElementedmTerm29)
   - [Attribute `Name`](#AttributeName29.1)
   - [Attribute `Type`](#AttributeType29.2)
-  - [Attribute `DefaultValue`](#AttributeDefaultValue29.3)
-  - [Attribute `BaseTerm`](#AttributeBaseTerm29.4)
-  - [Attribute `AppliesTo`](#AttributeAppliesTo29.5)
+  - [Attribute `Nullable`](#AttributeNullable29.3)
+  - [Attribute `DefaultValue`](#AttributeDefaultValue29.4)
+  - [Attribute `BaseTerm`](#AttributeBaseTerm29.5)
+  - [Attribute `AppliesTo`](#AttributeAppliesTo29.6)
 - [Element `edm:Annotation`](#ElementedmAnnotation30)
   - [Attribute `Term`](#AttributeTerm30.1)
   - [Attribute `Qualifier`](#AttributeQualifier30.2)
