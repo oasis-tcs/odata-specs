@@ -1817,7 +1817,7 @@ of the collection and specifies whether the collection MAY contain
 ## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
 A primitive- or enumeration-typed property MAY define a default value that is
-used if it is not explicitly represented in an annotation or
+used if the property is not explicitly represented in an annotation or
 the body of a request or response.
 
 If no value is specified, the client SHOULD NOT assume a default value.
