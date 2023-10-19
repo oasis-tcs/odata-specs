@@ -5201,11 +5201,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-<<<<<<< HEAD
-Example 86: this annotation "morphs" the entity type from [example 13](#entitytype) into
-=======
-Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
->>>>>>> refs/remotes/origin/main
+Example 87: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the

@@ -2977,29 +2977,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Property</code> is the name of a property of the type of the enclosing <code>edm:Record</code> expression.</p>
 </div>
 <div class="varxml example">
-<<<<<<< HEAD
-<p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 13</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Employee&quot;</span>&gt;</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Annotation on record&quot;</span> /&gt;</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GivenName&quot;</span><span class="ot"> Path=</span><span class="st">&quot;FirstName&quot;</span>&gt;</span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span></span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  String=</span><span class="st">&quot;Annotation on record member&quot;</span> /&gt;</span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Surname&quot;</span><span class="ot"> Path=</span><span class="st">&quot;LastName&quot;</span> /&gt;</span>
-<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;DirectSupervisor&quot;</span><span class="ot"> Path=</span><span class="st">&quot;Manager&quot;</span> /&gt;</span>
-<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;CostCenter&quot;</span>&gt;</span>
-<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Apply</span><span class="ot"> Function=</span><span class="st">&quot;odata.fillUriTemplate&quot;</span>&gt;</span>
-<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">String</span>&gt;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">LabeledElement</span><span class="ot"> Name=</span><span class="st">&quot;ccid&quot;</span><span class="ot"> Path=</span><span class="st">&quot;CostCenterID&quot;</span> /&gt;</span>
-<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Apply</span>&gt;</span>
-<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">UrlRef</span>&gt;</span>
-<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb89-19"><a href="#cb89-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
-=======
-<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 13</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Employee&quot;</span>&gt;</span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Record</span>&gt;</span>
 <span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> String=</span><span class="st">&quot;Annotation on record&quot;</span> /&gt;</span>
@@ -3019,7 +2997,6 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">PropertyValue</span>&gt;</span>
 <span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Record</span>&gt;</span>
 <span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
->>>>>>> refs/remotes/origin/main
 </div>
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>

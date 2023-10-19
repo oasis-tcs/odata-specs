@@ -3204,38 +3204,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation">annotations</a> for itself and its members. Annotations for record members are prefixed with the member name.</p>
 </div>
 <div class="varjson example">
-<<<<<<< HEAD
-<p>Example 86: this annotation "morphs" the entity type from <a href="#entitytype">example 13</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Employee&quot;:</span> <span class="fu">{</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://example.org/vocabs/person#org.example.person.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record&quot;</span><span class="fu">,</span></span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName&quot;</span></span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;GivenName@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record member&quot;</span><span class="fu">,</span></span>
-<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Surname&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;LastName&quot;</span></span>
-<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectSupervisor&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Manager&quot;</span></span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenter&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;http://host/anotherservice/CostCenters(&#39;{ccid}&#39;)&quot;</span><span class="ot">,</span></span>
-<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$LabeledElement&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;CostCenterID&quot;</span></span>
-<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
-<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Name&quot;</span><span class="fu">:</span> <span class="st">&quot;ccid&quot;</span></span>
-<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
-<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-=======
-<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 8</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
+<p>Example 87: this annotation "morphs" the entity type from <a href="#entitytype">example 13</a> into a structured type with two structural properties <code>GivenName</code> and <code>Surname</code> and two navigation properties <code>DirectSupervisor</code> and <code>CostCenter</code>. The first three properties simply rename properties of the annotated entity type, the fourth adds a calculated navigation property that is pointing to a different service</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Employee&quot;:</span> <span class="fu">{</span></span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://example.org/vocabs/person#org.example.person.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Description&quot;</span><span class="fu">:</span> <span class="st">&quot;Annotation on record&quot;</span><span class="fu">,</span></span>
@@ -3264,7 +3233,6 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb95-26"><a href="#cb95-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb95-27"><a href="#cb95-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb95-28"><a href="#cb95-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
->>>>>>> refs/remotes/origin/main
 </div>
 <h3 id="14413-url-reference"><a name="URLReference" href="#URLReference">14.4.13 URL Reference</a></h3>
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
