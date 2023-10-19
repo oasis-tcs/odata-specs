@@ -27,8 +27,8 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | OData Issue
---------|------------------|------------
+Section | Feature / Change | Issue
+--------|------------------|------
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -38,6 +38,9 @@ Section | Feature / Change | OData Issue
 [Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
+[Section ##PathEvaluation]| 
+New path evaluation rules for annotations targeting annotations and external targeting via container| 
+[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
 
 ## ##subsec Glossary
 
