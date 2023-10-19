@@ -1417,11 +1417,11 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>$compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX</code></pre>
 </div>
 <h4 id="51113-lambda-operators"><a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a></h4>
-<p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a navigation path that identifies a collection.</p>
+<p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a path expression that identifies a collection.</p>
 <p>4.01 Services MUST support case-insensitive lambda operator names. Clients that want to work with 4.0 services MUST use lower case lambda operator names.</p>
-<p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of members of the collection identified by the navigation path.</p>
+<p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of the instance or of members of the collection identified by the path expression.</p>
 <p>If the name chosen for the lambda variable matches a property name of the current resource referenced by the resource path, the lambda variable takes precedence. Clients can prefix properties of the current resource referenced by the resource path with <a href="#it"><code>$it</code></a>.</p>
-<p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the collection instances at the origin of the navigation path prepended to the lambda operator.</p>
+<p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the instance or of members of the collection at the origin of the path expression prepended to the lambda operator.</p>
 <h5 id="511131-any"><a name="any" href="#any">5.1.1.13.1 <code>any</code></a></h5>
 <p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns true if and only if the expression is true for any member of the collection, otherwise it returns false. This implies that the <code>any</code> operator always returns false for an empty collection.</p>
 <p>The <code>any</code> operator can be used without an argument expression. This short form returns false if and only if the collection is empty.</p>
@@ -1756,7 +1756,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
 <p>A path MUST NOT appear in more than one expand item.</p>
-<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, and <code>$expand</code>.</p>
+<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
 <div class="example">
 <p>Example 117: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
@@ -1783,7 +1783,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Example 122: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
-<p>Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
+<p><a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</a></p>
 <div class="example">
 <p>Example 123: all employees with their manager, manager's manager, and manager's manager's manager</p>
 <pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
@@ -1826,7 +1826,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
 </ul>
-<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
+<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is <code>null</code> on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
 <div class="example">
 <p>Example 128: rating and release date of all products</p>
 <pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
@@ -1865,7 +1865,6 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
 <p>When multiple select item exist in a <code>select clause</code>, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
-<p>If a select item is a path expression requesting a component of a complex property and the complex property is <code>null</code> on an instance, then the component is treated as <code>null</code> as well.</p>
 <h3 id="515-system-query-option-orderby"><a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
 <p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>

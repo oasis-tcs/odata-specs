@@ -383,18 +383,12 @@ The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
 the specified content, and MAY choose to return additional information.
 
-The value of the `$expand` query option is a comma-separated list of
-navigation property names, stream property names, or `$value` indicating
-the stream content of a media-entity.
-
-For navigation properties, the navigation property name is optionally
-followed by a `/$ref` path segment or a `/$count` path segment, and
-optionally a parenthesized set of [expand options](#ExpandOptions) (for
-filtering, sorting, selecting, paging, or expanding the related
-entities).
+The value of `$expand` is a comma-separated list of expand items. Each
+expand item is evaluated relative to the retrieved resource being
+expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL).
+[OData-URL](#ODataURL), section 5.1.3.
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
@@ -427,15 +421,18 @@ application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
 [OData-URL](#ODataURL).
 
-Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$levels`](#ExpandOptionlevels)
+ for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch),
-[`$expand`](#SystemQueryOptionexpand)`,`
-[`$compute`](#SystemQueryOptioncompute)`,` and
-[`$levels`](#ExpandOptionlevels).
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+ for collection-valued navigation properties.
 
 ::: example
 Example ##ex: for each customer entity within the `Customers` entity set,
@@ -475,8 +472,8 @@ GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseSta
 The `$levels` expand option can be used to specify the number of levels
 of recursion for a hierarchy in which the related entity type is the
 same as, or can be cast to, the source entity type. A `$levels` option
-with a value of 1 specifies a single expand with no recursion. The same
-expand options are applied at each level of the hierarchy.
+with a value of 1 specifies a single expand with no recursion. All provided
+expand options except `$levels` are applied at each level of the hierarchy.
 
 Services MAY support the symbolic value `max` in addition to numeric
 values. In that case they MUST solve circular dependencies by injecting
@@ -1368,8 +1365,8 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span multiple pages
-but MUST be ordered by the service across all pages in such a way as to
+The results of a request against the delta link may span one or more pages
+and MUST be ordered by the service across all pages in such a way as to
 guarantee consistency when applied in order to the response which
 contained the delta link.
 

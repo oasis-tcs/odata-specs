@@ -104,7 +104,7 @@ represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select`
+_System Query Option_ `$select` in
 [OData-Protocol](#ODataProtocol)), or a partial entity update (see
 _Update an Entity_ in [OData-Protocol](#ODataProtocol)).
 
