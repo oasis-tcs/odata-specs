@@ -200,7 +200,7 @@ situation even in OData 4.01 responses.
 
 ## ##subsec Default Value
 
-A primitive- or enumeration-typed model element MAY define a default value that is
+A primitive- or enumeration-typed property MAY define a default value that is
 used if it is not explicitly represented in an annotation or
 the body of a request or response.
 

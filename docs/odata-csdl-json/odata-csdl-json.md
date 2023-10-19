@@ -1816,7 +1816,7 @@ of the collection and specifies whether the collection MAY contain
 
 ## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
-A primitive- or enumeration-typed model element MAY define a default value that is
+A primitive- or enumeration-typed property MAY define a default value that is
 used if it is not explicitly represented in an annotation or
 the body of a request or response.
 
