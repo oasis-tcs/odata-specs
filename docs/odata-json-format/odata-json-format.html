@@ -742,11 +742,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
 <p>Enumeration values are represented as JSON strings whose content satisfies the rule <code>enumValue</code> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <code>enumerationMember</code>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <code>enumMemberValue</code> representation may be used.</p>
-<p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>, with the following modifications:</p>
-<ul>
-<li>Keys SHOULD be ordered with type first, then coordinates, then any other keys</li>
-<li>If the optional <a href="http://geojson.org/geojson-spec.html#named-crs">CRS object</a> is present, it MUST be of type <code>name</code>, where the value of the <code>name</code> member of the contained <code>properties</code> object is an EPSG SRID legacy identifier, see [<a href="#GeoJSON-2008">GeoJSON-2008</a>].</li>
-</ul>
+<p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>.</p>
 <p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information.</p>
 <div class="example">
 <p>Example 12:</p>
@@ -2011,8 +2007,6 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
-<h6 id="geojson-2008"><a name="GeoJSON-2008">[GeoJSON-2008]</a></h6>
-<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008</em> <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 <p>This specification raises no security issues.</p>
