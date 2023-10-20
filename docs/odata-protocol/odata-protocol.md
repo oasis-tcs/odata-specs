@@ -5622,6 +5622,17 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON](#ODataJSON).
 
+If the set of request headers of a batch request are valid the service
+MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+indicate that the batch request was accepted for processing, but the
+processing is yet to be completed. The individual requests within the
+body of the batch request may be processed as soon as they are received,
+this enables clients to stream batch requests, and batch implementations to stream the results.
+
+If the service receives a batch request with an invalid set of headers
+it MUST return a [`4xx response code`](#ClientErrorResponses) and
+perform no further processing of the batch request.
+
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
 
 A batch request using the [multipart batch
@@ -5663,17 +5674,6 @@ Batch requests SHOULD contain an [`Accept`](#HeaderAccept) header
 specifying the desired batch response format, either `multipart/mixed`
 or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
-
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
-indicate that the batch request was accepted for processing, but the
-processing is yet to be completed. The individual requests within the
-body of the batch request may subsequently fail or be malformed;
-however, this enables batch implementations to stream the results.
-
-If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
-perform no further processing of the batch request.
 
 ### <a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a>
 

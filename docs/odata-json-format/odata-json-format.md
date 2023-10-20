@@ -3189,6 +3189,11 @@ Example 51: referencing the batch request [example 48](#batchRequest) above, ass
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 Ok
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
