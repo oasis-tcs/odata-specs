@@ -5424,7 +5424,7 @@ request was ambiguous.
 ### <a name="Actions" href="#Actions">11.5.5 Actions</a>
 
 Actions are operations exposed by an OData service that MAY have side
-effects when invoked. Actions MAY return data but` `MUST NOT be further
+effects when invoked. Actions MAY return data but MUST NOT be further
 composed with additional path segments.
 
 #### <a name="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a>

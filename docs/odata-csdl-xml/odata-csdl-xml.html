@@ -1483,15 +1483,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Actions are service-defined operations that MAY have observable side effects and MAY return a single instance or a collection of instances of any type.</p>
 <p>The action's name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>Actions cannot be composed with additional path segments.</p>
-<p>An action MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
-<p>An action MAY define <a href="#Parameter">parameters</a> used during the execution of the action.</p>
 <h2 id="122-action-overloads"><a name="ActionOverloads" href="#ActionOverloads">12.2 Action Overloads</a></h2>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> actions support overloading (multiple actions having the same name within the same schema) by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
-<p>An unbound action MAY have the same name as a bound action.</p>
+<p>An action consists of one or more action overloads, all sharing the same action name.</p>
+<p>An action overload MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
+<p>An action overload MAY define <a href="#Parameter">parameters</a> used during the execution of the action overload.</p>
+<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> action overloads for the same action name are distinguished by their binding parameter type. The combination of action name and binding parameter type MUST be unique within a schema.</p>
+<p>There can be at most one <a href="#BoundorUnboundActionorFunctionOverloads">unbound</a> action overload for an action name.</p>
 <div class="varxml rep">
 <h3 id="-element-edmaction"><a name="ElementedmAction19" href="#ElementedmAction19"> Element <code>edm:Action</code></a></h3>
-<p>The <code>edm:Action</code> element MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
+<p>An action is represented as one or more <code>edm:Action</code> elements with the same value of the <code>Name</code> attribute, and each <code>edm:Action</code> element represents a single action overload. It MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
 <p>It MAY contain at most one <a href="#ReturnType"><code>edm:ReturnType</code></a> element and MAY contain <a href="#Parameter"><code>edm:Parameter</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 <h3 id="-attribute-name-8"><a name="AttributeName19.1" href="#AttributeName19.1"> Attribute <code>Name</code></a></h3>
@@ -1501,26 +1501,26 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Functions are service-defined operations that MUST NOT have observable side effects and MUST return a single instance or a collection of instances of any type.</p>
 <p>The function's name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>Functions MAY be <a href="#ComposableFunction">composable</a>.</p>
-<p>The function MUST specify a <a href="#ReturnType">return type</a> which MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
-<p>A function MAY define <a href="#Parameter">parameters</a> used during the execution of the function.</p>
 <h2 id="124-function-overloads"><a name="FunctionOverloads" href="#FunctionOverloads">12.4 Function Overloads</a></h2>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> functions support overloading (multiple functions having the same name within the same schema) subject to the following rules:</p>
+<p>A function consists of one or more function overloads, all sharing the same function name.</p>
+<p>A function overload MUST specify a <a href="#ReturnType">return type</a> which MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
+<p>A function overload MAY define <a href="#Parameter">parameters</a> used during the execution of the function overload.</p>
+<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> function overloads are subject to the following rules:</p>
 <ul>
 <li>The combination of function name, binding parameter type, and unordered set of non-binding parameter names MUST be unique within a schema.</li>
 <li>The combination of function name, binding parameter type, and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All bound functions with the same function name and binding parameter type within a schema MUST specify the same return type.</li>
+<li>All bound function overloads with the same function name and binding parameter type within a schema MUST specify the same return type.</li>
 </ul>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> functions support overloading subject to the following rules:</p>
+<p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> function overloads are subject to the following rules:</p>
 <ul>
 <li>The combination of function name and unordered set of parameter names MUST be unique within a schema.</li>
 <li>The combination of function name and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All unbound functions with the same function name within a schema MUST specify the same return type.</li>
+<li>All unbound function overloads with the same function name within a schema MUST specify the same return type.</li>
 </ul>
-<p>An unbound function MAY have the same name as a bound function.</p>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
 <div class="varxml rep">
 <h3 id="-element-edmfunction"><a name="ElementedmFunction20" href="#ElementedmFunction20"> Element <code>edm:Function</code></a></h3>
-<p>The <code>edm:Function</code> element MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
+<p>A function is represented as one or more <code>edm:Function</code> elements with the same value of the <code>Name</code> attribute, and each <code>edm:Function</code> element represents a single function overload. It MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
 <p>It MUST contain one <a href="#ReturnType"><code>edm:ReturnType</code></a> element, and it MAY contain <a href="#Parameter"><code>edm:Parameter</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 <h3 id="-attribute-name-9"><a name="AttributeName20.1" href="#AttributeName20.1"> Attribute <code>Name</code></a></h3>
@@ -1528,15 +1528,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h2 id="125-bound-or-unbound-action-or-function-overloads"><a name="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a></h2>
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
-<p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be <a href="#Nullable">nullable</a>.</p>
-<p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Bound action or function overloads are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be <a href="#Nullable">nullable</a>.</p>
+<p>Unbound action overloads are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
+<p>Unbound function overloads are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="-attribute-isbound" class="varxml rep">
 <h3><a name="AttributeIsBound20.2" href="#AttributeIsBound20.2"> Attribute <code>IsBound</code></a></h3>
 <p>The value of <code>IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="126-entity-set-path"><a name="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a></h2>
-<p>Bound actions and functions that return an entity or a collection of entities MAY specify an entity set path if the entity set of the returned entities depends on the entity set of the binding parameter value.</p>
+<p>Bound action and function overloads that return an entity or a collection of entities MAY specify an entity set path if the entity set of the returned entities depends on the entity set of the binding parameter value.</p>
 <p>The entity set path consists of a series of segments joined together with forward slashes.</p>
 <p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent navigation segments or type casts.</p>
 <p>A navigation segment names the <a href="#SimpleIdentifier">simple identifier</a> of the <a href="#NavigationProperty">navigation property</a> to be traversed. A type-cast segment names the <a href="#QualifiedName">qualified name</a> of the entity type that should be returned from the type cast.</p>
@@ -1545,8 +1545,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>EntitySetPath</code> is the entity set path.</p>
 </section>
 <h2 id="127-composable-function"><a name="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a></h2>
-<p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
-<p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
+<p>A function overload MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
+<p>A composable function overload can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function overload, and with system query options as appropriate for the type returned by the composable function overload.</p>
 <section id="-attribute-iscomposable" class="varxml rep">
 <h3><a name="AttributeIsComposable20.4" href="#AttributeIsComposable20.4"> Attribute <code>IsComposable</code></a></h3>
 <p>The value of <code>IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
@@ -1589,7 +1589,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
 </div>
 <div class="varxml example">
-<p>Example 30: a function returning the top-selling products for a given year. In this case the year must be specified as a parameter of the function with the <code>edm:Parameter</code> element.</p>
+<p>Example 30: a function overload returning the top-selling products for a given year.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;TopSellingProducts&quot;</span>&gt;</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;Year&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Precision=</span><span class="st">&quot;4&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;0&quot;</span> /&gt;</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Collection(self.Product)&quot;</span> /&gt;</span>

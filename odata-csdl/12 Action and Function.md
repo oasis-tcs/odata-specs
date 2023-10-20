@@ -14,25 +14,21 @@ be unique within its schema.
 
 Actions cannot be composed with additional path segments.
 
-An action MAY specify a [return type](#ReturnType) that MUST be a
+## ##subsec Action Overloads
+
+An action consists of one or more action overloads, all sharing the same action name.
+
+An action overload MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
 or complex types in scope.
 
-An action MAY define [parameters](#Parameter) used during the execution
-of the action.
+An action overload MAY define [parameters](#Parameter) used during the execution
+of the action overload.
 
-## ##subsec Action Overloads
+[Bound](#BoundorUnboundActionorFunctionOverloads) action overloads for the same action name are distinguished by their binding parameter type.
+The combination of action name and binding parameter type MUST be unique within a schema.
 
-[Bound](#BoundorUnboundActionorFunctionOverloads) actions support
-overloading (multiple actions having the same name within the same
-schema) by binding parameter type. The combination of action name and
-the binding parameter type MUST be unique within a schema.
-
-[Unbound](#BoundorUnboundActionorFunctionOverloads) actions do not support
-overloads. The names of all unbound actions MUST be unique within a
-schema.
-
-An unbound action MAY have the same name as a bound action.
+There can be at most one [unbound](#BoundorUnboundActionorFunctionOverloads) action overload for an action name.
 
 ::: {.varjson .rep}
 ### ##isec Action Overload Object
@@ -54,7 +50,9 @@ It MAY contain the members
 ::: {.varxml .rep}
 ### ##isec Element `edm:Action`
 
-The `edm:Action` element MUST contain the `Name` attribute and it MAY
+An action is represented as one or more `edm:Action` elements with the same value of the `Name` attribute,
+and each `edm:Action` element represents a single action overload.
+It MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
 [`EntitySetPath`](#EntitySetPath) attributes.
 
@@ -79,38 +77,38 @@ MUST be unique within its schema.
 
 Functions MAY be [composable](#ComposableFunction).
 
-The function MUST specify a [return type](#ReturnType) which MUST be a
+## ##subsec Function Overloads
+
+A function consists of one or more function overloads, all sharing the same function name.
+
+A function overload MUST specify a [return type](#ReturnType) which MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
 or complex types in scope.
 
-A function MAY define [parameters](#Parameter) used during the execution
-of the function.
+A function overload MAY define [parameters](#Parameter) used during the execution
+of the function overload.
 
-## ##subsec Function Overloads
 
-[Bound](#BoundorUnboundActionorFunctionOverloads) functions support
-overloading (multiple functions having the same name within the same
-schema) subject to the following rules:
+[Bound](#BoundorUnboundActionorFunctionOverloads) function overloads are
+subject to the following rules:
 - The combination of function name,
 binding parameter type, and unordered set of non-binding parameter names
 MUST be unique within a schema.
 - The combination of function name,
 binding parameter type, and ordered set of parameter types MUST be
 unique within a schema.
-- All bound functions with the same
+- All bound function overloads with the same
 function name and binding parameter type within a schema MUST specify
 the same return type.
 
-[Unbound](#BoundorUnboundActionorFunctionOverloads) functions support
-overloading subject to the following rules:
+[Unbound](#BoundorUnboundActionorFunctionOverloads) function overloads are
+subject to the following rules:
 - The combination of function name and
 unordered set of parameter names MUST be unique within a schema.
 - The combination of function name and
 ordered set of parameter types MUST be unique within a schema.
-- All unbound functions with the same
+- All unbound function overloads with the same
 function name within a schema MUST specify the same return type.
-
-An unbound function MAY have the same name as a bound function.
 
 Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
@@ -135,7 +133,9 @@ and it MAY contain [annotations](#Annotation).
 ::: {.varxml .rep}
 ### ##isec Element `edm:Function`
 
-The `edm:Function` element MUST contain the `Name` attribute and it MAY
+A function is represented as one or more `edm:Function` elements with the same value of the `Name` attribute,
+and each `edm:Function` element represents a single function overload.
+It MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
 [`EntitySetPath`](#EntitySetPath) attributes.
 
@@ -154,22 +154,22 @@ The value of `Name` is the action's name.
 An action or function overload MAY indicate that it is bound. If not
 explicitly indicated, it is unbound.
 
-Bound actions or functions are invoked on resources matching the type of
+Bound action or function overloads are invoked on resources matching the type of
 the binding parameter. The binding parameter can be of any type, and it
 MAY be [nullable](#Nullable).
 
-Unbound actions are invoked from the entity container through an [action
+Unbound action overloads are invoked from the entity container through an [action
 import](#ActionImport).
 
-Unbound functions are invoked as static functions within a common expression
+Unbound function overloads are invoked as static functions within a common expression
 (see [OData-URL](#ODataURL), section 5.1.1),
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
 ### ##subisec `$IsBound`
 
-The value of `$IsBound` is one of the Boolean literals `true` or
-`false`. Absence of the member means `false`.
+The value of `$IsBound` is one of the Boolean literals `true` or `false`.
+Absence of the member means `false`.
 :::
 
 ::: {.varxml .rep}
@@ -181,7 +181,7 @@ Absence of the attribute means `false`.
 
 ## ##subsec Entity Set Path
 
-Bound actions and functions that return an entity or a collection of
+Bound action and function overloads that return an entity or a collection of
 entities MAY specify an entity set path if the entity set of the
 returned entities depends on the entity set of the binding parameter
 value.
@@ -213,13 +213,13 @@ The value of `EntitySetPath` is the entity set path.
 
 ## ##subsec Composable Function
 
-A function MAY indicate that it is composable. If not explicitly
+A function overload MAY indicate that it is composable. If not explicitly
 indicated, it is not composable.
 
-A composable function can be invoked with additional path segments or
+A composable function overload can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function overload, and with system query options as appropriate for
+the type returned by the composable function overload.
 
 ::: {.varjson .rep}
 ### ##subisec `$IsComposable`
@@ -285,8 +285,8 @@ of the collection and specifies whether the collection MAY contain
 `null` values.
 
 For single-valued return types the value `true` means that the action or
-function MAY return a single `null` value. The value `false` means that
-the action or function will never return a `null` value and instead will
+function overload MAY return a single `null` value. The value `false` means that
+the action or function overload will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
 
@@ -398,9 +398,8 @@ of the collection and specifies whether the collection MAY contain
 :::
 
 ::: {.varjson .example}
-Example ##ex: a function returning the top-selling products for a given
-year. In this case the year must be specified as a parameter of the
-function with the `$Parameter` member.
+Example ##ex: a function with one overload returning the top-selling products for a given
+year.
 ```json
 "TopSellingProducts": [
   {
@@ -455,9 +454,8 @@ The value `true` means that the parameter accepts a `null` value.
 :::
 
 ::: {.varxml .example}
-Example ##ex: a function returning the top-selling products for a given
-year. In this case the year must be specified as a parameter of the
-function with the `edm:Parameter` element.
+Example ##ex: a function overload returning the top-selling products for a given
+year.
 ```xml
 <Function Name="TopSellingProducts">
   <Parameter Name="Year" Type="Edm.Decimal" Precision="4" Scale="0" />
