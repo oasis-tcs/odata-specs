@@ -844,7 +844,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
-[RFC7231](#rfc7231), or through the system query option
+[RFC9110](#rfc9110), or through the system query option
 [`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
@@ -909,7 +909,7 @@ parameters within the `Content-Type` header.
 
 ### <a name="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header `Content-Encoding`</a>
 
-As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
+As defined in [RFC9110](#rfc9110), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type`). When present, its value indicates what additional
 content codings have been applied to the entity-body.
@@ -926,7 +926,7 @@ overall batch request or response.
 
 ### <a name="HeaderContentLanguage" href="#HeaderContentLanguage">8.1.3 Header `Content-Language`</a>
 
-As defined in [RFC7231](#rfc7231), a request or response can
+As defined in [RFC9110](#rfc9110), a request or response can
 include a `Content-Language` header to indicate the natural language of
 the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
@@ -943,7 +943,7 @@ overall batch request or response.
 
 ### <a name="HeaderContentLength" href="#HeaderContentLength">8.1.4 Header `Content-Length`</a>
 
-As defined in [RFC7230](#rfc7230), a request or response SHOULD
+As defined in [RFC9110](#rfc9110), a request or response SHOULD
 include a `Content-Length` header when the message's length can be
 determined prior to being transferred. OData does not add any additional
 requirements over HTTP for writing `Content-Length`.
@@ -990,7 +990,7 @@ specify any combination of the following request headers.
 
 ### <a name="HeaderAccept" href="#HeaderAccept">8.2.1 Header `Accept`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted [formats](#Formats) with the `Accept` Header.
 
 Services MUST reject formats that specify unknown or unsupported format
@@ -1016,7 +1016,7 @@ inherit the acceptable formats of the overall batch request.
 
 ### <a name="HeaderAcceptCharset" href="#HeaderAcceptCharset">8.2.2 Header `Accept-Charset`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted character sets with the `Accept-Charset` header.
 
 If the `Accept-Charset` header is specified on an individual request
@@ -1027,7 +1027,7 @@ overall batch request.
 
 ### <a name="HeaderAcceptLanguage" href="#HeaderAcceptLanguage">8.2.3 Header `Accept-Language`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted natural languages with the `Accept-Language` header.
 
 If the `Accept-Language` header is specified on an individual request
@@ -1038,7 +1038,7 @@ batch request.
 
 ### <a name="HeaderIfMatch" href="#HeaderIfMatch">8.2.4 Header `If-Match`</a>
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
 value previously retrieved for the resource, or `*` to match any value.
@@ -1060,7 +1060,7 @@ value matches the current ETag value of the target resource. Services
 sending [`ETag` headers](#HeaderETag) with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
-overwrites. This is a deviation from [RFC7232](#rfc7232).
+overwrites. This is a deviation from [RFC9110](#rfc9110).
 
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#DataModification) or [Action
@@ -1079,14 +1079,14 @@ be specified on individual requests within the batch.
 
 ### <a name="HeaderIfNoneMatch" href="#HeaderIfNoneMatch">8.2.5 Header `If-None-Match`</a>
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-None-Match` request header MUST be an
 ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
-weak comparison function (see [RFC7232](#rfc7232)). If the value
+weak comparison function (see [RFC9110](#rfc9110)). If the value
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
 [`304 Not Modified`](#ResponseCode304NotModified), and for a [Data
@@ -1643,7 +1643,7 @@ within a batch.
 ### <a name="HeaderETag" href="#HeaderETag">8.3.2 Header `ETag`</a>
 
 A response MAY include an `ETag` header, see
-[RFC7232](#rfc7232). Services MUST include this header if they
+[RFC9110](#rfc9110). Services MUST include this header if they
 require an ETag to be specified when modifying the resource.
 
 Services MUST support specifying the value returned in the `ETag` header
@@ -1730,7 +1730,7 @@ to the overall batch.
 ### <a name="HeaderRetryAfter" href="#HeaderRetryAfter">8.3.7 Header `Retry-After`</a>
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCode202Accepted)
+[RFC9110](#rfc9110)), in [`202 Accepted`](#ResponseCode202Accepted)
 and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
@@ -1755,7 +1755,7 @@ the service MUST include a `Vary` header listing the
 of the response.
 
 Alternatively, the server MAY include a `Vary` header with the special
-value `*` as defined by [RFC7231](#rfc7231), Section 8.2.1. Note
+value `*` as defined by [RFC9110](#rfc9110), Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see
 [RFC7240](#rfc7240).
 
@@ -1803,7 +1803,7 @@ A request returns `204 No Content` if the requested resource has the
 `null` value, or if the service applies a [`return=minimal`
 preference](#Preferencereturnrepresentationandreturnminimal). In this case, the response body MUST be empty.
 
-As defined in [RFC7231](#rfc7231), a [Data Modification
+As defined in [RFC9110](#rfc9110), a [Data Modification
 Request](#DataModification) that responds with
 `204 No Content MAY `include an `ETag` header with a value reflecting
 the result of the data modification if and only if the client can
@@ -1821,7 +1821,7 @@ server-side values corresponding to the `ETag` value sent in the
 
 ### <a name="ResponseCode3xxRedirection" href="#ResponseCode3xxRedirection">9.1.5 Response Code `3xx Redirection`</a>
 
-As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
+As per [RFC9110](#rfc9110), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
 request. In this case, the response SHOULD include a [`Location`
 header](#HeaderLocation), as appropriate, with the URL from which the
@@ -1830,7 +1830,7 @@ header](#HeaderRetryAfter).
 
 ### <a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code `304 Not Modified`</a>
 
-As per [RFC7232](#rfc7232), a `304 Not Modified` is returned
+As per [RFC9110](#rfc9110), a `304 Not Modified` is returned
 when the client performs a `GET` request containing an
 [`If-None-Match`](#HeaderIfNoneMatch) header and the content has not
 changed. In this case the response SHOULD NOT include other headers in
@@ -1864,7 +1864,7 @@ does not exist. The response body MAY provide additional information.
 request URL does not support the request method. In this case the
 response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
-[RFC7231](#rfc7231).
+[RFC9110](#rfc9110).
 
 ### <a name="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code `406 Not Acceptable`</a>
 
@@ -1886,7 +1886,7 @@ isolation](#HeaderIsolationODataIsolation).
 
 ### <a name="ResponseCode412PreconditionFailed" href="#ResponseCode412PreconditionFailed">9.2.5 Response Code `412 Precondition Failed`</a>
 
-As defined in [RFC7232](#rfc7232), `412 Precondition Failed`
+As defined in [RFC9110](#rfc9110), `412 Precondition Failed`
 indicates that the client has performed a conditional request and the
 resource fails the condition. The service MUST ensure that no observable
 change occurs as a result of the request.
@@ -1899,7 +1899,7 @@ depended upon a request that failed.
 
 ## <a name="ServerErrorResponses" href="#ServerErrorResponses">9.3 Server Error Responses</a>
 
-As defined in [RFC7231](#rfc7231), error codes in the `5xx` range
+As defined in [RFC9110](#rfc9110), error codes in the `5xx` range
 indicate service errors.
 
 ### <a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
@@ -5566,7 +5566,7 @@ asynchronous operation. If the `GET` request to the status monitor
 includes an `OData-MaxVersion` header with a value of `4.0` and no
 `Accept` header, or an `Accept` header that includes `application/http`,
 then the body of the final `200 OK` response MUST be represented as an
-HTTP message, as described in [RFC7230](#rfc7230), which is the full
+HTTP message, as described in [RFC9110](#rfc9110), which is the full
 HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
@@ -6705,18 +6705,6 @@ http://tools.ietf.org/html/rfc5789.
 _Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
 https://tools.ietf.org/html/rfc7493.
 
-###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
-
-###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
-
-###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
-
 ###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
 https://tools.ietf.org/html/rfc7240.
@@ -6728,6 +6716,10 @@ https://tools.ietf.org/html/rfc7617.
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
+
+###### <a name="rfc9110">[RFC9110]</a>
+_Fielding, R., Ed., M. Nottingham, Ed., and J. Reschke, Ed., "HTTP Semantics", RFC 9110, June 2022_  
+https://www.rfc-editor.org/info/rfc9110.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
@@ -6750,7 +6742,7 @@ and thus inherits both sides of the coin, security enhancements and
 concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
+of [RFC9110](#rfc9110) (17. Security Considerations) and for the
 HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
 starting points.
 
