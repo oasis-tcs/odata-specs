@@ -2578,7 +2578,7 @@ binding parameter type, and ordered set of parameter types MUST be
 unique within a schema.
 - All bound function overloads with the same
 function name and binding parameter type within a schema MUST specify
-the same return type.
+the same [return type](#ReturnType) with identical nullability and type facets.
 
 [Unbound](#BoundorUnboundActionorFunctionOverloads) function overloads are
 subject to the following rules:
@@ -2587,7 +2587,8 @@ unordered set of parameter names MUST be unique within a schema.
 - The combination of function name and
 ordered set of parameter types MUST be unique within a schema.
 - All unbound function overloads with the same
-function name within a schema MUST specify the same return type.
+function name within a schema MUST specify
+the same [return type](#ReturnType) with identical nullability and type facets.
 
 Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
@@ -2729,8 +2730,8 @@ applies to items of the collection and specifies whether the collection
 MAY contain `null` values.
 
 For single-valued return types the value `true` means that the action or
-function MAY return a single `null` value. The value `false` means that
-the action or function will never return a `null` value and instead will
+function overload MAY return a single `null` value. The value `false` means that
+the action or function overload will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
 

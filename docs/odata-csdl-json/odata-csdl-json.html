@@ -1641,13 +1641,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>The combination of function name, binding parameter type, and unordered set of non-binding parameter names MUST be unique within a schema.</li>
 <li>The combination of function name, binding parameter type, and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All bound function overloads with the same function name and binding parameter type within a schema MUST specify the same return type.</li>
+<li>All bound function overloads with the same function name and binding parameter type within a schema MUST specify the same <a href="#ReturnType">return type</a> with identical nullability and type facets.</li>
 </ul>
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> function overloads are subject to the following rules:</p>
 <ul>
 <li>The combination of function name and unordered set of parameter names MUST be unique within a schema.</li>
 <li>The combination of function name and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All unbound function overloads with the same function name within a schema MUST specify the same return type.</li>
+<li>All unbound function overloads with the same function name within a schema MUST specify the same <a href="#ReturnType">return type</a> with identical nullability and type facets.</li>
 </ul>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
 <section id="-function-overload-object" class="varjson rep">

@@ -1509,13 +1509,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li>The combination of function name, binding parameter type, and unordered set of non-binding parameter names MUST be unique within a schema.</li>
 <li>The combination of function name, binding parameter type, and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All bound function overloads with the same function name and binding parameter type within a schema MUST specify the same return type.</li>
+<li>All bound function overloads with the same function name and binding parameter type within a schema MUST specify the same <a href="#ReturnType">return type</a> with identical nullability and type facets.</li>
 </ul>
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> function overloads are subject to the following rules:</p>
 <ul>
 <li>The combination of function name and unordered set of parameter names MUST be unique within a schema.</li>
 <li>The combination of function name and ordered set of parameter types MUST be unique within a schema.</li>
-<li>All unbound function overloads with the same function name within a schema MUST specify the same return type.</li>
+<li>All unbound function overloads with the same function name within a schema MUST specify the same <a href="#ReturnType">return type</a> with identical nullability and type facets.</li>
 </ul>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
 <div class="varxml rep">
@@ -1566,7 +1566,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>If the return type is a collection of entity types, the <code>Nullable</code> attribute has no meaning and MUST NOT be specified.</p>
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case the <code>Nullable</code> attribute applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
-<p>For single-valued return types the value <code>true</code> means that the action or function MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
+<p>For single-valued return types the value <code>true</code> means that the action or function overload MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function overload will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
 </div>
 <h2 id="129-parameter"><a name="Parameter" href="#Parameter">12.9 Parameter</a></h2>
 <p>An action or function overload MAY specify parameters.</p>

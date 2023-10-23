@@ -2707,7 +2707,7 @@ binding parameter type, and ordered set of parameter types MUST be
 unique within a schema.
 - All bound function overloads with the same
 function name and binding parameter type within a schema MUST specify
-the same return type.
+the same [return type](#ReturnType) with identical nullability and type facets.
 
 [Unbound](#BoundorUnboundActionorFunctionOverloads) function overloads are
 subject to the following rules:
@@ -2716,7 +2716,8 @@ unordered set of parameter names MUST be unique within a schema.
 - The combination of function name and
 ordered set of parameter types MUST be unique within a schema.
 - All unbound function overloads with the same
-function name within a schema MUST specify the same return type.
+function name within a schema MUST specify
+the same [return type](#ReturnType) with identical nullability and type facets.
 
 Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
