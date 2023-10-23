@@ -357,7 +357,7 @@ Example ##ex: referencing the batch request [example ##batchRequest] above, assu
 the requests except the final query request succeed. In this case the
 response would be
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ####
 Content-Type: application/json
