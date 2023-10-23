@@ -614,8 +614,8 @@ permissions and has been replaced with the instance annotation
 Properties with null or default values MUST be included in delta
 payloads, if modified.
 
-The response to a POST operation MUST include any properties not set to
-their default value, and the response to a PUT/PATCH operation MUST
+The response to a `POST` operation MUST include any properties not set to
+their default value, and the response to a `PUT` or `PATCH` operation MUST
 include any properties whose values were changed as part of the
 operation.
 

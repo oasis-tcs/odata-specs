@@ -409,7 +409,7 @@ the target MAY be omitted for single-valued navigation.
 
 ## ##subsec Update a Collection of Entities
 
-The body of a PATCH request to a URL identifying a collection of
+The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it

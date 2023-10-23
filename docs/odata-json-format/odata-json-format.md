@@ -2480,7 +2480,7 @@ the target MAY be omitted for single-valued navigation.
 
 ## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
 
-The body of a PATCH request to a URL identifying a collection of
+The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
