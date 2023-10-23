@@ -1272,7 +1272,7 @@ change-tracking.
 Clients request that the service track changes to a result by specifying
 the [`track-changes`](#Preferencetrackchangesodatatrackchanges) preference
 on a request. If supported for the request, the service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `header in the
+[`Preference-Applied`](#HeaderPreferenceApplied) header in the
 response containing the `track-changes` preference and includes a *delta
 link* in a result for a single entity, and on the last page of results
 for a collection of entities in place of the next link.

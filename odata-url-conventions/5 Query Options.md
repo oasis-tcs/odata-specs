@@ -377,7 +377,7 @@ or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
 operands:
-- `DateTimeOffset` `sub` `Duration`
+- `DateTimeOffset sub Duration`
 results in a `DateTimeOffset`
 - `Duration sub Duration` results in a
 `Duration`
@@ -1793,7 +1793,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `annotation
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
