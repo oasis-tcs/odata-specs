@@ -2600,7 +2600,7 @@ Assuming some or all changes cannot be applied, the overall request is still dee
   5. Add link between customer 'ANATR' and order 10643 - failed without further info
   6. Delete link between customer 'DUMON' and order 10311 - failed without further info
 ```json
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 Preference-Applied: return=minimal, continue-on-error
