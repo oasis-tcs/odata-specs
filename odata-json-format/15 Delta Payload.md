@@ -514,7 +514,6 @@ HTTP/1.1 204 No Content
 Preference-Applied: return=minimal, continue-on-error
 
 
-
 ```
 
 Assuming some or all changes cannot be applied, the overall request is still deemed successful due to the `continue-on-error` preference, and the response details what went wrong
