@@ -2619,7 +2619,7 @@ Preference-Applied: return=minimal, continue-on-error
           "code": "incmplt",
           "message": "Required field(s) not provided",
           "target": "Address",
-          "com.sap.vocabularies.Common.v1.additionalTargets": [ "Industry", "VATRegistration" ],
+          "@OtherVocab.additionalTargets": [ "Industry", "VATRegistration" ],
           "severity": "error"
         }
       }
@@ -2707,7 +2707,7 @@ Content-Length: ###
     "code": "incmplt",
     "message": "Required field(s) not provided",
     "target": "Customers('EASTC')/Address",
-    "com.sap.vocabularies.Common.v1.additionalTargets": [ "Customers('EASTC')/Industry", "Customers('EASTC')/VATRegistration" ]
+    "@OtherVocab.additionalTargets": [ "Customers('EASTC')/Industry", "Customers('EASTC')/VATRegistration" ]
   }
 }
 ```
