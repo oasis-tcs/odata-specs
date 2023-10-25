@@ -19,8 +19,11 @@ An OData JSON payload may represent:
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##ControlInformationmediaodatamedia]| 
+ `mediaContentType` can be `null`| 
+[ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
 
 ## ##subsec Glossary
 

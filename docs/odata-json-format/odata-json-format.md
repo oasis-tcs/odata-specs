@@ -207,8 +207,9 @@ An OData JSON payload may represent:
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
