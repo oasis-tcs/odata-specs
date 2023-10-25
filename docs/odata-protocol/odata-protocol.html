@@ -2129,7 +2129,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
  
 ...</code></pre>
 </div>
-<p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request obeys the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
+<p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.  </p>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
@@ -2180,6 +2180,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return Prefer</code> header</a>.</p>
 <p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL or read URL of the created entity.</p>
+<p>If the action returns a value of type <code>Edm.Stream</code>, the response to the <code>POST</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 <div class="example">

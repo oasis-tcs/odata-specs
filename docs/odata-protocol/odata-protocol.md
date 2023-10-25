@@ -5305,7 +5305,7 @@ POST http://host/service/MyShoppingCart()/Items
 
 If the function returns a value of type `Edm.Stream` and no additional path
 segments follow the function invocation, the response to the `GET` request
-obeys the rules for [requesting stream properties](#RequestingStreamProperties).
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for
@@ -5503,6 +5503,9 @@ Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a [`Location`
 header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity.
+
+If the action returns a value of type `Edm.Stream`, the response to the `POST` request
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Actions without a return type respond with
 [`204 No Content`](#ResponseCode204NoContent) on success.
