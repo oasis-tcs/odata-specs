@@ -39,7 +39,7 @@ batch request URL, or a relative path (not starting with a forward slash `/`).
 
 If the first segment of a relative path starts with a `$`
 character and is not identical to the name of a top-level system
-resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root,`
+resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root`,
 `$id`, `$metadata`, or other system resources
 defined according to the `OData-Version` of the protocol
 specified in the request), then this first segment is replaced with the
