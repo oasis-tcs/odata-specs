@@ -167,7 +167,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None.`
+for the property with a value of `None`.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -185,12 +185,17 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append `/$value` to the resource path of the media entity URL. Services
-may redirect from this canonical URL to the source URL of the media
+append `/$value` to the resource path of the media entity URL.
+The media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type. Alternatively, services
+MAY redirect from this canonical URL to the source URL of the media
 stream.
 
 Appending `/$value` to an entity that is not a media entity returns
-`400 Bad Request.`
+`400 Bad Request`.
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns

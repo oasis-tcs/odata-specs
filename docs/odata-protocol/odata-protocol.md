@@ -2693,7 +2693,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None.`
+for the property with a value of `None`.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -2711,12 +2711,17 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append `/$value` to the resource path of the media entity URL. Services
-may redirect from this canonical URL to the source URL of the media
+append `/$value` to the resource path of the media entity URL.
+The media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type. Alternatively, services
+MAY redirect from this canonical URL to the source URL of the media
 stream.
 
 Appending `/$value` to an entity that is not a media entity returns
-`400 Bad Request.`
+`400 Bad Request`.
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
@@ -4635,8 +4640,8 @@ entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
-[`204 No Content`](#ResponseCode204NoContent)if the request included a
-[Prefer header](#Preferencereturnrepresentationandreturnminimal) with a value of
+[`204 No Content`](#ResponseCode204NoContent) if the request included a
+[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
@@ -4704,7 +4709,8 @@ Example 81: directly read a stream property of an entity
 ```
 GET http://host/service/Products(1)/Thumbnail
 ```
-can return [`200 OK`](#ResponseCode200OK) and the stream data, or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
+can return [`200 OK`](#ResponseCode200OK) and the stream data (see [section 11.2.4.1](#RequestingStreamProperties)),
+or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
 :::
 
 Note: for scenarios in which the media value can only be inlined,
