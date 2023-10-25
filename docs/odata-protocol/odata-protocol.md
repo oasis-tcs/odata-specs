@@ -1045,7 +1045,7 @@ As defined in [RFC7232](#rfc7232), a client MAY include an
 value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
@@ -1517,7 +1517,7 @@ A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
-include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
+include a [`Preference-Applied`](#HeaderPreferenceApplied) response
 header containing the `return=minimal `preference.
 
 A preference of `return=representation` requests that the service
@@ -1548,7 +1548,7 @@ requests within the batch request.
 
 In the case that the service applies the `respond-async` preference it
 MUST include a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header
+[`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
@@ -3818,7 +3818,7 @@ change-tracking.
 Clients request that the service track changes to a result by specifying
 the [`track-changes`](#Preferencetrackchangesodatatrackchanges) preference
 on a request. If supported for the request, the service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `header in the
+[`Preference-Applied`](#HeaderPreferenceApplied) header in the
 response containing the `track-changes` preference and includes a *delta
 link* in a result for a single entity, and on the last page of results
 for a collection of entities in place of the next link.
@@ -3981,7 +3981,7 @@ A [Data Modification Request](#DataModification) on an existing resource
 or an [Action Request](#Actions) invoking an action bound to an existing
 resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and
 [`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
 (nested property `OptimisticConcurrencyControl`) in
@@ -5276,7 +5276,7 @@ ampersand (`&`) or a question mark (`?`).
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
 
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
@@ -5406,7 +5406,7 @@ GET http://host/service/EmployeesByManager?ManagerID=3
 :::
 
 Non-binding parameters annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
@@ -5456,7 +5456,7 @@ request was ambiguous.
 ### <a name="Actions" href="#Actions">11.5.5 Actions</a>
 
 Actions are operations exposed by an OData service that MAY have side
-effects when invoked. Actions MAY return data but` `MUST NOT be further
+effects when invoked. Actions MAY return data but MUST NOT be further
 composed with additional path segments.
 
 #### <a name="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a>
@@ -5475,7 +5475,7 @@ according to the particular format.
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
@@ -5486,7 +5486,7 @@ values MUST be passed in the request body according to the particular
 format.
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated and the
@@ -5748,7 +5748,7 @@ clients MUST be able to resolve it relative to the request's URL even if
 that contains such a reference.
 
 If the `$`-prefixed request identifier is identical to the name of a
-top-level system resource (`$batch`, `$crossjoin,` `$all,` `$entity`,
+top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
 `$root`, `$id`, `$metadata`, or other system resources defined according
 to the [`OData-Version`](#HeaderODataVersion) of the protocol specified
 in the request), then the reference to the top-level system resource is
@@ -6440,13 +6440,13 @@ collection-valued properties (section 5.1.1.10 in
 [OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
-8. MUST support `$orderby` `asc` and `desc` on individual properties
+8. MUST support `$orderby` with `asc` and `desc` on individual properties
 ([section 11.2.6.2](#SystemQueryOptionorderby))
 9. MUST support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
    1. MUST support returning references for expanded properties
    2. MUST support `$filter` on expanded collection-valued properties
    3. MUST support cast segment in expand with derived types
-   4. SHOULD support `$orderby` `asc` and `desc` on expanded
+   4. SHOULD support `$orderby` with `asc` and `desc` on expanded
 collection-valued properties
    5. SHOULD support `$count` on expanded collection-valued properties
    6. SHOULD support `$top` and `$skip` on expanded collection-valued
@@ -6574,7 +6574,7 @@ Level](#OData401MinimalConformanceLevel)
 Level](#OData40IntermediateConformanceLevel)
 3. MUST support `eq/ne null` comparison for navigation properties with
 a maximum cardinality of one
-4. MUST support the [`in`](#BuiltinFilterOperations)` `operator
+4. MUST support the [`in`](#BuiltinFilterOperations) operator
 5. MUST support the `$select` option nested within `$select`
 6. SHOULD support the count of a filtered collection in a common
 expression
@@ -6599,7 +6599,7 @@ expression
 4. MUST support `$compute` system query option
 5. MUST support nested options in `$select`
    1. MUST support `$filter` on selected collection-valued properties
-   2. SHOULD support `$orderby` `asc` and `desc` on selected
+   2. SHOULD support `$orderby` with `asc` and `desc` on selected
 collection-valued properties
    3. SHOULD support the `$count` on selected collection-valued
 properties

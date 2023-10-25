@@ -341,10 +341,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example ##ex: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example ##ex: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
