@@ -204,7 +204,8 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.2 Requesting Individual Entities](#RequestingIndividualEntities)
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
-      - [11.2.4.1 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
+      - [11.2.4.1 Requesting Stream Properties](#RequestingStreamProperties)
+      - [11.2.4.2 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -2692,7 +2693,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None.`
+for the property with a value of `None`.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -2710,12 +2711,17 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append `/$value` to the resource path of the media entity URL. Services
-may redirect from this canonical URL to the source URL of the media
+append `/$value` to the resource path of the media entity URL.
+The media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the media stream with that media type. Alternatively, services
+MAY redirect from this canonical URL to the source URL of the media
 stream.
 
 Appending `/$value` to an entity that is not a media entity returns
-`400 Bad Request.`
+`400 Bad Request`.
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
@@ -2745,7 +2751,19 @@ GET http://host/service/Products(1)/Name
 ```
 :::
 
-#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using `$value`</a>
+#### <a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a>
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
+
+#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
@@ -2783,6 +2801,9 @@ A `$value` request for a property that is `null` results in a
 
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
+
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
 
 ::: example
 Example 32:
@@ -4619,8 +4640,8 @@ entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
-[`204 No Content`](#ResponseCode204NoContent)if the request included a
-[Prefer header](#Preferencereturnrepresentationandreturnminimal) with a value of
+[`204 No Content`](#ResponseCode204NoContent) if the request included a
+[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
@@ -4688,7 +4709,8 @@ Example 81: directly read a stream property of an entity
 ```
 GET http://host/service/Products(1)/Thumbnail
 ```
-can return [`200 OK`](#ResponseCode200OK) and the stream data, or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
+can return [`200 OK`](#ResponseCode200OK) and the stream data (see [section 11.2.4.1](#RequestingStreamProperties)),
+or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
 :::
 
 Note: for scenarios in which the media value can only be inlined,
@@ -5287,6 +5309,10 @@ POST http://host/service/MyShoppingCart()/Items
 ```
 :::
 
+If the function returns a value of type `Edm.Stream` and no additional path
+segments follow the function invocation, the response to the `GET` request
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
+
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for
 complex values, or collections of primitive or complex values). Entity
@@ -5483,6 +5509,9 @@ Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a [`Location`
 header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity.
+
+If the action returns a value of type `Edm.Stream`, the response to the `POST` request
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Actions without a return type respond with
 [`204 No Content`](#ResponseCode204NoContent) on success.
@@ -6359,7 +6388,7 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))

@@ -306,7 +306,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">11.2.3 Requesting the Media Stream of a Media Entity using <code>$value</code></a></li>
 <li><a href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 <ul>
-<li><a href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using <code>$value</code></a></li>
+<li><a href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></li>
+<li><a href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using <code>$value</code></a></li>
 </ul></li>
 <li><a href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 <ul>
@@ -1257,13 +1258,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="#ODataJSON">OData-JSON</a> payload. In addition, services MAY support conventions for constructing a read URL using the entity's key value(s), as described in <a href="#ODataURL">OData-URL</a>.</p>
 <p>The set of structural or navigation properties to return may be specified through <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>system query options.</p>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open.</p>
-<p>Properties that are not available, for example due to permissions, are not returned. In this case, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None.</code></p>
+<p>Properties that are not available, for example due to permissions, are not returned. In this case, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None</code>.</p>
 <p>If no entity exists with the specified request URL, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <h3 id="1123-requesting-the-media-stream-of-a-media-entity-using-value"><a name="RequestingtheMediaStreamofaMediaEntityusingvalue" href="#RequestingtheMediaStreamofaMediaEntityusingvalue">11.2.3 Requesting the Media Stream of a Media Entity using <code>$value</code></a></h3>
 <p>A <em>media entity</em> is an entity that represents an out-of-band stream, such as a photograph.</p>
 <p>Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just structured additional information attached to the stream. Use a normal entity with one or more <a href="#ManagingStreamProperties">stream properties</a> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data.</p>
-<p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
-<p>Appending <code>/$value</code> to an entity that is not a media entity returns <code>400 Bad Request.</code></p>
+<p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. The media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the media stream with that media type. Alternatively, services MAY redirect from this canonical URL to the source URL of the media stream.</p>
+<p>Appending <code>/$value</code> to an entity that is not a media entity returns <code>400 Bad Request</code>.</p>
 <p>Attempting to retrieve the media stream from a single-valued navigation property referencing a media entity whose value is null returns <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <h3 id="1124-requesting-individual-properties"><a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a></h3>
 <p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with "/" and the property name appended.</p>
@@ -1275,7 +1276,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 31:</p>
 <pre><code>GET http://host/service/Products(1)/Name</code></pre>
 </div>
-<h4 id="11241-requesting-a-propertys-raw-value-using-value"><a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using <code>$value</code></a></h4>
+<h4 id="11241-requesting-stream-properties"><a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></h4>
+<p>If the property being requested has type <code>Edm.Stream</code> (see <a href="#ODataURL">OData-URL, section 9</a>), the media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the stream property with that media type.</p>
+<p>Note this response format disregards any <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
+<h4 id="11242-requesting-a-propertys-raw-value-using-value"><a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using <code>$value</code></a></h4>
 <p>To retrieve the raw value of a primitive type property, the client sends a <code>GET</code> request to the property value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
 <p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
@@ -1283,6 +1287,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses for properties of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>A <code>$value</code> request for a property that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
 <p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
+<p>Appending <code>/$value</code> to the property URL of a property of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
 <div class="example">
 <p>Example 32:</p>
 <pre><code>GET http://host/service/Products(1)/Name/$value</code></pre>
@@ -1908,7 +1913,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11471-create-a-media-entity"><a name="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.7.1 Create a Media Entity</a></h4>
 <p>A <code>POST</code> request to a media entity's entity set creates a new media entity. The request body MUST contain the media value (for example, the photograph) whose media type MUST be specified in a <a href="#HeaderContentType"><code>Content-Type</code></a> header. The request body is always interpreted as the media value, even if it has the media type of an OData format supported by the service. It is not possible to set the structural properties of the media entity when creating the media entity.</p>
 <p>Upon successful completion, the response MUST contain <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL of the created media entity.</p>
-<p>Upon successful completion the service responds with either <a href="#ResponseCode201Created"><code>201 Created</code></a>, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>if the request included a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a>.</p>
+<p>Upon successful completion the service responds with either <a href="#ResponseCode201Created"><code>201 Created</code></a>, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>Prefer</code> header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a>.</p>
 <h4 id="11472-update-a-media-entity-stream"><a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a></h4>
 <p>A successful <code>PUT</code> request to the media edit URL of a media entity changes the media stream of the entity.</p>
 <p>If the entity includes an ETag value for the media stream, the client MUST include an <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the ETag value.</p>
@@ -1938,7 +1943,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 81: directly read a stream property of an entity</p>
 <pre><code>GET http://host/service/Products(1)/Thumbnail</code></pre>
-<p>can return <a href="#ResponseCode200OK"><code>200 OK</code></a> and the stream data, or a <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> to the media read link of the stream property.</p>
+<p>can return <a href="#ResponseCode200OK"><code>200 OK</code></a> and the stream data (see <a href="#RequestingStreamProperties">section 11.2.4.1</a>), or a <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> to the media read link of the stream property.</p>
 </div>
 <p>Note: for scenarios in which the media value can only be inlined, the property should instead be modeled with type <code>Edm.Binary</code>.</p>
 <h4 id="11481-update-stream-values"><a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a></h4>
@@ -2124,6 +2129,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
  
 ...</code></pre>
 </div>
+<p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.  </p>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
@@ -2174,6 +2180,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return Prefer</code> header</a>.</p>
 <p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL or read URL of the created entity.</p>
+<p>If the action returns a value of type <code>Edm.Stream</code>, the response to the <code>POST</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 <div class="example">
@@ -2628,7 +2635,7 @@ Content-Length: ###
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
-<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.1</a>)</li>
+<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.2</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
