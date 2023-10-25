@@ -190,7 +190,7 @@ The media type of the response is the
 media type of the stream, subject to content type negotiation based on the
 [`Accept`](#HeaderAccept) header of the request.
 The response body is the octet-stream that represents the raw
-value of the stream property with that media type. Alternatively, services
+value of the media stream with that media type. Alternatively, services
 MAY redirect from this canonical URL to the source URL of the media
 stream.
 
