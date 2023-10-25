@@ -220,6 +220,18 @@ GET http://host/service/Products(1)/Name
 ```
 :::
 
+#### ##subsubsubsec Requesting Stream Properties
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
+
 #### ##subsubsubsec Requesting a Property's Raw Value using `$value`
 
 To retrieve the raw value of a primitive type property, the client sends
@@ -259,27 +271,15 @@ A `$value` request for a property that is `null` results in a
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
+
 ::: example
 Example ##ex:
 ```
 GET http://host/service/Products(1)/Name/$value
 ```
 :::
-
-#### ##subsubsubsec Requesting Stream Properties
-
-If the property being requested has type `Edm.Stream` (see
-[OData-URL, section 9](#ODataURL)), the media type of the response is the
-media type of the stream, subject to content type negotiation based on the
-[`Accept`](#HeaderAccept) header of the request.
-The response body is the octet-stream that represents the raw
-value of the stream with that media type.
-
-Note this response format disregards any [`$format`](#SystemQueryOptionformat)
-system query option.
-
-Appending `/$value` to the property URL of a property of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ### ##subsubsec Specifying Properties to Return
 

@@ -204,8 +204,8 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.2 Requesting Individual Entities](#RequestingIndividualEntities)
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
-      - [11.2.4.1 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
-      - [11.2.4.2 Requesting Stream Properties](#RequestingStreamProperties)
+      - [11.2.4.1 Requesting Stream Properties](#RequestingStreamProperties)
+      - [11.2.4.2 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -2746,7 +2746,19 @@ GET http://host/service/Products(1)/Name
 ```
 :::
 
-#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using `$value`</a>
+#### <a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a>
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
+
+#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
@@ -2785,27 +2797,15 @@ A `$value` request for a property that is `null` results in a
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
+
 ::: example
 Example 32:
 ```
 GET http://host/service/Products(1)/Name/$value
 ```
 :::
-
-#### <a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.2 Requesting Stream Properties</a>
-
-If the property being requested has type `Edm.Stream` (see
-[OData-URL, section 9](#ODataURL)), the media type of the response is the
-media type of the stream, subject to content type negotiation based on the
-[`Accept`](#HeaderAccept) header of the request.
-The response body is the octet-stream that represents the raw
-value of the stream with that media type.
-
-Note this response format disregards any [`$format`](#SystemQueryOptionformat)
-system query option.
-
-Appending `/$value` to the property URL of a property of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ### <a name="SpecifyingPropertiestoReturn" href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 
@@ -6379,7 +6379,7 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
