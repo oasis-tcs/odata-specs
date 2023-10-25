@@ -496,7 +496,7 @@ responses.
 
 ## ##subsec Type Facets
 
-Facets modify or constrain the acceptable values of primitive typed model elements,
+The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
 action or function [parameter](#Parameter), 
 action or function [return type](#ReturnType), or 

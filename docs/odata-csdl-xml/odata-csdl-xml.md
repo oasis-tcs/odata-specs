@@ -560,7 +560,7 @@ responses.
 
 ## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
 
-Facets modify or constrain the acceptable values of primitive typed model elements,
+The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
 action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
 
@@ -1687,7 +1687,7 @@ A Boolean value specifying whether the property can have the value
 
 
 ::: {.varxml .rep}
-## <a name="AttributeNullable12.3" href="#AttributeNullable12.3"> Attribute `Nullable`</a>
+### <a name="AttributeNullable12.3" href="#AttributeNullable12.3"> Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.

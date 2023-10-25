@@ -174,7 +174,7 @@ of the collection and specifies whether the collection MAY contain
 :::
 
 ::: {.varxml .rep}
-## ##subisec Attribute `Nullable`
+### ##subisec Attribute `Nullable`
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
