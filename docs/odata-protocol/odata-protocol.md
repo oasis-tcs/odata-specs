@@ -4762,13 +4762,13 @@ property to null.
 
 A successful `PATCH` request to the edit URL for a complex typed
 property updates that property. The request body MUST contain a single
-valid representation for the target complex type or one of its derived types.
+valid representation for the declared type of the complex property or one of its derived types.
 
 The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
 
-A complex-typed property can be set to different type in a `PATCH` request by specifying a different type in the update payload.
-Properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+If a complex-typed property is set to a different type in a `PATCH` request,
+properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
 Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
