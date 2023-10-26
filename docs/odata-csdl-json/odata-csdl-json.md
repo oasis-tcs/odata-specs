@@ -696,7 +696,7 @@ combination of term and qualifier.
 
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
-### <a name="DocumentObject1" href="#DocumentObject1"> Document Object</a>
+### <a name="DocumentObject.1" href="#DocumentObject.1"> Document Object</a>
 
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
 
@@ -706,11 +706,11 @@ It also MAY contain members for schemas.
 
 If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member `$EntityContainer`.
 
-### <a name="Version1.1" href="#Version1.1"> `$Version`</a>
+### <a name="Version.1.1" href="#Version.1.1"> `$Version`</a>
 
 The value of `$Version` is a string containing either `4.0` or `4.01`.
 
-### <a name="EntityContainer1.2" href="#EntityContainer1.2"> `$EntityContainer`</a>
+### <a name="EntityContainer.1.2" href="#EntityContainer.1.2"> `$EntityContainer`</a>
 
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
@@ -755,14 +755,14 @@ annotation is present, the `$schemaversion` system query option, defined
 referenced schema document.
 
 ::: {.varjson .rep}
-### <a name="Reference1.3" href="#Reference1.3"> `$Reference`</a>
+### <a name="Reference.1.3" href="#Reference.1.3"> `$Reference`</a>
 
 The value of `$Reference` is an object that contains one member per
 referenced CSDL document. The name of the pair is a URI for the
 referenced document. The URI MAY be relative to the document containing
 the `$Reference`. The value of each member is a reference object.
 
-### <a name="ReferenceObject2" href="#ReferenceObject2"> Reference Object</a>
+### <a name="ReferenceObject.2" href="#ReferenceObject.2"> Reference Object</a>
 
 The reference object MAY contain the members
 [`$Include`](#IncludedSchema) and
@@ -829,19 +829,19 @@ An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
 ::: {.varjson .rep}
-### <a name="Include2.1" href="#Include2.1"> `$Include`</a>
+### <a name="Include.2.1" href="#Include.2.1"> `$Include`</a>
 
 The value of `$Include` is an array. Array items are objects that MUST
 contain the member `$Namespace` and MAY contain the member `$Alias`.
 
 The item objects MAY contain [annotations](#Annotation).
 
-### <a name="Namespace2.2" href="#Namespace2.2"> `$Namespace`</a>
+### <a name="Namespace.2.2" href="#Namespace.2.2"> `$Namespace`</a>
 
 The value of `$Namespace` is a string containing the namespace of the
 included schema.
 
-### <a name="Alias2.3" href="#Alias2.3"> `$Alias`</a>
+### <a name="Alias.2.3" href="#Alias.2.3"> `$Alias`</a>
 
 The value of `$Alias` is a string containing the alias for the included
 schema.
@@ -926,21 +926,21 @@ not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
 ::: {.varjson .rep}
-### <a name="IncludeAnnotations2.4" href="#IncludeAnnotations2.4"> `$IncludeAnnotations`</a>
+### <a name="IncludeAnnotations.2.4" href="#IncludeAnnotations.2.4"> `$IncludeAnnotations`</a>
 
 The value of `$IncludeAnnotations` is an array. Array items are objects
 that MUST contain the member `$TermNamespace` and MAY contain the
 members `$Qualifier` and `$TargetNamespace`.
 
-### <a name="TermNamespace2.5" href="#TermNamespace2.5"> `$TermNamespace`</a>
+### <a name="TermNamespace.2.5" href="#TermNamespace.2.5"> `$TermNamespace`</a>
 
 The value of `$TermNamespace` is a namespace.
 
-### <a name="Qualifier2.6" href="#Qualifier2.6"> `$Qualifier`</a>
+### <a name="Qualifier.2.6" href="#Qualifier.2.6"> `$Qualifier`</a>
 
 The value of `$Qualifier` is a simple identifier.
 
-### <a name="TargetNamespace2.7" href="#TargetNamespace2.7"> `$TargetNamespace`</a>
+### <a name="TargetNamespace.2.7" href="#TargetNamespace.2.7"> `$TargetNamespace`</a>
 
 The value of `$TargetNamespace` is a namespace.
 :::
@@ -1019,7 +1019,7 @@ The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 ::: {.varjson .rep}
-### <a name="SchemaObject3" href="#SchemaObject3"> Schema Object</a>
+### <a name="SchemaObject.3" href="#SchemaObject.3"> Schema Object</a>
 
 A schema is represented as a member of the document object whose name is
 the schema namespace. Its value is an object that MAY contain the
@@ -1059,7 +1059,7 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 ::: {.varjson .rep}
-### <a name="Alias3.1" href="#Alias3.1"> `$Alias`</a>
+### <a name="Alias.3.1" href="#Alias.3.1"> `$Alias`</a>
 
 The value of `$Alias` is a string containing the alias for the schema.
 :::
@@ -1085,7 +1085,7 @@ description for the schema
 ## <a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a>
 
 ::: {.varjson .rep}
-### <a name="Annotations3.2" href="#Annotations3.2"> `$Annotations`</a>
+### <a name="Annotations.3.2" href="#Annotations.3.2"> `$Annotations`</a>
 
 The value of `$Annotations` is an object with one member per [annotation
 target](#Target). The member name is a path identifying the [annotation
@@ -1136,7 +1136,7 @@ the same name as one of the direct or indirect base types or derived
 types.
 
 ::: {.varjson .rep}
-### <a name="EntityTypeObject4" href="#EntityTypeObject4"> Entity Type Object</a>
+### <a name="EntityTypeObject.4" href="#EntityTypeObject.4"> Entity Type Object</a>
 
 An entity type is represented as a member of the schema object whose
 name is the unqualified name of the entity type and whose value is an
@@ -1188,7 +1188,7 @@ An entity type MUST NOT introduce an inheritance cycle by specifying a
 base type.
 
 ::: {.varjson .rep}
-### <a name="BaseType4.1" href="#BaseType4.1"> `$BaseType`</a>
+### <a name="BaseType.4.1" href="#BaseType.4.1"> `$BaseType`</a>
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
@@ -1233,7 +1233,7 @@ An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
 ::: {.varjson .rep}
-### <a name="Abstract4.2" href="#Abstract4.2"> `$Abstract`</a>
+### <a name="Abstract.4.2" href="#Abstract.4.2"> `$Abstract`</a>
 
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -1257,7 +1257,7 @@ properties on instances of any structured type, see
 [OData-Protocol](#ODataProtocol).
 
 ::: {.varjson .rep}
-### <a name="OpenType4.3" href="#OpenType4.3"> `$OpenType`</a>
+### <a name="OpenType.4.3" href="#OpenType.4.3"> `$OpenType`</a>
 
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -1286,7 +1286,7 @@ annotation with term
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
-### <a name="HasStream4.4" href="#HasStream4.4"> `$HasStream`</a>
+### <a name="HasStream.4.4" href="#HasStream.4.4"> `$HasStream`</a>
 
 The value of `$HasStream `is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -1370,7 +1370,7 @@ used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
 ::: {.varjson .rep}
-### <a name="Key4.5" href="#Key4.5"> `$Key`</a>
+### <a name="Key.4.5" href="#Key.4.5"> `$Key`</a>
 
 The value of `$Key` is an array with one item per key property.
 
@@ -1502,7 +1502,7 @@ Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
 ::: {.varjson .rep}
-### <a name="PropertyObject5" href="#PropertyObject5"> Property Object</a>
+### <a name="PropertyObject.5" href="#PropertyObject.5"> Property Object</a>
 
 Structural properties are represented as members of the object
 representing a structured type. The member name is the property name,
@@ -1557,7 +1557,7 @@ term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### <a name="Type5.1" href="#Type5.1"> `$Type`</a> and <a name="Collection5.2" href="#Collection5.2"> `$Collection`</a>
+### <a name="Type.5.1" href="#Type.5.1"> `$Type`</a> and <a name="Collection.5.2" href="#Collection.5.2"> `$Collection`</a>
 
 For single-valued properties the value of `$Type` is the qualified name
 of the property's type.
@@ -1596,7 +1596,7 @@ A Boolean value specifying whether the property can have the value
 `null`.
 
 ::: {.varjson .rep}
-### <a name="Nullable5.3" href="#Nullable5.3"> `$Nullable`</a>
+### <a name="Nullable.5.3" href="#Nullable.5.3"> `$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -1622,7 +1622,7 @@ If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
 ::: {.varjson .rep}
-### <a name="MaxLength5.4" href="#MaxLength5.4"> `$MaxLength`</a>
+### <a name="MaxLength.5.4" href="#MaxLength.5.4"> `$MaxLength`</a>
 
 The value of `$MaxLength` is a positive integer.
 
@@ -1657,7 +1657,7 @@ Note: duration properties supporting a granularity less than seconds
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}
-### <a name="Precision5.5" href="#Precision5.5"> `$Precision`</a>
+### <a name="Precision.5.5" href="#Precision.5.5"> `$Precision`</a>
 
 The value of `$Precision` is a number.
 
@@ -1708,7 +1708,7 @@ scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
 ::: {.varjson .rep}
-### <a name="Scale5.6" href="#Scale5.6"> `$Scale`</a>
+### <a name="Scale.5.6" href="#Scale.5.6"> `$Scale`</a>
 
 The value of `$Scale` is a number or a string with one of the symbolic
 values `floating` or `variable`.
@@ -1788,7 +1788,7 @@ limited to the ASCII character set.
 If no value is specified, the `Unicode` facet defaults to `true`.
 
 ::: {.varjson .rep}
-### <a name="Unicode5.7" href="#Unicode5.7"> `$Unicode`</a>
+### <a name="Unicode.5.7" href="#Unicode.5.7"> `$Unicode`</a>
 
 The value of `$Unicode` is one of the Boolean literals `true` or
 `false`. Absence of the member means `true`.
@@ -1809,7 +1809,7 @@ The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
 
 ::: {.varjson .rep}
-### <a name="SRID5.8" href="#SRID5.8"> `$SRID`</a>
+### <a name="SRID.5.8" href="#SRID.5.8"> `$SRID`</a>
 
 The value of `$SRID` is a string containing a number or the symbolic
 value `variable`.
@@ -1825,7 +1825,7 @@ the body of a request or response.
 If no value is specified, the client SHOULD NOT assume a default value.
 
 ::: {.varjson .rep}
-### <a name="DefaultValue5.9" href="#DefaultValue5.9"> `$DefaultValue`</a>
+### <a name="DefaultValue.5.9" href="#DefaultValue.5.9"> `$DefaultValue`</a>
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
@@ -1861,7 +1861,7 @@ Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
 ::: {.varjson .rep}
-### <a name="NavigationPropertyObject6" href="#NavigationPropertyObject6"> Navigation Property Object</a>
+### <a name="NavigationPropertyObject.6" href="#NavigationPropertyObject.6"> Navigation Property Object</a>
 
 Navigation properties are represented as members of the object
 representing a structured type. The member name is the property name,
@@ -1944,7 +1944,7 @@ term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### <a name="Type6.1" href="#Type6.1"> `$Type`</a> and <a name="Collection6.2" href="#Collection6.2"> `$Collection`</a>
+### <a name="Type.6.1" href="#Type.6.1"> `$Type`</a> and <a name="Collection.6.2" href="#Collection.6.2"> `$Collection`</a>
 
 For single-valued navigation properties the value of `$Type` is the
 qualified name of the navigation property's type.
@@ -1965,7 +1965,7 @@ Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
 ::: {.varjson .rep}
-### <a name="Nullable6.3" href="#Nullable6.3"> `$Nullable`</a>
+### <a name="Nullable.6.3" href="#Nullable.6.3"> `$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2005,7 +2005,7 @@ navigation property is defined on a type derived from the type of the
 partner navigation property.
 
 ::: {.varjson .rep}
-### <a name="Partner6.4" href="#Partner6.4"> `$Partner`</a>
+### <a name="Partner.6.4" href="#Partner.6.4"> `$Partner`</a>
 
 The value of `$Partner` is a string containing the path to the partner
 navigation property.
@@ -2080,7 +2080,7 @@ entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
 ::: {.varjson .rep}
-### <a name="ContainsTarget6.5" href="#ContainsTarget6.5"> `$ContainsTarget`</a>
+### <a name="ContainsTarget.6.5" href="#ContainsTarget.6.5"> `$ContainsTarget`</a>
 
 The value of `$ContainsTarget` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2113,7 +2113,7 @@ property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
 ::: {.varjson .rep}
-### <a name="ReferentialConstraint6.6" href="#ReferentialConstraint6.6"> `$ReferentialConstraint`</a>
+### <a name="ReferentialConstraint.6.6" href="#ReferentialConstraint.6.6"> `$ReferentialConstraint`</a>
 
 The value of `$ReferentialConstraint` is an object with one member per
 referential constraint. The member name is the path to the dependent
@@ -2190,7 +2190,7 @@ If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
 ::: {.varjson .rep}
-### <a name="OnDelete6.7" href="#OnDelete6.7"> `$OnDelete`</a>
+### <a name="OnDelete.6.7" href="#OnDelete.6.7"> `$OnDelete`</a>
 
 The value of `$OnDelete` is a string with one of the values `Cascade`,
 `None`, `SetNull`, or `SetDefault`.
@@ -2246,7 +2246,7 @@ the same name as one of the direct or indirect base types or derived
 types.
 
 ::: {.varjson .rep}
-### <a name="ComplexTypeObject7" href="#ComplexTypeObject7"> Complex Type Object</a>
+### <a name="ComplexTypeObject.7" href="#ComplexTypeObject.7"> Complex Type Object</a>
 
 A complex type is represented as a member of the schema object whose
 name is the unqualified name of the complex type and whose value is an
@@ -2317,7 +2317,7 @@ The rules for annotations of derived complex types are described in
 [section 14.2](#Annotation).
 
 ::: {.varjson .rep}
-### <a name="BaseType7.1" href="#BaseType7.1"> `$BaseType`</a>
+### <a name="BaseType.7.1" href="#BaseType.7.1"> `$BaseType`</a>
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
@@ -2329,7 +2329,7 @@ A complex type MAY indicate that it is abstract and cannot have
 instances.
 
 ::: {.varjson .rep}
-### <a name="Abstract7.2" href="#Abstract7.2"> `$Abstract`</a>
+### <a name="Abstract.7.2" href="#Abstract.7.2"> `$Abstract`</a>
 
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2353,7 +2353,7 @@ properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
 ::: {.varjson .rep}
-### <a name="OpenType7.3" href="#OpenType7.3"> `$OpenType`</a>
+### <a name="OpenType.7.3" href="#OpenType.7.3"> `$OpenType`</a>
 
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2381,7 +2381,7 @@ Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
 
 ::: {.varjson .rep}
-### <a name="EnumerationTypeObject8" href="#EnumerationTypeObject8"> Enumeration Type Object</a>
+### <a name="EnumerationTypeObject.8" href="#EnumerationTypeObject.8"> Enumeration Type Object</a>
 
 An enumeration type is represented as a member of the schema object
 whose name is the unqualified name of the enumeration type and whose
@@ -2424,7 +2424,7 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
 ::: {.varjson .rep}
-### <a name="UnderlyingType8.1" href="#UnderlyingType8.1"> `$UnderlyingType`</a>
+### <a name="UnderlyingType.8.1" href="#UnderlyingType.8.1"> `$UnderlyingType`</a>
 
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
@@ -2440,7 +2440,7 @@ If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
 ::: {.varjson .rep}
-### <a name="IsFlags8.2" href="#IsFlags8.2"> `$IsFlags`</a>
+### <a name="IsFlags.8.2" href="#IsFlags.8.2"> `$IsFlags`</a>
 
 The value of `$IsFlags` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2495,7 +2495,7 @@ selected members is the bitwise OR of the discrete numeric member
 values.
 
 ::: {.varjson .rep}
-### <a name="EnumerationMemberObject9" href="#EnumerationMemberObject9"> Enumeration Member Object</a>
+### <a name="EnumerationMemberObject.9" href="#EnumerationMemberObject.9"> Enumeration Member Object</a>
 
 Enumeration type members are represented as JSON object members, where
 the object member name is the enumeration member name and the object
@@ -2549,7 +2549,7 @@ annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
 
 ::: {.varjson .rep}
-### <a name="TypeDefinitionObject10" href="#TypeDefinitionObject10"> Type Definition Object</a>
+### <a name="TypeDefinitionObject.10" href="#TypeDefinitionObject.10"> Type Definition Object</a>
 
 A type definition is represented as a member of the schema object whose
 name is the unqualified name of the type definition and whose value is
@@ -2598,7 +2598,7 @@ The underlying type of a type definition MUST be a primitive type that
 MUST NOT be another type definition.
 
 ::: {.varjson .rep}
-### <a name="UnderlyingType10.1" href="#UnderlyingType10.1"> `$UnderlyingType`</a>
+### <a name="UnderlyingType.10.1" href="#UnderlyingType.10.1"> `$UnderlyingType`</a>
 
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
@@ -2661,7 +2661,7 @@ schema.
 An unbound action MAY have the same name as a bound action.
 
 ::: {.varjson .rep}
-### <a name="ActionOverloadObject11" href="#ActionOverloadObject11"> Action Overload Object</a>
+### <a name="ActionOverloadObject.11" href="#ActionOverloadObject.11"> Action Overload Object</a>
 
 An action is represented as a member of the schema object whose name is
 the unqualified name of the action and whose value is an array. The
@@ -2727,7 +2727,7 @@ disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
 ::: {.varjson .rep}
-### <a name="FunctionOverloadObject12" href="#FunctionOverloadObject12"> Function Overload Object</a>
+### <a name="FunctionOverloadObject.12" href="#FunctionOverloadObject.12"> Function Overload Object</a>
 
 A function is represented as a member of the schema object whose name is
 the unqualified name of the function and whose value is an array. The
@@ -2760,7 +2760,7 @@ Unbound functions are invoked as static functions within a common expression
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
-### <a name="IsBound12.1" href="#IsBound12.1"> `$IsBound`</a>
+### <a name="IsBound.12.1" href="#IsBound.12.1"> `$IsBound`</a>
 
 The value of `$IsBound` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2787,7 +2787,7 @@ type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
 ::: {.varjson .rep}
-### <a name="EntitySetPath12.2" href="#EntitySetPath12.2"> `$EntitySetPath`</a>
+### <a name="EntitySetPath.12.2" href="#EntitySetPath.12.2"> `$EntitySetPath`</a>
 
 The value of `$EntitySetPath` is a string containing the entity set
 path.
@@ -2805,7 +2805,7 @@ composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
 ::: {.varjson .rep}
-### <a name="IsComposable12.3" href="#IsComposable12.3"> `$IsComposable`</a>
+### <a name="IsComposable.12.3" href="#IsComposable.12.3"> `$IsComposable`</a>
 
 The value of `$IsComposable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2827,7 +2827,7 @@ For a collection-valued return type the facets apply to the items in the
 returned collection.
 
 ::: {.varjson .rep}
-### <a name="ReturnType12.4" href="#ReturnType12.4"> `$ReturnType`</a>
+### <a name="ReturnType.12.4" href="#ReturnType.12.4"> `$ReturnType`</a>
 
 The value of `$ReturnType` is an object. It MAY contain the members
 `$Type`, `$Collection`, `$Nullable`, [`$MaxLength`](#MaxLength),
@@ -2836,7 +2836,7 @@ and [`$SRID`](#SRID).
 
 It also MAY contain [annotations](#Annotation).
 
-### <a name="Type12.5" href="#Type12.5"> `$Type`</a> and <a name="Collection12.6" href="#Collection12.6"> `$Collection`</a>
+### <a name="Type.12.5" href="#Type.12.5"> `$Type`</a> and <a name="Collection.12.6" href="#Collection.12.6"> `$Collection`</a>
 
 For single-valued return types the value of `$Type` is the qualified
 name of the returned type.
@@ -2847,7 +2847,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a name="Nullable12.7" href="#Nullable12.7"> `$Nullable`</a>
+### <a name="Nullable.12.7" href="#Nullable.12.7"> `$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2892,12 +2892,12 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 ::: {.varjson .rep}
-### <a name="Parameter12.8" href="#Parameter12.8"> `$Parameter`</a>
+### <a name="Parameter.12.8" href="#Parameter.12.8"> `$Parameter`</a>
 
 The value of `$Parameter` is an array. The array contains one object per
 parameter.
 
-### <a name="ParameterObject13" href="#ParameterObject13"> Parameter Object</a>
+### <a name="ParameterObject.13" href="#ParameterObject.13"> Parameter Object</a>
 
 A parameter object MUST contain the member `$Name`, and it MAY contain
 the members `$Type`, `$Collection`, `$Nullable`,
@@ -2906,11 +2906,11 @@ the members `$Type`, `$Collection`, `$Nullable`,
 
 Parameter objects MAY also contain [annotations](#Annotation).
 
-### <a name="Name13.1" href="#Name13.1"> `$Name`</a>
+### <a name="Name.13.1" href="#Name.13.1"> `$Name`</a>
 
 The value of `$Name` is a string containing the parameter name.
 
-### <a name="Type13.2" href="#Type13.2"> `$Type`</a> and <a name="Collection13.3" href="#Collection13.3"> `$Collection`</a>
+### <a name="Type.13.2" href="#Type.13.2"> `$Type`</a> and <a name="Collection.13.3" href="#Collection.13.3"> `$Collection`</a>
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
@@ -2921,7 +2921,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a name="Nullable13.4" href="#Nullable13.4"> `$Nullable`</a>
+### <a name="Nullable.13.4" href="#Nullable.13.4"> `$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -3045,7 +3045,7 @@ import*](#ActionImport) is used to expose a function or action defined
 in an entity model as a top level resource.
 
 ::: {.varjson .rep}
-### <a name="EntityContainerObject14" href="#EntityContainerObject14"> Entity Container Object</a>
+### <a name="EntityContainerObject.14" href="#EntityContainerObject.14"> Entity Container Object</a>
 
 An entity container is represented as a member of the schema object
 whose name is the unqualified name of the entity container and whose
@@ -3126,7 +3126,7 @@ containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
 ::: {.varjson .rep}
-### <a name="Extends14.1" href="#Extends14.1"> `$Extends`</a>
+### <a name="Extends.14.1" href="#Extends.14.1"> `$Extends`</a>
 
 The value of `$Extends` is the qualified name of the entity container to
 be extended.
@@ -3168,7 +3168,7 @@ Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
 
 ::: {.varjson .rep}
-### <a name="EntitySetObject15" href="#EntitySetObject15"> Entity Set Object</a>
+### <a name="EntitySetObject.15" href="#EntitySetObject.15"> Entity Set Object</a>
 
 An entity set is represented as a member of the entity container object
 whose name is the name of the entity set and whose value is an object.
@@ -3180,15 +3180,15 @@ It MAY contain the members `$IncludeInServiceDocument` and
 [`$NavigationPropertyBinding`](#NavigationPropertyBinding) as well as
 [annotations](#Annotation).
 
-### <a name="Collection15.1" href="#Collection15.1"> `$Collection`</a>
+### <a name="Collection.15.1" href="#Collection.15.1"> `$Collection`</a>
 
 The value of `$Collection` is the Booelan value `true`.
 
-### <a name="Type15.2" href="#Type15.2"> `$Type`</a>
+### <a name="Type.15.2" href="#Type.15.2"> `$Type`</a>
 
 The value of `$Type` is the qualified name of an entity type.
 
-### <a name="IncludeInServiceDocument15.3" href="#IncludeInServiceDocument15.3"> `$IncludeInServiceDocument`</a>
+### <a name="IncludeInServiceDocument.15.3" href="#IncludeInServiceDocument.15.3"> `$IncludeInServiceDocument`</a>
 
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
@@ -3208,7 +3208,7 @@ A singleton MUST specify a type that MUST be an entity type in scope.
 A singleton MUST reference an instance its entity type.
 
 ::: {.varjson .rep}
-### <a name="SingletonObject16" href="#SingletonObject16"> Singleton Object</a>
+### <a name="SingletonObject.16" href="#SingletonObject.16"> Singleton Object</a>
 
 A singleton is represented as a member of the entity container object
 whose name is the name of the singleton and whose value is an object.
@@ -3220,11 +3220,11 @@ It MAY contain the member
 [`$NavigationPropertyBinding`](#NavigationPropertyBinding) as well as
 [annotations](#Annotation).
 
-### <a name="Type16.1" href="#Type16.1"> `$Type`</a>
+### <a name="Type.16.1" href="#Type.16.1"> `$Type`</a>
 
 The value of `$Type` is the qualified name of an entity type.
 
-### <a name="Nullable16.2" href="#Nullable16.2"> `$Nullable`</a>
+### <a name="Nullable.16.2" href="#Nullable.16.2"> `$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.In OData 4.0 responses this
@@ -3304,7 +3304,7 @@ before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
 ::: {.varjson .rep}
-### <a name="NavigationPropertyBinding16.3" href="#NavigationPropertyBinding16.3"> `$NavigationPropertyBinding`</a>
+### <a name="NavigationPropertyBinding.16.3" href="#NavigationPropertyBinding.16.3"> `$NavigationPropertyBinding`</a>
 
 The value of `$NavigationPropertyBinding` is an object. It consists of
 members whose name is the navigation property binding path and whose
@@ -3378,7 +3378,7 @@ container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
 ::: {.varjson .rep}
-### <a name="ActionImportObject17" href="#ActionImportObject17"> Action Import Object</a>
+### <a name="ActionImportObject.17" href="#ActionImportObject.17"> Action Import Object</a>
 
 An action import is represented as a member of the entity container
 object whose name is the name of the action import and whose value is an
@@ -3390,12 +3390,12 @@ It MAY contain the member `$EntitySet`.
 
 It MAY also contain [annotations](#Annotation).
 
-### <a name="Action17.1" href="#Action17.1"> `$Action`</a>
+### <a name="Action.17.1" href="#Action.17.1"> `$Action`</a>
 
 The value of `$Action` is a string containing the qualified name of an
 unbound action.
 
-### <a name="EntitySet17.2" href="#EntitySet17.2"> `$EntitySet`</a>
+### <a name="EntitySet.17.2" href="#EntitySet.17.2"> `$EntitySet`</a>
 
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
@@ -3428,7 +3428,7 @@ is included in the service document. If not explicitly indicated, it is
 not included.
 
 ::: {.varjson .rep}
-### <a name="FunctionImportObject18" href="#FunctionImportObject18"> Function Import Object</a>
+### <a name="FunctionImportObject.18" href="#FunctionImportObject.18"> Function Import Object</a>
 
 A function import is represented as a member of the entity container
 object whose name is the name of the function import and whose value is
@@ -3440,18 +3440,18 @@ It MAY contain the members `$EntitySet` and `$IncludeInServiceDocument`.
 
 It MAY also contain [annotations](#Annotation).
 
-### <a name="Function18.1" href="#Function18.1"> `$Function`</a>
+### <a name="Function.18.1" href="#Function.18.1"> `$Function`</a>
 
 The value of `$Function` is a string containing the qualified name of an
 unbound function.
 
-### <a name="EntitySet18.2" href="#EntitySet18.2"> `$EntitySet`</a>
+### <a name="EntitySet.18.2" href="#EntitySet.18.2"> `$EntitySet`</a>
 
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
 
-### <a name="IncludeInServiceDocument18.3" href="#IncludeInServiceDocument18.3"> `$IncludeInServiceDocument`</a>
+### <a name="IncludeInServiceDocument.18.3" href="#IncludeInServiceDocument.18.3"> `$IncludeInServiceDocument`</a>
 
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
@@ -3568,7 +3568,7 @@ The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
 ::: {.varjson .rep}
-### <a name="TermObject19" href="#TermObject19"> Term Object</a>
+### <a name="TermObject.19" href="#TermObject.19"> Term Object</a>
 
 A term is represented as a member of the schema object whose name is the
 unqualified name of the term and whose value is an object.
@@ -3584,7 +3584,7 @@ It MAY contain the members `$Type`, `$Collection`,
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Type19.1" href="#Type19.1"> `$Type`</a> and <a name="Collection19.2" href="#Collection19.2"> `$Collection`</a>
+### <a name="Type.19.1" href="#Type.19.1"> `$Type`</a> and <a name="Collection.19.2" href="#Collection.19.2"> `$Collection`</a>
 
 For single-valued terms the value of `$Type` is the qualified name of
 the term's type.
@@ -3595,7 +3595,7 @@ with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a name="DefaultValue19.3" href="#DefaultValue19.3"> `$DefaultValue`</a>
+### <a name="DefaultValue.19.3" href="#DefaultValue.19.3"> `$DefaultValue`</a>
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
@@ -3617,7 +3617,7 @@ with the same qualifier, and so on until a term without a base term is
 reached.
 
 ::: {.varjson .rep}
-### <a name="BaseTerm19.4" href="#BaseTerm19.4"> `$BaseTerm`</a>
+### <a name="BaseTerm.19.4" href="#BaseTerm.19.4"> `$BaseTerm`</a>
 
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
@@ -3670,7 +3670,7 @@ Symbolic Value|Model Element
 `UrlRef`                  |UrlRef annotation expression
 
 ::: {.varjson .rep}
-### <a name="AppliesTo19.5" href="#AppliesTo19.5"> `$AppliesTo`</a>
+### <a name="AppliesTo.19.5" href="#AppliesTo.19.5"> `$AppliesTo`</a>
 
 The value of `$AppliesTo` is an array whose items are strings containing
 symbolic values from the table above that identify model elements the
@@ -3713,7 +3713,7 @@ an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
 
 ::: {.varjson .rep}
-### <a name="AnnotationMember20" href="#AnnotationMember20"> Annotation Member</a>
+### <a name="AnnotationMember.20" href="#AnnotationMember.20"> Annotation Member</a>
 
 An annotation is represented as a member whose name consists of an at
 (`@`) character, followed by the qualified name of a term, optionally
@@ -4596,7 +4596,7 @@ The value of the path expression is the instance or collection of
 instances identified by the path.
 
 ::: {.varjson .rep}
-### <a name="Path20.1" href="#Path20.1"> `$Path`</a>
+### <a name="Path.20.1" href="#Path.20.1"> `$Path`</a>
 
 Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
@@ -4649,7 +4649,7 @@ The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
 ::: {.varjson .rep}
-### <a name="And20.2" href="#And20.2"> `$And`</a> and <a name="Or20.3" href="#Or20.3"> `$Or`</a>
+### <a name="And.20.2" href="#And.20.2"> `$And`</a> and <a name="Or.20.3" href="#Or.20.3"> `$Or`</a>
 
 The `And` and `Or` logical expressions are represented as an object with
 a single member whose value is an array with two annotation expressions.
@@ -4657,14 +4657,14 @@ The member name is one of `$And`, or `$Or`.
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Not20.4" href="#Not20.4"> `$Not`</a>
+### <a name="Not.20.4" href="#Not.20.4"> `$Not`</a>
 
 Negation expressions are represented as an object with a single member
 `$Not` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Eq20.5" href="#Eq20.5"> `$Eq`</a>,     <a name="Ne20.6" href="#Ne20.6"> `$Ne`</a>,     <a name="Gt20.7" href="#Gt20.7"> `$Gt`</a>,     <a name="Ge20.8" href="#Ge20.8"> `$Ge`</a>,     <a name="Lt20.9" href="#Lt20.9"> `$Lt`</a>,     <a name="Le20.10" href="#Le20.10"> `$Le`</a>,     <a name="Has20.11" href="#Has20.11"> `$Has`</a>, and <a name="In20.12" href="#In20.12"> `$In`</a>
+### <a name="Eq.20.5" href="#Eq.20.5"> `$Eq`</a>,     <a name="Ne.20.6" href="#Ne.20.6"> `$Ne`</a>,     <a name="Gt.20.7" href="#Gt.20.7"> `$Gt`</a>,     <a name="Ge.20.8" href="#Ge.20.8"> `$Ge`</a>,     <a name="Lt.20.9" href="#Lt.20.9"> `$Lt`</a>,     <a name="Le.20.10" href="#Le.20.10"> `$Le`</a>,     <a name="Has.20.11" href="#Has.20.11"> `$Has`</a>, and <a name="In.20.12" href="#In.20.12"> `$In`</a>
 
 All comparison expressions are represented as an object with a single
 member whose value is an array with two annotation expressions. The
@@ -4797,14 +4797,14 @@ to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
 ::: {.varjson .rep}
-### <a name="Neg20.13" href="#Neg20.13"> `$Neg`</a>
+### <a name="Neg.20.13" href="#Neg.20.13"> `$Neg`</a>
 
 Negation expressions are represented as an object with a single member
 `$Neg` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 
-### <a name="Add20.14" href="#Add20.14"> `$Add`</a>,     <a name="Sub20.15" href="#Sub20.15"> `$Sub`</a>,     <a name="Mul20.16" href="#Mul20.16"> `$Mul`</a>,     <a name="Div20.17" href="#Div20.17"> `$Div`</a>,     <a name="DivBy20.18" href="#DivBy20.18"> `$DivBy`</a>, and <a name="Mod20.19" href="#Mod20.19"> `$Mod`</a>
+### <a name="Add.20.14" href="#Add.20.14"> `$Add`</a>,     <a name="Sub.20.15" href="#Sub.20.15"> `$Sub`</a>,     <a name="Mul.20.16" href="#Mul.20.16"> `$Mul`</a>,     <a name="Div.20.17" href="#Div.20.17"> `$Div`</a>,     <a name="DivBy.20.18" href="#DivBy.20.18"> `$DivBy`</a>, and <a name="Mod.20.19" href="#Mod.20.19"> `$Mod`</a>
 
 These arithmetic expressions are represented as an object with as single
 member whose value is an array with two annotation expressions. The
@@ -4895,7 +4895,7 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### <a name="Apply20.20" href="#Apply20.20"> `$Apply`</a>
+### <a name="Apply.20.20" href="#Apply.20.20"> `$Apply`</a>
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -5076,7 +5076,7 @@ rules as the `cast` canonical function defined in
 [OData-URL](#ODataURL).
 
 ::: {.varjson .rep}
-### <a name="Cast20.21" href="#Cast20.21"> `$Cast`</a>
+### <a name="Cast.20.21" href="#Cast.20.21"> `$Cast`</a>
 
 Cast expressions are represented as an object with a member `$Cast`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5159,7 +5159,7 @@ third expression is present, nothing is added to the surrounding
 collection.
 
 ::: {.varjson .rep}
-### <a name="If20.22" href="#If20.22"> `$If`</a>
+### <a name="If.20.22" href="#If.20.22"> `$If`</a>
 
 Conditional expressions are represented as an object with a member `$If`
 whose value is an array of two or three annotation expressions.
@@ -5194,7 +5194,7 @@ child expression is compatible with the specified type. It returns
 the specified type, and `false` otherwise.
 
 ::: {.varjson .rep}
-### <a name="IsOf20.23" href="#IsOf20.23"> `$IsOf`</a>
+### <a name="IsOf.20.23" href="#IsOf.20.23"> `$IsOf`</a>
 
 Is-of expressions are represented as an object with a member `$IsOf`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5241,7 +5241,7 @@ identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
 ::: {.varjson .rep}
-### <a name="LabeledElement20.24" href="#LabeledElement20.24"> `$LabeledElement`</a>
+### <a name="LabeledElement.20.24" href="#LabeledElement.20.24"> `$LabeledElement`</a>
 
 Labeled element expressions are represented as an object with a member
 `$LabeledElement` whose value is an annotation expression, and a member
@@ -5272,7 +5272,7 @@ in scope and returns the value of the identified labeled element
 expression as its value.
 
 ::: {.varjson .rep}
-### <a name="LabeledElementReference20.25" href="#LabeledElementReference20.25"> `$LabeledElementReference`</a>
+### <a name="LabeledElementReference.20.25" href="#LabeledElementReference.20.25"> `$LabeledElementReference`</a>
 
 Labeled element reference expressions are represented as an object with
 a member `$LabeledElementReference` whose value is a string containing
@@ -5308,7 +5308,7 @@ Example 85:
 :::
 
 ::: {.varjson .rep}
-### <a name="Null20.26" href="#Null20.26"> `$Null`</a>
+### <a name="Null.20.26" href="#Null.20.26"> `$Null`</a>
 
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
@@ -5419,7 +5419,7 @@ expression MUST be type compatible with the type expected by the
 surrounding expression.
 
 ::: {.varjson .rep}
-### <a name="UrlRef20.27" href="#UrlRef20.27"> `$UrlRef`</a>
+### <a name="UrlRef.20.27" href="#UrlRef.20.27"> `$UrlRef`</a>
 
 URL reference expressions are represented as an object with a single
 member `$UrlRef` whose value is an annotation expression.
@@ -5948,121 +5948,121 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 # <a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a>
 
 ::: toc
-- [Document Object](#DocumentObject1)
-  - [`$Version`](#Version1.1)
-  - [`$EntityContainer`](#EntityContainer1.2)
-  - [`$Reference`](#Reference1.3)
-- [Reference Object](#ReferenceObject2)
-  - [`$Include`](#Include2.1)
-  - [`$Namespace`](#Namespace2.2)
-  - [`$Alias`](#Alias2.3)
-  - [`$IncludeAnnotations`](#IncludeAnnotations2.4)
-  - [`$TermNamespace`](#TermNamespace2.5)
-  - [`$Qualifier`](#Qualifier2.6)
-  - [`$TargetNamespace`](#TargetNamespace2.7)
-- [Schema Object](#SchemaObject3)
-  - [`$Alias`](#Alias3.1)
-  - [`$Annotations`](#Annotations3.2)
-- [Entity Type Object](#EntityTypeObject4)
-  - [`$BaseType`](#BaseType4.1)
-  - [`$Abstract`](#Abstract4.2)
-  - [`$OpenType`](#OpenType4.3)
-  - [`$HasStream`](#HasStream4.4)
-  - [`$Key`](#Key4.5)
-- [Property Object](#PropertyObject5)
-  - [`$Type`](#Type5.1)
-  - [`$Collection`](#Collection5.2)
-  - [`$Nullable`](#Nullable5.3)
-  - [`$MaxLength`](#MaxLength5.4)
-  - [`$Precision`](#Precision5.5)
-  - [`$Scale`](#Scale5.6)
-  - [`$Unicode`](#Unicode5.7)
-  - [`$SRID`](#SRID5.8)
-  - [`$DefaultValue`](#DefaultValue5.9)
-- [Navigation Property Object](#NavigationPropertyObject6)
-  - [`$Type`](#Type6.1)
-  - [`$Collection`](#Collection6.2)
-  - [`$Nullable`](#Nullable6.3)
-  - [`$Partner`](#Partner6.4)
-  - [`$ContainsTarget`](#ContainsTarget6.5)
-  - [`$ReferentialConstraint`](#ReferentialConstraint6.6)
-  - [`$OnDelete`](#OnDelete6.7)
-- [Complex Type Object](#ComplexTypeObject7)
-  - [`$BaseType`](#BaseType7.1)
-  - [`$Abstract`](#Abstract7.2)
-  - [`$OpenType`](#OpenType7.3)
-- [Enumeration Type Object](#EnumerationTypeObject8)
-  - [`$UnderlyingType`](#UnderlyingType8.1)
-  - [`$IsFlags`](#IsFlags8.2)
-- [Enumeration Member Object](#EnumerationMemberObject9)
-- [Type Definition Object](#TypeDefinitionObject10)
-  - [`$UnderlyingType`](#UnderlyingType10.1)
-- [Action Overload Object](#ActionOverloadObject11)
-- [Function Overload Object](#FunctionOverloadObject12)
-  - [`$IsBound`](#IsBound12.1)
-  - [`$EntitySetPath`](#EntitySetPath12.2)
-  - [`$IsComposable`](#IsComposable12.3)
-  - [`$ReturnType`](#ReturnType12.4)
-  - [`$Type`](#Type12.5)
-  - [`$Collection`](#Collection12.6)
-  - [`$Nullable`](#Nullable12.7)
-  - [`$Parameter`](#Parameter12.8)
-- [Parameter Object](#ParameterObject13)
-  - [`$Name`](#Name13.1)
-  - [`$Type`](#Type13.2)
-  - [`$Collection`](#Collection13.3)
-  - [`$Nullable`](#Nullable13.4)
-- [Entity Container Object](#EntityContainerObject14)
-  - [`$Extends`](#Extends14.1)
-- [Entity Set Object](#EntitySetObject15)
-  - [`$Collection`](#Collection15.1)
-  - [`$Type`](#Type15.2)
-  - [`$IncludeInServiceDocument`](#IncludeInServiceDocument15.3)
-- [Singleton Object](#SingletonObject16)
-  - [`$Type`](#Type16.1)
-  - [`$Nullable`](#Nullable16.2)
-  - [`$NavigationPropertyBinding`](#NavigationPropertyBinding16.3)
-- [Action Import Object](#ActionImportObject17)
-  - [`$Action`](#Action17.1)
-  - [`$EntitySet`](#EntitySet17.2)
-- [Function Import Object](#FunctionImportObject18)
-  - [`$Function`](#Function18.1)
-  - [`$EntitySet`](#EntitySet18.2)
-  - [`$IncludeInServiceDocument`](#IncludeInServiceDocument18.3)
-- [Term Object](#TermObject19)
-  - [`$Type`](#Type19.1)
-  - [`$Collection`](#Collection19.2)
-  - [`$DefaultValue`](#DefaultValue19.3)
-  - [`$BaseTerm`](#BaseTerm19.4)
-  - [`$AppliesTo`](#AppliesTo19.5)
-- [Annotation Member](#AnnotationMember20)
-  - [`$Path`](#Path20.1)
-  - [`$And`](#And20.2)
-  - [`$Or`](#Or20.3)
-  - [`$Not`](#Not20.4)
-  - [`$Eq`](#Eq20.5)
-  - [`$Ne`](#Ne20.6)
-  - [`$Gt`](#Gt20.7)
-  - [`$Ge`](#Ge20.8)
-  - [`$Lt`](#Lt20.9)
-  - [`$Le`](#Le20.10)
-  - [`$Has`](#Has20.11)
-  - [`$In`](#In20.12)
-  - [`$Neg`](#Neg20.13)
-  - [`$Add`](#Add20.14)
-  - [`$Sub`](#Sub20.15)
-  - [`$Mul`](#Mul20.16)
-  - [`$Div`](#Div20.17)
-  - [`$DivBy`](#DivBy20.18)
-  - [`$Mod`](#Mod20.19)
-  - [`$Apply`](#Apply20.20)
-  - [`$Cast`](#Cast20.21)
-  - [`$If`](#If20.22)
-  - [`$IsOf`](#IsOf20.23)
-  - [`$LabeledElement`](#LabeledElement20.24)
-  - [`$LabeledElementReference`](#LabeledElementReference20.25)
-  - [`$Null`](#Null20.26)
-  - [`$UrlRef`](#UrlRef20.27)
+- [Document Object](#DocumentObject.1)
+  - [`$Version`](#Version.1.1)
+  - [`$EntityContainer`](#EntityContainer.1.2)
+  - [`$Reference`](#Reference.1.3)
+- [Reference Object](#ReferenceObject.2)
+  - [`$Include`](#Include.2.1)
+  - [`$Namespace`](#Namespace.2.2)
+  - [`$Alias`](#Alias.2.3)
+  - [`$IncludeAnnotations`](#IncludeAnnotations.2.4)
+  - [`$TermNamespace`](#TermNamespace.2.5)
+  - [`$Qualifier`](#Qualifier.2.6)
+  - [`$TargetNamespace`](#TargetNamespace.2.7)
+- [Schema Object](#SchemaObject.3)
+  - [`$Alias`](#Alias.3.1)
+  - [`$Annotations`](#Annotations.3.2)
+- [Entity Type Object](#EntityTypeObject.4)
+  - [`$BaseType`](#BaseType.4.1)
+  - [`$Abstract`](#Abstract.4.2)
+  - [`$OpenType`](#OpenType.4.3)
+  - [`$HasStream`](#HasStream.4.4)
+  - [`$Key`](#Key.4.5)
+- [Property Object](#PropertyObject.5)
+  - [`$Type`](#Type.5.1)
+  - [`$Collection`](#Collection.5.2)
+  - [`$Nullable`](#Nullable.5.3)
+  - [`$MaxLength`](#MaxLength.5.4)
+  - [`$Precision`](#Precision.5.5)
+  - [`$Scale`](#Scale.5.6)
+  - [`$Unicode`](#Unicode.5.7)
+  - [`$SRID`](#SRID.5.8)
+  - [`$DefaultValue`](#DefaultValue.5.9)
+- [Navigation Property Object](#NavigationPropertyObject.6)
+  - [`$Type`](#Type.6.1)
+  - [`$Collection`](#Collection.6.2)
+  - [`$Nullable`](#Nullable.6.3)
+  - [`$Partner`](#Partner.6.4)
+  - [`$ContainsTarget`](#ContainsTarget.6.5)
+  - [`$ReferentialConstraint`](#ReferentialConstraint.6.6)
+  - [`$OnDelete`](#OnDelete.6.7)
+- [Complex Type Object](#ComplexTypeObject.7)
+  - [`$BaseType`](#BaseType.7.1)
+  - [`$Abstract`](#Abstract.7.2)
+  - [`$OpenType`](#OpenType.7.3)
+- [Enumeration Type Object](#EnumerationTypeObject.8)
+  - [`$UnderlyingType`](#UnderlyingType.8.1)
+  - [`$IsFlags`](#IsFlags.8.2)
+- [Enumeration Member Object](#EnumerationMemberObject.9)
+- [Type Definition Object](#TypeDefinitionObject.10)
+  - [`$UnderlyingType`](#UnderlyingType.10.1)
+- [Action Overload Object](#ActionOverloadObject.11)
+- [Function Overload Object](#FunctionOverloadObject.12)
+  - [`$IsBound`](#IsBound.12.1)
+  - [`$EntitySetPath`](#EntitySetPath.12.2)
+  - [`$IsComposable`](#IsComposable.12.3)
+  - [`$ReturnType`](#ReturnType.12.4)
+  - [`$Type`](#Type.12.5)
+  - [`$Collection`](#Collection.12.6)
+  - [`$Nullable`](#Nullable.12.7)
+  - [`$Parameter`](#Parameter.12.8)
+- [Parameter Object](#ParameterObject.13)
+  - [`$Name`](#Name.13.1)
+  - [`$Type`](#Type.13.2)
+  - [`$Collection`](#Collection.13.3)
+  - [`$Nullable`](#Nullable.13.4)
+- [Entity Container Object](#EntityContainerObject.14)
+  - [`$Extends`](#Extends.14.1)
+- [Entity Set Object](#EntitySetObject.15)
+  - [`$Collection`](#Collection.15.1)
+  - [`$Type`](#Type.15.2)
+  - [`$IncludeInServiceDocument`](#IncludeInServiceDocument.15.3)
+- [Singleton Object](#SingletonObject.16)
+  - [`$Type`](#Type.16.1)
+  - [`$Nullable`](#Nullable.16.2)
+  - [`$NavigationPropertyBinding`](#NavigationPropertyBinding.16.3)
+- [Action Import Object](#ActionImportObject.17)
+  - [`$Action`](#Action.17.1)
+  - [`$EntitySet`](#EntitySet.17.2)
+- [Function Import Object](#FunctionImportObject.18)
+  - [`$Function`](#Function.18.1)
+  - [`$EntitySet`](#EntitySet.18.2)
+  - [`$IncludeInServiceDocument`](#IncludeInServiceDocument.18.3)
+- [Term Object](#TermObject.19)
+  - [`$Type`](#Type.19.1)
+  - [`$Collection`](#Collection.19.2)
+  - [`$DefaultValue`](#DefaultValue.19.3)
+  - [`$BaseTerm`](#BaseTerm.19.4)
+  - [`$AppliesTo`](#AppliesTo.19.5)
+- [Annotation Member](#AnnotationMember.20)
+  - [`$Path`](#Path.20.1)
+  - [`$And`](#And.20.2)
+  - [`$Or`](#Or.20.3)
+  - [`$Not`](#Not.20.4)
+  - [`$Eq`](#Eq.20.5)
+  - [`$Ne`](#Ne.20.6)
+  - [`$Gt`](#Gt.20.7)
+  - [`$Ge`](#Ge.20.8)
+  - [`$Lt`](#Lt.20.9)
+  - [`$Le`](#Le.20.10)
+  - [`$Has`](#Has.20.11)
+  - [`$In`](#In.20.12)
+  - [`$Neg`](#Neg.20.13)
+  - [`$Add`](#Add.20.14)
+  - [`$Sub`](#Sub.20.15)
+  - [`$Mul`](#Mul.20.16)
+  - [`$Div`](#Div.20.17)
+  - [`$DivBy`](#DivBy.20.18)
+  - [`$Mod`](#Mod.20.19)
+  - [`$Apply`](#Apply.20.20)
+  - [`$Cast`](#Cast.20.21)
+  - [`$If`](#If.20.22)
+  - [`$IsOf`](#IsOf.20.23)
+  - [`$LabeledElement`](#LabeledElement.20.24)
+  - [`$LabeledElementReference`](#LabeledElementReference.20.25)
+  - [`$Null`](#Null.20.26)
+  - [`$UrlRef`](#UrlRef.20.27)
 :::
 
 -------

@@ -693,12 +693,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 
 <div class="varxml rep">
-<h3 id="-element-edmxedmx"><a name="ElementedmxEdmx1" href="#ElementedmxEdmx1"> Element <code>edmx:Edmx</code></a></h3>
+<h3 id="-element-edmxedmx"><a name="ElementedmxEdmx.1" href="#ElementedmxEdmx.1"> Element <code>edmx:Edmx</code></a></h3>
 <p>The <code>edmx:Edmx</code> element is the root element of a CSDL XML document. It MUST contain the <code>Version</code> attribute and it MUST contain exactly one <code>edmx:DataServices</code> element.</p>
 <p>It MAY contain <a href="#Reference"><code>edmx:Reference</code></a> elements to reference other CSDL documents.</p>
-<h3 id="-attribute-version"><a name="AttributeVersion1.1" href="#AttributeVersion1.1"> Attribute <code>Version</code></a></h3>
+<h3 id="-attribute-version"><a name="AttributeVersion.1.1" href="#AttributeVersion.1.1"> Attribute <code>Version</code></a></h3>
 <p>The <code>Version</code> attribute specifies the OData protocol version of the service. For OData 4.0 responses the value of this attribute MUST be <code>4.0.</code> For OData 4.01 responses the value of this attribute MUST be <code>4.01.</code> Services MUST return an OData 4.0 response if the request was made with an <code>OData-MaxVersion </code>header with a value of <code>4.0</code>.</p>
-<h3 id="-element-edmxdataservices"><a name="ElementedmxDataServices2" href="#ElementedmxDataServices2"> Element <code>edmx:DataServices</code></a></h3>
+<h3 id="-element-edmxdataservices"><a name="ElementedmxDataServices.2" href="#ElementedmxDataServices.2"> Element <code>edmx:DataServices</code></a></h3>
 <p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service.</p>
 </div>
 <div class="varxml example">
@@ -716,11 +716,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A reference MAY be annotated.</p>
 <p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="#ODataProtocol">OData-Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="varxml rep">
-<h3 id="-element-edmxreference"><a name="ElementedmxReference3" href="#ElementedmxReference3"> Element <code>edmx:Reference</code></a></h3>
+<h3 id="-element-edmxreference"><a name="ElementedmxReference.3" href="#ElementedmxReference.3"> Element <code>edmx:Reference</code></a></h3>
 <p>The <code>edmx:Reference</code> element specifies external CSDL documents referenced by the referencing document. The child elements <a href="#IncludedSchema"><code>edmx:Include</code></a> and <a href="#IncludedAnnotations"><code>edmx:IncludeAnnotations</code></a> specify which parts of the referenced document are available for use in the referencing document.</p>
 <p>The <code>edmx:Reference</code> element MUST contain the <code>Uri</code> attribute, and it MUST contain at least one <a href="#IncludedSchema"><code>edmx:Include</code></a> or <a href="#IncludedAnnotations"><code>edmx:IncludeAnnotations</code></a> child element.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-uri"><a name="AttributeUri3.1" href="#AttributeUri3.1"> Attribute <code>Uri</code></a></h3>
+<h3 id="-attribute-uri"><a name="AttributeUri.3.1" href="#AttributeUri.3.1"> Attribute <code>Uri</code></a></h3>
 <p>The value of <code>Uri</code> is an absolute or relative URI; relative URIs are relative to the <code>xml:base</code> attribute, see <a href="#XML-Base">XML-Base</a>.</p>
 </div>
 <div class="varxml example">
@@ -751,12 +751,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <p>An alias is only valid within the document in which it is declared; a referencing document may define its own aliases for included schemas.</p>
 <div class="varxml rep">
-<h3 id="-element-edmxinclude"><a name="ElementedmxInclude4" href="#ElementedmxInclude4"> Element <code>edmx:Include</code></a></h3>
+<h3 id="-element-edmxinclude"><a name="ElementedmxInclude.4" href="#ElementedmxInclude.4"> Element <code>edmx:Include</code></a></h3>
 <p>The <code>edmx:Include</code> element specifies a schema to include from the referenced CSDL document. It MUST provide the <code>Namespace</code> attribute and it MAY provide the <code>Alias</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-namespace"><a name="AttributeNamespace4.1" href="#AttributeNamespace4.1"> Attribute <code>Namespace</code></a></h3>
+<h3 id="-attribute-namespace"><a name="AttributeNamespace.4.1" href="#AttributeNamespace.4.1"> Attribute <code>Namespace</code></a></h3>
 <p>The value of <code>Namespace</code> is the namespace of a schema defined in the referenced CSDL document.</p>
-<h3 id="-attribute-alias"><a name="AttributeAlias4.2" href="#AttributeAlias4.2"> Attribute <code>Alias</code></a></h3>
+<h3 id="-attribute-alias"><a name="AttributeAlias.4.2" href="#AttributeAlias.4.2"> Attribute <code>Alias</code></a></h3>
 <p>The value of <code>Alias</code> is a <a href="#SimpleIdentifier">simple identifier</a> that can be used in qualified names instead of the namespace.</p>
 </div>
 <div class="varxml example">
@@ -786,14 +786,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>In addition, the namespace of the annotations' <a href="#Target">target</a> MAY be specified. If a target namespace is specified, only those annotations which apply a term form the specified term namespace to a model element of the target namespace (with the specified qualifier, if present) SHOULD be included. If no target namespace is specified, all annotations within the referenced document from the specified term namespace (taking into account the qualifier, if present) SHOULD be included.</p>
 <p>The target namespace also provides consumers insight about what namespaces are present in the referenced document. If the consumer is not interested in that particular target namespace, the consumer can opt not to inspect the referenced document.</p>
 <div class="varxml rep">
-<h3 id="-element-edmxincludeannotations"><a name="ElementedmxIncludeAnnotations5" href="#ElementedmxIncludeAnnotations5"> Element <code>edmx:IncludeAnnotations</code></a></h3>
+<h3 id="-element-edmxincludeannotations"><a name="ElementedmxIncludeAnnotations.5" href="#ElementedmxIncludeAnnotations.5"> Element <code>edmx:IncludeAnnotations</code></a></h3>
 <p>The <code>edmx:IncludeAnnotations</code> element specifies the annotations to include from the referenced CSDL document. If no <code>edmx:IncludeAnnotations</code> element is specified, a client MAY ignore all annotations in the referenced document that are not explicitly used in an <a href="#ValuePath"><code>edm:Path</code></a> expression of the referencing document.</p>
 <p>The <code>edmx:IncludeAnnotations</code> element MUST provide the <code>TermNamespace</code> attribute, and it MAY provide the <code>Qualifier</code> and <code>TargetNamespace</code> attribute.</p>
-<h3 id="-attribute-termnamespace"><a name="AttributeTermNamespace5.1" href="#AttributeTermNamespace5.1"> Attribute <code>TermNamespace</code></a></h3>
+<h3 id="-attribute-termnamespace"><a name="AttributeTermNamespace.5.1" href="#AttributeTermNamespace.5.1"> Attribute <code>TermNamespace</code></a></h3>
 <p>The value of <code>TermNamespace</code> is a namespace.</p>
-<h3 id="-attribute-qualifier"><a name="AttributeQualifier5.2" href="#AttributeQualifier5.2"> Attribute <code>Qualifier</code></a></h3>
+<h3 id="-attribute-qualifier"><a name="AttributeQualifier.5.2" href="#AttributeQualifier.5.2"> Attribute <code>Qualifier</code></a></h3>
 <p>The value of <code>Qualifier</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
-<h3 id="-attribute-targetnamespace"><a name="AttributeTargetNamespace5.3" href="#AttributeTargetNamespace5.3"> Attribute <code>TargetNamespace</code></a></h3>
+<h3 id="-attribute-targetnamespace"><a name="AttributeTargetNamespace.5.3" href="#AttributeTargetNamespace.5.3"> Attribute <code>TargetNamespace</code></a></h3>
 <p>The value of <code>TargetNamespace</code> is a namespace.</p>
 </div>
 <div class="varxml example">
@@ -831,10 +831,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <div class="varxml rep">
-<h3 id="-element-edmschema"><a name="ElementedmSchema6" href="#ElementedmSchema6"> Element <code>edm:Schema</code></a></h3>
+<h3 id="-element-edmschema"><a name="ElementedmSchema.6" href="#ElementedmSchema.6"> Element <code>edm:Schema</code></a></h3>
 <p>The <code>edm:Schema</code> element defines a schema. It MUST contain the <code>Namespace</code> attribute and it MAY contain the <code>Alias</code> attribute.</p>
 <p>It MAY contain elements <a href="#Action"><code>edm:Action</code></a>, <a href="#AnnotationswithExternalTargeting"><code>edm:Annotations</code></a>, <a href="#Annotation"><code>edm:Annotation</code></a>, <a href="#ComplexType"><code>edm:ComplexType</code></a>, <a href="#EntityContainer"><code>edm:EntityContainer</code></a>, <a href="#EntityType"><code>edm:EntityType</code></a>, <a href="#EnumerationType"><code>edm:EnumType</code></a>, <a href="#Function"><code>edm:Function</code></a>, <a href="#Term"><code>edm:Term</code></a>, or <a href="#TypeDefinition"><code>edm:TypeDefinition</code></a>.</p>
-<h3 id="-attribute-namespace-1"><a name="AttributeNamespace6.1" href="#AttributeNamespace6.1"> Attribute <code>Namespace</code></a></h3>
+<h3 id="-attribute-namespace-1"><a name="AttributeNamespace.6.1" href="#AttributeNamespace.6.1"> Attribute <code>Namespace</code></a></h3>
 <p>The value of <code>Namespace</code> is the namespace of the schema</p>
 </div>
 <h2 id="51-alias"><a name="Alias" href="#Alias">5.1 Alias</a></h2>
@@ -843,7 +843,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Aliases are document-global, so all schemas defined within or included into a document MUST have different aliases, and aliases MUST differ from the namespaces of all schemas defined within or included into a document. Aliases defined by a schema can be used throughout the containing document and are not restricted to the schema that defines them.</p>
 <p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <section id="-attribute-alias-1" class="varxml rep">
-<h3><a name="AttributeAlias6.2" href="#AttributeAlias6.2"> Attribute <code>Alias</code></a></h3>
+<h3><a name="AttributeAlias.6.2" href="#AttributeAlias.6.2"> Attribute <code>Alias</code></a></h3>
 <p>The value of <code>Alias</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
 </section>
 <div class="varxml example">
@@ -855,12 +855,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
 <div class="varxml rep">
-<h3 id="-element-edmannotations"><a name="ElementedmAnnotations7" href="#ElementedmAnnotations7"> Element <code>edm:Annotations</code></a></h3>
+<h3 id="-element-edmannotations"><a name="ElementedmAnnotations.7" href="#ElementedmAnnotations.7"> Element <code>edm:Annotations</code></a></h3>
 <p>The <code>edm:Annotations</code> element is used to apply a group of annotations to a single model element. It MUST contain the <code>Target</code> attribute and it MAY contain the <code>Qualifier</code> attribute.</p>
 <p>It MUST contain at least one <a href="#Annotation"><code>edm:Annotation</code></a> element.</p>
-<h3 id="-attribute-target"><a name="AttributeTarget7.1" href="#AttributeTarget7.1"> Attribute <code>Target</code></a></h3>
+<h3 id="-attribute-target"><a name="AttributeTarget.7.1" href="#AttributeTarget.7.1"> Attribute <code>Target</code></a></h3>
 <p>The value of <code>Target</code> is a path expression identifying the <a href="#Target">annotation target</a>. It MUST resolve to a model element in scope.</p>
-<h3 id="-attribute-qualifier-1"><a name="AttributeQualifier7.2" href="#AttributeQualifier7.2"> Attribute <code>Qualifier</code></a></h3>
+<h3 id="-attribute-qualifier-1"><a name="AttributeQualifier.7.2" href="#AttributeQualifier.7.2"> Attribute <code>Qualifier</code></a></h3>
 <p>The value of <code>Qualifier</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
 </div>
 <div class="varxml example">
@@ -877,12 +877,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to another entity type or collection of entity types.</p>
 <p>All properties MUST have a unique name within an entity type. Properties MUST NOT have the same name as the declaring entity type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
 <div class="varxml rep">
-<h3 id="-element-edmentitytype"><a name="ElementedmEntityType8" href="#ElementedmEntityType8"> Element <code>edm:EntityType</code></a></h3>
+<h3 id="-element-edmentitytype"><a name="ElementedmEntityType.8" href="#ElementedmEntityType.8"> Element <code>edm:EntityType</code></a></h3>
 <p>The <code>edm:EntityType</code> element MUST contain the <code>Name</code> attribute, and it MAY contain the <a href="#DerivedEntityType"><code>BaseType</code></a>, <a href="#AbstractEntityType"><code>Abstract</code></a>, <a href="#OpenEntityType"><code>OpenType</code></a>, and <a href="#MediaEntityType"><code>HasStream</code></a> attributes.</p>
 <p>It MAY contain <a href="#StructuralProperty"><code>edm:Property</code></a> and <a href="#NavigationProperty"><code>edm:NavigationProperty</code></a> elements describing the properties of the entity type.</p>
 <p>It MAY contain one <a href="#Key"><code>edm:Key</code></a> element.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name"><a name="AttributeName8.1" href="#AttributeName8.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name"><a name="AttributeName.8.1" href="#AttributeName.8.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the entity type's name.</p>
 </div>
 <div class="varxml example">
@@ -902,7 +902,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type inherits the <a href="#Key">key</a> as well as structural and navigation properties of its base type.</p>
 <p>An entity type MUST NOT introduce an inheritance cycle by specifying a base type.</p>
 <section id="-attribute-basetype" class="varxml rep">
-<h3><a name="AttributeBaseType8.2" href="#AttributeBaseType8.2"> Attribute <code>BaseType</code></a></h3>
+<h3><a name="AttributeBaseType.8.2" href="#AttributeBaseType.8.2"> Attribute <code>BaseType</code></a></h3>
 <p>The value of <code>BaseType</code> is the qualified name of the base type.</p>
 </section>
 <div class="varxml example">
@@ -920,7 +920,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For OData 4.0 responses a non-abstract entity type MUST define a <a href="#Key">key</a> or derive from a <a href="#DerivedEntityType">base type</a> with a defined key.</p>
 <p>An abstract entity type MUST NOT inherit from a non-abstract entity type.</p>
 <section id="-attribute-abstract" class="varxml rep">
-<h3><a name="AttributeAbstract8.3" href="#AttributeAbstract8.3"> Attribute <code>Abstract</code></a></h3>
+<h3><a name="AttributeAbstract.8.3" href="#AttributeAbstract.8.3"> Attribute <code>Abstract</code></a></h3>
 <p>The value of <code>Abstract</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="63-open-entity-type"><a name="OpenEntityType" href="#OpenEntityType">6.3 Open Entity Type</a></h2>
@@ -928,7 +928,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type derived from an open entity type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <section id="-attribute-opentype" class="varxml rep">
-<h3><a name="AttributeOpenType8.4" href="#AttributeOpenType8.4"> Attribute <code>OpenType</code></a></h3>
+<h3><a name="AttributeOpenType.8.4" href="#AttributeOpenType.8.4"> Attribute <code>OpenType</code></a></h3>
 <p>The value of <code>OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="64-media-entity-type"><a name="MediaEntityType" href="#MediaEntityType">6.4 Media Entity Type</a></h2>
@@ -936,7 +936,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
 <p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section id="-attribute-hasstream" class="varxml rep">
-<h3><a name="AttributeHasStream8.5" href="#AttributeHasStream8.5"> Attribute <code>HasStream</code></a></h3>
+<h3><a name="AttributeHasStream.8.5" href="#AttributeHasStream.8.5"> Attribute <code>HasStream</code></a></h3>
 <p>The value of <code>HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="65-key"><a name="Key" href="#Key">6.5 Key</a></h2>
@@ -968,13 +968,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An alias MUST NOT be defined if the key property is a primitive property of the entity type itself.</p>
 <p>For key properties that are a property of a complex or navigation property, the alias MUST be used in the key predicate of URLs instead of the path to the property because the required percent-encoding of the forward slash separating segments of the path to the property would make URL construction and parsing rather complicated. The alias MUST NOT be used in the query part of URLs, where paths to properties don't require special encoding and are a standard constituent of expressions anyway.</p>
 <div class="varxml rep">
-<h3 id="-element-edmkey"><a name="ElementedmKey9" href="#ElementedmKey9"> Element <code>edm:Key</code></a></h3>
+<h3 id="-element-edmkey"><a name="ElementedmKey.9" href="#ElementedmKey.9"> Element <code>edm:Key</code></a></h3>
 <p>The <code>edm:Key</code> element MUST contain at least one <code>edm:PropertyRef</code> element.</p>
-<h3 id="-element-edmpropertyref"><a name="ElementedmPropertyRef10" href="#ElementedmPropertyRef10"> Element <code>edm:PropertyRef</code></a></h3>
+<h3 id="-element-edmpropertyref"><a name="ElementedmPropertyRef.10" href="#ElementedmPropertyRef.10"> Element <code>edm:PropertyRef</code></a></h3>
 <p>The <code>edm:PropertyRef</code> element MUST contain the <code>Name</code> attribute and MAY contain the <code>Alias</code> attribute.</p>
-<h3 id="-attribute-name-1"><a name="AttributeName10.1" href="#AttributeName10.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-1"><a name="AttributeName.10.1" href="#AttributeName.10.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is a path expression leading to a primitive property. The names of the properties in the path are joined together by forward slashes.</p>
-<h3 id="-attribute-alias-2"><a name="AttributeAlias10.2" href="#AttributeAlias10.2"> Attribute <code>Alias</code></a></h3>
+<h3 id="-attribute-alias-2"><a name="AttributeAlias.10.2" href="#AttributeAlias.10.2"> Attribute <code>Alias</code></a></h3>
 <p>The value of <code>Alias</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
 </div>
 <div class="varxml example">
@@ -1034,10 +1034,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The property's name MUST be a <a href="#SimpleIdentifier">simple identifier</a>. It is used when referencing, serializing or deserializing the property. It MUST be unique within the set of structural and navigation properties of the declaring <a href="#StructuredTypes">structured type</a>, and MUST NOT match the name of any navigation property in any of its base types. If a structural property with the same name is defined in any of this type's base types, then the property's type MUST be a type derived from the type specified for the property of the base type and constrains this property to be of the specified subtype for instances of this structured type. The name MUST NOT match the name of any structural or navigation property of any of this type's base types for OData 4.0 responses.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <div class="varxml rep">
-<h3 id="-element-edmproperty"><a name="ElementedmProperty11" href="#ElementedmProperty11"> Element <code>edm:Property</code></a></h3>
+<h3 id="-element-edmproperty"><a name="ElementedmProperty.11" href="#ElementedmProperty.11"> Element <code>edm:Property</code></a></h3>
 <p>The <code>edm:Property</code> element MUST contain the <code>Name</code> and the <code>Type</code> attribute, and it MAY contain the facet attributes <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Unicode"><code>Unicode</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, <a href="#SRID"><code>SRID</code></a>, and <a href="#DefaultValue"><code>DefaultValue</code></a>.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-2"><a name="AttributeName11.1" href="#AttributeName11.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-2"><a name="AttributeName.11.1" href="#AttributeName.11.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the property's name.</p>
 </div>
 <div class="varxml example">
@@ -1054,7 +1054,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="-attribute-type" class="varxml rep">
-<h3><a name="AttributeType11.2" href="#AttributeType11.2"> Attribute <code>Type</code></a></h3>
+<h3><a name="AttributeType.11.2" href="#AttributeType.11.2"> Attribute <code>Type</code></a></h3>
 <p>For single-valued properties the value of <code>Type</code> is the qualified name of the property's type.</p>
 <p>For collection-valued properties the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the property's item type, followed by a closing parenthesis <code>)</code>.</p>
 </section>
@@ -1068,7 +1068,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="721-nullable"><a name="Nullable" href="#Nullable">7.2.1 Nullable</a></h3>
 <p>A Boolean value specifying whether the property can have the value <code>null</code>.</p>
 <section id="-attribute-nullable" class="varxml rep">
-<h3><a name="AttributeNullable11.3" href="#AttributeNullable11.3"> Attribute <code>Nullable</code></a></h3>
+<h3><a name="AttributeNullable.11.3" href="#AttributeNullable.11.3"> Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>.</p>
 <p>For single-valued properties the value <code>true</code> means that the property allows the <code>null</code> value.</p>
 <p>For collection-valued properties the property value will always be a collection that MAY be empty. In this case the <code>Nullable</code> attribute applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1080,7 +1080,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A positive integer value specifying the maximum length of a binary, stream or string value. For binary or stream values this is the octet length of the binary data, for string values it is the character length (number of code points for Unicode).</p>
 <p>If no maximum length is specified, clients SHOULD expect arbitrary length.</p>
 <section id="-attribute-maxlength" class="varxml rep">
-<h3><a name="AttributeMaxLength11.4" href="#AttributeMaxLength11.4"> Attribute <code>MaxLength</code></a></h3>
+<h3><a name="AttributeMaxLength.11.4" href="#AttributeMaxLength.11.4"> Attribute <code>MaxLength</code></a></h3>
 <p>The value of <code>MaxLength</code> is a positive integer or the symbolic value <code>max</code> as a shorthand for the maximum length supported for the type by the service.</p>
 <p>Note: the symbolic value <code>max</code> is only allowed in OData 4.0 responses; it is deprecated in OData 4.01. While clients MUST be prepared for this symbolic value, OData 4.01 and greater services MUST NOT return the symbolic value <code>max</code> and MAY instead specify the concrete maximum length supported for the type by the service or omit the attribute entirely.</p>
 </section>
@@ -1090,7 +1090,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal properties and 7 for temporal properties. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified properties will reduce the risk for unintended data loss.</p>
 <p>Note: duration properties supporting a granularity less than seconds (e.g. minutes, hours, days) can be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 <section id="-attribute-precision" class="varxml rep">
-<h3><a name="AttributePrecision11.5" href="#AttributePrecision11.5"> Attribute <code>Precision</code></a></h3>
+<h3><a name="AttributePrecision.11.5" href="#AttributePrecision.11.5"> Attribute <code>Precision</code></a></h3>
 <p>The value of <code>Precision</code> is a number.</p>
 <p>If not specified for a decimal property, the decimal property has arbitrary precision.</p>
 <p>If not specified for a temporal property, the temporal property has a precision of zero.</p>
@@ -1108,7 +1108,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of <code>Scale</code> MUST be less than or equal to the value of <a href="#Precision"><code>Precision</code></a>.</p>
 <p>Note: if the underlying data store allows negative scale, services may use a <a href="#Precision"><code>Precision</code></a> with the absolute value of the negative scale added to the actual number of significant decimal digits, and client-provided values may have to be rounded before being stored.</p>
 <section id="-attribute-scale" class="varxml rep">
-<h3><a name="AttributeScale11.6" href="#AttributeScale11.6"> Attribute <code>Scale</code></a></h3>
+<h3><a name="AttributeScale.11.6" href="#AttributeScale.11.6"> Attribute <code>Scale</code></a></h3>
 <p>The value of <code>Scale</code> is a number or one of the symbolic values <code>floating</code> or <code>variable</code>.</p>
 <p>Services SHOULD use lower-case values; clients SHOULD accept values in a case-insensitive manner.</p>
 <p>If not specified, the <code>Scale</code> facet defaults to zero.</p>
@@ -1133,7 +1133,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For a string property the <code>Unicode</code> facet indicates whether the property might contain and accept string values with Unicode characters (code points) beyond the ASCII character set. The value <code>false</code> indicates that the property will only contain and accept string values with characters limited to the ASCII character set.</p>
 <p>If no value is specified, the <code>Unicode</code> facet defaults to <code>true</code>.</p>
 <section id="-attribute-unicode" class="varxml rep">
-<h3><a name="AttributeUnicode11.7" href="#AttributeUnicode11.7"> Attribute <code>Unicode</code></a></h3>
+<h3><a name="AttributeUnicode.11.7" href="#AttributeUnicode.11.7"> Attribute <code>Unicode</code></a></h3>
 <p>The value of <code>Unicode</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 </section>
 <h3 id="726-srid"><a name="SRID" href="#SRID">7.2.6 SRID</a></h3>
@@ -1141,14 +1141,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types.</p>
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
 <section id="-attribute-srid" class="varxml rep">
-<h3><a name="AttributeSRID11.8" href="#AttributeSRID11.8"> Attribute <code>SRID</code></a></h3>
+<h3><a name="AttributeSRID.11.8" href="#AttributeSRID.11.8"> Attribute <code>SRID</code></a></h3>
 <p>The value of <code>SRID</code> is a number or the symbolic value <code>variable</code>.</p>
 </section>
 <h3 id="727-default-value"><a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a></h3>
 <p>A primitive or enumeration property MAY define a default value that is used if the property is not explicitly represented in an annotation or the body of a request or response.</p>
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
 <section id="-attribute-defaultvalue" class="varxml rep">
-<h3><a name="AttributeDefaultValue11.9" href="#AttributeDefaultValue11.9"> Attribute <code>DefaultValue</code></a></h3>
+<h3><a name="AttributeDefaultValue.11.9" href="#AttributeDefaultValue.11.9"> Attribute <code>DefaultValue</code></a></h3>
 <p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 </section>
 <hr />
@@ -1157,11 +1157,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The navigation property's name MUST be a <a href="#SimpleIdentifier">simple identifier</a>. It is used when referencing, serializing or deserializing the navigation property. It MUST be unique within the set of structural and navigation properties of the declaring <a href="#StructuredTypes">structured type</a>, and MUST NOT match the name of any structural property in any of its base types. If a navigation property with the same name is defined in any of this type's base types, then the navigation property's type MUST be a type derived from the type specified for the navigation property of the base type, and constrains this navigation property to be of the specified subtype for instances of this structured type. The name MUST NOT match the name of any structural or navigation property of any of this type's base types for OData 4.0 responses.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <div class="varxml rep">
-<h3 id="-element-edmnavigationproperty"><a name="ElementedmNavigationProperty12" href="#ElementedmNavigationProperty12"> Element <code>edm:NavigationProperty</code></a></h3>
+<h3 id="-element-edmnavigationproperty"><a name="ElementedmNavigationProperty.12" href="#ElementedmNavigationProperty.12"> Element <code>edm:NavigationProperty</code></a></h3>
 <p>The <code>edm:NavigationProperty</code> element MUST contain the <code>Name</code> and <code>Type</code> attributes, and it MAY contain the attributes <a href="#NullableNavigationProperty"><code>Nullable</code></a>, <a href="#PartnerNavigationProperty"><code>Partner</code></a>, and <a href="#ContainmentNavigationProperty"><code>ContainsTarget</code></a>.</p>
 <p>It MAY contain child elements <a href="#ReferentialConstraint"><code>edm:ReferentialConstraint</code></a> and at most one child element <a href="#OnDeleteAction"><code>edm:OnDelete</code></a>.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-3"><a name="AttributeName12.1" href="#AttributeName12.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-3"><a name="AttributeName.12.1" href="#AttributeName.12.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the navigation property's name.</p>
 </div>
 <div class="varxml example">
@@ -1187,7 +1187,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="-attribute-type-1" class="varxml rep">
-<h3><a name="AttributeType12.2" href="#AttributeType12.2"> Attribute <code>Type</code></a></h3>
+<h3><a name="AttributeType.12.2" href="#AttributeType.12.2"> Attribute <code>Type</code></a></h3>
 <p>For single-valued navigation properties the value of <code>Type</code> is the qualified name of the navigation property's type.</p>
 <p>For collection-valued navigation properties the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the navigation property's item type, followed by a closing parenthesis <code>)</code>.</p>
 </section>
@@ -1195,7 +1195,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A Boolean value specifying whether the declaring type MAY have no related entity. If false, instances of the declaring structured type MUST always have a related entity.</p>
 <p>Nullable MUST NOT be specified for a collection-valued navigation property, a collection is allowed to have zero items.</p>
 <section id="-attribute-nullable-1" class="varxml rep">
-<h3><a name="AttributeNullable12.3" href="#AttributeNullable12.3"> Attribute <code>Nullable</code></a></h3>
+<h3><a name="AttributeNullable.12.3" href="#AttributeNullable.12.3"> Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 </section>
 <h2 id="83-partner-navigation-property"><a name="PartnerNavigationProperty" href="#PartnerNavigationProperty">8.3 Partner Navigation Property</a></h2>
@@ -1205,7 +1205,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If no partner navigation property is specified, no assumptions can be made as to whether one of the navigation properties on the target type will lead back to the source entity.</p>
 <p>If a partner navigation property is specified, this partner navigation property MUST either specify the current navigation property as its partner to define a bi-directional relationship or it MUST NOT specify a partner navigation property. The latter can occur if the partner navigation property is defined on a complex type, or if the current navigation property is defined on a type derived from the type of the partner navigation property.</p>
 <section id="-attribute-partner" class="varxml rep">
-<h3><a name="AttributePartner12.4" href="#AttributePartner12.4"> Attribute <code>Partner</code></a></h3>
+<h3><a name="AttributePartner.12.4" href="#AttributePartner.12.4"> Attribute <code>Partner</code></a></h3>
 <p>The value of <code>Partner</code> is the path to the of the partner navigation property.</p>
 </section>
 <h2 id="84-containment-navigation-property"><a name="ContainmentNavigationProperty" href="#ContainmentNavigationProperty">8.4 Containment Navigation Property</a></h2>
@@ -1222,7 +1222,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity type inheritance chain MUST NOT contain more than one navigation property with a partner navigation property that is a containment navigation property.</p>
 <p>Note: without a partner navigation property, there is no reliable way for a client to determine which entity contains a given contained entity. This may lead to problems for clients if the contained entity can also be reached via a non-containment navigation path.</p>
 <section id="-attribute-containstarget" class="varxml rep">
-<h3><a name="AttributeContainsTarget12.5" href="#AttributeContainsTarget12.5"> Attribute <code>ContainsTarget</code></a></h3>
+<h3><a name="AttributeContainsTarget.12.5" href="#AttributeContainsTarget.12.5"> Attribute <code>ContainsTarget</code></a></h3>
 <p>The value of <code>ContainsTarget</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="85-referential-constraint"><a name="ReferentialConstraint" href="#ReferentialConstraint">8.5 Referential Constraint</a></h2>
@@ -1232,12 +1232,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the principle property's value is a complex type instance, then the dependent property's value must be a complex type instance with the same properties, each with the same values.</p>
 <p>If the navigation property on which the referential constraint is defined is nullable, or the principal property is nullable, then the dependent property MUST also be nullable. If both the navigation property and the principal property are not nullable, then the dependent property MUST NOT be nullable.</p>
 <div class="varxml rep">
-<h3 id="-element-edmreferentialconstraint"><a name="ElementedmReferentialConstraint13" href="#ElementedmReferentialConstraint13"> Element <code>edm:ReferentialConstraint</code></a></h3>
+<h3 id="-element-edmreferentialconstraint"><a name="ElementedmReferentialConstraint.13" href="#ElementedmReferentialConstraint.13"> Element <code>edm:ReferentialConstraint</code></a></h3>
 <p>The <code>edm:ReferentialConstraint</code> element MUST contain the attributes <code>Property</code> and <code>ReferencedProperty</code>.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-property"><a name="AttributeProperty13.1" href="#AttributeProperty13.1"> Attribute <code>Property</code></a></h3>
+<h3 id="-attribute-property"><a name="AttributeProperty.13.1" href="#AttributeProperty.13.1"> Attribute <code>Property</code></a></h3>
 <p>The <code>Property</code> attribute specifies the property that takes part in the referential constraint on the dependent structured type. Its value MUST be a path expression resolving to a property of the dependent structured type itself or to a property of a complex property (recursively) of the dependent structured type. The names of the properties in the path are joined together by forward slashes. The path is relative to the dependent structured type declaring the navigation property.</p>
-<h3 id="-attribute-referencedproperty"><a name="AttributeReferencedProperty13.2" href="#AttributeReferencedProperty13.2"> Attribute <code>ReferencedProperty</code></a></h3>
+<h3 id="-attribute-referencedproperty"><a name="AttributeReferencedProperty.13.2" href="#AttributeReferencedProperty.13.2"> Attribute <code>ReferencedProperty</code></a></h3>
 <p>The <code>ReferencedProperty</code> attribute specifies the corresponding property of the principal entity type. Its value MUST be a path expression resolving to a property of the principal entity type itself or to a property of a complex property (recursively) of the principal entity type that MUST have the same type as the property of the dependent entity type. The path is relative to the entity type that is the target of the navigation property.</p>
 </div>
 <div class="varxml example">
@@ -1275,10 +1275,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>If no on-delete action is specified, the action taken by the service is not predictable by the client and could vary per entity.</p>
 <div class="varxml rep">
-<h3 id="-element-edmondelete"><a name="ElementedmOnDelete14" href="#ElementedmOnDelete14"> Element <code>edm:OnDelete</code></a></h3>
+<h3 id="-element-edmondelete"><a name="ElementedmOnDelete.14" href="#ElementedmOnDelete.14"> Element <code>edm:OnDelete</code></a></h3>
 <p>The <code>edm:OnDelete</code> element MUST contain the <code>Action</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-action"><a name="AttributeAction14.1" href="#AttributeAction14.1"> Attribute <code>Action</code></a></h3>
+<h3 id="-attribute-action"><a name="AttributeAction.14.1" href="#AttributeAction.14.1"> Attribute <code>Action</code></a></h3>
 <p>The value of <code>Action</code> is one of the values <code>Cascade</code>, <code>None</code>, <code>SetNull</code>, or <code>SetDefault</code>.</p>
 </div>
 <div class="varxml example">
@@ -1300,11 +1300,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A complex type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to an entity type or a collection of entity types.</p>
 <p>All properties MUST have a unique name within a complex type. Properties MUST NOT have the same name as the declaring complex type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
 <div class="varxml rep">
-<h3 id="-element-edmcomplextype"><a name="ElementedmComplexType15" href="#ElementedmComplexType15"> Element <code>edm:ComplexType</code></a></h3>
+<h3 id="-element-edmcomplextype"><a name="ElementedmComplexType.15" href="#ElementedmComplexType.15"> Element <code>edm:ComplexType</code></a></h3>
 <p>The <code>edm:ComplexType</code> element MUST contain the <code>Name</code> attribute, and it MAY contain the <a href="#DerivedComplexType"><code>BaseType</code></a>, <a href="#AbstractComplexType"><code>Abstract</code></a>, and <a href="#OpenComplexType"><code>OpenType</code></a> attributes.</p>
 <p>It MAY contain <a href="#StructuralProperty"><code>edm:Property</code></a> and <a href="#NavigationProperty"><code>edm:NavigationProperty</code></a> elements describing the properties of the complex type.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-4"><a name="AttributeName15.1" href="#AttributeName15.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-4"><a name="AttributeName.15.1" href="#AttributeName.15.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the complex type's name.</p>
 </div>
 <div class="varxml example">
@@ -1332,13 +1332,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A complex type MUST NOT introduce an inheritance cycle by specifying a base type.</p>
 <p>The rules for annotations of derived complex types are described in <a href="#Annotation">section 14.2</a>.</p>
 <section id="-attribute-basetype-1" class="varxml rep">
-<h3><a name="AttributeBaseType15.2" href="#AttributeBaseType15.2"> Attribute <code>BaseType</code></a></h3>
+<h3><a name="AttributeBaseType.15.2" href="#AttributeBaseType.15.2"> Attribute <code>BaseType</code></a></h3>
 <p>The value of <code>BaseType</code> is the qualified name of the base type.</p>
 </section>
 <h2 id="92-abstract-complex-type"><a name="AbstractComplexType" href="#AbstractComplexType">9.2 Abstract Complex Type</a></h2>
 <p>A complex type MAY indicate that it is abstract and cannot have instances.</p>
 <section id="-attribute-abstract-1" class="varxml rep">
-<h3><a name="AttributeAbstract15.3" href="#AttributeAbstract15.3"> Attribute <code>Abstract</code></a></h3>
+<h3><a name="AttributeAbstract.15.3" href="#AttributeAbstract.15.3"> Attribute <code>Abstract</code></a></h3>
 <p>The value of <code>Abstract</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="93-open-complex-type"><a name="OpenComplexType" href="#OpenComplexType">9.3 Open Complex Type</a></h2>
@@ -1346,7 +1346,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A complex type derived from an open complex type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData‑Protocol</a>.</p>
 <section id="-attribute-opentype-1" class="varxml rep">
-<h3><a name="AttributeOpenType15.4" href="#AttributeOpenType15.4"> Attribute <code>OpenType</code></a></h3>
+<h3><a name="AttributeOpenType.15.4" href="#AttributeOpenType.15.4"> Attribute <code>OpenType</code></a></h3>
 <p>The value of <code>OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <hr />
@@ -1356,11 +1356,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Although enumeration types have an underlying numeric value, the preferred representation for an enumeration value is the member name. Discrete sets of numeric values should be represented as numeric values annotated with the <code>AllowedValues</code> annotation defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Enumeration types marked as flags allow values that consist of more than one enumeration member at a time.</p>
 <div class="varxml rep">
-<h3 id="-element-edmenumtype"><a name="ElementedmEnumType16" href="#ElementedmEnumType16"> Element <code>edm:EnumType</code></a></h3>
+<h3 id="-element-edmenumtype"><a name="ElementedmEnumType.16" href="#ElementedmEnumType.16"> Element <code>edm:EnumType</code></a></h3>
 <p>The <code>edm:EnumType</code> element MUST contain the Name attribute, and it MAY contain the <a href="#UnderlyingIntegerType"><code>UnderlyingType</code></a> and <a href="#FlagsEnumerationType"><code>IsFlags</code></a> attributes.</p>
 <p>It MUST contain one or more <a href="#EnumerationTypeMember"><code>edm:Member</code></a> elements defining the members of the enumeration type.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-5"><a name="AttributeName16.1" href="#AttributeName16.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-5"><a name="AttributeName.16.1" href="#AttributeName.16.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the enumeration type's name.</p>
 </div>
 <div class="varxml example">
@@ -1376,14 +1376,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An enumeration type MAY specify one of <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, or <code>Edm.Int64</code> as its underlying type.</p>
 <p>If not explicitly specified, <code>Edm.Int32</code> is used as the underlying type.</p>
 <section id="-attribute-underlyingtype" class="varxml rep">
-<h3><a name="AttributeUnderlyingType16.2" href="#AttributeUnderlyingType16.2"> Attribute <code>UnderlyingType</code></a></h3>
+<h3><a name="AttributeUnderlyingType.16.2" href="#AttributeUnderlyingType.16.2"> Attribute <code>UnderlyingType</code></a></h3>
 <p>The value of <code>UnderlyingType</code> is the qualified name of the underlying type.</p>
 </section>
 <h2 id="102-flags-enumeration-type"><a name="FlagsEnumerationType" href="#FlagsEnumerationType">10.2 Flags Enumeration Type</a></h2>
 <p>An enumeration type MAY indicate that the enumeration type allows multiple members to be selected simultaneously.</p>
 <p>If not explicitly specified, only one enumeration type member MAY be selected simultaneously.</p>
 <section id="-attribute-isflags" class="varxml rep">
-<h3><a name="AttributeIsFlags16.3" href="#AttributeIsFlags16.3"> Attribute <code>IsFlags</code></a></h3>
+<h3><a name="AttributeIsFlags.16.3" href="#AttributeIsFlags.16.3"> Attribute <code>IsFlags</code></a></h3>
 <p>The value of <code>IsFlags</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <div class="varxml example">
@@ -1411,12 +1411,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Enumeration members are sorted by their numeric value.</p>
 <p>For flag enumeration types the combined numeric value of simultaneously selected members is the bitwise OR of the discrete numeric member values.</p>
 <div class="varxml rep">
-<h3 id="-element-edmmember"><a name="ElementedmMember17" href="#ElementedmMember17"> Element <code>edm:Member</code></a></h3>
+<h3 id="-element-edmmember"><a name="ElementedmMember.17" href="#ElementedmMember.17"> Element <code>edm:Member</code></a></h3>
 <p>The <code>edm:Member</code> element MUST contain the <code>Name</code> attribute and it MAY contain the <code>Value</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-6"><a name="AttributeName17.1" href="#AttributeName17.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-6"><a name="AttributeName.17.1" href="#AttributeName.17.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the enumeration member's name.</p>
-<h3 id="-attribute-value"><a name="AttributeValue17.2" href="#AttributeValue17.2"> Attribute <code>Value</code></a></h3>
+<h3 id="-attribute-value"><a name="AttributeValue.17.2" href="#AttributeValue.17.2"> Attribute <code>Value</code></a></h3>
 <p>If the <a href="#FlagsEnumerationType"><code>IsFlags</code></a> attribute has a value of <code>false</code>, either all members MUST specify an integer value for the <code>Value</code> attribute, or all members MUST NOT specify a value for the <code>Value</code> attribute. If no values are specified, the members are assigned consecutive integer values in the order of their appearance, starting with zero for the first member. Client libraries MUST preserve elements in document order.</p>
 <p>If the <a href="#FlagsEnumerationType"><code>IsFlags</code></a> attribute has a value of <code>true</code>, a non-negative integer value MUST be specified for the <code>Value</code> attribute. A combined value is equivalent to the bitwise OR of the discrete values.</p>
 </div>
@@ -1444,10 +1444,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Type definitions can be used wherever a primitive type is used (other than as the underlying type in a new type definition) and are type-comparable with their underlying types and any type definitions defined using the same underlying type.</p>
 <p>It is up to the definition of a term to specify whether and how annotations with this term propagate to places where the annotated type definition is used, and whether they can be overridden.</p>
 <div class="varxml rep">
-<h3 id="-element-edmtypedefinition"><a name="ElementedmTypeDefinition18" href="#ElementedmTypeDefinition18"> Element <code>edm:TypeDefinition</code></a></h3>
+<h3 id="-element-edmtypedefinition"><a name="ElementedmTypeDefinition.18" href="#ElementedmTypeDefinition.18"> Element <code>edm:TypeDefinition</code></a></h3>
 <p>The <code>edm:TypeDefinition</code> element MUST contain the <code>Name</code> and <a href="#UnderlyingPrimitiveType"><code>UnderlyingType</code></a> attributes.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-7"><a name="AttributeName18.1" href="#AttributeName18.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-7"><a name="AttributeName.18.1" href="#AttributeName.18.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the type definition's name.</p>
 </div>
 <div class="varxml example">
@@ -1470,7 +1470,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="111-underlying-primitive-type"><a name="UnderlyingPrimitiveType" href="#UnderlyingPrimitiveType">11.1 Underlying Primitive Type</a></h2>
 <p>The underlying type of a type definition MUST be a primitive type that MUST NOT be another type definition.</p>
 <section id="-attribute-underlyingtype-1" class="varxml rep">
-<h3><a name="AttributeUnderlyingType18.2" href="#AttributeUnderlyingType18.2"> Attribute <code>UnderlyingType</code></a></h3>
+<h3><a name="AttributeUnderlyingType.18.2" href="#AttributeUnderlyingType.18.2"> Attribute <code>UnderlyingType</code></a></h3>
 <p>The value of <code>UnderlyingType</code> is the qualified name of the underlying type.</p>
 </section>
 <p>The type definition MAY specify facets applicable to the underlying type. Possible facets are: <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Unicode"><code>Unicode</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a>.</p>
@@ -1490,11 +1490,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
 <p>An unbound action MAY have the same name as a bound action.</p>
 <div class="varxml rep">
-<h3 id="-element-edmaction"><a name="ElementedmAction19" href="#ElementedmAction19"> Element <code>edm:Action</code></a></h3>
+<h3 id="-element-edmaction"><a name="ElementedmAction.19" href="#ElementedmAction.19"> Element <code>edm:Action</code></a></h3>
 <p>The <code>edm:Action</code> element MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
 <p>It MAY contain at most one <a href="#ReturnType"><code>edm:ReturnType</code></a> element and MAY contain <a href="#Parameter"><code>edm:Parameter</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-8"><a name="AttributeName19.1" href="#AttributeName19.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-8"><a name="AttributeName.19.1" href="#AttributeName.19.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the action's name.</p>
 </div>
 <h2 id="123-function"><a name="Function" href="#Function">12.3 Function</a></h2>
@@ -1519,11 +1519,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An unbound function MAY have the same name as a bound function.</p>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
 <div class="varxml rep">
-<h3 id="-element-edmfunction"><a name="ElementedmFunction20" href="#ElementedmFunction20"> Element <code>edm:Function</code></a></h3>
+<h3 id="-element-edmfunction"><a name="ElementedmFunction.20" href="#ElementedmFunction.20"> Element <code>edm:Function</code></a></h3>
 <p>The <code>edm:Function</code> element MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
 <p>It MUST contain one <a href="#ReturnType"><code>edm:ReturnType</code></a> element, and it MAY contain <a href="#Parameter"><code>edm:Parameter</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-9"><a name="AttributeName20.1" href="#AttributeName20.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-9"><a name="AttributeName.20.1" href="#AttributeName.20.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the action's name.</p>
 </div>
 <h2 id="125-bound-or-unbound-action-or-function-overloads"><a name="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a></h2>
@@ -1532,7 +1532,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
 <p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="-attribute-isbound" class="varxml rep">
-<h3><a name="AttributeIsBound20.2" href="#AttributeIsBound20.2"> Attribute <code>IsBound</code></a></h3>
+<h3><a name="AttributeIsBound.20.2" href="#AttributeIsBound.20.2"> Attribute <code>IsBound</code></a></h3>
 <p>The value of <code>IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="126-entity-set-path"><a name="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a></h2>
@@ -1541,14 +1541,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent navigation segments or type casts.</p>
 <p>A navigation segment names the <a href="#SimpleIdentifier">simple identifier</a> of the <a href="#NavigationProperty">navigation property</a> to be traversed. A type-cast segment names the <a href="#QualifiedName">qualified name</a> of the entity type that should be returned from the type cast.</p>
 <section id="-attribute-entitysetpath" class="varxml rep">
-<h3><a name="AttributeEntitySetPath20.3" href="#AttributeEntitySetPath20.3"> Attribute <code>EntitySetPath</code></a></h3>
+<h3><a name="AttributeEntitySetPath.20.3" href="#AttributeEntitySetPath.20.3"> Attribute <code>EntitySetPath</code></a></h3>
 <p>The value of <code>EntitySetPath</code> is the entity set path.</p>
 </section>
 <h2 id="127-composable-function"><a name="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a></h2>
 <p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
 <p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
 <section id="-attribute-iscomposable" class="varxml rep">
-<h3><a name="AttributeIsComposable20.4" href="#AttributeIsComposable20.4"> Attribute <code>IsComposable</code></a></h3>
+<h3><a name="AttributeIsComposable.20.4" href="#AttributeIsComposable.20.4"> Attribute <code>IsComposable</code></a></h3>
 <p>The value of <code>IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </section>
 <h2 id="128-return-type"><a name="ReturnType" href="#ReturnType">12.8 Return Type</a></h2>
@@ -1556,13 +1556,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The facets <a href="#Nullable"><code>Nullable</code></a>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For a single-valued return type the facets apply to the returned value. For a collection-valued return type the facets apply to the items in the returned collection.</p>
 <div class="varxml rep">
-<h3 id="-element-edmreturntype"><a name="ElementedmReturnType21" href="#ElementedmReturnType21"> Element <code>edm:ReturnType</code></a></h3>
+<h3 id="-element-edmreturntype"><a name="ElementedmReturnType.21" href="#ElementedmReturnType.21"> Element <code>edm:ReturnType</code></a></h3>
 <p>The <code>edm:ReturnType</code> element MUST contain the <code>Type</code> attribute, and it MAY contain the attributes <code>Nullable</code>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Unicode"><code>Unicode</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a>.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-type-2"><a name="AttributeType21.1" href="#AttributeType21.1"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-2"><a name="AttributeType.21.1" href="#AttributeType.21.1"> Attribute <code>Type</code></a></h3>
 <p>For single-valued return types the value of <code>Type</code> is the qualified name of the return type.</p>
 <p>For collection-valued return types the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the return item type, followed by a closing parenthesis <code>)</code>.</p>
-<h3 id="-attribute-nullable-2"><a name="AttributeNullable21.2" href="#AttributeNullable21.2"> Attribute <code>Nullable</code></a></h3>
+<h3 id="-attribute-nullable-2"><a name="AttributeNullable.21.2" href="#AttributeNullable.21.2"> Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>If the return type is a collection of entity types, the <code>Nullable</code> attribute has no meaning and MUST NOT be specified.</p>
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case the <code>Nullable</code> attribute applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1576,15 +1576,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For single-valued parameters the facets apply to the parameter value. If the parameter value is a collection, the facets apply to the items in the collection.</p>
 <div class="varxml rep">
-<h3 id="-element-edmparameter"><a name="ElementedmParameter22" href="#ElementedmParameter22"> Element <code>edm:Parameter</code></a></h3>
+<h3 id="-element-edmparameter"><a name="ElementedmParameter.22" href="#ElementedmParameter.22"> Element <code>edm:Parameter</code></a></h3>
 <p>The <code>edm:Parameter</code> element MUST contain the <code>Name</code> and the <code>Type</code> attribute, and it MAY contain the attributes <code>Nullable</code>, <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Unicode"><code>Unicode</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a>.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-10"><a name="AttributeName22.1" href="#AttributeName22.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-10"><a name="AttributeName.22.1" href="#AttributeName.22.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the parameter's name.</p>
-<h3 id="-attribute-type-3"><a name="AttributeType22.2" href="#AttributeType22.2"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-3"><a name="AttributeType.22.2" href="#AttributeType.22.2"> Attribute <code>Type</code></a></h3>
 <p>For single-valued parameters the value of <code>Type</code> is the qualified name of the parameter.</p>
 <p>For collection-valued parameters the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the parameter's type, followed by a closing parenthesis <code>)</code>.</p>
-<h3 id="-attribute-nullable-3"><a name="AttributeNullable22.3" href="#AttributeNullable22.3"> Attribute <code>Nullable</code></a></h3>
+<h3 id="-attribute-nullable-3"><a name="AttributeNullable.22.3" href="#AttributeNullable.22.3"> Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
 </div>
@@ -1623,10 +1623,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A <a href="#Singleton"><em>singleton</em></a> allows addressing a single entity directly from the entity container without having to know its key, and without requiring an entity set.</p>
 <p>A <a href="#FunctionImport"><em>function import</em></a> or an <a href="#ActionImport"><em>action import</em></a> is used to expose a function or action defined in an entity model as a top level resource.</p>
 <div class="varxml rep">
-<h3 id="-element-edmentitycontainer"><a name="ElementedmEntityContainer23" href="#ElementedmEntityContainer23"> Element <code>edm:EntityContainer</code></a></h3>
+<h3 id="-element-edmentitycontainer"><a name="ElementedmEntityContainer.23" href="#ElementedmEntityContainer.23"> Element <code>edm:EntityContainer</code></a></h3>
 <p>The <code>edm:EntityContainer</code> MUST contain one or more <a href="#EntitySet"><code>edm:EntitySet</code></a>, <a href="#Singleton"><code>edm:Singleton</code></a>, <a href="#ActionImport"><code>edm:ActionImport</code></a>, or <a href="#FunctionImport"><code>edm:FunctionImport</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-11"><a name="AttributeName23.1" href="#AttributeName23.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-11"><a name="AttributeName.23.1" href="#AttributeName.23.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the entity container's name.</p>
 </div>
 <div class="varxml example">
@@ -1653,7 +1653,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the "extending" entity container defines an entity set with the same name as defined in any of its "base" containers, then the entity set's type MUST specify an entity type derived from the entity type specified for the identically named entity set in the "base" container. The same holds for singletons. Action imports and function imports cannot be redefined, nor can the "extending" container define a child with the same name as a child of a different kind in a "base" container.</p>
 <p>Note: services should not introduce cycles by extending entity containers. Clients should be prepared to process cycles introduced by extending entity containers.</p>
 <section id="-attribute-extends" class="varxml rep">
-<h3><a name="AttributeExtends23.2" href="#AttributeExtends23.2"> Attribute <code>Extends</code></a></h3>
+<h3><a name="AttributeExtends.23.2" href="#AttributeExtends.23.2"> Attribute <code>Extends</code></a></h3>
 <p>The value of <code>Extends</code> is the qualified name of the entity container to be extended.</p>
 </section>
 <div class="varxml example">
@@ -1670,15 +1670,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An entity set MAY indicate whether it is included in the service document. If not explicitly indicated, it is included.</p>
 <p>Entity sets that cannot be queried without specifying additional query options SHOULD NOT be included in the service document.</p>
 <div class="varxml rep">
-<h3 id="-element-edmentityset"><a name="ElementedmEntitySet24" href="#ElementedmEntitySet24"> Element <code>edm:EntitySet</code></a></h3>
+<h3 id="-element-edmentityset"><a name="ElementedmEntitySet.24" href="#ElementedmEntitySet.24"> Element <code>edm:EntitySet</code></a></h3>
 <p>The <code>edm:EntitySet</code> element MUST contain the attributes <code>Name</code> and <code>EntityType</code>, and it MAY contain the <code>IncludeInServiceDocument</code> attribute.</p>
 <p>It MAY contain <a href="#NavigationPropertyBinding"><code>edm:NavigationPropertyBinding</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-12"><a name="AttributeName24.1" href="#AttributeName24.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-12"><a name="AttributeName.24.1" href="#AttributeName.24.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the entity set's name.</p>
-<h3 id="-attribute-entitytype"><a name="AttributeEntityType24.2" href="#AttributeEntityType24.2"> Attribute <code>EntityType</code></a></h3>
+<h3 id="-attribute-entitytype"><a name="AttributeEntityType.24.2" href="#AttributeEntityType.24.2"> Attribute <code>EntityType</code></a></h3>
 <p>The value of <code>EntityType</code> is the qualified name of an entity type in scope.</p>
-<h3 id="-attribute-includeinservicedocument"><a name="AttributeIncludeInServiceDocument24.3" href="#AttributeIncludeInServiceDocument24.3"> Attribute <code>IncludeInServiceDocument</code></a></h3>
+<h3 id="-attribute-includeinservicedocument"><a name="AttributeIncludeInServiceDocument.24.3" href="#AttributeIncludeInServiceDocument.24.3"> Attribute <code>IncludeInServiceDocument</code></a></h3>
 <p>The value of <code>IncludeInServiceDocument</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 </div>
 <h2 id="133-singleton"><a name="Singleton" href="#Singleton">13.3 Singleton</a></h2>
@@ -1687,15 +1687,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A singleton MUST specify a type that MUST be an entity type in scope.</p>
 <p>A singleton MUST reference an instance its entity type.</p>
 <div class="varxml rep">
-<h3 id="-element-edmsingleton"><a name="ElementedmSingleton25" href="#ElementedmSingleton25"> Element <code>edm:Singleton</code></a></h3>
+<h3 id="-element-edmsingleton"><a name="ElementedmSingleton.25" href="#ElementedmSingleton.25"> Element <code>edm:Singleton</code></a></h3>
 <p>The <code>edm:Singleton</code> element MUST include the attributes <code>Name</code> and <code>Type</code>, and it MAY contain the <code>Nullable</code> attribute.</p>
 <p>It MAY contain <a href="#NavigationPropertyBinding"><code>edm:NavigationPropertyBinding</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-13"><a name="AttributeName25.1" href="#AttributeName25.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-13"><a name="AttributeName.25.1" href="#AttributeName.25.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the singleton's name.</p>
-<h3 id="-attribute-type-4"><a name="AttributeType25.2" href="#AttributeType25.2"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-4"><a name="AttributeType.25.2" href="#AttributeType.25.2"> Attribute <code>Type</code></a></h3>
 <p>The value of <code>Type</code> is whose value is the <a href="#QualifiedName">qualified name</a> of an entity type in scope.</p>
-<h3 id="-attribute-nullable-4"><a name="AttributeNullable25.3" href="#AttributeNullable25.3"> Attribute <code>Nullable</code></a></h3>
+<h3 id="-attribute-nullable-4"><a name="AttributeNullable.25.3" href="#AttributeNullable.25.3"> Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>.</p>
 <p>If no value is specified, the <code>Nullable</code> attribute defaults to <code>false</code>.</p>
 <p>In OData 4.0 responses this attribute MUST NOT be specified.</p>
@@ -1716,11 +1716,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the target is a <a href="#SimpleIdentifier">simple identifier</a>, it MUST resolve to an entity set or singleton defined in the same entity container.</p>
 <p>If the target is a <a href="#TargetPath">target path</a>, it MUST resolve to an entity set, singleton, or direct or indirect containment navigation property of a singleton in scope. The path can traverse single-valued containment navigation properties or single-valued complex properties before ending in a containment navigation property, and there MUST NOT be any non-containment navigation properties prior to the final segment.</p>
 <div class="varxml rep">
-<h3 id="-element-edmnavigationpropertybinding"><a name="ElementedmNavigationPropertyBinding26" href="#ElementedmNavigationPropertyBinding26"> Element <code>edm:NavigationPropertyBinding</code></a></h3>
+<h3 id="-element-edmnavigationpropertybinding"><a name="ElementedmNavigationPropertyBinding.26" href="#ElementedmNavigationPropertyBinding.26"> Element <code>edm:NavigationPropertyBinding</code></a></h3>
 <p>The <code>edm:NavigationPropertyBinding</code> element MUST contain the attributes <code>Path</code> and <code>Target</code>.</p>
-<h3 id="-attribute-path"><a name="AttributePath26.1" href="#AttributePath26.1"> Attribute <code>Path</code></a></h3>
+<h3 id="-attribute-path"><a name="AttributePath.26.1" href="#AttributePath.26.1"> Attribute <code>Path</code></a></h3>
 <p>The value of <code>Path</code> is a path expression.</p>
-<h3 id="-attribute-target-1"><a name="AttributeTarget26.2" href="#AttributeTarget26.2"> Attribute <code>Target</code></a></h3>
+<h3 id="-attribute-target-1"><a name="AttributeTarget.26.2" href="#AttributeTarget.26.2"> Attribute <code>Target</code></a></h3>
 <p>The value of <code>Target</code> is a <a href="#TargetPath">target path</a>.</p>
 </div>
 <div class="varxml example">
@@ -1750,14 +1750,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An action import MUST specify the name of an unbound action in scope.</p>
 <p>If the imported action returns an entity or a collection of entities, a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a> value MAY be specified to identify the entity set that contains the returned entities. If a <a href="#SimpleIdentifier">simple identifier</a> is specified, it MUST resolve to an entity set defined in the same entity container. If a <a href="#TargetPath">target path</a> is specified, it MUST resolve to an entity set in scope.</p>
 <div class="varxml rep">
-<h3 id="-element-edmactionimport"><a name="ElementedmActionImport27" href="#ElementedmActionImport27"> Element <code>edm:ActionImport</code></a></h3>
+<h3 id="-element-edmactionimport"><a name="ElementedmActionImport.27" href="#ElementedmActionImport.27"> Element <code>edm:ActionImport</code></a></h3>
 <p>The <code>edm:ActionImport</code> element MUST contain the attributes <code>Name</code> and <code>Action</code>, and it MAY contain the <code>EntitySet</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-14"><a name="AttributeName27.1" href="#AttributeName27.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-14"><a name="AttributeName.27.1" href="#AttributeName.27.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the action import's name.</p>
-<h3 id="-attribute-action-1"><a name="AttributeAction27.2" href="#AttributeAction27.2"> Attribute <code>Action</code></a></h3>
+<h3 id="-attribute-action-1"><a name="AttributeAction.27.2" href="#AttributeAction.27.2"> Attribute <code>Action</code></a></h3>
 <p>The value of <code>Action</code> is the qualified name of an unbound action.</p>
-<h3 id="-attribute-entityset"><a name="AttributeEntitySet27.3" href="#AttributeEntitySet27.3"> Attribute <code>EntitySet</code></a></h3>
+<h3 id="-attribute-entityset"><a name="AttributeEntitySet.27.3" href="#AttributeEntitySet.27.3"> Attribute <code>EntitySet</code></a></h3>
 <p>The value of <code>EntitySet</code> is either the unqualified name of an entity set in the same entity container or a path to an entity set in a different entity container.</p>
 </div>
 <h2 id="136-function-import"><a name="FunctionImport" href="#FunctionImport">13.6 Function Import</a></h2>
@@ -1767,15 +1767,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the imported function returns an entity or a collection of entities, a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a> value MAY be specified to identify the entity set that contains the returned entities. If a <a href="#SimpleIdentifier">simple identifier</a> is specified, it MUST resolve to an entity set defined in the same entity container. If a <a href="#TargetPath">target path</a> is specified, it MUST resolve to an entity set in scope.</p>
 <p>A function import for a parameterless function MAY indicate whether it is included in the service document. If not explicitly indicated, it is not included.</p>
 <div class="varxml rep">
-<h3 id="-element-edmfunctionimport"><a name="ElementedmFunctionImport28" href="#ElementedmFunctionImport28"> Element <code>edm:FunctionImport</code></a></h3>
+<h3 id="-element-edmfunctionimport"><a name="ElementedmFunctionImport.28" href="#ElementedmFunctionImport.28"> Element <code>edm:FunctionImport</code></a></h3>
 <p>The <code>edm:FunctionImport</code> element MUST contain the attributes <code>Name</code> and <code>Function</code>, and it MAY contain the attributes <code>EntitySet</code> and <code>IncludeInServiceDocument</code>.</p>
-<h3 id="-attribute-name-15"><a name="AttributeName28.1" href="#AttributeName28.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-15"><a name="AttributeName.28.1" href="#AttributeName.28.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the function import's name.</p>
-<h3 id="-attribute-function"><a name="AttributeFunction28.2" href="#AttributeFunction28.2"> Attribute <code>Function</code></a></h3>
+<h3 id="-attribute-function"><a name="AttributeFunction.28.2" href="#AttributeFunction.28.2"> Attribute <code>Function</code></a></h3>
 <p>The value of <code>Function</code> is the qualified name of an unbound function.</p>
-<h3 id="-attribute-entityset-1"><a name="AttributeEntitySet28.3" href="#AttributeEntitySet28.3"> Attribute <code>EntitySet</code></a></h3>
+<h3 id="-attribute-entityset-1"><a name="AttributeEntitySet.28.3" href="#AttributeEntitySet.28.3"> Attribute <code>EntitySet</code></a></h3>
 <p>The value of <code>EntitySet</code> is either the unqualified name of an entity set in the same entity container or a path to an entity set in a different entity container.</p>
-<h3 id="-attribute-includeinservicedocument-1"><a name="AttributeIncludeInServiceDocument28.4" href="#AttributeIncludeInServiceDocument28.4"> Attribute <code>IncludeInServiceDocument</code></a></h3>
+<h3 id="-attribute-includeinservicedocument-1"><a name="AttributeIncludeInServiceDocument.28.4" href="#AttributeIncludeInServiceDocument.28.4"> Attribute <code>IncludeInServiceDocument</code></a></h3>
 <p>The value of <code>IncludeInServiceDocument</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
 </div>
 <hr />
@@ -1821,17 +1821,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The term's name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>The term's type MUST be a type in scope, or a collection of a type in scope.</p>
 <div class="varxml rep">
-<h3 id="-element-edmterm"><a name="ElementedmTerm29" href="#ElementedmTerm29"> Element <code>edm:Term</code></a></h3>
+<h3 id="-element-edmterm"><a name="ElementedmTerm.29" href="#ElementedmTerm.29"> Element <code>edm:Term</code></a></h3>
 <p>The <code>edm:Term</code> element MUST contain the attributes <code>Name</code> and <code>Type</code>. It MAY contain the attributes <code>BaseTerm</code> and <code>AppliesTo</code>.</p>
 <p>It MAY specify values for the <a href="#Nullable"><code>Nullable</code></a>, [ ]{.apple-converted-space}<a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> facet attributes, as well as the <a href="#Unicode"><code>Unicode</code></a> facet attribute for 4.01 and greater payloads. These facets and their implications are described in section 7.2.</p>
 <p>A <code>edm:Term</code> element whose <code>Type</code> attribute specifies a primitive or enumeration type MAY define a value for the <code>DefaultValue</code> attribute.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-16"><a name="AttributeName29.1" href="#AttributeName29.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-16"><a name="AttributeName.29.1" href="#AttributeName.29.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the term's name.</p>
-<h3 id="-attribute-type-5"><a name="AttributeType29.2" href="#AttributeType29.2"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-5"><a name="AttributeType.29.2" href="#AttributeType.29.2"> Attribute <code>Type</code></a></h3>
 <p>For single-valued properties the value of <code>Type</code> is the qualified name of the property's type.</p>
 <p>For collection-valued properties the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the property's item type, followed by a closing parenthesis <code>)</code>.</p>
-<h3 id="-attribute-defaultvalue-1"><a name="AttributeDefaultValue29.3" href="#AttributeDefaultValue29.3"> Attribute <code>DefaultValue</code></a></h3>
+<h3 id="-attribute-defaultvalue-1"><a name="AttributeDefaultValue.29.3" href="#AttributeDefaultValue.29.3"> Attribute <code>DefaultValue</code></a></h3>
 <p>The value of this attribute determines the value of the term when applied in an <a href="#Annotation"><code>edm:Annotation</code></a> without providing an expression.</p>
 <p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 <p>If no value is specified, the <code>DefaultValue</code> attribute defaults to <code>null</code>.</p>
@@ -1840,7 +1840,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A term MAY specialize another term in scope by specifying it as its base term.</p>
 <p>When applying a specialized term, the base term MUST also be applied with the same qualifier, and so on until a term without a base term is reached.</p>
 <section id="-attribute-baseterm" class="varxml rep">
-<h3><a name="AttributeBaseTerm29.4" href="#AttributeBaseTerm29.4"> Attribute <code>BaseTerm</code></a></h3>
+<h3><a name="AttributeBaseTerm.29.4" href="#AttributeBaseTerm.29.4"> Attribute <code>BaseTerm</code></a></h3>
 <p>The value of <code>BaseTerm</code> is the qualified name of the base term.</p>
 </section>
 <h3 id="1412-applicability"><a name="Applicability" href="#Applicability">14.1.2 Applicability</a></h3>
@@ -1988,7 +1988,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tbody>
 </table>
 <section id="-attribute-appliesto" class="varxml rep">
-<h3><a name="AttributeAppliesTo29.5" href="#AttributeAppliesTo29.5"> Attribute <code>AppliesTo</code></a></h3>
+<h3><a name="AttributeAppliesTo.29.5" href="#AttributeAppliesTo.29.5"> Attribute <code>AppliesTo</code></a></h3>
 <p>The value of <code>AppliesTo</code> is a whitespace-separated list of symbolic values from the table above that identify model elements the term is intended to be applied to.</p>
 </section>
 <div class="varxml example">
@@ -2007,13 +2007,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An annotation applies a <a href="#Term">term</a> to a model element and defines how to calculate a value for the term application. Both term and model element MUST be in scope. Section 14.1.2 specifies which model elements MAY be annotated with a term.</p>
 <p>The value of an annotation is specified as an <em>annotation expression</em>, which is either a <a href="#ConstantExpression">constant expression</a> representing a constant value, or a <a href="#DynamicExpression">dynamic expression</a>. The most common construct for assigning an annotation value is a <a href="#ValuePath">path expression</a> that refers to a property of the same or a related structured type.</p>
 <div class="varxml rep">
-<h3 id="-element-edmannotation"><a name="ElementedmAnnotation30" href="#ElementedmAnnotation30"> Element <code>edm:Annotation</code></a></h3>
+<h3 id="-element-edmannotation"><a name="ElementedmAnnotation.30" href="#ElementedmAnnotation.30"> Element <code>edm:Annotation</code></a></h3>
 <p>The <code>edm:Annotation</code> element MUST contain the attribute <code>Term</code>, and it MAY contain the attribute <a href="#Qualifier"><code>Qualifier</code></a>.</p>
 <p>The value of the annotation MAY be a <a href="#ConstantExpression">constant expression</a> or <a href="#DynamicExpression">dynamic expression</a>.</p>
 <p>If no expression is specified for a term with a primitive type, the annotation evaluates to the <a href="#DefaultValue">default value</a> of the term definition. If no expression is specified for a term with a complex type, the annotation evaluates to a complex instance with default values for its properties. If no expression is specified for a collection-valued term, the annotation evaluates to an empty collection.</p>
 <p>An <code>edm:Annotation</code> element can be used as a child of the model element it annotates, or as the child of an <a href="#AnnotationswithExternalTargeting"><code>edm:Annotations</code></a> element that targets the model element to be annotated.</p>
 <p>An <code>edm:Annotation</code> element MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements that annotate the annotation.</p>
-<h3 id="-attribute-term"><a name="AttributeTerm30.1" href="#AttributeTerm30.1"> Attribute <code>Term</code></a></h3>
+<h3 id="-attribute-term"><a name="AttributeTerm.30.1" href="#AttributeTerm.30.1"> Attribute <code>Term</code></a></h3>
 <p>The value of <code>Term</code> is the qualified name of a <a href="#Term">term</a> in scope.</p>
 </div>
 <div class="varxml example">
@@ -2036,7 +2036,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A term can be applied multiple times to the same model element by providing a qualifier to distinguish the annotations. The qualifier is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
 <p>The combination of target model element, term, and qualifier uniquely identifies an annotation.</p>
 <section id="-attribute-qualifier-2" class="varxml rep">
-<h3><a name="AttributeQualifier30.2" href="#AttributeQualifier30.2"> Attribute <code>Qualifier</code></a></h3>
+<h3><a name="AttributeQualifier.30.2" href="#AttributeQualifier.30.2"> Attribute <code>Qualifier</code></a></h3>
 <p>Annotation elements that are children of an <a href="#AnnotationswithExternalTargeting"><code>edm:Annotations</code></a> element MUST NOT provide a value for the qualifier attribute if the parent <a href="#AnnotationswithExternalTargeting"><code>edm:Annotations</code></a> element provides a value for the qualifier attribute.</p>
 </section>
 <div class="varxml example">
@@ -2187,7 +2187,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
 <h3 id="1431-binary"><a name="Binary" href="#Binary">14.3.1 Binary</a></h3>
 <section id="-expression-edmbinary" class="varxml rep">
-<h3><a name="ExpressionedmBinary31" href="#ExpressionedmBinary31"> Expression <code>edm:Binary</code></a></h3>
+<h3><a name="ExpressionedmBinary.31" href="#ExpressionedmBinary.31"> Expression <code>edm:Binary</code></a></h3>
 <p>The <code>edm:Binary</code> expression evaluates to a primitive binary value. A binary expression MUST be assigned a value conforming to the rule <code>binaryValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The binary expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2201,7 +2201,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1432-boolean"><a name="Boolean" href="#Boolean">14.3.2 Boolean</a></h3>
 <section id="-expression-edmbool" class="varxml rep">
-<h3><a name="ExpressionedmBool32" href="#ExpressionedmBool32"> Expression <code>edm:Bool</code></a></h3>
+<h3><a name="ExpressionedmBool.32" href="#ExpressionedmBool.32"> Expression <code>edm:Bool</code></a></h3>
 <p>The <code>edm:Bool</code> expression evaluates to a primitive Boolean value. A Boolean expression MUST be assigned a Boolean value.</p>
 <p>The Boolean expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2215,7 +2215,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1433-date"><a name="Date" href="#Date">14.3.3 Date</a></h3>
 <section id="-expression-edmdate" class="varxml rep">
-<h3><a name="ExpressionedmDate33" href="#ExpressionedmDate33"> Expression <code>edm:Date</code></a></h3>
+<h3><a name="ExpressionedmDate.33" href="#ExpressionedmDate.33"> Expression <code>edm:Date</code></a></h3>
 <p>The <code>edm:Date</code> expression evaluates to a primitive date value. A date expression MUST be assigned a value of type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <code>dateValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
 <p>The date expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2229,7 +2229,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1434-datetimeoffset"><a name="DateTimeOffset" href="#DateTimeOffset">14.3.4 DateTimeOffset</a></h3>
 <section id="-expression-edmdatetimeoffset" class="varxml rep">
-<h3><a name="ExpressionedmDateTimeOffset34" href="#ExpressionedmDateTimeOffset34"> Expression <code>edm:DateTimeOffset</code></a></h3>
+<h3><a name="ExpressionedmDateTimeOffset.34" href="#ExpressionedmDateTimeOffset.34"> Expression <code>edm:DateTimeOffset</code></a></h3>
 <p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <code>dateTimeOffsetValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
 <p>The datetimestamp expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2245,7 +2245,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1435-decimal"><a name="Decimal" href="#Decimal">14.3.5 Decimal</a></h3>
 <section id="-expression-edmdecimal" class="varxml rep">
-<h3><a name="ExpressionedmDecimal35" href="#ExpressionedmDecimal35"> Expression <code>edm:Decimal</code></a></h3>
+<h3><a name="ExpressionedmDecimal.35" href="#ExpressionedmDecimal.35"> Expression <code>edm:Decimal</code></a></h3>
 <p>The <code>edm:Decimal</code> expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value conforming to the rule <code>decimalValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The decimal expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2261,7 +2261,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1436-duration"><a name="Duration" href="#Duration">14.3.6 Duration</a></h3>
 <section id="-expression-edmduration" class="varxml rep">
-<h3><a name="ExpressionedmDuration36" href="#ExpressionedmDuration36"> Expression <code>edm:Duration</code></a></h3>
+<h3><a name="ExpressionedmDuration.36" href="#ExpressionedmDuration.36"> Expression <code>edm:Duration</code></a></h3>
 <p>The <code>edm:Duration</code> expression evaluates to a primitive duration value. A duration expression MUST be assigned a value of type <code>xs:dayTimeDuration</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dayTimeDuration">section 3.4.27</a>.</p>
 <p>The duration expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2275,7 +2275,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1437-enumeration-member"><a name="EnumerationMember" href="#EnumerationMember">14.3.7 Enumeration Member</a></h3>
 <section id="-expression-edmenummember" class="varxml rep">
-<h3><a name="ExpressionedmEnumMember37" href="#ExpressionedmEnumMember37"> Expression <code>edm:EnumMember</code></a></h3>
+<h3><a name="ExpressionedmEnumMember.37" href="#ExpressionedmEnumMember.37"> Expression <code>edm:EnumMember</code></a></h3>
 <p>The <code>edm:EnumMember</code> expression references a <a href="#EnumerationTypeMember">member</a> of an <a href="#EnumerationType">enumeration type</a>. An enumeration member expression MUST be assigned a value that consists of the qualified name of the enumeration type, followed by a forward slash and the name of the enumeration member. If the enumeration type specifies an <code>IsFlags</code> attribute with value <code>true</code>, the expression MAY also be assigned a whitespace-separated list of values. Each of these values MUST resolve to the name of a member of the enumeration type of the specified term.</p>
 <p>The enumeration member expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2299,7 +2299,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1438-floating-point-number"><a name="FloatingPointNumber" href="#FloatingPointNumber">14.3.8 Floating-Point Number</a></h3>
 <section id="-expression-edmfloat" class="varxml rep">
-<h3><a name="ExpressionedmFloat38" href="#ExpressionedmFloat38"> Expression <code>edm:Float</code></a></h3>
+<h3><a name="ExpressionedmFloat.38" href="#ExpressionedmFloat.38"> Expression <code>edm:Float</code></a></h3>
 <p>The <code>edm:Float</code> expression evaluates to a primitive floating point (or double) value. A float expression MUST be assigned a value conforming to the rule <code>doubleValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The float expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2313,7 +2313,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="1439-guid"><a name="Guid" href="#Guid">14.3.9 Guid</a></h3>
 <section id="-expression-edmguid" class="varxml rep">
-<h3><a name="ExpressionedmGuid39" href="#ExpressionedmGuid39"> Expression <code>edm:Guid</code></a></h3>
+<h3><a name="ExpressionedmGuid.39" href="#ExpressionedmGuid.39"> Expression <code>edm:Guid</code></a></h3>
 <p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <code>guidValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The guid expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2328,7 +2328,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="14310-integer"><a name="Integer" href="#Integer">14.3.10 Integer</a></h3>
 <section id="-expression-edmint" class="varxml rep">
-<h3><a name="ExpressionedmInt40" href="#ExpressionedmInt40"> Expression <code>edm:Int</code></a></h3>
+<h3><a name="ExpressionedmInt.40" href="#ExpressionedmInt.40"> Expression <code>edm:Int</code></a></h3>
 <p>The <code>edm:Int</code> expression evaluates to a primitive integer value. An integer MUST be assigned a value conforming to the rule <code>int64Value</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The integer expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2344,7 +2344,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="14311-string"><a name="String" href="#String">14.3.11 String</a></h3>
 <section id="-expression-edmstring" class="varxml rep">
-<h3><a name="ExpressionedmString41" href="#ExpressionedmString41"> Expression <code>edm:String</code></a></h3>
+<h3><a name="ExpressionedmString.41" href="#ExpressionedmString.41"> Expression <code>edm:String</code></a></h3>
 <p>The <code>edm:String</code> expression evaluates to a primitive string value. A string expression MUST be assigned a value of the type <code>xs:string</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#string">section 3.3.1</a>.</p>
 <p>The string expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2358,7 +2358,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <h3 id="14312-time-of-day"><a name="TimeofDay" href="#TimeofDay">14.3.12 Time of Day</a></h3>
 <section id="-expression-edmtimeofday" class="varxml rep">
-<h3><a name="ExpressionedmTimeOfDay42" href="#ExpressionedmTimeOfDay42"> Expression <code>edm:TimeOfDay</code></a></h3>
+<h3><a name="ExpressionedmTimeOfDay.42" href="#ExpressionedmTimeOfDay.42"> Expression <code>edm:TimeOfDay</code></a></h3>
 <p>The <code>edm:TimeOfDay</code> expression evaluates to a primitive time value. A time-of-day expression MUST be assigned a value conforming to the rule <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The time-of-day expression MAY be provided using element notation or attribute notation.</p>
 </section>
@@ -2503,7 +2503,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <section id="-expression-edmannotationpath" class="varxml rep">
-<h3><a name="ExpressionedmAnnotationPath43" href="#ExpressionedmAnnotationPath43"> Expression <code>edm:AnnotationPath</code></a></h3>
+<h3><a name="ExpressionedmAnnotationPath.43" href="#ExpressionedmAnnotationPath.43"> Expression <code>edm:AnnotationPath</code></a></h3>
 <p>The <code>edm:AnnotationPath</code> expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2522,7 +2522,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The model element path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in type</a><code> Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a>.</p>
 <p>The value of the model element path expression is the path itself, not the instance(s) identified by the path.</p>
 <section id="-expression-edmmodelelementpath" class="varxml rep">
-<h3><a name="ExpressionedmModelElementPath44" href="#ExpressionedmModelElementPath44"> Expression <code>edm:ModelElementPath</code></a></h3>
+<h3><a name="ExpressionedmModelElementPath.44" href="#ExpressionedmModelElementPath.44"> Expression <code>edm:ModelElementPath</code></a></h3>
 <p>The <code>edm:ModelElementPath</code> expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2541,7 +2541,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>The value of the navigation property path expression is the path itself, not the entitiy or collection of entities identified by the path.</p>
 <section id="-expression-edmnavigationpropertypath" class="varxml rep">
-<h3><a name="ExpressionedmNavigationPropertyPath45" href="#ExpressionedmNavigationPropertyPath45"> Expression <code>edm:NavigationPropertyPath</code></a></h3>
+<h3><a name="ExpressionedmNavigationPropertyPath.45" href="#ExpressionedmNavigationPropertyPath.45"> Expression <code>edm:NavigationPropertyPath</code></a></h3>
 <p>The <code>edm:NavigationPropertyPath</code> expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2566,7 +2566,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>The value of the property path expression is the path itself, not the value of the structural property or the value of the term cast identified by the path.</p>
 <section id="-expression-edmpropertypath" class="varxml rep">
-<h3><a name="ExpressionedmPropertyPath46" href="#ExpressionedmPropertyPath46"> Expression <code>edm:PropertyPath</code></a></h3>
+<h3><a name="ExpressionedmPropertyPath.46" href="#ExpressionedmPropertyPath.46"> Expression <code>edm:PropertyPath</code></a></h3>
 <p>The <code>edm:PropertyPath</code> MAY be provided using either element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2588,7 +2588,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value path expression allows assigning a value by traversing an object graph. It can be used in annotations that target entity containers, entity sets, entity types, complex types, navigation properties of structured types, and structural properties of structured types. Its argument is an <a href="#PathExpressions">instance path</a>.</p>
 <p>The value of the path expression is the instance or collection of instances identified by the path.</p>
 <section id="-expression-edmpath" class="varxml rep">
-<h3><a name="ExpressionedmPath47" href="#ExpressionedmPath47"> Expression <code>edm:Path</code></a></h3>
+<h3><a name="ExpressionedmPath.47" href="#ExpressionedmPath.47"> Expression <code>edm:Path</code></a></h3>
 <p>The <code>edm:Path</code> expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2621,13 +2621,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varxml rep">
-<h3 id="-expressions-edmand-and--edmor"><a name="ExpressionsedmAnd48" href="#ExpressionsedmAnd48"> Expressions <code>edm:And</code></a> and <a name="edmOr48.1" href="#edmOr48.1"> <code>edm:Or</code></a></h3>
+<h3 id="-expressions-edmand-and--edmor"><a name="ExpressionsedmAnd.48" href="#ExpressionsedmAnd.48"> Expressions <code>edm:And</code></a> and <a name="edmOr.48.1" href="#edmOr.48.1"> <code>edm:Or</code></a></h3>
 <p>The <code>And</code> and <code>Or</code> logical expressions are represented as elements <code>edm:And</code> and <code>edm:Or</code> that MUST contain two annotation expressions.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-expression-edmnot"><a name="ExpressionedmNot49" href="#ExpressionedmNot49"> Expression <code>edm:Not</code></a></h3>
+<h3 id="-expression-edmnot"><a name="ExpressionedmNot.49" href="#ExpressionedmNot.49"> Expression <code>edm:Not</code></a></h3>
 <p>Negation expressions are represented as an element <code>edm:Not</code> that MUST contain a single annotation expression.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-expressions-edmeq--edmne--edmgt--edmge--edmlt--edmle--edmhas-and--edmin"><a name="ExpressionsedmEq50" href="#ExpressionsedmEq50"> Expressions <code>edm:Eq</code></a>, <a name="edmNe50.1" href="#edmNe50.1"> <code>edm:Ne</code></a>, <a name="edmGt50.2" href="#edmGt50.2"> <code>edm:Gt</code></a>, <a name="edmGe50.3" href="#edmGe50.3"> <code>edm:Ge</code></a>, <a name="edmLt50.4" href="#edmLt50.4"> <code>edm:Lt</code></a>, <a name="edmLe50.5" href="#edmLe50.5"> <code>edm:Le</code></a>, <a name="edmHas50.6" href="#edmHas50.6"> <code>edm:Has</code></a>, and <a name="edmIn50.7" href="#edmIn50.7"> <code>edm:In</code></a></h3>
+<h3 id="-expressions-edmeq--edmne--edmgt--edmge--edmlt--edmle--edmhas-and--edmin"><a name="ExpressionsedmEq.50" href="#ExpressionsedmEq.50"> Expressions <code>edm:Eq</code></a>, <a name="edmNe.50.1" href="#edmNe.50.1"> <code>edm:Ne</code></a>, <a name="edmGt.50.2" href="#edmGt.50.2"> <code>edm:Gt</code></a>, <a name="edmGe.50.3" href="#edmGe.50.3"> <code>edm:Ge</code></a>, <a name="edmLt.50.4" href="#edmLt.50.4"> <code>edm:Lt</code></a>, <a name="edmLe.50.5" href="#edmLe.50.5"> <code>edm:Le</code></a>, <a name="edmHas.50.6" href="#edmHas.50.6"> <code>edm:Has</code></a>, and <a name="edmIn.50.7" href="#edmIn.50.7"> <code>edm:In</code></a></h3>
 <p>All comparison expressions are represented as an element that MUST contain two annotation expressions.</p>
 <p>They MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </div>
@@ -2722,10 +2722,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </table>
 <p>The <code>Neg</code> operator requires a single operand expression that evaluates to a numeric value. The other arithmetic operators require two operand expressions that evaluate to numeric values.</p>
 <div class="varxml rep">
-<h3 id="-expression-edmneg"><a name="ExpressionedmNeg51" href="#ExpressionedmNeg51"> Expression <code>edm:Neg</code></a></h3>
+<h3 id="-expression-edmneg"><a name="ExpressionedmNeg.51" href="#ExpressionedmNeg.51"> Expression <code>edm:Neg</code></a></h3>
 <p>Negation expressions are represented as an element <code>edm:Neg</code> that MUST contain a single annotation expression.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-expressions-edmadd--edmsub--edmmul--edmdiv--edmdivby-and--edmmod"><a name="ExpressionsedmAdd52" href="#ExpressionsedmAdd52"> Expressions <code>edm:Add</code></a>, <a name="edmSub52.1" href="#edmSub52.1"> <code>edm:Sub</code></a>, <a name="edmMul52.2" href="#edmMul52.2"> <code>edm:Mul</code></a>, <a name="edmDiv52.3" href="#edmDiv52.3"> <code>edm:Div</code></a>, <a name="edmDivBy52.4" href="#edmDivBy52.4"> <code>edm:DivBy</code></a>, and <a name="edmMod52.5" href="#edmMod52.5"> <code>edm:Mod</code></a></h3>
+<h3 id="-expressions-edmadd--edmsub--edmmul--edmdiv--edmdivby-and--edmmod"><a name="ExpressionsedmAdd.52" href="#ExpressionsedmAdd.52"> Expressions <code>edm:Add</code></a>, <a name="edmSub.52.1" href="#edmSub.52.1"> <code>edm:Sub</code></a>, <a name="edmMul.52.2" href="#edmMul.52.2"> <code>edm:Mul</code></a>, <a name="edmDiv.52.3" href="#edmDiv.52.3"> <code>edm:Div</code></a>, <a name="edmDivBy.52.4" href="#edmDivBy.52.4"> <code>edm:DivBy</code></a>, and <a name="edmMod.52.5" href="#edmMod.52.5"> <code>edm:Mod</code></a></h3>
 <p>These arithmetic expressions are represented as an element that MUST contain two annotation expressions.</p>
 <p>They MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </div>
@@ -2762,10 +2762,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="1444-apply-client-side-functions"><a name="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
 <div class="varxml rep">
-<h3 id="-expression-edmapply"><a name="ExpressionedmApply53" href="#ExpressionedmApply53"> Expression <code>edm:Apply</code></a></h3>
+<h3 id="-expression-edmapply"><a name="ExpressionedmApply.53" href="#ExpressionedmApply.53"> Expression <code>edm:Apply</code></a></h3>
 <p>The <code>edm:Apply</code> element MUST contain the <code>Function</code> attribute and MAY contain annotation expressions as operands for the applied function.</p>
 <p>It MAY contain more <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-function-1"><a name="AttributeFunction53.1" href="#AttributeFunction53.1"> Attribute <code>Function</code></a></h3>
+<h3 id="-attribute-function-1"><a name="AttributeFunction.53.1" href="#AttributeFunction.53.1"> Attribute <code>Function</code></a></h3>
 <p>The value of <code>Function</code> is the <a href="#QualifiedName">qualified name</a> of the client-side function to apply.</p>
 </div>
 <p>OData defines the following functions. Services MAY support additional functions that MUST be qualified with a namespace other than <code>odata</code>. Function names qualified with <code>odata</code> are reserved for this specification and its future versions.</p>
@@ -2828,10 +2828,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="1445-cast"><a name="Cast" href="#Cast">14.4.5 Cast</a></h3>
 <p>The cast expression casts the value obtained from its single child expression to the specified type. The cast expression follows the same rules as the <code>cast</code> canonical function defined in <a href="#ODataURL">OData-URL</a>.</p>
 <div class="varxml rep">
-<h3 id="-expression-edmcast"><a name="ExpressionedmCast54" href="#ExpressionedmCast54"> Expression <code>edm:Cast</code></a></h3>
+<h3 id="-expression-edmcast"><a name="ExpressionedmCast.54" href="#ExpressionedmCast.54"> Expression <code>edm:Cast</code></a></h3>
 <p>The <code>edm:Cast</code> element MUST contain the <code>Type</code> attribute and MUST contain exactly one expression.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-type-6"><a name="AttributeType54.1" href="#AttributeType54.1"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-6"><a name="AttributeType.54.1" href="#AttributeType.54.1"> Attribute <code>Type</code></a></h3>
 <p>The value of <code>Type</code> is a qualified type name in scope, or the character sequence <code>Collection(</code> followed by the qualified name of a type in scope, followed by a closing parenthesis <code>)</code>.</p>
 <p>If the specified type is a primitive type or a collection of a primitive type, the facet attributes <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Unicode"><code>Unicode</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet attributes are not specified, their values are considered unspecified.</p>
 </div>
@@ -2846,7 +2846,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="1446-collection"><a name="Collection" href="#Collection">14.4.6 Collection</a></h3>
 <p>The collection expression enables a value to be obtained from zero or more item expressions. The value calculated by the collection expression is the collection of the values calculated by each of the item expressions. The values of the child expressions MUST all be type compatible.</p>
 <section id="-expression-edmcollection" class="varxml rep">
-<h3><a name="ExpressionedmCollection55" href="#ExpressionedmCollection55"> Expression <code>edm:Collection</code></a></h3>
+<h3><a name="ExpressionedmCollection.55" href="#ExpressionedmCollection.55"> Expression <code>edm:Collection</code></a></h3>
 <p>The <code>edm:Collection</code> element contains zero or more child expressions.</p>
 </section>
 <div class="varxml example">
@@ -2865,7 +2865,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
 <p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
 <section id="-expression-edmif" class="varxml rep">
-<h3><a name="ExpressionedmIf56" href="#ExpressionedmIf56"> Expression <code>edm:If</code></a></h3>
+<h3><a name="ExpressionedmIf.56" href="#ExpressionedmIf.56"> Expression <code>edm:If</code></a></h3>
 <p>The <code>edm:If</code> element MUST contain two or three child expressions that MUST use element notation.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
@@ -2882,7 +2882,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
 <section id="-expression-edmurlref" class="varxml rep">
-<h3><a name="ExpressionedmUrlRef57" href="#ExpressionedmUrlRef57"> Expression <code>edm:UrlRef</code></a></h3>
+<h3><a name="ExpressionedmUrlRef.57" href="#ExpressionedmUrlRef.57"> Expression <code>edm:UrlRef</code></a></h3>
 <p>The <code>edm:UrlRef</code> expression MAY be provided using element notation or attribute notation.</p>
 <p>Relative URLs are relative to the <code>xml:base</code> attribute, see <a href="#XML-Base">XML-Base</a>.</p>
 <p>In element notation it MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
@@ -2900,11 +2900,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A labeled element expression MUST contain exactly one child expression. The value of the child expression is also the value of the labeled element expression.</p>
 <p>A labeled element expression MUST provide a <a href="#SimpleIdentifier">simple identifier</a> value as its name that MUST be unique within the schema containing the expression.</p>
 <div class="varxml rep">
-<h3 id="-expression-edmlabeledelement"><a name="ExpressionedmLabeledElement58" href="#ExpressionedmLabeledElement58"> Expression <code>edm:LabeledElement</code></a></h3>
+<h3 id="-expression-edmlabeledelement"><a name="ExpressionedmLabeledElement.58" href="#ExpressionedmLabeledElement.58"> Expression <code>edm:LabeledElement</code></a></h3>
 <p>The <code>edm:LabeledElement</code> element MUST contain the Name attribute.</p>
 <p>It MUST contain a child expression written either in attribute notation or element notation.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-name-17"><a name="AttributeName58.1" href="#AttributeName58.1"> Attribute <code>Name</code></a></h3>
+<h3 id="-attribute-name-17"><a name="AttributeName.58.1" href="#AttributeName.58.1"> Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the labeled element's name.</p>
 </div>
 <div class="varxml example">
@@ -2922,7 +2922,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="14410-labeled-element-reference"><a name="LabeledElementReference" href="#LabeledElementReference">14.4.10 Labeled Element Reference</a></h3>
 <p>The labeled element reference expression MUST specify the <a href="#QualifiedName">qualified name</a> of a <a href="#LabeledElement">labeled element expression</a> in scope and returns the value of the identified labeled element expression as its value.</p>
 <section id="-expression-edmlabeledelementreference" class="varxml rep">
-<h3><a name="ExpressionedmLabeledElementReference59" href="#ExpressionedmLabeledElementReference59"> Expression <code>edm:LabeledElementReference</code></a></h3>
+<h3><a name="ExpressionedmLabeledElementReference.59" href="#ExpressionedmLabeledElementReference.59"> Expression <code>edm:LabeledElementReference</code></a></h3>
 <p>The <code>edm:LabeledElementReference</code> element MUST contain the qualified name of a labeled element expression in its body.</p>
 </section>
 <div class="varxml example">
@@ -2934,7 +2934,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h3 id="14411-null"><a name="Null" href="#Null">14.4.11 Null</a></h3>
 <p>The null expression indicates the absence of a value. The null expression MAY be annotated.</p>
 <section id="-expression-edmnull" class="varxml rep">
-<h3><a name="ExpressionedmNull60" href="#ExpressionedmNull60"> Expression <code>edm:Null</code></a></h3>
+<h3><a name="ExpressionedmNull.60" href="#ExpressionedmNull.60"> Expression <code>edm:Null</code></a></h3>
 <p>The <code>edm:Null</code> element MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
 <div class="varxml example">
@@ -2957,15 +2957,15 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A record expression contains zero or more property value expressions. For each single-valued structural or navigation property of the record expression's type that is neither nullable nor specifies a default value a property value expression MUST be provided. The only exception is if the record expression is the value of an annotation for a term that has a <a href="#SpecializedTerm">base term</a> whose type is structured and directly or indirectly inherits from the type of its base term. In this case, property values that already have been specified in the annotation for the base term or its base term etc. need not be specified again.</p>
 <p>For collection-valued properties the absence of a property value expression is equivalent to specifying an empty collection as its value.</p>
 <div class="varxml rep">
-<h3 id="-expression-edmrecord"><a name="ExpressionedmRecord61" href="#ExpressionedmRecord61"> Expression <code>edm:Record</code></a></h3>
+<h3 id="-expression-edmrecord"><a name="ExpressionedmRecord.61" href="#ExpressionedmRecord.61"> Expression <code>edm:Record</code></a></h3>
 <p>The <code>edm:Record</code> element MAY contain the <code>Type</code> attribute and MAY contain <code>edm:PropertyValue</code> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-type-7"><a name="AttributeType61.1" href="#AttributeType61.1"> Attribute <code>Type</code></a></h3>
+<h3 id="-attribute-type-7"><a name="AttributeType.61.1" href="#AttributeType.61.1"> Attribute <code>Type</code></a></h3>
 <p>The value of <code>Type</code> is the qualified name of a structured type in scope.</p>
-<h3 id="-element-edmpropertyvalue"><a name="ElementedmPropertyValue62" href="#ElementedmPropertyValue62"> Element <code>edm:PropertyValue</code></a></h3>
+<h3 id="-element-edmpropertyvalue"><a name="ElementedmPropertyValue.62" href="#ElementedmPropertyValue.62"> Element <code>edm:PropertyValue</code></a></h3>
 <p>The <code>edm:PropertyValue</code> element MUST contain the <code>Property</code> attribute, and it MUST contain exactly one expression that MAY be provided using either element notation or attribute notation.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
-<h3 id="-attribute-property-1"><a name="AttributeProperty62.1" href="#AttributeProperty62.1"> Attribute <code>Property</code></a></h3>
+<h3 id="-attribute-property-1"><a name="AttributeProperty.62.1" href="#AttributeProperty.62.1"> Attribute <code>Property</code></a></h3>
 <p>The value of <code>Property</code> is the name of a property of the type of the enclosing <code>edm:Record</code> expression.</p>
 </div>
 <div class="varxml example">
@@ -2995,7 +2995,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The URL reference expression MUST contain exactly one expression of type <code>Edm.String</code>. Its value is treated as a URL that MAY be relative or absolute; relative URLs are relative to the URL of the document containing the URL reference expression, or relative to a base URL specified in a format-specific way.</p>
 <p>The response body of the <code>GET</code> request MUST be returned as the result of the URL reference expression. The result of the URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
 <section id="-expression-edmurlref-1" class="varxml rep">
-<h3><a name="ExpressionedmUrlRef63" href="#ExpressionedmUrlRef63"> Expression <code>edm:UrlRef</code></a></h3>
+<h3><a name="ExpressionedmUrlRef.63" href="#ExpressionedmUrlRef.63"> Expression <code>edm:UrlRef</code></a></h3>
 <p>The <code>edm:UrlRef</code> expression MAY be provided using element notation or attribute notation.</p>
 <p>Relative URLs are relative to the <code>xml:base</code> attribute, see <a href="#XML-Base">XML-Base</a>.</p>
 <p>In element notation it MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
@@ -3297,239 +3297,239 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <h1 id="appendix-b-table-of-xml-elements-and-attributes"><a name="TableofXMLElementsandAttributes" href="#TableofXMLElementsandAttributes">Appendix B. Table of XML Elements and Attributes</a></h1>
 <div class="toc">
 <ul>
-<li><a href="#ElementedmxEdmx1">Element <code>edmx:Edmx</code></a>
+<li><a href="#ElementedmxEdmx.1">Element <code>edmx:Edmx</code></a>
 <ul>
-<li><a href="#AttributeVersion1.1">Attribute <code>Version</code></a></li>
+<li><a href="#AttributeVersion.1.1">Attribute <code>Version</code></a></li>
 </ul></li>
-<li><a href="#ElementedmxDataServices2">Element <code>edmx:DataServices</code></a></li>
-<li><a href="#ElementedmxReference3">Element <code>edmx:Reference</code></a>
+<li><a href="#ElementedmxDataServices.2">Element <code>edmx:DataServices</code></a></li>
+<li><a href="#ElementedmxReference.3">Element <code>edmx:Reference</code></a>
 <ul>
-<li><a href="#AttributeUri3.1">Attribute <code>Uri</code></a></li>
+<li><a href="#AttributeUri.3.1">Attribute <code>Uri</code></a></li>
 </ul></li>
-<li><a href="#ElementedmxInclude4">Element <code>edmx:Include</code></a>
+<li><a href="#ElementedmxInclude.4">Element <code>edmx:Include</code></a>
 <ul>
-<li><a href="#AttributeNamespace4.1">Attribute <code>Namespace</code></a></li>
-<li><a href="#AttributeAlias4.2">Attribute <code>Alias</code></a></li>
+<li><a href="#AttributeNamespace.4.1">Attribute <code>Namespace</code></a></li>
+<li><a href="#AttributeAlias.4.2">Attribute <code>Alias</code></a></li>
 </ul></li>
-<li><a href="#ElementedmxIncludeAnnotations5">Element <code>edmx:IncludeAnnotations</code></a>
+<li><a href="#ElementedmxIncludeAnnotations.5">Element <code>edmx:IncludeAnnotations</code></a>
 <ul>
-<li><a href="#AttributeTermNamespace5.1">Attribute <code>TermNamespace</code></a></li>
-<li><a href="#AttributeQualifier5.2">Attribute <code>Qualifier</code></a></li>
-<li><a href="#AttributeTargetNamespace5.3">Attribute <code>TargetNamespace</code></a></li>
+<li><a href="#AttributeTermNamespace.5.1">Attribute <code>TermNamespace</code></a></li>
+<li><a href="#AttributeQualifier.5.2">Attribute <code>Qualifier</code></a></li>
+<li><a href="#AttributeTargetNamespace.5.3">Attribute <code>TargetNamespace</code></a></li>
 </ul></li>
-<li><a href="#ElementedmSchema6">Element <code>edm:Schema</code></a>
+<li><a href="#ElementedmSchema.6">Element <code>edm:Schema</code></a>
 <ul>
-<li><a href="#AttributeNamespace6.1">Attribute <code>Namespace</code></a></li>
-<li><a href="#AttributeAlias6.2">Attribute <code>Alias</code></a></li>
+<li><a href="#AttributeNamespace.6.1">Attribute <code>Namespace</code></a></li>
+<li><a href="#AttributeAlias.6.2">Attribute <code>Alias</code></a></li>
 </ul></li>
-<li><a href="#ElementedmAnnotations7">Element <code>edm:Annotations</code></a>
+<li><a href="#ElementedmAnnotations.7">Element <code>edm:Annotations</code></a>
 <ul>
-<li><a href="#AttributeTarget7.1">Attribute <code>Target</code></a></li>
-<li><a href="#AttributeQualifier7.2">Attribute <code>Qualifier</code></a></li>
+<li><a href="#AttributeTarget.7.1">Attribute <code>Target</code></a></li>
+<li><a href="#AttributeQualifier.7.2">Attribute <code>Qualifier</code></a></li>
 </ul></li>
-<li><a href="#ElementedmEntityType8">Element <code>edm:EntityType</code></a>
+<li><a href="#ElementedmEntityType.8">Element <code>edm:EntityType</code></a>
 <ul>
-<li><a href="#AttributeName8.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeBaseType8.2">Attribute <code>BaseType</code></a></li>
-<li><a href="#AttributeAbstract8.3">Attribute <code>Abstract</code></a></li>
-<li><a href="#AttributeOpenType8.4">Attribute <code>OpenType</code></a></li>
-<li><a href="#AttributeHasStream8.5">Attribute <code>HasStream</code></a></li>
+<li><a href="#AttributeName.8.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeBaseType.8.2">Attribute <code>BaseType</code></a></li>
+<li><a href="#AttributeAbstract.8.3">Attribute <code>Abstract</code></a></li>
+<li><a href="#AttributeOpenType.8.4">Attribute <code>OpenType</code></a></li>
+<li><a href="#AttributeHasStream.8.5">Attribute <code>HasStream</code></a></li>
 </ul></li>
-<li><a href="#ElementedmKey9">Element <code>edm:Key</code></a></li>
-<li><a href="#ElementedmPropertyRef10">Element <code>edm:PropertyRef</code></a>
+<li><a href="#ElementedmKey.9">Element <code>edm:Key</code></a></li>
+<li><a href="#ElementedmPropertyRef.10">Element <code>edm:PropertyRef</code></a>
 <ul>
-<li><a href="#AttributeName10.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeAlias10.2">Attribute <code>Alias</code></a></li>
+<li><a href="#AttributeName.10.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeAlias.10.2">Attribute <code>Alias</code></a></li>
 </ul></li>
-<li><a href="#ElementedmProperty11">Element <code>edm:Property</code></a>
+<li><a href="#ElementedmProperty.11">Element <code>edm:Property</code></a>
 <ul>
-<li><a href="#AttributeName11.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeType11.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable11.3">Attribute <code>Nullable</code></a></li>
-<li><a href="#AttributeMaxLength11.4">Attribute <code>MaxLength</code></a></li>
-<li><a href="#AttributePrecision11.5">Attribute <code>Precision</code></a></li>
-<li><a href="#AttributeScale11.6">Attribute <code>Scale</code></a></li>
-<li><a href="#AttributeUnicode11.7">Attribute <code>Unicode</code></a></li>
-<li><a href="#AttributeSRID11.8">Attribute <code>SRID</code></a></li>
-<li><a href="#AttributeDefaultValue11.9">Attribute <code>DefaultValue</code></a></li>
+<li><a href="#AttributeName.11.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeType.11.2">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeNullable.11.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributeMaxLength.11.4">Attribute <code>MaxLength</code></a></li>
+<li><a href="#AttributePrecision.11.5">Attribute <code>Precision</code></a></li>
+<li><a href="#AttributeScale.11.6">Attribute <code>Scale</code></a></li>
+<li><a href="#AttributeUnicode.11.7">Attribute <code>Unicode</code></a></li>
+<li><a href="#AttributeSRID.11.8">Attribute <code>SRID</code></a></li>
+<li><a href="#AttributeDefaultValue.11.9">Attribute <code>DefaultValue</code></a></li>
 </ul></li>
-<li><a href="#ElementedmNavigationProperty12">Element <code>edm:NavigationProperty</code></a>
+<li><a href="#ElementedmNavigationProperty.12">Element <code>edm:NavigationProperty</code></a>
 <ul>
-<li><a href="#AttributeName12.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeType12.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable12.3">Attribute <code>Nullable</code></a></li>
-<li><a href="#AttributePartner12.4">Attribute <code>Partner</code></a></li>
-<li><a href="#AttributeContainsTarget12.5">Attribute <code>ContainsTarget</code></a></li>
+<li><a href="#AttributeName.12.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeType.12.2">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeNullable.12.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributePartner.12.4">Attribute <code>Partner</code></a></li>
+<li><a href="#AttributeContainsTarget.12.5">Attribute <code>ContainsTarget</code></a></li>
 </ul></li>
-<li><a href="#ElementedmReferentialConstraint13">Element <code>edm:ReferentialConstraint</code></a>
+<li><a href="#ElementedmReferentialConstraint.13">Element <code>edm:ReferentialConstraint</code></a>
 <ul>
-<li><a href="#AttributeProperty13.1">Attribute <code>Property</code></a></li>
-<li><a href="#AttributeReferencedProperty13.2">Attribute <code>ReferencedProperty</code></a></li>
+<li><a href="#AttributeProperty.13.1">Attribute <code>Property</code></a></li>
+<li><a href="#AttributeReferencedProperty.13.2">Attribute <code>ReferencedProperty</code></a></li>
 </ul></li>
-<li><a href="#ElementedmOnDelete14">Element <code>edm:OnDelete</code></a>
+<li><a href="#ElementedmOnDelete.14">Element <code>edm:OnDelete</code></a>
 <ul>
-<li><a href="#AttributeAction14.1">Attribute <code>Action</code></a></li>
+<li><a href="#AttributeAction.14.1">Attribute <code>Action</code></a></li>
 </ul></li>
-<li><a href="#ElementedmComplexType15">Element <code>edm:ComplexType</code></a>
+<li><a href="#ElementedmComplexType.15">Element <code>edm:ComplexType</code></a>
 <ul>
-<li><a href="#AttributeName15.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeBaseType15.2">Attribute <code>BaseType</code></a></li>
-<li><a href="#AttributeAbstract15.3">Attribute <code>Abstract</code></a></li>
-<li><a href="#AttributeOpenType15.4">Attribute <code>OpenType</code></a></li>
+<li><a href="#AttributeName.15.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeBaseType.15.2">Attribute <code>BaseType</code></a></li>
+<li><a href="#AttributeAbstract.15.3">Attribute <code>Abstract</code></a></li>
+<li><a href="#AttributeOpenType.15.4">Attribute <code>OpenType</code></a></li>
 </ul></li>
-<li><a href="#ElementedmEnumType16">Element <code>edm:EnumType</code></a>
+<li><a href="#ElementedmEnumType.16">Element <code>edm:EnumType</code></a>
 <ul>
-<li><a href="#AttributeName16.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeUnderlyingType16.2">Attribute <code>UnderlyingType</code></a></li>
-<li><a href="#AttributeIsFlags16.3">Attribute <code>IsFlags</code></a></li>
+<li><a href="#AttributeName.16.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeUnderlyingType.16.2">Attribute <code>UnderlyingType</code></a></li>
+<li><a href="#AttributeIsFlags.16.3">Attribute <code>IsFlags</code></a></li>
 </ul></li>
-<li><a href="#ElementedmMember17">Element <code>edm:Member</code></a>
+<li><a href="#ElementedmMember.17">Element <code>edm:Member</code></a>
 <ul>
-<li><a href="#AttributeName17.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeValue17.2">Attribute <code>Value</code></a></li>
+<li><a href="#AttributeName.17.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeValue.17.2">Attribute <code>Value</code></a></li>
 </ul></li>
-<li><a href="#ElementedmTypeDefinition18">Element <code>edm:TypeDefinition</code></a>
+<li><a href="#ElementedmTypeDefinition.18">Element <code>edm:TypeDefinition</code></a>
 <ul>
-<li><a href="#AttributeName18.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeUnderlyingType18.2">Attribute <code>UnderlyingType</code></a></li>
+<li><a href="#AttributeName.18.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeUnderlyingType.18.2">Attribute <code>UnderlyingType</code></a></li>
 </ul></li>
-<li><a href="#ElementedmAction19">Element <code>edm:Action</code></a>
+<li><a href="#ElementedmAction.19">Element <code>edm:Action</code></a>
 <ul>
-<li><a href="#AttributeName19.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeName.19.1">Attribute <code>Name</code></a></li>
 </ul></li>
-<li><a href="#ElementedmFunction20">Element <code>edm:Function</code></a>
+<li><a href="#ElementedmFunction.20">Element <code>edm:Function</code></a>
 <ul>
-<li><a href="#AttributeName20.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeIsBound20.2">Attribute <code>IsBound</code></a></li>
-<li><a href="#AttributeEntitySetPath20.3">Attribute <code>EntitySetPath</code></a></li>
-<li><a href="#AttributeIsComposable20.4">Attribute <code>IsComposable</code></a></li>
+<li><a href="#AttributeName.20.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeIsBound.20.2">Attribute <code>IsBound</code></a></li>
+<li><a href="#AttributeEntitySetPath.20.3">Attribute <code>EntitySetPath</code></a></li>
+<li><a href="#AttributeIsComposable.20.4">Attribute <code>IsComposable</code></a></li>
 </ul></li>
-<li><a href="#ElementedmReturnType21">Element <code>edm:ReturnType</code></a>
+<li><a href="#ElementedmReturnType.21">Element <code>edm:ReturnType</code></a>
 <ul>
-<li><a href="#AttributeType21.1">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable21.2">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributeType.21.1">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeNullable.21.2">Attribute <code>Nullable</code></a></li>
 </ul></li>
-<li><a href="#ElementedmParameter22">Element <code>edm:Parameter</code></a>
+<li><a href="#ElementedmParameter.22">Element <code>edm:Parameter</code></a>
 <ul>
-<li><a href="#AttributeName22.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeType22.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable22.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributeName.22.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeType.22.2">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeNullable.22.3">Attribute <code>Nullable</code></a></li>
 </ul></li>
-<li><a href="#ElementedmEntityContainer23">Element <code>edm:EntityContainer</code></a>
+<li><a href="#ElementedmEntityContainer.23">Element <code>edm:EntityContainer</code></a>
 <ul>
-<li><a href="#AttributeName23.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeExtends23.2">Attribute <code>Extends</code></a></li>
+<li><a href="#AttributeName.23.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeExtends.23.2">Attribute <code>Extends</code></a></li>
 </ul></li>
-<li><a href="#ElementedmEntitySet24">Element <code>edm:EntitySet</code></a>
+<li><a href="#ElementedmEntitySet.24">Element <code>edm:EntitySet</code></a>
 <ul>
-<li><a href="#AttributeName24.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeEntityType24.2">Attribute <code>EntityType</code></a></li>
-<li><a href="#AttributeIncludeInServiceDocument24.3">Attribute <code>IncludeInServiceDocument</code></a></li>
+<li><a href="#AttributeName.24.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeEntityType.24.2">Attribute <code>EntityType</code></a></li>
+<li><a href="#AttributeIncludeInServiceDocument.24.3">Attribute <code>IncludeInServiceDocument</code></a></li>
 </ul></li>
-<li><a href="#ElementedmSingleton25">Element <code>edm:Singleton</code></a>
+<li><a href="#ElementedmSingleton.25">Element <code>edm:Singleton</code></a>
 <ul>
-<li><a href="#AttributeName25.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeType25.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable25.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributeName.25.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeType.25.2">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeNullable.25.3">Attribute <code>Nullable</code></a></li>
 </ul></li>
-<li><a href="#ElementedmNavigationPropertyBinding26">Element <code>edm:NavigationPropertyBinding</code></a>
+<li><a href="#ElementedmNavigationPropertyBinding.26">Element <code>edm:NavigationPropertyBinding</code></a>
 <ul>
-<li><a href="#AttributePath26.1">Attribute <code>Path</code></a></li>
-<li><a href="#AttributeTarget26.2">Attribute <code>Target</code></a></li>
+<li><a href="#AttributePath.26.1">Attribute <code>Path</code></a></li>
+<li><a href="#AttributeTarget.26.2">Attribute <code>Target</code></a></li>
 </ul></li>
-<li><a href="#ElementedmActionImport27">Element <code>edm:ActionImport</code></a>
+<li><a href="#ElementedmActionImport.27">Element <code>edm:ActionImport</code></a>
 <ul>
-<li><a href="#AttributeName27.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeAction27.2">Attribute <code>Action</code></a></li>
-<li><a href="#AttributeEntitySet27.3">Attribute <code>EntitySet</code></a></li>
+<li><a href="#AttributeName.27.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeAction.27.2">Attribute <code>Action</code></a></li>
+<li><a href="#AttributeEntitySet.27.3">Attribute <code>EntitySet</code></a></li>
 </ul></li>
-<li><a href="#ElementedmFunctionImport28">Element <code>edm:FunctionImport</code></a>
+<li><a href="#ElementedmFunctionImport.28">Element <code>edm:FunctionImport</code></a>
 <ul>
-<li><a href="#AttributeName28.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeFunction28.2">Attribute <code>Function</code></a></li>
-<li><a href="#AttributeEntitySet28.3">Attribute <code>EntitySet</code></a></li>
-<li><a href="#AttributeIncludeInServiceDocument28.4">Attribute <code>IncludeInServiceDocument</code></a></li>
+<li><a href="#AttributeName.28.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeFunction.28.2">Attribute <code>Function</code></a></li>
+<li><a href="#AttributeEntitySet.28.3">Attribute <code>EntitySet</code></a></li>
+<li><a href="#AttributeIncludeInServiceDocument.28.4">Attribute <code>IncludeInServiceDocument</code></a></li>
 </ul></li>
-<li><a href="#ElementedmTerm29">Element <code>edm:Term</code></a>
+<li><a href="#ElementedmTerm.29">Element <code>edm:Term</code></a>
 <ul>
-<li><a href="#AttributeName29.1">Attribute <code>Name</code></a></li>
-<li><a href="#AttributeType29.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeDefaultValue29.3">Attribute <code>DefaultValue</code></a></li>
-<li><a href="#AttributeBaseTerm29.4">Attribute <code>BaseTerm</code></a></li>
-<li><a href="#AttributeAppliesTo29.5">Attribute <code>AppliesTo</code></a></li>
+<li><a href="#AttributeName.29.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeType.29.2">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeDefaultValue.29.3">Attribute <code>DefaultValue</code></a></li>
+<li><a href="#AttributeBaseTerm.29.4">Attribute <code>BaseTerm</code></a></li>
+<li><a href="#AttributeAppliesTo.29.5">Attribute <code>AppliesTo</code></a></li>
 </ul></li>
-<li><a href="#ElementedmAnnotation30">Element <code>edm:Annotation</code></a>
+<li><a href="#ElementedmAnnotation.30">Element <code>edm:Annotation</code></a>
 <ul>
-<li><a href="#AttributeTerm30.1">Attribute <code>Term</code></a></li>
-<li><a href="#AttributeQualifier30.2">Attribute <code>Qualifier</code></a></li>
+<li><a href="#AttributeTerm.30.1">Attribute <code>Term</code></a></li>
+<li><a href="#AttributeQualifier.30.2">Attribute <code>Qualifier</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmBinary31">Expression <code>edm:Binary</code></a></li>
-<li><a href="#ExpressionedmBool32">Expression <code>edm:Bool</code></a></li>
-<li><a href="#ExpressionedmDate33">Expression <code>edm:Date</code></a></li>
-<li><a href="#ExpressionedmDateTimeOffset34">Expression <code>edm:DateTimeOffset</code></a></li>
-<li><a href="#ExpressionedmDecimal35">Expression <code>edm:Decimal</code></a></li>
-<li><a href="#ExpressionedmDuration36">Expression <code>edm:Duration</code></a></li>
-<li><a href="#ExpressionedmEnumMember37">Expression <code>edm:EnumMember</code></a></li>
-<li><a href="#ExpressionedmFloat38">Expression <code>edm:Float</code></a></li>
-<li><a href="#ExpressionedmGuid39">Expression <code>edm:Guid</code></a></li>
-<li><a href="#ExpressionedmInt40">Expression <code>edm:Int</code></a></li>
-<li><a href="#ExpressionedmString41">Expression <code>edm:String</code></a></li>
-<li><a href="#ExpressionedmTimeOfDay42">Expression <code>edm:TimeOfDay</code></a></li>
-<li><a href="#ExpressionedmAnnotationPath43">Expression <code>edm:AnnotationPath</code></a></li>
-<li><a href="#ExpressionedmModelElementPath44">Expression <code>edm:ModelElementPath</code></a></li>
-<li><a href="#ExpressionedmNavigationPropertyPath45">Expression <code>edm:NavigationPropertyPath</code></a></li>
-<li><a href="#ExpressionedmPropertyPath46">Expression <code>edm:PropertyPath</code></a></li>
-<li><a href="#ExpressionedmPath47">Expression <code>edm:Path</code></a></li>
-<li><a href="#ExpressionsedmAnd48">Expressions <code>edm:And</code></a>
+<li><a href="#ExpressionedmBinary.31">Expression <code>edm:Binary</code></a></li>
+<li><a href="#ExpressionedmBool.32">Expression <code>edm:Bool</code></a></li>
+<li><a href="#ExpressionedmDate.33">Expression <code>edm:Date</code></a></li>
+<li><a href="#ExpressionedmDateTimeOffset.34">Expression <code>edm:DateTimeOffset</code></a></li>
+<li><a href="#ExpressionedmDecimal.35">Expression <code>edm:Decimal</code></a></li>
+<li><a href="#ExpressionedmDuration.36">Expression <code>edm:Duration</code></a></li>
+<li><a href="#ExpressionedmEnumMember.37">Expression <code>edm:EnumMember</code></a></li>
+<li><a href="#ExpressionedmFloat.38">Expression <code>edm:Float</code></a></li>
+<li><a href="#ExpressionedmGuid.39">Expression <code>edm:Guid</code></a></li>
+<li><a href="#ExpressionedmInt.40">Expression <code>edm:Int</code></a></li>
+<li><a href="#ExpressionedmString.41">Expression <code>edm:String</code></a></li>
+<li><a href="#ExpressionedmTimeOfDay.42">Expression <code>edm:TimeOfDay</code></a></li>
+<li><a href="#ExpressionedmAnnotationPath.43">Expression <code>edm:AnnotationPath</code></a></li>
+<li><a href="#ExpressionedmModelElementPath.44">Expression <code>edm:ModelElementPath</code></a></li>
+<li><a href="#ExpressionedmNavigationPropertyPath.45">Expression <code>edm:NavigationPropertyPath</code></a></li>
+<li><a href="#ExpressionedmPropertyPath.46">Expression <code>edm:PropertyPath</code></a></li>
+<li><a href="#ExpressionedmPath.47">Expression <code>edm:Path</code></a></li>
+<li><a href="#ExpressionsedmAnd.48">Expressions <code>edm:And</code></a>
 <ul>
-<li><a href="#edmOr48.1"><code>edm:Or</code></a></li>
+<li><a href="#edmOr.48.1"><code>edm:Or</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmNot49">Expression <code>edm:Not</code></a></li>
-<li><a href="#ExpressionsedmEq50">Expressions <code>edm:Eq</code></a>
+<li><a href="#ExpressionedmNot.49">Expression <code>edm:Not</code></a></li>
+<li><a href="#ExpressionsedmEq.50">Expressions <code>edm:Eq</code></a>
 <ul>
-<li><a href="#edmNe50.1"><code>edm:Ne</code></a></li>
-<li><a href="#edmGt50.2"><code>edm:Gt</code></a></li>
-<li><a href="#edmGe50.3"><code>edm:Ge</code></a></li>
-<li><a href="#edmLt50.4"><code>edm:Lt</code></a></li>
-<li><a href="#edmLe50.5"><code>edm:Le</code></a></li>
-<li><a href="#edmHas50.6"><code>edm:Has</code></a></li>
-<li><a href="#edmIn50.7"><code>edm:In</code></a></li>
+<li><a href="#edmNe.50.1"><code>edm:Ne</code></a></li>
+<li><a href="#edmGt.50.2"><code>edm:Gt</code></a></li>
+<li><a href="#edmGe.50.3"><code>edm:Ge</code></a></li>
+<li><a href="#edmLt.50.4"><code>edm:Lt</code></a></li>
+<li><a href="#edmLe.50.5"><code>edm:Le</code></a></li>
+<li><a href="#edmHas.50.6"><code>edm:Has</code></a></li>
+<li><a href="#edmIn.50.7"><code>edm:In</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmNeg51">Expression <code>edm:Neg</code></a></li>
-<li><a href="#ExpressionsedmAdd52">Expressions <code>edm:Add</code></a>
+<li><a href="#ExpressionedmNeg.51">Expression <code>edm:Neg</code></a></li>
+<li><a href="#ExpressionsedmAdd.52">Expressions <code>edm:Add</code></a>
 <ul>
-<li><a href="#edmSub52.1"><code>edm:Sub</code></a></li>
-<li><a href="#edmMul52.2"><code>edm:Mul</code></a></li>
-<li><a href="#edmDiv52.3"><code>edm:Div</code></a></li>
-<li><a href="#edmDivBy52.4"><code>edm:DivBy</code></a></li>
-<li><a href="#edmMod52.5"><code>edm:Mod</code></a></li>
+<li><a href="#edmSub.52.1"><code>edm:Sub</code></a></li>
+<li><a href="#edmMul.52.2"><code>edm:Mul</code></a></li>
+<li><a href="#edmDiv.52.3"><code>edm:Div</code></a></li>
+<li><a href="#edmDivBy.52.4"><code>edm:DivBy</code></a></li>
+<li><a href="#edmMod.52.5"><code>edm:Mod</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmApply53">Expression <code>edm:Apply</code></a>
+<li><a href="#ExpressionedmApply.53">Expression <code>edm:Apply</code></a>
 <ul>
-<li><a href="#AttributeFunction53.1">Attribute <code>Function</code></a></li>
+<li><a href="#AttributeFunction.53.1">Attribute <code>Function</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmCast54">Expression <code>edm:Cast</code></a>
+<li><a href="#ExpressionedmCast.54">Expression <code>edm:Cast</code></a>
 <ul>
-<li><a href="#AttributeType54.1">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeType.54.1">Attribute <code>Type</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmCollection55">Expression <code>edm:Collection</code></a></li>
-<li><a href="#ExpressionedmIf56">Expression <code>edm:If</code></a></li>
-<li><a href="#ExpressionedmUrlRef57">Expression <code>edm:UrlRef</code></a></li>
-<li><a href="#ExpressionedmLabeledElement58">Expression <code>edm:LabeledElement</code></a>
+<li><a href="#ExpressionedmCollection.55">Expression <code>edm:Collection</code></a></li>
+<li><a href="#ExpressionedmIf.56">Expression <code>edm:If</code></a></li>
+<li><a href="#ExpressionedmUrlRef.57">Expression <code>edm:UrlRef</code></a></li>
+<li><a href="#ExpressionedmLabeledElement.58">Expression <code>edm:LabeledElement</code></a>
 <ul>
-<li><a href="#AttributeName58.1">Attribute <code>Name</code></a></li>
+<li><a href="#AttributeName.58.1">Attribute <code>Name</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmLabeledElementReference59">Expression <code>edm:LabeledElementReference</code></a></li>
-<li><a href="#ExpressionedmNull60">Expression <code>edm:Null</code></a></li>
-<li><a href="#ExpressionedmRecord61">Expression <code>edm:Record</code></a>
+<li><a href="#ExpressionedmLabeledElementReference.59">Expression <code>edm:LabeledElementReference</code></a></li>
+<li><a href="#ExpressionedmNull.60">Expression <code>edm:Null</code></a></li>
+<li><a href="#ExpressionedmRecord.61">Expression <code>edm:Record</code></a>
 <ul>
-<li><a href="#AttributeType61.1">Attribute <code>Type</code></a></li>
+<li><a href="#AttributeType.61.1">Attribute <code>Type</code></a></li>
 </ul></li>
-<li><a href="#ElementedmPropertyValue62">Element <code>edm:PropertyValue</code></a>
+<li><a href="#ElementedmPropertyValue.62">Element <code>edm:PropertyValue</code></a>
 <ul>
-<li><a href="#AttributeProperty62.1">Attribute <code>Property</code></a></li>
+<li><a href="#AttributeProperty.62.1">Attribute <code>Property</code></a></li>
 </ul></li>
-<li><a href="#ExpressionedmUrlRef63">Expression <code>edm:UrlRef</code></a></li>
+<li><a href="#ExpressionedmUrlRef.63">Expression <code>edm:UrlRef</code></a></li>
 </ul>
 </div>
 <hr />
