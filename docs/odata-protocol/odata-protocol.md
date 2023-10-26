@@ -3212,7 +3212,7 @@ a `null` literal that can be used in comparisons.
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
-[`$compute`](#SystemQueryOptioncompute)`,`
+[`$compute`](#SystemQueryOptioncompute),
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression. Parameters aliases
 are names beginning with an at sign (`@`).
@@ -3757,7 +3757,7 @@ using the JSON media type with minimal metadata, as defined in
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
 parameterized variants, as well as the format-specific abbreviations
-`xml` and `json,` are reserved for this specification.
+`xml` and `json`, are reserved for this specification.
 
 ### <a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">11.2.12 System Query Option `$schemaversion`</a>
 
@@ -3809,7 +3809,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities`.`ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -4372,17 +4372,17 @@ NOT include added links, deleted links, or deleted entities.
 Example 78: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
-`Suzanne Brown`. The `LastName` of employee `6` is updated to `Smith.`
+`Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
   "@type":"#Northwind.Manager",
   "FirstName" : "Patricia",
   "DirectReports": [
     {
-      "@id": "Employees(5}"
+      "@id": "Employees(5)"
     },
     {
-      "@id": "Employees(6}",
+      "@id": "Employees(6)",
       "LastName": "Smith"
     },
     {
@@ -6057,7 +6057,7 @@ response so clients can correlate requests and responses.
 #### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a>
 
 A multipart response to a batch request MUST contain a `Content-Type`
-header with value `multipart/mixed.`
+header with value `multipart/mixed`.
 
 The body of a multipart response to a multipart batch request MUST
 structurally match one-to-one with the multipart batch request body,

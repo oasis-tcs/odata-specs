@@ -1850,9 +1850,9 @@ rules, in order:
 - If either operand is `Edm.Double`, the other operand is converted to type `Edm.Double`.
 - Otherwise, if either operand is `Edm.Single`, the other operand is converted to type `Edm.Single`.
 - Otherwise, if either operand is of type `Edm.Decimal`, the other operand is converted to `Edm.Decimal`.
-- Otherwise, if either operand is `Edm.Int64`, the other operand is converted to type `Edm.Int64.`
-- Otherwise, if either operand is `Edm.Int32`, the other operand is converted to type `Edm.Int32.`
-- Otherwise, if either operand is `Edm.Int16`, the other operand is converted to type `Edm.Int16. `
+- Otherwise, if either operand is `Edm.Int64`, the other operand is converted to type `Edm.Int64`.
+- Otherwise, if either operand is `Edm.Int32`, the other operand is converted to type `Edm.Int32`.
+- Otherwise, if either operand is `Edm.Int16`, the other operand is converted to type `Edm.Int16`.
 
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.
