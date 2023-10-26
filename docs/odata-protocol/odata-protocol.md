@@ -5285,7 +5285,7 @@ Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options. Such
@@ -5332,7 +5332,7 @@ literal (for primitive values) or as a JSON formatted OData object (for
 complex values, or collections of primitive or complex values). Entity
 typed values are passed as JSON formatted entities that MAY include a
 subset of the properties, or just the entity reference, as appropriate
-to the function.  
+to the function.
 
 If a collection-valued function has no result for a given parameter
 value combination, the response is the format-specific representation of
@@ -5484,7 +5484,7 @@ Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
 request to a URL identifying the action import. The canonical URL for an
