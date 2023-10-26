@@ -111,9 +111,15 @@ For complete copyright information please see the full Notices section in an App
   - [3.1 Nominal Types](#NominalTypes)
   - [3.2 Structured Types](#StructuredTypes)
   - [3.3 Primitive Types](#PrimitiveTypes)
-  - [3.4 Built-In Abstract Types](#BuiltInAbstractTypes)
-  - [3.5 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
-  - [3.6 Annotations](#Annotations)
+  - [3.4 Type Facets](#TypeFacets)
+    - [3.4.1 MaxLength](#MaxLength)
+    - [3.4.2 Precision](#Precision)
+    - [3.4.3 Scale](#Scale)
+    - [3.4.4 Unicode](#Unicode)
+    - [3.4.5 SRID](#SRID)
+  - [3.5 Built-In Abstract Types](#BuiltInAbstractTypes)
+  - [3.6 Built-In Types for defining Vocabulary Terms](#BuiltInTypesfordefiningVocabularyTerms)
+  - [3.7 Annotations](#Annotations)
 - [4 CSDL XML Document](#CSDLXMLDocument)
   - [4.1 Reference](#Reference)
   - [4.2 Included Schema](#IncludedSchema)
@@ -129,14 +135,8 @@ For complete copyright information please see the full Notices section in an App
   - [6.5 Key](#Key)
 - [7 Structural Property](#StructuralProperty)
   - [7.1 Type](#Type)
-  - [7.2 Type Facets](#TypeFacets)
-    - [7.2.1 Nullable](#Nullable)
-    - [7.2.2 MaxLength](#MaxLength)
-    - [7.2.3 Precision](#Precision)
-    - [7.2.4 Scale](#Scale)
-    - [7.2.5 Unicode](#Unicode)
-    - [7.2.6 SRID](#SRID)
-    - [7.2.7 Default Value](#DefaultValue)
+  - [7.2 Nullable](#Nullable)
+  - [7.3 Default Value](#DefaultValue)
 - [8 Navigation Property](#NavigationProperty)
   - [8.1 Navigation Property Type](#NavigationPropertyType)
   - [8.2 Nullable Navigation Property](#NullableNavigationProperty)
@@ -558,7 +558,207 @@ representation of primitive type values in URLs and
 [OData-JSON](#ODataJSON) for the representation in requests and
 responses.
 
-## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.4 Built-In Abstract Types</a>
+## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
+
+The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
+for example a [structural property](#StructuralProperty),
+action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+
+For single-valued model elements the facets apply to the value of the
+model element. For collection-valued model elements the facets apply to the items
+in the collection.
+
+### <a name="MaxLength" href="#MaxLength">3.4.1 MaxLength</a>
+
+A positive integer value specifying the maximum length of a binary,
+stream or string value. For binary or stream values this is the octet
+length of the binary data, for string values it is the character length
+(number of code points for Unicode).
+
+If no maximum length is specified, clients SHOULD expect arbitrary
+length.
+
+
+::: {.varxml .rep}
+### <a name="TypeFacetAttributes.1" href="#TypeFacetAttributes.1">Type Facet Attributes</a>
+### <a name="AttributeMaxLength.1.1" href="#AttributeMaxLength.1.1">Attribute `MaxLength`</a>
+
+The value of `MaxLength` is a positive integer or the symbolic value
+`max` as a shorthand for the maximum length supported for the type by
+the service.
+
+Note: the symbolic value `max` is only allowed in OData 4.0 responses;
+it is deprecated in OData 4.01. While clients MUST be prepared for this
+symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value `max` and MAY instead specify the concrete maximum length
+supported for the type by the service or omit the attribute entirely.
+:::
+
+### <a name="Precision" href="#Precision">3.4.2 Precision</a>
+
+For a decimal value: the maximum number of significant decimal digits of
+the model element's value; it MUST be a positive integer.
+
+For a temporal value (datetime-with-timezone-offset, duration, or
+time-of-day): the number of decimal places allowed in the seconds
+portion of the value; it MUST be a non-negative integer between zero and
+twelve.
+
+Note: service authors SHOULD be aware that some clients are unable to
+support a precision greater than 28 for decimal values and 7 for
+temporal values. Client developers MUST be aware of the potential
+for data loss when round-tripping values of greater precision. Updating
+via `PATCH` and exclusively specifying modified values will reduce
+the risk for unintended data loss.
+
+Note: model elements with duration values and a granularity less than seconds
+(e.g. minutes, hours, days) can be annotated with term
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+see [OData-VocMeasures](#ODataVocMeasures).
+
+
+
+::: {.varxml .rep}
+### <a name="AttributePrecision.1.2" href="#AttributePrecision.1.2">Attribute `Precision`</a>
+
+The value of `Precision` is a number.
+
+If not specified for a decimal value, the decimal value has
+arbitrary precision.
+
+If not specified for a temporal value, the temporal value has a
+precision of zero.
+:::
+
+::: {.varxml .example}
+Example 2: [`Precision`](#Precision) facet applied to the
+`DateTimeOffset` type
+```xml
+<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
+          Precision="6" />
+```
+:::
+
+### <a name="Scale" href="#Scale">3.4.3 Scale</a>
+
+A non-negative integer value specifying the maximum number of digits
+allowed to the right of the decimal point, or one of the symbolic values
+`floating` or `variable`.
+
+The value `floating` means that the decimal value represents a
+decimal floating-point number whose number of significant digits is the
+value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
+NOT specify the value `floating`.
+
+The value `variable` means that the number of digits to the right of the
+decimal point can vary from zero to the value of the
+[`Precision`](#Precision) facet.
+
+An integer value means that the number of digits to the right of the
+decimal point may vary from zero to the value of the `Scale` facet, and
+the number of digits to the left of the decimal point may vary from one
+to the value of the `Precision` facet minus the value of the `Scale`
+facet. If `Precision` is equal to `Scale`, a single zero MUST precede
+the decimal point.
+
+The value of `Scale` MUST be less than or equal to the value of
+[`Precision`](#Precision).
+
+Note: if the underlying data store allows negative scale, services may
+use a [`Precision`](#Precision) with the absolute value of the negative
+scale added to the actual number of significant decimal digits, and
+client-provided values may have to be rounded before being stored.
+
+
+
+
+
+
+::: {.varxml .rep}
+### <a name="AttributeScale.1.3" href="#AttributeScale.1.3">Attribute `Scale`</a>
+
+The value of `Scale` is a number or one of the symbolic values
+`floating` or `variable`.
+
+Services SHOULD use lower-case values; clients SHOULD accept values in a
+case-insensitive manner.
+
+If not specified, the `Scale` facet defaults to zero.
+:::
+
+::: {.varxml .example}
+Example 3: [`Precision`](#Precision)`=3` and `Scale=2`.  
+Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3  
+(the [`Nullable`](#Nullable) attribute can be ignored in these examples)
+```xml
+<Property Name="Amount32" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="2" />
+```
+:::
+
+::: {.varxml .example}
+Example 4: `Precision=2` equals `Scale`.  
+Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
+```xml
+<Property Name="Amount22" Type="Edm.Decimal" Nullable="false" Precision="2" Scale="2" />
+```
+:::
+
+::: {.varxml .example}
+Example 5: `Precision=3` and a variable `Scale`.  
+Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
+values: 12.34, 1234 and 123.4 due to the limited precision.
+```xml
+<Property Name="Amount3v" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="variable" />
+```
+:::
+
+::: {.varxml .example}
+Example 6: `Precision=7` and a floating `Scale`.  
+Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
+1e-102 and 1e97 due to the limited precision.
+```xml
+<Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
+```
+:::
+
+### <a name="Unicode" href="#Unicode">3.4.4 Unicode</a>
+
+For a string-typed model element the `Unicode` facet indicates whether the it
+might contain and accept string values with Unicode characters (code
+points) beyond the ASCII character set. The value `false` indicates that
+the it will only contain and accept string values with characters
+limited to the ASCII character set.
+
+If no value is specified, the `Unicode` facet defaults to `true`.
+
+
+::: {.varxml .rep}
+### <a name="AttributeUnicode.1.4" href="#AttributeUnicode.1.4">Attribute `Unicode`</a>
+
+The value of `Unicode` is one of the Boolean literals `true` or `false`.
+Absence of the attribute means `true`.
+:::
+
+### <a name="SRID" href="#SRID">3.4.5 SRID</a>
+
+For a geometry- or geography-typed model element the `SRID` facet identifies which
+spatial reference system is applied to its values.
+
+The value of the `SRID` facet MUST be a non-negative integer or the
+special value `variable`. If no value is specified, the facet defaults
+to `0` for `Geometry` types or `4326` for `Geography` types.
+
+The valid values of the `SRID` facet and their meanings are as defined
+by the European Petroleum Survey Group [EPSG](#_EPSG).
+
+
+::: {.varxml .rep}
+### <a name="AttributeSRID.1.5" href="#AttributeSRID.1.5">Attribute `SRID`</a>
+
+The value of `SRID` is a number or the symbolic value `variable`.
+:::
+
+## <a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.5 Built-In Abstract Types</a>
 
 The following built-in abstract types can be used within a model:
 - `Edm.PrimitiveType`
@@ -604,7 +804,7 @@ be used anywhere a corresponding concrete type can be used, except:
         of `4.0`. Services should treat untyped properties as dynamic
         properties in `4.0` payloads.
 
-## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.5 Built-In Types for defining Vocabulary Terms</a>
+## <a name="BuiltInTypesfordefiningVocabularyTerms" href="#BuiltInTypesfordefiningVocabularyTerms">3.6 Built-In Types for defining Vocabulary Terms</a>
 
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
@@ -619,7 +819,7 @@ as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
 section "[Path Expressions](#PathExpressions)" for details.
 
-## <a name="Annotations" href="#Annotations">3.6 Annotations</a>
+## <a name="Annotations" href="#Annotations">3.7 Annotations</a>
 
 Many parts of the model can be decorated with additional information
 using [annotations](#Annotation). Annotations are identified by their
@@ -639,7 +839,7 @@ combination of term and qualifier.
 
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
-### <a name="ElementedmxEdmx.1" href="#ElementedmxEdmx.1">Element `edmx:Edmx`</a>
+### <a name="ElementedmxEdmx.2" href="#ElementedmxEdmx.2">Element `edmx:Edmx`</a>
 
 The `edmx:Edmx` element is the root element of a CSDL XML document. It
 MUST contain the `Version` attribute and it MUST contain exactly one
@@ -648,15 +848,15 @@ MUST contain the `Version` attribute and it MUST contain exactly one
 It MAY contain [`edmx:Reference`](#Reference) elements to reference
 other CSDL documents.
 
-### <a name="AttributeVersion.1.1" href="#AttributeVersion.1.1">Attribute `Version`</a>
+### <a name="AttributeVersion.2.1" href="#AttributeVersion.2.1">Attribute `Version`</a>
 
 The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
-`4.0.` For OData 4.01 responses the value of this attribute MUST be
-`4.01.` Services MUST return an OData 4.0 response if the request was
+`4.0`. For OData 4.01 responses the value of this attribute MUST be
+`4.01`. Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion `header with a value of `4.0`.
 
-### <a name="ElementedmxDataServices.2" href="#ElementedmxDataServices.2">Element `edmx:DataServices`</a>
+### <a name="ElementedmxDataServices.3" href="#ElementedmxDataServices.3">Element `edmx:DataServices`</a>
 
 The `edmx:DataServices` element MUST contain one or more
 [`edm:Schema`](#Schema) elements which define the schemas exposed by the
@@ -664,7 +864,7 @@ OData service.
 :::
 
 ::: {.varxml .example}
-Example 2:
+Example 7:
 ```xml
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
@@ -703,7 +903,7 @@ referenced schema document.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmxReference.3" href="#ElementedmxReference.3">Element `edmx:Reference`</a>
+### <a name="ElementedmxReference.4" href="#ElementedmxReference.4">Element `edmx:Reference`</a>
 
 The `edmx:Reference` element specifies external CSDL documents
 referenced by the referencing document. The child elements
@@ -718,7 +918,7 @@ MUST contain at least one [`edmx:Include`](#IncludedSchema) or
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeUri.3.1" href="#AttributeUri.3.1">Attribute `Uri`</a>
+### <a name="AttributeUri.4.1" href="#AttributeUri.4.1">Attribute `Uri`</a>
 
 The value of `Uri` is an absolute or relative URI; relative URIs are
 relative to the `xml:base` attribute, see
@@ -726,7 +926,7 @@ relative to the `xml:base` attribute, see
 :::
 
 ::: {.varxml .example}
-Example 3: references to other CSDL documents
+Example 8: references to other CSDL documents
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -785,7 +985,7 @@ referencing document may define its own aliases for included schemas.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmxInclude.4" href="#ElementedmxInclude.4">Element `edmx:Include`</a>
+### <a name="ElementedmxInclude.5" href="#ElementedmxInclude.5">Element `edmx:Include`</a>
 
 The `edmx:Include` element specifies a schema to include from the
 referenced CSDL document. It MUST provide the `Namespace` attribute and
@@ -793,19 +993,19 @@ it MAY provide the `Alias` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeNamespace.4.1" href="#AttributeNamespace.4.1">Attribute `Namespace`</a>
+### <a name="AttributeNamespace.5.1" href="#AttributeNamespace.5.1">Attribute `Namespace`</a>
 
 The value of `Namespace` is the namespace of a schema defined in the
 referenced CSDL document.
 
-### <a name="AttributeAlias.4.2" href="#AttributeAlias.4.2">Attribute `Alias`</a>
+### <a name="AttributeAlias.5.2" href="#AttributeAlias.5.2">Attribute `Alias`</a>
 
 The value of `Alias` is a [simple identifier](#SimpleIdentifier) that
 can be used in qualified names instead of the namespace.
 :::
 
 ::: {.varxml .example}
-Example 4: references to entity models containing definitions of
+Example 9: references to entity models containing definitions of
 vocabulary terms
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -868,7 +1068,7 @@ not to inspect the referenced document.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmxIncludeAnnotations.5" href="#ElementedmxIncludeAnnotations.5">Element `edmx:IncludeAnnotations`</a>
+### <a name="ElementedmxIncludeAnnotations.6" href="#ElementedmxIncludeAnnotations.6">Element `edmx:IncludeAnnotations`</a>
 
 The `edmx:IncludeAnnotations` element specifies the annotations to
 include from the referenced CSDL document. If no
@@ -880,21 +1080,21 @@ The `edmx:IncludeAnnotations` element MUST provide the `TermNamespace`
 attribute, and it MAY provide the `Qualifier` and `TargetNamespace`
 attribute.
 
-### <a name="AttributeTermNamespace.5.1" href="#AttributeTermNamespace.5.1">Attribute `TermNamespace`</a>
+### <a name="AttributeTermNamespace.6.1" href="#AttributeTermNamespace.6.1">Attribute `TermNamespace`</a>
 
 The value of `TermNamespace` is a namespace.
 
-### <a name="AttributeQualifier.5.2" href="#AttributeQualifier.5.2">Attribute `Qualifier`</a>
+### <a name="AttributeQualifier.6.2" href="#AttributeQualifier.6.2">Attribute `Qualifier`</a>
 
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 
-### <a name="AttributeTargetNamespace.5.3" href="#AttributeTargetNamespace.5.3">Attribute `TargetNamespace`</a>
+### <a name="AttributeTargetNamespace.6.3" href="#AttributeTargetNamespace.6.3">Attribute `TargetNamespace`</a>
 
 The value of `TargetNamespace` is a namespace.
 :::
 
 ::: {.varxml .example}
-Example 5: reference documents that contain annotations
+Example 10: reference documents that contain annotations
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -955,7 +1155,7 @@ The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmSchema.6" href="#ElementedmSchema.6">Element `edm:Schema`</a>
+### <a name="ElementedmSchema.7" href="#ElementedmSchema.7">Element `edm:Schema`</a>
 
 The `edm:Schema` element defines a
 schema. It MUST contain the `Namespace` attribute and it MAY
@@ -969,7 +1169,7 @@ It MAY contain elements [`edm:Action`](#Action),
 [`edm:Function`](#Function), [`edm:Term`](#Term), or
 [`edm:TypeDefinition`](#TypeDefinition).
 
-### <a name="AttributeNamespace.6.1" href="#AttributeNamespace.6.1">Attribute `Namespace`</a>
+### <a name="AttributeNamespace.7.1" href="#AttributeNamespace.7.1">Attribute `Namespace`</a>
 
 The value of `Namespace` is the namespace of the schema
 :::
@@ -1000,13 +1200,13 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 
 
 ::: {.varxml .rep}
-### <a name="AttributeAlias.6.2" href="#AttributeAlias.6.2">Attribute `Alias`</a>
+### <a name="AttributeAlias.7.2" href="#AttributeAlias.7.2">Attribute `Alias`</a>
 
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 6: schema `org.example` with an alias and a description for the
+Example 11: schema `org.example` with an alias and a description for the
 schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
@@ -1021,7 +1221,7 @@ schema
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmAnnotations.7" href="#ElementedmAnnotations.7">Element `edm:Annotations`</a>
+### <a name="ElementedmAnnotations.8" href="#ElementedmAnnotations.8">Element `edm:Annotations`</a>
 
 The `edm:Annotations` element is used to apply a group of annotations to
 a single model element. It MUST contain the `Target` attribute and it
@@ -1029,18 +1229,18 @@ MAY contain the `Qualifier` attribute.
 
 It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 
-### <a name="AttributeTarget.7.1" href="#AttributeTarget.7.1">Attribute `Target`</a>
+### <a name="AttributeTarget.8.1" href="#AttributeTarget.8.1">Attribute `Target`</a>
 
 The value of `Target` is a path expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 
-### <a name="AttributeQualifier.7.2" href="#AttributeQualifier.7.2">Attribute `Qualifier`</a>
+### <a name="AttributeQualifier.8.2" href="#AttributeQualifier.8.2">Attribute `Qualifier`</a>
 
 The value of `Qualifier` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 7: annotations should only be applied to tablet devices
+Example 12: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
@@ -1076,7 +1276,7 @@ types.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmEntityType.8" href="#ElementedmEntityType.8">Element `edm:EntityType`</a>
+### <a name="ElementedmEntityType.9" href="#ElementedmEntityType.9">Element `edm:EntityType`</a>
 
 The `edm:EntityType` element MUST contain the `Name` attribute, and it
 MAY contain the [`BaseType`](#DerivedEntityType),
@@ -1091,13 +1291,13 @@ It MAY contain one [`edm:Key`](#Key) element.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.8.1" href="#AttributeName.8.1">Attribute `Name`</a>
+### <a name="AttributeName.9.1" href="#AttributeName.9.1">Attribute `Name`</a>
 
 The value of `Name` is the entity type's name.
 :::
 
 ::: {.varxml .example}
-Example <a name="entitytype" href="#entitytype">8</a>: a simple entity type
+Example <a name="entitytype" href="#entitytype">13</a>: a simple entity type
 ```xml
 <EntityType Name="Employee">
   <Key>
@@ -1125,13 +1325,13 @@ base type.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeBaseType.8.2" href="#AttributeBaseType.8.2">Attribute `BaseType`</a>
+### <a name="AttributeBaseType.9.2" href="#AttributeBaseType.9.2">Attribute `BaseType`</a>
 
 The value of `BaseType` is the qualified name of the base type.
 :::
 
 ::: {.varxml .example}
-Example 9: a derived entity type based on the previous example
+Example 14: a derived entity type based on the previous example
 ```xml
 <EntityType Name="Manager" BaseType="self.Employee">
   <Property Name="AnnualBudget" Type="Edm.Decimal" />
@@ -1159,7 +1359,7 @@ type.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeAbstract.8.3" href="#AttributeAbstract.8.3">Attribute `Abstract`</a>
+### <a name="AttributeAbstract.9.3" href="#AttributeAbstract.9.3">Attribute `Abstract`</a>
 
 The value of `Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1183,7 +1383,7 @@ properties on instances of any structured type, see
 
 
 ::: {.varxml .rep}
-### <a name="AttributeOpenType.8.4" href="#AttributeOpenType.8.4">Attribute `OpenType`</a>
+### <a name="AttributeOpenType.9.4" href="#AttributeOpenType.9.4">Attribute `OpenType`</a>
 
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1212,7 +1412,7 @@ see [OData-VocCore](#ODataVocCore).
 
 
 ::: {.varxml .rep}
-### <a name="AttributeHasStream.8.5" href="#AttributeHasStream.8.5">Attribute `HasStream`</a>
+### <a name="AttributeHasStream.9.5" href="#AttributeHasStream.9.5">Attribute `HasStream`</a>
 
 The value of `HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1299,29 +1499,29 @@ special encoding and are a standard constituent of expressions anyway.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmKey.9" href="#ElementedmKey.9">Element `edm:Key`</a>
+### <a name="ElementedmKey.10" href="#ElementedmKey.10">Element `edm:Key`</a>
 
 The `edm:Key` element MUST contain at least one `edm:PropertyRef`
 element.
 
-### <a name="ElementedmPropertyRef.10" href="#ElementedmPropertyRef.10">Element `edm:PropertyRef`</a>
+### <a name="ElementedmPropertyRef.11" href="#ElementedmPropertyRef.11">Element `edm:PropertyRef`</a>
 
 The `edm:PropertyRef` element MUST contain the `Name` attribute and MAY
 contain the `Alias` attribute.
 
-### <a name="AttributeName.10.1" href="#AttributeName.10.1">Attribute `Name`</a>
+### <a name="AttributeName.11.1" href="#AttributeName.11.1">Attribute `Name`</a>
 
 The value of `Name` is a path expression leading to a primitive
 property. The names of the properties in the path are joined together by
 forward slashes.
 
-### <a name="AttributeAlias.10.2" href="#AttributeAlias.10.2">Attribute `Alias`</a>
+### <a name="AttributeAlias.11.2" href="#AttributeAlias.11.2">Attribute `Alias`</a>
 
 The value of `Alias` is a [simple identifier](#SimpleIdentifier).
 :::
 
 ::: {.varxml .example}
-Example 10: entity type with a simple key
+Example 15: entity type with a simple key
 ```xml
 <EntityType Name="Category">
   <Key>
@@ -1334,7 +1534,7 @@ Example 10: entity type with a simple key
 :::
 
 ::: {.varxml .example}
-Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simple key referencing a property of a
+Example <a name="complexkey" href="#complexkey">16</a>: entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```xml
 <EntityType Name="Category">
@@ -1353,7 +1553,7 @@ Example <a name="complexkey" href="#complexkey">11</a>: entity type with a simpl
 :::
 
 ::: {.varxml .example}
-Example 12: entity type with a composite key
+Example 17: entity type with a composite key
 ```xml
 <EntityType Name="OrderLine">
   <Key>
@@ -1367,7 +1567,7 @@ Example 12: entity type with a composite key
 :::
 
 ::: example
-Example 13 (based on [example 11](#complexkey)): requests to an entity set `Categories`
+Example 18 (based on [example 16](#complexkey)): requests to an entity set `Categories`
 of type `Category` must use the alias
 ```
 GET http://host/service/Categories(EntityInfoID=1)
@@ -1375,7 +1575,7 @@ GET http://host/service/Categories(EntityInfoID=1)
 :::
 
 ::: example
-Example 14 (based on [example 11](#complexkey)): in a query part the value assigned to
+Example 19 (based on [example 16](#complexkey)): in a query part the value assigned to
 the name attribute must be used
 ```
 GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
@@ -1415,23 +1615,23 @@ that differ only in case.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmProperty.11" href="#ElementedmProperty.11">Element `edm:Property`</a>
+### <a name="ElementedmProperty.12" href="#ElementedmProperty.12">Element `edm:Property`</a>
 
 The `edm:Property` element MUST contain the `Name` and the `Type`
-attribute, and it MAY contain the facet attributes
+attribute, and it MAY contain the attributes
 [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
 [`Unicode`](#Unicode), [`Precision`](#Precision), [`Scale`](#Scale),
 [`SRID`](#SRID), and [`DefaultValue`](#DefaultValue).
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.11.1" href="#AttributeName.11.1">Attribute `Name`</a>
+### <a name="AttributeName.12.1" href="#AttributeName.12.1">Attribute `Name`</a>
 
 The value of `Name` is the property's name.
 :::
 
 ::: {.varxml .example}
-Example 15: complex type with two properties
+Example 20: complex type with two properties
 ```xml
 <ComplexType Name="Measurement">
   <Property Name="Dimension" Type="Edm.String" Nullable="false" MaxLength="50"
@@ -1462,7 +1662,7 @@ supports inserting items into a specific ordinal position.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeType.11.2" href="#AttributeType.11.2">Attribute `Type`</a>
+### <a name="AttributeType.12.2" href="#AttributeType.12.2">Attribute `Type`</a>
 
 For single-valued properties the value of `Type` is the qualified name
 of the property's type.
@@ -1473,29 +1673,21 @@ item type, followed by a closing parenthesis `)`.
 :::
 
 ::: {.varxml .example}
-Example 16: property `Units` that can have zero or more strings as its
+Example 21: property `Units` that can have zero or more strings as its
 value
 ```xml
 <Property Name="Units" Type="Collection(Edm.String)" />
 ```
 :::
 
-## <a name="TypeFacets" href="#TypeFacets">7.2 Type Facets</a>
-
-Facets modify or constrain the acceptable values of a property.
-
-For single-valued properties the facets apply to the value of the
-property. For collection-valued properties the facets apply to the items
-in the collection.
-
-### <a name="Nullable" href="#Nullable">7.2.1 Nullable</a>
+## <a name="Nullable" href="#Nullable">7.2 Nullable</a>
 
 A Boolean value specifying whether the property can have the value
 `null`.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeNullable.11.3" href="#AttributeNullable.11.3">Attribute `Nullable`</a>
+### <a name="AttributeNullable.12.3" href="#AttributeNullable.12.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
@@ -1503,7 +1695,7 @@ The value of `Nullable` is one of the Boolean literals `true` or
 For single-valued properties the value `true` means that the property
 allows the `null` value.
 
-For collection-valued properties the property value will always be a
+For collection-valued properties the value will always be a
 collection that MAY be empty. In this case the `Nullable` attribute
 applies to items of the collection and specifies whether the collection
 MAY contain `null` values.
@@ -1519,198 +1711,9 @@ cannot assume any default value. Clients SHOULD be prepared for this
 situation even in OData 4.01 responses.
 :::
 
-### <a name="MaxLength" href="#MaxLength">7.2.2 MaxLength</a>
+## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
-A positive integer value specifying the maximum length of a binary,
-stream or string value. For binary or stream values this is the octet
-length of the binary data, for string values it is the character length
-(number of code points for Unicode).
-
-If no maximum length is specified, clients SHOULD expect arbitrary
-length.
-
-
-::: {.varxml .rep}
-### <a name="AttributeMaxLength.11.4" href="#AttributeMaxLength.11.4">Attribute `MaxLength`</a>
-
-The value of `MaxLength` is a positive integer or the symbolic value
-`max` as a shorthand for the maximum length supported for the type by
-the service.
-
-Note: the symbolic value `max` is only allowed in OData 4.0 responses;
-it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
-symbolic value `max` and MAY instead specify the concrete maximum length
-supported for the type by the service or omit the attribute entirely.
-:::
-
-### <a name="Precision" href="#Precision">7.2.3 Precision</a>
-
-For a decimal value: the maximum number of significant decimal digits of
-the property's value; it MUST be a positive integer.
-
-For a temporal value (datetime-with-timezone-offset, duration, or
-time-of-day): the number of decimal places allowed in the seconds
-portion of the value; it MUST be a non-negative integer between zero and
-twelve.
-
-Note: service authors SHOULD be aware that some clients are unable to
-support a precision greater than 28 for decimal properties and 7 for
-temporal properties. Client developers MUST be aware of the potential
-for data loss when round-tripping values of greater precision. Updating
-via `PATCH` and exclusively specifying modified properties will reduce
-the risk for unintended data loss.
-
-Note: duration properties supporting a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
-see [OData-VocMeasures](#ODataVocMeasures).
-
-
-
-::: {.varxml .rep}
-### <a name="AttributePrecision.11.5" href="#AttributePrecision.11.5">Attribute `Precision`</a>
-
-The value of `Precision` is a number.
-
-If not specified for a decimal property, the decimal property has
-arbitrary precision.
-
-If not specified for a temporal property, the temporal property has a
-precision of zero.
-:::
-
-::: {.varxml .example}
-Example 17: [`Precision`](#Precision) facet applied to the
-`DateTimeOffset` type
-```xml
-<Property Name="SuggestedTimes" Type="Collection(Edm.DateTimeOffset)"
-          Precision="6" />
-```
-:::
-
-### <a name="Scale" href="#Scale">7.2.4 Scale</a>
-
-A non-negative integer value specifying the maximum number of digits
-allowed to the right of the decimal point, or one of the symbolic values
-`floating` or `variable`.
-
-The value `floating` means that the decimal property represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
-
-The value `variable` means that the number of digits to the right of the
-decimal point can vary from zero to the value of the
-[`Precision`](#Precision) facet.
-
-An integer value means that the number of digits to the right of the
-decimal point may vary from zero to the value of the `Scale` facet, and
-the number of digits to the left of the decimal point may vary from one
-to the value of the `Precision` facet minus the value of the `Scale`
-facet. If `Precision` is equal to `Scale`, a single zero MUST precede
-the decimal point.
-
-The value of `Scale` MUST be less than or equal to the value of
-[`Precision`](#Precision).
-
-Note: if the underlying data store allows negative scale, services may
-use a [`Precision`](#Precision) with the absolute value of the negative
-scale added to the actual number of significant decimal digits, and
-client-provided values may have to be rounded before being stored.
-
-
-
-
-
-
-::: {.varxml .rep}
-### <a name="AttributeScale.11.6" href="#AttributeScale.11.6">Attribute `Scale`</a>
-
-The value of `Scale` is a number or one of the symbolic values
-`floating` or `variable`.
-
-Services SHOULD use lower-case values; clients SHOULD accept values in a
-case-insensitive manner.
-
-If not specified, the `Scale` facet defaults to zero.
-:::
-
-::: {.varxml .example}
-Example 18: [`Precision`](#Precision)`=3` and `Scale=2`.
-Allowed values: 1.23, 0.23, 3.14 and 0.7, not allowed values: 123, 12.3
-```xml
-<Property Name="Amount32" Type="Edm.Decimal" Precision="3" Scale="2" />
-```
-:::
-
-::: {.varxml .example}
-Example 19: `Precision=2` equals `Scale`.
-Allowed values: 0.23, 0.7, not allowed values: 1.23, 1.2
-```xml
-<Property Name="Amount22" Type="Edm.Decimal" Precision="2" Scale="2" />
-```
-:::
-
-::: {.varxml .example}
-Example 20: `Precision=3` and a variable `Scale`.
-Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed
-values: 12.34, 1234 and 123.4 due to the limited precision.
-```xml
-<Property Name="Amount3v" Type="Edm.Decimal" Precision="3" Scale="variable" />
-```
-:::
-
-::: {.varxml .example}
-Example 21: `Precision=7` and a floating `Scale`.
-Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
-```xml
-<Property Name="Amount7f" Type="Edm.Decimal" Precision="7" Scale="floating" />
-```
-:::
-
-### <a name="Unicode" href="#Unicode">7.2.5 Unicode</a>
-
-For a string property the `Unicode` facet indicates whether the property
-might contain and accept string values with Unicode characters (code
-points) beyond the ASCII character set. The value `false` indicates that
-the property will only contain and accept string values with characters
-limited to the ASCII character set.
-
-If no value is specified, the `Unicode` facet defaults to `true`.
-
-
-::: {.varxml .rep}
-### <a name="AttributeUnicode.11.7" href="#AttributeUnicode.11.7">Attribute `Unicode`</a>
-
-The value of `Unicode` is one of the Boolean literals `true` or `false`.
-Absence of the attribute means `true`.
-:::
-
-### <a name="SRID" href="#SRID">7.2.6 SRID</a>
-
-For a geometry or geography property the `SRID` facet identifies which
-spatial reference system is applied to values of the property on type
-instances.
-
-The value of the `SRID` facet MUST be a non-negative integer or the
-special value `variable`. If no value is specified, the facet defaults
-to `0` for `Geometry` types or `4326` for `Geography` types.
-
-The valid values of the `SRID` facet and their meanings are as defined
-by the European Petroleum Survey Group [EPSG](#_EPSG).
-
-
-::: {.varxml .rep}
-### <a name="AttributeSRID.11.8" href="#AttributeSRID.11.8">Attribute `SRID`</a>
-
-The value of `SRID` is a number or the symbolic value `variable`.
-:::
-
-### <a name="DefaultValue" href="#DefaultValue">7.2.7 Default Value</a>
-
-A primitive or enumeration property MAY define a default value that is
+A primitive- or enumeration-typed property MAY define a default value that is
 used if the property is not explicitly represented in an annotation or
 the body of a request or response.
 
@@ -1718,7 +1721,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeDefaultValue.11.9" href="#AttributeDefaultValue.11.9">Attribute `DefaultValue`</a>
+### <a name="AttributeDefaultValue.12.4" href="#AttributeDefaultValue.12.4">Attribute `DefaultValue`</a>
 
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
@@ -1755,7 +1758,7 @@ that differ only in case.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmNavigationProperty.12" href="#ElementedmNavigationProperty.12">Element `edm:NavigationProperty`</a>
+### <a name="ElementedmNavigationProperty.13" href="#ElementedmNavigationProperty.13">Element `edm:NavigationProperty`</a>
 
 The `edm:NavigationProperty` element MUST contain the `Name` and `Type`
 attributes, and it MAY contain the attributes
@@ -1769,7 +1772,7 @@ child element [`edm:OnDelete`](#OnDeleteAction).
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.12.1" href="#AttributeName.12.1">Attribute `Name`</a>
+### <a name="AttributeName.13.1" href="#AttributeName.13.1">Attribute `Name`</a>
 
 The value of `Name` is the navigation property's name.
 :::
@@ -1820,7 +1823,7 @@ supports inserting items into a specific ordinal position.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeType.12.2" href="#AttributeType.12.2">Attribute `Type`</a>
+### <a name="AttributeType.13.2" href="#AttributeType.13.2">Attribute `Type`</a>
 
 For single-valued navigation properties the value of `Type` is the
 qualified name of the navigation property's type.
@@ -1841,7 +1844,7 @@ property, a collection is allowed to have zero items.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeNullable.12.3" href="#AttributeNullable.12.3">Attribute `Nullable`</a>
+### <a name="AttributeNullable.13.3" href="#AttributeNullable.13.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
@@ -1881,7 +1884,7 @@ partner navigation property.
 
 
 ::: {.varxml .rep}
-### <a name="AttributePartner.12.4" href="#AttributePartner.12.4">Attribute `Partner`</a>
+### <a name="AttributePartner.13.4" href="#AttributePartner.13.4">Attribute `Partner`</a>
 
 The value of `Partner` is the path to the of the partner navigation
 property.
@@ -1956,7 +1959,7 @@ can also be reached via a non-containment navigation path.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeContainsTarget.12.5" href="#AttributeContainsTarget.12.5">Attribute `ContainsTarget`</a>
+### <a name="AttributeContainsTarget.13.5" href="#AttributeContainsTarget.13.5">Attribute `ContainsTarget`</a>
 
 The value of `ContainsTarget` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -1990,14 +1993,14 @@ property MUST NOT be nullable.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmReferentialConstraint.13" href="#ElementedmReferentialConstraint.13">Element `edm:ReferentialConstraint`</a>
+### <a name="ElementedmReferentialConstraint.14" href="#ElementedmReferentialConstraint.14">Element `edm:ReferentialConstraint`</a>
 
 The `edm:ReferentialConstraint` element MUST contain the attributes
 `Property` and `ReferencedProperty`.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeProperty.13.1" href="#AttributeProperty.13.1">Attribute `Property`</a>
+### <a name="AttributeProperty.14.1" href="#AttributeProperty.14.1">Attribute `Property`</a>
 
 The `Property` attribute specifies the property that takes part in the
 referential constraint on the dependent structured type. Its value MUST
@@ -2007,7 +2010,7 @@ dependent structured type. The names of the properties in the path are
 joined together by forward slashes. The path is relative to the
 dependent structured type declaring the navigation property.
 
-### <a name="AttributeReferencedProperty.13.2" href="#AttributeReferencedProperty.13.2">Attribute `ReferencedProperty`</a>
+### <a name="AttributeReferencedProperty.14.2" href="#AttributeReferencedProperty.14.2">Attribute `ReferencedProperty`</a>
 
 The `ReferencedProperty` attribute specifies the corresponding property
 of the principal entity type. Its value MUST be a path expression
@@ -2075,13 +2078,13 @@ not predictable by the client and could vary per entity.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmOnDelete.14" href="#ElementedmOnDelete.14">Element `edm:OnDelete`</a>
+### <a name="ElementedmOnDelete.15" href="#ElementedmOnDelete.15">Element `edm:OnDelete`</a>
 
 The `edm:OnDelete` element MUST contain the `Action` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeAction.14.1" href="#AttributeAction.14.1">Attribute `Action`</a>
+### <a name="AttributeAction.15.1" href="#AttributeAction.15.1">Attribute `Action`</a>
 
 The value of `Action` is one of the values `Cascade`, `None`, `SetNull`,
 or `SetDefault`.
@@ -2131,7 +2134,7 @@ types.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmComplexType.15" href="#ElementedmComplexType.15">Element `edm:ComplexType`</a>
+### <a name="ElementedmComplexType.16" href="#ElementedmComplexType.16">Element `edm:ComplexType`</a>
 
 The `edm:ComplexType` element MUST contain the `Name` attribute, and it
 MAY contain the [`BaseType`](#DerivedComplexType),
@@ -2144,7 +2147,7 @@ properties of the complex type.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.15.1" href="#AttributeName.15.1">Attribute `Name`</a>
+### <a name="AttributeName.16.1" href="#AttributeName.16.1">Attribute `Name`</a>
 
 The value of `Name` is the complex type's name.
 :::
@@ -2187,7 +2190,7 @@ The rules for annotations of derived complex types are described in
 
 
 ::: {.varxml .rep}
-### <a name="AttributeBaseType.15.2" href="#AttributeBaseType.15.2">Attribute `BaseType`</a>
+### <a name="AttributeBaseType.16.2" href="#AttributeBaseType.16.2">Attribute `BaseType`</a>
 
 The value of `BaseType` is the qualified name of the base type.
 :::
@@ -2199,7 +2202,7 @@ instances.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeAbstract.15.3" href="#AttributeAbstract.15.3">Attribute `Abstract`</a>
+### <a name="AttributeAbstract.16.3" href="#AttributeAbstract.16.3">Attribute `Abstract`</a>
 
 The value of `Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -2223,7 +2226,7 @@ properties on instances of any structured type, see
 
 
 ::: {.varxml .rep}
-### <a name="AttributeOpenType.15.4" href="#AttributeOpenType.15.4">Attribute `OpenType`</a>
+### <a name="AttributeOpenType.16.4" href="#AttributeOpenType.16.4">Attribute `OpenType`</a>
 
 The value of `OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -2252,7 +2255,7 @@ one enumeration member at a time.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmEnumType.16" href="#ElementedmEnumType.16">Element `edm:EnumType`</a>
+### <a name="ElementedmEnumType.17" href="#ElementedmEnumType.17">Element `edm:EnumType`</a>
 
 The `edm:EnumType` element MUST contain the Name attribute, and it MAY
 contain the [`UnderlyingType`](#UnderlyingIntegerType) and
@@ -2263,7 +2266,7 @@ elements defining the members of the enumeration type.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.16.1" href="#AttributeName.16.1">Attribute `Name`</a>
+### <a name="AttributeName.17.1" href="#AttributeName.17.1">Attribute `Name`</a>
 
 The value of `Name` is the enumeration type's name.
 :::
@@ -2289,7 +2292,7 @@ If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeUnderlyingType.16.2" href="#AttributeUnderlyingType.16.2">Attribute `UnderlyingType`</a>
+### <a name="AttributeUnderlyingType.17.2" href="#AttributeUnderlyingType.17.2">Attribute `UnderlyingType`</a>
 
 The value of `UnderlyingType` is the qualified name of the underlying
 type.
@@ -2306,7 +2309,7 @@ selected simultaneously.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeIsFlags.16.3" href="#AttributeIsFlags.16.3">Attribute `IsFlags`</a>
+### <a name="AttributeIsFlags.17.3" href="#AttributeIsFlags.17.3">Attribute `IsFlags`</a>
 
 The value of `IsFlags` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
@@ -2358,18 +2361,18 @@ values.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmMember.17" href="#ElementedmMember.17">Element `edm:Member`</a>
+### <a name="ElementedmMember.18" href="#ElementedmMember.18">Element `edm:Member`</a>
 
 The `edm:Member` element MUST contain the `Name` attribute and it MAY
 contain the `Value` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.17.1" href="#AttributeName.17.1">Attribute `Name`</a>
+### <a name="AttributeName.18.1" href="#AttributeName.18.1">Attribute `Name`</a>
 
 The value of `Name` is the enumeration member's name.
 
-### <a name="AttributeValue.17.2" href="#AttributeValue.17.2">Attribute `Value`</a>
+### <a name="AttributeValue.18.2" href="#AttributeValue.18.2">Attribute `Value`</a>
 
 If the [`IsFlags`](#FlagsEnumerationType) attribute has a value of
 `false`, either all members MUST specify an integer value for the
@@ -2429,14 +2432,14 @@ definition is used, and whether they can be overridden.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmTypeDefinition.18" href="#ElementedmTypeDefinition.18">Element `edm:TypeDefinition`</a>
+### <a name="ElementedmTypeDefinition.19" href="#ElementedmTypeDefinition.19">Element `edm:TypeDefinition`</a>
 
 The `edm:TypeDefinition` element MUST contain the `Name` and
 [`UnderlyingType`](#UnderlyingPrimitiveType) attributes.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.18.1" href="#AttributeName.18.1">Attribute `Name`</a>
+### <a name="AttributeName.19.1" href="#AttributeName.19.1">Attribute `Name`</a>
 
 The value of `Name` is the type definition's name.
 :::
@@ -2469,7 +2472,7 @@ MUST NOT be another type definition.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeUnderlyingType.18.2" href="#AttributeUnderlyingType.18.2">Attribute `UnderlyingType`</a>
+### <a name="AttributeUnderlyingType.19.2" href="#AttributeUnderlyingType.19.2">Attribute `UnderlyingType`</a>
 
 The value of `UnderlyingType` is the qualified name of the underlying
 type.
@@ -2531,7 +2534,7 @@ An unbound action MAY have the same name as a bound action.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmAction.19" href="#ElementedmAction.19">Element `edm:Action`</a>
+### <a name="ElementedmAction.20" href="#ElementedmAction.20">Element `edm:Action`</a>
 
 The `edm:Action` element MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
@@ -2542,7 +2545,7 @@ MAY contain [`edm:Parameter`](#Parameter) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.19.1" href="#AttributeName.19.1">Attribute `Name`</a>
+### <a name="AttributeName.20.1" href="#AttributeName.20.1">Attribute `Name`</a>
 
 The value of `Name` is the action's name.
 :::
@@ -2597,7 +2600,7 @@ they specify the same underlying type.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmFunction.20" href="#ElementedmFunction.20">Element `edm:Function`</a>
+### <a name="ElementedmFunction.21" href="#ElementedmFunction.21">Element `edm:Function`</a>
 
 The `edm:Function` element MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
@@ -2608,7 +2611,7 @@ contain [`edm:Parameter`](#Parameter) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.20.1" href="#AttributeName.20.1">Attribute `Name`</a>
+### <a name="AttributeName.21.1" href="#AttributeName.21.1">Attribute `Name`</a>
 
 The value of `Name` is the action's name.
 :::
@@ -2620,7 +2623,7 @@ explicitly indicated, it is unbound.
 
 Bound actions or functions are invoked on resources matching the type of
 the binding parameter. The binding parameter can be of any type, and it
-MAY be [nullable](#Nullable).
+MAY be nullable.
 
 Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
@@ -2631,7 +2634,7 @@ or from the entity container through a [function import](#FunctionImport).
 
 
 ::: {.varxml .rep}
-### <a name="AttributeIsBound.20.2" href="#AttributeIsBound.20.2">Attribute `IsBound`</a>
+### <a name="AttributeIsBound.21.2" href="#AttributeIsBound.21.2">Attribute `IsBound`</a>
 
 The value of `IsBound` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
@@ -2658,7 +2661,7 @@ entity type that should be returned from the type cast.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeEntitySetPath.20.3" href="#AttributeEntitySetPath.20.3">Attribute `EntitySetPath`</a>
+### <a name="AttributeEntitySetPath.21.3" href="#AttributeEntitySetPath.21.3">Attribute `EntitySetPath`</a>
 
 The value of `EntitySetPath` is the entity set path.
 :::
@@ -2675,7 +2678,7 @@ the type returned by the composable function.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeIsComposable.20.4" href="#AttributeIsComposable.20.4">Attribute `IsComposable`</a>
+### <a name="AttributeIsComposable.21.4" href="#AttributeIsComposable.21.4">Attribute `IsComposable`</a>
 
 The value of `IsComposable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `false`.
@@ -2686,7 +2689,7 @@ The value of `IsComposable` is one of the Boolean literals `true` or
 The return type of an action or function overload MAY be any type in
 scope, or a collection of any type in scope.
 
-The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
+The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
@@ -2697,7 +2700,7 @@ returned collection.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmReturnType.21" href="#ElementedmReturnType.21">Element `edm:ReturnType`</a>
+### <a name="ElementedmReturnType.22" href="#ElementedmReturnType.22">Element `edm:ReturnType`</a>
 
 The `edm:ReturnType` element MUST contain the `Type` attribute, and it
 MAY contain the attributes `Nullable`, [`MaxLength`](#MaxLength),
@@ -2706,7 +2709,7 @@ MAY contain the attributes `Nullable`, [`MaxLength`](#MaxLength),
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeType.21.1" href="#AttributeType.21.1">Attribute `Type`</a>
+### <a name="AttributeType.22.1" href="#AttributeType.22.1">Attribute `Type`</a>
 
 For single-valued return types the value of `Type` is the qualified name
 of the return type.
@@ -2715,7 +2718,7 @@ For collection-valued return types the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 
-### <a name="AttributeNullable.21.2" href="#AttributeNullable.21.2">Attribute `Nullable`</a>
+### <a name="AttributeNullable.22.2" href="#AttributeNullable.22.2">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
@@ -2761,7 +2764,7 @@ the collection.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmParameter.22" href="#ElementedmParameter.22">Element `edm:Parameter`</a>
+### <a name="ElementedmParameter.23" href="#ElementedmParameter.23">Element `edm:Parameter`</a>
 
 The `edm:Parameter` element MUST contain the `Name` and the `Type`
 attribute, and it MAY contain the attributes `Nullable`,
@@ -2770,11 +2773,11 @@ attribute, and it MAY contain the attributes `Nullable`,
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.22.1" href="#AttributeName.22.1">Attribute `Name`</a>
+### <a name="AttributeName.23.1" href="#AttributeName.23.1">Attribute `Name`</a>
 
 The value of `Name` is the parameter's name.
 
-### <a name="AttributeType.22.2" href="#AttributeType.22.2">Attribute `Type`</a>
+### <a name="AttributeType.23.2" href="#AttributeType.23.2">Attribute `Type`</a>
 
 For single-valued parameters the value of `Type` is the qualified name
 of the parameter.
@@ -2783,7 +2786,7 @@ For collection-valued parameters the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 
-### <a name="AttributeNullable.22.3" href="#AttributeNullable.22.3">Attribute `Nullable`</a>
+### <a name="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
@@ -2870,7 +2873,7 @@ in an entity model as a top level resource.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmEntityContainer.23" href="#ElementedmEntityContainer.23">Element `edm:EntityContainer`</a>
+### <a name="ElementedmEntityContainer.24" href="#ElementedmEntityContainer.24">Element `edm:EntityContainer`</a>
 
 The `edm:EntityContainer` MUST contain one or more
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
@@ -2879,7 +2882,7 @@ The `edm:EntityContainer` MUST contain one or more
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.23.1" href="#AttributeName.23.1">Attribute `Name`</a>
+### <a name="AttributeName.24.1" href="#AttributeName.24.1">Attribute `Name`</a>
 
 The value of `Name` is the entity container's name.
 :::
@@ -2928,7 +2931,7 @@ extending entity containers.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeExtends.23.2" href="#AttributeExtends.23.2">Attribute `Extends`</a>
+### <a name="AttributeExtends.24.2" href="#AttributeExtends.24.2">Attribute `Extends`</a>
 
 The value of `Extends` is the qualified name of the entity container to
 be extended.
@@ -2967,7 +2970,7 @@ options SHOULD NOT be included in the service document.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmEntitySet.24" href="#ElementedmEntitySet.24">Element `edm:EntitySet`</a>
+### <a name="ElementedmEntitySet.25" href="#ElementedmEntitySet.25">Element `edm:EntitySet`</a>
 
 The `edm:EntitySet` element MUST contain the attributes `Name` and
 `EntityType`, and it MAY contain the `IncludeInServiceDocument`
@@ -2978,16 +2981,16 @@ It MAY contain
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.24.1" href="#AttributeName.24.1">Attribute `Name`</a>
+### <a name="AttributeName.25.1" href="#AttributeName.25.1">Attribute `Name`</a>
 
 The value of `Name` is the entity set's name.
 
-### <a name="AttributeEntityType.24.2" href="#AttributeEntityType.24.2">Attribute `EntityType`</a>
+### <a name="AttributeEntityType.25.2" href="#AttributeEntityType.25.2">Attribute `EntityType`</a>
 
 The value of `EntityType` is the qualified name of an entity type in
 scope.
 
-### <a name="AttributeIncludeInServiceDocument.24.3" href="#AttributeIncludeInServiceDocument.24.3">Attribute `IncludeInServiceDocument`</a>
+### <a name="AttributeIncludeInServiceDocument.25.3" href="#AttributeIncludeInServiceDocument.25.3">Attribute `IncludeInServiceDocument`</a>
 
 The value of `IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the attribute means `true`.
@@ -3007,7 +3010,7 @@ A singleton MUST reference an instance its entity type.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmSingleton.25" href="#ElementedmSingleton.25">Element `edm:Singleton`</a>
+### <a name="ElementedmSingleton.26" href="#ElementedmSingleton.26">Element `edm:Singleton`</a>
 
 The `edm:Singleton` element MUST include the attributes `Name` and
 `Type`, and it MAY contain the `Nullable` attribute.
@@ -3017,16 +3020,16 @@ It MAY contain
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.25.1" href="#AttributeName.25.1">Attribute `Name`</a>
+### <a name="AttributeName.26.1" href="#AttributeName.26.1">Attribute `Name`</a>
 
 The value of `Name` is the singleton's name.
 
-### <a name="AttributeType.25.2" href="#AttributeType.25.2">Attribute `Type`</a>
+### <a name="AttributeType.26.2" href="#AttributeType.26.2">Attribute `Type`</a>
 
 The value of `Type` is whose value is the [qualified
 name](#QualifiedName) of an entity type in scope.
 
-### <a name="AttributeNullable.25.3" href="#AttributeNullable.25.3">Attribute `Nullable`</a>
+### <a name="AttributeNullable.26.3" href="#AttributeNullable.26.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`.
@@ -3112,16 +3115,16 @@ be any non-containment navigation properties prior to the final segment.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmNavigationPropertyBinding.26" href="#ElementedmNavigationPropertyBinding.26">Element `edm:NavigationPropertyBinding`</a>
+### <a name="ElementedmNavigationPropertyBinding.27" href="#ElementedmNavigationPropertyBinding.27">Element `edm:NavigationPropertyBinding`</a>
 
 The `edm:NavigationPropertyBinding` element MUST contain the attributes
 `Path` and `Target`.
 
-### <a name="AttributePath.26.1" href="#AttributePath.26.1">Attribute `Path`</a>
+### <a name="AttributePath.27.1" href="#AttributePath.27.1">Attribute `Path`</a>
 
 The value of `Path` is a path expression.
 
-### <a name="AttributeTarget.26.2" href="#AttributeTarget.26.2">Attribute `Target`</a>
+### <a name="AttributeTarget.27.2" href="#AttributeTarget.27.2">Attribute `Target`</a>
 
 The value of `Target` is a [target path](#TargetPath).
 :::
@@ -3179,22 +3182,22 @@ to an entity set in scope.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmActionImport.27" href="#ElementedmActionImport.27">Element `edm:ActionImport`</a>
+### <a name="ElementedmActionImport.28" href="#ElementedmActionImport.28">Element `edm:ActionImport`</a>
 
 The `edm:ActionImport` element MUST contain the attributes `Name` and
 `Action`, and it MAY contain the `EntitySet` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.27.1" href="#AttributeName.27.1">Attribute `Name`</a>
+### <a name="AttributeName.28.1" href="#AttributeName.28.1">Attribute `Name`</a>
 
 The value of `Name` is the action import's name.
 
-### <a name="AttributeAction.27.2" href="#AttributeAction.27.2">Attribute `Action`</a>
+### <a name="AttributeAction.28.2" href="#AttributeAction.28.2">Attribute `Action`</a>
 
 The value of `Action` is the qualified name of an unbound action.
 
-### <a name="AttributeEntitySet.27.3" href="#AttributeEntitySet.27.3">Attribute `EntitySet`</a>
+### <a name="AttributeEntitySet.28.3" href="#AttributeEntitySet.28.3">Attribute `EntitySet`</a>
 
 The value of `EntitySet` is either the unqualified name of an entity set
 in the same entity container or a path to an entity set in a different
@@ -3227,27 +3230,27 @@ not included.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmFunctionImport.28" href="#ElementedmFunctionImport.28">Element `edm:FunctionImport`</a>
+### <a name="ElementedmFunctionImport.29" href="#ElementedmFunctionImport.29">Element `edm:FunctionImport`</a>
 
 The `edm:FunctionImport` element MUST contain the attributes `Name` and
 `Function`, and it MAY contain the attributes `EntitySet` and
 `IncludeInServiceDocument`.
 
-### <a name="AttributeName.28.1" href="#AttributeName.28.1">Attribute `Name`</a>
+### <a name="AttributeName.29.1" href="#AttributeName.29.1">Attribute `Name`</a>
 
 The value of `Name` is the function import's name.
 
-### <a name="AttributeFunction.28.2" href="#AttributeFunction.28.2">Attribute `Function`</a>
+### <a name="AttributeFunction.29.2" href="#AttributeFunction.29.2">Attribute `Function`</a>
 
 The value of `Function` is the qualified name of an unbound function.
 
-### <a name="AttributeEntitySet.28.3" href="#AttributeEntitySet.28.3">Attribute `EntitySet`</a>
+### <a name="AttributeEntitySet.29.3" href="#AttributeEntitySet.29.3">Attribute `EntitySet`</a>
 
 The value of `EntitySet` is either the unqualified name of an entity set
 in the same entity container or a path to an entity set in a different
 entity container.
 
-### <a name="AttributeIncludeInServiceDocument.28.4" href="#AttributeIncludeInServiceDocument.28.4">Attribute `IncludeInServiceDocument`</a>
+### <a name="AttributeIncludeInServiceDocument.29.4" href="#AttributeIncludeInServiceDocument.29.4">Attribute `IncludeInServiceDocument`</a>
 
 The value of `IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the attribute means `false`.
@@ -3351,37 +3354,57 @@ scope.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmTerm.29" href="#ElementedmTerm.29">Element `edm:Term`</a>
+### <a name="ElementedmTerm.30" href="#ElementedmTerm.30">Element `edm:Term`</a>
 
 The `edm:Term` element MUST contain the attributes `Name` and `Type`. It
-MAY contain the attributes `BaseTerm` and `AppliesTo`.
+MAY contain the attributes `Nullable`, `DefaultValue`, [`BaseTerm`](#SpecializedTerm) and [`AppliesTo`](#Applicability).
 
-It MAY specify values for the [`Nullable`](#Nullable),
-[ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
-[`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
-attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
-described in section 7.2.
+The facets [`MaxLength`](#MaxLength),
+[`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
+used as appropriate, as well as the [`Unicode`](#Unicode) facet attribute for
+4.01 and greater payloads.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
 enumeration type MAY define a value for the `DefaultValue` attribute.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.29.1" href="#AttributeName.29.1">Attribute `Name`</a>
+### <a name="AttributeName.30.1" href="#AttributeName.30.1">Attribute `Name`</a>
 
 The value of `Name` is the term's name.
 
-### <a name="AttributeType.29.2" href="#AttributeType.29.2">Attribute `Type`</a>
+### <a name="AttributeType.30.2" href="#AttributeType.30.2">Attribute `Type`</a>
 
-For single-valued properties the value of `Type` is the qualified name
-of the property's type.
+For single-valued terms the value of `Type` is the qualified name
+of the term's type.
 
 For collection-valued properties the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
 
-### <a name="AttributeDefaultValue.29.3" href="#AttributeDefaultValue.29.3">Attribute `DefaultValue`</a>
+### <a name="AttributeNullable.30.3" href="#AttributeNullable.30.3">Attribute `Nullable`</a>
+
+The value of `Nullable` is one of the Boolean literals `true` or
+`false`.
+
+For single-valued terms the value `true` means that annotations may have the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case the `Nullable` attribute
+applies to items of the collection and specifies whether the collection
+MAY contain `null` values.
+
+If no value is specified for a single-valued term, the `Nullable`
+attribute defaults to `true`.
+
+In OData 4.01 responses a collection-valued term MUST specify a
+value for the `Nullable` attribute.
+
+If no value is specified for a collection-valued term, the client
+cannot assume any default value. Clients SHOULD be prepared for this
+situation even in OData 4.01 responses.
+
+### <a name="AttributeDefaultValue.30.4" href="#AttributeDefaultValue.30.4">Attribute `DefaultValue`</a>
 
 The value of this attribute determines the value of the term when
 applied in an [`edm:Annotation`](#Annotation) without providing an
@@ -3409,7 +3432,7 @@ reached.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeBaseTerm.29.4" href="#AttributeBaseTerm.29.4">Attribute `BaseTerm`</a>
+### <a name="AttributeBaseTerm.30.5" href="#AttributeBaseTerm.30.5">Attribute `BaseTerm`</a>
 
 The value of `BaseTerm` is the qualified name of the base term.
 :::
@@ -3463,7 +3486,7 @@ Symbolic Value|Model Element
 
 
 ::: {.varxml .rep}
-### <a name="AttributeAppliesTo.29.5" href="#AttributeAppliesTo.29.5">Attribute `AppliesTo`</a>
+### <a name="AttributeAppliesTo.30.6" href="#AttributeAppliesTo.30.6">Attribute `AppliesTo`</a>
 
 The value of `AppliesTo` is a whitespace-separated list of symbolic
 values from the table above that identify model elements the term is
@@ -3504,7 +3527,7 @@ property of the same or a related structured type.
 
 
 ::: {.varxml .rep}
-### <a name="ElementedmAnnotation.30" href="#ElementedmAnnotation.30">Element `edm:Annotation`</a>
+### <a name="ElementedmAnnotation.31" href="#ElementedmAnnotation.31">Element `edm:Annotation`</a>
 
 The `edm:Annotation` element MUST contain the attribute `Term`, and it
 MAY contain the attribute [`Qualifier`](#Qualifier).
@@ -3528,7 +3551,7 @@ targets the model element to be annotated.
 An `edm:Annotation` element MAY contain [`edm:Annotation`](#Annotation)
 elements that annotate the annotation.
 
-### <a name="AttributeTerm.30.1" href="#AttributeTerm.30.1">Attribute `Term`</a>
+### <a name="AttributeTerm.31.1" href="#AttributeTerm.31.1">Attribute `Term`</a>
 
 The value of `Term` is the qualified name of a [term](#Term) in scope.
 :::
@@ -3583,7 +3606,7 @@ identifies an annotation.
 
 
 ::: {.varxml .rep}
-### <a name="AttributeQualifier.30.2" href="#AttributeQualifier.30.2">Attribute `Qualifier`</a>
+### <a name="AttributeQualifier.31.2" href="#AttributeQualifier.31.2">Attribute `Qualifier`</a>
 
 Annotation elements that are children of an
 [`edm:Annotations`](#AnnotationswithExternalTargeting) element MUST NOT
@@ -3664,7 +3687,7 @@ term.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmBinary.31" href="#ExpressionedmBinary.31">Expression `edm:Binary`</a>
+### <a name="ExpressionedmBinary.32" href="#ExpressionedmBinary.32">Expression `edm:Binary`</a>
 
 The `edm:Binary` expression evaluates to a primitive binary value. A
 binary expression MUST be assigned a value conforming to the rule
@@ -3690,7 +3713,7 @@ Example 43: base64url-encoded binary value (OData)
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmBool.32" href="#ExpressionedmBool.32">Expression `edm:Bool`</a>
+### <a name="ExpressionedmBool.33" href="#ExpressionedmBool.33">Expression `edm:Bool`</a>
 
 The `edm:Bool` expression evaluates to a primitive Boolean value. A
 Boolean expression MUST be assigned a Boolean value.
@@ -3715,7 +3738,7 @@ Example 44:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmDate.33" href="#ExpressionedmDate.33">Expression `edm:Date`</a>
+### <a name="ExpressionedmDate.34" href="#ExpressionedmDate.34">Expression `edm:Date`</a>
 
 The `edm:Date` expression evaluates to a primitive date value. A date
 expression MUST be assigned a value of type `xs:date`, see
@@ -3744,7 +3767,7 @@ Example 45:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmDateTimeOffset.34" href="#ExpressionedmDateTimeOffset.34">Expression `edm:DateTimeOffset`</a>
+### <a name="ExpressionedmDateTimeOffset.35" href="#ExpressionedmDateTimeOffset.35">Expression `edm:DateTimeOffset`</a>
 
 The `edm:DateTimeOffset` expression evaluates to a primitive
 datetimestamp value with a time-zone offset. A datetimestamp expression
@@ -3778,7 +3801,7 @@ Example 46:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmDecimal.35" href="#ExpressionedmDecimal.35">Expression `edm:Decimal`</a>
+### <a name="ExpressionedmDecimal.36" href="#ExpressionedmDecimal.36">Expression `edm:Decimal`</a>
 
 The `edm:Decimal` expression evaluates to a primitive decimal value. A
 decimal expression MUST be assigned a value conforming to the rule
@@ -3809,7 +3832,7 @@ Example 48: element notation
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmDuration.36" href="#ExpressionedmDuration.36">Expression `edm:Duration`</a>
+### <a name="ExpressionedmDuration.37" href="#ExpressionedmDuration.37">Expression `edm:Duration`</a>
 
 The `edm:Duration` expression evaluates to a primitive duration value. A
 duration expression MUST be assigned a value of type
@@ -3837,7 +3860,7 @@ Example 49:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmEnumMember.37" href="#ExpressionedmEnumMember.37">Expression `edm:EnumMember`</a>
+### <a name="ExpressionedmEnumMember.38" href="#ExpressionedmEnumMember.38">Expression `edm:EnumMember`</a>
 
 The `edm:EnumMember` expression references a
 [member](#EnumerationTypeMember) of an [enumeration
@@ -3882,7 +3905,7 @@ Example 51: combined value for `IsFlags` enumeration type
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmFloat.38" href="#ExpressionedmFloat.38">Expression `edm:Float`</a>
+### <a name="ExpressionedmFloat.39" href="#ExpressionedmFloat.39">Expression `edm:Float`</a>
 
 The `edm:Float` expression evaluates to a primitive floating point (or
 double) value. A float expression MUST be assigned a value conforming to
@@ -3908,7 +3931,7 @@ Example 52:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmGuid.39" href="#ExpressionedmGuid.39">Expression `edm:Guid`</a>
+### <a name="ExpressionedmGuid.40" href="#ExpressionedmGuid.40">Expression `edm:Guid`</a>
 
 The `edm:Guid` expression evaluates to a primitive guid value. A guid
 expression MUST be assigned a value conforming to the rule `guidValue`
@@ -3936,7 +3959,7 @@ Example 53:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmInt.40" href="#ExpressionedmInt.40">Expression `edm:Int`</a>
+### <a name="ExpressionedmInt.41" href="#ExpressionedmInt.41">Expression `edm:Int`</a>
 
 The `edm:Int` expression evaluates to a primitive integer value. An
 integer MUST be assigned a value conforming to the rule `int64Value` in
@@ -3967,7 +3990,7 @@ Example 55: element notation
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmString.41" href="#ExpressionedmString.41">Expression `edm:String`</a>
+### <a name="ExpressionedmString.42" href="#ExpressionedmString.42">Expression `edm:String`</a>
 
 The `edm:String` expression evaluates to a primitive string value. A
 string expression MUST be assigned a value of the type `xs:string`, see
@@ -3994,7 +4017,7 @@ Example 56:
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmTimeOfDay.42" href="#ExpressionedmTimeOfDay.42">Expression `edm:TimeOfDay`</a>
+### <a name="ExpressionedmTimeOfDay.43" href="#ExpressionedmTimeOfDay.43">Expression `edm:TimeOfDay`</a>
 
 The `edm:TimeOfDay` expression evaluates to a primitive time value. A
 time-of-day expression MUST be assigned a value conforming to the rule
@@ -4360,7 +4383,7 @@ that reuse or refer to other terms.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmAnnotationPath.43" href="#ExpressionedmAnnotationPath.43">Expression `edm:AnnotationPath`</a>
+### <a name="ExpressionedmAnnotationPath.44" href="#ExpressionedmAnnotationPath.44">Expression `edm:AnnotationPath`</a>
 
 The `edm:AnnotationPath` expression MAY be provided using element
 notation or attribute notation.
@@ -4394,7 +4417,7 @@ the instance(s) identified by the path.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmModelElementPath.44" href="#ExpressionedmModelElementPath.44">Expression `edm:ModelElementPath`</a>
+### <a name="ExpressionedmModelElementPath.45" href="#ExpressionedmModelElementPath.45">Expression `edm:ModelElementPath`</a>
 
 The `edm:ModelElementPath` expression MAY be provided using element
 notation or attribute notation.
@@ -4430,7 +4453,7 @@ not the entitiy or collection of entities identified by the path.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmNavigationPropertyPath.45" href="#ExpressionedmNavigationPropertyPath.45">Expression `edm:NavigationPropertyPath`</a>
+### <a name="ExpressionedmNavigationPropertyPath.46" href="#ExpressionedmNavigationPropertyPath.46">Expression `edm:NavigationPropertyPath`</a>
 
 The `edm:NavigationPropertyPath` expression MAY be provided using
 element notation or attribute notation.
@@ -4473,7 +4496,7 @@ identified by the path.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmPropertyPath.46" href="#ExpressionedmPropertyPath.46">Expression `edm:PropertyPath`</a>
+### <a name="ExpressionedmPropertyPath.47" href="#ExpressionedmPropertyPath.47">Expression `edm:PropertyPath`</a>
 
 The `edm:PropertyPath` MAY be provided using either element notation or
 attribute notation.
@@ -4511,7 +4534,7 @@ instances identified by the path.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmPath.47" href="#ExpressionedmPath.47">Expression `edm:Path`</a>
+### <a name="ExpressionedmPath.48" href="#ExpressionedmPath.48">Expression `edm:Path`</a>
 
 The `edm:Path` expression MAY be provided using element notation or
 attribute notation.
@@ -4562,21 +4585,21 @@ evaluate to comparable values.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionsedmAnd.48" href="#ExpressionsedmAnd.48">Expressions `edm:And`</a> and <a name="edmOr.48.1" href="#edmOr.48.1">`edm:Or`</a>
+### <a name="ExpressionsedmAnd.49" href="#ExpressionsedmAnd.49">Expressions `edm:And`</a> and <a name="edmOr.49.1" href="#edmOr.49.1">`edm:Or`</a>
 
 The `And` and `Or` logical expressions are represented as elements
 `edm:And` and `edm:Or` that MUST contain two annotation expressions.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="ExpressionedmNot.49" href="#ExpressionedmNot.49">Expression `edm:Not`</a>
+### <a name="ExpressionedmNot.50" href="#ExpressionedmNot.50">Expression `edm:Not`</a>
 
 Negation expressions are represented as an element `edm:Not` that MUST
 contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="ExpressionsedmEq.50" href="#ExpressionsedmEq.50">Expressions `edm:Eq`</a>,     <a name="edmNe.50.1" href="#edmNe.50.1">`edm:Ne`</a>,     <a name="edmGt.50.2" href="#edmGt.50.2">`edm:Gt`</a>,     <a name="edmGe.50.3" href="#edmGe.50.3">`edm:Ge`</a>,     <a name="edmLt.50.4" href="#edmLt.50.4">`edm:Lt`</a>,     <a name="edmLe.50.5" href="#edmLe.50.5">`edm:Le`</a>,     <a name="edmHas.50.6" href="#edmHas.50.6">`edm:Has`</a>, and <a name="edmIn.50.7" href="#edmIn.50.7">`edm:In`</a>
+### <a name="ExpressionsedmEq.51" href="#ExpressionsedmEq.51">Expressions `edm:Eq`</a>,     <a name="edmNe.51.1" href="#edmNe.51.1">`edm:Ne`</a>,     <a name="edmGt.51.2" href="#edmGt.51.2">`edm:Gt`</a>,     <a name="edmGe.51.3" href="#edmGe.51.3">`edm:Ge`</a>,     <a name="edmLt.51.4" href="#edmLt.51.4">`edm:Lt`</a>,     <a name="edmLe.51.5" href="#edmLe.51.5">`edm:Le`</a>,     <a name="edmHas.51.6" href="#edmHas.51.6">`edm:Has`</a>, and <a name="edmIn.51.7" href="#edmIn.51.7">`edm:In`</a>
 
 All comparison expressions are represented as an element that MUST
 contain two annotation expressions.
@@ -4662,14 +4685,14 @@ expressions that evaluate to numeric values.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmNeg.51" href="#ExpressionedmNeg.51">Expression `edm:Neg`</a>
+### <a name="ExpressionedmNeg.52" href="#ExpressionedmNeg.52">Expression `edm:Neg`</a>
 
 Negation expressions are represented as an element `edm:Neg` that MUST
 contain a single annotation expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="ExpressionsedmAdd.52" href="#ExpressionsedmAdd.52">Expressions `edm:Add`</a>,     <a name="edmSub.52.1" href="#edmSub.52.1">`edm:Sub`</a>,     <a name="edmMul.52.2" href="#edmMul.52.2">`edm:Mul`</a>,     <a name="edmDiv.52.3" href="#edmDiv.52.3">`edm:Div`</a>,     <a name="edmDivBy.52.4" href="#edmDivBy.52.4">`edm:DivBy`</a>, and <a name="edmMod.52.5" href="#edmMod.52.5">`edm:Mod`</a>
+### <a name="ExpressionsedmAdd.53" href="#ExpressionsedmAdd.53">Expressions `edm:Add`</a>,     <a name="edmSub.53.1" href="#edmSub.53.1">`edm:Sub`</a>,     <a name="edmMul.53.2" href="#edmMul.53.2">`edm:Mul`</a>,     <a name="edmDiv.53.3" href="#edmDiv.53.3">`edm:Div`</a>,     <a name="edmDivBy.53.4" href="#edmDivBy.53.4">`edm:DivBy`</a>, and <a name="edmMod.53.5" href="#edmMod.53.5">`edm:Mod`</a>
 
 These arithmetic expressions are represented as an element that MUST
 contain two annotation expressions.
@@ -4719,14 +4742,14 @@ function.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmApply.53" href="#ExpressionedmApply.53">Expression `edm:Apply`</a>
+### <a name="ExpressionedmApply.54" href="#ExpressionedmApply.54">Expression `edm:Apply`</a>
 
 The `edm:Apply` element MUST contain the `Function` attribute and MAY
 contain annotation expressions as operands for the applied function.
 
 It MAY contain more [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeFunction.53.1" href="#AttributeFunction.53.1">Attribute `Function`</a>
+### <a name="AttributeFunction.54.1" href="#AttributeFunction.54.1">Attribute `Function`</a>
 
 The value of `Function` is the [qualified name](#QualifiedName) of the
 client-side function to apply.
@@ -4779,7 +4802,7 @@ the member name of the enumeration value.
 #### <a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function `odata.fillUriTemplate`</a>
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be
@@ -4875,14 +4898,14 @@ rules as the `cast` canonical function defined in
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmCast.54" href="#ExpressionedmCast.54">Expression `edm:Cast`</a>
+### <a name="ExpressionedmCast.55" href="#ExpressionedmCast.55">Expression `edm:Cast`</a>
 
 The `edm:Cast` element MUST contain the `Type` attribute and MUST
 contain exactly one expression.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeType.54.1" href="#AttributeType.54.1">Attribute `Type`</a>
+### <a name="AttributeType.55.1" href="#AttributeType.55.1">Attribute `Type`</a>
 
 The value of `Type` is a qualified type name in scope, or the character
 sequence `Collection(` followed by the qualified name of a type in
@@ -4918,7 +4941,7 @@ compatible.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmCollection.55" href="#ExpressionedmCollection.55">Expression `edm:Collection`</a>
+### <a name="ExpressionedmCollection.56" href="#ExpressionedmCollection.56">Expression `edm:Collection`</a>
 
 The `edm:Collection` element contains zero or more child expressions.
 :::
@@ -4964,7 +4987,7 @@ collection.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmIf.56" href="#ExpressionedmIf.56">Expression `edm:If`</a>
+### <a name="ExpressionedmIf.57" href="#ExpressionedmIf.57">Expression `edm:If`</a>
 
 The `edm:If` element MUST contain two or three child expressions that
 MUST use element notation.
@@ -4997,7 +5020,7 @@ the specified type, and `false` otherwise.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmUrlRef.57" href="#ExpressionedmUrlRef.57">Expression `edm:UrlRef`</a>
+### <a name="ExpressionedmUrlRef.58" href="#ExpressionedmUrlRef.58">Expression `edm:UrlRef`</a>
 
 The `edm:UrlRef` expression MAY be provided using element notation or
 attribute notation.
@@ -5038,7 +5061,7 @@ within the schema containing the expression.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmLabeledElement.58" href="#ExpressionedmLabeledElement.58">Expression `edm:LabeledElement`</a>
+### <a name="ExpressionedmLabeledElement.59" href="#ExpressionedmLabeledElement.59">Expression `edm:LabeledElement`</a>
 
 The `edm:LabeledElement` element MUST contain the Name attribute.
 
@@ -5047,7 +5070,7 @@ or element notation.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeName.58.1" href="#AttributeName.58.1">Attribute `Name`</a>
+### <a name="AttributeName.59.1" href="#AttributeName.59.1">Attribute `Name`</a>
 
 The value of `Name` is the labeled element's name.
 :::
@@ -5077,7 +5100,7 @@ expression as its value.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmLabeledElementReference.59" href="#ExpressionedmLabeledElementReference.59">Expression `edm:LabeledElementReference`</a>
+### <a name="ExpressionedmLabeledElementReference.60" href="#ExpressionedmLabeledElementReference.60">Expression `edm:LabeledElementReference`</a>
 
 The `edm:LabeledElementReference` element MUST contain the qualified name
 of a labeled element expression in its body.
@@ -5102,7 +5125,7 @@ expression MAY be annotated.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmNull.60" href="#ExpressionedmNull.60">Expression `edm:Null`</a>
+### <a name="ExpressionedmNull.61" href="#ExpressionedmNull.61">Expression `edm:Null`</a>
 
 The `edm:Null` element MAY contain [`edm:Annotation`](#Annotation)
 elements.
@@ -5153,18 +5176,18 @@ expression is equivalent to specifying an empty collection as its value.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmRecord.61" href="#ExpressionedmRecord.61">Expression `edm:Record`</a>
+### <a name="ExpressionedmRecord.62" href="#ExpressionedmRecord.62">Expression `edm:Record`</a>
 
 The `edm:Record` element MAY contain the `Type` attribute and MAY
 contain `edm:PropertyValue` elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeType.61.1" href="#AttributeType.61.1">Attribute `Type`</a>
+### <a name="AttributeType.62.1" href="#AttributeType.62.1">Attribute `Type`</a>
 
 The value of `Type` is the qualified name of a structured type in scope.
 
-### <a name="ElementedmPropertyValue.62" href="#ElementedmPropertyValue.62">Element `edm:PropertyValue`</a>
+### <a name="ElementedmPropertyValue.63" href="#ElementedmPropertyValue.63">Element `edm:PropertyValue`</a>
 
 The `edm:PropertyValue` element MUST contain the `Property` attribute,
 and it MUST contain exactly one expression that MAY be provided using
@@ -5172,14 +5195,14 @@ either element notation or attribute notation.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
 
-### <a name="AttributeProperty.62.1" href="#AttributeProperty.62.1">Attribute `Property`</a>
+### <a name="AttributeProperty.63.1" href="#AttributeProperty.63.1">Attribute `Property`</a>
 
 The value of `Property` is the name of a property of the type of the
 enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 87: this annotation "morphs" the entity type from [example 8](#entitytype) into
+Example 87: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5227,7 +5250,7 @@ surrounding expression.
 
 
 ::: {.varxml .rep}
-### <a name="ExpressionedmUrlRef.63" href="#ExpressionedmUrlRef.63">Expression `edm:UrlRef`</a>
+### <a name="ExpressionedmUrlRef.64" href="#ExpressionedmUrlRef.64">Expression `edm:UrlRef`</a>
 
 The `edm:UrlRef` expression MAY be provided using element notation or
 attribute notation.
@@ -5644,167 +5667,169 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 # <a name="TableofXMLElementsandAttributes" href="#TableofXMLElementsandAttributes">Appendix B. Table of XML Elements and Attributes</a>
 
 ::: toc
-- [Element `edmx:Edmx`](#ElementedmxEdmx.1)
-  - [Attribute `Version`](#AttributeVersion.1.1)
-- [Element `edmx:DataServices`](#ElementedmxDataServices.2)
-- [Element `edmx:Reference`](#ElementedmxReference.3)
-  - [Attribute `Uri`](#AttributeUri.3.1)
-- [Element `edmx:Include`](#ElementedmxInclude.4)
-  - [Attribute `Namespace`](#AttributeNamespace.4.1)
-  - [Attribute `Alias`](#AttributeAlias.4.2)
-- [Element `edmx:IncludeAnnotations`](#ElementedmxIncludeAnnotations.5)
-  - [Attribute `TermNamespace`](#AttributeTermNamespace.5.1)
-  - [Attribute `Qualifier`](#AttributeQualifier.5.2)
-  - [Attribute `TargetNamespace`](#AttributeTargetNamespace.5.3)
-- [Element `edm:Schema`](#ElementedmSchema.6)
-  - [Attribute `Namespace`](#AttributeNamespace.6.1)
-  - [Attribute `Alias`](#AttributeAlias.6.2)
-- [Element `edm:Annotations`](#ElementedmAnnotations.7)
-  - [Attribute `Target`](#AttributeTarget.7.1)
-  - [Attribute `Qualifier`](#AttributeQualifier.7.2)
-- [Element `edm:EntityType`](#ElementedmEntityType.8)
-  - [Attribute `Name`](#AttributeName.8.1)
-  - [Attribute `BaseType`](#AttributeBaseType.8.2)
-  - [Attribute `Abstract`](#AttributeAbstract.8.3)
-  - [Attribute `OpenType`](#AttributeOpenType.8.4)
-  - [Attribute `HasStream`](#AttributeHasStream.8.5)
-- [Element `edm:Key`](#ElementedmKey.9)
-- [Element `edm:PropertyRef`](#ElementedmPropertyRef.10)
-  - [Attribute `Name`](#AttributeName.10.1)
-  - [Attribute `Alias`](#AttributeAlias.10.2)
-- [Element `edm:Property`](#ElementedmProperty.11)
+- [Type Facet Attributes](#TypeFacetAttributes.1)
+  - [Attribute `MaxLength`](#AttributeMaxLength.1.1)
+  - [Attribute `Precision`](#AttributePrecision.1.2)
+  - [Attribute `Scale`](#AttributeScale.1.3)
+  - [Attribute `Unicode`](#AttributeUnicode.1.4)
+  - [Attribute `SRID`](#AttributeSRID.1.5)
+- [Element `edmx:Edmx`](#ElementedmxEdmx.2)
+  - [Attribute `Version`](#AttributeVersion.2.1)
+- [Element `edmx:DataServices`](#ElementedmxDataServices.3)
+- [Element `edmx:Reference`](#ElementedmxReference.4)
+  - [Attribute `Uri`](#AttributeUri.4.1)
+- [Element `edmx:Include`](#ElementedmxInclude.5)
+  - [Attribute `Namespace`](#AttributeNamespace.5.1)
+  - [Attribute `Alias`](#AttributeAlias.5.2)
+- [Element `edmx:IncludeAnnotations`](#ElementedmxIncludeAnnotations.6)
+  - [Attribute `TermNamespace`](#AttributeTermNamespace.6.1)
+  - [Attribute `Qualifier`](#AttributeQualifier.6.2)
+  - [Attribute `TargetNamespace`](#AttributeTargetNamespace.6.3)
+- [Element `edm:Schema`](#ElementedmSchema.7)
+  - [Attribute `Namespace`](#AttributeNamespace.7.1)
+  - [Attribute `Alias`](#AttributeAlias.7.2)
+- [Element `edm:Annotations`](#ElementedmAnnotations.8)
+  - [Attribute `Target`](#AttributeTarget.8.1)
+  - [Attribute `Qualifier`](#AttributeQualifier.8.2)
+- [Element `edm:EntityType`](#ElementedmEntityType.9)
+  - [Attribute `Name`](#AttributeName.9.1)
+  - [Attribute `BaseType`](#AttributeBaseType.9.2)
+  - [Attribute `Abstract`](#AttributeAbstract.9.3)
+  - [Attribute `OpenType`](#AttributeOpenType.9.4)
+  - [Attribute `HasStream`](#AttributeHasStream.9.5)
+- [Element `edm:Key`](#ElementedmKey.10)
+- [Element `edm:PropertyRef`](#ElementedmPropertyRef.11)
   - [Attribute `Name`](#AttributeName.11.1)
-  - [Attribute `Type`](#AttributeType.11.2)
-  - [Attribute `Nullable`](#AttributeNullable.11.3)
-  - [Attribute `MaxLength`](#AttributeMaxLength.11.4)
-  - [Attribute `Precision`](#AttributePrecision.11.5)
-  - [Attribute `Scale`](#AttributeScale.11.6)
-  - [Attribute `Unicode`](#AttributeUnicode.11.7)
-  - [Attribute `SRID`](#AttributeSRID.11.8)
-  - [Attribute `DefaultValue`](#AttributeDefaultValue.11.9)
-- [Element `edm:NavigationProperty`](#ElementedmNavigationProperty.12)
+  - [Attribute `Alias`](#AttributeAlias.11.2)
+- [Element `edm:Property`](#ElementedmProperty.12)
   - [Attribute `Name`](#AttributeName.12.1)
   - [Attribute `Type`](#AttributeType.12.2)
   - [Attribute `Nullable`](#AttributeNullable.12.3)
-  - [Attribute `Partner`](#AttributePartner.12.4)
-  - [Attribute `ContainsTarget`](#AttributeContainsTarget.12.5)
-- [Element `edm:ReferentialConstraint`](#ElementedmReferentialConstraint.13)
-  - [Attribute `Property`](#AttributeProperty.13.1)
-  - [Attribute `ReferencedProperty`](#AttributeReferencedProperty.13.2)
-- [Element `edm:OnDelete`](#ElementedmOnDelete.14)
-  - [Attribute `Action`](#AttributeAction.14.1)
-- [Element `edm:ComplexType`](#ElementedmComplexType.15)
-  - [Attribute `Name`](#AttributeName.15.1)
-  - [Attribute `BaseType`](#AttributeBaseType.15.2)
-  - [Attribute `Abstract`](#AttributeAbstract.15.3)
-  - [Attribute `OpenType`](#AttributeOpenType.15.4)
-- [Element `edm:EnumType`](#ElementedmEnumType.16)
+  - [Attribute `DefaultValue`](#AttributeDefaultValue.12.4)
+- [Element `edm:NavigationProperty`](#ElementedmNavigationProperty.13)
+  - [Attribute `Name`](#AttributeName.13.1)
+  - [Attribute `Type`](#AttributeType.13.2)
+  - [Attribute `Nullable`](#AttributeNullable.13.3)
+  - [Attribute `Partner`](#AttributePartner.13.4)
+  - [Attribute `ContainsTarget`](#AttributeContainsTarget.13.5)
+- [Element `edm:ReferentialConstraint`](#ElementedmReferentialConstraint.14)
+  - [Attribute `Property`](#AttributeProperty.14.1)
+  - [Attribute `ReferencedProperty`](#AttributeReferencedProperty.14.2)
+- [Element `edm:OnDelete`](#ElementedmOnDelete.15)
+  - [Attribute `Action`](#AttributeAction.15.1)
+- [Element `edm:ComplexType`](#ElementedmComplexType.16)
   - [Attribute `Name`](#AttributeName.16.1)
-  - [Attribute `UnderlyingType`](#AttributeUnderlyingType.16.2)
-  - [Attribute `IsFlags`](#AttributeIsFlags.16.3)
-- [Element `edm:Member`](#ElementedmMember.17)
+  - [Attribute `BaseType`](#AttributeBaseType.16.2)
+  - [Attribute `Abstract`](#AttributeAbstract.16.3)
+  - [Attribute `OpenType`](#AttributeOpenType.16.4)
+- [Element `edm:EnumType`](#ElementedmEnumType.17)
   - [Attribute `Name`](#AttributeName.17.1)
-  - [Attribute `Value`](#AttributeValue.17.2)
-- [Element `edm:TypeDefinition`](#ElementedmTypeDefinition.18)
+  - [Attribute `UnderlyingType`](#AttributeUnderlyingType.17.2)
+  - [Attribute `IsFlags`](#AttributeIsFlags.17.3)
+- [Element `edm:Member`](#ElementedmMember.18)
   - [Attribute `Name`](#AttributeName.18.1)
-  - [Attribute `UnderlyingType`](#AttributeUnderlyingType.18.2)
-- [Element `edm:Action`](#ElementedmAction.19)
+  - [Attribute `Value`](#AttributeValue.18.2)
+- [Element `edm:TypeDefinition`](#ElementedmTypeDefinition.19)
   - [Attribute `Name`](#AttributeName.19.1)
-- [Element `edm:Function`](#ElementedmFunction.20)
+  - [Attribute `UnderlyingType`](#AttributeUnderlyingType.19.2)
+- [Element `edm:Action`](#ElementedmAction.20)
   - [Attribute `Name`](#AttributeName.20.1)
-  - [Attribute `IsBound`](#AttributeIsBound.20.2)
-  - [Attribute `EntitySetPath`](#AttributeEntitySetPath.20.3)
-  - [Attribute `IsComposable`](#AttributeIsComposable.20.4)
-- [Element `edm:ReturnType`](#ElementedmReturnType.21)
-  - [Attribute `Type`](#AttributeType.21.1)
-  - [Attribute `Nullable`](#AttributeNullable.21.2)
-- [Element `edm:Parameter`](#ElementedmParameter.22)
-  - [Attribute `Name`](#AttributeName.22.1)
-  - [Attribute `Type`](#AttributeType.22.2)
-  - [Attribute `Nullable`](#AttributeNullable.22.3)
-- [Element `edm:EntityContainer`](#ElementedmEntityContainer.23)
+- [Element `edm:Function`](#ElementedmFunction.21)
+  - [Attribute `Name`](#AttributeName.21.1)
+  - [Attribute `IsBound`](#AttributeIsBound.21.2)
+  - [Attribute `EntitySetPath`](#AttributeEntitySetPath.21.3)
+  - [Attribute `IsComposable`](#AttributeIsComposable.21.4)
+- [Element `edm:ReturnType`](#ElementedmReturnType.22)
+  - [Attribute `Type`](#AttributeType.22.1)
+  - [Attribute `Nullable`](#AttributeNullable.22.2)
+- [Element `edm:Parameter`](#ElementedmParameter.23)
   - [Attribute `Name`](#AttributeName.23.1)
-  - [Attribute `Extends`](#AttributeExtends.23.2)
-- [Element `edm:EntitySet`](#ElementedmEntitySet.24)
+  - [Attribute `Type`](#AttributeType.23.2)
+  - [Attribute `Nullable`](#AttributeNullable.23.3)
+- [Element `edm:EntityContainer`](#ElementedmEntityContainer.24)
   - [Attribute `Name`](#AttributeName.24.1)
-  - [Attribute `EntityType`](#AttributeEntityType.24.2)
-  - [Attribute `IncludeInServiceDocument`](#AttributeIncludeInServiceDocument.24.3)
-- [Element `edm:Singleton`](#ElementedmSingleton.25)
+  - [Attribute `Extends`](#AttributeExtends.24.2)
+- [Element `edm:EntitySet`](#ElementedmEntitySet.25)
   - [Attribute `Name`](#AttributeName.25.1)
-  - [Attribute `Type`](#AttributeType.25.2)
-  - [Attribute `Nullable`](#AttributeNullable.25.3)
-- [Element `edm:NavigationPropertyBinding`](#ElementedmNavigationPropertyBinding.26)
-  - [Attribute `Path`](#AttributePath.26.1)
-  - [Attribute `Target`](#AttributeTarget.26.2)
-- [Element `edm:ActionImport`](#ElementedmActionImport.27)
-  - [Attribute `Name`](#AttributeName.27.1)
-  - [Attribute `Action`](#AttributeAction.27.2)
-  - [Attribute `EntitySet`](#AttributeEntitySet.27.3)
-- [Element `edm:FunctionImport`](#ElementedmFunctionImport.28)
+  - [Attribute `EntityType`](#AttributeEntityType.25.2)
+  - [Attribute `IncludeInServiceDocument`](#AttributeIncludeInServiceDocument.25.3)
+- [Element `edm:Singleton`](#ElementedmSingleton.26)
+  - [Attribute `Name`](#AttributeName.26.1)
+  - [Attribute `Type`](#AttributeType.26.2)
+  - [Attribute `Nullable`](#AttributeNullable.26.3)
+- [Element `edm:NavigationPropertyBinding`](#ElementedmNavigationPropertyBinding.27)
+  - [Attribute `Path`](#AttributePath.27.1)
+  - [Attribute `Target`](#AttributeTarget.27.2)
+- [Element `edm:ActionImport`](#ElementedmActionImport.28)
   - [Attribute `Name`](#AttributeName.28.1)
-  - [Attribute `Function`](#AttributeFunction.28.2)
+  - [Attribute `Action`](#AttributeAction.28.2)
   - [Attribute `EntitySet`](#AttributeEntitySet.28.3)
-  - [Attribute `IncludeInServiceDocument`](#AttributeIncludeInServiceDocument.28.4)
-- [Element `edm:Term`](#ElementedmTerm.29)
+- [Element `edm:FunctionImport`](#ElementedmFunctionImport.29)
   - [Attribute `Name`](#AttributeName.29.1)
-  - [Attribute `Type`](#AttributeType.29.2)
-  - [Attribute `DefaultValue`](#AttributeDefaultValue.29.3)
-  - [Attribute `BaseTerm`](#AttributeBaseTerm.29.4)
-  - [Attribute `AppliesTo`](#AttributeAppliesTo.29.5)
-- [Element `edm:Annotation`](#ElementedmAnnotation.30)
-  - [Attribute `Term`](#AttributeTerm.30.1)
-  - [Attribute `Qualifier`](#AttributeQualifier.30.2)
-- [Expression `edm:Binary`](#ExpressionedmBinary.31)
-- [Expression `edm:Bool`](#ExpressionedmBool.32)
-- [Expression `edm:Date`](#ExpressionedmDate.33)
-- [Expression `edm:DateTimeOffset`](#ExpressionedmDateTimeOffset.34)
-- [Expression `edm:Decimal`](#ExpressionedmDecimal.35)
-- [Expression `edm:Duration`](#ExpressionedmDuration.36)
-- [Expression `edm:EnumMember`](#ExpressionedmEnumMember.37)
-- [Expression `edm:Float`](#ExpressionedmFloat.38)
-- [Expression `edm:Guid`](#ExpressionedmGuid.39)
-- [Expression `edm:Int`](#ExpressionedmInt.40)
-- [Expression `edm:String`](#ExpressionedmString.41)
-- [Expression `edm:TimeOfDay`](#ExpressionedmTimeOfDay.42)
-- [Expression `edm:AnnotationPath`](#ExpressionedmAnnotationPath.43)
-- [Expression `edm:ModelElementPath`](#ExpressionedmModelElementPath.44)
-- [Expression `edm:NavigationPropertyPath`](#ExpressionedmNavigationPropertyPath.45)
-- [Expression `edm:PropertyPath`](#ExpressionedmPropertyPath.46)
-- [Expression `edm:Path`](#ExpressionedmPath.47)
-- [Expressions `edm:And`](#ExpressionsedmAnd.48)
-  - [`edm:Or`](#edmOr.48.1)
-- [Expression `edm:Not`](#ExpressionedmNot.49)
-- [Expressions `edm:Eq`](#ExpressionsedmEq.50)
-  - [`edm:Ne`](#edmNe.50.1)
-  - [`edm:Gt`](#edmGt.50.2)
-  - [`edm:Ge`](#edmGe.50.3)
-  - [`edm:Lt`](#edmLt.50.4)
-  - [`edm:Le`](#edmLe.50.5)
-  - [`edm:Has`](#edmHas.50.6)
-  - [`edm:In`](#edmIn.50.7)
-- [Expression `edm:Neg`](#ExpressionedmNeg.51)
-- [Expressions `edm:Add`](#ExpressionsedmAdd.52)
-  - [`edm:Sub`](#edmSub.52.1)
-  - [`edm:Mul`](#edmMul.52.2)
-  - [`edm:Div`](#edmDiv.52.3)
-  - [`edm:DivBy`](#edmDivBy.52.4)
-  - [`edm:Mod`](#edmMod.52.5)
-- [Expression `edm:Apply`](#ExpressionedmApply.53)
-  - [Attribute `Function`](#AttributeFunction.53.1)
-- [Expression `edm:Cast`](#ExpressionedmCast.54)
-  - [Attribute `Type`](#AttributeType.54.1)
-- [Expression `edm:Collection`](#ExpressionedmCollection.55)
-- [Expression `edm:If`](#ExpressionedmIf.56)
-- [Expression `edm:UrlRef`](#ExpressionedmUrlRef.57)
-- [Expression `edm:LabeledElement`](#ExpressionedmLabeledElement.58)
-  - [Attribute `Name`](#AttributeName.58.1)
-- [Expression `edm:LabeledElementReference`](#ExpressionedmLabeledElementReference.59)
-- [Expression `edm:Null`](#ExpressionedmNull.60)
-- [Expression `edm:Record`](#ExpressionedmRecord.61)
-  - [Attribute `Type`](#AttributeType.61.1)
-- [Element `edm:PropertyValue`](#ElementedmPropertyValue.62)
-  - [Attribute `Property`](#AttributeProperty.62.1)
-- [Expression `edm:UrlRef`](#ExpressionedmUrlRef.63)
+  - [Attribute `Function`](#AttributeFunction.29.2)
+  - [Attribute `EntitySet`](#AttributeEntitySet.29.3)
+  - [Attribute `IncludeInServiceDocument`](#AttributeIncludeInServiceDocument.29.4)
+- [Element `edm:Term`](#ElementedmTerm.30)
+  - [Attribute `Name`](#AttributeName.30.1)
+  - [Attribute `Type`](#AttributeType.30.2)
+  - [Attribute `Nullable`](#AttributeNullable.30.3)
+  - [Attribute `DefaultValue`](#AttributeDefaultValue.30.4)
+  - [Attribute `BaseTerm`](#AttributeBaseTerm.30.5)
+  - [Attribute `AppliesTo`](#AttributeAppliesTo.30.6)
+- [Element `edm:Annotation`](#ElementedmAnnotation.31)
+  - [Attribute `Term`](#AttributeTerm.31.1)
+  - [Attribute `Qualifier`](#AttributeQualifier.31.2)
+- [Expression `edm:Binary`](#ExpressionedmBinary.32)
+- [Expression `edm:Bool`](#ExpressionedmBool.33)
+- [Expression `edm:Date`](#ExpressionedmDate.34)
+- [Expression `edm:DateTimeOffset`](#ExpressionedmDateTimeOffset.35)
+- [Expression `edm:Decimal`](#ExpressionedmDecimal.36)
+- [Expression `edm:Duration`](#ExpressionedmDuration.37)
+- [Expression `edm:EnumMember`](#ExpressionedmEnumMember.38)
+- [Expression `edm:Float`](#ExpressionedmFloat.39)
+- [Expression `edm:Guid`](#ExpressionedmGuid.40)
+- [Expression `edm:Int`](#ExpressionedmInt.41)
+- [Expression `edm:String`](#ExpressionedmString.42)
+- [Expression `edm:TimeOfDay`](#ExpressionedmTimeOfDay.43)
+- [Expression `edm:AnnotationPath`](#ExpressionedmAnnotationPath.44)
+- [Expression `edm:ModelElementPath`](#ExpressionedmModelElementPath.45)
+- [Expression `edm:NavigationPropertyPath`](#ExpressionedmNavigationPropertyPath.46)
+- [Expression `edm:PropertyPath`](#ExpressionedmPropertyPath.47)
+- [Expression `edm:Path`](#ExpressionedmPath.48)
+- [Expressions `edm:And`](#ExpressionsedmAnd.49)
+  - [`edm:Or`](#edmOr.49.1)
+- [Expression `edm:Not`](#ExpressionedmNot.50)
+- [Expressions `edm:Eq`](#ExpressionsedmEq.51)
+  - [`edm:Ne`](#edmNe.51.1)
+  - [`edm:Gt`](#edmGt.51.2)
+  - [`edm:Ge`](#edmGe.51.3)
+  - [`edm:Lt`](#edmLt.51.4)
+  - [`edm:Le`](#edmLe.51.5)
+  - [`edm:Has`](#edmHas.51.6)
+  - [`edm:In`](#edmIn.51.7)
+- [Expression `edm:Neg`](#ExpressionedmNeg.52)
+- [Expressions `edm:Add`](#ExpressionsedmAdd.53)
+  - [`edm:Sub`](#edmSub.53.1)
+  - [`edm:Mul`](#edmMul.53.2)
+  - [`edm:Div`](#edmDiv.53.3)
+  - [`edm:DivBy`](#edmDivBy.53.4)
+  - [`edm:Mod`](#edmMod.53.5)
+- [Expression `edm:Apply`](#ExpressionedmApply.54)
+  - [Attribute `Function`](#AttributeFunction.54.1)
+- [Expression `edm:Cast`](#ExpressionedmCast.55)
+  - [Attribute `Type`](#AttributeType.55.1)
+- [Expression `edm:Collection`](#ExpressionedmCollection.56)
+- [Expression `edm:If`](#ExpressionedmIf.57)
+- [Expression `edm:UrlRef`](#ExpressionedmUrlRef.58)
+- [Expression `edm:LabeledElement`](#ExpressionedmLabeledElement.59)
+  - [Attribute `Name`](#AttributeName.59.1)
+- [Expression `edm:LabeledElementReference`](#ExpressionedmLabeledElementReference.60)
+- [Expression `edm:Null`](#ExpressionedmNull.61)
+- [Expression `edm:Record`](#ExpressionedmRecord.62)
+  - [Attribute `Type`](#AttributeType.62.1)
+- [Element `edm:PropertyValue`](#ElementedmPropertyValue.63)
+  - [Attribute `Property`](#AttributeProperty.63.1)
+- [Expression `edm:UrlRef`](#ExpressionedmUrlRef.64)
 :::
 
 -------
