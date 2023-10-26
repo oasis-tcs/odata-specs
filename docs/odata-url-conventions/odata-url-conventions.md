@@ -2261,10 +2261,10 @@ Edm.Boolean matchesPattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The
 `matchesPattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
+of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
 
 ::: example
@@ -3937,7 +3937,7 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="ECMAScript">[ECMAScript]</a>
+###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
