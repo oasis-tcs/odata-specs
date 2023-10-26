@@ -551,7 +551,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -876,10 +876,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example 6: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example 6: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -1808,7 +1806,8 @@ If the actual stream data is included inline, the control information
 MUST be present to indicate how the included stream property value is
 represented. Stream property values of media type `application/json` or
 one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of top-level type `text`, for example
+as native JSON. Values of top-level type `text` with an explicit or
+default `charset` of `utf-8` or `us-ascii`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. Included stream data of other media types is
 represented as a base64url-encoded string value, see
@@ -2384,7 +2383,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id,` if present, MUST immediately follow the control
+  `id`, if present, MUST immediately follow the control
   information
   [`removed`](#ControlInformationremovedodataremoved).
 
@@ -2872,7 +2871,7 @@ batch request URL, or a relative path (not starting with a forward slash `/`).
 
 If the first segment of a relative path starts with a `$`
 character and is not identical to the name of a top-level system
-resource (`$batch`, `$crossjoin,` `$all,` `$entity`, `$root,`
+resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root`,
 `$id`, `$metadata`, or other system resources
 defined according to the `OData-Version` of the protocol
 specified in the request), then this first segment is replaced with the
