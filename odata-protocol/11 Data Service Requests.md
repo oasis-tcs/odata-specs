@@ -1129,7 +1129,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and

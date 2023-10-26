@@ -3661,7 +3661,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -5821,7 +5821,7 @@ A body part representing an individual request MUST include a
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [RFC2046](#rfc2046)) with one body part for each
-operation in the change set. [E]{.MsoCommentReference}ach body part
+operation in the change set. Each body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#IdentifyingIndividualRequests) that
 is unique within the batch request.
