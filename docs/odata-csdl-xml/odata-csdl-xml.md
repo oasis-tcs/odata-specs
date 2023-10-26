@@ -852,8 +852,8 @@ other CSDL documents.
 
 The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
-`4.0.` For OData 4.01 responses the value of this attribute MUST be
-`4.01.` Services MUST return an OData 4.0 response if the request was
+`4.0`. For OData 4.01 responses the value of this attribute MUST be
+`4.01`. Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion `header with a value of `4.0`.
 
 ### <a name="ElementedmxDataServices3" href="#ElementedmxDataServices3"> Element `edmx:DataServices`</a>
@@ -4802,7 +4802,7 @@ the member name of the enumeration value.
 #### <a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function `odata.fillUriTemplate`</a>
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be

@@ -4972,7 +4972,7 @@ the member name of the enumeration value.
 #### <a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function `odata.fillUriTemplate`</a>
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be

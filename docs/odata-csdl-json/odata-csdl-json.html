@@ -3011,7 +3011,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <p><code>ProductName</code> is of type <code>String</code>, <code>Quantity</code> in complex type <code>Available</code> is of type <code>Decimal</code>, and <code>Unit</code> in <code>Available</code> is of type enumeration, so the result of the <code>Path</code> expression is represented as the member name of the enumeration value.</p>
 <h4 id="14442-function-odatafilluritemplate"><a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function <code>odata.fillUriTemplate</code></a></h4>
-<p>The <code>odata.fillUriTemplate</code> client-side function takes two or more expressions as arguments and returns a value of type <code>Edm.String.</code></p>
+<p>The <code>odata.fillUriTemplate</code> client-side function takes two or more expressions as arguments and returns a value of type <code>Edm.String</code>.</p>
 <p>The first argument MUST be of type <code>Edm.String</code> and specifies a URI template according to <a href="#rfc6570">RFC6570</a>, the other arguments MUST be <a href="#LabeledElement">labeled element expressions</a>. Each <a href="#LabeledElement">labeled element expression</a> specifies the template parameter name as its name and evaluates to the template parameter value.</p>
 <p><a href="#rfc6570">RFC6570</a> defines three kinds of template parameters: simple values, lists of values, and key-value maps.</p>
 <p>Simple values are represented as <a href="#LabeledElement">labeled element expressions</a> that evaluate to a single primitive value. The literal representation of this value according to <a href="#ODataABNF">OData-ABNF</a> is used to fill the corresponding template parameter.</p>
