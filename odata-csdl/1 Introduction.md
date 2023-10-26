@@ -571,7 +571,7 @@ see [OData-VocMeasures](#ODataVocMeasures).
 
 The value of `$Precision` is a number.
 
-Absence of `$Precision` means arbitrary precision.
+Absence of `$Precision` means unspecified precision both for decimal and temporal properties.
 :::
 
 ::: {.varjson .example}
@@ -591,7 +591,7 @@ Example ##ex: `Precision` facet applied to the `DateTimeOffset` type
 The value of `Precision` is a number.
 
 If not specified for a decimal value, the decimal value has
-arbitrary precision.
+unspecified precision.
 
 If not specified for a temporal value, the temporal value has a
 precision of zero.
