@@ -573,7 +573,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or 
+[`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
@@ -871,7 +871,7 @@ Example ##ex: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
-http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                
+http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID
 ```
 and would result in
 ```json

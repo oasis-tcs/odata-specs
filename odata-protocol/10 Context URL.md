@@ -341,9 +341,9 @@ Example ##ex: resource URL and corresponding context URL -- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
-        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
+        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
+        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
 
@@ -383,9 +383,9 @@ the context URL.
 Example ##ex: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
-        $expand=DirectReports($select=FirstName,LastName;$levels=4)
+        $expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
+        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
 ```
 :::
 
@@ -549,7 +549,7 @@ Context URL templates:
 
     {context-url}#{entity-set}/$deletedEntity
     {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink 
+    {context-url}#{entity-set}/$deletedLink
 
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new

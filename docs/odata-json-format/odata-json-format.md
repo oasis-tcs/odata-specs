@@ -565,7 +565,8 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
+a value of `true` or `false`, see section
+"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
@@ -1338,7 +1339,8 @@ Example 11: entity with `metadata=full`
 
 A property within an entity or complex type instance is represented as a
 name/value pair. The name MUST be the name of the property; a non-null value is
-represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
+represented depending on its type as a [primitive value](#PrimitiveValue),
+a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
 
@@ -1363,7 +1365,8 @@ Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
 
 Values of type `Edm.Binary`, `Edm.Date`,
-`Edm.DateTimeOffset`, `Edm.Duration`, `Edm.Guid`, and `Edm.TimeOfDay` are represented as
+`Edm.DateTimeOffset`, `Edm.Duration`,
+`Edm.Guid`, and `Edm.TimeOfDay` are represented as
 JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
@@ -1400,7 +1403,7 @@ payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
- 
+
 ::: example
 Example 12:
 ```json
@@ -1433,7 +1436,7 @@ name/value pair for each property that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
- 
+
 ::: example
 Example 13:
 ```json
@@ -1461,7 +1464,7 @@ element in the array is the representation of a [primitive
 value](#PrimitiveValue). A JSON literal `null` represents
 a null value within the collection. An empty collection is represented
 as an empty array.
- 
+
 ::: example
 Example 14: partial collection of strings with next link
 ```json
@@ -1482,7 +1485,7 @@ Example 14: partial collection of strings with next link
 A collection of complex values is represented as a JSON array; each
 element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
 null value within the collection. An empty collection is represented as an empty array.
- 
+
 ::: example
 Example 15: partial collection of complex values with next link
 ```json
@@ -1550,7 +1553,7 @@ client requests `metadata=full` or the navigation link cannot
 be computed, e.g. if it is within a collection of complex type
 instances. If it is represented it MUST immediately precede the expanded
 navigation property if the latter is represented.
- 
+
 ::: example
 Example 16:
 ```json
@@ -1577,7 +1580,7 @@ cannot be computed by appending `/$ref` to the navigation
 link. If it is represented, it MUST immediately precede the navigation
 link if the latter is represented, otherwise it MUST immediately precede
 the expanded navigation property if it is represented.
- 
+
 ::: example
 Example 17:
 ```json
@@ -1611,7 +1614,7 @@ represented as an empty JSON array. The navigation property MAY include
 [`nextLink`](#ControlInformationnextLinkodatanextLink) control information. If a navigation property is
 expanded with the suffix `/$count`, only the
 [`count`](#ControlInformationcountodatacount) control information is represented.
- 
+
 ::: example
 Example 18:
 ```json
@@ -1633,7 +1636,7 @@ new entities MAY be specified using the same representation as for an
 
 Deep inserts are not allowed in update operations using `PUT`
 or `PATCH` requests.
- 
+
 ::: example
 Example 19: inserting a new order for a new customer with order items
 related to existing products:
@@ -1674,7 +1677,7 @@ the navigation property it belongs to and has a single value for
 single-valued navigation properties or an array of values for collection
 navigation properties. For nullable single-valued navigation properties
 the value `null` may be used to remove the relationship.
- 
+
 ::: example
 Example 20: assign an existing product to an existing category with a
 partial update request against the product
@@ -1695,7 +1698,7 @@ For requests containing an `OData-Version` header with a value
 of `4.01`, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
- 
+
 ::: example
 Example 21: assign an existing product to an existing category with a
 partial update request against the product
@@ -1708,7 +1711,7 @@ Content-Type: application/json
 }
 ```
 :::
- 
+
 ::: example
 Example 22: submit a partial update request to:
 - modify the name of an existing category
@@ -1743,7 +1746,8 @@ Content-Type: application/json
 OData 4.01 services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`. Clients MUST NOT use `@odata.bind` in requests with an
+containing an `OData-Version` header with a value of `4.01`.
+Clients MUST NOT use `@odata.bind` in requests with an
 `OData-Version` header with a value of `4.01`.
 
 For insert operations collection navigation property bind operations and
@@ -1764,7 +1768,7 @@ that can be used in a subsequent request to determine if the collection
 has changed.
 
 Services MAY include this control information as appropriate.
- 
+
 ::: example
 Example 23: ETag for a collection of related entities
 ```json
@@ -1817,7 +1821,7 @@ If the included stream property has no value, the non-existing stream
 data is represented as `null` and the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 is not necessary.
- 
+
 ::: example
 Example 24:
 ```json
@@ -1841,11 +1845,12 @@ Example 24:
 
 Media entities are entities that describe a media resource, for example
 a photo. They are represented as entities that contain additional
-[`media*`](#ControlInformationmediaodatamedia) control information. 
+[`media*`](#ControlInformationmediaodatamedia) control information.
+
 If the actual stream data for the media entity is included, it is
 represented as property named `$value` whose
 string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
- 
+
 ::: example
 Example 25:
 ```json
@@ -1884,7 +1889,7 @@ represented as an object with a single name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
- 
+
 ::: example
 Example 26:  primitive value
 ```json
@@ -1894,7 +1899,7 @@ Example 26:  primitive value
 }
 ```
 :::
- 
+
 ::: example
 Example 27:  collection of primitive values
 ```json
@@ -1904,7 +1909,7 @@ Example 27:  collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example 28:  empty collection of primitive values
 ```json
@@ -1914,7 +1919,7 @@ Example 28:  empty collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example 29: complex value
 ```json
@@ -1928,7 +1933,7 @@ Example 29: complex value
 }
 ```
 :::
- 
+
 ::: example
 Example 30: empty collection of complex values
 ```json
@@ -2036,7 +2041,8 @@ entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
 control information.
 
-A collection of entity references is represented as a [collection of entities](#CollectionofEntities), with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
+A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
+with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
 
 The outermost JSON object in a response MUST contain a
 [`context`](#ControlInformationcontextodatacontext)
@@ -2044,7 +2050,7 @@ control information and MAY contain
 [`count`](#ControlInformationcountodatacount),
 [`nextLink`](#ControlInformationnextLinkodatanextLink), or
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
- 
+
 ::: example
 Example 31: entity reference to order 10643
 ```json
@@ -2054,7 +2060,7 @@ Example 31: entity reference to order 10643
 }
 ```
 :::
- 
+
 ::: example
 Example 32: collection of entity references
 ```json
@@ -2952,7 +2958,7 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
- 
+
 ::: example
 Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
 the following individual requests in the order listed
@@ -3015,7 +3021,7 @@ The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests. If the `Location` header in the response
 contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
- 
+
 ::: example
 Example 49: a batch request that contains the following operations in
 the order listed:
@@ -3157,7 +3163,8 @@ same value.
 
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
-of their individual returned status code. The service MAY return `424 Failed Dependency` for statements
+of their individual returned status code. The service MAY return
+`424 Failed Dependency` for statements
 within an atomicity group that fail or are not attempted due to other
 failures within the same atomicity group.
 
@@ -3182,7 +3189,7 @@ Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
 request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
- 
+
 ::: example
 Example 51: referencing the batch request [example 48](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
@@ -3235,7 +3242,7 @@ control information in the JSON batch response, thus signaling that the
 response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
- 
+
 ::: example
 Example 52: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
@@ -3325,7 +3332,7 @@ the service responds with a JSON batch response. In this case the
 asynchronously executed individual request with a `status` of
 `202`, a `location` header pointing to an
 individual status monitor resource, and optionally a `retry-after` header.
- 
+
 ::: example
 Example 53: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
@@ -3351,7 +3358,8 @@ Content-Type: application/json
   ]
 }
 ```
-::: 
+:::
+
 
 -------
 
@@ -3769,9 +3777,11 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
 http://tools.ietf.org/html/rfc8259.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
+
 ###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 ###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
 _Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_

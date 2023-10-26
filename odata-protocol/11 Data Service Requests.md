@@ -116,7 +116,7 @@ OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
 character, which is optional in OData 4.01. 4.01 services MUST support
 case-insensitive system query option names specified with or without the
-`$` prefix. 
+`$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -530,9 +530,9 @@ Example ##ex: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
-   ?$filter=Orders/any(o:o/TotalPrice gt 100)
-   &$expand=Orders($compute=Price mult Qty as TotalPrice
-                  ;$select=Name,Price,Qty,TotalPrice)
+   ?$filter=Orders/any(o:o/TotalPrice gt 100)
+   &$expand=Orders($compute=Price mult Qty as TotalPrice
+                  ;$select=Name,Price,Qty,TotalPrice)
 ```
 :::
 
@@ -1112,8 +1112,8 @@ specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
       ?$id=http://host/service/Customers('ALFKI')
-      &$select=CompanyName,ContactName
-      &$expand=Orders
+      &$select=CompanyName,ContactName
+      &$expand=Orders
 ```
 :::
 
@@ -1129,7 +1129,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -1333,7 +1333,7 @@ MUST return changes, additions, or deletions to the expanded entities,
 as well as added or deleted links to expanded entities or nested
 collections representing current membership. If the defining query
 includes expanded references, then the delta link MUST return changes to
-the membership in the set of expanded references. 
+the membership in the set of expanded references.
 
 Navigation properties specified in the
 [`$select`](#SystemQueryOptionselect) list of a defining query are not

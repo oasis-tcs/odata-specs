@@ -803,7 +803,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <p>The <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a> query options can also be used with no special semantics.</p>
 <div class="example">
 <p>Example 46: if <code>Sales</code> had a structural property <code>ProductID</code> instead of a navigation property <code>Product</code>, a "cross join" between <code>Sales</code> and <code>Products</code> could be addressed</p>
-<pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                </code></pre>
+<pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID</code></pre>
 <p>and would result in</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>

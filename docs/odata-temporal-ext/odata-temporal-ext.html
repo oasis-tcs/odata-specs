@@ -263,7 +263,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Time slices for the same <a href="#TemporalObject">temporal object</a> are non-overlapping, so for any given point in time there is at most one slice whose time period contains that point in time.</p>
 <p>Time slices for a temporal object need not cover the complete timeline. There can be points in time for which no time slice exists, indicating that the object's values are not known to the service.</p>
 <h5 id="12141-closed-open-semantics"><a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></h5>
-<p>Time slices typically use closed-open semantics, following <strong><a href="#SQL">[SQL:2011]</a></strong>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
+<p>Time slices typically use closed-open semantics, following <a href="#_SQL">SQL:2011</a>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
 <h5 id="12142-closed-closed-semantics"><a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></h5>
 <p>Some software systems predating the availability of temporal databases and with data type <em>date</em> for the application-time period start and end use closed-closed semantics. Temporal services on top of these systems can either convert their period end boundaries on-the-fly by adding one day on the way out and subtracting one day on the way in, or alternatively express the used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
 <h4 id="1215-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a></h4>
@@ -314,7 +314,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="#ApplicationTime">Application time</a>, also called actual time, business time, effective time, or valid time, and</li>
 <li><a href="#SystemTime">System time</a>, also called recording time, audit time, or transaction time.</li>
 </ul>
-<p>Keeping track of time is typically done by storing data together with the time period for which that data is deemed valid or effective, using separate periods for application time and system time, and the time periods are part of the logical key for "records". See <strong><a href="#SQL">[SQL:2011]</a></strong> or <strong><a href="#Kulkarni">[Kulkarni]</a></strong> on how this is done in the SQL standard.</p>
+<p>Keeping track of time is typically done by storing data together with the time period for which that data is deemed valid or effective, using separate periods for application time and system time, and the time periods are part of the logical key for "records". See <a href="#_SQL">SQL:2011</a> or <a href="#_Kulkarni">Kulkarni</a> on how this is done in the SQL standard.</p>
 <p>A consumer's perspective on this data can be different: even if time is tracked internally, the period of time may or may not be visible in a consumer's perspective, and even if visible the related properties are often not considered part of an entity's identity. For example, an employee is still the same person even after switching to another department.</p>
 <p>The goals of this extension are:</p>
 <ul>
@@ -2295,16 +2295,16 @@ See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on
 <p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="fowler"><a name="Fowler">[Fowler]</a></h6>
+<h6 id="fowler"><a name="_Fowler">[Fowler]</a></h6>
 <p><em>Martin Fowler, "Temporal Patterns", 16 February 2005</em><br />
 <a href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
-<h6 id="kulkarni"><a name="Kulkarni">[Kulkarni]</a></h6>
+<h6 id="kulkarni"><a name="_Kulkarni">[Kulkarni]</a></h6>
 <p><em>Krishna Kulkarni, "Temporal Features in SQL standard", September 2012</em><br />
 <a href="https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf">https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf</a>.</p>
-<h6 id="snodgrass"><a name="Snodgrass">[Snodgrass]</a></h6>
+<h6 id="snodgrass"><a name="_Snodgrass">[Snodgrass]</a></h6>
 <p><em>Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7</em><br />
 <a href="http://www2.cs.arizona.edu/people/rts/tdbbook.pdf">http://www2.cs.arizona.edu/people/rts/tdbbook.pdf</a> and <a href="http://www2.cs.arizona.edu/people/rts/pp30-31.pdf">http://www2.cs.arizona.edu/people/rts/pp30-31.pdf</a>.</p>
-<h6 id="sql2011"><a name="SQL">[SQL:2011]</a></h6>
+<h6 id="sql2011"><a name="_SQL">[SQL:2011]</a></h6>
 <p><em>ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)</em>.</p>
 <hr />
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>

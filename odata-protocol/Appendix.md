@@ -92,7 +92,7 @@ https://www.rfc-editor.org/info/rfc8174.
 ## ##subasec Informative References
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. 
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 ###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>

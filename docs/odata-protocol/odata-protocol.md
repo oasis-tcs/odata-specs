@@ -1311,7 +1311,10 @@ processing (if specified with an explicit value of `false`). The syntax
 of the `continue-on-error` preference is defined in
 [OData-ABNF](#ODataABNF).
 
-The `continue-on-error` preference can also be used on a [delta update](#UpdateaCollectionofEntities), [set-based update](#UpdateMembersofaCollection), or [set-based delete](#DeleteMembersofaCollection) to request that the service
+The `continue-on-error` preference can also be used on a
+[delta update](#UpdateaCollectionofEntities),
+[set-based update](#UpdateMembersofaCollection), or
+[set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
 A service MAY specify support for the `continue-on-error` preference
@@ -1802,7 +1805,8 @@ Requests](#AsynchronousBatchRequests).
 
 A request returns `204 No Content` if the requested resource has the
 `null` value, or if the service applies a [`return=minimal`
-preference](#Preferencereturnrepresentationandreturnminimal). In this case, the response body MUST be empty.
+preference](#Preferencereturnrepresentationandreturnminimal).
+In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
 Request](#DataModification) that responds with
@@ -1919,7 +1923,7 @@ This code serves as a sub-status for the HTTP error code specified in
 the response.
 - `message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
-The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
+The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
 language code from [RFC5646](#rfc5646) corresponding to the language in
 which the value for message is written.
 - `target`: optional nullable, potentially
@@ -2289,9 +2293,9 @@ Example 22: resource URL and corresponding context URL -- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
-        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
+        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
+        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
 
@@ -2331,9 +2335,9 @@ the context URL.
 Example 23: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
-        $expand=DirectReports($select=FirstName,LastName;$levels=4)
+        $expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
+        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
 ```
 :::
 
@@ -2497,7 +2501,8 @@ Context URL templates:
 
     {context-url}#{entity-set}/$deletedEntity
     {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink 
+    {context-url}#{entity-set}/$deletedLink
+
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
 links, and deleted links. They are identified by the corresponding
@@ -2643,7 +2648,8 @@ OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
 character, which is optional in OData 4.01. 4.01 services MUST support
 case-insensitive system query option names specified with or without the
-`$` prefix. Clients that want to work with 4.0 services MUST use lower case names
+`$` prefix.
+Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
 The result of the request MUST be as if the system query options were
@@ -3056,9 +3062,9 @@ Example 45: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
-   ?$filter=Orders/any(o:o/TotalPrice gt 100)
-   &$expand=Orders($compute=Price mult Qty as TotalPrice
-                  ;$select=Name,Price,Qty,TotalPrice)
+   ?$filter=Orders/any(o:o/TotalPrice gt 100)
+   &$expand=Orders($compute=Price mult Qty as TotalPrice
+                  ;$select=Name,Price,Qty,TotalPrice)
 ```
 :::
 
@@ -3638,8 +3644,8 @@ specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
       ?$id=http://host/service/Customers('ALFKI')
-      &$select=CompanyName,ContactName
-      &$expand=Orders
+      &$select=CompanyName,ContactName
+      &$expand=Orders
 ```
 :::
 
@@ -3655,7 +3661,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -3859,7 +3865,8 @@ MUST return changes, additions, or deletions to the expanded entities,
 as well as added or deleted links to expanded entities or nested
 collections representing current membership. If the defining query
 includes expanded references, then the delta link MUST return changes to
-the membership in the set of expanded references. 
+the membership in the set of expanded references.
+
 Navigation properties specified in the
 [`$select`](#SystemQueryOptionselect) list of a defining query are not
 used to define the scope or contents of the items being tracked. Clients
@@ -4159,15 +4166,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@odata.type":"#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@odata.type":"#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager@odata.bind": "http://host/service/Employees(0)",
-  "DirectReports@odata.bind": [
-    "http://host/service/Employees(5)",
-    "http://host/service/Employees(6)"
-  ]
+  "DirectReports@odata.bind": [
+    "http://host/service/Employees(5)",
+    "http://host/service/Employees(6)"
+  ]
 }
 ```
 :::
@@ -4178,15 +4185,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 within the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@type":"#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@type":"#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
-  "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
-  ]
+  "DirectReports": [
+    {"@id": "Employees(5)"},
+    {"@id": "Employees(6)"}
+  ]
 }
 ```
 :::
@@ -4375,21 +4382,21 @@ reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
-  "@type":"#Northwind.Manager",
-  "FirstName" : "Patricia",
-  "DirectReports": [
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type":"#Northwind.Manager",
+  "FirstName" : "Patricia",
+  "DirectReports": [
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4431,33 +4438,33 @@ of employee 6 and link to it if necessary
 named "Suzanne Brown" and link to it
 ```json
 {
-  "@type": "#Northwind.Manager",
-  "FirstName": "Patricia",
-  "DirectReports@delta": [
-    {
-      "@removed": {
-        "reason": "deleted"
-      },
-      "@id": "Employees(3)"
-    },
-    {
-      "@removed": {
-        "reason": "changed"
-      },
-      "@id": "Employees(4)"
-    },
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type": "#Northwind.Manager",
+  "FirstName": "Patricia",
+  "DirectReports@delta": [
+    {
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Employees(3)"
+    },
+    {
+      "@removed": {
+        "reason": "changed"
+      },
+      "@id": "Employees(4)"
+    },
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4832,7 +4839,8 @@ The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
 
 If a complex-typed property is set to a different type in a `PATCH` request,
-properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+properties shared through inheritance, as well as dynamic properties,
+are retained (unless overwritten by new values in the payload).
 Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
@@ -4916,7 +4924,7 @@ POST /service/Customers('ALFKI')/EmailAddresses?$index=1
 Content-Type: application/json
 
 {
-  "value": "alfred@futterkiste.de"
+  "value": "alfred@futterkiste.de"
 }
 ```
 :::
@@ -5039,7 +5047,7 @@ PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq
 Content-Type: application/json
 
 {
-  "Color": "taupe"
+  "Color": "taupe"
 }
 ```
 :::
@@ -5131,8 +5139,8 @@ Example 86: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
-  <Parameter Name="customer" Type="SampleModel.Customer" />
-  <ReturnType Type="SampleModel.Order" />
+  <Parameter Name="customer" Type="SampleModel.Customer" />
+  <ReturnType Type="SampleModel.Order" />
 </Function>
 ```
 :::
@@ -5151,8 +5159,8 @@ Example 88: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
-  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
-  <ReturnType Type="Diff.Overview" />
+  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
+  <ReturnType Type="Diff.Overview" />
 </Function>
 ```
 :::
@@ -5215,20 +5223,20 @@ a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
 ```json
 {
-  "@context": ...,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": {
-    "title": "Most Recent Order",
-    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
-  },
-  ...
+  "@context": ...,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": {
+    "title": "Most Recent Order",
+    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
+  },
+  ...
 }
 ```
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL](#ODataURL).
 
@@ -5240,11 +5248,11 @@ Example 92: the `SampleEntities.MostRecentOrder` function is not
 available for customer 'ALFKI'
 ```json
 {
-  "@context": ...,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": null,
-  ...
+  "@context": ...,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": null,
+  ...
 }
 ```
 :::
@@ -5277,7 +5285,7 @@ Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in  [OData-VocCore](#ODataVocCore).
 
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options. Such
@@ -5310,7 +5318,7 @@ Example 93: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
- 
+ 
 ...
 ```
 :::
@@ -5324,7 +5332,7 @@ literal (for primitive values) or as a JSON formatted OData object (for
 complex values, or collections of primitive or complex values). Entity
 typed values are passed as JSON formatted entities that MAY include a
 subset of the properties, or just the entity reference, as appropriate
-to the function.  
+to the function.  
 
 If a collection-valued function has no result for a given parameter
 value combination, the response is the format-specific representation of
@@ -5368,7 +5376,7 @@ Example 95: return all `Customers` whose City property returns
 "Western" when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
-      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
+      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
 ```
 :::
 
@@ -5476,7 +5484,7 @@ Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in  [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
 request to a URL identifying the action import. The canonical URL for an
@@ -5541,11 +5549,11 @@ If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
 Content-Type: application/json
 
 {
-  "items": [
-    { "product": 4001, "quantity": 2 },
-    { "product": 7062, "quantity": 1 },
+  "items": [
+    { "product": 4001, "quantity": 2 },
+    { "product": 7062, "quantity": 1 },
   ],
-  "discountCode": "BLACKFRIDAY"
+  "discountCode": "BLACKFRIDAY"
 }
 ```
 :::
@@ -5835,7 +5843,8 @@ set can use one of the following three formats:
 ::: example
 Example 101:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1 ```
+GET https://host:1234/path/service/People(1) HTTP/1.1
+```
 :::
 
 - Absolute resource path and separate `Host` header
@@ -5843,7 +5852,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 ::: example
 Example 102:
 ```
-GET /path/service/People(1) HTTP/1.1
+GET /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 ```
 :::
@@ -5853,7 +5862,7 @@ Host: myserver.mydomain.org:1234
 ::: example
 Example 103:
 ```
-GET People(1) HTTP/1.1
+GET People(1) HTTP/1.1
 ```
 :::
 
@@ -5976,7 +5985,8 @@ Content-Type: application/http
 Content-ID: 1
 
 POST /service/Customers HTTP/1.1
-Host: host Content-Type: application/json
+Host: host
+Content-Type: application/json
 Content-Length: ###
 
 <JSON representation of a new Customer entity>
@@ -6014,7 +6024,8 @@ Content-Type: application/http
 Content-ID: 1
 
 GET /service/Employees(0) HTTP/1.1
-Host: host Accept: application/json
+Host: host
+Accept: application/json
 
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -6028,7 +6039,7 @@ Content-Length: ###
 If-Match: $1
 
 {
-   "Salary": 75000
+   "Salary": 75000
 }
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
@@ -6483,7 +6494,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) format
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON)
+format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations
 are supported.
@@ -6767,7 +6779,8 @@ https://www.rfc-editor.org/info/rfc8174.
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 ###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
 _Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_

@@ -111,7 +111,7 @@ http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http:/
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
-http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/.
 
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  

@@ -120,7 +120,7 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
- 
+
 ::: example
 Example ##ex_batchRequest: a batch request that contains
 the following individual requests in the order listed
@@ -183,7 +183,7 @@ The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests. If the `Location` header in the response
 contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
- 
+
 ::: example
 Example ##ex: a batch request that contains the following operations in
 the order listed:
@@ -325,7 +325,7 @@ same value.
 
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
-of their individual returned status code. The service MAY return 
+of their individual returned status code. The service MAY return
 `424 Failed Dependency` for statements
 within an atomicity group that fail or are not attempted due to other
 failures within the same atomicity group.
@@ -351,7 +351,7 @@ Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
 request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
- 
+
 ::: example
 Example ##ex: referencing the batch request [example ##batchRequest] above, assume all
 the requests except the final query request succeed. In this case the
@@ -404,7 +404,7 @@ control information in the JSON batch response, thus signaling that the
 response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
- 
+
 ::: example
 Example ##ex: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
@@ -494,7 +494,7 @@ the service responds with a JSON batch response. In this case the
 asynchronously executed individual request with a `status` of
 `202`, a `location` header pointing to an
 individual status monitor resource, and optionally a `retry-after` header.
- 
+
 ::: example
 Example ##ex: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
@@ -520,4 +520,4 @@ Content-Type: application/json
   ]
 }
 ```
-::: 
+:::

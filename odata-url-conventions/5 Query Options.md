@@ -344,8 +344,8 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is 
-${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, 
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
@@ -371,7 +371,7 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is 
+For operands of type `Edm.Decimal` the scale of the result is
 ${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
@@ -1935,18 +1935,18 @@ A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. 
+parentheses, to the navigation property name.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
-`$expand`, and 
+`$expand`, and
 [`$levels`](#ExpandOptionlevels) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
 [`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch) 
- for collection-valued navigation properties.
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
@@ -2120,7 +2120,7 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. 
+actions and functions identified by that select item.
 If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity

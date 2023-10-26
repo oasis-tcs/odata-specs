@@ -223,7 +223,7 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) 
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON)
 format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations

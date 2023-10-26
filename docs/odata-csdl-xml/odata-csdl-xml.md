@@ -562,7 +562,9 @@ responses.
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
-action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+action or function [parameter](#Parameter),
+action or function [return type](#ReturnType), or
+[term](#Term).
 
 For single-valued model elements the facets apply to the value of the
 model element. For collection-valued model elements the facets apply to the items
@@ -5647,7 +5649,8 @@ http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http:/
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
-http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/.
+
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
