@@ -829,6 +829,8 @@ following is true:
 - The type is for a property whose type is not declared in
   `$metadata`.
 
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
+
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
 information:
@@ -874,10 +876,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example 6: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example 6: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -1066,7 +1066,7 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL) or if
+in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
@@ -1275,7 +1275,7 @@ represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select`
+_System Query Option_ `$select` in
 [OData-Protocol](#ODataProtocol)), or a partial entity update (see
 _Update an Entity_ in [OData-Protocol](#ODataProtocol)).
 
@@ -1337,17 +1337,17 @@ Example 11: entity with `metadata=full`
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
 
 A property within an entity or complex type instance is represented as a
-name/value pair. The name MUST be the name of the property; the value is
+name/value pair. The name MUST be the name of the property; a non-null value is
 represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
+
+Null values are represented as the JSON literal `null`.
 
 ## <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
 
 Primitive values are represented following the rules of
 [RFC8259](#rfc8259).
-
-Null values are represented as the JSON literal `null`.
 
 Values of type `Edm.Boolean` are represented as the JSON
 literals `true` and `false`
@@ -1791,18 +1791,23 @@ An entity or complex type instance can have one or more stream properties.
 
 The actual stream data is not usually contained in the representation.
 Instead stream property data is generally read and edited via URLs.
+- Stream properties requested with `$select` or included in the default selection are represented by
+[`media*`](#ControlInformationmediaodatamedia) control information.
+- Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
+
+See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
-link, media type, and ETag of the media stream through a set of
-[`media*`](#ControlInformationmediaodatamedia) control information.
+link, media type, and ETag of the media stream through their `media*` control information.
 
 If the actual stream data is included inline, the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 MUST be present to indicate how the included stream property value is
 represented. Stream property values of media type `application/json` or
 one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of top-level type `text`, for example
+as native JSON. Values of top-level type `text` with an explicit or
+default `charset` of `utf-8` or `us-ascii`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. Included stream data of other media types is
 represented as a base64url-encoded string value, see
@@ -2866,7 +2871,7 @@ batch request URL, or a relative path (not starting with a forward slash `/`).
 
 If the first segment of a relative path starts with a `$`
 character and is not identical to the name of a top-level system
-resource (`$batch`, `$crossjoin,` `$all,` `$entity`, `$root,`
+resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root`,
 `$id`, `$metadata`, or other system resources
 defined according to the `OData-Version` of the protocol
 specified in the request), then this first segment is replaced with the
@@ -3007,7 +3012,9 @@ Content-Length: ###
 ## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
 
 The entity returned by a preceding request can be referenced in the
-request URL of subsequent requests.
+request URL of subsequent requests. If the `Location` header in the response
+contains a relative URL, clients MUST be able to resolve it relative to the
+request's URL even if that contains such a reference.
  
 ::: example
 Example 49: a batch request that contains the following operations in

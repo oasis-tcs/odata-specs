@@ -377,7 +377,7 @@ or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
 operands:
-- `DateTimeOffset` `sub` `Duration`
+- `DateTimeOffset sub Duration`
 results in a `DateTimeOffset`
 - `Duration sub Duration` results in a
 `Duration`
@@ -970,7 +970,7 @@ parameter value. The `dayMethodCallExpr` syntax rule defines how the
 `day` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `day` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1020,7 +1020,7 @@ zone of the `DateTimeOffset` parameter value. The `hourMethodCallExpr`
 syntax rule defines how the `hour` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `hour` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1091,7 +1091,7 @@ The `month` function returns the month component of the `Date` or
 defines how the `month` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `month` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1114,11 +1114,11 @@ Edm.DateTimeOffset now()
 The `now` function returns the current point in time (date and time with
 time zone) as a `DateTimeOffset` value.
 
-Services are free to choose the time zone for the current point, e.g.
+Services are free to choose the time zone for the current point, for example
 UTC. Services that are unable to preserve the offset of
 `Edm.DateTimeOffset` values and instead normalize the values to some
 common time zone SHOULD return a value in the normalized time zone
-(i.e., UTC).
+(for example UTC).
 
 ##### ##subsubsubsubsec `second`
 
@@ -1156,7 +1156,7 @@ parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1199,7 +1199,7 @@ The `year` function returns the year component of the `Date` or
 defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
-values and instead normalize the values to some common time zone (i.e.
+values and instead normalize the values to some common time zone (for example
 UTC) MUST fail evaluation of the `year` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
@@ -1437,7 +1437,7 @@ $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 #### ##subsubsubsec Lambda Operators
 
 OData defines two operators that evaluate a Boolean expression on a
-collection. Both must be prepended with a navigation path that
+collection. Both must be prepended with a path expression that
 identifies a collection.
 
 4.01 Services MUST support case-insensitive lambda operator names.
@@ -1446,8 +1446,8 @@ operator names.
 
 The argument of a lambda operator is a case-sensitive lambda variable
 name followed by a colon (`:`) and a Boolean expression that uses the
-lambda variable name to refer to properties of members of the collection
-identified by the navigation path.
+lambda variable name to refer to properties of the instance or of members of the collection
+identified by the path expression.
 
 If the name chosen for the lambda variable matches a property name of
 the current resource referenced by the resource path, the lambda
@@ -1456,7 +1456,7 @@ resource referenced by the resource path with [`$it`](#it).
 
 Other path expressions in the Boolean expression neither prefixed with
 the lambda variable nor `$it` are evaluated in the scope of the
-collection instances at the origin of the navigation path prepended to
+instance or of members of the collection at the origin of the path expression prepended to
 the lambda operator.
 
 ##### ##subsubsubsubsec `any`
@@ -1793,7 +1793,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `annotation
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
@@ -1931,18 +1931,22 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A property MUST NOT appear in more than one expand item.
+A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. Allowed system query
-options are [`$filter`](#SystemQueryOptionfilter),
+parentheses, to the navigation property name. 
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and 
+[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch), and `$expand`.
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch) 
+ for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
@@ -2008,13 +2012,13 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filte
 ```
 :::
 
-Cyclic navigation properties (whose target type is identical or can be
+<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
 `$levels` option. The value of the `$levels` option is either a positive
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
-recursion.
+recursion.</a>
 
 ::: example
 Example ##ex: all employees with their manager, manager's manager, and
@@ -2116,10 +2120,11 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. The simplest form
-of a select item explicitly requests a property defined on the entity
-type of the resources identified by the resource path section of the
-URL.
+actions and functions identified by that select item. 
+If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
+the null-valued entity or complex property is included and represented as `null`.
+The simplest form of a select item explicitly requests a property defined on the entity
+type of the resources identified by the resource path section of the URL.
 
 ::: example
 Example ##ex: rating and release date of all products
@@ -2243,10 +2248,6 @@ When multiple select item exist in a `select clause`, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
-
-If a select item is a path expression requesting a component of a
-complex property and the complex property is `null` on an instance, then
-the component is treated as `null` as well.
 
 ### ##subsubsec System Query Option `$orderby`
 
