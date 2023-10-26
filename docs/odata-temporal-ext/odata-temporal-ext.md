@@ -1317,16 +1317,16 @@ Example 6: `Employees` entity set from [example model `api-1`](#api1)
 annotated with temporal terms
 ```json
 "Employees": {
-  "$Collection": true,
-  "$Type": "OrgModel.Employee",
-  "@Temporal.ApplicationTimeSupport": {
-    "Timeline": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
-    },
-    "UnitOfTime": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
-    }
-  }
+  "$Collection": true,
+  "$Type": "OrgModel.Employee",
+  "@Temporal.ApplicationTimeSupport": {
+    "Timeline": {
+      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
+    },
+    "UnitOfTime": {
+      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+    }
+  }
 },
 ```
 :::
@@ -1336,23 +1336,23 @@ Example 7: `history` navigation property in entity set `Employees` from
 [example model `api-2`](#api2) annotated with temporal terms
 ```json
 "$Annotations": {
-  "OrgModel.Default/Employees/history": {
-    "@Temporal.ApplicationTimeSupport": {
-      "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
-        "TimeSliceStart": "From",
-        "TimeSliceEnd": "To",
-        "SupportedActions": [
-          "Temporal.Update",
-          "Temporal.Upsert",
-          "Temporal.Delete"
-        ]
-      },
-      "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
-      }
-    }
-  }
+  "OrgModel.Default/Employees/history": {
+    "@Temporal.ApplicationTimeSupport": {
+      "Timeline": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
+        "TimeSliceStart": "From",
+        "TimeSliceEnd": "To",
+        "SupportedActions": [
+          "Temporal.Update",
+          "Temporal.Upsert",
+          "Temporal.Delete"
+        ]
+      },
+      "UnitOfTime": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+      }
+    }
+  }
 }
 ```
 :::
@@ -1363,42 +1363,42 @@ temporal objects, the temporal objects identified by combination of
 `AreaID` and `CostCenterID`
 ```json
 "CostCenter": {
-  "$Kind": "EntityType",
-  "$Key": ["tsid"],
-  "tsid": {},
-  "AreaID": {},
-  "CostCenterID": {},
-  "ValidTo": { "$Type": "Edm.Date" },
-  "ValidFrom": { "$Type": "Edm.Date" },
-  "ProfitCenterID": { "$Nullable": true },
-  "DepartmentID": { "$Nullable": true }
+  "$Kind": "EntityType",
+  "$Key": ["tsid"],
+  "tsid": {},
+  "AreaID": {},
+  "CostCenterID": {},
+  "ValidTo": { "$Type": "Edm.Date" },
+  "ValidFrom": { "$Type": "Edm.Date" },
+  "ProfitCenterID": { "$Nullable": true },
+  "DepartmentID": { "$Nullable": true }
 },
 
 "Default": {
-  "$Kind": "EntityContainer",
-  "CostCenters": { "$Collection": true, "$Type": "this.CostCenter" }
+  "$Kind": "EntityContainer",
+  "CostCenters": { "$Collection": true, "$Type": "this.CostCenter" }
 },
 
 "$Annotations": {
-  "this.Default/CostCenters": {
-    "@Temporal.ApplicationTimeSupport": {
-      "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
-        "ClosedClosedPeriods": true
-      },
-      "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
-        "PeriodStart": "ValidFrom",
-        "PeriodEnd": "ValidTo",
-        "ObjectKey": ["AreaID", "CostCenterID"]
-      },
-      "SupportedActions": [
-        "Temporal.Update",
-        "Temporal.Upsert",
-        "Temporal.Delete"
-      ]
-    }
-  }
+  "this.Default/CostCenters": {
+    "@Temporal.ApplicationTimeSupport": {
+      "UnitOfTime": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
+        "ClosedClosedPeriods": true
+      },
+      "Timeline": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
+        "PeriodStart": "ValidFrom",
+        "PeriodEnd": "ValidTo",
+        "ObjectKey": ["AreaID", "CostCenterID"]
+      },
+      "SupportedActions": [
+        "Temporal.Update",
+        "Temporal.Upsert",
+        "Temporal.Delete"
+      ]
+    }
+  }
 }
 ```
 :::
@@ -1511,10 +1511,10 @@ GET /api-1/Employees('E314')
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Senior"
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Senior"
 }
 ```
 :::
@@ -1527,10 +1527,10 @@ GET /api-1/Employees('E314')?$at=2012-01-01
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Junior"
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior"
 }
 ```
 :::
@@ -1546,14 +1546,14 @@ specified point in time - note that E401 back then does not satisfy
 this condition
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "Name": "McDevitt",
-      "Jobtitle": "Junior"
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Junior"
+    }
+  ]
 }
 ```
 :::
@@ -1574,14 +1574,14 @@ GET /api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Junior",
-  "Department": {
-    "ID": "D08",
-    "Name": "1st Level Support"
-  }
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior",
+  "Department": {
+    "ID": "D08",
+    "Name": "1st Level Support"
+  }
 }
 ```
 :::
@@ -1595,21 +1595,21 @@ GET /api-1/Departments('D15')?$at=2015-01-01&$expand=Employees
 results in
 ```json
 {
-  "@odata.context": "$metadata#Departments/$entity",
-  "ID": "D15",
-  "Name": "Services",
-  "Employees": [
-    {
-      "ID": "E314",
-      "Name": "McDevitt",
-      "Jobtitle": "Senior"
-    },
-    {
-      "ID": "E401",
-      "Name": "Gibson",
-      "Jobtitle": "Expert"
-    }
-  ]
+  "@odata.context": "$metadata#Departments/$entity",
+  "ID": "D15",
+  "Name": "Services",
+  "Employees": [
+    {
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Senior"
+    },
+    {
+      "ID": "E401",
+      "Name": "Gibson",
+      "Jobtitle": "Expert"
+    }
+  ]
 }
 ```
 :::
@@ -1678,49 +1678,49 @@ application-time period boundaries as part of the default selection.
 Example <a name="employeeHistory" href="#employeeHistory">14</a>: retrieve employee history over a period of application time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &$from=2012-03-01&$to=2025-01-01
+                    &$from=2012-03-01&$to=2025-01-01
 ```
 results in one entity for each employee with time slices that overlap
 the specified application-time period:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Junior",
-          "From": "2011-01-01",
-          "To": "2013-10-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31"
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 The history for the first employee contains two time slices that do not
@@ -1736,100 +1736,100 @@ with their full history, and the department's data at the start of each
 employee history time slice
 ```
 GET /api-2/Departments('D15')/Employees?
-    $expand=history(
+    $expand=history(
       @emp=$this;
-      $expand=Department(
-        $expand=history($at=@emp/From)
-      )
-    )
+      $expand=Department(
+        $expand=history($at=@emp/From)
+      )
+    )
 ```
 has the following result with department names and budgets as of the
 beginning of each employee time slice:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Junior",
-          "From": "2011-01-01",
-          "To": "2013-10-01",
-          "Department": {
-            "ID": "D08",
-            "history": [{
-              "Name": "Support",
-              "Budget": 1000,
-              "From": "2010-01-01",
-              "To": "2012-10-01"
-            }]
-          }
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01",
-          "Department": {
-            "ID": "D08",
-            "history": [{
-              "Name": "1st Level Support",
-              "Budget": 1250,
-              "From": "2012-06-01",
-              "To": "2014-01-01"
-            }]
-          }
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31",
-          "Department": {
-            "ID": "D15",
-            "history": [{
-              "Name": "Services",
-              "Budget": 1170,
-              "From": "2011-01-01",
-              "To": "9999-12-31"
-            }]
-          }
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Norman",
-          "Jobtitle": "Expert",
-          "From": "2009-11-01",
-          "To": "2012-03-01",
-          "Department": {
-            "ID": "D15",
-            "history": []
-          }
-        },
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31",
-          "Department": {
-            "ID": "D15",
-            "history": [{
-              "Name": "Services",
-              "Budget": 1170,
-              "From": "2011-01-01",
-              "To": "9999-12-31"
-            }]
-          }
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "Support",
+              "Budget": 1000,
+              "From": "2010-01-01",
+              "To": "2012-10-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "1st Level Support",
+              "Budget": 1250,
+              "From": "2012-06-01",
+              "To": "2014-01-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Norman",
+          "Jobtitle": "Expert",
+          "From": "2009-11-01",
+          "To": "2012-03-01",
+          "Department": {
+            "ID": "D15",
+            "history": []
+          }
+        },
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
@@ -1854,47 +1854,47 @@ Example 16: retrieve employee history over a period of application time
 and filter on job title
 ```
 GET /api-2/Employees?$expand=history(
-                       $select=Name,Jobtitle;
-                       $from=2012-03-01&$to=2025-01-01;
-                       $filter=contains(Jobtitle,'e')
-                     )
+                       $select=Name,Jobtitle;
+                       $from=2012-03-01&$to=2025-01-01;
+                       $filter=contains(Jobtitle,'e')
+                     )
 ```
 results in one entity for each employee with time slices that overlap
 the specified application-time period and satisfy the filter condition
 (one less than in [example 14](#employeeHistory)):
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31"
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
@@ -1910,27 +1910,27 @@ the period boundaries.
 Example 17: filter employees on their name at any point in time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &$from=2015-01-01
-                    &$filter=history/any(h:startswith(h/Name,'N'))
+                    &$from=2015-01-01
+                    &$filter=history/any(h:startswith(h/Name,'N'))
 ```
 results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
@@ -2075,15 +2075,15 @@ POST /api-2/Departments('D08')/history/Temporal.Update
 Content-Type: application/json
 
 {
-  "deltaTimeslices": [
-    {
-      "Timeslice": {
-        "From": "2012-04-01",
-        "To": "2014-07-01",
-        "Budget": 1320
-      }
-    }
-  ]
+  "deltaTimeslices": [
+    {
+      "Timeslice": {
+        "From": "2012-04-01",
+        "To": "2014-07-01",
+        "Budget": 1320
+      }
+    }
+  ]
 }
 ```
 Given the [example departments data](#ExampleData)
@@ -2113,54 +2113,54 @@ D15    | 2011-01-01   | max          | Services            | 1170
 It returns the resulting created or updated time slices
 ```json
 {
-  "@odata.context": "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",
-  "value": [
-    {
-      "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
-        "From": "2012-01-01",
-        "To": "2012-04-01",
-        "Name": "Support",
-        "Budget": 1250
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
-        "From": "2012-04-01",
-        "To": "2012-06-01",
-        "Name": "Support",
-        "Budget": 1320
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
-        "From": "2012-06-01",
-        "To": "2014-01-01",
-        "Name": "1st Level Support",
-        "Budget": 1320
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
-        "From": "2014-01-01",
-        "To": "2014-07-01",
-        "Name": "1st Level Support",
-        "Budget": 1320
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
-        "From": "2014-07-01",
-        "To": "9999-12-31",
-        "Name": "1st Level Support",
-        "Budget": 1400
-      }
-    }
-  ]
+  "@odata.context": "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
+    {
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-01-01",
+        "To": "2012-04-01",
+        "Name": "Support",
+        "Budget": 1250
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-04-01",
+        "To": "2012-06-01",
+        "Name": "Support",
+        "Budget": 1320
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2012-06-01",
+        "To": "2014-01-01",
+        "Name": "1st Level Support",
+        "Budget": 1320
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2014-01-01",
+        "To": "2014-07-01",
+        "Name": "1st Level Support",
+        "Budget": 1320
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#Departments('D08')/history/$entity",
+        "From": "2014-07-01",
+        "To": "9999-12-31",
+        "Name": "1st Level Support",
+        "Budget": 1400
+      }
+    }
+  ]
 }
 ```
 The service could have joined the third and fourth time slice because
@@ -2175,17 +2175,17 @@ application time with [`api-1`](#api1) (snapshot). Note that the period boundari
 ```json
 POST /api-1/Employees/Temporal.Update
 Content-Type: application/json
- 
+
 {
-  "deltaTimeslices": [
-    {
-      "PeriodStart": "2021-10-01",
-      "Timeslice": {
-        "ID": "E401",
-        "Jobtitle": "Ultimate Expert"
-      }
-    }
-  ]
+  "deltaTimeslices": [
+    {
+      "PeriodStart": "2021-10-01",
+      "Timeslice": {
+        "ID": "E401",
+        "Jobtitle": "Ultimate Expert"
+      }
+    }
+  ]
 }
 ```
 Given the [example employee data](#ExampleData)
@@ -2209,29 +2209,29 @@ E401   | 2012-03-01   | *2021-10-01* | Gibson   | Expert            | D15
 It returns the resulting created or updated time slices
 ```json
 {
-  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
-  "value": [
-    {
-      "PeriodStart": "2012-03-01",
-      "PeriodEnd": "2021-10-01",
-      "Timeslice": {
-        "@odata.context": "#Employees/$entity",
-        "ID": "E401",
-        "Name": "Gibson",
-        "Jobtitle": "Expert"
-      }
-    },
-    {
-      "PeriodStart": "2021-10-01",
-      "PeriodEnd": "9999-12-31",
-      "Timeslice": {
-        "@odata.context": "#Employees/$entity",
-        "ID": "E401",
-        "Name": "Gibson",
-        "Jobtitle": "Ultimate Expert"
-      }
-    }
-  ]
+  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
+    {
+      "PeriodStart": "2012-03-01",
+      "PeriodEnd": "2021-10-01",
+      "Timeslice": {
+        "@odata.context": "#Employees/$entity",
+        "ID": "E401",
+        "Name": "Gibson",
+        "Jobtitle": "Expert"
+      }
+    },
+    {
+      "PeriodStart": "2021-10-01",
+      "PeriodEnd": "9999-12-31",
+      "Timeslice": {
+        "@odata.context": "#Employees/$entity",
+        "ID": "E401",
+        "Name": "Gibson",
+        "Jobtitle": "Ultimate Expert"
+      }
+    }
+  ]
 }
 ```
 :::
@@ -2269,25 +2269,25 @@ POST /api-3/CostCenters/Temporal.Upsert
 Content-Type: application/json
 
 {
-  "deltaTimeslices": [
-    {
-      "Timeslice": {
-        "AreaID": "51",
-        "CostCenterID": "C1",
-        "ValidTo": "2001-03-31",
-        "ValidFrom": "1984-04-01",
-        "ProfitCenterID": "P2"
-      }
-    },
-    {
-      "Timeslice": {
-        "AreaID": "51",
-        "CostCenterID": "C2",
-        "ValidFrom": "2012-04-01",
-        "DepartmentID": "D04"
-      }
-    }
-  ]
+  "deltaTimeslices": [
+    {
+      "Timeslice": {
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "2001-03-31",
+        "ValidFrom": "1984-04-01",
+        "ProfitCenterID": "P2"
+      }
+    },
+    {
+      "Timeslice": {
+        "AreaID": "51",
+        "CostCenterID": "C2",
+        "ValidFrom": "2012-04-01",
+        "DepartmentID": "D04"
+      }
+    }
+  ]
 }
 ```
 Given this example data (primary key in olive)
@@ -2317,63 +2317,63 @@ tsid | AreaID | CostCenterID | ValidTo      | ValidFrom    | ProfitCenterID | De
 n    | 51     | C1           | *1984-03-31* | 1955-04-01   | P1             | D02
 *o*  | *51*   | *C1*         | *2001-03-31* | *1984-04-01* | *P2*           | *D02*
 *p*  | *51*   | *C1*         | *max*        | *2001-04-01* | *P1*           | *D02*
-*q*  | *51*   | *C2*         | *max*        | *2012-04-01* |                | *D04*
+*q*  | *51*   | *C2*         | *max*        | *2012-04-01* |                | *D04*
 ::::
 
 It returns the resulting created or updated time slices per affected temporal object
 ```json
 {
-  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
-  "value": [
-    {
-      "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
-        "tsid": "n",
-        "AreaID": "51",
-        "CostCenterID": "C1",
-        "ValidTo": "1984-03-31",
-        "ValidFrom": "1955-04-01",
-        "ProfitCenterID": "P1",
-        "DepartmentID": "D02"
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
-        "tsid": "o",
-        "AreaID": "51",
-        "CostCenterID": "C1",
-        "ValidTo": "2001-03-31",
-        "ValidFrom": "1984-04-01",
-        "ProfitCenterID": "P2",
-        "DepartmentID": "D02"
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
-        "tsid": "p",
-        "AreaID": "51",
-        "CostCenterID": "C1",
-        "ValidTo": "9999-12-31",
-        "ValidFrom": "2001-04-01",
-        "ProfitCenterID": "P1",
-        "DepartmentID": "D02"
-      }
-    },
-    {
-      "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
-        "tsid": "q",
-        "AreaID": "51",
-        "CostCenterID": "C2",
-        "ValidTo": "9999-12-31",
-        "ValidFrom": "2012-04-01",
-        "ProfitCenterID": null,
-        "DepartmentID": "D04"
-      }
-    }
-  ]
+  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "value": [
+    {
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "n",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "1984-03-31",
+        "ValidFrom": "1955-04-01",
+        "ProfitCenterID": "P1",
+        "DepartmentID": "D02"
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "o",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "2001-03-31",
+        "ValidFrom": "1984-04-01",
+        "ProfitCenterID": "P2",
+        "DepartmentID": "D02"
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "p",
+        "AreaID": "51",
+        "CostCenterID": "C1",
+        "ValidTo": "9999-12-31",
+        "ValidFrom": "2001-04-01",
+        "ProfitCenterID": "P1",
+        "DepartmentID": "D02"
+      }
+    },
+    {
+      "Timeslice": {
+        "@odata.context": "#CostCenters/$entity",
+        "tsid": "q",
+        "AreaID": "51",
+        "CostCenterID": "C2",
+        "ValidTo": "9999-12-31",
+        "ValidFrom": "2012-04-01",
+        "ProfitCenterID": null,
+        "DepartmentID": "D04"
+      }
+    }
+  ]
 }
 ```
 :::
@@ -2391,7 +2391,7 @@ the period end of type `Edm.Date` is the last day in the period or the
 first day after the period.
 
 This works identical to the SQL statement DELETE FOR PORTION OF:
- 
+
 1. The "delta time slices" in `deltaTimeslices` are processed in the
    order of the collection.
 2. For each delta time slice all time slices from the bound collection

@@ -5318,7 +5318,7 @@ Example 93: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
- 
+
 ...
 ```
 :::

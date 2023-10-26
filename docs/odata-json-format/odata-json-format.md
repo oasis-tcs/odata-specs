@@ -1222,7 +1222,7 @@ Service documents MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects. Services MUST NOT produce name/value pairs
 other than the ones explicitly defined in this section, and clients MUST
 ignore unknown name/value pairs.
- 
+
 ::: example
 Example 9:
 ```json
@@ -1284,7 +1284,7 @@ An entity representation can be (modified and) round-tripped to the
 service directly. The [context
 URL](#ControlInformationcontextodatacontext) is used in requests only
 as a base for [relative URLs](#RelativeURLs).
- 
+
 ::: example
 Example 10: entity with `metadata=minimal`
 ```json
@@ -2630,7 +2630,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example 40: minimal representation of a function where all overloads are
 applicable
@@ -2642,7 +2642,7 @@ applicable
 }
 ```
 :::
- 
+
 ::: example
 Example 41: full representation of a specific overload with parameter
 alias for the `Year` parameter
@@ -2657,7 +2657,7 @@ alias for the `Year` parameter
 }
 ```
 :::
- 
+
 ::: example
 Example 42: full representation in a collection
 ```json
@@ -2734,7 +2734,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example 44: minimal representation in an entity
 ```json
@@ -2745,7 +2745,7 @@ Example 44: minimal representation in an entity
 }
 ```
 :::
- 
+
 ::: example
 Example 45: full representation in an entity:
 ```json
@@ -2759,7 +2759,7 @@ Example 45: full representation in an entity:
 }
 ```
 :::
- 
+
 ::: example
 Example 46: full representation in a collection
 ```json
@@ -3503,7 +3503,7 @@ concerns around information disclosure.
 
 Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
- 
+
 ::: example
 Example 55:
 ```json
@@ -3552,7 +3552,7 @@ header-appropriate way:
   Unicode characters beyond `00FF` within JSON strings are
   encoded as `\uXXXX` or `\uXXXX\uXXXX` (see
   [RFC8259](#rfc8259), section 7)
- 
+
 ::: example
 Example 56: note that this is one HTTP header line without any line
 breaks or optional whitespace
@@ -3628,7 +3628,7 @@ this version of the OData JSON Specification.
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
 <!--TODO: V4.02 conformance -->
- 
+
 In order to be a conforming consumer of the OData JSON format, a client or service:
 
 1. MUST either:

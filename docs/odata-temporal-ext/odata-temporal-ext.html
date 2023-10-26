@@ -1324,79 +1324,79 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="example">
 <p>Example 6: <code>Employees</code> entity set from <a href="#api1">example model <code>api-1</code></a> annotated with temporal terms</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Employees&quot;:</span> <span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;OrgModel.Employee&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">},</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;OrgModel.Employee&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example 7: <code>history</code> navigation property in entity set <code>Employees</code> from <a href="#api2">example model <code>api-2</code></a> annotated with temporal terms</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;$Annotations&quot;:</span> <span class="fu">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;OrgModel.Default/Employees/history&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;TimeSliceStart&quot;</span><span class="fu">:</span> <span class="st">&quot;From&quot;</span><span class="fu">,</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;TimeSliceEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;To&quot;</span><span class="fu">,</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;SupportedActions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="st">&quot;Temporal.Update&quot;</span><span class="ot">,</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="st">&quot;Temporal.Upsert&quot;</span><span class="ot">,</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="st">&quot;Temporal.Delete&quot;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="ot">]</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">},</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;OrgModel.Default/Employees/history&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;TimeSliceStart&quot;</span><span class="fu">:</span> <span class="st">&quot;From&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;TimeSliceEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;To&quot;</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;SupportedActions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Temporal.Update&quot;</span><span class="ot">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Temporal.Upsert&quot;</span><span class="ot">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Temporal.Delete&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example <a name="CostCenters" href="#CostCenters">8</a>: <code>CostCenters</code> entity set containing time slices for multiple temporal objects, the temporal objects identified by combination of <code>AreaID</code> and <code>CostCenterID</code></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;CostCenter&quot;:</span> <span class="fu">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;tsid&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span> <span class="fu">},</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span> <span class="fu">},</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">},</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;tsid&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span> <span class="fu">},</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Date&quot;</span> <span class="fu">},</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">},</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">}</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Default&quot;:</span> <span class="fu">{</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityContainer&quot;</span><span class="fu">,</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;this.CostCenter&quot;</span> <span class="fu">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityContainer&quot;</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;this.CostCenter&quot;</span> <span class="fu">}</span></span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;$Annotations&quot;:</span> <span class="fu">{</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;this.Default/CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;</span><span class="fu">,</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ClosedClosedPeriods&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">},</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidFrom&quot;</span><span class="fu">,</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidTo&quot;</span><span class="fu">,</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ObjectKey&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;AreaID&quot;</span><span class="ot">,</span> <span class="st">&quot;CostCenterID&quot;</span><span class="ot">]</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">},</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;SupportedActions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="st">&quot;Temporal.Update&quot;</span><span class="ot">,</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="st">&quot;Temporal.Upsert&quot;</span><span class="ot">,</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="st">&quot;Temporal.Delete&quot;</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;this.Default/CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;</span><span class="fu">,</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ClosedClosedPeriods&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidFrom&quot;</span><span class="fu">,</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidTo&quot;</span><span class="fu">,</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ObjectKey&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;AreaID&quot;</span><span class="ot">,</span> <span class="st">&quot;CostCenterID&quot;</span><span class="ot">]</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;SupportedActions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Temporal.Update&quot;</span><span class="ot">,</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Temporal.Upsert&quot;</span><span class="ot">,</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Temporal.Delete&quot;</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
@@ -1450,10 +1450,10 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1461,10 +1461,10 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)?$at=2012-01-01</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1472,14 +1472,14 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <pre><code>GET /api-1/Employees?$filter=contains(Name,&#39;i&#39;)&amp;$at=2012-01-01</code></pre>
 <p>results in one time slice for each employee matching the filter at the specified point in time - note that E401 back then does not satisfy this condition</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Expanding related entities in combination with <code>$at</code> is straight-forward: the response consists of the time slices of related entities that are valid at the requested point in time. The period boundaries of the nested entities reflect the actual validity of the related entities and are independent of the period boundaries of the base entity.</p>
@@ -1488,14 +1488,14 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)?$at=2012-01-01&amp;$expand=Department($at=2021-11-23)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1503,21 +1503,21 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <pre><code>GET /api-1/Departments(&#39;D15&#39;)?$at=2015-01-01&amp;$expand=Employees</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Departments/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Employees&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Departments/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Employees&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="423-query-options-from-to-and-toinclusive"><a name="QueryOptionsfromtoandtoInclusive" href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code></a></h3>
@@ -1554,46 +1554,46 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="example">
 <p>Example <a name="employeeHistory" href="#employeeHistory">14</a>: retrieve employee history over a period of application time</p>
 <pre><code>GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &amp;$from=2012-03-01&amp;$to=2025-01-01</code></pre>
+                    &amp;$from=2012-03-01&amp;$to=2025-01-01</code></pre>
 <p>results in one entity for each employee with time slices that overlap the specified application-time period:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er"> </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="er">  </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er">     </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">        </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The history for the first employee contains two time slices that do not differ in the represented properties, caused by a department change, and the department is not part of the representation.</p>
 <p>The service could have combined these two time slices into one.</p>
@@ -1601,97 +1601,97 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="example">
 <p>Example 15: retrieve all employees that ever worked for department D15, with their full history, and the department's data at the start of each employee history time slice</p>
 <pre><code>GET /api-2/Departments(&#39;D15&#39;)/Employees?
-    $expand=history(
+    $expand=history(
       @emp=$this;
-      $expand=Department(
-        $expand=history($at=@emp/From)
-      )
-    )</code></pre>
+      $expand=Department(
+        $expand=history($at=@emp/From)
+      )
+    )</code></pre>
 <p>has the following result with department names and budgets as of the beginning of each employee time slice:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er"> </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="er">             </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2010-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">          </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-10-01&quot;</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="fu">}</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1250</span><span class="fu">,</span></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="er">             </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">          </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="fu">}</span></span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="er">  </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1170</span><span class="fu">,</span></span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="er">             </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">          </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="fu">}</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er">     </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Norman&quot;</span><span class="fu">,</span></span>
-<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
-<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">        </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2009-11-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
-<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
-<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="fu">}</span></span>
-<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er">     </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
-<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">        </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
-<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
-<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">            </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1170</span><span class="fu">,</span></span>
-<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a><span class="er">             </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">          </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a><span class="er">           </span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="fu">}</span></span>
-<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2010-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-10-01&quot;</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D08&quot;</span><span class="fu">,</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1250</span><span class="fu">,</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1170</span><span class="fu">,</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Norman&quot;</span><span class="fu">,</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2009-11-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Department&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1170</span><span class="fu">,</span></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2011-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="424-interaction-with-standard-system-query-options"><a name="InteractionwithStandardSystemQueryOptions" href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a></h3>
@@ -1700,67 +1700,67 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="example">
 <p>Example 16: retrieve employee history over a period of application time and filter on job title</p>
 <pre><code>GET /api-2/Employees?$expand=history(
-                       $select=Name,Jobtitle;
-                       $from=2012-03-01&amp;$to=2025-01-01;
-                       $filter=contains(Jobtitle,&#39;e&#39;)
-                     )</code></pre>
+                       $select=Name,Jobtitle;
+                       $from=2012-03-01&amp;$to=2025-01-01;
+                       $filter=contains(Jobtitle,&#39;e&#39;)
+                     )</code></pre>
 <p>results in one entity for each employee with time slices that overlap the specified application-time period and satisfy the filter condition (one less than in <a href="#employeeHistory">example 14</a>):</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er"> </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="er">  </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er">     </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">        </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2013-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span><span class="fu">,</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The lambda operators <code>any()</code> and <code>all()</code> are not influenced by temporal query options, they are interpreted for each time slice on the filtered collection, meaning "any related time slice satisfying the lambda expression" and "all related time slices satisfy the lambda expression". The lambda expressions however can contain sub-expressions working on the period boundaries.</p>
 <div class="example">
 <p>Example 17: filter employees on their name at any point in time</p>
 <pre><code>GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &amp;$from=2015-01-01
-                    &amp;$filter=history/any(h:startswith(h/Name,&#39;N&#39;))</code></pre>
+                    &amp;$from=2015-01-01
+                    &amp;$filter=history/any(h:startswith(h/Name,&#39;N&#39;))</code></pre>
 <p>results in one employee whose name matches in the past, and the matching time slice is not in the requested time period</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">{</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="er">    </span> <span class="er">     </span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="er">         </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">        </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="er">        </span> <span class="er"> </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="fu">}</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="ot">]</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;history&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span><span class="fu">,</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="425-requesting-changes-to-temporal-data"><a name="RequestingChangestoTemporalData" href="#RequestingChangestoTemporalData">4.2.5 Requesting Changes to Temporal Data</a></h3>
@@ -1812,15 +1812,15 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Given the <a href="#ExampleData">example departments data</a> the operation will split the time slice starting at 2012-01-01 creating a new time slice starting at 2012-04-01 which is then updated with the desired budget. It will then update the time slice starting at 2012-06-01 with the desired budget, and finally it will split the time slice starting at 2014-01-01 creating a new time slice starting at 2014-07-01, then update the original with the desired budget, leaving the new time slice starting at 2014-07-01 untouched:</p>
 <div class="obj-1 temp-2">
@@ -1897,54 +1897,54 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1250</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">  </span><span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
-<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
-<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1400</span></span>
-<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1250</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1320</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Budget&quot;</span><span class="fu">:</span> <span class="dv">1400</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The service could have joined the third and fourth time slice because they do not significantly differ.</p>
 </div>
@@ -1952,17 +1952,17 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Example 19: Change an employee's job title during a period of application time with <a href="#api1"><code>api-1</code></a> (snapshot). Note that the period boundaries are not visible in <a href="#api1"><code>api-1</code></a> and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code> data. The <code>PeriodEnd</code> is omitted, meaning the end of application time.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-1/Employees/Temporal.Update</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Ultimate Expert&quot;</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Ultimate Expert&quot;</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Given the <a href="#ExampleData">example employee data</a> the operation will split the time slice for employee <code>E401</code> starting at 2012-03-01 creating a new time slice starting at 2021-10-01 which is then updated with the desired job title.</p>
 <div class="obj-1 temp-2 nav-6">
@@ -2032,29 +2032,29 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Ultimate Expert&quot;</span></span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Ultimate Expert&quot;</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="4322-upsert-during-a-period"><a name="UpsertduringaPeriod" href="#UpsertduringaPeriod">4.3.2.2 Upsert during a Period</a></h4>
@@ -2076,25 +2076,25 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-03-31&quot;</span><span class="fu">,</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span><span class="fu">,</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D04&quot;</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;deltaTimeslices&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-03-31&quot;</span><span class="fu">,</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span><span class="fu">,</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D04&quot;</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Given this example data (primary key in olive)</p>
 <div class="key-1 obj-2 obj-3 temp-4">
@@ -2174,7 +2174,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <td><em>C2</em></td>
 <td><em>max</em></td>
 <td><em>2012-04-01</em></td>
-<td> </td>
+<td></td>
 <td><em>D04</em></td>
 </tr>
 </tbody>
@@ -2182,57 +2182,57 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <p>It returns the resulting created or updated time slices per affected temporal object</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;n&quot;</span><span class="fu">,</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-03-31&quot;</span><span class="fu">,</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1955-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;o&quot;</span><span class="fu">,</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-03-31&quot;</span><span class="fu">,</span></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span></span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;p&quot;</span><span class="fu">,</span></span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span></span>
-<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
-<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a><span class="er">       </span> <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;q&quot;</span><span class="fu">,</span></span>
-<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
-<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="er">    </span><span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span><span class="fu">,</span></span>
-<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="er">  </span><span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
-<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
-<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">      </span><span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D04&quot;</span></span>
-<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="fu">}</span></span>
-<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="ot">]</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;n&quot;</span><span class="fu">,</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-03-31&quot;</span><span class="fu">,</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1955-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;o&quot;</span><span class="fu">,</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-03-31&quot;</span><span class="fu">,</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;1984-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;p&quot;</span><span class="fu">,</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2001-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D02&quot;</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;q&quot;</span><span class="fu">,</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span><span class="fu">,</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidTo&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ValidFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ProfitCenterID&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="st">&quot;D04&quot;</span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="4323-delete-during-a-period"><a name="DeleteduringaPeriod" href="#DeleteduringaPeriod">4.3.2.3 Delete during a Period</a></h4>
