@@ -2795,14 +2795,14 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
 [OData-ABNF](#ODataABNF).
 
-A `$value` request for a property or operation result that is `null` results in a
+A raw value request for a property or operation result of type `Edm.Stream`
+returns `400 Bad Request`.
+
+A raw value request for a property or operation result that is `null` results in a
 [`204 No Content`](#ResponseCode204NoContent) response.
 
 If the property or operation result is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
-
-Appending `/$value` to the  URL of a property or operation result of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ::: example
 Example 32:
