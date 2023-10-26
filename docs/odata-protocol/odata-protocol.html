@@ -306,7 +306,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">11.2.3 Requesting the Media Stream of a Media Entity using <code>$value</code></a></li>
 <li><a href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 <ul>
-<li><a href="#RequestingaRawValueusingvalue">11.2.4.1 Requesting a Raw Value using <code>$value</code></a></li>
+<li><a href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></li>
+<li><a href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></li>
 </ul></li>
 <li><a href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 <ul>
@@ -691,7 +692,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If the <code>Accept-Language</code> header is specified on an individual request within a batch, then it specifies the acceptable languages for that individual request. Requests within a batch that don't include the <code>Accept-Language</code> header inherit the acceptable languages of the overall batch request.</p>
 <h3 id="824-header-if-match"><a name="HeaderIfMatch" href="#HeaderIfMatch">8.2.4 Header <code>If-Match</code></a></h3>
 <p>As defined in <a href="#rfc7232">RFC7232</a>, a client MAY include an <code>If-Match</code> header in a request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the resource, or <code>*</code> to match any value.</p>
-<p>If an operation on an existing resource requires an ETag, (see term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><code> </code>in <a href="#ODataVocCore">OData-VocCore</a> and property <code>OptimisticConcurrencyControl</code> of type <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a> in <a href="#ODataVocCap">OData-VocCap</a>) and the client does not specify an <code>If-Match</code> request header in a <a href="#DataModification">Data Modification Request</a> or in an <a href="#Actions">Action Request</a> invoking an action bound to the resource, the service responds with a <code>428 Precondition Required</code> and MUST ensure that no observable change occurs as a result of the request.</p>
+<p>If an operation on an existing resource requires an ETag, (see term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a> in <a href="#ODataVocCore">OData-VocCore</a> and property <code>OptimisticConcurrencyControl</code> of type <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a> in <a href="#ODataVocCap">OData-VocCap</a>) and the client does not specify an <code>If-Match</code> request header in a <a href="#DataModification">Data Modification Request</a> or in an <a href="#Actions">Action Request</a> invoking an action bound to the resource, the service responds with a <code>428 Precondition Required</code> and MUST ensure that no observable change occurs as a result of the request.</p>
 <p>If present, the request MUST only be processed if the specified ETag value matches the current ETag value of the target resource. Services sending <a href="#HeaderETag"><code>ETag</code> headers</a> with weak ETags that only depend on the representation-independent entity state MUST use the weak comparison function because it is sufficient to prevent accidental overwrites. This is a deviation from <a href="#rfc7232">RFC7232</a>.</p>
 <p>If the value does not match the current ETag value of the resource for a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the service MUST respond with <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST ensure that no observable change occurs as a result of the request. In the case of an <a href="#UpsertanEntity">upsert</a>, if the addressed entity does not exist the provided ETag value is considered not to match.</p>
 <p>An <code>If-Match</code> header with a value of <code>*</code> in a <code>PUT</code> or <code>PATCH</code> request results in an <a href="#UpsertanEntity">upsert request</a> being processed as an update and not an insert.</p>
@@ -808,14 +809,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>return=representation</code> and <code>return=minimal</code> preferences are defined in <a href="#rfc7240">RFC7240</a>.</p>
 <p>In OData, <code>return=representation</code> or <code>return=minimal</code> is defined for use with a <code>POST</code>, <code>PUT</code>, or <code>PATCH</code> <a href="#DataModification">Data Modification Request</a>, or with an <a href="#Actions">Action Request</a>. Specifying a preference of <code>return=representation</code> or <code>return=minimal</code> in a <code>GET</code> or <code>DELETE</code> request does not have any effect.</p>
 <p>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an individual <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> within a batch, subject to the same restrictions, but SHOULD return a <code>4xx Client Error</code> if specified on the batch request itself.</p>
-<p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response header containing the <code>return=minimal </code>preference.</p>
+<p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=minimal </code>preference.</p>
 <p>A preference of <code>return=representation</code> requests that the service invokes the request and returns the modified resource. The service MAY apply this preference by returning the representation of the successfully modified resource in the body of the response, formatted according to the rules specified for the requested <a href="#Formats">format</a>. In this case the service MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=representation</code> preference.</p>
 <p>The <code>return</code> preference SHOULD NOT be applied to a batch request, but MAY be applied to individual requests within a batch.</p>
 <h4 id="8288-preference-respond-async"><a name="Preferencerespondasync" href="#Preferencerespondasync">8.2.8.8 Preference <code>respond-async</code></a></h4>
 <p>The <code>respond-async </code>preference, as defined in <a href="#rfc7240">RFC7240</a>, allows clients to request that the service process the request asynchronously.</p>
 <p>If the client has specified<code> respond-async</code> in the request, the service MAY process the request asynchronously and return a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response.</p>
 <p>The <code>respond-async</code> preference MAY be used for batch requests, in which case it applies to the batch request as a whole and not to individual requests within the batch request.</p>
-<p>In the case that the service applies the <code>respond-async</code> preference it MUST include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>response header containing the <code>respond-async</code> preference.</p>
+<p>In the case that the service applies the <code>respond-async</code> preference it MUST include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>respond-async</code> preference.</p>
 <p>A service MAY specify the support for the <code>respond-async</code> preference using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AsynchronousRequestsSupported"><code>Capabilities.AsynchronousRequestsSupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <div class="example">
 <p>Example 9: a service receiving the following header might choose to respond</p>
@@ -1257,13 +1258,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="#ODataJSON">OData-JSON</a> payload. In addition, services MAY support conventions for constructing a read URL using the entity's key value(s), as described in <a href="#ODataURL">OData-URL</a>.</p>
 <p>The set of structural or navigation properties to return may be specified through <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>system query options.</p>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open.</p>
-<p>Properties that are not available, for example due to permissions, are not returned. In this case, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None.</code></p>
+<p>Properties that are not available, for example due to permissions, are not returned. In this case, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None</code>.</p>
 <p>If no entity exists with the specified request URL, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <h3 id="1123-requesting-the-media-stream-of-a-media-entity-using-value"><a name="RequestingtheMediaStreamofaMediaEntityusingvalue" href="#RequestingtheMediaStreamofaMediaEntityusingvalue">11.2.3 Requesting the Media Stream of a Media Entity using <code>$value</code></a></h3>
 <p>A <em>media entity</em> is an entity that represents an out-of-band stream, such as a photograph.</p>
 <p>Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just structured additional information attached to the stream. Use a normal entity with one or more <a href="#ManagingStreamProperties">stream properties</a> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data.</p>
-<p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
-<p>Appending <code>/$value</code> to an entity that is not a media entity returns <code>400 Bad Request.</code></p>
+<p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. The media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the media stream with that media type. Alternatively, services MAY redirect from this canonical URL to the source URL of the media stream.</p>
+<p>Appending <code>/$value</code> to an entity that is not a media entity returns <code>400 Bad Request</code>.</p>
 <p>Attempting to retrieve the media stream from a single-valued navigation property referencing a media entity whose value is null returns <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <h3 id="1124-requesting-individual-properties"><a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a></h3>
 <p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with "/" and the property name appended.</p>
@@ -1275,14 +1276,18 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 31:</p>
 <pre><code>GET http://host/service/Products(1)/Name</code></pre>
 </div>
-<h4 id="11241-requesting-a-raw-value-using-value"><a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.1 Requesting a Raw Value using <code>$value</code></a></h4>
+<h4 id="11241-requesting-stream-properties"><a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></h4>
+<p>If the property being requested has type <code>Edm.Stream</code> (see <a href="#ODataURL">OData-URL, section 9</a>), the media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the stream property with that media type.</p>
+<p>Note this response format disregards any <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
+<h4 id="11242-requesting-a-raw-value-using-value"><a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></h4>
 <p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
-<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
+<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
 <p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses for properties of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>A <code>$value</code> request for a property that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
-<p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
+<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses for type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A <code>$value</code> request for a property or operation result that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
+<p>If the property or operation result is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
+<p>Appending <code>/$value</code> to the URL of a property or operation result of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
 <div class="example">
 <p>Example 32:</p>
 <pre><code>GET http://host/service/Products(1)/Name/$value</code></pre>
@@ -1321,9 +1326,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the service returns less than the full set of properties, either because the client specified a select or because the service returned a subset of properties in the absence of a select, the <a href="#ContextURL">context URL</a> MUST reflect the set of selected properties and projected <a href="#SystemQueryOptionexpand">expanded</a> navigation properties.</p>
 <h4 id="11252-system-query-option-expand"><a name="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">11.2.5.2 System Query Option <code>$expand</code></a></h4>
 <p>The <code>$expand</code> system query option indicates the related entities and stream values that MUST be represented inline. The service MUST return the specified content, and MAY choose to return additional information.</p>
-<p>The value of the <code>$expand</code> query option is a comma-separated list of navigation property names, stream property names, or <code>$value</code> indicating the stream content of a media-entity.</p>
-<p>For navigation properties, the navigation property name is optionally followed by a <code>/$ref</code> path segment or a <code>/$count</code> path segment, and optionally a parenthesized set of <a href="#ExpandOptions">expand options</a> (for filtering, sorting, selecting, paging, or expanding the related entities).</p>
-<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>The value of <code>$expand</code> is a comma-separated list of expand items. Each expand item is evaluated relative to the retrieved resource being expanded.</p>
+<p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>, section 5.1.3.</p>
 <div class="example">
 <p>Example 38: for each customer entity within the Customers entity set the value of all related Orders will be represented inline</p>
 <pre><code>GET http://host/service.svc/Customers?$expand=Orders</code></pre>
@@ -1338,7 +1342,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 <h5 id="112521-expand-options"><a name="ExpandOptions" href="#ExpandOptions">11.2.5.2.1 Expand Options</a></h5>
 <p>The set of expanded entities can be further refined through the application of expand options, expressed as a semicolon-separated list of system query options, enclosed in parentheses, see <a href="#ODataURL">OData-URL</a>.</p>
-<p>Allowed system query options are <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a><code>,</code> <a href="#SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> and <a href="#ExpandOptionlevels"><code>$levels</code></a>.</p>
+<p>Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
 <div class="example">
 <p>Example 41: for each customer entity within the <code>Customers</code> entity set, the value of those related <code>Orders</code> whose <code>Amount</code> is greater than 100 will be represented inline</p>
 <pre><code>GET http://host/service.svc/Customers?$expand=Orders($filter=Amount gt 100)</code></pre>
@@ -1356,7 +1360,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</code></pre>
 </div>
 <h6 id="1125211-expand-option-levels"><a name="ExpandOptionlevels" href="#ExpandOptionlevels">11.2.5.2.1.1 Expand Option <code>$levels</code></a></h6>
-<p>The <code>$levels</code> expand option can be used to specify the number of levels of recursion for a hierarchy in which the related entity type is the same as, or can be cast to, the source entity type. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion. The same expand options are applied at each level of the hierarchy.</p>
+<p>The <code>$levels</code> expand option can be used to specify the number of levels of recursion for a hierarchy in which the related entity type is the same as, or can be cast to, the source entity type. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion. All provided expand options except <code>$levels</code> are applied at each level of the hierarchy.</p>
 <p>Services MAY support the symbolic value <code>max</code> in addition to numeric values. In that case they MUST solve circular dependencies by injecting an entity reference somewhere in the circular dependency.</p>
 <p>Clients using <code>$levels=max</code> MUST be prepared to handle entity references in cases were a circular reference would occur otherwise.</p>
 <p>4.01 services that support <code>max</code> SHOULD do so in a case-insensitive manner. Clients that want to work with 4.0 services MUST use lower case.</p>
@@ -1476,7 +1480,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </table>
 
 <h5 id="112613-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">11.2.6.1.3 Parameter Aliases</a></h5>
-<p>Parameter aliases can be used in place of literal values in entity keys, <a href="#InvokingaFunction">function parameters</a>, or within a <a href="#SystemQueryOptioncompute"><code>$compute</code></a><code>,</code> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression. Parameters aliases are names beginning with an at sign (<code>@</code>).</p>
+<p>Parameter aliases can be used in place of literal values in entity keys, <a href="#InvokingaFunction">function parameters</a>, or within a <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression. Parameters aliases are names beginning with an at sign (<code>@</code>).</p>
 <p>Actual parameter values are specified as query options in the query part of the request URL. The query option name is the name of the parameter alias, and the query option value is the value to be used for the specified parameter alias.</p>
 <div class="example">
 <p>Example 48: returns all employees whose Region property matches the string parameter value "WA"</p>
@@ -1669,7 +1673,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Orders?$format=json</code></pre>
 </div>
 <p>is equivalent to a request with the <code>Accept</code> header set to <code>application/json</code>; it requests the set of Order entities represented using the JSON media type with minimal metadata, as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
-<p>In <a href="#MetadataDocumentRequest">metadata document requests</a>, the values <code>application/xml</code> and <code>application/json</code>, along with their subtypes and parameterized variants, as well as the format-specific abbreviations <code>xml</code> and <code>json,</code> are reserved for this specification.</p>
+<p>In <a href="#MetadataDocumentRequest">metadata document requests</a>, the values <code>application/xml</code> and <code>application/json</code>, along with their subtypes and parameterized variants, as well as the format-specific abbreviations <code>xml</code> and <code>json</code>, are reserved for this specification.</p>
 <h3 id="11212-system-query-option-schemaversion"><a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">11.2.12 System Query Option <code>$schemaversion</code></a></h3>
 <p>The <code>$schemaversion</code> system query option MAY be included in any request. For a <a href="#MetadataDocumentRequest">metadata document request</a> the value of the <code>$schemaversion</code> system query option addresses a specific schema version. For all other request types the value specifies the version of the schema against which the request is made. The syntax of the <code>$schemaversion</code> system query option is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The value of the <code>$schemaversion</code> system query option MUST be a version of the schema as returned in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, of a previous request to the <a href="#MetadataDocumentRequest">metadata document</a>, or <code>*</code> in order to specify the current version of the metadata.</p>
@@ -1679,9 +1683,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the <code>$schemaversion</code> system query option is specified on an individual request within a batch, then it specifies the version of the schema to apply to that individual request. Individual requests within a batch that don't include the <code>$schemaversion</code> system query option inherit the schema version of the overall batch request.</p>
 <p>If the <code>$schemaversion</code> system query option is specified, but the version of the schema doesn't exist, the request is answered with a response code <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>. The response body SHOULD provide additional information.</p>
 <h2 id="113-requesting-changes"><a name="RequestingChanges" href="#RequestingChanges">11.3 Requesting Changes</a></h2>
-<p>Services advertise their change-tracking capabilities by annotating entity sets with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking"><code>Capabilities</code>.<code>ChangeTracking</code></a> term defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>Services advertise their change-tracking capabilities by annotating entity sets with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking"><code>Capabilities.ChangeTracking</code></a> term defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>Any <code>GET</code> request to retrieve one or more entities MAY allow change-tracking.</p>
-<p>Clients request that the service track changes to a result by specifying the <a href="#Preferencetrackchangesodatatrackchanges"><code>track-changes</code></a> preference on a request. If supported for the request, the service includes a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a><code> </code>header in the response containing the <code>track-changes</code> preference and includes a <em>delta link</em> in a result for a single entity, and on the last page of results for a collection of entities in place of the next link.</p>
+<p>Clients request that the service track changes to a result by specifying the <a href="#Preferencetrackchangesodatatrackchanges"><code>track-changes</code></a> preference on a request. If supported for the request, the service includes a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> header in the response containing the <code>track-changes</code> preference and includes a <em>delta link</em> in a result for a single entity, and on the last page of results for a collection of entities in place of the next link.</p>
 <h3 id="1131-delta-links"><a name="DeltaLinks" href="#DeltaLinks">11.3.1 Delta Links</a></h3>
 <p>Delta links are opaque, service-generated links that the client uses to retrieve subsequent changes to a result.</p>
 <p>Delta links are based on a <em>defining query</em> that describes the set of results for which changes are being tracked; for example, the request that generated the results containing the delta link. The delta link encodes the collection of entities for which changes are being tracked, along with a starting point from which to track changes. OData services may use the reserved system query option <code>$deltatoken</code> when building delta links. Its content is opaque, service-specific, and must only follow the rules for URL query parts.</p>
@@ -1696,7 +1700,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The client requests changes by invoking the <code>GET</code> method on the <a href="#DeltaLinks">delta link</a>. The client MUST NOT attempt to append system query options to the delta link. The <a href="#HeaderAccept"><code>Accept</code></a> header MAY be used to specify the desired response format.</p>
 <p>Clients SHOULD specify the same <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a> header when querying the delta link as was specified in the defining query. Services MAY return <a href="#ResponseCode406NotAcceptable"><code>406 Not Acceptable</code></a> if a different <code>Accept-Language</code> is specified. If a service does support an <code>Accept-Language</code> header it MAY return changes only visible in that language, or MAY include records that have changes not visible in the requested language.</p>
 <p>The <a href="#RequestingtheNumberofItemsinaCollection"><code>/$count</code></a> segment can be appended to the path of a delta link in order to get just the number of changes available. The count includes all added, changed, or deleted entities, as well as added or deleted links.</p>
-<p>The results of a request against the delta link may span multiple pages but MUST be ordered by the service across all pages in such a way as to guarantee consistency when applied in order to the response which contained the delta link.</p>
+<p>The results of a request against the delta link may span one or more pages and MUST be ordered by the service across all pages in such a way as to guarantee consistency when applied in order to the response which contained the delta link.</p>
 <p>Services SHOULD return only changed entities, but MAY return additional entities matching the defining query for which the client may not see a change.</p>
 <p>In order to continue tracking changes beyond the current set, the client specifies <a href="#Preferencetrackchangesodatatrackchanges"><code>track-changes</code></a> on the initial request to the delta link but is not required to repeat it for subsequent <a href="#ServerDrivenPaging">pages</a>. The new delta link appears at the end of the last page of changes in place of the next link and MUST return all changes subsequent to the last change of the previous delta link.</p>
 <p>If no changes have occurred, the response is an empty collection that contains a delta link for subsequent changes if requested. This delta link MAY be identical to the delta link resulting in the empty collection of changes.</p>
@@ -1713,7 +1717,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a name="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
 <p>Each entity has its own ETag value that MUST change when structural properties or links from that entity have changed. In addition, modifying, adding, or deleting a contained entity MAY change the ETag of the parent entity.</p>
 <p>Collections of entities (including collections of related entities) MAY have their own ETag value whose semantics is service-specific. It typically changes if entities are added to or removed from the collection, or if an entity in the collection is changed. The ETag of a collection of related entities reached via a navigation property MAY differ from the ETag of the entity containing the navigation property.</p>
-<p>A <a href="#DataModification">Data Modification Request</a> on an existing resource or an <a href="#Actions">Action Request</a> invoking an action bound to an existing resource MAY require optimistic concurrency control. Services SHOULD announce this via annotations with the terms <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a><code> </code>in <a href="#ODataVocCore">OData-VocCore</a> and <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions"><code>Capabilities.NavigationRestrictions</code></a> (nested property <code>OptimisticConcurrencyControl</code>) in <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>A <a href="#DataModification">Data Modification Request</a> on an existing resource or an <a href="#Actions">Action Request</a> invoking an action bound to an existing resource MAY require optimistic concurrency control. Services SHOULD announce this via annotations with the terms <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a> in <a href="#ODataVocCore">OData-VocCore</a> and <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions"><code>Capabilities.NavigationRestrictions</code></a> (nested property <code>OptimisticConcurrencyControl</code>) in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>If optimistic concurrency control is required for a resource, the service MUST include an <a href="#HeaderETag">ETag header</a> in a response to a <code>GET</code> request to the resource, and MAY include the ETag in a format-specific manner in responses containing that resource.</p>
 <p>The presence of an <a href="#HeaderETag">ETag header</a> in a response does not imply in itself that the resource requires optimistic concurrency control; the ETag may just be used for caching and/or conditional <code>GET</code> requests.</p>
 <p>If an ETag value is specified in an <a href="#HeaderIfMatch"><code>If-Match</code></a> or <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the operation MUST only be invoked if the <code>If-Match</code> or <code>If-None-Match</code> condition is satisfied.</p>
@@ -1749,30 +1753,32 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To create a new entity with links to existing entities in a single request, the client includes references to the related entities in the request body.</p>
 <p>The representation for referencing related entities is format-specific.</p>
 <div class="example">
-<p>Example 76: using the JSON format, 4.0 clients can create a new manager entity with links to two existing employees by applying the <code>odata.bind</code> annotation to the <code>DirectReports</code> navigation property</p>
+<p>Example 76: using the JSON format, 4.0 clients can create a new manager entity with links to an existing manager (of managers) and to two existing employees by applying the <code>odata.bind</code> annotation to the <code>Manager</code> and <code>DirectReports</code> navigation properties</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
 <span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Pat&quot;</span><span class="fu">,</span></span>
 <span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;DirectReports@odata.bind&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="st">&quot;http://host/service/Employees(5)&quot;</span><span class="ot">,</span></span>
-<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="st">&quot;http://host/service/Employees(6)&quot;</span></span>
-<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
-<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Manager@odata.bind&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/Employees(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;DirectReports@odata.bind&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="st">&quot;http://host/service/Employees(5)&quot;</span><span class="ot">,</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="st">&quot;http://host/service/Employees(6)&quot;</span></span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 77: using the JSON format, 4.01 clients can create a new manager entity with links to two existing employees by including the entity-ids within the <code>DirectReports</code> navigation property</p>
+<p>Example 77: using the JSON format, 4.01 clients can create a new manager entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids within the <code>Manager</code> and <code>DirectReports</code> navigation properties</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Pat&quot;</span><span class="fu">,</span></span>
 <span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">}</span></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Manager&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(0)&quot;</span> <span class="fu">},</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">}</span></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Upon successful completion of the operation, the service creates the requested entity and relates it to the requested existing entities.</p>
 <p>If the target URL for the collection the entity is created in and binding information provided in the <code>POST</code> body contradicts the implicit binding information provided by the request URL, the request MUST fail, and the service responds with <code>400 Bad Request</code>.</p>
@@ -1782,13 +1788,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Media entities MUST contain the base64url-encoded representation of their media stream as a virtual property <code>$value</code> when nested within a deep insert.</p>
 <p>Each included related entity is processed observing the rules for <a href="#CreateanEntity">creating an entity</a> as if it was posted against the original target URL extended with the navigation path to this related entity.</p>
 <p>On success, the service MUST create all entities and relate them. If the service responds with <a href="#ResponseCode201Created"><code>201 Created</code></a>, the response MUST be expanded to at least the level that was present in the deep-insert request.</p>
-<p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode201Created"><code>201 Created</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request. Services SHOULD advertise support for deep inserts, including support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a>, through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> term, defined in <a href="#ODataVocCap">OData-VocCap</a>; services that advertise support through <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> MUST return the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> for the inserted or updated entities.</p>
+<p>Clients MAY associate an id with individual nested entities in the request by applying the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term using the namespace or alias defined for the <a href="#ODataVocCore">OData-VocCore</a> vocabulary in the service's <code>$metadata</code> document. Services that respond with <a href="#ResponseCode201Created"><code>201 Created</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request. Services SHOULD advertise support for deep inserts, including support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a>, through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> term, defined in <a href="#ODataVocCap">OData-VocCap</a>; services that advertise support through <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> MUST return the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> for the inserted or updated entities.</p>
 <p>The <code>continue-on-error</code> preference is not supported for deep insert operations.</p>
 <p>On failure, the service MUST NOT create any of the entities.</p>
 <h3 id="1143-update-an-entity"><a name="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a></h3>
 <p>To update an individual entity, the client makes a <code>PATCH</code> or <code>PUT</code> request to a URL that identifies the entity. Services MAY restrict updates only to requests addressing the <a href="#ReadURLsandEditURLs">edit URL</a> of the entity.</p>
 <p>Services SHOULD support <code>PATCH</code> as the preferred means of updating an entity. <code>PATCH</code> provides more resiliency between clients and services by directly modifying only those values specified by the client.</p>
-<p>The semantics of <code>PATCH</code>, as defined in <a href="#rfc5789">RFC5789</a>, is to merge the content in the request payload with the entity's current state, applying the update only to those components specified in the request body. Collection properties and primitive properties provided in the payload corresponding to updatable properties MUST replace the value of the corresponding property in the entity or complex type. Missing properties of the containing entity or complex property, including dynamic properties, MUST NOT be directly altered unless as a side effect of changes resulting from the provided properties.</p>
+<p>The semantics of <code>PATCH</code>, as defined in <a href="#rfc5789">RFC5789</a>, is to merge the content in the request payload with the entity's current state, applying the update only to those components specified in the request body. Collection properties and primitive properties provided in the payload corresponding to updatable properties MUST replace the value of the corresponding property in the entity or complex type. Complex properties are updated by applying <code>PATCH</code> semantics recursively, see also <a href="#UpdateaComplexProperty">section 11.4.9.3</a>. Missing properties of the containing entity or complex property, including dynamic properties, MUST NOT be directly altered unless as a side effect of changes resulting from the provided properties.</p>
 <p>Services MAY additionally support <code>PUT</code> but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that support <code>PUT</code> MUST replace all values of structural properties with those specified in the request body. Missing non-key, updatable structural properties not defined as dependent properties within a referential constraint MUST be set to their default values. Omitting a non-nullable property with no service-generated or default value from a <code>PUT</code> request results in a <code>400 Bad Request</code> error. Missing dynamic structural properties MUST be removed or set to <code>null</code>.</p>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, the media stream of a media entity can be updated by specifying the base64url-encoded representation of the media stream as a virtual property <code>$value</code>.</p>
 <p>Updating a dependent property that is tied to a key property of the principal entity through a referential constraint updates the relationship to point to the entity with the specified key value. If there is no such entity, the update fails.</p>
@@ -1804,16 +1810,16 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Update requests with an OData-Version header with a value of <code>4.0</code> MUST NOT contain related entities as inline content. Such requests MAY contain binding information for navigation properties. For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship.</p>
 <p>Payloads with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater MAY include nested entities and entity references that specify the full set of to be related entities, or a nested <a href="#DeltaPayloads">delta payload</a> representing the related entities that have been added, removed, or changed. Such a request is referred to as a "deep update". If the nested collection is represented identical to an expanded navigation property, then the set of nested entities and entity references specified in a successful update request represents the full set of entities to be related according to that relationship and MUST NOT include added links, deleted links, or deleted entities.</p>
 <div class="example">
-<p>Example 78: using the JSON format, a 4.01 <code>PATCH</code> request can update a manager entity. Following the update, the manager has three direct reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee <code>6</code> is updated to <code>Smith.</code></p>
+<p>Example 78: using the JSON format, a 4.01 <code>PATCH</code> request can update a manager entity. Following the update, the manager has three direct reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee 6 is updated to <code>Smith</code>.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;FirstName&quot;</span> <span class="fu">:</span> <span class="st">&quot;Patricia&quot;</span><span class="fu">,</span></span>
 <span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5}&quot;</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span></span>
 <span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6}&quot;</span><span class="fu">,</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">,</span></span>
 <span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span></span>
 <span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
@@ -1876,7 +1882,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>A <code>PUT</code> or <code>PATCH</code> request MUST NOT be treated as an update if an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code> header</a> is specified with a value of <code>*</code>.</p>
 <h3 id="1145-delete-an-entity"><a name="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a></h3>
 <p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. Services MAY restrict deletes only to requests addressing the <a href="#ReadURLsandEditURLs">edit URL</a> of the entity.</p>
-<p>The request body SHOULD be empty. Singleton entities can be deleted if they are nullable. Services supporting this SHOULD advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>The request body SHOULD be empty. Top-level singleton entities can be deleted if they are nullable. Services supporting this MAY advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>On successful completion of the delete, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
 <p>Services MUST implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.</p>
 <p>Services MAY implicitly delete or modify related entities if required by <a href="#HandlingofIntegrityConstraints">integrity constraints</a>. If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code> element, services MUST modify affected related entities according to the declared integrity constraints, e.g. by deleting dependent entities, or setting dependent properties to <code>null</code> or their default value.</p>
@@ -1907,7 +1913,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11471-create-a-media-entity"><a name="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.7.1 Create a Media Entity</a></h4>
 <p>A <code>POST</code> request to a media entity's entity set creates a new media entity. The request body MUST contain the media value (for example, the photograph) whose media type MUST be specified in a <a href="#HeaderContentType"><code>Content-Type</code></a> header. The request body is always interpreted as the media value, even if it has the media type of an OData format supported by the service. It is not possible to set the structural properties of the media entity when creating the media entity.</p>
 <p>Upon successful completion, the response MUST contain <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL of the created media entity.</p>
-<p>Upon successful completion the service responds with either <a href="#ResponseCode201Created"><code>201 Created</code></a>, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>if the request included a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a>.</p>
+<p>Upon successful completion the service responds with either <a href="#ResponseCode201Created"><code>201 Created</code></a>, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>Prefer</code> header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a>.</p>
 <h4 id="11472-update-a-media-entity-stream"><a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a></h4>
 <p>A successful <code>PUT</code> request to the media edit URL of a media entity changes the media stream of the entity.</p>
 <p>If the entity includes an ETag value for the media stream, the client MUST include an <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the ETag value.</p>
@@ -1919,6 +1925,27 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1148-managing-stream-properties"><a name="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a></h3>
 <p>An entity may have one or more <em>stream properties</em>. Stream properties are properties of type <code>Edm.Stream</code>.</p>
 <p>The values for stream properties do not usually appear in the entity payload. Instead, the values are generally read or written through URLs.</p>
+<div class="example">
+<p>Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property</p>
+<pre><code>GET http://host/service/Products(1)?$select=Thumbnail</code></pre>
+<p>would only include control information for the stream property, not the stream data itself</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The stream data can then be requested using the media read link:</p>
+<pre><code>GET http://server/Thumbnail546.jpg</code></pre>
+</div>
+<p>Services SHOULD support direct property access to a stream property's canonical URL. The response MAY be a redirect to the media read link of the stream property if the media read link is different from the canonical URL.</p>
+<div class="example">
+<p>Example 81: directly read a stream property of an entity</p>
+<pre><code>GET http://host/service/Products(1)/Thumbnail</code></pre>
+<p>can return <a href="#ResponseCode200OK"><code>200 OK</code></a> and the stream data (see <a href="#RequestingStreamProperties">section 11.2.4.1</a>), or a <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> to the media read link of the stream property.</p>
+</div>
+<p>Note: for scenarios in which the media value can only be inlined, the property should instead be modeled with type <code>Edm.Binary</code>.</p>
 <h4 id="11481-update-stream-values"><a name="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL of a stream property changes the media stream associated with that property.</p>
 <p>If the stream metadata includes an ETag value, the client SHOULD include an <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the ETag value.</p>
@@ -1928,6 +1955,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY change the association between a stream property and a media stream by modifying the edit URL or read URL of the stream property. Services supporting this SHOULD advertise it by annotating the stream property with the term <code>Capabilities.MediaLocationUpdateSupported</code> defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <h4 id="11482-delete-stream-values"><a name="DeleteStreamValues" href="#DeleteStreamValues">11.4.8.2 Delete Stream Values</a></h4>
 <p>A successful <code>DELETE</code> request to the edit URL of a stream property attempts to set the property to null and results in an error if the property is non-nullable.</p>
+<div class="example">
+<p>Example 82: delete the stream value using the media edit link retrieved in <a href="#entityWithStreamProperty">example 80</a></p>
+<pre><code>DELETE http://server/uploads/Thumbnail546.jpg</code></pre>
+</div>
 <p>Attempting to request a stream property whose value is null results in <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <h3 id="1149-managing-values-and-properties-directly"><a name="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.9 Managing Values and Properties Directly</a></h3>
 <p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData-URL</a> for details on addressing individual properties.</p>
@@ -1945,18 +1976,19 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Services MUST return an error if the property is not updatable.</p>
 <p><a href="#UpdateaPrimitiveProperty">Updating a primitive property</a> or a <a href="#UpdateaComplexProperty">complex property</a> with a null value also sets the property to null.</p>
 <h4 id="11493-update-a-complex-property"><a name="UpdateaComplexProperty" href="#UpdateaComplexProperty">11.4.9.3 Update a Complex Property</a></h4>
-<p>A successful <code>PATCH</code> request to the edit URL for a complex typed property updates that property. The request body MUST contain a single valid representation for the target complex type.</p>
+<p>A successful <code>PATCH</code> request to the edit URL for a complex typed property updates that property. The request body MUST contain a single valid representation for the declared type of the complex property or one of its derived types.</p>
 <p>The service MUST directly modify only those properties of the complex type specified in the payload of the <code>PATCH</code> request.</p>
+<p>If a complex-typed property is set to a different type in a <code>PATCH</code> request, properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload). Other properties of the original type are discarded.</p>
 <p>The service MAY additionally support clients sending a <code>PUT</code> request to a URL that specifies a complex type. In this case, the service MUST replace the entire complex property with the values specified in the request body and set all unspecified properties to their default value.</p>
 <p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a>.</p>
 <p>Services MUST return an error if the property is not updatable.</p>
 <h4 id="11494-update-a-collection-property"><a name="UpdateaCollectionProperty" href="#UpdateaCollectionProperty">11.4.9.4 Update a Collection Property</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL of a collection property updates that collection. The message body MUST contain the desired new value, formatted as a collection property according to the specified format.</p>
 <p>The service MUST replace the entire value with the value supplied in the request body.</p>
-<p>A successful <code>POST</code> request to the edit URL of a collection property adds an item to the collection. The body of the request MUST be a single item to be added to the collection. If the collection is ordered, the item is added to the end of the collection, and <a href="#RequestinganIndividualMemberofanOrderedCollection"><code>$index</code></a> MAY be used to specify a zero-based ordinal position to insert the new value, with a negative value indicating an ordinal position from the end of the collection.</p>
+<p>A successful <code>POST</code> request to the edit URL of a collection property adds an item to the collection. The body of the request MUST be a single item to be added to the collection. If the collection is ordered, the item is added to the end of the collection, and if the collection supports positional insert <a href="#RequestinganIndividualMemberofanOrderedCollection"><code>$index</code></a> MAY be used to specify the insert position.</p>
 <p>A successful <code>DELETE</code> request to the edit URL of a collection property deletes all items in that collection.</p>
 <p>Since collection members have no individual identity, <code>PATCH</code> is not supported for collection properties.</p>
-<p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a>.</p>
+<p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated collection, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a>.</p>
 <p>Services MUST return an error if the property is not updatable.</p>
 <h3 id="11410-managing-members-of-an-ordered-collection"><a name="ManagingMembersofanOrderedCollection" href="#ManagingMembersofanOrderedCollection">11.4.10 Managing Members of an Ordered Collection</a></h3>
 <p>Collections annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>) have a stable order. Members of an ordered collection of primitive and complex types can be individually updated or deleted by invoking an update operation against the URL of the collection appended by a segment containing the zero-based ordinal of the item within the collection. A negative ordinal number indexes from the end of the collection, with -1 representing the last item in the collection.</p>
@@ -1964,13 +1996,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="11411-positional-inserts"><a name="PositionalInserts" href="#PositionalInserts">11.4.11 Positional Inserts</a></h3>
 <p>Collections of entity, complex, or primitive types annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>) support inserting items at a specific location via <code>POST</code> requests to the collection URL using the <code>$index</code> system query option. The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal positions of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal number indexes from the end of the collection, with -1 representing an insert as the last item in the collection.</p>
 <div class="example">
-<p>Example 80: Insert a new email address at the second position</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Customers(&#39;ALFKI&#39;)/EmailAddresses?$index=1</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;alfred@futterkiste.de&quot;</span></span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 83: Insert a new email address at the second position</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Customers(&#39;ALFKI&#39;)/EmailAddresses?$index=1</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;alfred@futterkiste.de&quot;</span></span>
+<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="11412-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">11.4.12 Update a Collection of Entities</a></h3>
 <p>Collections of entities can be updated by submitting a <code>PATCH</code> request to the resource path of the collection. The body of the request MUST be a <a href="#DeltaPayloads">delta payload</a>, and the resource path of the collection MUST NOT contain type cast or filter segments, and MUST NOT contain any system query options that affect the shape of the result.</p>
@@ -1996,14 +2028,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For primitive-typed collections the body of the request MUST be a primitive value. Each member of the potentially filtered collection is updated to the specified primitive value.</p>
 <p>For collections of structured type, the body of the request MUST be a full or partial representation of an instance of the collection's structured type. Each member of the potentially filtered collection is <a href="#UpdateanEntity">updated</a> using <code>PATCH</code> semantics. Structured types MAY include nested collections or delta collections, in which case the semantics described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a> applies.</p>
 <div class="example">
-<p>Example 81: change the color of all beige-brown products</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="er">&#39;beige-brown&#39;</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 84: change the color of all beige-brown products</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="er">&#39;beige-brown&#39;</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The response, if requested, is a collection payload containing the updated representation of each member identified by the request. If the update payload includes nested collections or nested delta collections, then they MUST be included in the response, as described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
@@ -2013,7 +2045,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Members of a collection can be deleted by submitting a <code>DELETE</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the collection itself is not deleted.</p>
 <p>The request resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <div class="example">
-<p>Example 82: delete all products older than 3</p>
+<p>Example 85: delete all products older than 3</p>
 <pre><code>DELETE /service/Products/$filter(Age gt 3)/$each</code></pre>
 </div>
 <p>If the path identifies a collection of entities and if the service returns a representation, then the response is a delta response containing a representation of a deleted entity for each deleted member.</p>
@@ -2026,25 +2058,25 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p><a href="#Actions">Actions</a> and <a href="#Functions">Functions</a> MAY be bound to any type or collection, similar to defining a method in a class in object-oriented programming. The first parameter of a bound operation is the <em>binding parameter</em>.</p>
 <p>The namespace- or alias-qualified name of a bound operation may be appended to any URL that identifies a resource whose type matches, or is derived from, the type of the binding parameter. The resource identified by that URL is used as the <em>binding parameter value</em>. Only aliases defined in the metadata document of the service can be used in URLs.</p>
 <div class="example">
-<p>Example 83: the function <code>MostRecentOrder</code> can be bound to any URL that identifies a <code>SampleModel.Customer</code></p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;MostRecentOrder&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;customer&quot;</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Customer&quot;</span> /&gt;</span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Order&quot;</span> /&gt;</span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
+<p>Example 86: the function <code>MostRecentOrder</code> can be bound to any URL that identifies a <code>SampleModel.Customer</code></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;MostRecentOrder&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;customer&quot;</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Customer&quot;</span> /&gt;</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Order&quot;</span> /&gt;</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 84: invoke the <code>MostRecentOrder</code> function with the value of the binding parameter <code>customer</code> being the entity identified by <code>http://host/service/Customers(6)</code></p>
+<p>Example 87: invoke the <code>MostRecentOrder</code> function with the value of the binding parameter <code>customer</code> being the entity identified by <code>http://host/service/Customers(6)</code></p>
 <pre><code>GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()</code></pre>
 </div>
 <div class="example">
-<p>Example 85: the function <code>Comparison</code> can be bound to any URL that identifies a collection of entities</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;Comparison&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;in&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Diff.Overview&quot;</span> /&gt;</span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
+<p>Example 88: the function <code>Comparison</code> can be bound to any URL that identifies a collection of entities</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;Comparison&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;in&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Diff.Overview&quot;</span> /&gt;</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 86: invoke the <code>Comparison</code> function on the set of red products</p>
+<p>Example 89: invoke the <code>Comparison</code> function on the set of red products</p>
 <pre><code>GET http://host/service/Products/$filter(Color eq &#39;Red&#39;)/Diff.Comparison()</code></pre>
 </div>
 <h3 id="1152-applying-an-action-to-members-of-a-collection"><a name="ApplyinganActiontoMembersofaCollection" href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a></h3>
@@ -2052,7 +2084,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <p>The response is a collection with members that are instances of the result type of the bound operation. If the bound operation returns a collection, the response is a collection of collections.</p>
 <div class="example">
-<p>Example 87: invoke the <code>MostRecentOrder</code> function on each entity in the entity set <code>Customers</code></p>
+<p>Example 90: invoke the <code>MostRecentOrder</code> function on each entity in the entity set <code>Customers</code></p>
 <pre><code>GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()</code></pre>
 </div>
 <p>The client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing actions after a failure. In this case, the service MUST, regardless of the <code>return</code> preference, return a response containing at least the members identified by the request for which the action failed. Such members MUST be annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>invoke</code>.</p>
@@ -2060,44 +2092,45 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1153-advertising-available-operations-within-a-payload"><a name="AdvertisingAvailableOperationswithinaPayload" href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></h3>
 <p>Services MAY return actions and/or functions bound to a particular entity or entity collection as part of the representation of the entity or entity collection within the payload. The representation of an action or function depends on the <a href="#Formats">format</a>.</p>
 <div class="example">
-<p>Example 88: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
-<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Most Recent Order&quot;</span><span class="fu">,</span></span>
-<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/SampleEntities.MostRecentOrder()&quot;</span></span>
-<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">},</span></span>
-<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
-<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 91: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Most Recent Order&quot;</span><span class="fu">,</span></span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/SampleEntities.MostRecentOrder()&quot;</span></span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">},</span></span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload  whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
 <div class="example">
-<p>Example 89: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer 'ALFKI'</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 92: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer 'ALFKI'</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="1154-functions"><a name="Functions" href="#Functions">11.5.4 Functions</a></h3>
 <p>Functions are operations exposed by an OData service that MUST return data and MUST have no observable side effects.</p>
 <h4 id="11541-invoking-a-function"><a name="InvokingaFunction" href="#InvokingaFunction">11.5.4.1 Invoking a Function</a></h4>
 <p>To invoke a function bound to a resource, the client issues a <code>GET</code> request to a function URL. A function URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified function name to a URL that identifies a resource whose type is the same as, or derived from, the type of the binding parameter of the function. The value for the binding parameter is the value of the resource identified by the URL prior to appending the function name, and additional parameter values are specified using <a href="#InlineParameterSyntax">inline parameter syntax</a>. If the function URL is <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation, <a href="#ParameterAliases">parameter aliases</a> that are identical to the parameter name preceded by an at (<code>@</code>) sign MUST be used. Clients MUST check if the obtained URL already contains a query part and appropriately precede the parameters either with an ampersand (<code>&amp;</code>) or a question mark (<code>?</code>).</p>
-<p>Services MAY additionally support invoking functions using the unqualified function name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services MAY additionally support invoking functions using the unqualified function name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Functions can be used within <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options. Such functions can be bound to a resource, as described above, or called directly by specifying the namespace- (or alias-) qualified function name. Parameter values for functions within <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> are specified according to the <a href="#InlineParameterSyntax">inline parameter syntax</a>.</p>
 <p>To invoke a function through a function import the client issues a <code>GET</code> request to a URL identifying the function import and passing parameter values using <a href="#InlineParameterSyntax">inline parameter syntax</a>. The canonical URL for a function import is the service root, followed by the name of the function import. Services MAY support omitting the parentheses when invoking a function import with no parameters, but for maximum interoperability MUST also support invoking the function import with empty parentheses.</p>
 <p>If the function is composable, additional path segments may be appended to the URL that identifies the composable function (or function import) as appropriate for the type returned by the function (or function import). The last path segment determines the system query options and HTTP verbs that can be used with this this URL, e.g. if the last path segment is a multi-valued navigation property, a <code>POST</code> request may be used to create a new entity in the identified collection.</p>
 <div class="example">
-<p>Example 90: add a new item to the list of items of the shopping cart returned by the composable <code>MyShoppingCart</code> function import</p>
+<p>Example 93: add a new item to the list of items of the shopping cart returned by the composable <code>MyShoppingCart</code> function import</p>
 <pre><code>POST http://host/service/MyShoppingCart()/Items
  
 ...</code></pre>
 </div>
+<p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.  </p>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
@@ -2107,25 +2140,25 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Parameter values are specified inline by appending a comma-separated list of parameter values, enclosed by parenthesis to the function name.</p>
 <p>Each parameter value is represented as a name/value pair in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
 <div class="example">
-<p>Example 91: invoke a <code>Sales.EmployeesByManager</code> function which takes a single <code>ManagerID</code> parameter via the function import <code>EmployeesByManager</code></p>
+<p>Example 94: invoke a <code>Sales.EmployeesByManager</code> function which takes a single <code>ManagerID</code> parameter via the function import <code>EmployeesByManager</code></p>
 <pre><code>GET http://host/service/EmployeesByManager(ManagerID=3)</code></pre>
 </div>
 <div class="example">
-<p>Example 92: return all <code>Customers</code> whose City property returns "Western" when passed to the <code>Sales.SalesRegion</code> function</p>
+<p>Example 95: return all <code>Customers</code> whose City property returns "Western" when passed to the <code>Sales.SalesRegion</code> function</p>
 <pre><code>GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq &#39;Western&#39;</code></pre>
 </div>
 <p>A <a href="#ParameterAliases">parameter alias</a> can be used in place of an inline parameter value. The value for the alias is specified as a separate query option using the name of the parameter alias.</p>
 <div class="example">
-<p>Example 93: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter</p>
+<p>Example 96: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter</p>
 <pre><code>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</code></pre>
 </div>
 <p>Services MAY in addition allow implicit <a href="#ParameterAliases">parameter aliases</a> for function imports and for functions that are the last path segment of the URL. An implicit parameter alias is the parameter name, optionally preceded by an at (<code>@</code>) sign. When using implicit parameter aliases, parentheses MUST NOT be appended to the function (import) name. The value for each parameter MUST be specified as a separate query option with the name of the parameter alias. If a parameter name is identical to a system query option name (without the optional <code>$</code> prefix), the parameter name MUST be prefixed with an at (<code>@</code>) sign.</p>
 <div class="example">
-<p>Example 94: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter using the implicit parameter alias</p>
+<p>Example 97: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter using the implicit parameter alias</p>
 <pre><code>GET http://host/service/EmployeesByManager?ManagerID=3</code></pre>
 </div>
-<p>Non-binding parameters annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><code> </code>defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter.</p>
+<p>Non-binding parameters annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter.</p>
 <h4 id="11542-function-overload-resolution"><a name="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a></h4>
 <p>The same function name may be used multiple times within a schema, each with a different set of parameters. For unbound overloads the combination of the function name and the unordered set of parameter names MUST identify a particular function overload. For bound overloads the combination of the function name, the binding parameter type, and the unordered set of names of the non-binding parameters MUST identify a particular function overload.</p>
 <p>All unbound overloads MUST have the same return type. Also, all bound overloads with a given binding parameter type MUST have the same return type.</p>
@@ -2138,31 +2171,32 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </ul>
 <p>Services SHOULD avoid ambiguity, i.e. the combination of the function name, the unordered set of <em>non-optional</em> non-binding parameter names, plus the binding parameter type for bound overloads SHOULD identify a particular function overload. If there is ambiguity, then services MAY return <code>400 Bad Request</code> with an error response body stating that the request was ambiguous.</p>
 <h3 id="1155-actions"><a name="Actions" href="#Actions">11.5.5 Actions</a></h3>
-<p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data but<code> </code>MUST NOT be further composed with additional path segments.</p>
+<p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data but MUST NOT be further composed with additional path segments.</p>
 <h4 id="11551-invoking-an-action"><a name="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a></h4>
 <p>To invoke an action bound to a resource, the client issues a <code>POST</code> request to an action URL. An action URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified action name to a URL that identifies a resource whose type is the same as, or derives from, the type of the binding parameter of the action. The value for the binding parameter is the resource identified by the URL preceding the action name, and only the non-binding parameter values are passed in the request body according to the particular format.</p>
-<p>Services MAY additionally support invoking actions using the unqualified action name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services MAY additionally support invoking actions using the unqualified action name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>To invoke an action through an action import, the client issues a <code>POST</code> request to a URL identifying the action import. The canonical URL for an action import is the service root, followed by the name of the action import. When invoking an action through an action import all parameter values MUST be passed in the request body according to the particular format.</p>
-<p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a><code> </code>defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
 <p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return Prefer</code> header</a>.</p>
 <p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL or read URL of the created entity.</p>
+<p>If the action returns a value of type <code>Edm.Stream</code>, the response to the <code>POST</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 <div class="example">
-<p>Example 95: invoke the <code>SampleEntities.CreateOrder</code> action using <code>/Customers('ALFKI') </code>as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer's ETag still matches.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
-<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;`</span></span>
-<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="er"> </span> <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">4001</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">7062</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;discountCode&quot;</span><span class="fu">:</span> <span class="st">&quot;BLACKFRIDAY&quot;</span></span>
-<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 98: invoke the <code>SampleEntities.CreateOrder</code> action using <code>/Customers('ALFKI') </code>as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer's ETag still matches.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;`</span></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>  <span class="er"> </span> <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">4001</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">7062</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;discountCode&quot;</span><span class="fu">:</span> <span class="st">&quot;BLACKFRIDAY&quot;</span></span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="11552-action-overload-resolution"><a name="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a></h4>
 <p>The same action name may be used multiple times within a schema provided there is at most one unbound overload, and each bound overload specifies a different binding parameter type.</p>
@@ -2187,7 +2221,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1171-batch-request-headers"><a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a></h3>
 <p>A batch request using the <a href="#MultipartBatchFormat">multipart batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.</p>
 <div class="example">
-<p>Example 96: multipart batch request</p>
+<p>Example 99: multipart batch request</p>
 <pre><code>POST /service/$batch HTTP/1.1`
 Host: odata.org
 OData-Version: 4.0
@@ -2197,7 +2231,7 @@ Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e7
 </div>
 <p>A batch request using the JSON batch format MUST contain a <code>Content-Type</code> header specifying a content type of <code>application/json</code>.</p>
 <div class="example">
-<p>Example 97: JSON batch request</p>
+<p>Example 100: JSON batch request</p>
 <pre><code>POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.01
@@ -2218,7 +2252,7 @@ Content-Type: application/json
 <p>The representation of the request identifier is format-specific, as are the rules for which individual requests require an identifier.</p>
 <h3 id="1174-referencing-returned-entities"><a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a></h3>
 <p>Entities created by an <a href="#CreateanEntity">insert</a> request can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. If the <a href="#HeaderLocation"><code>Location</code></a> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request's URL even if that contains such a reference.</p>
-<p>If the <code>$</code>-prefixed request identifier is identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin,</code> <code>$all,</code> <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the reference to the top-level system resource is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
+<p>If the <code>$</code>-prefixed request identifier is identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the reference to the top-level system resource is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
 <p>Services MAY also support referencing within request bodies, in which case they SHOULD advertise this support by specifying the <code>ReferencesInRequestBodiesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <h3 id="1175-referencing-the-etag-of-an-entity"><a name="ReferencingtheETagofanEntity" href="#ReferencingtheETagofanEntity">11.7.5 Referencing the ETag of an Entity</a></h3>
 <p>Services MAY support the use of an ETag returned from a previous operation in an <a href="#HeaderIfMatch"><code>If-Match</code></a> or <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a subsequent statement. Services SHOULD advertise this support by specifying the <code>EtagReferencesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> annotation term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
@@ -2239,14 +2273,14 @@ Content-Type: application/json
 <li>Absolute URI with schema, host, port, and absolute resource path.</li>
 </ul>
 <div class="example">
-<p>Example 98:</p>
+<p>Example 101:</p>
 <pre><code>GET https://host:1234/path/service/People(1) HTTP/1.1 ```</code></pre>
 </div>
 <ul>
 <li>Absolute resource path and separate <code>Host</code> header</li>
 </ul>
 <div class="example">
-<p>Example 99:</p>
+<p>Example 102:</p>
 <pre><code>GET /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234</code></pre>
 </div>
@@ -2254,7 +2288,7 @@ Host: myserver.mydomain.org:1234</code></pre>
 <li>Resource path relative to the batch request URI.</li>
 </ul>
 <div class="example">
-<p>Example 100:</p>
+<p>Example 103:</p>
 <pre><code>GET People(1) HTTP/1.1</code></pre>
 </div>
 <p>Services MUST support all three formats for URLs of individual requests.</p>
@@ -2266,7 +2300,7 @@ Host: myserver.mydomain.org:1234</code></pre>
 </ul>
 <p>Processors of batch requests MAY choose to disallow additional HTTP constructs in HTTP requests serialized within body parts. For example, a processor may choose to disallow chunked encoding to be used by such HTTP requests.</p>
 <div class="example">
-<p>Example 101: a batch request that contains the following individual requests in the order listed</p>
+<p>Example 104: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
 <li>A query request</li>
 <li>A change set that contains the following requests:
@@ -2329,7 +2363,7 @@ Host: host
 <h4 id="11772-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a></h4>
 <p>Entities created by an <a href="#CreateanEntity">Insert</a> request can be referenced in the request URL of subsequent requests within the same change set. Services MAY also support referencing across change sets, in which case they SHOULD advertise this support by specifying the <code>ReferencesAcrossChangeSetsSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <div class="example">
-<p>Example 102: a batch request that contains the following operations in the order listed:</p>
+<p>Example 105: a batch request that contains the following operations in the order listed:</p>
 <p>A change set that contains the following requests:</p>
 <ul>
 <li>Insert a new entity (with <code>Content-ID = 1</code>)</li>
@@ -2368,45 +2402,45 @@ Content-Length: ###
 </div>
 <h4 id="11773-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a></h4>
 <div class="example">
-<p>Example 103: a batch request that contains the following operations in the order listed:</p>
+<p>Example 106: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an Employee (with <code>Content-ID = 1</code>)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
-<div class="sourceCode" id="cb123"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
-<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb123-6"><a href="#cb123-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-7"><a href="#cb123-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb123-8"><a href="#cb123-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb123-9"><a href="#cb123-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
-<span id="cb123-10"><a href="#cb123-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-11"><a href="#cb123-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb123-12"><a href="#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host Accept:</span> <span class="er">application/json</span></span>
-<span id="cb123-13"><a href="#cb123-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-14"><a href="#cb123-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-15"><a href="#cb123-15" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb123-16"><a href="#cb123-16" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb123-17"><a href="#cb123-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
-<span id="cb123-18"><a href="#cb123-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-19"><a href="#cb123-19" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb123-20"><a href="#cb123-20" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb123-21"><a href="#cb123-21" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb123-22"><a href="#cb123-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb123-23"><a href="#cb123-23" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
-<span id="cb123-24"><a href="#cb123-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-25"><a href="#cb123-25" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb123-26"><a href="#cb123-26" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
-<span id="cb123-27"><a href="#cb123-27" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb123-28"><a href="#cb123-28" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-8"><a href="#cb128-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb128-9"><a href="#cb128-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
+<span id="cb128-10"><a href="#cb128-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-11"><a href="#cb128-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-12"><a href="#cb128-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host Accept:</span> <span class="er">application/json</span></span>
+<span id="cb128-13"><a href="#cb128-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-14"><a href="#cb128-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-15"><a href="#cb128-15" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-16"><a href="#cb128-16" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb128-17"><a href="#cb128-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
+<span id="cb128-18"><a href="#cb128-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-19"><a href="#cb128-19" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-20"><a href="#cb128-20" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb128-21"><a href="#cb128-21" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb128-22"><a href="#cb128-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb128-23"><a href="#cb128-23" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
+<span id="cb128-24"><a href="#cb128-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-25"><a href="#cb128-25" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb128-26"><a href="#cb128-26" aria-hidden="true" tabindex="-1"></a><span class="er">  </span> <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
+<span id="cb128-27"><a href="#cb128-27" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb128-28"><a href="#cb128-28" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
 </div>
 <h4 id="11774-processing-a-multipart-batch-request"><a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.4 Processing a Multipart Batch Request</a></h4>
 <p>The service MUST process the individual requests and change sets within a multipart batch request in the order received. Processing stops on the first error unless the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference is specified with an explicit or implicit value of <code>true</code>.</p>
 <p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a change set that may have been applied before another request in that same change set failed and thereby apply this all-or-nothing requirement. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
 <h4 id="11775-multipart-batch-response"><a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a></h4>
-<p>A multipart response to a batch request MUST contain a <code>Content-Type</code> header with value <code>multipart/mixed.</code></p>
+<p>A multipart response to a batch request MUST contain a <code>Content-Type</code> header with value <code>multipart/mixed</code>.</p>
 <p>The body of a multipart response to a multipart batch request MUST structurally match one-to-one with the multipart batch request body, such that the same multipart message structure defined for requests is used for responses. There are three exceptions to this rule:</p>
 <ul>
 <li>When a request within a change set fails, the change set response is not represented using the <code>multipart/mixed</code> media type. Instead, a single response, using the <code>application/http</code> media type, is returned that applies to all requests in the change set and MUST be a valid OData error response.</li>
@@ -2416,7 +2450,7 @@ Content-Length: ###
 <p>The body of a multipart response to a JSON batch request contains one body part for each processed or accepted request. The order of the body parts is insignificant as each body part MUST contain the <code>Content-ID</code> header with the value of the <code>id</code> name/value pair of the corresponding request object.</p>
 <p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
-<p>Example 104: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
+<p>Example 107: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <pre><code>HTTP/1.1 200 Ok
 OData-Version: 4.0
 Content-Length: ####
@@ -2468,7 +2502,7 @@ Content-Length: ###
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <a href="#ResponseCode200OK"><code>200 OK</code></a> to a <code>GET</code> request to the monitor resource and including a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response as the last part of the multipart response. The client can use the monitor URL returned in this <code>202 Accepted</code> response to continue processing the batch response.</p>
 <p>Since a change set is executed atomically, <code>202 Accepted</code> MUST NOT be returned within a change set.</p>
 <div class="example">
-<p>Example 105: referencing the example 101 above again, assume that</p>
+<p>Example 108: referencing the example 101 above again, assume that</p>
 <pre><code>HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
 Retry-After: ###
@@ -2602,7 +2636,7 @@ Content-Length: ###
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
-<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaRawValueusingvalue">section 11.2.4.1</a>)</li>
+<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaRawValueusingvalue">section 11.2.4.2</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
@@ -2632,13 +2666,13 @@ Content-Length: ###
 <li>MUST support the lambda operators <code>any</code> and <code>all</code> on navigation- and collection-valued properties (section 5.1.1.10 in <a href="#ODataURL">OData-URL</a>)</li>
 <li>MUST support the <code>$skip</code> system query option (<a href="#SystemQueryOptionskip">section 11.2.6.4</a>)</li>
 <li>MUST support the <code>$count</code> system query option (<a href="#SystemQueryOptioncount">section 11.2.6.5</a>)</li>
-<li>MUST support <code>$orderby</code> <code>asc</code> and <code>desc</code> on individual properties (<a href="#SystemQueryOptionorderby">section 11.2.6.2</a>)</li>
+<li>MUST support <code>$orderby</code> with <code>asc</code> and <code>desc</code> on individual properties (<a href="#SystemQueryOptionorderby">section 11.2.6.2</a>)</li>
 <li>MUST support <code>$expand</code> (<a href="#SystemQueryOptionexpand">section 11.2.5.2</a>)
 <ol type="1">
 <li>MUST support returning references for expanded properties</li>
 <li>MUST support <code>$filter</code> on expanded collection-valued properties</li>
 <li>MUST support cast segment in expand with derived types</li>
-<li>SHOULD support <code>$orderby</code> <code>asc</code> and <code>desc</code> on expanded collection-valued properties</li>
+<li>SHOULD support <code>$orderby</code> with <code>asc</code> and <code>desc</code> on expanded collection-valued properties</li>
 <li>SHOULD support <code>$count</code> on expanded collection-valued properties</li>
 <li>SHOULD support <code>$top</code> and <code>$skip</code> on expanded collection-valued properties</li>
 <li>SHOULD support <code>$search</code> on expanded collection-valued properties</li>
@@ -2714,7 +2748,7 @@ Content-Length: ###
 <li>MUST conform to the <a href="#OData401MinimalConformanceLevel">OData 4.01 Minimal Conformance Level</a></li>
 <li>MUST conform to the <a href="#OData40IntermediateConformanceLevel">OData 4.0 Intermediate Conformance Level</a></li>
 <li>MUST support <code>eq/ne null</code> comparison for navigation properties with a maximum cardinality of one</li>
-<li>MUST support the <a href="#BuiltinFilterOperations"><code>in</code></a><code> </code>operator</li>
+<li>MUST support the <a href="#BuiltinFilterOperations"><code>in</code></a> operator</li>
 <li>MUST support the <code>$select</code> option nested within <code>$select</code></li>
 <li>SHOULD support the count of a filtered collection in a common expression</li>
 <li>SHOULD support equal and non-equal structural comparison</li>
@@ -2733,7 +2767,7 @@ Content-Length: ###
 <li>MUST support nested options in <code>$select</code>
 <ol type="1">
 <li>MUST support <code>$filter</code> on selected collection-valued properties</li>
-<li>SHOULD support <code>$orderby</code> <code>asc</code> and <code>desc</code> on selected collection-valued properties</li>
+<li>SHOULD support <code>$orderby</code> with <code>asc</code> and <code>desc</code> on selected collection-valued properties</li>
 <li>SHOULD support the <code>$count</code> on selected collection-valued properties</li>
 <li>SHOULD support <code>$top</code> and <code>$skip</code> on selected collection-valued properties</li>
 <li>SHOULD support <code>$search</code> on selected collection-valued properties</li>
