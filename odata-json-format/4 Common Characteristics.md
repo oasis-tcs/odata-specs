@@ -15,7 +15,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -341,10 +341,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example ##ex: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example ##ex: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -533,7 +531,7 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL) or if
+in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 

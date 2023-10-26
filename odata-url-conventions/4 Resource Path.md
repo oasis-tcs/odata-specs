@@ -490,7 +490,7 @@ defined in the [OData-Protocol](#ODataProtocol) document.
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -851,7 +851,7 @@ the corresponding entity set, with a target type equal to the declared
 entity type of the corresponding entity set.
 
 The [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby)` `query options can be specified
+[`$orderby`](#SystemQueryOptionorderby) query options can be specified
 using properties of the entities in the selected entity sets, prepended
 with the entity set as the navigation property name.
 
