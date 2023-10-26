@@ -1886,7 +1886,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression.</p>
-<p><em>Terms</em> can be any single word to be matched within the expression.</p>
+<p><em>Terms</em> can be any single word to be matched within the expression. Leading and trailing spaces are not considered part of a word.</p>
 <p>Terms enclosed in double-quotes comprise a <em>phrase</em>.</p>
 <p>Each individual term or phrase comprises a Boolean expression that returns true if the term or phrase is matched, otherwise false. The semantics of what is considered a match is dependent upon the service.</p>
 <p>Expressions enclosed in parenthesis comprise a <em>group expression</em>.</p>

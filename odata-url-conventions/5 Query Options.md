@@ -2316,6 +2316,7 @@ Search expressions are used within the
 entities matching the specified expression.
 
 *Terms* can be any single word to be matched within the expression.
+Leading and trailing spaces are not considered part of a word.
 
 Terms enclosed in double-quotes comprise a *phrase*.
 
