@@ -678,7 +678,7 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <h2 id="45-addressing-operations"><a name="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
 <p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
-<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <h3 id="451-addressing-actions"><a name="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a></h3>
 <p>The grammar for addressing and invoking actions is defined by the following syntax grammar rules in <a href="#ODataABNF">OData-ABNF</a>:</p>
 <ul>
@@ -798,7 +798,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <h2 id="415-addressing-the-cross-join-of-entity-sets"><a name="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a></h2>
 <p>In addition to querying related entities through navigation properties defined in the entity model of a service, the cross join operator allows querying across unrelated entity sets.</p>
 <p>The cross join is addressed by appending the path segment <code>$crossjoin</code> to the <a href="#ServiceRootURL">service root URL</a>, followed by the parenthesized comma-separated list of joined entity sets. It returns the Cartesian product of all the specified entity sets, represented as a collection of instances of a virtual complex type. Each instance consists of one non-nullable, single-valued navigation property per joined entity set. Each such navigation property is named identical to the corresponding entity set, with a target type equal to the declared entity type of the corresponding entity set.</p>
-<p>The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a><code> </code>query options can be specified using properties of the entities in the selected entity sets, prepended with the entity set as the navigation property name.</p>
+<p>The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query options can be specified using properties of the entities in the selected entity sets, prepended with the entity set as the navigation property name.</p>
 <p>The <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option can be specified using the names of the selected entity sets as navigation property names. If a selected entity set is not expanded, it MUST be represented using the read URL of the related entity as a navigation link in the complex type instance.</p>
 <p>The <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a> query options can also be used with no special semantics.</p>
 <div class="example">
@@ -997,7 +997,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <p>The <code>sub</code> operator is also valid for the following time-related operands:</p>
 <ul>
-<li><code>DateTimeOffset</code> <code>sub</code> <code>Duration</code> results in a <code>DateTimeOffset</code></li>
+<li><code>DateTimeOffset sub Duration</code> results in a <code>DateTimeOffset</code></li>
 <li><code>Duration sub Duration</code> results in a <code>Duration</code></li>
 <li><code>DateTimeOffset sub DateTimeOffset</code> results in a <code>Duration</code></li>
 <li><code>Date sub Duration</code> results in a <code>Date</code></li>
@@ -1565,7 +1565,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Example 114: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
 <pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
-<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a><code> </code>annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
+<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
 <h4 id="51117-operator-precedence"><a name="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
 <p>OData services MUST use the following operator precedence for supported operators when evaluating <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions. Operators are listed by category in order of precedence from highest to lowest. Operators in the same category have equal precedence:</p>
 <table>
@@ -1725,9 +1725,9 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <li>If either operand is <code>Edm.Double</code>, the other operand is converted to type <code>Edm.Double</code>.</li>
 <li>Otherwise, if either operand is <code>Edm.Single</code>, the other operand is converted to type <code>Edm.Single</code>.</li>
 <li>Otherwise, if either operand is of type <code>Edm.Decimal</code>, the other operand is converted to <code>Edm.Decimal</code>.</li>
-<li>Otherwise, if either operand is <code>Edm.Int64</code>, the other operand is converted to type <code>Edm.Int64.</code></li>
-<li>Otherwise, if either operand is <code>Edm.Int32</code>, the other operand is converted to type <code>Edm.Int32.</code></li>
-<li>Otherwise, if either operand is <code>Edm.Int16</code>, the other operand is converted to type <code>Edm.Int16. </code></li>
+<li>Otherwise, if either operand is <code>Edm.Int64</code>, the other operand is converted to type <code>Edm.Int64</code>.</li>
+<li>Otherwise, if either operand is <code>Edm.Int32</code>, the other operand is converted to type <code>Edm.Int32</code>.</li>
+<li>Otherwise, if either operand is <code>Edm.Int16</code>, the other operand is converted to type <code>Edm.Int16</code>.</li>
 </ul>
 <p>Each of these promotions uses the same semantics as a <code>castExpression</code> to promote an operand to the target type.</p>
 <p>OData does not define an implicit conversion between string and numeric types.</p>

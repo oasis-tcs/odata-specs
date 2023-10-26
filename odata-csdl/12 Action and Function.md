@@ -157,7 +157,7 @@ explicitly indicated, it is unbound.
 
 Bound action or function overloads are invoked on resources matching the type of
 the binding parameter. The binding parameter can be of any type, and it
-MAY be [nullable](#Nullable).
+MAY be nullable.
 
 Unbound action overloads are invoked from the entity container through an [action
 import](#ActionImport).
@@ -241,7 +241,7 @@ The value of `IsComposable` is one of the Boolean literals `true` or
 The return type of an action or function overload MAY be any type in
 scope, or a collection of any type in scope.
 
-The facets [`Nullable`](#Nullable), [`MaxLength`](#MaxLength),
+The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
 well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.

@@ -15,7 +15,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -341,10 +341,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example ##ex: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example ##ex: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
