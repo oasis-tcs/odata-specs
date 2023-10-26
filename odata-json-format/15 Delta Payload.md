@@ -313,7 +313,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id,` if present, MUST immediately follow the control
+  `id`, if present, MUST immediately follow the control
   information
   [`removed`](#ControlInformationremovedodataremoved).
 
