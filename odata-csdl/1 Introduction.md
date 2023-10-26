@@ -548,7 +548,7 @@ the service.
 
 Note: the symbolic value `max` is only allowed in OData 4.0 responses;
 it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value, OData 4.01 or greater services MUST NOT return the
 symbolic value `max` and MAY instead specify the concrete maximum length
 supported for the type by the service or omit the attribute entirely.
 :::
