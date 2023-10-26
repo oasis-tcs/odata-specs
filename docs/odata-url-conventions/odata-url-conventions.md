@@ -925,7 +925,7 @@ defined in the [OData-Protocol](#ODataProtocol) document.
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -1285,7 +1285,7 @@ the corresponding entity set, with a target type equal to the declared
 entity type of the corresponding entity set.
 
 The [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby)` `query options can be specified
+[`$orderby`](#SystemQueryOptionorderby) query options can be specified
 using properties of the entities in the selected entity sets, prepended
 with the entity set as the navigation property name.
 
@@ -1771,7 +1771,7 @@ or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
 operands:
-- `DateTimeOffset` `sub` `Duration`
+- `DateTimeOffset sub Duration`
 results in a `DateTimeOffset`
 - `Duration sub Duration` results in a
 `Duration`
@@ -3187,7 +3187,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `annotation
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
@@ -3244,9 +3244,9 @@ rules, in order:
 - If either operand is `Edm.Double`, the other operand is converted to type `Edm.Double`.
 - Otherwise, if either operand is `Edm.Single`, the other operand is converted to type `Edm.Single`.
 - Otherwise, if either operand is of type `Edm.Decimal`, the other operand is converted to `Edm.Decimal`.
-- Otherwise, if either operand is `Edm.Int64`, the other operand is converted to type `Edm.Int64.`
-- Otherwise, if either operand is `Edm.Int32`, the other operand is converted to type `Edm.Int32.`
-- Otherwise, if either operand is `Edm.Int16`, the other operand is converted to type `Edm.Int16. `
+- Otherwise, if either operand is `Edm.Int64`, the other operand is converted to type `Edm.Int64`.
+- Otherwise, if either operand is `Edm.Int32`, the other operand is converted to type `Edm.Int32`.
+- Otherwise, if either operand is `Edm.Int16`, the other operand is converted to type `Edm.Int16`.
 
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.

@@ -204,7 +204,8 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.2 Requesting Individual Entities](#RequestingIndividualEntities)
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
-      - [11.2.4.1 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
+      - [11.2.4.1 Requesting Stream Properties](#RequestingStreamProperties)
+      - [11.2.4.2 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -1044,7 +1045,7 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
@@ -1516,7 +1517,7 @@ A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
-include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
+include a [`Preference-Applied`](#HeaderPreferenceApplied) response
 header containing the `return=minimal `preference.
 
 A preference of `return=representation` requests that the service
@@ -1547,7 +1548,7 @@ requests within the batch request.
 
 In the case that the service applies the `respond-async` preference it
 MUST include a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header
+[`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
@@ -2692,7 +2693,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None.`
+for the property with a value of `None`.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -2710,12 +2711,17 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append `/$value` to the resource path of the media entity URL. Services
-may redirect from this canonical URL to the source URL of the media
+append `/$value` to the resource path of the media entity URL.
+The media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the media stream with that media type. Alternatively, services
+MAY redirect from this canonical URL to the source URL of the media
 stream.
 
 Appending `/$value` to an entity that is not a media entity returns
-`400 Bad Request.`
+`400 Bad Request`.
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
@@ -2745,7 +2751,19 @@ GET http://host/service/Products(1)/Name
 ```
 :::
 
-#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.1 Requesting a Property's Raw Value using `$value`</a>
+#### <a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a>
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
+
+#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive type property, the client sends
 a `GET` request to the property value URL. See the
@@ -2783,6 +2801,9 @@ A `$value` request for a property that is `null` results in a
 
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
+
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
 
 ::: example
 Example 32:
@@ -3191,7 +3212,7 @@ a `null` literal that can be used in comparisons.
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
-[`$compute`](#SystemQueryOptioncompute)`,`
+[`$compute`](#SystemQueryOptioncompute),
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression. Parameters aliases
 are names beginning with an at sign (`@`).
@@ -3736,7 +3757,7 @@ using the JSON media type with minimal metadata, as defined in
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
 parameterized variants, as well as the format-specific abbreviations
-`xml` and `json,` are reserved for this specification.
+`xml` and `json`, are reserved for this specification.
 
 ### <a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">11.2.12 System Query Option `$schemaversion`</a>
 
@@ -3788,7 +3809,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities`.`ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -3797,7 +3818,7 @@ change-tracking.
 Clients request that the service track changes to a result by specifying
 the [`track-changes`](#Preferencetrackchangesodatatrackchanges) preference
 on a request. If supported for the request, the service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `header in the
+[`Preference-Applied`](#HeaderPreferenceApplied) header in the
 response containing the `track-changes` preference and includes a *delta
 link* in a result for a single entity, and on the last page of results
 for a collection of entities in place of the next link.
@@ -3960,7 +3981,7 @@ A [Data Modification Request](#DataModification) on an existing resource
 or an [Action Request](#Actions) invoking an action bound to an existing
 resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and
 [`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
 (nested property `OptimisticConcurrencyControl`) in
@@ -4241,8 +4262,10 @@ the content in the request payload with the entity's current state,
 applying the update only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
-the corresponding property in the entity or complex type. Missing
-properties of the containing entity or complex property, including
+the corresponding property in the entity or complex type.
+Complex properties are updated by applying `PATCH` semantics recursively,
+see also [section 11.4.9.3](#UpdateaComplexProperty).
+Missing properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
@@ -4349,17 +4372,17 @@ NOT include added links, deleted links, or deleted entities.
 Example 78: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
-`Suzanne Brown`. The `LastName` of employee `6` is updated to `Smith.`
+`Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
   "@type":"#Northwind.Manager",
   "FirstName" : "Patricia",
   "DirectReports": [
     {
-      "@id": "Employees(5}"
+      "@id": "Employees(5)"
     },
     {
-      "@id": "Employees(6}",
+      "@id": "Employees(6)",
       "LastName": "Smith"
     },
     {
@@ -4619,8 +4642,8 @@ entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
-[`204 No Content`](#ResponseCode204NoContent)if the request included a
-[Prefer header](#Preferencereturnrepresentationandreturnminimal) with a value of
+[`204 No Content`](#ResponseCode204NoContent) if the request included a
+[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
@@ -4688,7 +4711,8 @@ Example 81: directly read a stream property of an entity
 ```
 GET http://host/service/Products(1)/Thumbnail
 ```
-can return [`200 OK`](#ResponseCode200OK) and the stream data, or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
+can return [`200 OK`](#ResponseCode200OK) and the stream data (see [section 11.2.4.1](#RequestingStreamProperties)),
+or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
 :::
 
 Note: for scenarios in which the media value can only be inlined,
@@ -4802,10 +4826,14 @@ property to null.
 
 A successful `PATCH` request to the edit URL for a complex typed
 property updates that property. The request body MUST contain a single
-valid representation for the target complex type.
+valid representation for the declared type of the complex property or one of its derived types.
 
 The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
+
+If a complex-typed property is set to a different type in a `PATCH` request,
+properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
 a URL that specifies a complex type. In this case, the service MUST
@@ -5248,7 +5276,7 @@ ampersand (`&`) or a question mark (`?`).
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
 
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
@@ -5286,6 +5314,10 @@ POST http://host/service/MyShoppingCart()/Items
 ...
 ```
 :::
+
+If the function returns a value of type `Edm.Stream` and no additional path
+segments follow the function invocation, the response to the `GET` request
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Parameter values passed to functions MUST be specified either as a URL
 literal (for primitive values) or as a JSON formatted OData object (for
@@ -5374,7 +5406,7 @@ GET http://host/service/EmployeesByManager?ManagerID=3
 :::
 
 Non-binding parameters annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
@@ -5424,7 +5456,7 @@ request was ambiguous.
 ### <a name="Actions" href="#Actions">11.5.5 Actions</a>
 
 Actions are operations exposed by an OData service that MAY have side
-effects when invoked. Actions MAY return data but` `MUST NOT be further
+effects when invoked. Actions MAY return data but MUST NOT be further
 composed with additional path segments.
 
 #### <a name="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a>
@@ -5443,7 +5475,7 @@ according to the particular format.
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
@@ -5454,7 +5486,7 @@ values MUST be passed in the request body according to the particular
 format.
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)` `defined
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated and the
@@ -5483,6 +5515,9 @@ Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a [`Location`
 header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity.
+
+If the action returns a value of type `Edm.Stream`, the response to the `POST` request
+follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
 Actions without a return type respond with
 [`204 No Content`](#ResponseCode204NoContent) on success.
@@ -5713,7 +5748,7 @@ clients MUST be able to resolve it relative to the request's URL even if
 that contains such a reference.
 
 If the `$`-prefixed request identifier is identical to the name of a
-top-level system resource (`$batch`, `$crossjoin,` `$all,` `$entity`,
+top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
 `$root`, `$id`, `$metadata`, or other system resources defined according
 to the [`OData-Version`](#HeaderODataVersion) of the protocol specified
 in the request), then the reference to the top-level system resource is
@@ -6022,7 +6057,7 @@ response so clients can correlate requests and responses.
 #### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a>
 
 A multipart response to a batch request MUST contain a `Content-Type`
-header with value `multipart/mixed.`
+header with value `multipart/mixed`.
 
 The body of a multipart response to a multipart batch request MUST
 structurally match one-to-one with the multipart batch request body,
@@ -6359,7 +6394,7 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.1](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaPropertysRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
@@ -6405,13 +6440,13 @@ collection-valued properties (section 5.1.1.10 in
 [OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
-8. MUST support `$orderby` `asc` and `desc` on individual properties
+8. MUST support `$orderby` with `asc` and `desc` on individual properties
 ([section 11.2.6.2](#SystemQueryOptionorderby))
 9. MUST support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
    1. MUST support returning references for expanded properties
    2. MUST support `$filter` on expanded collection-valued properties
    3. MUST support cast segment in expand with derived types
-   4. SHOULD support `$orderby` `asc` and `desc` on expanded
+   4. SHOULD support `$orderby` with `asc` and `desc` on expanded
 collection-valued properties
    5. SHOULD support `$count` on expanded collection-valued properties
    6. SHOULD support `$top` and `$skip` on expanded collection-valued
@@ -6539,7 +6574,7 @@ Level](#OData401MinimalConformanceLevel)
 Level](#OData40IntermediateConformanceLevel)
 3. MUST support `eq/ne null` comparison for navigation properties with
 a maximum cardinality of one
-4. MUST support the [`in`](#BuiltinFilterOperations)` `operator
+4. MUST support the [`in`](#BuiltinFilterOperations) operator
 5. MUST support the `$select` option nested within `$select`
 6. SHOULD support the count of a filtered collection in a common
 expression
@@ -6564,7 +6599,7 @@ expression
 4. MUST support `$compute` system query option
 5. MUST support nested options in `$select`
    1. MUST support `$filter` on selected collection-valued properties
-   2. SHOULD support `$orderby` `asc` and `desc` on selected
+   2. SHOULD support `$orderby` with `asc` and `desc` on selected
 collection-valued properties
    3. SHOULD support the `$count` on selected collection-valued
 properties

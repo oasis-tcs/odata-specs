@@ -167,7 +167,7 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
@@ -642,7 +642,7 @@ A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
-include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
+include a [`Preference-Applied`](#HeaderPreferenceApplied) response
 header containing the `return=minimal `preference.
 
 A preference of `return=representation` requests that the service
@@ -673,7 +673,7 @@ requests within the batch request.
 
 In the case that the service applies the `respond-async` preference it
 MUST include a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header
+[`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
