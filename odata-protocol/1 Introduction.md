@@ -24,8 +24,9 @@ resource representations that are exchanged using OData.
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##InteroperableODataClients] | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## ##subsec Glossary
 
