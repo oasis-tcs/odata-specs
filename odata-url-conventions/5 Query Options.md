@@ -1405,8 +1405,8 @@ expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression --- the condition --- MUST be a Boolean
+expression, and the second expression --- the result --- may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -2466,7 +2466,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example ##ex: JSON array of strings as parameter alias value -- note that
+Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```

@@ -376,7 +376,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-v4.02-csd01-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -2268,7 +2268,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 20: resource URL and corresponding context URL - select and
+Example 20: resource URL and corresponding context URL --- select and
 expand
 ```
 http://host/service/Customers?$select=Name&$expand=Address/Country
@@ -2277,7 +2277,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL -- expand `$ref`
+Example 21: resource URL and corresponding context URL --- expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2285,7 +2285,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL -- expand with
+Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2655,7 +2655,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)

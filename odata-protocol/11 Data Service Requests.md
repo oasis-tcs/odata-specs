@@ -129,7 +129,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)

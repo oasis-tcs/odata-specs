@@ -239,7 +239,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-json-format-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -2325,10 +2325,10 @@ In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
-- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+- Control information [`context`](#ControlInformationcontextodatacontext) --- The context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
-- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+- `id` --- The [id](#ControlInformationidodataid) of the deleted entity
   (same as the [id](#ControlInformationidodataid)
   returned or computed when calling GET on resource), which may be
   absolute or [relative](#RelativeURLs)
@@ -2338,12 +2338,12 @@ following optional property, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
 [annotations](#InstanceAnnotations):
 
-- `reason` - either `deleted`, if the entity was deleted (destroyed),
+- `reason` --- either `deleted`, if the entity was deleted (destroyed),
   or `changed` if the entity was removed from membership in the
   result (i.e., due to a data change).
 
 ::: example
-Example 36: deleted entity in OData 4.0 response - note that `id` is
+Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -2438,13 +2438,13 @@ The link object MUST include the following properties, regardless of the specifi
   the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity,
+- `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
 ## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
@@ -2462,16 +2462,16 @@ path in the initial request, unless either of the following is true:
   `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+- [`context`](#ControlInformationcontextodatacontext) --- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity for
+- `target` --- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
 [relative](#RelativeURLs). For delta payloads
 that do not specify an `OData-Version` header value of `4.0`,

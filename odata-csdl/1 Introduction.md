@@ -70,7 +70,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -439,17 +439,17 @@ Type|Meaning
 `Edm.Date`                       |Date without a time-zone offset
 `Edm.DateTimeOffset`             |Date and time with a time-zone offset, no leap seconds
 `Edm.Decimal`                    |Numeric values with decimal representation
-`Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
+`Edm.Double`                     |IEEE 754 binary64 floating-point number (15--17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
 `Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
-`Edm.Single`                     |IEEE 754 binary32 floating-point number (6-9 decimal digits)
+`Edm.Single`                     |IEEE 754 binary32 floating-point number (6--9 decimal digits)
 `Edm.Stream`                     |Binary data stream
 `Edm.String`                     |Sequence of characters
-`Edm.TimeOfDay`                  |Clock time 00:00-23:59:59.999999999999
+`Edm.TimeOfDay`                  |Clock time 00:00--23:59:59.999999999999
 `Edm.Geography`                  |Abstract base type for all Geography types
 `Edm.GeographyPoint`             |A point in a round-earth coordinate system
 `Edm.GeographyLineString`        |Line string in a round-earth coordinate system

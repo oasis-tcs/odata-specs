@@ -256,7 +256,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-data-aggregation-ext-v4.0-cs03.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-data-aggregation-ext-v4.0-cs03.html
        -c styles/markdown-styles-v1.7.3b.css

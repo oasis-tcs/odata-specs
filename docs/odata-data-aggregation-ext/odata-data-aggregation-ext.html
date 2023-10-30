@@ -149,12 +149,12 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="abstract">Abstract:</h4>
 <p>This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
-<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
-<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
+<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-Data-Agg-v4.0]</strong></p>
@@ -162,7 +162,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="notices">Notices</h4>
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
-<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
 <hr />
 <h1 id="table-of-contents">Table of Contents</h1>
@@ -357,7 +357,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
 <p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-data-aggregation-ext-v4.0-cs03.md</code>). Line breaks are added for readability only:</p>
-<pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs
+<pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-data-aggregation-ext-v4.0-cs03.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -373,13 +373,13 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <hr />
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
 <p>Open Data Protocol (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see <a href="#ODataCSDL">OData-CSDL</a>) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.</p>
-<p>Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled "aggregation level entities" or else restricting the consumer to a small subset of predefined aggregations.</p>
+<p>Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled “aggregation level entities” or else restricting the consumer to a small subset of predefined aggregations.</p>
 <p>Adding the notion of aggregation to OData without changing any of the base principles in OData has two aspects:</p>
 <ol type="1">
 <li>Means for the consumer to query aggregated data on top of any given data model (for sufficiently capable data providers)</li>
 <li>Means for the provider to annotate what data can be aggregated, and in which way, allowing consumers to avoid asking questions that the provider cannot answer</li>
 </ol>
-<p>Implementing any of these two aspects is valuable in itself independent of the other, and implementing both provides additional value for consumers. The provided aggregation annotations help a consumer understand more of the data structure looking at the service's exposed data model. The query extensions allow the consumers to explicitly express the desired aggregation behavior for a particular query. They also allow consumers to formulate queries that utilize the aggregation annotations.</p>
+<p>Implementing any of these two aspects is valuable in itself independent of the other, and implementing both provides additional value for consumers. The provided aggregation annotations help a consumer understand more of the data structure looking at the service’s exposed data model. The query extensions allow the consumers to explicitly express the desired aggregation behavior for a particular query. They also allow consumers to formulate queries that utilize the aggregation annotations.</p>
 <h2 id="21-example-data-model"><a name="ExampleDataModel" href="#ExampleDataModel">2.1 Example Data Model</a></h2>
 <div class="example">
 <p>Example 2: The following diagram depicts a simple model that is used throughout this document.</p>
@@ -881,7 +881,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>Time <a href="#LeveledHierarchy">hierarchy</a> based on <code>Year</code>, <code>Month</code>, and <code>Date</code></li>
 <li>SalesOrganization <a href="#RecursiveHierarchy">hierarchy</a> based on the recursive association to itself</li>
 </ul>
-<p>In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.</p>
+<p>In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales “cube” with an Amount “measure” and three “dimensions”. This document will avoid such terms, as they are heavily overloaded.</p>
 </div>
 <p>Query extensions and descriptive annotations can be applied to normalized schemas as well as partly or fully denormalized schemas.</p>
 <div class="example">
@@ -1055,7 +1055,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <td>2022</td>
 </tr>
 <tr class="even">
-<td>...</td>
+<td>…</td>
 <td></td>
 <td></td>
 <td></td>
@@ -1265,8 +1265,8 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </div>
 <h2 id="23-example-use-cases"><a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
 <div class="example">
-<p>Example 5: In the example model, one prominent use case is the relation of customers to products. The first question that is likely to be asked is: "Which customers bought which products?"</p>
-<p>This leads to the second more quantitative question: "Who bought how much of what?"</p>
+<p>Example 5: In the example model, one prominent use case is the relation of customers to products. The first question that is likely to be asked is: “Which customers bought which products?”</p>
+<p>This leads to the second more quantitative question: “Who bought how much of what?”</p>
 <p>The answer to the second question typically is visualized as a cross-table:</p>
 <div class="cross">
 <table>
@@ -1593,7 +1593,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>Let <span class="math inline">\(B=γ(v,p_2)\)</span>.</li>
 <li>Return <span class="math inline">\(B\)</span>.</li>
 </ol>
-<p>This notation is extended to the case of an empty path <span class="math inline">\(e\)</span> by setting <span class="math inline">\(\Gamma(A,e)=A\)</span> with null values removed. Note the collections returned by <span class="math inline">\(\Gamma\)</span> and <span class="math inline">\(γ\)</span> never contain the null value. Also, every instance <span class="math inline">\(u\)</span> in <span class="math inline">\(\Gamma(A,p)\)</span> occurs also in <span class="math inline">\(A\)</span> or nested into <span class="math inline">\(A\)</span>, therefore an algorithmic step like "Add a dynamic property to each <span class="math inline">\(u\)</span> in <span class="math inline">\(\Gamma(A,p)\)</span>" effectively changes <span class="math inline">\(A\)</span>.</p>
+<p>This notation is extended to the case of an empty path <span class="math inline">\(e\)</span> by setting <span class="math inline">\(\Gamma(A,e)=A\)</span> with null values removed. Note the collections returned by <span class="math inline">\(\Gamma\)</span> and <span class="math inline">\(γ\)</span> never contain the null value. Also, every instance <span class="math inline">\(u\)</span> in <span class="math inline">\(\Gamma(A,p)\)</span> occurs also in <span class="math inline">\(A\)</span> or nested into <span class="math inline">\(A\)</span>, therefore an algorithmic step like “Add a dynamic property to each <span class="math inline">\(u\)</span> in <span class="math inline">\(\Gamma(A,p)\)</span>” effectively changes <span class="math inline">\(A\)</span>.</p>
 <h2 id="32-basic-aggregation"><a name="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a></h2>
 <h3 id="321-transformation-aggregate"><a name="Transformationaggregate" href="#Transformationaggregate">3.2.1 Transformation <code>aggregate</code></a></h3>
 <h4 id="3211-aggregation-algorithm"><a name="AggregationAlgorithm" href="#AggregationAlgorithm">3.2.1.1 Aggregation Algorithm</a></h4>
@@ -2386,7 +2386,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>In some cases, however, requests need to span entity sets with no predefined associations. Such requests can be sent to the special resource <code>$crossjoin</code> instead of an individual entity set. The cross join of a list of entity sets is the Cartesian product of the listed entity sets, represented as a collection of complex type instances that have a navigation property with cardinality to-one for each participating entity set, and queries across entity sets can be formulated using these navigation properties. See <a href="#ODataURL">OData-URL</a> for details.</p>
 <p>Where useful navigations exist it is beneficial to expose those as explicit navigation properties in the model, but the ability to pose queries that span entity sets not related by an association provides a mechanism for advanced consumers to use more flexible join conditions.</p>
 <div class="example">
-<p>Example 47: if <code>Sale</code> had a string property <code>ProductID</code> instead of the navigation property <code>Product</code>, a "join" between <code>Sales</code> and <code>Products</code> could be accessed via the <code>$crossjoin</code> resource</p>
+<p>Example 47: if <code>Sale</code> had a string property <code>ProductID</code> instead of the navigation property <code>Product</code>, a “join” between <code>Sales</code> and <code>Products</code> could be accessed via the <code>$crossjoin</code> resource</p>
 <pre><code>GET /service/$crossjoin(Products,Sales)
                          ?$expand=Products($select=Name),Sales($select=Amount)
                          &amp;$filter=Products/ID eq Sales/ProductID</code></pre>
@@ -2551,7 +2551,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb93-67"><a href="#cb93-67" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityContainer</span>&gt;</span></code></pre></div>
 </div>
 <h2 id="55-hierarchies"><a name="Hierarchies" href="#Hierarchies">5.5 Hierarchies</a></h2>
-<p>A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another. A hierarchy can be leveled or recursive.</p>
+<p>A hierarchy is an arrangement of entities whose values are represented as being “above”, “below”, or “at the same level as” one another. A hierarchy can be leveled or recursive.</p>
 <h3 id="551-leveled-hierarchy"><a name="LeveledHierarchy" href="#LeveledHierarchy">5.5.1 Leveled Hierarchy</a></h3>
 <p>A <em>leveled hierarchy</em> has a fixed number of levels each of which is represented by a <a href="#SimpleGrouping">grouping property</a>. The values of a lower-level property depend on the property value of the level above.</p>
 <p>A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term <code>LeveledHierarchy</code> that lists the properties used to form the hierarchy.</p>
@@ -2699,7 +2699,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 57: the lowest-level organizations including their superordinate's <code>ID</code></p>
+<p>Example 57: the lowest-level organizations including their superordinate’s <code>ID</code></p>
 <pre><code>GET /service/SalesOrganizations?$filter=Aggregation.isleaf(
   HierarchyNodes=$root/SalesOrganizations,
   HierarchyQualifier=&#39;SalesOrgHierarchy&#39;,
@@ -2842,7 +2842,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <p>All following parameters are optional and form a list <span class="math inline">\(o\)</span> of expressions that could also be passed as a <code>$orderby</code> system query option. If <span class="math inline">\(o\)</span> is present, the transformation <a href="#SamenessandOrder">stable-sorts</a> <span class="math inline">\(H&#39;\)</span> by <span class="math inline">\(o\)</span>.</p>
 <p>The instances in the input set are related to one node (if <span class="math inline">\(p\)</span> is single-valued) or multiple nodes (if <span class="math inline">\(p\)</span> is collection-valued) in the recursive hierarchy. Given a node <span class="math inline">\(x\)</span>, denote by <span class="math inline">\(\hat F(x)\)</span> the collection of all instances in the input set that are related to <span class="math inline">\(x\)</span>; these collections can overlap. For each <span class="math inline">\(u\)</span> in <span class="math inline">\(\hat F(x)\)</span>, the output set contains one instance that comprises the properties of <span class="math inline">\(u\)</span> and additional properties that identify the node <span class="math inline">\(x\)</span>. These additional properties are independent of <span class="math inline">\(u\)</span> and are bundled into an instance called <span class="math inline">\(σ(x)\)</span>. For example, if a sale <span class="math inline">\(u\)</span> is related to two sales organizations and hence contained in both <span class="math inline">\(\hat F(x_1)\)</span> and <span class="math inline">\(\hat F(x_2)\)</span>, the output set will contain two instances <span class="math inline">\((u,σ(x_1))\)</span> and <span class="math inline">\((u,σ(x_2))\)</span> and <span class="math inline">\(σ(x_i)\)</span> contributes a navigation property <code>SalesOrganization</code>.</p>
 <p>A transformation <span class="math inline">\(F(x)\)</span> is defined below such that <span class="math inline">\(\hat F(x)\)</span> is the output set of <span class="math inline">\(F(x)\)</span> applied to the input set of the <code>traverse</code> transformation.</p>
-<p>Given a node <span class="math inline">\(x\)</span>, the formulas below contain the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> in order to inject the properties of <span class="math inline">\(σ(x)\)</span> into the instances in <span class="math inline">\(\hat F(x)\)</span>; this uses the function <span class="math inline">\(\Pi_G\)</span> that is defined in the <a href="#SimpleGrouping">simple grouping</a> section. Further, <span class="math inline">\(G\)</span> is a list of <a href="#DataAggregationPath">data aggregation paths</a> that shall be present in the output set, and <span class="math inline">\(σ\)</span> is a function that maps each hierarchy node <span class="math inline">\(x\)</span> to an instance of the <a href="#TypeStructureandContextURL">input type</a> containing the paths from <span class="math inline">\(G\)</span>. As a consequence of the following definitions, only single-valued properties and "final segments from <span class="math inline">\(G\)</span>" are nested into <span class="math inline">\(σ(x)\)</span>, therefore the behavior of <span class="math inline">\(\Pi_G(σ(x))\)</span> is well-defined.</p>
+<p>Given a node <span class="math inline">\(x\)</span>, the formulas below contain the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> in order to inject the properties of <span class="math inline">\(σ(x)\)</span> into the instances in <span class="math inline">\(\hat F(x)\)</span>; this uses the function <span class="math inline">\(\Pi_G\)</span> that is defined in the <a href="#SimpleGrouping">simple grouping</a> section. Further, <span class="math inline">\(G\)</span> is a list of <a href="#DataAggregationPath">data aggregation paths</a> that shall be present in the output set, and <span class="math inline">\(σ\)</span> is a function that maps each hierarchy node <span class="math inline">\(x\)</span> to an instance of the <a href="#TypeStructureandContextURL">input type</a> containing the paths from <span class="math inline">\(G\)</span>. As a consequence of the following definitions, only single-valued properties and “final segments from <span class="math inline">\(G\)</span>” are nested into <span class="math inline">\(σ(x)\)</span>, therefore the behavior of <span class="math inline">\(\Pi_G(σ(x))\)</span> is well-defined.</p>
 <p>The definition of <span class="math inline">\(σ(x)\)</span> makes use of a function <span class="math inline">\(a(ε,t,x)\)</span>, which returns a sparsely populated instance <span class="math inline">\(u\)</span> in which only the path <span class="math inline">\(t\)</span> has a value, namely <span class="math inline">\(u[t]=x\)</span>.</p>
 <p>Three cases are distinguished:</p>
 <ol type="1">
@@ -2940,7 +2940,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <p>In the general case, servers MUST include the <code>Aggregation.UpPath</code> annotations in the result of <code>$apply</code> but MAY omit them if <code>RecursiveHierarchy/ParentNavigationProperty</code> is single-valued and all start nodes are root nodes.</p>
 <p>If <code>RecursiveHierarchy/ParentNavigationProperty</code> is collection-valued but the parent collection never contains more than one parent and the optional parameter <span class="math inline">\(S\)</span> is not specified, then the result is effectively like in the standard case, except for the presence of the <code>Aggregation.UpPath</code> annotations.</p>
 <h2 id="63-grouping-with-rolluprecursive"><a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with <code>rolluprecursive</code></a></h2>
-<p>Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with <code>rolluprecursive</code>, informally speaking, transforms the input set into overlapping portions (like "US" and "US East"), one for each node <span class="math inline">\(x\)</span> of a <a href="#RecursiveHierarchy">recursive hierarchy</a>. The transformation <span class="math inline">\(F(x)\)</span>, defined below, outputs the portion whose node identifiers are among the descendants of <span class="math inline">\(x\)</span> (including <span class="math inline">\(x\)</span> itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node <span class="math inline">\(x\)</span>, which is achieved through the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
+<p>Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with <code>rolluprecursive</code>, informally speaking, transforms the input set into overlapping portions (like “US” and “US East”), one for each node <span class="math inline">\(x\)</span> of a <a href="#RecursiveHierarchy">recursive hierarchy</a>. The transformation <span class="math inline">\(F(x)\)</span>, defined below, outputs the portion whose node identifiers are among the descendants of <span class="math inline">\(x\)</span> (including <span class="math inline">\(x\)</span> itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node <span class="math inline">\(x\)</span>, which is achieved through the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
 <p>As defined <a href="#CommonParametersforHierarchicalTransformations">above</a>, <span class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span> and <span class="math inline">\(p\)</span> are the first three parameters of <code>rolluprecursive</code>, <span class="math inline">\(S\)</span> is an optional fourth parameter. Let <span class="math inline">\(H&#39;\)</span> be the output set of the transformation sequence <span class="math inline">\(S\)</span> applied to <span class="math inline">\(H\)</span>, or <span class="math inline">\(H&#39;=H\)</span> if <span class="math inline">\(S\)</span> is not specified.</p>
 <p>Navigation properties specified in <span class="math inline">\(p\)</span> are expanded by default.</p>
 <p>Let <span class="math inline">\(T\)</span> be a transformation sequence, <span class="math inline">\(P_1\)</span> stand in for zero or more property paths and <span class="math inline">\(P_2\)</span> for zero or more <code>rollup</code> or <code>rolluprecursive</code> operators or property paths. The transformation <span class="math inline">\({\tt groupby}((P_1,{\tt rolluprecursive}(H,Q,p,S),P_2),T)\)</span> is computed by the following algorithm, which invokes itself recursively if the number of <code>rolluprecursive</code> operators in the first argument of the <code>groupby</code> transformation, which is called <span class="math inline">\(M\)</span>, is greater than one. Let <span class="math inline">\(N\)</span> be the recursion depth of the algorithm, starting with 1.</p>
@@ -3016,7 +3016,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb118-15"><a href="#cb118-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>⚠ Example 67: When requesting a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy ("actual totals") or can exclude them ("visual totals").</p>
+<p>⚠ Example 67: When requesting a sub-hierarchy consisting of the US East sales organization and its ancestors, the total sales amounts can either include the descendants outside this sub-hierarchy (“actual totals”) or can exclude them (“visual totals”).</p>
 <p>Actual totals are computed when <code>rolluprecursive</code> is restricted to the sub-hierarchy by setting the optional parameter <span class="math inline">\(S\)</span> to an <code>ancestors</code> transformation:</p>
 <pre><code>GET /service/Sales?$apply=groupby((rolluprecursive(
     $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
@@ -3094,7 +3094,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sue&quot;</span> <span class="fu">}</span></span>
 <span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb126-8"><a href="#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Note that "Sue" appears only once although the customer base contains two different Sues.</p>
+<p>Note that “Sue” appears only once although the customer base contains two different Sues.</p>
 </div>
 <p>Aggregation is also possible across related entities.</p>
 <div class="example">
@@ -3109,8 +3109,8 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Since <code>groupby</code> expands navigation properties in grouping properties by default, this is the same result as if the request would include a <code>$expand=Customer($select=Name)</code>. The <code>groupby</code> removes all other properties.</p>
-<p>Note that "Luc" does not appear in the aggregated result as he hasn't bought anything and therefore there are no sales entities that refer/navigate to Luc.</p>
-<p>However, even though both Sues bought products, only one "Sue" appears in the aggregate result. Including properties that guarantee the right level of uniqueness in the grouping can repair that.</p>
+<p>Note that “Luc” does not appear in the aggregated result as he hasn’t bought anything and therefore there are no sales entities that refer/navigate to Luc.</p>
+<p>However, even though both Sues bought products, only one “Sue” appears in the aggregate result. Including properties that guarantee the right level of uniqueness in the grouping can repair that.</p>
 </div>
 <div class="example">
 <p>Example 71:</p>
@@ -3275,7 +3275,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb147-12"><a href="#cb147-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;TotalSales&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">4</span> <span class="fu">}</span> <span class="fu">}</span></span>
 <span id="cb147-13"><a href="#cb147-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb147-14"><a href="#cb147-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Applying <code>outerjoin</code> instead would return an additional entity for product with <code>ID</code> "Pencil" and <code>TotalSales</code> having a null value.</p>
+<p>Applying <code>outerjoin</code> instead would return an additional entity for product with <code>ID</code> “Pencil” and <code>TotalSales</code> having a null value.</p>
 </div>
 <div class="example">
 <p>Example 80:</p>
@@ -3755,7 +3755,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb195-20"><a href="#cb195-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="contradict" href="#contradict">103</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:</p>
+<p>Example <a name="contradict" href="#contradict">103</a>: concatenation of two different groupings “biggest sale per customer” and “biggest sale per product”, made distinguishable by a dynamic property:</p>
 <pre><code>GET /service/Sales?$apply=concat(
     groupby((Customer),topcount(1,Amount))/compute(&#39;Customer&#39; as per),
     groupby((Product),topcount(1,Amount))/compute(&#39;Product&#39; as per))
@@ -3869,7 +3869,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <h2 id="79-aggregation-in-recursive-hierarchies"><a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9 Aggregation in Recursive Hierarchies</a></h2>
 <p>If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations <code>ancestors</code> and <code>descendants</code> may be used to restrict it as needed.</p>
 <div class="example">
-<p>Example 107: Total sales amounts for sales orgs in 'US' in the <code>SalesOrgHierarchy</code> defined in <a href="#HierarchyExamples">Hierarchy Examples</a></p>
+<p>Example 107: Total sales amounts for sales orgs in ‘US’ in the <code>SalesOrgHierarchy</code> defined in <a href="#HierarchyExamples">Hierarchy Examples</a></p>
 <pre><code>GET /service/Sales?$apply=
     descendants(
         $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
@@ -4107,7 +4107,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it, and the ancestors of those organizations:</p>
+<p>Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category “Cereals” or a descendant of it, and the ancestors of those organizations:</p>
 <pre><code>GET /service/Sales?$apply=groupby((rolluprecursive(
     $root/SalesOrganizations,SalesOrgHierarchy,
     SalesOrganization/ID,
@@ -4149,7 +4149,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
     filter(ProductCategories/any(c:c/Name eq &#39;Cereals&#39;)),
     keep start),
   keep start)</code></pre>
-<p>works differently: <code>descendants</code> is the parameter <span class="math inline">\(T\)</span> of <code>ancestors</code> and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.</p>
+<p>works differently: <code>descendants</code> is the parameter <span class="math inline">\(T\)</span> of <code>ancestors</code> and operates on its input set of sales organizations. This would determine descendants of sales organizations for “Cereals” and their ancestor sales organizations, so US East would appear in the result.</p>
 </div>
 <h2 id="710-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a></h2>
 <p>Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.</p>
@@ -4324,12 +4324,12 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb234-22"><a href="#cb234-22" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="711-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a></h2>
-<p>Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in <code>$apply</code> in the order they are to be applied, separated by a forward slash.</p>
+<p>Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question “how much money is earned with small sales” requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in <code>$apply</code> in the order they are to be applied, separated by a forward slash.</p>
 <div class="example">
 <p>Example 119:</p>
 <pre><code>GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)</code></pre>
-<p>means "filter first, then aggregate", and results in</p>
+<p>means “filter first, then aggregate”, and results in</p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb236-2"><a href="#cb236-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb236-3"><a href="#cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -4467,35 +4467,35 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-agg-abnf"><a name="ODataAggABNF">[OData-Agg-ABNF]</a></h6>
 <p><em>OData Aggregation ABNF Construction Rules Version 4.0.</em><br />
-See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
+See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
 <h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-json"><a name="ODataJSON">[OData-JSON]</a></h6>
 <p><em>OData JSON Format Version 4.01.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
 <p><em>OData Version 4.01. Part 1: Protocol.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
 <p><em>OData Version 4.01. Part 2: URL Conventions.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-vocaggr"><a name="ODataVocAggr">[OData-VocAggr]</a></h6>
 <p><em>OData Aggregation Vocabulary.</em><br />
-See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
+See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
 <h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
 <p><em>OData Core Vocabulary.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
-<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
+<p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
 <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
-<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
+<p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 <hr />
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
@@ -4604,7 +4604,7 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <td>Committee Specification Draft 04</td>
 <td>2023-07-05</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen</td>
-<td>Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"</td>
+<td>Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 “Representation of Aggregated Instances” into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section “Actions and Functions on Aggregated Entities”</td>
 </tr>
 <tr class="even">
 <td>Committee Specification 03</td>
@@ -4617,14 +4617,14 @@ See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
 <hr />
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
-<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
-<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>This document and the information contained herein is provided on an “AS IS” basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
 <p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
 <p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
-<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
-<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
 </body>
 </html>
