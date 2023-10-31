@@ -1714,7 +1714,7 @@ Example 22: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -2120,11 +2120,11 @@ or deleted links.
 Example 33: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
-  2. Order 10643 was removed from customer 'ALFKI'
-  3. Order 10645 was added to customer 'BOTTM'
+  1. `ContactName` for customer `BOTTM`` was changed to `Susan Halvenstern`
+  2. Order 10643 was removed from customer `ALFKI`
+  3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
-  5. Customer 'ANTON' was deleted
+  5. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2232,12 +2232,12 @@ links](#DeletedLink).
 Example 34: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':
-     1. `ContactName` was changed to "Susan Halvenstern"
+  1. Customer `BOTTM`:
+     1. `ContactName` was changed to `Susan Halvenstern`
      2. Order 10645 was added
-  2. Customer 'ALFKI':
+  2. Customer `ALFKI`:
      1. Order 10643 was removed
-  3. Customer 'ANTON' was deleted
+  3. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2492,16 +2492,16 @@ entities, as well as [added](#AddedLink) or
 ::: example
 Example 39: 4.01 delta response customers with expanded orders represented
 inline as a delta
-  1. Add customer 'EASTC'
-  2. Change `ContactName` of customer 'AROUT'
-  3. Delete customer 'ANTON'
-  4. Change customer 'ALFKI':
+  1. Add customer `EASTC`
+  2. Change `ContactName` of customer `AROUT`
+  3. Delete customer `ANTON`
+  4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
      3. Change `ShippedDate` of related order 10835
      4. Delete link to order 10643
-  5. Add link between customer 'ANATR' and order 10643
-  6. Delete link between customer 'DUMON' and order 10311
+  5. Add link between customer `ANATR` and order 10643
+  6. Delete link between customer `DUMON` and order 10311
 ```json
 {
   "@context": "#$delta",

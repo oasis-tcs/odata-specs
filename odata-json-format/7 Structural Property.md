@@ -383,7 +383,7 @@ Example ##ex: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.

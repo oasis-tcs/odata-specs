@@ -924,7 +924,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>modify the name of an existing category</li>
 <li>assign an existing product with the id 42 to the category</li>
 <li>assign an existing product 57 to the category and update its name</li>
-<li>create a new product named “Wedges” and assign it to the category</li>
+<li>create a new product named <code>Wedges</code> and assign it to the category</li>
 </ul>
 <p>At the end of the request, the updated category contains exactly the three specified products.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(6)</span> <span class="er">HTTP/1.1</span></span>
@@ -1113,11 +1113,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 33: a 4.01 delta response with five changes, in order of occurrence</p>
 <ol type="1">
-<li><code>ContactName</code> for customer ‘BOTTM’ was changed to “Susan Halvenstern”</li>
-<li>Order 10643 was removed from customer ‘ALFKI’</li>
-<li>Order 10645 was added to customer ‘BOTTM’</li>
+<li><code>ContactName</code> for customer <code>BOTTM`` was changed to </code>Susan Halvenstern`</li>
+<li>Order 10643 was removed from customer <code>ALFKI</code></li>
+<li>Order 10645 was added to customer <code>BOTTM</code></li>
 <li>The shipping information for order 10643 was updated</li>
-<li>Customer ‘ANTON’ was deleted</li>
+<li>Customer <code>ANTON</code> was deleted</li>
 </ol>
 <div class="sourceCode" id="cb36"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
@@ -1173,16 +1173,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 34: 4.01 delta response customers with expanded orders represented inline as a delta</p>
 <ol type="1">
-<li>Customer ‘BOTTM’:
+<li>Customer <code>BOTTM</code>:
 <ol type="1">
-<li><code>ContactName</code> was changed to “Susan Halvenstern”</li>
+<li><code>ContactName</code> was changed to <code>Susan Halvenstern</code></li>
 <li>Order 10645 was added</li>
 </ol></li>
-<li>Customer ‘ALFKI’:
+<li>Customer <code>ALFKI</code>:
 <ol type="1">
 <li>Order 10643 was removed</li>
 </ol></li>
-<li>Customer ‘ANTON’ was deleted</li>
+<li>Customer <code>ANTON</code> was deleted</li>
 </ol>
 <div class="sourceCode" id="cb37"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
@@ -1307,18 +1307,18 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 39: 4.01 delta response customers with expanded orders represented inline as a delta</p>
 <ol type="1">
-<li>Add customer ‘EASTC’</li>
-<li>Change <code>ContactName</code> of customer ‘AROUT’</li>
-<li>Delete customer ‘ANTON’</li>
-<li>Change customer ‘ALFKI’:
+<li>Add customer <code>EASTC</code></li>
+<li>Change <code>ContactName</code> of customer <code>AROUT</code></li>
+<li>Delete customer <code>ANTON</code></li>
+<li>Change customer <code>ALFKI</code>:
 <ol type="1">
 <li>Create order 11011</li>
 <li>Add link to existing order 10692</li>
 <li>Change <code>ShippedDate</code> of related order 10835</li>
 <li>Delete link to order 10643</li>
 </ol></li>
-<li>Add link between customer ‘ANATR’ and order 10643</li>
-<li>Delete link between customer ‘DUMON’ and order 10311</li>
+<li>Add link between customer <code>ANATR</code> and order 10643</li>
+<li>Delete link between customer <code>DUMON</code> and order 10311</li>
 </ol>
 <div class="sourceCode" id="cb42"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#$delta&quot;</span><span class="fu">,</span></span>
