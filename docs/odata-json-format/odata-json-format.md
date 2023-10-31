@@ -2186,7 +2186,7 @@ have changed, and MAY include additional properties.
 
 If a property of an entity is dependent upon the property of another
 entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principle
+change to the dependent property as well as the change to the principal
 property or [added](#AddedLink)/[deleted link](#DeletedLink)
 corresponding to the change to the dependent property are returned in
 the delta response.
