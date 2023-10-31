@@ -50,7 +50,7 @@ or deleted links.
 Example ##ex: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer `BOTTM`` was changed to `Susan Halvenstern`
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
   2. Order 10643 was removed from customer `ALFKI`
   3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
