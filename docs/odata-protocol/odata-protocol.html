@@ -657,7 +657,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The following headers are common between OData requests and responses.</p>
 <h3 id="811-header-content-type"><a name="HeaderContentType" href="#HeaderContentType">8.1.1 Header <code>Content-Type</code></a></h3>
 <p>The format of a non-empty individual request or response body, alone or within a batch, MUST be specified in the <code>Content-Type</code> header of a request or response. The exception to this is if the body represents the media stream of a <a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">media entity</a> or <a href="#ManagingStreamProperties">stream property</a>, in which case the <code>Content-Type</code> header SHOULD be present.</p>
-<p>The specified format MAY include format parameters. Clients MUST be prepared for the service to return custom format parameters not defined in OData and SHOULD NOT expect that such format parameters can be ignored. Custom format parameters MUST NOT start with “odata” and services MUST NOT require generic OData consumers to understand custom format parameters in order to correctly interpret the payload.</p>
+<p>The specified format MAY include format parameters. Clients MUST be prepared for the service to return custom format parameters not defined in OData and SHOULD NOT expect that such format parameters can be ignored. Custom format parameters MUST NOT start with <code>odata</code> and services MUST NOT require generic OData consumers to understand custom format parameters in order to correctly interpret the payload.</p>
 <p>See <a href="#ODataJSON">OData-JSON</a> for format-specific details about format parameters within the <code>Content-Type</code> header.</p>
 <h3 id="812-header-content-encoding"><a name="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header <code>Content-Encoding</code></a></h3>
 <p>As defined in <a href="#rfc7231">RFC7231</a>, the <code>Content-Encoding</code> header field is used as a modifier to the media-type (as indicated in the <code>Content-Type</code>). When present, its value indicates what additional content codings have been applied to the entity-body. A service MAY specify a list of acceptable content codings using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings"><code>Capabilities.AcceptableEncodings</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
@@ -772,7 +772,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <pre><code>Prefer: include-annotations=&quot;-*&quot;</code></pre>
 </div>
 <div class="example">
-<p>Example 5: a <code>Prefer</code> header requesting that all annotations defined under the “display” namespace (recursively) be returned</p>
+<p>Example 5: a <code>Prefer</code> header requesting that all annotations defined under the <code>display</code> namespace (recursively) be returned</p>
 <pre><code>Prefer: include-annotations=&quot;display.*&quot;</code></pre>
 </div>
 <div class="example">
@@ -780,7 +780,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <pre><code>Prefer: include-annotations=&quot;display.subject&quot;</code></pre>
 </div>
 <div class="example">
-<p>Example 7: a <code>Prefer</code> header requesting that all annotations defined under the “display” namespace (recursively) with the qualifier “tablet” be returned</p>
+<p>Example 7: a <code>Prefer</code> header requesting that all annotations defined under the <code>display</code> namespace (recursively) with the qualifier <code>tablet</code> be returned</p>
 <pre><code>Prefer: include-annotations=&quot;display.*#tablet&quot;</code></pre>
 </div>
 <p>The <code>include-annotations</code> preference is only a hint to the service. The service MAY ignore the preference and is free to decide whether or not to return annotations not specified in the <code>include-annotations</code> preference.</p>
@@ -1267,7 +1267,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Appending <code>/$value</code> to an entity that is not a media entity returns <code>400 Bad Request</code>.</p>
 <p>Attempting to retrieve the media stream from a single-valued navigation property referencing a media entity whose value is null returns <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <h3 id="1124-requesting-individual-properties"><a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a></h3>
-<p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with “/” and the property name appended.</p>
+<p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with <code>/</code> and the property name appended.</p>
 <p>For complex typed properties, the path can be further extended with the name of an individual property of the complex type.</p>
 <p>See <a href="#ODataURL">OData-URL</a> for details.</p>
 <p>If the property is single-valued and has the <code>null</code> value, the service responds with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
@@ -1483,7 +1483,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Parameter aliases can be used in place of literal values in entity keys, <a href="#InvokingaFunction">function parameters</a>, or within a <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression. Parameters aliases are names beginning with an at sign (<code>@</code>).</p>
 <p>Actual parameter values are specified as query options in the query part of the request URL. The query option name is the name of the parameter alias, and the query option value is the value to be used for the specified parameter alias.</p>
 <div class="example">
-<p>Example 48: returns all employees whose Region property matches the string parameter value “WA”</p>
+<p>Example 48: returns all employees whose Region property matches the string parameter value <code>WA</code></p>
 <pre><code>GET http://host/service.svc/Employees?$filter=Region eq @p1&amp;@p1=&#39;WA&#39;</code></pre>
 </div>
 <p>Parameter aliases allow the same value to be used multiple times in a request and may be used to reference primitive, structured, or collection values.</p>
@@ -1554,32 +1554,32 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11266-system-query-option-search"><a name="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">11.2.6.6 System Query Option <code>$search</code></a></h4>
 <p>The <code>$search</code> system query option restricts the result to include only those items <em>matching</em> the specified search expression. The definition of what it means to match is dependent upon the implementation.</p>
 <div class="example">
-<p>Example 58: return all Products that match the search term “bike”</p>
+<p>Example 58: return all Products that match the search term <code>bike</code></p>
 <pre><code>GET http://host/service/Products?$search=bike</code></pre>
 </div>
 <p>The search expression can contain phrases, enclosed in double-quotes.</p>
 <div class="example">
-<p>Example 59: return all Products that match the phrase “mountain bike”</p>
+<p>Example 59: return all Products that match the phrase <code>mountain bike</code></p>
 <pre><code>GET http://host/service/Products?$search=&quot;mountain bike&quot;</code></pre>
 </div>
 <p>The upper-case keyword <code>NOT</code> restricts the set of entities to those that do not match the specified term.</p>
 <div class="example">
-<p>Example 60: return all Products that do not match “clothing”</p>
+<p>Example 60: return all Products that do not match <code>clothing</code></p>
 <pre><code>GET http://host/service/Products?$search=NOT clothing</code></pre>
 </div>
 <p>Multiple terms within a search expression are separated by a space (implicit <code>AND</code>) or the upper-case keyword <code>AND</code>, indicating that all such terms must be matched.</p>
 <div class="example">
-<p>Example 61: return all Products that match both “mountain” and “bike”</p>
+<p>Example 61: return all Products that match both <code>mountain</code> and <code>bike</code></p>
 <pre><code>GET http://host/service/Products?$search=mountain AND bike</code></pre>
 </div>
 <p>The upper-case keyword <code>OR</code> is used to return entities that satisfy either the immediately preceding or subsequent expression.</p>
 <div class="example">
-<p>Example 62: return all Products that match either “mountain” or “bike”</p>
+<p>Example 62: return all Products that match <code>mountain</code> or <code>bike</code></p>
 <pre><code>GET http://host/service/Products?$search=mountain OR bike</code></pre>
 </div>
 <p>Parentheses within the search expression group together multiple expressions.</p>
 <div class="example">
-<p>Example 63: return all Products that match either “mountain” or “bike” and do not match clothing</p>
+<p>Example 63: return all Products that match <code>mountain</code> or <code>bike</code> and do not match clothing</p>
 <pre><code>GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing</code></pre>
 </div>
 <p>The operations within a search expression MUST be evaluated in the following order: grouping operator, <code>NOT</code> operator, <code>AND</code> operator, <code>OR</code> operator</p>
@@ -2107,7 +2107,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload  whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
 <div class="example">
-<p>Example 92: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer ‘ALFKI’</p>
+<p>Example 92: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer <code>ALFKI</code></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
@@ -2144,7 +2144,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/EmployeesByManager(ManagerID=3)</code></pre>
 </div>
 <div class="example">
-<p>Example 95: return all <code>Customers</code> whose City property returns “Western” when passed to the <code>Sales.SalesRegion</code> function</p>
+<p>Example 95: return all Customers whose <code>City</code> property returns <code>Western</code> when passed to the <code>Sales.SalesRegion</code> function</p>
 <pre><code>GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq &#39;Western&#39;</code></pre>
 </div>
@@ -2185,7 +2185,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 <div class="example">
-<p>Example 98: invoke the <code>SampleEntities.CreateOrder</code> action using <code>/Customers('ALFKI') </code>as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer’s ETag still matches.</p>
+<p>Example 98: invoke the <code>SampleEntities.CreateOrder</code> action using <code>Customers('ALFKI')</code> as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer’s ETag still matches.</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
 <span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;`</span></span>
 <span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>

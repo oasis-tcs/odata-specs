@@ -204,7 +204,7 @@ property referencing a media entity whose value is null returns
 ### ##subsubsec Requesting Individual Properties
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with "/" and
+the property URL. The property URL is the entity read URL with `/` and
 the property name appended.
 
 For complex typed properties, the path can be further extended with the
@@ -698,7 +698,7 @@ specified parameter alias.
 
 ::: example
 Example ##ex: returns all employees whose Region property matches the
-string parameter value "WA"
+string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
@@ -900,7 +900,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example ##ex: return all Products that match the search term "bike"
+Example ##ex: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -909,7 +909,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example ##ex: return all Products that match the phrase "mountain bike"
+Example ##ex: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -919,7 +919,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example ##ex: return all Products that do not match "clothing"
+Example ##ex: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -930,8 +930,8 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example ##ex: return all Products that match both "mountain" and
-"bike"
+Example ##ex: return all Products that match both `mountain` and
+`bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
 ```
@@ -941,8 +941,8 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example ##ex: return all Products that match either "mountain" or
-"bike"
+Example ##ex: return all Products that match `mountain` or
+`bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
 ```
@@ -952,8 +952,8 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example ##ex: return all Products that match either "mountain" or
-"bike" and do not match clothing
+Example ##ex: return all Products that match `mountain` or
+`bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```

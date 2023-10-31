@@ -23,7 +23,7 @@ or [stream property](#ManagingStreamProperties), in which case the
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
 in OData and SHOULD NOT expect that such format parameters can be
-ignored. Custom format parameters MUST NOT start with "odata" and
+ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
@@ -491,7 +491,7 @@ Prefer: include-annotations="-*"
 
 ::: example
 Example ##ex: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) be returned
+under the `display` namespace (recursively) be returned
 ```
 Prefer: include-annotations="display.*"
 ```
@@ -507,8 +507,8 @@ Prefer: include-annotations="display.subject"
 
 ::: example
 Example ##ex: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) with the qualifier
-"tablet" be returned
+under the `display` namespace (recursively) with the qualifier
+`tablet` be returned
 ```
 Prefer: include-annotations="display.*#tablet"
 ```
