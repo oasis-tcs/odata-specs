@@ -1644,49 +1644,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 50: all products with a `Name` equal to 'Milk'
+Example 50: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 51: all products with a `Name` not equal to 'Milk'
+Example 51: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example 52: all products with a Name greater than 'Milk':
+Example 52: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example 53: all products with a Name greater than or equal to 'Milk':
+Example 53: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example 54: all products with a Name less than 'Milk':
+Example 54: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example 55: all products with a Name less than or equal to 'Milk':
+Example 55: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'`
 ```
 :::
 
 ::: example
-Example 56: all products with the Name 'Milk' that also have a Price
+Example 56: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -1694,15 +1694,15 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example 57: all products that either have the Name 'Milk' or have a
-Price less than 2.55:
+Example 57: all products that either have a `Name` equal to `Milk` or have a
+`Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 ```
 :::
 
 ::: example
-Example 58: all products that do not have a Name that ends with 'ilk':
+Example 58: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
@@ -1716,7 +1716,7 @@ http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 :::
 
 ::: example
-Example 60: all products whose `name` value is 'Milk' or 'Cheese':
+Example 60: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -1980,7 +1980,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example 70: all customers with a `CompanyName` that contains `'Alfreds'`
+Example 70: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -2012,7 +2012,7 @@ function is invoked.
 
 ::: example
 Example 71: all customers with a `CompanyName` that ends with
-`'Futterkiste'`
+`Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
@@ -2043,7 +2043,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example 72: all customers with a `CompanyName` containing '`lfreds'`
+Example 72: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -2101,7 +2101,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example 74: all customers with a `CompanyName` that starts with `'Alfr'`
+Example 74: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -2155,7 +2155,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example 75: all customers with a `CompanyName` of `'lfreds Futterkiste'`
+Example 75: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -2163,8 +2163,8 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example 76: all customers with a `CompanyName` that has '`lf' `as the
-second and third characters, e.g, '`Alfreds Futterkiste`'
+Example 76: all customers with a `CompanyName` that has `lf` as the
+second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
@@ -2285,7 +2285,7 @@ function is invoked.
 
 ::: example
 Example 82: all customers with a `CompanyName` that equals
-`'alfreds futterkiste'` once any uppercase characters have been
+`alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
 http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
@@ -2307,7 +2307,7 @@ function is invoked.
 
 ::: example
 Example 83: all customers with a `CompanyName` that equals
-`'ALFREDS FUTTERKISTE'` once any lowercase characters have been
+`ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
 http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
@@ -3458,7 +3458,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example 127: Include the `Product`'s media stream along with other
+Example 127: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -3935,7 +3935,7 @@ _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
 
 -------
 

@@ -929,39 +929,39 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
-<p>Example 50: all products with a <code>Name</code> equal to ‘Milk’</p>
+<p>Example 50: all products with a <code>Name</code> equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 51: all products with a <code>Name</code> not equal to ‘Milk’</p>
+<p>Example 51: all products with a <code>Name</code> not equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name ne &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 52: all products with a Name greater than ‘Milk’:</p>
+<p>Example 52: all products with a <code>Name</code> greater than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name gt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 53: all products with a Name greater than or equal to ‘Milk’:</p>
+<p>Example 53: all products with a <code>Name</code> greater than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name ge &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 54: all products with a Name less than ‘Milk’:</p>
+<p>Example 54: all products with a <code>Name</code> less than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name lt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 55: all products with a Name less than or equal to ‘Milk’:</p>
+<p>Example 55: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;`</code></pre>
 </div>
 <div class="example">
-<p>Example 56: all products with the Name ‘Milk’ that also have a Price less than 2.55:</p>
+<p>Example 56: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; and Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 57: all products that either have the Name ‘Milk’ or have a Price less than 2.55:</p>
+<p>Example 57: all products that either have a <code>Name</code> equal to <code>Milk</code> or have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; or Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 58: all products that do not have a Name that ends with ‘ilk’:</p>
+<p>Example 58: all products that do not have a <code>Name</code> that ends with <code>ilk</code>:</p>
 <pre><code>http://host/service/Products?$filter=not endswith(Name,&#39;ilk&#39;)</code></pre>
 </div>
 <div class="example">
@@ -969,7 +969,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <pre><code>http://host/service/Products?$filter=style has Sales.Pattern&#39;Yellow&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 60: all products whose <code>name</code> value is ‘Milk’ or ‘Cheese’:</p>
+<p>Example 60: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name in (&#39;Milk&#39;, &#39;Cheese&#39;)</code></pre>
 </div>
 <h4 id="5112-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a></h4>
@@ -1079,7 +1079,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
-<p>Example 70: all customers with a <code>CompanyName</code> that contains <code>'Alfreds'</code></p>
+<p>Example 70: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
 <pre><code>http://host/service/Customers?$filter=contains(CompanyName,&#39;Alfreds&#39;)</code></pre>
 </div>
 <h5 id="51153-endswith"><a name="endswith" href="#endswith">5.1.1.5.3 <code>endswith</code></a></h5>
@@ -1090,7 +1090,7 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>'Futterkiste'</code></p>
+<p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=endswith(CompanyName,&#39;Futterkiste&#39;)</code></pre>
 </div>
 <h5 id="51154-indexof"><a name="indexof" href="#indexof">5.1.1.5.4 <code>indexof</code></a></h5>
@@ -1101,7 +1101,7 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>indexof</code> function with ordered collection parameter values returns the zero-based index of the first occurrence of the second collection in the first collection, or -1 if the first collection does not contain the second collection.</p>
 <p>The <code>indexOfMethodCallExpr</code> syntax rule defines how the <code>indexof</code> function is invoked.</p>
 <div class="example">
-<p>Example 72: all customers with a <code>CompanyName</code> containing ’<code>lfreds'</code> starting at the second character</p>
+<p>Example 72: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
 <pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
 </div>
 <h5 id="51155-length"><a name="length" href="#length">5.1.1.5.5 <code>length</code></a></h5>
@@ -1123,7 +1123,7 @@ Edm.Boolean startswith(Collection,Collection)</code></pre>
 <p>The <code>startswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
 <p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>'Alfr'</code></p>
+<p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
 <pre><code>http://host/service/Customers?$filter=startswith(CompanyName,&#39;Alfr&#39;)</code></pre>
 </div>
 <h5 id="51157-substring"><a name="substring" href="#substring">5.1.1.5.7 <code>substring</code></a></h5>
@@ -1141,11 +1141,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>A negative start index N, if supported, returns a string/collection starting N characters/items before the end of the string/collection.</p>
 <p>The <code>substringMethodCallExpr</code> syntax rule defines how the <code>substring</code> function is invoked.</p>
 <div class="example">
-<p>Example 75: all customers with a <code>CompanyName</code> of <code>'lfreds Futterkiste'</code> once the first character has been removed</p>
+<p>Example 75: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq &#39;lfreds Futterkiste&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 76: all customers with a <code>CompanyName</code> that has ’<code>lf' </code>as the second and third characters, e.g, ‘<code>Alfreds Futterkiste</code>’</p>
+<p>Example 76: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq &#39;lf&#39;</code></pre>
 </div>
 <h4 id="5116-collection-functions"><a name="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a></h4>
@@ -1205,7 +1205,7 @@ hassubsequence([1,2],[1,1,2])</code></pre>
 <pre><code>Edm.String tolower(Edm.String)</code></pre>
 <p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <code>toLowerMethodCallExpr</code> syntax rule defines how the <code>tolower</code> function is invoked.</p>
 <div class="example">
-<p>Example 82: all customers with a <code>CompanyName</code> that equals <code>'alfreds futterkiste'</code> once any uppercase characters have been converted to lowercase</p>
+<p>Example 82: all customers with a <code>CompanyName</code> that equals <code>alfreds futterkiste</code> once any uppercase characters have been converted to lowercase</p>
 <pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds futterkiste&#39;</code></pre>
 </div>
 <h5 id="51173-toupper"><a name="toupper" href="#toupper">5.1.1.7.3 <code>toupper</code></a></h5>
@@ -1213,7 +1213,7 @@ hassubsequence([1,2],[1,1,2])</code></pre>
 <pre><code>Edm.String toupper(Edm.String)</code></pre>
 <p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <code>toUpperMethodCallExpr</code> syntax rule defines how the <code>toupper</code> function is invoked.</p>
 <div class="example">
-<p>Example 83: all customers with a <code>CompanyName</code> that equals <code>'ALFREDS FUTTERKISTE'</code> once any lowercase characters have been converted to uppercase</p>
+<p>Example 83: all customers with a <code>CompanyName</code> that equals <code>ALFREDS FUTTERKISTE</code> once any lowercase characters have been converted to uppercase</p>
 <pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS FUTTERKISTE&#39;</code></pre>
 </div>
 <h5 id="51174-trim"><a name="trim" href="#trim">5.1.1.7.4 <code>trim</code></a></h5>
@@ -1805,7 +1805,7 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
 <p>Specifying <code>$value</code> for a media entity includes the media entity’s stream value inline according to the specified format.</p>
 <div class="example">
-<p>Example 127: Include the <code>Product</code>’s media stream along with other properties of the product</p>
+<p>Example 127: Include the Product’s media stream along with other properties of the product</p>
 <pre><code>http://host/service/Products?$expand=$value</code></pre>
 </div>
 <h3 id="514-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></h3>
@@ -1987,7 +1987,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
-<p>TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), …?</p>
+<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
+
 <hr />
 <h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 <h2 id="c1-participants"><a name="Participants" href="#Participants">C.1 Participants</a></h2>
