@@ -1234,8 +1234,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="85-referential-constraint"><a name="ReferentialConstraint" href="#ReferentialConstraint">8.5 Referential Constraint</a></h2>
 <p>A single-valued navigation property MAY define one or more referential constraints. A referential constraint asserts that the <em>dependent property</em> (the property defined on the structured type declaring the navigation property) MUST have the same value as the <em>principal property</em> (the referenced property declared on the entity type that is the target of the navigation).</p>
 <p>The type of the dependent property MUST match the type of the principal property, or both types MUST be complex types.</p>
-<p>If the principle property references an entity, then the dependent property must reference the same entity.</p>
-<p>If the principle property's value is a complex type instance, then the dependent property's value must be a complex type instance with the same properties, each with the same values.</p>
+<p>If the principal property references an entity, then the dependent property must reference the same entity.</p>
+<p>If the principal property's value is a complex type instance, then the dependent property's value must be a complex type instance with the same properties, each with the same values.</p>
 <p>If the navigation property on which the referential constraint is defined is nullable, or the principal property is nullable, then the dependent property MUST also be nullable. If both the navigation property and the principal property are not nullable, then the dependent property MUST NOT be nullable.</p>
 <div class="varxml rep">
 <h3 id="element-edmreferentialconstraint"><a name="ElementedmReferentialConstraint.14" href="#ElementedmReferentialConstraint.14">Element <code>edm:ReferentialConstraint</code></a></h3>
