@@ -4291,7 +4291,7 @@ principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
 there is no such entity, the update fails.
 
-Updating a principle property that is tied to a dependent entity through
+Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
 property.
 

@@ -1977,10 +1977,10 @@ the target of the navigation).
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.
 
-If the principle property references an entity, then the dependent
+If the principal property references an entity, then the dependent
 property must reference the same entity.
 
-If the principle property's value is a complex type instance, then the
+If the principal property's value is a complex type instance, then the
 dependent property's value must be a complex type instance with the same
 properties, each with the same values.
 
