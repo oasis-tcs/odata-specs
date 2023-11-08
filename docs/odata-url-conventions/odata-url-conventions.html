@@ -474,17 +474,17 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <p>The basic rules for addressing a collection (of entities), a single entity within a collection, a singleton, as well as a property of an entity are covered in the <code>resourcePath</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Below is a (non-normative) snippet from <a href="#ODataABNF">OData-ABNF</a>:</p>
 <pre><code>resourcePath = entitySetName                  [collectionNavigation]
-             / singleton                      [singleNavigation]
+             / singletonEntity                [singleNavigation]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]
              / complexColFunctionImportCall   [ collectionPath ]
              / complexFunctionImportCall      [ complexPath ]
              / primitiveColFunctionImportCall [ collectionPath ]
-             / primitiveFunctionImportCall    [ singlePath ]
-             / functionImportCallNoParens
-             / crossjoin
-             / &#39;$all&#39;                         [ &quot;/&quot; qualifiedEntityTypeName ]</code></pre>
+             / primitiveFunctionImportCall    [ primitivePath ]
+             / functionImportCallNoParens     [ querySegment ]
+             / crossjoin                      [ querySegment ]
+             / %s&quot;$all&quot;                       [ &quot;/&quot; optionallyQualifiedEntityTypeName ]</code></pre>
 <p>Since OData has a uniform composable URL syntax and associated rules there are many ways to address a collection of entities, including, but not limited to:</p>
 <ul>
 <li>Via an entity set (see rule <code>entitySetName</code> in <a href="#ODataABNF">OData-ABNF</a>)</li>
@@ -495,7 +495,7 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 </div>
 <ul>
 <li>By navigating a collection-valued navigation property (see rule: <code>entityColNavigationProperty</code>)</li>
-<li>By invoking a function that returns a collection of entities (see rule: <code>entityColFunctionCall</code>)</li>
+<li>By invoking a function import that returns a collection of entities (see rule: <code>entityColFunctionImportCall</code>)</li>
 </ul>
 <div class="example">
 <p>Example 9: function with parameters in resource path</p>
@@ -506,13 +506,13 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <pre><code>http://host/service/ProductsByColor(color=@color)?@color=&#39;red&#39;</code></pre>
 </div>
 <ul>
-<li>By invoking an action that returns a collection of entities (see rule: <code>actionCall</code>)</li>
+<li>By invoking an action import that returns a collection of entities (see rule: <code>actionImportCall</code>)</li>
 </ul>
 <p>Likewise there are many ways to address a single entity.</p>
 <p>Sometimes a single entity can be accessed directly, for example by:</p>
 <ul>
-<li>Invoking a function that returns a single entity (see rule: <code>entityFunctionCall</code>)</li>
-<li>Invoking an action that returns a single entity (see rule: <code>actionCall</code>)</li>
+<li>Invoking a function import that returns a single entity (see rule: <code>entityFunctionImportCall</code>)</li>
+<li>Invoking an action import that returns a single entity (see rule: <code>actionImportCall</code>)</li>
 <li>Addressing a singleton</li>
 </ul>
 <div class="example">
