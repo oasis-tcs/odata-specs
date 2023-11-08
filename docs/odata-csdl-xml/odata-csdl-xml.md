@@ -624,7 +624,7 @@ see [OData-VocMeasures](#ODataVocMeasures).
 The value of `Precision` is a number.
 
 If not specified for a decimal value, the decimal value has
-arbitrary precision.
+unspecified precision.
 
 If not specified for a temporal value, the temporal value has a
 precision of zero.
