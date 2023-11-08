@@ -28,7 +28,18 @@ Documents are generated from Markdown sources using Node.js modules described [h
 3. Download and install [git](https://git-scm.com/), verify via `git -v`
 4. Optionally download and install [GitHub Desktop](https://desktop.github.com/)
 5. Clone this repository
-6. In the local repository folder run `npm install`, verify via `npm test`
+6. In the local repository folder run `npm install`, verify via `npm test`  
+   Repeat this step if the test fails with an error message like the following after upgrading to a new Chrome version:
+   ```
+     1 failing
+   
+     1) OASIS doc build
+          Puppeteer:
+        Error: Could not find Chrome (ver. 116.0.5845.96). This can occur if either
+    1. you did not perform an installation before running the script (e.g. `npm install`) or
+    2. your cache path is incorrectly configured (which is: C:\Users\D024504\.cache\puppeteer).
+   For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
+   ```
 
 ### Document preparation
 
@@ -42,3 +53,9 @@ Documents are generated from Markdown sources using Node.js modules described [h
 
 - `npm run pdf` converts the HTML files to PDF
   - This is only necessary for publication to the [OASIS Library](https://www.oasis-open.org/standards/)
+
+## Published documents
+
+Title|Stage|Files|Published at
+-----|-----|-----|------------
+OData Extension for Data Aggregation Version 4.0|Committee Specification 03|[Specification](https://github.com/oasis-tcs/odata-specs/tree/odata-data-aggregation-ext/V4.0_CS03/docs/odata-data-aggregation-ext) [Vocabulary](https://github.com/oasis-tcs/odata-vocabularies/tree/odata-data-aggregation-ext/V4.0_CS03/vocabularies) [ABNF](https://github.com/oasis-tcs/odata-abnf/tree/odata-data-aggregation-ext/V4.0_CS03/abnf)|[OASIS](https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/)

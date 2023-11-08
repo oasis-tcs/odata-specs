@@ -116,7 +116,7 @@ have changed, and MAY include additional properties.
 
 If a property of an entity is dependent upon the property of another
 entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principle
+change to the dependent property as well as the change to the principal
 property or [added](#AddedLink)/[deleted link](#DeletedLink)
 corresponding to the change to the dependent property are returned in
 the delta response.
@@ -313,7 +313,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id,` if present, MUST immediately follow the control
+  `id`, if present, MUST immediately follow the control
   information
   [`removed`](#ControlInformationremovedodataremoved).
 
