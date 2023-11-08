@@ -5376,7 +5376,7 @@ Example 90:
   </edmx:Reference>
   <edmx:DataServices>
     <Schema Namespace="ODataDemo">
-      <EntityType Name="Product" HasStream="true">
+      <EntityType Name="Product">
         <Key>
           <PropertyRef Name="ID" />
         </Key>

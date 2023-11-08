@@ -5574,7 +5574,6 @@ Example 90:
     "@Core.DefaultNamespace": true,
     "Product": {
       "$Kind": "EntityType",
-      "$HasStream": true,
       "$Key": [
         "ID"
       ],
