@@ -5632,13 +5632,13 @@ _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
+https://www.rfc-editor.org/info/rfc6570.
 
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
+https://www.rfc-editor.org/info/rfc8174.
 
 
 ###### <a name="XML-11">[XML-1.1]</a>

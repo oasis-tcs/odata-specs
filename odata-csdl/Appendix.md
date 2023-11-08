@@ -85,23 +85,23 @@ _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
+https://www.rfc-editor.org/info/rfc6570.
 
 : varjson
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
+_The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
+https://www.rfc-editor.org/info/rfc7493.
 :
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
+https://www.rfc-editor.org/info/rfc8174.
 
 : varjson
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.  
+https://www.rfc-editor.org/info/rfc8259.
 :
 
 : varxml
