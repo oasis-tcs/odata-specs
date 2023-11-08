@@ -62,7 +62,7 @@ The Open Data Protocol (OData) enables the creation of REST-based data services,
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -303,7 +303,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-v4.02-csd01-part2-url-conventions.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -838,7 +838,7 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example 27: key predicate of related entity - no key segments for key
+Example 27: key predicate of related entity --- no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
@@ -1190,7 +1190,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 41: red products that cost less than 10  -- combining path
+Example 41: red products that cost less than 10  --- combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -1198,7 +1198,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example 42: red products that cost less than 10 -- combine two path
+Example 42: red products that cost less than 10 --- combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -1644,49 +1644,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 50: all products with a `Name` equal to 'Milk'
+Example 50: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 51: all products with a `Name` not equal to 'Milk'
+Example 51: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example 52: all products with a Name greater than 'Milk':
+Example 52: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example 53: all products with a Name greater than or equal to 'Milk':
+Example 53: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example 54: all products with a Name less than 'Milk':
+Example 54: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example 55: all products with a Name less than or equal to 'Milk':
+Example 55: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'`
 ```
 :::
 
 ::: example
-Example 56: all products with the Name 'Milk' that also have a Price
+Example 56: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -1694,15 +1694,15 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example 57: all products that either have the Name 'Milk' or have a
-Price less than 2.55:
+Example 57: all products that either have a `Name` equal to `Milk` or have a
+`Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 ```
 :::
 
 ::: example
-Example 58: all products that do not have a Name that ends with 'ilk':
+Example 58: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
@@ -1716,7 +1716,7 @@ http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 :::
 
 ::: example
-Example 60: all products whose `name` value is 'Milk' or 'Cheese':
+Example 60: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -1980,7 +1980,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example 70: all customers with a `CompanyName` that contains `'Alfreds'`
+Example 70: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -2012,7 +2012,7 @@ function is invoked.
 
 ::: example
 Example 71: all customers with a `CompanyName` that ends with
-`'Futterkiste'`
+`Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
@@ -2043,7 +2043,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example 72: all customers with a `CompanyName` containing '`lfreds'`
+Example 72: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -2101,7 +2101,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example 74: all customers with a `CompanyName` that starts with `'Alfr'`
+Example 74: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -2155,7 +2155,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example 75: all customers with a `CompanyName` of `'lfreds Futterkiste'`
+Example 75: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -2163,8 +2163,8 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example 76: all customers with a `CompanyName` that has '`lf' `as the
-second and third characters, e.g, '`Alfreds Futterkiste`'
+Example 76: all customers with a `CompanyName` that has `lf` as the
+second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
@@ -2285,7 +2285,7 @@ function is invoked.
 
 ::: example
 Example 82: all customers with a `CompanyName` that equals
-`'alfreds futterkiste'` once any uppercase characters have been
+`alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
 http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
@@ -2307,7 +2307,7 @@ function is invoked.
 
 ::: example
 Example 83: all customers with a `CompanyName` that equals
-`'ALFREDS FUTTERKISTE'` once any lowercase characters have been
+`ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
 http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
@@ -2799,8 +2799,8 @@ expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression --- the condition --- MUST be a Boolean
+expression, and the second expression --- the result --- may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -3458,7 +3458,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example 127: Include the `Product`'s media stream along with other
+Example 127: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -3856,7 +3856,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example 139: JSON array of strings as parameter alias value -- note that
+Example 139: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
@@ -3935,7 +3935,7 @@ _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
 
 -------
 

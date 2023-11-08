@@ -62,7 +62,7 @@ The Open Data Protocol (OData) enables the creation of REST-based data services,
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -376,7 +376,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-v4.02-csd01-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -901,7 +901,7 @@ or [stream property](#ManagingStreamProperties), in which case the
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
 in OData and SHOULD NOT expect that such format parameters can be
-ignored. Custom format parameters MUST NOT start with "odata" and
+ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
@@ -1366,7 +1366,7 @@ Prefer: include-annotations="-*"
 
 ::: example
 Example 5: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) be returned
+under the `display` namespace (recursively) be returned
 ```
 Prefer: include-annotations="display.*"
 ```
@@ -1382,8 +1382,8 @@ Prefer: include-annotations="display.subject"
 
 ::: example
 Example 7: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) with the qualifier
-"tablet" be returned
+under the `display` namespace (recursively) with the qualifier
+`tablet` be returned
 ```
 Prefer: include-annotations="display.*#tablet"
 ```
@@ -2268,7 +2268,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 20: resource URL and corresponding context URL - select and
+Example 20: resource URL and corresponding context URL --- select and
 expand
 ```
 http://host/service/Customers?$select=Name&$expand=Address/Country
@@ -2277,7 +2277,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL -- expand `$ref`
+Example 21: resource URL and corresponding context URL --- expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2285,7 +2285,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL -- expand with
+Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2655,7 +2655,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)
@@ -2730,7 +2730,7 @@ property referencing a media entity whose value is null returns
 ### <a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with "/" and
+the property URL. The property URL is the entity read URL with `/` and
 the property name appended.
 
 For complex typed properties, the path can be further extended with the
@@ -3224,7 +3224,7 @@ specified parameter alias.
 
 ::: example
 Example 48: returns all employees whose Region property matches the
-string parameter value "WA"
+string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
@@ -3426,7 +3426,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example 58: return all Products that match the search term "bike"
+Example 58: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -3435,7 +3435,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example 59: return all Products that match the phrase "mountain bike"
+Example 59: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -3445,7 +3445,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example 60: return all Products that do not match "clothing"
+Example 60: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -3456,8 +3456,8 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example 61: return all Products that match both "mountain" and
-"bike"
+Example 61: return all Products that match both `mountain` and
+`bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
 ```
@@ -3467,8 +3467,8 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example 62: return all Products that match either "mountain" or
-"bike"
+Example 62: return all Products that match `mountain` or
+`bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
 ```
@@ -3478,8 +3478,8 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example 63: return all Products that match either "mountain" or
-"bike" and do not match clothing
+Example 63: return all Products that match `mountain` or
+`bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
@@ -5237,7 +5237,7 @@ particular instance by setting its value to null.
 
 ::: example
 Example 92: the `SampleEntities.MostRecentOrder` function is not
-available for customer 'ALFKI'
+available for customer `ALFKI`
 ```json
 {
   "@context": ...,
@@ -5364,8 +5364,8 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 95: return all `Customers` whose City property returns
-"Western" when passed to the `Sales.SalesRegion` function
+Example 95: return all Customers whose `City` property returns
+`Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
@@ -5531,7 +5531,7 @@ collection response.
 
 ::: example
 Example 98: invoke the `SampleEntities.CreateOrder` action using
-`/Customers('ALFKI') `as the customer (or binding parameter). The values
+`Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
@@ -5867,8 +5867,8 @@ need not be percent-encoded.
 
 Each body part that represents a single request MUST NOT include:
 
--   `authentication` or `authorization` related HTTP headers
--   `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
+- `authentication` or `authorization` related HTTP headers
+- `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
 
 Processors of batch requests MAY choose to disallow additional HTTP
 constructs in HTTP requests serialized within body parts. For example, a

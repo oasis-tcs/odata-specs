@@ -58,7 +58,7 @@ The Open Data Protocol (OData) for representing and interacting with structured 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -239,7 +239,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-json-format-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -1714,7 +1714,7 @@ Example 22: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -2120,11 +2120,11 @@ or deleted links.
 Example 33: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
-  2. Order 10643 was removed from customer 'ALFKI'
-  3. Order 10645 was added to customer 'BOTTM'
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Order 10643 was removed from customer `ALFKI`
+  3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
-  5. Customer 'ANTON' was deleted
+  5. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2232,12 +2232,12 @@ links](#DeletedLink).
 Example 34: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':
-     1. `ContactName` was changed to "Susan Halvenstern"
+  1. Customer `BOTTM`:
+     1. `ContactName` was changed to `Susan Halvenstern`
      2. Order 10645 was added
-  2. Customer 'ALFKI':
+  2. Customer `ALFKI`:
      1. Order 10643 was removed
-  3. Customer 'ANTON' was deleted
+  3. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2325,10 +2325,10 @@ In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
-- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+- Control information [`context`](#ControlInformationcontextodatacontext) --- The context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
-- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+- `id` --- The [id](#ControlInformationidodataid) of the deleted entity
   (same as the [id](#ControlInformationidodataid)
   returned or computed when calling GET on resource), which may be
   absolute or [relative](#RelativeURLs)
@@ -2338,12 +2338,12 @@ following optional property, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
 [annotations](#InstanceAnnotations):
 
-- `reason` - either `deleted`, if the entity was deleted (destroyed),
+- `reason` --- either `deleted`, if the entity was deleted (destroyed),
   or `changed` if the entity was removed from membership in the
   result (i.e., due to a data change).
 
 ::: example
-Example 36: deleted entity in OData 4.0 response - note that `id` is
+Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -2438,13 +2438,13 @@ The link object MUST include the following properties, regardless of the specifi
   the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity,
+- `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
 ## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
@@ -2462,16 +2462,16 @@ path in the initial request, unless either of the following is true:
   `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+- [`context`](#ControlInformationcontextodatacontext) --- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity for
+- `target` --- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
 [relative](#RelativeURLs). For delta payloads
 that do not specify an `OData-Version` header value of `4.0`,
@@ -2492,16 +2492,16 @@ entities, as well as [added](#AddedLink) or
 ::: example
 Example 39: 4.01 delta response customers with expanded orders represented
 inline as a delta
-  1. Add customer 'EASTC'
-  2. Change `ContactName` of customer 'AROUT'
-  3. Delete customer 'ANTON'
-  4. Change customer 'ALFKI':
+  1. Add customer `EASTC`
+  2. Change `ContactName` of customer `AROUT`
+  3. Delete customer `ANTON`
+  4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
      3. Change `ShippedDate` of related order 10835
      4. Delete link to order 10643
-  5. Add link between customer 'ANATR' and order 10643
-  6. Delete link between customer 'DUMON' and order 10311
+  5. Add link between customer `ANATR` and order 10643
+  6. Delete link between customer `DUMON` and order 10311
 ```json
 {
   "@context": "#$delta",
