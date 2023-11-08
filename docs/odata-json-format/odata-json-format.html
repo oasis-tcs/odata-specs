@@ -517,6 +517,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The special floating-point values <code>-INF</code>, <code>INF</code>, and <code>NaN </code>are serialized as strings and MUST have a <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information to specify the numeric type of the property.</li>
 <li>String values do have a first class representation in JSON, but there is an obvious collision: OData also encodes a number of other primitive types as strings, e.g. <code>DateTimeOffset</code>, <code>Int64</code> in the presence of the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter etc. If a property appears in JSON string format, it should be treated as a string value unless the property is known (from the metadata document) to have a different type.</li>
 </ul>
+<p>The <code>type</code> control information can be absent in properties nested in an instance of type <code>Edm.Untyped</code>. In particular, individual primitive values within a collection cannot have <code>type</code> control information.</p>
 <p>For more information on namespace- and alias-qualified names, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>.</p>
 <div class="example">
 <p>Example 5: entity of type <code>Model.VipCustomer</code> defined in the metadata document of the same service with a dynamic property of type <code>Edm.Date</code></p>
@@ -801,6 +802,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+<p>A collection of primitive values that occurs in a property of type <code>Edm.Untyped</code> is interpreted as a collection of <code>Edm.Boolean</code>, <code>Edm.String</code>, and <code>Edm.Decimal</code> values, depending on the JavaScript type.</p>
 <h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
 <p>A collection of complex values is represented as a JSON array; each element in the array is the representation of a <a href="#ComplexValue">complex value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
 <div class="example">
