@@ -23,7 +23,7 @@ or [stream property](#ManagingStreamProperties), in which case the
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
 in OData and SHOULD NOT expect that such format parameters can be
-ignored. Custom format parameters MUST NOT start with "odata" and
+ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
@@ -167,7 +167,7 @@ As defined in [RFC7232](#rfc7232), a client MAY include an
 value previously retrieved for the resource, or `*` to match any value.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency)` `in
+[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
 [`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
@@ -491,7 +491,7 @@ Prefer: include-annotations="-*"
 
 ::: example
 Example ##ex: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) be returned
+under the `display` namespace (recursively) be returned
 ```
 Prefer: include-annotations="display.*"
 ```
@@ -507,8 +507,8 @@ Prefer: include-annotations="display.subject"
 
 ::: example
 Example ##ex: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) with the qualifier
-"tablet" be returned
+under the `display` namespace (recursively) with the qualifier
+`tablet` be returned
 ```
 Prefer: include-annotations="display.*#tablet"
 ```
@@ -642,7 +642,7 @@ A preference of `return=minimal` requests that the service invoke the
 request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
-include a [`Preference-Applied`](#HeaderPreferenceApplied)` `response
+include a [`Preference-Applied`](#HeaderPreferenceApplied) response
 header containing the `return=minimal `preference.
 
 A preference of `return=representation` requests that the service
@@ -673,7 +673,7 @@ requests within the batch request.
 
 In the case that the service applies the `respond-async` preference it
 MUST include a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `response header
+[`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
@@ -1037,7 +1037,9 @@ include a response body describing the functionality not implemented.
 
 ## ##subsec Error Response Body
 
-The representation of an error response body is format-specific. It
+An error response body can be the result of a failure of OData processing or of the underlying infrastructure.
+An OData-specific error response (which can be recognized by the presence
+of the [`OData-Version`](#HeaderODataVersion) header) is format-specific and
 consists at least of the following information:
 - `code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
