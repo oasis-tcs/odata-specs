@@ -169,7 +169,7 @@ For complete copyright information please see the full Notices section in an App
         - [5.1.1.6.1 `hassubset`](#hassubset)
         - [5.1.1.6.2 `hassubsequence`](#hassubsequence)
       - [5.1.1.7 String Functions](#StringFunctions)
-        - [5.1.1.7.1 `matchesPattern`](#matchesPattern)
+        - [5.1.1.7.1 `matchespattern`](#matchespattern)
         - [5.1.1.7.2 `tolower`](#tolower)
         - [5.1.1.7.3 `toupper`](#toupper)
         - [5.1.1.7.4 `trim`](#trim)
@@ -2247,17 +2247,17 @@ hassubsequence([1,2],[1,1,2])
 
 #### <a name="StringFunctions" href="#StringFunctions">5.1.1.7 String Functions</a>
 
-##### <a name="matchesPattern" href="#matchesPattern">5.1.1.7.1 `matchesPattern`</a>
+##### <a name="matchespattern" href="#matchespattern">5.1.1.7.1 `matchespattern`</a>
 
-The `matchesPattern` function has the following signature:
+The `matchespattern` function has the following signature:
 
 ```
-Edm.Boolean matchesPattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
 [**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
-`matchesPattern` function returns true if the first parameter evaluates
+`matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
 returns false.
@@ -2266,7 +2266,7 @@ returns false.
 Example 81: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
-http://host/service/Customers?$filter=matchesPattern(CompanyName,'%5EA.*e$')
+http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 ```
 :::
 

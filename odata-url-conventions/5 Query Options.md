@@ -853,17 +853,17 @@ hassubsequence([1,2],[1,1,2])
 
 #### ##subsubsubsec String Functions
 
-##### ##subsubsubsubsec `matchesPattern`
+##### ##subsubsubsubsec `matchespattern`
 
-The `matchesPattern` function has the following signature:
+The `matchespattern` function has the following signature:
 
 ```
-Edm.Boolean matchesPattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
 [**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
-`matchesPattern` function returns true if the first parameter evaluates
+`matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
 returns false.
@@ -872,7 +872,7 @@ returns false.
 Example ##ex: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
-http://host/service/Customers?$filter=matchesPattern(CompanyName,'%5EA.*e$')
+http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 ```
 :::
 
