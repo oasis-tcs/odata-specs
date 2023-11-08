@@ -3236,6 +3236,8 @@ The `edm:FunctionImport` element MUST contain the attributes `Name` and
 `Function`, and it MAY contain the attributes `EntitySet` and
 `IncludeInServiceDocument`.
 
+It MAY contain [`edm:Annotation`](#Annotation) elements.
+
 ### <a name="AttributeName29.1" href="#AttributeName29.1"> Attribute `Name`</a>
 
 The value of `Name` is the function import's name.
