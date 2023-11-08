@@ -64,7 +64,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 # Appendix ##asec Safety, Security and Privacy Considerations
 
-TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
 
 -------
 
