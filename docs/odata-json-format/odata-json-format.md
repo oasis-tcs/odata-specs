@@ -688,7 +688,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -1995,7 +1995,7 @@ first name/value pair in the response.
 
 The `count` name/value pair represents the number of entities
 in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
-content-type parameter is set, it MUST come before the
+media type parameter is set, it MUST come before the
 `value` name/value pair. If the response represents a partial
 result, the `count` name/value pair MUST appear in the first
 partial response, and it MAY appear in subsequent partial responses (in
