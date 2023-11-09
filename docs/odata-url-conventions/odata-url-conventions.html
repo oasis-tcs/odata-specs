@@ -840,7 +840,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
-<p>The request body MUST use the content-type <code>text/plain</code>. It contains the query portion of the URL and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options.</p>
+<p>The request body MUST use <code>Content-Type: text/plain</code>. It contains the query portion of the URL and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options.</p>
 <div class="example">
 <p>Example 49: passing a filter condition in the request body</p>
 <pre><code>POST http://host/service/People/$query

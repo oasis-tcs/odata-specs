@@ -923,7 +923,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
 <h2 id="95-in-stream-errors"><a name="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a></h2>
-<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType">content-type</a>. Clients MUST treat the entire response as being in error.</p>
+<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a>. Clients MUST treat the entire response as being in error.</p>
 <p>Services MAY include the header <a href="#HeaderODataError"><code>OData-Error</code></a> as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
 <hr />
 <h1 id="10-context-url"><a name="ContextURL" href="#ContextURL">10 Context URL</a></h1>

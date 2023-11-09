@@ -1380,7 +1380,7 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use the content-type `text/plain`. It contains the
+The request body MUST use `Content-Type: text/plain`. It contains the
 query portion of the URL and MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
