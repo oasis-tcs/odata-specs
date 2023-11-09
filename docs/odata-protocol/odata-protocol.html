@@ -1501,7 +1501,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Null values come before non-null values when sorting in ascending order and after non-null values when sorting in descending order.</p>
 <p>Items are sorted by the result values of the first expression, and then items with the same value for the first expression are sorted by the result value of the second expression, and so on.</p>
 <p>The Boolean value false comes before the value true in ascending order.</p>
-<p>Services SHOULD order language-dependent strings according to the <a href="#HeaderContentLanguage">content-language</a> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services SHOULD order language-dependent strings according to the <a href="#HeaderContentLanguage"><code>Content-Language</code></a> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Values of type <code>Edm.Stream</code> or any of the <code>Geo</code> types cannot be sorted.</p>
 <div class="example">
 <p>Example 50: return all Products ordered by release date in ascending order, then by rating in descending order</p>
