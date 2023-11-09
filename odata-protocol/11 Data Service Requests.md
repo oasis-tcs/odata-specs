@@ -1055,13 +1055,13 @@ If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
 pointing to the related entities. If no entities are related, the
 response is the format-specific representation of an empty collection.
-The response MAY contain an [ETag](#HeaderETag) header for the
+The response MAY contain an [`ETag`](#HeaderETag) header for the
 collection whose value changes if the collection of references changes,
 i.e. a reference is added or removed.
 
 If the resource path identifies a single existing entity, the response
 MUST be the format-specific representation of an entity reference. The
-response MAY contain an [ETag](#HeaderETag) header which represents the
+response MAY contain an [`ETag`](#HeaderETag) header which represents the
 identity of the referenced entity. If the resource path terminates in a
 single-valued navigation path, the ETag value changes if the
 relationship is changed and points to a different OData entity. If the
