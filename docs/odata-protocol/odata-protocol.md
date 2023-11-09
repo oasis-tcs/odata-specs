@@ -912,7 +912,7 @@ parameters within the `Content-Type` header.
 
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
-`Content-Type`). When present, its value indicates what additional
+`Content-Type` header). When present, its value indicates what additional
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
@@ -1008,7 +1008,7 @@ If the media type specified in the `Accept` header does not include a
 contain a `charset` format parameter.
 
 The service SHOULD NOT add any format parameters to the `Content-Type`
-parameter not specified in the `Accept` header.
+header not specified in the `Accept` header.
 
 If the `Accept` header is specified on an individual request within a
 batch, then it specifies the acceptable formats for that individual
@@ -1058,7 +1058,7 @@ occurs as a result of the request.
 
 If present, the request MUST only be processed if the specified ETag
 value matches the current ETag value of the target resource. Services
-sending [`ETag` headers](#HeaderETag) with weak ETags that only depend
+sending [`ETag`](#HeaderETag) headers with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
 overwrites. This is a deviation from [RFC7232](#rfc7232).
@@ -1255,14 +1255,14 @@ If the service applies the `callback` preference it MUST include the
 When the `callback` preference is applied to asynchronous requests, the
 OData service invokes the callback endpoint once it has finished
 processing the request. The status monitor resource, returned in the
-[`Location` header](#HeaderLocation) of the previously returned
+[`Location`](#HeaderLocation) header of the previously returned
 [`202 Accepted`](#ResponseCode202Accepted) response, can then be used to
 retrieve the results of the asynchronously executed request.
 
 When the `callback` preference is specified on a `GET` request to a
 delta link and there are no changes available, the OData service returns
-a [`202 Accepted`](#ResponseCode202Accepted) response with a [`Location`
-header](#HeaderLocation) specifying the delta link to be used to check
+a [`202 Accepted`](#ResponseCode202Accepted) response with a
+[`Location`](#HeaderLocation) header specifying the delta link to be used to check
 for future updates. The OData service then invokes the specified
 callback endpoint once new changes become available.
 
@@ -1736,8 +1736,8 @@ and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
 that the client is asked to wait before retrying the request or issuing
-a request to the resource returned as the value of the [`Location`
-header](#HeaderLocation).
+a request to the resource returned as the value of the
+[`Location`](#HeaderLocation) header.
 
 ### <a name="HeaderVary" href="#HeaderVary">8.3.8 Header `Vary`</a>
 
@@ -1801,8 +1801,9 @@ Requests](#AsynchronousBatchRequests).
 ### <a name="ResponseCode204NoContent" href="#ResponseCode204NoContent">9.1.4 Response Code `204 No Content`</a>
 
 A request returns `204 No Content` if the requested resource has the
-`null` value, or if the service applies a [`return=minimal`
-preference](#Preferencereturnrepresentationandreturnminimal). In this case, the response body MUST be empty.
+`null` value, or if the service applies a
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
+In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
 Request](#DataModification) that responds with
@@ -1824,10 +1825,10 @@ server-side values corresponding to the `ETag` value sent in the
 
 As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
-request. In this case, the response SHOULD include a [`Location`
-header](#HeaderLocation), as appropriate, with the URL from which the
-result can be obtained; it MAY include a [`Retry-After`
-header](#HeaderRetryAfter).
+request. In this case, the response SHOULD include a
+[`Location`](#HeaderLocation) header, as appropriate, with the URL from which the
+result can be obtained; it MAY include a
+[`Retry-After`](#HeaderRetryAfter) header.
 
 ### <a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code `304 Not Modified`</a>
 
@@ -1941,7 +1942,7 @@ concerns around information disclosure.
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
-according to its [content-type](#HeaderContentType). Clients MUST treat
+according to its [`Content-Type`](#HeaderContentType). Clients MUST treat
 the entire response as being in error.
 
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
@@ -2607,7 +2608,7 @@ root URL of the service with `$metadata` appended. To retrieve this
 document the client issues a `GET` request to the metadata document URL.
 
 If a request for metadata does not specify a format preference (via
-[`Accept` header](#HeaderAccept) or
+[`Accept`](#HeaderAccept) header or
 [`$format`](#SystemQueryOptionformat)) then the XML representation MUST
 be returned.
 
@@ -2632,10 +2633,10 @@ the URL has expired, then the service SHOULD respond with
 MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
-format specified by the client, either in the [`Accept`
-header](#HeaderAccept) or using the
+format specified by the client, either in the
+[`Accept`](#HeaderAccept) header or using the
 [`$format`](#SystemQueryOptionformat) query option. If
-the client specifies neither an [`Accept` header](#HeaderAccept) nor the
+the client specifies neither an [`Accept`](#HeaderAccept) header nor the
 [`$format`](#SystemQueryOptionformat) query option, the
 service is allowed to return the response in any format.
 
@@ -3290,7 +3291,7 @@ result value of the second expression, and so on.
 The Boolean value false comes before the value true in ascending order.
 
 Services SHOULD order language-dependent strings according to the
-[content-language](#HeaderContentLanguage) of the response, and SHOULD
+[`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -3582,13 +3583,13 @@ If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
 pointing to the related entities. If no entities are related, the
 response is the format-specific representation of an empty collection.
-The response MAY contain an [ETag header](#HeaderETag) for the
+The response MAY contain an [`ETag`](#HeaderETag) header for the
 collection whose value changes if the collection of references changes,
 i.e. a reference is added or removed.
 
 If the resource path identifies a single existing entity, the response
 MUST be the format-specific representation of an entity reference. The
-response MAY contain an [ETag header](#HeaderETag) which represents the
+response MAY contain an [`ETag`](#HeaderETag) header which represents the
 identity of the referenced entity. If the resource path terminates in a
 single-valued navigation path, the ETag value changes if the
 relationship is changed and points to a different OData entity. If the
@@ -3957,7 +3958,7 @@ must not violate the integrity of the data.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
-the [`return` Prefer header](#Preferencereturnrepresentationandreturnminimal).
+the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 ### <a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
@@ -3989,11 +3990,11 @@ announce this via annotations with the terms
 [OData-VocCap](#ODataVocCap).
 
 If optimistic concurrency control is required for a resource, the
-service MUST include an [ETag header](#HeaderETag) in a response to a
+service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource.
 
-The presence of an [ETag header](#HeaderETag) in a response does not
+The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
 control; the ETag may just be used for caching and/or conditional `GET`
 requests.
@@ -4133,16 +4134,15 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
-Upon successful completion, the response MUST contain a [`Location`
-header](#HeaderLocation) that contains the edit URL or read URL of the
+Upon successful completion, the response MUST contain a
+[`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity.
 
 Upon successful completion the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
-request included a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
+request included a
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
 and [`$expand`](#SystemQueryOptionexpand).
 
@@ -4342,8 +4342,7 @@ Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
 entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
 request that the response SHOULD include a body by specifying a
-[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
@@ -4507,12 +4506,12 @@ that are not tied to key properties of the principal entity, MUST be
 ignored by the service in processing the Upsert request.
 
 To ensure that an update request is not treated as an insert, the client
-MAY specify an [`If-Match` header](#HeaderIfMatch) in the update
+MAY specify an [`If-Match`](#HeaderIfMatch) header in the update
 request. The service MUST NOT treat an update request containing an
 `If-Match` header as an insert.
 
 A `PUT` or `PATCH` request MUST NOT be treated as an update if an
-[`If-None-Match` header](#HeaderIfNoneMatch) is specified with a value
+[`If-None-Match`](#HeaderIfNoneMatch) header is specified with a value
 of `*`.
 
 ### <a name="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a>
@@ -4637,15 +4636,14 @@ OData format supported by the service. It is not possible to set the
 structural properties of the media entity when creating the media
 entity.
 
-Upon successful completion, the response MUST contain [`Location`
-header](#HeaderLocation) that contains the edit URL of the created media
+Upon successful completion, the response MUST contain
+[`Location`](#HeaderLocation) header that contains the edit URL of the created media
 entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
 [`204 No Content`](#ResponseCode204NoContent) if the request included a
-[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
 
@@ -4792,9 +4790,8 @@ property.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4844,9 +4841,8 @@ request body and set all unspecified properties to their default value.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4876,9 +4872,8 @@ supported for collection properties.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated collection, or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -5510,11 +5505,11 @@ negotiation to request the results in the desired format, otherwise the
 default content type will be used.
 
 The client can request whether any results from the action be returned
-using the [`return Prefer` header](#Preferencereturnrepresentationandreturnminimal).
+using the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Actions that create and return a single entity follow the rules for
-[entity creation](#CreateanEntity) and return a [`Location`
-header](#HeaderLocation) that contains the edit URL or read URL of the
+[entity creation](#CreateanEntity) and return a
+[`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity.
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
@@ -5527,7 +5522,7 @@ To request processing of the action only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
 the [`If-Match`](#HeaderIfMatch) header with the latest known ETag value
 for the entity or collection of entities. The ETag value for a
-collection as a whole is transported in the `ETag` header of a
+collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
@@ -5565,7 +5560,7 @@ see [OData-URL](#ODataURL).
 
 ## <a name="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
-A [Prefer](#HeaderPrefer) header with a
+A [`Prefer`](#HeaderPrefer) header with a
 [`respond-async`](#Preferencerespondasync) preference allows clients
 to request that the service process a [Data Service
 Request](#DataServiceRequests) asynchronously.
@@ -5577,18 +5572,18 @@ NOT reply to a [Data Service Request](#DataServiceRequests) with
 `202 Accepted` if the request has not included the `respond-async`
 preference.
 
-Responses that return `202 Accepted` MUST include a [`Location`
-header](#HeaderLocation) pointing to a *status monitor resource* that
+Responses that return `202 Accepted` MUST include a
+[`Location`](#HeaderLocation) header pointing to a *status monitor resource* that
 represents the current state of the asynchronous processing in addition
-to an optional [`Retry-After` header](#HeaderRetryAfter) indicating the
+to an optional [`Retry-After`](#HeaderRetryAfter) header indicating the
 time, in seconds, the client should wait before querying the service for
 status. Services MAY include a response body, for example, to provide
 additional status information.
 
 A `GET` request to the status monitor resource again returns
 `202 Accepted` response if the asynchronous processing has not finished.
-This response MUST again include a [`Location` header](#HeaderLocation)
-and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a subsequent request. The
+This response MUST again include a [`Location`](#HeaderLocation) header
+and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a subsequent request. The
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
@@ -5611,7 +5606,7 @@ asynchronous processing be canceled. A `200 OK` or a
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
-use the returned [`Location` header](#HeaderLocation) (which MUST be
+use the returned [`Location`](#HeaderLocation) header (which MUST be
 different from the status monitor resource of the initial request) to
 query for the status of the cancellation. If a delete request is not
 supported by the service, the service returns

@@ -1380,7 +1380,7 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use the content-type `text/plain`. It contains the
+The request body MUST use `Content-Type: text/plain`. It contains the
 query portion of the URL and MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.
@@ -1559,7 +1559,7 @@ greater than `-INF`.
 The Boolean value `true` is greater than `false`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -1584,7 +1584,7 @@ than `INF`.
 The Boolean value `false` is less than `true`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
