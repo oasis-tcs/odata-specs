@@ -4343,8 +4343,7 @@ Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
 entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
 request that the response SHOULD include a body by specifying a
-[`Prefer`](#Preferencereturnrepresentationandreturnminimal) header with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
@@ -4645,8 +4644,7 @@ entity.
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
 [`204 No Content`](#ResponseCode204NoContent) if the request included a
-[`Prefer`](#Preferencereturnrepresentationandreturnminimal) header with a value of
-[`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
 
@@ -4794,8 +4792,7 @@ Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a
-[Prefer](#Preferencereturnrepresentationandreturnminimal) header with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4846,8 +4843,7 @@ Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a
-[Prefer](#Preferencereturnrepresentationandreturnminimal) header with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4878,8 +4874,7 @@ Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated collection, or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
 that the response SHOULD include a body by specifying a
-[Prefer](#Preferencereturnrepresentationandreturnminimal) header with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
