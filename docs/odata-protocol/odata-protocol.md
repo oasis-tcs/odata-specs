@@ -3959,6 +3959,8 @@ must not violate the integrity of the data.
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
 the [`return` Prefer header](#Preferencereturnrepresentationandreturnminimal).
+A [success response](#SuccessResponses) indicates that data have been modified,
+even if the requested content could not be returned.
 
 ### <a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 

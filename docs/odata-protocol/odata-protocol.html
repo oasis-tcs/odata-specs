@@ -1711,7 +1711,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="114-data-modification"><a name="DataModification" href="#DataModification">11.4 Data Modification</a></h2>
 <p>Updatable OData services support Create, Update, and Delete operations for some or all exposed entities. Additionally, <a href="#Actions">Actions</a> supported by a service can affect the state of the system.</p>
 <p>A successfully completed <a href="#DataModification">Data Modification Request</a> must not violate the integrity of the data.</p>
-<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code> Prefer header</a>.</p>
+<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code> Prefer header</a>. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, even if the requested content could not be returned.</p>
 <h3 id="1141-common-data-modification-semantics"><a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a></h3>
 <p><a href="#DataModification">Data Modification Requests</a> share the following semantics.</p>
 <h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a name="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
