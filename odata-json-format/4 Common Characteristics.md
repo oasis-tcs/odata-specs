@@ -15,7 +15,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -153,7 +153,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -294,6 +294,8 @@ following is true:
 - The type is for a property whose type is not declared in
   `$metadata`.
 
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
+
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
 information:
@@ -317,6 +319,9 @@ information:
   should be treated as a string value unless the property is known (from
   the metadata document) to have a different type.
 
+The `type` control information can be absent in properties nested in an instance of type `Edm.Untyped`.
+In particular, individual primitive values within a collection cannot have `type` control information.
+
 For more information on namespace- and alias-qualified names, see
 [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL).
@@ -339,10 +344,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example ##ex: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example ##ex: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -531,7 +534,7 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL) or if
+in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
