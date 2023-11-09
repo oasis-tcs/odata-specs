@@ -1559,7 +1559,7 @@ greater than `-INF`.
 The Boolean value `true` is greater than `false`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -1584,7 +1584,7 @@ than `INF`.
 The Boolean value `false` is less than `true`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
