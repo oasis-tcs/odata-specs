@@ -1656,6 +1656,7 @@ Example ##ex: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
