@@ -1067,7 +1067,7 @@ concerns around information disclosure.
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
-according to its [content-type](#HeaderContentType). Clients MUST treat
+according to its [`Content-Type`](#HeaderContentType). Clients MUST treat
 the entire response as being in error.
 
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
