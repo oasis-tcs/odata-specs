@@ -346,7 +346,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 11.4](#DataModification)| Response code 2xx after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3959,7 +3959,7 @@ must not violate the integrity of the data.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
-the [`Prefer: return` header](#Preferencereturnrepresentationandreturnminimal).
+the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 A [success response](#SuccessResponses) indicates that data have been modified,
 regardless of whether the requested content could be returned.
 
@@ -4140,7 +4140,7 @@ default value, null, or an empty collection, respectively.
 Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
-request included a [`Prefer` header](#Preferencereturnrepresentationandreturnminimal)
+request included a [`Prefer`](#Preferencereturnrepresentationandreturnminimal) header
 with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
@@ -4348,7 +4348,7 @@ Upon successful completion of the update, the service responds with either
 entity, or [`204 No Content`](#ResponseCode204NoContent).
 The client may
 request that the response SHOULD include a body by specifying a
-[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
+[`Prefer`](#Preferencereturnrepresentationandreturnminimal) header with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or

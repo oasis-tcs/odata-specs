@@ -27,7 +27,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##DataModification]| 
-Response code 2xx after successful data modification if requested response could not be constructed| 
+Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 
 ## ##subsec Glossary
