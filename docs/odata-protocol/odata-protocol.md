@@ -4134,18 +4134,18 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
-Upon successful completion, the response MUST contain a [`Location`
-header](#HeaderLocation) that contains the edit URL or read URL of the
-created entity.
-
-Upon successful completion the service MUST respond with either
+Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
-request included a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
+request included a [Prefer header](#Preferencereturnrepresentationandreturnminimal)
+with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
-and [`$expand`](#SystemQueryOptionexpand).
+and [`$expand`](#SystemQueryOptionexpand), or if a representation of the created
+entity could not be constructed. In either case, the response MUST contain a
+[`Location` header](#HeaderLocation) that contains the edit URL or read URL of the
+created entity. If the service could not even construct the edit URL or read URL
+of the created entity, it SHOULD still respond with `204 No Content`.
 
 #### <a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
@@ -4339,9 +4339,10 @@ previous request SHOULD NOT be sent in the request body. The service
 MUST fail if it is unable to persist all updatable property values
 specified in the request.
 
-Upon successful completion the service responds with either
+Upon successful completion of the update, the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
-entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
+entity, or [`204 No Content`](#ResponseCode204NoContent).
+The client may
 request that the response SHOULD include a body by specifying a
 [`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
@@ -4349,7 +4350,8 @@ specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
 optimistic concurrency control, the entities in the response MUST
-include ETags.
+include ETags. If a representation of the updated entity could not be constructed,
+the service can ignore this preference and respond with `204 No Content`.
 
 #### <a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
