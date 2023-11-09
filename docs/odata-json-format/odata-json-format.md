@@ -58,7 +58,7 @@ The Open Data Protocol (OData) for representing and interacting with structured 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -239,7 +239,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-json-format-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -551,7 +551,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -688,7 +688,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -829,6 +829,8 @@ following is true:
 - The type is for a property whose type is not declared in
   `$metadata`.
 
+It MAY appear in other cases in requests and responses if its value does not contradict the type declared in `$metadata`.
+
 The following heuristics are used to determine the primitive type of a
 dynamic property in the absence of the `type` control
 information:
@@ -852,6 +854,9 @@ information:
   should be treated as a string value unless the property is known (from
   the metadata document) to have a different type.
 
+The `type` control information can be absent in properties nested in an instance of type `Edm.Untyped`.
+In particular, individual primitive values within a collection cannot have `type` control information.
+
 For more information on namespace- and alias-qualified names, see
 [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL).
@@ -874,10 +879,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example 6: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example 6: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -1066,7 +1069,7 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL) or if
+in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
@@ -1275,7 +1278,7 @@ represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select`
+_System Query Option_ `$select` in
 [OData-Protocol](#ODataProtocol)), or a partial entity update (see
 _Update an Entity_ in [OData-Protocol](#ODataProtocol)).
 
@@ -1337,17 +1340,17 @@ Example 11: entity with `metadata=full`
 # <a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a>
 
 A property within an entity or complex type instance is represented as a
-name/value pair. The name MUST be the name of the property; the value is
+name/value pair. The name MUST be the name of the property; a non-null value is
 represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
+
+Null values are represented as the JSON literal `null`.
 
 ## <a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a>
 
 Primitive values are represented following the rules of
 [RFC8259](#rfc8259).
-
-Null values are represented as the JSON literal `null`.
 
 Values of type `Edm.Boolean` are represented as the JSON
 literals `true` and `false`
@@ -1476,6 +1479,10 @@ Example 14: partial collection of strings with next link
 }
 ```
 :::
+
+A collection of primitive values that occurs in a property of type `Edm.Untyped`
+is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
+depending on the JavaScript type.
 
 ## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
 
@@ -1714,7 +1721,7 @@ Example 22: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -1791,18 +1798,23 @@ An entity or complex type instance can have one or more stream properties.
 
 The actual stream data is not usually contained in the representation.
 Instead stream property data is generally read and edited via URLs.
+- Stream properties requested with `$select` or included in the default selection are represented by
+[`media*`](#ControlInformationmediaodatamedia) control information.
+- Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
+
+See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
-link, media type, and ETag of the media stream through a set of
-[`media*`](#ControlInformationmediaodatamedia) control information.
+link, media type, and ETag of the media stream through their `media*` control information.
 
 If the actual stream data is included inline, the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 MUST be present to indicate how the included stream property value is
 represented. Stream property values of media type `application/json` or
 one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of top-level type `text`, for example
+as native JSON. Values of top-level type `text` with an explicit or
+default `charset` of `utf-8` or `us-ascii`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. Included stream data of other media types is
 represented as a base64url-encoded string value, see
@@ -1983,7 +1995,7 @@ first name/value pair in the response.
 
 The `count` name/value pair represents the number of entities
 in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
-content-type parameter is set, it MUST come before the
+media type parameter is set, it MUST come before the
 `value` name/value pair. If the response represents a partial
 result, the `count` name/value pair MUST appear in the first
 partial response, and it MAY appear in subsequent partial responses (in
@@ -2115,11 +2127,11 @@ or deleted links.
 Example 33: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
-  2. Order 10643 was removed from customer 'ALFKI'
-  3. Order 10645 was added to customer 'BOTTM'
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Order 10643 was removed from customer `ALFKI`
+  3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
-  5. Customer 'ANTON' was deleted
+  5. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2181,7 +2193,7 @@ have changed, and MAY include additional properties.
 
 If a property of an entity is dependent upon the property of another
 entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principle
+change to the dependent property as well as the change to the principal
 property or [added](#AddedLink)/[deleted link](#DeletedLink)
 corresponding to the change to the dependent property are returned in
 the delta response.
@@ -2227,12 +2239,12 @@ links](#DeletedLink).
 Example 34: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':
-     1. `ContactName` was changed to "Susan Halvenstern"
+  1. Customer `BOTTM`:
+     1. `ContactName` was changed to `Susan Halvenstern`
      2. Order 10645 was added
-  2. Customer 'ALFKI':
+  2. Customer `ALFKI`:
      1. Order 10643 was removed
-  3. Customer 'ANTON' was deleted
+  3. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2320,10 +2332,10 @@ In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
-- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+- Control information [`context`](#ControlInformationcontextodatacontext) --- The context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
-- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+- `id` --- The [id](#ControlInformationidodataid) of the deleted entity
   (same as the [id](#ControlInformationidodataid)
   returned or computed when calling GET on resource), which may be
   absolute or [relative](#RelativeURLs)
@@ -2333,12 +2345,12 @@ following optional property, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
 [annotations](#InstanceAnnotations):
 
-- `reason` - either `deleted`, if the entity was deleted (destroyed),
+- `reason` --- either `deleted`, if the entity was deleted (destroyed),
   or `changed` if the entity was removed from membership in the
   result (i.e., due to a data change).
 
 ::: example
-Example 36: deleted entity in OData 4.0 response - note that `id` is
+Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -2378,7 +2390,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id,` if present, MUST immediately follow the control
+  `id`, if present, MUST immediately follow the control
   information
   [`removed`](#ControlInformationremovedodataremoved).
 
@@ -2433,13 +2445,13 @@ The link object MUST include the following properties, regardless of the specifi
   the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity,
+- `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
 ## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
@@ -2457,16 +2469,16 @@ path in the initial request, unless either of the following is true:
   `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+- [`context`](#ControlInformationcontextodatacontext) --- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity for
+- `target` --- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
 [relative](#RelativeURLs). For delta payloads
 that do not specify an `OData-Version` header value of `4.0`,
@@ -2487,16 +2499,16 @@ entities, as well as [added](#AddedLink) or
 ::: example
 Example 39: 4.01 delta response customers with expanded orders represented
 inline as a delta
-  1. Add customer 'EASTC'
-  2. Change `ContactName` of customer 'AROUT'
-  3. Delete customer 'ANTON'
-  4. Change customer 'ALFKI':
+  1. Add customer `EASTC`
+  2. Change `ContactName` of customer `AROUT`
+  3. Delete customer `ANTON`
+  4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
      3. Change `ShippedDate` of related order 10835
      4. Delete link to order 10643
-  5. Add link between customer 'ANATR' and order 10643
-  6. Delete link between customer 'DUMON' and order 10311
+  5. Add link between customer `ANATR` and order 10643
+  6. Delete link between customer `DUMON` and order 10311
 ```json
 {
   "@context": "#$delta",
@@ -2866,7 +2878,7 @@ batch request URL, or a relative path (not starting with a forward slash `/`).
 
 If the first segment of a relative path starts with a `$`
 character and is not identical to the name of a top-level system
-resource (`$batch`, `$crossjoin,` `$all,` `$entity`, `$root,`
+resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root`,
 `$id`, `$metadata`, or other system resources
 defined according to the `OData-Version` of the protocol
 specified in the request), then this first segment is replaced with the
@@ -3007,7 +3019,9 @@ Content-Length: ###
 ## <a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a>
 
 The entity returned by a preceding request can be referenced in the
-request URL of subsequent requests.
+request URL of subsequent requests. If the `Location` header in the response
+contains a relative URL, clients MUST be able to resolve it relative to the
+request's URL even if that contains such a reference.
  
 ::: example
 Example 49: a batch request that contains the following operations in
@@ -3727,40 +3741,40 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2119">[RFC2119]</a>
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
+https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
+_Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
+https://www.rfc-editor.org/info/rfc3987.
 
 ###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
+_Josefsson, S., "The Base16, Base32, and Base64 Data Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006_.
+https://www.rfc-editor.org/info/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
+https://www.rfc-editor.org/info/rfc5646.
 
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
+_Bray, T., Ed., "The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.
+https://www.rfc-editor.org/info/rfc7493.
 
 ###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016._
-http://tools.ietf.org/html/rfc7946.
+_Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., and T. Schaub, "The GeoJSON Format", RFC 7946, DOI 10.17487/RFC7946, August 2016_.
+https://www.rfc-editor.org/info/rfc7946.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.
+https://www.rfc-editor.org/info/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
 ###### <a name="ECMAScript">[ECMAScript]</a>

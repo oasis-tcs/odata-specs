@@ -148,10 +148,11 @@ unqualified name of the term and whose value is an object.
 The term object MUST contain the member `$Kind` with a string value of
 `Term`.
 
-It MAY contain the members `$Type`, `$Collection`,
-[`$AppliesTo`](#Applicability), [`$Nullable`](#Nullable),
+It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
+[`$BaseTerm`](#SpecializedTerm),
+[`$AppliesTo`](#Applicability),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
-[`$Scale`](#Scale), [`$SRID`](#SRID), and `$DefaultValue`, as well as
+[`$Scale`](#Scale), and [`$SRID`](#SRID), as well as
 [`$Unicode`](#Unicode) for 4.01 and greater payloads.
 
 It MAY contain [annotations](#Annotation).
@@ -168,6 +169,19 @@ with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
+### ##subisec `$Nullable`
+
+The value of `$Nullable` is one of the Boolean literals `true` or
+`false`. Absence of the member means `false`.
+
+For single-valued terms  the value `true` means that annotations may have
+the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case `$Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
+
 ### ##subisec `$DefaultValue`
 
 The value of `$DefaultValue` is the type-specific JSON representation of
@@ -183,14 +197,12 @@ CSDL JSON documents MUST always specify an explicit value.
 ### ##isec Element `edm:Term`
 
 The `edm:Term` element MUST contain the attributes `Name` and `Type`. It
-MAY contain the attributes `BaseTerm` and `AppliesTo`.
+MAY contain the attributes `Nullable`, `DefaultValue`, [`BaseTerm`](#SpecializedTerm) and [`AppliesTo`](#Applicability).
 
-It MAY specify values for the [`Nullable`](#Nullable),
-[ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
-[`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
-attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
-described in section 7.2.
+The facets [`MaxLength`](#MaxLength),
+[`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
+used as appropriate, as well as the [`Unicode`](#Unicode) facet attribute for
+4.01 and greater payloads.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
 enumeration type MAY define a value for the `DefaultValue` attribute.
@@ -203,12 +215,34 @@ The value of `Name` is the term's name.
 
 ### ##subisec Attribute `Type`
 
-For single-valued properties the value of `Type` is the qualified name
-of the property's type.
+For single-valued terms the value of `Type` is the qualified name
+of the term's type.
 
 For collection-valued properties the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
+
+### ##subisec Attribute `Nullable`
+
+The value of `Nullable` is one of the Boolean literals `true` or
+`false`.
+
+For single-valued terms the value `true` means that annotations may have the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case the `Nullable` attribute
+applies to items of the collection and specifies whether the collection
+MAY contain `null` values.
+
+If no value is specified for a single-valued term, the `Nullable`
+attribute defaults to `true`.
+
+In OData 4.01 responses a collection-valued term MUST specify a
+value for the `Nullable` attribute.
+
+If no value is specified for a collection-valued term, the client
+cannot assume any default value. Clients SHOULD be prepared for this
+situation even in OData 4.01 responses.
 
 ### ##subisec Attribute `DefaultValue`
 
@@ -528,119 +562,117 @@ element.
 
 This external targeting is only possible for model elements that are
 uniquely identified within their parent, and all their ancestor elements
-are uniquely identified within their parent:
-
--   [Action](#Action) (single or all overloads)
--   [Action Import](#ActionImport)
--   [Complex Type](#ComplexType)
--   [Entity Container](#EntityContainer)
--   [Entity Set](#EntitySet)
--   [Entity Type](#EntityType)
--   [Enumeration Type](#EnumerationType)
--   [Enumeration Type Member](#EnumerationTypeMember)
--   [Function](#Function) (single or all overloads)
--   [Function Import](#FunctionImport)
--   [Navigation Property](#NavigationProperty) (via type, entity set, or
-    singleton)
--   [Parameter](#Parameter) of an action or function (single overloads
-    or all overloads defining the
-    parameter)
--   [Property](#StructuralProperty) (via type, entity set, or singleton)
--   [Return Type](#ReturnType) of an action or function (single or all
-    overloads)
--   [Singleton](#Singleton)
--   [Type Definition](#TypeDefinition)
+are uniquely identified within their parent.
 
 These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-External targeting is possible for actions, functions, their parameters,
-and their return type, either in a way that applies to all overloads of
-the action or function or all parameters of that name across all
-overloads, or in a way that identifies a single overload.
+Model element| 
+Can be targeted with path expression (see also [section ##PathSyntax])| 
+<div class="example"><p>Example ##ex: Target expressions</p></div>
+-----|-----|-----
+[Action](#Action) overload| 
+qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| 
+<pre>`MySchema.MyAction(MySchema.MyBindingType)` 
+<br>`MySchema.MyAction(Collection(MySchema.BindingType))` 
+<br>`MySchema.MyAction()`</pre>
+all overloads of an [Action](#Action)| 
+qualified name of action| 
+<pre>`MySchema.MyAction`</pre>
+[Action Import](#ActionImport)| 
+qualified name of entity container followed by a segment containing the action import name| 
+<pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
+[Annotation](#Annotation) on a model element| 
+path expression identifying the model element followed by a segment containing an at (`@`) prepended to the qualified name of a term, optionally suffixed with a hash (`#`) and the qualifier of an annotation| 
+<pre>`MySchema.MyEntityType/@MyVocabulary.MyTerm` 
+<br>`MySchema.MyEntityType/@MyVocabulary.MyTerm#MyQualifier`</pre>
+[Complex Type](#ComplexType)| 
+qualified name of complex type| 
+<pre>`MySchema.MyComplexType`</pre>
+[Entity Container](#EntityContainer)| 
+qualified name of entity container| 
+<pre>`MySchema.MyEntityContainer`</pre>
+[Entity Set](#EntitySet)| 
+qualified name of entity container followed by a segment containing the entity set name| 
+<pre>`MySchema.MyEntityContainer/MyEntitySet`</pre>
+[Entity Type](#EntityType)| 
+qualified name of entity type| 
+<pre>`MySchema.MyEntityType`</pre>
+[Enumeration Type](#EnumerationType)| 
+qualified name of enumeration type| 
+<pre>`MySchema.MyEnumType`</pre>
+[Enumeration Type Member](#EnumerationTypeMember)| 
+qualified name of enumeration type followed by a segment containing the name of a child element| 
+<pre>`MySchema.MyEnumType/MyMember`</pre>
+[Function](#Function) overload| 
+qualified name of function followed by parentheses containing the comma-separated list of the parameter types of a bound or unbound function overload in the order of their definition in the function overload| 
+<pre>`MySchema.MyFunction(MySchema.MyBindingParamType,` 
+<br>`  First.NonBinding.ParamType)` 
+<br>`MySchema.MyFunction(First.NonBinding.ParamType,` 
+<br>`  Second.NonBinding.ParamType)`</pre>
+all overloads of a [Function](#Function)| 
+qualified name of function| 
+<pre>`MySchema.MyFunction`</pre>
+[Function Import](#FunctionImport)| 
+qualified name of entity container followed by a segment containing the function import name| 
+<pre>`MySchema.MyEntityContainer/MyFunctionImport`
+[Navigation Property](#NavigationProperty) via container| 
+qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
+<pre>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyNavigationProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MySchema.MyEntityType/MyNavProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyComplexProperty/MyNavProperty` 
+<br>`MySchema.MyEntityContainer/MySingleton` 
+<br>`  /MyComplexProperty/MyNavProperty`</pre>
+[Navigation Property](#NavigationProperty) via structured type| 
+qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
+<pre>`MySchema.MyEntityType/MyNavigationProperty` 
+<br>`MySchema.MyComplexType/MyNavigationProperty`</pre>
+[Parameter](#Parameter)| 
+qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing a parameter name| 
+<pre>`MySchema.MyEntityContainer/MyFunctionImport/MyParameter`</pre>
+[Parameter](#Parameter)| 
+qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing the name of a child element| 
+<pre>`MySchema.MyFunction/MyParameter`</pre>
+[Property](#StructuralProperty) via container| 
+qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
+<pre>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MyProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MySchema.MyEntityType/MyProperty` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>`  /MyComplexProperty/MyProperty`</pre>
+[Property](#StructuralProperty) via structured type| 
+qualified name of structured type followed by zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
+<pre>`MySchema.MyEntityType/MyProperty` 
+<br>`MySchema.MyComplexType/MyProperty`</pre>
+[Return Type](#ReturnType)| 
+qualified name of entity container followed by a segment containing an action or function import name followed by a segment containing `$ReturnType`| 
+<pre>`MySchema.MyEntityContainer/MyFunctionImport/$ReturnType`</pre>
+[Return Type](#ReturnType)| 
+qualified name of action or function optionally followed by a parenthesized expression as in the first row followed by a segment containing `$ReturnType`| 
+<pre>`MySchema.MyFunction/$ReturnType` 
+<br>`MySchema.MyFunction(MySchema.MyBindingParamType,` 
+<br>`  First.NonBinding.ParamType)/$ReturnType`</pre>
+[Singleton](#Singleton)| 
+qualified name of entity container followed by a segment containing a singleton name| 
+<pre>`MySchema.MyEntityContainer/MySingleton`</pre>
+[Term](#Term)| 
+qualified name of term| 
+<pre>`MySchema.MyTerm`</pre>
+[Type Definition](#TypeDefinition)| 
+qualified name of type definition| 
+<pre>`MySchema.MyTypeDefinition`</pre>
 
-External targeting is also possible for properties and navigation
+All [qualified names](#QualifiedName) used in a target path MUST be in scope.
+
+External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
-
-The allowed path expressions are:
-- [qualified name](#QualifiedName)
-of schema child
-- [qualified
-name](#QualifiedName) of schema child followed by a forward slash and
-name of child element
-- [qualified
-name](#QualifiedName) of structured type followed by zero or more
-property, navigation property, or type-cast segments, each segment
-starting with a forward slash
-- [qualified name](#QualifiedName)
-of an entity container followed by a segment containing a singleton or
-entity set name and zero or more property, navigation property, or
-type-cast segments
-- [qualified
-name](#QualifiedName) of an action followed by parentheses containing
-the [qualified name](#QualifiedName) of the binding parameter *type* of
-a bound action overload to identify that bound overload, or by empty
-parentheses to identify the unbound overload
-- [qualified name](#QualifiedName) of a
-function followed by parentheses containing the comma-separated list of
-[qualified names](#QualifiedName) of the parameter *types* of a bound
-or unbound function overload in the order of their definition in the
-function overload
-- [qualified
-name](#QualifiedName) of an action or function, optionally followed by
-parentheses as described in the two previous bullet points to identify a
-single overload, followed by a forward slash and either a parameter name
-or `$ReturnType`
-- [qualified
-name](#QualifiedName) of an entity container followed by a segment
-containing an action or function import name, optionally followed by a
-forward slash and either a parameter name or `$ReturnType`
-
--   One of the preceding, followed by a forward slash, an at (`@`), the
-    [qualified name](#QualifiedName) of a term, and optionally a hash
-    (`#`) and the qualifier of an
-    annotation
-
-All [qualified names](#QualifiedName) used in a target path MUST be in
-scope.
-
-::: example
-Example ##ex: Target expressions
-```
-MySchema.MyEntityType
-MySchema.MyEntityType/MyProperty
-MySchema.MyEntityType/MyNavigationProperty
-MySchema.MyComplexType
-MySchema.MyComplexType/MyProperty
-MySchema.MyComplexType/MyNavigationProperty
-MySchema.MyEnumType
-MySchema.MyEnumType/MyMember
-MySchema.MyTypeDefinition
-MySchema.MyTerm
-MySchema.MyEntityContainer
-MySchema.MyEntityContainer/MyEntitySet
-MySchema.MyEntityContainer/MySingleton
-MySchema.MyEntityContainer/MyActionImport
-MySchema.MyEntityContainer/MyFunctionImport
-MySchema.MyAction
-MySchema.MyAction(MySchema.MyBindingType)
-MySchema.MyAction()
-MySchema.MyFunction
-MySchema.MyFunction(MySchema.MyBindingParamType,First.NonBinding.ParamType)
-MySchema.MyFunction(First.NonBinding.ParamType,Second.NonBinding.ParamType)
-MySchema.MyFunction/MyParameter
-MySchema.MyEntityContainer/MyEntitySet/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MyNavigationProperty
-MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MySchema.MyEntityType/MyNavProperty
-MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyProperty
-MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavigationProperty
-MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyNavigationProperty
-```
-:::
 
 ## ##subsec Constant Expression
 
@@ -1366,56 +1398,203 @@ Addresses/-1/Street
 
 #### ##subsubsubsec Path Evaluation
 
-Annotations MAY be embedded within their target, or specified
-separately, e.g. as part of a different schema, and specify a path to
-their target model element. The latter situation is referred to as
-*targeting* in the remainder of this section.
+Annotations MAY be embedded within their target, or specified separately,
+e.g. as part of a different schema, and specify a path to their target model
+element. The latter situation is referred to as *targeting* in the remainder of
+this section.
 
-For annotations embedded within or targeting an entity container, the
-path is evaluated starting at the entity container, i.e. an empty path
-resolves to the entity container, and non-empty paths MUST start with a
-segment identifying a container child (entity set, function import,
-action import, or singleton). The subsequent segments follow the rules
-for paths targeting the corresponding child element.
+The *host* of an annotation is the model element targeted by the annotation,
+unless that target is another annotation or a model element (collection,
+record or property value) directly or indirectly embedded within another
+annotation, in which case the host is the host of that other annotation.
 
-For annotations embedded within or targeting an entity set or a
-singleton, the path is evaluated starting at the entity set or
-singleton, i.e. an empty path resolves to the entity set or singleton,
-and non-empty paths MUST follow the rules for annotations targeting the
-declared entity type of the entity set or singleton.
+If the value of an annotation is expressed dynamically with a path
+expression, the path evaluation rules for this expression depend upon the
+model element by which the annotation is hosted.
 
-For annotations embedded within or targeting an entity type or complex
-type, the path is evaluated starting at the type, i.e. an empty path
-resolves to the type, and the first segment of a non-empty path MUST be
-a structural or navigation property of the type, a [type
-cast](#TypeCast), or a [term cast](#TermCast).
+For annotations hosted by an entity container, the path is evaluated starting
+at the entity container, i.e. an empty path resolves to the entity container,
+and non-empty paths MUST start with a segment identifying a container child
+(entity set, function import, action import, or singleton). The subsequent
+segments follow the rules for path expressions targeting the corresponding
+child element.
 
-For annotations embedded within a structural or navigation property of
-an entity type or complex type, the path is evaluated starting at the
-directly enclosing type. This allows e.g. specifying the value of an
-annotation on one property to be calculated from values of other
-properties of the same type. An empty path resolves to the enclosing
-type, and non-empty paths MUST follow the rules for annotations
-targeting the directly enclosing type.
+For annotations hosted by an entity set or a singleton, the path is evaluated
+starting at the entity set or singleton, i.e. an empty path resolves to the
+entity set or singleton, and non-empty paths MUST follow the rules for
+annotations targeting the declared entity type of the entity set or singleton.
 
-For annotations targeting a structural or navigation property of an
-entity type or complex type, the path is evaluated starting at the
-*outermost* entity type or complex type named in the target of the
-annotation, i.e. an empty path resolves to the outermost type, and the
-first segment of a non-empty path MUST be a structural or navigation
-property of the outermost type, a [type cast](#TypeCast), or a [term
-cast](#TermCast).
+For annotations hosted by an entity type or complex type, the path is
+evaluated starting at the type, i.e. an empty path resolves to the type, and
+the first segment of a non-empty path MUST be a structural or navigation
+property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations embedded within or targeting an action, action import,
-function, function import, parameter, or return type, the first segment
-of the path MUST be a parameter name or `$ReturnType`.
+For annotations hosted by an action, action import, function, function
+import, parameter, or return type, the first segment of the path MUST be the
+name of a parameter of the action or function or `$ReturnType`.
+
+For annotations hosted by a structural or navigation property, the path
+evaluation rules additionally depend upon how the annotation target is
+specified, as follows:
+
+1. If the annotation is directly or indirectly embedded within the hosting
+   property, the path is evaluated starting at the directly enclosing type of
+   the hosting property. This allows e.g. specifying the value of an
+   annotation on one property to be calculated from values of other properties
+   of the same enclosing type. An empty path resolves to the enclosing type,
+   and non-empty paths MUST follow the rules for annotations targeting the
+   directly enclosing type.
+
+2. If the annotation uses targeting and the target path starts with an entity
+   container, or the annotation is directly or indirectly embedded within such an
+   annotation, the path is evaluated starting at the declared type of the
+   hosting property. An empty path resolves to the declared type of the
+   property, and non-empty paths MUST follow the rules for annotations
+   targeting the declared type of the property. If the type is primitive, the
+   first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
+   [term cast](#TermCast).
+
+3. If the annotation uses targeting and the target path does not start with
+   an entity container, or the annotation is directly or indirectly embedded
+   within such an annotation, the path is evaluated starting at the *outermost*
+   entity type or complex type named in the target path. This allows e.g.
+   specifying the value of an annotation on one property to be calculated from
+   values of other properties of the outermost type. An empty path resolves to
+   the outermost type, and the first segment of a non-empty path MUST be a
+   structural or navigation property of the outermost type, a [type cast](#TypeCast),
+   or a [term cast](#TermCast).
+
+::: example
+Example ##ex: Annotations hosted by property `A2` in various modes
+
+Path evaluation for the annotations in the first block starts at the directly
+enclosing type `self.A` of the hosting property `A2`.
+:::: varjson
+```json
+"self": {
+  "A": {
+    "$Kind": "EntityType",
+    "A1": {
+      "$Type": "Edm.Boolean"
+    },
+    "A2": {
+      "$Type": "self.B"
+      "@Core.Description@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      },
+      "@Core.Description": "..."
+    }
+  },
+  "B": {
+    "$Kind": "ComplexType",
+    "B1": {
+      "$Type": "Edm.Boolean"
+    }
+  },
+```
+::::
+
+:::: varxml
+```xml
+<Schema Namespace="self">
+  <EntityType Name="A">
+    <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
+    <Property Name="A2" Type="self.B" Nullable="false">
+      <Annotation Term="Core.Description" String="...">
+        <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+      </Annotation>
+    </Property>
+  </EntityType>
+  <ComplexType Name="B">
+    <Property Name="B1" Type="Edm.Boolean" Nullable="false" />
+  </ComplexType>
+```
+::::
+
+Path evaluation for the annotations in the next block starts at the declared
+type `self.B` of the hosting property `A2`.
+:::: varjson
+```json
+  "Container": {
+    "$Kind": "EntityContainer",
+    "SetA": {
+      "$Collection": true,
+      "$Type": "self.A"
+    }
+  },
+  "$Annotations": {
+    "self.Container/SetA/A2": {
+      "@Core.Description#viaset@Core.IsLanguageDependent": {
+        "$Path": "B1"
+      },
+      "@Core.Description#viaset": "..."
+    },
+    "self.Container/SetA/A2/@Core.Description#viaset": {
+      "@Core.IsLanguageDependent": {
+        "$Path": "B1"
+      }
+    },
+```
+::::
+
+:::: varxml
+```xml
+  <EntityContainer Name="Container">
+    <EntitySet Name="SetA" EntityType="self.A" />
+  </EntityContainer>
+  <Annotations Target="self.Container/SetA/A2">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+    <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+  </Annotations>
+```
+::::
+
+Path evaluation for the annotations in the final block starts at the outermost
+type `self.A` named in the target path.
+:::: varjson
+```json
+    "self.A/A2": {
+      "@Core.Description#external@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      },
+      "@Core.Description#external": "..."
+    },
+    "self.A/A2/@Core.Description": {
+      "@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      }
+    }
+  }
+}
+```
+::::
+
+:::: varxml
+```xml
+  <Annotations Target="self.A/A2">
+    <Annotation Term="Core.Description" Qualifier="external" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.A/A2/@Core.Description">
+    <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+  </Annotations>
+</Schema>
+```
+::::
+
+:::
 
 #### ##subsubsubsec Annotation Path
 
 The annotation path expression provides a value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
+`Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
@@ -2193,7 +2372,7 @@ the member name of the enumeration value.
 #### ##subsubsubsec Function `odata.fillUriTemplate`
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be
@@ -2253,6 +2432,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
+It is the counterpart of the identically named URL function [OData-URL, section 5.1.1.7.1](#ODataURL).
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
