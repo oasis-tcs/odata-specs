@@ -62,7 +62,7 @@ The Open Data Protocol (OData) enables the creation of REST-based data services,
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -377,7 +377,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-v4.02-csd01-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -902,7 +902,7 @@ or [stream property](#ManagingStreamProperties), in which case the
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
 in OData and SHOULD NOT expect that such format parameters can be
-ignored. Custom format parameters MUST NOT start with "odata" and
+ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
@@ -1367,7 +1367,7 @@ Prefer: include-annotations="-*"
 
 ::: example
 Example 5: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) be returned
+under the `display` namespace (recursively) be returned
 ```
 Prefer: include-annotations="display.*"
 ```
@@ -1383,8 +1383,8 @@ Prefer: include-annotations="display.subject"
 
 ::: example
 Example 7: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) with the qualifier
-"tablet" be returned
+under the `display` namespace (recursively) with the qualifier
+`tablet` be returned
 ```
 Prefer: include-annotations="display.*#tablet"
 ```
@@ -1912,7 +1912,9 @@ include a response body describing the functionality not implemented.
 
 ## <a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a>
 
-The representation of an error response body is format-specific. It
+An error response body can be the result of a failure of OData processing or of the underlying infrastructure.
+An OData-specific error response (which can be recognized by the presence
+of the [`OData-Version`](#HeaderODataVersion) header) is format-specific and
 consists at least of the following information:
 - `code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
@@ -2269,7 +2271,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 20: resource URL and corresponding context URL - select and
+Example 20: resource URL and corresponding context URL --- select and
 expand
 ```
 http://host/service/Customers?$select=Name&$expand=Address/Country
@@ -2278,7 +2280,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL -- expand `$ref`
+Example 21: resource URL and corresponding context URL --- expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2286,7 +2288,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL -- expand with
+Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2656,7 +2658,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)
@@ -2731,7 +2733,7 @@ property referencing a media entity whose value is null returns
 ### <a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with "/" and
+the property URL. The property URL is the entity read URL with `/` and
 the property name appended.
 
 For complex typed properties, the path can be further extended with the
@@ -3174,7 +3176,7 @@ a `null` literal that can be used in comparisons.
 <tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
 <tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
 <tr><td colspan="2"><strong>String Functions</strong></td></tr>
-<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>matchespattern</code></td><td><pre><code>matchespattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
 <tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
 <tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
 <tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
@@ -3225,7 +3227,7 @@ specified parameter alias.
 
 ::: example
 Example 48: returns all employees whose Region property matches the
-string parameter value "WA"
+string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
@@ -3427,7 +3429,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example 58: return all Products that match the search term "bike"
+Example 58: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -3436,7 +3438,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example 59: return all Products that match the phrase "mountain bike"
+Example 59: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -3446,7 +3448,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example 60: return all Products that do not match "clothing"
+Example 60: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -3457,8 +3459,8 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example 61: return all Products that match both "mountain" and
-"bike"
+Example 61: return all Products that match both `mountain` and
+`bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
 ```
@@ -3468,8 +3470,8 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example 62: return all Products that match either "mountain" or
-"bike"
+Example 62: return all Products that match `mountain` or
+`bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
 ```
@@ -3479,8 +3481,8 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example 63: return all Products that match either "mountain" or
-"bike" and do not match clothing
+Example 63: return all Products that match `mountain` or
+`bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
@@ -4210,7 +4212,7 @@ A request to create an entity that includes related entities,
 represented using the appropriate inline representation, is referred to
 as a "deep insert".
 
-Media entities MUST contain the base64url-encoded representation of
+Media entities MUST contain the format-specific representation of
 their media stream as a virtual property `$value` when nested within a
 deep insert.
 
@@ -4284,7 +4286,7 @@ removed or set to `null`.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying
-the base64url-encoded representation of the media stream as a virtual
+the format-specific representation of the media stream as a virtual
 property `$value`.
 
 Updating a dependent property that is tied to a key property of the
@@ -4292,7 +4294,7 @@ principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
 there is no such entity, the update fails.
 
-Updating a principle property that is tied to a dependent entity through
+Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
 property.
 
@@ -5238,7 +5240,7 @@ particular instance by setting its value to null.
 
 ::: example
 Example 92: the `SampleEntities.MostRecentOrder` function is not
-available for customer 'ALFKI'
+available for customer `ALFKI`
 ```json
 {
   "@context": ...,
@@ -5365,8 +5367,8 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 95: return all `Customers` whose City property returns
-"Western" when passed to the `Sales.SalesRegion` function
+Example 95: return all Customers whose `City` property returns
+`Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
@@ -5532,7 +5534,7 @@ collection response.
 
 ::: example
 Example 98: invoke the `SampleEntities.CreateOrder` action using
-`/Customers('ALFKI') `as the customer (or binding parameter). The values
+`Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
@@ -5868,8 +5870,8 @@ need not be percent-encoded.
 
 Each body part that represents a single request MUST NOT include:
 
--   `authentication` or `authorization` related HTTP headers
--   `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
+- `authentication` or `authorization` related HTTP headers
+- `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
 
 Processors of batch requests MAY choose to disallow additional HTTP
 constructs in HTTP requests serialized within body parts. For example, a
@@ -6720,50 +6722,47 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2046">[RFC2046]</a>
-_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, DOI 10.17487/RFC2046, November 1996_.
+https://www.rfc-editor.org/info/rfc2046.
 
 ###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
+_Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
+https://www.rfc-editor.org/info/rfc3987.
 
 ###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
+https://www.rfc-editor.org/info/rfc5646.
 
 ###### <a name="rfc5789">[RFC5789]</a>
-_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
+_Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
+https://www.rfc-editor.org/info/rfc5789.
 
 ###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, DOI 10.17487/RFC7230, June 2014_.
+https://www.rfc-editor.org/info/rfc7230.
 
 ###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014_.
+https://www.rfc-editor.org/info/rfc7231.
 
 ###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, DOI 10.17487/RFC7232, June 2014_.
+https://www.rfc-editor.org/info/rfc7232.
 
 ###### <a name="rfc7240">[RFC7240]</a>
-_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
+_Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
+https://www.rfc-editor.org/info/rfc7240.
 
 ###### <a name="rfc7617">[RFC7617]</a>
-_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
+_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, DOI 10.17487/RFC7617, September 2015_.
+https://www.rfc-editor.org/info/rfc7617.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
