@@ -319,6 +319,9 @@ information:
   should be treated as a string value unless the property is known (from
   the metadata document) to have a different type.
 
+The `type` control information can be absent in properties nested in an instance of type `Edm.Untyped`.
+In particular, individual primitive values within a collection cannot have `type` control information.
+
 For more information on namespace- and alias-qualified names, see
 [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL).
