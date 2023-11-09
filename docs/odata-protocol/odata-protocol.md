@@ -344,8 +344,9 @@ resource representations that are exchanged using OData.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 11.4](#DataModification)| Response code 2xx after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3958,9 +3959,9 @@ must not violate the integrity of the data.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
-the [`return` Prefer header](#Preferencereturnrepresentationandreturnminimal).
+the [`Prefer: return` header](#Preferencereturnrepresentationandreturnminimal).
 A [success response](#SuccessResponses) indicates that data have been modified,
-even if the requested content could not be returned.
+regardless of whether the requested content could be returned.
 
 ### <a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
@@ -4139,7 +4140,7 @@ default value, null, or an empty collection, respectively.
 Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
-request included a [Prefer header](#Preferencereturnrepresentationandreturnminimal)
+request included a [`Prefer` header](#Preferencereturnrepresentationandreturnminimal)
 with a value of
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
@@ -4148,7 +4149,7 @@ entity could not be constructed. In either case, the response MUST contain a
 [`Location` header](#HeaderLocation) that contains the edit URL or read URL of the
 created entity. If the service could not even construct the `Location` header
 of the created entity, it SHOULD still respond with `204 No Content`, so the client
-can determine the created entity with a [query collection](#QueryingCollections).
+can determine the created entity with a [collection query](#QueryingCollections).
 
 #### <a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 

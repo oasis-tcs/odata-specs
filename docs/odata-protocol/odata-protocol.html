@@ -483,10 +483,22 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
-<!-- TODO -->
-
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Feature / Change</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#DataModification">Section 11.4</a></td>
+<td>Response code 2xx after successful data modification if requested response could not be constructed</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1609">ODATA-1609</a></td>
+</tr>
+</tbody>
+</table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 <h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
@@ -1711,7 +1723,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="114-data-modification"><a name="DataModification" href="#DataModification">11.4 Data Modification</a></h2>
 <p>Updatable OData services support Create, Update, and Delete operations for some or all exposed entities. Additionally, <a href="#Actions">Actions</a> supported by a service can affect the state of the system.</p>
 <p>A successfully completed <a href="#DataModification">Data Modification Request</a> must not violate the integrity of the data.</p>
-<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code> Prefer header</a>. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, even if the requested content could not be returned.</p>
+<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>Prefer: return</code> header</a>. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, regardless of whether the requested content could be returned.</p>
 <h3 id="1141-common-data-modification-semantics"><a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a></h3>
 <p><a href="#DataModification">Data Modification Requests</a> share the following semantics.</p>
 <h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a name="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
@@ -1747,7 +1759,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>Properties computed by the service (annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>) and properties that are tied to properties of the principal entity by a referential constraint, can be omitted and MUST be ignored if included in the request.</p>
 <p>Properties with a defined default value, nullable properties, and collection-valued properties omitted from the request are set to the default value, null, or an empty collection, respectively.</p>
-<p>Upon successful creation of the entity, the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal">Prefer header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, or if a representation of the created entity could not be constructed. In either case, the response MUST contain a <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL or read URL of the created entity. If the service could not even construct the <code>Location</code> header of the created entity, it SHOULD still respond with <code>204 No Content</code>, so the client can determine the created entity with a <a href="#QueryingCollections">query collection</a>.</p>
+<p>Upon successful creation of the entity, the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>Prefer</code> header</a> with a value of <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, or if a representation of the created entity could not be constructed. In either case, the response MUST contain a <a href="#HeaderLocation"><code>Location</code> header</a> that contains the edit URL or read URL of the created entity. If the service could not even construct the <code>Location</code> header of the created entity, it SHOULD still respond with <code>204 No Content</code>, so the client can determine the created entity with a <a href="#QueryingCollections">collection query</a>.</p>
 <h4 id="11421-link-to-related-entities-when-creating-an-entity"><a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a></h4>
 <p>To create a new entity with links to existing entities in a single request, the client includes references to the related entities in the request body.</p>
 <p>The representation for referencing related entities is format-specific.</p>
