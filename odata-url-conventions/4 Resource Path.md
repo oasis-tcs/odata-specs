@@ -78,17 +78,17 @@ Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
 
 ```
 resourcePath = entitySetName                  [collectionNavigation]
-             / singleton                      [singleNavigation]
+             / singletonEntity                [singleNavigation]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]
              / complexColFunctionImportCall   [ collectionPath ]
              / complexFunctionImportCall      [ complexPath ]
              / primitiveColFunctionImportCall [ collectionPath ]
-             / primitiveFunctionImportCall    [ singlePath ]
-             / functionImportCallNoParens
-             / crossjoin
-             / '$all'                         [ "/" qualifiedEntityTypeName ]
+             / primitiveFunctionImportCall    [ primitivePath ]
+             / functionImportCallNoParens     [ querySegment ]
+             / crossjoin                      [ querySegment ]
+             / %s"$all"                       [ "/" optionallyQualifiedEntityTypeName ]
 ```
 
 Since OData has a uniform composable URL syntax and associated rules
@@ -105,8 +105,8 @@ http://host/service/Products
 
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
-- By invoking a function that returns a
-collection of entities (see rule: `entityColFunctionCall`)
+- By invoking a function import that returns a
+collection of entities (see rule: `entityColFunctionImportCall`)
 
 ::: example
 Example ##ex: function with parameters in resource path
@@ -122,16 +122,16 @@ http://host/service/ProductsByColor(color=@color)?@color='red'
 ```
 :::
 
-- By invoking an action that returns a
-collection of entities (see rule: `actionCall`)
+- By invoking an action import that returns a
+collection of entities (see rule: `actionImportCall`)
 
 Likewise there are many ways to address a single entity.
 
 Sometimes a single entity can be accessed directly, for example by:
-- Invoking a function that returns a
-single entity (see rule: `entityFunctionCall`)
-- Invoking an action that returns a single
-entity (see rule: `actionCall`)
+- Invoking a function import that returns a
+single entity (see rule: `entityFunctionImportCall`)
+- Invoking an action import that returns a single
+entity (see rule: `actionImportCall`)
 - Addressing a singleton
 
 ::: example
@@ -403,7 +403,7 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example ##ex: key predicate of related entity - no key segments for key
+Example ##ex: key predicate of related entity --- no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
@@ -490,7 +490,7 @@ defined in the [OData-Protocol](#ODataProtocol) document.
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)` `term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -756,7 +756,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example ##ex: red products that cost less than 10 - combining path
+Example ##ex: red products that cost less than 10  --- combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -764,7 +764,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example ##ex: red products that cost less than 10 - combine two path
+Example ##ex: red products that cost less than 10 --- combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -851,7 +851,7 @@ the corresponding entity set, with a target type equal to the declared
 entity type of the corresponding entity set.
 
 The [`$filter`](#SystemQueryOptionfilter) and
-[`$orderby`](#SystemQueryOptionorderby)` `query options can be specified
+[`$orderby`](#SystemQueryOptionorderby) query options can be specified
 using properties of the entities in the selected entity sets, prepended
 with the entity set as the navigation property name.
 
