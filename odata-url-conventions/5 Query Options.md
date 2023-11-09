@@ -162,7 +162,7 @@ greater than `-INF`.
 The Boolean value `true` is greater than `false`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -187,7 +187,7 @@ than `INF`.
 The Boolean value `false` is less than `true`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -247,49 +247,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example ##ex: all products with a `Name` equal to 'Milk'
+Example ##ex: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a `Name` not equal to 'Milk'
+Example ##ex: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name greater than 'Milk':
+Example ##ex: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name greater than or equal to 'Milk':
+Example ##ex: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name less than 'Milk':
+Example ##ex: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name less than or equal to 'Milk':
+Example ##ex: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'`
 ```
 :::
 
 ::: example
-Example ##ex: all products with the Name 'Milk' that also have a Price
+Example ##ex: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -297,15 +297,15 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example ##ex: all products that either have the Name 'Milk' or have a
-Price less than 2.55:
+Example ##ex: all products that either have a `Name` equal to `Milk` or have a
+`Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 ```
 :::
 
 ::: example
-Example ##ex: all products that do not have a Name that ends with 'ilk':
+Example ##ex: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
@@ -319,7 +319,7 @@ http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 :::
 
 ::: example
-Example ##ex: all products whose `name` value is 'Milk' or 'Cheese':
+Example ##ex: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -586,7 +586,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that contains `'Alfreds'`
+Example ##ex: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -618,7 +618,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that ends with
-`'Futterkiste'`
+`Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
@@ -649,7 +649,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` containing '`lfreds'`
+Example ##ex: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -707,7 +707,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that starts with `'Alfr'`
+Example ##ex: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -761,7 +761,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` of `'lfreds Futterkiste'`
+Example ##ex: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -769,8 +769,8 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that has '`lf' `as the
-second and third characters, e.g, '`Alfreds Futterkiste`'
+Example ##ex: all customers with a `CompanyName` that has `lf` as the
+second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
@@ -853,17 +853,17 @@ hassubsequence([1,2],[1,1,2])
 
 #### ##subsubsubsec String Functions
 
-##### ##subsubsubsubsec `matchesPattern`
+##### ##subsubsubsubsec `matchespattern`
 
-The `matchesPattern` function has the following signature:
+The `matchespattern` function has the following signature:
 
 ```
-Edm.Boolean matchesPattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
 [**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
-`matchesPattern` function returns true if the first parameter evaluates
+`matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
 returns false.
@@ -872,7 +872,7 @@ returns false.
 Example ##ex: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
-http://host/service/Customers?$filter=matchesPattern(CompanyName,'%5EA.*e$')
+http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 ```
 :::
 
@@ -891,7 +891,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that equals
-`'alfreds futterkiste'` once any uppercase characters have been
+`alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
 http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
@@ -913,7 +913,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that equals
-`'ALFREDS FUTTERKISTE'` once any lowercase characters have been
+`ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
 http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
@@ -1405,8 +1405,8 @@ expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression --- the condition --- MUST be a Boolean
+expression, and the second expression --- the result --- may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -2067,7 +2067,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example ##ex: Include the `Product`'s media stream along with other
+Example ##ex: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -2466,7 +2466,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example ##ex: JSON array of strings as parameter alias value -- note that
+Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
