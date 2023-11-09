@@ -34,7 +34,7 @@ parameters within the `Content-Type` header.
 
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
-`Content-Type`). When present, its value indicates what additional
+`Content-Type` header). When present, its value indicates what additional
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
@@ -130,7 +130,7 @@ If the media type specified in the `Accept` header does not include a
 contain a `charset` format parameter.
 
 The service SHOULD NOT add any format parameters to the `Content-Type`
-parameter not specified in the `Accept` header.
+header not specified in the `Accept` header.
 
 If the `Accept` header is specified on an individual request within a
 batch, then it specifies the acceptable formats for that individual

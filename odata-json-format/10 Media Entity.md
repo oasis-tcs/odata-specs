@@ -153,7 +153,7 @@ first name/value pair in the response.
 
 The `count` name/value pair represents the number of entities
 in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
-`content-type` parameter is set, it MUST come before the
+media type parameter is set, it MUST come before the
 `value` name/value pair. If the response represents a partial
 result, the `count` name/value pair MUST appear in the first
 partial response, and it MAY appear in subsequent partial responses (in
