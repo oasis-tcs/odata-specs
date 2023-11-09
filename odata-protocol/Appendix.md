@@ -43,38 +43,35 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2046">[RFC2046]</a>
-_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, DOI 10.17487/RFC2046, November 1996_.
+https://www.rfc-editor.org/info/rfc2046.
 
 ###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
+_Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
+https://www.rfc-editor.org/info/rfc3987.
 
 ###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
+https://www.rfc-editor.org/info/rfc5646.
 
 ###### <a name="rfc5789">[RFC5789]</a>
-_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
+_Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
+https://www.rfc-editor.org/info/rfc5789.
 
 ###### <a name="rfc7240">[RFC7240]</a>
-_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
+_Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
+https://www.rfc-editor.org/info/rfc7240.
 
 ###### <a name="rfc7617">[RFC7617]</a>
-_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
+_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, DOI 10.17487/RFC7617, September 2015_.
+https://www.rfc-editor.org/info/rfc7617.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc9110">[RFC9110]</a>

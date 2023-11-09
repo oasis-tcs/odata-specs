@@ -146,6 +146,10 @@ Example ##ex: partial collection of strings with next link
 ```
 :::
 
+A collection of primitive values that occurs in a property of type `Edm.Untyped`
+is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
+depending on the JavaScript type.
+
 ## ##subsec Collection of Complex Values
 
 A collection of complex values is represented as a JSON array; each
@@ -383,7 +387,7 @@ Example ##ex: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
