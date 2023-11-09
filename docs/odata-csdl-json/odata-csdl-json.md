@@ -61,7 +61,7 @@ OData services are described by an Entity Model (EDM). The Common Schema Definit
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -298,7 +298,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-csdl-json-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-csdl-json-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -563,17 +563,17 @@ Type|Meaning
 `Edm.Date`                       |Date without a time-zone offset
 `Edm.DateTimeOffset`             |Date and time with a time-zone offset, no leap seconds
 `Edm.Decimal`                    |Numeric values with decimal representation
-`Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
+`Edm.Double`                     |IEEE 754 binary64 floating-point number (15--17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
 `Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
-`Edm.Single`                     |IEEE 754 binary32 floating-point number (6-9 decimal digits)
+`Edm.Single`                     |IEEE 754 binary32 floating-point number (6--9 decimal digits)
 `Edm.Stream`                     |Binary data stream
 `Edm.String`                     |Sequence of characters
-`Edm.TimeOfDay`                  |Clock time 00:00-23:59:59.999999999999
+`Edm.TimeOfDay`                  |Clock time 00:00--23:59:59.999999999999
 `Edm.Geography`                  |Abstract base type for all Geography types
 `Edm.GeographyPoint`             |A point in a round-earth coordinate system
 `Edm.GeographyLineString`        |Line string in a round-earth coordinate system
@@ -679,7 +679,7 @@ see [OData-VocMeasures](#ODataVocMeasures).
 
 The value of `$Precision` is a number.
 
-Absence of `$Precision` means arbitrary precision.
+Absence of `$Precision` means unspecified precision both for decimal and temporal values.
 :::
 
 ::: {.varjson .example}
@@ -867,9 +867,7 @@ be used anywhere a corresponding concrete type can be used, except:
   -   cannot be used as the underlying type of a type definition or
         enumeration type.
 - `Collection(Edm.PrimitiveType)`
-  -   cannot be used as the type of a property or term.
-  -   cannot be used as the type of a parameter or the return type of
-        an action or function.
+  -   cannot be used.
 - `Collection(Edm.Untyped)`
   -   cannot be returned in a payload with an `OData-Version` header
         of `4.0`. Services should treat untyped properties as dynamic
@@ -2097,10 +2095,10 @@ the target of the navigation).
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.
 
-If the principle property references an entity, then the dependent
+If the principal property references an entity, then the dependent
 property must reference the same entity.
 
-If the principle property's value is a complex type instance, then the
+If the principal property's value is a complex type instance, then the
 dependent property's value must be a complex type instance with the same
 properties, each with the same values.
 
@@ -5604,7 +5602,6 @@ Example 91:
     "@Core.DefaultNamespace": true,
     "Product": {
       "$Kind": "EntityType",
-      "$HasStream": true,
       "$Key": [
         "ID"
       ],
@@ -5959,20 +5956,20 @@ _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
+https://www.rfc-editor.org/info/rfc6570.
 
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
+_The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
+https://www.rfc-editor.org/info/rfc7493.
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
+https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.  
+https://www.rfc-editor.org/info/rfc8259.
 
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
@@ -5982,7 +5979,7 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  
+_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
 
 -------
