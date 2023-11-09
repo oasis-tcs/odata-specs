@@ -180,7 +180,7 @@ occurs as a result of the request.
 
 If present, the request MUST only be processed if the specified ETag
 value matches the current ETag value of the target resource. Services
-sending [`ETag` headers](#HeaderETag) with weak ETags that only depend
+sending [`ETag`](#HeaderETag) headers with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
 overwrites. This is a deviation from [RFC7232](#rfc7232).
