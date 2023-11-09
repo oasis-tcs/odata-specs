@@ -377,14 +377,14 @@ If the service applies the `callback` preference it MUST include the
 When the `callback` preference is applied to asynchronous requests, the
 OData service invokes the callback endpoint once it has finished
 processing the request. The status monitor resource, returned in the
-[`Location` header](#HeaderLocation) of the previously returned
+[`Location`](#HeaderLocation) header of the previously returned
 [`202 Accepted`](#ResponseCode202Accepted) response, can then be used to
 retrieve the results of the asynchronously executed request.
 
 When the `callback` preference is specified on a `GET` request to a
 delta link and there are no changes available, the OData service returns
-a [`202 Accepted`](#ResponseCode202Accepted) response with a [`Location`
-header](#HeaderLocation) specifying the delta link to be used to check
+a [`202 Accepted`](#ResponseCode202Accepted) response with a
+[`Location`](#HeaderLocation) header specifying the delta link to be used to check
 for future updates. The OData service then invokes the specified
 callback endpoint once new changes become available.
 
@@ -861,8 +861,8 @@ and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
 that the client is asked to wait before retrying the request or issuing
-a request to the resource returned as the value of the [`Location`
-header](#HeaderLocation).
+a request to the resource returned as the value of the
+[`Location`](#HeaderLocation) header.
 
 ### ##subsubsec Header `Vary`
 
@@ -926,8 +926,8 @@ Requests](#AsynchronousBatchRequests).
 ### ##subsubsec Response Code `204 No Content`
 
 A request returns `204 No Content` if the requested resource has the
-`null` value, or if the service applies a [`return=minimal`
-preference](#Preferencereturnrepresentationandreturnminimal). 
+`null` value, or if the service applies a
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
@@ -950,10 +950,10 @@ server-side values corresponding to the `ETag` value sent in the
 
 As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
-request. In this case, the response SHOULD include a [`Location`
-header](#HeaderLocation), as appropriate, with the URL from which the
-result can be obtained; it MAY include a [`Retry-After`
-header](#HeaderRetryAfter).
+request. In this case, the response SHOULD include a
+[`Location`](#HeaderLocation) header, as appropriate, with the URL from which the
+result can be obtained; it MAY include a
+[`Retry-After`](#HeaderRetryAfter) header.
 
 ### ##subsubsec Response Code `304 Not Modified`
 
