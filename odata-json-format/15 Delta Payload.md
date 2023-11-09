@@ -50,11 +50,11 @@ or deleted links.
 Example ##ex: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
-  2. Order 10643 was removed from customer 'ALFKI'
-  3. Order 10645 was added to customer 'BOTTM'
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Order 10643 was removed from customer `ALFKI`
+  3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
-  5. Customer 'ANTON' was deleted
+  5. Customer `ANTON` was deleted
 
 ```json
 {
@@ -116,7 +116,7 @@ have changed, and MAY include additional properties.
 
 If a property of an entity is dependent upon the property of another
 entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principle
+change to the dependent property as well as the change to the principal
 property or [added](#AddedLink)/[deleted link](#DeletedLink)
 corresponding to the change to the dependent property are returned in
 the delta response.
@@ -162,12 +162,12 @@ links](#DeletedLink).
 Example ##ex: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':
-     1. `ContactName` was changed to "Susan Halvenstern"
+  1. Customer `BOTTM`:
+     1. `ContactName` was changed to `Susan Halvenstern`
      2. Order 10645 was added
-  2. Customer 'ALFKI':
+  2. Customer `ALFKI`:
      1. Order 10643 was removed
-  3. Customer 'ANTON' was deleted
+  3. Customer `ANTON` was deleted
 
 ```json
 {
@@ -255,10 +255,10 @@ In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
-- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+- Control information [`context`](#ControlInformationcontextodatacontext) --- The context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
-- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+- `id` --- The [id](#ControlInformationidodataid) of the deleted entity
   (same as the [id](#ControlInformationidodataid)
   returned or computed when calling GET on resource), which may be
   absolute or [relative](#RelativeURLs)
@@ -268,12 +268,12 @@ following optional property, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
 [annotations](#InstanceAnnotations):
 
-- `reason` - either `deleted`, if the entity was deleted (destroyed),
+- `reason` --- either `deleted`, if the entity was deleted (destroyed),
   or `changed` if the entity was removed from membership in the
   result (i.e., due to a data change).
 
 ::: example
-Example ##ex: deleted entity in OData 4.0 response - note that `id` is
+Example ##ex: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -313,7 +313,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id,` if present, MUST immediately follow the control
+  `id`, if present, MUST immediately follow the control
   information
   [`removed`](#ControlInformationremovedodataremoved).
 
@@ -368,13 +368,13 @@ The link object MUST include the following properties, regardless of the specifi
   the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity,
+- `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
 ## ##subsec Deleted Link
@@ -392,16 +392,16 @@ path in the initial request, unless either of the following is true:
   `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+- [`context`](#ControlInformationcontextodatacontext) --- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity for
+- `target` --- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
 [relative](#RelativeURLs). For delta payloads
 that do not specify an `OData-Version` header value of `4.0`,
@@ -422,16 +422,16 @@ entities, as well as [added](#AddedLink) or
 ::: example
 Example ##ex: 4.01 delta response customers with expanded orders represented
 inline as a delta
-  1. Add customer 'EASTC'
-  2. Change `ContactName` of customer 'AROUT'
-  3. Delete customer 'ANTON'
-  4. Change customer 'ALFKI':
+  1. Add customer `EASTC`
+  2. Change `ContactName` of customer `AROUT`
+  3. Delete customer `ANTON`
+  4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
      3. Change `ShippedDate` of related order 10835
      4. Delete link to order 10643
-  5. Add link between customer 'ANATR' and order 10643
-  6. Delete link between customer 'DUMON' and order 10311
+  5. Add link between customer `ANATR` and order 10643
+  6. Delete link between customer `DUMON` and order 10311
 ```json
 {
   "@context": "#$delta",
