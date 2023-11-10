@@ -301,14 +301,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or` $expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
@@ -361,14 +361,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or `$expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,

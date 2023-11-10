@@ -553,7 +553,7 @@ Example ##ex: for an entity set in any container in scope
 
 ::: {.varxml .example}
 Example ##ex: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"

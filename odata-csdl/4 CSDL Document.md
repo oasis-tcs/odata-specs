@@ -57,7 +57,7 @@ The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
 `4.0`. For OData 4.01 responses the value of this attribute MUST be
 `4.01`. Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion `header with a value of `4.0`.
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### ##isec Element `edmx:DataServices`
 

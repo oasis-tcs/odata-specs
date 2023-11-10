@@ -16,7 +16,7 @@ System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
 The names of all system query options are optionally prefixed with a
 dollar (`$`) character. 4.01 Services MUST support case-insensitive
-system query option names specified with or without the `$ `prefix.
+system query option names specified with or without the `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -2244,7 +2244,7 @@ http://host/service/Products?$select=ID,Model.ActionName,Model2.*
 ```
 :::
 
-When multiple select item exist in a `select clause`, then the total set
+When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
@@ -2271,7 +2271,7 @@ particular page of items by combining `$top` and `$skip`.
 The semantics of `$top` and `$skip` are covered in the
 [OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
-`$skip `query options respectively.
+`$skip` query options respectively.
 
 ### ##subsubsec System Query Option `$count`
 
