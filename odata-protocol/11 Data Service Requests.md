@@ -569,7 +569,7 @@ GET http://host/service/Products?$filter=Price lt 10.00
 :::
 
 The [`$count`](#SystemQueryOptioncount) segment may be used within a
-`$filter `expression to limit the items returned based on the exact
+`$filter` expression to limit the items returned based on the exact
 count of related entities or items within a collection-valued property.
 
 ::: example
@@ -865,7 +865,7 @@ GET http://host/service/Products?$count=true
 :::
 
 The count of related entities can be requested by specifying
-the` $count` query option within the `$expand` clause.
+the `$count` query option within the `$expand` clause.
 
 ::: example
 Example ##ex:
@@ -1035,7 +1035,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example ##ex: return the supplier of the product with `ID=1 `in the
+Example ##ex: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -1144,7 +1144,7 @@ GET http://host/service/Products/$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the `/$filter path` segment to count the items in the filtered
+the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
