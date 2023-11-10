@@ -932,7 +932,7 @@ In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
 Request](#DataModification) that responds with
-`204 No Content MAY `include an `ETag` header with a value reflecting
+`204 No Content` MAY include an `ETag` header with a value reflecting
 the result of the data modification if and only if the client can
 reasonably "know" the new representation of the resource without
 actually receiving it. For a `PUT` request this means that the response
