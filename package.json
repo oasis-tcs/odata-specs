@@ -2,7 +2,7 @@
   "name": "odata-specs",
   "version": "1.0.0",
   "description": "",
-  "main": "number.js",
+  "main": "lib/server.js",
   "scripts": {
     "build": "node lib/build.js",
     "pdf": "node lib/build-pdf.js",

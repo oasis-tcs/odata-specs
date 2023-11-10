@@ -150,12 +150,12 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="abstract">Abstract:</h4>
 <p>This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
-<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
-<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>” button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
+<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-Temporal-v4.0]</strong></p>
@@ -163,7 +163,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="notices">Notices</h4>
 <p>Copyright © OASIS Open 2022. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
-<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
 <hr />
 <h1 id="table-of-contents">Table of Contents</h1>
@@ -251,32 +251,32 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 <h4 id="1211-application-time"><a name="ApplicationTime" href="#ApplicationTime">1.2.1.1 Application Time</a></h4>
-<p>Application time is used to describe data that is known to change over time, for example the budget of a department, or which department an employee works for. Application time may capture planned changes in the future, for example transferring an employee to a new department next month or capturing next year's budget for a department. Both future and past data can be changed.</p>
+<p>Application time is used to describe data that is known to change over time, for example the budget of a department, or which department an employee works for. Application time may capture planned changes in the future, for example transferring an employee to a new department next month or capturing next year’s budget for a department. Both future and past data can be changed.</p>
 <h4 id="1212-system-time"><a name="SystemTime" href="#SystemTime">1.2.1.2 System Time</a></h4>
-<p>System time is used to record when data became known by the "system of record". System time does not extend into the future, and record entries are only added and are never changed.</p>
-<p>System time is never manipulated directly, and typically not visible in APIs, except for "last changed at" time stamps, and the corresponding properties are read-only.</p>
+<p>System time is used to record when data became known by the “system of record”. System time does not extend into the future, and record entries are only added and are never changed.</p>
+<p>System time is never manipulated directly, and typically not visible in APIs, except for “last changed at” time stamps, and the corresponding properties are read-only.</p>
 <p>As system time is typically not visible in APIs, we do not consider this in the remainder of this document.</p>
 <h4 id="1213-temporal-object"><a name="TemporalObject" href="#TemporalObject">1.2.1.3 Temporal Object</a></h4>
 <p>A temporal object is a set of data whose change over time is tracked by the service as a sequence of <a href="#TimeSlice">time slices</a>.</p>
 <h4 id="1214-time-slice"><a name="TimeSlice" href="#TimeSlice">1.2.1.4 Time Slice</a></h4>
 <p>A piece of temporal data with attached time period, documenting that the data did not change during this time period.</p>
 <p>Time slices for the same <a href="#TemporalObject">temporal object</a> are non-overlapping, so for any given point in time there is at most one slice whose time period contains that point in time.</p>
-<p>Time slices for a temporal object need not cover the complete timeline. There can be points in time for which no time slice exists, indicating that the object's values are not known to the service.</p>
+<p>Time slices for a temporal object need not cover the complete timeline. There can be points in time for which no time slice exists, indicating that the object’s values are not known to the service.</p>
 <h5 id="12141-closed-open-semantics"><a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></h5>
 <p>Time slices typically use closed-open semantics, following <a href="#_SQL">SQL:2011</a>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
 <h5 id="12142-closed-closed-semantics"><a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></h5>
 <p>Some software systems predating the availability of temporal databases and with data type <em>date</em> for the application-time period start and end use closed-closed semantics. Temporal services on top of these systems can either convert their period end boundaries on-the-fly by adding one day on the way out and subtracting one day on the way in, or alternatively express the used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
 <h4 id="1215-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a></h4>
-<p>An entity in a snapshot entity set represents a <a href="#TemporalObject">temporal object</a> at a specified point in time. When the entity is addressed via a resource path (directly or via related resources), the point in time must be specified, see section "<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>" for details on how to determine this point in time.</p>
-<p>The entity's id and its canonical URL are independent of this point in time. Hence, they are sufficient to <em>reference</em> the entity but not <em>address</em> it. In other words: the entity can be considered a function that maps each point in time to an instance of the entity type. That function can be <em>referenced</em> but only its values can be <em>addressed</em>.</p>
+<p>An entity in a snapshot entity set represents a <a href="#TemporalObject">temporal object</a> at a specified point in time. When the entity is addressed via a resource path (directly or via related resources), the point in time must be specified, see section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” for details on how to determine this point in time.</p>
+<p>The entity’s id and its canonical URL are independent of this point in time. Hence, they are sufficient to <em>reference</em> the entity but not <em>address</em> it. In other words: the entity can be considered a function that maps each point in time to an instance of the entity type. That function can be <em>referenced</em> but only its values can be <em>addressed</em>.</p>
 <p>Without a point in time, statements about individual structural or navigation properties of the entity or even about its existence cannot be made, and <a href="#RequestingChangestoTemporalData">change tracking</a> is not possible.</p>
 <p>Snapshot entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineSnapshot</code>.</p>
 <h4 id="1216-timeline-entity-set"><a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.6 Timeline Entity Set</a></h4>
 <p>An entity in a timeline entity set represents one <a href="#TimeSlice">time slice</a> of a <a href="#TemporalObject">temporal object</a>, and all time slices of that temporal object are part of the entity set.</p>
-<p>The entity's id and its canonical URL depend on the period of application time of the corresponding time slice. <em>Referencing</em> and <em>addressing</em> the entity are equivalent concepts, unlike in the snapshot case.</p>
+<p>The entity’s id and its canonical URL depend on the period of application time of the corresponding time slice. <em>Referencing</em> and <em>addressing</em> the entity are equivalent concepts, unlike in the snapshot case.</p>
 <p>The response to a time-range request need not reflect the time-slice cut of the underlying data model.</p>
 <p>Services MAY condense/defragment adjacent time slices that do not differ in represented properties other than the period boundaries. This reduces the payload size, and it also avoids potential information leakage if the service only publishes a projection of the underlying data model.</p>
-<p>Services MAY also split time slices to align their boundaries with nested expanded time slices to represent a "coarsest common slicing" across an expand tree.</p>
+<p>Services MAY also split time slices to align their boundaries with nested expanded time slices to represent a “coarsest common slicing” across an expand tree.</p>
 <p>Timeline entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineVisible</code>.</p>
 <h3 id="122-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.2 Document Conventions</a></h3>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
@@ -289,7 +289,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
 <p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-temporal-ext-v4.0-csd04.md</code>). Line breaks are added for readability only:</p>
-<pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs
+<pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-temporal-ext-v4.0-csd04.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -309,13 +309,13 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>When did or will something happen?</li>
 <li>When did we learn that it happened?</li>
 </ul>
-<p>This leads to two "directions" or "dimensions" of time (measured as a date or date-plus-time value):</p>
+<p>This leads to two “directions” or “dimensions” of time (measured as a date or date-plus-time value):</p>
 <ul>
 <li><a href="#ApplicationTime">Application time</a>, also called actual time, business time, effective time, or valid time, and</li>
 <li><a href="#SystemTime">System time</a>, also called recording time, audit time, or transaction time.</li>
 </ul>
-<p>Keeping track of time is typically done by storing data together with the time period for which that data is deemed valid or effective, using separate periods for application time and system time, and the time periods are part of the logical key for "records". See <a href="#_SQL">SQL:2011</a> or <a href="#_Kulkarni">Kulkarni</a> on how this is done in the SQL standard.</p>
-<p>A consumer's perspective on this data can be different: even if time is tracked internally, the period of time may or may not be visible in a consumer's perspective, and even if visible the related properties are often not considered part of an entity's identity. For example, an employee is still the same person even after switching to another department.</p>
+<p>Keeping track of time is typically done by storing data together with the time period for which that data is deemed valid or effective, using separate periods for application time and system time, and the time periods are part of the logical key for “records”. See <a href="#_SQL">SQL:2011</a> or <a href="#_Kulkarni">Kulkarni</a> on how this is done in the SQL standard.</p>
+<p>A consumer’s perspective on this data can be different: even if time is tracked internally, the period of time may or may not be visible in a consumer’s perspective, and even if visible the related properties are often not considered part of an entity’s identity. For example, an employee is still the same person even after switching to another department.</p>
 <p>The goals of this extension are:</p>
 <ul>
 <li>Keep the API models as simple as possible by allowing to hide time-dependency,</li>
@@ -1144,7 +1144,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </svg>
 
 <p>The period start date is used as the temporal sub-key for identifying time slices together with the key of the temporal object.</p>
-<p>Note: alternatively, the period end date could have been used as temporal sub-key, or the primary key of the time slice tables could have been an artificial key (sequence number, UUID, ...) with both the temporal object key and the period boundaries as non-key fields.</p>
+<p>Note: alternatively, the period end date could have been used as temporal sub-key, or the primary key of the time slice tables could have been an artificial key (sequence number, UUID, …) with both the temporal object key and the period boundaries as non-key fields.</p>
 <p>The following example data will be used to further illustrate the capabilities introduced by this extension. It assumes that the example services only support four-digit years.</p>
 <div class="example">
 <p>Example 5: example data: object key in dark green, temporal sub-key in light green, foreign keys in orange, non-key fields in blue</p>
@@ -1283,16 +1283,16 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <ul>
 <li>Snapshot API
 <ol type="1">
-<li>Retrieve a current employee, together with the employee's current department.</li>
-<li>Retrieve an employee as of a particular point in time, including the employee's department as of that same point in time.</li>
+<li>Retrieve a current employee, together with the employee’s current department.</li>
+<li>Retrieve an employee as of a particular point in time, including the employee’s department as of that same point in time.</li>
 </ol></li>
 <li>Timeline API
 <ol type="1">
-<li>Retrieve employees that worked for the "Services" department in 2010.</li>
+<li>Retrieve employees that worked for the “Services” department in 2010.</li>
 <li>Retrieve all time slices of an employee.</li>
 <li>Retrieve all time slices of an employee for a given application-time period, including all time slices of the related departments within the application-time period of each employee time slice.</li>
-<li>Change a department's budget in the past, present, or future.</li>
-<li>Change an employee's association to a department in the past, present, or future.</li>
+<li>Change a department’s budget in the past, present, or future.</li>
+<li>Change an employee’s association to a department in the past, present, or future.</li>
 </ol></li>
 </ul>
 <hr />
@@ -1312,7 +1312,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <ul>
 <li>These properties MUST point to properties of the annotated entity set whose values are the period start and end of a time slice.</li>
 <li>The start is always included in the time slice, the end is included if and only if the sibling property <code>UnitOfTime</code> is of type <code>UnitOfTimeDate</code> and specifies property <code>ClosedClosedPeriods</code> as <code>true</code>.</li>
-<li>If the period end property does not specify a default value, a default value of "ad infinitum" is assumed.</li>
+<li>If the period end property does not specify a default value, a default value of “ad infinitum” is assumed.</li>
 </ul></li>
 <li>Records of type <code>TimelineVisible</code> MAY specify the property <code>ObjectKey</code>.
 <ul>
@@ -1410,12 +1410,12 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>An expression resulting in a date or timestamp value</li>
 </ul>
 <p>The literals <code>min</code> and <code>max</code> are interpreted depending on the data type of the time period start and end. They represent the minimum and maximum values of the time period that the service will allow. Their values are service specific as they can depend on the capabilities of the underlying data model.</p>
-<p>Note that there is no literal for "today" as clients and services can be in different time zones and thus can have different notions of which date is "today". Clients are advised to use concrete temporal values and should avoid using the URL function <code>now()</code> with period start and end of type <code>Edm.Date</code>.</p>
+<p>Note that there is no literal for “today” as clients and services can be in different time zones and thus can have different notions of which date is “today”. Clients are advised to use concrete temporal values and should avoid using the URL function <code>now()</code> with period start and end of type <code>Edm.Date</code>.</p>
 <p>Note that services may allow service-defined functions for temporal expressions, for example to deal with fiscal years in a particular company.</p>
 <h2 id="42-querying-temporal-data"><a name="QueryingTemporalData" href="#QueryingTemporalData">4.2 Querying Temporal Data</a></h2>
 <p>Temporal query options allow point-in-time as well as time-range queries. They take a temporal expression as their argument whose result type MUST match the type of the corresponding time period start and end.</p>
 <p>Adding temporal query options to a request does not alter the response shape, it only affects the returned data.</p>
-<p>Temporal query options can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response. That is, they only influence the "implicit <code>GET</code>" after successful data modification.</p>
+<p>Temporal query options can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response. That is, they only influence the “implicit <code>GET</code>” after successful data modification.</p>
 <p>If no temporal query options are specified,</p>
 <ul>
 <li>timeline entity sets return all time slices, and</li>
@@ -1430,7 +1430,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>by the query option <a href="#QueryOptionat"><code>$at</code></a> nested within <code>$expand</code></li>
 <li>by a <a href="#QueryOptionat"><code>$at</code></a> value propagated along <code>$expand</code></li>
 <li>by <a href="#QueryOptionat"><code>$at</code></a> in the query option part of the request URL, which applies to every segment of the resource path and paths that occur in system query options</li>
-<li>by the default value "now" - the logic for determining this value is service-specific</li>
+<li>by the default value “now” — the logic for determining this value is service-specific</li>
 </ol>
 <p>For entities in a <a href="#TimelineEntitySet">timeline entity set</a> the time interval for filtering time slices is determined by the first applicable rule:</p>
 <ol type="1">
@@ -1470,7 +1470,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="example">
 <p>Example 11: retrieve multiple employees at a past point in time</p>
 <pre><code>GET /api-1/Employees?$filter=contains(Name,&#39;i&#39;)&amp;$at=2012-01-01</code></pre>
-<p>results in one time slice for each employee matching the filter at the specified point in time - note that E401 back then does not satisfy this condition</p>
+<p>results in one time slice for each employee matching the filter at the specified point in time — note that E401 back then does not satisfy this condition</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -1532,7 +1532,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <div class="indent">
 <p><code>$from=&lt;point-in-time&gt;&amp;$toInclusive=&lt;point-in-time&gt;</code></p>
 </div>
-<p>The result is restricted to time slices whose application-time period overlaps with the interval defined by the query option values, taking the closed-open or closed-closed semantics of the entity set's time slices into account. The benefit of the query options is that the client does not have to inspect the temporal annotations to determine the property names of the period boundaries, the period semantics, and get all comparison operators right.</p>
+<p>The result is restricted to time slices whose application-time period overlaps with the interval defined by the query option values, taking the closed-open or closed-closed semantics of the entity set’s time slices into account. The benefit of the query options is that the client does not have to inspect the temporal annotations to determine the property names of the period boundaries, the period semantics, and get all comparison operators right.</p>
 <p>For timeline entity sets with closed-open semantics <code>$from=&lt;start&gt;&amp;$to=&lt;end&gt;</code> is shorthand for</p>
 <div class="indent">
 <p><code>$filter=&lt;time-slice-start&gt; lt &lt;end&gt; and &lt;time-slice-end&gt; gt &lt;start&gt;</code></p>
@@ -1599,7 +1599,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>The service could have combined these two time slices into one.</p>
 </div>
 <div class="example">
-<p>Example 15: retrieve all employees that ever worked for department D15, with their full history, and the department's data at the start of each employee history time slice</p>
+<p>Example 15: retrieve all employees that ever worked for department D15, with their full history, and the department’s data at the start of each employee history time slice</p>
 <pre><code>GET /api-2/Departments(&#39;D15&#39;)/Employees?
     $expand=history(
       @emp=$this;
@@ -1695,8 +1695,8 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="424-interaction-with-standard-system-query-options"><a name="InteractionwithStandardSystemQueryOptions" href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a></h3>
-<p>For <a href="#SnapshotEntitySet">snapshot entity sets</a> the point in time for representing data is determined following the rules in section "<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>" and evaluated <em>first</em>, then all other system query options are evaluated on the data valid at that point in time, including the query option <code>$apply</code> defined in <a href="#ODataAggregation">OData-Aggregation</a>.</p>
-<p>For timeline entity sets the interval for filtering data is determined following the rules in section "<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>" and evaluated as an additional criterion for <code>$filter</code> in the evaluation sequence defined in <a href="#ODataProtocol">OData-Protocol, section "System Query Options"</a>, which is evaluated <em>after</em> the query option <code>$apply</code>.</p>
+<p>For <a href="#SnapshotEntitySet">snapshot entity sets</a> the point in time for representing data is determined following the rules in section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” and evaluated <em>first</em>, then all other system query options are evaluated on the data valid at that point in time, including the query option <code>$apply</code> defined in <a href="#ODataAggregation">OData-Aggregation</a>.</p>
+<p>For timeline entity sets the interval for filtering data is determined following the rules in section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” and evaluated as an additional criterion for <code>$filter</code> in the evaluation sequence defined in <a href="#ODataProtocol">OData-Protocol, section “System Query Options”</a>, which is evaluated <em>after</em> the query option <code>$apply</code>.</p>
 <div class="example">
 <p>Example 16: retrieve employee history over a period of application time and filter on job title</p>
 <pre><code>GET /api-2/Employees?$expand=history(
@@ -1739,7 +1739,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>The lambda operators <code>any()</code> and <code>all()</code> are not influenced by temporal query options, they are interpreted for each time slice on the filtered collection, meaning "any related time slice satisfying the lambda expression" and "all related time slices satisfy the lambda expression". The lambda expressions however can contain sub-expressions working on the period boundaries.</p>
+<p>The lambda operators <code>any()</code> and <code>all()</code> are not influenced by temporal query options, they are interpreted for each time slice on the filtered collection, meaning “any related time slice satisfying the lambda expression” and “all related time slices satisfy the lambda expression”. The lambda expressions however can contain sub-expressions working on the period boundaries.</p>
 <div class="example">
 <p>Example 17: filter employees on their name at any point in time</p>
 <pre><code>GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
@@ -1778,7 +1778,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>Changes to a temporal object over a period of application time that can affect multiple time slices without explicitly addressing each single affected time slice.</li>
 </ul>
 <h3 id="431-direct-modification-of-time-slices"><a name="DirectModificationofTimeSlices" href="#DirectModificationofTimeSlices">4.3.1 Direct Modification of Time Slices</a></h3>
-<p>The temporal query options <a href="#QueryOptionat"><code>$at</code></a>, <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a> can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response of the "implicit <code>GET</code>" after the data modification.</p>
+<p>The temporal query options <a href="#QueryOptionat"><code>$at</code></a>, <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a> can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response of the “implicit <code>GET</code>” after the data modification.</p>
 <p>Modification of time slices SHOULD be done with the temporal actions defined in the next section and its subsections.</p>
 <p>This specification does not define the behavior of standard insert, update, upsert, or delete requests on temporal entity sets, and potential side-effects of direct modification requests to period boundaries and adjacent time slices are beyond the scope of this specification as the underlying business logic will vary from service to service.</p>
 <h3 id="432-operations-on-temporal-objects"><a name="OperationsonTemporalObjects" href="#OperationsonTemporalObjects">4.3.2 Operations on Temporal Objects</a></h3>
@@ -1799,15 +1799,15 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Its non-binding parameter <code>deltaTimeslices</code> is a collection of a structure containing the period boundaries, the properties to update, and optionally temporal object key values. The period boundaries are interpreted according to the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a> of the collection. In particular, <code>ClosedClosedPeriods</code> governs whether the period end of type <code>Edm.Date</code> is the last day in the period or the first day after the period. The upper period boundary for items in <code>deltaTimeslices</code> need not be supplied; if it has no declared default value, it defaults to <code>max</code>.</p>
 <p>This works identical to the SQL statement UPDATE FOR PORTION OF:</p>
 <ol type="1">
-<li>The "delta time slices" in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
+<li>The “delta time slices” in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
 <li>For each delta time slice all time slices from the bound collection are selected whose temporal object key values are identical to the values of corresponding properties present in the delta time slice, and whose application-time period overlaps with the period of the delta time slice.</li>
-<li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two or three consecutive time slices, one with fully included period, and one or two with a non-overlapping period immediately before or after the delta time slice's period.</li>
+<li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two or three consecutive time slices, one with fully included period, and one or two with a non-overlapping period immediately before or after the delta time slice’s period.</li>
 <li>Then all fully included time slices (including ones created in the previous step) are updated following the rules for updating entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
 <li>Gaps between selected time slices in the period to update are not affected.</li>
 </ol>
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
-<p>Example 18: Change a department's budget during a period of application time with <a href="#api2"><code>api-2</code></a> (visible timeline)</p>
+<p>Example 18: Change a department’s budget during a period of application time with <a href="#api2"><code>api-2</code></a> (visible timeline)</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-2/Departments(&#39;D08&#39;)/history/Temporal.Update</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1949,7 +1949,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>The service could have joined the third and fourth time slice because they do not significantly differ.</p>
 </div>
 <div class="example">
-<p>Example 19: Change an employee's job title during a period of application time with <a href="#api1"><code>api-1</code></a> (snapshot). Note that the period boundaries are not visible in <a href="#api1"><code>api-1</code></a> and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code> data. The <code>PeriodEnd</code> is omitted, meaning the end of application time.</p>
+<p>Example 19: Change an employee’s job title during a period of application time with <a href="#api1"><code>api-1</code></a> (snapshot). Note that the period boundaries are not visible in <a href="#api1"><code>api-1</code></a> and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code> data. The <code>PeriodEnd</code> is omitted, meaning the end of application time.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-1/Employees/Temporal.Update</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2240,7 +2240,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Its non-binding parameter <code>deltaTimeslices</code> is a collection of a structure containing the period boundaries and optionally temporal object key values. The period boundaries are interpreted according to the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a> of the collection. In particular, <code>ClosedClosedPeriods</code> governs whether the period end of type <code>Edm.Date</code> is the last day in the period or the first day after the period.</p>
 <p>This works identical to the SQL statement DELETE FOR PORTION OF:</p>
 <ol type="1">
-<li>The "delta time slices" in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
+<li>The “delta time slices” in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
 <li>For each delta time slice all time slices from the bound collection are selected whose temporal object key values are identical to the values of corresponding properties present in the delta time slice, and whose application-time period overlaps with the period of the delta time slice.</li>
 <li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two consecutive time slices, one with non-overlapping, and one with fully included period.</li>
 <li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
@@ -2264,45 +2264,45 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-aggregation"><a name="ODataAggregation">[OData-Aggregation]</a></h6>
 <p><em>OData Extension for Data Aggregation Version 4.0.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
 <p><em>OData Version 4.02. Part 1: Protocol.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
 <p><em>OData Version 4.02. Part 2: URL Conventions.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-voccap"><a name="ODataVocCap">[OData-VocCap]</a></h6>
 <p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
 <p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
-See link in "<a href="#RelatedWork">Related work</a>" section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6 id="odata-voctemporal"><a name="ODataVocTemporal">[OData-VocTemporal]</a></h6>
 <p><em>OData Temporal Vocabulary.</em><br />
-See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on cover page.</p>
+See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
 <h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
-<p><em>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
+<p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
 <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
-<p><em>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
+<p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="fowler"><a name="_Fowler">[Fowler]</a></h6>
-<p><em>Martin Fowler, "Temporal Patterns", 16 February 2005</em><br />
+<p><em>Martin Fowler, “Temporal Patterns”, 16 February 2005</em><br />
 <a href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
 <h6 id="kulkarni"><a name="_Kulkarni">[Kulkarni]</a></h6>
-<p><em>Krishna Kulkarni, "Temporal Features in SQL standard", September 2012</em><br />
+<p><em>Krishna Kulkarni, “Temporal Features in SQL standard”, September 2012</em><br />
 <a href="https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf">https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf</a>.</p>
 <h6 id="snodgrass"><a name="_Snodgrass">[Snodgrass]</a></h6>
-<p><em>Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7</em><br />
+<p><em>Richard T. Snodgrass, “Developing Time-Oriented Database Applications in SQL”, Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7</em><br />
 <a href="http://www2.cs.arizona.edu/people/rts/tdbbook.pdf">http://www2.cs.arizona.edu/people/rts/tdbbook.pdf</a> and <a href="http://www2.cs.arizona.edu/people/rts/pp30-31.pdf">http://www2.cs.arizona.edu/people/rts/pp30-31.pdf</a>.</p>
 <h6 id="sql2011"><a name="_SQL">[SQL:2011]</a></h6>
 <p><em>ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)</em>.</p>
@@ -2428,14 +2428,14 @@ See link in "<a href="#AdditionalArtifacts">Additional artifacts</a>" section on
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
-<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
-<p>This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>This document and the information contained herein is provided on an “AS IS” basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
 <p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
 <p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
-<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
-<p>The name "OASIS" is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
 </body>
 </html>
