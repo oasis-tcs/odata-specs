@@ -2097,8 +2097,8 @@ URL fragment.
 ::: example
 Example 15: resource URL and corresponding context URL
 ```
-http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier
+http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier
 ```
 :::
 
@@ -2132,7 +2132,7 @@ the entity set name.
 ::: example
 Example 17: resource URL and corresponding context URL
 ```
-http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 ```
 :::
@@ -2181,7 +2181,7 @@ entities in the collection, see system query option
 ::: example
 Example 18: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
+http://host/service/Customers?$select=Address,Orders
 http://host/service/$metadata#Customers(Address,Orders)
 ```
 :::
@@ -2445,7 +2445,7 @@ Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}`{select-list}
+    {context-url}#{entity}/{property-path}{select-list}
     {context-url}#Collection({type-name}){select-list}
     {context-url}#{type-name}{select-list}
 
@@ -2486,7 +2486,7 @@ of the containing entity.
 ::: example
 Example 30: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234
+http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::
@@ -5534,7 +5534,7 @@ Example 98: invoke the `SampleEntities.CreateOrder` action using
 the action only if the customer's ETag still matches.
 ```json
 POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder
-If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
+If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="
 Content-Type: application/json
 
 {
@@ -5665,7 +5665,7 @@ format](#MultipartBatchFormat) MUST contain a
 ::: example
 Example 99: multipart batch request
 ```
-POST /service/$batch HTTP/1.1`
+POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.0
 Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
