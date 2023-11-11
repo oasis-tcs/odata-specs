@@ -284,7 +284,7 @@ http://host/service/Products?$filter=Name lt 'Milk'
 ::: example
 Example ##ex: all products with a `Name` less than or equal to `Milk`:
 ```
-http://host/service/Products?$filter=Name le 'Milk'`
+http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 

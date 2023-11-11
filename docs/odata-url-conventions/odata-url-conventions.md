@@ -1140,9 +1140,9 @@ http://host/service/Customers/Model.VipCustomer
 Example 37: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer
+http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
 
@@ -1264,7 +1264,7 @@ stream.
 
 ::: example
 Example 45: request the media stream for the picture with the key value
-`Sunset4321299432:`
+`Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```
@@ -1683,7 +1683,7 @@ http://host/service/Products?$filter=Name lt 'Milk'
 ::: example
 Example 55: all products with a `Name` less than or equal to `Milk`:
 ```
-http://host/service/Products?$filter=Name le 'Milk'`
+http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 

@@ -1497,7 +1497,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.
