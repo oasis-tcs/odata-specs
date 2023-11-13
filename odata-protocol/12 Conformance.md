@@ -394,7 +394,7 @@ in a delta response ([section ##RequestingChanges])
 13. MAY support asynchronous responses ([section ##AsynchronousRequests])
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming `in a JSON response (see
+15. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
