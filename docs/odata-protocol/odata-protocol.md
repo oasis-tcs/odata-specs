@@ -1408,9 +1408,9 @@ individual request. Individual requests within a batch that don't
 include the `include-annotations` preference inherit the preference of
 the overall batch request.
 
-Note: The `include-annotations `preference was named
+Note: The `include-annotations` preference was named
 `odata.include-annotations` in OData version 4.0. Services that support
-the` include-annotations `preference SHOULD also support
+the `include-annotations` preference SHOULD also support
 `odata.include-annotations` for OData 4.0 clients and clients SHOULD use
 `odata.include-annotations` for compatibility with OData 4.0 services.
 If both `include-annotations` and `odata.include-annotations`
@@ -1518,7 +1518,7 @@ request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
 include a [`Preference-Applied`](#HeaderPreferenceApplied) response
-header containing the `return=minimal `preference.
+header containing the `return=minimal` preference.
 
 A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
@@ -1534,7 +1534,7 @@ MAY be applied to individual requests within a batch.
 
 #### <a name="Preferencerespondasync" href="#Preferencerespondasync">8.2.8.8 Preference `respond-async`</a>
 
-The `respond-async `preference, as defined in [RFC7240](#rfc7240),
+The `respond-async` preference, as defined in [RFC7240](#rfc7240),
 allows clients to request that the service process the request
 asynchronously.
 
@@ -1750,7 +1750,7 @@ allow correct caching of the response.
 If a response varies depending on the applied preferences
 ([`allow-entityreferences`](#Preferenceallowentityreferencesodataallowentityreferences),
 [`include-annotations`](#Preferenceincludeannotationsodataincludeannotations),
-[`omit-values`](#Preferenceomitvalues)`, `[`return`](#Preferencereturnrepresentationandreturnminimal)),
+[`omit-values`](#Preferenceomitvalues), [`return`](#Preferencereturnrepresentationandreturnminimal)),
 the service MUST include a `Vary` header listing the
 [`Prefer`](#HeaderPrefer) request header field to allow correct caching
 of the response.
@@ -1807,7 +1807,7 @@ In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
 Request](#DataModification) that responds with
-`204 No Content MAY `include an `ETag` header with a value reflecting
+`204 No Content` MAY include an `ETag` header with a value reflecting
 the result of the data modification if and only if the client can
 reasonably "know" the new representation of the resource without
 actually receiving it. For a `PUT` request this means that the response
@@ -1857,7 +1857,7 @@ of the error is as defined for the appropriate [format](#Formats).
 
 ### <a name="ResponseCode404NotFound" href="#ResponseCode404NotFound">9.2.1 Response Code `404 Not Found`</a>
 
-`404 Not Found `indicates that the resource specified by the request URL
+`404 Not Found` indicates that the resource specified by the request URL
 does not exist. The response body MAY provide additional information.
 
 ### <a name="ResponseCode405MethodNotAllowed" href="#ResponseCode405MethodNotAllowed">9.2.2 Response Code `405 Method Not Allowed`</a>
@@ -2097,8 +2097,8 @@ URL fragment.
 ::: example
 Example 15: resource URL and corresponding context URL
 ```
-http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier
+http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier
 ```
 :::
 
@@ -2132,7 +2132,7 @@ the entity set name.
 ::: example
 Example 17: resource URL and corresponding context URL
 ```
-http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 ```
 :::
@@ -2181,7 +2181,7 @@ entities in the collection, see system query option
 ::: example
 Example 18: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
+http://host/service/Customers?$select=Address,Orders
 http://host/service/$metadata#Customers(Address,Orders)
 ```
 :::
@@ -2252,14 +2252,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or` $expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
@@ -2312,14 +2312,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or `$expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
@@ -2445,7 +2445,7 @@ Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}`{select-list}
+    {context-url}#{entity}/{property-path}{select-list}
     {context-url}#Collection({type-name}){select-list}
     {context-url}#{type-name}{select-list}
 
@@ -2486,7 +2486,7 @@ of the containing entity.
 ::: example
 Example 30: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234
+http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::
@@ -3098,7 +3098,7 @@ GET http://host/service/Products?$filter=Price lt 10.00
 :::
 
 The [`$count`](#SystemQueryOptioncount) segment may be used within a
-`$filter `expression to limit the items returned based on the exact
+`$filter` expression to limit the items returned based on the exact
 count of related entities or items within a collection-valued property.
 
 ::: example
@@ -3394,7 +3394,7 @@ GET http://host/service/Products?$count=true
 :::
 
 The count of related entities can be requested by specifying
-the` $count` query option within the `$expand` clause.
+the `$count` query option within the `$expand` clause.
 
 ::: example
 Example 57:
@@ -3564,7 +3564,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example 65: return the supplier of the product with `ID=1 `in the
+Example 65: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -3673,7 +3673,7 @@ GET http://host/service/Products/$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the `/$filter path` segment to count the items in the filtered
+the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
@@ -5541,7 +5541,7 @@ Example 98: invoke the `SampleEntities.CreateOrder` action using
 the action only if the customer's ETag still matches.
 ```json
 POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder
-If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
+If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="
 Content-Type: application/json
 
 {
@@ -5672,7 +5672,7 @@ format](#MultipartBatchFormat) MUST contain a
 ::: example
 Example 99: multipart batch request
 ```
-POST /service/$batch HTTP/1.1`
+POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.0
 Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -5839,7 +5839,8 @@ set can use one of the following three formats:
 ::: example
 Example 101:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1 ```
+GET https://host:1234/path/service/People(1) HTTP/1.1
+```
 :::
 
 - Absolute resource path and separate `Host` header
@@ -6657,7 +6658,7 @@ in a delta response ([section 11.3](#RequestingChanges))
 13. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming `in a JSON response (see
+15. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients

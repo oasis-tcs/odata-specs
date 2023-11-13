@@ -997,7 +997,7 @@ To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
 set or collection.
 
-The `/$count `path suffix identifies the integer count of records in the
+The `/$count` path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
 [`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -1055,9 +1055,9 @@ Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
 For entity sets, results of operations associated with an entity set
-through an `EntitySet `or `EntitySetPath` declaration, or
+through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
-`NavigationPropertyBinding `or `ContainsTarget=true `specification,
+`NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
 the parenthesized key to the URL specifying the collection of entities,
 or by using the [key-as-segment convention](#KeyasSegmentConvention) if
@@ -1138,9 +1138,9 @@ http://host/service/Customers/Model.VipCustomer
 Example 37: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer
+http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
 
@@ -1262,7 +1262,7 @@ stream.
 
 ::: example
 Example 45: request the media stream for the picture with the key value
-`Sunset4321299432:`
+`Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```
@@ -1413,7 +1413,7 @@ System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
 The names of all system query options are optionally prefixed with a
 dollar (`$`) character. 4.01 Services MUST support case-insensitive
-system query option names specified with or without the `$ `prefix.
+system query option names specified with or without the `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -1681,7 +1681,7 @@ http://host/service/Products?$filter=Name lt 'Milk'
 ::: example
 Example 55: all products with a `Name` less than or equal to `Milk`:
 ```
-http://host/service/Products?$filter=Name le 'Milk'`
+http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
@@ -3634,7 +3634,7 @@ http://host/service/Products?$select=ID,Model.ActionName,Model2.*
 ```
 :::
 
-When multiple select item exist in a `select clause`, then the total set
+When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
@@ -3661,7 +3661,7 @@ particular page of items by combining `$top` and `$skip`.
 The semantics of `$top` and `$skip` are covered in the
 [OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
-`$skip `query options respectively.
+`$skip` query options respectively.
 
 ### <a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option `$count`</a>
 
