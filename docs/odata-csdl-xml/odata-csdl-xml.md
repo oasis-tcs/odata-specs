@@ -852,7 +852,7 @@ The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
 `4.0`. For OData 4.01 responses the value of this attribute MUST be
 `4.01`. Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion `header with a value of `4.0`.
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### <a name="ElementedmxDataServices3" href="#ElementedmxDataServices3"> Element `edmx:DataServices`</a>
 
@@ -3150,7 +3150,7 @@ Example 36: for an entity set in any container in scope
 
 ::: {.varxml .example}
 Example 37: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"
@@ -4408,7 +4408,7 @@ Example 68:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -4440,7 +4440,7 @@ Example 69:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4482,7 +4482,7 @@ Example 70:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4866,7 +4866,7 @@ Example 77: all non-empty `FirstName` values not containing the letters
 
 #### <a name="FunctionodatauriEncode" href="#FunctionodatauriEncode">14.4.4.4 Function `odata.uriEncode`</a>
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
