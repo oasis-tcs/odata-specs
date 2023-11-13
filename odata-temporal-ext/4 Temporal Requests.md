@@ -72,7 +72,7 @@ applicable rule:
 2. by a [`$at`](#QueryOptionat) value propagated along `$expand`
 3. by [`$at`](#QueryOptionat) in the query option part of the request URL, which applies to every
    segment of the resource path and paths that occur in system query options
-4. by the default value "now" - the logic for determining this value is service-specific
+4. by the default value "now" --- the logic for determining this value is service-specific
 
 For entities in a [timeline entity set](#TimelineEntitySet)
 the time interval for filtering time slices is determined by the first
@@ -92,7 +92,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.
@@ -137,7 +137,7 @@ Example ##ex: retrieve multiple employees at a past point in time
 GET /api-1/Employees?$filter=contains(Name,'i')&$at=2012-01-01
 ```
 results in one time slice for each employee matching the filter at the
-specified point in time - note that E401 back then does not satisfy
+specified point in time --- note that E401 back then does not satisfy
 this condition
 ```json
 {
