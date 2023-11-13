@@ -702,7 +702,7 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 <p>Properties of type <code>Edm.Stream</code> already return the raw value of the media stream and do not support appending the <code>/$value</code> segment.</p>
 <h2 id="48-addressing-the-count-of-a-collection"><a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a></h2>
 <p>To address the raw value of the number of items in a collection, clients append <code>/$count</code> to the resource path of the URL identifying the entity set or collection.</p>
-<p>The <code>/$count </code>path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
+<p>The <code>/$count</code> path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
 <p>The count is calculated after applying any <a href="#AddressingaSubsetofaCollection"><code>/$filter</code></a> path segments, or <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options to the collection.</p>
 <div class="example">
 <p>Example 30: the number of related entities</p>
@@ -726,7 +726,7 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <h2 id="49-addressing-a-member-within-an-entity-collection"><a name="AddressingaMemberwithinanEntityCollection" href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a></h2>
 <p>Collections of entities are modeled as entity sets, collection-valued navigation properties, or operation results.</p>
-<p>For entity sets, results of operations associated with an entity set through an <code>EntitySet </code>or <code>EntitySetPath</code> declaration, or collection-valued navigation properties with a <code>NavigationPropertyBinding </code>or <code>ContainsTarget=true </code>specification, members of the collection can be addressed by convention by appending the parenthesized key to the URL specifying the collection of entities, or by using the <a href="#KeyasSegmentConvention">key-as-segment convention</a> if supported by the service.</p>
+<p>For entity sets, results of operations associated with an entity set through an <code>EntitySet</code> or <code>EntitySetPath</code> declaration, or collection-valued navigation properties with a <code>NavigationPropertyBinding</code> or <code>ContainsTarget=true</code> specification, members of the collection can be addressed by convention by appending the parenthesized key to the URL specifying the collection of entities, or by using the <a href="#KeyasSegmentConvention">key-as-segment convention</a> if supported by the service.</p>
 <p>For collection-valued navigation properties with navigation property bindings that end in a type-cast segment, a type-cast segment MUST be appended to the collection URL before appending the key segment.</p>
 <p>Note: entity sets or collection-valued navigation properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey"><code>Capabilities.IndexableByKey</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a> and a value of <code>false</code> do not support addressing their members by key.</p>
 <h2 id="410-addressing-a-member-of-an-ordered-collection"><a name="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a></h2>
@@ -747,9 +747,9 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <div class="example">
 <p>Example 37: entity restricted to a <code>VipCustomer</code> instance, resulting in <code>404 Not Found</code> if the customer with key <code>1</code> is not a <code>VipCustomer</code></p>
-<pre><code>http://host/service/`Customers/Model.VipCustomer(1)
+<pre><code>http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
+http://host/service/Customers(1)/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
 <p>Example 38: cast the complex property <code>Address</code> to its derived type <code>DetailedAddress</code>, then get a property of the derived type</p>
@@ -792,7 +792,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <h2 id="414-addressing-the-media-stream-of-a-media-entity"><a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a></h2>
 <p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
 <div class="example">
-<p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432:</code></p>
+<p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432</code>:</p>
 <pre><code>http://host/service/Pictures(&#39;Sunset4321299432&#39;)/$value</code></pre>
 </div>
 <h2 id="415-addressing-the-cross-join-of-entity-sets"><a name="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a></h2>
@@ -852,7 +852,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h1 id="5-query-options"><a name="QueryOptions" href="#QueryOptions">5 Query Options</a></h1>
 <p>The query options part of an OData URL specifies three types of information: <a href="#SystemQueryOptions">system query options</a>, <a href="#CustomQueryOptions">custom query options</a>, and <a href="#ParameterAliases">parameter aliases</a>. All OData services MUST follow the query string parsing and construction rules defined in this section and its subsections.</p>
 <h2 id="51-system-query-options"><a name="SystemQueryOptions" href="#SystemQueryOptions">5.1 System Query Options</a></h2>
-<p>System query options are query string parameters that control the amount and order of the data returned for the resource identified by the URL. The names of all system query options are optionally prefixed with a dollar (<code>$</code>) character. 4.01 Services MUST support case-insensitive system query option names specified with or without the <code>$ </code>prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
+<p>System query options are query string parameters that control the amount and order of the data returned for the resource identified by the URL. The names of all system query options are optionally prefixed with a dollar (<code>$</code>) character. 4.01 Services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
 <p>For <code>GET</code>, <code>PATCH</code>, and <code>PUT</code> requests the following rules apply:</p>
 <ul>
 <li>Resource paths identifying a single entity, a complex type instance, a collection of entities, or a collection of complex type instances allow <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a>.</li>
@@ -950,7 +950,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </div>
 <div class="example">
 <p>Example 55: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
-<pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;`</code></pre>
+<pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
 <p>Example 56: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
@@ -1864,14 +1864,14 @@ geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 <p>Example 133: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
-<p>When multiple select item exist in a <code>select clause</code>, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
+<p>When multiple select item exist in a <code>$select</code> clause, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
 <h3 id="515-system-query-option-orderby"><a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
 <p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
 <h3 id="516-system-query-options-top-and-skip"><a name="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></h3>
 <p>The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The <code>$skip</code> query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining <code>$top</code> and <code>$skip</code>.</p>
-<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip </code>query options respectively.</p>
+<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
 <h3 id="517-system-query-option-count"><a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></h3>
 <p>The <code>$count</code> system query option allows clients to request a count of the matching resources included with the resources in the response. The <code>$count</code> query option has a Boolean value of <code>true</code> or <code>false</code>.</p>
 <p>The semantics of <code>$count</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>

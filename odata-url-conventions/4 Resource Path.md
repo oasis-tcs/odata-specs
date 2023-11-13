@@ -562,7 +562,7 @@ To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
 set or collection.
 
-The `/$count `path suffix identifies the integer count of records in the
+The `/$count` path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
 [`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -621,9 +621,9 @@ Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
 For entity sets, results of operations associated with an entity set
-through an `EntitySet `or `EntitySetPath` declaration, or
+through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
-`NavigationPropertyBinding `or `ContainsTarget=true `specification,
+`NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
 the parenthesized key to the URL specifying the collection of entities,
 or by using the [key-as-segment convention](#KeyasSegmentConvention) if
@@ -704,9 +704,9 @@ http://host/service/Customers/Model.VipCustomer
 Example ##ex: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer
+http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
 
@@ -828,7 +828,7 @@ stream.
 
 ::: example
 Example ##ex: request the media stream for the picture with the key value
-`Sunset4321299432:`
+`Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```

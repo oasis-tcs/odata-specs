@@ -842,7 +842,7 @@ information:
   [`type`](#ControlInformationtypeodatatype)
   control information unless their type is `Double`.
 - The special floating-point values `-INF`, `INF`, and
-  `NaN `are serialized as strings and MUST have a
+  `NaN` are serialized as strings and MUST have a
   [`type`](#ControlInformationtypeodatatype)
   control information to specify the numeric type of the property.
 - String  values do have a first class representation in JSON, but there is an
@@ -933,11 +933,11 @@ The `id` control information contains the entity-id, see
 identical to the canonical URL of the entity, as defined in
 [OData-URL](#ODataURL).
 
-The `id `control information MUST appear in responses if
+The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested, or if
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is requested and any of a non-transient entity\'s key fields are omitted
+is requested and any of a non-transient entity's key fields are omitted
 from the response _or_ the entity-id is not identical to the canonical
 URL of the entity after
 
@@ -1087,7 +1087,7 @@ doesn't follow standard URL conventions relative to the read link of the
 entity and the associated
 `mediaEditLink` is not present.
 
-The `mediaContentType `control information MAY be included;
+The `mediaContentType` control information MAY be included;
 its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
