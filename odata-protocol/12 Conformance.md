@@ -180,13 +180,13 @@ collection-valued properties (section 5.1.1.10 in
 [OData-URL](#ODataURL))
 6. MUST support the `$skip` system query option ([section ##SystemQueryOptionskip])
 7. MUST support the `$count` system query option ([section ##SystemQueryOptioncount])
-8. MUST support `$orderby` `asc` and `desc` on individual properties
+8. MUST support `$orderby` with `asc` and `desc` on individual properties
 ([section ##SystemQueryOptionorderby])
 9. MUST support `$expand` ([section ##SystemQueryOptionexpand])
    1. MUST support returning references for expanded properties
    2. MUST support `$filter` on expanded collection-valued properties
    3. MUST support cast segment in expand with derived types
-   4. SHOULD support `$orderby` `asc` and `desc` on expanded
+   4. SHOULD support `$orderby` with `asc` and `desc` on expanded
 collection-valued properties
    5. SHOULD support `$count` on expanded collection-valued properties
    6. SHOULD support `$top` and `$skip` on expanded collection-valued
@@ -315,7 +315,7 @@ Level](#OData401MinimalConformanceLevel)
 Level](#OData40IntermediateConformanceLevel)
 3. MUST support `eq/ne null` comparison for navigation properties with
 a maximum cardinality of one
-4. MUST support the [`in`](#BuiltinFilterOperations)` `operator
+4. MUST support the [`in`](#BuiltinFilterOperations) operator
 5. MUST support the `$select` option nested within `$select`
 6. SHOULD support the count of a filtered collection in a common
 expression
@@ -340,7 +340,7 @@ expression
 4. MUST support `$compute` system query option
 5. MUST support nested options in `$select`
    1. MUST support `$filter` on selected collection-valued properties
-   2. SHOULD support `$orderby` `asc` and `desc` on selected
+   2. SHOULD support `$orderby` with `asc` and `desc` on selected
 collection-valued properties
    3. SHOULD support the `$count` on selected collection-valued
 properties
@@ -394,7 +394,7 @@ in a delta response ([section ##RequestingChanges])
 13. MAY support asynchronous responses ([section ##AsynchronousRequests])
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming `in a JSON response (see
+15. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
