@@ -4682,7 +4682,8 @@ An entity may have one or more *stream properties*. Stream properties
 are properties of type `Edm.Stream`.
 
 The values for stream properties do not usually appear in the entity
-payload. Instead, the values are generally read or written through URLs.
+payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
+Instead, the values are generally read or written through URLs.
 
 ::: example
 Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
