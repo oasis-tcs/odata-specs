@@ -146,8 +146,8 @@ URL fragment.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier
+http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier
 ```
 :::
 
@@ -181,7 +181,7 @@ the entity set name.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 ```
 :::
@@ -230,7 +230,7 @@ entities in the collection, see system query option
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
+http://host/service/Customers?$select=Address,Orders
 http://host/service/$metadata#Customers(Address,Orders)
 ```
 :::
@@ -494,7 +494,7 @@ Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}`{select-list}
+    {context-url}#{entity}/{property-path}{select-list}
     {context-url}#Collection({type-name}){select-list}
     {context-url}#{type-name}{select-list}
 
@@ -535,7 +535,7 @@ of the containing entity.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234
+http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::

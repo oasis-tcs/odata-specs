@@ -747,9 +747,9 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <div class="example">
 <p>Example 37: entity restricted to a <code>VipCustomer</code> instance, resulting in <code>404 Not Found</code> if the customer with key <code>1</code> is not a <code>VipCustomer</code></p>
-<pre><code>http://host/service/`Customers/Model.VipCustomer(1)
+<pre><code>http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
+http://host/service/Customers(1)/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
 <p>Example 38: cast the complex property <code>Address</code> to its derived type <code>DetailedAddress</code>, then get a property of the derived type</p>
@@ -792,7 +792,7 @@ http://host/service/`Customers(1)/Model.VipCustomer</code></pre>
 <h2 id="414-addressing-the-media-stream-of-a-media-entity"><a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a></h2>
 <p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
 <div class="example">
-<p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432:</code></p>
+<p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432</code>:</p>
 <pre><code>http://host/service/Pictures(&#39;Sunset4321299432&#39;)/$value</code></pre>
 </div>
 <h2 id="415-addressing-the-cross-join-of-entity-sets"><a name="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a></h2>
@@ -950,7 +950,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </div>
 <div class="example">
 <p>Example 55: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
-<pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;`</code></pre>
+<pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
 <p>Example 56: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
