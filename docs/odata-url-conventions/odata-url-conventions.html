@@ -626,7 +626,7 @@ http://host/service/Employees(ID=&#39;A1245&#39;)
 http://host/service/Employees(&#39;A1245&#39;)</code></pre>
 </div>
 <h3 id="436-key-as-segment-convention"><a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a></h3>
-<p>Services MAY support an alternate convention for addressing entities by appending a segment containing the unquoted key value to the URL of the collection containing the entity. Forward-slashes in key value segments MUST be percent-encoded; single quotes within key value segments are treated as part of the key value and do not need to be doubled or percent encoded.</p>
+<p>Services MAY support an alternate convention for addressing entities by appending a segment containing the unprefixed and unquoted key value to the URL of the collection containing the entity. Forward-slashes in key value segments MUST be percent-encoded; single quotes within key value segments are treated as part of the key value and do not need to be doubled or percent encoded.</p>
 <div class="example">
 <p>Example 25: valid OData URLs:</p>
 <pre><code>http://host/service/Employees/A1245
@@ -635,7 +635,11 @@ http://host/service/People/O&#39;Neil
 
 http://host/service/People/O%27Neil
 
-http://host/service/Categories/Smartphone%2FTablet</code></pre>
+http://host/service/Categories/Smartphone%2FTablet
+
+http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+
+http://host/service/ThingyWithEnumerationKey/Yellow</code></pre>
 </div>
 <p>For multi-part keys, the entity MUST be addressed by multiple segments applied, one for each key value, in the order they appear in the metadata description of the entity key.</p>
 <div class="example">
