@@ -247,8 +247,8 @@ For complete copyright information please see the full Notices section in an App
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData
-service using the Extensible Markup Language (XML) 1.1 (Second Edition)
-[XML-1.1](#XML-11) with further building blocks from the W3C XML
+service using the Extensible Markup Language (XML) 1.0 (Fifth Edition)
+[XML-1.0](#XML-10) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -323,8 +323,8 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
 OData CSDL XML is a full representation of the OData Common Schema
-Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML-11) with further building blocks from the
+Definition Language in the Extensible Markup Language (XML) 1.0 (Fifth
+Edition) [XML-1.0](#XML-10) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -5644,9 +5644,9 @@ _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14,
 https://www.rfc-editor.org/info/rfc8174.
 
 
-###### <a name="XML-11">[XML-1.1]</a>
-_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
-http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+###### <a name="XML-10">[XML-1.0]</a>
+_Extensible Markup Language (XML) 1.0 (Fifth Edition)_. T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, F. Yergeau, Editors, W3C Recommendation, 26 November 2008.  
+http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://www.w3.org/TR/xml/.
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
