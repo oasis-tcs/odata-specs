@@ -5280,6 +5280,13 @@ namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
 
+To request processing of the function only if the binding parameter value,
+an entity or collection of entities, is unmodified, the client includes
+the [`If-Match`](#HeaderIfMatch) header with the latest known ETag value
+for the entity or collection of entities. The ETag value for a
+collection as a whole is transported in the `ETag` header of a
+collection response.
+
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options. Such
 functions can be bound to a resource, as described above, or called
