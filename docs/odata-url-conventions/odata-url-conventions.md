@@ -76,7 +76,7 @@ When referencing this specification the following citation format should be used
 
 **[OData-v4.02-Part2]**
 
-_OData Version 4.02. Part 2: URL Conventions__.
+_OData Version 4.02. Part 2: URL Conventions_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
@@ -3050,6 +3050,7 @@ Example 106: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
@@ -3110,8 +3111,8 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 
 #### <a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a>
 
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
+Properties and navigation properties of the structured type on which
+a common expression is evaluated can be used as operands
 or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
