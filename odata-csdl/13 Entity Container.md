@@ -399,10 +399,10 @@ If the entity type of an entity set or singleton declares navigation
 properties, a navigation property binding allows describing which entity
 set or singleton will contain the related entities.
 
-An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD specify
-a navigation property binding for each [navigation
-property](#NavigationProperty) of its entity type, including navigation
-properties defined on complex typed properties or derived types.
+An [entity set](#EntitySet) or a [singleton](#Singleton) SHOULD contain a navigation
+property binding for each non-containment navigation property that can be reached
+from the entity type through a sequence of type casts, complex properties,
+or containment navigation properties.
 
 If omitted, clients MUST assume that the target entity set or singleton
 can vary per related entity.
@@ -553,7 +553,7 @@ Example ##ex: for an entity set in any container in scope
 
 ::: {.varxml .example}
 Example ##ex: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"
@@ -689,6 +689,8 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 The `edm:FunctionImport` element MUST contain the attributes `Name` and
 `Function`, and it MAY contain the attributes `EntitySet` and
 `IncludeInServiceDocument`.
+
+It MAY contain [`edm:Annotation`](#Annotation) elements.
 
 ### ##subisec Attribute `Name`
 

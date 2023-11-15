@@ -423,7 +423,7 @@ see [OData-VocCore](#ODataVocCore).
 ::: {.varjson .rep}
 ### ##subisec `$HasStream`
 
-The value of `$HasStream `is one of the Boolean literals `true` or
+The value of `$HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
