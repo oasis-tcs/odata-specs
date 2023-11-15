@@ -415,7 +415,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>After applying these steps defined by RFC3986 the following steps MUST be performed:</p>
 <ul>
-<li>Split undecoded query at "<code>&amp;</code>" into query options, and each query option at the first "<code>=</code>" into query option name and query option value</li>
+<li>Split undecoded query at "<code>&amp;</code>" (octet <code>0x26</code>) into query options, and each query option at the first "<code>=</code>" (octet <code>0x3D</code>) into query option name and query option value</li>
 <li>Percent-decode path segments, query option names, and query option values exactly once</li>
 <li>Interpret path segments, query option names, and query option values according to OData rules</li>
 </ul>

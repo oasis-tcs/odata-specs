@@ -360,8 +360,8 @@ and path
 
 After applying these steps defined by RFC3986 the following steps MUST
 be performed:
-- Split undecoded query at "`&`" into
-query options, and each query option at the first "`=`" into query
+- Split undecoded query at "`&`" (octet `0x26`) into
+query options, and each query option at the first "`=`" (octet `0x3D`) into query
 option name and query option value
 - Percent-decode path segments, query
 option names, and query option values exactly once
