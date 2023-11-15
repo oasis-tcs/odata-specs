@@ -1145,6 +1145,9 @@ schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
 
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
+
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
@@ -3471,14 +3474,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -5461,7 +5464,7 @@ Example 90:
             </Collection>
           </Annotation>
         </EntitySet>
-        <Singleton Name="MainSupplier" Type="self.Supplier">
+        <Singleton Name="MainSupplier" Type="ODataDemo.Supplier">
           <NavigationPropertyBinding Path="Products" Target="Products" />
           <Annotation Term="Core.Description" String="Primary Supplier" />
         </Singleton>

@@ -307,7 +307,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 <ul>
 <li><a href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></li>
-<li><a href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property’s Raw Value using <code>$value</code></a></li>
+<li><a href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></li>
 </ul></li>
 <li><a href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 <ul>
@@ -923,7 +923,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 <p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
 <h2 id="95-in-stream-errors"><a name="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a></h2>
-<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a>. Clients MUST treat the entire response as being in error.</p>
+<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a> or abort the response by causing an error on transport protocol level. Clients MUST treat the entire response as being in error.</p>
 <p>Services MAY include the header <a href="#HeaderODataError"><code>OData-Error</code></a> as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
 <hr />
 <h1 id="10-context-url"><a name="ContextURL" href="#ContextURL">10 Context URL</a></h1>
@@ -1024,8 +1024,8 @@ http://host/service/$metadata#Customers/Model.VipCustomer/$entity</code></pre>
 <p>OData 4.01 responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for entities in the collection, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <div class="example">
 <p>Example 18: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/Customers?$select=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)</code></pre>
+<pre><code>http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)</code></pre>
 </div>
 <h2 id="108-projected-entity"><a name="ProjectedEntity" href="#ProjectedEntity">10.8 Projected Entity</a></h2>
 <p>Context URL templates:</p>
@@ -1049,6 +1049,7 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity</code></pre>
 {context-url}#Collection({type-name}){select-list}</code></pre>
 <p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
+<p>The context URL has no shortcut for representing the list of all navigation properties; <code>$expand=*</code> is treated as if all navigation properties were explicitly expanded.</p>
 <p>If the context URL includes only expanded navigation properties (i.e., only navigation properties suffixed with parentheses), then all structural properties are implicitly selected (same as if there were no properties listed in the select-list).</p>
 <p>Navigation properties with expanded references are not represented in the context URL.</p>
 <div class="example">
@@ -1279,15 +1280,15 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11241-requesting-stream-properties"><a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></h4>
 <p>If the property being requested has type <code>Edm.Stream</code> (see <a href="#ODataURL">OData-URL, section 9</a>), the media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the stream property with that media type.</p>
 <p>Note this response format disregards any <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
-<h4 id="11242-requesting-a-propertys-raw-value-using-value"><a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property’s Raw Value using <code>$value</code></a></h4>
-<p>To retrieve the raw value of a primitive type property, the client sends a <code>GET</code> request to the property value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
+<h4 id="11242-requesting-a-raw-value-using-value"><a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></h4>
+<p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
-<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
+<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
 <p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses for properties of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>A <code>$value</code> request for a property that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
-<p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
-<p>Appending <code>/$value</code> to the property URL of a property of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
+<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A raw value request for a property or operation result of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
+<p>A raw value request for a property or operation result that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
+<p>If the property or operation result is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <div class="example">
 <p>Example 32:</p>
 <pre><code>GET http://host/service/Products(1)/Name/$value</code></pre>
@@ -1924,7 +1925,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Deleting a media entity also deletes the media associated with the entity.</p>
 <h3 id="1148-managing-stream-properties"><a name="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a></h3>
 <p>An entity may have one or more <em>stream properties</em>. Stream properties are properties of type <code>Edm.Stream</code>.</p>
-<p>The values for stream properties do not usually appear in the entity payload. Instead, the values are generally read or written through URLs.</p>
+<p>The values for stream properties do not usually appear in the entity payload unless explicitly requested with <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. Instead, the values are generally read or written through URLs.</p>
 <div class="example">
 <p>Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property</p>
 <pre><code>GET http://host/service/Products(1)?$select=Thumbnail</code></pre>
@@ -1964,12 +1965,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData-URL</a> for details on addressing individual properties.</p>
 <h4 id="11491-update-a-primitive-property"><a name="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL for a primitive property updates the value of the property. The message body MUST contain the new value, formatted as a single property according to the specified format.</p>
-<p>A successful <code>PUT</code> request to the edit URL for the <a href="#RequestingaPropertysRawValueusingvalue">raw value</a> of a primitive property updates the property with the raw value specified in the payload. The payload MUST be formatted as an appropriate content type for the raw value of the property.</p>
+<p>A successful <code>PUT</code> request to the edit URL for the <a href="#RequestingaRawValueusingvalue">raw value</a> of a primitive property updates the property with the raw value specified in the payload. The payload MUST be formatted as an appropriate content type for the raw value of the property.</p>
 <p>The same rules apply whether this is a regular property or a dynamic property.</p>
 <p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference.</p>
 <p>Services MUST return an error if the property is not updatable.</p>
 <h4 id="11492-set-a-value-to-null"><a name="SetaValuetoNull" href="#SetaValuetoNull">11.4.9.2 Set a Value to Null</a></h4>
-<p>A successful <code>DELETE</code> request to the edit URL for a structural property, or to the edit URL of the <a href="#RequestingaPropertysRawValueusingvalue">raw value</a> of a primitive property, sets the property to null. The request body is ignored and should be empty.</p>
+<p>A successful <code>DELETE</code> request to the edit URL for a structural property, or to the edit URL of the <a href="#RequestingaRawValueusingvalue">raw value</a> of a primitive property, sets the property to null. The request body is ignored and should be empty.</p>
 <p>A <code>DELETE</code> request to a non-nullable value MUST fail and the service respond with <code>400 Bad Request</code> or other appropriate error.</p>
 <p>The same rules apply whether the target is the value of a regular property or the value of a dynamic property. A missing dynamic property is defined to be the same as a dynamic property with value <code>null</code>. All dynamic properties are nullable.</p>
 <p>On success, the service MUST respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and an empty body.</p>
@@ -2636,7 +2637,7 @@ Content-Length: ###
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
-<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.2</a>)</li>
+<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaRawValueusingvalue">section 11.2.4.2</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>

@@ -230,8 +230,8 @@ entities in the collection, see system query option
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$select=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)
+http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
 ```
 :::
 
@@ -310,6 +310,9 @@ For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
 nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
+
+The context URL has no shortcut for representing the list of all navigation properties;
+`$expand=*` is treated as if all navigation properties were explicitly expanded.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all

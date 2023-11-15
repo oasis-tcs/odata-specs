@@ -244,7 +244,7 @@ section, the canonical form of an absolute URL identifying a
 non-contained entity is formed by adding a single path segment to the
 service root URL. The path segment is made up of the name of the entity
 set associated with the entity followed by the key predicate identifying
-the entity within the collection. No type-cast segment is added to the
+the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -273,7 +273,7 @@ For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
-- A type-cast segment if the navigation
+- A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
 the entity set,
 - A path segment for the containment
@@ -364,7 +364,7 @@ http://host/service/Employees('A1245')
 ### ##subsubsec Key-as-Segment Convention
 
 Services MAY support an alternate convention for addressing entities by
-appending a segment containing the unquoted key value to the URL of the
+appending a segment containing the unprefixed and unquoted key value to the URL of the
 collection containing the entity. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
@@ -380,6 +380,10 @@ http://host/service/People/O'Neil
 http://host/service/People/O%27Neil
 
 http://host/service/Categories/Smartphone%2FTablet
+
+http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+
+http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
 
@@ -548,12 +552,12 @@ the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## ##subsec Addressing a Property Value
+## ##subsec Addressing a Raw Value
 
-To address the raw value of a primitive property, clients append the
-path segment `/$value` to the property URL.
+To address the raw value of a primitive property or operation result, clients append the
+path segment `/$value` to the property or operation URL.
 
-Properties of type `Edm.Stream` already return the raw value of the
+Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
 ## ##subsec Addressing the Count of a Collection
@@ -630,7 +634,8 @@ or by using the [key-as-segment convention](#KeyasSegmentConvention) if
 supported by the service.
 
 For collection-valued navigation properties with navigation property
-bindings that end in a type-cast segment, a type-cast segment MUST be
+bindings that end in a [type-cast segment](#AddressingDerivedTypes),
+a [type-cast segment](#AddressingDerivedTypes) MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -664,13 +669,13 @@ http://host/service/MainSupplier/Addresses/0
 ## ##subsec Addressing Derived Types
 
 Any resource path or path expression identifying a collection of
-entities or complex type instances can be appended with a path segment
-containing the qualified name of a type derived from the declared type
+entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
+containing the qualified name of a type derived from the declared item type
 of the collection. The result will be restricted to instances of the
 derived type and may be empty.
 
 Any resource path or path expression identifying a single entity or
-complex type instance can be appended with a path segment containing the
+complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
@@ -745,8 +750,8 @@ filter expression following the `filter` syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
 part of the request URL. If the filter path segment appears in the
-resource path and the parentheses contain a filter expression, that
-expression MUST NOT use forward slashes.
+resource path, the filter expression in parentheses MUST NOT use forward slashes,
+it must be specified with a parameter alias instead.
 
 The collection will be restricted to instances matching the filter
 expression assigned to the parameter alias and may be empty.
@@ -816,7 +821,7 @@ collection, followed by [`/any`](#any), [`/all`](#all), or
 [`/$count`](#AddressingtheCountofaCollection).
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#AddressingDerivedTypes) or [filter path
+[type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## ##subsec Addressing the Media Stream of a Media Entity
