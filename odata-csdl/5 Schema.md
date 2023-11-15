@@ -16,6 +16,9 @@ schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
 
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
+
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
@@ -423,7 +426,7 @@ see [OData-VocCore](#ODataVocCore).
 ::: {.varjson .rep}
 ### ##subisec `$HasStream`
 
-The value of `$HasStream `is one of the Boolean literals `true` or
+The value of `$HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 

@@ -85,29 +85,29 @@ _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
+https://www.rfc-editor.org/info/rfc6570.
 
 : varjson
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
+_The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
+https://www.rfc-editor.org/info/rfc7493.
 :
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
+https://www.rfc-editor.org/info/rfc8174.
 
 : varjson
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.  
+https://www.rfc-editor.org/info/rfc8259.
 :
 
 : varxml
-###### <a name="XML-11">[XML-1.1]</a>
-_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
-http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+###### <a name="XML-10">[XML-1.0]</a>
+_Extensible Markup Language (XML) 1.0 (Fifth Edition)_. T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, F. Yergeau, Editors, W3C Recommendation, 26 November 2008.  
+http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://www.w3.org/TR/xml/.
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
@@ -125,7 +125,7 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ## ##subasec Informative References
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  
+_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
 
 -------
