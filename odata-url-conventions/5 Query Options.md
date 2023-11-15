@@ -1656,6 +1656,7 @@ Example ##ex: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
@@ -1716,8 +1717,8 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 
 #### ##subsubsubsec Path Expressions
 
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
+Properties and navigation properties of the structured type on which
+a common expression is evaluated can be used as operands
 or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
