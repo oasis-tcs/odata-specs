@@ -1103,7 +1103,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>Edm.String</code></li>
 <li><code>Edm.TimeOfDay</code></li>
 </ul>
-<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
+<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity-ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
 <p>A key property MUST be a non-nullable primitive property of the entity type itself, including non-nullable primitive properties of non-nullable single-valued complex properties, recursively.</p>
 <p>In OData 4.01 the key properties of a directly related entity type MAY also be part of the key if the navigation property is single-valued and not nullable. This includes navigation properties of non-nullable single-valued complex properties (recursively) of the entity type. If a key property of a related entity type is part of the key, all key properties of the related entity type MUST also be part of the key.</p>
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>

@@ -1550,7 +1550,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
