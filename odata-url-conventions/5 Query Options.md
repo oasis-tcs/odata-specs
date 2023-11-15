@@ -2402,7 +2402,7 @@ http://host/service/Orders(10)/Items
 ### ##subsubsec System Query Option `$index`
 
 The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
+insert into a collection annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
