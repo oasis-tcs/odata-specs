@@ -952,6 +952,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>One or more schemas describe the entity model exposed by an OData service. The schema acts as a namespace for elements of the entity model such as entity types, complex types, enumerations and terms.</p>
 <p>A schema is identified by a <a href="#Namespace">namespace</a>. Schema namespaces MUST be unique within the scope of a document and SHOULD be globally unique. A schema cannot span more than one document.</p>
 <p>The schema’s namespace is combined with the name of elements in the schema to create unique <a href="#QualifiedName">qualified names</a>, so identifiers that are used to name types MUST be unique within a namespace to prevent ambiguity.</p>
+<p>Services SHOULD NOT have <a href="#Action">actions</a> and <a href="#Function">functions</a> with the same name, and MUST NOT have actions and functions with the same name bound to the same type.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <section id="-schema-object" class="varjson rep">
