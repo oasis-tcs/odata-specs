@@ -2181,8 +2181,8 @@ entities in the collection, see system query option
 ::: example
 Example 18: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$select=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)
+http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
 ```
 :::
 
@@ -2261,6 +2261,9 @@ For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
 nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
+
+The context URL has no shortcut for representing the list of all navigation properties;
+`$expand=*` is treated as if all navigation properties were explicitly expanded.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -2658,20 +2661,20 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
--   [`$compute`](#SystemQueryOptioncompute)
--   [`$search`](#SystemQueryOptionsearch)
--   [`$filter`](#SystemQueryOptionfilter)
--   [`$count`](#SystemQueryOptioncount)
--   [`$orderby`](#SystemQueryOptionorderby)
--   [`$skip`](#SystemQueryOptionskip)
--   [`$top`](#SystemQueryOptiontop)
+- `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
+- [`$compute`](#SystemQueryOptioncompute)
+- [`$search`](#SystemQueryOptionsearch)
+- [`$filter`](#SystemQueryOptionfilter)
+- [`$count`](#SystemQueryOptioncount)
+- [`$orderby`](#SystemQueryOptionorderby)
+- [`$skip`](#SystemQueryOptionskip)
+- [`$top`](#SystemQueryOptiontop)
 
 After applying any [server-driven paging](#ServerDrivenPaging):
 
--   [`$expand`](#SystemQueryOptionexpand)
--   [`$select`](#SystemQueryOptionselect)
--   [`$format`](#SystemQueryOptionformat)
+- [`$expand`](#SystemQueryOptionexpand)
+- [`$select`](#SystemQueryOptionselect)
+- [`$format`](#SystemQueryOptionformat)
 
 ### <a name="RequestingIndividualEntities" href="#RequestingIndividualEntities">11.2.2 Requesting Individual Entities</a>
 
@@ -4678,7 +4681,8 @@ An entity may have one or more *stream properties*. Stream properties
 are properties of type `Edm.Stream`.
 
 The values for stream properties do not usually appear in the entity
-payload. Instead, the values are generally read or written through URLs.
+payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
+Instead, the values are generally read or written through URLs.
 
 ::: example
 Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
