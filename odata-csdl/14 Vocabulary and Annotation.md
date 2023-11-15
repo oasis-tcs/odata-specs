@@ -148,10 +148,11 @@ unqualified name of the term and whose value is an object.
 The term object MUST contain the member `$Kind` with a string value of
 `Term`.
 
-It MAY contain the members `$Type`, `$Collection`,
-[`$AppliesTo`](#Applicability), [`$Nullable`](#Nullable),
+It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
+[`$BaseTerm`](#SpecializedTerm),
+[`$AppliesTo`](#Applicability),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
-[`$Scale`](#Scale), [`$SRID`](#SRID), and `$DefaultValue`, as well as
+[`$Scale`](#Scale), and [`$SRID`](#SRID), as well as
 [`$Unicode`](#Unicode) for 4.01 and greater payloads.
 
 It MAY contain [annotations](#Annotation).
@@ -168,6 +169,19 @@ with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
+### ##subisec `$Nullable`
+
+The value of `$Nullable` is one of the Boolean literals `true` or
+`false`. Absence of the member means `false`.
+
+For single-valued terms  the value `true` means that annotations may have
+the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case `$Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
+
 ### ##subisec `$DefaultValue`
 
 The value of `$DefaultValue` is the type-specific JSON representation of
@@ -183,14 +197,12 @@ CSDL JSON documents MUST always specify an explicit value.
 ### ##isec Element `edm:Term`
 
 The `edm:Term` element MUST contain the attributes `Name` and `Type`. It
-MAY contain the attributes `BaseTerm` and `AppliesTo`.
+MAY contain the attributes `Nullable`, `DefaultValue`, [`BaseTerm`](#SpecializedTerm) and [`AppliesTo`](#Applicability).
 
-It MAY specify values for the [`Nullable`](#Nullable),
-[ ]{.apple-converted-space}[`MaxLength`](#MaxLength),
-[`Precision`](#Precision), [`Scale`](#Scale), or [`SRID`](#SRID) facet
-attributes, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads. These facets and their implications are
-described in section 7.2.
+The facets [`MaxLength`](#MaxLength),
+[`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
+used as appropriate, as well as the [`Unicode`](#Unicode) facet attribute for
+4.01 and greater payloads.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
 enumeration type MAY define a value for the `DefaultValue` attribute.
@@ -203,12 +215,34 @@ The value of `Name` is the term's name.
 
 ### ##subisec Attribute `Type`
 
-For single-valued properties the value of `Type` is the qualified name
-of the property's type.
+For single-valued terms the value of `Type` is the qualified name
+of the term's type.
 
 For collection-valued properties the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the property's
 item type, followed by a closing parenthesis `)`.
+
+### ##subisec Attribute `Nullable`
+
+The value of `Nullable` is one of the Boolean literals `true` or
+`false`.
+
+For single-valued terms the value `true` means that annotations may have the `null` value.
+
+For collection-valued terms the annotation value will always be a
+collection that MAY be empty. In this case the `Nullable` attribute
+applies to items of the collection and specifies whether the collection
+MAY contain `null` values.
+
+If no value is specified for a single-valued term, the `Nullable`
+attribute defaults to `true`.
+
+In OData 4.01 responses a collection-valued term MUST specify a
+value for the `Nullable` attribute.
+
+If no value is specified for a collection-valued term, the client
+cannot assume any default value. Clients SHOULD be prepared for this
+situation even in OData 4.01 responses.
 
 ### ##subisec Attribute `DefaultValue`
 
@@ -282,14 +316,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -1364,56 +1398,203 @@ Addresses/-1/Street
 
 #### ##subsubsubsec Path Evaluation
 
-Annotations MAY be embedded within their target, or specified
-separately, e.g. as part of a different schema, and specify a path to
-their target model element. The latter situation is referred to as
-*targeting* in the remainder of this section.
+Annotations MAY be embedded within their target, or specified separately,
+e.g. as part of a different schema, and specify a path to their target model
+element. The latter situation is referred to as *targeting* in the remainder of
+this section.
 
-For annotations embedded within or targeting an entity container, the
-path is evaluated starting at the entity container, i.e. an empty path
-resolves to the entity container, and non-empty paths MUST start with a
-segment identifying a container child (entity set, function import,
-action import, or singleton). The subsequent segments follow the rules
-for paths targeting the corresponding child element.
+The *host* of an annotation is the model element targeted by the annotation,
+unless that target is another annotation or a model element (collection,
+record or property value) directly or indirectly embedded within another
+annotation, in which case the host is the host of that other annotation.
 
-For annotations embedded within or targeting an entity set or a
-singleton, the path is evaluated starting at the entity set or
-singleton, i.e. an empty path resolves to the entity set or singleton,
-and non-empty paths MUST follow the rules for annotations targeting the
-declared entity type of the entity set or singleton.
+If the value of an annotation is expressed dynamically with a path
+expression, the path evaluation rules for this expression depend upon the
+model element by which the annotation is hosted.
 
-For annotations embedded within or targeting an entity type or complex
-type, the path is evaluated starting at the type, i.e. an empty path
-resolves to the type, and the first segment of a non-empty path MUST be
-a structural or navigation property of the type, a [type
-cast](#TypeCast), or a [term cast](#TermCast).
+For annotations hosted by an entity container, the path is evaluated starting
+at the entity container, i.e. an empty path resolves to the entity container,
+and non-empty paths MUST start with a segment identifying a container child
+(entity set, function import, action import, or singleton). The subsequent
+segments follow the rules for path expressions targeting the corresponding
+child element.
 
-For annotations embedded within a structural or navigation property of
-an entity type or complex type, the path is evaluated starting at the
-directly enclosing type. This allows e.g. specifying the value of an
-annotation on one property to be calculated from values of other
-properties of the same type. An empty path resolves to the enclosing
-type, and non-empty paths MUST follow the rules for annotations
-targeting the directly enclosing type.
+For annotations hosted by an entity set or a singleton, the path is evaluated
+starting at the entity set or singleton, i.e. an empty path resolves to the
+entity set or singleton, and non-empty paths MUST follow the rules for
+annotations targeting the declared entity type of the entity set or singleton.
 
-For annotations targeting a structural or navigation property of an
-entity type or complex type, the path is evaluated starting at the
-*outermost* entity type or complex type named in the target of the
-annotation, i.e. an empty path resolves to the outermost type, and the
-first segment of a non-empty path MUST be a structural or navigation
-property of the outermost type, a [type cast](#TypeCast), or a [term
-cast](#TermCast).
+For annotations hosted by an entity type or complex type, the path is
+evaluated starting at the type, i.e. an empty path resolves to the type, and
+the first segment of a non-empty path MUST be a structural or navigation
+property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 
-For annotations embedded within or targeting an action, action import,
-function, function import, parameter, or return type, the first segment
-of the path MUST be a parameter name or `$ReturnType`.
+For annotations hosted by an action, action import, function, function
+import, parameter, or return type, the first segment of the path MUST be the
+name of a parameter of the action or function or `$ReturnType`.
+
+For annotations hosted by a structural or navigation property, the path
+evaluation rules additionally depend upon how the annotation target is
+specified, as follows:
+
+1. If the annotation is directly or indirectly embedded within the hosting
+   property, the path is evaluated starting at the directly enclosing type of
+   the hosting property. This allows e.g. specifying the value of an
+   annotation on one property to be calculated from values of other properties
+   of the same enclosing type. An empty path resolves to the enclosing type,
+   and non-empty paths MUST follow the rules for annotations targeting the
+   directly enclosing type.
+
+2. If the annotation uses targeting and the target path starts with an entity
+   container, or the annotation is directly or indirectly embedded within such an
+   annotation, the path is evaluated starting at the declared type of the
+   hosting property. An empty path resolves to the declared type of the
+   property, and non-empty paths MUST follow the rules for annotations
+   targeting the declared type of the property. If the type is primitive, the
+   first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
+   [term cast](#TermCast).
+
+3. If the annotation uses targeting and the target path does not start with
+   an entity container, or the annotation is directly or indirectly embedded
+   within such an annotation, the path is evaluated starting at the *outermost*
+   entity type or complex type named in the target path. This allows e.g.
+   specifying the value of an annotation on one property to be calculated from
+   values of other properties of the outermost type. An empty path resolves to
+   the outermost type, and the first segment of a non-empty path MUST be a
+   structural or navigation property of the outermost type, a [type cast](#TypeCast),
+   or a [term cast](#TermCast).
+
+::: example
+Example ##ex: Annotations hosted by property `A2` in various modes
+
+Path evaluation for the annotations in the first block starts at the directly
+enclosing type `self.A` of the hosting property `A2`.
+:::: varjson
+```json
+"self": {
+  "A": {
+    "$Kind": "EntityType",
+    "A1": {
+      "$Type": "Edm.Boolean"
+    },
+    "A2": {
+      "$Type": "self.B"
+      "@Core.Description@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      },
+      "@Core.Description": "..."
+    }
+  },
+  "B": {
+    "$Kind": "ComplexType",
+    "B1": {
+      "$Type": "Edm.Boolean"
+    }
+  },
+```
+::::
+
+:::: varxml
+```xml
+<Schema Namespace="self">
+  <EntityType Name="A">
+    <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
+    <Property Name="A2" Type="self.B" Nullable="false">
+      <Annotation Term="Core.Description" String="...">
+        <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+      </Annotation>
+    </Property>
+  </EntityType>
+  <ComplexType Name="B">
+    <Property Name="B1" Type="Edm.Boolean" Nullable="false" />
+  </ComplexType>
+```
+::::
+
+Path evaluation for the annotations in the next block starts at the declared
+type `self.B` of the hosting property `A2`.
+:::: varjson
+```json
+  "Container": {
+    "$Kind": "EntityContainer",
+    "SetA": {
+      "$Collection": true,
+      "$Type": "self.A"
+    }
+  },
+  "$Annotations": {
+    "self.Container/SetA/A2": {
+      "@Core.Description#viaset@Core.IsLanguageDependent": {
+        "$Path": "B1"
+      },
+      "@Core.Description#viaset": "..."
+    },
+    "self.Container/SetA/A2/@Core.Description#viaset": {
+      "@Core.IsLanguageDependent": {
+        "$Path": "B1"
+      }
+    },
+```
+::::
+
+:::: varxml
+```xml
+  <EntityContainer Name="Container">
+    <EntitySet Name="SetA" EntityType="self.A" />
+  </EntityContainer>
+  <Annotations Target="self.Container/SetA/A2">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+    <Annotation Term="Core.IsLanguageDependent" Path="B1" />
+  </Annotations>
+```
+::::
+
+Path evaluation for the annotations in the final block starts at the outermost
+type `self.A` named in the target path.
+:::: varjson
+```json
+    "self.A/A2": {
+      "@Core.Description#external@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      },
+      "@Core.Description#external": "..."
+    },
+    "self.A/A2/@Core.Description": {
+      "@Core.IsLanguageDependent": {
+        "$Path": "A1"
+      }
+    }
+  }
+}
+```
+::::
+
+:::: varxml
+```xml
+  <Annotations Target="self.A/A2">
+    <Annotation Term="Core.Description" Qualifier="external" String="...">
+      <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+    </Annotation>
+  </Annotations>
+  <Annotations Target="self.A/A2/@Core.Description">
+    <Annotation Term="Core.IsLanguageDependent" Path="A1" />
+  </Annotations>
+</Schema>
+```
+::::
+
+:::
 
 #### ##subsubsubsec Annotation Path
 
 The annotation path expression provides a value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.AnnotationPath or Edm.ModelElementPath`. Its argument is a [model
+`Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
@@ -1468,7 +1649,7 @@ Example ##ex:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -1510,7 +1691,7 @@ Example ##ex:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -1569,7 +1750,7 @@ Example ##ex:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -1831,7 +2012,7 @@ Example ##ex:
       "S"
     ]
   ]
-} 
+}
 ```
 :::
 
@@ -2191,7 +2372,7 @@ the member name of the enumeration value.
 #### ##subsubsubsec Function `odata.fillUriTemplate`
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be
@@ -2251,6 +2432,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
+It is the counterpart of the identically named URL function [OData-URL, section 5.1.1.7.1](#ODataURL).
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -2287,7 +2469,7 @@ Example ##ex: all non-empty `FirstName` values not containing the letters
 
 #### ##subsubsubsec Function `odata.uriEncode`
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 

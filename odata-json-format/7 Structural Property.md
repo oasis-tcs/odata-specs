@@ -4,18 +4,18 @@
 # ##sec Structural Property
 
 A property within an entity or complex type instance is represented as a
-name/value pair. The name MUST be the name of the property; the value is
+name/value pair. The name MUST be the name of the property; a non-null value is
 represented depending on its type as a [primitive value](#PrimitiveValue), 
 a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
 
+Null values are represented as the JSON literal `null`.
+
 ## ##subsec Primitive Value
 
 Primitive values are represented following the rules of
 [RFC8259](#rfc8259).
-
-Null values are represented as the JSON literal `null`.
 
 Values of type `Edm.Boolean` are represented as the JSON
 literals `true` and `false`
@@ -145,6 +145,10 @@ Example ##ex: partial collection of strings with next link
 }
 ```
 :::
+
+A collection of primitive values that occurs in a property of type `Edm.Untyped`
+is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
+depending on the JavaScript type.
 
 ## ##subsec Collection of Complex Values
 
@@ -383,7 +387,7 @@ Example ##ex: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -461,18 +465,23 @@ An entity or complex type instance can have one or more stream properties.
 
 The actual stream data is not usually contained in the representation.
 Instead stream property data is generally read and edited via URLs.
+- Stream properties requested with `$select` or included in the default selection are represented by
+[`media*`](#ControlInformationmediaodatamedia) control information.
+- Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
+
+See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
-link, media type, and ETag of the media stream through a set of
-[`media*`](#ControlInformationmediaodatamedia) control information.
+link, media type, and ETag of the media stream through their `media*` control information.
 
 If the actual stream data is included inline, the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 MUST be present to indicate how the included stream property value is
 represented. Stream property values of media type `application/json` or
 one of its subtypes, optionally with format parameters, are represented
-as native JSON. Values of top-level type `text`, for example
+as native JSON. Values of top-level type `text` with an explicit or
+default `charset` of `utf-8` or `us-ascii`, for example
 `text/plain`, are represented as a string, with JSON string
 escaping rules applied. Included stream data of other media types is
 represented as a base64url-encoded string value, see

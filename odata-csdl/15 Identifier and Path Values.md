@@ -108,7 +108,6 @@ Example ##ex:
     "@Core.DefaultNamespace": true,
     "Product": {
       "$Kind": "EntityType",
-      "$HasStream": true,
       "$Key": [
         "ID"
       ],
@@ -311,7 +310,7 @@ Example ##ex:
   </edmx:Reference>
   <edmx:DataServices>
     <Schema Namespace="ODataDemo">
-      <EntityType Name="Product" HasStream="true">
+      <EntityType Name="Product">
         <Key>
           <PropertyRef Name="ID" />
         </Key>
@@ -396,7 +395,7 @@ Example ##ex:
             </Collection>
           </Annotation>
         </EntitySet>
-        <Singleton Name="MainSupplier" Type="self.Supplier">
+        <Singleton Name="MainSupplier" Type="ODataDemo.Supplier">
           <NavigationPropertyBinding Path="Products" Target="Products" />
           <Annotation Term="Core.Description" String="Primary Supplier" />
         </Singleton>
@@ -464,7 +463,7 @@ Example ##ex:
       }
     }
   }
-} 
+}
 ```
 :::
 
