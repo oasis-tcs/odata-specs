@@ -552,12 +552,12 @@ the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## ##subsec Addressing a Property Value
+## ##subsec Addressing a Raw Value
 
-To address the raw value of a primitive property, clients append the
-path segment `/$value` to the property URL.
+To address the raw value of a primitive property or operation result, clients append the
+path segment `/$value` to the property or operation URL.
 
-Properties of type `Edm.Stream` already return the raw value of the
+Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
 ## ##subsec Addressing the Count of a Collection

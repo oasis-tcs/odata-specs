@@ -237,11 +237,10 @@ value of the stream property with that media type.
 Note this response format disregards any [`$format`](#SystemQueryOptionformat)
 system query option.
 
-#### ##subsubsubsec Requesting a Property's Raw Value using `$value`
+#### ##subsubsubsec Requesting a Raw Value using `$value`
 
-To retrieve the raw value of a primitive type property, the client sends
-a `GET` request to the property value URL. See the
-[OData-URL](#ODataURL) document for details.
+To retrieve the raw value of a primitive property or operation result, the client sends
+a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -249,7 +248,7 @@ option.
 
 The default format for `Edm.Binary` is the format specified by the
 [`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
-annotation of this property (see [OData-VocCore](#ODataVocCore)) if this
+annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
@@ -261,7 +260,7 @@ The default format for `Edm.Geo` types is `text/plain` using the WKT
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
-the `Edm.Geo` types is `text/plain`. Responses for properties of type
+the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
 other primitive types follow the rules `booleanValue`, `byteValue`,
@@ -270,14 +269,14 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
 [OData-ABNF](#ODataABNF).
 
-A `$value` request for a property that is `null` results in a
+A raw value request for a property or operation result of type `Edm.Stream`
+returns `400 Bad Request`.
+
+A raw value request for a property or operation result that is `null` results in a
 [`204 No Content`](#ResponseCode204NoContent) response.
 
-If the property is not available, for example due to permissions, the
+If the property or operation result is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
-
-Appending `/$value` to the property URL of a property of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ::: example
 Example ##ex:
