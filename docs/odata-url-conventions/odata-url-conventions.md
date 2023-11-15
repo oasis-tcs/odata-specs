@@ -679,7 +679,7 @@ section, the canonical form of an absolute URL identifying a
 non-contained entity is formed by adding a single path segment to the
 service root URL. The path segment is made up of the name of the entity
 set associated with the entity followed by the key predicate identifying
-the entity within the collection. No type-cast segment is added to the
+the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -708,7 +708,7 @@ For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
-- A type-cast segment if the navigation
+- A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
 the entity set,
 - A path segment for the containment
@@ -1064,7 +1064,8 @@ or by using the [key-as-segment convention](#KeyasSegmentConvention) if
 supported by the service.
 
 For collection-valued navigation properties with navigation property
-bindings that end in a type-cast segment, a type-cast segment MUST be
+bindings that end in a [type-cast segment](#AddressingDerivedTypes),
+a [type-cast segment](#AddressingDerivedTypes) MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -1098,13 +1099,13 @@ http://host/service/MainSupplier/Addresses/0
 ## <a name="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a>
 
 Any resource path or path expression identifying a collection of
-entities or complex type instances can be appended with a path segment
-containing the qualified name of a type derived from the declared type
+entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
+containing the qualified name of a type derived from the declared item type
 of the collection. The result will be restricted to instances of the
 derived type and may be empty.
 
 Any resource path or path expression identifying a single entity or
-complex type instance can be appended with a path segment containing the
+complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
@@ -1250,7 +1251,7 @@ collection, followed by [`/any`](#any), [`/all`](#all), or
 [`/$count`](#AddressingtheCountofaCollection).
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#AddressingDerivedTypes) or [filter path
+[type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## <a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a>
@@ -3283,8 +3284,8 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
+consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -3295,13 +3296,13 @@ that stream property,
 properties of the identified structured instance, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
+related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
 references.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
+[type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
 
 If a structured type traversed by the path supports neither dynamic
@@ -3371,8 +3372,7 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The system query options [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -3492,8 +3492,7 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -3568,8 +3567,7 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example
