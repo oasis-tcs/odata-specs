@@ -918,8 +918,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><code>code</code>: required non-null, non-empty, language-independent string. Its value is a service-defined error code. This code serves as a sub-status for the HTTP error code specified in the response.</li>
 <li><code>message</code>: required non-null, non-empty, language-dependent, human-readable string describing the error. The <a href="#HeaderContentLanguage"><code>Content-Language</code></a> header MUST contain the language code from <a href="#rfc5646">RFC5646</a> corresponding to the language in which the value for message is written.</li>
 <li><code>target</code>: optional nullable, potentially empty string indicating the target of the error, for example, the name of the property in error.</li>
-<li><code>details</code>: optional, potentially empty collection of structured instances with <code>code</code>, <code>message</code>, and <code>target</code> following the rules above.</li>
-<li><code>innererror</code>: optional structured instance with service-defined content.</li>
+<li><code>details</code>: optional, potentially empty collection of instances of structured types with <code>code</code>, <code>message</code>, and <code>target</code> following the rules above.</li>
+<li><code>innererror</code>: optional instance of structured type with service-defined content.</li>
 </ul>
 <p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
 <h2 id="95-in-stream-errors"><a name="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a></h2>
