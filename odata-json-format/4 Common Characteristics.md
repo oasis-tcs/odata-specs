@@ -15,7 +15,7 @@ Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
 
 Requests MAY add the `charset` parameter to the content type.
-Allowed values are `UTF-8`,` UTF-16`, and
+Allowed values are `UTF-8`, `UTF-16`, and
 `UTF-32`. If no `charset` parameter is present,
 `UTF-8` MUST be assumed.
 
@@ -153,7 +153,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -307,7 +307,7 @@ information:
   [`type`](#ControlInformationtypeodatatype)
   control information unless their type is `Double`.
 - The special floating-point values `-INF`, `INF`, and
-  `NaN `are serialized as strings and MUST have a
+  `NaN` are serialized as strings and MUST have a
   [`type`](#ControlInformationtypeodatatype)
   control information to specify the numeric type of the property.
 - String  values do have a first class representation in JSON, but there is an
@@ -318,6 +318,9 @@ information:
   format parameter etc. If a property appears in JSON string format, it
   should be treated as a string value unless the property is known (from
   the metadata document) to have a different type.
+
+The `type` control information can be absent in properties nested in an instance of type `Edm.Untyped`.
+In particular, individual primitive values within a collection cannot have `type` control information.
 
 For more information on namespace- and alias-qualified names, see
 [OData-CSDLJSON](#ODataCSDL) or
@@ -341,10 +344,8 @@ metadata document of the same service with a dynamic property of type
 :::
 
 ::: example
-Example ##ex: entity of type
-`Model.VipCustomer` defined in the
-metadata` `document of a different
-service
+Example ##ex: entity of type `Model.VipCustomer` defined in the
+metadata  document of a different service
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
@@ -397,11 +398,11 @@ The `id` control information contains the entity-id, see
 identical to the canonical URL of the entity, as defined in
 [OData-URL](#ODataURL).
 
-The `id `control information MUST appear in responses if
+The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested, or if
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is requested and any of a non-transient entity\'s key fields are omitted
+is requested and any of a non-transient entity's key fields are omitted
 from the response _or_ the entity-id is not identical to the canonical
 URL of the entity after
 
@@ -551,7 +552,7 @@ doesn't follow standard URL conventions relative to the read link of the
 entity and the associated
 `mediaEditLink` is not present.
 
-The `mediaContentType `control information MAY be included;
+The `mediaContentType` control information MAY be included;
 its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
@@ -619,11 +620,11 @@ Example ##ex: Annotating primitive values within a collection
   "EmailAddresses@collectionAnnotations": [
     {
       "index": 0,
-      "@emailType": "Personal"
+      "@OfficeCommunication.emailType": "Personal"
     },
     {
       "index": 2,
-      "@emailType": "Work"
+      "@OfficeCommunication.emailType": "Work"
     }
   ],
   "EmailAddresses": [

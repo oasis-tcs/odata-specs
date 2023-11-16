@@ -39,7 +39,7 @@ batch request URL, or a relative path (not starting with a forward slash `/`).
 
 If the first segment of a relative path starts with a `$`
 character and is not identical to the name of a top-level system
-resource (`$batch`, `$crossjoin,` `$all,` `$entity`, `$root,`
+resource (`$batch`, `$crossjoin`, `$all`, `$entity`, `$root`,
 `$id`, `$metadata`, or other system resources
 defined according to the `OData-Version` of the protocol
 specified in the request), then this first segment is replaced with the
@@ -120,6 +120,9 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
  
 ::: example
 Example ##ex_batchRequest: a batch request that contains

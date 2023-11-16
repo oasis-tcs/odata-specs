@@ -69,7 +69,7 @@ This specification defines how to represent and interact with time-dependent dat
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -296,7 +296,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-temporal-ext-v4.0-csd04.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-temporal-ext-v4.0-csd04.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -1302,8 +1302,8 @@ structured type with the following properties:
     - If the period end property does not
       specify a default value, a default value of "ad infinitum" is assumed.
   - Records of type `TimelineVisible` MAY specify the property `ObjectKey`.
-    - `ObjectKey` is the “sub-key” or “alternate key” that identifies time slices for a single temporal object.       It is only necessary if the annotated entity set can contain time slices
-      for more than one temporal object. `The object key is `a collection of
+    - `ObjectKey` is the "sub-key" or "alternate key" that identifies time slices for a single temporal object.       It is only necessary if the annotated entity set can contain time slices
+      for more than one temporal object. The object key is a collection of
       property paths whose value combination uniquely identifies a temporal
       object.
 - `SupportedActions` is a collection of
@@ -1476,7 +1476,7 @@ applicable rule:
 2. by a [`$at`](#QueryOptionat) value propagated along `$expand`
 3. by [`$at`](#QueryOptionat) in the query option part of the request URL, which applies to every
    segment of the resource path and paths that occur in system query options
-4. by the default value "now" - the logic for determining this value is service-specific
+4. by the default value "now" --- the logic for determining this value is service-specific
 
 For entities in a [timeline entity set](#TimelineEntitySet)
 the time interval for filtering time slices is determined by the first
@@ -1496,7 +1496,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.
@@ -1541,7 +1541,7 @@ Example 11: retrieve multiple employees at a past point in time
 GET /api-1/Employees?$filter=contains(Name,'i')&$at=2012-01-01
 ```
 results in one time slice for each employee matching the filter at the
-specified point in time - note that E401 back then does not satisfy
+specified point in time --- note that E401 back then does not satisfy
 this condition
 ```json
 {
