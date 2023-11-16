@@ -118,13 +118,18 @@ and path
 
 After applying these steps defined by RFC3986 the following steps MUST
 be performed:
-- Split undecoded query at "`&`" into
-query options, and each query option at the first "`=`" into query
+- Split undecoded query at "`&`" (octet `0x26`) into
+query options, and each query option at the first "`=`" (octet `0x3D`) into query
 option name and query option value
 - Percent-decode path segments, query
 option names, and query option values exactly once
 - Interpret path segments, query option
 names, and query option values according to OData rules
+
+Note: neither [RFC3986](#rfc3986) nor this specification assign special meaning to "`+`" (octet `0x2B`).
+Some implementations decode "`+`" (octet `0x2B`) as space (octet `0x20`), others take it literally.
+
+Clients SHOULD percent-encode space (octet `0x20`) as `%20` and "`+`" (octet `0x2B`) as `%2B` and avoid the ambiguous "`+`" (octet `0x2B`) in URLs.
 
 ## ##subsec URL Syntax
 

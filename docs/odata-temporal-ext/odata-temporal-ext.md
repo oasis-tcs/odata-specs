@@ -1302,8 +1302,8 @@ structured type with the following properties:
     - If the period end property does not
       specify a default value, a default value of "ad infinitum" is assumed.
   - Records of type `TimelineVisible` MAY specify the property `ObjectKey`.
-    - `ObjectKey` is the “sub-key” or “alternate key” that identifies time slices for a single temporal object.       It is only necessary if the annotated entity set can contain time slices
-      for more than one temporal object. `The object key is `a collection of
+    - `ObjectKey` is the "sub-key" or "alternate key" that identifies time slices for a single temporal object.       It is only necessary if the annotated entity set can contain time slices
+      for more than one temporal object. The object key is a collection of
       property paths whose value combination uniquely identifies a temporal
       object.
 - `SupportedActions` is a collection of
@@ -1496,7 +1496,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.

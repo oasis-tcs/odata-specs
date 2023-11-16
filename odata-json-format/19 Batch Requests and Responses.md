@@ -120,6 +120,9 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
  
 ::: example
 Example ##ex_batchRequest: a batch request that contains

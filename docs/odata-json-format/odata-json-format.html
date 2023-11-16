@@ -514,7 +514,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li>Boolean values have a first-class representation in JSON and do not need any additional control information.</li>
 <li>Numeric values have a first-class representation in JSON but are not further distinguished, so they include a <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information unless their type is <code>Double</code>.</li>
-<li>The special floating-point values <code>-INF</code>, <code>INF</code>, and <code>NaN </code>are serialized as strings and MUST have a <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information to specify the numeric type of the property.</li>
+<li>The special floating-point values <code>-INF</code>, <code>INF</code>, and <code>NaN</code> are serialized as strings and MUST have a <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information to specify the numeric type of the property.</li>
 <li>String values do have a first class representation in JSON, but there is an obvious collision: OData also encodes a number of other primitive types as strings, e.g. <code>DateTimeOffset</code>, <code>Int64</code> in the presence of the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter etc. If a property appears in JSON string format, it should be treated as a string value unless the property is known (from the metadata document) to have a different type.</li>
 </ul>
 <p>The <code>type</code> control information can be absent in properties nested in an instance of type <code>Edm.Untyped</code>. In particular, individual primitive values within a collection cannot have <code>type</code> control information.</p>
@@ -550,7 +550,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>deltaLink</code> control information contains a URL that can be used to retrieve changes to the current set of results. The <code>deltaLink</code> control information MUST only appear on the last page of results. A page of results MUST NOT have both a <code>deltaLink</code> control information and a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
 <h3 id="458-control-information-id-odataid"><a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
 <p>The <code>id</code> control information contains the entity-id, see <a href="#ODataProtocol">OData-Protocol</a>. By convention the entity-id is identical to the canonical URL of the entity, as defined in <a href="#ODataURL">OData-URL</a>.</p>
-<p>The <code>id </code>control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity's key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
+<p>The <code>id</code> control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity’s key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
 <ul>
 <li>IRI-to-URI conversion as defined in <a href="#rfc3987">RFC3987</a>,</li>
 <li>relative resolution as defined in section 5.2 of <a href="#rfc3986">RFC3986</a>, and</li>
@@ -594,7 +594,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don't follow standard URL conventions as defined in <a href="#ODataURL">OData-URL</a>, sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
 <p>The <code>mediaEditLink</code> control information contains a URL that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
 <p>The <code>mediaReadLink</code> control information contains a URL that can be used to read the binary stream associated with the media entity or stream property. It MUST be included if its value differs from the value of the associated <code>mediaEditLink</code>, if present, or if it doesn’t follow standard URL conventions relative to the read link of the entity and the associated <code>mediaEditLink</code> is not present.</p>
-<p>The <code>mediaContentType </code>control information MAY be included; its value SHOULD match the media type of the binary stream represented by the <code>mediaReadLink</code> URL. This is only a hint; the actual media type will be included in the <code>Content-Type</code> header when the resource is requested.</p>
+<p>The <code>mediaContentType</code> control information MAY be included; its value SHOULD match the media type of the binary stream represented by the <code>mediaReadLink</code> URL. This is only a hint; the actual media type will be included in the <code>Content-Type</code> header when the resource is requested.</p>
 <p>The <code>mediaEtag</code> control information MAY be included; its value is the ETag of the binary stream represented by this media entity or stream property.</p>
 <p>The <code>media*</code> control information is not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 <p>If a stream property is provided inline in a request, the <code>mediaContentType</code> control information may be specified.</p>
@@ -622,11 +622,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@collectionAnnotations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Personal&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@OfficeCommunication.emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Personal&quot;</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Work&quot;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@OfficeCommunication.emailType&quot;</span><span class="fu">:</span> <span class="st">&quot;Work&quot;</span></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -1532,6 +1532,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For media types of top-level type <code>text</code>, for example <code>text/plain</code>, the value of <code>body</code> is a string containing the value of the request body.</p>
 <p>For all other media types the value of <code>body</code> is a string containing the base64url-encoded value of the request body. In this case the body content can be compressed or chunked if this is correctly reflected in the <code>Transfer-Encoding</code> header.</p>
 <p>A <code>body</code> MUST NOT be specified if the <code>method</code> is <code>get</code> or <code>delete</code>.</p>
+<p>The request object and the <code>headers</code> object MUST NOT contain name/value pairs with duplicate names. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <div class="example">
 <p>Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
