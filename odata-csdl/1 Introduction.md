@@ -29,6 +29,11 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+: varxml
+[Section ##EntityContainer]| 
+All children of `edm:EntityContainer` are optional| 
+[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+:
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
