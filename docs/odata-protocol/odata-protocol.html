@@ -2284,7 +2284,10 @@ Content-Type: application/json
 <div class="example">
 <p>Example 102:</p>
 <pre><code>PATCH /path/service/People(1) HTTP/1.1
-Host: myserver.mydomain.org:1234</code></pre>
+Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{&quot;Name&quot;: &quot;Peter&quot;}</code></pre>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>

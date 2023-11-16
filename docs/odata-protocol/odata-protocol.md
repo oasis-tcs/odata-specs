@@ -5854,6 +5854,9 @@ Example 102:
 ```
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{"Name": "Peter"}
 ```
 :::
 
