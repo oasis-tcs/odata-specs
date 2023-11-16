@@ -653,7 +653,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For a decimal value: the maximum number of significant decimal digits of the model element’s value; it MUST be a positive integer.</p>
 <p>For a temporal value (datetime-with-timezone-offset, duration, or time-of-day): the number of decimal places allowed in the seconds portion of the value; it MUST be a non-negative integer between zero and twelve.</p>
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal values and 7 for temporal values. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified values will reduce the risk for unintended data loss.</p>
-<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
+<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 <section id="-precision" class="varjson rep">
 <h3><a name="Precision1.2" href="#Precision1.2"> <code>$Precision</code></a></h3>
 <p>The value of <code>$Precision</code> is a number.</p>
@@ -952,6 +952,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>One or more schemas describe the entity model exposed by an OData service. The schema acts as a namespace for elements of the entity model such as entity types, complex types, enumerations and terms.</p>
 <p>A schema is identified by a <a href="#Namespace">namespace</a>. Schema namespaces MUST be unique within the scope of a document and SHOULD be globally unique. A schema cannot span more than one document.</p>
 <p>The schema’s namespace is combined with the name of elements in the schema to create unique <a href="#QualifiedName">qualified names</a>, so identifiers that are used to name types MUST be unique within a namespace to prevent ambiguity.</p>
+<p>Services SHOULD NOT have <a href="#Action">actions</a> and <a href="#Function">functions</a> with the same name, and MUST NOT have actions and functions with the same name bound to the same type.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <section id="-schema-object" class="varjson rep">
@@ -1078,7 +1079,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section id="-hasstream" class="varjson rep">
 <h3><a name="HasStream5.4" href="#HasStream5.4"> <code>$HasStream</code></a></h3>
-<p>The value of <code>$HasStream </code>is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
+<p>The value of <code>$HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="65-key"><a name="Key" href="#Key">6.5 Key</a></h2>
 <p>An entity is uniquely identified within an entity set by its key. A key MAY be specified if the entity type does not specify a <a href="#DerivedEntityType">base type</a> that already has a key declared.</p>
@@ -1102,7 +1103,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>Edm.String</code></li>
 <li><code>Edm.TimeOfDay</code></li>
 </ul>
-<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
+<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity-ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
 <p>A key property MUST be a non-nullable primitive property of the entity type itself, including non-nullable primitive properties of non-nullable single-valued complex properties, recursively.</p>
 <p>In OData 4.01 the key properties of a directly related entity type MAY also be part of the key if the navigation property is single-valued and not nullable. This includes navigation properties of non-nullable single-valued complex properties (recursively) of the entity type. If a key property of a related entity type is part of the key, all key properties of the related entity type MUST also be part of the key.</p>
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>
@@ -2144,7 +2145,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="odd">
 <td><code>Property</code></td>
-<td>Property of a structured type</td>
+<td>Structural Property</td>
 </tr>
 <tr class="even">
 <td><code>PropertyValue</code></td>
@@ -2172,7 +2173,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="even">
 <td><code>Singleton</code></td>
-<td>Singleton</td>
+<td>Singleton or single-valued Property or Navigation Property</td>
 </tr>
 <tr class="odd">
 <td><code>Term</code></td>
@@ -2653,7 +2654,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to an annotation.</li>
 </ul>
-<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
+<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <div class="varjson rep">
 <p>Annotation path expressions are represented as a string containing a path.</p>
@@ -2667,7 +2668,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
 </div>
 <h4 id="14414-model-element-path"><a name="ModelElementPath" href="#ModelElementPath">14.4.1.4 Model Element Path</a></h4>
-<p>The model element path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in type</a><code> Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a>.</p>
+<p>The model element path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in type</a> <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a>.</p>
 <p>The value of the model element path expression is the path itself, not the instance(s) identified by the path.</p>
 <div class="varjson rep">
 <p>Model element path expressions are represented as a string containing a path.</p>
@@ -2677,7 +2678,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <div class="sourceCode" id="cb78"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@org.example.MyFavoriteModelElement&quot;:</span> <span class="er">&quot;/self.someAction&quot;</span></span></code></pre></div>
 </div>
 <h4 id="14415-navigation-property-path"><a name="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a></h4>
-<p>The navigation property path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
+<p>The navigation property path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.NavigationPropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is an entity type, or a collection of entity types, e.g. a navigation property.</li>
 </ul>
@@ -2697,7 +2698,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="14416-property-path"><a name="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a></h4>
-<p>The property path expression provides a value for terms or term properties that specify one of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
+<p>The property path expression provides a value for terms or term properties that specify one of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.PropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
@@ -2858,7 +2859,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb82-89"><a href="#cb82-89" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;S&quot;</span></span>
 <span id="cb82-90"><a href="#cb82-90" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
 <span id="cb82-91"><a href="#cb82-91" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb82-92"><a href="#cb82-92" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span> <span class="er">```</span></span></code></pre></div>
+<span id="cb82-92"><a href="#cb82-92" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="1443-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">14.4.3 Arithmetic Operators</a></h3>
 <p>Annotations MAY use the following arithmetic expressions which evaluate to a numeric value. These expressions MAY be combined, and they MAY be used anywhere instead of a numeric expression of the appropriate type. The semantics and evaluation rules for each arithmetic expression is identical to the corresponding arithmetic operator defined in <a href="#ODataURL">OData-URL</a>.</p>
@@ -3048,7 +3049,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h4 id="14444-function-odatauriencode"><a name="FunctionodatauriEncode" href="#FunctionodatauriEncode">14.4.4.4 Function <code>odata.uriEncode</code></a></h4>
-<p>The <code>odata.uriEncode </code>client-side function takes one argument of primitive type and returns the URL-encoded OData literal that can be used as a key value in OData URLs or in the query part of OData URLs.</p>
+<p>The <code>odata.uriEncode</code> client-side function takes one argument of primitive type and returns the URL-encoded OData literal that can be used as a key value in OData URLs or in the query part of OData URLs.</p>
 <p>Note: string literals are surrounded by single quotes as required by the paren-style key syntax.</p>
 <div class="varjson example">
 <p>Example 78:</p>
@@ -3564,7 +3565,7 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp</c
 <span id="cb100-46"><a href="#cb100-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb100-47"><a href="#cb100-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb100-48"><a href="#cb100-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb100-49"><a href="#cb100-49" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span> <span class="er">```</span></span></code></pre></div>
+<span id="cb100-49"><a href="#cb100-49" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>
