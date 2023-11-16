@@ -1054,10 +1054,10 @@ which the value for message is written.
 empty string indicating the target of the error, for example, the name
 of the property in error.
 - `details`: optional, potentially empty
-collection of structured instances with `code`, `message`, and `target`
+collection of instances of structured types with `code`, `message`, and `target`
 following the rules above.
-- `innererror`: optional structured
-instance with service-defined content.
+- `innererror`: optional instance of structured type
+with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
 include in production environments to guard against potential security
@@ -1067,7 +1067,8 @@ concerns around information disclosure.
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
-according to its [`Content-Type`](#HeaderContentType). Clients MUST treat
+according to its [`Content-Type`](#HeaderContentType) or abort the response by
+causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
 
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a

@@ -16,6 +16,9 @@ schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
 
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
+
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
@@ -479,7 +482,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity

@@ -653,7 +653,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For a decimal value: the maximum number of significant decimal digits of the model element’s value; it MUST be a positive integer.</p>
 <p>For a temporal value (datetime-with-timezone-offset, duration, or time-of-day): the number of decimal places allowed in the seconds portion of the value; it MUST be a non-negative integer between zero and twelve.</p>
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal values and 7 for temporal values. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified values will reduce the risk for unintended data loss.</p>
-<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
+<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 <section id="-precision" class="varjson rep">
 <h3><a name="Precision1.2" href="#Precision1.2"> <code>$Precision</code></a></h3>
 <p>The value of <code>$Precision</code> is a number.</p>
@@ -952,6 +952,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>One or more schemas describe the entity model exposed by an OData service. The schema acts as a namespace for elements of the entity model such as entity types, complex types, enumerations and terms.</p>
 <p>A schema is identified by a <a href="#Namespace">namespace</a>. Schema namespaces MUST be unique within the scope of a document and SHOULD be globally unique. A schema cannot span more than one document.</p>
 <p>The schema’s namespace is combined with the name of elements in the schema to create unique <a href="#QualifiedName">qualified names</a>, so identifiers that are used to name types MUST be unique within a namespace to prevent ambiguity.</p>
+<p>Services SHOULD NOT have <a href="#Action">actions</a> and <a href="#Function">functions</a> with the same name, and MUST NOT have actions and functions with the same name bound to the same type.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <section id="-schema-object" class="varjson rep">
@@ -1102,7 +1103,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>Edm.String</code></li>
 <li><code>Edm.TimeOfDay</code></li>
 </ul>
-<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
+<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity-ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
 <p>A key property MUST be a non-nullable primitive property of the entity type itself, including non-nullable primitive properties of non-nullable single-valued complex properties, recursively.</p>
 <p>In OData 4.01 the key properties of a directly related entity type MAY also be part of the key if the navigation property is single-valued and not nullable. This includes navigation properties of non-nullable single-valued complex properties (recursively) of the entity type. If a key property of a related entity type is part of the key, all key properties of the related entity type MUST also be part of the key.</p>
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>
@@ -2144,7 +2145,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="odd">
 <td><code>Property</code></td>
-<td>Property of a structured type</td>
+<td>Structural Property</td>
 </tr>
 <tr class="even">
 <td><code>PropertyValue</code></td>
@@ -2172,7 +2173,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="even">
 <td><code>Singleton</code></td>
-<td>Singleton</td>
+<td>Singleton or single-valued Property or Navigation Property</td>
 </tr>
 <tr class="odd">
 <td><code>Term</code></td>
@@ -2652,7 +2653,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to an annotation.</li>
 </ul>
-<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
+<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <div class="varjson rep">
 <p>Annotation path expressions are represented as a string containing a path.</p>
