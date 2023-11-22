@@ -1618,8 +1618,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action consists of one or more action overloads, all sharing the same action name.</p>
 <p>An action overload MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>An action overload MAY define <a href="#Parameter">parameters</a> used during the execution of the action overload.</p>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> action overloads for the same action name are distinguished by their binding parameter type. The combination of action name and binding parameter type MUST be unique within a schema.</p>
-<p>There can be at most one <a href="#BoundorUnboundActionorFunctionOverloads">unbound</a> action overload for an action name.</p>
+<p>An action can have at most one <a href="#BoundorUnboundActionorFunctionOverloads">unbound</a> overload and zero or more <a href="#BoundorUnboundActionorFunctionOverloads">bound</a> overloads.</p>
+<p>Bound overloads of an action are distinguished by their binding parameter type. The combination of action name and binding parameter type MUST be unique within a schema.</p>
 <section id="-action-overload-object" class="varjson rep">
 <h3><a name="ActionOverloadObject12" href="#ActionOverloadObject12"> Action Overload Object</a></h3>
 <p>An action is represented as a member of the schema object whose name is the unqualified name of the action and whose value is an array. The array contains one object per action overload.</p>

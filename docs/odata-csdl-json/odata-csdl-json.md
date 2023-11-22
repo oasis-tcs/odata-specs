@@ -2649,10 +2649,11 @@ or complex types in scope.
 An action overload MAY define [parameters](#Parameter) used during the execution
 of the action overload.
 
-[Bound](#BoundorUnboundActionorFunctionOverloads) action overloads for the same action name are distinguished by their binding parameter type.
-The combination of action name and binding parameter type MUST be unique within a schema.
+An action can have at most one [unbound](#BoundorUnboundActionorFunctionOverloads) overload and
+zero or more [bound](#BoundorUnboundActionorFunctionOverloads) overloads.
 
-There can be at most one [unbound](#BoundorUnboundActionorFunctionOverloads) action overload for an action name.
+Bound overloads of an action are distinguished by their binding parameter type.
+The combination of action name and binding parameter type MUST be unique within a schema.
 
 ::: {.varjson .rep}
 ### <a name="ActionOverloadObject12" href="#ActionOverloadObject12"> Action Overload Object</a>

@@ -1493,8 +1493,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action consists of one or more action overloads, all sharing the same action name.</p>
 <p>An action overload MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>An action overload MAY define <a href="#Parameter">parameters</a> used during the execution of the action overload.</p>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> action overloads for the same action name are distinguished by their binding parameter type. The combination of action name and binding parameter type MUST be unique within a schema.</p>
-<p>There can be at most one <a href="#BoundorUnboundActionorFunctionOverloads">unbound</a> action overload for an action name.</p>
+<p>An action can have at most one <a href="#BoundorUnboundActionorFunctionOverloads">unbound</a> overload and zero or more <a href="#BoundorUnboundActionorFunctionOverloads">bound</a> overloads.</p>
+<p>Bound overloads of an action are distinguished by their binding parameter type. The combination of action name and binding parameter type MUST be unique within a schema.</p>
 <div class="varxml rep">
 <h3 id="-element-edmaction"><a name="ElementedmAction20" href="#ElementedmAction20"> Element <code>edm:Action</code></a></h3>
 <p>An action is represented as one or more <code>edm:Action</code> elements with the same value of the <code>Name</code> attribute, and each <code>edm:Action</code> element represents a single action overload. It MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
