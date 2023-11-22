@@ -2283,15 +2283,18 @@ Content-Type: application/json
 </ul>
 <div class="example">
 <p>Example 102:</p>
-<pre><code>GET /path/service/People(1) HTTP/1.1
-Host: myserver.mydomain.org:1234</code></pre>
+<pre><code>PATCH /path/service/People(1) HTTP/1.1
+Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{&quot;Name&quot;: &quot;Peter&quot;}</code></pre>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>
 </ul>
 <div class="example">
 <p>Example 103:</p>
-<pre><code>GET People(1) HTTP/1.1</code></pre>
+<pre><code>DELETE People(1) HTTP/1.1</code></pre>
 </div>
 <p>Services MUST support all three formats for URLs of individual requests.</p>
 <p>URLs must be correctly percent-encoded. For relative URLs this means that colons in the path part, especially within key values, MUST be percent-encoded to avoid confusion with the scheme separator. Colons within the query part, i.e. after the question mark character (<code>?</code>), need not be percent-encoded.</p>
