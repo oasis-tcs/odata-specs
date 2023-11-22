@@ -4352,7 +4352,7 @@ specifying the system query options
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
 optimistic concurrency control, the entities in the response MUST
 include ETags. If a representation of the updated entity could not be constructed,
-the service can ignore the system query options and respond with `204 No Content`.
+the service MAY ignore the system query options and respond with `204 No Content`.
 
 #### <a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
