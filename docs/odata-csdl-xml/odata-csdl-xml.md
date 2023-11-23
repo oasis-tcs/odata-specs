@@ -2590,13 +2590,13 @@ subject to the following rules:
 - The combination of function name and
 unordered set of parameter names MUST be unique within a schema.
 - The combination of function name and
-ordered set of parameter types MUST be unique within a schema.
+ordered list of parameter types MUST be unique within a schema.
 - All unbound function overloads with the same
 function name within a schema MUST specify
 the same [return type](#ReturnType) with identical nullability and type facets.
 
 Note that [type definitions](#TypeDefinition) can be used to
-disambiguate overloads for both bound and unbound functions, even if
+disambiguate bound and unbound function overloads, even if
 they specify the same underlying type.
 
 

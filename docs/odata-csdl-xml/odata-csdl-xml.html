@@ -1520,10 +1520,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> function overloads are subject to the following rules:</p>
 <ul>
 <li>The combination of function name and unordered set of parameter names MUST be unique within a schema.</li>
-<li>The combination of function name and ordered set of parameter types MUST be unique within a schema.</li>
+<li>The combination of function name and ordered list of parameter types MUST be unique within a schema.</li>
 <li>All unbound function overloads with the same function name within a schema MUST specify the same <a href="#ReturnType">return type</a> with identical nullability and type facets.</li>
 </ul>
-<p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
+<p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate bound and unbound function overloads, even if they specify the same underlying type.</p>
 <div class="varxml rep">
 <h3 id="-element-edmfunction"><a name="ElementedmFunction21" href="#ElementedmFunction21"> Element <code>edm:Function</code></a></h3>
 <p>A function is represented as one or more <code>edm:Function</code> elements with the same value of the <code>Name</code> attribute, and each <code>edm:Function</code> element represents a single function overload. It MUST contain the <code>Name</code> attribute and it MAY contain the <a href="#BoundorUnboundActionorFunctionOverloads"><code>IsBound</code></a> and <a href="#EntitySetPath"><code>EntitySetPath</code></a> attributes.</p>
