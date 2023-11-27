@@ -344,8 +344,9 @@ resource representations that are exchanged using OData.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -1807,7 +1808,7 @@ In this case, the response body MUST be empty.
 
 As defined in [RFC9110](#rfc9110), a [Data Modification
 Request](#DataModification) that responds with
-`204 No Content` MAY include an `ETag` header with a value reflecting
+`204 No Content` MAY include an [`ETag`](#HeaderETag) header with a value reflecting
 the result of the data modification if and only if the client can
 reasonably "know" the new representation of the resource without
 actually receiving it. For a `PUT` request this means that the response
@@ -3963,6 +3964,8 @@ must not violate the integrity of the data.
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
 the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
+A [success response](#SuccessResponses) indicates that data have been modified,
+regardless of whether the requested content could be returned.
 
 ### <a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
@@ -4138,17 +4141,16 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
-Upon successful completion, the response MUST contain a
-[`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
-created entity.
-
-Upon successful completion the service MUST respond with either
+Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
 request included a
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
-and [`$expand`](#SystemQueryOptionexpand).
+and [`$expand`](#SystemQueryOptionexpand), or if a representation of the created
+entity could not be constructed. In either case, if the service is able to construct
+the edit URL or read URL of the created entity, the response MUST contain that URL in a
+[`Location`](#HeaderLocation) header.
 
 #### <a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
@@ -4342,16 +4344,18 @@ previous request SHOULD NOT be sent in the request body. The service
 MUST fail if it is unable to persist all updatable property values
 specified in the request.
 
-Upon successful completion the service responds with either
+Upon successful completion of the update, the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
-entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
+entity, or [`204 No Content`](#ResponseCode204NoContent).
+The client may
 request that the response SHOULD include a body by specifying a
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
 optimistic concurrency control, the entities in the response MUST
-include ETags.
+include ETags. If a representation of the updated entity could not be constructed,
+the service MAY ignore the system query options and respond with `204 No Content`.
 
 #### <a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
@@ -5852,8 +5856,11 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 ::: example
 Example 102:
 ```
-GET /path/service/People(1) HTTP/1.1
+PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{"Name": "Peter"}
 ```
 :::
 
@@ -5862,7 +5869,7 @@ Host: myserver.mydomain.org:1234
 ::: example
 Example 103:
 ```
-GET People(1) HTTP/1.1
+DELETE People(1) HTTP/1.1
 ```
 :::
 
