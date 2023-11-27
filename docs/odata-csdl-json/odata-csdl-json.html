@@ -2979,8 +2979,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="1444-apply-client-side-functions"><a name="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
-<section id="-apply" class="varjson rep">
-<h3><a name="Apply21.20" href="#Apply21.20"> <code>$Apply</code></a></h3>
+<section id="-apply-and--function" class="varjson rep">
+<h3><a name="Apply21.20" href="#Apply21.20"> <code>$Apply</code></a> and <a name="Function21.21" href="#Function21.21"> <code>$Function</code></a></h3>
 <p>Apply expressions are represented as an object with a member <code>$Apply</code> whose value is an array of annotation expressions, and a member <code>$Function</code> whose value is a string containing the <a href="#QualifiedName">qualified name</a> of the client-side function to be applied.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3073,7 +3073,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1445-cast"><a name="Cast" href="#Cast">14.4.5 Cast</a></h3>
 <p>The cast expression casts the value obtained from its single child expression to the specified type. The cast expression follows the same rules as the <code>cast</code> canonical function defined in <a href="#ODataURL">OData-URL</a>.</p>
 <section id="-cast" class="varjson rep">
-<h3><a name="Cast21.21" href="#Cast21.21"> <code>$Cast</code></a></h3>
+<h3><a name="Cast21.22" href="#Cast21.22"> <code>$Cast</code></a></h3>
 <p>Cast expressions are represented as an object with a member <code>$Cast</code> whose value is an annotation expression, a member <code>$Type</code> whose value is a string containing the qualified type name, and optionally a member <code>$Collection</code> with a value of <code>true</code>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 <p>If the specified type is a primitive type or a collection of primitive types, the facet members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet members are not specified, their values are considered unspecified.</p>
@@ -3106,7 +3106,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
 <p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
 <section id="-if" class="varjson rep">
-<h3><a name="If21.22" href="#If21.22"> <code>$If</code></a></h3>
+<h3><a name="If21.23" href="#If21.23"> <code>$If</code></a></h3>
 <p>Conditional expressions are represented as an object with a member <code>$If</code> whose value is an array of two or three annotation expressions.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3125,7 +3125,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
 <section id="-isof" class="varjson rep">
-<h3><a name="IsOf21.23" href="#IsOf21.23"> <code>$IsOf</code></a></h3>
+<h3><a name="IsOf21.24" href="#IsOf21.24"> <code>$IsOf</code></a></h3>
 <p>Is-of expressions are represented as an object with a member <code>$IsOf</code> whose value is an annotation expression, a member <code>$Type</code> whose value is a string containing an qualified type name, and optionally a member <code>$Collection</code> with a value of <code>true</code>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 <p>If the specified type is a primitive type or a collection of primitive types, the facet members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet members are not specified, their values are considered unspecified.</p>
@@ -3144,7 +3144,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A labeled element expression MUST contain exactly one child expression. The value of the child expression is also the value of the labeled element expression.</p>
 <p>A labeled element expression MUST provide a <a href="#SimpleIdentifier">simple identifier</a> value as its name that MUST be unique within the schema containing the expression.</p>
 <section id="-labeledelement" class="varjson rep">
-<h3><a name="LabeledElement21.24" href="#LabeledElement21.24"> <code>$LabeledElement</code></a></h3>
+<h3><a name="LabeledElement21.25" href="#LabeledElement21.25"> <code>$LabeledElement</code></a></h3>
 <p>Labeled element expressions are represented as an object with a member <code>$LabeledElement</code> whose value is an annotation expression, and a member <code>$Name</code> whose value is a string containing the labeled element’s name.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3160,7 +3160,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14410-labeled-element-reference"><a name="LabeledElementReference" href="#LabeledElementReference">14.4.10 Labeled Element Reference</a></h3>
 <p>The labeled element reference expression MUST specify the <a href="#QualifiedName">qualified name</a> of a <a href="#LabeledElement">labeled element expression</a> in scope and returns the value of the identified labeled element expression as its value.</p>
 <section id="-labeledelementreference" class="varjson rep">
-<h3><a name="LabeledElementReference21.25" href="#LabeledElementReference21.25"> <code>$LabeledElementReference</code></a></h3>
+<h3><a name="LabeledElementReference21.26" href="#LabeledElementReference21.26"> <code>$LabeledElementReference</code></a></h3>
 <p>Labeled element reference expressions are represented as an object with a member <code>$LabeledElementReference</code> whose value is a string containing an qualified name.</p>
 </section>
 <div class="varjson example">
@@ -3179,7 +3179,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <div class="sourceCode" id="cb93"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="er">null,</span></span></code></pre></div>
 </div>
 <section id="-null" class="varjson rep">
-<h3><a name="Null21.26" href="#Null21.26"> <code>$Null</code></a></h3>
+<h3><a name="Null21.27" href="#Null21.27"> <code>$Null</code></a></h3>
 <p>Null expression containing <a href="#Annotations">annotations</a> are represented as an object with a member <code>$Null</code> whose value is the literal <code>null</code>.</p>
 </section>
 <div class="varjson example">
@@ -3235,7 +3235,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The URL reference expression MUST contain exactly one expression of type <code>Edm.String</code>. Its value is treated as a URL that MAY be relative or absolute; relative URLs are relative to the URL of the document containing the URL reference expression, or relative to a base URL specified in a format-specific way.</p>
 <p>The response body of the <code>GET</code> request MUST be returned as the result of the URL reference expression. The result of the URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
 <section id="-urlref" class="varjson rep">
-<h3><a name="UrlRef21.27" href="#UrlRef21.27"> <code>$UrlRef</code></a></h3>
+<h3><a name="UrlRef21.28" href="#UrlRef21.28"> <code>$UrlRef</code></a></h3>
 <p>URL reference expressions are represented as an object with a single member <code>$UrlRef</code> whose value is an annotation expression.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3799,13 +3799,14 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li><a href="#DivBy21.18"><code>$DivBy</code></a></li>
 <li><a href="#Mod21.19"><code>$Mod</code></a></li>
 <li><a href="#Apply21.20"><code>$Apply</code></a></li>
-<li><a href="#Cast21.21"><code>$Cast</code></a></li>
-<li><a href="#If21.22"><code>$If</code></a></li>
-<li><a href="#IsOf21.23"><code>$IsOf</code></a></li>
-<li><a href="#LabeledElement21.24"><code>$LabeledElement</code></a></li>
-<li><a href="#LabeledElementReference21.25"><code>$LabeledElementReference</code></a></li>
-<li><a href="#Null21.26"><code>$Null</code></a></li>
-<li><a href="#UrlRef21.27"><code>$UrlRef</code></a></li>
+<li><a href="#Function21.21"><code>$Function</code></a></li>
+<li><a href="#Cast21.22"><code>$Cast</code></a></li>
+<li><a href="#If21.23"><code>$If</code></a></li>
+<li><a href="#IsOf21.24"><code>$IsOf</code></a></li>
+<li><a href="#LabeledElement21.25"><code>$LabeledElement</code></a></li>
+<li><a href="#LabeledElementReference21.26"><code>$LabeledElementReference</code></a></li>
+<li><a href="#Null21.27"><code>$Null</code></a></li>
+<li><a href="#UrlRef21.28"><code>$UrlRef</code></a></li>
 </ul></li>
 </ul>
 </div>
