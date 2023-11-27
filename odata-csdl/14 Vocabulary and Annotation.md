@@ -2278,7 +2278,8 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### ##subisec `$Apply`
+### ##subisec `$Apply` 
+and ##subisec `$Function`
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member

@@ -493,6 +493,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#DataModification">Section 11.4</a></td>
+<td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1609">ODATA-1609</a></td>
+</tr>
+<tr class="even">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1588">ODATA-1588</a></td>
@@ -898,7 +903,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p><code>202 Accepted</code> indicates that the <a href="#DataServiceRequests">Data Service Request</a> has been accepted and has not yet completed executing asynchronously. The asynchronous handling of requests is defined in the sections on <a href="#AsynchronousRequests">Asynchronous Requests</a> and <a href="#AsynchronousBatchRequests">Asynchronous Batch Requests</a>.</p>
 <h3 id="914-response-code-204-no-content"><a name="ResponseCode204NoContent" href="#ResponseCode204NoContent">9.1.4 Response Code <code>204 No Content</code></a></h3>
 <p>A request returns <code>204 No Content</code> if the requested resource has the <code>null</code> value, or if the service applies a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference. In this case, the response body MUST be empty.</p>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, a <a href="#DataModification">Data Modification Request</a> that responds with <code>204 No Content</code> MAY include an <code>ETag</code> header with a value reflecting the result of the data modification if and only if the client can reasonably “know” the new representation of the resource without actually receiving it. For a <code>PUT</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have been identical to the request body, i.e. no server-side modification of values sent in the request body, no server-calculated values etc. For a <code>PATCH</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have consisted of all values sent in the request body, plus (for values not sent in the request body) server-side values corresponding to the <code>ETag</code> value sent in the <code>If-Match</code> header of the <code>PATCH</code> request, i.e. the previous values “known” to the client.</p>
+<p>As defined in <a href="#rfc7231">RFC7231</a>, a <a href="#DataModification">Data Modification Request</a> that responds with <code>204 No Content</code> MAY include an <a href="#HeaderETag"><code>ETag</code></a> header with a value reflecting the result of the data modification if and only if the client can reasonably “know” the new representation of the resource without actually receiving it. For a <code>PUT</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have been identical to the request body, i.e. no server-side modification of values sent in the request body, no server-calculated values etc. For a <code>PATCH</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have consisted of all values sent in the request body, plus (for values not sent in the request body) server-side values corresponding to the <code>ETag</code> value sent in the <code>If-Match</code> header of the <code>PATCH</code> request, i.e. the previous values “known” to the client.</p>
 <h3 id="915-response-code-3xx-redirection"><a name="ResponseCode3xxRedirection" href="#ResponseCode3xxRedirection">9.1.5 Response Code <code>3xx Redirection</code></a></h3>
 <p>As per <a href="#rfc7231">RFC7231</a>, a <code>3xx Redirection</code> indicates that further action needs to be taken by the client in order to fulfill the request. In this case, the response SHOULD include a <a href="#HeaderLocation"><code>Location</code></a> header, as appropriate, with the URL from which the result can be obtained; it MAY include a <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header.</p>
 <h3 id="916-response-code-304-not-modified"><a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code <code>304 Not Modified</code></a></h3>
@@ -1724,7 +1729,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="114-data-modification"><a name="DataModification" href="#DataModification">11.4 Data Modification</a></h2>
 <p>Updatable OData services support Create, Update, and Delete operations for some or all exposed entities. Additionally, <a href="#Actions">Actions</a> supported by a service can affect the state of the system.</p>
 <p>A successfully completed <a href="#DataModification">Data Modification Request</a> must not violate the integrity of the data.</p>
-<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>
+<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, regardless of whether the requested content could be returned.</p>
 <h3 id="1141-common-data-modification-semantics"><a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a></h3>
 <p><a href="#DataModification">Data Modification Requests</a> share the following semantics.</p>
 <h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a name="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
@@ -1760,8 +1765,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>Properties computed by the service (annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>) and properties that are tied to properties of the principal entity by a referential constraint, can be omitted and MUST be ignored if included in the request.</p>
 <p>Properties with a defined default value, nullable properties, and collection-valued properties omitted from the request are set to the default value, null, or an empty collection, respectively.</p>
-<p>Upon successful completion, the response MUST contain a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity.</p>
-<p>Upon successful completion the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+<p>Upon successful creation of the entity, the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, or if a representation of the created entity could not be constructed. In either case, if the service is able to construct the edit URL or read URL of the created entity, the response MUST contain that URL in a <a href="#HeaderLocation"><code>Location</code></a> header.</p>
 <h4 id="11421-link-to-related-entities-when-creating-an-entity"><a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a></h4>
 <p>To create a new entity with links to existing entities in a single request, the client includes references to the related entities in the request body.</p>
 <p>The representation for referencing related entities is format-specific.</p>
@@ -1818,7 +1822,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If an update specifies both a binding to a single-valued navigation property and a dependent property that is tied to a key property of the principal entity according to the same navigation property, then the dependent property is ignored, and the relationship is updated according to the value specified in the binding.</p>
 <p>If the entity being updated is open, then additional values for properties beyond those specified in the metadata or returned in a previous request MAY be sent in the request body. The service MUST treat these as dynamic properties.</p>
 <p>If the entity being updated is not open, then additional values for properties beyond those specified in the metadata or returned in a previous request SHOULD NOT be sent in the request body. The service MUST fail if it is unable to persist all updatable property values specified in the request.</p>
-<p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. If the service uses ETags for optimistic concurrency control, the entities in the response MUST include ETags.</p>
+<p>Upon successful completion of the update, the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. If the service uses ETags for optimistic concurrency control, the entities in the response MUST include ETags. If a representation of the updated entity could not be constructed, the service MAY ignore the system query options and respond with <code>204 No Content</code>.</p>
 <h4 id="11431-update-related-entities-when-updating-an-entity"><a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a></h4>
 <p>Update requests with an OData-Version header with a value of <code>4.0</code> MUST NOT contain related entities as inline content. Such requests MAY contain binding information for navigation properties. For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship.</p>
 <p>Payloads with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater MAY include nested entities and entity references that specify the full set of to be related entities, or a nested <a href="#DeltaPayloads">delta payload</a> representing the related entities that have been added, removed, or changed. Such a request is referred to as a “deep update”. If the nested collection is represented identical to an expanded navigation property, then the set of nested entities and entity references specified in a successful update request represents the full set of entities to be related according to that relationship and MUST NOT include added links, deleted links, or deleted entities.</p>
@@ -2301,15 +2305,18 @@ Content-Type: application/json
 </ul>
 <div class="example">
 <p>Example 102:</p>
-<pre><code>GET /path/service/People(1) HTTP/1.1
-Host: myserver.mydomain.org:1234</code></pre>
+<pre><code>PATCH /path/service/People(1) HTTP/1.1
+Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{&quot;Name&quot;: &quot;Peter&quot;}</code></pre>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>
 </ul>
 <div class="example">
 <p>Example 103:</p>
-<pre><code>GET People(1) HTTP/1.1</code></pre>
+<pre><code>DELETE People(1) HTTP/1.1</code></pre>
 </div>
 <p>Services MUST support all three formats for URLs of individual requests.</p>
 <p>URLs must be correctly percent-encoded. For relative URLs this means that colons in the path part, especially within key values, MUST be percent-encoded to avoid confusion with the scheme separator. Colons within the query part, i.e. after the question mark character (<code>?</code>), need not be percent-encoded.</p>

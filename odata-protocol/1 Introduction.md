@@ -26,6 +26,9 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##DataModification]| 
+Response code `204 No Content` after successful data modification if requested response could not be constructed| 
+[ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 [Section ##UpsertanEntity]| 
  Upserts to single-valued non-containment navigation properties| 
 [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
