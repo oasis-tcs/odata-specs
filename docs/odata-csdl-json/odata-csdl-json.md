@@ -923,7 +923,11 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a name="Version2.1" href="#Version2.1"> `$Version`</a>
 
-The value of `$Version` is a string containing either `4.0`, `4.01`, or `4.02`.
+The value of `$Version` is a string specifying the OData protocol version of the
+document, either `4.0`, `4.01`, or `4.02`.
+
+Services MUST return an OData 4.0 response if the request was
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### <a name="EntityContainer2.2" href="#EntityContainer2.2"> `$EntityContainer`</a>
 
