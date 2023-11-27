@@ -62,7 +62,7 @@ The Open Data Protocol (OData) enables the creation of REST-based data services,
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -205,7 +205,7 @@ For complete copyright information please see the full Notices section in an App
     - [11.2.3 Requesting the Media Stream of a Media Entity using `$value`](#RequestingtheMediaStreamofaMediaEntityusingvalue)
     - [11.2.4 Requesting Individual Properties](#RequestingIndividualProperties)
       - [11.2.4.1 Requesting Stream Properties](#RequestingStreamProperties)
-      - [11.2.4.2 Requesting a Property's Raw Value using `$value`](#RequestingaPropertysRawValueusingvalue)
+      - [11.2.4.2 Requesting a Raw Value using `$value`](#RequestingaRawValueusingvalue)
     - [11.2.5 Specifying Properties to Return](#SpecifyingPropertiestoReturn)
       - [11.2.5.1 System Query Option `$select`](#SystemQueryOptionselect)
       - [11.2.5.2 System Query Option `$expand`](#SystemQueryOptionexpand)
@@ -344,8 +344,9 @@ resource representations that are exchanged using OData.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -376,7 +377,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-v4.02-csd01-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -901,7 +902,7 @@ or [stream property](#ManagingStreamProperties), in which case the
 The specified format MAY include format parameters. Clients MUST be
 prepared for the service to return custom format parameters not defined
 in OData and SHOULD NOT expect that such format parameters can be
-ignored. Custom format parameters MUST NOT start with "odata" and
+ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
@@ -912,7 +913,7 @@ parameters within the `Content-Type` header.
 
 As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
-`Content-Type`). When present, its value indicates what additional
+`Content-Type` header). When present, its value indicates what additional
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
@@ -1008,7 +1009,7 @@ If the media type specified in the `Accept` header does not include a
 contain a `charset` format parameter.
 
 The service SHOULD NOT add any format parameters to the `Content-Type`
-parameter not specified in the `Accept` header.
+header not specified in the `Accept` header.
 
 If the `Accept` header is specified on an individual request within a
 batch, then it specifies the acceptable formats for that individual
@@ -1058,7 +1059,7 @@ occurs as a result of the request.
 
 If present, the request MUST only be processed if the specified ETag
 value matches the current ETag value of the target resource. Services
-sending [`ETag` headers](#HeaderETag) with weak ETags that only depend
+sending [`ETag`](#HeaderETag) headers with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
 overwrites. This is a deviation from [RFC7232](#rfc7232).
@@ -1255,14 +1256,14 @@ If the service applies the `callback` preference it MUST include the
 When the `callback` preference is applied to asynchronous requests, the
 OData service invokes the callback endpoint once it has finished
 processing the request. The status monitor resource, returned in the
-[`Location` header](#HeaderLocation) of the previously returned
+[`Location`](#HeaderLocation) header of the previously returned
 [`202 Accepted`](#ResponseCode202Accepted) response, can then be used to
 retrieve the results of the asynchronously executed request.
 
 When the `callback` preference is specified on a `GET` request to a
 delta link and there are no changes available, the OData service returns
-a [`202 Accepted`](#ResponseCode202Accepted) response with a [`Location`
-header](#HeaderLocation) specifying the delta link to be used to check
+a [`202 Accepted`](#ResponseCode202Accepted) response with a
+[`Location`](#HeaderLocation) header specifying the delta link to be used to check
 for future updates. The OData service then invokes the specified
 callback endpoint once new changes become available.
 
@@ -1366,7 +1367,7 @@ Prefer: include-annotations="-*"
 
 ::: example
 Example 5: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) be returned
+under the `display` namespace (recursively) be returned
 ```
 Prefer: include-annotations="display.*"
 ```
@@ -1382,8 +1383,8 @@ Prefer: include-annotations="display.subject"
 
 ::: example
 Example 7: a `Prefer` header requesting that all annotations defined
-under the "display" namespace (recursively) with the qualifier
-"tablet" be returned
+under the `display` namespace (recursively) with the qualifier
+`tablet` be returned
 ```
 Prefer: include-annotations="display.*#tablet"
 ```
@@ -1408,9 +1409,9 @@ individual request. Individual requests within a batch that don't
 include the `include-annotations` preference inherit the preference of
 the overall batch request.
 
-Note: The `include-annotations `preference was named
+Note: The `include-annotations` preference was named
 `odata.include-annotations` in OData version 4.0. Services that support
-the` include-annotations `preference SHOULD also support
+the `include-annotations` preference SHOULD also support
 `odata.include-annotations` for OData 4.0 clients and clients SHOULD use
 `odata.include-annotations` for compatibility with OData 4.0 services.
 If both `include-annotations` and `odata.include-annotations`
@@ -1518,7 +1519,7 @@ request but does not return content in the response. The service MAY
 apply this preference by returning
 [`204 No Content`](#ResponseCode204NoContent) in which case it MAY
 include a [`Preference-Applied`](#HeaderPreferenceApplied) response
-header containing the `return=minimal `preference.
+header containing the `return=minimal` preference.
 
 A preference of `return=representation` requests that the service
 invokes the request and returns the modified resource. The service MAY
@@ -1534,7 +1535,7 @@ MAY be applied to individual requests within a batch.
 
 #### <a name="Preferencerespondasync" href="#Preferencerespondasync">8.2.8.8 Preference `respond-async`</a>
 
-The `respond-async `preference, as defined in [RFC7240](#rfc7240),
+The `respond-async` preference, as defined in [RFC7240](#rfc7240),
 allows clients to request that the service process the request
 asynchronously.
 
@@ -1736,8 +1737,8 @@ and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
 that the client is asked to wait before retrying the request or issuing
-a request to the resource returned as the value of the [`Location`
-header](#HeaderLocation).
+a request to the resource returned as the value of the
+[`Location`](#HeaderLocation) header.
 
 ### <a name="HeaderVary" href="#HeaderVary">8.3.8 Header `Vary`</a>
 
@@ -1750,7 +1751,7 @@ allow correct caching of the response.
 If a response varies depending on the applied preferences
 ([`allow-entityreferences`](#Preferenceallowentityreferencesodataallowentityreferences),
 [`include-annotations`](#Preferenceincludeannotationsodataincludeannotations),
-[`omit-values`](#Preferenceomitvalues)`, `[`return`](#Preferencereturnrepresentationandreturnminimal)),
+[`omit-values`](#Preferenceomitvalues), [`return`](#Preferencereturnrepresentationandreturnminimal)),
 the service MUST include a `Vary` header listing the
 [`Prefer`](#HeaderPrefer) request header field to allow correct caching
 of the response.
@@ -1801,12 +1802,13 @@ Requests](#AsynchronousBatchRequests).
 ### <a name="ResponseCode204NoContent" href="#ResponseCode204NoContent">9.1.4 Response Code `204 No Content`</a>
 
 A request returns `204 No Content` if the requested resource has the
-`null` value, or if the service applies a [`return=minimal`
-preference](#Preferencereturnrepresentationandreturnminimal). In this case, the response body MUST be empty.
+`null` value, or if the service applies a
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
+In this case, the response body MUST be empty.
 
 As defined in [RFC7231](#rfc7231), a [Data Modification
 Request](#DataModification) that responds with
-`204 No Content MAY `include an `ETag` header with a value reflecting
+`204 No Content` MAY include an [`ETag`](#HeaderETag) header with a value reflecting
 the result of the data modification if and only if the client can
 reasonably "know" the new representation of the resource without
 actually receiving it. For a `PUT` request this means that the response
@@ -1824,10 +1826,10 @@ server-side values corresponding to the `ETag` value sent in the
 
 As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
-request. In this case, the response SHOULD include a [`Location`
-header](#HeaderLocation), as appropriate, with the URL from which the
-result can be obtained; it MAY include a [`Retry-After`
-header](#HeaderRetryAfter).
+request. In this case, the response SHOULD include a
+[`Location`](#HeaderLocation) header, as appropriate, with the URL from which the
+result can be obtained; it MAY include a
+[`Retry-After`](#HeaderRetryAfter) header.
 
 ### <a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code `304 Not Modified`</a>
 
@@ -1856,7 +1858,7 @@ of the error is as defined for the appropriate [format](#Formats).
 
 ### <a name="ResponseCode404NotFound" href="#ResponseCode404NotFound">9.2.1 Response Code `404 Not Found`</a>
 
-`404 Not Found `indicates that the resource specified by the request URL
+`404 Not Found` indicates that the resource specified by the request URL
 does not exist. The response body MAY provide additional information.
 
 ### <a name="ResponseCode405MethodNotAllowed" href="#ResponseCode405MethodNotAllowed">9.2.2 Response Code `405 Method Not Allowed`</a>
@@ -1911,7 +1913,9 @@ include a response body describing the functionality not implemented.
 
 ## <a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a>
 
-The representation of an error response body is format-specific. It
+An error response body can be the result of a failure of OData processing or of the underlying infrastructure.
+An OData-specific error response (which can be recognized by the presence
+of the [`OData-Version`](#HeaderODataVersion) header) is format-specific and
 consists at least of the following information:
 - `code`: required non-null, non-empty,
 language-independent string. Its value is a service-defined error code.
@@ -1926,10 +1930,10 @@ which the value for message is written.
 empty string indicating the target of the error, for example, the name
 of the property in error.
 - `details`: optional, potentially empty
-collection of structured instances with `code`, `message`, and `target`
+collection of instances of structured types with `code`, `message`, and `target`
 following the rules above.
-- `innererror`: optional structured
-instance with service-defined content.
+- `innererror`: optional instance of structured type
+with service-defined content.
 
 Service implementations SHOULD carefully consider which information to
 include in production environments to guard against potential security
@@ -1939,7 +1943,8 @@ concerns around information disclosure.
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
-according to its [content-type](#HeaderContentType). Clients MUST treat
+according to its [`Content-Type`](#HeaderContentType) or abort the response by
+causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
 
 Services MAY include the header [`OData-Error`](#HeaderODataError) as a
@@ -2094,8 +2099,8 @@ URL fragment.
 ::: example
 Example 15: resource URL and corresponding context URL
 ```
-http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier
+http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier
 ```
 :::
 
@@ -2129,7 +2134,7 @@ the entity set name.
 ::: example
 Example 17: resource URL and corresponding context URL
 ```
-http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 ```
 :::
@@ -2178,8 +2183,8 @@ entities in the collection, see system query option
 ::: example
 Example 18: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)
+http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
 ```
 :::
 
@@ -2249,15 +2254,18 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or` $expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
+
+The context URL has no shortcut for representing the list of all navigation properties;
+`$expand=*` is treated as if all navigation properties were explicitly expanded.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -2268,7 +2276,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 20: resource URL and corresponding context URL - select and
+Example 20: resource URL and corresponding context URL --- select and
 expand
 ```
 http://host/service/Customers?$select=Name&$expand=Address/Country
@@ -2277,7 +2285,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL -- expand `$ref`
+Example 21: resource URL and corresponding context URL --- expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2285,7 +2293,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL -- expand with
+Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2309,14 +2317,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or `$expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
@@ -2442,7 +2450,7 @@ Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}`{select-list}
+    {context-url}#{entity}/{property-path}{select-list}
     {context-url}#Collection({type-name}){select-list}
     {context-url}#{type-name}{select-list}
 
@@ -2483,7 +2491,7 @@ of the containing entity.
 ::: example
 Example 30: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234
+http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::
@@ -2605,7 +2613,7 @@ root URL of the service with `$metadata` appended. To retrieve this
 document the client issues a `GET` request to the metadata document URL.
 
 If a request for metadata does not specify a format preference (via
-[`Accept` header](#HeaderAccept) or
+[`Accept`](#HeaderAccept) header or
 [`$format`](#SystemQueryOptionformat)) then the XML representation MUST
 be returned.
 
@@ -2630,10 +2638,10 @@ the URL has expired, then the service SHOULD respond with
 MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
-format specified by the client, either in the [`Accept`
-header](#HeaderAccept) or using the
+format specified by the client, either in the
+[`Accept`](#HeaderAccept) header or using the
 [`$format`](#SystemQueryOptionformat) query option. If
-the client specifies neither an [`Accept` header](#HeaderAccept) nor the
+the client specifies neither an [`Accept`](#HeaderAccept) header nor the
 [`$format`](#SystemQueryOptionformat) query option, the
 service is allowed to return the response in any format.
 
@@ -2655,20 +2663,20 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
--   [`$compute`](#SystemQueryOptioncompute)
--   [`$search`](#SystemQueryOptionsearch)
--   [`$filter`](#SystemQueryOptionfilter)
--   [`$count`](#SystemQueryOptioncount)
--   [`$orderby`](#SystemQueryOptionorderby)
--   [`$skip`](#SystemQueryOptionskip)
--   [`$top`](#SystemQueryOptiontop)
+- `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
+- [`$compute`](#SystemQueryOptioncompute)
+- [`$search`](#SystemQueryOptionsearch)
+- [`$filter`](#SystemQueryOptionfilter)
+- [`$count`](#SystemQueryOptioncount)
+- [`$orderby`](#SystemQueryOptionorderby)
+- [`$skip`](#SystemQueryOptionskip)
+- [`$top`](#SystemQueryOptiontop)
 
 After applying any [server-driven paging](#ServerDrivenPaging):
 
--   [`$expand`](#SystemQueryOptionexpand)
--   [`$select`](#SystemQueryOptionselect)
--   [`$format`](#SystemQueryOptionformat)
+- [`$expand`](#SystemQueryOptionexpand)
+- [`$select`](#SystemQueryOptionselect)
+- [`$format`](#SystemQueryOptionformat)
 
 ### <a name="RequestingIndividualEntities" href="#RequestingIndividualEntities">11.2.2 Requesting Individual Entities</a>
 
@@ -2730,7 +2738,7 @@ property referencing a media entity whose value is null returns
 ### <a name="RequestingIndividualProperties" href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with "/" and
+the property URL. The property URL is the entity read URL with `/` and
 the property name appended.
 
 For complex typed properties, the path can be further extended with the
@@ -2763,11 +2771,10 @@ value of the stream property with that media type.
 Note this response format disregards any [`$format`](#SystemQueryOptionformat)
 system query option.
 
-#### <a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property's Raw Value using `$value`</a>
+#### <a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using `$value`</a>
 
-To retrieve the raw value of a primitive type property, the client sends
-a `GET` request to the property value URL. See the
-[OData-URL](#ODataURL) document for details.
+To retrieve the raw value of a primitive property or operation result, the client sends
+a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -2775,7 +2782,7 @@ option.
 
 The default format for `Edm.Binary` is the format specified by the
 [`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
-annotation of this property (see [OData-VocCore](#ODataVocCore)) if this
+annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
@@ -2787,7 +2794,7 @@ The default format for `Edm.Geo` types is `text/plain` using the WKT
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
-the `Edm.Geo` types is `text/plain`. Responses for properties of type
+the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
 other primitive types follow the rules `booleanValue`, `byteValue`,
@@ -2796,14 +2803,14 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
 [OData-ABNF](#ODataABNF).
 
-A `$value` request for a property that is `null` results in a
+A raw value request for a property or operation result of type `Edm.Stream`
+returns `400 Bad Request`.
+
+A raw value request for a property or operation result that is `null` results in a
 [`204 No Content`](#ResponseCode204NoContent) response.
 
-If the property is not available, for example due to permissions, the
+If the property or operation result is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
-
-Appending `/$value` to the property URL of a property of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ::: example
 Example 32:
@@ -3095,7 +3102,7 @@ GET http://host/service/Products?$filter=Price lt 10.00
 :::
 
 The [`$count`](#SystemQueryOptioncount) segment may be used within a
-`$filter `expression to limit the items returned based on the exact
+`$filter` expression to limit the items returned based on the exact
 count of related entities or items within a collection-valued property.
 
 ::: example
@@ -3173,7 +3180,7 @@ a `null` literal that can be used in comparisons.
 <tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
 <tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
 <tr><td colspan="2"><strong>String Functions</strong></td></tr>
-<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>matchespattern</code></td><td><pre><code>matchespattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
 <tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
 <tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
 <tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
@@ -3212,7 +3219,7 @@ a `null` literal that can be used in comparisons.
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
-[`$compute`](#SystemQueryOptioncompute)`,`
+[`$compute`](#SystemQueryOptioncompute),
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression. Parameters aliases
 are names beginning with an at sign (`@`).
@@ -3224,7 +3231,7 @@ specified parameter alias.
 
 ::: example
 Example 48: returns all employees whose Region property matches the
-string parameter value "WA"
+string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
@@ -3289,7 +3296,7 @@ result value of the second expression, and so on.
 The Boolean value false comes before the value true in ascending order.
 
 Services SHOULD order language-dependent strings according to the
-[content-language](#HeaderContentLanguage) of the response, and SHOULD
+[`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -3391,7 +3398,7 @@ GET http://host/service/Products?$count=true
 :::
 
 The count of related entities can be requested by specifying
-the` $count` query option within the `$expand` clause.
+the `$count` query option within the `$expand` clause.
 
 ::: example
 Example 57:
@@ -3426,7 +3433,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example 58: return all Products that match the search term "bike"
+Example 58: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -3435,7 +3442,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example 59: return all Products that match the phrase "mountain bike"
+Example 59: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -3445,7 +3452,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example 60: return all Products that do not match "clothing"
+Example 60: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -3456,8 +3463,8 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example 61: return all Products that match both "mountain" and
-"bike"
+Example 61: return all Products that match both `mountain` and
+`bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
 ```
@@ -3467,8 +3474,8 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example 62: return all Products that match either "mountain" or
-"bike"
+Example 62: return all Products that match `mountain` or
+`bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
 ```
@@ -3478,8 +3485,8 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example 63: return all Products that match either "mountain" or
-"bike" and do not match clothing
+Example 63: return all Products that match `mountain` or
+`bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
@@ -3561,7 +3568,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example 65: return the supplier of the product with `ID=1 `in the
+Example 65: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -3581,13 +3588,13 @@ If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
 pointing to the related entities. If no entities are related, the
 response is the format-specific representation of an empty collection.
-The response MAY contain an [ETag header](#HeaderETag) for the
+The response MAY contain an [`ETag`](#HeaderETag) header for the
 collection whose value changes if the collection of references changes,
 i.e. a reference is added or removed.
 
 If the resource path identifies a single existing entity, the response
 MUST be the format-specific representation of an entity reference. The
-response MAY contain an [ETag header](#HeaderETag) which represents the
+response MAY contain an [`ETag`](#HeaderETag) header which represents the
 identity of the referenced entity. If the resource path terminates in a
 single-valued navigation path, the ETag value changes if the
 relationship is changed and points to a different OData entity. If the
@@ -3670,7 +3677,7 @@ GET http://host/service/Products/$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the `/$filter path` segment to count the items in the filtered
+the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
@@ -3757,7 +3764,7 @@ using the JSON media type with minimal metadata, as defined in
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
 parameterized variants, as well as the format-specific abbreviations
-`xml` and `json,` are reserved for this specification.
+`xml` and `json`, are reserved for this specification.
 
 ### <a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">11.2.12 System Query Option `$schemaversion`</a>
 
@@ -3809,7 +3816,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities`.`ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -3956,7 +3963,9 @@ must not violate the integrity of the data.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
-the [`return` Prefer header](#Preferencereturnrepresentationandreturnminimal).
+the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
+A [success response](#SuccessResponses) indicates that data have been modified,
+regardless of whether the requested content could be returned.
 
 ### <a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
@@ -3988,11 +3997,11 @@ announce this via annotations with the terms
 [OData-VocCap](#ODataVocCap).
 
 If optimistic concurrency control is required for a resource, the
-service MUST include an [ETag header](#HeaderETag) in a response to a
+service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource.
 
-The presence of an [ETag header](#HeaderETag) in a response does not
+The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
 control; the ETag may just be used for caching and/or conditional `GET`
 requests.
@@ -4132,18 +4141,16 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
-Upon successful completion, the response MUST contain a [`Location`
-header](#HeaderLocation) that contains the edit URL or read URL of the
-created entity.
-
-Upon successful completion the service MUST respond with either
+Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
-request included a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) and did not
+request included a
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
-and [`$expand`](#SystemQueryOptionexpand).
+and [`$expand`](#SystemQueryOptionexpand), or if a representation of the created
+entity could not be constructed. In either case, if the service is able to construct
+the edit URL or read URL of the created entity, the response MUST contain that URL in a
+[`Location`](#HeaderLocation) header.
 
 #### <a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
@@ -4209,7 +4216,7 @@ A request to create an entity that includes related entities,
 represented using the appropriate inline representation, is referred to
 as a "deep insert".
 
-Media entities MUST contain the base64url-encoded representation of
+Media entities MUST contain the format-specific representation of
 their media stream as a virtual property `$value` when nested within a
 deep insert.
 
@@ -4283,7 +4290,7 @@ removed or set to `null`.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying
-the base64url-encoded representation of the media stream as a virtual
+the format-specific representation of the media stream as a virtual
 property `$value`.
 
 Updating a dependent property that is tied to a key property of the
@@ -4291,7 +4298,7 @@ principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
 there is no such entity, the update fails.
 
-Updating a principle property that is tied to a dependent entity through
+Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
 property.
 
@@ -4307,9 +4314,9 @@ The service MAY return success in this case if the specified value
 matches the value of the property. Clients SHOULD use `PATCH` and
 specify only those properties intended to be changed.
 
-Entity id and entity type cannot be changed when updating an entity.
+Entity-id and entity type cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
-entity id and entity type values in the payload when applying the
+entity-id and entity type values in the payload when applying the
 update.
 
 For requests with an `OData-Version` header with a value of `4.01` or
@@ -4337,17 +4344,18 @@ previous request SHOULD NOT be sent in the request body. The service
 MUST fail if it is unable to persist all updatable property values
 specified in the request.
 
-Upon successful completion the service responds with either
+Upon successful completion of the update, the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
-entity, or [`204 No Content`](#ResponseCode204NoContent). The client may
+entity, or [`204 No Content`](#ResponseCode204NoContent).
+The client may
 request that the response SHOULD include a body by specifying a
-[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal), or by
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
 optimistic concurrency control, the entities in the response MUST
-include ETags.
+include ETags. If a representation of the updated entity could not be constructed,
+the service MAY ignore the system query options and respond with `204 No Content`.
 
 #### <a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
@@ -4372,17 +4380,17 @@ NOT include added links, deleted links, or deleted entities.
 Example 78: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
-`Suzanne Brown`. The `LastName` of employee `6` is updated to `Smith.`
+`Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
   "@type":"#Northwind.Manager",
   "FirstName" : "Patricia",
   "DirectReports": [
     {
-      "@id": "Employees(5}"
+      "@id": "Employees(5)"
     },
     {
-      "@id": "Employees(6}",
+      "@id": "Employees(6)",
       "LastName": "Smith"
     },
     {
@@ -4506,12 +4514,12 @@ that are not tied to key properties of the principal entity, MUST be
 ignored by the service in processing the Upsert request.
 
 To ensure that an update request is not treated as an insert, the client
-MAY specify an [`If-Match` header](#HeaderIfMatch) in the update
+MAY specify an [`If-Match`](#HeaderIfMatch) header in the update
 request. The service MUST NOT treat an update request containing an
 `If-Match` header as an insert.
 
 A `PUT` or `PATCH` request MUST NOT be treated as an update if an
-[`If-None-Match` header](#HeaderIfNoneMatch) is specified with a value
+[`If-None-Match`](#HeaderIfNoneMatch) header is specified with a value
 of `*`.
 
 ### <a name="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a>
@@ -4636,15 +4644,14 @@ OData format supported by the service. It is not possible to set the
 structural properties of the media entity when creating the media
 entity.
 
-Upon successful completion, the response MUST contain [`Location`
-header](#HeaderLocation) that contains the edit URL of the created media
+Upon successful completion, the response MUST contain
+[`Location`](#HeaderLocation) header that contains the edit URL of the created media
 entity.
 
 Upon successful completion the service responds with either
 [`201 Created`](#ResponseCode201Created), or
 [`204 No Content`](#ResponseCode204NoContent) if the request included a
-[`Prefer` header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=minimal`](#Preferencereturnrepresentationandreturnminimal).
+[`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
 
@@ -4679,7 +4686,8 @@ An entity may have one or more *stream properties*. Stream properties
 are properties of type `Edm.Stream`.
 
 The values for stream properties do not usually appear in the entity
-payload. Instead, the values are generally read or written through URLs.
+payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
+Instead, the values are generally read or written through URLs.
 
 ::: example
 Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
@@ -4780,7 +4788,7 @@ updates the value of the property. The message body MUST contain the new
 value, formatted as a single property according to the specified format.
 
 A successful `PUT` request to the edit URL for the [raw
-value](#RequestingaPropertysRawValueusingvalue) of a primitive property
+value](#RequestingaRawValueusingvalue) of a primitive property
 updates the property with the raw value specified in the payload. The
 payload MUST be formatted as an appropriate content type for the raw
 value of the property.
@@ -4791,9 +4799,8 @@ property.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4801,7 +4808,7 @@ Services MUST return an error if the property is not updatable.
 
 A successful `DELETE` request to the edit URL for a structural property,
 or to the edit URL of the [raw
-value](#RequestingaPropertysRawValueusingvalue) of a primitive property,
+value](#RequestingaRawValueusingvalue) of a primitive property,
 sets the property to null. The request body is ignored and should be
 empty.
 
@@ -4843,9 +4850,8 @@ request body and set all unspecified properties to their default value.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4875,9 +4881,8 @@ supported for collection properties.
 Upon successful completion the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated collection, or
 [`204 No Content`](#ResponseCode204NoContent). The client may request
-that the response SHOULD include a body by specifying a [Prefer
-header](#Preferencereturnrepresentationandreturnminimal) with a value of
-[`return=representation`](#Preferencereturnrepresentationandreturnminimal).
+that the response SHOULD include a body by specifying a
+[`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Services MUST return an error if the property is not updatable.
 
@@ -4964,23 +4969,23 @@ preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
 - Failed deletes in the request MUST be
 represented in the response as either entities or entity references,
-annotated with term `Core.DataModificationException`, see
+annotated with the term `Core.DataModificationException`, see
 [OData-VocCore](#ODataVocCore). If the deleted entity specified a reason
 of `deleted`, the value of `failedOperation` MUST be `delete`, otherwise
 `unlink`.
 - Failed inserts within the request MUST
-be represented in the response as deleted entities annotated with term
+be represented in the response as deleted entities annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `insert`.
 - Failed updates within the request SHOULD
-be annotated in the response with term `Core.DataModificationException`
+be annotated in the response with the term `Core.DataModificationException`
 with a `failedOperation` value of `update`.
 - Failed added links within the request
-MUST represented in the response as deleted links annotated with term
+MUST represented in the response as deleted links annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `link`.
 - Failed deleted links within the request
-MUST represented in the response as added links annotated with term
+MUST represented in the response as added links annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `unlink`.
 - Collections within the request MUST be
@@ -4989,7 +4994,7 @@ membership of the collection as it exists in the service after
 processing the request.
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
+annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 Alternatively, the verb `PUT` can be used, in which case the request
@@ -5057,7 +5062,7 @@ filtered) collection.
 If the `continue-on-error` preference has been specified, the service
 MAY continue processing updates after a failure. In this case, the
 service MUST return a response containing at least the members of the
-collection that failed to update, which MUST be annotated with term
+collection that failed to update, which MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `update`.
 
@@ -5092,7 +5097,7 @@ specify the `continue-on-error` preference, in which case the service
 MAY continue processing deletes after a failure. In this case, the
 service MUST return a response containing at least an entity or entity
 reference for each entity identified by the request that failed to
-delete, which MUST be annotated with term
+delete, which MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `delete`.
 
@@ -5192,7 +5197,7 @@ The client MAY specify the `continue-on-error` preference, in which case
 the service MAY continue processing actions after a failure. In this
 case, the service MUST, regardless of the `return` preference, return a
 response containing at least the members identified by the request for
-which the action failed. Such members MUST be annotated with term
+which the action failed. Such members MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `invoke`.
 
@@ -5237,7 +5242,7 @@ particular instance by setting its value to null.
 
 ::: example
 Example 92: the `SampleEntities.MostRecentOrder` function is not
-available for customer 'ALFKI'
+available for customer `ALFKI`
 ```json
 {
   "@context": ...,
@@ -5278,6 +5283,13 @@ unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in  [OData-VocCore](#ODataVocCore).
+
+To request processing of the function only if the binding parameter value,
+an entity or collection of entities, is unmodified, the client includes
+the [`If-Match`](#HeaderIfMatch) header with the latest known ETag value
+for the entity or collection of entities. The ETag value for a
+collection as a whole is transported in the `ETag` header of a
+collection response.
 
 Functions can be used within [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options. Such
@@ -5364,8 +5376,8 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 95: return all `Customers` whose City property returns
-"Western" when passed to the `Sales.SalesRegion` function
+Example 95: return all Customers whose `City` property returns
+`Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
@@ -5509,11 +5521,11 @@ negotiation to request the results in the desired format, otherwise the
 default content type will be used.
 
 The client can request whether any results from the action be returned
-using the [`return Prefer` header](#Preferencereturnrepresentationandreturnminimal).
+using the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 
 Actions that create and return a single entity follow the rules for
-[entity creation](#CreateanEntity) and return a [`Location`
-header](#HeaderLocation) that contains the edit URL or read URL of the
+[entity creation](#CreateanEntity) and return a
+[`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity.
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
@@ -5526,18 +5538,18 @@ To request processing of the action only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
 the [`If-Match`](#HeaderIfMatch) header with the latest known ETag value
 for the entity or collection of entities. The ETag value for a
-collection as a whole is transported in the `ETag` header of a
+collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
 Example 98: invoke the `SampleEntities.CreateOrder` action using
-`/Customers('ALFKI') `as the customer (or binding parameter). The values
+`Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
 ```json
 POST http://host/service/Customers('ALFKI')/SampleEntities.CreateOrder
-If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="`
+If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="
 Content-Type: application/json
 
 {
@@ -5564,7 +5576,7 @@ see [OData-URL](#ODataURL).
 
 ## <a name="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
-A [Prefer](#HeaderPrefer) header with a
+A [`Prefer`](#HeaderPrefer) header with a
 [`respond-async`](#Preferencerespondasync) preference allows clients
 to request that the service process a [Data Service
 Request](#DataServiceRequests) asynchronously.
@@ -5576,18 +5588,18 @@ NOT reply to a [Data Service Request](#DataServiceRequests) with
 `202 Accepted` if the request has not included the `respond-async`
 preference.
 
-Responses that return `202 Accepted` MUST include a [`Location`
-header](#HeaderLocation) pointing to a *status monitor resource* that
+Responses that return `202 Accepted` MUST include a
+[`Location`](#HeaderLocation) header pointing to a *status monitor resource* that
 represents the current state of the asynchronous processing in addition
-to an optional [`Retry-After` header](#HeaderRetryAfter) indicating the
+to an optional [`Retry-After`](#HeaderRetryAfter) header indicating the
 time, in seconds, the client should wait before querying the service for
 status. Services MAY include a response body, for example, to provide
 additional status information.
 
 A `GET` request to the status monitor resource again returns
 `202 Accepted` response if the asynchronous processing has not finished.
-This response MUST again include a [`Location` header](#HeaderLocation)
-and MAY include a [`Retry-After` header](#HeaderRetryAfter) to be used for a subsequent request. The
+This response MUST again include a [`Location`](#HeaderLocation) header
+and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a subsequent request. The
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
@@ -5610,7 +5622,7 @@ asynchronous processing be canceled. A `200 OK` or a
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
-use the returned [`Location` header](#HeaderLocation) (which MUST be
+use the returned [`Location`](#HeaderLocation) header (which MUST be
 different from the status monitor resource of the initial request) to
 query for the status of the cancellation. If a delete request is not
 supported by the service, the service returns
@@ -5668,7 +5680,7 @@ format](#MultipartBatchFormat) MUST contain a
 ::: example
 Example 99: multipart batch request
 ```
-POST /service/$batch HTTP/1.1`
+POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.0
 Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -5835,7 +5847,8 @@ set can use one of the following three formats:
 ::: example
 Example 101:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1 ```
+GET https://host:1234/path/service/People(1) HTTP/1.1
+```
 :::
 
 - Absolute resource path and separate `Host` header
@@ -5843,8 +5856,11 @@ GET https://host:1234/path/service/People(1) HTTP/1.1 ```
 ::: example
 Example 102:
 ```
-GET /path/service/People(1) HTTP/1.1
+PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{"Name": "Peter"}
 ```
 :::
 
@@ -5853,7 +5869,7 @@ Host: myserver.mydomain.org:1234
 ::: example
 Example 103:
 ```
-GET People(1) HTTP/1.1
+DELETE People(1) HTTP/1.1
 ```
 :::
 
@@ -5867,8 +5883,8 @@ need not be percent-encoded.
 
 Each body part that represents a single request MUST NOT include:
 
--   `authentication` or `authorization` related HTTP headers
--   `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
+- `authentication` or `authorization` related HTTP headers
+- `Expect`, `From`, `Max-Forwards`, `Range`, or `TE` headers
 
 Processors of batch requests MAY choose to disallow additional HTTP
 constructs in HTTP requests serialized within body parts. For example, a
@@ -6057,7 +6073,7 @@ response so clients can correlate requests and responses.
 #### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a>
 
 A multipart response to a batch request MUST contain a `Content-Type`
-header with value `multipart/mixed.`
+header with value `multipart/mixed`.
 
 The body of a multipart response to a multipart batch request MUST
 structurally match one-to-one with the multipart batch request body,
@@ -6394,7 +6410,7 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
-6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaPropertysRawValueusingvalue))
+6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
@@ -6653,7 +6669,7 @@ in a delta response ([section 11.3](#RequestingChanges))
 13. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming `in a JSON response (see
+15. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
@@ -6718,50 +6734,47 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2046">[RFC2046]</a>
-_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, November 1996_
-https://tools.ietf.org/html/rfc2046.
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, DOI 10.17487/RFC2046, November 1996_.
+https://www.rfc-editor.org/info/rfc2046.
 
 ###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
+_Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
+https://www.rfc-editor.org/info/rfc3987.
 
 ###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
+https://www.rfc-editor.org/info/rfc5646.
 
 ###### <a name="rfc5789">[RFC5789]</a>
-_Dusseault, L., and J. Snell, "Patch Method for HTTP", RFC 5789, March 2010_
-http://tools.ietf.org/html/rfc5789.
-
-###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
+_Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
+https://www.rfc-editor.org/info/rfc5789.
 
 ###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, June 2014_
-https://tools.ietf.org/html/rfc7230.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, DOI 10.17487/RFC7230, June 2014_.
+https://www.rfc-editor.org/info/rfc7230.
 
 ###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, June 2014_
-https://tools.ietf.org/html/rfc7231.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014_.
+https://www.rfc-editor.org/info/rfc7231.
 
 ###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June 2014_
-https://tools.ietf.org/html/rfc7232.
+_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, DOI 10.17487/RFC7232, June 2014_.
+https://www.rfc-editor.org/info/rfc7232.
 
 ###### <a name="rfc7240">[RFC7240]</a>
-_Snell, J., "Prefer Header for HTTP", RFC 7240, June 2014_
-https://tools.ietf.org/html/rfc7240.
+_Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
+https://www.rfc-editor.org/info/rfc7240.
 
 ###### <a name="rfc7617">[RFC7617]</a>
-_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, September 2015_
-https://tools.ietf.org/html/rfc7617.
+_Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, DOI 10.17487/RFC7617, September 2015_.
+https://www.rfc-editor.org/info/rfc7617.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>

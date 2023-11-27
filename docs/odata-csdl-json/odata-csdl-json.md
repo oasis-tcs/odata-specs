@@ -61,7 +61,7 @@ OData services are described by an Entity Model (EDM). The Common Schema Definit
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -298,7 +298,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-csdl-json-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-csdl-json-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -563,17 +563,17 @@ Type|Meaning
 `Edm.Date`                       |Date without a time-zone offset
 `Edm.DateTimeOffset`             |Date and time with a time-zone offset, no leap seconds
 `Edm.Decimal`                    |Numeric values with decimal representation
-`Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
+`Edm.Double`                     |IEEE 754 binary64 floating-point number (15--17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
 `Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
-`Edm.Single`                     |IEEE 754 binary32 floating-point number (6-9 decimal digits)
+`Edm.Single`                     |IEEE 754 binary32 floating-point number (6--9 decimal digits)
 `Edm.Stream`                     |Binary data stream
 `Edm.String`                     |Sequence of characters
-`Edm.TimeOfDay`                  |Clock time 00:00-23:59:59.999999999999
+`Edm.TimeOfDay`                  |Clock time 00:00--23:59:59.999999999999
 `Edm.Geography`                  |Abstract base type for all Geography types
 `Edm.GeographyPoint`             |A point in a round-earth coordinate system
 `Edm.GeographyLineString`        |Line string in a round-earth coordinate system
@@ -670,7 +670,7 @@ via `PATCH` and exclusively specifying modified values will reduce
 the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
@@ -679,7 +679,7 @@ see [OData-VocMeasures](#ODataVocMeasures).
 
 The value of `$Precision` is a number.
 
-Absence of `$Precision` means arbitrary precision.
+Absence of `$Precision` means unspecified precision both for decimal and temporal values.
 :::
 
 ::: {.varjson .example}
@@ -867,9 +867,7 @@ be used anywhere a corresponding concrete type can be used, except:
   -   cannot be used as the underlying type of a type definition or
         enumeration type.
 - `Collection(Edm.PrimitiveType)`
-  -   cannot be used as the type of a property or term.
-  -   cannot be used as the type of a parameter or the return type of
-        an action or function.
+  -   cannot be used.
 - `Collection(Edm.Untyped)`
   -   cannot be returned in a payload with an `OData-Version` header
         of `4.0`. Services should treat untyped properties as dynamic
@@ -1223,6 +1221,9 @@ schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
 
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
+
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
@@ -1499,7 +1500,7 @@ see [OData-VocCore](#ODataVocCore).
 ::: {.varjson .rep}
 ### <a name="HasStream5.4" href="#HasStream5.4"> `$HasStream`</a>
 
-The value of `$HasStream `is one of the Boolean literals `true` or
+The value of `$HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
@@ -1549,7 +1550,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
@@ -2097,10 +2098,10 @@ the target of the navigation).
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.
 
-If the principle property references an entity, then the dependent
+If the principal property references an entity, then the dependent
 property must reference the same entity.
 
-If the principle property's value is a complex type instance, then the
+If the principal property's value is a complex type instance, then the
 dependent property's value must be a complex type instance with the same
 properties, each with the same values.
 
@@ -3669,14 +3670,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -4474,7 +4475,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
@@ -4504,7 +4505,7 @@ Example 68:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -4529,7 +4530,7 @@ Example 69:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4565,7 +4566,7 @@ Example 70:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4780,7 +4781,8 @@ Example 73:
       "S"
     ]
   ]
-} ```
+}
+```
 :::
 
 
@@ -4907,7 +4909,7 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### <a name="Apply21.20" href="#Apply21.20"> `$Apply`</a>
+### <a name="Apply21.20" href="#Apply21.20"> `$Apply`</a> and <a name="Function21.21" href="#Function21.21"> `$Function`</a>
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -4972,7 +4974,7 @@ the member name of the enumeration value.
 #### <a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function `odata.fillUriTemplate`</a>
 
 The `odata.fillUriTemplate` client-side function takes two or more
-expressions as arguments and returns a value of type `Edm.String.`
+expressions as arguments and returns a value of type `Edm.String`.
 
 The first argument MUST be of type `Edm.String` and specifies a URI
 template according to [RFC6570](#rfc6570), the other arguments MUST be
@@ -5049,7 +5051,7 @@ Example 77: all non-empty `FirstName` values not containing the letters
 
 #### <a name="FunctionodatauriEncode" href="#FunctionodatauriEncode">14.4.4.4 Function `odata.uriEncode`</a>
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
@@ -5088,7 +5090,7 @@ rules as the `cast` canonical function defined in
 [OData-URL](#ODataURL).
 
 ::: {.varjson .rep}
-### <a name="Cast21.21" href="#Cast21.21"> `$Cast`</a>
+### <a name="Cast21.22" href="#Cast21.22"> `$Cast`</a>
 
 Cast expressions are represented as an object with a member `$Cast`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5171,7 +5173,7 @@ third expression is present, nothing is added to the surrounding
 collection.
 
 ::: {.varjson .rep}
-### <a name="If21.22" href="#If21.22"> `$If`</a>
+### <a name="If21.23" href="#If21.23"> `$If`</a>
 
 Conditional expressions are represented as an object with a member `$If`
 whose value is an array of two or three annotation expressions.
@@ -5206,7 +5208,7 @@ child expression is compatible with the specified type. It returns
 the specified type, and `false` otherwise.
 
 ::: {.varjson .rep}
-### <a name="IsOf21.23" href="#IsOf21.23"> `$IsOf`</a>
+### <a name="IsOf21.24" href="#IsOf21.24"> `$IsOf`</a>
 
 Is-of expressions are represented as an object with a member `$IsOf`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5253,7 +5255,7 @@ identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
 ::: {.varjson .rep}
-### <a name="LabeledElement21.24" href="#LabeledElement21.24"> `$LabeledElement`</a>
+### <a name="LabeledElement21.25" href="#LabeledElement21.25"> `$LabeledElement`</a>
 
 Labeled element expressions are represented as an object with a member
 `$LabeledElement` whose value is an annotation expression, and a member
@@ -5284,7 +5286,7 @@ in scope and returns the value of the identified labeled element
 expression as its value.
 
 ::: {.varjson .rep}
-### <a name="LabeledElementReference21.25" href="#LabeledElementReference21.25"> `$LabeledElementReference`</a>
+### <a name="LabeledElementReference21.26" href="#LabeledElementReference21.26"> `$LabeledElementReference`</a>
 
 Labeled element reference expressions are represented as an object with
 a member `$LabeledElementReference` whose value is a string containing
@@ -5320,7 +5322,7 @@ Example 85:
 :::
 
 ::: {.varjson .rep}
-### <a name="Null21.26" href="#Null21.26"> `$Null`</a>
+### <a name="Null21.27" href="#Null21.27"> `$Null`</a>
 
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
@@ -5431,7 +5433,7 @@ expression MUST be type compatible with the type expected by the
 surrounding expression.
 
 ::: {.varjson .rep}
-### <a name="UrlRef21.27" href="#UrlRef21.27"> `$UrlRef`</a>
+### <a name="UrlRef21.28" href="#UrlRef21.28"> `$UrlRef`</a>
 
 URL reference expressions are represented as an object with a single
 member `$UrlRef` whose value is an annotation expression.
@@ -5574,7 +5576,6 @@ Example 90:
     "@Core.DefaultNamespace": true,
     "Product": {
       "$Kind": "EntityType",
-      "$HasStream": true,
       "$Key": [
         "ID"
       ],
@@ -5817,7 +5818,8 @@ Example 91:
       }
     }
   }
-} ```
+}
+```
 :::
 
 
@@ -5929,20 +5931,20 @@ _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc6570">[RFC6570]</a>
-_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, “URI Template”, RFC 6570, March 2012_.  
-http://tools.ietf.org/html/rfc6570.
+_Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
+https://www.rfc-editor.org/info/rfc6570.
 
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_.  
-https://tools.ietf.org/html/rfc7493.
+_The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
+https://www.rfc-editor.org/info/rfc7493.
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
-http://www.rfc-editor.org/info/rfc8174.
+https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_.  
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.  
+https://www.rfc-editor.org/info/rfc8259.
 
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
@@ -5952,7 +5954,7 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 - OData V4 Metadata JSON Format_.  
+_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
 
 -------
@@ -6070,13 +6072,14 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$DivBy`](#DivBy21.18)
   - [`$Mod`](#Mod21.19)
   - [`$Apply`](#Apply21.20)
-  - [`$Cast`](#Cast21.21)
-  - [`$If`](#If21.22)
-  - [`$IsOf`](#IsOf21.23)
-  - [`$LabeledElement`](#LabeledElement21.24)
-  - [`$LabeledElementReference`](#LabeledElementReference21.25)
-  - [`$Null`](#Null21.26)
-  - [`$UrlRef`](#UrlRef21.27)
+  - [`$Function`](#Function21.21)
+  - [`$Cast`](#Cast21.22)
+  - [`$If`](#If21.23)
+  - [`$IsOf`](#IsOf21.24)
+  - [`$LabeledElement`](#LabeledElement21.25)
+  - [`$LabeledElementReference`](#LabeledElementReference21.26)
+  - [`$Null`](#Null21.27)
+  - [`$UrlRef`](#UrlRef21.28)
 :::
 
 -------
