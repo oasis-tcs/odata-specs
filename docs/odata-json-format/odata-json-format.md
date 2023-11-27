@@ -688,7 +688,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -842,7 +842,7 @@ information:
   [`type`](#ControlInformationtypeodatatype)
   control information unless their type is `Double`.
 - The special floating-point values `-INF`, `INF`, and
-  `NaN `are serialized as strings and MUST have a
+  `NaN` are serialized as strings and MUST have a
   [`type`](#ControlInformationtypeodatatype)
   control information to specify the numeric type of the property.
 - String  values do have a first class representation in JSON, but there is an
@@ -933,11 +933,11 @@ The `id` control information contains the entity-id, see
 identical to the canonical URL of the entity, as defined in
 [OData-URL](#ODataURL).
 
-The `id `control information MUST appear in responses if
+The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested, or if
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is requested and any of a non-transient entity\'s key fields are omitted
+is requested and any of a non-transient entity's key fields are omitted
 from the response _or_ the entity-id is not identical to the canonical
 URL of the entity after
 
@@ -1087,7 +1087,7 @@ doesn't follow standard URL conventions relative to the read link of the
 entity and the associated
 `mediaEditLink` is not present.
 
-The `mediaContentType `control information MAY be included;
+The `mediaContentType` control information MAY be included;
 its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
@@ -1155,11 +1155,11 @@ Example 8: Annotating primitive values within a collection
   "EmailAddresses@collectionAnnotations": [
     {
       "index": 0,
-      "@emailType": "Personal"
+      "@OfficeCommunication.emailType": "Personal"
     },
     {
       "index": 2,
-      "@emailType": "Work"
+      "@OfficeCommunication.emailType": "Work"
     }
   ],
   "EmailAddresses": [
@@ -1995,7 +1995,7 @@ first name/value pair in the response.
 
 The `count` name/value pair represents the number of entities
 in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
-content-type parameter is set, it MUST come before the
+media type parameter is set, it MUST come before the
 `value` name/value pair. If the response represents a partial
 result, the `count` name/value pair MUST appear in the first
 partial response, and it MAY appear in subsequent partial responses (in
@@ -2959,6 +2959,9 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
  
 ::: example
 Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains

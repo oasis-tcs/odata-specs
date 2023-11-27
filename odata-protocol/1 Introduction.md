@@ -26,6 +26,9 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##DataModification]| 
+Response code `204 No Content` after successful data modification if requested response could not be constructed| 
+[ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## ##subsec Glossary

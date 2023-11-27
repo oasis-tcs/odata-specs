@@ -78,7 +78,7 @@ root URL of the service with `$metadata` appended. To retrieve this
 document the client issues a `GET` request to the metadata document URL.
 
 If a request for metadata does not specify a format preference (via
-[`Accept` header](#HeaderAccept) or
+[`Accept`](#HeaderAccept) header or
 [`$format`](#SystemQueryOptionformat)) then the XML representation MUST
 be returned.
 
@@ -103,10 +103,10 @@ the URL has expired, then the service SHOULD respond with
 MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
-format specified by the client, either in the [`Accept`
-header](#HeaderAccept) or using the
+format specified by the client, either in the
+[`Accept`](#HeaderAccept) header or using the
 [`$format`](#SystemQueryOptionformat) query option. If
-the client specifies neither an [`Accept` header](#HeaderAccept) nor the
+the client specifies neither an [`Accept`](#HeaderAccept) header nor the
 [`$format`](#SystemQueryOptionformat) query option, the
 service is allowed to return the response in any format.
 
@@ -129,20 +129,20 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
--   [`$compute`](#SystemQueryOptioncompute)
--   [`$search`](#SystemQueryOptionsearch)
--   [`$filter`](#SystemQueryOptionfilter)
--   [`$count`](#SystemQueryOptioncount)
--   [`$orderby`](#SystemQueryOptionorderby)
--   [`$skip`](#SystemQueryOptionskip)
--   [`$top`](#SystemQueryOptiontop)
+- `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
+- [`$compute`](#SystemQueryOptioncompute)
+- [`$search`](#SystemQueryOptionsearch)
+- [`$filter`](#SystemQueryOptionfilter)
+- [`$count`](#SystemQueryOptioncount)
+- [`$orderby`](#SystemQueryOptionorderby)
+- [`$skip`](#SystemQueryOptionskip)
+- [`$top`](#SystemQueryOptiontop)
 
 After applying any [server-driven paging](#ServerDrivenPaging):
 
--   [`$expand`](#SystemQueryOptionexpand)
--   [`$select`](#SystemQueryOptionselect)
--   [`$format`](#SystemQueryOptionformat)
+- [`$expand`](#SystemQueryOptionexpand)
+- [`$select`](#SystemQueryOptionselect)
+- [`$format`](#SystemQueryOptionformat)
 
 ### ##subsubsec Requesting Individual Entities
 
@@ -237,11 +237,10 @@ value of the stream property with that media type.
 Note this response format disregards any [`$format`](#SystemQueryOptionformat)
 system query option.
 
-#### ##subsubsubsec Requesting a Property's Raw Value using `$value`
+#### ##subsubsubsec Requesting a Raw Value using `$value`
 
-To retrieve the raw value of a primitive type property, the client sends
-a `GET` request to the property value URL. See the
-[OData-URL](#ODataURL) document for details.
+To retrieve the raw value of a primitive property or operation result, the client sends
+a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -249,7 +248,7 @@ option.
 
 The default format for `Edm.Binary` is the format specified by the
 [`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
-annotation of this property (see [OData-VocCore](#ODataVocCore)) if this
+annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
@@ -261,7 +260,7 @@ The default format for `Edm.Geo` types is `text/plain` using the WKT
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
-the `Edm.Geo` types is `text/plain`. Responses for properties of type
+the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
 other primitive types follow the rules `booleanValue`, `byteValue`,
@@ -270,14 +269,14 @@ other primitive types follow the rules `booleanValue`, `byteValue`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
 [OData-ABNF](#ODataABNF).
 
-A `$value` request for a property that is `null` results in a
+A raw value request for a property or operation result of type `Edm.Stream`
+returns `400 Bad Request`.
+
+A raw value request for a property or operation result that is `null` results in a
 [`204 No Content`](#ResponseCode204NoContent) response.
 
-If the property is not available, for example due to permissions, the
+If the property or operation result is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
-
-Appending `/$value` to the property URL of a property of type `Edm.Stream`
-returns `400 Bad Request`.
 
 ::: example
 Example ##ex:
@@ -569,7 +568,7 @@ GET http://host/service/Products?$filter=Price lt 10.00
 :::
 
 The [`$count`](#SystemQueryOptioncount) segment may be used within a
-`$filter `expression to limit the items returned based on the exact
+`$filter` expression to limit the items returned based on the exact
 count of related entities or items within a collection-valued property.
 
 ::: example
@@ -763,7 +762,7 @@ result value of the second expression, and so on.
 The Boolean value false comes before the value true in ascending order.
 
 Services SHOULD order language-dependent strings according to the
-[content-language](#HeaderContentLanguage) of the response, and SHOULD
+[`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -865,7 +864,7 @@ GET http://host/service/Products?$count=true
 :::
 
 The count of related entities can be requested by specifying
-the` $count` query option within the `$expand` clause.
+the `$count` query option within the `$expand` clause.
 
 ::: example
 Example ##ex:
@@ -1035,7 +1034,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example ##ex: return the supplier of the product with `ID=1 `in the
+Example ##ex: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -1055,13 +1054,13 @@ If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
 pointing to the related entities. If no entities are related, the
 response is the format-specific representation of an empty collection.
-The response MAY contain an [ETag header](#HeaderETag) for the
+The response MAY contain an [`ETag`](#HeaderETag) header for the
 collection whose value changes if the collection of references changes,
 i.e. a reference is added or removed.
 
 If the resource path identifies a single existing entity, the response
 MUST be the format-specific representation of an entity reference. The
-response MAY contain an [ETag header](#HeaderETag) which represents the
+response MAY contain an [`ETag`](#HeaderETag) header which represents the
 identity of the referenced entity. If the resource path terminates in a
 single-valued navigation path, the ETag value changes if the
 relationship is changed and points to a different OData entity. If the
@@ -1144,7 +1143,7 @@ GET http://host/service/Products/$count
 :::
 
 With 4.01 services the `/$count` segment MAY be used in combination with
-the `/$filter path` segment to count the items in the filtered
+the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
