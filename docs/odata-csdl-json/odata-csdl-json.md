@@ -5383,31 +5383,35 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```json
-"@person.Employee": {
-  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
-  "@Core.Description": "Annotation on record",
-  "GivenName": {
-    "$Path": "FirstName"
-  },
-  "GivenName@Core.Description": "Annotation on record member",
-  "Surname": {
-    "$Path": "LastName"
-  },
-  "DirectSupervisor": {
-    "$Path": "Manager"
-  },
-  "CostCenter": {
-    "$UrlRef": {
-      "$Apply": [
-        "http://host/anotherservice/CostCenters('{ccid}')",
-        {
-          "$LabeledElement": {
-            "$Path": "CostCenterID"
-          },
-          "$Name": "ccid"
+"$Annotations": {
+  "org.example.Person": {
+    "@org.example.hcm.Employee": {
+      "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+      "@Core.Description": "Annotation on record",
+      "GivenName": {
+        "$Path": "FirstName"
+      },
+      "GivenName@Core.Description": "Annotation on record member",
+      "Surname": {
+        "$Path": "LastName"
+      },
+      "DirectSupervisor": {
+        "$Path": "Manager"
+      },
+      "CostCenter": {
+        "$UrlRef": {
+          "$Apply": [
+            "http://host/anotherservice/CostCenters('{ccid}')",
+            {
+              "$LabeledElement": {
+                "$Path": "CostCenterID"
+              },
+              "$Name": "ccid"
+            }
+          ],
+          "$Function": "odata.fillUriTemplate"
         }
-      ],
-      "$Function": "odata.fillUriTemplate"
+      }
     }
   }
 }
