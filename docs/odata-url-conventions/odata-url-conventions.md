@@ -3716,6 +3716,7 @@ http://host/service/Products?$search=blue OR green
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
+Leading and trailing spaces are not considered part of the search expression.
 
 *Terms* can be any single word to be matched within the expression.
 
