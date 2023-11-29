@@ -4191,9 +4191,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 64: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+.../Items@Core.Description
+```
+
+```
+.../Items/@Core.Description
 ```
 :::
 
