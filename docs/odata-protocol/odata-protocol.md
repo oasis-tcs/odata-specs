@@ -1490,8 +1490,8 @@ permissions and has been replaced with the instance annotation
 Properties with null or default values MUST be included in delta
 payloads, if modified.
 
-The response to a POST operation MUST include any properties not set to
-their default value, and the response to a PUT/PATCH operation MUST
+The response to a `POST` operation MUST include any properties not set to
+their default value, and the response to a `PUT` or `PATCH` operation MUST
 include any properties whose values were changed as part of the
 operation.
 
@@ -4426,12 +4426,12 @@ the entity is both removed from the collection and deleted, otherwise it
 is removed from the collection and only deleted if the relationship is
 contained. Non-key properties of the deleted entity are ignored. Nested
 collections MUST NOT contain added or deleted links. If the request
-contains nested delta collections, then the PATCH verb must be
+contains nested delta collections, then the `PATCH` verb must be
 specified.
 
 If a nested entity has the same id or key fields as an existing entity,
-the existing entity is updated according to the semantics of the PUT or
-PATCH request. Nested entities that have no id or key fields, or for
+the existing entity is updated according to the semantics of the `PUT` or
+`PATCH` request. Nested entities that have no id or key fields, or for
 which the id or key fields do not match existing entities, are treated
 as inserts. If the nested collection does not represent a containment
 relationship and has no navigation property binding, then such entities
@@ -4977,7 +4977,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the `continue-on-error` preference has been specified and any errors
+If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
 occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
