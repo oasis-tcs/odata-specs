@@ -3745,6 +3745,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
