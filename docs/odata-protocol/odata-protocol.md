@@ -5684,6 +5684,17 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON](#ODataJSON).
 
+If the set of request headers of a batch request are valid the service
+MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+indicate that the batch request was accepted for processing, even if the
+processing is yet to be completed. The individual requests within the
+body of the batch request may be processed as soon as they are received,
+this enables clients to stream batch requests, and batch implementations to stream the results.
+
+If the service receives a batch request with an invalid set of headers
+it MUST return a [`4xx response code`](#ClientErrorResponses) and
+perform no further processing of the batch request.
+
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
 
 A batch request using the [multipart batch
@@ -5725,17 +5736,6 @@ Batch requests SHOULD contain an [`Accept`](#HeaderAccept) header
 specifying the desired batch response format, either `multipart/mixed`
 or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
-
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
-indicate that the batch request was accepted for processing, but the
-processing is yet to be completed. The individual requests within the
-body of the batch request may subsequently fail or be malformed;
-however, this enables batch implementations to stream the results.
-
-If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
-perform no further processing of the batch request.
 
 ### <a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a>
 
@@ -6131,7 +6131,7 @@ Example 107: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6139,7 +6139,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6219,10 +6219,10 @@ processed. Note that the actual multipart batch response itself is
 contained in an `application/http` wrapper as it is a response to a
 status monitor resource:
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6230,7 +6230,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6250,7 +6250,7 @@ After some time the client makes a second request using the returned
 monitor URL, not explicitly accepting
 `application/http`. The batch is completely processed and the response is the final result.
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.0
 Content-Length: ####
