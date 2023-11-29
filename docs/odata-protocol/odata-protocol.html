@@ -1531,14 +1531,17 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
 <h4 id="11263-system-query-option-top"><a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option <code>$top</code></a></h4>
-<p>The <code>$top</code> system query option specifies a non-negative integer n that limits the number of items returned from a collection. The service returns the number of available items up to but not greater than the specified value n.</p>
+<p>The <code>$top</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that limits the number of items returned from a collection.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <code>$top</code> or <a href="#SystemQueryOptionskip"><code>$skip</code></a>.</p>
+<p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(n\)</span> instances, the result of <span class="math inline">\({\tt \$top}=n\)</span> consists of the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span>. Otherwise, the result equals <span class="math inline">\(A\)</span>. The instances in the result are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 53: return only the first five products of the Products entity set</p>
 <pre><code>GET http://host/service/Products?$top=5</code></pre>
 </div>
-<p>If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
 <h4 id="11264-system-query-option-skip"><a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option <code>$skip</code></a></h4>
-<p>The <code>$skip</code> system query option specifies a non-negative integer n that excludes the first n items of the queried collection from the result. The service returns items starting at position n+1.</p>
+<p>The <code>$skip</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that excludes the first <span class="math inline">\(n\)</span> items of the queried collection from the result.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <a href="#SystemQueryOptiontop"><code>$top</code></a> or <code>$skip</code>.</p>
+<p>If <span class="math inline">\(A\)</span> contains <span class="math inline">\(n\)</span> or fewer instances, the result of <span class="math inline">\({\tt \$skip}=n\)</span> is empty. Otherwise, the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span> are omitted from the result and all remaining instances are kept in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 54: return products starting with the 6th product of the <code>Products</code> entity set</p>
 <pre><code>GET http://host/service/Products?$skip=5</code></pre>

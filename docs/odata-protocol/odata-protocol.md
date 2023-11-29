@@ -3336,10 +3336,18 @@ GET http://host/service/Categories?$orderby=Products/$count
 
 #### <a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option `$top`</a>
 
-The `$top` system query option specifies a non-negative integer n that
-limits the number of items returned from a collection. The service
-returns the number of available items up to but not greater than the
-specified value n.
+The `$top` system query option specifies a non-negative integer $n$ that
+limits the number of items returned from a collection.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include `$top` or [`$skip`](#SystemQueryOptionskip).
+
+If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$
+consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
+The instances in the result are in the same order as they occur in $A$.
 
 ::: example
 Example 53: return only the first five products of the Products entity
@@ -3349,15 +3357,21 @@ GET http://host/service/Products?$top=5
 ```
 :::
 
-If no unique ordering is imposed through an
-[`$orderby`](#SystemQueryOptionorderby) query option, the service MUST
-impose a stable ordering across requests that include `$top`.
-
 #### <a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option `$skip`</a>
 
-The `$skip` system query option specifies a non-negative integer n that
-excludes the first n items of the queried collection from the result.
-The service returns items starting at position n+1.
+The `$skip` system query option specifies a non-negative integer $n$ that
+excludes the first $n$ items of the queried collection from the result.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include [`$top`](#SystemQueryOptiontop) or `$skip`.
+
+If $A$ contains $n$ or fewer instances, the result of ${\tt \$skip}=n$
+is empty. Otherwise, the first $n$ instances in $A$ are omitted
+from the result and all remaining instances are kept in the same order as
+they occur in $A$.
 
 ::: example
 Example 54: return products starting with the 6th product of the
