@@ -346,7 +346,8 @@ are defined in [OData-VocCore](#ODataVocCore))
   "$Type": "Core.Tag",
   "$DefaultValue": true,
   "$AppliesTo": [
-    "Property"
+    "Property",
+    "Term"
   ],
   "@Core.Description": "Properties and terms annotated with this term
 MUST contain a valid URL",
@@ -1351,9 +1352,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example ##ex: model path addressing an annotation on a navigation property
+Example ##ex: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+.../Items@Core.Description
+```
+
+```
+.../Items/@Core.Description
 ```
 :::
 
@@ -2973,31 +2979,35 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```json
-"@person.Employee": {
-  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
-  "@Core.Description": "Annotation on record",
-  "GivenName": {
-    "$Path": "FirstName"
-  },
-  "GivenName@Core.Description": "Annotation on record member",
-  "Surname": {
-    "$Path": "LastName"
-  },
-  "DirectSupervisor": {
-    "$Path": "Manager"
-  },
-  "CostCenter": {
-    "$UrlRef": {
-      "$Apply": [
-        "http://host/anotherservice/CostCenters('{ccid}')",
-        {
-          "$LabeledElement": {
-            "$Path": "CostCenterID"
-          },
-          "$Name": "ccid"
+"$Annotations": {
+  "org.example.Person": {
+    "@org.example.hcm.Employee": {
+      "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+      "@Core.Description": "Annotation on record",
+      "GivenName": {
+        "$Path": "FirstName"
+      },
+      "GivenName@Core.Description": "Annotation on record member",
+      "Surname": {
+        "$Path": "LastName"
+      },
+      "DirectSupervisor": {
+        "$Path": "Manager"
+      },
+      "CostCenter": {
+        "$UrlRef": {
+          "$Apply": [
+            "http://host/anotherservice/CostCenters('{ccid}')",
+            {
+              "$LabeledElement": {
+                "$Path": "CostCenterID"
+              },
+              "$Name": "ccid"
+            }
+          ],
+          "$Function": "odata.fillUriTemplate"
         }
-      ],
-      "$Function": "odata.fillUriTemplate"
+      }
     }
   }
 }
@@ -3038,25 +3048,27 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```xml
-<Annotation Term="org.example.person.Employee">
-  <Record>
-    <Annotation Term="Core.Description" String="Annotation on record" />
-    <PropertyValue Property="GivenName" Path="FirstName">
-      <Annotation Term="Core.Description"
-                  String="Annotation on record member" />
-    </PropertyValue>
-    <PropertyValue Property="Surname" Path="LastName" />
-    <PropertyValue Property="DirectSupervisor" Path="Manager" />
-    <PropertyValue Property="CostCenter">
-      <UrlRef>
-        <Apply Function="odata.fillUriTemplate">
-          <String>http://host/anotherservice/CostCenters('{ccid}')</String>
-          <LabeledElement Name="ccid" Path="CostCenterID" />
-        </Apply>
-      </UrlRef>
-    </PropertyValue>
-  </Record>
-</Annotation>
+<Annotations Target="org.example.Person">
+  <Annotation Term="org.example.hcm.Employee">
+    <Record Type="org.example.hcm.Manager">
+      <Annotation Term="Core.Description" String="Annotation on record" />
+      <PropertyValue Property="GivenName" Path="FirstName">
+        <Annotation Term="Core.Description"
+                    String="Annotation on record member" />
+      </PropertyValue>
+      <PropertyValue Property="Surname" Path="LastName" />
+      <PropertyValue Property="DirectSupervisor" Path="Manager" />
+      <PropertyValue Property="CostCenter">
+        <UrlRef>
+          <Apply Function="odata.fillUriTemplate">
+            <String>http://host/anotherservice/CostCenters('{ccid}')</String>
+            <LabeledElement Name="ccid" Path="CostCenterID" />
+          </Apply>
+        </UrlRef>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>
 ```
 :::
 

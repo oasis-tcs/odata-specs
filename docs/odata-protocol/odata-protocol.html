@@ -1309,7 +1309,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query options enable the client to specify the set of structural properties and navigation properties to include in a response. The service MAY include additional properties not specified in <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, including properties not defined in <a href="#MetadataDocumentRequest">the metadata document</a>.</p>
 <h4 id="11251-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">11.2.5.1 System Query Option <code>$select</code></a></h4>
 <p>The <code>$select</code> system query option requests that the service return only the properties, dynamic properties, <a href="#Actions">actions</a> and <a href="#Functions">functions</a> explicitly requested by the client. The service returns the specified content, if available, along with any available <a href="#SystemQueryOptionexpand">expanded</a> navigation or stream properties, and MAY return additional information.</p>
-<p>The value of the <code>$select</code> query option is a comma-separated list of properties, qualified action names, qualified function names, the star operator (<code>*</code>), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.</p>
+<p>The value of the <code>$select</code> query option is a comma-separated list of paths that end with properties, non-entity-valued instance annotations, qualified action names, or qualified function names, as well as of the star operator (<code>*</code>), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.</p>
 <div class="example">
 <p>Example 33: request only the <code>Rating</code> and <code>ReleaseDate</code> for the matching Products</p>
 <pre><code>GET http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
@@ -1531,14 +1531,17 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
 <h4 id="11263-system-query-option-top"><a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option <code>$top</code></a></h4>
-<p>The <code>$top</code> system query option specifies a non-negative integer n that limits the number of items returned from a collection. The service returns the number of available items up to but not greater than the specified value n.</p>
+<p>The <code>$top</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that limits the number of items returned from a collection.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <code>$top</code> or <a href="#SystemQueryOptionskip"><code>$skip</code></a>.</p>
+<p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(n\)</span> instances, the result of <span class="math inline">\({\tt \$top}=n\)</span> consists of the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span>. Otherwise, the result equals <span class="math inline">\(A\)</span>. The instances in the result are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 53: return only the first five products of the Products entity set</p>
 <pre><code>GET http://host/service/Products?$top=5</code></pre>
 </div>
-<p>If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
 <h4 id="11264-system-query-option-skip"><a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option <code>$skip</code></a></h4>
-<p>The <code>$skip</code> system query option specifies a non-negative integer n that excludes the first n items of the queried collection from the result. The service returns items starting at position n+1.</p>
+<p>The <code>$skip</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that excludes the first <span class="math inline">\(n\)</span> items of the queried collection from the result.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <a href="#SystemQueryOptiontop"><code>$top</code></a> or <code>$skip</code>.</p>
+<p>If <span class="math inline">\(A\)</span> contains <span class="math inline">\(n\)</span> or fewer instances, the result of <span class="math inline">\({\tt \$skip}=n\)</span> is empty. Otherwise, the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span> are omitted from the result and all remaining instances are kept in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 54: return products starting with the 6th product of the <code>Products</code> entity set</p>
 <pre><code>GET http://host/service/Products?$skip=5</code></pre>
@@ -1608,7 +1611,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Entities are stably addressable using their canonical URL and are not accessible using an ordinal index.</p>
 <div class="example">
 <p>Example 64: the first address in a list of addresses for <code>MainSupplier</code></p>
-<pre><code>GET http://host/service/Suppliers(MainSupplier)/Addresses/0</code></pre>
+<pre><code>GET http://host/service/MainSupplier/Addresses/0</code></pre>
 </div>
 <h3 id="1127-requesting-related-entities"><a name="RequestingRelatedEntities" href="#RequestingRelatedEntities">11.2.7 Requesting Related Entities</a></h3>
 <p>To request related entities according to a particular relationship, the client issues a <code>GET</code> request to the source entity’s request URL, followed by a forward slash and the name of the navigation property representing the relationship.</p>
@@ -2231,6 +2234,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Batch requests are submitted as a single HTTP <code>POST</code> request to the batch endpoint of a service, located at the URL <code>$batch</code> relative to the service root.</p>
 <p>Individual requests within a batch request are evaluated according to the same semantics used when the request appears outside the context of a batch request.</p>
 <p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results.</p>
+<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx response code</code></a> and perform no further processing of the batch request.</p>
 <h3 id="1171-batch-request-headers"><a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a></h3>
 <p>A batch request using the <a href="#MultipartBatchFormat">multipart batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.</p>
 <div class="example">
@@ -2254,8 +2259,6 @@ Content-Type: application/json
 </div>
 <p>Batch requests SHOULD contain the applicable <code>OData-Version</code> header.</p>
 <p>Batch requests SHOULD contain an <a href="#HeaderAccept"><code>Accept</code></a> header specifying the desired batch response format, either <code>multipart/mixed</code> or <code>application/json</code>. If no <code>Accept</code> header is provided, services SHOULD respond with the content type of the request.</p>
-<p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, but the processing is yet to be completed. The individual requests within the body of the batch request may subsequently fail or be malformed; however, this enables batch implementations to stream the results.</p>
-<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx response code</code></a> and perform no further processing of the batch request.</p>
 <h3 id="1172-request-dependencies"><a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a></h3>
 <p>Requests within a batch may have dependencies on other requests according to the particular batch format.</p>
 <p>In the JSON format, requests may explicitly declare a dependency on other requests that must be successfully processed before the current request. In addition, requests may be specified as part of an <em>atomicity group</em> whose members MUST either all succeed, or all fail. If a request fails, then any dependent requests within the JSON format return <a href="#ResponseCode424FailedDependency"><code>424 Failed Dependency</code></a>.</p>
@@ -2467,7 +2470,7 @@ Content-Length: ###
 <p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 107: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -2475,7 +2478,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -2525,10 +2528,10 @@ Retry-After: ###
 </code></pre>
 </div>
 <p>When interrogating the monitor URL only the first request in the batch has finished processing and all the remaining requests are still being processed. Note that the actual multipart batch response itself is contained in an <code>application/http</code> wrapper as it is a response to a status monitor resource:</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -2536,7 +2539,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -2551,7 +2554,7 @@ Retry-After: ###
 
 --b_243234_25424_ef_892u748--</code></pre>
 <p>After some time the client makes a second request using the returned monitor URL, not explicitly accepting <code>application/http</code>. The batch is completely processed and the response is the final result.</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.0
 Content-Length: ####

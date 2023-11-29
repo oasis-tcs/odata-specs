@@ -1388,15 +1388,7 @@ combination of named enumeration members) is
 available, the `enumMemberValue` representation may be used.
 
 Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys SHOULD be ordered with type first, then coordinates, then any other keys
-- If the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+defined in [RFC7946](#rfc7946).
 
 Geography and geometry types have the same representation in a JSON
 payload. Whether the value represents a geography type or geometry type
@@ -3346,6 +3338,11 @@ Example 51: referencing the batch request [example 48](#batchRequest) above, ass
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
@@ -3538,8 +3535,10 @@ should never error due to an unexpected annotation in a JSON payload.
 Annotations are always expressed as name/value pairs. For entity data
 model constructs represented as JSON objects the annotation name/value
 pairs are placed within the object; for constructs represented as JSON
-arrays or primitives they are placed next to the annotated model
-construct. When annotating a payload that represents a
+arrays or primitives, including null, they are placed next to the annotated model
+construct and have the name of the annotated property before the `@`.
+An annotation in the latter format can also take the place of an absent property.
+When annotating a payload that represents a
 [single primitive or collection value](#IndividualPropertyorOperationResponse),
 the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
@@ -3930,10 +3929,6 @@ https://www.rfc-editor.org/info/rfc8259.
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
 
 -------
 

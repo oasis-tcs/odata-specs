@@ -929,10 +929,12 @@ Example 8: references to other CSDL documents
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
    ...
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     ...
   </edmx:Reference>
   <edmx:Reference Uri="http://example.org/display/v1">
@@ -1009,10 +1011,12 @@ vocabulary terms
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" />
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
       <Annotation Term="Core.DefaultNamespace" />
     </edmx:Include>
@@ -4191,9 +4195,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 64: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+.../Items@Core.Description
+```
+
+```
+.../Items/@Core.Description
 ```
 :::
 
@@ -5212,25 +5221,27 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```xml
-<Annotation Term="org.example.person.Employee">
-  <Record>
-    <Annotation Term="Core.Description" String="Annotation on record" />
-    <PropertyValue Property="GivenName" Path="FirstName">
-      <Annotation Term="Core.Description"
-                  String="Annotation on record member" />
-    </PropertyValue>
-    <PropertyValue Property="Surname" Path="LastName" />
-    <PropertyValue Property="DirectSupervisor" Path="Manager" />
-    <PropertyValue Property="CostCenter">
-      <UrlRef>
-        <Apply Function="odata.fillUriTemplate">
-          <String>http://host/anotherservice/CostCenters('{ccid}')</String>
-          <LabeledElement Name="ccid" Path="CostCenterID" />
-        </Apply>
-      </UrlRef>
-    </PropertyValue>
-  </Record>
-</Annotation>
+<Annotations Target="org.example.Person">
+  <Annotation Term="org.example.hcm.Employee">
+    <Record Type="org.example.hcm.Manager">
+      <Annotation Term="Core.Description" String="Annotation on record" />
+      <PropertyValue Property="GivenName" Path="FirstName">
+        <Annotation Term="Core.Description"
+                    String="Annotation on record member" />
+      </PropertyValue>
+      <PropertyValue Property="Surname" Path="LastName" />
+      <PropertyValue Property="DirectSupervisor" Path="Manager" />
+      <PropertyValue Property="CostCenter">
+        <UrlRef>
+          <Apply Function="odata.fillUriTemplate">
+            <String>http://host/anotherservice/CostCenters('{ccid}')</String>
+            <LabeledElement Name="ccid" Path="CostCenterID" />
+          </Apply>
+        </UrlRef>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>
 ```
 :::
 

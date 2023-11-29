@@ -2839,7 +2839,8 @@ returns the specified content, if available, along with any available
 and MAY return additional information.
 
 The value of the `$select` query option is a comma-separated list of
-properties, qualified action names, qualified function names, the star
+paths that end with properties, non-entity-valued instance annotations,
+qualified action names, or qualified function names, as well as of the star
 operator (`*`), or the star operator prefixed with the namespace or
 alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
@@ -3336,10 +3337,18 @@ GET http://host/service/Categories?$orderby=Products/$count
 
 #### <a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option `$top`</a>
 
-The `$top` system query option specifies a non-negative integer n that
-limits the number of items returned from a collection. The service
-returns the number of available items up to but not greater than the
-specified value n.
+The `$top` system query option specifies a non-negative integer $n$ that
+limits the number of items returned from a collection.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include `$top` or [`$skip`](#SystemQueryOptionskip).
+
+If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$
+consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
+The instances in the result are in the same order as they occur in $A$.
 
 ::: example
 Example 53: return only the first five products of the Products entity
@@ -3349,15 +3358,21 @@ GET http://host/service/Products?$top=5
 ```
 :::
 
-If no unique ordering is imposed through an
-[`$orderby`](#SystemQueryOptionorderby) query option, the service MUST
-impose a stable ordering across requests that include `$top`.
-
 #### <a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option `$skip`</a>
 
-The `$skip` system query option specifies a non-negative integer n that
-excludes the first n items of the queried collection from the result.
-The service returns items starting at position n+1.
+The `$skip` system query option specifies a non-negative integer $n$ that
+excludes the first $n$ items of the queried collection from the result.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include [`$top`](#SystemQueryOptiontop) or `$skip`.
+
+If $A$ contains $n$ or fewer instances, the result of ${\tt \$skip}=n$
+is empty. Otherwise, the first $n$ instances in $A$ are omitted
+from the result and all remaining instances are kept in the same order as
+they occur in $A$.
 
 ::: example
 Example 54: return products starting with the 6th product of the
@@ -3542,7 +3557,7 @@ accessible using an ordinal index.
 ::: example
 Example 64: the first address in a list of addresses for `MainSupplier`
 ```
-GET http://host/service/Suppliers(MainSupplier)/Addresses/0
+GET http://host/service/MainSupplier/Addresses/0
 ```
 :::
 
@@ -5669,6 +5684,17 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON](#ODataJSON).
 
+If the set of request headers of a batch request are valid the service
+MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+indicate that the batch request was accepted for processing, even if the
+processing is yet to be completed. The individual requests within the
+body of the batch request may be processed as soon as they are received,
+this enables clients to stream batch requests, and batch implementations to stream the results.
+
+If the service receives a batch request with an invalid set of headers
+it MUST return a [`4xx response code`](#ClientErrorResponses) and
+perform no further processing of the batch request.
+
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
 
 A batch request using the [multipart batch
@@ -5710,17 +5736,6 @@ Batch requests SHOULD contain an [`Accept`](#HeaderAccept) header
 specifying the desired batch response format, either `multipart/mixed`
 or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
-
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
-indicate that the batch request was accepted for processing, but the
-processing is yet to be completed. The individual requests within the
-body of the batch request may subsequently fail or be malformed;
-however, this enables batch implementations to stream the results.
-
-If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
-perform no further processing of the batch request.
 
 ### <a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a>
 
@@ -6116,7 +6131,7 @@ Example 107: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6124,7 +6139,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6204,10 +6219,10 @@ processed. Note that the actual multipart batch response itself is
 contained in an `application/http` wrapper as it is a response to a
 status monitor resource:
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6215,7 +6230,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6235,7 +6250,7 @@ After some time the client makes a second request using the returned
 monitor URL, not explicitly accepting
 `application/http`. The batch is completely processed and the response is the final result.
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.0
 Content-Length: ####

@@ -2346,6 +2346,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
@@ -2380,6 +2381,9 @@ expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
+Services MAY support compute instructions that address
+dynamic properties added by other compute instructions within the same
+`$compute` system query option, provided that the service can determine an evaluation sequence.
 
 The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
 grammar of the `$compute` query option.
