@@ -3557,7 +3557,7 @@ accessible using an ordinal index.
 ::: example
 Example 64: the first address in a list of addresses for `MainSupplier`
 ```
-GET http://host/service/Suppliers(MainSupplier)/Addresses/0
+GET http://host/service/MainSupplier/Addresses/0
 ```
 :::
 

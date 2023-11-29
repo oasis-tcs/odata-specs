@@ -1611,7 +1611,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Entities are stably addressable using their canonical URL and are not accessible using an ordinal index.</p>
 <div class="example">
 <p>Example 64: the first address in a list of addresses for <code>MainSupplier</code></p>
-<pre><code>GET http://host/service/Suppliers(MainSupplier)/Addresses/0</code></pre>
+<pre><code>GET http://host/service/MainSupplier/Addresses/0</code></pre>
 </div>
 <h3 id="1127-requesting-related-entities"><a name="RequestingRelatedEntities" href="#RequestingRelatedEntities">11.2.7 Requesting Related Entities</a></h3>
 <p>To request related entities according to a particular relationship, the client issues a <code>GET</code> request to the source entity’s request URL, followed by a forward slash and the name of the navigation property representing the relationship.</p>
