@@ -1118,8 +1118,8 @@ complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
-in a `404 Not Found` response. If used in a path expression that is part
-of a Boolean expression, the type cast will evaluate to `null`.
+in a `404 Not Found` response. If used in a path expression,
+the type cast will evaluate to `null`.
 
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
