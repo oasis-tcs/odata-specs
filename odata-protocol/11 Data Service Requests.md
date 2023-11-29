@@ -78,7 +78,7 @@ root URL of the service with `$metadata` appended. To retrieve this
 document the client issues a `GET` request to the metadata document URL.
 
 If a request for metadata does not specify a format preference (via
-[`Accept` header](#HeaderAccept) or
+[`Accept`](#HeaderAccept) header or
 [`$format`](#SystemQueryOptionformat)) then the XML representation MUST
 be returned.
 
@@ -103,10 +103,10 @@ the URL has expired, then the service SHOULD respond with
 MUST respond with [`404 Not Found`](#ResponseCode404NotFound).
 
 The format of the returned data is dependent upon the request and the
-format specified by the client, either in the [`Accept`
-header](#HeaderAccept) or using the
+format specified by the client, either in the
+[`Accept`](#HeaderAccept) header or using the
 [`$format`](#SystemQueryOptionformat) query option. If
-the client specifies neither an [`Accept` header](#HeaderAccept) nor the
+the client specifies neither an [`Accept`](#HeaderAccept) header nor the
 [`$format`](#SystemQueryOptionformat) query option, the
 service is allowed to return the response in any format.
 
@@ -129,7 +129,7 @@ processing.
 
 Prior to applying any [server-driven paging](#ServerDrivenPaging):
 
--   `$apply` -- defined in [OData-Aggregation](#ODataAggregation)
+-   `$apply` --- defined in [OData-Aggregation](#ODataAggregation)
 -   [`$compute`](#SystemQueryOptioncompute)
 -   [`$search`](#SystemQueryOptionsearch)
 -   [`$filter`](#SystemQueryOptionfilter)
@@ -167,7 +167,7 @@ Properties that are not available, for example due to permissions, are
 not returned. In this case, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None.`
+for the property with a value of `None`.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -185,12 +185,17 @@ entity is the main topic of interest and the stream data is just
 additional information attached to the structured data.
 
 To address the media stream represented by a media entity, clients
-append `/$value` to the resource path of the media entity URL. Services
-may redirect from this canonical URL to the source URL of the media
+append `/$value` to the resource path of the media entity URL.
+The media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the media stream with that media type. Alternatively, services
+MAY redirect from this canonical URL to the source URL of the media
 stream.
 
 Appending `/$value` to an entity that is not a media entity returns
-`400 Bad Request.`
+`400 Bad Request`.
 
 Attempting to retrieve the media stream from a single-valued navigation
 property referencing a media entity whose value is null returns
@@ -199,7 +204,7 @@ property referencing a media entity whose value is null returns
 ### ##subsubsec Requesting Individual Properties
 
 To retrieve an individual property, the client issues a `GET` request to
-the property URL. The property URL is the entity read URL with "/" and
+the property URL. The property URL is the entity read URL with `/` and
 the property name appended.
 
 For complex typed properties, the path can be further extended with the
@@ -219,6 +224,18 @@ Example ##ex:
 GET http://host/service/Products(1)/Name
 ```
 :::
+
+#### ##subsubsubsec Requesting Stream Properties
+
+If the property being requested has type `Edm.Stream` (see
+[OData-URL, section 9](#ODataURL)), the media type of the response is the
+media type of the stream, subject to content type negotiation based on the
+[`Accept`](#HeaderAccept) header of the request.
+The response body is the octet-stream that represents the raw
+value of the stream property with that media type.
+
+Note this response format disregards any [`$format`](#SystemQueryOptionformat)
+system query option.
 
 #### ##subsubsubsec Requesting a Property's Raw Value using `$value`
 
@@ -258,6 +275,9 @@ A `$value` request for a property that is `null` results in a
 
 If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
+
+Appending `/$value` to the property URL of a property of type `Edm.Stream`
+returns `400 Bad Request`.
 
 ::: example
 Example ##ex:
@@ -383,18 +403,12 @@ The `$expand` system query option indicates the related entities and
 stream values that MUST be represented inline. The service MUST return
 the specified content, and MAY choose to return additional information.
 
-The value of the `$expand` query option is a comma-separated list of
-navigation property names, stream property names, or `$value` indicating
-the stream content of a media-entity.
-
-For navigation properties, the navigation property name is optionally
-followed by a `/$ref` path segment or a `/$count` path segment, and
-optionally a parenthesized set of [expand options](#ExpandOptions) (for
-filtering, sorting, selecting, paging, or expanding the related
-entities).
+The value of `$expand` is a comma-separated list of expand items. Each
+expand item is evaluated relative to the retrieved resource being
+expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL).
+[OData-URL](#ODataURL), section 5.1.3.
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
@@ -427,15 +441,18 @@ application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
 [OData-URL](#ODataURL).
 
-Allowed system query options are [`$filter`](#SystemQueryOptionfilter),
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$levels`](#ExpandOptionlevels)
+ for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
-[`$count`](#SystemQueryOptioncount),
-[`$search`](#SystemQueryOptionsearch),
-[`$expand`](#SystemQueryOptionexpand)`,`
-[`$compute`](#SystemQueryOptioncompute)`,` and
-[`$levels`](#ExpandOptionlevels).
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+ for collection-valued navigation properties.
 
 ::: example
 Example ##ex: for each customer entity within the `Customers` entity set,
@@ -475,8 +492,8 @@ GET http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseSta
 The `$levels` expand option can be used to specify the number of levels
 of recursion for a hierarchy in which the related entity type is the
 same as, or can be cast to, the source entity type. A `$levels` option
-with a value of 1 specifies a single expand with no recursion. The same
-expand options are applied at each level of the hierarchy.
+with a value of 1 specifies a single expand with no recursion. All provided
+expand options except `$levels` are applied at each level of the hierarchy.
 
 Services MAY support the symbolic value `max` in addition to numeric
 values. In that case they MUST solve circular dependencies by injecting
@@ -630,7 +647,7 @@ a `null` literal that can be used in comparisons.
 <tr><td><code>hassubset</code></td><td><pre><code>hassubset([4,1,3],[3,1])</code></pre></td></tr>
 <tr><td><code>hassubsequence</code></td><td><pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre></td></tr>
 <tr><td colspan="2"><strong>String Functions</strong></td></tr>
-<tr><td><code>matchesPattern</code></td><td><pre><code>matchesPattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
+<tr><td><code>matchespattern</code></td><td><pre><code>matchespattern(CompanyName,'%5EA.*e$')</code></pre></td></tr>
 <tr><td><code>tolower</code></td><td><pre><code>tolower(CompanyName) eq 'alfreds futterkiste'</code></pre></td></tr>
 <tr><td><code>toupper</code></td><td><pre><code>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</code></pre></td></tr>
 <tr><td><code>trim	</code></td><td><pre><code>trim(CompanyName) eq 'Alfreds Futterkiste'</code></pre></td></tr>
@@ -669,7 +686,7 @@ a `null` literal that can be used in comparisons.
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function parameters](#InvokingaFunction), or within a
-[`$compute`](#SystemQueryOptioncompute)`,`
+[`$compute`](#SystemQueryOptioncompute),
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression. Parameters aliases
 are names beginning with an at sign (`@`).
@@ -681,7 +698,7 @@ specified parameter alias.
 
 ::: example
 Example ##ex: returns all employees whose Region property matches the
-string parameter value "WA"
+string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
 ```
@@ -746,7 +763,7 @@ result value of the second expression, and so on.
 The Boolean value false comes before the value true in ascending order.
 
 Services SHOULD order language-dependent strings according to the
-[content-language](#HeaderContentLanguage) of the response, and SHOULD
+[`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -897,7 +914,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example ##ex: return all Products that match the search term "bike"
+Example ##ex: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -906,7 +923,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example ##ex: return all Products that match the phrase "mountain bike"
+Example ##ex: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -916,7 +933,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example ##ex: return all Products that do not match "clothing"
+Example ##ex: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -927,8 +944,8 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example ##ex: return all Products that match both "mountain" and
-"bike"
+Example ##ex: return all Products that match both `mountain` and
+`bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
 ```
@@ -938,8 +955,8 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example ##ex: return all Products that match either "mountain" or
-"bike"
+Example ##ex: return all Products that match `mountain` or
+`bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
 ```
@@ -949,8 +966,8 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example ##ex: return all Products that match either "mountain" or
-"bike" and do not match clothing
+Example ##ex: return all Products that match `mountain` or
+`bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
 ```
@@ -1052,13 +1069,13 @@ If the resource path identifies a collection, the response MUST be the
 format-specific representation of a collection of entity references
 pointing to the related entities. If no entities are related, the
 response is the format-specific representation of an empty collection.
-The response MAY contain an [ETag header](#HeaderETag) for the
+The response MAY contain an [`ETag`](#HeaderETag) header for the
 collection whose value changes if the collection of references changes,
 i.e. a reference is added or removed.
 
 If the resource path identifies a single existing entity, the response
 MUST be the format-specific representation of an entity reference. The
-response MAY contain an [ETag header](#HeaderETag) which represents the
+response MAY contain an [`ETag`](#HeaderETag) header which represents the
 identity of the referenced entity. If the resource path terminates in a
 single-valued navigation path, the ETag value changes if the
 relationship is changed and points to a different OData entity. If the
@@ -1228,7 +1245,7 @@ using the JSON media type with minimal metadata, as defined in
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
 parameterized variants, as well as the format-specific abbreviations
-`xml` and `json,` are reserved for this specification.
+`xml` and `json`, are reserved for this specification.
 
 ### ##subsubsec System Query Option `$schemaversion`
 
@@ -1280,7 +1297,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities`.`ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -1289,7 +1306,7 @@ change-tracking.
 Clients request that the service track changes to a result by specifying
 the [`track-changes`](#Preferencetrackchangesodatatrackchanges) preference
 on a request. If supported for the request, the service includes a
-[`Preference-Applied`](#HeaderPreferenceApplied)` `header in the
+[`Preference-Applied`](#HeaderPreferenceApplied) header in the
 response containing the `track-changes` preference and includes a *delta
 link* in a result for a single entity, and on the last page of results
 for a collection of entities in place of the next link.
@@ -1382,8 +1399,8 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span multiple pages
-but MUST be ordered by the service across all pages in such a way as to
+The results of a request against the delta link may span one or more pages
+and MUST be ordered by the service across all pages in such a way as to
 guarantee consistency when applied in order to the response which
 contained the delta link.
 
