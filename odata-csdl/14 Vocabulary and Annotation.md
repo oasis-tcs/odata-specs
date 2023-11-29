@@ -346,7 +346,8 @@ are defined in [OData-VocCore](#ODataVocCore))
   "$Type": "Core.Tag",
   "$DefaultValue": true,
   "$AppliesTo": [
-    "Property"
+    "Property",
+    "Term"
   ],
   "@Core.Description": "Properties and terms annotated with this term
 MUST contain a valid URL",
