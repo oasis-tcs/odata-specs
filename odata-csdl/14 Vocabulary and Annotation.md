@@ -1351,7 +1351,7 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example ##ex: model path addressing an annotation on a navigation property
+Example ##ex: model path segment addressing an annotation on a navigation property
 vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
 .../Items@Core.Description

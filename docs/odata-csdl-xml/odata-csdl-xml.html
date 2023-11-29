@@ -2436,7 +2436,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <p>A model path MAY contain path segments starting with a navigation property, then followed by an at (<code>@</code>) character, then followed by the <a href="#QualifiedName">qualified name</a> of a term in scope, and optionally followed by a hash (<code>#</code>) character and a <a href="#SimpleIdentifier">simple identifier</a> which is interpreted as a <a href="#Qualifier">qualifier</a> for the term. If the navigation property has not been annotated with that term (and if present, with that qualifier), the path segment evaluates to the null value. This allows addressing annotations on the navigation property itself; annotations on the entity type specified by the navigation property are addressed via a <a href="#TermCast">term-cast segment</a>.</p>
 <div class="example">
-<p>Example 64: model path addressing an annotation on a navigation property vs. term cast addressing an annotation on the resource addressed by the navigation property</p>
+<p>Example 64: model path segment addressing an annotation on a navigation property vs. term cast addressing an annotation on the resource addressed by the navigation property</p>
 <pre><code>.../Items@Core.Description</code></pre>
 <pre><code>.../Items/@Core.Description</code></pre>
 </div>
