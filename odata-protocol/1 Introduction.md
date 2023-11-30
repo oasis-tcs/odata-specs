@@ -287,10 +287,12 @@ one or both of them may differ from convention.
 
 ## ##subsec Transient Entities
 
-Transient entities are instances of an entity type that are "calculated
+Transient entities are derived from instances of an entity type that are "calculated
 on the fly" and only exist within a single payload. They cannot be
-reread or updated and consequently possess neither a stable entity-id
-nor a read URL or an update URL.
+updated and consequently possess neither a stable entity-id
+nor an update URL.
+A transient entity may have a read URL, which may be used to re-derive
+the transient entity from the current state of the underlying entity.
 
 ## ##subsec Default Namespaces
 
