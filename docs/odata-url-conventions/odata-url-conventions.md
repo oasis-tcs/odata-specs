@@ -2129,19 +2129,19 @@ OrderedCollection substring(OrderedCollection,Edm.Int32)
 OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)
 ```
 
-The two-argument `substring` function with string parameter values
+The two-parameter `substring` function with string parameter values
 returns a substring of the first parameter string value, starting at the
 Nth character and finishing at the last character (where N is the second
-parameter integer value). The three-argument `substring` function with
+parameter integer value). The three-parameter `substring` function with
 string parameter values returns a substring of the first parameter
 string value identified by selecting up to M characters starting at the
 Nth character (where N is the second parameter integer value and M is
 the third parameter integer value).
 
-The two-argument `substring` function with ordered collection parameter
+The two-parameter `substring` function with ordered collection parameter
 values returns an ordered collection consisting of all items of the
 first collection starting at the Nth item and finishing at the last
-item. The three-argument `substring` function with ordered collection
+item. The three-parameter `substring` function with ordered collection
 parameter values returns an ordered collection consisting of up to M
 items of the first collection starting at the Nth item (where N is the
 second parameter integer value and M is the third parameter integer
