@@ -62,18 +62,6 @@ https://www.rfc-editor.org/info/rfc5646.
 _Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
 https://www.rfc-editor.org/info/rfc5789.
 
-###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, DOI 10.17487/RFC7230, June 2014_.
-https://www.rfc-editor.org/info/rfc7230.
-
-###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014_.
-https://www.rfc-editor.org/info/rfc7231.
-
-###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, DOI 10.17487/RFC7232, June 2014_.
-https://www.rfc-editor.org/info/rfc7232.
-
 ###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
 https://www.rfc-editor.org/info/rfc7240.
@@ -86,15 +74,15 @@ https://www.rfc-editor.org/info/rfc7617.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="rfc9110">[RFC9110]</a>
+_Fielding, R., Ed., M. Nottingham, Ed., and J. Reschke, Ed., "HTTP Semantics", RFC 9110, June 2022_  
+https://www.rfc-editor.org/info/rfc9110.
+
 ## ##subasec Informative References
 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
 
 -------
 
@@ -108,7 +96,7 @@ and thus inherits both sides of the coin, security enhancements and
 concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
+of [RFC9110](#rfc9110) (17. Security Considerations) and for the
 HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
 starting points.
 

@@ -125,10 +125,10 @@ Example ##ex: references to other CSDL documents
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       ...
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
       ...
     },
     "http://example.org/display/v1": {
@@ -169,10 +169,12 @@ Example ##ex: references to other CSDL documents
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
    ...
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     ...
   </edmx:Reference>
   <edmx:Reference Uri="http://example.org/display/v1">
@@ -252,7 +254,7 @@ vocabulary terms
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Capabilities.V1",
@@ -260,7 +262,7 @@ vocabulary terms
         }
       ]
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Core.V1",
@@ -310,10 +312,12 @@ vocabulary terms
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" />
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
       <Annotation Term="Core.DefaultNamespace" />
     </edmx:Include>

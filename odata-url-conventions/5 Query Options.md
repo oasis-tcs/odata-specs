@@ -96,8 +96,8 @@ When applied to operands of numeric types, [numeric
 promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
-operands, and the `eq` and `ne` operators can be used with structured
-operands.
+operands, and the `eq` and `ne` operators can be used with operands of a
+structured type.
 
 ##### ##subsubsubsubsec Equals
 
@@ -1415,6 +1415,10 @@ if none of the conditions in any pair evaluates to `true`. Clients can
 specify a last pair whose condition is `true` to get a non-null
 "default/else/otherwise" result.
 
+Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
+the optional seconds part will introduce ambiguity for parsers.
+Clients SHOULD use whitespace or parentheses to avoid ambiguity.
+
 Clients SHOULD ensure that the results in all pairs are compatible. If
 all results are of the same type, the type of the `case` expression is
 of that type. If all results are of numeric type, then the type of the
@@ -1655,6 +1659,7 @@ Example ##ex: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
@@ -1715,8 +1720,8 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 
 #### ##subsubsubsec Path Expressions
 
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
+Properties and navigation properties of the structured type on which
+a common expression is evaluated can be used as operands
 or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
@@ -1887,8 +1892,8 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
+consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -1896,16 +1901,16 @@ A path can end with
 - the name of a stream property to include
 that stream property,
 - a star (`*`) to expand all navigation
-properties of the identified structured instance, optionally followed by
+properties of the identified instances of a structured type, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
+related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
 references.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
+[type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
 
 If a structured type traversed by the path supports neither dynamic
@@ -1978,8 +1983,7 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The system query options [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -2099,15 +2103,15 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or 
+[type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
 A path can end with
 - the name of a property or
-non-entity-valued instance annotation of the identified structured
-instance,
+non-entity-valued instance annotation of the identified
+instance of a structured type,
 - the qualified name of a bound action,
 - the qualified name of a bound function
 to include all matching overloads, or
@@ -2176,8 +2180,7 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example
@@ -2313,6 +2316,7 @@ http://host/service/Products?$search=blue OR green
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
+Leading and trailing spaces are not considered part of the search expression.
 
 *Terms* can be any single word to be matched within the expression.
 
@@ -2342,6 +2346,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
@@ -2376,6 +2381,9 @@ expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
+Services MAY support compute instructions that address
+dynamic properties added by other compute instructions within the same
+`$compute` system query option, provided that the service can determine an evaluation sequence.
 
 The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
 grammar of the `$compute` query option.
@@ -2398,7 +2406,7 @@ http://host/service/Orders(10)/Items
 ### ##subsubsec System Query Option `$index`
 
 The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
+insert into a collection annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is

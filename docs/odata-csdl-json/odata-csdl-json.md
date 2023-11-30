@@ -672,7 +672,7 @@ via `PATCH` and exclusively specifying modified values will reduce
 the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
@@ -987,10 +987,10 @@ Example 8: references to other CSDL documents
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       ...
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
       ...
     },
     "http://example.org/display/v1": {
@@ -1065,7 +1065,7 @@ vocabulary terms
 {
   ...
   "$Reference": {
-    "http://vocabs.odata.org/capabilities/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Capabilities.V1",
@@ -1073,7 +1073,7 @@ vocabulary terms
         }
       ]
     },
-    "http://vocabs.odata.org/core/v1": {
+    "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
       "$Include": [
         {
           "$Namespace": "Org.OData.Core.V1",
@@ -1222,6 +1222,9 @@ The schema's namespace is combined with the name of elements in the
 schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
+
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
 
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
@@ -1549,7 +1552,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
@@ -3669,14 +3672,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -3699,7 +3702,8 @@ are defined in [OData-VocCore](#ODataVocCore))
   "$Type": "Core.Tag",
   "$DefaultValue": true,
   "$AppliesTo": [
-    "Property"
+    "Property",
+    "Term"
   ],
   "@Core.Description": "Properties and terms annotated with this term
 MUST contain a valid URL",
@@ -4270,9 +4274,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 64: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+.../Items@Core.Description
+```
+
+```
+.../Items/@Core.Description
 ```
 :::
 
@@ -4474,7 +4483,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
@@ -4908,7 +4917,7 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### <a name="Apply21.20" href="#Apply21.20"> `$Apply`</a>
+### <a name="Apply21.20" href="#Apply21.20"> `$Apply`</a> and <a name="Function21.21" href="#Function21.21"> `$Function`</a>
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -5089,7 +5098,7 @@ rules as the `cast` canonical function defined in
 [OData-URL](#ODataURL).
 
 ::: {.varjson .rep}
-### <a name="Cast21.21" href="#Cast21.21"> `$Cast`</a>
+### <a name="Cast21.22" href="#Cast21.22"> `$Cast`</a>
 
 Cast expressions are represented as an object with a member `$Cast`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5172,7 +5181,7 @@ third expression is present, nothing is added to the surrounding
 collection.
 
 ::: {.varjson .rep}
-### <a name="If21.22" href="#If21.22"> `$If`</a>
+### <a name="If21.23" href="#If21.23"> `$If`</a>
 
 Conditional expressions are represented as an object with a member `$If`
 whose value is an array of two or three annotation expressions.
@@ -5207,7 +5216,7 @@ child expression is compatible with the specified type. It returns
 the specified type, and `false` otherwise.
 
 ::: {.varjson .rep}
-### <a name="IsOf21.23" href="#IsOf21.23"> `$IsOf`</a>
+### <a name="IsOf21.24" href="#IsOf21.24"> `$IsOf`</a>
 
 Is-of expressions are represented as an object with a member `$IsOf`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5254,7 +5263,7 @@ identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
 ::: {.varjson .rep}
-### <a name="LabeledElement21.24" href="#LabeledElement21.24"> `$LabeledElement`</a>
+### <a name="LabeledElement21.25" href="#LabeledElement21.25"> `$LabeledElement`</a>
 
 Labeled element expressions are represented as an object with a member
 `$LabeledElement` whose value is an annotation expression, and a member
@@ -5285,7 +5294,7 @@ in scope and returns the value of the identified labeled element
 expression as its value.
 
 ::: {.varjson .rep}
-### <a name="LabeledElementReference21.25" href="#LabeledElementReference21.25"> `$LabeledElementReference`</a>
+### <a name="LabeledElementReference21.26" href="#LabeledElementReference21.26"> `$LabeledElementReference`</a>
 
 Labeled element reference expressions are represented as an object with
 a member `$LabeledElementReference` whose value is a string containing
@@ -5321,7 +5330,7 @@ Example 85:
 :::
 
 ::: {.varjson .rep}
-### <a name="Null21.26" href="#Null21.26"> `$Null`</a>
+### <a name="Null21.27" href="#Null21.27"> `$Null`</a>
 
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
@@ -5382,31 +5391,35 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```json
-"@person.Employee": {
-  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
-  "@Core.Description": "Annotation on record",
-  "GivenName": {
-    "$Path": "FirstName"
-  },
-  "GivenName@Core.Description": "Annotation on record member",
-  "Surname": {
-    "$Path": "LastName"
-  },
-  "DirectSupervisor": {
-    "$Path": "Manager"
-  },
-  "CostCenter": {
-    "$UrlRef": {
-      "$Apply": [
-        "http://host/anotherservice/CostCenters('{ccid}')",
-        {
-          "$LabeledElement": {
-            "$Path": "CostCenterID"
-          },
-          "$Name": "ccid"
+"$Annotations": {
+  "org.example.Person": {
+    "@org.example.hcm.Employee": {
+      "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+      "@Core.Description": "Annotation on record",
+      "GivenName": {
+        "$Path": "FirstName"
+      },
+      "GivenName@Core.Description": "Annotation on record member",
+      "Surname": {
+        "$Path": "LastName"
+      },
+      "DirectSupervisor": {
+        "$Path": "Manager"
+      },
+      "CostCenter": {
+        "$UrlRef": {
+          "$Apply": [
+            "http://host/anotherservice/CostCenters('{ccid}')",
+            {
+              "$LabeledElement": {
+                "$Path": "CostCenterID"
+              },
+              "$Name": "ccid"
+            }
+          ],
+          "$Function": "odata.fillUriTemplate"
         }
-      ],
-      "$Function": "odata.fillUriTemplate"
+      }
     }
   }
 }
@@ -5432,7 +5445,7 @@ expression MUST be type compatible with the type expected by the
 surrounding expression.
 
 ::: {.varjson .rep}
-### <a name="UrlRef21.27" href="#UrlRef21.27"> `$UrlRef`</a>
+### <a name="UrlRef21.28" href="#UrlRef21.28"> `$UrlRef`</a>
 
 URL reference expressions are represented as an object with a single
 member `$UrlRef` whose value is an annotation expression.
@@ -6071,13 +6084,14 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
   - [`$DivBy`](#DivBy21.18)
   - [`$Mod`](#Mod21.19)
   - [`$Apply`](#Apply21.20)
-  - [`$Cast`](#Cast21.21)
-  - [`$If`](#If21.22)
-  - [`$IsOf`](#IsOf21.23)
-  - [`$LabeledElement`](#LabeledElement21.24)
-  - [`$LabeledElementReference`](#LabeledElementReference21.25)
-  - [`$Null`](#Null21.26)
-  - [`$UrlRef`](#UrlRef21.27)
+  - [`$Function`](#Function21.21)
+  - [`$Cast`](#Cast21.22)
+  - [`$If`](#If21.23)
+  - [`$IsOf`](#IsOf21.24)
+  - [`$LabeledElement`](#LabeledElement21.25)
+  - [`$LabeledElementReference`](#LabeledElementReference21.26)
+  - [`$Null`](#Null21.27)
+  - [`$UrlRef`](#UrlRef21.28)
 :::
 
 -------
