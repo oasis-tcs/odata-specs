@@ -636,11 +636,11 @@ Example 2:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "@editLink": "Customers('ALFKI')",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -765,7 +765,7 @@ Example 4:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@metadataEtag": "W/\"A1FF3E230954908F\"",
-  ...
+  …
 }
 ```
 :::
@@ -873,7 +873,7 @@ metadata document of the same service with a dynamic property of type
   "ID": 2,
   "DynamicValue@type": "Date",
   "DynamicValue": "2016-09-22",
-  ...
+  …
 }
 ```
 :::
@@ -886,7 +886,7 @@ metadata  document of a different service
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@type": "http://host/alternate/$metadata#Model.VipCustomer",
   "ID": 2,
-  ...
+  …
 }
 ```
 :::
@@ -1124,7 +1124,7 @@ Example 7:
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -1167,7 +1167,7 @@ Example 8: Annotating primitive values within a collection
     "JulieSwa@live.com",
     "Julie.Swansworth@work.com"
   ],
-  ...
+  …
 }
 ```
 :::
@@ -1434,7 +1434,7 @@ Example 13:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -1462,12 +1462,12 @@ Example 14: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
@@ -1498,7 +1498,7 @@ Example 15: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -1555,9 +1555,9 @@ Example 16:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -1582,9 +1582,9 @@ Example 17:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -1617,9 +1617,9 @@ Example 18:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -1640,21 +1640,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -1773,7 +1773,7 @@ Example 23: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -1822,13 +1822,13 @@ Example 24:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::
@@ -1852,9 +1852,9 @@ Example 25:
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded value...",
+  "$value": "…base64url encoded value…",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -2012,14 +2012,14 @@ partial result.
 Example 28:
 ```json
 {
-  "@context": "...",
+  "@context": "…",
   "@count": 37,
   "value": [
-    { ... },
-    { ... },
-    { ... }
+    { … },
+    { … },
+    { … }
   ],
-  "@nextLink": "...?$skiptoken=342r89"
+  "@nextLink": "…?$skiptoken=342r89"
 }
 ```
 :::
@@ -2779,7 +2779,7 @@ applicable
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
   "#Model.RemainingVacation": {},
-  ...
+  …
 }
 ```
 :::
@@ -2794,7 +2794,7 @@ alias for the `Year` parameter
     "title": "Remaining vacation from year.",
     "target": "Employees(2)/RemainingVacation(Year=@Year)"
   },
-  ...
+  …
 }
 ```
 :::
@@ -2808,7 +2808,7 @@ Example 42: full representation in a collection
     "title": "Remaining Vacation",
     "target": "Managers(22)/Employees/RemainingVacation"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2820,7 +2820,7 @@ Example 43: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID":22,
-  ...
+  …
   "Employees#RemainingVacation": {
     "title": "RemainingVacation",
     "target": "Managers(22)/Employees/RemainingVacation"
@@ -2882,7 +2882,7 @@ Example 44: minimal representation in an entity
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
   "#Model.Approve": {},
-  ...
+  …
 }
 ```
 :::
@@ -2896,7 +2896,7 @@ Example 45: full representation in an entity:
     "title": "Approve Leave Request",
     "target": "LeaveRequests(2)/Approve"
   },
-  ...
+  …
 }
 ```
 :::
@@ -2910,7 +2910,7 @@ Example 46: full representation in a collection
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2922,7 +2922,7 @@ Example 47: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID": 22,
-  ...
+  …
   "LeaveRequests#Model.Approve": {
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
@@ -3425,7 +3425,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 
@@ -3669,8 +3669,8 @@ Example 55:
       }
     ],
     "innererror": {
-      "trace": [...],
-      "context": {...}
+      "trace": […],
+      "context": {…}
     }
   }
 }

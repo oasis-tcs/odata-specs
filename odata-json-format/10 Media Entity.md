@@ -18,9 +18,9 @@ Example ##ex:
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded value...",
+  "$value": "…base64url encoded value…",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -178,14 +178,14 @@ partial result.
 Example 28:
 ```json
 {
-  "@context": "...",
+  "@context": "…",
   "@count": 37,
   "value": [
-    { ... },
-    { ... },
-    { ... }
+    { … },
+    { … },
+    { … }
   ],
-  "@nextLink": "...?$skiptoken=342r89"
+  "@nextLink": "…?$skiptoken=342r89"
 }
 ```
 :::

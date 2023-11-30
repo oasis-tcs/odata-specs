@@ -930,7 +930,7 @@ Example 7:
 {
   "$Version": "4.01",
   "$EntityContainer": "org.example.DemoService",
-  ...
+  …
 }
 ```
 :::
@@ -983,19 +983,19 @@ The reference object MAY contain the members
 Example 8: references to other CSDL documents
 ```json
 {
-  ...
+  …
   "$Reference": {
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
-      ...
+      …
     },
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
-      ...
+      …
     },
     "http://example.org/display/v1": {
-      ...
+      …
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -1061,7 +1061,7 @@ Example 9: references to entity models containing definitions of
 vocabulary terms
 ```json
 {
-  ...
+  …
   "$Reference": {
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       "$Include": [
@@ -1089,7 +1089,7 @@ vocabulary terms
       ]
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -1158,7 +1158,7 @@ The value of `$TargetNamespace` is a namespace.
 Example 10: reference documents that contain annotations
 ```json
 {
-  ...
+  …
   "$Reference": {
     "http://odata.org/ann/b": {
       "$IncludeAnnotations": [
@@ -1181,7 +1181,7 @@ Example 10: reference documents that contain annotations
       ]
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -1281,13 +1281,13 @@ Example 11: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
-  ...
+  …
   "org.example": {
     "$Alias": "self",
     "@Core.Description": "Example schema",
-    ...
+    …
   },
-  ...
+  …
 }
 ```
 :::
@@ -1314,7 +1314,7 @@ Example 12: annotations targeting the `Person` type with qualifier
   "$Annotations": {
     "self.Person": {
       "@Core.Description#Tablet": "Dummy",
-      ...
+      …
     }
   }
 }
@@ -1886,7 +1886,7 @@ Example 22: the `Product` entity type has a navigation property to a
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "Category": {
     "$Kind": "NavigationProperty",
     "$Type": "self.Category",
@@ -1902,7 +1902,7 @@ Example 22: the `Product` entity type has a navigation property to a
 },
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -2134,7 +2134,7 @@ the `Kind` property of the category.
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "CategoryID": {},
   "CategoryKind": {},
   "Category": {
@@ -2157,7 +2157,7 @@ the `Kind` property of the category.
   "Kind": {
     "$Nullable": true
   },
-  ...
+  …
 }
 ```
 :::
@@ -2204,7 +2204,7 @@ products in that category
 ```json
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -2279,7 +2279,7 @@ Example 25: a complex type used by two entity types
   }
 },
 "Product": {
-  ...
+  …
   "ProductDimensions": {
     "$Nullable": true,
     "$Type": "self.Dimensions"
@@ -2290,7 +2290,7 @@ Example 25: a complex type used by two entity types
   }
 },
 "ShipmentBox": {
-  ...
+  …
   "Dimensions": {
     "$Nullable": true,
     "$Type": "self.Dimensions"
@@ -3139,7 +3139,7 @@ entity container located in `SomeOtherSchema`
 "Extending": {
   "$Kind": "EntityContainer",
   "$Extends": "Some.Other.Schema.Base",
-   ...
+   …
 }
 ```
 :::
@@ -4186,7 +4186,7 @@ the null value.
 ::: example
 Example 60: type-cast segment
 ```
-.../self.Manager/...
+…/self.Manager/…
 ```
 :::
 
@@ -4211,7 +4211,7 @@ properties:
 ::: example
 Example 61: term-cast segments
 ```
-.../@Capabilities.SortRestrictions/...
+…/@Capabilities.SortRestrictions/…
 ```
 :::
 
@@ -4231,7 +4231,7 @@ expression is the model element reached via this path.
 ::: example
 Example 62: property segments in model path
 ```
-.../Orders/Items/Product/...
+…/Orders/Items/Product/…
 ```
 :::
 
@@ -4251,11 +4251,11 @@ number of items in the collection identified by the preceding segment.
 ::: example
 Example 63: property segments in instance path
 ```
-.../Addresses/Street
+…/Addresses/Street
 ```
 
 ```
-.../Addresses/$count
+…/Addresses/$count
 ```
 :::
 
@@ -4275,11 +4275,11 @@ segment](#TermCast).
 Example 64: model path segment addressing an annotation on a navigation property
 vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Core.Description
+…/Items@Core.Description
 ```
 
 ```
-.../Items/@Core.Description
+…/Items/@Core.Description
 ```
 :::
 
@@ -4408,7 +4408,7 @@ enclosing type `self.A` of the hosting property `A2`.
       "@Core.Description@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description": "..."
+      "@Core.Description": "…"
     }
   },
   "B": {
@@ -4437,7 +4437,7 @@ type `self.B` of the hosting property `A2`.
       "@Core.Description#viaset@Core.IsLanguageDependent": {
         "$Path": "B1"
       },
-      "@Core.Description#viaset": "..."
+      "@Core.Description#viaset": "…"
     },
     "self.Container/SetA/A2/@Core.Description#viaset": {
       "@Core.IsLanguageDependent": {
@@ -4456,7 +4456,7 @@ type `self.A` named in the target path.
       "@Core.Description#external@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description#external": "..."
+      "@Core.Description#external": "…"
     },
     "self.A/A2/@Core.Description": {
       "@Core.IsLanguageDependent": {
@@ -4555,7 +4555,6 @@ containing a path.
 Example 70:
 ```json
 "@UI.HyperLink": "Supplier",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableNavigationProperties": [
     "Supplier",
@@ -4591,7 +4590,6 @@ Property path expressions are represented as a string containing a path.
 Example 71:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableProperties": [
     "CreatedAt",
@@ -4627,7 +4625,6 @@ Example 72:
 "@UI.DisplayName": {
   "$Path": "FirstName"
 },
-
 "@UI.DisplayName#second": {
   "$Path": "@vCard.Address#work/FullName"
 }
@@ -5539,9 +5536,21 @@ segments
 Example 89: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
+```
+
+```
 MySchema.MyEntityContainer/MySingleton
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/My.EntityType/MyContainmentNavProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp
 ```
 :::

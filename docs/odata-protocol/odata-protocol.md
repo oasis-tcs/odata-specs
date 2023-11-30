@@ -2529,7 +2529,7 @@ Context URL template:
 
     {context-url}#Collection(Edm.ComplexType)
 
-Responses to requests to the virtual collections `$crossjoin(...)` (see
+Responses to requests to the virtual collections `$crossjoin(…)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
 
@@ -4713,10 +4713,10 @@ would only include control information for the stream property, not the stream d
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
-  ...
+  …
 }
 ```
 The stream data can then be requested using the media read link:
@@ -5054,8 +5054,7 @@ Entities](#UpdateaCollectionofEntities) applies.
 ::: example
 Example 84: change the color of all beige-brown products
 ```json
-PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq
-'beige-brown'
+PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
 Content-Type: application/json
 
 {
@@ -5235,14 +5234,14 @@ a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
 ```json
 {
-  "@context": ...,
+  "@context": …,
   "CustomerID": "ALFKI",
   "CompanyName": "Alfreds Futterkiste",
   "#SampleEntities.MostRecentOrder": {
     "title": "Most Recent Order",
     "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
   },
-  ...
+  …
 }
 ```
 :::
@@ -5260,11 +5259,11 @@ Example 92: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
-  "@context": ...,
+  "@context": …,
   "CustomerID": "ALFKI",
   "CompanyName": "Alfreds Futterkiste",
   "#SampleEntities.MostRecentOrder": null,
-  ...
+  …
 }
 ```
 :::
@@ -5338,7 +5337,7 @@ returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
  
-...
+…
 ```
 :::
 

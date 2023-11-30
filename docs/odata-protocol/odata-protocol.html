@@ -1184,7 +1184,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="1020-crossjoin-response"><a name="crossjoinResponse" href="#crossjoinResponse">10.20 <code>$crossjoin</code> Response</a></h2>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.ComplexType)</code></pre>
-<p>Responses to requests to the virtual collections <code>$crossjoin(...)</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
+<p>Responses to requests to the virtual collections <code>$crossjoin(…)</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
 <hr />
 <h1 id="11-data-service-requests"><a name="DataServiceRequests" href="#DataServiceRequests">11 Data Service Requests</a></h1>
 <p>This chapter describes the semantics of the HTTP verbs <code>GET</code>, <code>POST</code>, <code>PATCH</code>, <code>PUT</code>, and <code>DELETE</code> for OData resources.</p>
@@ -1946,10 +1946,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>would only include control information for the stream property, not the stream data itself</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
 <span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The stream data can then be requested using the media read link:</p>
 <pre><code>GET http://server/Thumbnail546.jpg</code></pre>
@@ -2044,13 +2044,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For collections of structured type, the body of the request MUST be a full or partial representation of an instance of the collection’s structured type. Each member of the potentially filtered collection is <a href="#UpdateanEntity">updated</a> using <code>PATCH</code> semantics. Structured types MAY include nested collections or delta collections, in which case the semantics described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a> applies.</p>
 <div class="example">
 <p>Example 84: change the color of all beige-brown products</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="er">&#39;beige-brown&#39;</span></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span> <span class="er">&#39;beige-brown&#39;</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The response, if requested, is a collection payload containing the updated representation of each member identified by the request. If the update payload includes nested collections or nested delta collections, then they MUST be included in the response, as described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
@@ -2109,14 +2108,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 91: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">…</span><span class="fu">,</span></span>
 <span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
 <span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
 <span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Most Recent Order&quot;</span><span class="fu">,</span></span>
 <span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/SampleEntities.MostRecentOrder()&quot;</span></span>
 <span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="fu">},</span></span>
-<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
 <span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload  whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData-URL</a>.</p>
@@ -2124,11 +2123,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 92: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer <code>ALFKI</code></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">…</span><span class="fu">,</span></span>
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
 <span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
 <span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">...</span></span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="er">…</span></span>
 <span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="1154-functions"><a name="Functions" href="#Functions">11.5.4 Functions</a></h3>
@@ -2144,7 +2143,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 93: add a new item to the list of items of the shopping cart returned by the composable <code>MyShoppingCart</code> function import</p>
 <pre><code>POST http://host/service/MyShoppingCart()/Items
  
-...</code></pre>
+…</code></pre>
 </div>
 <p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.  </p>

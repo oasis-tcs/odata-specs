@@ -1198,7 +1198,7 @@ time slices together with the key of the temporal object.
 
 Note: alternatively, the period end date could have been used as
 temporal sub-key, or the primary key of the time slice tables could have
-been an artificial key (sequence number, UUID, ...) with both the
+been an artificial key (sequence number, UUID, …) with both the
 temporal object key and the period boundaries as non-key fields.
 
 The following example data will be used to further illustrate the

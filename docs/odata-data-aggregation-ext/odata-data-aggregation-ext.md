@@ -885,7 +885,7 @@ Date|Month|Quarter|Year
 2022-01-01|2022-01|2022-1|2022
 2022-04-01|2022-04|2022-2|2022
 2022-04-10|2022-04|2022-2|2022
-...|||
+…|||
 :::::
 
 ::::: {style=top:150px;left:360px}
@@ -1580,28 +1580,28 @@ results in seven entities for the finest grouping level
     { "Customer": { "Country": "USA", "Name": "Joe" },
       "Product":  { "Category": { "Name": "Non-Food" }, "Name": "Paper" },
       "Total@type": "Decimal", "Total": 1 },
-    ...
+    …
 ```
 plus additional fifteen rollup entities for subtotals: five without customer name
 ```json
     { "Customer": { "Country": "USA" },
       "Product":  { "Category": { "Name": "Food" }, "Name": "Sugar" },
       "Total@type": "Decimal", "Total":  2 },
-    ...
+    …
 ```
 six without product name
 ```json
     { "Customer": { "Country": "USA", "Name": "Joe" },
       "Product":  { "Category": { "Name": "Food" } },
       "Total@type": "Decimal", "Total":  6 },
-    ...
+    …
 ```
 and four with neither customer nor product name
 ```json
     { "Customer": { "Country": "USA" },
       "Product":  { "Category": { "Name": "Food" } },
       "Total@type": "Decimal", "Total": 14 },
-    ...
+    …
   ]
 }
 ```
@@ -2235,7 +2235,7 @@ results in
   "value": [
     { "Products": { "Name": "Paper" }, "Sales": { "Amount": 1 } },
     { "Products": { "Name": "Sugar" }, "Sales": { "Amount": 2 } },
-    ...
+    …
   ]
 }
 ```
@@ -2295,7 +2295,7 @@ Example 49: an entity container with default support for everything defined in t
 ```xml
 <EntityContainer Name="SalesData">
   <Annotation Term="Aggregation.ApplySupportedDefaults" />
-  ...
+  …
 </EntityContainer>
 ```
 :::
@@ -2305,7 +2305,7 @@ Example <a name="containerrooted" href="#containerrooted">50</a>: Define aggrega
 ```xml
 <Annotations Target="SalesModel.SalesData/Categories/Products">
   <Annotation Term="Aggregation.ApplySupported">
-    ...
+    …
   </Annotation>
 </Annotations>
 ```
@@ -2555,9 +2555,9 @@ results in
     { "ID": "Sales Netherlands", "Name": "Sales Netherlands" },
     { "ID": "Sales Germany",     "Name": "Sales Germany" },
     { "ID": "EMEA South",        "Name": "EMEA South" },
-    ...
+    …
     { "ID": "EMEA North",        "Name": "EMEA North" },
-    ...
+    …
   ]
 }
 ```
@@ -2581,7 +2581,7 @@ results in
     { "ID": "EMEA Central", "Name": "EMEA Central" },
     { "ID": "EMEA South",   "Name": "EMEA South" },
     { "ID": "EMEA North",   "Name": "EMEA North" },
-    ...
+    …
   ]
 }
 ```
@@ -2602,7 +2602,7 @@ results in
   "value": [
     { "ID": "Sales Office London",   "Name": "Sales Office London" },
     { "ID": "Sales Office New York", "Name": "Sales Office New York" },
-    ...
+    …
   ]
 }
 ```
@@ -2626,7 +2626,7 @@ results in
       "Superordinate": { "ID": "EMEA United Kingdom" } },
     { "ID": "Sales Office New York", "Name": "Sales Office New York",
       "Superordinate": { "ID": "US East" } },
-    ...
+    …
   ]
 }
 ```
@@ -2918,21 +2918,21 @@ results in
 {
   "@context": "$metadata#SalesOrganizations",
   "value": [
-    ...
+    …
     { "ID": "Atlantis", "Name": "Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "US", "Sales" ] },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
          [ "Atlantis", "US", "Sales" ] },
-    ...
+    …
     { "ID": "Atlantis", "Name": "Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "EMEA", "Sales" ] },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "Atlantis", "EMEA", "Sales" ] },
-    ...
+    …
   ]
 }
 ```
@@ -3142,7 +3142,7 @@ results in
       "TotalAmount": null },
     { "SalesOrganization": { "ID": "US",    "Name": "US" },
       "TotalAmount": null },
-    ...
+    …
   ]
 }
 ```
@@ -3662,7 +3662,7 @@ results in
           { "@context": "#SalesOrganizations/$entity",
             "ID": "US",      "SalesRegion": "Corporate Sales" } },
       ]
-    }, ...
+    }, …
   ]
 }
 ```
@@ -4662,14 +4662,14 @@ Note that `rolluprecursive` must preserve the preorder established by `traverse`
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
       "MultiParentWeightedTotal": 6 },
-    ...
+    …
     { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
       "MultiParentWeightedTotal": 9 },
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
       "MultiParentWeightedTotal": 4 },
-    ...
+    …
   ]
 }
 ```
@@ -4749,7 +4749,7 @@ results in
       "TotalPopulation@type": "Int32", "TotalPopulation": 1412000000 },
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
       "TotalPopulation@type": "Int32", "TotalPopulation": 1408000000 },
-    ...
+    …
   ]
 }
 ```

@@ -511,7 +511,7 @@ results in
           { "@context": "#SalesOrganizations/$entity",
             "ID": "US",      "SalesRegion": "Corporate Sales" } },
       ]
-    }, ...
+    }, …
   ]
 }
 ```
@@ -1511,14 +1511,14 @@ Note that `rolluprecursive` must preserve the preorder established by `traverse`
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
       "MultiParentWeightedTotal": 6 },
-    ...
+    …
     { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
       "MultiParentWeightedTotal": 9 },
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
       "MultiParentWeightedTotal": 4 },
-    ...
+    …
   ]
 }
 ```
@@ -1598,7 +1598,7 @@ results in
       "TotalPopulation@type": "Int32", "TotalPopulation": 1412000000 },
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
       "TotalPopulation@type": "Int32", "TotalPopulation": 1408000000 },
-    ...
+    …
   ]
 }
 ```

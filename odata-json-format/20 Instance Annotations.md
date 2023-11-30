@@ -160,8 +160,8 @@ Example ##ex:
       }
     ],
     "innererror": {
-      "trace": [...],
-      "context": {...}
+      "trace": […],
+      "context": {…}
     }
   }
 }
