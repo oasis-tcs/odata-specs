@@ -134,7 +134,7 @@ unsupported functionality ([section ##ResponseCode501NotImplemented])
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
 5. MUST support `$top` ([section ##SystemQueryOptiontop])
-6. MUST support `/$value` on media entities ([section ##MetadataDocumentRequest]) and individual properties ([section ##RequestingaPropertysRawValueusingvalue])
+6. MUST support `/$value` on media entities ([section ##MetadataDocumentRequest]) and individual properties ([section ##RequestingaRawValueusingvalue])
 7. MUST support `$filter` ([section ##SystemQueryOptionfilter])
    1. MUST support `eq`, `ne` filter operations on properties of entities
 in the requested entity set ([section ##BuiltinFilterOperations])
@@ -394,7 +394,7 @@ in a delta response ([section ##RequestingChanges])
 13. MAY support asynchronous responses ([section ##AsynchronousRequests])
 14. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming `in a JSON response (see
+15. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
