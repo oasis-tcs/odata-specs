@@ -32,7 +32,7 @@ parameters within the `Content-Type` header.
 
 ### ##subsubsec Header `Content-Encoding`
 
-As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
+As defined in [RFC9110](#rfc9110), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type` header). When present, its value indicates what additional
 content codings have been applied to the entity-body.
@@ -49,7 +49,7 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Language`
 
-As defined in [RFC7231](#rfc7231), a request or response can
+As defined in [RFC9110](#rfc9110), a request or response can
 include a `Content-Language` header to indicate the natural language of
 the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
@@ -66,7 +66,7 @@ overall batch request or response.
 
 ### ##subsubsec Header `Content-Length`
 
-As defined in [RFC7230](#rfc7230), a request or response SHOULD
+As defined in [RFC9110](#rfc9110), a request or response SHOULD
 include a `Content-Length` header when the message's length can be
 determined prior to being transferred. OData does not add any additional
 requirements over HTTP for writing `Content-Length`.
@@ -113,7 +113,7 @@ specify any combination of the following request headers.
 
 ### ##subsubsec Header `Accept`
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted [formats](#Formats) with the `Accept` Header.
 
 Services MUST reject formats that specify unknown or unsupported format
@@ -139,7 +139,7 @@ inherit the acceptable formats of the overall batch request.
 
 ### ##subsubsec Header `Accept-Charset`
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted character sets with the `Accept-Charset` header.
 
 If the `Accept-Charset` header is specified on an individual request
@@ -150,7 +150,7 @@ overall batch request.
 
 ### ##subsubsec Header `Accept-Language`
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted natural languages with the `Accept-Language` header.
 
 If the `Accept-Language` header is specified on an individual request
@@ -161,7 +161,7 @@ batch request.
 
 ### ##subsubsec Header `If-Match`
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
 value previously retrieved for the resource, or `*` to match any value.
@@ -183,7 +183,7 @@ value matches the current ETag value of the target resource. Services
 sending [`ETag`](#HeaderETag) headers with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
-overwrites. This is a deviation from [RFC7232](#rfc7232).
+overwrites. This is a deviation from [RFC9110](#rfc9110).
 
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#DataModification) or [Action
@@ -202,14 +202,14 @@ be specified on individual requests within the batch.
 
 ### ##subsubsec Header `If-None-Match`
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-None-Match` request header MUST be an
 ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
-weak comparison function (see [RFC7232](#rfc7232)). If the value
+weak comparison function (see [RFC9110](#rfc9110)). If the value
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
 [`304 Not Modified`](#ResponseCode304NotModified), and for a [Data
@@ -614,8 +614,8 @@ permissions and has been replaced with the instance annotation
 Properties with null or default values MUST be included in delta
 payloads, if modified.
 
-The response to a POST operation MUST include any properties not set to
-their default value, and the response to a PUT/PATCH operation MUST
+The response to a `POST` operation MUST include any properties not set to
+their default value, and the response to a `PUT` or `PATCH` operation MUST
 include any properties whose values were changed as part of the
 operation.
 
@@ -769,7 +769,7 @@ within a batch.
 ### ##subsubsec Header `ETag`
 
 A response MAY include an `ETag` header, see
-[RFC7232](#rfc7232). Services MUST include this header if they
+[RFC9110](#rfc9110). Services MUST include this header if they
 require an ETag to be specified when modifying the resource.
 
 Services MUST support specifying the value returned in the `ETag` header
@@ -856,7 +856,7 @@ to the overall batch.
 ### ##subsubsec Header `Retry-After`
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCode202Accepted)
+[RFC9110](#rfc9110)), in [`202 Accepted`](#ResponseCode202Accepted)
 and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
@@ -881,7 +881,7 @@ the service MUST include a `Vary` header listing the
 of the response.
 
 Alternatively, the server MAY include a `Vary` header with the special
-value `*` as defined by [RFC7231](#rfc7231), Section 8.2.1. Note
+value `*` as defined by [RFC9110](#rfc9110), Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see
 [RFC7240](#rfc7240).
 
@@ -930,7 +930,7 @@ A request returns `204 No Content` if the requested resource has the
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 In this case, the response body MUST be empty.
 
-As defined in [RFC7231](#rfc7231), a [Data Modification
+As defined in [RFC9110](#rfc9110), a [Data Modification
 Request](#DataModification) that responds with
 `204 No Content` MAY include an [`ETag`](#HeaderETag) header with a value reflecting
 the result of the data modification if and only if the client can
@@ -948,7 +948,7 @@ server-side values corresponding to the `ETag` value sent in the
 
 ### ##subsubsec Response Code `3xx Redirection`
 
-As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
+As per [RFC9110](#rfc9110), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
 request. In this case, the response SHOULD include a
 [`Location`](#HeaderLocation) header, as appropriate, with the URL from which the
@@ -957,7 +957,7 @@ result can be obtained; it MAY include a
 
 ### ##subsubsec Response Code `304 Not Modified`
 
-As per [RFC7232](#rfc7232), a `304 Not Modified` is returned
+As per [RFC9110](#rfc9110), a `304 Not Modified` is returned
 when the client performs a `GET` request containing an
 [`If-None-Match`](#HeaderIfNoneMatch) header and the content has not
 changed. In this case the response SHOULD NOT include other headers in
@@ -991,7 +991,7 @@ does not exist. The response body MAY provide additional information.
 request URL does not support the request method. In this case the
 response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
-[RFC7231](#rfc7231).
+[RFC9110](#rfc9110).
 
 ### ##subsubsec Response Code `406 Not Acceptable`
 
@@ -1013,7 +1013,7 @@ isolation](#HeaderIsolationODataIsolation).
 
 ### ##subsubsec Response Code `412 Precondition Failed`
 
-As defined in [RFC7232](#rfc7232), `412 Precondition Failed`
+As defined in [RFC9110](#rfc9110), `412 Precondition Failed`
 indicates that the client has performed a conditional request and the
 resource fails the condition. The service MUST ensure that no observable
 change occurs as a result of the request.
@@ -1026,7 +1026,7 @@ depended upon a request that failed.
 
 ## ##subsec Server Error Responses
 
-As defined in [RFC7231](#rfc7231), error codes in the `5xx` range
+As defined in [RFC9110](#rfc9110), error codes in the `5xx` range
 indicate service errors.
 
 ### ##subsubsec Response Code `501 Not Implemented`
