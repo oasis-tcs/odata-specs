@@ -35,7 +35,7 @@ Example ##ex:
 {
   "$Version": "4.01",
   "$EntityContainer": "org.example.DemoService",
-  ...
+  …
 }
 ```
 :::
@@ -72,7 +72,7 @@ Example ##ex:
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:DataServices>
-    ...
+    …
   </edmx:DataServices>
 </edmx:Edmx>
 ```
@@ -123,19 +123,19 @@ The reference object MAY contain the members
 Example ##ex: references to other CSDL documents
 ```json
 {
-  ...
+  …
   "$Reference": {
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
-      ...
+      …
     },
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.json": {
-      ...
+      …
     },
     "http://example.org/display/v1": {
-      ...
+      …
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -171,16 +171,16 @@ Example ##ex: references to other CSDL documents
            Version="4.0">
   <edmx:Reference
    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
-   ...
+   …
   </edmx:Reference>
   <edmx:Reference
    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
-    ...
+    …
   </edmx:Reference>
   <edmx:Reference Uri="http://example.org/display/v1">
-    ...
+    …
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -252,7 +252,7 @@ Example ##ex: references to entity models containing definitions of
 vocabulary terms
 ```json
 {
-  ...
+  …
   "$Reference": {
     "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.json": {
       "$Include": [
@@ -280,7 +280,7 @@ vocabulary terms
       ]
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -325,7 +325,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -392,7 +392,7 @@ The value of `$TargetNamespace` is a namespace.
 Example ##ex: reference documents that contain annotations
 ```json
 {
-  ...
+  …
   "$Reference": {
     "http://odata.org/ann/b": {
       "$IncludeAnnotations": [
@@ -415,7 +415,7 @@ Example ##ex: reference documents that contain annotations
       ]
     }
   },
-  ...
+  …
 }
 ```
 :::
@@ -462,7 +462,7 @@ Example ##ex: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
