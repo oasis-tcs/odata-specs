@@ -300,21 +300,21 @@ results in
 {
   "@context": "$metadata#SalesOrganizations",
   "value": [
-    ...
+    …
     { "ID": "Atlantis", "Name": "Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "US", "Sales" ] },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
          [ "Atlantis", "US", "Sales" ] },
-    ...
+    …
     { "ID": "Atlantis", "Name": "Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "EMEA", "Sales" ] },
     { "ID": "AtlantisChild", "Name": "Child of Atlantis",
       "@Aggregation.UpPath#MultiParentHierarchy":
         [ "Atlantis", "EMEA", "Sales" ] },
-    ...
+    …
   ]
 }
 ```
@@ -543,7 +543,7 @@ results in
       "TotalAmount": null },
     { "SalesOrganization": { "ID": "US",    "Name": "US" },
       "TotalAmount": null },
-    ...
+    …
   ]
 }
 ```

@@ -80,7 +80,7 @@ occurrence
     {
       "@context": "#Orders/$entity",
       "@id": "Orders(10643)",
-      "ShippingAddress":{
+      "ShippingAddress": {
         "Street": "23 Tsawassen Blvd.",
         "City": "Tsawassen",
         "Region": "BC",
@@ -277,9 +277,9 @@ Example ##ex: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "reason":"deleted",
-  "id":"Customers('ANTON')"
+  "@context": "#Customers/$deletedEntity",
+  "reason": "deleted",
+  "id": "Customers('ANTON')"
 }
 ```
 :::
@@ -334,12 +334,12 @@ Example ##ex: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "@removed":{
-    "reason":"deleted",
-    "@myannoation.deletedBy":"Mario"
+  "@context": "#Customers/$deletedEntity",
+  "@removed": {
+    "reason": "deleted",
+    "@myannoation.deletedBy": "Mario"
   },
-  "@id":"Customers('ANTON')"
+  "@id": "Customers('ANTON')"
 }
 ```
 :::
@@ -350,8 +350,8 @@ control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
 {
-  "@removed":{},
-  "ID":"ANTON"
+  "@removed": {},
+  "ID": "ANTON"
 }
 ```
 :::
@@ -457,7 +457,7 @@ Prefer: return=minimal, continue-on-error
     {
       "@Org.OData.Core.V1.ContentID": "3",
       "@removed": {},
-      "CustomerID":"ANTON"
+      "CustomerID": "ANTON"
     },
     {
       "@Org.OData.Core.V1.ContentID": "4",
@@ -494,7 +494,7 @@ Prefer: return=minimal, continue-on-error
       "@context": "#Customers/$link",
       "@Org.OData.Core.V1.ContentID": "5",
       "source": "Customers('ANATR')",
-      "relationship":" Orders",
+      "relationship": "Orders",
       "target": "Orders(10643)"
     },
     {
@@ -567,7 +567,7 @@ Preference-Applied: return=minimal, continue-on-error
     },
     {
       "@Org.OData.Core.V1.ContentID": "3",
-      "CustomerID":"ANTON"
+      "CustomerID": "ANTON",
       "@Org.OData.Core.V1.DataModificationException": {
         "failedOperation": "delete",
         "responseCode": 400,
@@ -601,7 +601,7 @@ Preference-Applied: return=minimal, continue-on-error
       "@context": "#Customers/$deletedLink",
       "@Org.OData.Core.V1.ContentID": "5",
       "source": "Customers('ANATR')",
-      "relationship":" Orders",
+      "relationship": "Orders",
       "target": "Orders(10643)",
       "@Org.OData.Core.V1.DataModificationException": {
         "failedOperation": "link",
