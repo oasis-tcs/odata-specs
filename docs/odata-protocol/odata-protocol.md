@@ -605,12 +605,12 @@ one or both of them may differ from convention.
 
 ## <a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a>
 
-Transient entities are derived from instances of an entity type that are "calculated
-on the fly" and only exist within a single payload. They cannot be
+Transient entities are instances of an entity type that are derived from entities of the same entity type
+and only exist within a single payload. They cannot be
 updated and consequently possess neither a stable entity-id
 nor an update URL.
 A transient entity may have a read URL, which may be used to re-derive
-the transient entity from the current state of the underlying entity.
+the transient entity from the current state of the underlying entity or entities.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
 
