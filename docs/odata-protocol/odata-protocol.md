@@ -5869,7 +5869,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 
 ::: example
 Example 102:
-```
+```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 Content-Type: application/json
