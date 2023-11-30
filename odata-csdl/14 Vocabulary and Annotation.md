@@ -109,7 +109,7 @@ type specified by the term `SearchResult`
   <Property Name="ID" Nullable="false" Type="Edm.Int32" />
   <Property Name="Name" Type="Edm.String" />
   <Property Name="Description" Type="Edm.String" />
-  ...
+  …
   <Annotation Term="UI.DisplayName" Path="Name" />
   <Annotation Term="SearchVocabulary.SearchResult">
     <Record>
@@ -349,8 +349,7 @@ are defined in [OData-VocCore](#ODataVocCore))
     "Property",
     "Term"
   ],
-  "@Core.Description": "Properties and terms annotated with this term
-MUST contain a valid URL",
+  "@Core.Description": "Properties and terms annotated with this term MUST contain a valid URL",
   "@Core.RequiresType": "Edm.String"
 }
 ```
@@ -1354,7 +1353,7 @@ the null value.
 ::: example
 Example ##ex: type-cast segment
 ```
-.../self.Manager/...
+…/self.Manager/…
 ```
 :::
 
@@ -1379,7 +1378,7 @@ properties:
 ::: example
 Example ##ex: term-cast segments
 ```
-.../@Capabilities.SortRestrictions/...
+…/@Capabilities.SortRestrictions/…
 ```
 :::
 
@@ -1399,7 +1398,7 @@ expression is the model element reached via this path.
 ::: example
 Example ##ex: property segments in model path
 ```
-.../Orders/Items/Product/...
+…/Orders/Items/Product/…
 ```
 :::
 
@@ -1419,11 +1418,11 @@ number of items in the collection identified by the preceding segment.
 ::: example
 Example ##ex: property segments in instance path
 ```
-.../Addresses/Street
+…/Addresses/Street
 ```
 
 ```
-.../Addresses/$count
+…/Addresses/$count
 ```
 :::
 
@@ -1443,11 +1442,11 @@ segment](#TermCast).
 Example ##ex: model path segment addressing an annotation on a navigation property
 vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Core.Description
+…/Items@Core.Description
 ```
 
 ```
-.../Items/@Core.Description
+…/Items/@Core.Description
 ```
 :::
 
@@ -1576,7 +1575,7 @@ enclosing type `self.A` of the hosting property `A2`.
       "@Core.Description@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description": "..."
+      "@Core.Description": "…"
     }
   },
   "B": {
@@ -1594,7 +1593,7 @@ enclosing type `self.A` of the hosting property `A2`.
   <EntityType Name="A">
     <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
     <Property Name="A2" Type="self.B" Nullable="false">
-      <Annotation Term="Core.Description" String="...">
+      <Annotation Term="Core.Description" String="…">
         <Annotation Term="Core.IsLanguageDependent" Path="A1" />
       </Annotation>
     </Property>
@@ -1621,7 +1620,7 @@ type `self.B` of the hosting property `A2`.
       "@Core.Description#viaset@Core.IsLanguageDependent": {
         "$Path": "B1"
       },
-      "@Core.Description#viaset": "..."
+      "@Core.Description#viaset": "…"
     },
     "self.Container/SetA/A2/@Core.Description#viaset": {
       "@Core.IsLanguageDependent": {
@@ -1637,7 +1636,7 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
@@ -1655,7 +1654,7 @@ type `self.A` named in the target path.
       "@Core.Description#external@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description#external": "..."
+      "@Core.Description#external": "…"
     },
     "self.A/A2/@Core.Description": {
       "@Core.IsLanguageDependent": {
@@ -1670,7 +1669,7 @@ type `self.A` named in the target path.
 :::: varxml
 ```xml
   <Annotations Target="self.A/A2">
-    <Annotation Term="Core.Description" Qualifier="external" String="...">
+    <Annotation Term="Core.Description" Qualifier="external" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="A1" />
     </Annotation>
   </Annotations>
@@ -1804,7 +1803,6 @@ containing a path.
 Example ##ex:
 ```json
 "@UI.HyperLink": "Supplier",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableNavigationProperties": [
     "Supplier",
@@ -1863,7 +1861,6 @@ Property path expressions are represented as a string containing a path.
 Example ##ex:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableProperties": [
     "CreatedAt",
@@ -1922,7 +1919,6 @@ Example ##ex:
 "@UI.DisplayName": {
   "$Path": "FirstName"
 },
-
 "@UI.DisplayName#second": {
   "$Path": "@vCard.Address#work/FullName"
 }

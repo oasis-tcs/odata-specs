@@ -55,9 +55,21 @@ segments
 Example ##ex: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
+```
+
+```
 MySchema.MyEntityContainer/MySingleton
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/My.EntityType/MyContainmentNavProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp
 ```
 :::

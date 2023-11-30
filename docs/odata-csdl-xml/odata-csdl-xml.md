@@ -873,7 +873,7 @@ Example 7:
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:DataServices>
-    ...
+    …
   </edmx:DataServices>
 </edmx:Edmx>
 ```
@@ -937,16 +937,16 @@ Example 8: references to other CSDL documents
            Version="4.0">
   <edmx:Reference
    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
-   ...
+   …
   </edmx:Reference>
   <edmx:Reference
    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
-    ...
+    …
   </edmx:Reference>
   <edmx:Reference Uri="http://example.org/display/v1">
-    ...
+    …
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1030,7 +1030,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1117,7 +1117,7 @@ Example 10: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1222,7 +1222,7 @@ schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
   <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  …
 </Schema>
 ```
 :::
@@ -1255,7 +1255,7 @@ Example 12: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
-  ...
+  …
 </Annotations>
 ```
 :::
@@ -1793,14 +1793,14 @@ Example 22: the Product entity type has a navigation property to a
 Category, which has a navigation link back to one or more products
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false"
                       Partner="Products" />
   <NavigationProperty Name="Supplier" Type="self.Supplier" />
 </EntityType>
 
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)"
                       Partner="Category" />
 </EntityType>
@@ -2039,7 +2039,7 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="CategoryID" Type="Edm.String" Nullable="false"/>
   <Property Name="CategoryKind" Type="Edm.String" Nullable="true" />
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false">
@@ -2057,7 +2057,7 @@ the `Kind` property of the category.
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="Kind" Type="Edm.String" Nullable="true" />
-  ...
+  …
 </EntityType>
 ```
 :::
@@ -2106,7 +2106,7 @@ Example 24: deletion of a category implies deletion of the related
 products in that category
 ```xml
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)">
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"
@@ -2173,13 +2173,13 @@ Example 25: a complex type used by two entity types
 </ComplexType>
 
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="ProductDimensions" Type="self.Dimensions" />
   <Property Name="ShippingDimensions" Type="self.Dimensions" />
 </EntityType>
 
 <EntityType Name="ShipmentBox">
-  ...
+  …
   <Property Name="Dimensions" Type="self.Dimensions" />
 </EntityType>
 ```
@@ -2954,7 +2954,7 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```xml
 <EntityContainer Name="Extending" Extends="Some.Other.Schema.Base">
-  ...
+  …
 </EntityContainer>
 ```
 :::
@@ -3335,7 +3335,7 @@ type specified by the term `SearchResult`
   <Property Name="ID" Nullable="false" Type="Edm.Int32" />
   <Property Name="Name" Type="Edm.String" />
   <Property Name="Description" Type="Edm.String" />
-  ...
+  …
   <Annotation Term="UI.DisplayName" Path="Name" />
   <Annotation Term="SearchVocabulary.SearchResult">
     <Record>
@@ -4177,7 +4177,7 @@ the null value.
 ::: example
 Example 62: type-cast segment
 ```
-.../self.Manager/...
+…/self.Manager/…
 ```
 :::
 
@@ -4202,7 +4202,7 @@ properties:
 ::: example
 Example 63: term-cast segments
 ```
-.../@Capabilities.SortRestrictions/...
+…/@Capabilities.SortRestrictions/…
 ```
 :::
 
@@ -4222,7 +4222,7 @@ expression is the model element reached via this path.
 ::: example
 Example 64: property segments in model path
 ```
-.../Orders/Items/Product/...
+…/Orders/Items/Product/…
 ```
 :::
 
@@ -4242,11 +4242,11 @@ number of items in the collection identified by the preceding segment.
 ::: example
 Example 65: property segments in instance path
 ```
-.../Addresses/Street
+…/Addresses/Street
 ```
 
 ```
-.../Addresses/$count
+…/Addresses/$count
 ```
 :::
 
@@ -4266,11 +4266,11 @@ segment](#TermCast).
 Example 66: model path segment addressing an annotation on a navigation property
 vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Core.Description
+…/Items@Core.Description
 ```
 
 ```
-.../Items/@Core.Description
+…/Items/@Core.Description
 ```
 :::
 
@@ -4393,7 +4393,7 @@ enclosing type `self.A` of the hosting property `A2`.
   <EntityType Name="A">
     <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
     <Property Name="A2" Type="self.B" Nullable="false">
-      <Annotation Term="Core.Description" String="...">
+      <Annotation Term="Core.Description" String="…">
         <Annotation Term="Core.IsLanguageDependent" Path="A1" />
       </Annotation>
     </Property>
@@ -4413,7 +4413,7 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
@@ -4429,7 +4429,7 @@ type `self.A` named in the target path.
 :::: varxml
 ```xml
   <Annotations Target="self.A/A2">
-    <Annotation Term="Core.Description" Qualifier="external" String="...">
+    <Annotation Term="Core.Description" Qualifier="external" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="A1" />
     </Annotation>
   </Annotations>
@@ -5425,9 +5425,21 @@ segments
 Example 91: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
+```
+
+```
 MySchema.MyEntityContainer/MySingleton
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/My.EntityType/MyContainmentNavProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp
 ```
 :::

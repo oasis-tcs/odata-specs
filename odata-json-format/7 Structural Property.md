@@ -100,7 +100,7 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -128,12 +128,12 @@ Example ##ex: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
@@ -164,7 +164,7 @@ Example ##ex: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -221,9 +221,9 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -248,9 +248,9 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -283,9 +283,9 @@ Example ##ex:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -306,21 +306,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -440,7 +440,7 @@ Example ##ex: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -489,13 +489,13 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::
