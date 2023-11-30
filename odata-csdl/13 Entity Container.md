@@ -230,7 +230,7 @@ entity container located in `SomeOtherSchema`
 "Extending": {
   "$Kind": "EntityContainer",
   "$Extends": "Some.Other.Schema.Base",
-   ...
+   …
 }
 ```
 :::
@@ -248,7 +248,7 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```xml
 <EntityContainer Name="Extending" Extends="Some.Other.Schema.Base">
-  ...
+  …
 </EntityContainer>
 ```
 :::
