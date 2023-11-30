@@ -4206,17 +4206,10 @@ entity with links to an existing manager (of managers) and to two existing emplo
 within the `Manager` and `DirectReports` navigation properties
 ```json
 {
-<<<<<<< HEAD
-  "@type":"#Northwind.Manager",
+  "@type": "#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
-=======
-  "@type": "#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
->>>>>>> refs/remotes/origin/main
   "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
     {"@id": "Employees(5)"},
@@ -4411,8 +4404,7 @@ reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
-<<<<<<< HEAD
-  "@type":"#Northwind.Manager",
+  "@type": "#Northwind.Manager",
   "FirstName" : "Patricia",
   "DirectReports": [
     {
@@ -4427,23 +4419,6 @@ reports; two existing employees and one new employee named
       "LastName": "Brown"
     }
   ]
-=======
-  "@type": "#Northwind.Manager",
-  "FirstName" : "Patricia",
-  "DirectReports": [
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
->>>>>>> refs/remotes/origin/main
 }
 ```
 :::

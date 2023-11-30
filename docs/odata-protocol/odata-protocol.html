@@ -1785,23 +1785,16 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 77: using the JSON format, 4.01 clients can create a new manager entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids within the <code>Manager</code> and <code>DirectReports</code> navigation properties</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="er">HEAD</span></span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Pat&quot;</span><span class="fu">,</span></span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="er">=======</span></span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Pat&quot;</span><span class="fu">,</span></span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
-<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="er">refs/remotes/origin/main</span></span>
-<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Manager&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(0)&quot;</span> <span class="fu">},</span></span>
-<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">}</span></span>
-<span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb97-18"><a href="#cb97-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Pat&quot;</span><span class="fu">,</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Manager&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(0)&quot;</span> <span class="fu">},</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">}</span></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Upon successful completion of the operation, the service creates the requested entity and relates it to the requested existing entities.</p>
 <p>If the target URL for the collection the entity is created in and binding information provided in the <code>POST</code> body contradicts the implicit binding information provided by the request URL, the request MUST fail, and the service responds with <code>400 Bad Request</code>.</p>
@@ -1835,40 +1828,22 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 78: using the JSON format, a 4.01 <code>PATCH</code> request can update a manager entity. Following the update, the manager has three direct reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee 6 is updated to <code>Smith</code>.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="er">HEAD</span></span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span><span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstName&quot;</span> <span class="fu">:</span> <span class="st">&quot;Patricia&quot;</span><span class="fu">,</span></span>
-<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span></span>
-<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">,</span></span>
-<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span></span>
-<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Suzanne&quot;</span><span class="fu">,</span></span>
-<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span></span>
-<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a><span class="er">=======</span></span>
-<span id="cb98-19"><a href="#cb98-19" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="st">&quot;@type&quot;</span><span class="er">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
-<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;FirstName&quot;</span> <span class="fu">:</span> <span class="st">&quot;Patricia&quot;</span><span class="fu">,</span></span>
-<span id="cb98-21"><a href="#cb98-21" aria-hidden="true" tabindex="-1"></a><span class="er"> </span> <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb98-22"><a href="#cb98-22" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb98-23"><a href="#cb98-23" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span></span>
-<span id="cb98-24"><a href="#cb98-24" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb98-25"><a href="#cb98-25" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb98-26"><a href="#cb98-26" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">,</span></span>
-<span id="cb98-27"><a href="#cb98-27" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span></span>
-<span id="cb98-28"><a href="#cb98-28" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb98-29"><a href="#cb98-29" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">{</span></span>
-<span id="cb98-30"><a href="#cb98-30" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Suzanne&quot;</span><span class="fu">,</span></span>
-<span id="cb98-31"><a href="#cb98-31" aria-hidden="true" tabindex="-1"></a><span class="er">     </span> <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span></span>
-<span id="cb98-32"><a href="#cb98-32" aria-hidden="true" tabindex="-1"></a><span class="er">   </span> <span class="fu">}</span></span>
-<span id="cb98-33"><a href="#cb98-33" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
-<span id="cb98-34"><a href="#cb98-34" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="er">refs/remotes/origin/main</span></span>
-<span id="cb98-35"><a href="#cb98-35" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstName&quot;</span> <span class="fu">:</span> <span class="st">&quot;Patricia&quot;</span><span class="fu">,</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">,</span></span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Smith&quot;</span></span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Suzanne&quot;</span><span class="fu">,</span></span>
+<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span></span>
+<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>If the nested collection is represented as a delta annotation on the navigation property, then the collection contains members to be added or changed and MAY include deleted entities for entities that are no longer part of the collection, using the <a href="#DeltaPayloads">delta payload</a> format. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the relationship is contained. Non-key properties of the deleted entity are ignored. Nested collections MUST NOT contain added or deleted links. If the request contains nested delta collections, then the <code>PATCH</code> verb must be specified.</p>
 <p>If a nested entity has the same id or key fields as an existing entity, the existing entity is updated according to the semantics of the <code>PUT</code> or <code>PATCH</code> request. Nested entities that have no id or key fields, or for which the id or key fields do not match existing entities, are treated as inserts. If the nested collection does not represent a containment relationship and has no navigation property binding, then such entities MUST include a context URL specifying the entity set in which the new entity is to be created. If any nested entities contain both id and key fields, they MUST identify the same entity, or the request is invalid.</p>
