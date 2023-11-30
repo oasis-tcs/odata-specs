@@ -76,7 +76,7 @@ When referencing this specification the following citation format should be used
 
 **[OData-v4.02-Part2]**
 
-_OData Version 4.02. Part 2: URL Conventions__.
+_OData Version 4.02. Part 2: URL Conventions_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
@@ -120,7 +120,7 @@ For complete copyright information please see the full Notices section in an App
     - [4.5.1 Addressing Actions](#AddressingActions)
     - [4.5.2 Addressing Functions](#AddressingFunctions)
   - [4.6 Addressing a Property](#AddressingaProperty)
-  - [4.7 Addressing a Property Value](#AddressingaPropertyValue)
+  - [4.7 Addressing a Raw Value](#AddressingaRawValue)
   - [4.8 Addressing the Count of a Collection](#AddressingtheCountofaCollection)
   - [4.9 Addressing a Member within an Entity Collection](#AddressingaMemberwithinanEntityCollection)
   - [4.10 Addressing a Member of an Ordered Collection](#AddressingaMemberofanOrderedCollection)
@@ -360,13 +360,18 @@ and path
 
 After applying these steps defined by RFC3986 the following steps MUST
 be performed:
-- Split undecoded query at "`&`" into
-query options, and each query option at the first "`=`" into query
+- Split undecoded query at "`&`" (octet `0x26`) into
+query options, and each query option at the first "`=`" (octet `0x3D`) into query
 option name and query option value
 - Percent-decode path segments, query
 option names, and query option values exactly once
 - Interpret path segments, query option
 names, and query option values according to OData rules
+
+Note: neither [RFC3986](#rfc3986) nor this specification assign special meaning to "`+`" (octet `0x2B`).
+Some implementations decode "`+`" (octet `0x2B`) as space (octet `0x20`), others take it literally.
+
+Clients SHOULD percent-encode space (octet `0x20`) as `%20` and "`+`" (octet `0x2B`) as `%2B` and avoid the ambiguous "`+`" (octet `0x2B`) in URLs.
 
 ## <a name="URLSyntax" href="#URLSyntax">2.2 URL Syntax</a>
 
@@ -679,7 +684,7 @@ section, the canonical form of an absolute URL identifying a
 non-contained entity is formed by adding a single path segment to the
 service root URL. The path segment is made up of the name of the entity
 set associated with the entity followed by the key predicate identifying
-the entity within the collection. No type-cast segment is added to the
+the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -708,7 +713,7 @@ For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
-- A type-cast segment if the navigation
+- A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
 the entity set,
 - A path segment for the containment
@@ -799,7 +804,7 @@ http://host/service/Employees('A1245')
 ### <a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a>
 
 Services MAY support an alternate convention for addressing entities by
-appending a segment containing the unquoted key value to the URL of the
+appending a segment containing the unprefixed and unquoted key value to the URL of the
 collection containing the entity. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
@@ -815,6 +820,10 @@ http://host/service/People/O'Neil
 http://host/service/People/O%27Neil
 
 http://host/service/Categories/Smartphone%2FTablet
+
+http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+
+http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
 
@@ -983,12 +992,12 @@ the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## <a name="AddressingaPropertyValue" href="#AddressingaPropertyValue">4.7 Addressing a Property Value</a>
+## <a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a>
 
-To address the raw value of a primitive property, clients append the
-path segment `/$value` to the property URL.
+To address the raw value of a primitive property or operation result, clients append the
+path segment `/$value` to the property or operation URL.
 
-Properties of type `Edm.Stream` already return the raw value of the
+Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
 ## <a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a>
@@ -997,7 +1006,7 @@ To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
 set or collection.
 
-The `/$count `path suffix identifies the integer count of records in the
+The `/$count` path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
 [`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -1055,20 +1064,21 @@ Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
 For entity sets, results of operations associated with an entity set
-through an `EntitySet `or `EntitySetPath` declaration, or
+through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
-`NavigationPropertyBinding `or `ContainsTarget=true `specification,
+`NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
 the parenthesized key to the URL specifying the collection of entities,
 or by using the [key-as-segment convention](#KeyasSegmentConvention) if
 supported by the service.
 
 For collection-valued navigation properties with navigation property
-bindings that end in a type-cast segment, a type-cast segment MUST be
+bindings that end in a [type-cast segment](#AddressingDerivedTypes),
+a [type-cast segment](#AddressingDerivedTypes) MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
-with term
+with the term
 [`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
@@ -1098,18 +1108,18 @@ http://host/service/MainSupplier/Addresses/0
 ## <a name="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a>
 
 Any resource path or path expression identifying a collection of
-entities or complex type instances can be appended with a path segment
-containing the qualified name of a type derived from the declared type
+entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
+containing the qualified name of a type derived from the declared item type
 of the collection. The result will be restricted to instances of the
 derived type and may be empty.
 
 Any resource path or path expression identifying a single entity or
-complex type instance can be appended with a path segment containing the
+complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
-in a `404 Not Found` response. If used in a path expression that is part
-of a Boolean expression, the type cast will evaluate to `null`.
+in a `404 Not Found` response. If used in a path expression,
+the type cast will evaluate to `null`.
 
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
@@ -1138,9 +1148,9 @@ http://host/service/Customers/Model.VipCustomer
 Example 37: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/Customers/Model.VipCustomer(1)
 
-http://host/service/`Customers(1)/Model.VipCustomer
+http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
 
@@ -1179,8 +1189,8 @@ filter expression following the `filter` syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
 part of the request URL. If the filter path segment appears in the
-resource path and the parentheses contain a filter expression, that
-expression MUST NOT use forward slashes.
+resource path, the filter expression in parentheses MUST NOT use forward slashes,
+it must be specified with a parameter alias instead.
 
 The collection will be restricted to instances matching the filter
 expression assigned to the parameter alias and may be empty.
@@ -1250,7 +1260,7 @@ collection, followed by [`/any`](#any), [`/all`](#all), or
 [`/$count`](#AddressingtheCountofaCollection).
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#AddressingDerivedTypes) or [filter path
+[type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## <a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a>
@@ -1262,7 +1272,7 @@ stream.
 
 ::: example
 Example 45: request the media stream for the picture with the key value
-`Sunset4321299432:`
+`Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```
@@ -1450,7 +1460,7 @@ System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
 The names of all system query options are optionally prefixed with a
 dollar (`$`) character. 4.01 Services MUST support case-insensitive
-system query option names specified with or without the `$ `prefix.
+system query option names specified with or without the `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -1530,8 +1540,8 @@ When applied to operands of numeric types, [numeric
 promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
-operands, and the `eq` and `ne` operators can be used with structured
-operands.
+operands, and the `eq` and `ne` operators can be used with operands of a
+structured type.
 
 ##### <a name="Equals" href="#Equals">5.1.1.1.1 Equals</a>
 
@@ -1718,7 +1728,7 @@ http://host/service/Products?$filter=Name lt 'Milk'
 ::: example
 Example 56: all products with a `Name` less than or equal to `Milk`:
 ```
-http://host/service/Products?$filter=Name le 'Milk'`
+http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
@@ -2847,6 +2857,10 @@ if none of the conditions in any pair evaluates to `true`. Clients can
 specify a last pair whose condition is `true` to get a non-null
 "default/else/otherwise" result.
 
+Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
+the optional seconds part will introduce ambiguity for parsers.
+Clients SHOULD use whitespace or parentheses to avoid ambiguity.
+
 Clients SHOULD ensure that the results in all pairs are compatible. If
 all results are of the same type, the type of the `case` expression is
 of that type. If all results are of numeric type, then the type of the
@@ -3087,6 +3101,7 @@ Example 107: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
@@ -3147,8 +3162,8 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 
 #### <a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a>
 
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
+Properties and navigation properties of the structured type on which
+a common expression is evaluated can be used as operands
 or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
@@ -3319,8 +3334,8 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
+consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -3328,16 +3343,16 @@ A path can end with
 - the name of a stream property to include
 that stream property,
 - a star (`*`) to expand all navigation
-properties of the identified structured instance, optionally followed by
+properties of the identified instances of a structured type, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
+related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
 references.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
+[type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
 
 If a structured type traversed by the path supports neither dynamic
@@ -3407,8 +3422,7 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The system query options [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -3528,15 +3542,14 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
 A path can end with
 - the name of a property or
-non-entity-valued instance annotation of the identified structured
-instance,
+non-entity-valued instance annotation of the identified
+instance of a structured type,
 - the qualified name of a bound action,
 - the qualified name of a bound function
 to include all matching overloads, or
@@ -3604,8 +3617,7 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example
@@ -3671,7 +3683,7 @@ http://host/service/Products?$select=ID,Model.ActionName,Model2.*
 ```
 :::
 
-When multiple select item exist in a `select clause`, then the total set
+When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
@@ -3698,7 +3710,7 @@ particular page of items by combining `$top` and `$skip`.
 The semantics of `$top` and `$skip` are covered in the
 [OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
-`$skip `query options respectively.
+`$skip` query options respectively.
 
 ### <a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option `$count`</a>
 
@@ -3741,6 +3753,7 @@ http://host/service/Products?$search=blue OR green
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
+Leading and trailing spaces are not considered part of the search expression.
 
 *Terms* can be any single word to be matched within the expression.
 
@@ -3770,6 +3783,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
@@ -3804,6 +3818,9 @@ expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
+Services MAY support compute instructions that address
+dynamic properties added by other compute instructions within the same
+`$compute` system query option, provided that the service can determine an evaluation sequence.
 
 The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
 grammar of the `$compute` query option.
@@ -3826,7 +3843,7 @@ http://host/service/Orders(10)/Items
 ### <a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option `$index`</a>
 
 The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
+insert into a collection annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is

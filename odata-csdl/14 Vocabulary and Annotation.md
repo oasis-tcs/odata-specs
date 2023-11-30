@@ -316,14 +316,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -346,7 +346,8 @@ are defined in [OData-VocCore](#ODataVocCore))
   "$Type": "Core.Tag",
   "$DefaultValue": true,
   "$AppliesTo": [
-    "Property"
+    "Property",
+    "Term"
   ],
   "@Core.Description": "Properties and terms annotated with this term
 MUST contain a valid URL",
@@ -1351,9 +1352,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example ##ex: model path addressing an annotation on a navigation property
+Example ##ex: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+.../Items@Core.Description
+```
+
+```
+.../Items/@Core.Description
 ```
 :::
 
@@ -1599,7 +1605,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
@@ -1649,7 +1655,7 @@ Example ##ex:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -1691,7 +1697,7 @@ Example ##ex:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -1750,7 +1756,7 @@ Example ##ex:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -2012,7 +2018,7 @@ Example ##ex:
       "S"
     ]
   ]
-} 
+}
 ```
 :::
 
@@ -2278,7 +2284,8 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### ##subisec `$Apply`
+### ##subisec `$Apply` 
+and ##subisec `$Function`
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -2469,7 +2476,7 @@ Example ##ex: all non-empty `FirstName` values not containing the letters
 
 #### ##subsubsubsec Function `odata.uriEncode`
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
@@ -2972,31 +2979,35 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```json
-"@person.Employee": {
-  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
-  "@Core.Description": "Annotation on record",
-  "GivenName": {
-    "$Path": "FirstName"
-  },
-  "GivenName@Core.Description": "Annotation on record member",
-  "Surname": {
-    "$Path": "LastName"
-  },
-  "DirectSupervisor": {
-    "$Path": "Manager"
-  },
-  "CostCenter": {
-    "$UrlRef": {
-      "$Apply": [
-        "http://host/anotherservice/CostCenters('{ccid}')",
-        {
-          "$LabeledElement": {
-            "$Path": "CostCenterID"
-          },
-          "$Name": "ccid"
+"$Annotations": {
+  "org.example.Person": {
+    "@org.example.hcm.Employee": {
+      "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+      "@Core.Description": "Annotation on record",
+      "GivenName": {
+        "$Path": "FirstName"
+      },
+      "GivenName@Core.Description": "Annotation on record member",
+      "Surname": {
+        "$Path": "LastName"
+      },
+      "DirectSupervisor": {
+        "$Path": "Manager"
+      },
+      "CostCenter": {
+        "$UrlRef": {
+          "$Apply": [
+            "http://host/anotherservice/CostCenters('{ccid}')",
+            {
+              "$LabeledElement": {
+                "$Path": "CostCenterID"
+              },
+              "$Name": "ccid"
+            }
+          ],
+          "$Function": "odata.fillUriTemplate"
         }
-      ],
-      "$Function": "odata.fillUriTemplate"
+      }
     }
   }
 }
@@ -3037,25 +3048,27 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```xml
-<Annotation Term="org.example.person.Employee">
-  <Record>
-    <Annotation Term="Core.Description" String="Annotation on record" />
-    <PropertyValue Property="GivenName" Path="FirstName">
-      <Annotation Term="Core.Description"
-                  String="Annotation on record member" />
-    </PropertyValue>
-    <PropertyValue Property="Surname" Path="LastName" />
-    <PropertyValue Property="DirectSupervisor" Path="Manager" />
-    <PropertyValue Property="CostCenter">
-      <UrlRef>
-        <Apply Function="odata.fillUriTemplate">
-          <String>http://host/anotherservice/CostCenters('{ccid}')</String>
-          <LabeledElement Name="ccid" Path="CostCenterID" />
-        </Apply>
-      </UrlRef>
-    </PropertyValue>
-  </Record>
-</Annotation>
+<Annotations Target="org.example.Person">
+  <Annotation Term="org.example.hcm.Employee">
+    <Record Type="org.example.hcm.Manager">
+      <Annotation Term="Core.Description" String="Annotation on record" />
+      <PropertyValue Property="GivenName" Path="FirstName">
+        <Annotation Term="Core.Description"
+                    String="Annotation on record member" />
+      </PropertyValue>
+      <PropertyValue Property="Surname" Path="LastName" />
+      <PropertyValue Property="DirectSupervisor" Path="Manager" />
+      <PropertyValue Property="CostCenter">
+        <UrlRef>
+          <Apply Function="odata.fillUriTemplate">
+            <String>http://host/anotherservice/CostCenters('{ccid}')</String>
+            <LabeledElement Name="ccid" Path="CostCenterID" />
+          </Apply>
+        </UrlRef>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>
 ```
 :::
 

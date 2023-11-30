@@ -307,7 +307,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#RequestingIndividualProperties">11.2.4 Requesting Individual Properties</a>
 <ul>
 <li><a href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></li>
-<li><a href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property’s Raw Value using <code>$value</code></a></li>
+<li><a href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></li>
 </ul></li>
 <li><a href="#SpecifyingPropertiestoReturn">11.2.5 Specifying Properties to Return</a>
 <ul>
@@ -483,10 +483,22 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
-<!-- TODO -->
-
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Feature / Change</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#DataModification">Section 11.4</a></td>
+<td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1609">ODATA-1609</a></td>
+</tr>
+</tbody>
+</table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 <h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
@@ -642,7 +654,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An OData service MUST support <a href="#ODataJSON">OData-JSON</a> and MAY support additional formats for both request and response bodies.</p>
 <hr />
 <h1 id="7-formats"><a name="Formats" href="#Formats">7 Formats</a></h1>
-<p>The client MAY request a particular response format through the <a href="#HeaderAccept"><code>Accept</code></a> header, as defined in <a href="#rfc7231">RFC7231</a>, or through the system query option <a href="#SystemQueryOptionformat"><code>$format</code></a>.</p>
+<p>The client MAY request a particular response format through the <a href="#HeaderAccept"><code>Accept</code></a> header, as defined in <a href="#rfc9110">RFC9110</a>, or through the system query option <a href="#SystemQueryOptionformat"><code>$format</code></a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> system query option are specified on a request, the value specified in the <code>$format</code> query option MUST be used.</p>
 <p>If the service does not support the requested format, it replies with a <a href="#ResponseCode406NotAcceptable"><code>406 Not Acceptable</code></a> error response.</p>
 <p>Services SHOULD advertise their supported formats in the metadata document by annotating their entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a>, as defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
@@ -660,13 +672,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The specified format MAY include format parameters. Clients MUST be prepared for the service to return custom format parameters not defined in OData and SHOULD NOT expect that such format parameters can be ignored. Custom format parameters MUST NOT start with <code>odata</code> and services MUST NOT require generic OData consumers to understand custom format parameters in order to correctly interpret the payload.</p>
 <p>See <a href="#ODataJSON">OData-JSON</a> for format-specific details about format parameters within the <code>Content-Type</code> header.</p>
 <h3 id="812-header-content-encoding"><a name="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header <code>Content-Encoding</code></a></h3>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, the <code>Content-Encoding</code> header field is used as a modifier to the media-type (as indicated in the <code>Content-Type</code> header). When present, its value indicates what additional content codings have been applied to the entity-body. A service MAY specify a list of acceptable content codings using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings"><code>Capabilities.AcceptableEncodings</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, the <code>Content-Encoding</code> header field is used as a modifier to the media-type (as indicated in the <code>Content-Type</code> header). When present, its value indicates what additional content codings have been applied to the entity-body. A service MAY specify a list of acceptable content codings using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings"><code>Capabilities.AcceptableEncodings</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>If the <code>Content-Encoding</code> header is specified on an individual request or response within a batch, then it specifies the encoding for that individual request or response. Individual requests or responses that don’t include the <code>Content-Encoding</code> header inherit the encoding of the overall batch request or response.</p>
 <h3 id="813-header-content-language"><a name="HeaderContentLanguage" href="#HeaderContentLanguage">8.1.3 Header <code>Content-Language</code></a></h3>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, a request or response can include a <code>Content-Language</code> header to indicate the natural language of the intended audience for the enclosed message body. OData does not add any additional requirements over HTTP for including <code>Content-Language</code>. OData services can annotate model elements whose content depends on the content language with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, a request or response can include a <code>Content-Language</code> header to indicate the natural language of the intended audience for the enclosed message body. OData does not add any additional requirements over HTTP for including <code>Content-Language</code>. OData services can annotate model elements whose content depends on the content language with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If the <code>Content-Language</code> header is specified on an individual request or response within a batch, then it specifies the language for that individual request or response. Individual requests or responses that don’t include the <code>Content-Language</code> header inherit the language of the overall batch request or response.</p>
 <h3 id="814-header-content-length"><a name="HeaderContentLength" href="#HeaderContentLength">8.1.4 Header <code>Content-Length</code></a></h3>
-<p>As defined in <a href="#rfc7230">RFC7230</a>, a request or response SHOULD include a <code>Content-Length</code> header when the message’s length can be determined prior to being transferred. OData does not add any additional requirements over HTTP for writing <code>Content-Length</code>.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, a request or response SHOULD include a <code>Content-Length</code> header when the message’s length can be determined prior to being transferred. OData does not add any additional requirements over HTTP for writing <code>Content-Length</code>.</p>
 <p>If the <code>Content-Length</code> header is specified on an individual request or response within a batch, then it specifies the length for that individual request or response.</p>
 <h3 id="815-header-odata-version"><a name="HeaderODataVersion" href="#HeaderODataVersion">8.1.5 Header <code>OData-Version</code></a></h3>
 <p>OData clients SHOULD use the <code>OData-Version</code> header on a request to specify the version of the protocol used to generate the request payload.</p>
@@ -678,28 +690,28 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="82-request-headers"><a name="RequestHeaders" href="#RequestHeaders">8.2 Request Headers</a></h2>
 <p>In addition to the <a href="#CommonHeaders">Common Headers</a>, the client may specify any combination of the following request headers.</p>
 <h3 id="821-header-accept"><a name="HeaderAccept" href="#HeaderAccept">8.2.1 Header <code>Accept</code></a></h3>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, the client MAY specify the set of accepted <a href="#Formats">formats</a> with the <code>Accept</code> Header.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, the client MAY specify the set of accepted <a href="#Formats">formats</a> with the <code>Accept</code> Header.</p>
 <p>Services MUST reject formats that specify unknown or unsupported format parameters.</p>
 <p>If a media type specified in the <code>Accept</code> header includes a <code>charset</code> format parameter and the request also contains an <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a> header, then the <code>Accept-Charset</code> header MUST be used.</p>
 <p>If the media type specified in the <code>Accept</code> header does not include a <code>charset</code> format parameter, then the <a href="#HeaderContentType"><code>Content-Type</code></a> header of the response MUST NOT contain a <code>charset</code> format parameter.</p>
 <p>The service SHOULD NOT add any format parameters to the <code>Content-Type</code> header not specified in the <code>Accept</code> header.</p>
 <p>If the <code>Accept</code> header is specified on an individual request within a batch, then it specifies the acceptable formats for that individual request. Requests within a batch that don’t include the <code>Accept</code> header inherit the acceptable formats of the overall batch request.</p>
 <h3 id="822-header-accept-charset"><a name="HeaderAcceptCharset" href="#HeaderAcceptCharset">8.2.2 Header <code>Accept-Charset</code></a></h3>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, the client MAY specify the set of accepted character sets with the <code>Accept-Charset</code> header.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, the client MAY specify the set of accepted character sets with the <code>Accept-Charset</code> header.</p>
 <p>If the <code>Accept-Charset</code> header is specified on an individual request within a batch, then it specifies the acceptable character sets for that individual request. Requests within a batch that don’t include the <code>Accept-Charset</code> header inherit the acceptable character sets of the overall batch request.</p>
 <h3 id="823-header-accept-language"><a name="HeaderAcceptLanguage" href="#HeaderAcceptLanguage">8.2.3 Header <code>Accept-Language</code></a></h3>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, the client MAY specify the set of accepted natural languages with the <code>Accept-Language</code> header.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, the client MAY specify the set of accepted natural languages with the <code>Accept-Language</code> header.</p>
 <p>If the <code>Accept-Language</code> header is specified on an individual request within a batch, then it specifies the acceptable languages for that individual request. Requests within a batch that don’t include the <code>Accept-Language</code> header inherit the acceptable languages of the overall batch request.</p>
 <h3 id="824-header-if-match"><a name="HeaderIfMatch" href="#HeaderIfMatch">8.2.4 Header <code>If-Match</code></a></h3>
-<p>As defined in <a href="#rfc7232">RFC7232</a>, a client MAY include an <code>If-Match</code> header in a request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the resource, or <code>*</code> to match any value.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, a client MAY include an <code>If-Match</code> header in a request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the resource, or <code>*</code> to match any value.</p>
 <p>If an operation on an existing resource requires an ETag, (see term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency"><code>Core.OptimisticConcurrency</code></a> in <a href="#ODataVocCore">OData-VocCore</a> and property <code>OptimisticConcurrencyControl</code> of type <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction"><code>Capabilities.NavigationPropertyRestriction</code></a> in <a href="#ODataVocCap">OData-VocCap</a>) and the client does not specify an <code>If-Match</code> request header in a <a href="#DataModification">Data Modification Request</a> or in an <a href="#Actions">Action Request</a> invoking an action bound to the resource, the service responds with a <code>428 Precondition Required</code> and MUST ensure that no observable change occurs as a result of the request.</p>
-<p>If present, the request MUST only be processed if the specified ETag value matches the current ETag value of the target resource. Services sending <a href="#HeaderETag"><code>ETag</code></a> headers with weak ETags that only depend on the representation-independent entity state MUST use the weak comparison function because it is sufficient to prevent accidental overwrites. This is a deviation from <a href="#rfc7232">RFC7232</a>.</p>
+<p>If present, the request MUST only be processed if the specified ETag value matches the current ETag value of the target resource. Services sending <a href="#HeaderETag"><code>ETag</code></a> headers with weak ETags that only depend on the representation-independent entity state MUST use the weak comparison function because it is sufficient to prevent accidental overwrites. This is a deviation from <a href="#rfc9110">RFC9110</a>.</p>
 <p>If the value does not match the current ETag value of the resource for a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the service MUST respond with <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST ensure that no observable change occurs as a result of the request. In the case of an <a href="#UpsertanEntity">upsert</a>, if the addressed entity does not exist the provided ETag value is considered not to match.</p>
 <p>An <code>If-Match</code> header with a value of <code>*</code> in a <code>PUT</code> or <code>PATCH</code> request results in an <a href="#UpsertanEntity">upsert request</a> being processed as an update and not an insert.</p>
 <p>The <code>If-Match</code> header MUST NOT be specified on a batch request, but MAY be specified on individual requests within the batch.</p>
 <h3 id="825-header-if-none-match"><a name="HeaderIfNoneMatch" href="#HeaderIfNoneMatch">8.2.5 Header <code>If-None-Match</code></a></h3>
-<p>As defined in <a href="#rfc7232">RFC7232</a>, a client MAY include an <code>If-None-Match</code> header in a request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-None-Match</code> request header MUST be an ETag value previously retrieved for the resource, or <code>*</code>.</p>
-<p>If present, the request MUST only be processed if the specified ETag value does not match the current ETag value of the resource, using the weak comparison function (see <a href="#rfc7232">RFC7232</a>). If the value matches the current ETag value of the resource, then for a <code>GET</code> request, the service SHOULD respond with <a href="#ResponseCode304NotModified"><code>304 Not Modified</code></a>, and for a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the service MUST respond with <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST ensure that no observable change occurs as a result of the request.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, a client MAY include an <code>If-None-Match</code> header in a request to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code>. The value of the <code>If-None-Match</code> request header MUST be an ETag value previously retrieved for the resource, or <code>*</code>.</p>
+<p>If present, the request MUST only be processed if the specified ETag value does not match the current ETag value of the resource, using the weak comparison function (see <a href="#rfc9110">RFC9110</a>). If the value matches the current ETag value of the resource, then for a <code>GET</code> request, the service SHOULD respond with <a href="#ResponseCode304NotModified"><code>304 Not Modified</code></a>, and for a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the service MUST respond with <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> and MUST ensure that no observable change occurs as a result of the request.</p>
 <p>An <code>If-None-Match</code> header with a value of <code>*</code> in a <code>PUT</code> or <code>PATCH</code> request results in an <a href="#UpsertanEntity">upsert request</a> being processed as an <a href="#CreateanEntity">insert</a> and not an <a href="#UpdateanEntity">update</a>.</p>
 <p>The <code>If-None-Match</code> header MUST NOT be specified on a batch request, but MAY be specified on individual requests within the batch.</p>
 <h3 id="826-header-isolation-odata-isolation"><a name="HeaderIsolationODataIsolation" href="#HeaderIsolationODataIsolation">8.2.6 Header <code>Isolation</code> (<code>OData-Isolation</code>)</a></h3>
@@ -786,7 +798,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The <code>include-annotations</code> preference is only a hint to the service. The service MAY ignore the preference and is free to decide whether or not to return annotations not specified in the <code>include-annotations</code> preference.</p>
 <p>In the case that the client has specified the <code>include-annotations</code> preference in the request, the service SHOULD include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>include-annotations</code> preference to specify the annotations actually included, where applicable, in the response. This value may differ from the annotations requested in the <a href="#HeaderPrefer"><code>Prefer</code></a> header of the request.</p>
 <p>If the <code>include-annotations</code> preference is specified on an individual request within a batch, then it specifies the preference for that individual request. Individual requests within a batch that don’t include the <code>include-annotations</code> preference inherit the preference of the overall batch request.</p>
-<p>Note: The <code>include-annotations </code>preference was named <code>odata.include-annotations</code> in OData version 4.0. Services that support the<code>include-annotations</code>preference SHOULD also support <code>odata.include-annotations</code> for OData 4.0 clients and clients SHOULD use <code>odata.include-annotations</code> for compatibility with OData 4.0 services. If both <code>include-annotations</code> and <code>odata.include-annotations</code> preferences are specified in the same request, the value of the <code>include-annotations</code> preference SHOULD be used.</p>
+<p>Note: The <code>include-annotations</code> preference was named <code>odata.include-annotations</code> in OData version 4.0. Services that support the <code>include-annotations</code> preference SHOULD also support <code>odata.include-annotations</code> for OData 4.0 clients and clients SHOULD use <code>odata.include-annotations</code> for compatibility with OData 4.0 services. If both <code>include-annotations</code> and <code>odata.include-annotations</code> preferences are specified in the same request, the value of the <code>include-annotations</code> preference SHOULD be used.</p>
 <h4 id="8285-preference-maxpagesize-odatamaxpagesize"><a name="Preferencemaxpagesizeodatamaxpagesize" href="#Preferencemaxpagesizeodatamaxpagesize">8.2.8.5 Preference <code>maxpagesize</code> (<code>odata.maxpagesize</code>)</a></h4>
 <p>The <code>maxpagesize</code> preference is used to request that each collection within the response contain no more than the number of items specified as the positive integer value of this preference. The syntax of the <code>maxpagesize</code> preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <div class="example">
@@ -803,17 +815,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If <code>defaults</code> is specified, then the service MAY omit properties containing default values from the response, including nulls for properties that have no other defined default value. Nulls MUST be included for properties that have a non-null default value defined. If the service omits default values, it MUST specify the <code>Preference-Applied</code> response header with <code>omit-values=defaults</code>.</p>
 <p>Properties with instance annotations are not affected by this preference and MUST be included in the payload if they would be included without this preference. Clients MUST NOT try to reconstruct a null or default value for properties for which an instance annotation is present and no property value is present, for example if the property is omitted due to permissions and has been replaced with the instance annotation <code>Core.Permissions</code> and a value of <code>None</code>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Properties with null or default values MUST be included in delta payloads, if modified.</p>
-<p>The response to a POST operation MUST include any properties not set to their default value, and the response to a PUT/PATCH operation MUST include any properties whose values were changed as part of the operation.</p>
+<p>The response to a <code>POST</code> operation MUST include any properties not set to their default value, and the response to a <code>PUT</code> or <code>PATCH</code> operation MUST include any properties whose values were changed as part of the operation.</p>
 <p>The <code>omit-values</code> preference does not affect a request payload.</p>
 <h4 id="8287-preference-returnrepresentation-and-returnminimal"><a name="Preferencereturnrepresentationandreturnminimal" href="#Preferencereturnrepresentationandreturnminimal">8.2.8.7 Preference <code>return=representation</code> and <code>return=minimal</code></a></h4>
 <p>The <code>return=representation</code> and <code>return=minimal</code> preferences are defined in <a href="#rfc7240">RFC7240</a>.</p>
 <p>In OData, <code>return=representation</code> or <code>return=minimal</code> is defined for use with a <code>POST</code>, <code>PUT</code>, or <code>PATCH</code> <a href="#DataModification">Data Modification Request</a>, or with an <a href="#Actions">Action Request</a>. Specifying a preference of <code>return=representation</code> or <code>return=minimal</code> in a <code>GET</code> or <code>DELETE</code> request does not have any effect.</p>
 <p>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an individual <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> within a batch, subject to the same restrictions, but SHOULD return a <code>4xx Client Error</code> if specified on the batch request itself.</p>
-<p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=minimal </code>preference.</p>
+<p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=minimal</code> preference.</p>
 <p>A preference of <code>return=representation</code> requests that the service invokes the request and returns the modified resource. The service MAY apply this preference by returning the representation of the successfully modified resource in the body of the response, formatted according to the rules specified for the requested <a href="#Formats">format</a>. In this case the service MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=representation</code> preference.</p>
 <p>The <code>return</code> preference SHOULD NOT be applied to a batch request, but MAY be applied to individual requests within a batch.</p>
 <h4 id="8288-preference-respond-async"><a name="Preferencerespondasync" href="#Preferencerespondasync">8.2.8.8 Preference <code>respond-async</code></a></h4>
-<p>The <code>respond-async </code>preference, as defined in <a href="#rfc7240">RFC7240</a>, allows clients to request that the service process the request asynchronously.</p>
+<p>The <code>respond-async</code> preference, as defined in <a href="#rfc7240">RFC7240</a>, allows clients to request that the service process the request asynchronously.</p>
 <p>If the client has specified<code> respond-async</code> in the request, the service MAY process the request asynchronously and return a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response.</p>
 <p>The <code>respond-async</code> preference MAY be used for batch requests, in which case it applies to the batch request as a whole and not to individual requests within the batch request.</p>
 <p>In the case that the service applies the <code>respond-async</code> preference it MUST include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>respond-async</code> preference.</p>
@@ -847,7 +859,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A 4.01 service MUST include the <code>AsyncResult</code> header in <a href="#ResponseCode200OK"><code>200 OK</code></a> responses from a status monitor resource in order to indicate the final <a href="#CommonResponseStatusCodes">HTTP Response Status Code</a> of an <a href="#AsynchronousRequests">asynchronously executed request</a>. The header value is the three-digit HTTP response code, see <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The <code>AsyncResult</code> header SHOULD NOT be applied to individual responses within a batch.</p>
 <h3 id="832-header-etag"><a name="HeaderETag" href="#HeaderETag">8.3.2 Header <code>ETag</code></a></h3>
-<p>A response MAY include an <code>ETag</code> header, see <a href="#rfc7232">RFC7232</a>. Services MUST include this header if they require an ETag to be specified when modifying the resource.</p>
+<p>A response MAY include an <code>ETag</code> header, see <a href="#rfc9110">RFC9110</a>. Services MUST include this header if they require an ETag to be specified when modifying the resource.</p>
 <p>Services MUST support specifying the value returned in the <code>ETag</code> header in an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a subsequent <a href="#RequestingData">Data Request</a> for the resource. Clients MUST specify the value returned in the <code>ETag</code> header, or star (<code>*</code>), in an <a href="#HeaderIfMatch"><code>If-Match</code></a> header of a subsequent <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> in order to apply <a href="#UseofETagsforAvoidingUpdateConflicts">optimistic concurrency</a> control in updating, deleting, or invoking an action bound to the resource.</p>
 <p>As OData allows multiple formats for representing the same structured information, services SHOULD use weak ETags that only depend on the representation-independent entity state. A strong ETag MUST change whenever the representation of an entity changes, so it has to depend on the <a href="#HeaderContentType"><code>Content-Type</code></a>, the <a href="#HeaderContentEncoding"><code>Content-Encoding</code></a>, and potentially other characteristics of the response.</p>
 <p>An <code>ETag</code> header MAY also be returned on a <a href="#MetadataDocumentRequest">metadata document request</a> or <a href="#ServiceDocumentRequest">service document request</a> to allow the client subsequently to make a conditional request for the metadata or service document. Clients can also compare the value of the <code>ETag</code> header returned from a metadata document request to the metadata ETag returned in a response in order to verify the version of the metadata used to generate that response.</p>
@@ -866,12 +878,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The value of the <code>Preference-Applied</code> header is a comma-separated list of preferences applied in the response. For more information on the individual preferences, see the <a href="#HeaderPrefer"><code>Prefer</code></a> header.</p>
 <p>If the <code>Preference-Applied</code> header is specified on an individual response within a batch, then it specifies the preferences applied to that individual response. If the <code>Preference-Applied</code> header is specified on a batch response, then it specifies the preferences applied to the overall batch.</p>
 <h3 id="837-header-retry-after"><a name="HeaderRetryAfter" href="#HeaderRetryAfter">8.3.7 Header <code>Retry-After</code></a></h3>
-<p>A service MAY include a <code>Retry-After</code> header, as defined in <a href="#rfc7231">RFC7231</a>, in <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> and in <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> responses</p>
+<p>A service MAY include a <code>Retry-After</code> header, as defined in <a href="#rfc9110">RFC9110</a>), in <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> and in <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> responses</p>
 <p>The <code>Retry-After</code> header specifies the duration of time, in seconds, that the client is asked to wait before retrying the request or issuing a request to the resource returned as the value of the <a href="#HeaderLocation"><code>Location</code></a> header.</p>
 <h3 id="838-header-vary"><a name="HeaderVary" href="#HeaderVary">8.3.8 Header <code>Vary</code></a></h3>
 <p>If a response varies depending on the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the response, the service MUST include a <code>Vary</code> header listing the <a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a> request header field to allow correct caching of the response.</p>
-<p>If a response varies depending on the applied preferences (<a href="#Preferenceallowentityreferencesodataallowentityreferences"><code>allow-entityreferences</code></a>, <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a>, <a href="#Preferenceomitvalues"><code>omit-values</code></a><code>, </code><a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a>), the service MUST include a <code>Vary</code> header listing the <a href="#HeaderPrefer"><code>Prefer</code></a> request header field to allow correct caching of the response.</p>
-<p>Alternatively, the server MAY include a <code>Vary</code> header with the special value <code>*</code> as defined by <a href="#rfc7231">RFC7231</a>, Section 8.2.1. Note that this will make it impossible for a proxy to cache the response, see <a href="#rfc7240">RFC7240</a>.</p>
+<p>If a response varies depending on the applied preferences (<a href="#Preferenceallowentityreferencesodataallowentityreferences"><code>allow-entityreferences</code></a>, <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a>, <a href="#Preferenceomitvalues"><code>omit-values</code></a>, <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a>), the service MUST include a <code>Vary</code> header listing the <a href="#HeaderPrefer"><code>Prefer</code></a> request header field to allow correct caching of the response.</p>
+<p>Alternatively, the server MAY include a <code>Vary</code> header with the special value <code>*</code> as defined by <a href="#rfc9110">RFC9110</a>, Section 8.2.1. Note that this will make it impossible for a proxy to cache the response, see <a href="#rfc7240">RFC7240</a>.</p>
 <hr />
 <h1 id="9-common-response-status-codes"><a name="CommonResponseStatusCodes" href="#CommonResponseStatusCodes">9 Common Response Status Codes</a></h1>
 <p>An OData service MAY respond to any request using any valid HTTP status code appropriate for the request. A service SHOULD be as specific as possible in its choice of HTTP status codes.</p>
@@ -886,30 +898,30 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p><code>202 Accepted</code> indicates that the <a href="#DataServiceRequests">Data Service Request</a> has been accepted and has not yet completed executing asynchronously. The asynchronous handling of requests is defined in the sections on <a href="#AsynchronousRequests">Asynchronous Requests</a> and <a href="#AsynchronousBatchRequests">Asynchronous Batch Requests</a>.</p>
 <h3 id="914-response-code-204-no-content"><a name="ResponseCode204NoContent" href="#ResponseCode204NoContent">9.1.4 Response Code <code>204 No Content</code></a></h3>
 <p>A request returns <code>204 No Content</code> if the requested resource has the <code>null</code> value, or if the service applies a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference. In this case, the response body MUST be empty.</p>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, a <a href="#DataModification">Data Modification Request</a> that responds with <code>204 No Content MAY </code>include an <code>ETag</code> header with a value reflecting the result of the data modification if and only if the client can reasonably “know” the new representation of the resource without actually receiving it. For a <code>PUT</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have been identical to the request body, i.e. no server-side modification of values sent in the request body, no server-calculated values etc. For a <code>PATCH</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have consisted of all values sent in the request body, plus (for values not sent in the request body) server-side values corresponding to the <code>ETag</code> value sent in the <code>If-Match</code> header of the <code>PATCH</code> request, i.e. the previous values “known” to the client.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, a <a href="#DataModification">Data Modification Request</a> that responds with <code>204 No Content</code> MAY include an <a href="#HeaderETag"><code>ETag</code></a> header with a value reflecting the result of the data modification if and only if the client can reasonably “know” the new representation of the resource without actually receiving it. For a <code>PUT</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have been identical to the request body, i.e. no server-side modification of values sent in the request body, no server-calculated values etc. For a <code>PATCH</code> request this means that the response body of a corresponding <code>200 OK</code> or <code>201 Created</code> response would have consisted of all values sent in the request body, plus (for values not sent in the request body) server-side values corresponding to the <code>ETag</code> value sent in the <code>If-Match</code> header of the <code>PATCH</code> request, i.e. the previous values “known” to the client.</p>
 <h3 id="915-response-code-3xx-redirection"><a name="ResponseCode3xxRedirection" href="#ResponseCode3xxRedirection">9.1.5 Response Code <code>3xx Redirection</code></a></h3>
-<p>As per <a href="#rfc7231">RFC7231</a>, a <code>3xx Redirection</code> indicates that further action needs to be taken by the client in order to fulfill the request. In this case, the response SHOULD include a <a href="#HeaderLocation"><code>Location</code></a> header, as appropriate, with the URL from which the result can be obtained; it MAY include a <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header.</p>
+<p>As per <a href="#rfc9110">RFC9110</a>, a <code>3xx Redirection</code> indicates that further action needs to be taken by the client in order to fulfill the request. In this case, the response SHOULD include a <a href="#HeaderLocation"><code>Location</code></a> header, as appropriate, with the URL from which the result can be obtained; it MAY include a <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header.</p>
 <h3 id="916-response-code-304-not-modified"><a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code <code>304 Not Modified</code></a></h3>
-<p>As per <a href="#rfc7232">RFC7232</a>, a <code>304 Not Modified</code> is returned when the client performs a <code>GET</code> request containing an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header and the content has not changed. In this case the response SHOULD NOT include other headers in order to prevent inconsistencies between cached entity-bodies and updated headers.</p>
+<p>As per <a href="#rfc9110">RFC9110</a>, a <code>304 Not Modified</code> is returned when the client performs a <code>GET</code> request containing an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header and the content has not changed. In this case the response SHOULD NOT include other headers in order to prevent inconsistencies between cached entity-bodies and updated headers.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns a <code>304 Not Modified</code>.</p>
 <h2 id="92-client-error-responses"><a name="ClientErrorResponses" href="#ClientErrorResponses">9.2 Client Error Responses</a></h2>
 <p>Error codes in the <code>4xx</code> range indicate a client error, such as a malformed request.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns an error status code.</p>
 <p>In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate <a href="#Formats">format</a>.</p>
 <h3 id="921-response-code-404-not-found"><a name="ResponseCode404NotFound" href="#ResponseCode404NotFound">9.2.1 Response Code <code>404 Not Found</code></a></h3>
-<p><code>404 Not Found </code>indicates that the resource specified by the request URL does not exist. The response body MAY provide additional information.</p>
+<p><code>404 Not Found</code> indicates that the resource specified by the request URL does not exist. The response body MAY provide additional information.</p>
 <h3 id="922-response-code-405-method-not-allowed"><a name="ResponseCode405MethodNotAllowed" href="#ResponseCode405MethodNotAllowed">9.2.2 Response Code <code>405 Method Not Allowed</code></a></h3>
-<p><code>405 Method Not Allowed</code> indicates that the resource specified by the request URL does not support the request method. In this case the response MUST include an <code>Allow</code> header containing a list of valid request methods for the requested resource as defined in <a href="#rfc7231">RFC7231</a>.</p>
+<p><code>405 Method Not Allowed</code> indicates that the resource specified by the request URL does not support the request method. In this case the response MUST include an <code>Allow</code> header containing a list of valid request methods for the requested resource as defined in <a href="#rfc9110">RFC9110</a>.</p>
 <h3 id="923-response-code-406-not-acceptable"><a name="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code <code>406 Not Acceptable</code></a></h3>
 <p><code>406 Not Acceptable</code> indicates that the resource specified by the request URL does not have a current representation that would be acceptable for the client according to the request headers <a href="#HeaderAccept"><code>Accept</code></a>, <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a>, and <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a>, and that the service is unwilling to supply a default representation.</p>
 <h3 id="924-response-code-410-gone"><a name="ResponseCode410Gone" href="#ResponseCode410Gone">9.2.4 Response Code <code>410 Gone</code></a></h3>
 <p><code>410 Gone</code> indicates that the requested resource is no longer available. This can happen if a client has waited too long to follow a <a href="#DeltaLinks">delta link</a> or a <a href="#AsynchronousRequests">status-monitor-resource</a> link, or a next link on a collection that was requested with <a href="#HeaderIsolationODataIsolation">snapshot isolation</a>.</p>
 <h3 id="925-response-code-412-precondition-failed"><a name="ResponseCode412PreconditionFailed" href="#ResponseCode412PreconditionFailed">9.2.5 Response Code <code>412 Precondition Failed</code></a></h3>
-<p>As defined in <a href="#rfc7232">RFC7232</a>, <code>412 Precondition Failed</code> indicates that the client has performed a conditional request and the resource fails the condition. The service MUST ensure that no observable change occurs as a result of the request.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, <code>412 Precondition Failed</code> indicates that the client has performed a conditional request and the resource fails the condition. The service MUST ensure that no observable change occurs as a result of the request.</p>
 <h3 id="926-response-code-424-failed-dependency"><a name="ResponseCode424FailedDependency" href="#ResponseCode424FailedDependency">9.2.6 Response Code <code>424 Failed Dependency</code></a></h3>
 <p><code>424 Failed Dependency</code> indicates that a request was not performed due to a failed dependency; for example, a request within a batch that depended upon a request that failed.</p>
 <h2 id="93-server-error-responses"><a name="ServerErrorResponses" href="#ServerErrorResponses">9.3 Server Error Responses</a></h2>
-<p>As defined in <a href="#rfc7231">RFC7231</a>, error codes in the <code>5xx</code> range indicate service errors.</p>
+<p>As defined in <a href="#rfc9110">RFC9110</a>, error codes in the <code>5xx</code> range indicate service errors.</p>
 <h3 id="931-response-code-501-not-implemented"><a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code <code>501 Not Implemented</code></a></h3>
 <p>If the client requests functionality not implemented by the OData Service, the service responds with <code>501 Not Implemented</code> and SHOULD include a response body describing the functionality not implemented.</p>
 <h2 id="94-error-response-body"><a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a></h2>
@@ -918,12 +930,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><code>code</code>: required non-null, non-empty, language-independent string. Its value is a service-defined error code. This code serves as a sub-status for the HTTP error code specified in the response.</li>
 <li><code>message</code>: required non-null, non-empty, language-dependent, human-readable string describing the error. The <a href="#HeaderContentLanguage"><code>Content-Language</code></a> header MUST contain the language code from <a href="#rfc5646">RFC5646</a> corresponding to the language in which the value for message is written.</li>
 <li><code>target</code>: optional nullable, potentially empty string indicating the target of the error, for example, the name of the property in error.</li>
-<li><code>details</code>: optional, potentially empty collection of structured instances with <code>code</code>, <code>message</code>, and <code>target</code> following the rules above.</li>
-<li><code>innererror</code>: optional structured instance with service-defined content.</li>
+<li><code>details</code>: optional, potentially empty collection of instances of structured types with <code>code</code>, <code>message</code>, and <code>target</code> following the rules above.</li>
+<li><code>innererror</code>: optional instance of structured type with service-defined content.</li>
 </ul>
 <p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
 <h2 id="95-in-stream-errors"><a name="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a></h2>
-<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a>. Clients MUST treat the entire response as being in error.</p>
+<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a> or abort the response by causing an error on transport protocol level. Clients MUST treat the entire response as being in error.</p>
 <p>Services MAY include the header <a href="#HeaderODataError"><code>OData-Error</code></a> as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
 <hr />
 <h1 id="10-context-url"><a name="ContextURL" href="#ContextURL">10 Context URL</a></h1>
@@ -991,8 +1003,8 @@ http://host/service/$metadata#Orders(4711)/Items/$entity</code></pre>
 <p>If a response or response part is a singleton, its name is the context URL fragment.</p>
 <div class="example">
 <p>Example 15: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier</code></pre>
+<pre><code>http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier</code></pre>
 </div>
 <h2 id="105-collection-of-derived-entities"><a name="CollectionofDerivedEntities" href="#CollectionofDerivedEntities">10.5 Collection of Derived Entities</a></h2>
 <p>Context URL template:</p>
@@ -1009,7 +1021,7 @@ http://host/service/$metadata#Customers/Model.VipCustomer</code></pre>
 <p>If a response or response part is a single entity of a type derived from the declared type of an entity set, a type-cast segment is appended to the entity set name.</p>
 <div class="example">
 <p>Example 17: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/Customers(2)/Model.VipCustomer`
+<pre><code>http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity</code></pre>
 </div>
 <h2 id="107-collection-of-projected-entities"><a name="CollectionofProjectedEntities" href="#CollectionofProjectedEntities">10.7 Collection of Projected Entities</a></h2>
@@ -1024,8 +1036,8 @@ http://host/service/$metadata#Customers/Model.VipCustomer/$entity</code></pre>
 <p>OData 4.01 responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for entities in the collection, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <div class="example">
 <p>Example 18: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/Customers?$`select`=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)</code></pre>
+<pre><code>http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)</code></pre>
 </div>
 <h2 id="108-projected-entity"><a name="ProjectedEntity" href="#ProjectedEntity">10.8 Projected Entity</a></h2>
 <p>Context URL templates:</p>
@@ -1047,8 +1059,9 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity</code></pre>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}
 {context-url}#Collection({type-name}){select-list}</code></pre>
-<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select </code>or<code> $expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
-<p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select </code>or<code> $expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
+<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
+<p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
+<p>The context URL has no shortcut for representing the list of all navigation properties; <code>$expand=*</code> is treated as if all navigation properties were explicitly expanded.</p>
 <p>If the context URL includes only expanded navigation properties (i.e., only navigation properties suffixed with parentheses), then all structural properties are implicitly selected (same as if there were no properties listed in the select-list).</p>
 <p>Navigation properties with expanded references are not represented in the context URL.</p>
 <div class="example">
@@ -1073,8 +1086,8 @@ http://host/service/$metadata
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}/$entity
 {context-url}#{singleton}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
-<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select </code>or<code> $expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
-<p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select </code>or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
+<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
+<p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
 <p>If the context URL includes only expanded navigation properties (i.e., only navigation properties suffixed with parentheses), then all structural properties are implicitly selected (same as if there were no properties listed in the select-list).</p>
 <p>Navigation properties with expanded references are not represented in the context URL.</p>
 <div class="example">
@@ -1135,7 +1148,7 @@ http://host/service/$metadata#Edm.String</code></pre>
 <p>Context URL templates:</p>
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}
 {context-url}#{entity-set}{/type-name}{select-list}/$entity
-{context-url}#{entity}/{property-path}`{select-list}
+{context-url}#{entity}/{property-path}{select-list}
 {context-url}#Collection({type-name}){select-list}
 {context-url}#{type-name}{select-list}</code></pre>
 <p>If the response from an action or function is a collection of entities or a single entity that is a member of an entity set, the context URL identifies the entity set. If the response from an action or function is a property of a single entity, the context URL identifies the entity and property. Otherwise, the context URL identifies the type returned by the operation. The context URL will correspond to one of the former examples.</p>
@@ -1154,7 +1167,7 @@ http://host/service/$metadata#Customers</code></pre>
 <p>If the entities are contained, then <code>{entity-set}</code> is the top-level entity set followed by the path to the containment navigation property of the containing entity.</p>
 <div class="example">
 <p>Example 30: resource URL and corresponding context URL</p>
-<pre><code>http://host/service/Customers`?$deltatoken=1234
+<pre><code>http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 <p>The context URL of an update request body for a collection of entities is simply the fragment <code>#$delta</code>.</p>
@@ -1279,15 +1292,15 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11241-requesting-stream-properties"><a name="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a></h4>
 <p>If the property being requested has type <code>Edm.Stream</code> (see <a href="#ODataURL">OData-URL, section 9</a>), the media type of the response is the media type of the stream, subject to content type negotiation based on the <a href="#HeaderAccept"><code>Accept</code></a> header of the request. The response body is the octet-stream that represents the raw value of the stream property with that media type.</p>
 <p>Note this response format disregards any <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
-<h4 id="11242-requesting-a-propertys-raw-value-using-value"><a name="RequestingaPropertysRawValueusingvalue" href="#RequestingaPropertysRawValueusingvalue">11.2.4.2 Requesting a Property’s Raw Value using <code>$value</code></a></h4>
-<p>To retrieve the raw value of a primitive type property, the client sends a <code>GET</code> request to the property value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
+<h4 id="11242-requesting-a-raw-value-using-value"><a name="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></h4>
+<p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
-<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation of this property (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
+<p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
 <p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses for properties of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>A <code>$value</code> request for a property that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
-<p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
-<p>Appending <code>/$value</code> to the property URL of a property of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
+<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A raw value request for a property or operation result of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
+<p>A raw value request for a property or operation result that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
+<p>If the property or operation result is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <div class="example">
 <p>Example 32:</p>
 <pre><code>GET http://host/service/Products(1)/Name/$value</code></pre>
@@ -1296,7 +1309,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query options enable the client to specify the set of structural properties and navigation properties to include in a response. The service MAY include additional properties not specified in <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, including properties not defined in <a href="#MetadataDocumentRequest">the metadata document</a>.</p>
 <h4 id="11251-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">11.2.5.1 System Query Option <code>$select</code></a></h4>
 <p>The <code>$select</code> system query option requests that the service return only the properties, dynamic properties, <a href="#Actions">actions</a> and <a href="#Functions">functions</a> explicitly requested by the client. The service returns the specified content, if available, along with any available <a href="#SystemQueryOptionexpand">expanded</a> navigation or stream properties, and MAY return additional information.</p>
-<p>The value of the <code>$select</code> query option is a comma-separated list of properties, qualified action names, qualified function names, the star operator (<code>*</code>), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.</p>
+<p>The value of the <code>$select</code> query option is a comma-separated list of paths that end with properties, non-entity-valued instance annotations, qualified action names, or qualified function names, as well as of the star operator (<code>*</code>), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.</p>
 <div class="example">
 <p>Example 33: request only the <code>Rating</code> and <code>ReleaseDate</code> for the matching Products</p>
 <pre><code>GET http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
@@ -1389,7 +1402,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 46: return all Products whose <code>Price</code> is less than $10.00</p>
 <pre><code>GET http://host/service/Products?$filter=Price lt 10.00</code></pre>
 </div>
-<p>The <a href="#SystemQueryOptioncount"><code>$count</code></a> segment may be used within a <code>$filter </code>expression to limit the items returned based on the exact count of related entities or items within a collection-valued property.</p>
+<p>The <a href="#SystemQueryOptioncount"><code>$count</code></a> segment may be used within a <code>$filter</code> expression to limit the items returned based on the exact count of related entities or items within a collection-valued property.</p>
 <div class="example">
 <p>Example 47: return all Categories with less than 10 products</p>
 <pre><code>GET http://host/service/Categories?$filter=Products/$count lt 10</code></pre>
@@ -1518,14 +1531,17 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>GET http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
 <h4 id="11263-system-query-option-top"><a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option <code>$top</code></a></h4>
-<p>The <code>$top</code> system query option specifies a non-negative integer n that limits the number of items returned from a collection. The service returns the number of available items up to but not greater than the specified value n.</p>
+<p>The <code>$top</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that limits the number of items returned from a collection.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <code>$top</code> or <a href="#SystemQueryOptionskip"><code>$skip</code></a>.</p>
+<p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(n\)</span> instances, the result of <span class="math inline">\({\tt \$top}=n\)</span> consists of the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span>. Otherwise, the result equals <span class="math inline">\(A\)</span>. The instances in the result are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 53: return only the first five products of the Products entity set</p>
 <pre><code>GET http://host/service/Products?$top=5</code></pre>
 </div>
-<p>If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
 <h4 id="11264-system-query-option-skip"><a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option <code>$skip</code></a></h4>
-<p>The <code>$skip</code> system query option specifies a non-negative integer n that excludes the first n items of the queried collection from the result. The service returns items starting at position n+1.</p>
+<p>The <code>$skip</code> system query option specifies a non-negative integer <span class="math inline">\(n\)</span> that excludes the first <span class="math inline">\(n\)</span> items of the queried collection from the result.</p>
+<p>Let <span class="math inline">\(A\)</span> be a copy of the result set with a total order that extends any existing order of the result set but is otherwise chosen by the service. If no unique ordering is imposed through an <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query option, the service MUST choose a stable ordering across requests that include <a href="#SystemQueryOptiontop"><code>$top</code></a> or <code>$skip</code>.</p>
+<p>If <span class="math inline">\(A\)</span> contains <span class="math inline">\(n\)</span> or fewer instances, the result of <span class="math inline">\({\tt \$skip}=n\)</span> is empty. Otherwise, the first <span class="math inline">\(n\)</span> instances in <span class="math inline">\(A\)</span> are omitted from the result and all remaining instances are kept in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
 <div class="example">
 <p>Example 54: return products starting with the 6th product of the <code>Products</code> entity set</p>
 <pre><code>GET http://host/service/Products?$skip=5</code></pre>
@@ -1542,7 +1558,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 56: return, along with the results, the total number of products in the collection</p>
 <pre><code>GET http://host/service/Products?$count=true</code></pre>
 </div>
-<p>The count of related entities can be requested by specifying the<code> $count</code> query option within the <code>$expand</code> clause.</p>
+<p>The count of related entities can be requested by specifying the <code>$count</code> query option within the <code>$expand</code> clause.</p>
 <div class="example">
 <p>Example 57:</p>
 <pre><code>GET http://host/service/Categories?$expand=Products($count=true)</code></pre>
@@ -1595,7 +1611,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Entities are stably addressable using their canonical URL and are not accessible using an ordinal index.</p>
 <div class="example">
 <p>Example 64: the first address in a list of addresses for <code>MainSupplier</code></p>
-<pre><code>GET http://host/service/Suppliers(MainSupplier)/Addresses/0</code></pre>
+<pre><code>GET http://host/service/MainSupplier/Addresses/0</code></pre>
 </div>
 <h3 id="1127-requesting-related-entities"><a name="RequestingRelatedEntities" href="#RequestingRelatedEntities">11.2.7 Requesting Related Entities</a></h3>
 <p>To request related entities according to a particular relationship, the client issues a <code>GET</code> request to the source entity’s request URL, followed by a forward slash and the name of the navigation property representing the relationship.</p>
@@ -1603,7 +1619,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the relationship terminates on a collection, the response MUST be the format-specific representation of the collection of related entities. If no entities are related, the response is the format-specific representation of an empty collection.</p>
 <p>If the relationship terminates on a single entity, the response MUST be the format-specific representation of the related single entity. If no entity is related, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <div class="example">
-<p>Example 65: return the supplier of the product with <code>ID=1 </code>in the Products entity set</p>
+<p>Example 65: return the supplier of the product with <code>ID=1</code> in the Products entity set</p>
 <pre><code>GET http://host/service/Products(1)/Supplier</code></pre>
 </div>
 <h3 id="1128-requesting-entity-references"><a name="RequestingEntityReferences" href="#RequestingEntityReferences">11.2.8 Requesting Entity References</a></h3>
@@ -1638,7 +1654,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 69: return the number of products in the Products entity set</p>
 <pre><code>GET http://host/service/Products/$count</code></pre>
 </div>
-<p>With 4.01 services the <code>/$count</code> segment MAY be used in combination with the <code>/$filter path</code> segment to count the items in the filtered collection.</p>
+<p>With 4.01 services the <code>/$count</code> segment MAY be used in combination with the <code>/$filter</code> path segment to count the items in the filtered collection.</p>
 <div class="example">
 <p>Example 70: return the number of products whose <code>Price</code> is less than $10.00</p>
 <pre><code>GET http://host/service/Products/$filter(@foo)/$count?@foo=Price lt 10.00</code></pre>
@@ -1711,7 +1727,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="114-data-modification"><a name="DataModification" href="#DataModification">11.4 Data Modification</a></h2>
 <p>Updatable OData services support Create, Update, and Delete operations for some or all exposed entities. Additionally, <a href="#Actions">Actions</a> supported by a service can affect the state of the system.</p>
 <p>A successfully completed <a href="#DataModification">Data Modification Request</a> must not violate the integrity of the data.</p>
-<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>
+<p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, regardless of whether the requested content could be returned.</p>
 <h3 id="1141-common-data-modification-semantics"><a name="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a></h3>
 <p><a href="#DataModification">Data Modification Requests</a> share the following semantics.</p>
 <h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a name="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
@@ -1747,8 +1763,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>Properties computed by the service (annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>) and properties that are tied to properties of the principal entity by a referential constraint, can be omitted and MUST be ignored if included in the request.</p>
 <p>Properties with a defined default value, nullable properties, and collection-valued properties omitted from the request are set to the default value, null, or an empty collection, respectively.</p>
-<p>Upon successful completion, the response MUST contain a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity.</p>
-<p>Upon successful completion the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+<p>Upon successful creation of the entity, the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, or if a representation of the created entity could not be constructed. In either case, if the service is able to construct the edit URL or read URL of the created entity, the response MUST contain that URL in a <a href="#HeaderLocation"><code>Location</code></a> header.</p>
 <h4 id="11421-link-to-related-entities-when-creating-an-entity"><a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a></h4>
 <p>To create a new entity with links to existing entities in a single request, the client includes references to the related entities in the request body.</p>
 <p>The representation for referencing related entities is format-specific.</p>
@@ -1800,12 +1815,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Updating a dependent property that is tied to a key property of the principal entity through a referential constraint updates the relationship to point to the entity with the specified key value. If there is no such entity, the update fails.</p>
 <p>Updating a principal property that is tied to a dependent entity through a referential constraint on the dependent entity updates the dependent property.</p>
 <p>Key and other properties marked as read-only in metadata (including computed properties), as well as dependent properties that are not tied to key properties of the principal entity, can be omitted from the request. If the request contains a value for one of these properties, the service MUST ignore that value when applying the update. Services MUST return an error if an insert or update contains a new value for a property marked as updatable that cannot currently be changed by the user (i.e., given the state of the object or permissions of the user). The service MAY return success in this case if the specified value matches the value of the property. Clients SHOULD use <code>PATCH</code> and specify only those properties intended to be changed.</p>
-<p>Entity id and entity type cannot be changed when updating an entity. However, format-specific rules might in some cases require providing entity id and entity type values in the payload when applying the update.</p>
+<p>Entity-id and entity type cannot be changed when updating an entity. However, format-specific rules might in some cases require providing entity-id and entity type values in the payload when applying the update.</p>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, if the entity representation in the request body includes an ETag value, the update MUST NOT be performed and SHOULD return <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> if the supplied ETag value is not <code>*</code> and does not match the current ETag value for the entity. ETag values in request bodies MUST be ignored for requests containing an OData-Version header with a value of <code>4.0</code>.</p>
 <p>If an update specifies both a binding to a single-valued navigation property and a dependent property that is tied to a key property of the principal entity according to the same navigation property, then the dependent property is ignored, and the relationship is updated according to the value specified in the binding.</p>
 <p>If the entity being updated is open, then additional values for properties beyond those specified in the metadata or returned in a previous request MAY be sent in the request body. The service MUST treat these as dynamic properties.</p>
 <p>If the entity being updated is not open, then additional values for properties beyond those specified in the metadata or returned in a previous request SHOULD NOT be sent in the request body. The service MUST fail if it is unable to persist all updatable property values specified in the request.</p>
-<p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. If the service uses ETags for optimistic concurrency control, the entities in the response MUST include ETags.</p>
+<p>Upon successful completion of the update, the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. If the service uses ETags for optimistic concurrency control, the entities in the response MUST include ETags. If a representation of the updated entity could not be constructed, the service MAY ignore the system query options and respond with <code>204 No Content</code>.</p>
 <h4 id="11431-update-related-entities-when-updating-an-entity"><a name="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a></h4>
 <p>Update requests with an OData-Version header with a value of <code>4.0</code> MUST NOT contain related entities as inline content. Such requests MAY contain binding information for navigation properties. For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship.</p>
 <p>Payloads with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater MAY include nested entities and entity references that specify the full set of to be related entities, or a nested <a href="#DeltaPayloads">delta payload</a> representing the related entities that have been added, removed, or changed. Such a request is referred to as a “deep update”. If the nested collection is represented identical to an expanded navigation property, then the set of nested entities and entity references specified in a successful update request represents the full set of entities to be related according to that relationship and MUST NOT include added links, deleted links, or deleted entities.</p>
@@ -1829,8 +1844,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a><span class="er">  </span><span class="ot">]</span></span>
 <span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>If the nested collection is represented as a delta annotation on the navigation property, then the collection contains members to be added or changed and MAY include deleted entities for entities that are no longer part of the collection, using the <a href="#DeltaPayloads">delta payload</a> format. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the relationship is contained. Non-key properties of the deleted entity are ignored. Nested collections MUST NOT contain added or deleted links. If the request contains nested delta collections, then the PATCH verb must be specified.</p>
-<p>If a nested entity has the same id or key fields as an existing entity, the existing entity is updated according to the semantics of the PUT or PATCH request. Nested entities that have no id or key fields, or for which the id or key fields do not match existing entities, are treated as inserts. If the nested collection does not represent a containment relationship and has no navigation property binding, then such entities MUST include a context URL specifying the entity set in which the new entity is to be created. If any nested entities contain both id and key fields, they MUST identify the same entity, or the request is invalid.</p>
+<p>If the nested collection is represented as a delta annotation on the navigation property, then the collection contains members to be added or changed and MAY include deleted entities for entities that are no longer part of the collection, using the <a href="#DeltaPayloads">delta payload</a> format. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the relationship is contained. Non-key properties of the deleted entity are ignored. Nested collections MUST NOT contain added or deleted links. If the request contains nested delta collections, then the <code>PATCH</code> verb must be specified.</p>
+<p>If a nested entity has the same id or key fields as an existing entity, the existing entity is updated according to the semantics of the <code>PUT</code> or <code>PATCH</code> request. Nested entities that have no id or key fields, or for which the id or key fields do not match existing entities, are treated as inserts. If the nested collection does not represent a containment relationship and has no navigation property binding, then such entities MUST include a context URL specifying the entity set in which the new entity is to be created. If any nested entities contain both id and key fields, they MUST identify the same entity, or the request is invalid.</p>
 <div class="example">
 <p>Example 79: using the JSON format, a 4.01 <code>PATCH</code> request can specify a nested delta representation to:</p>
 <ul>
@@ -1924,7 +1939,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Deleting a media entity also deletes the media associated with the entity.</p>
 <h3 id="1148-managing-stream-properties"><a name="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a></h3>
 <p>An entity may have one or more <em>stream properties</em>. Stream properties are properties of type <code>Edm.Stream</code>.</p>
-<p>The values for stream properties do not usually appear in the entity payload. Instead, the values are generally read or written through URLs.</p>
+<p>The values for stream properties do not usually appear in the entity payload unless explicitly requested with <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. Instead, the values are generally read or written through URLs.</p>
 <div class="example">
 <p>Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property</p>
 <pre><code>GET http://host/service/Products(1)?$select=Thumbnail</code></pre>
@@ -1964,12 +1979,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData-URL</a> for details on addressing individual properties.</p>
 <h4 id="11491-update-a-primitive-property"><a name="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a></h4>
 <p>A successful <code>PUT</code> request to the edit URL for a primitive property updates the value of the property. The message body MUST contain the new value, formatted as a single property according to the specified format.</p>
-<p>A successful <code>PUT</code> request to the edit URL for the <a href="#RequestingaPropertysRawValueusingvalue">raw value</a> of a primitive property updates the property with the raw value specified in the payload. The payload MUST be formatted as an appropriate content type for the raw value of the property.</p>
+<p>A successful <code>PUT</code> request to the edit URL for the <a href="#RequestingaRawValueusingvalue">raw value</a> of a primitive property updates the property with the raw value specified in the payload. The payload MUST be formatted as an appropriate content type for the raw value of the property.</p>
 <p>The same rules apply whether this is a regular property or a dynamic property.</p>
 <p>Upon successful completion the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference.</p>
 <p>Services MUST return an error if the property is not updatable.</p>
 <h4 id="11492-set-a-value-to-null"><a name="SetaValuetoNull" href="#SetaValuetoNull">11.4.9.2 Set a Value to Null</a></h4>
-<p>A successful <code>DELETE</code> request to the edit URL for a structural property, or to the edit URL of the <a href="#RequestingaPropertysRawValueusingvalue">raw value</a> of a primitive property, sets the property to null. The request body is ignored and should be empty.</p>
+<p>A successful <code>DELETE</code> request to the edit URL for a structural property, or to the edit URL of the <a href="#RequestingaRawValueusingvalue">raw value</a> of a primitive property, sets the property to null. The request body is ignored and should be empty.</p>
 <p>A <code>DELETE</code> request to a non-nullable value MUST fail and the service respond with <code>400 Bad Request</code> or other appropriate error.</p>
 <p>The same rules apply whether the target is the value of a regular property or the value of a dynamic property. A missing dynamic property is defined to be the same as a dynamic property with value <code>null</code>. All dynamic properties are nullable.</p>
 <p>On success, the service MUST respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and an empty body.</p>
@@ -2010,16 +2025,16 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
-<p>If the <code>continue-on-error</code> preference has been specified and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
+<p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been specified and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
-<li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
-<li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>
-<li>Failed updates within the request SHOULD be annotated in the response with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
-<li>Failed added links within the request MUST represented in the response as deleted links annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>link</code>.</li>
-<li>Failed deleted links within the request MUST represented in the response as added links annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>unlink</code>.</li>
+<li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
+<li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>
+<li>Failed updates within the request SHOULD be annotated in the response with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
+<li>Failed added links within the request MUST represented in the response as deleted links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>link</code>.</li>
+<li>Failed deleted links within the request MUST represented in the response as added links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>unlink</code>.</li>
 <li>Collections within the request MUST be represented in the response as a collection with the current values and membership of the collection as it exists in the service after processing the request.</li>
 </ul>
-<p>If an individual change fails due to a failed dependency, it MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
+<p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
 <p>Alternatively, the verb <code>PUT</code> can be used, in which case the request body MUST be the representation of a collection of entities. In this case all entities provided in the request are applied as <a href="#UpsertanEntity">upserts</a>, and any entities not provided in the request are deleted. In this case, if the <code>continue-on-error</code> preference has been specified, and the request returns a success response code, then a response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference, and MUST contain the full membership and values of the collection as it exists in the service.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
 <h3 id="11413-update-members-of-a-collection"><a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a></h3>
@@ -2039,7 +2054,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 <p>The response, if requested, is a collection payload containing the updated representation of each member identified by the request. If the update payload includes nested collections or nested delta collections, then they MUST be included in the response, as described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
-<p>If the <code>continue-on-error</code> preference has been specified, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
+<p>If the <code>continue-on-error</code> preference has been specified, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates.</p>
 <h3 id="11414-delete-members-of-a-collection"><a name="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></h3>
 <p>Members of a collection can be deleted by submitting a <code>DELETE</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the collection itself is not deleted.</p>
@@ -2049,7 +2064,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <pre><code>DELETE /service/Products/$filter(Age gt 3)/$each</code></pre>
 </div>
 <p>If the path identifies a collection of entities and if the service returns a representation, then the response is a delta response containing a representation of a deleted entity for each deleted member.</p>
-<p>If the collection is a collection of entities, then the client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing deletes after a failure. In this case, the service MUST return a response containing at least an entity or entity reference for each entity identified by the request that failed to delete, which MUST be annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>delete</code>.</p>
+<p>If the collection is a collection of entities, then the client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing deletes after a failure. In this case, the service MUST return a response containing at least an entity or entity reference for each entity identified by the request that failed to delete, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>delete</code>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply deletes to a (possibly filtered) collection.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to delete all of the entities identified by the request, then it MUST return an error response and MUST NOT apply any changes.</p>
 <h2 id="115-operations"><a name="Operations" href="#Operations">11.5 Operations</a></h2>
@@ -2087,7 +2102,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 90: invoke the <code>MostRecentOrder</code> function on each entity in the entity set <code>Customers</code></p>
 <pre><code>GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()</code></pre>
 </div>
-<p>The client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing actions after a failure. In this case, the service MUST, regardless of the <code>return</code> preference, return a response containing at least the members identified by the request for which the action failed. Such members MUST be annotated with term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>invoke</code>.</p>
+<p>The client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing actions after a failure. In this case, the service MUST, regardless of the <code>return</code> preference, return a response containing at least the members identified by the request for which the action failed. Such members MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>invoke</code>.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to invoke the action against all of the entities identified by the request, then it MUST return an error response and MUST NOT apply the action to any of the members of the collection.</p>
 <h3 id="1153-advertising-available-operations-within-a-payload"><a name="AdvertisingAvailableOperationswithinaPayload" href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></h3>
 <p>Services MAY return actions and/or functions bound to a particular entity or entity collection as part of the representation of the entity or entity collection within the payload. The representation of an action or function depends on the <a href="#Formats">format</a>.</p>
@@ -2121,6 +2136,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11541-invoking-a-function"><a name="InvokingaFunction" href="#InvokingaFunction">11.5.4.1 Invoking a Function</a></h4>
 <p>To invoke a function bound to a resource, the client issues a <code>GET</code> request to a function URL. A function URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified function name to a URL that identifies a resource whose type is the same as, or derived from, the type of the binding parameter of the function. The value for the binding parameter is the value of the resource identified by the URL prior to appending the function name, and additional parameter values are specified using <a href="#InlineParameterSyntax">inline parameter syntax</a>. If the function URL is <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation, <a href="#ParameterAliases">parameter aliases</a> that are identical to the parameter name preceded by an at (<code>@</code>) sign MUST be used. Clients MUST check if the obtained URL already contains a query part and appropriately precede the parameters either with an ampersand (<code>&amp;</code>) or a question mark (<code>?</code>).</p>
 <p>Services MAY additionally support invoking functions using the unqualified function name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in  <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>To request processing of the function only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <code>ETag</code> header of a collection response.</p>
 <p>Functions can be used within <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options. Such functions can be bound to a resource, as described above, or called directly by specifying the namespace- (or alias-) qualified function name. Parameter values for functions within <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> are specified according to the <a href="#InlineParameterSyntax">inline parameter syntax</a>.</p>
 <p>To invoke a function through a function import the client issues a <code>GET</code> request to a URL identifying the function import and passing parameter values using <a href="#InlineParameterSyntax">inline parameter syntax</a>. The canonical URL for a function import is the service root, followed by the name of the function import. Services MAY support omitting the parentheses when invoking a function import with no parameters, but for maximum interoperability MUST also support invoking the function import with empty parentheses.</p>
 <p>If the function is composable, additional path segments may be appended to the URL that identifies the composable function (or function import) as appropriate for the type returned by the function (or function import). The last path segment determines the system query options and HTTP verbs that can be used with this this URL, e.g. if the last path segment is a multi-valued navigation property, a <code>POST</code> request may be used to create a new entity in the identified collection.</p>
@@ -2187,7 +2203,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <div class="example">
 <p>Example 98: invoke the <code>SampleEntities.CreateOrder</code> action using <code>Customers('ALFKI')</code> as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer’s ETag still matches.</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;`</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></span>
 <span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2206,7 +2222,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the client has specified<code> respond-async</code> in the request, the service MAY process the request asynchronously and return a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response. A service MUST NOT reply to a <a href="#DataServiceRequests">Data Service Request</a> with <code>202 Accepted</code> if the request has not included the <code>respond-async</code> preference.</p>
 <p>Responses that return <code>202 Accepted</code> MUST include a <a href="#HeaderLocation"><code>Location</code></a> header pointing to a <em>status monitor resource</em> that represents the current state of the asynchronous processing in addition to an optional <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header indicating the time, in seconds, the client should wait before querying the service for status. Services MAY include a response body, for example, to provide additional status information.</p>
 <p>A <code>GET</code> request to the status monitor resource again returns <code>202 Accepted</code> response if the asynchronous processing has not finished. This response MUST again include a <a href="#HeaderLocation"><code>Location</code></a> header and MAY include a <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header to be used for a subsequent request. The <code>Location</code> header and optional <code>Retry-After</code> header may or may not contain the same values as returned by the previous request.</p>
-<p>A <code>GET</code> request to the status monitor resource returns <a href="#ResponseCode200OK"><code>200 OK</code></a> once the asynchronous processing has completed. For OData 4.01 and greater responses, or OData 4.0 requests that include an <code>Accept</code> header that does not specify <code>application/http</code>, the response MUST include the <a href="#HeaderAsyncResult"><code>AsyncResult</code></a> response header. Any other headers, along with the response body, represent the result of the completed asynchronous operation. If the <code>GET</code> request to the status monitor includes an <code>OData-MaxVersion</code> header with a value of <code>4.0</code> and no <code>Accept</code> header, or an <code>Accept</code> header that includes <code>application/http</code>, then the body of the final <code>200 OK</code> response MUST be represented as an HTTP message, as described in <a href="#rfc7230">RFC7230</a>, which is the full HTTP response to the completed asynchronous operation.</p>
+<p>A <code>GET</code> request to the status monitor resource returns <a href="#ResponseCode200OK"><code>200 OK</code></a> once the asynchronous processing has completed. For OData 4.01 and greater responses, or OData 4.0 requests that include an <code>Accept</code> header that does not specify <code>application/http</code>, the response MUST include the <a href="#HeaderAsyncResult"><code>AsyncResult</code></a> response header. Any other headers, along with the response body, represent the result of the completed asynchronous operation. If the <code>GET</code> request to the status monitor includes an <code>OData-MaxVersion</code> header with a value of <code>4.0</code> and no <code>Accept</code> header, or an <code>Accept</code> header that includes <code>application/http</code>, then the body of the final <code>200 OK</code> response MUST be represented as an HTTP message, as described in <a href="#rfc9110">RFC9110</a>, which is the full HTTP response to the completed asynchronous operation.</p>
 <p>A <code>DELETE</code> request sent to the status monitor resource requests that the asynchronous processing be canceled. A <code>200 OK</code> or a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response indicates that the asynchronous processing has been successfully canceled. A client can request that the <code>DELETE</code> should be executed asynchronously. A <code>202 Accepted</code> response indicates that the cancellation is being processed asynchronously; the client can use the returned <a href="#HeaderLocation"><code>Location</code></a> header (which MUST be different from the status monitor resource of the initial request) to query for the status of the cancellation. If a delete request is not supported by the service, the service returns <a href="#ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a>.</p>
 <p>After a successful <code>DELETE</code> request against the status monitor resource, any subsequent <code>GET</code> requests for the same status monitor resource returns <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <p>If an asynchronous request is cancelled for reasons other than the consumers issuing a <code>DELETE</code> request against the status monitor resource, a <code>GET</code> request to the status monitor resource returns <code>200 OK</code> with a response body containing a single HTTP response with a status code in the <a href="#ServerErrorResponses"><code>5xx Server Error</code></a> range indicating that the operation was cancelled.</p>
@@ -2218,11 +2234,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Batch requests are submitted as a single HTTP <code>POST</code> request to the batch endpoint of a service, located at the URL <code>$batch</code> relative to the service root.</p>
 <p>Individual requests within a batch request are evaluated according to the same semantics used when the request appears outside the context of a batch request.</p>
 <p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results.</p>
+<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx response code</code></a> and perform no further processing of the batch request.</p>
 <h3 id="1171-batch-request-headers"><a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a></h3>
 <p>A batch request using the <a href="#MultipartBatchFormat">multipart batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.</p>
 <div class="example">
 <p>Example 99: multipart batch request</p>
-<pre><code>POST /service/$batch HTTP/1.1`
+<pre><code>POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.0
 Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -2241,8 +2259,6 @@ Content-Type: application/json
 </div>
 <p>Batch requests SHOULD contain the applicable <code>OData-Version</code> header.</p>
 <p>Batch requests SHOULD contain an <a href="#HeaderAccept"><code>Accept</code></a> header specifying the desired batch response format, either <code>multipart/mixed</code> or <code>application/json</code>. If no <code>Accept</code> header is provided, services SHOULD respond with the content type of the request.</p>
-<p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, but the processing is yet to be completed. The individual requests within the body of the batch request may subsequently fail or be malformed; however, this enables batch implementations to stream the results.</p>
-<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx response code</code></a> and perform no further processing of the batch request.</p>
 <h3 id="1172-request-dependencies"><a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a></h3>
 <p>Requests within a batch may have dependencies on other requests according to the particular batch format.</p>
 <p>In the JSON format, requests may explicitly declare a dependency on other requests that must be successfully processed before the current request. In addition, requests may be specified as part of an <em>atomicity group</em> whose members MUST either all succeed, or all fail. If a request fails, then any dependent requests within the JSON format return <a href="#ResponseCode424FailedDependency"><code>424 Failed Dependency</code></a>.</p>
@@ -2274,22 +2290,25 @@ Content-Type: application/json
 </ul>
 <div class="example">
 <p>Example 101:</p>
-<pre><code>GET https://host:1234/path/service/People(1) HTTP/1.1 ```</code></pre>
+<pre><code>GET https://host:1234/path/service/People(1) HTTP/1.1</code></pre>
 </div>
 <ul>
 <li>Absolute resource path and separate <code>Host</code> header</li>
 </ul>
 <div class="example">
 <p>Example 102:</p>
-<pre><code>GET /path/service/People(1) HTTP/1.1
-Host: myserver.mydomain.org:1234</code></pre>
+<pre><code>PATCH /path/service/People(1) HTTP/1.1
+Host: myserver.mydomain.org:1234
+Content-Type: application/json
+
+{&quot;Name&quot;: &quot;Peter&quot;}</code></pre>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>
 </ul>
 <div class="example">
 <p>Example 103:</p>
-<pre><code>GET People(1) HTTP/1.1</code></pre>
+<pre><code>DELETE People(1) HTTP/1.1</code></pre>
 </div>
 <p>Services MUST support all three formats for URLs of individual requests.</p>
 <p>URLs must be correctly percent-encoded. For relative URLs this means that colons in the path part, especially within key values, MUST be percent-encoded to avoid confusion with the scheme separator. Colons within the query part, i.e. after the question mark character (<code>?</code>), need not be percent-encoded.</p>
@@ -2451,7 +2470,7 @@ Content-Length: ###
 <p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 107: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -2459,7 +2478,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -2509,10 +2528,10 @@ Retry-After: ###
 </code></pre>
 </div>
 <p>When interrogating the monitor URL only the first request in the batch has finished processing and all the remaining requests are still being processed. Note that the actual multipart batch response itself is contained in an <code>application/http</code> wrapper as it is a response to a status monitor resource:</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -2520,7 +2539,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -2535,7 +2554,7 @@ Retry-After: ###
 
 --b_243234_25424_ef_892u748--</code></pre>
 <p>After some time the client makes a second request using the returned monitor URL, not explicitly accepting <code>application/http</code>. The batch is completely processed and the response is the final result.</p>
-<pre><code>HTTP/1.1 200 Ok
+<pre><code>HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.0
 Content-Length: ####
@@ -2636,7 +2655,7 @@ Content-Length: ###
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
-<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaPropertysRawValueusingvalue">section 11.2.4.2</a>)</li>
+<li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaRawValueusingvalue">section 11.2.4.2</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
@@ -2796,7 +2815,7 @@ Content-Length: ###
 <li>MAY support deleted entities, link entities, deleted link entities in a delta response (<a href="#RequestingChanges">section 11.3</a>)</li>
 <li>MAY support asynchronous responses (<a href="#AsynchronousRequests">section 11.6</a>)</li>
 <li>MAY support <code>metadata=minimal</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
-<li>MAY support <code>streaming </code>in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
+<li>MAY support <code>streaming</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
 </ol>
 <p>In addition, interoperable OData 4.01 clients</p>
 <ol start="16" type="1">
@@ -2845,27 +2864,22 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><em>Phillips, A., Ed., and M. Davis, Ed., “Tags for Identifying Languages”, BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009</em>. <a href="https://www.rfc-editor.org/info/rfc5646">https://www.rfc-editor.org/info/rfc5646</a>.</p>
 <h6 id="rfc5789"><a name="rfc5789">[RFC5789]</a></h6>
 <p><em>Dusseault, L. and J. Snell, “PATCH Method for HTTP”, RFC 5789, DOI 10.17487/RFC5789, March 2010</em>. <a href="https://www.rfc-editor.org/info/rfc5789">https://www.rfc-editor.org/info/rfc5789</a>.</p>
-<h6 id="rfc7230"><a name="rfc7230">[RFC7230]</a></h6>
-<p><em>Fielding, R., Ed., and J. Reschke, Ed., “Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing”, RFC 7230, DOI 10.17487/RFC7230, June 2014</em>. <a href="https://www.rfc-editor.org/info/rfc7230">https://www.rfc-editor.org/info/rfc7230</a>.</p>
-<h6 id="rfc7231"><a name="rfc7231">[RFC7231]</a></h6>
-<p><em>Fielding, R., Ed., and J. Reschke, Ed., “Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content”, RFC 7231, DOI 10.17487/RFC7231, June 2014</em>. <a href="https://www.rfc-editor.org/info/rfc7231">https://www.rfc-editor.org/info/rfc7231</a>.</p>
-<h6 id="rfc7232"><a name="rfc7232">[RFC7232]</a></h6>
-<p><em>Fielding, R., Ed., and J. Reschke, Ed., “Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests”, RFC 7232, DOI 10.17487/RFC7232, June 2014</em>. <a href="https://www.rfc-editor.org/info/rfc7232">https://www.rfc-editor.org/info/rfc7232</a>.</p>
 <h6 id="rfc7240"><a name="rfc7240">[RFC7240]</a></h6>
 <p><em>Snell, J., “Prefer Header for HTTP”, RFC 7240, DOI 10.17487/RFC7240, June 2014</em>. <a href="https://www.rfc-editor.org/info/rfc7240">https://www.rfc-editor.org/info/rfc7240</a>.</p>
 <h6 id="rfc7617"><a name="rfc7617">[RFC7617]</a></h6>
 <p><em>Reschke, J., “The ‘Basic’ HTTP Authentication Scheme”, RFC 7617, DOI 10.17487/RFC7617, September 2015</em>. <a href="https://www.rfc-editor.org/info/rfc7617">https://www.rfc-editor.org/info/rfc7617</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h6 id="rfc9110"><a name="rfc9110">[RFC9110]</a></h6>
+<p><em>Fielding, R., Ed., M. Nottingham, Ed., and J. Reschke, Ed., “HTTP Semantics”, RFC 9110, June 2022</em><br />
+<a href="https://www.rfc-editor.org/info/rfc9110">https://www.rfc-editor.org/info/rfc9110</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
-<h6 id="geojson-2008"><a name="GeoJSON-2008">[GeoJSON-2008]</a></h6>
-<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, “The GeoJSON Format Specification”, June 2008</em> <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 <p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
-<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#rfc7231">RFC7231</a> (9. Security Considerations) and for the HTTP <code>PATCH</code> method <a href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting points.</p>
+<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#rfc9110">RFC9110</a> (17. Security Considerations) and for the HTTP <code>PATCH</code> method <a href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting points.</p>
 <h2 id="b1-authentication"><a name="Authentication" href="#Authentication">B.1 Authentication</a></h2>
 <p>OData Services requiring authentication SHOULD consider supporting basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS for the highest level of interoperability with generic clients. They MAY support other authentication methods.</p>
 <hr />
