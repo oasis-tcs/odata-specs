@@ -4405,7 +4405,7 @@ reports; two existing employees and one new employee named
 ```json
 {
   "@type": "#Northwind.Manager",
-  "FirstName" : "Patricia",
+  "FirstName": "Patricia",
   "DirectReports": [
     {
       "@id": "Employees(5)"
