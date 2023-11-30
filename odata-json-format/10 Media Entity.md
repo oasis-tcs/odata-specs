@@ -98,7 +98,7 @@ Example ##ex: complex value
 Example ##ex: empty collection of complex values
 ```json
 {
-  "@context":"http://host/service/$metadata#Collection(Model.Address)",
+  "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
 }
 ```

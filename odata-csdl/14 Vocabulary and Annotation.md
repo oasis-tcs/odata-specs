@@ -349,8 +349,7 @@ are defined in [OData-VocCore](#ODataVocCore))
     "Property",
     "Term"
   ],
-  "@Core.Description": "Properties and terms annotated with this term
-MUST contain a valid URL",
+  "@Core.Description": "Properties and terms annotated with this term MUST contain a valid URL",
   "@Core.RequiresType": "Edm.String"
 }
 ```

@@ -4181,7 +4181,7 @@ entity with links to an existing manager (of managers) and to two existing emplo
 annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@odata.type":"#Northwind.Manager",
+  "@odata.type": "#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
@@ -4200,7 +4200,7 @@ entity with links to an existing manager (of managers) and to two existing emplo
 within the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@type":"#Northwind.Manager",
+  "@type": "#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
@@ -4398,7 +4398,7 @@ reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
-  "@type":"#Northwind.Manager",
+  "@type": "#Northwind.Manager",
   "FirstName" : "Patricia",
   "DirectReports": [
     {
