@@ -101,11 +101,11 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "@editLink": "Customers('ALFKI')",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -230,7 +230,7 @@ Example ##ex:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@metadataEtag": "W/\"A1FF3E230954908F\"",
-  ...
+  …
 }
 ```
 :::
@@ -338,7 +338,7 @@ metadata document of the same service with a dynamic property of type
   "ID": 2,
   "DynamicValue@type": "Date",
   "DynamicValue": "2016-09-22",
-  ...
+  …
 }
 ```
 :::
@@ -351,7 +351,7 @@ metadata  document of a different service
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@type": "http://host/alternate/$metadata#Model.VipCustomer",
   "ID": 2,
-  ...
+  …
 }
 ```
 :::
@@ -589,7 +589,7 @@ Example ##ex:
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -632,7 +632,7 @@ Example ##ex: Annotating primitive values within a collection
     "JulieSwa@live.com",
     "Julie.Swansworth@work.com"
   ],
-  ...
+  …
 }
 ```
 :::

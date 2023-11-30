@@ -158,11 +158,17 @@ literals are represented as two consecutive single quotes.
 Example ##ex: valid OData URLs:
 ```
 http://host/service/People('O''Neil')
+```
 
+```
 http://host/service/People(%27O%27%27Neil%27)
+```
 
+```
 http://host/service/People%28%27O%27%27Neil%27%29
+```
 
+```
 http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
@@ -171,9 +177,13 @@ http://host/service/Categories('Smartphone%2FTablet')
 Example ##ex: invalid OData URLs:
 ```
 http://host/service/People('O'Neil')
+```
 
+```
 http://host/service/People('O%27Neil')
+```
 
+```
 http://host/service/Categories('Smartphone/Tablet')
 ```
 :::

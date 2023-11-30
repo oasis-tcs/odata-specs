@@ -447,7 +447,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 

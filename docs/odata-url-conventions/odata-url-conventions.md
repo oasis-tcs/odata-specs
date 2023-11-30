@@ -400,11 +400,17 @@ literals are represented as two consecutive single quotes.
 Example 3: valid OData URLs:
 ```
 http://host/service/People('O''Neil')
+```
 
+```
 http://host/service/People(%27O%27%27Neil%27)
+```
 
+```
 http://host/service/People%28%27O%27%27Neil%27%29
+```
 
+```
 http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
@@ -413,9 +419,13 @@ http://host/service/Categories('Smartphone%2FTablet')
 Example 4: invalid OData URLs:
 ```
 http://host/service/People('O'Neil')
+```
 
+```
 http://host/service/People('O%27Neil')
+```
 
+```
 http://host/service/Categories('Smartphone/Tablet')
 ```
 :::
@@ -795,9 +805,13 @@ specified key property name, and the canonical short form without key
 property name
 ```
 http://host/service/Employees(SSN='123-45-6789')
+```
 
+```
 http://host/service/Employees(ID='A1245')
+```
 
+```
 http://host/service/Employees('A1245')
 ```
 :::
@@ -815,15 +829,25 @@ percent encoded.
 Example 25: valid OData URLs:
 ```
 http://host/service/Employees/A1245
+```
 
+```
 http://host/service/People/O'Neil
+```
 
+```
 http://host/service/People/O%27Neil
+```
 
+```
 http://host/service/Categories/Smartphone%2FTablet
+```
 
+```
 http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+```
 
+```
 http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
@@ -837,7 +861,9 @@ Example 26: multi-part key predicate, parentheses-style and
 key-as-segment
 ```
 https://host/service/OrderItems(OrderID=1,ItemNo=2)
+```
 
+```
 https://host/service/OrderItems/1/2
 ```
 :::
@@ -920,9 +946,13 @@ Example 29: three ways of unrelating `Categories(1)` and
 `Products(0)`; the second option is supported only in OData 4.01
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
+```
 
+```
 DELETE http://host/service/Categories(1)/Products(0)/$ref
+```
 
+```
 DELETE http://host/service/Products(0)/Category/$ref
 ```
 :::
@@ -1151,7 +1181,9 @@ Example 37: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
 http://host/service/Customers/Model.VipCustomer(1)
+```
 
+```
 http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
@@ -1322,20 +1354,20 @@ http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/Prod
 and would result in
 ```json
 {
-  "@odata.context":"http://host/service/$metadata#Collection(Edm.ComplexType)",
-  "value":[
+  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "value": [
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(42)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(57)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(57)",
     },
-    ...
+    …
     {
-      "Products@odata.navigationLink":"Products(99)",
-      "Sales@odata.navigationLink":"Sales(21)",
+      "Products@odata.navigationLink": "Products(99)",
+      "Sales@odata.navigationLink": "Sales(21)",
     }
   ]
 }
@@ -2204,13 +2236,21 @@ how the `hassubset` function is invoked.
 Example 77: `hassubset` expressions that return true
 ```
 hassubset([4,1,3],[4,1,3])
+```
 
+```
 hassubset([4,1,3],[1,3,4])
+```
 
+```
 hassubset([4,1,3],[3,1])
+```
 
+```
 hassubset([4,1,3],[4,3])
+```
 
+```
 hassubset([4,1,3,1],[1,1])
 ```
 :::
@@ -2240,11 +2280,17 @@ items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 Example 79: `hassubsequence` expressions that return true
 ```
 hassubsequence([4,1,3],[4,1,3])
+```
 
+```
 hassubsequence([4,1,3],[4,1])
+```
 
+```
 hassubsequence([4,1,3],[4,3])
+```
 
+```
 hassubsequence([4,1,3,1],[1,1])
 ```
 :::
@@ -2253,9 +2299,13 @@ hassubsequence([4,1,3,1],[1,1])
 Example 80: `hassubsequence` expressions that return false
 ```
 hassubsequence([4,1,3],[1,3,4])
+```
 
+```
 hassubsequence([4,1,3],[3,1])
+```
 
+```
 hassubsequence([1,2],[1,1,2])
 ```
 :::
@@ -2751,6 +2801,9 @@ The `isofExpr` syntax rule defines how the `isof` function is invoked.
 Example 95: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
+```
+
+```
 http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 ```
 :::
@@ -2809,7 +2862,7 @@ parameter in the coordinate reference system signified by its SRID.
 The `case` function has the following signature:
 
 ```
-expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
+expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
@@ -2937,41 +2990,77 @@ according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 Example 102: expressions using primitive literals
 ```
 NullValue eq null
+```
 
+```
 TrueValue eq true
+```
 
+```
 FalseValue eq false
+```
 
+```
 Custom.Base64UrlDecode(binary'T0RhdGE') eq 'OData'
+```
 
+```
 IntegerValue lt -128
+```
 
+```
 DoubleValue ge 0.31415926535897931e1
+```
 
+```
 SingleValue eq INF
+```
 
+```
 DecimalValue eq 34.95
+```
 
+```
 StringValue eq 'Say Hello,then go'
+```
 
+```
 DateValue eq 2012-12-03
+```
 
+```
 DateTimeOffsetValue eq 2012-12-03T07:16:23Z
+```
 
+```
 DurationValue eq duration'P12DT23H59M59.999999999999S'
+```
 
+```
 DurationValue eq 'P12DT23H59M59.999999999999S'
+```
 
+```
 TimeOfDayValue eq 07:59:59.999
+```
 
+```
 GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
+```
 
+```
 Int64Value eq 0
+```
 
+```
 ColorEnumValue eq Sales.Pattern'Yellow'
+```
 
+```
 ColorEnumValue eq 'Yellow'
+```
 
+```
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
 :::

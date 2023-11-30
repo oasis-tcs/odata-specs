@@ -426,21 +426,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For example, one of these rules is that single quotes within string literals are represented as two consecutive single quotes.</p>
 <div class="example">
 <p>Example 3: valid OData URLs:</p>
-<pre><code>http://host/service/People(&#39;O&#39;&#39;Neil&#39;)
-
-http://host/service/People(%27O%27%27Neil%27)
-
-http://host/service/People%28%27O%27%27Neil%27%29
-
-http://host/service/Categories(&#39;Smartphone%2FTablet&#39;)</code></pre>
+<pre><code>http://host/service/People(&#39;O&#39;&#39;Neil&#39;)</code></pre>
+<pre><code>http://host/service/People(%27O%27%27Neil%27)</code></pre>
+<pre><code>http://host/service/People%28%27O%27%27Neil%27%29</code></pre>
+<pre><code>http://host/service/Categories(&#39;Smartphone%2FTablet&#39;)</code></pre>
 </div>
 <div class="example">
 <p>Example 4: invalid OData URLs:</p>
-<pre><code>http://host/service/People(&#39;O&#39;Neil&#39;)
-
-http://host/service/People(&#39;O%27Neil&#39;)
-
-http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
+<pre><code>http://host/service/People(&#39;O&#39;Neil&#39;)</code></pre>
+<pre><code>http://host/service/People(&#39;O%27Neil&#39;)</code></pre>
+<pre><code>http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 </div>
 <p>The first and second examples are invalid because a single quote in a string literal must be represented as two consecutive single quotes. The third example is invalid because forward slashes are interpreted as path segment separators and <code>Categories('Smartphone</code> is not a valid OData path segment, nor is <code>Tablet')</code>.</p>
 <hr />
@@ -621,34 +616,26 @@ http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 <p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Entities can be addressed via an alternate key using the same parentheses-style convention as for the canonical key, with one difference: single-part alternate keys MUST specify the key property name to unambiguously determine the alternate key.</p>
 <div class="example">
 <p>Example 24: the same employee identified via the alternate key SSN, the canonical (primary) key ID using the non-canonical long form with specified key property name, and the canonical short form without key property name</p>
-<pre><code>http://host/service/Employees(SSN=&#39;123-45-6789&#39;)
-
-http://host/service/Employees(ID=&#39;A1245&#39;)
-
-http://host/service/Employees(&#39;A1245&#39;)</code></pre>
+<pre><code>http://host/service/Employees(SSN=&#39;123-45-6789&#39;)</code></pre>
+<pre><code>http://host/service/Employees(ID=&#39;A1245&#39;)</code></pre>
+<pre><code>http://host/service/Employees(&#39;A1245&#39;)</code></pre>
 </div>
 <h3 id="436-key-as-segment-convention"><a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a></h3>
 <p>Services MAY support an alternate convention for addressing entities by appending a segment containing the unprefixed and unquoted key value to the URL of the collection containing the entity. Forward-slashes in key value segments MUST be percent-encoded; single quotes within key value segments are treated as part of the key value and do not need to be doubled or percent encoded.</p>
 <div class="example">
 <p>Example 25: valid OData URLs:</p>
-<pre><code>http://host/service/Employees/A1245
-
-http://host/service/People/O&#39;Neil
-
-http://host/service/People/O%27Neil
-
-http://host/service/Categories/Smartphone%2FTablet
-
-http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
-
-http://host/service/ThingyWithEnumerationKey/Yellow</code></pre>
+<pre><code>http://host/service/Employees/A1245</code></pre>
+<pre><code>http://host/service/People/O&#39;Neil</code></pre>
+<pre><code>http://host/service/People/O%27Neil</code></pre>
+<pre><code>http://host/service/Categories/Smartphone%2FTablet</code></pre>
+<pre><code>http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S</code></pre>
+<pre><code>http://host/service/ThingyWithEnumerationKey/Yellow</code></pre>
 </div>
 <p>For multi-part keys, the entity MUST be addressed by multiple segments applied, one for each key value, in the order they appear in the metadata description of the entity key.</p>
 <div class="example">
 <p>Example 26: multi-part key predicate, parentheses-style and key-as-segment</p>
-<pre><code>https://host/service/OrderItems(OrderID=1,ItemNo=2)
-
-https://host/service/OrderItems/1/2</code></pre>
+<pre><code>https://host/service/OrderItems(OrderID=1,ItemNo=2)</code></pre>
+<pre><code>https://host/service/OrderItems/1/2</code></pre>
 </div>
 <p>If a navigation property leading to a related entity type has a partner navigation property that specifies a referential constraint, then those key properties of the related entity that take part in the referential constraint MUST be omitted from URLs using key-as-segment convention.</p>
 <div class="example">
@@ -676,11 +663,9 @@ https://host/service/OrderItems/1/2</code></pre>
 <p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <div class="example">
 <p>Example 29: three ways of unrelating <code>Categories(1)</code> and <code>Products(0)</code>; the second option is supported only in OData 4.01</p>
-<pre><code>DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
-
-DELETE http://host/service/Categories(1)/Products(0)/$ref
-
-DELETE http://host/service/Products(0)/Category/$ref</code></pre>
+<pre><code>DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)</code></pre>
+<pre><code>DELETE http://host/service/Categories(1)/Products(0)/$ref</code></pre>
+<pre><code>DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <h2 id="45-addressing-operations"><a name="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
 <p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
@@ -753,9 +738,8 @@ DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
 <div class="example">
 <p>Example 37: entity restricted to a <code>VipCustomer</code> instance, resulting in <code>404 Not Found</code> if the customer with key <code>1</code> is not a <code>VipCustomer</code></p>
-<pre><code>http://host/service/Customers/Model.VipCustomer(1)
-
-http://host/service/Customers(1)/Model.VipCustomer</code></pre>
+<pre><code>http://host/service/Customers/Model.VipCustomer(1)</code></pre>
+<pre><code>http://host/service/Customers(1)/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
 <p>Example 38: cast the complex property <code>Address</code> to its derived type <code>DetailedAddress</code>, then get a property of the derived type</p>
@@ -811,24 +795,24 @@ http://host/service/Customers(1)/Model.VipCustomer</code></pre>
 <p>Example 46: if <code>Sales</code> had a structural property <code>ProductID</code> instead of a navigation property <code>Product</code>, a “cross join” between <code>Sales</code> and <code>Products</code> could be addressed</p>
 <pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID</code></pre>
 <p>and would result in</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span><span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="416-addressing-all-entities-in-a-service"><a name="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a></h2>
 <p>The symbolic resource <code>$all</code>, located at the service root, identifies the collection of all entities in a service, i.e. the union of all entity sets plus all singletons.</p>
@@ -1161,15 +1145,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The <code>hassubset</code> function returns true if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
 <p>Example 77: <code>hassubset</code> expressions that return true</p>
-<pre><code>hassubset([4,1,3],[4,1,3])
-
-hassubset([4,1,3],[1,3,4])
-
-hassubset([4,1,3],[3,1])
-
-hassubset([4,1,3],[4,3])
-
-hassubset([4,1,3,1],[1,1])</code></pre>
+<pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
+<pre><code>hassubset([4,1,3],[1,3,4])</code></pre>
+<pre><code>hassubset([4,1,3],[3,1])</code></pre>
+<pre><code>hassubset([4,1,3],[4,3])</code></pre>
+<pre><code>hassubset([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
 <p>Example 78: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
@@ -1181,21 +1161,16 @@ hassubset([4,1,3,1],[1,1])</code></pre>
 <p>The <code>hassubsequence</code> function returns true if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
 <p>Example 79: <code>hassubsequence</code> expressions that return true</p>
-<pre><code>hassubsequence([4,1,3],[4,1,3])
-
-hassubsequence([4,1,3],[4,1])
-
-hassubsequence([4,1,3],[4,3])
-
-hassubsequence([4,1,3,1],[1,1])</code></pre>
+<pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
+<pre><code>hassubsequence([4,1,3],[4,1])</code></pre>
+<pre><code>hassubsequence([4,1,3],[4,3])</code></pre>
+<pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
 <p>Example 80: <code>hassubsequence</code> expressions that return false</p>
-<pre><code>hassubsequence([4,1,3],[1,3,4])
-
-hassubsequence([4,1,3],[3,1])
-
-hassubsequence([1,2],[1,1,2])</code></pre>
+<pre><code>hassubsequence([4,1,3],[1,3,4])</code></pre>
+<pre><code>hassubsequence([4,1,3],[3,1])</code></pre>
+<pre><code>hassubsequence([1,2],[1,1,2])</code></pre>
 </div>
 <h4 id="5117-string-functions"><a name="StringFunctions" href="#StringFunctions">5.1.1.7 String Functions</a></h4>
 <h5 id="51171-matchespattern"><a name="matchespattern" href="#matchespattern">5.1.1.7.1 <code>matchespattern</code></a></h5>
@@ -1387,8 +1362,8 @@ Edm.Boolean isof(expression,type)</code></pre>
 <p>The <code>isofExpr</code> syntax rule defines how the <code>isof</code> function is invoked.</p>
 <div class="example">
 <p>Example 95: orders that are also <code>BigOrders</code></p>
-<pre><code>http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
-http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)</code></pre>
+<pre><code>http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)</code></pre>
+<pre><code>http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)</code></pre>
 </div>
 <div class="example">
 <p>Example 96: orders of a customer that is a <code>VIPCustomer</code></p>
@@ -1413,7 +1388,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h4 id="51112-conditional-functions"><a name="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a></h4>
 <h5 id="511121-case"><a name="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>
 <p>The <code>case</code> function has the following signature:</p>
-<pre><code>expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)</code></pre>
+<pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
 <p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
 <p>The case function evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-null “default/else/otherwise” result.</p>
 <p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
@@ -1456,43 +1431,25 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <code>primitiveLiteral</code> rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <div class="example">
 <p>Example 102: expressions using primitive literals</p>
-<pre><code>NullValue eq null
-
-TrueValue eq true
-
-FalseValue eq false
-
-Custom.Base64UrlDecode(binary&#39;T0RhdGE&#39;) eq &#39;OData&#39;
-
-IntegerValue lt -128
-
-DoubleValue ge 0.31415926535897931e1
-
-SingleValue eq INF
-
-DecimalValue eq 34.95
-
-StringValue eq &#39;Say Hello,then go&#39;
-
-DateValue eq 2012-12-03
-
-DateTimeOffsetValue eq 2012-12-03T07:16:23Z
-
-DurationValue eq duration&#39;P12DT23H59M59.999999999999S&#39;
-
-DurationValue eq &#39;P12DT23H59M59.999999999999S&#39;
-
-TimeOfDayValue eq 07:59:59.999
-
-GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
-
-Int64Value eq 0
-
-ColorEnumValue eq Sales.Pattern&#39;Yellow&#39;
-
-ColorEnumValue eq &#39;Yellow&#39;
-
-geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
+<pre><code>NullValue eq null</code></pre>
+<pre><code>TrueValue eq true</code></pre>
+<pre><code>FalseValue eq false</code></pre>
+<pre><code>Custom.Base64UrlDecode(binary&#39;T0RhdGE&#39;) eq &#39;OData&#39;</code></pre>
+<pre><code>IntegerValue lt -128</code></pre>
+<pre><code>DoubleValue ge 0.31415926535897931e1</code></pre>
+<pre><code>SingleValue eq INF</code></pre>
+<pre><code>DecimalValue eq 34.95</code></pre>
+<pre><code>StringValue eq &#39;Say Hello,then go&#39;</code></pre>
+<pre><code>DateValue eq 2012-12-03</code></pre>
+<pre><code>DateTimeOffsetValue eq 2012-12-03T07:16:23Z</code></pre>
+<pre><code>DurationValue eq duration&#39;P12DT23H59M59.999999999999S&#39;</code></pre>
+<pre><code>DurationValue eq &#39;P12DT23H59M59.999999999999S&#39;</code></pre>
+<pre><code>TimeOfDayValue eq 07:59:59.999</code></pre>
+<pre><code>GuidValue eq 01234567-89ab-cdef-0123-456789abcdef</code></pre>
+<pre><code>Int64Value eq 0</code></pre>
+<pre><code>ColorEnumValue eq Sales.Pattern&#39;Yellow&#39;</code></pre>
+<pre><code>ColorEnumValue eq &#39;Yellow&#39;</code></pre>
+<pre><code>geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
 <p>Duration literals in OData 4.0 required prefixing with “<code>duration</code>”. Enumeration literals in OData 4.0 required prefixing with the qualified type name of the enumeration.</p>
 <p>In OData 4.01, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 services should always include the prefix for duration and enumeration types.</p>
