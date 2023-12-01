@@ -211,7 +211,7 @@ payload. This URL can be absolute or [relative](#RelativeURLs).
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
-first property of any JSON response that allows this control information.
+first property of any JSON response that allows this control information (this excludes for example [error responses](#ErrorResponse)).
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
