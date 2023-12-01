@@ -485,7 +485,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
 <h3 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
 <p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>.</p>
-<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response.</p>
+<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response that allows this control information.</p>
 <p>The <code>context</code> control information MUST also be included in requests and responses for entities whose entity set cannot be determined from the context URL of the collection.</p>
 <p>For more information on the format of the context URL, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>Request payloads MAY include a context URL as a base URL for <a href="#RelativeURLs">relative URLs</a> in the request payload.</p>
