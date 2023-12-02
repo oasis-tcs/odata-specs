@@ -2691,7 +2691,7 @@ key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
-[`$expand`](#SystemQueryOptionexpand)system query options.
+[`$expand`](#SystemQueryOptionexpand) system query options.
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
