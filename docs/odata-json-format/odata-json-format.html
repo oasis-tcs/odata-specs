@@ -404,7 +404,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="32-controlling-the-representation-of-numbers"><a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
 <p>The <code>IEEE754Compatible=true</code> format parameter indicates that the service MUST serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers (including the <a href="#ControlInformationcountodatacount"><code>count</code></a>, if requested) as strings. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <p>If not specified, or specified as <code>IEEE754Compatible=false</code>, all numbers MUST be serialized as JSON numbers.</p>
-<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <strong>[<a href="#ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>]</strong>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
+<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <a href="#_ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
 <p>OData JSON request and response payloads that format <code>Edm.Int64</code> and <code>Edm.Decimal</code> values as strings MUST specify this format parameter in the media type sent in the <a href="#HeaderContentType"><code>Content-Type</code></a> header.</p>
 <p>Services producing responses without format parameter <code>IEEE754Compatible=true</code> which are unable to produce exact JSON numbers MAY serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers with a rounded/inexact value as a JSON number and annotate that value with an instance annotation with term <code>Core.ValueException</code> defined in <a href="#ODataVocCore">OData-VocCore</a> containing the exact value as a string. This situation can for example happen if the client only accepts <code>application/json</code> without any format parameters and the service is written in JavaScript.</p>
 <p>For payloads with an <code>OData-Version</code> header equal to <code>4.0</code> the <code>ExponentialDecimals=true</code> format parameter indicates that the service MAY serialize <code>Edm.Decimal</code> numbers in exponential notation (e.g. <code>1e-6</code> instead of <code>0.000001</code>).</p>
@@ -989,7 +989,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
-<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information. If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
+<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
+<p>If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
 <div class="example">
 <p>Example 25:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2154,7 +2155,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
 <p><em>Bray, T., Ed., “The JavaScript Object Notation (JSON) Data Interchange Format”, STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
+<h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>

@@ -433,9 +433,9 @@ processing (if specified with an explicit value of `false`). The syntax
 of the `continue-on-error` preference is defined in
 [OData-ABNF](#ODataABNF).
 
-The `continue-on-error` preference can also be used on a 
-[delta update](#UpdateaCollectionofEntities), 
-[set-based update](#UpdateMembersofaCollection), or 
+The `continue-on-error` preference can also be used on a
+[delta update](#UpdateaCollectionofEntities),
+[set-based update](#UpdateMembersofaCollection), or
 [set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
@@ -1047,7 +1047,7 @@ This code serves as a sub-status for the HTTP error code specified in
 the response.
 - `message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
-The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
+The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
 language code from [RFC5646](#rfc5646) corresponding to the language in
 which the value for message is written.
 - `target`: optional nullable, potentially

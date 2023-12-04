@@ -59,7 +59,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example ##ex: minimal representation of a function where all overloads are
 applicable
@@ -71,7 +71,7 @@ applicable
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation of a specific overload with parameter
 alias for the `Year` parameter
@@ -86,7 +86,7 @@ alias for the `Year` parameter
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in a collection
 ```json
@@ -163,7 +163,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example ##ex: minimal representation in an entity
 ```json
@@ -174,7 +174,7 @@ Example ##ex: minimal representation in an entity
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in an entity:
 ```json
@@ -188,7 +188,7 @@ Example ##ex: full representation in an entity:
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in a collection
 ```json

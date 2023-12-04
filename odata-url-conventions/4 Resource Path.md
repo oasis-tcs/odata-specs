@@ -603,7 +603,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or 
+[`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
