@@ -636,11 +636,11 @@ Example 2:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "@editLink": "Customers('ALFKI')",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -765,7 +765,7 @@ Example 4:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@metadataEtag": "W/\"A1FF3E230954908F\"",
-  ...
+  …
 }
 ```
 :::
@@ -842,7 +842,7 @@ information:
   [`type`](#ControlInformationtypeodatatype)
   control information unless their type is `Double`.
 - The special floating-point values `-INF`, `INF`, and
-  `NaN `are serialized as strings and MUST have a
+  `NaN` are serialized as strings and MUST have a
   [`type`](#ControlInformationtypeodatatype)
   control information to specify the numeric type of the property.
 - String  values do have a first class representation in JSON, but there is an
@@ -873,7 +873,7 @@ metadata document of the same service with a dynamic property of type
   "ID": 2,
   "DynamicValue@type": "Date",
   "DynamicValue": "2016-09-22",
-  ...
+  …
 }
 ```
 :::
@@ -886,7 +886,7 @@ metadata  document of a different service
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@type": "http://host/alternate/$metadata#Model.VipCustomer",
   "ID": 2,
-  ...
+  …
 }
 ```
 :::
@@ -933,11 +933,11 @@ The `id` control information contains the entity-id, see
 identical to the canonical URL of the entity, as defined in
 [OData-URL](#ODataURL).
 
-The `id `control information MUST appear in responses if
+The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested, or if
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is requested and any of a non-transient entity\'s key fields are omitted
+is requested and any of a non-transient entity's key fields are omitted
 from the response _or_ the entity-id is not identical to the canonical
 URL of the entity after
 
@@ -1087,7 +1087,7 @@ doesn't follow standard URL conventions relative to the read link of the
 entity and the associated
 `mediaEditLink` is not present.
 
-The `mediaContentType `control information MAY be included;
+The `mediaContentType` control information MAY be included;
 its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
@@ -1124,7 +1124,7 @@ Example 7:
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -1155,11 +1155,11 @@ Example 8: Annotating primitive values within a collection
   "EmailAddresses@collectionAnnotations": [
     {
       "index": 0,
-      "@emailType": "Personal"
+      "@OfficeCommunication.emailType": "Personal"
     },
     {
       "index": 2,
-      "@emailType": "Work"
+      "@OfficeCommunication.emailType": "Work"
     }
   ],
   "EmailAddresses": [
@@ -1167,7 +1167,7 @@ Example 8: Annotating primitive values within a collection
     "JulieSwa@live.com",
     "Julie.Swansworth@work.com"
   ],
-  ...
+  …
 }
 ```
 :::
@@ -1388,15 +1388,7 @@ combination of named enumeration members) is
 available, the `enumMemberValue` representation may be used.
 
 Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys SHOULD be ordered with type first, then coordinates, then any other keys
-- If the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+defined in [RFC7946](#rfc7946).
 
 Geography and geometry types have the same representation in a JSON
 payload. Whether the value represents a geography type or geometry type
@@ -1442,7 +1434,7 @@ Example 13:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -1470,12 +1462,12 @@ Example 14: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
@@ -1506,7 +1498,7 @@ Example 15: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -1563,9 +1555,9 @@ Example 16:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -1590,9 +1582,9 @@ Example 17:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -1625,9 +1617,9 @@ Example 18:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -1648,21 +1640,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -1781,7 +1773,7 @@ Example 23: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -1830,13 +1822,13 @@ Example 24:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::
@@ -1860,9 +1852,9 @@ Example 25:
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded value...",
+  "$value": "…base64url encoded value…",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -1940,7 +1932,7 @@ Example 29: complex value
 Example 30: empty collection of complex values
 ```json
 {
-  "@context":"http://host/service/$metadata#Collection(Model.Address)",
+  "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
 }
 ```
@@ -2020,14 +2012,14 @@ partial result.
 Example 28:
 ```json
 {
-  "@context": "...",
+  "@context": "…",
   "@count": 37,
   "value": [
-    { ... },
-    { ... },
-    { ... }
+    { … },
+    { … },
+    { … }
   ],
-  "@nextLink": "...?$skiptoken=342r89"
+  "@nextLink": "…?$skiptoken=342r89"
 }
 ```
 :::
@@ -2157,7 +2149,7 @@ occurrence
     {
       "@context": "#Orders/$entity",
       "@id": "Orders(10643)",
-      "ShippingAddress":{
+      "ShippingAddress": {
         "Street": "23 Tsawassen Blvd.",
         "City": "Tsawassen",
         "Region": "BC",
@@ -2354,9 +2346,9 @@ Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "reason":"deleted",
-  "id":"Customers('ANTON')"
+  "@context": "#Customers/$deletedEntity",
+  "reason": "deleted",
+  "id": "Customers('ANTON')"
 }
 ```
 :::
@@ -2411,12 +2403,12 @@ Example 37: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "@removed":{
-    "reason":"deleted",
-    "@myannoation.deletedBy":"Mario"
+  "@context": "#Customers/$deletedEntity",
+  "@removed": {
+    "reason": "deleted",
+    "@myannoation.deletedBy": "Mario"
   },
-  "@id":"Customers('ANTON')"
+  "@id": "Customers('ANTON')"
 }
 ```
 :::
@@ -2427,8 +2419,8 @@ control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
 {
-  "@removed":{},
-  "ID":"ANTON"
+  "@removed": {},
+  "ID": "ANTON"
 }
 ```
 :::
@@ -2486,7 +2478,7 @@ the target MAY be omitted for single-valued navigation.
 
 ## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
 
-The body of a PATCH request to a URL identifying a collection of
+The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
@@ -2497,7 +2489,7 @@ entities, as well as [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example 39: 4.01 delta response customers with expanded orders represented
+Example 39: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
   1. Add customer `EASTC`
   2. Change `ContactName` of customer `AROUT`
@@ -2505,32 +2497,43 @@ inline as a delta
   4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
-     3. Change `ShippedDate` of related order 10835
+     3. Change `RequiredDate` of related order 10835
      4. Delete link to order 10643
   5. Add link between customer `ANATR` and order 10643
   6. Delete link between customer `DUMON` and order 10311
 ```json
+PATCH /service/Customers HTTP/1.1
+Host: host
+Content-Type: application/json
+Content-Length: ###
+Prefer: return=minimal, continue-on-error
+
 {
   "@context": "#$delta",
   "value": [
     {
+      "@Org.OData.Core.V1.ContentID": "1",
       "CustomerID": "EASTC",
       "CompanyName": "Eastern Connection",
       "ContactName": "Ann Devon",
       "ContactTitle": "Sales Agent"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "2",
       "CustomerID": "AROUT",
       "ContactName": "Thomas Hardy",
     },
     {
+      "@Org.OData.Core.V1.ContentID": "3",
       "@removed": {},
-      "CustomerID":"ANTON"
+      "CustomerID": "ANTON"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "4",
       "CustomerID": "ALFKI",
       "Orders@delta": [
         {
+          "@Org.OData.Core.V1.ContentID": "4.1",
           "OrderID": 11011,
           "CustomerID": "ALFKI",
           "EmployeeID": 3,
@@ -2539,13 +2542,16 @@ inline as a delta
           "ShippedDate": "1998-04-13T00:00:00Z"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.2",
           "@id": "Orders(10692)"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.3",
           "@id": "Orders(10835)",
-          "ShippedDate": "1998-01-23T00:00:00Z",
+          "RequiredDate": "1998-01-23T00:00:00Z",
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.4",
           "@removed": {
             "reason": "changed"
           },
@@ -2555,17 +2561,151 @@ inline as a delta
     },
     {
       "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "5",
       "source": "Customers('ANATR')",
-      "relationship":" Orders",
+      "relationship": "Orders",
       "target": "Orders(10643)"
     },
     {
       "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "6",
       "source": "Customers('DUMON')",
       "relationship": "Orders",
       "target": "Orders(10311)"
     }
   ]
+}
+```
+
+Assuming all changes can be applied without errors, the response would be
+```
+HTTP/1.1 204 No Content
+Preference-Applied: return=minimal, continue-on-error
+
+
+```
+
+Assuming some or all changes cannot be applied, the overall request is still deemed successful due to the `continue-on-error` preference, and the response details what went wrong
+  1. Add customer 'EASTC' - failed
+  2. Change `ContactName` of customer 'AROUT' - failed
+  3. Delete customer 'ANTON' - failed
+  4. Change customer 'ALFKI':
+     1. Create order 11011 - succeeded, not mentioned in response
+     2. Add link to existing order 10692 - succeeded, not mentioned in response
+     3. Change `RequiredDate` of related order 10835 - failed
+     4. Delete link to order 10643 - succeeded, not mentioned in response
+  5. Add link between customer 'ANATR' and order 10643 - failed without further info
+  6. Delete link between customer 'DUMON' and order 10311 - failed without further info
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: ###
+Preference-Applied: return=minimal, continue-on-error
+
+{
+  "@context": "#$delta",
+  "value": [
+    {
+      "@Org.OData.Core.V1.ContentID": "1",
+      "CustomerID": "EASTC",
+      "@removed": {},
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "insert",
+        "responseCode": 400,
+        "info": {
+          "code": "incmplt",
+          "message": "Required field(s) not provided",
+          "target": "Address",
+          "@OtherVocab.additionalTargets": [ "Industry", "VATRegistration" ],
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "2",
+      "CustomerID": "AROUT",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "update",
+        "responseCode": 400,
+        "info": {
+          "code": "r-o",
+          "message": "Customer is archived and cannot be changed",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "3",
+      "CustomerID": "ANTON",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "delete",
+        "responseCode": 400,
+        "info": {
+          "code": "ufo",
+          "message": "Customer has unfinished orders and cannot be deleted",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "4",
+      "CustomerID": "ALFKI",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "4.3",
+          "@id": "Orders(10835)",
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "update",
+            "responseCode": 400,
+            "info": {
+              "code": "b/s",
+              "message": "RequiredDate cannot be changed because Order is already being shipped",
+              "severity": "error"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "5",
+      "source": "Customers('ANATR')",
+      "relationship": "Orders",
+      "target": "Orders(10643)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "link",
+        "responseCode": 404,
+        "info": null
+      }
+    },
+    {
+      "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "6",
+      "source": "Customers('DUMON')",
+      "relationship": "Orders",
+      "target": "Orders(10311)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "unlink",
+        "responseCode": 400
+      }
+    }
+  ]
+}
+```
+
+Without the `continue-on-error` preference processing would stop on the first error, and the response would be a standard OData error response
+```json
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "error": {
+    "code": "incmplt",
+    "message": "Required field(s) not provided",
+    "target": "Customers('EASTC')/Address",
+    "@OtherVocab.additionalTargets": [ "Customers('EASTC')/Industry", "Customers('EASTC')/VATRegistration" ]
+  }
 }
 ```
 :::
@@ -2639,7 +2779,7 @@ applicable
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
   "#Model.RemainingVacation": {},
-  ...
+  …
 }
 ```
 :::
@@ -2654,7 +2794,7 @@ alias for the `Year` parameter
     "title": "Remaining vacation from year.",
     "target": "Employees(2)/RemainingVacation(Year=@Year)"
   },
-  ...
+  …
 }
 ```
 :::
@@ -2668,7 +2808,7 @@ Example 42: full representation in a collection
     "title": "Remaining Vacation",
     "target": "Managers(22)/Employees/RemainingVacation"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2680,7 +2820,7 @@ Example 43: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID":22,
-  ...
+  …
   "Employees#RemainingVacation": {
     "title": "RemainingVacation",
     "target": "Managers(22)/Employees/RemainingVacation"
@@ -2742,7 +2882,7 @@ Example 44: minimal representation in an entity
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
   "#Model.Approve": {},
-  ...
+  …
 }
 ```
 :::
@@ -2756,7 +2896,7 @@ Example 45: full representation in an entity:
     "title": "Approve Leave Request",
     "target": "LeaveRequests(2)/Approve"
   },
-  ...
+  …
 }
 ```
 :::
@@ -2770,7 +2910,7 @@ Example 46: full representation in a collection
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2782,7 +2922,7 @@ Example 47: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID": 22,
-  ...
+  …
   "LeaveRequests#Model.Approve": {
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
@@ -2960,6 +3100,9 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
  
 ::: example
 Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
@@ -3196,6 +3339,11 @@ Example 51: referencing the batch request [example 48](#batchRequest) above, ass
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
@@ -3278,7 +3426,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 
@@ -3388,8 +3536,10 @@ should never error due to an unexpected annotation in a JSON payload.
 Annotations are always expressed as name/value pairs. For entity data
 model constructs represented as JSON objects the annotation name/value
 pairs are placed within the object; for constructs represented as JSON
-arrays or primitives they are placed next to the annotated model
-construct. When annotating a payload that represents a
+arrays or primitives, including null, they are placed next to the annotated model
+construct and have the name of the annotated property before the `@`.
+An annotation in the latter format can also take the place of an absent property.
+When annotating a payload that represents a
 [single primitive or collection value](#IndividualPropertyorOperationResponse),
 the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
@@ -3520,8 +3670,8 @@ Example 55:
       }
     ],
     "innererror": {
-      "trace": [...],
-      "context": {...}
+      "trace": […],
+      "context": {…}
     }
   }
 }
@@ -3603,7 +3753,7 @@ the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
 [`nextLink`](#ControlInformationnextLinkodatanextLink).
-The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+The `nextLink` can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
 members are not available.
 
 -------
@@ -3780,10 +3930,6 @@ https://www.rfc-editor.org/info/rfc8259.
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
 ###### <a name="ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
 
 -------
 

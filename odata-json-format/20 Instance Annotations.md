@@ -26,8 +26,10 @@ should never error due to an unexpected annotation in a JSON payload.
 Annotations are always expressed as name/value pairs. For entity data
 model constructs represented as JSON objects the annotation name/value
 pairs are placed within the object; for constructs represented as JSON
-arrays or primitives they are placed next to the annotated model
-construct. When annotating a payload that represents a
+arrays or primitives, including null, they are placed next to the annotated model
+construct and have the name of the annotated property before the `@`.
+An annotation in the latter format can also take the place of an absent property.
+When annotating a payload that represents a
 [single primitive or collection value](#IndividualPropertyorOperationResponse),
 the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
@@ -158,8 +160,8 @@ Example ##ex:
       }
     ],
     "innererror": {
-      "trace": [...],
-      "context": {...}
+      "trace": […],
+      "context": {…}
     }
   }
 }
@@ -241,7 +243,7 @@ the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
 [`nextLink`](#ControlInformationnextLinkodatanextLink).
-The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+The `nextLink` can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
 members are not available.
 
 -------

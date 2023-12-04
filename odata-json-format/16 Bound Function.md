@@ -67,7 +67,7 @@ applicable
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
   "#Model.RemainingVacation": {},
-  ...
+  …
 }
 ```
 :::
@@ -82,7 +82,7 @@ alias for the `Year` parameter
     "title": "Remaining vacation from year.",
     "target": "Employees(2)/RemainingVacation(Year=@Year)"
   },
-  ...
+  …
 }
 ```
 :::
@@ -96,7 +96,7 @@ Example ##ex: full representation in a collection
     "title": "Remaining Vacation",
     "target": "Managers(22)/Employees/RemainingVacation"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -108,7 +108,7 @@ Example ##ex: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID":22,
-  ...
+  …
   "Employees#RemainingVacation": {
     "title": "RemainingVacation",
     "target": "Managers(22)/Employees/RemainingVacation"
@@ -170,7 +170,7 @@ Example ##ex: minimal representation in an entity
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
   "#Model.Approve": {},
-  ...
+  …
 }
 ```
 :::
@@ -184,7 +184,7 @@ Example ##ex: full representation in an entity:
     "title": "Approve Leave Request",
     "target": "LeaveRequests(2)/Approve"
   },
-  ...
+  …
 }
 ```
 :::
@@ -198,7 +198,7 @@ Example ##ex: full representation in a collection
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -210,7 +210,7 @@ Example ##ex: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID": 22,
-  ...
+  …
   "LeaveRequests#Model.Approve": {
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"

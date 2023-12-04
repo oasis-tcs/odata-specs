@@ -18,8 +18,8 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData
-service using the Extensible Markup Language (XML) 1.1 (Second Edition)
-[XML-1.1](#XML-11) with further building blocks from the W3C XML
+service using the Extensible Markup Language (XML) 1.0 (Fifth Edition)
+[XML-1.0](#XML-10) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -258,8 +258,8 @@ this specification document take precedence.
 # ##sec XML Representation
 
 OData CSDL XML is a full representation of the OData Common Schema
-Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML-11) with further building blocks from the
+Definition Language in the Extensible Markup Language (XML) 1.0 (Fifth
+Edition) [XML-1.0](#XML-10) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -486,7 +486,7 @@ parameter or return type of an [action](#Action) or
 underlying type is `Edm.Stream`, cannot be used in collections or for
 non-binding parameters to functions or actions.
 
-Some of these types allow [facets](#TypeFacets), defined in section
+Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
 See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
@@ -562,7 +562,7 @@ via `PATCH` and exclusively specifying modified values will reduce
 the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
