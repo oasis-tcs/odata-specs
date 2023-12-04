@@ -354,9 +354,13 @@ specified key property name, and the canonical short form without key
 property name
 ```
 http://host/service/Employees(SSN='123-45-6789')
+```
 
+```
 http://host/service/Employees(ID='A1245')
+```
 
+```
 http://host/service/Employees('A1245')
 ```
 :::
@@ -374,15 +378,25 @@ percent encoded.
 Example ##ex: valid OData URLs:
 ```
 http://host/service/Employees/A1245
+```
 
+```
 http://host/service/People/O'Neil
+```
 
+```
 http://host/service/People/O%27Neil
+```
 
+```
 http://host/service/Categories/Smartphone%2FTablet
+```
 
+```
 http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+```
 
+```
 http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
@@ -396,7 +410,9 @@ Example ##ex: multi-part key predicate, parentheses-style and
 key-as-segment
 ```
 https://host/service/OrderItems(OrderID=1,ItemNo=2)
+```
 
+```
 https://host/service/OrderItems/1/2
 ```
 :::
@@ -479,9 +495,13 @@ Example ##ex: three ways of unrelating `Categories(1)` and
 `Products(0)`; the second option is supported only in OData 4.01
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
+```
 
+```
 DELETE http://host/service/Categories(1)/Products(0)/$ref
+```
 
+```
 DELETE http://host/service/Products(0)/Category/$ref
 ```
 :::
@@ -577,7 +597,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or 
+[`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
@@ -635,7 +655,7 @@ supported by the service.
 
 For collection-valued navigation properties with navigation property
 bindings that end in a [type-cast segment](#AddressingDerivedTypes),
-a [type-cast segment](#AddressingDerivedTypes) MUST be
+a type-cast segment MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -679,8 +699,8 @@ complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
-in a `404 Not Found` response. If used in a path expression that is part
-of a Boolean expression, the type cast will evaluate to `null`.
+in a `404 Not Found` response. If used in a path expression,
+the type cast will evaluate to `null`.
 
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
@@ -710,7 +730,9 @@ Example ##ex: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
 http://host/service/Customers/Model.VipCustomer(1)
+```
 
+```
 http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
@@ -812,7 +834,7 @@ a collection.
 
 To apply a [bound action](#AddressingActions) or function to each member
 of a collection, clients append the path segment `/$each` followed by a
-path segment identifying the [bound action](#AddressingActions) or
+path segment identifying the bound action or
 function. The response is a collection of instances of the result type
 of the bound operation. If the bound operation returns a collection, the
 response is a collection of collections. System query options applied to
@@ -876,25 +898,25 @@ Example ##ex: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
-http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                
+http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID
 ```
 and would result in
 ```json
 {
-  "@odata.context":"http://host/service/$metadata#Collection(Edm.ComplexType)",
-  "value":[
+  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "value": [
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(42)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(57)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(57)",
     },
-    ...
+    …
     {
-      "Products@odata.navigationLink":"Products(99)",
-      "Sales@odata.navigationLink":"Sales(21)",
+      "Products@odata.navigationLink": "Products(99)",
+      "Sales@odata.navigationLink": "Sales(21)",
     }
   ]
 }

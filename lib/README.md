@@ -77,10 +77,10 @@ new Number("odata-data-aggregation-ext").build(proc.stdin);
 
 The HTML file uses CSS stylesheets contained in the [`docs/*/styles`](../docs/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
 
-| Keyword occurs     | Markdown source                      | Rendered result                      |
-| ------------------ | ------------------------------------ | ------------------------------------ |
-| standalone         | `` The `aggregate` transformation `` | The ${\tt aggregate}$ transformation |
-| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$`   | ${\tt aggregate}(α{\tt\ as\ }D)$     |
+| Keyword occurs     | Markdown source                    | Rendered result                      |
+| ------------------ | ---------------------------------- | ------------------------------------ |
+| standalone         | ``The `aggregate` transformation`` | The ${\tt aggregate}$ transformation |
+| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$` | ${\tt aggregate}(α{\tt\ as\ }D)$     |
 
 A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
 
@@ -96,6 +96,10 @@ The following scripts can be executed manually or as part of a GitHub Action:
   - a copy of the common [`styles`](../styles) folder
   - a copy of the document-specific `*/images` folder, if this exists.
 - [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`docs/*`](../docs) folder.
+- [`npm run select <CSS selector> [<XPath expression>]`](selector.mjs) selects parts of the generated HTML documents by executing a CSS selector and optionally an XPath expression relative to each match. For example, syntax errors in JSON code snippets can be detected with
+  ```sh
+  npm run select ".json .er" "self::*[.!='…']/text()"
+  ```
 - [`npm test`](../test) runs a test suite.
 
 ## A note on diagrams

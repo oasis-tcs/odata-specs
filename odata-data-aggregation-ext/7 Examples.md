@@ -511,7 +511,7 @@ results in
           { "@context": "#SalesOrganizations/$entity",
             "ID": "US",      "SalesRegion": "Corporate Sales" } },
       ]
-    }, ...
+    }, …
   ]
 }
 ```
@@ -835,16 +835,16 @@ results in
 {
   "@context": "$metadata#Sales(Customer(Country),Total)",
   "value": [
-    { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Coffee" },
+    { "Customer": { "Country": "USA" },         "Product": { "Name": "Coffee" },
       "Total@type": "Decimal", "Total": 12
     },
-    { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Paper" },
+    { "Customer": { "Country": "Netherlands" }, "Product": { "Name": "Paper" },
       "Total@type": "Decimal", "Total":  3
     },
-    { "Customer":{ "Country": "USA" },
+    { "Customer": { "Country": "USA" },
       "Total@type": "Decimal", "Total": 19
     },
-    { "Customer":{ "Country": "Netherlands" },
+    { "Customer": { "Country": "Netherlands" },
       "Total@type": "Decimal", "Total":  5
     }
   ]
@@ -863,19 +863,19 @@ results in
 {
   "@context": "$metadata#Sales(Customer(Country),Product(Name),Total)",
   "value": [
-    { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Paper" },
+    { "Customer": { "Country": "Netherlands" }, "Product": { "Name": "Paper" },
       "Total@type": "Decimal", "Total":  3
     },
-    { "Customer":{ "Country": "Netherlands" }, "Product":{ "Name": "Sugar" },
+    { "Customer": { "Country": "Netherlands" }, "Product": { "Name": "Sugar" },
       "Total@type": "Decimal", "Total":  2
     },
-    { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Sugar" },
+    { "Customer": { "Country": "USA" },         "Product": { "Name": "Sugar" },
       "Total@type": "Decimal", "Total":  2
     },
-    { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Coffee" },
+    { "Customer": { "Country": "USA" },         "Product": { "Name": "Coffee" },
       "Total@type": "Decimal", "Total": 12
     },
-    { "Customer":{ "Country": "USA" },         "Product":{ "Name": "Paper" },
+    { "Customer": { "Country": "USA" },         "Product": { "Name": "Paper" },
       "Total@type": "Decimal", "Total":  5
     }
   ]
@@ -1511,14 +1511,14 @@ Note that `rolluprecursive` must preserve the preorder established by `traverse`
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
       "MultiParentWeightedTotal": 6 },
-    ...
+    …
     { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
       "MultiParentWeightedTotal": 9 },
     { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
         "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
       "MultiParentWeightedTotal": 4 },
-    ...
+    …
   ]
 }
 ```
@@ -1598,7 +1598,7 @@ results in
       "TotalPopulation@type": "Int32", "TotalPopulation": 1412000000 },
     { "Continent": { "Name": "Asia" }, "Country": { "Name": "India" },
       "TotalPopulation@type": "Int32", "TotalPopulation": 1408000000 },
-    ...
+    …
   ]
 }
 ```
