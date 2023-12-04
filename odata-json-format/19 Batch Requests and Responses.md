@@ -120,6 +120,9 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
  
 ::: example
 Example ##ex_batchRequest: a batch request that contains
@@ -357,6 +360,11 @@ Example ##ex: referencing the batch request [example ##batchRequest] above, assu
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
@@ -439,7 +447,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 

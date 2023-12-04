@@ -247,8 +247,8 @@ For complete copyright information please see the full Notices section in an App
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData
-service using the Extensible Markup Language (XML) 1.1 (Second Edition)
-[XML-1.1](#XML-11) with further building blocks from the W3C XML
+service using the Extensible Markup Language (XML) 1.0 (Fifth Edition)
+[XML-1.0](#XML-10) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -323,8 +323,8 @@ This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
 # <a name="XMLRepresentation" href="#XMLRepresentation">2 XML Representation</a>
 
 OData CSDL XML is a full representation of the OData Common Schema
-Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML-11) with further building blocks from the
+Definition Language in the Extensible Markup Language (XML) 1.0 (Fifth
+Edition) [XML-1.0](#XML-10) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -550,7 +550,7 @@ parameter or return type of an [action](#Action) or
 underlying type is `Edm.Stream`, cannot be used in collections or for
 non-binding parameters to functions or actions.
 
-Some of these types allow [facets](#TypeFacets), defined in section
+Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
 See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
@@ -612,7 +612,7 @@ via `PATCH` and exclusively specifying modified values will reduce
 the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
@@ -852,7 +852,7 @@ The `Version` attribute specifies the OData protocol version of the
 service. For OData 4.0 responses the value of this attribute MUST be
 `4.0`. For OData 4.01 responses the value of this attribute MUST be
 `4.01`. Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion `header with a value of `4.0`.
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### <a name="ElementedmxDataServices3" href="#ElementedmxDataServices3"> Element `edmx:DataServices`</a>
 
@@ -867,7 +867,7 @@ Example 7:
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:DataServices>
-    ...
+    …
   </edmx:DataServices>
 </edmx:Edmx>
 ```
@@ -929,16 +929,18 @@ Example 8: references to other CSDL documents
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
-   ...
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+   …
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
-    ...
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    …
   </edmx:Reference>
   <edmx:Reference Uri="http://example.org/display/v1">
-    ...
+    …
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1009,10 +1011,12 @@ vocabulary terms
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
-  <edmx:Reference Uri="http://vocabs.odata.org/capabilities/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" />
   </edmx:Reference>
-  <edmx:Reference Uri="http://vocabs.odata.org/core/v1">
+  <edmx:Reference
+   Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core">
       <Annotation Term="Core.DefaultNamespace" />
     </edmx:Include>
@@ -1020,7 +1024,7 @@ vocabulary terms
   <edmx:Reference Uri="http://example.org/display/v1">
     <edmx:Include Alias="UI" Namespace="org.example.display" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1107,7 +1111,7 @@ Example 10: reference documents that contain annotations
                              Qualifier="Tablet"
                              TargetNamespace="com.example.Person" />
   </edmx:Reference>
-  <edmx:DataServices>...</edmx:DataServices>
+  <edmx:DataServices>…</edmx:DataServices>
 </edmx:Edmx>
 ```
 :::
@@ -1144,6 +1148,9 @@ The schema's namespace is combined with the name of elements in the
 schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
+
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
 
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
@@ -1209,7 +1216,7 @@ schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
   <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  …
 </Schema>
 ```
 :::
@@ -1242,7 +1249,7 @@ Example 12: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
-  ...
+  …
 </Annotations>
 ```
 :::
@@ -1461,7 +1468,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
@@ -1780,14 +1787,14 @@ Example 22: the Product entity type has a navigation property to a
 Category, which has a navigation link back to one or more products
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false"
                       Partner="Products" />
   <NavigationProperty Name="Supplier" Type="self.Supplier" />
 </EntityType>
 
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)"
                       Partner="Category" />
 </EntityType>
@@ -2026,7 +2033,7 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="CategoryID" Type="Edm.String" Nullable="false"/>
   <Property Name="CategoryKind" Type="Edm.String" Nullable="true" />
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false">
@@ -2044,7 +2051,7 @@ the `Kind` property of the category.
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="Kind" Type="Edm.String" Nullable="true" />
-  ...
+  …
 </EntityType>
 ```
 :::
@@ -2093,7 +2100,7 @@ Example 24: deletion of a category implies deletion of the related
 products in that category
 ```xml
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)">
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"
@@ -2160,13 +2167,13 @@ Example 25: a complex type used by two entity types
 </ComplexType>
 
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="ProductDimensions" Type="self.Dimensions" />
   <Property Name="ShippingDimensions" Type="self.Dimensions" />
 </EntityType>
 
 <EntityType Name="ShipmentBox">
-  ...
+  …
   <Property Name="Dimensions" Type="self.Dimensions" />
 </EntityType>
 ```
@@ -2941,7 +2948,7 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```xml
 <EntityContainer Name="Extending" Extends="Some.Other.Schema.Base">
-  ...
+  …
 </EntityContainer>
 ```
 :::
@@ -3150,7 +3157,7 @@ Example 36: for an entity set in any container in scope
 
 ::: {.varxml .example}
 Example 37: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"
@@ -3322,7 +3329,7 @@ type specified by the term `SearchResult`
   <Property Name="ID" Nullable="false" Type="Edm.Int32" />
   <Property Name="Name" Type="Edm.String" />
   <Property Name="Description" Type="Edm.String" />
-  ...
+  …
   <Annotation Term="UI.DisplayName" Path="Name" />
   <Annotation Term="SearchVocabulary.SearchResult">
     <Record>
@@ -3471,14 +3478,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -4102,7 +4109,7 @@ the null value.
 ::: example
 Example 60: type-cast segment
 ```
-.../self.Manager/...
+…/self.Manager/…
 ```
 :::
 
@@ -4127,7 +4134,7 @@ properties:
 ::: example
 Example 61: term-cast segments
 ```
-.../@Capabilities.SortRestrictions/...
+…/@Capabilities.SortRestrictions/…
 ```
 :::
 
@@ -4147,7 +4154,7 @@ expression is the model element reached via this path.
 ::: example
 Example 62: property segments in model path
 ```
-.../Orders/Items/Product/...
+…/Orders/Items/Product/…
 ```
 :::
 
@@ -4167,11 +4174,11 @@ number of items in the collection identified by the preceding segment.
 ::: example
 Example 63: property segments in instance path
 ```
-.../Addresses/Street
+…/Addresses/Street
 ```
 
 ```
-.../Addresses/$count
+…/Addresses/$count
 ```
 :::
 
@@ -4188,9 +4195,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path addressing an annotation on a navigation property
+Example 64: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+…/Items@Core.Description
+```
+
+```
+…/Items/@Core.Description
 ```
 :::
 
@@ -4313,7 +4325,7 @@ enclosing type `self.A` of the hosting property `A2`.
   <EntityType Name="A">
     <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
     <Property Name="A2" Type="self.B" Nullable="false">
-      <Annotation Term="Core.Description" String="...">
+      <Annotation Term="Core.Description" String="…">
         <Annotation Term="Core.IsLanguageDependent" Path="A1" />
       </Annotation>
     </Property>
@@ -4333,7 +4345,7 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+    <Annotation Term="Core.Description" Qualifier="viaset" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
@@ -4349,7 +4361,7 @@ type `self.A` named in the target path.
 :::: varxml
 ```xml
   <Annotations Target="self.A/A2">
-    <Annotation Term="Core.Description" Qualifier="external" String="...">
+    <Annotation Term="Core.Description" Qualifier="external" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="A1" />
     </Annotation>
   </Annotations>
@@ -4372,7 +4384,7 @@ path](#PathExpressions) with the following restriction:
 - A non-null path MUST resolve to an annotation.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
 
@@ -4408,7 +4420,7 @@ Example 68:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -4440,7 +4452,7 @@ Example 69:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4482,7 +4494,7 @@ Example 70:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -4866,7 +4878,7 @@ Example 77: all non-empty `FirstName` values not containing the letters
 
 #### <a name="FunctionodatauriEncode" href="#FunctionodatauriEncode">14.4.4.4 Function `odata.uriEncode`</a>
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
@@ -5231,25 +5243,27 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```xml
-<Annotation Term="org.example.person.Employee">
-  <Record>
-    <Annotation Term="Core.Description" String="Annotation on record" />
-    <PropertyValue Property="GivenName" Path="FirstName">
-      <Annotation Term="Core.Description"
-                  String="Annotation on record member" />
-    </PropertyValue>
-    <PropertyValue Property="Surname" Path="LastName" />
-    <PropertyValue Property="DirectSupervisor" Path="Manager" />
-    <PropertyValue Property="CostCenter">
-      <UrlRef>
-        <Apply Function="odata.fillUriTemplate">
-          <String>http://host/anotherservice/CostCenters('{ccid}')</String>
-          <LabeledElement Name="ccid" Path="CostCenterID" />
-        </Apply>
-      </UrlRef>
-    </PropertyValue>
-  </Record>
-</Annotation>
+<Annotations Target="org.example.Person">
+  <Annotation Term="org.example.hcm.Employee">
+    <Record Type="org.example.hcm.Manager">
+      <Annotation Term="Core.Description" String="Annotation on record" />
+      <PropertyValue Property="GivenName" Path="FirstName">
+        <Annotation Term="Core.Description"
+                    String="Annotation on record member" />
+      </PropertyValue>
+      <PropertyValue Property="Surname" Path="LastName" />
+      <PropertyValue Property="DirectSupervisor" Path="Manager" />
+      <PropertyValue Property="CostCenter">
+        <UrlRef>
+          <Apply Function="odata.fillUriTemplate">
+            <String>http://host/anotherservice/CostCenters('{ccid}')</String>
+            <LabeledElement Name="ccid" Path="CostCenterID" />
+          </Apply>
+        </UrlRef>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>
 ```
 :::
 
@@ -5365,9 +5379,21 @@ segments
 Example 90: Target expressions
 ```
 MySchema.MyEntityContainer/MyEntitySet
+```
+
+```
 MySchema.MyEntityContainer/MySingleton
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/My.EntityType/MyContainmentNavProperty
+```
+
+```
 MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp
 ```
 :::
@@ -5483,7 +5509,7 @@ Example 91:
             </Collection>
           </Annotation>
         </EntitySet>
-        <Singleton Name="MainSupplier" Type="self.Supplier">
+        <Singleton Name="MainSupplier" Type="ODataDemo.Supplier">
           <NavigationPropertyBinding Path="Products" Target="Products" />
           <Annotation Term="Core.Description" String="Primary Supplier" />
         </Singleton>
@@ -5663,9 +5689,9 @@ _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14,
 https://www.rfc-editor.org/info/rfc8174.
 
 
-###### <a name="XML-11">[XML-1.1]</a>
-_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
-http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+###### <a name="XML-10">[XML-1.0]</a>
+_Extensible Markup Language (XML) 1.0 (Fifth Edition)_. T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, F. Yergeau, Editors, W3C Recommendation, 26 November 2008.  
+http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://www.w3.org/TR/xml/.
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  

@@ -54,15 +54,7 @@ combination of named enumeration members) is
 available, the `enumMemberValue` representation may be used.
 
 Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys SHOULD be ordered with type first, then coordinates, then any other keys
-- If the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+defined in [RFC7946](#rfc7946).
 
 Geography and geometry types have the same representation in a JSON
 payload. Whether the value represents a geography type or geometry type
@@ -108,7 +100,7 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -136,12 +128,12 @@ Example ##ex: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
@@ -172,7 +164,7 @@ Example ##ex: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -229,9 +221,9 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -256,9 +248,9 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -291,9 +283,9 @@ Example ##ex:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -314,21 +306,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -448,7 +440,7 @@ Example ##ex: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -497,13 +489,13 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::

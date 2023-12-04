@@ -80,10 +80,6 @@ https://www.rfc-editor.org/info/rfc8259.
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. 
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
-
 -------
 
 # Appendix ##asec Safety, Security and Privacy Considerations
