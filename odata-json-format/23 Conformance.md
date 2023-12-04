@@ -6,7 +6,7 @@
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
 <!--TODO: V4.02 conformance -->
- 
+
 In order to be a conforming consumer of the OData JSON format, a client or service:
 
 1. MUST either:

@@ -143,7 +143,7 @@ that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in
 [section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
-all characters in the unreserved set (see rule `unreserved` in 
+all characters in the unreserved set (see rule `unreserved` in
 [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded

@@ -3160,7 +3160,7 @@ Example ##ex:
     "$Function": "odata.fillUriTemplate"
   }
 },
- 
+
 "@Core.LongDescription#element": {
   "$UrlRef": "http://host/wiki/HowToUse"
 }

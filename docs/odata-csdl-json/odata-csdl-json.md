@@ -622,7 +622,9 @@ responses.
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
-action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+action or function [parameter](#Parameter),
+action or function [return type](#ReturnType), or
+[term](#Term).
 
 For single-valued model elements the facets apply to the value of the
 model element. For collection-valued model elements the facets apply to the items
@@ -5499,7 +5501,7 @@ Example 89:
     "$Function": "odata.fillUriTemplate"
   }
 },
- 
+
 "@Core.LongDescription#element": {
   "$UrlRef": "http://host/wiki/HowToUse"
 }
