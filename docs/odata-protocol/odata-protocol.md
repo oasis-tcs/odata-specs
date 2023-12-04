@@ -1312,7 +1312,10 @@ processing (if specified with an explicit value of `false`). The syntax
 of the `continue-on-error` preference is defined in
 [OData-ABNF](#ODataABNF).
 
-The `continue-on-error` preference can also be used on a [delta update](#UpdateaCollectionofEntities), [set-based update](#UpdateMembersofaCollection), or [set-based delete](#DeleteMembersofaCollection) to request that the service
+The `continue-on-error` preference can also be used on a
+[delta update](#UpdateaCollectionofEntities),
+[set-based update](#UpdateMembersofaCollection), or
+[set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
 A service MAY specify support for the `continue-on-error` preference
@@ -1923,7 +1926,7 @@ This code serves as a sub-status for the HTTP error code specified in
 the response.
 - `message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
-The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
+The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
 language code from [RFC5646](#rfc5646) corresponding to the language in
 which the value for message is written.
 - `target`: optional nullable, potentially
@@ -2297,9 +2300,9 @@ Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
-        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
+        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
+        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
 
@@ -2339,9 +2342,9 @@ the context URL.
 Example 23: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
-        $expand=DirectReports($select=FirstName,LastName;$levels=4)
+        $expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
+        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
 ```
 :::
 
@@ -2505,7 +2508,8 @@ Context URL templates:
 
     {context-url}#{entity-set}/$deletedEntity
     {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink 
+    {context-url}#{entity-set}/$deletedLink
+
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
 links, and deleted links. They are identified by the corresponding
@@ -2651,7 +2655,8 @@ OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
 character, which is optional in OData 4.01. 4.01 services MUST support
 case-insensitive system query option names specified with or without the
-`$` prefix. Clients that want to work with 4.0 services MUST use lower case names
+`$` prefix.
+Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
 The result of the request MUST be as if the system query options were
@@ -2691,7 +2696,7 @@ key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
-[`$expand`](#SystemQueryOptionexpand)system query options.
+[`$expand`](#SystemQueryOptionexpand) system query options.
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -3064,9 +3069,9 @@ Example 45: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
-   ?$filter=Orders/any(o:o/TotalPrice gt 100)
-   &$expand=Orders($compute=Price mult Qty as TotalPrice
-                  ;$select=Name,Price,Qty,TotalPrice)
+   ?$filter=Orders/any(o:o/TotalPrice gt 100)
+   &$expand=Orders($compute=Price mult Qty as TotalPrice
+                  ;$select=Name,Price,Qty,TotalPrice)
 ```
 :::
 
@@ -3660,8 +3665,8 @@ specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
       ?$id=http://host/service/Customers('ALFKI')
-      &$select=CompanyName,ContactName
-      &$expand=Orders
+      &$select=CompanyName,ContactName
+      &$expand=Orders
 ```
 :::
 
@@ -3677,7 +3682,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -3881,7 +3886,8 @@ MUST return changes, additions, or deletions to the expanded entities,
 as well as added or deleted links to expanded entities or nested
 collections representing current membership. If the defining query
 includes expanded references, then the delta link MUST return changes to
-the membership in the set of expanded references. 
+the membership in the set of expanded references.
+
 Navigation properties specified in the
 [`$select`](#SystemQueryOptionselect) list of a defining query are not
 used to define the scope or contents of the items being tracked. Clients
@@ -4181,15 +4187,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@odata.type": "#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@odata.type": "#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager@odata.bind": "http://host/service/Employees(0)",
-  "DirectReports@odata.bind": [
-    "http://host/service/Employees(5)",
-    "http://host/service/Employees(6)"
-  ]
+  "DirectReports@odata.bind": [
+    "http://host/service/Employees(5)",
+    "http://host/service/Employees(6)"
+  ]
 }
 ```
 :::
@@ -4200,15 +4206,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 within the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@type": "#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@type": "#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
-  "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
-  ]
+  "DirectReports": [
+    {"@id": "Employees(5)"},
+    {"@id": "Employees(6)"}
+  ]
 }
 ```
 :::
@@ -4398,21 +4404,21 @@ reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
-  "@type": "#Northwind.Manager",
-  "FirstName" : "Patricia",
-  "DirectReports": [
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type": "#Northwind.Manager",
+  "FirstName": "Patricia",
+  "DirectReports": [
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4454,33 +4460,33 @@ of employee 6 and link to it if necessary
 named "Suzanne Brown" and link to it
 ```json
 {
-  "@type": "#Northwind.Manager",
-  "FirstName": "Patricia",
-  "DirectReports@delta": [
-    {
-      "@removed": {
-        "reason": "deleted"
-      },
-      "@id": "Employees(3)"
-    },
-    {
-      "@removed": {
-        "reason": "changed"
-      },
-      "@id": "Employees(4)"
-    },
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type": "#Northwind.Manager",
+  "FirstName": "Patricia",
+  "DirectReports@delta": [
+    {
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Employees(3)"
+    },
+    {
+      "@removed": {
+        "reason": "changed"
+      },
+      "@id": "Employees(4)"
+    },
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4854,7 +4860,8 @@ The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
 
 If a complex-typed property is set to a different type in a `PATCH` request,
-properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+properties shared through inheritance, as well as dynamic properties,
+are retained (unless overwritten by new values in the payload).
 Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
@@ -4936,7 +4943,7 @@ POST /service/Customers('ALFKI')/EmailAddresses?$index=1
 Content-Type: application/json
 
 {
-  "value": "alfred@futterkiste.de"
+  "value": "alfred@futterkiste.de"
 }
 ```
 :::
@@ -5058,7 +5065,7 @@ PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
 Content-Type: application/json
 
 {
-  "Color": "taupe"
+  "Color": "taupe"
 }
 ```
 :::
@@ -5150,8 +5157,8 @@ Example 86: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
-  <Parameter Name="customer" Type="SampleModel.Customer" />
-  <ReturnType Type="SampleModel.Order" />
+  <Parameter Name="customer" Type="SampleModel.Customer" />
+  <ReturnType Type="SampleModel.Order" />
 </Function>
 ```
 :::
@@ -5170,8 +5177,8 @@ Example 88: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
-  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
-  <ReturnType Type="Diff.Overview" />
+  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
+  <ReturnType Type="Diff.Overview" />
 </Function>
 ```
 :::
@@ -5234,20 +5241,20 @@ a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
 ```json
 {
-  "@context": …,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": {
-    "title": "Most Recent Order",
-    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
-  },
-  …
+  "@context": …,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": {
+    "title": "Most Recent Order",
+    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
+  },
+  …
 }
 ```
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL](#ODataURL).
 
@@ -5259,11 +5266,11 @@ Example 92: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
-  "@context": …,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": null,
-  …
+  "@context": …,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": null,
+  …
 }
 ```
 :::
@@ -5296,7 +5303,7 @@ Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 To request processing of the function only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
@@ -5336,7 +5343,7 @@ Example 93: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
- 
+
 …
 ```
 :::
@@ -5350,7 +5357,7 @@ literal (for primitive values) or as a JSON formatted OData object (for
 complex values, or collections of primitive or complex values). Entity
 typed values are passed as JSON formatted entities that MAY include a
 subset of the properties, or just the entity reference, as appropriate
-to the function.  
+to the function.
 
 If a collection-valued function has no result for a given parameter
 value combination, the response is the format-specific representation of
@@ -5394,7 +5401,7 @@ Example 95: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
-      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
+      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
 ```
 :::
 
@@ -5502,7 +5509,7 @@ Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
 request to a URL identifying the action import. The canonical URL for an
@@ -5567,11 +5574,11 @@ If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="
 Content-Type: application/json
 
 {
-  "items": [
-    { "product": 4001, "quantity": 2 },
-    { "product": 7062, "quantity": 1 },
+  "items": [
+    { "product": 4001, "quantity": 2 },
+    { "product": 7062, "quantity": 1 },
   ],
-  "discountCode": "BLACKFRIDAY"
+  "discountCode": "BLACKFRIDAY"
 }
 ```
 :::
@@ -5839,7 +5846,7 @@ A body part representing an individual request MUST include a
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [RFC2046](#rfc2046)) with one body part for each
-operation in the change set. [E]{.MsoCommentReference}ach body part
+operation in the change set. Each body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#IdentifyingIndividualRequests) that
 is unique within the batch request.
@@ -5861,7 +5868,7 @@ set can use one of the following three formats:
 ::: example
 Example 101:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1
+GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
 :::
 
@@ -6006,7 +6013,8 @@ Content-Type: application/http
 Content-ID: 1
 
 POST /service/Customers HTTP/1.1
-Host: host Content-Type: application/json
+Host: host
+Content-Type: application/json
 Content-Length: ###
 
 <JSON representation of a new Customer entity>
@@ -6044,7 +6052,8 @@ Content-Type: application/http
 Content-ID: 1
 
 GET /service/Employees(0) HTTP/1.1
-Host: host Accept: application/json
+Host: host
+Accept: application/json
 
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -6058,7 +6067,7 @@ Content-Length: ###
 If-Match: $1
 
 {
-   "Salary": 75000
+   "Salary": 75000
 }
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
@@ -6334,33 +6343,33 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1. MUST publish a [service document](#ServiceDocumentRequest) at the
+1. MUST publish a service document at the
 service root ([section 11.1.1](#ServiceDocumentRequest))
 2. MUST return data according to the [OData-JSON](#ODataJSON) format
-3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
+3. MUST use server-driven paging when returning
 partial results ([section 11.2.6.7](#ServerDrivenPaging)) and not use any other mechanism
-4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
+4. MUST return the appropriate `OData-Version`
 header ([section 8.1.5](#HeaderODataVersion))
 5. MUST conform to the semantics the following headers, or fail the
 request
-   1. [`Accept`](#HeaderAccept) ([section 8.2.1](#HeaderAccept))
-   2. [`OData-MaxVersion`](#HeaderODataMaxVersion) ([section 8.2.7](#HeaderODataMaxVersion))
-6. MUST follow OData guidelines for [extensibility](#Extensibility)
+   1. `Accept` ([section 8.2.1](#HeaderAccept))
+   2. `OData-MaxVersion` ([section 8.2.7](#HeaderODataMaxVersion))
+6. MUST follow OData guidelines for extensibility
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
+`501 Not Implemented` for any
 unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
 content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
 service
-10. MUST NOT violate any OData [update semantics](#DataModification)
+10. MUST NOT violate any OData update semantics
 ([section 11.4](#DataModification)  and all subsections)
 11. MUST NOT violate any other OData-defined semantics
-12. SHOULD support [`$expand`](#SystemQueryOptionexpand) ([section 11.2.5.2](#SystemQueryOptionexpand))
+12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6490,9 +6499,9 @@ properties
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
 [OData-URL](#ODataURL)
-13. SHOULD support [asynchronous requests](#AsynchronousRequests)
+13. SHOULD support asynchronous requests
 ([section 11.6](#AsynchronousRequests))
-14. SHOULD support [Delta change tracking](#RequestingChanges) ([section 11.3](#RequestingChanges))
+14. SHOULD support Delta change tracking ([section 11.3](#RequestingChanges))
 15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
@@ -6513,7 +6522,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) format
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON)
+format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations
 are supported.
@@ -6785,8 +6795,9 @@ https://www.rfc-editor.org/info/rfc9110.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+###### <a name="_ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 

@@ -143,7 +143,7 @@ concerns around information disclosure.
 
 Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
- 
+
 ::: example
 Example ##ex:
 ```json
@@ -192,7 +192,7 @@ header-appropriate way:
   Unicode characters beyond `00FF` within JSON strings are
   encoded as `\uXXXX` or `\uXXXX\uXXXX` (see
   [RFC8259](#rfc8259), section 7)
- 
+
 ::: example
 Example ##ex: note that this is one HTTP header line without any line
 breaks or optional whitespace
@@ -243,7 +243,7 @@ the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
 [`nextLink`](#ControlInformationnextLinkodatanextLink).
-The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+The `nextLink` can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
 members are not available.
 
 -------

@@ -657,7 +657,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XML-Schema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or the binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections or for non-binding parameters to functions or actions.</p>
-<p>Some of these types allow <a href="#TypeFacets">facets</a>, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
+<p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
 <p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
 <h2 id="34-type-facets"><a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
 <p>The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements, for example a <a href="#StructuralProperty">structural property</a>, action or function <a href="#Parameter">parameter</a>, action or function <a href="#ReturnType">return type</a>, or <a href="#Term">term</a>.</p>
@@ -3311,7 +3311,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.fillUriTemplate&quot;</span></span>
 <span id="cb99-18"><a href="#cb99-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb99-19"><a href="#cb99-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb99-20"><a href="#cb99-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb99-20"><a href="#cb99-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-21"><a href="#cb99-21" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@Core.LongDescription#element&quot;:</span> <span class="fu">{</span></span>
 <span id="cb99-22"><a href="#cb99-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$UrlRef&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/wiki/HowToUse&quot;</span></span>
 <span id="cb99-23"><a href="#cb99-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>

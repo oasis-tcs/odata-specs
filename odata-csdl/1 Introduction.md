@@ -495,7 +495,7 @@ parameter or return type of an [action](#Action) or
 underlying type is `Edm.Stream`, cannot be used in collections or for
 non-binding parameters to functions or actions.
 
-Some of these types allow [facets](#TypeFacets), defined in section
+Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
 See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
@@ -507,8 +507,8 @@ responses.
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
-action or function [parameter](#Parameter), 
-action or function [return type](#ReturnType), or 
+action or function [parameter](#Parameter),
+action or function [return type](#ReturnType), or
 [term](#Term).
 
 For single-valued model elements the facets apply to the value of the
