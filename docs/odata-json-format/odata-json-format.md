@@ -492,7 +492,7 @@ If not specified, or specified as `IEEE754Compatible=false`,
 all numbers MUST be serialized as JSON numbers.
 
 This enables support for JavaScript numbers that are defined to be
-64-bit binary format IEEE 754 values (see **[[ECMAScript](#ECMAScript), [section 4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19)]**)
+64-bit binary format IEEE 754 values (see [ECMAScript](#_ECMAScript), [section 4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19))
 resulting in integers losing precision past 15 digits, and decimals
 losing precision due to the conversion from base 10 to base 2.
 
@@ -3936,7 +3936,7 @@ https://www.rfc-editor.org/info/rfc8259.
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="ECMAScript">[ECMAScript]</a>
+###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
