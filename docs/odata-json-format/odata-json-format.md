@@ -3752,7 +3752,7 @@ the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
 [`nextLink`](#ControlInformationnextLinkodatanextLink).
-The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+The `nextLink` can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
 members are not available.
 
 -------
