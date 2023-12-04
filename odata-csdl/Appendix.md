@@ -105,13 +105,13 @@ https://www.rfc-editor.org/info/rfc8259.
 :
 
 : varxml
-###### <a name="XML-11">[XML-1.1]</a>
-_Extensible Markup Language (XML) 1.1 (Second Edition)_. F. Yergeau, E. Maler, J. Cowan, T. Bray, C. M. Sperberg-McQueen, J. Paoli, Editors, W3C Recommendation, 16 August 2006.  
-http://www.w3.org/TR/2006/REC-xml11-20060816. Latest version available at http://www.w3.org/TR/xml11/.
+###### <a name="XML-10">[XML-1.0]</a>
+_Extensible Markup Language (XML) 1.0 (Fifth Edition)_. T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, F. Yergeau, Editors, W3C Recommendation, 26 November 2008.  
+http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://www.w3.org/TR/xml/.
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
-http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/.
 
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  

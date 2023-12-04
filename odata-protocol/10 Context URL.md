@@ -146,8 +146,8 @@ URL fragment.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/MainSupplier`
-http://host/service/$metadata#`MainSupplier
+http://host/service/MainSupplier
+http://host/service/$metadata#MainSupplier
 ```
 :::
 
@@ -181,7 +181,7 @@ the entity set name.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers(2)/Model.VipCustomer`
+http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 ```
 :::
@@ -230,8 +230,8 @@ entities in the collection, see system query option
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers?$`select`=Address,Orders
-http://host/service/$metadata#Customers(Address,Orders)
+http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
+http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
 ```
 :::
 
@@ -301,15 +301,18 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or` $expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
+
+The context URL has no shortcut for representing the list of all navigation properties;
+`$expand=*` is treated as if all navigation properties were explicitly expanded.
 
 If the context URL includes only expanded navigation properties (i.e.,
 only navigation properties suffixed with parentheses), then all
@@ -341,9 +344,9 @@ Example ##ex: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
-        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
+        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
+        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
 
@@ -361,14 +364,14 @@ navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
 the parenthesized comma-separated list of any properties of the expanded
 navigation property that are selected or expanded. If the expanded
-navigation property does not contain a nested `$select `or` $expand`,
+navigation property does not contain a nested `$select` or `$expand`,
 then the expanded property is suffixed with empty parentheses. If the
 expansion is recursive for nested children, a plus sign (`+`) is infixed
 between the navigation property name and the opening parenthesis.
 
 For a 4.0 response, the expanded navigation property suffixed with
 parentheses is omitted from the select-list if it does not contain a
-nested `$select `or `$expand`, but MUST still be present, without a
+nested `$select` or `$expand`, but MUST still be present, without a
 suffix, if it is explicitly selected.
 
 If the context URL includes only expanded navigation properties (i.e.,
@@ -383,9 +386,9 @@ the context URL.
 Example ##ex: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
-        $expand=DirectReports($select=FirstName,LastName;$levels=4)
+        $expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
+        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
 ```
 :::
 
@@ -494,7 +497,7 @@ Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}`{select-list}
+    {context-url}#{entity}/{property-path}{select-list}
     {context-url}#Collection({type-name}){select-list}
     {context-url}#{type-name}{select-list}
 
@@ -535,7 +538,7 @@ of the containing entity.
 ::: example
 Example ##ex: resource URL and corresponding context URL
 ```
-http://host/service/Customers`?$deltatoken=1234
+http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::
@@ -549,7 +552,7 @@ Context URL templates:
 
     {context-url}#{entity-set}/$deletedEntity
     {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink 
+    {context-url}#{entity-set}/$deletedLink
 
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
@@ -574,6 +577,6 @@ Context URL template:
 
     {context-url}#Collection(Edm.ComplexType)
 
-Responses to requests to the virtual collections `$crossjoin(...)` (see
+Responses to requests to the virtual collections `$crossjoin(…)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
