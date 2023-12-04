@@ -80,7 +80,7 @@ occurrence
     {
       "@context": "#Orders/$entity",
       "@id": "Orders(10643)",
-      "ShippingAddress":{
+      "ShippingAddress": {
         "Street": "23 Tsawassen Blvd.",
         "City": "Tsawassen",
         "Region": "BC",
@@ -277,9 +277,9 @@ Example ##ex: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "reason":"deleted",
-  "id":"Customers('ANTON')"
+  "@context": "#Customers/$deletedEntity",
+  "reason": "deleted",
+  "id": "Customers('ANTON')"
 }
 ```
 :::
@@ -334,12 +334,12 @@ Example ##ex: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "@removed":{
-    "reason":"deleted",
-    "@myannoation.deletedBy":"Mario"
+  "@context": "#Customers/$deletedEntity",
+  "@removed": {
+    "reason": "deleted",
+    "@myannoation.deletedBy": "Mario"
   },
-  "@id":"Customers('ANTON')"
+  "@id": "Customers('ANTON')"
 }
 ```
 :::
@@ -350,8 +350,8 @@ control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
 {
-  "@removed":{},
-  "ID":"ANTON"
+  "@removed": {},
+  "ID": "ANTON"
 }
 ```
 :::
@@ -409,7 +409,7 @@ the target MAY be omitted for single-valued navigation.
 
 ## ##subsec Update a Collection of Entities
 
-The body of a PATCH request to a URL identifying a collection of
+The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
@@ -420,7 +420,7 @@ entities, as well as [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example ##ex: 4.01 delta response customers with expanded orders represented
+Example ##ex: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
   1. Add customer `EASTC`
   2. Change `ContactName` of customer `AROUT`
@@ -428,32 +428,43 @@ inline as a delta
   4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
-     3. Change `ShippedDate` of related order 10835
+     3. Change `RequiredDate` of related order 10835
      4. Delete link to order 10643
   5. Add link between customer `ANATR` and order 10643
   6. Delete link between customer `DUMON` and order 10311
 ```json
+PATCH /service/Customers HTTP/1.1
+Host: host
+Content-Type: application/json
+Content-Length: ###
+Prefer: return=minimal, continue-on-error
+
 {
   "@context": "#$delta",
   "value": [
     {
+      "@Org.OData.Core.V1.ContentID": "1",
       "CustomerID": "EASTC",
       "CompanyName": "Eastern Connection",
       "ContactName": "Ann Devon",
       "ContactTitle": "Sales Agent"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "2",
       "CustomerID": "AROUT",
       "ContactName": "Thomas Hardy",
     },
     {
+      "@Org.OData.Core.V1.ContentID": "3",
       "@removed": {},
-      "CustomerID":"ANTON"
+      "CustomerID": "ANTON"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "4",
       "CustomerID": "ALFKI",
       "Orders@delta": [
         {
+          "@Org.OData.Core.V1.ContentID": "4.1",
           "OrderID": 11011,
           "CustomerID": "ALFKI",
           "EmployeeID": 3,
@@ -462,13 +473,16 @@ inline as a delta
           "ShippedDate": "1998-04-13T00:00:00Z"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.2",
           "@id": "Orders(10692)"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.3",
           "@id": "Orders(10835)",
-          "ShippedDate": "1998-01-23T00:00:00Z",
+          "RequiredDate": "1998-01-23T00:00:00Z",
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.4",
           "@removed": {
             "reason": "changed"
           },
@@ -478,17 +492,151 @@ inline as a delta
     },
     {
       "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "5",
       "source": "Customers('ANATR')",
-      "relationship":" Orders",
+      "relationship": "Orders",
       "target": "Orders(10643)"
     },
     {
       "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "6",
       "source": "Customers('DUMON')",
       "relationship": "Orders",
       "target": "Orders(10311)"
     }
   ]
+}
+```
+
+Assuming all changes can be applied without errors, the response would be
+```
+HTTP/1.1 204 No Content
+Preference-Applied: return=minimal, continue-on-error
+
+
+```
+
+Assuming some or all changes cannot be applied, the overall request is still deemed successful due to the `continue-on-error` preference, and the response details what went wrong
+  1. Add customer 'EASTC' - failed
+  2. Change `ContactName` of customer 'AROUT' - failed
+  3. Delete customer 'ANTON' - failed
+  4. Change customer 'ALFKI':
+     1. Create order 11011 - succeeded, not mentioned in response
+     2. Add link to existing order 10692 - succeeded, not mentioned in response
+     3. Change `RequiredDate` of related order 10835 - failed
+     4. Delete link to order 10643 - succeeded, not mentioned in response
+  5. Add link between customer 'ANATR' and order 10643 - failed without further info
+  6. Delete link between customer 'DUMON' and order 10311 - failed without further info
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: ###
+Preference-Applied: return=minimal, continue-on-error
+
+{
+  "@context": "#$delta",
+  "value": [
+    {
+      "@Org.OData.Core.V1.ContentID": "1",
+      "CustomerID": "EASTC",
+      "@removed": {},
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "insert",
+        "responseCode": 400,
+        "info": {
+          "code": "incmplt",
+          "message": "Required field(s) not provided",
+          "target": "Address",
+          "@OtherVocab.additionalTargets": [ "Industry", "VATRegistration" ],
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "2",
+      "CustomerID": "AROUT",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "update",
+        "responseCode": 400,
+        "info": {
+          "code": "r-o",
+          "message": "Customer is archived and cannot be changed",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "3",
+      "CustomerID": "ANTON",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "delete",
+        "responseCode": 400,
+        "info": {
+          "code": "ufo",
+          "message": "Customer has unfinished orders and cannot be deleted",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "4",
+      "CustomerID": "ALFKI",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "4.3",
+          "@id": "Orders(10835)",
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "update",
+            "responseCode": 400,
+            "info": {
+              "code": "b/s",
+              "message": "RequiredDate cannot be changed because Order is already being shipped",
+              "severity": "error"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "5",
+      "source": "Customers('ANATR')",
+      "relationship": "Orders",
+      "target": "Orders(10643)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "link",
+        "responseCode": 404,
+        "info": null
+      }
+    },
+    {
+      "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "6",
+      "source": "Customers('DUMON')",
+      "relationship": "Orders",
+      "target": "Orders(10311)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "unlink",
+        "responseCode": 400
+      }
+    }
+  ]
+}
+```
+
+Without the `continue-on-error` preference processing would stop on the first error, and the response would be a standard OData error response
+```json
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "error": {
+    "code": "incmplt",
+    "message": "Required field(s) not provided",
+    "target": "Customers('EASTC')/Address",
+    "@OtherVocab.additionalTargets": [ "Customers('EASTC')/Industry", "Customers('EASTC')/VATRegistration" ]
+  }
 }
 ```
 :::

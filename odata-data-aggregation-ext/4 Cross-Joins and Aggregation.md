@@ -23,7 +23,7 @@ results in
   "value": [
     { "Products": { "Name": "Paper" }, "Sales": { "Amount": 1 } },
     { "Products": { "Name": "Sugar" }, "Sales": { "Amount": 2 } },
-    ...
+    …
   ]
 }
 ```

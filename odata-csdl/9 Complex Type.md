@@ -58,7 +58,7 @@ Example ##ex: a complex type used by two entity types
   }
 },
 "Product": {
-  ...
+  …
   "ProductDimensions": {
     "$Nullable": true,
     "$Type": "self.Dimensions"
@@ -69,7 +69,7 @@ Example ##ex: a complex type used by two entity types
   }
 },
 "ShipmentBox": {
-  ...
+  …
   "Dimensions": {
     "$Nullable": true,
     "$Type": "self.Dimensions"
@@ -107,13 +107,13 @@ Example ##ex: a complex type used by two entity types
 </ComplexType>
 
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="ProductDimensions" Type="self.Dimensions" />
   <Property Name="ShippingDimensions" Type="self.Dimensions" />
 </EntityType>
 
 <EntityType Name="ShipmentBox">
-  ...
+  …
   <Property Name="Dimensions" Type="self.Dimensions" />
 </EntityType>
 ```

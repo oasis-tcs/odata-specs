@@ -344,8 +344,8 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is 
-${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, 
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
@@ -371,7 +371,7 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is 
+For operands of type `Edm.Decimal` the scale of the result is
 ${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
@@ -795,13 +795,21 @@ how the `hassubset` function is invoked.
 Example ##ex: `hassubset` expressions that return true
 ```
 hassubset([4,1,3],[4,1,3])
+```
 
+```
 hassubset([4,1,3],[1,3,4])
+```
 
+```
 hassubset([4,1,3],[3,1])
+```
 
+```
 hassubset([4,1,3],[4,3])
+```
 
+```
 hassubset([4,1,3,1],[1,1])
 ```
 :::
@@ -831,11 +839,17 @@ items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 Example ##ex: `hassubsequence` expressions that return true
 ```
 hassubsequence([4,1,3],[4,1,3])
+```
 
+```
 hassubsequence([4,1,3],[4,1])
+```
 
+```
 hassubsequence([4,1,3],[4,3])
+```
 
+```
 hassubsequence([4,1,3,1],[1,1])
 ```
 :::
@@ -844,9 +858,13 @@ hassubsequence([4,1,3,1],[1,1])
 Example ##ex: `hassubsequence` expressions that return false
 ```
 hassubsequence([4,1,3],[1,3,4])
+```
 
+```
 hassubsequence([4,1,3],[3,1])
+```
 
+```
 hassubsequence([1,2],[1,1,2])
 ```
 :::
@@ -862,10 +880,9 @@ Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
 `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
+of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
 
 ::: example
@@ -1343,6 +1360,9 @@ The `isofExpr` syntax rule defines how the `isof` function is invoked.
 Example ##ex: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
+```
+
+```
 http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 ```
 :::
@@ -1401,7 +1421,7 @@ parameter in the coordinate reference system signified by its SRID.
 The `case` function has the following signature:
 
 ```
-expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
+expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
@@ -1529,41 +1549,77 @@ according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 Example ##ex: expressions using primitive literals
 ```
 NullValue eq null
+```
 
+```
 TrueValue eq true
+```
 
+```
 FalseValue eq false
+```
 
+```
 Custom.Base64UrlDecode(binary'T0RhdGE') eq 'OData'
+```
 
+```
 IntegerValue lt -128
+```
 
+```
 DoubleValue ge 0.31415926535897931e1
+```
 
+```
 SingleValue eq INF
+```
 
+```
 DecimalValue eq 34.95
+```
 
+```
 StringValue eq 'Say Hello,then go'
+```
 
+```
 DateValue eq 2012-12-03
+```
 
+```
 DateTimeOffsetValue eq 2012-12-03T07:16:23Z
+```
 
+```
 DurationValue eq duration'P12DT23H59M59.999999999999S'
+```
 
+```
 DurationValue eq 'P12DT23H59M59.999999999999S'
+```
 
+```
 TimeOfDayValue eq 07:59:59.999
+```
 
+```
 GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
+```
 
+```
 Int64Value eq 0
+```
 
+```
 ColorEnumValue eq Sales.Pattern'Yellow'
+```
 
+```
 ColorEnumValue eq 'Yellow'
+```
 
+```
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
 :::
@@ -1940,18 +1996,18 @@ A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. 
+parentheses, to the navigation property name.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
-`$expand`, and 
+`$expand`, and
 [`$levels`](#ExpandOptionlevels) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
 [`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch) 
- for collection-valued navigation properties.
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
@@ -2124,7 +2180,7 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. 
+actions and functions identified by that select item.
 If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity
@@ -2317,6 +2373,7 @@ http://host/service/Products?$search=blue OR green
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
+Leading and trailing spaces are not considered part of the search expression.
 
 *Terms* can be any single word to be matched within the expression.
 
@@ -2346,6 +2403,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
@@ -2380,6 +2438,9 @@ expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
+Services MAY support compute instructions that address
+dynamic properties added by other compute instructions within the same
+`$compute` system query option, provided that the service can determine an evaluation sequence.
 
 The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
 grammar of the `$compute` query option.
