@@ -597,7 +597,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or 
+[`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
@@ -655,7 +655,7 @@ supported by the service.
 
 For collection-valued navigation properties with navigation property
 bindings that end in a [type-cast segment](#AddressingDerivedTypes),
-a [type-cast segment](#AddressingDerivedTypes) MUST be
+a type-cast segment MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -834,7 +834,7 @@ a collection.
 
 To apply a [bound action](#AddressingActions) or function to each member
 of a collection, clients append the path segment `/$each` followed by a
-path segment identifying the [bound action](#AddressingActions) or
+path segment identifying the bound action or
 function. The response is a collection of instances of the result type
 of the bound operation. If the bound operation returns a collection, the
 response is a collection of collections. System query options applied to

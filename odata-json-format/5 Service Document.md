@@ -50,7 +50,7 @@ Service documents MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects. Services MUST NOT produce name/value pairs
 other than the ones explicitly defined in this section, and clients MUST
 ignore unknown name/value pairs.
- 
+
 ::: example
 Example ##ex:
 ```json
@@ -112,7 +112,7 @@ An entity representation can be (modified and) round-tripped to the
 service directly. The [context
 URL](#ControlInformationcontextodatacontext) is used in requests only
 as a base for [relative URLs](#RelativeURLs).
- 
+
 ::: example
 Example ##ex: entity with `metadata=minimal`
 ```json

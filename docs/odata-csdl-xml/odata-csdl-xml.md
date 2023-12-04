@@ -550,7 +550,7 @@ parameter or return type of an [action](#Action) or
 underlying type is `Edm.Stream`, cannot be used in collections or for
 non-binding parameters to functions or actions.
 
-Some of these types allow [facets](#TypeFacets), defined in section
+Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
 See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
@@ -562,7 +562,9 @@ responses.
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
-action or function [parameter](#Parameter), action or function [return type](#ReturnType), or [term](#Term).
+action or function [parameter](#Parameter),
+action or function [return type](#ReturnType), or
+[term](#Term).
 
 For single-valued model elements the facets apply to the value of the
 model element. For collection-valued model elements the facets apply to the items
@@ -5673,7 +5675,8 @@ http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://
 
 ###### <a name="XML-Base">[XML-Base]</a>
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
-http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/. 
+http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/.
+
 ###### <a name="XML-Schema1">[XML-Schema-1]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
