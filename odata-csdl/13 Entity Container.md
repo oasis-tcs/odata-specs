@@ -230,7 +230,7 @@ entity container located in `SomeOtherSchema`
 "Extending": {
   "$Kind": "EntityContainer",
   "$Extends": "Some.Other.Schema.Base",
-   ...
+   …
 }
 ```
 :::
@@ -248,7 +248,7 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```xml
 <EntityContainer Name="Extending" Extends="Some.Other.Schema.Base">
-  ...
+  …
 </EntityContainer>
 ```
 :::
@@ -553,7 +553,7 @@ Example ##ex: for an entity set in any container in scope
 
 ::: {.varxml .example}
 Example ##ex: binding `Supplier` on `Products` contained within
-`Categories – binding applies to all suppliers of all products of all categories`
+`Categories` – binding applies to all suppliers of all products of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
   <NavigationPropertyBinding Path="Products/Supplier"

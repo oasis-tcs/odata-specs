@@ -16,6 +16,9 @@ schema to create unique [qualified names](#QualifiedName), so
 identifiers that are used to name types MUST be unique within a
 namespace to prevent ambiguity.
 
+Services SHOULD NOT have [actions](#Action) and [functions](#Function) with the same name, and MUST NOT have
+actions and functions with the same name bound to the same type.
+
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
@@ -102,13 +105,13 @@ Example ##ex: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
-  ...
+  …
   "org.example": {
     "$Alias": "self",
     "@Core.Description": "Example schema",
-    ...
+    …
   },
-  ...
+  …
 }
 ```
 :::
@@ -125,7 +128,7 @@ schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
   <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  …
 </Schema>
 ```
 :::
@@ -150,7 +153,7 @@ Example ##ex: annotations targeting the `Person` type with qualifier
   "$Annotations": {
     "self.Person": {
       "@Core.Description#Tablet": "Dummy",
-      ...
+      …
     }
   }
 }
@@ -181,7 +184,7 @@ Example ##ex: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
-  ...
+  …
 </Annotations>
 ```
 :::
@@ -423,7 +426,7 @@ see [OData-VocCore](#ODataVocCore).
 ::: {.varjson .rep}
 ### ##subisec `$HasStream`
 
-The value of `$HasStream `is one of the Boolean literals `true` or
+The value of `$HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
@@ -476,7 +479,7 @@ on one of these primitive types:
 -   `Edm.TimeOfDay`
 
 Key property values MAY be language-dependent, but their values MUST be
-unique across all languages and the entity ids (defined in
+unique across all languages and the entity-ids (defined in
 [OData-Protocol](#ODataProtocol)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity

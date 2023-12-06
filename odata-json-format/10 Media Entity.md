@@ -5,12 +5,12 @@
 
 Media entities are entities that describe a media resource, for example
 a photo. They are represented as entities that contain additional
-[`media*`](#ControlInformationmediaodatamedia) control information. 
+[`media*`](#ControlInformationmediaodatamedia) control information.
 
 If the actual stream data for the media entity is included, it is
 represented as property named `$value` whose
 string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
- 
+
 ::: example
 Example ##ex:
 ```json
@@ -18,9 +18,9 @@ Example ##ex:
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded value...",
+  "$value": "…base64url encoded value…",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -49,7 +49,7 @@ represented as an object with a single name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
- 
+
 ::: example
 Example ##ex:  primitive value
 ```json
@@ -59,7 +59,7 @@ Example ##ex:  primitive value
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex:  collection of primitive values
 ```json
@@ -69,7 +69,7 @@ Example ##ex:  collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex:  empty collection of primitive values
 ```json
@@ -79,7 +79,7 @@ Example ##ex:  empty collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: complex value
 ```json
@@ -93,12 +93,12 @@ Example ##ex: complex value
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: empty collection of complex values
 ```json
 {
-  "@context":"http://host/service/$metadata#Collection(Model.Address)",
+  "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
 }
 ```
@@ -178,14 +178,14 @@ partial result.
 Example 28:
 ```json
 {
-  "@context": "...",
+  "@context": "…",
   "@count": 37,
   "value": [
-    { ... },
-    { ... },
-    { ... }
+    { … },
+    { … },
+    { … }
   ],
-  "@nextLink": "...?$skiptoken=342r89"
+  "@nextLink": "…?$skiptoken=342r89"
 }
 ```
 :::
@@ -201,7 +201,7 @@ entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
 control information.
 
-A collection of entity references is represented as a [collection of entities](#CollectionofEntities), 
+A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
 with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
 
 The outermost JSON object in a response MUST contain a
@@ -210,7 +210,7 @@ control information and MAY contain
 [`count`](#ControlInformationcountodatacount),
 [`nextLink`](#ControlInformationnextLinkodatanextLink), or
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
- 
+
 ::: example
 Example ##ex: entity reference to order 10643
 ```json
@@ -220,7 +220,7 @@ Example ##ex: entity reference to order 10643
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: collection of entity references
 ```json

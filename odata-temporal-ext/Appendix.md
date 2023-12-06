@@ -54,22 +54,22 @@ https://www.rfc-editor.org/info/rfc2119.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
-## ##subasec Informative References 
+## ##subasec Informative References
 
-###### <a name="Fowler">[Fowler]</a>
+###### <a name="_Fowler">[Fowler]</a>
 _Martin Fowler, "Temporal Patterns", 16 February 2005_  
 http://martinfowler.com/eaaDev/timeNarrative.html.
 
-###### <a name="Kulkarni">[Kulkarni]</a>
+###### <a name="_Kulkarni">[Kulkarni]</a>
 _Krishna Kulkarni, "Temporal Features in SQL standard", September 2012_  
 https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf.
 
-###### <a name="Snodgrass">[Snodgrass]</a>
+###### <a name="_Snodgrass">[Snodgrass]</a>
 _Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7_  
 http://www2.cs.arizona.edu/people/rts/tdbbook.pdf and
 http://www2.cs.arizona.edu/people/rts/pp30-31.pdf.
 
-###### <a name="SQL">[SQL:2011]</a>
+###### <a name="_SQL">[SQL:2011]</a>
 _ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)_.
 
 -------
