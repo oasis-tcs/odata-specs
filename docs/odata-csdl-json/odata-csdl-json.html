@@ -1085,7 +1085,6 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity is uniquely identified within an entity set by its key. A key MAY be specified if the entity type does not specify a <a href="#DerivedEntityType">base type</a> that already has a key declared.</p>
 <p>In order to be specified as the type of an <a href="#EntitySet">entity set</a> or a collection-valued <a href="#ContainmentNavigationProperty">containment navigation property</a>, the entity type MUST either specify a key or inherit its key from its <a href="#DerivedEntityType">base type</a>.</p>
 <p>In OData 4.01 responses entity types used for <a href="#Singleton">singletons</a> or single-valued <a href="#NavigationProperty">navigation properties</a> do not require a key. In OData 4.0 responses entity types used for <a href="#Singleton">singletons</a> or single-valued <a href="#NavigationProperty">navigation properties</a> MUST have a key defined.</p>
-<p>An entity type (whether or not it is marked as abstract) MAY define a key only if it doesn’t inherit one.</p>
 <p>An entity type’s key refers to the set of properties whose values uniquely identify an instance of the entity type within an entity set. The key MUST consist of at least one property.</p>
 <p>Key properties MUST NOT be nullable and MUST be typed with an <a href="#EnumerationType">enumeration type</a>, one of the following <a href="#PrimitiveTypes">primitive types</a>, or a <a href="#TypeDefinition">type definition</a> based on one of these primitive types:</p>
 <ul>
