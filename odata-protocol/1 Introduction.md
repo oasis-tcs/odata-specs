@@ -29,6 +29,9 @@ Section | Feature / Change | Issue
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section ##Conformance]| 
+Allow `400 Bad Request` for unrecognized ("future") functionality in addition to `501 Not Implemented` for unsupported functionality| 
+[ODATA-1624](https://issues.oasis-open.org/browse/ODATA-1624)
 
 ## ##subsec Glossary
 
