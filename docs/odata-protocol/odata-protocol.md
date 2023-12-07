@@ -347,6 +347,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section 12](#Conformance)| Allow `400 Bad Request` for unrecognized ("future") functionality in addition to `501 Not Implemented` for unsupported functionality| [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
