@@ -347,7 +347,6 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
-[Section 12](#Conformance)| Allow `400 Bad Request` for unrecognized ("future") functionality in addition to `501 Not Implemented` for unsupported functionality| [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -6359,8 +6358,8 @@ request
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
-either follow the specification or fail the request, in which case it SHOULD return
-`501 Not Implemented` for any recognized
+either follow the specification or return
+`501 Not Implemented` for any
 unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
@@ -6427,9 +6426,9 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and either
-follow the specification or fail the request, in which case it SHOULD return `501 Not Implemented` for any
-recognized unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
+2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
+follow the specification or return `501 Not Implemented` for any
+unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
@@ -6440,10 +6439,10 @@ recognized unsupported functionality ([section 9.3.1](#ResponseCode501NotImpleme
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
    2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.3](#ParameterAliases))
    3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinFilterOperations))
-and MUST return `501 Not Implemented` for any unsupported or `400 Bad Request` for any unrecognized filter
+and MUST return `501 Not Implemented` for any unsupported filter
 operations ([section 9.3.1](#ResponseCode501NotImplemented))
    4. SHOULD support the canonical functions ([section 11.2.6.1.2](#BuiltinQueryFunctions)) and
-MUST return `501 Not Implemented` for any unsupported or `400 Bad Request` for any unrecognized
+MUST return `501 Not Implemented` for any unsupported canonical
 functions ([section 9.3.1](#ResponseCode501NotImplemented))
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
