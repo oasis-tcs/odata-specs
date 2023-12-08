@@ -1131,6 +1131,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="71-type"><a name="Type" href="#Type">7.1 Type</a></h2>
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
+<p>If the property is part of a chain of structural properties or <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, then at least one property in this chain MUST be nullable or collection-valued, otherwise instances of the declaring type would have infinite depth.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="attribute-type" class="varxml rep">
@@ -1190,6 +1191,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="81-navigation-property-type"><a name="NavigationPropertyType" href="#NavigationPropertyType">8.1 Navigation Property Type</a></h2>
 <p>The navigation property’s type MUST be an <a href="#EntityType">entity type</a> in scope, the <a href="#BuiltInAbstractTypes">abstract type</a> <code>Edm.EntityType</code>, or a collection of one of these types.</p>
+<p>If the property is part of a chain of <a href="#StructuralProperty">structural properties </a> or <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, then at least one property in this chain MUST be nullable or collection-valued, otherwise instances of the declaring type would have infinite depth.</p>
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
