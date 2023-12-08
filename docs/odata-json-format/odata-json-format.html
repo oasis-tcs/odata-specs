@@ -404,7 +404,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="32-controlling-the-representation-of-numbers"><a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
 <p>The <code>IEEE754Compatible=true</code> format parameter indicates that the service MUST serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers (including the <a href="#ControlInformationcountodatacount"><code>count</code></a>, if requested) as strings. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <p>If not specified, or specified as <code>IEEE754Compatible=false</code>, all numbers MUST be serialized as JSON numbers.</p>
-<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <strong>[<a href="#ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>]</strong>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
+<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <a href="#_ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
 <p>OData JSON request and response payloads that format <code>Edm.Int64</code> and <code>Edm.Decimal</code> values as strings MUST specify this format parameter in the media type sent in the <a href="#HeaderContentType"><code>Content-Type</code></a> header.</p>
 <p>Services producing responses without format parameter <code>IEEE754Compatible=true</code> which are unable to produce exact JSON numbers MAY serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers with a rounded/inexact value as a JSON number and annotate that value with an instance annotation with term <code>Core.ValueException</code> defined in <a href="#ODataVocCore">OData-VocCore</a> containing the exact value as a string. This situation can for example happen if the client only accepts <code>application/json</code> without any format parameters and the service is written in JavaScript.</p>
 <p>For payloads with an <code>OData-Version</code> header equal to <code>4.0</code> the <code>ExponentialDecimals=true</code> format parameter indicates that the service MAY serialize <code>Edm.Decimal</code> numbers in exponential notation (e.g. <code>1e-6</code> instead of <code>0.000001</code>).</p>
@@ -447,11 +447,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 2:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@editLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders&quot;</span><span class="fu">,</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The resulting absolute URLs are <code>http://host/service/Customers('ALFKI')</code> and <code>http://host/service/Customers('ALFKI')/Orders</code>.</p>
@@ -485,7 +485,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
 <h3 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
 <p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>.</p>
-<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response.</p>
+<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response that allows this control information (this excludes for example <a href="#ErrorResponse">error responses</a>).</p>
 <p>The <code>context</code> control information MUST also be included in requests and responses for entities whose entity set cannot be determined from the context URL of the collection.</p>
 <p>For more information on the format of the context URL, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>Request payloads MAY include a context URL as a base URL for <a href="#RelativeURLs">relative URLs</a> in the request payload.</p>
@@ -494,7 +494,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@metadataEtag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">A1FF3E230954908F</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="452-control-information-metadataetag-odatametadataetag"><a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
@@ -527,7 +527,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DynamicValue@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Date&quot;</span><span class="fu">,</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DynamicValue&quot;</span><span class="fu">:</span> <span class="st">&quot;2016-09-22&quot;</span><span class="fu">,</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -536,7 +536,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/alternate/$metadata#Model.VipCustomer&quot;</span><span class="fu">,</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="454-control-information-count-odatacount"><a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h3>
@@ -607,7 +607,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(1)/$value&quot;</span><span class="fu">,</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="4513-control-information-removed-odataremoved"><a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
@@ -634,7 +634,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;JulieSwa@live.com&quot;</span><span class="ot">,</span></span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie.Swansworth@work.com&quot;</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
@@ -774,7 +774,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 13:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Address&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;Obere Str. 57&quot;</span><span class="fu">,</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Berlin&quot;</span><span class="fu">,</span></span>
@@ -790,12 +790,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 14: partial collection of strings with next link</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie@Swansworth.com&quot;</span><span class="ot">,</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Julie.Swansworth@work.com&quot;</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>A collection of primitive values that occurs in a property of type <code>Edm.Untyped</code> is interpreted as a collection of <code>Edm.Boolean</code>, <code>Edm.String</code>, and <code>Edm.Decimal</code> values, depending on the JavaScript type.</p>
@@ -816,7 +816,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Carrier&quot;</span><span class="fu">:</span> <span class="st">&quot;Sprint&quot;</span></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PhoneNumbers@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PhoneNumbers@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="75-untyped-value"><a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h2>
@@ -835,9 +835,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 16:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders&quot;</span><span class="fu">,</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="82-association-link"><a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h2>
@@ -847,9 +847,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 17:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@associationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders/$ref&quot;</span><span class="fu">,</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="83-expanded-navigation-property"><a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h2>
@@ -861,9 +861,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">...</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">…</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span><span class="fu">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="84-deep-insert"><a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h2>
@@ -874,21 +874,21 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">11643</span><span class="fu">,</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">100</span><span class="fu">,</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span><span class="fu">,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span><span class="fu">,</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANEWONE&quot;</span><span class="fu">,</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(28)&quot;</span> <span class="fu">},</span></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      <span class="er">...</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      <span class="er">…</span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Product&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(39)&quot;</span> <span class="fu">},</span></span>
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Quantity&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      <span class="er">...</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      <span class="er">…</span></span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -958,7 +958,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAxMy0wNS0yN1QxMTo1OFo=</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1234</span><span class="fu">,</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Items@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAxOS0wMy0xMlQxMDoyMlo=</span><span class="ch">\&quot;</span><span class="st">&quot;</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note: the collection ETag for a navigation property may or may not be identical to the ETag of the containing entity, the example shows a different ETag for the <code>Items</code> collection.</p>
@@ -978,27 +978,28 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Example 24:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEtag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">####</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail&quot;</span><span class="fu">:</span> <span class="st">&quot;...base64url encoded value...&quot;</span><span class="fu">,</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail&quot;</span><span class="fu">:</span> <span class="st">&quot;…base64url encoded value…&quot;</span><span class="fu">,</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
-<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information. If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
+<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
+<p>If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
 <div class="example">
 <p>Example 25:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(1)/$value&quot;</span><span class="fu">,</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@mediaContentType&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$value&quot;</span><span class="fu">:</span> <span class="st">&quot;...base64url encoded value...&quot;</span><span class="fu">,</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$value&quot;</span><span class="fu">:</span> <span class="st">&quot;…base64url encoded value…&quot;</span><span class="fu">,</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
@@ -1043,7 +1044,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 30: empty collection of complex values</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;http://host/service/$metadata#Collection(Model.Address)&quot;</span><span class="fu">,</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Model.Address)&quot;</span><span class="fu">,</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -1065,14 +1066,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 28:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span><span class="fu">,</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">37</span><span class="fu">,</span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">…</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">…</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="er">…</span> <span class="fu">}</span></span>
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...?$skiptoken=342r89&quot;</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…?$skiptoken=342r89&quot;</span></span>
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
@@ -1140,7 +1141,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Orders/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span><span class="fu">,</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ShippingAddress&quot;</span><span class="fu">:{</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ShippingAddress&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;23 Tsawassen Blvd.&quot;</span><span class="fu">,</span></span>
 <span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Tsawassen&quot;</span><span class="fu">,</span></span>
 <span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Region&quot;</span><span class="fu">:</span> <span class="st">&quot;BC&quot;</span><span class="fu">,</span></span>
@@ -1246,9 +1247,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span><span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>In OData 4.01 payloads the deleted-entity object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value:</p>
@@ -1261,19 +1262,19 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <div class="example">
 <p>Example 37: deleted entity in OData 4.01 response with <code>id</code> control information (prefixed with an <code>@</code>)</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span><span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:{</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;reason&quot;</span><span class="fu">:</span><span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@myannoation.deletedBy&quot;</span><span class="fu">:</span><span class="st">&quot;Mario&quot;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@myannoation.deletedBy&quot;</span><span class="fu">:</span> <span class="st">&quot;Mario&quot;</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span><span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example 38: entity removed OData 4.01 response without <code>id</code> control information and instead all key fields (<code>ID</code> is the single key field of <code>Customer</code>)</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:{},</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span><span class="st">&quot;ANTON&quot;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANTON&quot;</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="154-added-link"><a name="AddedLink" href="#AddedLink">15.4 Added Link</a></h2>
@@ -1342,7 +1343,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
 <span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span><span class="st">&quot;ANTON&quot;</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANTON&quot;</span></span>
 <span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;4&quot;</span><span class="fu">,</span></span>
@@ -1379,7 +1380,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$link&quot;</span><span class="fu">,</span></span>
 <span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;5&quot;</span><span class="fu">,</span></span>
 <span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span><span class="fu">,</span></span>
-<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span><span class="st">&quot; Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
 <span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
 <span id="cb42-64"><a href="#cb42-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-65"><a href="#cb42-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
@@ -1450,8 +1451,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
-<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span><span class="st">&quot;ANTON&quot;</span></span>
-<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;@Org.OData.Core.V1.DataModificationException&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANTON&quot;</span><span class="fu">,</span></span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.DataModificationException&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;failedOperation&quot;</span><span class="fu">:</span> <span class="st">&quot;delete&quot;</span><span class="fu">,</span></span>
 <span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;responseCode&quot;</span><span class="fu">:</span> <span class="dv">400</span><span class="fu">,</span></span>
 <span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;info&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1484,7 +1485,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb44-71"><a href="#cb44-71" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedLink&quot;</span><span class="fu">,</span></span>
 <span id="cb44-72"><a href="#cb44-72" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;5&quot;</span><span class="fu">,</span></span>
 <span id="cb44-73"><a href="#cb44-73" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span><span class="fu">,</span></span>
-<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span><span class="st">&quot; Orders&quot;</span><span class="fu">,</span></span>
+<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
 <span id="cb44-75"><a href="#cb44-75" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span><span class="fu">,</span></span>
 <span id="cb44-76"><a href="#cb44-76" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Org.OData.Core.V1.DataModificationException&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb44-77"><a href="#cb44-77" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;failedOperation&quot;</span><span class="fu">:</span> <span class="st">&quot;link&quot;</span><span class="fu">,</span></span>
@@ -1534,7 +1535,7 @@ Preference-Applied: return=minimal, continue-on-error
 <div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.RemainingVacation&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1545,7 +1546,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Remaining vacation from year.&quot;</span><span class="fu">,</span></span>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(2)/RemainingVacation(Year=@Year)&quot;</span></span>
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1556,7 +1557,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Remaining Vacation&quot;</span><span class="fu">,</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Managers(22)/Employees/RemainingVacation&quot;</span></span>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">...</span> <span class="ot">]</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">…</span> <span class="ot">]</span></span>
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1565,7 +1566,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Model.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span><span class="dv">22</span><span class="fu">,</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Employees#RemainingVacation&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;RemainingVacation&quot;</span><span class="fu">,</span></span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Managers(22)/Employees/RemainingVacation&quot;</span></span>
@@ -1587,7 +1588,7 @@ Preference-Applied: return=minimal, continue-on-error
 <div class="sourceCode" id="cb50"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#LeaveRequests/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.Approve&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1598,7 +1599,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Approve Leave Request&quot;</span><span class="fu">,</span></span>
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;LeaveRequests(2)/Approve&quot;</span></span>
 <span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1609,7 +1610,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Approve All Leave Requests&quot;</span><span class="fu">,</span></span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(22)/Model.Manager/LeaveRequests/Approve&quot;</span></span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">...</span> <span class="ot">]</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">…</span> <span class="ot">]</span></span>
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1618,7 +1619,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Model.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">22</span><span class="fu">,</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;LeaveRequests#Model.Approve&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Approve All Leave Requests&quot;</span><span class="fu">,</span></span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(22)/Model.Manager/LeaveRequests/Approve&quot;</span></span>
@@ -1867,7 +1868,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">Customer</span> <span class="er">entity</span> <span class="er">with</span> <span class="er">key</span> <span class="er">ALFKI&gt;</span></span>
 <span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;...?$skiptoken=YmF0Y2gx&quot;</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…?$skiptoken=YmF0Y2gx&quot;</span></span>
 <span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Client makes a <code>GET</code> request to the next link and receives a <code>202</code> response with the location of a new monitor resource.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
@@ -1988,8 +1989,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;innererror&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trace&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="er">...</span><span class="fu">}</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trace&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">…</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="er">…</span><span class="fu">}</span></span>
 <span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -2016,7 +2017,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Structured types that are in error can be represented within a success payload only if the client has specified the <code>continue-on-error</code> preference. Such items are annotated with the <code>Core.ResourceException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. The annotation MAY include a <code>retryLink</code> property that can be used by the client to attempt to re-fetch the resource.</p>
 <h3 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
 <p>Collections within a success payload can contain primitive values that are in error, or structured values that are in error, if the client has specified the <code>continue-on-error</code> preference. Such elements are annotated as described above. Primitive elements within a collection are annotated using the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information.</p>
-<p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
+<p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <code>nextLink</code> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
 <hr />
 <h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
 <p>Implementations can add <a href="#InstanceAnnotations">instance annotations</a> of the form <code>@namespace.termname</code> or <code>property@namespace.termname</code> to any JSON object, where <code>property</code> MAY or MAY NOT match the name of a name/value pair within the JSON object. However, the namespace MUST NOT start with <code>odata</code> and SHOULD NOT be required to be understood by the receiving party in order to correctly interpret the rest of the payload as the receiving party MUST ignore unknown annotations not defined in this version of the OData JSON Specification.</p>
@@ -2154,7 +2155,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
 <p><em>Bray, T., Ed., “The JavaScript Object Notation (JSON) Data Interchange Format”, STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
+<h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>

@@ -29,7 +29,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section 
+a value of `true` or `false`, see section
 "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## ##subsec Message Body
@@ -101,11 +101,11 @@ Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "@editLink": "Customers('ALFKI')",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -211,7 +211,7 @@ payload. This URL can be absolute or [relative](#RelativeURLs).
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
-first property of any JSON response.
+first property of any JSON response that allows this control information (this excludes for example [error responses](#ErrorResponse)).
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
@@ -230,7 +230,7 @@ Example ##ex:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@metadataEtag": "W/\"A1FF3E230954908F\"",
-  ...
+  …
 }
 ```
 :::
@@ -338,7 +338,7 @@ metadata document of the same service with a dynamic property of type
   "ID": 2,
   "DynamicValue@type": "Date",
   "DynamicValue": "2016-09-22",
-  ...
+  …
 }
 ```
 :::
@@ -351,7 +351,7 @@ metadata  document of a different service
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@type": "http://host/alternate/$metadata#Model.VipCustomer",
   "ID": 2,
-  ...
+  …
 }
 ```
 :::
@@ -589,7 +589,7 @@ Example ##ex:
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -632,7 +632,7 @@ Example ##ex: Annotating primitive values within a collection
     "JulieSwa@live.com",
     "Julie.Swansworth@work.com"
   ],
-  ...
+  …
 }
 ```
 :::

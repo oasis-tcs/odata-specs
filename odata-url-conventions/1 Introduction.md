@@ -143,7 +143,7 @@ that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in
 [section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
-all characters in the unreserved set (see rule `unreserved` in 
+all characters in the unreserved set (see rule `unreserved` in
 [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
@@ -158,11 +158,17 @@ literals are represented as two consecutive single quotes.
 Example ##ex: valid OData URLs:
 ```
 http://host/service/People('O''Neil')
+```
 
+```
 http://host/service/People(%27O%27%27Neil%27)
+```
 
+```
 http://host/service/People%28%27O%27%27Neil%27%29
+```
 
+```
 http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
@@ -171,9 +177,13 @@ http://host/service/Categories('Smartphone%2FTablet')
 Example ##ex: invalid OData URLs:
 ```
 http://host/service/People('O'Neil')
+```
 
+```
 http://host/service/People('O%27Neil')
+```
 
+```
 http://host/service/Categories('Smartphone/Tablet')
 ```
 :::
