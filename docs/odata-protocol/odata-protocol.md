@@ -6315,6 +6315,8 @@ multiple levels of conformance for an OData Service, as well as the
 [minimal requirements](#InteroperableODataClients) for an OData Client
 to be interoperable across OData services.
 
+As OData itself evolves over time, the conformance clauses distinguish between _unsupported_ and _unrecognized_ features: unsupported features are known to the implementation (for example because they were part of OData at the time of implementation) and consciously not (yet) implemented, whereas unrecognized features are not known to the implementation (for example new query options or request patterns that were added to OData later).
+
 ## <a name="OData40ServiceConformanceLevels" href="#OData40ServiceConformanceLevels">12.1 OData 4.0 Service Conformance Levels</a>
 
 OData 4.0 defines three levels of conformance for an OData Service.
