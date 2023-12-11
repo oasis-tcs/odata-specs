@@ -605,7 +605,7 @@ one or both of them may differ from convention.
 
 ## <a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a>
 
-Transient entities are instances of an entity type that are the result of transforming entities of the same entity type
+Transient entities are instances of an entity type that are the result of transforming entities of that entity type
 and only exist within a single payload.
 They cannot be updated and consequently possess neither a stable entity-id nor an update URL.
 A transient entity may have a read URL, which may be used to apply the same transformation to
