@@ -258,6 +258,7 @@ Schema Definition Language (XSD) 1.1 as described in
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
