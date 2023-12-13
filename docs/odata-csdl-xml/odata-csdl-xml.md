@@ -3686,7 +3686,7 @@ properties targeted via the declaring structured type.
 ## <a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
 Constant expressions allow assigning a constant value to an applied
-term.
+term or term property.
 
 ### <a name="Binary" href="#Binary">14.3.1 Binary</a>
 
@@ -4047,26 +4047,24 @@ Example 57:
 ## <a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a>
 
 Dynamic expressions allow assigning a calculated value to an applied
-term.
+term or term property.
 
 ### <a name="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a>
 
 Path expressions allow assigning a value to an applied term or term
 component. There are two kinds of path expressions:
-- A *model path* is used within
+- A *model path* is evaluated on the entity model of a service and resolves to a model element.
+Model paths are used within
 [Annotation Path](#AnnotationPath), [Model Element Path](#ModelElementPath),
-[Navigation Property Path](#NavigationPropertyPath), and [Property
-Path](#PropertyPath) expressions to traverse the model of a service and
-resolves to the model element identified by the path. It allows
-assigning values to terms or term properties of the [built-in
-types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
-`Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and their base types
-`Edm.AnyPropertyPath` and `Edm.ModelElementPath`.
-- An *instance path* is used within a
-[Value Path](#ValuePath) expression to traverse a graph of type
-instances and resolves to the value identified by the path. It allows
-assigning values to terms or term properties of built-in types other
-than the `Edm.*Path` types, or of any model-defined type.
+[Navigation Property Path](#NavigationPropertyPath), and [Property Path](#PropertyPath) expressions.
+They allow assigning values to terms or term properties of the [built-in types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
+`Edm.ModelElementPath`, `Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and
+`Edm.AnyPropertyPath`.
+- An *instance path* is evaluated on a graph of type instances and resolves to the
+instance or collection of instances identified by the path.
+Instance paths are used within [Value Path](#ValuePath) expressions.
+They allow assigning values to terms or term properties of model-defined types or of built-in types other
+than the `Edm.*Path` types.
 
 #### <a name="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a>
 
@@ -4380,16 +4378,16 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an annotation.
+- A non-null path MUST resolve to an [annotation](#Annotation).
+
+The value of the annotation path expression is the annotation identified by the path, not the
+value of this annotation. This is useful for terms
+that reuse or refer to other terms.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
-annotation path that ends in a term cast with one of the listed terms.
-
-The value of the annotation path expression is the path itself, not the
-value of the annotation identified by the path. This is useful for terms
-that reuse or refer to other terms.
+annotation that applies one of the listed terms.
 
 
 
@@ -4422,8 +4420,7 @@ properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
-The value of the model element path expression is the path itself, not
-the instance(s) identified by the path.
+The value of the model element path expression is the model element identified by the path, not its instances.
 
 
 
@@ -4454,12 +4451,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is an entity type, or a collection of entity types,
-e.g. a navigation property.
+- A non-null path MUST resolve to a [navigation property](#NavigationProperty).
 
-The value of the navigation property path expression is the path itself,
-not the entitiy or collection of entities identified by the path.
+The value of the navigation property path expression is the navigation property, not its instances.
 
 
 
@@ -4496,13 +4490,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is a primitive or complex type, an enumeration type,
-a type definition, or a collection of one of these types.
+- A non-null path MUST resolve to a [structural property](#StructuralProperty).
 
-The value of the property path expression is the path itself, not the
-value of the structural property or the value of the term cast
-identified by the path.
+The value of the property path expression is the structural property, not its instances.
 
 
 
