@@ -1218,8 +1218,8 @@ They allow assigning values to terms or term properties of the
 [built-in types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
 `Edm.ModelElementPath`, `Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and
 `Edm.AnyPropertyPath`.
-- An *instance path* is evaluated on a graph of type instances and resolves to the
-instance or collection of instances identified by the path.
+- An *instance path* is evaluated on a type instance and its nested or related type instances
+and resolves to the instance or collection of instances identified by the path.
 Instance paths are used within [Value Path](#ValuePath) expressions.
 They allow assigning values to terms or term properties of model-defined types or of built-in types other
 than the `Edm.*Path` types.
