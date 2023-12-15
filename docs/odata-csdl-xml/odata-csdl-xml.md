@@ -3300,7 +3300,9 @@ vocabularies such as the OData Core vocabulary
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
-with additional information.
+with additional information. Type instances are instances of a [primitive type](#PrimitiveTypes),
+including [type definitions](#TypeDefinition), of an [enumeration type](#EnumerationType)
+of an [entity type](#EntityType) or of a [complex type](#ComplexType).
 - Map instances of annotated structured
 types to an interface defined by the term type; i.e. annotations allow
 viewing instances of a structured type as instances of a differently
