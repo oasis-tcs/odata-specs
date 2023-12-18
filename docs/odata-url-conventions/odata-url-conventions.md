@@ -1981,16 +1981,16 @@ signatures:
 
 ```
 Edm.String concat(Edm.String,...,Edm.String)
-Collection concat(Collection,Collection)
-OrderedCollection concat(OrderedCollection,OrderedCollection)
+Collection concat(Collection,...,Collection)
+OrderedCollection concat(OrderedCollection,...,OrderedCollection)
 ```
 
 The `concat` function with string parameter values returns a string whose
 value is the combined text of the strings provided.
 
 The concat function with collection parameter values returns a
-collection that appends all items of the second collection to the first.
-If both collections are ordered, the result is also ordered.
+collection whose items are the items of the collections provided.
+If all provided collections are ordered, the result is also ordered.
 
 The `concatMethodCallExpr` syntax rule defines how the `concat` function
 is invoked.
