@@ -1980,17 +1980,17 @@ The `concat` function has three overloads, with the following
 signatures:
 
 ```
-Edm.String concat(Edm.String,...,Edm.String)
-Collection concat(Collection,...,Collection)
-OrderedCollection concat(OrderedCollection,...,OrderedCollection)
+Edm.String concat(Edm.String,…,Edm.String)
+Collection concat(Collection,…,Collection)
+OrderedCollection concat(OrderedCollection,…,OrderedCollection)
 ```
 
 The `concat` function with string parameter values returns a string whose
-value is the combined text of the strings provided.
+value is the concatenation of the strings provided.
 
 The concat function with collection parameter values returns a
 collection whose items are the items of the collections provided.
-If all provided collections are ordered, the result is also ordered.
+If all provided collections are ordered, the result is the ordered concatenation of the provided collections.
 
 The `concatMethodCallExpr` syntax rule defines how the `concat` function
 is invoked.
