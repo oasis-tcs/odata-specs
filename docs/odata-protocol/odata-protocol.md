@@ -1543,7 +1543,7 @@ allows clients to request that the service process the request
 asynchronously.
 
 If the client has specified` respond-async` in the request, the service
-MAY process the request asynchronously and return a
+MAY process the request [asynchronously](#AsynchronousRequests) and return a
 [`202 Accepted`](#ResponseCode202Accepted) response.
 
 The `respond-async` preference MAY be used for batch requests, in which
@@ -5636,6 +5636,11 @@ includes an `OData-MaxVersion` header with a value of `4.0` and no
 then the body of the final `200 OK` response MUST be represented as an
 HTTP message, as described in [RFC9110](#rfc9110), which is the full
 HTTP response to the completed asynchronous operation.
+
+If a client queries the status monitor resource with a [`wait`](#Preferencewait) preference, the preference applies to the status query and not to the original request that is processed asynchronously.
+A server may
+- ignore the `wait` preference on a status query, or
+- respond with `202 Accepted` to indicate that asynchronous processing of the original request is probably still ongoing if it cannot finish the status query within the given length of time.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
