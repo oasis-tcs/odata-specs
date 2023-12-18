@@ -539,13 +539,13 @@ The `concat` function has three overloads, with the following
 signatures:
 
 ```
-Edm.String concat(Edm.String,Edm.String)
+Edm.String concat(Edm.String,...,Edm.String)
 Collection concat(Collection,Collection)
 OrderedCollection concat(OrderedCollection,OrderedCollection)
 ```
 
-The `concat` function with string parameter values returns a string that
-appends the second parameter string value to the first.
+The `concat` function with string parameter values returns a string whose
+value is the combined text of the strings provided.
 
 The concat function with collection parameter values returns a
 collection that appends all items of the second collection to the first.
@@ -557,7 +557,7 @@ is invoked.
 ::: example
 Example ##ex: all customers from Berlin, Germany
 ```
-http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
+http://host/service/Customers?$filter=concat(City,', ',Country) eq 'Berlin, Germany'
 ```
 :::
 

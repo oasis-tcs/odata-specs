@@ -3175,7 +3175,7 @@ a `null` literal that can be used in comparisons.
 <table>
 <tr><th>Function</th><th>Example</th></tr>
 <tr><td colspan="2"><strong>String and Collection Functions</strong></td></tr>
-<tr><td><code>concat</code></td><td><pre><code>concat(concat(City,', '), Country) eq 'Berlin, Germany'</code></pre></td></tr>
+<tr><td><code>concat</code></td><td><pre><code>concat(City,', ', Country) eq 'Berlin, Germany'</code></pre></td></tr>
 <tr><td><code>contains</code></td><td><pre><code>contains(CompanyName,'freds')</code></pre></td></tr>
 <tr><td><code>endswith</code></td><td><pre><code>endswith(CompanyName,'Futterkiste')</code></pre></td></tr>
 <tr><td><code>indexof</code></td><td><pre><code>indexof(CompanyName,'lfreds') eq 1</code></pre></td></tr>

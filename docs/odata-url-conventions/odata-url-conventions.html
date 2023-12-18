@@ -1051,15 +1051,15 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h4 id="5115-string-and-collection-functions"><a name="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a></h4>
 <h5 id="51151-concat"><a name="concat" href="#concat">5.1.1.5.1 <code>concat</code></a></h5>
 <p>The <code>concat</code> function has three overloads, with the following signatures:</p>
-<pre><code>Edm.String concat(Edm.String,Edm.String)
+<pre><code>Edm.String concat(Edm.String,...,Edm.String)
 Collection concat(Collection,Collection)
 OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>concat</code> function with string parameter values returns a string that appends the second parameter string value to the first.</p>
+<p>The <code>concat</code> function with string parameter values returns a string whose value is the combined text of the strings provided.</p>
 <p>The concat function with collection parameter values returns a collection that appends all items of the second collection to the first. If both collections are ordered, the result is also ordered.</p>
 <p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
 <p>Example 69: all customers from Berlin, Germany</p>
-<pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
+<pre><code>http://host/service/Customers?$filter=concat(City,&#39;, &#39;,Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
 <h5 id="51152-contains"><a name="contains" href="#contains">5.1.1.5.2 <code>contains</code></a></h5>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
