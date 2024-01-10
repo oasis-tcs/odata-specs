@@ -988,8 +988,8 @@ appended to a `resourcePath`.
 
 ### <a name="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a>
 
-The grammar for addressing and invoking functions is defined by a number of
-syntax grammar rules in [OData-ABNF](#ODataABNF), in particular:
+The grammar for addressing and invoking functions is defined by
+syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
 `complexFunctionImportCall`, `complexColFunctionImportCall`,
 `entityFunctionImportCall`, `entityColFunctionImportCall`,
