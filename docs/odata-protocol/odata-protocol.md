@@ -2061,8 +2061,8 @@ Context URL template:
     {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
-of an entity set, its
-name with `/$entity` appended is the context URL fragment.
+of an entity set, the context URL fragment is the entity set's
+name with `/$entity` appended.
 
 ::: example
 Example 13: resource URL and corresponding context URL
