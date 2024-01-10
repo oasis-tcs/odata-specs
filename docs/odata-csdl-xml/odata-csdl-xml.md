@@ -1656,7 +1656,7 @@ If the property is part of a chain of structural properties or
 [containment navigation properties](#ContainmentNavigationProperty)
 leading back to the property's declaring type, then at least one property
 in this chain MUST be nullable or collection-valued,
-otherwise instances of the declaring type would have infinite depth.
+otherwise instances of the declaring type would have infinite size.
 
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -1816,7 +1816,7 @@ If the property is part of a chain of [structural properties ](#StructuralProper
 [containment navigation properties](#ContainmentNavigationProperty)
 leading back to the property's declaring type, then at least one property
 in this chain MUST be nullable or collection-valued,
-otherwise instances of the declaring type would have infinite depth.
+otherwise instances of the declaring type would have infinite size.
 
 If the type is a collection, an arbitrary number of entities can be
 related. Otherwise there is at most one related entity.
