@@ -472,7 +472,7 @@ navigation property.
 ::: {.varxml .rep}
 ### ##subisec Attribute `Partner`
 
-The value of `Partner` is the path to the of the partner navigation
+The value of `Partner` is the path to the partner navigation
 property.
 :::
 
