@@ -538,7 +538,7 @@ appended to a `resourcePath`.
 ### ##subsubsec Addressing Functions
 
 The grammar for addressing and invoking functions is defined by
-syntax grammar rules in [OData-ABNF](#ODataABNF), in particular:
+syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
 `complexFunctionImportCall`, `complexColFunctionImportCall`,
 `entityFunctionImportCall`, `entityColFunctionImportCall`,
