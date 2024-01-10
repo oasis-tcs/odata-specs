@@ -1890,7 +1890,7 @@ partner navigation property.
 ::: {.varxml .rep}
 ### <a name="AttributePartner.13.4" href="#AttributePartner.13.4">Attribute `Partner`</a>
 
-The value of `Partner` is the path to the of the partner navigation
+The value of `Partner` is the path to the partner navigation
 property.
 :::
 
