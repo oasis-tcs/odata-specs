@@ -2278,7 +2278,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <tr class="odd">
 <td>bound <a href="#Action">Action</a> overload via container</td>
 <td>Navigation Property via container or Property via container, followed by bound Action overload</td>
-<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyNavigationProperty</code> <br><code> /MySchema.MyAction(Collection(MySchema.MyBindingType))</code></pre></td>
+<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyNavigationProperty</code> <br><code> /MySchema.MyAction(MySchema.MyBindingType)</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyNavigationProperty</code> <br><code> /MySchema.MyAction(Collection(MySchema.MyBindingType))</code></pre></td>
 </tr>
 <tr class="even">
 <td>all bound <a href="#Action">Action</a> overloads with given binding type via container</td>
@@ -2338,7 +2338,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <tr class="odd">
 <td>bound <a href="#Function">Function</a> overload via container</td>
 <td>Navigation Property via container or Property via container, followed by bound Function overload</td>
-<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyComplexProperty</code> <br><code> /MySchema.MyFunction(MySchema.MyBindingType)</code></pre></td>
+<td><pre><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyComplexProperty</code> <br><code> /MySchema.MyFunction(MySchema.MyBindingType)</code> <br><code>MySchema.MyEntityContainer/MyEntitySet</code> <br><code> /MyComplexProperty</code> <br><code> /MySchema.MyFunc(Collection(MySchema.MyBindingType))</code></pre></td>
 </tr>
 <tr class="even">
 <td>all bound <a href="#Function">Function</a> overloads of given binding type via container</td>
@@ -2409,7 +2409,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </table>
 <p>All <a href="#QualifiedName">qualified names</a> used in a target path MUST be in scope.</p>
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
-<p>External targeting is also possible for action and function overloads that are bound to properties or navigation properties of singletons or entities in a particular entity set. These annotations override annotations targeting the action or function overloads directly.</p>
+<p>External targeting is also possible for action and function overloads that are bound to (properties or navigation properties) of singletons or entities in a particular entity set. These annotations override annotations targeting the action or function overloads directly.</p>
 <p>Note “all bound Action or Function overloads of given binding type via container” references all overloads where the binding parameter is an instance or a collection of the given type.</p>
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>

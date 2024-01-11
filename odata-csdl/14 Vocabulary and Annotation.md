@@ -584,6 +584,9 @@ bound [Action](#Action) overload via container|
 Navigation Property via container or Property via container, followed by bound Action overload| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
 <br>` /MyNavigationProperty` 
+<br>` /MySchema.MyAction(MySchema.MyBindingType)` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MyNavigationProperty` 
 <br>` /MySchema.MyAction(Collection(MySchema.MyBindingType))`</pre>
 all bound [Action](#Action) overloads with given binding type via container| 
 Navigation Property via container or Property via container, followed by all overloads of an Action| 
@@ -628,7 +631,10 @@ bound [Function](#Function) overload via container|
 Navigation Property via container or Property via container, followed by bound Function overload| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
 <br>` /MyComplexProperty` 
-<br>` /MySchema.MyFunction(MySchema.MyBindingType)`</pre>
+<br>` /MySchema.MyFunction(MySchema.MyBindingType)` 
+<br>`MySchema.MyEntityContainer/MyEntitySet` 
+<br>` /MyComplexProperty` 
+<br>` /MySchema.MyFunc(Collection(MySchema.MyBindingType))`</pre>
 all bound [Function](#Function) overloads of given binding type via container| 
 Navigation Property via container or Property via container, followed by all overloads of a Function| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
@@ -695,7 +701,7 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 External targeting is also possible for action and function overloads that
-are bound to properties or navigation properties of singletons or entities in
+are bound to (properties or navigation properties) of singletons or entities in
 a particular entity set. These annotations override annotations targeting the
 action or function overloads directly.
 
