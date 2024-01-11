@@ -4525,7 +4525,8 @@ request altogether.
 Upserts to single-valued navigation properties are possible for
 - containment navigation properties,
 - non-containment navigation properties with a navigation property binding, or
-- payloads including a context URL specifying the entity set or   contained collection of entities in which the new entity is to be created.
+- payloads including a context URL specifying the entity set or
+  contained collection of entities in which the new entity is to be created.
 
 Upserts are not supported against [media
 entities](#RequestingtheMediaStreamofaMediaEntityusingvalue)
