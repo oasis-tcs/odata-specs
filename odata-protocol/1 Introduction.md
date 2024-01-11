@@ -32,6 +32,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##UpsertanEntity]| 
  Upserts to single-valued non-containment navigation properties| 
 [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
+[Section ##UpdateaComplexProperty]| 
+Setting a complex property to a different type| 
+[ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 
 ## ##subsec Glossary
 
@@ -531,7 +534,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
-[RFC7231](#rfc7231), or through the system query option
+[RFC9110](#rfc9110), or through the system query option
 [`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query

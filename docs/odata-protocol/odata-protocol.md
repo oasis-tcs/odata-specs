@@ -348,6 +348,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 [Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
+[Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -847,7 +848,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
-[RFC7231](#rfc7231), or through the system query option
+[RFC9110](#rfc9110), or through the system query option
 [`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query
@@ -912,7 +913,7 @@ parameters within the `Content-Type` header.
 
 ### <a name="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header `Content-Encoding`</a>
 
-As defined in [RFC7231](#rfc7231), the `Content-Encoding` header
+As defined in [RFC9110](#rfc9110), the `Content-Encoding` header
 field is used as a modifier to the media-type (as indicated in the
 `Content-Type` header). When present, its value indicates what additional
 content codings have been applied to the entity-body.
@@ -929,7 +930,7 @@ overall batch request or response.
 
 ### <a name="HeaderContentLanguage" href="#HeaderContentLanguage">8.1.3 Header `Content-Language`</a>
 
-As defined in [RFC7231](#rfc7231), a request or response can
+As defined in [RFC9110](#rfc9110), a request or response can
 include a `Content-Language` header to indicate the natural language of
 the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
@@ -946,7 +947,7 @@ overall batch request or response.
 
 ### <a name="HeaderContentLength" href="#HeaderContentLength">8.1.4 Header `Content-Length`</a>
 
-As defined in [RFC7230](#rfc7230), a request or response SHOULD
+As defined in [RFC9110](#rfc9110), a request or response SHOULD
 include a `Content-Length` header when the message's length can be
 determined prior to being transferred. OData does not add any additional
 requirements over HTTP for writing `Content-Length`.
@@ -993,7 +994,7 @@ specify any combination of the following request headers.
 
 ### <a name="HeaderAccept" href="#HeaderAccept">8.2.1 Header `Accept`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted [formats](#Formats) with the `Accept` Header.
 
 Services MUST reject formats that specify unknown or unsupported format
@@ -1019,7 +1020,7 @@ inherit the acceptable formats of the overall batch request.
 
 ### <a name="HeaderAcceptCharset" href="#HeaderAcceptCharset">8.2.2 Header `Accept-Charset`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted character sets with the `Accept-Charset` header.
 
 If the `Accept-Charset` header is specified on an individual request
@@ -1030,7 +1031,7 @@ overall batch request.
 
 ### <a name="HeaderAcceptLanguage" href="#HeaderAcceptLanguage">8.2.3 Header `Accept-Language`</a>
 
-As defined in [RFC7231](#rfc7231), the client MAY specify the set
+As defined in [RFC9110](#rfc9110), the client MAY specify the set
 of accepted natural languages with the `Accept-Language` header.
 
 If the `Accept-Language` header is specified on an individual request
@@ -1041,7 +1042,7 @@ batch request.
 
 ### <a name="HeaderIfMatch" href="#HeaderIfMatch">8.2.4 Header `If-Match`</a>
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
 value previously retrieved for the resource, or `*` to match any value.
@@ -1063,7 +1064,7 @@ value matches the current ETag value of the target resource. Services
 sending [`ETag`](#HeaderETag) headers with weak ETags that only depend
 on the representation-independent entity state MUST use the weak
 comparison function because it is sufficient to prevent accidental
-overwrites. This is a deviation from [RFC7232](#rfc7232).
+overwrites. This is a deviation from [RFC9110](#rfc9110).
 
 If the value does not match the current ETag value of the resource for a
 [Data Modification Request](#DataModification) or [Action
@@ -1082,14 +1083,14 @@ be specified on individual requests within the batch.
 
 ### <a name="HeaderIfNoneMatch" href="#HeaderIfNoneMatch">8.2.5 Header `If-None-Match`</a>
 
-As defined in [RFC7232](#rfc7232), a client MAY include an
+As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-None-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-None-Match` request header MUST be an
 ETag value previously retrieved for the resource, or `*`.
 
 If present, the request MUST only be processed if the specified ETag
 value does not match the current ETag value of the resource, using the
-weak comparison function (see [RFC7232](#rfc7232)). If the value
+weak comparison function (see [RFC9110](#rfc9110)). If the value
 matches the current ETag value of the resource, then for a `GET`
 request, the service SHOULD respond with
 [`304 Not Modified`](#ResponseCode304NotModified), and for a [Data
@@ -1313,7 +1314,10 @@ processing (if specified with an explicit value of `false`). The syntax
 of the `continue-on-error` preference is defined in
 [OData-ABNF](#ODataABNF).
 
-The `continue-on-error` preference can also be used on a [delta update](#UpdateaCollectionofEntities), [set-based update](#UpdateMembersofaCollection), or [set-based delete](#DeleteMembersofaCollection) to request that the service
+The `continue-on-error` preference can also be used on a
+[delta update](#UpdateaCollectionofEntities),
+[set-based update](#UpdateMembersofaCollection), or
+[set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
 A service MAY specify support for the `continue-on-error` preference
@@ -1491,8 +1495,8 @@ permissions and has been replaced with the instance annotation
 Properties with null or default values MUST be included in delta
 payloads, if modified.
 
-The response to a POST operation MUST include any properties not set to
-their default value, and the response to a PUT/PATCH operation MUST
+The response to a `POST` operation MUST include any properties not set to
+their default value, and the response to a `PUT` or `PATCH` operation MUST
 include any properties whose values were changed as part of the
 operation.
 
@@ -1646,7 +1650,7 @@ within a batch.
 ### <a name="HeaderETag" href="#HeaderETag">8.3.2 Header `ETag`</a>
 
 A response MAY include an `ETag` header, see
-[RFC7232](#rfc7232). Services MUST include this header if they
+[RFC9110](#rfc9110). Services MUST include this header if they
 require an ETag to be specified when modifying the resource.
 
 Services MUST support specifying the value returned in the `ETag` header
@@ -1733,7 +1737,7 @@ to the overall batch.
 ### <a name="HeaderRetryAfter" href="#HeaderRetryAfter">8.3.7 Header `Retry-After`</a>
 
 A service MAY include a `Retry-After` header, as defined in
-[RFC7231](#rfc7231), in [`202 Accepted`](#ResponseCode202Accepted)
+[RFC9110](#rfc9110)), in [`202 Accepted`](#ResponseCode202Accepted)
 and in [`3xx Redirect`](#ResponseCode3xxRedirection) responses
 
 The `Retry-After` header specifies the duration of time, in seconds,
@@ -1758,7 +1762,7 @@ the service MUST include a `Vary` header listing the
 of the response.
 
 Alternatively, the server MAY include a `Vary` header with the special
-value `*` as defined by [RFC7231](#rfc7231), Section 8.2.1. Note
+value `*` as defined by [RFC9110](#rfc9110), Section 8.2.1. Note
 that this will make it impossible for a proxy to cache the response, see
 [RFC7240](#rfc7240).
 
@@ -1807,7 +1811,7 @@ A request returns `204 No Content` if the requested resource has the
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 In this case, the response body MUST be empty.
 
-As defined in [RFC7231](#rfc7231), a [Data Modification
+As defined in [RFC9110](#rfc9110), a [Data Modification
 Request](#DataModification) that responds with
 `204 No Content` MAY include an [`ETag`](#HeaderETag) header with a value reflecting
 the result of the data modification if and only if the client can
@@ -1825,7 +1829,7 @@ server-side values corresponding to the `ETag` value sent in the
 
 ### <a name="ResponseCode3xxRedirection" href="#ResponseCode3xxRedirection">9.1.5 Response Code `3xx Redirection`</a>
 
-As per [RFC7231](#rfc7231), a `3xx Redirection` indicates that
+As per [RFC9110](#rfc9110), a `3xx Redirection` indicates that
 further action needs to be taken by the client in order to fulfill the
 request. In this case, the response SHOULD include a
 [`Location`](#HeaderLocation) header, as appropriate, with the URL from which the
@@ -1834,7 +1838,7 @@ result can be obtained; it MAY include a
 
 ### <a name="ResponseCode304NotModified" href="#ResponseCode304NotModified">9.1.6 Response Code `304 Not Modified`</a>
 
-As per [RFC7232](#rfc7232), a `304 Not Modified` is returned
+As per [RFC9110](#rfc9110), a `304 Not Modified` is returned
 when the client performs a `GET` request containing an
 [`If-None-Match`](#HeaderIfNoneMatch) header and the content has not
 changed. In this case the response SHOULD NOT include other headers in
@@ -1868,7 +1872,7 @@ does not exist. The response body MAY provide additional information.
 request URL does not support the request method. In this case the
 response MUST include an `Allow` header containing a list of valid
 request methods for the requested resource as defined in
-[RFC7231](#rfc7231).
+[RFC9110](#rfc9110).
 
 ### <a name="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code `406 Not Acceptable`</a>
 
@@ -1890,7 +1894,7 @@ isolation](#HeaderIsolationODataIsolation).
 
 ### <a name="ResponseCode412PreconditionFailed" href="#ResponseCode412PreconditionFailed">9.2.5 Response Code `412 Precondition Failed`</a>
 
-As defined in [RFC7232](#rfc7232), `412 Precondition Failed`
+As defined in [RFC9110](#rfc9110), `412 Precondition Failed`
 indicates that the client has performed a conditional request and the
 resource fails the condition. The service MUST ensure that no observable
 change occurs as a result of the request.
@@ -1903,7 +1907,7 @@ depended upon a request that failed.
 
 ## <a name="ServerErrorResponses" href="#ServerErrorResponses">9.3 Server Error Responses</a>
 
-As defined in [RFC7231](#rfc7231), error codes in the `5xx` range
+As defined in [RFC9110](#rfc9110), error codes in the `5xx` range
 indicate service errors.
 
 ### <a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
@@ -1924,7 +1928,7 @@ This code serves as a sub-status for the HTTP error code specified in
 the response.
 - `message`: required non-null, non-empty,
 language-dependent, human-readable string describing the error.
-The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
+The [`Content-Language`](#HeaderContentLanguage) header MUST contain the
 language code from [RFC5646](#rfc5646) corresponding to the language in
 which the value for message is written.
 - `target`: optional nullable, potentially
@@ -2048,7 +2052,7 @@ http://host/service/$metadata#Orders(4711)/Items
 If the entities in the response are not bound to a single entity set,
 such as from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL specifies
+property with no navigation property binding, the context URL fragment specifies
 the type of the returned entity collection.
 
 ## <a name="Entity" href="#Entity">10.3 Entity</a>
@@ -2059,7 +2063,8 @@ Context URL template:
     {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
-of an entity set, `/$entity` is appended to the context URL.
+of an entity set, the context URL fragment is the entity set's
+name with `/$entity` appended.
 
 ::: example
 Example 13: resource URL and corresponding context URL
@@ -2069,9 +2074,9 @@ http://host/service/$metadata#Customers/$entity
 ```
 :::
 
-If the entity is contained, then `entity-set` is the canonical URL for
-the containment navigation property of the containing entity, e.g.
-Orders(4711)/Items.
+If the entity is contained, then `entity-set` is the  top-level entity
+set or singleton followed by the path to the containment navigation
+property of the containing entity.
 
 ::: example
 Example 14: resource URL and corresponding context URL for contained
@@ -2082,10 +2087,10 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 ```
 :::
 
-If the response is not bound to a single entity set, such as an entity
+If the entity is not bound to an entity set, such as an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL specifies
+property with no navigation property binding, the context URL fragment specifies
 the type of the returned entity.
 
 ## <a name="Singleton" href="#Singleton">10.4 Singleton</a>
@@ -2298,9 +2303,9 @@ Example 22: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
-        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
+        &$expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
+        #Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 :::
 
@@ -2340,9 +2345,9 @@ the context URL.
 Example 23: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
-        $expand=DirectReports($select=FirstName,LastName;$levels=4)
+        $expand=DirectReports($select=FirstName,LastName;$levels=4)
 http://host/service/$metadata
-        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
+        #Employees/Sales.Manager(DirectReports+(FirstName,LastName))/$entity
 ```
 :::
 
@@ -2506,7 +2511,8 @@ Context URL templates:
 
     {context-url}#{entity-set}/$deletedEntity
     {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink 
+    {context-url}#{entity-set}/$deletedLink
+
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
 links, and deleted links. They are identified by the corresponding
@@ -2530,7 +2536,7 @@ Context URL template:
 
     {context-url}#Collection(Edm.ComplexType)
 
-Responses to requests to the virtual collections `$crossjoin(...)` (see
+Responses to requests to the virtual collections `$crossjoin(…)` (see
 [OData-URL](#ODataURL)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
 
@@ -2652,7 +2658,8 @@ OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
 character, which is optional in OData 4.01. 4.01 services MUST support
 case-insensitive system query option names specified with or without the
-`$` prefix. Clients that want to work with 4.0 services MUST use lower case names
+`$` prefix.
+Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
 The result of the request MUST be as if the system query options were
@@ -2692,7 +2699,7 @@ key value(s), as described in [OData-URL](#ODataURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
-[`$expand`](#SystemQueryOptionexpand)system query options.
+[`$expand`](#SystemQueryOptionexpand) system query options.
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -2840,7 +2847,8 @@ returns the specified content, if available, along with any available
 and MAY return additional information.
 
 The value of the `$select` query option is a comma-separated list of
-properties, qualified action names, qualified function names, the star
+paths that end with properties, non-entity-valued instance annotations,
+qualified action names, or qualified function names, as well as of the star
 operator (`*`), or the star operator prefixed with the namespace or
 alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
@@ -3064,9 +3072,9 @@ Example 45: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
-   ?$filter=Orders/any(o:o/TotalPrice gt 100)
-   &$expand=Orders($compute=Price mult Qty as TotalPrice
-                  ;$select=Name,Price,Qty,TotalPrice)
+   ?$filter=Orders/any(o:o/TotalPrice gt 100)
+   &$expand=Orders($compute=Price mult Qty as TotalPrice
+                  ;$select=Name,Price,Qty,TotalPrice)
 ```
 :::
 
@@ -3337,10 +3345,18 @@ GET http://host/service/Categories?$orderby=Products/$count
 
 #### <a name="SystemQueryOptiontop" href="#SystemQueryOptiontop">11.2.6.3 System Query Option `$top`</a>
 
-The `$top` system query option specifies a non-negative integer n that
-limits the number of items returned from a collection. The service
-returns the number of available items up to but not greater than the
-specified value n.
+The `$top` system query option specifies a non-negative integer $n$ that
+limits the number of items returned from a collection.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include `$top` or [`$skip`](#SystemQueryOptionskip).
+
+If $A$ contains more than $n$ instances, the result of ${\tt \$top}=n$
+consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
+The instances in the result are in the same order as they occur in $A$.
 
 ::: example
 Example 53: return only the first five products of the Products entity
@@ -3350,15 +3366,21 @@ GET http://host/service/Products?$top=5
 ```
 :::
 
-If no unique ordering is imposed through an
-[`$orderby`](#SystemQueryOptionorderby) query option, the service MUST
-impose a stable ordering across requests that include `$top`.
-
 #### <a name="SystemQueryOptionskip" href="#SystemQueryOptionskip">11.2.6.4 System Query Option `$skip`</a>
 
-The `$skip` system query option specifies a non-negative integer n that
-excludes the first n items of the queried collection from the result.
-The service returns items starting at position n+1.
+The `$skip` system query option specifies a non-negative integer $n$ that
+excludes the first $n$ items of the queried collection from the result.
+
+Let $A$ be a copy of the result set with a total order that extends any
+existing order of the result set but is otherwise chosen by the service. If no
+unique ordering is imposed through an [`$orderby`](#SystemQueryOptionorderby)
+query option, the service MUST choose a stable
+ordering across requests that include [`$top`](#SystemQueryOptiontop) or `$skip`.
+
+If $A$ contains $n$ or fewer instances, the result of ${\tt \$skip}=n$
+is empty. Otherwise, the first $n$ instances in $A$ are omitted
+from the result and all remaining instances are kept in the same order as
+they occur in $A$.
 
 ::: example
 Example 54: return products starting with the 6th product of the
@@ -3543,7 +3565,7 @@ accessible using an ordinal index.
 ::: example
 Example 64: the first address in a list of addresses for `MainSupplier`
 ```
-GET http://host/service/Suppliers(MainSupplier)/Addresses/0
+GET http://host/service/MainSupplier/Addresses/0
 ```
 :::
 
@@ -3646,8 +3668,8 @@ specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
       ?$id=http://host/service/Customers('ALFKI')
-      &$select=CompanyName,ContactName
-      &$expand=Orders
+      &$select=CompanyName,ContactName
+      &$expand=Orders
 ```
 :::
 
@@ -3663,7 +3685,7 @@ matching the request after applying any
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain`. Clients
 SHOULD NOT combine the system query options
-[ ]{.MsoCommentReference}[`$top`](#SystemQueryOptiontop),
+[`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$expand`](#SystemQueryOptionexpand), and
@@ -3867,7 +3889,8 @@ MUST return changes, additions, or deletions to the expanded entities,
 as well as added or deleted links to expanded entities or nested
 collections representing current membership. If the defining query
 includes expanded references, then the delta link MUST return changes to
-the membership in the set of expanded references. 
+the membership in the set of expanded references.
+
 Navigation properties specified in the
 [`$select`](#SystemQueryOptionselect) list of a defining query are not
 used to define the scope or contents of the items being tracked. Clients
@@ -4167,15 +4190,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@odata.type":"#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@odata.type": "#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager@odata.bind": "http://host/service/Employees(0)",
-  "DirectReports@odata.bind": [
-    "http://host/service/Employees(5)",
-    "http://host/service/Employees(6)"
-  ]
+  "DirectReports@odata.bind": [
+    "http://host/service/Employees(5)",
+    "http://host/service/Employees(6)"
+  ]
 }
 ```
 :::
@@ -4186,15 +4209,15 @@ entity with links to an existing manager (of managers) and to two existing emplo
 within the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@type":"#Northwind.Manager",
-  "ID": 1,
-  "FirstName": "Pat",
-  "LastName": "Griswold",
+  "@type": "#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
-  "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
-  ]
+  "DirectReports": [
+    {"@id": "Employees(5)"},
+    {"@id": "Employees(6)"}
+  ]
 }
 ```
 :::
@@ -4384,21 +4407,21 @@ reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
 ```json
 {
-  "@type":"#Northwind.Manager",
-  "FirstName" : "Patricia",
-  "DirectReports": [
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type": "#Northwind.Manager",
+  "FirstName": "Patricia",
+  "DirectReports": [
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4412,12 +4435,12 @@ the entity is both removed from the collection and deleted, otherwise it
 is removed from the collection and only deleted if the relationship is
 contained. Non-key properties of the deleted entity are ignored. Nested
 collections MUST NOT contain added or deleted links. If the request
-contains nested delta collections, then the PATCH verb must be
+contains nested delta collections, then the `PATCH` verb must be
 specified.
 
 If a nested entity has the same id or key fields as an existing entity,
-the existing entity is updated according to the semantics of the PUT or
-PATCH request. Nested entities that have no id or key fields, or for
+the existing entity is updated according to the semantics of the `PUT` or
+`PATCH` request. Nested entities that have no id or key fields, or for
 which the id or key fields do not match existing entities, are treated
 as inserts. If the nested collection does not represent a containment
 relationship and has no navigation property binding, then such entities
@@ -4440,33 +4463,33 @@ of employee 6 and link to it if necessary
 named "Suzanne Brown" and link to it
 ```json
 {
-  "@type": "#Northwind.Manager",
-  "FirstName": "Patricia",
-  "DirectReports@delta": [
-    {
-      "@removed": {
-        "reason": "deleted"
-      },
-      "@id": "Employees(3)"
-    },
-    {
-      "@removed": {
-        "reason": "changed"
-      },
-      "@id": "Employees(4)"
-    },
-    {
-      "@id": "Employees(5)"
-    },
-    {
-      "@id": "Employees(6)",
-      "LastName": "Smith"
-    },
-    {
-      "FirstName": "Suzanne",
-      "LastName": "Brown"
-    }
-  ]
+  "@type": "#Northwind.Manager",
+  "FirstName": "Patricia",
+  "DirectReports@delta": [
+    {
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Employees(3)"
+    },
+    {
+      "@removed": {
+        "reason": "changed"
+      },
+      "@id": "Employees(4)"
+    },
+    {
+      "@id": "Employees(5)"
+    },
+    {
+      "@id": "Employees(6)",
+      "LastName": "Smith"
+    },
+    {
+      "FirstName": "Suzanne",
+      "LastName": "Brown"
+    }
+  ]
 }
 ```
 :::
@@ -4703,10 +4726,10 @@ would only include control information for the stream property, not the stream d
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
-  ...
+  …
 }
 ```
 The stream data can then be requested using the media read link:
@@ -4844,7 +4867,8 @@ The service MUST directly modify only those properties of the complex
 type specified in the payload of the `PATCH` request.
 
 If a complex-typed property is set to a different type in a `PATCH` request,
-properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload).
+properties shared through inheritance, as well as dynamic properties,
+are retained (unless overwritten by new values in the payload).
 Other properties of the original type are discarded.
 
 The service MAY additionally support clients sending a `PUT` request to
@@ -4926,7 +4950,7 @@ POST /service/Customers('ALFKI')/EmailAddresses?$index=1
 Content-Type: application/json
 
 {
-  "value": "alfred@futterkiste.de"
+  "value": "alfred@futterkiste.de"
 }
 ```
 :::
@@ -4967,7 +4991,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the `continue-on-error` preference has been specified and any errors
+If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
 occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
@@ -5044,12 +5068,11 @@ Entities](#UpdateaCollectionofEntities) applies.
 ::: example
 Example 84: change the color of all beige-brown products
 ```json
-PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq
-'beige-brown'
+PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
 Content-Type: application/json
 
 {
-  "Color": "taupe"
+  "Color": "taupe"
 }
 ```
 :::
@@ -5141,8 +5164,8 @@ Example 86: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
-  <Parameter Name="customer" Type="SampleModel.Customer" />
-  <ReturnType Type="SampleModel.Order" />
+  <Parameter Name="customer" Type="SampleModel.Customer" />
+  <ReturnType Type="SampleModel.Order" />
 </Function>
 ```
 :::
@@ -5161,8 +5184,8 @@ Example 88: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
-  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
-  <ReturnType Type="Diff.Overview" />
+  <Parameter Name="in" Type="Collection(Edm.EntityType)" />
+  <ReturnType Type="Diff.Overview" />
 </Function>
 ```
 :::
@@ -5225,20 +5248,20 @@ a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
 ```json
 {
-  "@context": ...,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": {
-    "title": "Most Recent Order",
-    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
-  },
-  ...
+  "@context": …,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": {
+    "title": "Most Recent Order",
+    "target": "Customers('ALFKI')/SampleEntities.MostRecentOrder()"
+  },
+  …
 }
 ```
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL](#ODataURL).
 
@@ -5250,11 +5273,11 @@ Example 92: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
-  "@context": ...,
-  "CustomerID": "ALFKI",
-  "CompanyName": "Alfreds Futterkiste",
-  "#SampleEntities.MostRecentOrder": null,
-  ...
+  "@context": …,
+  "CustomerID": "ALFKI",
+  "CompanyName": "Alfreds Futterkiste",
+  "#SampleEntities.MostRecentOrder": null,
+  …
 }
 ```
 :::
@@ -5287,7 +5310,7 @@ Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 To request processing of the function only if the binding parameter value,
 an entity or collection of entities, is unmodified, the client includes
@@ -5327,8 +5350,8 @@ Example 93: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
- 
-...
+
+…
 ```
 :::
 
@@ -5341,7 +5364,7 @@ literal (for primitive values) or as a JSON formatted OData object (for
 complex values, or collections of primitive or complex values). Entity
 typed values are passed as JSON formatted entities that MAY include a
 subset of the properties, or just the entity reference, as appropriate
-to the function.  
+to the function.
 
 If a collection-valued function has no result for a given parameter
 value combination, the response is the format-specific representation of
@@ -5385,7 +5408,7 @@ Example 95: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
-      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
+      $filter=Sales.SalesRegion(City=$it/City) eq 'Western'
 ```
 :::
 
@@ -5493,7 +5516,7 @@ Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
-defined in  [OData-VocCore](#ODataVocCore).
+defined in [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
 request to a URL identifying the action import. The canonical URL for an
@@ -5558,11 +5581,11 @@ If-Match: W/"MjAxOS0wMy0yMVQxMzowNVo="
 Content-Type: application/json
 
 {
-  "items": [
-    { "product": 4001, "quantity": 2 },
-    { "product": 7062, "quantity": 1 },
+  "items": [
+    { "product": 4001, "quantity": 2 },
+    { "product": 7062, "quantity": 1 },
   ],
-  "discountCode": "BLACKFRIDAY"
+  "discountCode": "BLACKFRIDAY"
 }
 ```
 :::
@@ -5618,7 +5641,7 @@ asynchronous operation. If the `GET` request to the status monitor
 includes an `OData-MaxVersion` header with a value of `4.0` and no
 `Accept` header, or an `Accept` header that includes `application/http`,
 then the body of the final `200 OK` response MUST be represented as an
-HTTP message, as described in [RFC7230](#rfc7230), which is the full
+HTTP message, as described in [RFC9110](#rfc9110), which is the full
 HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
@@ -5674,6 +5697,17 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON](#ODataJSON).
 
+If the set of request headers of a batch request are valid the service
+MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+indicate that the batch request was accepted for processing, even if the
+processing is yet to be completed. The individual requests within the
+body of the batch request may be processed as soon as they are received,
+this enables clients to stream batch requests, and batch implementations to stream the results.
+
+If the service receives a batch request with an invalid set of headers
+it MUST return a [`4xx response code`](#ClientErrorResponses) and
+perform no further processing of the batch request.
+
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
 
 A batch request using the [multipart batch
@@ -5715,17 +5749,6 @@ Batch requests SHOULD contain an [`Accept`](#HeaderAccept) header
 specifying the desired batch response format, either `multipart/mixed`
 or `application/json`. If no `Accept` header is provided, services
 SHOULD respond with the content type of the request.
-
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
-indicate that the batch request was accepted for processing, but the
-processing is yet to be completed. The individual requests within the
-body of the batch request may subsequently fail or be malformed;
-however, this enables batch implementations to stream the results.
-
-If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
-perform no further processing of the batch request.
 
 ### <a name="RequestDependencies" href="#RequestDependencies">11.7.2 Request Dependencies</a>
 
@@ -5830,7 +5853,7 @@ A body part representing an individual request MUST include a
 
 The contents of a body part representing a change set MUST itself be a
 multipart document (see [RFC2046](#rfc2046)) with one body part for each
-operation in the change set. [E]{.MsoCommentReference}ach body part
+operation in the change set. Each body part
 representing an operation in the change set MUST specify a `Content-ID`
 header with a [request identifier](#IdentifyingIndividualRequests) that
 is unique within the batch request.
@@ -5852,7 +5875,7 @@ set can use one of the following three formats:
 ::: example
 Example 101:
 ```
-GET https://host:1234/path/service/People(1) HTTP/1.1
+GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
 :::
 
@@ -5860,7 +5883,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 
 ::: example
 Example 102:
-```
+```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 Content-Type: application/json
@@ -5997,7 +6020,8 @@ Content-Type: application/http
 Content-ID: 1
 
 POST /service/Customers HTTP/1.1
-Host: host Content-Type: application/json
+Host: host
+Content-Type: application/json
 Content-Length: ###
 
 <JSON representation of a new Customer entity>
@@ -6035,7 +6059,8 @@ Content-Type: application/http
 Content-ID: 1
 
 GET /service/Employees(0) HTTP/1.1
-Host: host Accept: application/json
+Host: host
+Accept: application/json
 
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
@@ -6049,7 +6074,7 @@ Content-Length: ###
 If-Match: $1
 
 {
-   "Salary": 75000
+   "Salary": 75000
 }
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
@@ -6121,7 +6146,7 @@ Example 107: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6129,7 +6154,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6209,10 +6234,10 @@ processed. Note that the actual multipart batch response itself is
 contained in an `application/http` wrapper as it is a response to a
 status monitor resource:
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
 Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
@@ -6220,7 +6245,7 @@ Content-Type: multipart/mixed; boundary=b_243234_25424_ef_892u748
 --b_243234_25424_ef_892u748
 Content-Type: application/http
 
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: ###
 
@@ -6240,7 +6265,7 @@ After some time the client makes a second request using the returned
 monitor URL, not explicitly accepting
 `application/http`. The batch is completely processed and the response is the final result.
 ```
-HTTP/1.1 200 Ok
+HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.0
 Content-Length: ####
@@ -6325,33 +6350,33 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1. MUST publish a [service document](#ServiceDocumentRequest) at the
+1. MUST publish a service document at the
 service root ([section 11.1.1](#ServiceDocumentRequest))
 2. MUST return data according to the [OData-JSON](#ODataJSON) format
-3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
+3. MUST use server-driven paging when returning
 partial results ([section 11.2.6.7](#ServerDrivenPaging)) and not use any other mechanism
-4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
+4. MUST return the appropriate `OData-Version`
 header ([section 8.1.5](#HeaderODataVersion))
 5. MUST conform to the semantics the following headers, or fail the
 request
-   1. [`Accept`](#HeaderAccept) ([section 8.2.1](#HeaderAccept))
-   2. [`OData-MaxVersion`](#HeaderODataMaxVersion) ([section 8.2.7](#HeaderODataMaxVersion))
-6. MUST follow OData guidelines for [extensibility](#Extensibility)
+   1. `Accept` ([section 8.2.1](#HeaderAccept))
+   2. `OData-MaxVersion` ([section 8.2.7](#HeaderODataMaxVersion))
+6. MUST follow OData guidelines for extensibility
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
+`501 Not Implemented` for any
 unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
 content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
 service
-10. MUST NOT violate any OData [update semantics](#DataModification)
+10. MUST NOT violate any OData update semantics
 ([section 11.4](#DataModification)  and all subsections)
 11. MUST NOT violate any other OData-defined semantics
-12. SHOULD support [`$expand`](#SystemQueryOptionexpand) ([section 11.2.5.2](#SystemQueryOptionexpand))
+12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6481,9 +6506,9 @@ properties
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
 [OData-URL](#ODataURL)
-13. SHOULD support [asynchronous requests](#AsynchronousRequests)
+13. SHOULD support asynchronous requests
 ([section 11.6](#AsynchronousRequests))
-14. SHOULD support [Delta change tracking](#RequestingChanges) ([section 11.3](#RequestingChanges))
+14. SHOULD support Delta change tracking ([section 11.3](#RequestingChanges))
 15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
@@ -6504,7 +6529,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) format
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON)
+format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations
 are supported.
@@ -6758,18 +6784,6 @@ https://www.rfc-editor.org/info/rfc5646.
 _Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
 https://www.rfc-editor.org/info/rfc5789.
 
-###### <a name="rfc7230">[RFC7230]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing", RFC 7230, DOI 10.17487/RFC7230, June 2014_.
-https://www.rfc-editor.org/info/rfc7230.
-
-###### <a name="rfc7231">[RFC7231]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014_.
-https://www.rfc-editor.org/info/rfc7231.
-
-###### <a name="rfc7232">[RFC7232]</a>
-_Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests", RFC 7232, DOI 10.17487/RFC7232, June 2014_.
-https://www.rfc-editor.org/info/rfc7232.
-
 ###### <a name="rfc7240">[RFC7240]</a>
 _Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
 https://www.rfc-editor.org/info/rfc7240.
@@ -6782,14 +6796,15 @@ https://www.rfc-editor.org/info/rfc7617.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="rfc9110">[RFC9110]</a>
+_Fielding, R., Ed., M. Nottingham, Ed., and J. Reschke, Ed., "HTTP Semantics", RFC 9110, June 2022_  
+https://www.rfc-editor.org/info/rfc9110.
+
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
+###### <a name="_ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 
@@ -6803,7 +6818,7 @@ and thus inherits both sides of the coin, security enhancements and
 concerns alike from the latter.
 
 For HTTP relevant security implications please cf. the relevant sections
-of [RFC7231](#rfc7231) (9. Security Considerations) and for the
+of [RFC9110](#rfc9110) (17. Security Considerations) and for the
 HTTP `PATCH` method [RFC5789](#rfc5789) (5. Security Considerations) as
 starting points.
 

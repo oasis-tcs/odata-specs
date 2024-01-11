@@ -105,13 +105,13 @@ Example ##ex: document defining a schema `org.example` with an alias and a
 description for the schema
 ```json
 {
-  ...
+  …
   "org.example": {
     "$Alias": "self",
     "@Core.Description": "Example schema",
-    ...
+    …
   },
-  ...
+  …
 }
 ```
 :::
@@ -128,7 +128,7 @@ schema
 ```xml
 <Schema Namespace="org.example" Alias="self">
   <Annotation Term="Core.Description" String="Example schema" />
-  ...
+  …
 </Schema>
 ```
 :::
@@ -153,7 +153,7 @@ Example ##ex: annotations targeting the `Person` type with qualifier
   "$Annotations": {
     "self.Person": {
       "@Core.Description#Tablet": "Dummy",
-      ...
+      …
     }
   }
 }
@@ -184,7 +184,7 @@ Example ##ex: annotations should only be applied to tablet devices
 ```xml
 <Annotations Target="org.example.Person" Qualifier="Tablet">
   <Annotation Term="Core.Description" String="Dummy" />
-  ...
+  …
 </Annotations>
 ```
 :::
@@ -454,9 +454,6 @@ or single-valued [navigation properties](#NavigationProperty) do not
 require a key. In OData 4.0 responses entity types used for
 [singletons](#Singleton) or single-valued [navigation
 properties](#NavigationProperty) MUST have a key defined.
-
-An entity type (whether or not it is marked as abstract) MAY define a
-key only if it doesn't inherit one.
 
 An entity type's key refers to the set of properties whose values
 uniquely identify an instance of the entity type within an entity set.
