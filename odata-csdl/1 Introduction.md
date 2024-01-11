@@ -430,14 +430,16 @@ types.
 
 Given an instance of a structured type, its properties of structured types are
 either integral parts of the instance or references to instances.
-In the first case ("integral parts"), if an instance of a structured type contains a
-chain of [structural properties](#StructuralProperty) and
-[containment navigation properties](#ContainmentNavigationProperty),
+The first case ("integral parts") is described in the sections on
+[structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty).
+If an instance of a structured type contains a chain of these,
 this chain MUST be finite, even if the chain of types leads back to the
 structured type of the instance. Note that, in this circular case, finiteness
 is only possible if the chain ends with a null value or an empty collection.
-In the second case ("references"), chains of [non-containment navigation properties](#NavigationProperty)
-can be infinite, for example, if an entity contains a self-reference.
+The second case ("references") is the case of
+[non-containment navigation properties](#NavigationProperty).
+Chains of these can be infinite, for example, if an entity contains a self-reference.
 
 [Open entity types](#OpenEntityType) and [open complex
 types](#OpenComplexType) allow properties to be added dynamically to
