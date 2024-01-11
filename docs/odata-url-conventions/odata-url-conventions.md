@@ -385,7 +385,8 @@ that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in
 [section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
-all characters in the unreserved set (see rule `unreserved` in [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
+all characters in the unreserved set (see rule `unreserved` in
+[OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
 representation is treated identical to the plain literal representation.
@@ -1047,7 +1048,8 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or [`$search`](#SystemQueryOptionsearch) system query options to the collection.
+[`$filter`](#SystemQueryOptionfilter) or
+[`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
 Example 30: the number of related entities
@@ -1104,7 +1106,7 @@ supported by the service.
 
 For collection-valued navigation properties with navigation property
 bindings that end in a [type-cast segment](#AddressingDerivedTypes),
-a [type-cast segment](#AddressingDerivedTypes) MUST be
+a type-cast segment MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
@@ -1283,7 +1285,7 @@ a collection.
 
 To apply a [bound action](#AddressingActions) or function to each member
 of a collection, clients append the path segment `/$each` followed by a
-path segment identifying the [bound action](#AddressingActions) or
+path segment identifying the bound action or
 function. The response is a collection of instances of the result type
 of the bound operation. If the bound operation returns a collection, the
 response is a collection of collections. System query options applied to
@@ -1820,7 +1822,9 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is ${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, or `variable` if any operand has variable scale.
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
 operands:
@@ -1845,7 +1849,8 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is ${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
 The `sub` operator is also valid for the following time-related
@@ -2198,19 +2203,19 @@ OrderedCollection substring(OrderedCollection,Edm.Int32)
 OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)
 ```
 
-The two-argument `substring` function with string parameter values
+The two-parameter `substring` function with string parameter values
 returns a substring of the first parameter string value, starting at the
 Nth character and finishing at the last character (where N is the second
-parameter integer value). The three-argument `substring` function with
+parameter integer value). The three-parameter `substring` function with
 string parameter values returns a substring of the first parameter
 string value identified by selecting up to M characters starting at the
 Nth character (where N is the second parameter integer value and M is
 the third parameter integer value).
 
-The two-argument `substring` function with ordered collection parameter
+The two-parameter `substring` function with ordered collection parameter
 values returns an ordered collection consisting of all items of the
 first collection starting at the Nth item and finishing at the last
-item. The three-argument `substring` function with ordered collection
+item. The three-parameter `substring` function with ordered collection
 parameter values returns an ordered collection consisting of up to M
 items of the first collection starting at the Nth item (where N is the
 second parameter integer value and M is the third parameter integer
@@ -2353,10 +2358,9 @@ Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
 `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
+of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
 
 ::: example
@@ -3470,15 +3474,18 @@ A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. Allowed system query options are
+parentheses, to the navigation property name.
+Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
-`$expand`, and [`$levels`](#ExpandOptionlevels) for all navigation properties, plus
+`$expand`, and
+[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
 [`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch)  for collection-valued navigation properties.
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
 
 ::: example
 Example 118: all categories and for each category all related products
@@ -3650,7 +3657,8 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
+actions and functions identified by that select item.
+If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity
 type of the resources identified by the resource path section of the URL.
@@ -4072,8 +4080,9 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+###### <a name="_ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 

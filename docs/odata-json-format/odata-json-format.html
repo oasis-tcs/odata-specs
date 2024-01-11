@@ -298,10 +298,22 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>an <a href="#ErrorResponse">error</a>.</li>
 </ul>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
-<!-- TODO -->
-
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
-
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Feature / Change</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#ControlInformationmediaodatamedia">Section 4.5.12</a></td>
+<td><code>mediaContentType</code> can be <code>null</code></td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1470">ODATA-1470</a></td>
+</tr>
+</tbody>
+</table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 <h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
@@ -404,7 +416,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="32-controlling-the-representation-of-numbers"><a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
 <p>The <code>IEEE754Compatible=true</code> format parameter indicates that the service MUST serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers (including the <a href="#ControlInformationcountodatacount"><code>count</code></a>, if requested) as strings. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <p>If not specified, or specified as <code>IEEE754Compatible=false</code>, all numbers MUST be serialized as JSON numbers.</p>
-<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <strong>[<a href="#ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>]</strong>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
+<p>This enables support for JavaScript numbers that are defined to be 64-bit binary format IEEE 754 values (see <a href="#_ECMAScript">ECMAScript</a>, <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19">section 4.3.1.9</a>) resulting in integers losing precision past 15 digits, and decimals losing precision due to the conversion from base 10 to base 2.</p>
 <p>OData JSON request and response payloads that format <code>Edm.Int64</code> and <code>Edm.Decimal</code> values as strings MUST specify this format parameter in the media type sent in the <a href="#HeaderContentType"><code>Content-Type</code></a> header.</p>
 <p>Services producing responses without format parameter <code>IEEE754Compatible=true</code> which are unable to produce exact JSON numbers MAY serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers with a rounded/inexact value as a JSON number and annotate that value with an instance annotation with term <code>Core.ValueException</code> defined in <a href="#ODataVocCore">OData-VocCore</a> containing the exact value as a string. This situation can for example happen if the client only accepts <code>application/json</code> without any format parameters and the service is written in JavaScript.</p>
 <p>For payloads with an <code>OData-Version</code> header equal to <code>4.0</code> the <code>ExponentialDecimals=true</code> format parameter indicates that the service MAY serialize <code>Edm.Decimal</code> numbers in exponential notation (e.g. <code>1e-6</code> instead of <code>0.000001</code>).</p>
@@ -485,7 +497,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
 <h3 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
 <p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>.</p>
-<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response.</p>
+<p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response that allows this control information (this excludes for example <a href="#ErrorResponse">error responses</a>).</p>
 <p>The <code>context</code> control information MUST also be included in requests and responses for entities whose entity set cannot be determined from the context URL of the collection.</p>
 <p>For more information on the format of the context URL, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>Request payloads MAY include a context URL as a base URL for <a href="#RelativeURLs">relative URLs</a> in the request payload.</p>
@@ -594,7 +606,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don't follow standard URL conventions as defined in <a href="#ODataURL">OData-URL</a>, sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
 <p>The <code>mediaEditLink</code> control information contains a URL that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
 <p>The <code>mediaReadLink</code> control information contains a URL that can be used to read the binary stream associated with the media entity or stream property. It MUST be included if its value differs from the value of the associated <code>mediaEditLink</code>, if present, or if it doesn’t follow standard URL conventions relative to the read link of the entity and the associated <code>mediaEditLink</code> is not present.</p>
-<p>The <code>mediaContentType</code> control information MAY be included; its value SHOULD match the media type of the binary stream represented by the <code>mediaReadLink</code> URL. This is only a hint; the actual media type will be included in the <code>Content-Type</code> header when the resource is requested.</p>
+<p>The <code>mediaContentType</code> control information MAY be included; its value SHOULD match the media type of the binary stream represented by the <code>mediaReadLink</code> URL. This is only a hint; the actual media type will be included in the <code>Content-Type</code> header when the resource is requested. The presence of <code>mediaContentType</code> with value <code>null</code> MAY be used to indicate the absence of a binary stream.</p>
 <p>The <code>mediaEtag</code> control information MAY be included; its value is the ETag of the binary stream represented by this media entity or stream property.</p>
 <p>The <code>media*</code> control information is not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 <p>If a stream property is provided inline in a request, the <code>mediaContentType</code> control information may be specified.</p>
@@ -989,7 +1001,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <hr />
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
-<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information. If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
+<p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
+<p>If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="rfc4648">RFC4648</a>.</p>
 <div class="example">
 <p>Example 25:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2016,7 +2029,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Structured types that are in error can be represented within a success payload only if the client has specified the <code>continue-on-error</code> preference. Such items are annotated with the <code>Core.ResourceException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. The annotation MAY include a <code>retryLink</code> property that can be used by the client to attempt to re-fetch the resource.</p>
 <h3 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
 <p>Collections within a success payload can contain primitive values that are in error, or structured values that are in error, if the client has specified the <code>continue-on-error</code> preference. Such elements are annotated as described above. Primitive elements within a collection are annotated using the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information.</p>
-<p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
+<p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <code>nextLink</code> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
 <hr />
 <h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
 <p>Implementations can add <a href="#InstanceAnnotations">instance annotations</a> of the form <code>@namespace.termname</code> or <code>property@namespace.termname</code> to any JSON object, where <code>property</code> MAY or MAY NOT match the name of a name/value pair within the JSON object. However, the namespace MUST NOT start with <code>odata</code> and SHOULD NOT be required to be understood by the receiving party in order to correctly interpret the rest of the payload as the receiving party MUST ignore unknown annotations not defined in this version of the OData JSON Specification.</p>
@@ -2154,7 +2167,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="rfc8259"><a name="rfc8259">[RFC8259]</a></h6>
 <p><em>Bray, T., Ed., “The JavaScript Object Notation (JSON) Data Interchange Format”, STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>.</p>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
-<h6 id="ecmascript"><a name="ECMAScript">[ECMAScript]</a></h6>
+<h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <hr />
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
