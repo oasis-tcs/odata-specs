@@ -257,6 +257,7 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -1443,9 +1444,6 @@ require a key. In OData 4.0 responses entity types used for
 [singletons](#Singleton) or single-valued [navigation
 properties](#NavigationProperty) MUST have a key defined.
 
-An entity type (whether or not it is marked as abstract) MAY define a
-key only if it doesn't inherit one.
-
 An entity type's key refers to the set of properties whose values
 uniquely identify an instance of the entity type within an entity set.
 The key MUST consist of at least one property.
@@ -1893,7 +1891,7 @@ partner navigation property.
 ::: {.varxml .rep}
 ### <a name="AttributePartner.13.4" href="#AttributePartner.13.4">Attribute `Partner`</a>
 
-The value of `Partner` is the path to the of the partner navigation
+The value of `Partner` is the path to the partner navigation
 property.
 :::
 
@@ -2883,9 +2881,9 @@ in an entity model as a top level resource.
 ::: {.varxml .rep}
 ### <a name="ElementedmEntityContainer.24" href="#ElementedmEntityContainer.24">Element `edm:EntityContainer`</a>
 
-The `edm:EntityContainer` MUST contain one or more
+The `edm:EntityContainer` MAY contain
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
-[`edm:ActionImport`](#ActionImport), or
+[`edm:ActionImport`](#ActionImport), and
 [`edm:FunctionImport`](#FunctionImport) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
