@@ -649,8 +649,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A positive integer value specifying the maximum length of a binary, stream or string value. For binary or stream values this is the octet length of the binary data, for string values it is the character length (number of code points for Unicode).</p>
 <p>If no maximum length is specified, clients SHOULD expect arbitrary length.</p>
 <div class="varjson rep">
-<h3 id="-type-facet-members"><a name="TypeFacetMembers1" href="#TypeFacetMembers1"> Type Facet Members</a></h3>
-<h3 id="-maxlength"><a name="MaxLength1.1" href="#MaxLength1.1"> <code>$MaxLength</code></a></h3>
+<h3 id="type-facet-members"><a name="TypeFacetMembers.1" href="#TypeFacetMembers.1">Type Facet Members</a></h3>
+<h3 id="maxlength"><a name="MaxLength.1.1" href="#MaxLength.1.1"><code>$MaxLength</code></a></h3>
 <p>The value of <code>$MaxLength</code> is a positive integer.</p>
 <p>Note: <a href="#ODataCSDL">OData-CSDL-XML</a> defines a symbolic value <code>max</code> that is only allowed in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON documents at all. Services MAY instead specify the concrete maximum length supported for the type by the service or omit the member entirely.</p>
 </div>
@@ -659,8 +659,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For a temporal value (datetime-with-timezone-offset, duration, or time-of-day): the number of decimal places allowed in the seconds portion of the value; it MUST be a non-negative integer between zero and twelve.</p>
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal values and 7 for temporal values. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified values will reduce the risk for unintended data loss.</p>
 <p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
-<section id="-precision" class="varjson rep">
-<h3><a name="Precision1.2" href="#Precision1.2"> <code>$Precision</code></a></h3>
+<section id="precision" class="varjson rep">
+<h3><a name="Precision.1.2" href="#Precision.1.2"><code>$Precision</code></a></h3>
 <p>The value of <code>$Precision</code> is a number.</p>
 <p>Absence of <code>$Precision</code> means unspecified precision both for decimal and temporal values.</p>
 </section>
@@ -679,8 +679,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>An integer value means that the number of digits to the right of the decimal point may vary from zero to the value of the <code>Scale</code> facet, and the number of digits to the left of the decimal point may vary from one to the value of the <code>Precision</code> facet minus the value of the <code>Scale</code> facet. If <code>Precision</code> is equal to <code>Scale</code>, a single zero MUST precede the decimal point.</p>
 <p>The value of <code>Scale</code> MUST be less than or equal to the value of <a href="#Precision"><code>Precision</code></a>.</p>
 <p>Note: if the underlying data store allows negative scale, services may use a <a href="#Precision"><code>Precision</code></a> with the absolute value of the negative scale added to the actual number of significant decimal digits, and client-provided values may have to be rounded before being stored.</p>
-<section id="-scale" class="varjson rep">
-<h3><a name="Scale1.3" href="#Scale1.3"> <code>$Scale</code></a></h3>
+<section id="scale" class="varjson rep">
+<h3><a name="Scale.1.3" href="#Scale.1.3"><code>$Scale</code></a></h3>
 <p>The value of <code>$Scale</code> is a number or a string with one of the symbolic values <code>floating</code> or <code>variable</code>.</p>
 <p>Services SHOULD use lower-case values; clients SHOULD accept values in a case-insensitive manner.</p>
 <p>Absence of <code>$Scale</code> means <code>variable</code>.</p>
@@ -723,16 +723,16 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="344-unicode"><a name="Unicode" href="#Unicode">3.4.4 Unicode</a></h3>
 <p>For a string-typed model element the <code>Unicode</code> facet indicates whether the it might contain and accept string values with Unicode characters (code points) beyond the ASCII character set. The value <code>false</code> indicates that the it will only contain and accept string values with characters limited to the ASCII character set.</p>
 <p>If no value is specified, the <code>Unicode</code> facet defaults to <code>true</code>.</p>
-<section id="-unicode" class="varjson rep">
-<h3><a name="Unicode1.4" href="#Unicode1.4"> <code>$Unicode</code></a></h3>
+<section id="unicode" class="varjson rep">
+<h3><a name="Unicode.1.4" href="#Unicode.1.4"><code>$Unicode</code></a></h3>
 <p>The value of <code>$Unicode</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>true</code>.</p>
 </section>
 <h3 id="345-srid"><a name="SRID" href="#SRID">3.4.5 SRID</a></h3>
 <p>For a geometry- or geography-typed model element the <code>SRID</code> facet identifies which spatial reference system is applied to its values.</p>
 <p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types.</p>
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
-<section id="-srid" class="varjson rep">
-<h3><a name="SRID1.5" href="#SRID1.5"> <code>$SRID</code></a></h3>
+<section id="srid" class="varjson rep">
+<h3><a name="SRID.1.5" href="#SRID.1.5"><code>$SRID</code></a></h3>
 <p>The value of <code>$SRID</code> is a string containing a number or the symbolic value <code>variable</code>.</p>
 </section>
 <h2 id="35-built-in-abstract-types"><a name="BuiltInAbstractTypes" href="#BuiltInAbstractTypes">3.5 Built-In Abstract Types</a></h2>
@@ -795,14 +795,14 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 
 <div class="varjson rep">
-<h3 id="-document-object"><a name="DocumentObject2" href="#DocumentObject2"> Document Object</a></h3>
+<h3 id="document-object"><a name="DocumentObject.2" href="#DocumentObject.2">Document Object</a></h3>
 <p>A CSDL JSON document consists of a single JSON object. This document object MUST contain the member <code>$Version</code>.</p>
 <p>The document object MAY contain the member <a href="#Reference"><code>$Reference</code></a> to reference other CSDL documents.</p>
 <p>It also MAY contain members for schemas.</p>
 <p>If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member <code>$EntityContainer</code>.</p>
-<h3 id="-version"><a name="Version2.1" href="#Version2.1"> <code>$Version</code></a></h3>
+<h3 id="version"><a name="Version.2.1" href="#Version.2.1"><code>$Version</code></a></h3>
 <p>The value of <code>$Version</code> is a string containing either <code>4.0</code> or <code>4.01</code>.</p>
-<h3 id="-entitycontainer"><a name="EntityContainer2.2" href="#EntityContainer2.2"> <code>$EntityContainer</code></a></h3>
+<h3 id="entitycontainer"><a name="EntityContainer.2.2" href="#EntityContainer.2.2"><code>$EntityContainer</code></a></h3>
 <p>The value of <code>$EntityContainer</code> is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>
 <div class="varjson example">
@@ -821,9 +821,9 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A reference MAY be annotated.</p>
 <p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="#ODataProtocol">OData-Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="varjson rep">
-<h3 id="-reference"><a name="Reference2.3" href="#Reference2.3"> <code>$Reference</code></a></h3>
+<h3 id="reference"><a name="Reference.2.3" href="#Reference.2.3"><code>$Reference</code></a></h3>
 <p>The value of <code>$Reference</code> is an object that contains one member per referenced CSDL document. The name of the pair is a URI for the referenced document. The URI MAY be relative to the document containing the <code>$Reference</code>. The value of each member is a reference object.</p>
-<h3 id="-reference-object"><a name="ReferenceObject3" href="#ReferenceObject3"> Reference Object</a></h3>
+<h3 id="reference-object"><a name="ReferenceObject.3" href="#ReferenceObject.3">Reference Object</a></h3>
 <p>The reference object MAY contain the members <a href="#IncludedSchema"><code>$Include</code></a> and <a href="#IncludedAnnotations"><code>$IncludeAnnotations</code></a> as well as <a href="#Annotation">annotations</a>.</p>
 </div>
 <div class="varjson example">
@@ -855,12 +855,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
 <p>An alias is only valid within the document in which it is declared; a referencing document may define its own aliases for included schemas.</p>
 <div class="varjson rep">
-<h3 id="-include"><a name="Include3.1" href="#Include3.1"> <code>$Include</code></a></h3>
+<h3 id="include"><a name="Include.3.1" href="#Include.3.1"><code>$Include</code></a></h3>
 <p>The value of <code>$Include</code> is an array. Array items are objects that MUST contain the member <code>$Namespace</code> and MAY contain the member <code>$Alias</code>.</p>
 <p>The item objects MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-namespace"><a name="Namespace3.2" href="#Namespace3.2"> <code>$Namespace</code></a></h3>
+<h3 id="namespace"><a name="Namespace.3.2" href="#Namespace.3.2"><code>$Namespace</code></a></h3>
 <p>The value of <code>$Namespace</code> is a string containing the namespace of the included schema.</p>
-<h3 id="-alias"><a name="Alias3.3" href="#Alias3.3"> <code>$Alias</code></a></h3>
+<h3 id="alias"><a name="Alias.3.3" href="#Alias.3.3"><code>$Alias</code></a></h3>
 <p>The value of <code>$Alias</code> is a string containing the alias for the included schema.</p>
 </div>
 <div class="varjson example">
@@ -905,13 +905,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>In addition, the namespace of the annotations’ <a href="#Target">target</a> MAY be specified. If a target namespace is specified, only those annotations which apply a term form the specified term namespace to a model element of the target namespace (with the specified qualifier, if present) SHOULD be included. If no target namespace is specified, all annotations within the referenced document from the specified term namespace (taking into account the qualifier, if present) SHOULD be included.</p>
 <p>The target namespace also provides consumers insight about what namespaces are present in the referenced document. If the consumer is not interested in that particular target namespace, the consumer can opt not to inspect the referenced document.</p>
 <div class="varjson rep">
-<h3 id="-includeannotations"><a name="IncludeAnnotations3.4" href="#IncludeAnnotations3.4"> <code>$IncludeAnnotations</code></a></h3>
+<h3 id="includeannotations"><a name="IncludeAnnotations.3.4" href="#IncludeAnnotations.3.4"><code>$IncludeAnnotations</code></a></h3>
 <p>The value of <code>$IncludeAnnotations</code> is an array. Array items are objects that MUST contain the member <code>$TermNamespace</code> and MAY contain the members <code>$Qualifier</code> and <code>$TargetNamespace</code>.</p>
-<h3 id="-termnamespace"><a name="TermNamespace3.5" href="#TermNamespace3.5"> <code>$TermNamespace</code></a></h3>
+<h3 id="termnamespace"><a name="TermNamespace.3.5" href="#TermNamespace.3.5"><code>$TermNamespace</code></a></h3>
 <p>The value of <code>$TermNamespace</code> is a namespace.</p>
-<h3 id="-qualifier"><a name="Qualifier3.6" href="#Qualifier3.6"> <code>$Qualifier</code></a></h3>
+<h3 id="qualifier"><a name="Qualifier.3.6" href="#Qualifier.3.6"><code>$Qualifier</code></a></h3>
 <p>The value of <code>$Qualifier</code> is a simple identifier.</p>
-<h3 id="-targetnamespace"><a name="TargetNamespace3.7" href="#TargetNamespace3.7"> <code>$TargetNamespace</code></a></h3>
+<h3 id="targetnamespace"><a name="TargetNamespace.3.7" href="#TargetNamespace.3.7"><code>$TargetNamespace</code></a></h3>
 <p>The value of <code>$TargetNamespace</code> is a namespace.</p>
 </div>
 <div class="varjson example">
@@ -960,8 +960,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Services SHOULD NOT have <a href="#Action">actions</a> and <a href="#Function">functions</a> with the same name, and MUST NOT have actions and functions with the same name bound to the same type.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <p>The namespace MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
-<section id="-schema-object" class="varjson rep">
-<h3><a name="SchemaObject4" href="#SchemaObject4"> Schema Object</a></h3>
+<section id="schema-object" class="varjson rep">
+<h3><a name="SchemaObject.4" href="#SchemaObject.4">Schema Object</a></h3>
 <p>A schema is represented as a member of the document object whose name is the schema namespace. Its value is an object that MAY contain the members <a href="#Alias"><code>$Alias</code></a> and <a href="#AnnotationswithExternalTargeting"><code>$Annotations</code></a>.</p>
 <p>The schema object MAY contain members representing <a href="#EntityType">entity types</a>, <a href="#ComplexType">complex types</a>, <a href="#EnumerationType">enumeration types</a>, <a href="#TypeDefinition">type definitions</a>, <a href="#Action">actions</a>, <a href="#Function">functions</a>, <a href="#Term">terms</a>, and an <a href="#EntityContainer">entity container</a>.</p>
 <p>The schema object MAY also contain <a href="#Annotation">annotations</a> that apply to the schema itself.</p>
@@ -971,8 +971,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If a schema specifies an alias, the alias MUST be used instead of the namespace within qualified names throughout the document to identify model elements of that schema. A mixed use of namespace-qualified names and alias-qualified names is not allowed.</p>
 <p>Aliases are document-global, so all schemas defined within or included into a document MUST have different aliases, and aliases MUST differ from the namespaces of all schemas defined within or included into a document. Aliases defined by a schema can be used throughout the containing document and are not restricted to the schema that defines them.</p>
 <p>The alias MUST NOT be one of the reserved values <code>Edm</code>, <code>odata</code>, <code>System</code>, or <code>Transient</code>.</p>
-<section id="-alias-1" class="varjson rep">
-<h3><a name="Alias4.1" href="#Alias4.1"> <code>$Alias</code></a></h3>
+<section id="alias-1" class="varjson rep">
+<h3><a name="Alias.4.1" href="#Alias.4.1"><code>$Alias</code></a></h3>
 <p>The value of <code>$Alias</code> is a string containing the alias for the schema.</p>
 </section>
 <div class="varjson example">
@@ -988,8 +988,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
-<section id="-annotations" class="varjson rep">
-<h3><a name="Annotations4.2" href="#Annotations4.2"> <code>$Annotations</code></a></h3>
+<section id="annotations" class="varjson rep">
+<h3><a name="Annotations.4.2" href="#Annotations.4.2"><code>$Annotations</code></a></h3>
 <p>The value of <code>$Annotations</code> is an object with one member per <a href="#Target">annotation target</a>. The member name is a path identifying the <a href="#Target">annotation target</a>, the member value is an object containing <a href="#Annotation">annotations</a> for that target.</p>
 </section>
 <div class="varjson example">
@@ -1010,8 +1010,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The entity type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>An entity type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to another entity type or collection of entity types.</p>
 <p>All properties MUST have a unique name within an entity type. Properties MUST NOT have the same name as the declaring entity type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
-<section id="-entity-type-object" class="varjson rep">
-<h3><a name="EntityTypeObject5" href="#EntityTypeObject5"> Entity Type Object</a></h3>
+<section id="entity-type-object" class="varjson rep">
+<h3><a name="EntityTypeObject.5" href="#EntityTypeObject.5">Entity Type Object</a></h3>
 <p>An entity type is represented as a member of the schema object whose name is the unqualified name of the entity type and whose value is an object.</p>
 <p>The entity type object MUST contain the member <code>$Kind</code> with a string value of <code>EntityType</code>.</p>
 <p>It MAY contain the members <a href="#DerivedEntityType"><code>$BaseType</code></a>, <a href="#AbstractEntityType"><code>$Abstract</code></a>, <a href="#OpenEntityType"><code>$OpenType</code></a>, <a href="#MediaEntityType"><code>$HasStream</code></a>, and <a href="#Key"><code>$Key</code></a>.</p>
@@ -1038,8 +1038,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity type can inherit from another entity type by specifying it as its base type.</p>
 <p>An entity type inherits the <a href="#Key">key</a> as well as structural and navigation properties of its base type.</p>
 <p>An entity type MUST NOT introduce an inheritance cycle by specifying a base type.</p>
-<section id="-basetype" class="varjson rep">
-<h3><a name="BaseType5.1" href="#BaseType5.1"> <code>$BaseType</code></a></h3>
+<section id="basetype" class="varjson rep">
+<h3><a name="BaseType.5.1" href="#BaseType.5.1"><code>$BaseType</code></a></h3>
 <p>The value of <code>$BaseType</code> is the qualified name of the base type.</p>
 </section>
 <div class="varjson example">
@@ -1066,31 +1066,30 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity type MAY indicate that it is abstract and cannot have instances.</p>
 <p>For OData 4.0 responses a non-abstract entity type MUST define a <a href="#Key">key</a> or derive from a <a href="#DerivedEntityType">base type</a> with a defined key.</p>
 <p>An abstract entity type MUST NOT inherit from a non-abstract entity type.</p>
-<section id="-abstract" class="varjson rep">
-<h3><a name="Abstract5.2" href="#Abstract5.2"> <code>$Abstract</code></a></h3>
+<section id="abstract-1" class="varjson rep">
+<h3><a name="Abstract.5.2" href="#Abstract.5.2"><code>$Abstract</code></a></h3>
 <p>The value of <code>$Abstract</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="63-open-entity-type"><a name="OpenEntityType" href="#OpenEntityType">6.3 Open Entity Type</a></h2>
 <p>An entity type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>An entity type derived from an open entity type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
-<section id="-opentype" class="varjson rep">
-<h3><a name="OpenType5.3" href="#OpenType5.3"> <code>$OpenType</code></a></h3>
+<section id="opentype" class="varjson rep">
+<h3><a name="OpenType.5.3" href="#OpenType.5.3"><code>$OpenType</code></a></h3>
 <p>The value of <code>$OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="64-media-entity-type"><a name="MediaEntityType" href="#MediaEntityType">6.4 Media Entity Type</a></h2>
 <p>An entity type that does not specify a base type MAY indicate that it is a media entity type. <em>Media entities</em> are entities that represent a media stream, such as a photo. Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just additional structured information attached to the stream. Use a normal entity with one or more properties of type <code>Edm.Stream</code> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data. For more information on media entities see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
 <p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<section id="-hasstream" class="varjson rep">
-<h3><a name="HasStream5.4" href="#HasStream5.4"> <code>$HasStream</code></a></h3>
+<section id="hasstream" class="varjson rep">
+<h3><a name="HasStream.5.4" href="#HasStream.5.4"><code>$HasStream</code></a></h3>
 <p>The value of <code>$HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="65-key"><a name="Key" href="#Key">6.5 Key</a></h2>
 <p>An entity is uniquely identified within an entity set by its key. A key MAY be specified if the entity type does not specify a <a href="#DerivedEntityType">base type</a> that already has a key declared.</p>
 <p>In order to be specified as the type of an <a href="#EntitySet">entity set</a> or a collection-valued <a href="#ContainmentNavigationProperty">containment navigation property</a>, the entity type MUST either specify a key or inherit its key from its <a href="#DerivedEntityType">base type</a>.</p>
 <p>In OData 4.01 responses entity types used for <a href="#Singleton">singletons</a> or single-valued <a href="#NavigationProperty">navigation properties</a> do not require a key. In OData 4.0 responses entity types used for <a href="#Singleton">singletons</a> or single-valued <a href="#NavigationProperty">navigation properties</a> MUST have a key defined.</p>
-<p>An entity type (whether or not it is marked as abstract) MAY define a key only if it doesn’t inherit one.</p>
 <p>An entity type’s key refers to the set of properties whose values uniquely identify an instance of the entity type within an entity set. The key MUST consist of at least one property.</p>
 <p>Key properties MUST NOT be nullable and MUST be typed with an <a href="#EnumerationType">enumeration type</a>, one of the following <a href="#PrimitiveTypes">primitive types</a>, or a <a href="#TypeDefinition">type definition</a> based on one of these primitive types:</p>
 <ul>
@@ -1114,8 +1113,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>
 <p>An alias MUST NOT be defined if the key property is a primitive property of the entity type itself.</p>
 <p>For key properties that are a property of a complex or navigation property, the alias MUST be used in the key predicate of URLs instead of the path to the property because the required percent-encoding of the forward slash separating segments of the path to the property would make URL construction and parsing rather complicated. The alias MUST NOT be used in the query part of URLs, where paths to properties don’t require special encoding and are a standard constituent of expressions anyway.</p>
-<section id="-key" class="varjson rep">
-<h3><a name="Key5.5" href="#Key5.5"> <code>$Key</code></a></h3>
+<section id="key" class="varjson rep">
+<h3><a name="Key.5.5" href="#Key.5.5"><code>$Key</code></a></h3>
 <p>The value of <code>$Key</code> is an array with one item per key property.</p>
 <p>Key properties without a key alias are represented as strings containing the property name.</p>
 <p>Key properties with a key alias are represented as objects with one member whose name is the key alias and whose value is a string containing the path to the property.</p>
@@ -1199,8 +1198,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A structural property MUST specify a unique name as well as a <a href="#Type">type</a>.</p>
 <p>The property’s name MUST be a <a href="#SimpleIdentifier">simple identifier</a>. It is used when referencing, serializing or deserializing the property. It MUST be unique within the set of structural and navigation properties of the declaring <a href="#StructuredTypes">structured type</a>, and MUST NOT match the name of any navigation property in any of its base types. If a structural property with the same name is defined in any of this type’s base types, then the property’s type MUST be a type derived from the type specified for the property of the base type and constrains this property to be of the specified subtype for instances of this structured type. The name MUST NOT match the name of any structural or navigation property of any of this type’s base types for OData 4.0 responses.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
-<section id="-property-object" class="varjson rep">
-<h3><a name="PropertyObject6" href="#PropertyObject6"> Property Object</a></h3>
+<section id="property-object" class="varjson rep">
+<h3><a name="PropertyObject.6" href="#PropertyObject.6">Property Object</a></h3>
 <p>Structural properties are represented as members of the object representing a structured type. The member name is the property name, the member value is an object.</p>
 <p>The property object MAY contain the member <code>$Kind</code> with a string value of <code>Property</code>. This member SHOULD be omitted to reduce document size.</p>
 <p>It MAY contain the members <a href="#Type"><code>$Type</code></a>, <a href="#Type"><code>$Collection</code></a>, <a href="#Nullable"><code>$Nullable</code></a>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, <a href="#SRID"><code>$SRID</code></a>, and <a href="#DefaultValue"><code>$DefaultValue</code></a>.</p>
@@ -1225,8 +1224,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
-<section id="-type-and--collection" class="varjson rep">
-<h3><a name="Type6.1" href="#Type6.1"> <code>$Type</code></a> and <a name="Collection6.2" href="#Collection6.2"> <code>$Collection</code></a></h3>
+<section id="type-and-collection" class="varjson rep">
+<h3><a name="Type.6.1" href="#Type.6.1"><code>$Type</code></a> and <a name="Collection.6.2" href="#Collection.6.2"><code>$Collection</code></a></h3>
 <p>For single-valued properties the value of <code>$Type</code> is the qualified name of the property’s type.</p>
 <p>For collection-valued properties the value of <code>$Type</code> is the qualified name of the property’s item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>. This member SHOULD be omitted for string properties to reduce document size.</p>
@@ -1239,8 +1238,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="72-nullable"><a name="Nullable" href="#Nullable">7.2 Nullable</a></h2>
 <p>A Boolean value specifying whether the property can have the value <code>null</code>.</p>
-<section id="-nullable" class="varjson rep">
-<h3><a name="Nullable6.3" href="#Nullable6.3"> <code>$Nullable</code></a></h3>
+<section id="nullable" class="varjson rep">
+<h3><a name="Nullable.6.3" href="#Nullable.6.3"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>For single-valued properties the value <code>true</code> means that the property allows the <code>null</code> value.</p>
 <p>For collection-valued properties the value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1248,8 +1247,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="73-default-value"><a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a></h2>
 <p>A primitive- or enumeration-typed property MAY define a default value that is used if the property is not explicitly represented in an annotation or the body of a request or response.</p>
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
-<section id="-defaultvalue" class="varjson rep">
-<h3><a name="DefaultValue6.4" href="#DefaultValue6.4"> <code>$DefaultValue</code></a></h3>
+<section id="defaultvalue" class="varjson rep">
+<h3><a name="DefaultValue.6.4" href="#DefaultValue.6.4"><code>$DefaultValue</code></a></h3>
 <p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the property, see <a href="#ODataJSON">OData-JSON</a>. For properties of type <code>Edm.Decimal</code> and <code>Edm.Int64</code> the representation depends on the media type parameter <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a>.</p>
 </section>
 <hr />
@@ -1257,8 +1256,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A navigation property allows navigation to related entities. It MUST specify a unique name as well as a type.</p>
 <p>The navigation property’s name MUST be a <a href="#SimpleIdentifier">simple identifier</a>. It is used when referencing, serializing or deserializing the navigation property. It MUST be unique within the set of structural and navigation properties of the declaring <a href="#StructuredTypes">structured type</a>, and MUST NOT match the name of any structural property in any of its base types. If a navigation property with the same name is defined in any of this type’s base types, then the navigation property’s type MUST be a type derived from the type specified for the navigation property of the base type, and constrains this navigation property to be of the specified subtype for instances of this structured type. The name MUST NOT match the name of any structural or navigation property of any of this type’s base types for OData 4.0 responses.</p>
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
-<section id="-navigation-property-object" class="varjson rep">
-<h3><a name="NavigationPropertyObject7" href="#NavigationPropertyObject7"> Navigation Property Object</a></h3>
+<section id="navigation-property-object" class="varjson rep">
+<h3><a name="NavigationPropertyObject.7" href="#NavigationPropertyObject.7">Navigation Property Object</a></h3>
 <p>Navigation properties are represented as members of the object representing a structured type. The member name is the property name, the member value is an object.</p>
 <p>The navigation property object MUST contain the member <code>$Kind</code> with a string value of <code>NavigationProperty</code>.</p>
 <p>It MUST contain the member <a href="#NavigationPropertyType"><code>$Type</code></a>, and it MAY contain the members <a href="#NavigationPropertyType"><code>$Collection</code></a>, <a href="#NullableNavigationProperty"><code>$Nullable</code></a>, <a href="#PartnerNavigationProperty"><code>$Partner</code></a>, <a href="#ContainmentNavigationProperty"><code>$ContainsTarget</code></a>, <a href="#ReferentialConstraint"><code>$ReferentialConstraint</code></a>, and <a href="#OnDeleteAction"><code>$OnDelete</code></a>.</p>
@@ -1302,16 +1301,16 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
 <p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
-<section id="-type-and--collection-1" class="varjson rep">
-<h3><a name="Type7.1" href="#Type7.1"> <code>$Type</code></a> and <a name="Collection7.2" href="#Collection7.2"> <code>$Collection</code></a></h3>
+<section id="type-and-collection-1" class="varjson rep">
+<h3><a name="Type.7.1" href="#Type.7.1"><code>$Type</code></a> and <a name="Collection.7.2" href="#Collection.7.2"><code>$Collection</code></a></h3>
 <p>For single-valued navigation properties the value of <code>$Type</code> is the qualified name of the navigation property’s type.</p>
 <p>For collection-valued navigation properties the value of <code>$Type</code> is the qualified name of the navigation property’s item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 </section>
 <h2 id="82-nullable-navigation-property"><a name="NullableNavigationProperty" href="#NullableNavigationProperty">8.2 Nullable Navigation Property</a></h2>
 <p>A Boolean value specifying whether the declaring type MAY have no related entity. If false, instances of the declaring structured type MUST always have a related entity.</p>
 <p>Nullable MUST NOT be specified for a collection-valued navigation property, a collection is allowed to have zero items.</p>
-<section id="-nullable-1" class="varjson rep">
-<h3><a name="Nullable7.3" href="#Nullable7.3"> <code>$Nullable</code></a></h3>
+<section id="nullable-1" class="varjson rep">
+<h3><a name="Nullable.7.3" href="#Nullable.7.3"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="83-partner-navigation-property"><a name="PartnerNavigationProperty" href="#PartnerNavigationProperty">8.3 Partner Navigation Property</a></h2>
@@ -1320,8 +1319,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the partner navigation property is single-valued, it MUST lead back to the source entity from all related entities. If the partner navigation property is collection-valued, the source entity MUST be part of that collection.</p>
 <p>If no partner navigation property is specified, no assumptions can be made as to whether one of the navigation properties on the target type will lead back to the source entity.</p>
 <p>If a partner navigation property is specified, this partner navigation property MUST either specify the current navigation property as its partner to define a bi-directional relationship or it MUST NOT specify a partner navigation property. The latter can occur if the partner navigation property is defined on a complex type, or if the current navigation property is defined on a type derived from the type of the partner navigation property.</p>
-<section id="-partner" class="varjson rep">
-<h3><a name="Partner7.4" href="#Partner7.4"> <code>$Partner</code></a></h3>
+<section id="partner" class="varjson rep">
+<h3><a name="Partner.7.4" href="#Partner.7.4"><code>$Partner</code></a></h3>
 <p>The value of <code>$Partner</code> is a string containing the path to the partner navigation property.</p>
 </section>
 <h2 id="84-containment-navigation-property"><a name="ContainmentNavigationProperty" href="#ContainmentNavigationProperty">8.4 Containment Navigation Property</a></h2>
@@ -1337,8 +1336,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Containment navigation properties MAY specify a partner navigation property. If the containment is recursive, the relationship defines a tree, thus the partner navigation property MUST be <a href="#NullableNavigationProperty">nullable</a> (for the root of the tree) and single-valued (for the parent of a non-root entity). If the containment is not recursive, the partner navigation property MUST NOT be nullable.</p>
 <p>An entity type inheritance chain MUST NOT contain more than one navigation property with a partner navigation property that is a containment navigation property.</p>
 <p>Note: without a partner navigation property, there is no reliable way for a client to determine which entity contains a given contained entity. This may lead to problems for clients if the contained entity can also be reached via a non-containment navigation path.</p>
-<section id="-containstarget" class="varjson rep">
-<h3><a name="ContainsTarget7.5" href="#ContainsTarget7.5"> <code>$ContainsTarget</code></a></h3>
+<section id="containstarget" class="varjson rep">
+<h3><a name="ContainsTarget.7.5" href="#ContainsTarget.7.5"><code>$ContainsTarget</code></a></h3>
 <p>The value of <code>$ContainsTarget</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="85-referential-constraint"><a name="ReferentialConstraint" href="#ReferentialConstraint">8.5 Referential Constraint</a></h2>
@@ -1347,8 +1346,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the principal property references an entity, then the dependent property must reference the same entity.</p>
 <p>If the principal property’s value is a complex type instance, then the dependent property’s value must be a complex type instance with the same properties, each with the same values.</p>
 <p>If the navigation property on which the referential constraint is defined is nullable, or the principal property is nullable, then the dependent property MUST also be nullable. If both the navigation property and the principal property are not nullable, then the dependent property MUST NOT be nullable.</p>
-<section id="-referentialconstraint" class="varjson rep">
-<h3><a name="ReferentialConstraint7.6" href="#ReferentialConstraint7.6"> <code>$ReferentialConstraint</code></a></h3>
+<section id="referentialconstraint" class="varjson rep">
+<h3><a name="ReferentialConstraint.7.6" href="#ReferentialConstraint.7.6"><code>$ReferentialConstraint</code></a></h3>
 <p>The value of <code>$ReferentialConstraint</code> is an object with one member per referential constraint. The member name is the path to the dependent property, this path is relative to the structured type declaring the navigation property. The member value is a string containing the path to the principal property, this path is relative to the entity type that is the target of the navigation property.</p>
 <p>It also MAY contain <a href="#Annotation">annotations</a>. These are prefixed with the path of the dependent property of the annotated referential constraint.</p>
 </section>
@@ -1392,8 +1391,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>SetDefault</code>, meaning all properties of related entities that are tied to properties of the source entity via a referential constraint and that do not participate in other referential constraints will be set to their default value.</li>
 </ul>
 <p>If no on-delete action is specified, the action taken by the service is not predictable by the client and could vary per entity.</p>
-<section id="-ondelete" class="varjson rep">
-<h3><a name="OnDelete7.7" href="#OnDelete7.7"> <code>$OnDelete</code></a></h3>
+<section id="ondelete" class="varjson rep">
+<h3><a name="OnDelete.7.7" href="#OnDelete.7.7"><code>$OnDelete</code></a></h3>
 <p>The value of <code>$OnDelete</code> is a string with one of the values <code>Cascade</code>, <code>None</code>, <code>SetNull</code>, or <code>SetDefault</code>.</p>
 <p><a href="#Annotation">Annotations</a> for <code>$OnDelete</code> are prefixed with <code>$OnDelete</code>.</p>
 </section>
@@ -1418,8 +1417,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The complex type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>A complex type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to an entity type or a collection of entity types.</p>
 <p>All properties MUST have a unique name within a complex type. Properties MUST NOT have the same name as the declaring complex type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
-<section id="-complex-type-object" class="varjson rep">
-<h3><a name="ComplexTypeObject8" href="#ComplexTypeObject8"> Complex Type Object</a></h3>
+<section id="complex-type-object" class="varjson rep">
+<h3><a name="ComplexTypeObject.8" href="#ComplexTypeObject.8">Complex Type Object</a></h3>
 <p>A complex type is represented as a member of the schema object whose name is the unqualified name of the complex type and whose value is an object.</p>
 <p>The complex type object MUST contain the member <code>$Kind</code> with a string value of <code>ComplexType</code>. It MAY contain the members <a href="#DerivedComplexType"><code>$BaseType</code></a>, <a href="#AbstractComplexType"><code>$Abstract</code></a>, and <a href="#OpenComplexType"><code>$OpenType</code></a>. It also MAY contain members representing <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a> as well as <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -1464,22 +1463,22 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A complex type inherits the structural and navigation properties of its base type.</p>
 <p>A complex type MUST NOT introduce an inheritance cycle by specifying a base type.</p>
 <p>The rules for annotations of derived complex types are described in <a href="#Annotation">section 14.2</a>.</p>
-<section id="-basetype-1" class="varjson rep">
-<h3><a name="BaseType8.1" href="#BaseType8.1"> <code>$BaseType</code></a></h3>
+<section id="basetype-1" class="varjson rep">
+<h3><a name="BaseType.8.1" href="#BaseType.8.1"><code>$BaseType</code></a></h3>
 <p>The value of <code>$BaseType</code> is the qualified name of the base type.</p>
 </section>
 <h2 id="92-abstract-complex-type"><a name="AbstractComplexType" href="#AbstractComplexType">9.2 Abstract Complex Type</a></h2>
 <p>A complex type MAY indicate that it is abstract and cannot have instances.</p>
-<section id="-abstract-1" class="varjson rep">
-<h3><a name="Abstract8.2" href="#Abstract8.2"> <code>$Abstract</code></a></h3>
+<section id="abstract-2" class="varjson rep">
+<h3><a name="Abstract.8.2" href="#Abstract.8.2"><code>$Abstract</code></a></h3>
 <p>The value of <code>$Abstract</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="93-open-complex-type"><a name="OpenComplexType" href="#OpenComplexType">9.3 Open Complex Type</a></h2>
 <p>A complex type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>A complex type derived from an open complex type MUST indicate that it is also open.</p>
 <p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData‑Protocol</a>.</p>
-<section id="-opentype-1" class="varjson rep">
-<h3><a name="OpenType8.3" href="#OpenType8.3"> <code>$OpenType</code></a></h3>
+<section id="opentype-1" class="varjson rep">
+<h3><a name="OpenType.8.3" href="#OpenType.8.3"><code>$OpenType</code></a></h3>
 <p>The value of <code>$OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <hr />
@@ -1488,8 +1487,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The enumeration type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>Although enumeration types have an underlying numeric value, the preferred representation for an enumeration value is the member name. Discrete sets of numeric values should be represented as numeric values annotated with the <code>AllowedValues</code> annotation defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Enumeration types marked as flags allow values that consist of more than one enumeration member at a time.</p>
-<section id="-enumeration-type-object" class="varjson rep">
-<h3><a name="EnumerationTypeObject9" href="#EnumerationTypeObject9"> Enumeration Type Object</a></h3>
+<section id="enumeration-type-object" class="varjson rep">
+<h3><a name="EnumerationTypeObject.9" href="#EnumerationTypeObject.9">Enumeration Type Object</a></h3>
 <p>An enumeration type is represented as a member of the schema object whose name is the unqualified name of the enumeration type and whose value is an object.</p>
 <p>The enumeration type object MUST contain the member <code>$Kind</code> with a string value of <code>EnumType</code>.</p>
 <p>It MAY contain the members <a href="#UnderlyingIntegerType"><code>$UnderlyingType</code></a> and <a href="#FlagsEnumerationType"><code>$IsFlags</code></a>.</p>
@@ -1511,15 +1510,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="101-underlying-integer-type"><a name="UnderlyingIntegerType" href="#UnderlyingIntegerType">10.1 Underlying Integer Type</a></h2>
 <p>An enumeration type MAY specify one of <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, or <code>Edm.Int64</code> as its underlying type.</p>
 <p>If not explicitly specified, <code>Edm.Int32</code> is used as the underlying type.</p>
-<section id="-underlyingtype" class="varjson rep">
-<h3><a name="UnderlyingType9.1" href="#UnderlyingType9.1"> <code>$UnderlyingType</code></a></h3>
+<section id="underlyingtype" class="varjson rep">
+<h3><a name="UnderlyingType.9.1" href="#UnderlyingType.9.1"><code>$UnderlyingType</code></a></h3>
 <p>The value of <code>$UnderlyingType</code> is the qualified name of the underlying type.</p>
 </section>
 <h2 id="102-flags-enumeration-type"><a name="FlagsEnumerationType" href="#FlagsEnumerationType">10.2 Flags Enumeration Type</a></h2>
 <p>An enumeration type MAY indicate that the enumeration type allows multiple members to be selected simultaneously.</p>
 <p>If not explicitly specified, only one enumeration type member MAY be selected simultaneously.</p>
-<section id="-isflags" class="varjson rep">
-<h3><a name="IsFlags9.2" href="#IsFlags9.2"> <code>$IsFlags</code></a></h3>
+<section id="isflags" class="varjson rep">
+<h3><a name="IsFlags.9.2" href="#IsFlags.9.2"><code>$IsFlags</code></a></h3>
 <p>The value of <code>$IsFlags</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <div class="varjson example">
@@ -1549,8 +1548,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Enumeration types can have multiple members with the same value. Members with the same numeric value compare as equal, and members with the same numeric value can be used interchangeably.</p>
 <p>Enumeration members are sorted by their numeric value.</p>
 <p>For flag enumeration types the combined numeric value of simultaneously selected members is the bitwise OR of the discrete numeric member values.</p>
-<section id="-enumeration-member-object" class="varjson rep">
-<h3><a name="EnumerationMemberObject10" href="#EnumerationMemberObject10"> Enumeration Member Object</a></h3>
+<section id="enumeration-member-object" class="varjson rep">
+<h3><a name="EnumerationMemberObject.10" href="#EnumerationMemberObject.10">Enumeration Member Object</a></h3>
 <p>Enumeration type members are represented as JSON object members, where the object member name is the enumeration member name and the object member value is the enumeration member value.</p>
 <p>For members of <a href="#FlagsEnumerationType">flags enumeration types</a> a combined enumeration member value is equivalent to the bitwise OR of the discrete values.</p>
 <p>Annotations for enumeration members are prefixed with the enumeration member name.</p>
@@ -1574,8 +1573,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The type definition’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>Type definitions can be used wherever a primitive type is used (other than as the underlying type in a new type definition) and are type-comparable with their underlying types and any type definitions defined using the same underlying type.</p>
 <p>It is up to the definition of a term to specify whether and how annotations with this term propagate to places where the annotated type definition is used, and whether they can be overridden.</p>
-<section id="-type-definition-object" class="varjson rep">
-<h3><a name="TypeDefinitionObject11" href="#TypeDefinitionObject11"> Type Definition Object</a></h3>
+<section id="type-definition-object" class="varjson rep">
+<h3><a name="TypeDefinitionObject.11" href="#TypeDefinitionObject.11">Type Definition Object</a></h3>
 <p>A type definition is represented as a member of the schema object whose name is the unqualified name of the type definition and whose value is an object.</p>
 <p>The type definition object MUST contain the member <code>$Kind</code> with a string value of <code>TypeDefinition</code> and the member <a href="#UnderlyingPrimitiveType"><code>$UnderlyingType</code></a>. It MAY contain the members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -1605,8 +1604,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="111-underlying-primitive-type"><a name="UnderlyingPrimitiveType" href="#UnderlyingPrimitiveType">11.1 Underlying Primitive Type</a></h2>
 <p>The underlying type of a type definition MUST be a primitive type that MUST NOT be another type definition.</p>
-<section id="-underlyingtype-1" class="varjson rep">
-<h3><a name="UnderlyingType11.1" href="#UnderlyingType11.1"> <code>$UnderlyingType</code></a></h3>
+<section id="underlyingtype-1" class="varjson rep">
+<h3><a name="UnderlyingType.11.1" href="#UnderlyingType.11.1"><code>$UnderlyingType</code></a></h3>
 <p>The value of <code>$UnderlyingType</code> is the qualified name of the underlying type.</p>
 </section>
 <p>The type definition MAY specify facets applicable to the underlying type. Possible facets are: <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, or <a href="#SRID"><code>$SRID</code></a>.</p>
@@ -1625,8 +1624,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> actions support overloading (multiple actions having the same name within the same schema) by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
 <p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
 <p>An unbound action MAY have the same name as a bound action.</p>
-<section id="-action-overload-object" class="varjson rep">
-<h3><a name="ActionOverloadObject12" href="#ActionOverloadObject12"> Action Overload Object</a></h3>
+<section id="action-overload-object" class="varjson rep">
+<h3><a name="ActionOverloadObject.12" href="#ActionOverloadObject.12">Action Overload Object</a></h3>
 <p>An action is represented as a member of the schema object whose name is the unqualified name of the action and whose value is an array. The array contains one object per action overload.</p>
 <p>The action overload object MUST contain the member <code>$Kind</code> with a string value of <code>Action</code>.</p>
 <p>It MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, <a href="#Parameter"><code>$Parameter</code></a>, and <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
@@ -1652,8 +1651,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </ul>
 <p>An unbound function MAY have the same name as a bound function.</p>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
-<section id="-function-overload-object" class="varjson rep">
-<h3><a name="FunctionOverloadObject13" href="#FunctionOverloadObject13"> Function Overload Object</a></h3>
+<section id="function-overload-object" class="varjson rep">
+<h3><a name="FunctionOverloadObject.13" href="#FunctionOverloadObject.13">Function Overload Object</a></h3>
 <p>A function is represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
 <p>The function overload object MUST contain the member <code>$Kind</code> with a string value of <code>Function</code>.</p>
 <p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and <a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
@@ -1663,8 +1662,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be nullable.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
 <p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
-<section id="-isbound" class="varjson rep">
-<h3><a name="IsBound13.1" href="#IsBound13.1"> <code>$IsBound</code></a></h3>
+<section id="isbound" class="varjson rep">
+<h3><a name="IsBound.13.1" href="#IsBound.13.1"><code>$IsBound</code></a></h3>
 <p>The value of <code>$IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="126-entity-set-path"><a name="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a></h2>
@@ -1672,15 +1671,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The entity set path consists of a series of segments joined together with forward slashes.</p>
 <p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent navigation segments or type casts.</p>
 <p>A navigation segment names the <a href="#SimpleIdentifier">simple identifier</a> of the <a href="#NavigationProperty">navigation property</a> to be traversed. A type-cast segment names the <a href="#QualifiedName">qualified name</a> of the entity type that should be returned from the type cast.</p>
-<section id="-entitysetpath" class="varjson rep">
-<h3><a name="EntitySetPath13.2" href="#EntitySetPath13.2"> <code>$EntitySetPath</code></a></h3>
+<section id="entitysetpath" class="varjson rep">
+<h3><a name="EntitySetPath.13.2" href="#EntitySetPath.13.2"><code>$EntitySetPath</code></a></h3>
 <p>The value of <code>$EntitySetPath</code> is a string containing the entity set path.</p>
 </section>
 <h2 id="127-composable-function"><a name="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a></h2>
 <p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
 <p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
-<section id="-iscomposable" class="varjson rep">
-<h3><a name="IsComposable13.3" href="#IsComposable13.3"> <code>$IsComposable</code></a></h3>
+<section id="iscomposable" class="varjson rep">
+<h3><a name="IsComposable.13.3" href="#IsComposable.13.3"><code>$IsComposable</code></a></h3>
 <p>The value of <code>$IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
 <h2 id="128-return-type"><a name="ReturnType" href="#ReturnType">12.8 Return Type</a></h2>
@@ -1688,14 +1687,14 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For a single-valued return type the facets apply to the returned value. For a collection-valued return type the facets apply to the items in the returned collection.</p>
 <div class="varjson rep">
-<h3 id="-returntype"><a name="ReturnType13.4" href="#ReturnType13.4"> <code>$ReturnType</code></a></h3>
+<h3 id="returntype"><a name="ReturnType.13.4" href="#ReturnType.13.4"><code>$ReturnType</code></a></h3>
 <p>The value of <code>$ReturnType</code> is an object. It MAY contain the members <code>$Type</code>, <code>$Collection</code>, <code>$Nullable</code>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a>.</p>
 <p>It also MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-type-and--collection-2"><a name="Type13.5" href="#Type13.5"> <code>$Type</code></a> and <a name="Collection13.6" href="#Collection13.6"> <code>$Collection</code></a></h3>
+<h3 id="type-and-collection-2"><a name="Type.13.5" href="#Type.13.5"><code>$Type</code></a> and <a name="Collection.13.6" href="#Collection.13.6"><code>$Collection</code></a></h3>
 <p>For single-valued return types the value of <code>$Type</code> is the qualified name of the returned type.</p>
 <p>For collection-valued return types the value of <code>$Type</code> is the qualified name of the returned item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>.</p>
-<h3 id="-nullable-2"><a name="Nullable13.7" href="#Nullable13.7"> <code>$Nullable</code></a></h3>
+<h3 id="nullable-2"><a name="Nullable.13.7" href="#Nullable.13.7"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>If the return type is a collection of entity types, the <code>$Nullable</code> member has no meaning and MUST NOT be specified.</p>
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1709,18 +1708,18 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For single-valued parameters the facets apply to the parameter value. If the parameter value is a collection, the facets apply to the items in the collection.</p>
 <div class="varjson rep">
-<h3 id="-parameter"><a name="Parameter13.8" href="#Parameter13.8"> <code>$Parameter</code></a></h3>
+<h3 id="parameter"><a name="Parameter.13.8" href="#Parameter.13.8"><code>$Parameter</code></a></h3>
 <p>The value of <code>$Parameter</code> is an array. The array contains one object per parameter.</p>
-<h3 id="-parameter-object"><a name="ParameterObject14" href="#ParameterObject14"> Parameter Object</a></h3>
+<h3 id="parameter-object"><a name="ParameterObject.14" href="#ParameterObject.14">Parameter Object</a></h3>
 <p>A parameter object MUST contain the member <code>$Name</code>, and it MAY contain the members <code>$Type</code>, <code>$Collection</code>, <code>$Nullable</code>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a>.</p>
 <p>Parameter objects MAY also contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-name"><a name="Name14.1" href="#Name14.1"> <code>$Name</code></a></h3>
+<h3 id="name"><a name="Name.14.1" href="#Name.14.1"><code>$Name</code></a></h3>
 <p>The value of <code>$Name</code> is a string containing the parameter name.</p>
-<h3 id="-type-and--collection-3"><a name="Type14.2" href="#Type14.2"> <code>$Type</code></a> and <a name="Collection14.3" href="#Collection14.3"> <code>$Collection</code></a></h3>
+<h3 id="type-and-collection-3"><a name="Type.14.2" href="#Type.14.2"><code>$Type</code></a> and <a name="Collection.14.3" href="#Collection.14.3"><code>$Collection</code></a></h3>
 <p>For single-valued parameters the value of <code>$Type</code> is the qualified name of the accepted type.</p>
 <p>For collection-valued parameters the value of <code>$Type</code> is the qualified name of the accepted item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>.</p>
-<h3 id="-nullable-3"><a name="Nullable14.4" href="#Nullable14.4"> <code>$Nullable</code></a></h3>
+<h3 id="nullable-3"><a name="Nullable.14.4" href="#Nullable.14.4"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>For single-valued parameters the value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
 <p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1790,8 +1789,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity set can expose instances of the specified entity type as well as any entity type inherited from the specified entity type.</p>
 <p>A <a href="#Singleton"><em>singleton</em></a> allows addressing a single entity directly from the entity container without having to know its key, and without requiring an entity set.</p>
 <p>A <a href="#FunctionImport"><em>function import</em></a> or an <a href="#ActionImport"><em>action import</em></a> is used to expose a function or action defined in an entity model as a top level resource.</p>
-<section id="-entity-container-object" class="varjson rep">
-<h3><a name="EntityContainerObject15" href="#EntityContainerObject15"> Entity Container Object</a></h3>
+<section id="entity-container-object" class="varjson rep">
+<h3><a name="EntityContainerObject.15" href="#EntityContainerObject.15">Entity Container Object</a></h3>
 <p>An entity container is represented as a member of the schema object whose name is the unqualified name of the entity container and whose value is an object.</p>
 <p>The entity container object MUST contain the member <code>$Kind</code> with a string value of <code>EntityContainer</code>.</p>
 <p>The entity container object MAY contain the member <a href="#ExtendinganEntityContainer"><code>$Extends</code></a>, members representing <a href="#EntitySet">entity sets</a>, <a href="#Singleton">singletons</a>, <a href="#ActionImport">action imports</a>, and <a href="#FunctionImport">function imports</a>, as well as <a href="#Annotation">annotations</a>.</p>
@@ -1840,8 +1839,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity container MAY specify that it extends another entity container in scope. All children of the “base” entity container are added to the “extending” entity container.</p>
 <p>If the “extending” entity container defines an entity set with the same name as defined in any of its “base” containers, then the entity set’s type MUST specify an entity type derived from the entity type specified for the identically named entity set in the “base” container. The same holds for singletons. Action imports and function imports cannot be redefined, nor can the “extending” container define a child with the same name as a child of a different kind in a “base” container.</p>
 <p>Note: services should not introduce cycles by extending entity containers. Clients should be prepared to process cycles introduced by extending entity containers.</p>
-<section id="-extends" class="varjson rep">
-<h3><a name="Extends15.1" href="#Extends15.1"> <code>$Extends</code></a></h3>
+<section id="extends" class="varjson rep">
+<h3><a name="Extends.15.1" href="#Extends.15.1"><code>$Extends</code></a></h3>
 <p>The value of <code>$Extends</code> is the qualified name of the entity container to be extended.</p>
 </section>
 <div class="varjson example">
@@ -1860,15 +1859,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An entity set MAY indicate whether it is included in the service document. If not explicitly indicated, it is included.</p>
 <p>Entity sets that cannot be queried without specifying additional query options SHOULD NOT be included in the service document.</p>
 <div class="varjson rep">
-<h3 id="-entity-set-object"><a name="EntitySetObject16" href="#EntitySetObject16"> Entity Set Object</a></h3>
+<h3 id="entity-set-object"><a name="EntitySetObject.16" href="#EntitySetObject.16">Entity Set Object</a></h3>
 <p>An entity set is represented as a member of the entity container object whose name is the name of the entity set and whose value is an object.</p>
 <p>The entity set object MUST contain the members <code>$Collection</code> and <code>$Type</code>.</p>
 <p>It MAY contain the members <code>$IncludeInServiceDocument</code> and <a href="#NavigationPropertyBinding"><code>$NavigationPropertyBinding</code></a> as well as <a href="#Annotation">annotations</a>.</p>
-<h3 id="-collection"><a name="Collection16.1" href="#Collection16.1"> <code>$Collection</code></a></h3>
+<h3 id="collection"><a name="Collection.16.1" href="#Collection.16.1"><code>$Collection</code></a></h3>
 <p>The value of <code>$Collection</code> is the Booelan value <code>true</code>.</p>
-<h3 id="-type"><a name="Type16.2" href="#Type16.2"> <code>$Type</code></a></h3>
+<h3 id="type"><a name="Type.16.2" href="#Type.16.2"><code>$Type</code></a></h3>
 <p>The value of <code>$Type</code> is the qualified name of an entity type.</p>
-<h3 id="-includeinservicedocument"><a name="IncludeInServiceDocument16.3" href="#IncludeInServiceDocument16.3"> <code>$IncludeInServiceDocument</code></a></h3>
+<h3 id="includeinservicedocument"><a name="IncludeInServiceDocument.16.3" href="#IncludeInServiceDocument.16.3"><code>$IncludeInServiceDocument</code></a></h3>
 <p>The value of <code>$IncludeInServiceDocument</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>true</code>.</p>
 </div>
 <h2 id="133-singleton"><a name="Singleton" href="#Singleton">13.3 Singleton</a></h2>
@@ -1877,13 +1876,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A singleton MUST specify a type that MUST be an entity type in scope.</p>
 <p>A singleton MUST reference an instance its entity type.</p>
 <div class="varjson rep">
-<h3 id="-singleton-object"><a name="SingletonObject17" href="#SingletonObject17"> Singleton Object</a></h3>
+<h3 id="singleton-object"><a name="SingletonObject.17" href="#SingletonObject.17">Singleton Object</a></h3>
 <p>A singleton is represented as a member of the entity container object whose name is the name of the singleton and whose value is an object.</p>
 <p>The singleton object MUST contain the member <code>$Type</code> and it MAY contain the member <code>$Nullable</code>.</p>
 <p>It MAY contain the member <a href="#NavigationPropertyBinding"><code>$NavigationPropertyBinding</code></a> as well as <a href="#Annotation">annotations</a>.</p>
-<h3 id="-type-1"><a name="Type17.1" href="#Type17.1"> <code>$Type</code></a></h3>
+<h3 id="type-1"><a name="Type.17.1" href="#Type.17.1"><code>$Type</code></a></h3>
 <p>The value of <code>$Type</code> is the qualified name of an entity type.</p>
-<h3 id="-nullable-4"><a name="Nullable17.2" href="#Nullable17.2"> <code>$Nullable</code></a></h3>
+<h3 id="nullable-4"><a name="Nullable.17.2" href="#Nullable.17.2"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.In OData 4.0 responses this member MUST NOT be specified.</p>
 </div>
 <h2 id="134-navigation-property-binding"><a name="NavigationPropertyBinding" href="#NavigationPropertyBinding">13.4 Navigation Property Binding</a></h2>
@@ -1901,8 +1900,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A navigation property binding MUST specify a target via a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a>. It specifies the entity set, singleton, or containment navigation property that contains the related entities.</p>
 <p>If the target is a <a href="#SimpleIdentifier">simple identifier</a>, it MUST resolve to an entity set or singleton defined in the same entity container.</p>
 <p>If the target is a <a href="#TargetPath">target path</a>, it MUST resolve to an entity set, singleton, or direct or indirect containment navigation property of a singleton in scope. The path can traverse single-valued containment navigation properties or single-valued complex properties before ending in a containment navigation property, and there MUST NOT be any non-containment navigation properties prior to the final segment.</p>
-<section id="-navigationpropertybinding" class="varjson rep">
-<h3><a name="NavigationPropertyBinding17.3" href="#NavigationPropertyBinding17.3"> <code>$NavigationPropertyBinding</code></a></h3>
+<section id="navigationpropertybinding" class="varjson rep">
+<h3><a name="NavigationPropertyBinding.17.3" href="#NavigationPropertyBinding.17.3"><code>$NavigationPropertyBinding</code></a></h3>
 <p>The value of <code>$NavigationPropertyBinding</code> is an object. It consists of members whose name is the navigation property binding path and whose value is a string containing the navigation property binding target. If the target is in the same entity container, the target MUST NOT be prefixed with the qualified entity container name.</p>
 </section>
 <div class="varjson example">
@@ -1941,14 +1940,14 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action import MUST specify the name of an unbound action in scope.</p>
 <p>If the imported action returns an entity or a collection of entities, a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a> value MAY be specified to identify the entity set that contains the returned entities. If a <a href="#SimpleIdentifier">simple identifier</a> is specified, it MUST resolve to an entity set defined in the same entity container. If a <a href="#TargetPath">target path</a> is specified, it MUST resolve to an entity set in scope.</p>
 <div class="varjson rep">
-<h3 id="-action-import-object"><a name="ActionImportObject18" href="#ActionImportObject18"> Action Import Object</a></h3>
+<h3 id="action-import-object"><a name="ActionImportObject.18" href="#ActionImportObject.18">Action Import Object</a></h3>
 <p>An action import is represented as a member of the entity container object whose name is the name of the action import and whose value is an object.</p>
 <p>The action import object MUST contain the member <code>$Action</code>.</p>
 <p>It MAY contain the member <code>$EntitySet</code>.</p>
 <p>It MAY also contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-action"><a name="Action18.1" href="#Action18.1"> <code>$Action</code></a></h3>
+<h3 id="action"><a name="Action.18.1" href="#Action.18.1"><code>$Action</code></a></h3>
 <p>The value of <code>$Action</code> is a string containing the qualified name of an unbound action.</p>
-<h3 id="-entityset"><a name="EntitySet18.2" href="#EntitySet18.2"> <code>$EntitySet</code></a></h3>
+<h3 id="entityset"><a name="EntitySet.18.2" href="#EntitySet.18.2"><code>$EntitySet</code></a></h3>
 <p>The value of <code>$EntitySet</code> is a string containing either the unqualified name of an entity set in the same entity container or a path to an entity set in a different entity container.</p>
 </div>
 <h2 id="136-function-import"><a name="FunctionImport" href="#FunctionImport">13.6 Function Import</a></h2>
@@ -1958,16 +1957,16 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the imported function returns an entity or a collection of entities, a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a> value MAY be specified to identify the entity set that contains the returned entities. If a <a href="#SimpleIdentifier">simple identifier</a> is specified, it MUST resolve to an entity set defined in the same entity container. If a <a href="#TargetPath">target path</a> is specified, it MUST resolve to an entity set in scope.</p>
 <p>A function import for a parameterless function MAY indicate whether it is included in the service document. If not explicitly indicated, it is not included.</p>
 <div class="varjson rep">
-<h3 id="-function-import-object"><a name="FunctionImportObject19" href="#FunctionImportObject19"> Function Import Object</a></h3>
+<h3 id="function-import-object"><a name="FunctionImportObject.19" href="#FunctionImportObject.19">Function Import Object</a></h3>
 <p>A function import is represented as a member of the entity container object whose name is the name of the function import and whose value is an object.</p>
 <p>The function import object MUST contain the member <code>$Function</code>.</p>
 <p>It MAY contain the members <code>$EntitySet</code> and <code>$IncludeInServiceDocument</code>.</p>
 <p>It MAY also contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-function"><a name="Function19.1" href="#Function19.1"> <code>$Function</code></a></h3>
+<h3 id="function"><a name="Function.19.1" href="#Function.19.1"><code>$Function</code></a></h3>
 <p>The value of <code>$Function</code> is a string containing the qualified name of an unbound function.</p>
-<h3 id="-entityset-1"><a name="EntitySet19.2" href="#EntitySet19.2"> <code>$EntitySet</code></a></h3>
+<h3 id="entityset-1"><a name="EntitySet.19.2" href="#EntitySet.19.2"><code>$EntitySet</code></a></h3>
 <p>The value of <code>$EntitySet</code> is a string containing either the unqualified name of an entity set in the same entity container or a path to an entity set in a different entity container.</p>
-<h3 id="-includeinservicedocument-1"><a name="IncludeInServiceDocument19.3" href="#IncludeInServiceDocument19.3"> <code>$IncludeInServiceDocument</code></a></h3>
+<h3 id="includeinservicedocument-1"><a name="IncludeInServiceDocument.19.3" href="#IncludeInServiceDocument.19.3"><code>$IncludeInServiceDocument</code></a></h3>
 <p>The value of <code>$IncludeInServiceDocument</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </div>
 <hr />
@@ -2026,28 +2025,28 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The term’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
 <p>The term’s type MUST be a type in scope, or a collection of a type in scope.</p>
 <div class="varjson rep">
-<h3 id="-term-object"><a name="TermObject20" href="#TermObject20"> Term Object</a></h3>
+<h3 id="term-object"><a name="TermObject.20" href="#TermObject.20">Term Object</a></h3>
 <p>A term is represented as a member of the schema object whose name is the unqualified name of the term and whose value is an object.</p>
 <p>The term object MUST contain the member <code>$Kind</code> with a string value of <code>Term</code>.</p>
 <p>It MAY contain the members <code>$Type</code>, <code>$Collection</code>, <code>$Nullable</code>, <code>$DefaultValue</code>, <a href="#SpecializedTerm"><code>$BaseTerm</code></a>, <a href="#Applicability"><code>$AppliesTo</code></a>, <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a>, as well as <a href="#Unicode"><code>$Unicode</code></a> for 4.01 and greater payloads.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-type-and--collection-4"><a name="Type20.1" href="#Type20.1"> <code>$Type</code></a> and <a name="Collection20.2" href="#Collection20.2"> <code>$Collection</code></a></h3>
+<h3 id="type-and-collection-4"><a name="Type.20.1" href="#Type.20.1"><code>$Type</code></a> and <a name="Collection.20.2" href="#Collection.20.2"><code>$Collection</code></a></h3>
 <p>For single-valued terms the value of <code>$Type</code> is the qualified name of the term’s type.</p>
 <p>For collection-valued terms the value of <code>$Type</code> is the qualified name of the term’s item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>.</p>
-<h3 id="-nullable-5"><a name="Nullable20.3" href="#Nullable20.3"> <code>$Nullable</code></a></h3>
+<h3 id="nullable-5"><a name="Nullable.20.3" href="#Nullable.20.3"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>For single-valued terms the value <code>true</code> means that annotations may have the <code>null</code> value.</p>
 <p>For collection-valued terms the annotation value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
-<h3 id="-defaultvalue-1"><a name="DefaultValue20.4" href="#DefaultValue20.4"> <code>$DefaultValue</code></a></h3>
+<h3 id="defaultvalue-1"><a name="DefaultValue.20.4" href="#DefaultValue.20.4"><code>$DefaultValue</code></a></h3>
 <p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the term, see <a href="#ODataJSON">OData-JSON</a>.</p>
 <p>Note: the <code>$DefaultValue</code> member is purely for documentation and isomorphy to <a href="#ODataCSDL">OData-CSDLXML</a>. Annotations in CSDL JSON documents MUST always specify an explicit value.</p>
 </div>
 <h3 id="1411-specialized-term"><a name="SpecializedTerm" href="#SpecializedTerm">14.1.1 Specialized Term</a></h3>
 <p>A term MAY specialize another term in scope by specifying it as its base term.</p>
 <p>When applying a specialized term, the base term MUST also be applied with the same qualifier, and so on until a term without a base term is reached.</p>
-<section id="-baseterm" class="varjson rep">
-<h3><a name="BaseTerm20.5" href="#BaseTerm20.5"> <code>$BaseTerm</code></a></h3>
+<section id="baseterm" class="varjson rep">
+<h3><a name="BaseTerm.20.5" href="#BaseTerm.20.5"><code>$BaseTerm</code></a></h3>
 <p>The value of <code>$BaseTerm</code> is the qualified name of the base term.</p>
 </section>
 <h3 id="1412-applicability"><a name="Applicability" href="#Applicability">14.1.2 Applicability</a></h3>
@@ -2194,8 +2193,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 </tbody>
 </table>
-<section id="-appliesto" class="varjson rep">
-<h3><a name="AppliesTo20.6" href="#AppliesTo20.6"> <code>$AppliesTo</code></a></h3>
+<section id="appliesto" class="varjson rep">
+<h3><a name="AppliesTo.20.6" href="#AppliesTo.20.6"><code>$AppliesTo</code></a></h3>
 <p>The value of <code>$AppliesTo</code> is an array whose items are strings containing symbolic values from the table above that identify model elements the term is intended to be applied to.</p>
 </section>
 <div class="varjson example">
@@ -2215,8 +2214,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="142-annotation"><a name="Annotation" href="#Annotation">14.2 Annotation</a></h2>
 <p>An annotation applies a <a href="#Term">term</a> to a model element and defines how to calculate a value for the term application. Both term and model element MUST be in scope. Section 14.1.2 specifies which model elements MAY be annotated with a term.</p>
 <p>The value of an annotation is specified as an <em>annotation expression</em>, which is either a <a href="#ConstantExpression">constant expression</a> representing a constant value, or a <a href="#DynamicExpression">dynamic expression</a>. The most common construct for assigning an annotation value is a <a href="#ValuePath">path expression</a> that refers to a property of the same or a related structured type.</p>
-<section id="-annotation-member" class="varjson rep">
-<h3><a name="AnnotationMember21" href="#AnnotationMember21"> Annotation Member</a></h3>
+<section id="annotation-member" class="varjson rep">
+<h3><a name="AnnotationMember.21" href="#AnnotationMember.21">Annotation Member</a></h3>
 <p>An annotation is represented as a member whose name consists of an at (<code>@</code>) character, followed by the qualified name of a term, optionally followed by a hash (<code>#</code>) and a <a href="#Qualifier">qualifier</a>.</p>
 <p>The value of the annotation MUST be a <a href="#ConstantExpression">constant expression</a> or <a href="#DynamicExpression">dynamic expression</a>.</p>
 <p>The annotation can be a member of the object representing the model element it annotates, or a second-level member of the <a href="#AnnotationswithExternalTargeting"><code>$Annotations</code></a> member of a schema object.</p>
@@ -2723,8 +2722,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14417-value-path"><a name="ValuePath" href="#ValuePath">14.4.1.7 Value Path</a></h4>
 <p>The value path expression allows assigning a value by traversing an object graph. It can be used in annotations that target entity containers, entity sets, entity types, complex types, navigation properties of structured types, and structural properties of structured types. Its argument is an <a href="#PathExpressions">instance path</a>.</p>
 <p>The value of the path expression is the instance or collection of instances identified by the path.</p>
-<section id="-path" class="varjson rep">
-<h3><a name="Path21.1" href="#Path21.1"> <code>$Path</code></a></h3>
+<section id="path" class="varjson rep">
+<h3><a name="Path.21.1" href="#Path.21.1"><code>$Path</code></a></h3>
 <p>Path expressions are represented as an object with a single member <code>$Path</code> whose value is a string containing a path.</p>
 </section>
 <div class="varjson example">
@@ -2758,13 +2757,13 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varjson rep">
-<h3 id="-and-and--or"><a name="And21.2" href="#And21.2"> <code>$And</code></a> and <a name="Or21.3" href="#Or21.3"> <code>$Or</code></a></h3>
+<h3 id="and-and-or"><a name="And.21.2" href="#And.21.2"><code>$And</code></a> and <a name="Or.21.3" href="#Or.21.3"><code>$Or</code></a></h3>
 <p>The <code>And</code> and <code>Or</code> logical expressions are represented as an object with a single member whose value is an array with two annotation expressions. The member name is one of <code>$And</code>, or <code>$Or</code>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-not"><a name="Not21.4" href="#Not21.4"> <code>$Not</code></a></h3>
+<h3 id="not"><a name="Not.21.4" href="#Not.21.4"><code>$Not</code></a></h3>
 <p>Negation expressions are represented as an object with a single member <code>$Not</code> whose value is an annotation expression.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-eq--ne--gt--ge--lt--le--has-and--in"><a name="Eq21.5" href="#Eq21.5"> <code>$Eq</code></a>, <a name="Ne21.6" href="#Ne21.6"> <code>$Ne</code></a>, <a name="Gt21.7" href="#Gt21.7"> <code>$Gt</code></a>, <a name="Ge21.8" href="#Ge21.8"> <code>$Ge</code></a>, <a name="Lt21.9" href="#Lt21.9"> <code>$Lt</code></a>, <a name="Le21.10" href="#Le21.10"> <code>$Le</code></a>, <a name="Has21.11" href="#Has21.11"> <code>$Has</code></a>, and <a name="In21.12" href="#In21.12"> <code>$In</code></a></h3>
+<h3 id="eq-ne-gt-ge-lt-le-has-and-in"><a name="Eq.21.5" href="#Eq.21.5"><code>$Eq</code></a>, <a name="Ne.21.6" href="#Ne.21.6"><code>$Ne</code></a>, <a name="Gt.21.7" href="#Gt.21.7"><code>$Gt</code></a>, <a name="Ge.21.8" href="#Ge.21.8"><code>$Ge</code></a>, <a name="Lt.21.9" href="#Lt.21.9"><code>$Lt</code></a>, <a name="Le.21.10" href="#Le.21.10"><code>$Le</code></a>, <a name="Has.21.11" href="#Has.21.11"><code>$Has</code></a>, and <a name="In.21.12" href="#In.21.12"><code>$In</code></a></h3>
 <p>All comparison expressions are represented as an object with a single member whose value is an array with two annotation expressions. The member name is one of <code>$Eq</code>, <code>$Ne</code>, <code>$Gt</code>, <code>$Ge</code>, <code>$Lt</code>, <code>$Le</code>, <code>$Has</code>, or <code>$In</code>.</p>
 <p>They MAY contain <a href="#Annotation">annotations</a>.</p>
 </div>
@@ -2905,10 +2904,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </table>
 <p>The <code>Neg</code> operator requires a single operand expression that evaluates to a numeric value. The other arithmetic operators require two operand expressions that evaluate to numeric values.</p>
 <div class="varjson rep">
-<h3 id="-neg"><a name="Neg21.13" href="#Neg21.13"> <code>$Neg</code></a></h3>
+<h3 id="neg"><a name="Neg.21.13" href="#Neg.21.13"><code>$Neg</code></a></h3>
 <p>Negation expressions are represented as an object with a single member <code>$Neg</code> whose value is an annotation expression.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
-<h3 id="-add--sub--mul--div--divby-and--mod"><a name="Add21.14" href="#Add21.14"> <code>$Add</code></a>, <a name="Sub21.15" href="#Sub21.15"> <code>$Sub</code></a>, <a name="Mul21.16" href="#Mul21.16"> <code>$Mul</code></a>, <a name="Div21.17" href="#Div21.17"> <code>$Div</code></a>, <a name="DivBy21.18" href="#DivBy21.18"> <code>$DivBy</code></a>, and <a name="Mod21.19" href="#Mod21.19"> <code>$Mod</code></a></h3>
+<h3 id="add-sub-mul-div-divby-and-mod"><a name="Add.21.14" href="#Add.21.14"><code>$Add</code></a>, <a name="Sub.21.15" href="#Sub.21.15"><code>$Sub</code></a>, <a name="Mul.21.16" href="#Mul.21.16"><code>$Mul</code></a>, <a name="Div.21.17" href="#Div.21.17"><code>$Div</code></a>, <a name="DivBy.21.18" href="#DivBy.21.18"><code>$DivBy</code></a>, and <a name="Mod.21.19" href="#Mod.21.19"><code>$Mod</code></a></h3>
 <p>These arithmetic expressions are represented as an object with as single member whose value is an array with two annotation expressions. The member name is one of <code>$Add</code>, <code>$Sub</code>, <code>$Neg</code>, <code>$Mul</code>, <code>$Div</code>, <code>$DivBy</code>, or <code>$Mod</code>.</p>
 <p>They MAY contain <a href="#Annotation">annotations</a>.</p>
 </div>
@@ -2982,8 +2981,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="1444-apply-client-side-functions"><a name="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
-<section id="-apply-and--function" class="varjson rep">
-<h3><a name="Apply21.20" href="#Apply21.20"> <code>$Apply</code></a> and <a name="Function21.21" href="#Function21.21"> <code>$Function</code></a></h3>
+<section id="apply-and-function" class="varjson rep">
+<h3><a name="Apply.21.20" href="#Apply.21.20"><code>$Apply</code></a> and <a name="Function.21.21" href="#Function.21.21"><code>$Function</code></a></h3>
 <p>Apply expressions are represented as an object with a member <code>$Apply</code> whose value is an array of annotation expressions, and a member <code>$Function</code> whose value is a string containing the <a href="#QualifiedName">qualified name</a> of the client-side function to be applied.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3075,8 +3074,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="1445-cast"><a name="Cast" href="#Cast">14.4.5 Cast</a></h3>
 <p>The cast expression casts the value obtained from its single child expression to the specified type. The cast expression follows the same rules as the <code>cast</code> canonical function defined in <a href="#ODataURL">OData-URL</a>.</p>
-<section id="-cast" class="varjson rep">
-<h3><a name="Cast21.22" href="#Cast21.22"> <code>$Cast</code></a></h3>
+<section id="cast" class="varjson rep">
+<h3><a name="Cast.21.22" href="#Cast.21.22"><code>$Cast</code></a></h3>
 <p>Cast expressions are represented as an object with a member <code>$Cast</code> whose value is an annotation expression, a member <code>$Type</code> whose value is a string containing the qualified type name, and optionally a member <code>$Collection</code> with a value of <code>true</code>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 <p>If the specified type is a primitive type or a collection of primitive types, the facet members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet members are not specified, their values are considered unspecified.</p>
@@ -3108,8 +3107,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The first child expression is the condition and MUST evaluate to a Boolean result, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
 <p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
-<section id="-if" class="varjson rep">
-<h3><a name="If21.23" href="#If21.23"> <code>$If</code></a></h3>
+<section id="if" class="varjson rep">
+<h3><a name="If.21.23" href="#If.21.23"><code>$If</code></a></h3>
 <p>Conditional expressions are represented as an object with a member <code>$If</code> whose value is an array of two or three annotation expressions.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3127,8 +3126,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
-<section id="-isof" class="varjson rep">
-<h3><a name="IsOf21.24" href="#IsOf21.24"> <code>$IsOf</code></a></h3>
+<section id="isof" class="varjson rep">
+<h3><a name="IsOf.21.24" href="#IsOf.21.24"><code>$IsOf</code></a></h3>
 <p>Is-of expressions are represented as an object with a member <code>$IsOf</code> whose value is an annotation expression, a member <code>$Type</code> whose value is a string containing an qualified type name, and optionally a member <code>$Collection</code> with a value of <code>true</code>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 <p>If the specified type is a primitive type or a collection of primitive types, the facet members <a href="#MaxLength"><code>$MaxLength</code></a>, <a href="#Unicode"><code>$Unicode</code></a>, <a href="#Precision"><code>$Precision</code></a>, <a href="#Scale"><code>$Scale</code></a>, and <a href="#SRID"><code>$SRID</code></a> MAY be specified if applicable to the specified primitive type. If the facet members are not specified, their values are considered unspecified.</p>
@@ -3146,8 +3145,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The labeled element expression assigns a name to its single child expression. The value of the child expression can then be reused elsewhere with a <a href="#LabeledElementReference">labeled element reference expression</a>.</p>
 <p>A labeled element expression MUST contain exactly one child expression. The value of the child expression is also the value of the labeled element expression.</p>
 <p>A labeled element expression MUST provide a <a href="#SimpleIdentifier">simple identifier</a> value as its name that MUST be unique within the schema containing the expression.</p>
-<section id="-labeledelement" class="varjson rep">
-<h3><a name="LabeledElement21.25" href="#LabeledElement21.25"> <code>$LabeledElement</code></a></h3>
+<section id="labeledelement" class="varjson rep">
+<h3><a name="LabeledElement.21.25" href="#LabeledElement.21.25"><code>$LabeledElement</code></a></h3>
 <p>Labeled element expressions are represented as an object with a member <code>$LabeledElement</code> whose value is an annotation expression, and a member <code>$Name</code> whose value is a string containing the labeled element’s name.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3162,8 +3161,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="14410-labeled-element-reference"><a name="LabeledElementReference" href="#LabeledElementReference">14.4.10 Labeled Element Reference</a></h3>
 <p>The labeled element reference expression MUST specify the <a href="#QualifiedName">qualified name</a> of a <a href="#LabeledElement">labeled element expression</a> in scope and returns the value of the identified labeled element expression as its value.</p>
-<section id="-labeledelementreference" class="varjson rep">
-<h3><a name="LabeledElementReference21.26" href="#LabeledElementReference21.26"> <code>$LabeledElementReference</code></a></h3>
+<section id="labeledelementreference" class="varjson rep">
+<h3><a name="LabeledElementReference.21.26" href="#LabeledElementReference.21.26"><code>$LabeledElementReference</code></a></h3>
 <p>Labeled element reference expressions are represented as an object with a member <code>$LabeledElementReference</code> whose value is a string containing an qualified name.</p>
 </section>
 <div class="varjson example">
@@ -3181,8 +3180,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Example 85:</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="er">null,</span></span></code></pre></div>
 </div>
-<section id="-null" class="varjson rep">
-<h3><a name="Null21.27" href="#Null21.27"> <code>$Null</code></a></h3>
+<section id="null" class="varjson rep">
+<h3><a name="Null.21.27" href="#Null.21.27"><code>$Null</code></a></h3>
 <p>Null expression containing <a href="#Annotations">annotations</a> are represented as an object with a member <code>$Null</code> whose value is the literal <code>null</code>.</p>
 </section>
 <div class="varjson example">
@@ -3241,8 +3240,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The URL reference expression enables a value to be obtained by sending a <code>GET</code> request.</p>
 <p>The URL reference expression MUST contain exactly one expression of type <code>Edm.String</code>. Its value is treated as a URL that MAY be relative or absolute; relative URLs are relative to the URL of the document containing the URL reference expression, or relative to a base URL specified in a format-specific way.</p>
 <p>The response body of the <code>GET</code> request MUST be returned as the result of the URL reference expression. The result of the URL reference expression MUST be type compatible with the type expected by the surrounding expression.</p>
-<section id="-urlref" class="varjson rep">
-<h3><a name="UrlRef21.28" href="#UrlRef21.28"> <code>$UrlRef</code></a></h3>
+<section id="urlref" class="varjson rep">
+<h3><a name="UrlRef.21.28" href="#UrlRef.21.28"><code>$UrlRef</code></a></h3>
 <p>URL reference expressions are represented as an object with a single member <code>$UrlRef</code> whose value is an annotation expression.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
@@ -3659,161 +3658,161 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h1 id="appendix-b-table-of-json-objects-and-members"><a name="TableofJSONObjectsandMembers" href="#TableofJSONObjectsandMembers">Appendix B. Table of JSON Objects and Members</a></h1>
 <div class="toc">
 <ul>
-<li><a href="#TypeFacetMembers1">Type Facet Members</a>
+<li><a href="#TypeFacetMembers.1">Type Facet Members</a>
 <ul>
-<li><a href="#MaxLength1.1"><code>$MaxLength</code></a></li>
-<li><a href="#Precision1.2"><code>$Precision</code></a></li>
-<li><a href="#Scale1.3"><code>$Scale</code></a></li>
-<li><a href="#Unicode1.4"><code>$Unicode</code></a></li>
-<li><a href="#SRID1.5"><code>$SRID</code></a></li>
+<li><a href="#MaxLength.1.1"><code>$MaxLength</code></a></li>
+<li><a href="#Precision.1.2"><code>$Precision</code></a></li>
+<li><a href="#Scale.1.3"><code>$Scale</code></a></li>
+<li><a href="#Unicode.1.4"><code>$Unicode</code></a></li>
+<li><a href="#SRID.1.5"><code>$SRID</code></a></li>
 </ul></li>
-<li><a href="#DocumentObject2">Document Object</a>
+<li><a href="#DocumentObject.2">Document Object</a>
 <ul>
-<li><a href="#Version2.1"><code>$Version</code></a></li>
-<li><a href="#EntityContainer2.2"><code>$EntityContainer</code></a></li>
-<li><a href="#Reference2.3"><code>$Reference</code></a></li>
+<li><a href="#Version.2.1"><code>$Version</code></a></li>
+<li><a href="#EntityContainer.2.2"><code>$EntityContainer</code></a></li>
+<li><a href="#Reference.2.3"><code>$Reference</code></a></li>
 </ul></li>
-<li><a href="#ReferenceObject3">Reference Object</a>
+<li><a href="#ReferenceObject.3">Reference Object</a>
 <ul>
-<li><a href="#Include3.1"><code>$Include</code></a></li>
-<li><a href="#Namespace3.2"><code>$Namespace</code></a></li>
-<li><a href="#Alias3.3"><code>$Alias</code></a></li>
-<li><a href="#IncludeAnnotations3.4"><code>$IncludeAnnotations</code></a></li>
-<li><a href="#TermNamespace3.5"><code>$TermNamespace</code></a></li>
-<li><a href="#Qualifier3.6"><code>$Qualifier</code></a></li>
-<li><a href="#TargetNamespace3.7"><code>$TargetNamespace</code></a></li>
+<li><a href="#Include.3.1"><code>$Include</code></a></li>
+<li><a href="#Namespace.3.2"><code>$Namespace</code></a></li>
+<li><a href="#Alias.3.3"><code>$Alias</code></a></li>
+<li><a href="#IncludeAnnotations.3.4"><code>$IncludeAnnotations</code></a></li>
+<li><a href="#TermNamespace.3.5"><code>$TermNamespace</code></a></li>
+<li><a href="#Qualifier.3.6"><code>$Qualifier</code></a></li>
+<li><a href="#TargetNamespace.3.7"><code>$TargetNamespace</code></a></li>
 </ul></li>
-<li><a href="#SchemaObject4">Schema Object</a>
+<li><a href="#SchemaObject.4">Schema Object</a>
 <ul>
-<li><a href="#Alias4.1"><code>$Alias</code></a></li>
-<li><a href="#Annotations4.2"><code>$Annotations</code></a></li>
+<li><a href="#Alias.4.1"><code>$Alias</code></a></li>
+<li><a href="#Annotations.4.2"><code>$Annotations</code></a></li>
 </ul></li>
-<li><a href="#EntityTypeObject5">Entity Type Object</a>
+<li><a href="#EntityTypeObject.5">Entity Type Object</a>
 <ul>
-<li><a href="#BaseType5.1"><code>$BaseType</code></a></li>
-<li><a href="#Abstract5.2"><code>$Abstract</code></a></li>
-<li><a href="#OpenType5.3"><code>$OpenType</code></a></li>
-<li><a href="#HasStream5.4"><code>$HasStream</code></a></li>
-<li><a href="#Key5.5"><code>$Key</code></a></li>
+<li><a href="#BaseType.5.1"><code>$BaseType</code></a></li>
+<li><a href="#Abstract.5.2"><code>$Abstract</code></a></li>
+<li><a href="#OpenType.5.3"><code>$OpenType</code></a></li>
+<li><a href="#HasStream.5.4"><code>$HasStream</code></a></li>
+<li><a href="#Key.5.5"><code>$Key</code></a></li>
 </ul></li>
-<li><a href="#PropertyObject6">Property Object</a>
+<li><a href="#PropertyObject.6">Property Object</a>
 <ul>
-<li><a href="#Type6.1"><code>$Type</code></a></li>
-<li><a href="#Collection6.2"><code>$Collection</code></a></li>
-<li><a href="#Nullable6.3"><code>$Nullable</code></a></li>
-<li><a href="#DefaultValue6.4"><code>$DefaultValue</code></a></li>
+<li><a href="#Type.6.1"><code>$Type</code></a></li>
+<li><a href="#Collection.6.2"><code>$Collection</code></a></li>
+<li><a href="#Nullable.6.3"><code>$Nullable</code></a></li>
+<li><a href="#DefaultValue.6.4"><code>$DefaultValue</code></a></li>
 </ul></li>
-<li><a href="#NavigationPropertyObject7">Navigation Property Object</a>
+<li><a href="#NavigationPropertyObject.7">Navigation Property Object</a>
 <ul>
-<li><a href="#Type7.1"><code>$Type</code></a></li>
-<li><a href="#Collection7.2"><code>$Collection</code></a></li>
-<li><a href="#Nullable7.3"><code>$Nullable</code></a></li>
-<li><a href="#Partner7.4"><code>$Partner</code></a></li>
-<li><a href="#ContainsTarget7.5"><code>$ContainsTarget</code></a></li>
-<li><a href="#ReferentialConstraint7.6"><code>$ReferentialConstraint</code></a></li>
-<li><a href="#OnDelete7.7"><code>$OnDelete</code></a></li>
+<li><a href="#Type.7.1"><code>$Type</code></a></li>
+<li><a href="#Collection.7.2"><code>$Collection</code></a></li>
+<li><a href="#Nullable.7.3"><code>$Nullable</code></a></li>
+<li><a href="#Partner.7.4"><code>$Partner</code></a></li>
+<li><a href="#ContainsTarget.7.5"><code>$ContainsTarget</code></a></li>
+<li><a href="#ReferentialConstraint.7.6"><code>$ReferentialConstraint</code></a></li>
+<li><a href="#OnDelete.7.7"><code>$OnDelete</code></a></li>
 </ul></li>
-<li><a href="#ComplexTypeObject8">Complex Type Object</a>
+<li><a href="#ComplexTypeObject.8">Complex Type Object</a>
 <ul>
-<li><a href="#BaseType8.1"><code>$BaseType</code></a></li>
-<li><a href="#Abstract8.2"><code>$Abstract</code></a></li>
-<li><a href="#OpenType8.3"><code>$OpenType</code></a></li>
+<li><a href="#BaseType.8.1"><code>$BaseType</code></a></li>
+<li><a href="#Abstract.8.2"><code>$Abstract</code></a></li>
+<li><a href="#OpenType.8.3"><code>$OpenType</code></a></li>
 </ul></li>
-<li><a href="#EnumerationTypeObject9">Enumeration Type Object</a>
+<li><a href="#EnumerationTypeObject.9">Enumeration Type Object</a>
 <ul>
-<li><a href="#UnderlyingType9.1"><code>$UnderlyingType</code></a></li>
-<li><a href="#IsFlags9.2"><code>$IsFlags</code></a></li>
+<li><a href="#UnderlyingType.9.1"><code>$UnderlyingType</code></a></li>
+<li><a href="#IsFlags.9.2"><code>$IsFlags</code></a></li>
 </ul></li>
-<li><a href="#EnumerationMemberObject10">Enumeration Member Object</a></li>
-<li><a href="#TypeDefinitionObject11">Type Definition Object</a>
+<li><a href="#EnumerationMemberObject.10">Enumeration Member Object</a></li>
+<li><a href="#TypeDefinitionObject.11">Type Definition Object</a>
 <ul>
-<li><a href="#UnderlyingType11.1"><code>$UnderlyingType</code></a></li>
+<li><a href="#UnderlyingType.11.1"><code>$UnderlyingType</code></a></li>
 </ul></li>
-<li><a href="#ActionOverloadObject12">Action Overload Object</a></li>
-<li><a href="#FunctionOverloadObject13">Function Overload Object</a>
+<li><a href="#ActionOverloadObject.12">Action Overload Object</a></li>
+<li><a href="#FunctionOverloadObject.13">Function Overload Object</a>
 <ul>
-<li><a href="#IsBound13.1"><code>$IsBound</code></a></li>
-<li><a href="#EntitySetPath13.2"><code>$EntitySetPath</code></a></li>
-<li><a href="#IsComposable13.3"><code>$IsComposable</code></a></li>
-<li><a href="#ReturnType13.4"><code>$ReturnType</code></a></li>
-<li><a href="#Type13.5"><code>$Type</code></a></li>
-<li><a href="#Collection13.6"><code>$Collection</code></a></li>
-<li><a href="#Nullable13.7"><code>$Nullable</code></a></li>
-<li><a href="#Parameter13.8"><code>$Parameter</code></a></li>
+<li><a href="#IsBound.13.1"><code>$IsBound</code></a></li>
+<li><a href="#EntitySetPath.13.2"><code>$EntitySetPath</code></a></li>
+<li><a href="#IsComposable.13.3"><code>$IsComposable</code></a></li>
+<li><a href="#ReturnType.13.4"><code>$ReturnType</code></a></li>
+<li><a href="#Type.13.5"><code>$Type</code></a></li>
+<li><a href="#Collection.13.6"><code>$Collection</code></a></li>
+<li><a href="#Nullable.13.7"><code>$Nullable</code></a></li>
+<li><a href="#Parameter.13.8"><code>$Parameter</code></a></li>
 </ul></li>
-<li><a href="#ParameterObject14">Parameter Object</a>
+<li><a href="#ParameterObject.14">Parameter Object</a>
 <ul>
-<li><a href="#Name14.1"><code>$Name</code></a></li>
-<li><a href="#Type14.2"><code>$Type</code></a></li>
-<li><a href="#Collection14.3"><code>$Collection</code></a></li>
-<li><a href="#Nullable14.4"><code>$Nullable</code></a></li>
+<li><a href="#Name.14.1"><code>$Name</code></a></li>
+<li><a href="#Type.14.2"><code>$Type</code></a></li>
+<li><a href="#Collection.14.3"><code>$Collection</code></a></li>
+<li><a href="#Nullable.14.4"><code>$Nullable</code></a></li>
 </ul></li>
-<li><a href="#EntityContainerObject15">Entity Container Object</a>
+<li><a href="#EntityContainerObject.15">Entity Container Object</a>
 <ul>
-<li><a href="#Extends15.1"><code>$Extends</code></a></li>
+<li><a href="#Extends.15.1"><code>$Extends</code></a></li>
 </ul></li>
-<li><a href="#EntitySetObject16">Entity Set Object</a>
+<li><a href="#EntitySetObject.16">Entity Set Object</a>
 <ul>
-<li><a href="#Collection16.1"><code>$Collection</code></a></li>
-<li><a href="#Type16.2"><code>$Type</code></a></li>
-<li><a href="#IncludeInServiceDocument16.3"><code>$IncludeInServiceDocument</code></a></li>
+<li><a href="#Collection.16.1"><code>$Collection</code></a></li>
+<li><a href="#Type.16.2"><code>$Type</code></a></li>
+<li><a href="#IncludeInServiceDocument.16.3"><code>$IncludeInServiceDocument</code></a></li>
 </ul></li>
-<li><a href="#SingletonObject17">Singleton Object</a>
+<li><a href="#SingletonObject.17">Singleton Object</a>
 <ul>
-<li><a href="#Type17.1"><code>$Type</code></a></li>
-<li><a href="#Nullable17.2"><code>$Nullable</code></a></li>
-<li><a href="#NavigationPropertyBinding17.3"><code>$NavigationPropertyBinding</code></a></li>
+<li><a href="#Type.17.1"><code>$Type</code></a></li>
+<li><a href="#Nullable.17.2"><code>$Nullable</code></a></li>
+<li><a href="#NavigationPropertyBinding.17.3"><code>$NavigationPropertyBinding</code></a></li>
 </ul></li>
-<li><a href="#ActionImportObject18">Action Import Object</a>
+<li><a href="#ActionImportObject.18">Action Import Object</a>
 <ul>
-<li><a href="#Action18.1"><code>$Action</code></a></li>
-<li><a href="#EntitySet18.2"><code>$EntitySet</code></a></li>
+<li><a href="#Action.18.1"><code>$Action</code></a></li>
+<li><a href="#EntitySet.18.2"><code>$EntitySet</code></a></li>
 </ul></li>
-<li><a href="#FunctionImportObject19">Function Import Object</a>
+<li><a href="#FunctionImportObject.19">Function Import Object</a>
 <ul>
-<li><a href="#Function19.1"><code>$Function</code></a></li>
-<li><a href="#EntitySet19.2"><code>$EntitySet</code></a></li>
-<li><a href="#IncludeInServiceDocument19.3"><code>$IncludeInServiceDocument</code></a></li>
+<li><a href="#Function.19.1"><code>$Function</code></a></li>
+<li><a href="#EntitySet.19.2"><code>$EntitySet</code></a></li>
+<li><a href="#IncludeInServiceDocument.19.3"><code>$IncludeInServiceDocument</code></a></li>
 </ul></li>
-<li><a href="#TermObject20">Term Object</a>
+<li><a href="#TermObject.20">Term Object</a>
 <ul>
-<li><a href="#Type20.1"><code>$Type</code></a></li>
-<li><a href="#Collection20.2"><code>$Collection</code></a></li>
-<li><a href="#Nullable20.3"><code>$Nullable</code></a></li>
-<li><a href="#DefaultValue20.4"><code>$DefaultValue</code></a></li>
-<li><a href="#BaseTerm20.5"><code>$BaseTerm</code></a></li>
-<li><a href="#AppliesTo20.6"><code>$AppliesTo</code></a></li>
+<li><a href="#Type.20.1"><code>$Type</code></a></li>
+<li><a href="#Collection.20.2"><code>$Collection</code></a></li>
+<li><a href="#Nullable.20.3"><code>$Nullable</code></a></li>
+<li><a href="#DefaultValue.20.4"><code>$DefaultValue</code></a></li>
+<li><a href="#BaseTerm.20.5"><code>$BaseTerm</code></a></li>
+<li><a href="#AppliesTo.20.6"><code>$AppliesTo</code></a></li>
 </ul></li>
-<li><a href="#AnnotationMember21">Annotation Member</a>
+<li><a href="#AnnotationMember.21">Annotation Member</a>
 <ul>
-<li><a href="#Path21.1"><code>$Path</code></a></li>
-<li><a href="#And21.2"><code>$And</code></a></li>
-<li><a href="#Or21.3"><code>$Or</code></a></li>
-<li><a href="#Not21.4"><code>$Not</code></a></li>
-<li><a href="#Eq21.5"><code>$Eq</code></a></li>
-<li><a href="#Ne21.6"><code>$Ne</code></a></li>
-<li><a href="#Gt21.7"><code>$Gt</code></a></li>
-<li><a href="#Ge21.8"><code>$Ge</code></a></li>
-<li><a href="#Lt21.9"><code>$Lt</code></a></li>
-<li><a href="#Le21.10"><code>$Le</code></a></li>
-<li><a href="#Has21.11"><code>$Has</code></a></li>
-<li><a href="#In21.12"><code>$In</code></a></li>
-<li><a href="#Neg21.13"><code>$Neg</code></a></li>
-<li><a href="#Add21.14"><code>$Add</code></a></li>
-<li><a href="#Sub21.15"><code>$Sub</code></a></li>
-<li><a href="#Mul21.16"><code>$Mul</code></a></li>
-<li><a href="#Div21.17"><code>$Div</code></a></li>
-<li><a href="#DivBy21.18"><code>$DivBy</code></a></li>
-<li><a href="#Mod21.19"><code>$Mod</code></a></li>
-<li><a href="#Apply21.20"><code>$Apply</code></a></li>
-<li><a href="#Function21.21"><code>$Function</code></a></li>
-<li><a href="#Cast21.22"><code>$Cast</code></a></li>
-<li><a href="#If21.23"><code>$If</code></a></li>
-<li><a href="#IsOf21.24"><code>$IsOf</code></a></li>
-<li><a href="#LabeledElement21.25"><code>$LabeledElement</code></a></li>
-<li><a href="#LabeledElementReference21.26"><code>$LabeledElementReference</code></a></li>
-<li><a href="#Null21.27"><code>$Null</code></a></li>
-<li><a href="#UrlRef21.28"><code>$UrlRef</code></a></li>
+<li><a href="#Path.21.1"><code>$Path</code></a></li>
+<li><a href="#And.21.2"><code>$And</code></a></li>
+<li><a href="#Or.21.3"><code>$Or</code></a></li>
+<li><a href="#Not.21.4"><code>$Not</code></a></li>
+<li><a href="#Eq.21.5"><code>$Eq</code></a></li>
+<li><a href="#Ne.21.6"><code>$Ne</code></a></li>
+<li><a href="#Gt.21.7"><code>$Gt</code></a></li>
+<li><a href="#Ge.21.8"><code>$Ge</code></a></li>
+<li><a href="#Lt.21.9"><code>$Lt</code></a></li>
+<li><a href="#Le.21.10"><code>$Le</code></a></li>
+<li><a href="#Has.21.11"><code>$Has</code></a></li>
+<li><a href="#In.21.12"><code>$In</code></a></li>
+<li><a href="#Neg.21.13"><code>$Neg</code></a></li>
+<li><a href="#Add.21.14"><code>$Add</code></a></li>
+<li><a href="#Sub.21.15"><code>$Sub</code></a></li>
+<li><a href="#Mul.21.16"><code>$Mul</code></a></li>
+<li><a href="#Div.21.17"><code>$Div</code></a></li>
+<li><a href="#DivBy.21.18"><code>$DivBy</code></a></li>
+<li><a href="#Mod.21.19"><code>$Mod</code></a></li>
+<li><a href="#Apply.21.20"><code>$Apply</code></a></li>
+<li><a href="#Function.21.21"><code>$Function</code></a></li>
+<li><a href="#Cast.21.22"><code>$Cast</code></a></li>
+<li><a href="#If.21.23"><code>$If</code></a></li>
+<li><a href="#IsOf.21.24"><code>$IsOf</code></a></li>
+<li><a href="#LabeledElement.21.25"><code>$LabeledElement</code></a></li>
+<li><a href="#LabeledElementReference.21.26"><code>$LabeledElementReference</code></a></li>
+<li><a href="#Null.21.27"><code>$Null</code></a></li>
+<li><a href="#UrlRef.21.28"><code>$UrlRef</code></a></li>
 </ul></li>
 </ul>
 </div>
