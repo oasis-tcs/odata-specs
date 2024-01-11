@@ -375,6 +375,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#EntityContainer">Section 13</a></td>
+<td>All children of <code>edm:EntityContainer</code> are optional</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1571">ODATA-1571</a></td>
+</tr>
+<tr class="even">
 <td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
@@ -1215,7 +1220,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If a partner navigation property is specified, this partner navigation property MUST either specify the current navigation property as its partner to define a bi-directional relationship or it MUST NOT specify a partner navigation property. The latter can occur if the partner navigation property is defined on a complex type, or if the current navigation property is defined on a type derived from the type of the partner navigation property.</p>
 <section id="attribute-partner" class="varxml rep">
 <h3><a name="AttributePartner.13.4" href="#AttributePartner.13.4">Attribute <code>Partner</code></a></h3>
-<p>The value of <code>Partner</code> is the path to the of the partner navigation property.</p>
+<p>The value of <code>Partner</code> is the path to the partner navigation property.</p>
 </section>
 <h2 id="84-containment-navigation-property"><a name="ContainmentNavigationProperty" href="#ContainmentNavigationProperty">8.4 Containment Navigation Property</a></h2>
 <p>A navigation property MAY indicate that instances of its declaring structured type contain the targets of the navigation property, in which case the navigation property is called a <em>containment navigation property</em>.</p>
@@ -1633,7 +1638,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A <a href="#FunctionImport"><em>function import</em></a> or an <a href="#ActionImport"><em>action import</em></a> is used to expose a function or action defined in an entity model as a top level resource.</p>
 <div class="varxml rep">
 <h3 id="element-edmentitycontainer"><a name="ElementedmEntityContainer.24" href="#ElementedmEntityContainer.24">Element <code>edm:EntityContainer</code></a></h3>
-<p>The <code>edm:EntityContainer</code> MUST contain one or more <a href="#EntitySet"><code>edm:EntitySet</code></a>, <a href="#Singleton"><code>edm:Singleton</code></a>, <a href="#ActionImport"><code>edm:ActionImport</code></a>, or <a href="#FunctionImport"><code>edm:FunctionImport</code></a> elements.</p>
+<p>The <code>edm:EntityContainer</code> MAY contain <a href="#EntitySet"><code>edm:EntitySet</code></a>, <a href="#Singleton"><code>edm:Singleton</code></a>, <a href="#ActionImport"><code>edm:ActionImport</code></a>, and <a href="#FunctionImport"><code>edm:FunctionImport</code></a> elements.</p>
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 <h3 id="attribute-name-11"><a name="AttributeName.24.1" href="#AttributeName.24.1">Attribute <code>Name</code></a></h3>
 <p>The value of <code>Name</code> is the entity container’s name.</p>
