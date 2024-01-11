@@ -557,6 +557,8 @@ its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
 the resource is requested.
+The presence of `mediaContentType` with value `null` MAY be used 
+to indicate the absence of a binary stream.
 
 The `mediaEtag` control information MAY be included; its value
 is the ETag of the binary stream represented by this media entity or
