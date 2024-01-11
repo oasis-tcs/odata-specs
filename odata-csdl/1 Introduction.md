@@ -35,6 +35,11 @@ Section | Feature / Change | Issue
 : varxml
 [Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
 :
+: varxml
+[Section ##EntityContainer]| 
+All children of `edm:EntityContainer` are optional| 
+[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+:
 [Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##PathEvaluation]| 

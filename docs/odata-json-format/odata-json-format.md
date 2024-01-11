@@ -207,8 +207,9 @@ An OData JSON payload may represent:
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -747,7 +748,7 @@ payload. This URL can be absolute or [relative](#RelativeURLs).
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
-first property of any JSON response.
+first property of any JSON response that allows this control information (this excludes for example [error responses](#ErrorResponse)).
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
@@ -1093,6 +1094,7 @@ its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
 the resource is requested.
+The presence of `mediaContentType` with value `null` MAY be used to indicate the absence of a binary stream.
 
 The `mediaEtag` control information MAY be included; its value
 is the ETag of the binary stream represented by this media entity or
