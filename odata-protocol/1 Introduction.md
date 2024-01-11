@@ -29,6 +29,9 @@ Section | Feature / Change | Issue
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section ##UpdateaComplexProperty]| 
+Setting a complex property to a different type| 
+[ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 
 ## ##subsec Glossary
 

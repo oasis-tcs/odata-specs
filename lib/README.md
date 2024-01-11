@@ -77,10 +77,10 @@ new Number("odata-data-aggregation-ext").build(proc.stdin);
 
 The HTML file uses CSS stylesheets contained in the [`docs/*/styles`](../docs/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
 
-| Keyword occurs     | Markdown source                      | Rendered result                      |
-| ------------------ | ------------------------------------ | ------------------------------------ |
-| standalone         | `` The `aggregate` transformation `` | The ${\tt aggregate}$ transformation |
-| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$`   | ${\tt aggregate}(α{\tt\ as\ }D)$     |
+| Keyword occurs     | Markdown source                    | Rendered result                      |
+| ------------------ | ---------------------------------- | ------------------------------------ |
+| standalone         | ``The `aggregate` transformation`` | The ${\tt aggregate}$ transformation |
+| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$` | ${\tt aggregate}(α{\tt\ as\ }D)$     |
 
 A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
 
