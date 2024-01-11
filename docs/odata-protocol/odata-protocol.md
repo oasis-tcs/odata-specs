@@ -347,6 +347,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -2051,7 +2052,7 @@ http://host/service/$metadata#Orders(4711)/Items
 If the entities in the response are not bound to a single entity set,
 such as from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL specifies
+property with no navigation property binding, the context URL fragment specifies
 the type of the returned entity collection.
 
 ## <a name="Entity" href="#Entity">10.3 Entity</a>
@@ -2062,7 +2063,8 @@ Context URL template:
     {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
-of an entity set, `/$entity` is appended to the context URL.
+of an entity set, the context URL fragment is the entity set's
+name with `/$entity` appended.
 
 ::: example
 Example 13: resource URL and corresponding context URL
@@ -2072,9 +2074,9 @@ http://host/service/$metadata#Customers/$entity
 ```
 :::
 
-If the entity is contained, then `entity-set` is the canonical URL for
-the containment navigation property of the containing entity, e.g.
-Orders(4711)/Items.
+If the entity is contained, then `entity-set` is the  top-level entity
+set or singleton followed by the path to the containment navigation
+property of the containing entity.
 
 ::: example
 Example 14: resource URL and corresponding context URL for contained
@@ -2085,10 +2087,10 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 ```
 :::
 
-If the response is not bound to a single entity set, such as an entity
+If the entity is not bound to an entity set, such as an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL specifies
+property with no navigation property binding, the context URL fragment specifies
 the type of the returned entity.
 
 ## <a name="Singleton" href="#Singleton">10.4 Singleton</a>
