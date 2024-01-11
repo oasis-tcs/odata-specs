@@ -32,9 +32,9 @@ structured type with the following properties:
     - If the period end property does not
       specify a default value, a default value of "ad infinitum" is assumed.
   - Records of type `TimelineVisible` MAY specify the property `ObjectKey`.
-    - `ObjectKey` is the “sub-key” or “alternate key” that identifies time slices for a single temporal object. 
+    - `ObjectKey` is the "sub-key" or "alternate key" that identifies time slices for a single temporal object.
       It is only necessary if the annotated entity set can contain time slices
-      for more than one temporal object. `The object key is `a collection of
+      for more than one temporal object. The object key is a collection of
       property paths whose value combination uniquely identifies a temporal
       object.
 - `SupportedActions` is a collection of
@@ -47,16 +47,16 @@ Example ##ex: `Employees` entity set from [example model `api-1`](#api1)
 annotated with temporal terms
 ```json
 "Employees": {
-  "$Collection": true,
-  "$Type": "OrgModel.Employee",
-  "@Temporal.ApplicationTimeSupport": {
-    "Timeline": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
-    },
-    "UnitOfTime": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
-    }
-  }
+  "$Collection": true,
+  "$Type": "OrgModel.Employee",
+  "@Temporal.ApplicationTimeSupport": {
+    "Timeline": {
+      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
+    },
+    "UnitOfTime": {
+      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+    }
+  }
 },
 ```
 :::
@@ -66,23 +66,23 @@ Example ##ex: `history` navigation property in entity set `Employees` from
 [example model `api-2`](#api2) annotated with temporal terms
 ```json
 "$Annotations": {
-  "OrgModel.Default/Employees/history": {
-    "@Temporal.ApplicationTimeSupport": {
-      "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
-        "TimeSliceStart": "From",
-        "TimeSliceEnd": "To",
-        "SupportedActions": [
-          "Temporal.Update",
-          "Temporal.Upsert",
-          "Temporal.Delete"
-        ]
-      },
-      "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
-      }
-    }
-  }
+  "OrgModel.Default/Employees/history": {
+    "@Temporal.ApplicationTimeSupport": {
+      "Timeline": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
+        "TimeSliceStart": "From",
+        "TimeSliceEnd": "To",
+        "SupportedActions": [
+          "Temporal.Update",
+          "Temporal.Upsert",
+          "Temporal.Delete"
+        ]
+      },
+      "UnitOfTime": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+      }
+    }
+  }
 }
 ```
 :::
@@ -93,42 +93,42 @@ temporal objects, the temporal objects identified by combination of
 `AreaID` and `CostCenterID`
 ```json
 "CostCenter": {
-  "$Kind": "EntityType",
-  "$Key": ["tsid"],
-  "tsid": {},
-  "AreaID": {},
-  "CostCenterID": {},
-  "ValidTo": { "$Type": "Edm.Date" },
-  "ValidFrom": { "$Type": "Edm.Date" },
-  "ProfitCenterID": { "$Nullable": true },
-  "DepartmentID": { "$Nullable": true }
+  "$Kind": "EntityType",
+  "$Key": ["tsid"],
+  "tsid": {},
+  "AreaID": {},
+  "CostCenterID": {},
+  "ValidTo": { "$Type": "Edm.Date" },
+  "ValidFrom": { "$Type": "Edm.Date" },
+  "ProfitCenterID": { "$Nullable": true },
+  "DepartmentID": { "$Nullable": true }
 },
 
 "Default": {
-  "$Kind": "EntityContainer",
-  "CostCenters": { "$Collection": true, "$Type": "this.CostCenter" }
+  "$Kind": "EntityContainer",
+  "CostCenters": { "$Collection": true, "$Type": "this.CostCenter" }
 },
 
 "$Annotations": {
-  "this.Default/CostCenters": {
-    "@Temporal.ApplicationTimeSupport": {
-      "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
-        "ClosedClosedPeriods": true
-      },
-      "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
-        "PeriodStart": "ValidFrom",
-        "PeriodEnd": "ValidTo",
-        "ObjectKey": ["AreaID", "CostCenterID"]
-      },
-      "SupportedActions": [
-        "Temporal.Update",
-        "Temporal.Upsert",
-        "Temporal.Delete"
-      ]
-    }
-  }
+  "this.Default/CostCenters": {
+    "@Temporal.ApplicationTimeSupport": {
+      "UnitOfTime": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
+        "ClosedClosedPeriods": true
+      },
+      "Timeline": {
+        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
+        "PeriodStart": "ValidFrom",
+        "PeriodEnd": "ValidTo",
+        "ObjectKey": ["AreaID", "CostCenterID"]
+      },
+      "SupportedActions": [
+        "Temporal.Update",
+        "Temporal.Upsert",
+        "Temporal.Delete"
+      ]
+    }
+  }
 }
 ```
 :::

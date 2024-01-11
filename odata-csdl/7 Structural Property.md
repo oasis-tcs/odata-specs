@@ -279,7 +279,7 @@ Example ##ex: the `Product` entity type has a navigation property to a
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "Category": {
     "$Kind": "NavigationProperty",
     "$Type": "self.Category",
@@ -295,7 +295,7 @@ Example ##ex: the `Product` entity type has a navigation property to a
 },
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -333,14 +333,14 @@ Example ##ex: the Product entity type has a navigation property to a
 Category, which has a navigation link back to one or more products
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false"
                       Partner="Products" />
   <NavigationProperty Name="Supplier" Type="self.Supplier" />
 </EntityType>
 
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)"
                       Partner="Category" />
 </EntityType>
@@ -460,7 +460,7 @@ navigation property.
 ::: {.varxml .rep}
 ### ##subisec Attribute `Partner`
 
-The value of `Partner` is the path to the of the partner navigation
+The value of `Partner` is the path to the partner navigation
 property.
 :::
 
@@ -557,10 +557,10 @@ the target of the navigation).
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.
 
-If the principle property references an entity, then the dependent
+If the principal property references an entity, then the dependent
 property must reference the same entity.
 
-If the principle property's value is a complex type instance, then the
+If the principal property's value is a complex type instance, then the
 dependent property's value must be a complex type instance with the same
 properties, each with the same values.
 
@@ -593,7 +593,7 @@ the `Kind` property of the category.
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "CategoryID": {},
   "CategoryKind": {},
   "Category": {
@@ -616,7 +616,7 @@ the `Kind` property of the category.
   "Kind": {
     "$Nullable": true
   },
-  ...
+  …
 }
 ```
 :::
@@ -657,7 +657,7 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="CategoryID" Type="Edm.String" Nullable="false"/>
   <Property Name="CategoryKind" Type="Edm.String" Nullable="true" />
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false">
@@ -675,7 +675,7 @@ the `Kind` property of the category.
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="Kind" Type="Edm.String" Nullable="true" />
-  ...
+  …
 </EntityType>
 ```
 :::
@@ -720,7 +720,7 @@ products in that category
 ```json
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -751,7 +751,7 @@ Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```xml
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)">
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"

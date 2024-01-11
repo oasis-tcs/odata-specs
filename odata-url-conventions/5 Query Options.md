@@ -16,7 +16,7 @@ System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
 The names of all system query options are optionally prefixed with a
 dollar (`$`) character. 4.01 Services MUST support case-insensitive
-system query option names specified with or without the `$ `prefix.
+system query option names specified with or without the `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
 
@@ -96,8 +96,8 @@ When applied to operands of numeric types, [numeric
 promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
-operands, and the `eq` and `ne` operators can be used with structured
-operands.
+operands, and the `eq` and `ne` operators can be used with operands of a
+structured type.
 
 ##### ##subsubsubsubsec Equals
 
@@ -162,7 +162,7 @@ greater than `-INF`.
 The Boolean value `true` is greater than `false`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -187,7 +187,7 @@ than `INF`.
 The Boolean value `false` is less than `true`.
 
 Services SHOULD order language-dependent strings according to the
-content-language of the response, and SHOULD annotate string properties
+`Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
@@ -247,49 +247,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example ##ex: all products with a `Name` equal to 'Milk'
+Example ##ex: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a `Name` not equal to 'Milk'
+Example ##ex: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name greater than 'Milk':
+Example ##ex: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name greater than or equal to 'Milk':
+Example ##ex: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name less than 'Milk':
+Example ##ex: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with a Name less than or equal to 'Milk':
+Example ##ex: all products with a `Name` less than or equal to `Milk`:
 ```
-http://host/service/Products?$filter=Name le 'Milk'`
+http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
 ::: example
-Example ##ex: all products with the Name 'Milk' that also have a Price
+Example ##ex: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -297,15 +297,15 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example ##ex: all products that either have the Name 'Milk' or have a
-Price less than 2.55:
+Example ##ex: all products that either have a `Name` equal to `Milk` or have a
+`Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 ```
 :::
 
 ::: example
-Example ##ex: all products that do not have a Name that ends with 'ilk':
+Example ##ex: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
@@ -319,7 +319,7 @@ http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 :::
 
 ::: example
-Example ##ex: all products whose `name` value is 'Milk' or 'Cheese':
+Example ##ex: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -344,8 +344,8 @@ lower case operator names.
 
 The `add` operator adds the left and right numeric operands.
 
-For operands of type `Edm.Decimal` the scale of the result is 
-${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$, 
+For operands of type `Edm.Decimal` the scale of the result is
+${\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
 The `add` operator is also valid for the following time-related
@@ -371,7 +371,7 @@ today minus a positive duration smaller than one day is yesterday.
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
 
-For operands of type `Edm.Decimal` the scale of the result is 
+For operands of type `Edm.Decimal` the scale of the result is
 ${\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
@@ -586,7 +586,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that contains `'Alfreds'`
+Example ##ex: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -618,7 +618,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that ends with
-`'Futterkiste'`
+`Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
@@ -649,7 +649,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` containing '`lfreds'`
+Example ##ex: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -707,7 +707,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that starts with `'Alfr'`
+Example ##ex: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -725,19 +725,19 @@ OrderedCollection substring(OrderedCollection,Edm.Int32)
 OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)
 ```
 
-The two-argument `substring` function with string parameter values
+The two-parameter `substring` function with string parameter values
 returns a substring of the first parameter string value, starting at the
 Nth character and finishing at the last character (where N is the second
-parameter integer value). The three-argument `substring` function with
+parameter integer value). The three-parameter `substring` function with
 string parameter values returns a substring of the first parameter
 string value identified by selecting up to M characters starting at the
 Nth character (where N is the second parameter integer value and M is
 the third parameter integer value).
 
-The two-argument `substring` function with ordered collection parameter
+The two-parameter `substring` function with ordered collection parameter
 values returns an ordered collection consisting of all items of the
 first collection starting at the Nth item and finishing at the last
-item. The three-argument `substring` function with ordered collection
+item. The three-parameter `substring` function with ordered collection
 parameter values returns an ordered collection consisting of up to M
 items of the first collection starting at the Nth item (where N is the
 second parameter integer value and M is the third parameter integer
@@ -761,7 +761,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example ##ex: all customers with a `CompanyName` of `'lfreds Futterkiste'`
+Example ##ex: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -769,8 +769,8 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example ##ex: all customers with a `CompanyName` that has '`lf' `as the
-second and third characters, e.g, '`Alfreds Futterkiste`'
+Example ##ex: all customers with a `CompanyName` that has `lf` as the
+second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
@@ -795,13 +795,21 @@ how the `hassubset` function is invoked.
 Example ##ex: `hassubset` expressions that return true
 ```
 hassubset([4,1,3],[4,1,3])
+```
 
+```
 hassubset([4,1,3],[1,3,4])
+```
 
+```
 hassubset([4,1,3],[3,1])
+```
 
+```
 hassubset([4,1,3],[4,3])
+```
 
+```
 hassubset([4,1,3,1],[1,1])
 ```
 :::
@@ -831,11 +839,17 @@ items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 Example ##ex: `hassubsequence` expressions that return true
 ```
 hassubsequence([4,1,3],[4,1,3])
+```
 
+```
 hassubsequence([4,1,3],[4,1])
+```
 
+```
 hassubsequence([4,1,3],[4,3])
+```
 
+```
 hassubsequence([4,1,3,1],[1,1])
 ```
 :::
@@ -844,35 +858,38 @@ hassubsequence([4,1,3,1],[1,1])
 Example ##ex: `hassubsequence` expressions that return false
 ```
 hassubsequence([4,1,3],[1,3,4])
+```
 
+```
 hassubsequence([4,1,3],[3,1])
+```
 
+```
 hassubsequence([1,2],[1,1,2])
 ```
 :::
 
 #### ##subsubsubsec String Functions
 
-##### ##subsubsubsubsec `matchesPattern`
+##### ##subsubsubsubsec `matchespattern`
 
-The `matchesPattern` function has the following signature:
+The `matchespattern` function has the following signature:
 
 ```
-Edm.Boolean matchesPattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[**[ECMAScript]**](#ECMAScript) (JavaScript) regular expression. The
-`matchesPattern` function returns true if the first parameter evaluates
+`matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [**[ECMAScript]**](#ECMAScript) regular expressions, otherwise it
+of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
-http://host/service/Customers?$filter=matchesPattern(CompanyName,'%5EA.*e$')
+http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 ```
 :::
 
@@ -891,7 +908,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that equals
-`'alfreds futterkiste'` once any uppercase characters have been
+`alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
 http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
@@ -913,7 +930,7 @@ function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that equals
-`'ALFREDS FUTTERKISTE'` once any lowercase characters have been
+`ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
 http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
@@ -1343,6 +1360,9 @@ The `isofExpr` syntax rule defines how the `isof` function is invoked.
 Example ##ex: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
+```
+
+```
 http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 ```
 :::
@@ -1401,12 +1421,12 @@ parameter in the coordinate reference system signified by its SRID.
 The `case` function has the following signature:
 
 ```
-expression case(Edm.Boolean:expression, ..., Edm.Boolean:expression)
+expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
 Each parameter is a pair of expressions separated by a colon (`:`),
-where the first expression -- the condition -- MUST be a Boolean
-expression, and the second expression -- the result -- may evaluate to
+where the first expression --- the condition --- MUST be a Boolean
+expression, and the second expression --- the result --- may evaluate to
 any type.
 
 The case function evaluates the condition in each pair, starting with
@@ -1415,6 +1435,10 @@ It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
 specify a last pair whose condition is `true` to get a non-null
 "default/else/otherwise" result.
+
+Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
+the optional seconds part will introduce ambiguity for parsers.
+Clients SHOULD use whitespace or parentheses to avoid ambiguity.
 
 Clients SHOULD ensure that the results in all pairs are compatible. If
 all results are of the same type, the type of the `case` expression is
@@ -1525,41 +1549,77 @@ according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 Example ##ex: expressions using primitive literals
 ```
 NullValue eq null
+```
 
+```
 TrueValue eq true
+```
 
+```
 FalseValue eq false
+```
 
+```
 Custom.Base64UrlDecode(binary'T0RhdGE') eq 'OData'
+```
 
+```
 IntegerValue lt -128
+```
 
+```
 DoubleValue ge 0.31415926535897931e1
+```
 
+```
 SingleValue eq INF
+```
 
+```
 DecimalValue eq 34.95
+```
 
+```
 StringValue eq 'Say Hello,then go'
+```
 
+```
 DateValue eq 2012-12-03
+```
 
+```
 DateTimeOffsetValue eq 2012-12-03T07:16:23Z
+```
 
+```
 DurationValue eq duration'P12DT23H59M59.999999999999S'
+```
 
+```
 DurationValue eq 'P12DT23H59M59.999999999999S'
+```
 
+```
 TimeOfDayValue eq 07:59:59.999
+```
 
+```
 GuidValue eq 01234567-89ab-cdef-0123-456789abcdef
+```
 
+```
 Int64Value eq 0
+```
 
+```
 ColorEnumValue eq Sales.Pattern'Yellow'
+```
 
+```
 ColorEnumValue eq 'Yellow'
+```
 
+```
 geo.distance(Location,geography'SRID=0;Point(142.1 64.1)')
 ```
 :::
@@ -1656,6 +1716,7 @@ Example ##ex: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
+Note: the nested filter condition could equivalently be expressed as `$it/Address/City eq `[`$this`](#this)`/ShipTo/City`.
 ```
 http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/City)
 ```
@@ -1716,8 +1777,8 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 
 #### ##subsubsubsec Path Expressions
 
-Properties and navigation properties of the entity type of the set of
-resources that are addressed by the request URL can be used as operands
+Properties and navigation properties of the structured type on which
+a common expression is evaluated can be used as operands
 or function parameters, as shown in the preceding examples.
 
 Properties of complex properties can be used via the same syntax as in
@@ -1888,8 +1949,8 @@ expanded. An expand item is either a path or one of the symbols `*` or
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
+consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -1897,16 +1958,16 @@ A path can end with
 - the name of a stream property to include
 that stream property,
 - a star (`*`) to expand all navigation
-properties of the identified structured instance, optionally followed by
+properties of the identified instances of a structured type, optionally followed by
 `/$ref` to expand only entity references, or
 - a navigation property to expand the
-related entity or entities, optionally followed by a type-cast segment
+related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
 references.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
-type-cast segment to expand only related entities of that derived type
+[type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
 
 If a structured type traversed by the path supports neither dynamic
@@ -1935,18 +1996,18 @@ A path MUST NOT appear in more than one expand item.
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name. 
+parentheses, to the navigation property name.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
-`$expand`, and 
+`$expand`, and
 [`$levels`](#ExpandOptionlevels) for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
 [`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
 [`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch) 
- for collection-valued navigation properties.
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
 
 ::: example
 Example ##ex: all categories and for each category all related products
@@ -1979,8 +2040,7 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 :::
 
 To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast
-segment](#AddressingDerivedTypes) following a navigation property name.
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The system query options [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -2067,7 +2127,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example ##ex: Include the `Product`'s media stream along with other
+Example ##ex: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -2100,15 +2160,15 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or type-cast
-segments consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or 
+[type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
 A path can end with
 - the name of a property or
-non-entity-valued instance annotation of the identified structured
-instance,
+non-entity-valued instance annotation of the identified
+instance of a structured type,
 - the qualified name of a bound action,
 - the qualified name of a bound function
 to include all matching overloads, or
@@ -2120,7 +2180,7 @@ The `$select` system query option is interpreted relative to the entity
 type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
-actions and functions identified by that select item. 
+actions and functions identified by that select item.
 If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity
@@ -2177,8 +2237,7 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast
-segment](#AddressingDerivedTypes), and the name of a property of the
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
 complex type (and so on for nested complex types).
 
 ::: example
@@ -2244,7 +2303,7 @@ http://host/service/Products?$select=ID,Model.ActionName,Model2.*
 ```
 :::
 
-When multiple select item exist in a `select clause`, then the total set
+When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
@@ -2271,7 +2330,7 @@ particular page of items by combining `$top` and `$skip`.
 The semantics of `$top` and `$skip` are covered in the
 [OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
-`$skip `query options respectively.
+`$skip` query options respectively.
 
 ### ##subsubsec System Query Option `$count`
 
@@ -2314,6 +2373,7 @@ http://host/service/Products?$search=blue OR green
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
 entities matching the specified expression.
+Leading and trailing spaces are not considered part of the search expression.
 
 *Terms* can be any single word to be matched within the expression.
 
@@ -2343,6 +2403,7 @@ expressions evaluate to true, otherwise false.
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
+Such an expression can also be used to search for double quotes: `?$search='"'`.
 
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
@@ -2377,6 +2438,9 @@ expression](#CommonExpressionSyntax) followed by the keyword `as`,
 followed by the name for the computed dynamic property. This name MUST
 differ from the names of declared or dynamic properties of the
 identified resources.
+Services MAY support compute instructions that address
+dynamic properties added by other compute instructions within the same
+`$compute` system query option, provided that the service can determine an evaluation sequence.
 
 The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
 grammar of the `$compute` query option.
@@ -2399,7 +2463,7 @@ http://host/service/Orders(10)/Items
 ### ##subsubsec System Query Option `$index`
 
 The `$index` system query option allows clients to do a positional
-insert into a collection annotated with using the
+insert into a collection annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
@@ -2466,7 +2530,7 @@ http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 :::
 
 ::: example
-Example ##ex: JSON array of strings as parameter alias value -- note that
+Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```

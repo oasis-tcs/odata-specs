@@ -24,8 +24,14 @@ resource representations that are exchanged using OData.
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##DataModification]| 
+Response code `204 No Content` after successful data modification if requested response could not be constructed| 
+[ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section ##UpdateaComplexProperty]| 
+Setting a complex property to a different type| 
+[ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 
 ## ##subsec Glossary
 
@@ -56,7 +62,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -525,7 +531,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
-[RFC7231](#rfc7231), or through the system query option
+[RFC9110](#rfc9110), or through the system query option
 [`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query

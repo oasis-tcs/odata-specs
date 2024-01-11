@@ -72,7 +72,7 @@ applicable rule:
 2. by a [`$at`](#QueryOptionat) value propagated along `$expand`
 3. by [`$at`](#QueryOptionat) in the query option part of the request URL, which applies to every
    segment of the resource path and paths that occur in system query options
-4. by the default value "now" - the logic for determining this value is service-specific
+4. by the default value "now" --- the logic for determining this value is service-specific
 
 For entities in a [timeline entity set](#TimelineEntitySet)
 the time interval for filtering time slices is determined by the first
@@ -92,7 +92,7 @@ For timeline entity sets and collection-valued navigation to timeline
 entity sets, `$at=<point-in-time>` is shorthand for
 
 ::: indent
-[`$from`](#QueryOptionsfromtoandtoInclusive)=`<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
+[`$from`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>&`[`$toInclusive`](#QueryOptionsfromtoandtoInclusive)`=<point-in-time>`
 :::
 
 The query option `$at` can be combined with `$filter` and `$search`.
@@ -106,10 +106,10 @@ GET /api-1/Employees('E314')
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Senior"
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Senior"
 }
 ```
 :::
@@ -122,10 +122,10 @@ GET /api-1/Employees('E314')?$at=2012-01-01
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Junior"
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior"
 }
 ```
 :::
@@ -137,18 +137,18 @@ Example ##ex: retrieve multiple employees at a past point in time
 GET /api-1/Employees?$filter=contains(Name,'i')&$at=2012-01-01
 ```
 results in one time slice for each employee matching the filter at the
-specified point in time - note that E401 back then does not satisfy
+specified point in time --- note that E401 back then does not satisfy
 this condition
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "Name": "McDevitt",
-      "Jobtitle": "Junior"
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Junior"
+    }
+  ]
 }
 ```
 :::
@@ -169,14 +169,14 @@ GET /api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
-  "ID": "E314",
-  "Name": "McDevitt",
-  "Jobtitle": "Junior",
-  "Department": {
-    "ID": "D08",
-    "Name": "1st Level Support"
-  }
+  "@odata.context": "$metadata#Employees/$entity",
+  "ID": "E314",
+  "Name": "McDevitt",
+  "Jobtitle": "Junior",
+  "Department": {
+    "ID": "D08",
+    "Name": "1st Level Support"
+  }
 }
 ```
 :::
@@ -190,21 +190,21 @@ GET /api-1/Departments('D15')?$at=2015-01-01&$expand=Employees
 results in
 ```json
 {
-  "@odata.context": "$metadata#Departments/$entity",
-  "ID": "D15",
-  "Name": "Services",
-  "Employees": [
-    {
-      "ID": "E314",
-      "Name": "McDevitt",
-      "Jobtitle": "Senior"
-    },
-    {
-      "ID": "E401",
-      "Name": "Gibson",
-      "Jobtitle": "Expert"
-    }
-  ]
+  "@odata.context": "$metadata#Departments/$entity",
+  "ID": "D15",
+  "Name": "Services",
+  "Employees": [
+    {
+      "ID": "E314",
+      "Name": "McDevitt",
+      "Jobtitle": "Senior"
+    },
+    {
+      "ID": "E401",
+      "Name": "Gibson",
+      "Jobtitle": "Expert"
+    }
+  ]
 }
 ```
 :::
@@ -273,49 +273,49 @@ application-time period boundaries as part of the default selection.
 Example ##ex_employeeHistory: retrieve employee history over a period of application time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &$from=2012-03-01&$to=2025-01-01
+                    &$from=2012-03-01&$to=2025-01-01
 ```
 results in one entity for each employee with time slices that overlap
 the specified application-time period:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Junior",
-          "From": "2011-01-01",
-          "To": "2013-10-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31"
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 The history for the first employee contains two time slices that do not
@@ -331,100 +331,100 @@ with their full history, and the department's data at the start of each
 employee history time slice
 ```
 GET /api-2/Departments('D15')/Employees?
-    $expand=history(
+    $expand=history(
       @emp=$this;
-      $expand=Department(
-        $expand=history($at=@emp/From)
-      )
-    )
+      $expand=Department(
+        $expand=history($at=@emp/From)
+      )
+    )
 ```
 has the following result with department names and budgets as of the
 beginning of each employee time slice:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Junior",
-          "From": "2011-01-01",
-          "To": "2013-10-01",
-          "Department": {
-            "ID": "D08",
-            "history": [{
-              "Name": "Support",
-              "Budget": 1000,
-              "From": "2010-01-01",
-              "To": "2012-10-01"
-            }]
-          }
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01",
-          "Department": {
-            "ID": "D08",
-            "history": [{
-              "Name": "1st Level Support",
-              "Budget": 1250,
-              "From": "2012-06-01",
-              "To": "2014-01-01"
-            }]
-          }
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31",
-          "Department": {
-            "ID": "D15",
-            "history": [{
-              "Name": "Services",
-              "Budget": 1170,
-              "From": "2011-01-01",
-              "To": "9999-12-31"
-            }]
-          }
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Norman",
-          "Jobtitle": "Expert",
-          "From": "2009-11-01",
-          "To": "2012-03-01",
-          "Department": {
-            "ID": "D15",
-            "history": []
-          }
-        },
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31",
-          "Department": {
-            "ID": "D15",
-            "history": [{
-              "Name": "Services",
-              "Budget": 1170,
-              "From": "2011-01-01",
-              "To": "9999-12-31"
-            }]
-          }
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Junior",
+          "From": "2011-01-01",
+          "To": "2013-10-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "Support",
+              "Budget": 1000,
+              "From": "2010-01-01",
+              "To": "2012-10-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01",
+          "Department": {
+            "ID": "D08",
+            "history": [{
+              "Name": "1st Level Support",
+              "Budget": 1250,
+              "From": "2012-06-01",
+              "To": "2014-01-01"
+            }]
+          }
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Norman",
+          "Jobtitle": "Expert",
+          "From": "2009-11-01",
+          "To": "2012-03-01",
+          "Department": {
+            "ID": "D15",
+            "history": []
+          }
+        },
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31",
+          "Department": {
+            "ID": "D15",
+            "history": [{
+              "Name": "Services",
+              "Budget": 1170,
+              "From": "2011-01-01",
+              "To": "9999-12-31"
+            }]
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
@@ -449,47 +449,47 @@ Example ##ex: retrieve employee history over a period of application time
 and filter on job title
 ```
 GET /api-2/Employees?$expand=history(
-                       $select=Name,Jobtitle;
-                       $from=2012-03-01&$to=2025-01-01;
-                       $filter=contains(Jobtitle,'e')
-                     )
+                       $select=Name,Jobtitle;
+                       $from=2012-03-01&$to=2025-01-01;
+                       $filter=contains(Jobtitle,'e')
+                     )
 ```
 results in one entity for each employee with time slices that overlap
 the specified application-time period and satisfy the filter condition
 (one less than in [example ##employeeHistory]):
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E314",
-      "history": [
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2013-10-01",
-          "To": "2014-01-01"
-        },
-        {
-          "Name": "McDevitt",
-          "Jobtitle": "Senior",
-          "From": "2014-01-01",
-          "To": "9999-12-31"
-        }
-      ]
-    },
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E314",
+      "history": [
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2013-10-01",
+          "To": "2014-01-01"
+        },
+        {
+          "Name": "McDevitt",
+          "Jobtitle": "Senior",
+          "From": "2014-01-01",
+          "To": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
@@ -505,27 +505,27 @@ the period boundaries.
 Example ##ex: filter employees on their name at any point in time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
-                    &$from=2015-01-01
-                    &$filter=history/any(h:startswith(h/Name,'N'))
+                    &$from=2015-01-01
+                    &$filter=history/any(h:startswith(h/Name,'N'))
 ```
 results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period
 ```json
 {
-  "@odata.context": "$metadata#Employees",
-  "value": [
-    {
-      "ID": "E401",
-      "history": [
-        {
-          "Name": "Gibson",
-          "Jobtitle": "Expert",
-          "From": "2012-03-01",
-          "To": "9999-12-31"
-        }
-      ]
-    }
-  ]
+  "@odata.context": "$metadata#Employees",
+  "value": [
+    {
+      "ID": "E401",
+      "history": [
+        {
+          "Name": "Gibson",
+          "Jobtitle": "Expert",
+          "From": "2012-03-01",
+          "To": "9999-12-31"
+        }
+      ]
+    }
+  ]
 }
 ```
 :::
