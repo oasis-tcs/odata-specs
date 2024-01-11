@@ -18,7 +18,7 @@ Keeping track of time is typically done by storing data together with
 the time period for which that data is deemed valid or effective, using
 separate periods for application time and system time, and the time
 periods are part of the logical key for "records". See
-**[[SQL:2011]](#SQL)** or **[[Kulkarni]](#Kulkarni)**
+[SQL:2011](#_SQL) or [Kulkarni](#_Kulkarni)
 on how this is done in the SQL standard.
 
 A consumer's perspective on this data can be different: even if time is

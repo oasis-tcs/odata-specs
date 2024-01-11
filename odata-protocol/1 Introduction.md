@@ -29,6 +29,9 @@ Section | Feature / Change | Issue
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section ##UpdateaComplexProperty]| 
+Setting a complex property to a different type| 
+[ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## ##subsec Glossary
@@ -529,7 +532,7 @@ additional formats for both request and response bodies.
 
 The client MAY request a particular response format through the
 [`Accept`](#HeaderAccept) header, as defined in
-[RFC7231](#rfc7231), or through the system query option
+[RFC9110](#rfc9110), or through the system query option
 [`$format`](#SystemQueryOptionformat).
 
 In the case that both the `Accept` header and the `$format` system query

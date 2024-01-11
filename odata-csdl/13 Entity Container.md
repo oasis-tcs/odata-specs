@@ -162,9 +162,9 @@ action imports, and function imports.
 ::: {.varxml .rep}
 ### ##isec Element `edm:EntityContainer`
 
-The `edm:EntityContainer` MUST contain one or more
+The `edm:EntityContainer` MAY contain
 [`edm:EntitySet`](#EntitySet), [`edm:Singleton`](#Singleton),
-[`edm:ActionImport`](#ActionImport), or
+[`edm:ActionImport`](#ActionImport), and
 [`edm:FunctionImport`](#FunctionImport) elements.
 
 It MAY contain [`edm:Annotation`](#Annotation) elements.
@@ -230,7 +230,7 @@ entity container located in `SomeOtherSchema`
 "Extending": {
   "$Kind": "EntityContainer",
   "$Extends": "Some.Other.Schema.Base",
-   ...
+   …
 }
 ```
 :::
@@ -248,7 +248,7 @@ elements that it defines itself, plus all child elements of the `Base`
 entity container located in `SomeOtherSchema`
 ```xml
 <EntityContainer Name="Extending" Extends="Some.Other.Schema.Base">
-  ...
+  …
 </EntityContainer>
 ```
 :::

@@ -44,33 +44,33 @@ their intended scenario.
 In order to conform to the OData 4.0 Minimal conformance level, a
 service:
 
-1. MUST publish a [service document](#ServiceDocumentRequest) at the
+1. MUST publish a service document at the
 service root ([section ##ServiceDocumentRequest])
 2. MUST return data according to the [OData-JSON](#ODataJSON) format
-3. MUST use [server-driven paging](#ServerDrivenPaging) when returning
+3. MUST use server-driven paging when returning
 partial results ([section ##ServerDrivenPaging]) and not use any other mechanism
-4. MUST return the appropriate [`OData-Version`](#HeaderODataVersion)
+4. MUST return the appropriate `OData-Version`
 header ([section ##HeaderODataVersion])
 5. MUST conform to the semantics the following headers, or fail the
 request
-   1. [`Accept`](#HeaderAccept) ([section ##HeaderAccept])
-   2. [`OData-MaxVersion`](#HeaderODataMaxVersion) ([section ##HeaderODataMaxVersion])
-6. MUST follow OData guidelines for [extensibility](#Extensibility)
+   1. `Accept` ([section ##HeaderAccept])
+   2. `OData-MaxVersion` ([section ##HeaderODataMaxVersion])
+6. MUST follow OData guidelines for extensibility
 ([section ##Extensibility] and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 either follow the specification or return
-[`501 Not Implemented`](#ResponseCode501NotImplemented) for any
+`501 Not Implemented` for any
 unsupported functionality ([section ##ResponseCode501NotImplemented])
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section ##VocabularyExtensibility]), custom headers ([section ##HeaderFieldExtensibility]), or custom
 content ([section ##PayloadExtensibility]) in the payload in order to correctly consume the
 service
-10. MUST NOT violate any OData [update semantics](#DataModification)
+10. MUST NOT violate any OData update semantics
 ([section ##DataModification]  and all subsections)
 11. MUST NOT violate any other OData-defined semantics
-12. SHOULD support [`$expand`](#SystemQueryOptionexpand) ([section ##SystemQueryOptionexpand])
+12. SHOULD support `$expand` ([section ##SystemQueryOptionexpand])
 13. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
@@ -200,9 +200,9 @@ properties
 according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 12. MUST support the resource path conventions defined in
 [OData-URL](#ODataURL)
-13. SHOULD support [asynchronous requests](#AsynchronousRequests)
+13. SHOULD support asynchronous requests
 ([section ##AsynchronousRequests])
-14. SHOULD support [Delta change tracking](#RequestingChanges) ([section ##RequestingChanges])
+14. SHOULD support Delta change tracking ([section ##RequestingChanges])
 15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
 16. MAY support the `$compute` system query option ([section ##SystemQueryOptioncompute])
 
@@ -223,7 +223,7 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON) 
+2. MUST be compliant with version 4.01 of the [OData-JSON](#ODataJSON)
 format
 3. MUST return the [`AsyncResult`](#HeaderAsyncResult) result header in
 the final response to an asynchronous request if asynchronous operations
