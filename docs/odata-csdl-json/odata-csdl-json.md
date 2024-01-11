@@ -542,9 +542,21 @@ are common in entity models as the means of representing entities and
 structured properties in an OData service. [Entity types](#EntityType)
 and [complex types](#ComplexType) are both structured types.
 
-Structured Types are composed of zero or more [structural
+Structured types are composed of zero or more [structural
 properties](#StructuralProperty) and [navigation
-properties](#NavigationProperty).
+properties](#NavigationProperty). These properties can themselves have structured
+types.
+
+Given an instance of a structured type, its properties of structured types are
+either integral parts of the instance or references to instances.
+In the first case ("integral parts"), if an instance of a structured type contains a
+chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty),
+this chain MUST be finite, even if the chain of types leads back to the
+structured type of the instance. Note that, in this circular case, finiteness
+is only possible if the chain ends with a null value or an empty collection.
+In the second case ("references"), chains of [non-containment navigation properties](#NavigationProperty)
+can be infinite, for example, if an entity contains a self-reference.
 
 [Open entity types](#OpenEntityType) and [open complex
 types](#OpenComplexType) allow properties to be added dynamically to
@@ -1756,11 +1768,11 @@ The property's type MUST be a [primitive type](#PrimitiveTypes),
 [complex type](#ComplexType), or [enumeration type](#EnumerationType) in
 scope, or a collection of one of these types.
 
-If the property is part of a chain of structural properties or
+If the property is part of a chain of [structural properties](#StructuralProperty) and
 [containment navigation properties](#ContainmentNavigationProperty)
-leading back to the property's declaring type, then at least one property
-in this chain MUST be nullable or collection-valued,
-otherwise instances of the declaring type would have infinite size.
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -1928,11 +1940,11 @@ The navigation property's type MUST be an [entity type](#EntityType) in
 scope, the [abstract type](#BuiltInAbstractTypes) `Edm.EntityType`, or a
 collection of one of these types.
 
-If the property is part of a chain of [structural properties ](#StructuralProperty) or
+If the property is part of a chain of [structural properties](#StructuralProperty) and
 [containment navigation properties](#ContainmentNavigationProperty)
-leading back to the property's declaring type, then at least one property
-in this chain MUST be nullable or collection-valued,
-otherwise instances of the declaring type would have infinite size.
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
 
 If the type is a collection, an arbitrary number of entities can be
 related. Otherwise there is at most one related entity.
