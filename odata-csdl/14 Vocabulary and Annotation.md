@@ -580,19 +580,6 @@ qualified name of action followed by parentheses containing the binding paramete
 all overloads of an [Action](#Action)| 
 qualified name of action| 
 <pre>`MySchema.MyAction`</pre>
-bound [Action](#Action) overload via container| 
-Navigation Property via container or Property via container, followed by bound Action overload| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyNavigationProperty` 
-<br>` /MySchema.MyAction(MySchema.MyBindingType)` 
-<br>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyNavigationProperty` 
-<br>` /MySchema.MyAction(Collection(MySchema.MyBindingType))`</pre>
-all bound [Action](#Action) overloads with given binding type via container| 
-Navigation Property via container or Property via container, followed by all overloads of an Action| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyNavigationProperty` 
-<br>` /MySchema.MyAction`</pre>
 [Action Import](#ActionImport)| 
 qualified name of entity container followed by a segment containing the action import name| 
 <pre>`MySchema.MyEntityContainer/MyActionImport`</pre>
@@ -627,19 +614,6 @@ qualified name of function followed by parentheses containing the comma-separate
 all overloads of a [Function](#Function)| 
 qualified name of function| 
 <pre>`MySchema.MyFunction`</pre>
-bound [Function](#Function) overload via container| 
-Navigation Property via container or Property via container, followed by bound Function overload| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyComplexProperty` 
-<br>` /MySchema.MyFunction(MySchema.MyBindingType)` 
-<br>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyComplexProperty` 
-<br>` /MySchema.MyFunc(Collection(MySchema.MyBindingType))`</pre>
-all bound [Function](#Function) overloads of given binding type via container| 
-Navigation Property via container or Property via container, followed by all overloads of a Function| 
-<pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyComplexProperty` 
-<br>` /MySchema.MyFunction`</pre>
 [Function Import](#FunctionImport)| 
 qualified name of entity container followed by a segment containing the function import name| 
 <pre>`MySchema.MyEntityContainer/MyFunctionImport`
@@ -701,9 +675,23 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 External targeting is also possible for action and function overloads that
-are bound to (properties or navigation properties) of singletons or entities in
-a particular entity set. These annotations override annotations targeting the
-action or function overloads directly.
+are bound to a certain type of model element. The target path then consists of
+two path expressions separated by a forward slash. The first path expression
+references one of the following model elements:
+- Navigation Property via container
+- Property via container
+- Navigation Property via structured type
+- Property via structured type
+
+and the second path expression references one of the following model elements:
+- Action overload
+- all overloads of an Action
+- Function overload
+- all overloads of a Function
+
+where the Action or Function overload is bound with binding parameter type
+equal to the type of the first path expression. These annotations override
+annotations targeting the action or function overloads directly.
 
 Note "all bound Action or Function overloads of given binding type via
 container" references all overloads where the binding parameter is an instance
