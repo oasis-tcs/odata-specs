@@ -259,6 +259,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 14.2.2](#Target)| External targeting of bound action/function overloads via container or structured type| [ODATA-1626](https://issues.oasis-open.org/browse/ODATA-1626)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -3883,8 +3884,8 @@ Entity Set|an instance or collection of instances from the entity set
 Singleton|the singleton
 Navigation Property via container|addressed via the path
 Property via container|addressed via the path
-Navigation Property via structured type|addressed via this structured type
-Property via structured type|addressed via this structured type
+Navigation Property via structured type|addressed via the structured type
+Property via structured type|addressed via the structured type
 Complex Type|an instance or collection of the type or a subtype thereof
 Entity Type|an instance or collection of the type or a subtype thereof
 

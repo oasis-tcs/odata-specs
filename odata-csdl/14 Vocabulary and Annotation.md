@@ -686,8 +686,8 @@ Entity Set|an instance or collection of instances from the entity set
 Singleton|the singleton
 Navigation Property via container|addressed via the path
 Property via container|addressed via the path
-Navigation Property via structured type|addressed via this structured type
-Property via structured type|addressed via this structured type
+Navigation Property via structured type|addressed via the structured type
+Property via structured type|addressed via the structured type
 Complex Type|an instance or collection of the type or a subtype thereof
 Entity Type|an instance or collection of the type or a subtype thereof
 

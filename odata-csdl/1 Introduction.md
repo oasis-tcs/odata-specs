@@ -34,6 +34,9 @@ Section | Feature / Change | Issue
 All children of `edm:EntityContainer` are optional| 
 [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 :
+[Section ##Target]| 
+External targeting of bound action/function overloads via container or structured type| 
+[ODATA-1626](https://issues.oasis-open.org/browse/ODATA-1626)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
