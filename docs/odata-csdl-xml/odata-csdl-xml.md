@@ -3690,29 +3690,25 @@ target path then consists of two path expressions from the table above
 separated by a forward slash. The first path expression references one of the
 following model elements:
 
-Model element|means the binding parameter must
--------------|--------------------------------
-Entity Set|lie in the entity set
-Singleton|be the singleton
-Navigation Property via container|be addressed via the path
-Property via container|be addressed via the path
-Navigation Property via structured type|be addressed via this structured type
-Property via structured type|be addressed via this structured type
-Complex Type|have the type or a subtype thereof
-Entity Type|have the type or a subtype thereof
+Model element|means the binding parameter must be
+-------------|-----------------------------------
+Entity Set|an instance or collection of instances from the entity set
+Singleton|the singleton
+Navigation Property via container|addressed via the path
+Property via container|addressed via the path
+Navigation Property via structured type|addressed via this structured type
+Property via structured type|addressed via this structured type
+Complex Type|an instance or collection of the type or a subtype thereof
+Entity Type|an instance or collection of the type or a subtype thereof
 
 and the second path expression references one of the following model elements:
 - Action overload
+- all overloads of an Action
 - Function overload
-
-where the Action or Function overload is bound with binding parameter type
-equal to or derived from the type of the first path expression, or the second
-path expression references
-- all overloads of an Action or
 - all overloads of a Function
 
-where the binding parameter is an instance or a collection of the type of the
-first path expression or of a type derived from that.
+where the overload is bound and the binding parameter meets the condition
+imposed by the first path expression.
 
 These annotations override annotations targeting the action or function
 overloads directly.

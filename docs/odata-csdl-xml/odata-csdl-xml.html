@@ -2210,55 +2210,52 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <thead>
 <tr class="header">
 <th>Model element</th>
-<th>means the binding parameter must</th>
+<th>means the binding parameter must be</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Entity Set</td>
-<td>lie in the entity set</td>
+<td>an instance or collection of instances from the entity set</td>
 </tr>
 <tr class="even">
 <td>Singleton</td>
-<td>be the singleton</td>
+<td>the singleton</td>
 </tr>
 <tr class="odd">
 <td>Navigation Property via container</td>
-<td>be addressed via the path</td>
+<td>addressed via the path</td>
 </tr>
 <tr class="even">
 <td>Property via container</td>
-<td>be addressed via the path</td>
+<td>addressed via the path</td>
 </tr>
 <tr class="odd">
 <td>Navigation Property via structured type</td>
-<td>be addressed via this structured type</td>
+<td>addressed via this structured type</td>
 </tr>
 <tr class="even">
 <td>Property via structured type</td>
-<td>be addressed via this structured type</td>
+<td>addressed via this structured type</td>
 </tr>
 <tr class="odd">
 <td>Complex Type</td>
-<td>have the type or a subtype thereof</td>
+<td>an instance or collection of the type or a subtype thereof</td>
 </tr>
 <tr class="even">
 <td>Entity Type</td>
-<td>have the type or a subtype thereof</td>
+<td>an instance or collection of the type or a subtype thereof</td>
 </tr>
 </tbody>
 </table>
 <p>and the second path expression references one of the following model elements:</p>
 <ul>
 <li>Action overload</li>
+<li>all overloads of an Action</li>
 <li>Function overload</li>
-</ul>
-<p>where the Action or Function overload is bound with binding parameter type equal to or derived from the type of the first path expression, or the second path expression references</p>
-<ul>
-<li>all overloads of an Action or</li>
 <li>all overloads of a Function</li>
 </ul>
-<p>where the binding parameter is an instance or a collection of the type of the first path expression or of a type derived from that.</p>
+<p>where the overload is bound and the binding parameter meets the condition imposed by the first path expression.</p>
 <p>These annotations override annotations targeting the action or function overloads directly.</p>
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
