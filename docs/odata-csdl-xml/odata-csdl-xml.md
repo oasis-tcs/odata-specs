@@ -3685,11 +3685,12 @@ properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
-External targeting is also possible for bound action and function overloads whose
-binding parameter is addressed via a certain path or has a certain type. The
-target path then consists of two path expressions from the table above
-separated by a forward slash. The first path expression references one of the
-following model elements:
+External targeting is also possible for bound action and function overloads
+whose binding parameter is addressed via a certain path or has a certain type,
+as well as for parameters and return types thereof. The target path then
+consists of two path expressions from the table above separated by a forward
+slash. The first path expression references one of the following model
+elements:
 
 Model element|means the binding parameter must be
 -------------|-----------------------------------
@@ -3707,6 +3708,8 @@ and the second path expression references one of the following model elements:
 - all overloads of an Action
 - Function overload
 - all overloads of a Function
+- Parameter
+- Return Type
 
 where the overload is bound and the binding parameter meets the condition
 imposed by the first path expression.
