@@ -2207,9 +2207,11 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
 <p>External targeting is also possible for action and function overloads that are bound to a certain type of model element. The target path then consists of two path expressions from the table above separated by a forward slash. The first path expression references one of the following model elements:</p>
 <ul>
+<li>Entity Set</li>
+<li>Singleton</li>
 <li>Navigation Property via container</li>
-<li>Property via container</li>
 <li>Navigation Property via structured type</li>
+<li>Property via container</li>
 <li>Property via structured type</li>
 </ul>
 <p>and the second path expression references one of the following model elements:</p>
@@ -2217,12 +2219,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>Action overload</li>
 <li>Function overload</li>
 </ul>
-<p>where the Action or Function overload is bound with binding parameter type equal to the type of the first path expression, or the second path expression references</p>
+<p>where the Action or Function overload is bound with binding parameter type equal to or derived from the type of the first path expression, or the second path expression references</p>
 <ul>
 <li>all overloads of an Action or</li>
 <li>all overloads of a Function</li>
 </ul>
-<p>where the binding parameter is an instance or a collection of the given type.</p>
+<p>where the binding parameter is an instance or a collection of the type of the first path expression or of a type derived from that.</p>
 <p>These annotations override annotations targeting the action or function overloads directly.</p>
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>

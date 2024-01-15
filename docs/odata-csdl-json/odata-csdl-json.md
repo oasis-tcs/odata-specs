@@ -3875,9 +3875,11 @@ External targeting is also possible for action and function overloads that
 are bound to a certain type of model element. The target path then consists of
 two path expressions from the table above separated by a forward slash. The
 first path expression references one of the following model elements:
+- Entity Set
+- Singleton
 - Navigation Property via container
-- Property via container
 - Navigation Property via structured type
+- Property via container
 - Property via structured type
 
 and the second path expression references one of the following model elements:
@@ -3885,12 +3887,13 @@ and the second path expression references one of the following model elements:
 - Function overload
 
 where the Action or Function overload is bound with binding parameter type
-equal to the type of the first path expression, or the second path expression
-references
+equal to or derived from the type of the first path expression, or the second
+path expression references
 - all overloads of an Action or
 - all overloads of a Function
 
-where the binding parameter is an instance or a collection of the given type.
+where the binding parameter is an instance or a collection of the type of the
+first path expression or of a type derived from that.
 
 These annotations override annotations targeting the action or function
 overloads directly.
