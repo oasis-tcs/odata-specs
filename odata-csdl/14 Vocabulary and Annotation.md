@@ -570,7 +570,7 @@ identifier), and all direct children of an entity container.
 
 Model element| 
 Can be targeted with path expression (see also [section ##PathSyntax])| 
-<div class="example"><p>Example ##ex: Target expressions</p></div>
+<div class="example"><p style="margin-top:0">Example ##ex: Target expressions</p></div>
 -----|-----|-----
 [Action](#Action) overload| 
 qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| 
@@ -640,9 +640,9 @@ qualified name of action or function optionally followed by a parenthesized expr
 [Property](#StructuralProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyProperty` 
+<br>`  /MyProperty` 
 <br>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MySchema.MyEntityType/MyProperty` 
+<br>`  /MySchema.MyEntityType/MyProperty` 
 <br>`MySchema.MyEntityContainer/MyEntitySet` 
 <br>`  /MyComplexProperty/MyProperty`</pre>
 [Property](#StructuralProperty) via structured type| 
