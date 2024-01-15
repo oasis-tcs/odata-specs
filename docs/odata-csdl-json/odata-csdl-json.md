@@ -3873,8 +3873,8 @@ properties targeted via the declaring structured type.
 
 External targeting is also possible for action and function overloads that
 are bound to a certain type of model element. The target path then consists of
-two path expressions separated by a forward slash. The first path expression
-references one of the following model elements:
+two path expressions from the table above separated by a forward slash. The
+first path expression references one of the following model elements:
 - Navigation Property via container
 - Property via container
 - Navigation Property via structured type
@@ -3882,17 +3882,18 @@ references one of the following model elements:
 
 and the second path expression references one of the following model elements:
 - Action overload
-- all overloads of an Action
 - Function overload
-- all overloads of a Function
 
 where the Action or Function overload is bound with binding parameter type
-equal to the type of the first path expression. These annotations override
-annotations targeting the action or function overloads directly.
+equal to the type of the first path expression, or the second path expression
+references
+- all overloads of an Action or
+- all overloads of a Function
 
-Note "all bound Action or Function overloads of given binding type via
-container" references all overloads where the binding parameter is an instance
-or a collection of the given type.
+where the binding parameter is an instance or a collection of the given type.
+
+These annotations override annotations targeting the action or function
+overloads directly.
 
 ## <a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
