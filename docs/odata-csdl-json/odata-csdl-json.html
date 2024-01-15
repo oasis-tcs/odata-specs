@@ -2389,15 +2389,49 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </table>
 <p>All <a href="#QualifiedName">qualified names</a> used in a target path MUST be in scope.</p>
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
-<p>External targeting is also possible for action and function overloads that are bound to a certain type of model element. The target path then consists of two path expressions from the table above separated by a forward slash. The first path expression references one of the following model elements:</p>
-<ul>
-<li>Entity Set</li>
-<li>Singleton</li>
-<li>Navigation Property via container</li>
-<li>Navigation Property via structured type</li>
-<li>Property via container</li>
-<li>Property via structured type</li>
-</ul>
+<p>External targeting is also possible for action and function overloads whose binding parameter is addressed via a certain path or has a certain type. The target path then consists of two path expressions from the table above separated by a forward slash. The first path expression references one of the following model elements:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Model element</th>
+<th>means the binding parameter must</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Entity Set</td>
+<td>lie in the entity set</td>
+</tr>
+<tr class="even">
+<td>Singleton</td>
+<td>be the singleton</td>
+</tr>
+<tr class="odd">
+<td>Navigation Property via container</td>
+<td>be addressed via the path</td>
+</tr>
+<tr class="even">
+<td>Property via container</td>
+<td>be addressed via the path</td>
+</tr>
+<tr class="odd">
+<td>Navigation Property via structured type</td>
+<td>be addressed via this structured type</td>
+</tr>
+<tr class="even">
+<td>Property via structured type</td>
+<td>be addressed via this structured type</td>
+</tr>
+<tr class="odd">
+<td>Complex Type</td>
+<td>have the type or a subtype thereof</td>
+</tr>
+<tr class="even">
+<td>Entity Type</td>
+<td>have the type or a subtype thereof</td>
+</tr>
+</tbody>
+</table>
 <p>and the second path expression references one of the following model elements:</p>
 <ul>
 <li>Action overload</li>
