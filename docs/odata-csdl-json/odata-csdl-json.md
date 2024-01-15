@@ -3871,7 +3871,7 @@ properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
-External targeting is also possible for action and function overloads whose
+External targeting is also possible for bound action and function overloads whose
 binding parameter is addressed via a certain path or has a certain type. The
 target path then consists of two path expressions from the table above
 separated by a forward slash. The first path expression references one of the
