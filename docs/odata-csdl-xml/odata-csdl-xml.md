@@ -3689,7 +3689,7 @@ properties targeted via the declaring structured type.
 ## <a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
 Constant expressions allow assigning a constant value to an applied
-term or term property.
+term.
 
 ### <a name="Binary" href="#Binary">14.3.1 Binary</a>
 
@@ -4050,7 +4050,7 @@ Example 57:
 ## <a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a>
 
 Dynamic expressions allow assigning a calculated value to an applied
-term or term property.
+term.
 
 ### <a name="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a>
 
