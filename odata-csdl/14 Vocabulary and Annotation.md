@@ -679,7 +679,7 @@ properties targeted via the declaring structured type.
 ## ##subsec Constant Expression
 
 Constant expressions allow assigning a constant value to an applied
-term or term property.
+term.
 
 ### ##subsubsec Binary
 
@@ -1206,7 +1206,7 @@ Example ##ex:
 ## ##subsec Dynamic Expression
 
 Dynamic expressions allow assigning a calculated value to an applied
-term or term property.
+term.
 
 ### ##subsubsec Path Expressions
 
