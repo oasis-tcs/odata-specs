@@ -2681,7 +2681,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST end with a <a href="#NavigationProperty">navigation property</a> or a term cast to a term whose type is an entity type or a collection of entity types.</li>
 </ul>
-<p>The value of the navigation property path expression is the navigation property, not its instances.</p>
+<p>The value of the navigation property path expression is the navigation property or term cast, not its instances.</p>
 <div class="varjson rep">
 <p>Navigation property path expressions are represented as a string containing a path.</p>
 </div>
@@ -2700,7 +2700,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST end with a <a href="#StructuralProperty">structural property</a> or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
-<p>The value of the property path expression is the structural property, not its instances.</p>
+<p>The value of the property path expression is the structural property or term cast, not its instances.</p>
 <div class="varjson rep">
 <p>Property path expressions are represented as a string containing a path.</p>
 </div>
