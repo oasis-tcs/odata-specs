@@ -2258,7 +2258,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 </tbody>
 </table>
-<p>A binding parameter is “addressed via a resource path” if the path expression addressing the binding parameter starts with the resource path, it may then continue with segments described in <a href="#ODataURL">OData-URL</a>, sections 4.6 through 4.12. If the given path addresses a collection, the binding parameter can also be a single instance of that collection (see <a href="#ODataURL">OData-URL</a>, sections 4.9 and 4.10).</p>
+<p>A binding parameter is “addressed via a resource path” if the path expression addressing the binding parameter starts with the resource path, it may then continue with segments described in <a href="#ODataURL">OData-URL</a>, sections 4.6 through 4.12. If the resource path addresses a collection, the binding parameter can also be a single instance of that collection if a segment described in <a href="#ODataURL">OData-URL</a>, sections 4.9 and 4.10, follows.</p>
 <p>The second path expression references one of the following model elements:</p>
 <ul>
 <li>Action overload</li>

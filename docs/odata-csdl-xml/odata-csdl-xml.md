@@ -3706,9 +3706,9 @@ Entity Type|an instance or collection of the type or a subtype thereof
 
 A binding parameter is "addressed via a resource path" if the path expression addressing the
 binding parameter starts with the resource path, it may then continue with segments
-described in [OData-URL](#ODataURL), sections 4.6 through 4.12. If the given path
+described in [OData-URL](#ODataURL), sections 4.6 through 4.12. If the resource path
 addresses a collection, the binding parameter can also be a single instance of that
-collection (see [OData-URL](#ODataURL), sections 4.9 and 4.10).
+collection if a segment described in [OData-URL](#ODataURL), sections 4.9 and 4.10, follows.
 
 The second path expression references one of the following model elements:
 - Action overload
