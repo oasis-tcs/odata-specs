@@ -389,7 +389,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#PrimitiveTypes">Section 3.3</a></td>
 <td>Allow stream-valued non-binding parameters</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1481">ODATA-1481</a></td>
@@ -2215,7 +2215,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </table>
 <p>All <a href="#QualifiedName">qualified names</a> used in a target path MUST be in scope.</p>
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
-<p>External targeting is also possible for bound action and function overloads whose binding parameter is addressed via a certain path or has a certain type, as well as for parameters and return types thereof. The target path then consists of two path expressions from the table above separated by a forward slash. The first path expression references one of the following model elements:</p>
+<p>External targeting is also possible for bound action and function overloads whose binding parameter is addressed via a certain path or has a certain type, as well as for parameters and return types thereof. The targeting expression then consists of two path expressions from the table above separated by a forward slash. The first path expression references one of the following model elements:</p>
 <table>
 <thead>
 <tr class="header">
@@ -2234,19 +2234,19 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="odd">
 <td>Navigation Property via container</td>
-<td>addressed via the path</td>
+<td>addressed via the resource path to the navigation property</td>
 </tr>
 <tr class="even">
 <td>Property via container</td>
-<td>addressed via the path</td>
+<td>addressed via the resource path to the property</td>
 </tr>
 <tr class="odd">
 <td>Navigation Property via structured type</td>
-<td>addressed via the structured type</td>
+<td>addressed by a path that traverses the structured type</td>
 </tr>
 <tr class="even">
 <td>Property via structured type</td>
-<td>addressed via the structured type</td>
+<td>addressed by a path that traverses the structured type</td>
 </tr>
 <tr class="odd">
 <td>Complex Type</td>
@@ -2258,7 +2258,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 </tbody>
 </table>
-<p>and the second path expression references one of the following model elements:</p>
+<p>A binding parameter is “addressed via a resource path” if the path expression addressing the binding parameter starts with the resource path, it may then continue with segments described in <a href="#ODataURL">OData-URL</a>, sections 4.6 through 4.12. If the given path addresses a collection, the binding parameter can also be a single instance of that collection (see <a href="#ODataURL">OData-URL</a>, sections 4.9 and 4.10).</p>
+<p>The second path expression references one of the following model elements:</p>
 <ul>
 <li>Action overload</li>
 <li>all overloads of an Action</li>

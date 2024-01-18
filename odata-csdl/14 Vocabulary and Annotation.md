@@ -676,7 +676,7 @@ properties targeted via the declaring structured type.
 
 External targeting is also possible for bound action and function overloads
 whose binding parameter is addressed via a certain path or has a certain type,
-as well as for parameters and return types thereof. The target path then
+as well as for parameters and return types thereof. The targeting expression then
 consists of two path expressions from the table above separated by a forward
 slash. The first path expression references one of the following model
 elements:
@@ -685,14 +685,20 @@ Model element|means the binding parameter must be
 -------------|-----------------------------------
 Entity Set|an instance or collection of instances from the entity set
 Singleton|the singleton
-Navigation Property via container|addressed via the path
-Property via container|addressed via the path
-Navigation Property via structured type|addressed via the structured type
-Property via structured type|addressed via the structured type
+Navigation Property via container|addressed via the resource path to the navigation property
+Property via container|addressed via the resource path to the property
+Navigation Property via structured type|addressed by a path that traverses the structured type
+Property via structured type|addressed by a path that traverses the structured type
 Complex Type|an instance or collection of the type or a subtype thereof
 Entity Type|an instance or collection of the type or a subtype thereof
 
-and the second path expression references one of the following model elements:
+A binding parameter is "addressed via a resource path" if the path expression addressing the
+binding parameter starts with the resource path, it may then continue with segments
+described in [OData-URL](#ODataURL), sections 4.6 through 4.12. If the given path
+addresses a collection, the binding parameter can also be a single instance of that
+collection (see [OData-URL](#ODataURL), sections 4.9 and 4.10).
+
+The second path expression references one of the following model elements:
 - Action overload
 - all overloads of an Action
 - Function overload
