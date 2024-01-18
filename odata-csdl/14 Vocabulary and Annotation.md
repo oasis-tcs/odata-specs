@@ -685,8 +685,8 @@ Model element|means the binding parameter must be
 -------------|-----------------------------------
 Entity Set|an instance or collection of instances from the entity set
 Singleton|the singleton
-Navigation Property via container|addressed via the resource path to the navigation property
-Property via container|addressed via the resource path to the property
+Navigation Property via container|addressed via a resource path to the navigation property
+Property via container|addressed via a resource path to the property
 Navigation Property via structured type|addressed by a path that traverses the structured type
 Property via structured type|addressed by a path that traverses the structured type
 Complex Type|an instance or collection of the type or a subtype thereof
