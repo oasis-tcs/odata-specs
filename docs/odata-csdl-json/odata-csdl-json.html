@@ -2679,7 +2679,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14415-navigation-property-path"><a name="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a></h4>
 <p>The navigation property path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.NavigationPropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
-<li>A non-null path MUST resolve to a <a href="#NavigationProperty">navigation property</a>.</li>
+<li>A non-null path MUST end with a <a href="#NavigationProperty">navigation property</a> or a term cast to a term whose type is an entity type or a collection of entity types.</li>
 </ul>
 <p>The value of the navigation property path expression is the navigation property, not its instances.</p>
 <div class="varjson rep">
@@ -2698,7 +2698,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14416-property-path"><a name="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a></h4>
 <p>The property path expression provides a value for terms or term properties that specify one of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.PropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
-<li>A non-null path MUST resolve to a <a href="#StructuralProperty">structural property</a>.</li>
+<li>A non-null path MUST end with a <a href="#StructuralProperty">structural property</a> or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
 <p>The value of the property path expression is the structural property, not its instances.</p>
 <div class="varjson rep">
