@@ -4541,7 +4541,7 @@ restriction:
 element whose type is an entity type, or a collection of entity types,
 e.g. a navigation property.
 
-The value of the navigation property path expression is the navigation property or term cast, not its instances.
+The value of the navigation property path expression is the model element, not its instances.
 
 ::: {.varjson .rep}
 Navigation property path expressions are represented as a string
