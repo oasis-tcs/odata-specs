@@ -4495,7 +4495,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST end with a [structural property](#StructuralProperty)
-or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.
+or a term cast to a term whose type is a primitive or complex type, an enumeration type,
+a type definition, or a collection of one of these types.
 
 The value of the property path expression is the structural property or term cast, not its instances.
 
