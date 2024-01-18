@@ -29,6 +29,9 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -494,11 +497,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".

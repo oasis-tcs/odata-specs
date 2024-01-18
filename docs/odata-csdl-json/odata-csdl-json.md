@@ -261,6 +261,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
@@ -610,11 +611,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
