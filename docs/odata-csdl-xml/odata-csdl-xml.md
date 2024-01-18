@@ -259,6 +259,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -561,11 +562,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
