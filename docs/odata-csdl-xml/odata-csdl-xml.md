@@ -4459,8 +4459,7 @@ restriction:
 - A non-null path MUST end with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
 
-The value of the navigation property path expression is the path itself,
-not the entitiy or collection of entities identified by the path.
+The value of the navigation property path expression is the navigation property or term cast, not its instances.
 
 
 
