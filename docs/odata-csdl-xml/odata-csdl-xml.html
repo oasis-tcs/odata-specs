@@ -384,6 +384,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
 </tr>
+<tr class="odd">
+<td><a href="#PrimitiveTypes">Section 3.3</a></td>
+<td>Allow stream-valued non-binding parameters</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1481">ODATA-1481</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -632,7 +637,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </table>
 <p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XML-Schema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
-<p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or the binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections or for non-binding parameters to functions or actions.</p>
+<p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
 <p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
 <h2 id="34-type-facets"><a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
