@@ -40,6 +40,9 @@ External targeting of bound action/function overloads via container or structure
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## ##subsec Glossary
 
@@ -488,11 +491,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
