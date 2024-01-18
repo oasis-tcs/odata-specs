@@ -4575,9 +4575,7 @@ restriction:
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
-The value of the property path expression is the path itself, not the
-value of the structural property or the value of the term cast
-identified by the path.
+The value of the property path expression is the structural property or term cast, not its instances.
 
 ::: {.varjson .rep}
 Property path expressions are represented as a string containing a path.
