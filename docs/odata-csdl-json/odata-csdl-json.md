@@ -4537,8 +4537,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
-or a term cast to a term whose type is an entity type or a collection of entity types.
+- A non-null path MUST resolve to a model
+element whose type is an entity type, or a collection of entity types,
+e.g. a navigation property.
 
 The value of the navigation property path expression is the navigation property or term cast, not its instances.
 
@@ -4570,8 +4571,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
-or a term cast to a term whose type is a primitive or complex type, an enumeration type,
+- A non-null path MUST resolve to a model
+element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the structural property or term cast, not its instances.
