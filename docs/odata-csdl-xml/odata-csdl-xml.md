@@ -4500,7 +4500,7 @@ restriction:
 element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
-The value of the property path expression is the structural property or term cast, not its instances.
+The value of the property path expression is the model element, not its instances.
 
 
 
