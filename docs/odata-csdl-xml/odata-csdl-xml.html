@@ -2567,7 +2567,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST end with a <a href="#NavigationProperty">navigation property</a> or a term cast to a term whose type is an entity type or a collection of entity types.</li>
 </ul>
-<p>The value of the navigation property path expression is the navigation property or term cast, not its instances.</p>
+<p>The value of the navigation property path expression is the path itself, not the entity or collection of entities identified by the path.</p>
 <section id="expression-edmnavigationpropertypath" class="varxml rep">
 <h3><a name="ExpressionedmNavigationPropertyPath.46" href="#ExpressionedmNavigationPropertyPath.46">Expression <code>edm:NavigationPropertyPath</code></a></h3>
 <p>The <code>edm:NavigationPropertyPath</code> expression MAY be provided using element notation or attribute notation.</p>
@@ -2592,7 +2592,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST end with a <a href="#StructuralProperty">structural property</a> or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
-<p>The value of the property path expression is the structural property or term cast, not its instances.</p>
+<p>The value of the property path expression is the path itself, not the value of the structural property or annotation identified by the path.</p>
 <section id="expression-edmpropertypath" class="varxml rep">
 <h3><a name="ExpressionedmPropertyPath.47" href="#ExpressionedmPropertyPath.47">Expression <code>edm:PropertyPath</code></a></h3>
 <p>The <code>edm:PropertyPath</code> MAY be provided using either element notation or attribute notation.</p>

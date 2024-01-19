@@ -1702,7 +1702,9 @@ restriction:
 - A non-null path MUST end with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
 
-The value of the navigation property path expression is the navigation property or term cast, not its instances.
+
+The value of the navigation property path expression is the path itself,
+not the entity or collection of entities identified by the path.
 
 ::: {.varjson .rep}
 Navigation property path expressions are represented as a string
@@ -1759,7 +1761,9 @@ restriction:
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
-The value of the property path expression is the structural property or term cast, not its instances.
+The value of the property path expression is the path itself, not the
+value of the structural property or annotation
+identified by the path.
 
 ::: {.varjson .rep}
 Property path expressions are represented as a string containing a path.
