@@ -4512,7 +4512,8 @@ properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
-The value of the model element path expression is _path_ to the model element, not its instance value.
+The value of the model element path expression is the path itself, not
+the instance(s) identified by the path.
 
 ::: {.varjson .rep}
 Model element path expressions are represented as a string containing a
@@ -4540,7 +4541,8 @@ restriction:
 element whose type is an entity type, or a collection of entity types,
 e.g. a navigation property.
 
-The value of the navigation property path expression is the _path_ to the model element, not its instance value.
+The value of the navigation property path expression is the path itself,
+not the entity or collection of entities identified by the path.
 
 ::: {.varjson .rep}
 Navigation property path expressions are represented as a string
@@ -4574,7 +4576,9 @@ restriction:
 element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
-The value of the property path expression is the _path_ to the model element, not its instance value.
+The value of the property path expression is the path itself, not the
+value of the structural property or annotation
+identified by the path.
 
 ::: {.varjson .rep}
 Property path expressions are represented as a string containing a path.
