@@ -4485,7 +4485,7 @@ This is useful for terms that reuse or refer to other terms.
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
-annotation that applies one of the listed terms.
+annotation path that ends in a term cast with one of the listed terms.
 
 ::: {.varjson .rep}
 Annotation path expressions are represented as a string containing a

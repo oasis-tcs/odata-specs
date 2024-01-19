@@ -2529,7 +2529,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>A non-null path MUST resolve to an <a href="#Annotation">annotation</a>.</li>
 </ul>
 <p>The value of the annotation path expression is the <em>path</em> to the annotation, not its instance value. This is useful for terms that reuse or refer to other terms.</p>
-<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation that applies one of the listed terms.</p>
+<p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <section id="expression-edmannotationpath" class="varxml rep">
 <h3><a name="ExpressionedmAnnotationPath.44" href="#ExpressionedmAnnotationPath.44">Expression <code>edm:AnnotationPath</code></a></h3>
 <p>The <code>edm:AnnotationPath</code> expression MAY be provided using element notation or attribute notation.</p>
