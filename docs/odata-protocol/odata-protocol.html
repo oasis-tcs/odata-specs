@@ -405,7 +405,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Operations">11.5 Operations</a>
 <ul>
 <li><a href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a></li>
-<li><a href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a></li>
+<li><a href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a></li>
 <li><a href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></li>
 <li><a href="#Functions">11.5.4 Functions</a>
 <ul>
@@ -2110,7 +2110,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 89: invoke the <code>Comparison</code> function on the set of red products</p>
 <pre><code>GET http://host/service/Products/$filter(Color eq &#39;Red&#39;)/Diff.Comparison()</code></pre>
 </div>
-<h3 id="1152-applying-an-action-to-members-of-a-collection"><a name="ApplyinganActiontoMembersofaCollection" href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a></h3>
+<h3 id="1152-applying-an-operation-to-members-of-a-collection"><a name="ApplyinganOperationtoMembersofaCollection" href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a></h3>
 <p>A bound operation with a single-valued binding parameter can be applied to each member of a collection by appending the path segment <code>/$each</code> to the resource path of the collection, followed by a forward slash and the namespace- or alias-qualified name of the bound operation. In this case the type of the collection members MUST match or be derived from the type of the binding parameter.</p>
 <p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <p>The response is a collection with members that are instances of the result type of the bound operation. If the bound operation returns a collection, the response is a collection of collections.</p>
