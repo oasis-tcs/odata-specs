@@ -259,6 +259,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -545,11 +546,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
@@ -3338,8 +3339,10 @@ type specified by the term `SearchResult`
       <PropertyValue Property="Url">
         <Apply Function="odata.concat">
           <String>Products(</String>
-          <Path>ID</Path>
-          <String>)</String>
+          <Apply Function="odata.concat">
+            <Path>ID</Path>
+            <String>)</String>
+          </Apply>
         </Apply>
       </PropertyValue>
     </Record>
@@ -4345,11 +4348,11 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="…">
+    <Annotation Term="Core.Description" Qualifier="viaSet" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
-  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaSet">
     <Annotation Term="Core.IsLanguageDependent" Path="B1" />
   </Annotations>
 ```
@@ -4460,7 +4463,7 @@ element whose type is an entity type, or a collection of entity types,
 e.g. a navigation property.
 
 The value of the navigation property path expression is the path itself,
-not the entitiy or collection of entities identified by the path.
+not the entity or collection of entities identified by the path.
 
 
 
@@ -4779,7 +4782,7 @@ client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
 counterpart function defined in [OData-URL](#ODataURL).
 
-For example, the `odata.concat` client-side function takes two or more
+For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
 enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
@@ -4795,12 +4798,22 @@ Example 75:
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
     <String>Product: </String>
-    <Path>ProductName</Path>
-    <String> (</String>
-    <Path>Available/Quantity</Path>
-    <String> </String>
-    <Path>Available/Unit</Path>
-    <String> available)</String>
+    <Apply Function="odata.concat">
+      <Path>ProductName</Path>
+      <Apply Function="odata.concat">
+        <String> (</String>
+        <Apply Function="odata.concat">
+          <Path>Available/Quantity</Path>
+          <Apply Function="odata.concat">
+            <String> </String>
+            <Apply Function="odata.concat">
+              <Path>Available/Unit</Path>
+              <String> available)</String>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Apply>
+    </Apply>
   </Apply>
 </Annotation>
 ```
@@ -4883,7 +4896,7 @@ primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
 Note: string literals are surrounded by single quotes as required by the
-paren-style key syntax.
+parentheses-style key syntax.
 
 
 ::: {.varxml .example}
@@ -5549,10 +5562,12 @@ Example 92:
         <Annotation Term="Vocabulary1.Title" String="Supplier Info" />
         <Annotation Term="Vocabulary1.DisplayName">
         <Apply Function="odata.concat">
-            <Path>Name</Path>
+          <Path>Name</Path>
+          <Apply Function="odata.concat">
             <String> in </String>
             <Path>Address/CountryName</Path>
           </Apply>
+        </Apply>
         </Annotation>
       </Annotations>
       <Annotations Target="ODataDemo.Product">
