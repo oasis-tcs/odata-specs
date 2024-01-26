@@ -460,9 +460,14 @@ Example ##ex:
             {
               "$Path": "Name"
             },
-            " in ",
             {
-              "$Path": "Address/CountryName"
+              "$Apply": [
+                " in ",
+                {
+                  "$Path": "Address/CountryName"
+                }
+              ],
+              "$Function": "odata.concat"
             }
           ],
           "$Function": "odata.concat"
@@ -501,10 +506,12 @@ Example ##ex:
         <Annotation Term="Vocabulary1.Title" String="Supplier Info" />
         <Annotation Term="Vocabulary1.DisplayName">
         <Apply Function="odata.concat">
-            <Path>Name</Path>
+          <Path>Name</Path>
+          <Apply Function="odata.concat">
             <String> in </String>
             <Path>Address/CountryName</Path>
           </Apply>
+        </Apply>
         </Annotation>
       </Annotations>
       <Annotations Target="ODataDemo.Product">

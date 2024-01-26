@@ -272,7 +272,7 @@ For complete copyright information please see the full Notices section in an App
     - [11.4.14 Delete Members of a Collection](#DeleteMembersofaCollection)
   - [11.5 Operations](#Operations)
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
-    - [11.5.2 Applying an Action to Members of a Collection](#ApplyinganActiontoMembersofaCollection)
+    - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
     - [11.5.3 Advertising Available Operations within a Payload](#AdvertisingAvailableOperationswithinaPayload)
     - [11.5.4 Functions](#Functions)
       - [11.5.4.1 Invoking a Function](#InvokingaFunction)
@@ -5198,7 +5198,7 @@ GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
 :::
 
-### <a name="ApplyinganActiontoMembersofaCollection" href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a>
+### <a name="ApplyinganOperationtoMembersofaCollection" href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a>
 
 A bound operation with a single-valued binding parameter can be applied
 to each member of a collection by appending the path segment `/$each` to
