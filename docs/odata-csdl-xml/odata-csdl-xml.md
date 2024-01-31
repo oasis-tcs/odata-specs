@@ -868,6 +868,7 @@ OData service.
 ::: {.varxml .example}
 Example 7:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:DataServices>
@@ -5403,6 +5404,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 ::: {.varxml .example}
 Example 90:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
   <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
@@ -5521,6 +5523,7 @@ Example 90:
 ::: {.varxml .example}
 Example 91:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">

@@ -2595,51 +2595,52 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The hierarchy terms can be applied to the <a href="#ExampleDataModel">Example Data Model</a>.</p>
 <div class="example">
 <p>⚠ Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://docs.oasis-open.org/odata/odata-data-</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="st">    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml&quot;</span>&gt;</span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Aggregation&quot;</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                  Namespace=</span><span class="st">&quot;Org.OData.Aggregation.V1&quot;</span> /&gt;</span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="ot">            Alias=</span><span class="st">&quot;SalesModel&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example.odata.salesservice&quot;</span>&gt;</span>
-<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Product&quot;</span>&gt;</span>
-<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
-<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;ProductHierarchy&quot;</span>&gt;</span>
-<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Category/Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Time&quot;</span>&gt;</span>
-<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
-<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;TimeHierarchy&quot;</span>&gt;</span>
-<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Year&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Quarter&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Month&lt;/<span class="kw">PropertyPath</span>&gt;</span>
-<span id="cb94-28"><a href="#cb94-28" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
-<span id="cb94-29"><a href="#cb94-29" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb94-30"><a href="#cb94-30" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb94-31"><a href="#cb94-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-32"><a href="#cb94-32" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
-<span id="cb94-33"><a href="#cb94-33" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
-<span id="cb94-34"><a href="#cb94-34" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;SalesOrgHierarchy&quot;</span>&gt;</span>
-<span id="cb94-35"><a href="#cb94-35" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb94-36"><a href="#cb94-36" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
-<span id="cb94-37"><a href="#cb94-37" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb94-38"><a href="#cb94-38" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
-<span id="cb94-39"><a href="#cb94-39" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;Superordinate&quot;</span> /&gt;</span>
-<span id="cb94-40"><a href="#cb94-40" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Record</span>&gt;</span>
-<span id="cb94-41"><a href="#cb94-41" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
-<span id="cb94-42"><a href="#cb94-42" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb94-43"><a href="#cb94-43" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Schema</span>&gt;</span>
-<span id="cb94-44"><a href="#cb94-44" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb94-45"><a href="#cb94-45" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;UTF-8&quot;</span><span class="ot"> standalone=</span><span class="st">&quot;yes&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://docs.oasis-open.org/odata/odata-data-</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="st">    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml&quot;</span>&gt;</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Aggregation&quot;</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="ot">                  Namespace=</span><span class="st">&quot;Org.OData.Aggregation.V1&quot;</span> /&gt;</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            Alias=</span><span class="st">&quot;SalesModel&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example.odata.salesservice&quot;</span>&gt;</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Product&quot;</span>&gt;</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;ProductHierarchy&quot;</span>&gt;</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Category/Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Time&quot;</span>&gt;</span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
+<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;TimeHierarchy&quot;</span>&gt;</span>
+<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Year&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Quarter&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb94-28"><a href="#cb94-28" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Month&lt;/<span class="kw">PropertyPath</span>&gt;</span>
+<span id="cb94-29"><a href="#cb94-29" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb94-30"><a href="#cb94-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-31"><a href="#cb94-31" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-32"><a href="#cb94-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-33"><a href="#cb94-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
+<span id="cb94-34"><a href="#cb94-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
+<span id="cb94-35"><a href="#cb94-35" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;SalesOrgHierarchy&quot;</span>&gt;</span>
+<span id="cb94-36"><a href="#cb94-36" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Record</span>&gt;</span>
+<span id="cb94-37"><a href="#cb94-37" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
+<span id="cb94-38"><a href="#cb94-38" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb94-39"><a href="#cb94-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
+<span id="cb94-40"><a href="#cb94-40" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;Superordinate&quot;</span> /&gt;</span>
+<span id="cb94-41"><a href="#cb94-41" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Record</span>&gt;</span>
+<span id="cb94-42"><a href="#cb94-42" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
+<span id="cb94-43"><a href="#cb94-43" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
+<span id="cb94-44"><a href="#cb94-44" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Schema</span>&gt;</span>
+<span id="cb94-45"><a href="#cb94-45" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:DataServices</span>&gt;</span>
+<span id="cb94-46"><a href="#cb94-46" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edmx:Edmx</span>&gt;</span></code></pre></div>
 </div>
 <p>The recursive hierarchy <code>SalesOrgHierarchy</code> can be used in functions with the <code>$filter</code> system query option.</p>
 <div class="example">
