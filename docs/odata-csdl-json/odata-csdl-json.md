@@ -550,7 +550,7 @@ a structured type.
 
 An instance of a structured type must have a finite representation that
 includes all its properties. These properties are either integral parts of the
-instance or references to instances. In the first case, the integral parts must be
+instance or references to instances. In the first case the integral parts must be
 represented as part of the overall representation. These integral parts are modeled
 as [structural properties](#StructuralProperty) and
 [containment navigation properties](#ContainmentNavigationProperty).
