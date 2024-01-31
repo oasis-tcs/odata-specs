@@ -6215,7 +6215,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--
@@ -6327,7 +6326,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--
