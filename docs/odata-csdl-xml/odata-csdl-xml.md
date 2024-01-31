@@ -259,6 +259,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -483,9 +484,25 @@ are common in entity models as the means of representing entities and
 structured properties in an OData service. [Entity types](#EntityType)
 and [complex types](#ComplexType) are both structured types.
 
-Structured Types are composed of zero or more [structural
+Structured types are composed of zero or more [structural
 properties](#StructuralProperty) and [navigation
-properties](#NavigationProperty).
+properties](#NavigationProperty). These properties can themselves be of
+a structured type.
+
+An instance of a structured type must have a finite representation that
+includes all its properties. These properties are either integral parts of the
+instance or references to instances. In the first case the integral parts must be
+represented as part of the overall representation. These integral parts are modeled
+as [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty).
+If an instance of a structured type contains a chain of these, this chain
+MUST be finite for the overall representation to be finite, even if the chain
+of types leads back to the structured type of the instance. Note that in this
+circular case finiteness is only possible if the chain of instances ends with
+a null value or an empty collection. In the second case the references are modeled
+as [non-containment navigation properties](#NavigationProperty).
+Chains of these can be infinite, for example, if an entity contains a
+self-reference.
 
 [Open entity types](#OpenEntityType) and [open complex
 types](#OpenComplexType) allow properties to be added dynamically to
@@ -545,11 +562,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
@@ -867,6 +884,7 @@ OData service.
 ::: {.varxml .example}
 Example 7:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:DataServices>
@@ -1653,6 +1671,12 @@ The property's type MUST be a [primitive type](#PrimitiveTypes),
 [complex type](#ComplexType), or [enumeration type](#EnumerationType) in
 scope, or a collection of one of these types.
 
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
+
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in
@@ -1806,6 +1830,12 @@ Category, which has a navigation link back to one or more products
 The navigation property's type MUST be an [entity type](#EntityType) in
 scope, the [abstract type](#BuiltInAbstractTypes) `Edm.EntityType`, or a
 collection of one of these types.
+
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
 
 If the type is a collection, an arbitrary number of entities can be
 related. Otherwise there is at most one related entity.
@@ -3301,7 +3331,9 @@ vocabularies such as the OData Core vocabulary
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
-with additional information.
+with additional information. Type instances are instances of a [primitive type](#PrimitiveTypes),
+including [type definitions](#TypeDefinition) and [enumeration types](#EnumerationType),
+of an [entity type](#EntityType), or of a [complex type](#ComplexType).
 - Map instances of annotated structured
 types to an interface defined by the term type; i.e. annotations allow
 viewing instances of a structured type as instances of a differently
@@ -3338,8 +3370,10 @@ type specified by the term `SearchResult`
       <PropertyValue Property="Url">
         <Apply Function="odata.concat">
           <String>Products(</String>
-          <Path>ID</Path>
-          <String>)</String>
+          <Apply Function="odata.concat">
+            <Path>ID</Path>
+            <String>)</String>
+          </Apply>
         </Apply>
       </PropertyValue>
     </Record>
@@ -4054,20 +4088,18 @@ term.
 
 Path expressions allow assigning a value to an applied term or term
 component. There are two kinds of path expressions:
-- A *model path* is used within
+- A *model path* is evaluated on the entity model of a service and resolves to a model element.
+Model paths are used within
 [Annotation Path](#AnnotationPath), [Model Element Path](#ModelElementPath),
-[Navigation Property Path](#NavigationPropertyPath), and [Property
-Path](#PropertyPath) expressions to traverse the model of a service and
-resolves to the model element identified by the path. It allows
-assigning values to terms or term properties of the [built-in
-types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
-`Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and their base types
-`Edm.AnyPropertyPath` and `Edm.ModelElementPath`.
-- An *instance path* is used within a
-[Value Path](#ValuePath) expression to traverse a graph of type
-instances and resolves to the value identified by the path. It allows
-assigning values to terms or term properties of built-in types other
-than the `Edm.*Path` types, or of any model-defined type.
+[Navigation Property Path](#NavigationPropertyPath), and [Property Path](#PropertyPath) expressions.
+They allow assigning values to terms or term properties of the [built-in types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
+`Edm.ModelElementPath`, `Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and
+`Edm.AnyPropertyPath`.
+- An *instance path* is evaluated on a type instance and its nested or related type instances
+and resolves to the instance or collection of instances identified by the path.
+Instance paths are used within [Value Path](#ValuePath) expressions.
+They allow assigning values to terms or term properties of model-defined types or of built-in types other
+than the `Edm.*Path` types.
 
 #### <a name="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a>
 
@@ -4345,11 +4377,11 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="…">
+    <Annotation Term="Core.Description" Qualifier="viaSet" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
-  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaSet">
     <Annotation Term="Core.IsLanguageDependent" Path="B1" />
   </Annotations>
 ```
@@ -4381,16 +4413,15 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an annotation.
+- A non-null path MUST resolve to an [annotation](#Annotation).
+
+The value of the annotation path expression is the _path_ to the annotation, not its instance value.
+This is useful for terms that reuse or refer to other terms.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
-
-The value of the annotation path expression is the path itself, not the
-value of the annotation identified by the path. This is useful for terms
-that reuse or refer to other terms.
 
 
 
@@ -4460,7 +4491,7 @@ element whose type is an entity type, or a collection of entity types,
 e.g. a navigation property.
 
 The value of the navigation property path expression is the path itself,
-not the entitiy or collection of entities identified by the path.
+not the entity or collection of entities identified by the path.
 
 
 
@@ -4502,7 +4533,7 @@ element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
-value of the structural property or the value of the term cast
+value of the structural property or annotation
 identified by the path.
 
 
@@ -4779,7 +4810,7 @@ client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
 counterpart function defined in [OData-URL](#ODataURL).
 
-For example, the `odata.concat` client-side function takes two or more
+For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
 enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
@@ -4795,12 +4826,22 @@ Example 75:
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
     <String>Product: </String>
-    <Path>ProductName</Path>
-    <String> (</String>
-    <Path>Available/Quantity</Path>
-    <String> </String>
-    <Path>Available/Unit</Path>
-    <String> available)</String>
+    <Apply Function="odata.concat">
+      <Path>ProductName</Path>
+      <Apply Function="odata.concat">
+        <String> (</String>
+        <Apply Function="odata.concat">
+          <Path>Available/Quantity</Path>
+          <Apply Function="odata.concat">
+            <String> </String>
+            <Apply Function="odata.concat">
+              <Path>Available/Unit</Path>
+              <String> available)</String>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Apply>
+    </Apply>
   </Apply>
 </Annotation>
 ```
@@ -4883,7 +4924,7 @@ primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
 Note: string literals are surrounded by single quotes as required by the
-paren-style key syntax.
+parentheses-style key syntax.
 
 
 ::: {.varxml .example}
@@ -5390,6 +5431,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 ::: {.varxml .example}
 Example 90:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
   <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
@@ -5508,6 +5550,7 @@ Example 90:
 ::: {.varxml .example}
 Example 91:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">
@@ -5527,10 +5570,12 @@ Example 91:
         <Annotation Term="Vocabulary1.Title" String="Supplier Info" />
         <Annotation Term="Vocabulary1.DisplayName">
         <Apply Function="odata.concat">
-            <Path>Name</Path>
+          <Path>Name</Path>
+          <Apply Function="odata.concat">
             <String> in </String>
             <Path>Address/CountryName</Path>
           </Apply>
+        </Apply>
         </Annotation>
       </Annotations>
       <Annotations Target="ODataDemo.Product">

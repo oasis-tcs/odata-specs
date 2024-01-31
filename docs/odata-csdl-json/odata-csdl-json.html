@@ -384,6 +384,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
 </tr>
+<tr class="even">
+<td><a href="#PrimitiveTypes">Section 3.3</a></td>
+<td>Allow stream-valued non-binding parameters</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1481">ODATA-1481</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -486,7 +491,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <h2 id="32-structured-types"><a name="StructuredTypes" href="#StructuredTypes">3.2 Structured Types</a></h2>
 <p>Structured types are composed of other model elements. Structured types are common in entity models as the means of representing entities and structured properties in an OData service. <a href="#EntityType">Entity types</a> and <a href="#ComplexType">complex types</a> are both structured types.</p>
-<p>Structured Types are composed of zero or more <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a>.</p>
+<p>Structured types are composed of zero or more <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a>. These properties can themselves be of a structured type.</p>
+<p>An instance of a structured type must have a finite representation that includes all its properties. These properties are either integral parts of the instance or references to instances. In the first case the integral parts must be represented as part of the overall representation. These integral parts are modeled as <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a>. If an instance of a structured type contains a chain of these, this chain MUST be finite for the overall representation to be finite, even if the chain of types leads back to the structured type of the instance. Note that in this circular case finiteness is only possible if the chain of instances ends with a null value or an empty collection. In the second case the references are modeled as <a href="#NavigationProperty">non-containment navigation properties</a>. Chains of these can be infinite, for example, if an entity contains a self-reference.</p>
 <p><a href="#OpenEntityType">Open entity types</a> and <a href="#OpenComplexType">open complex types</a> allow properties to be added dynamically to instances of the open type.</p>
 <h2 id="33-primitive-types"><a name="PrimitiveTypes" href="#PrimitiveTypes">3.3 Primitive Types</a></h2>
 <p>Structured types are composed of other structured types and primitive types. OData defines the following primitive types:</p>
@@ -634,7 +640,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </table>
 <p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XML-Schema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
-<p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or the binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections or for non-binding parameters to functions or actions.</p>
+<p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
 <p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
 <h2 id="34-type-facets"><a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -1217,6 +1223,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="71-type"><a name="Type" href="#Type">7.1 Type</a></h2>
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
+<p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="type-and-collection" class="varjson rep">
@@ -1291,6 +1298,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="81-navigation-property-type"><a name="NavigationPropertyType" href="#NavigationPropertyType">8.1 Navigation Property Type</a></h2>
 <p>The navigation property’s type MUST be an <a href="#EntityType">entity type</a> in scope, the <a href="#BuiltInAbstractTypes">abstract type</a> <code>Edm.EntityType</code>, or a collection of one of these types.</p>
+<p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
@@ -1859,7 +1867,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The entity set object MUST contain the members <code>$Collection</code> and <code>$Type</code>.</p>
 <p>It MAY contain the members <code>$IncludeInServiceDocument</code> and <a href="#NavigationPropertyBinding"><code>$NavigationPropertyBinding</code></a> as well as <a href="#Annotation">annotations</a>.</p>
 <h3 id="collection"><a name="Collection.16.1" href="#Collection.16.1"><code>$Collection</code></a></h3>
-<p>The value of <code>$Collection</code> is the Booelan value <code>true</code>.</p>
+<p>The value of <code>$Collection</code> is the Boolean value <code>true</code>.</p>
 <h3 id="type"><a name="Type.16.2" href="#Type.16.2"><code>$Type</code></a></h3>
 <p>The value of <code>$Type</code> is the qualified name of an entity type.</p>
 <h3 id="includeinservicedocument"><a name="IncludeInServiceDocument.16.3" href="#IncludeInServiceDocument.16.3"><code>$IncludeInServiceDocument</code></a></h3>
@@ -1972,7 +1980,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A <em>vocabulary</em> is a schema containing a set of terms where each <a href="#Term">term</a> is a named metadata extension. Anyone can define a vocabulary (a set of terms) that is scenario-specific or company-specific; more commonly used terms can be published as shared vocabularies such as the OData Core vocabulary <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>A <a href="#Term">term</a> can be used to:</p>
 <ul>
-<li>Extend model elements and type instances with additional information.</li>
+<li>Extend model elements and type instances with additional information. Type instances are instances of a <a href="#PrimitiveTypes">primitive type</a>, including <a href="#TypeDefinition">type definitions</a> and <a href="#EnumerationType">enumeration types</a>, of an <a href="#EntityType">entity type</a>, or of a <a href="#ComplexType">complex type</a>.</li>
 <li>Map instances of annotated structured types to an interface defined by the term type; i.e. annotations allow viewing instances of a structured type as instances of a differently structured type specified by the applied term.</li>
 </ul>
 <p>A service SHOULD NOT require a client to interpret annotations. Clients SHOULD ignore invalid or unknown terms and silently treat unexpected or invalid values (including invalid type, invalid literal expression, invalid targets, etc.) as an unknown value for the term. Unknown or invalid annotations should never result in an error, as long as the payload remains well-formed.</p>
@@ -2006,14 +2014,19 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Products(&quot;</span><span class="ot">,</span></span>
 <span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ID&quot;</span></span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;)&quot;</span></span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ID&quot;</span></span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;)&quot;</span></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="141-term"><a name="Term" href="#Term">14.1 Term</a></h2>
 <p>A term allows annotating a model element or OData resource representation with additional data.</p>
@@ -2507,8 +2520,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1441-path-expressions"><a name="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a></h3>
 <p>Path expressions allow assigning a value to an applied term or term component. There are two kinds of path expressions:</p>
 <ul>
-<li>A <em>model path</em> is used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions to traverse the model of a service and resolves to the model element identified by the path. It allows assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and their base types <code>Edm.AnyPropertyPath</code> and <code>Edm.ModelElementPath</code>.</li>
-<li>An <em>instance path</em> is used within a <a href="#ValuePath">Value Path</a> expression to traverse a graph of type instances and resolves to the value identified by the path. It allows assigning values to terms or term properties of built-in types other than the <code>Edm.*Path</code> types, or of any model-defined type.</li>
+<li>A <em>model path</em> is evaluated on the entity model of a service and resolves to a model element. Model paths are used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions. They allow assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.ModelElementPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and <code>Edm.AnyPropertyPath</code>.</li>
+<li>An <em>instance path</em> is evaluated on a type instance and its nested or related type instances and resolves to the instance or collection of instances identified by the path. Instance paths are used within <a href="#ValuePath">Value Path</a> expressions. They allow assigning values to terms or term properties of model-defined types or of built-in types other than the <code>Edm.*Path</code> types.</li>
 </ul>
 <h4 id="14411-path-syntax"><a name="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a></h4>
 <p>Model paths and instance paths share a common syntax which is derived from the path expression syntax of URLs, see <a href="#ODataURL">OData-URL</a>.</p>
@@ -2620,12 +2633,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="er">,</span></span>
 <span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&quot;$Annotations&quot;:</span> <span class="fu">{</span></span>
 <span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;self.Container/SetA/A2&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Description#viaset@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Description#viaSet@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;B1&quot;</span></span>
 <span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Description#viaset&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Description#viaSet&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
 <span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;self.Container/SetA/A2/@Core.Description#viaset&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;self.Container/SetA/A2/@Core.Description#viaSet&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;B1&quot;</span></span>
 <span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
@@ -2651,10 +2664,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14413-annotation-path"><a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a></h4>
 <p>The annotation path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code> or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
-<li>A non-null path MUST resolve to an annotation.</li>
+<li>A non-null path MUST resolve to an <a href="#Annotation">annotation</a>.</li>
 </ul>
+<p>The value of the annotation path expression is the <em>path</em> to the annotation, not its instance value. This is useful for terms that reuse or refer to other terms.</p>
 <p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
-<p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <div class="varjson rep">
 <p>Annotation path expressions are represented as a string containing a path.</p>
 </div>
@@ -2681,7 +2694,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is an entity type, or a collection of entity types, e.g. a navigation property.</li>
 </ul>
-<p>The value of the navigation property path expression is the path itself, not the entitiy or collection of entities identified by the path.</p>
+<p>The value of the navigation property path expression is the path itself, not the entity or collection of entities identified by the path.</p>
 <div class="varjson rep">
 <p>Navigation property path expressions are represented as a string containing a path.</p>
 </div>
@@ -2700,7 +2713,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
-<p>The value of the property path expression is the path itself, not the value of the structural property or the value of the term cast identified by the path.</p>
+<p>The value of the property path expression is the path itself, not the value of the structural property or annotation identified by the path.</p>
 <div class="varjson rep">
 <p>Property path expressions are represented as a string containing a path.</p>
 </div>
@@ -2984,27 +2997,52 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>OData defines the following functions. Services MAY support additional functions that MUST be qualified with a namespace other than <code>odata</code>. Function names qualified with <code>odata</code> are reserved for this specification and its future versions.</p>
 <h4 id="14441-canonical-functions"><a name="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a></h4>
 <p>All canonical functions defined in <a href="#ODataURL">OData-URL</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="#ODataURL">OData-URL</a>.</p>
-<p>For example, the <code>odata.concat</code> client-side function takes two or more expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 <div class="varjson example">
 <p>Example 75:</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@UI.DisplayName&quot;:</span> <span class="fu">{</span></span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Product: &quot;</span><span class="ot">,</span></span>
 <span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ProductName&quot;</span></span>
-<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; (&quot;</span><span class="ot">,</span></span>
-<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Available/Quantity&quot;</span></span>
-<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; &quot;</span><span class="ot">,</span></span>
-<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Available/Unit&quot;</span></span>
-<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; available)&quot;</span></span>
-<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
-<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;ProductName&quot;</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot; (&quot;</span><span class="ot">,</span></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Available/Quantity&quot;</span></span>
+<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot; &quot;</span><span class="ot">,</span></span>
+<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">{</span></span>
+<span id="cb84-21"><a href="#cb84-21" aria-hidden="true" tabindex="-1"></a>                      <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb84-22"><a href="#cb84-22" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">{</span></span>
+<span id="cb84-23"><a href="#cb84-23" aria-hidden="true" tabindex="-1"></a>                          <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Available/Unit&quot;</span></span>
+<span id="cb84-24"><a href="#cb84-24" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb84-25"><a href="#cb84-25" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot; available)&quot;</span></span>
+<span id="cb84-26"><a href="#cb84-26" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-27"><a href="#cb84-27" aria-hidden="true" tabindex="-1"></a>                      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-28"><a href="#cb84-28" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">}</span></span>
+<span id="cb84-29"><a href="#cb84-29" aria-hidden="true" tabindex="-1"></a>                  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-30"><a href="#cb84-30" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-31"><a href="#cb84-31" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span></span>
+<span id="cb84-32"><a href="#cb84-32" aria-hidden="true" tabindex="-1"></a>              <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-33"><a href="#cb84-33" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-34"><a href="#cb84-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb84-35"><a href="#cb84-35" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-36"><a href="#cb84-36" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-37"><a href="#cb84-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb84-38"><a href="#cb84-38" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-39"><a href="#cb84-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-40"><a href="#cb84-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb84-41"><a href="#cb84-41" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb84-42"><a href="#cb84-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb84-43"><a href="#cb84-43" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p><code>ProductName</code> is of type <code>String</code>, <code>Quantity</code> in complex type <code>Available</code> is of type <code>Decimal</code>, and <code>Unit</code> in <code>Available</code> is of type enumeration, so the result of the <code>Path</code> expression is represented as the member name of the enumeration value.</p>
 <h4 id="14442-function-odatafilluritemplate"><a name="FunctionodatafillUriTemplate" href="#FunctionodatafillUriTemplate">14.4.4.2 Function <code>odata.fillUriTemplate</code></a></h4>
@@ -3046,7 +3084,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h4 id="14444-function-odatauriencode"><a name="FunctionodatauriEncode" href="#FunctionodatauriEncode">14.4.4.4 Function <code>odata.uriEncode</code></a></h4>
 <p>The <code>odata.uriEncode</code> client-side function takes one argument of primitive type and returns the URL-encoded OData literal that can be used as a key value in OData URLs or in the query part of OData URLs.</p>
-<p>Note: string literals are surrounded by single quotes as required by the paren-style key syntax.</p>
+<p>Note: string literals are surrounded by single quotes as required by the parentheses-style key syntax.</p>
 <div class="varjson example">
 <p>Example 78:</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -3550,22 +3588,27 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb104-31"><a href="#cb104-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
 <span id="cb104-32"><a href="#cb104-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Name&quot;</span></span>
 <span id="cb104-33"><a href="#cb104-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb104-34"><a href="#cb104-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot; in &quot;</span><span class="ot">,</span></span>
-<span id="cb104-35"><a href="#cb104-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
-<span id="cb104-36"><a href="#cb104-36" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Address/CountryName&quot;</span></span>
-<span id="cb104-37"><a href="#cb104-37" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
-<span id="cb104-38"><a href="#cb104-38" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb104-39"><a href="#cb104-39" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
-<span id="cb104-40"><a href="#cb104-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb104-41"><a href="#cb104-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb104-42"><a href="#cb104-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb104-43"><a href="#cb104-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Tags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb104-44"><a href="#cb104-44" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;MasterData&quot;</span></span>
-<span id="cb104-45"><a href="#cb104-45" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb104-46"><a href="#cb104-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb104-47"><a href="#cb104-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb104-48"><a href="#cb104-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb104-49"><a href="#cb104-49" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb104-34"><a href="#cb104-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span></span>
+<span id="cb104-35"><a href="#cb104-35" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Apply&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb104-36"><a href="#cb104-36" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot; in &quot;</span><span class="ot">,</span></span>
+<span id="cb104-37"><a href="#cb104-37" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb104-38"><a href="#cb104-38" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Address/CountryName&quot;</span></span>
+<span id="cb104-39"><a href="#cb104-39" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span></span>
+<span id="cb104-40"><a href="#cb104-40" aria-hidden="true" tabindex="-1"></a>              <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb104-41"><a href="#cb104-41" aria-hidden="true" tabindex="-1"></a>              <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb104-42"><a href="#cb104-42" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb104-43"><a href="#cb104-43" aria-hidden="true" tabindex="-1"></a>          <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb104-44"><a href="#cb104-44" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;$Function&quot;</span><span class="fu">:</span> <span class="st">&quot;odata.concat&quot;</span></span>
+<span id="cb104-45"><a href="#cb104-45" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb104-46"><a href="#cb104-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb104-47"><a href="#cb104-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target.Product&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb104-48"><a href="#cb104-48" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@Vocabulary1.Tags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb104-49"><a href="#cb104-49" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;MasterData&quot;</span></span>
+<span id="cb104-50"><a href="#cb104-50" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb104-51"><a href="#cb104-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb104-52"><a href="#cb104-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb104-53"><a href="#cb104-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb104-54"><a href="#cb104-54" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
 <h1 id="17-conformance"><a name="Conformance" href="#Conformance">17 Conformance</a></h1>

@@ -288,7 +288,7 @@ It MAY contain the members `$IncludeInServiceDocument` and
 
 ### ##subisec `$Collection`
 
-The value of `$Collection` is the Booelan value `true`.
+The value of `$Collection` is the Boolean value `true`.
 
 ### ##subisec `$Type`
 

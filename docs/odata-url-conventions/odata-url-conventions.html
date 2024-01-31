@@ -678,7 +678,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The <code>boundOperation</code> syntax rule (which encompasses the <code>boundActionCall</code> syntax rule), when used by the <code>resourcePath</code> syntax rule, illustrates how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.</li>
 </ul>
 <h3 id="452-addressing-functions"><a name="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a></h3>
-<p>The grammar for addressing and invoking functions is defined by a number syntax grammar rules in <a href="#ODataABNF">OData-ABNF</a>, in particular:</p>
+<p>The grammar for addressing and invoking functions is defined by syntax rules in <a href="#ODataABNF">OData-ABNF</a>, in particular:</p>
 <ul>
 <li>The function import call syntax rules <code>complexFunctionImportCall</code>, <code>complexColFunctionImportCall</code>, <code>entityFunctionImportCall</code>, <code>entityColFunctionImportCall</code>, <code>primitiveFunctionImportCall</code>, and <code>primitiveColFunctionImportCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function import directly from the service root.</li>
 <li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
@@ -686,6 +686,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
 <li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ul>
+<p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters.</p>
 <h2 id="46-addressing-a-property"><a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a></h2>
 <p>To address an entity property clients append a path segment containing the property name to the URL of the entity. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
 <h2 id="47-addressing-a-raw-value"><a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a></h2>

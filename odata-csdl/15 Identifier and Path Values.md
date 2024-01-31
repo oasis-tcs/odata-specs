@@ -310,6 +310,7 @@ Example ##ex:
 ::: {.varxml .example}
 Example ##ex:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
   <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
@@ -460,9 +461,14 @@ Example ##ex:
             {
               "$Path": "Name"
             },
-            " in ",
             {
-              "$Path": "Address/CountryName"
+              "$Apply": [
+                " in ",
+                {
+                  "$Path": "Address/CountryName"
+                }
+              ],
+              "$Function": "odata.concat"
             }
           ],
           "$Function": "odata.concat"
@@ -482,6 +488,7 @@ Example ##ex:
 ::: {.varxml .example}
 Example ##ex:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">
@@ -501,10 +508,12 @@ Example ##ex:
         <Annotation Term="Vocabulary1.Title" String="Supplier Info" />
         <Annotation Term="Vocabulary1.DisplayName">
         <Apply Function="odata.concat">
-            <Path>Name</Path>
+          <Path>Name</Path>
+          <Apply Function="odata.concat">
             <String> in </String>
             <Path>Address/CountryName</Path>
           </Apply>
+        </Apply>
         </Annotation>
       </Annotations>
       <Annotations Target="ODataDemo.Product">
