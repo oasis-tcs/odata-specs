@@ -228,6 +228,7 @@ the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -267,9 +268,10 @@ Content-Length: ###
 ::: example
 Example ##ex: a batch request that contains the following operations in
 the order listed:
-the order listed:
+
 - Get an employee (with `Content-ID = 1`)
 - Get all employees residing in the same building
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -290,13 +292,10 @@ Content-Length: ###
     {
       "id": "2",
       "dependsOn": [ "1" ],
-      "method": "patch",
+      "method": "get",
       "url": "/service/Employees?$filter=Building eq $1/Building",
       "headers": {
         "accept": "application/json"
-      },
-      "body": {
-        <Filtered list of employees>
       }
     }
   ]
