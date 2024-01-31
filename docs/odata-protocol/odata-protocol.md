@@ -6007,6 +6007,7 @@ the order listed:
 A change set that contains the following requests:
 - Insert a new entity (with `Content-ID = 1`)
 - Insert a second new entity (references request with `Content-ID = 1`)
+
 ```
 POST /service/$batch HTTP/1.1
 Host: host
@@ -6091,6 +6092,7 @@ the order listed:
 
 - Get an employee (with `Content-ID = 1`)
 - Get all employees residing in the same building
+
 ```
 POST /service/$batch HTTP/1.1
 Host: host
