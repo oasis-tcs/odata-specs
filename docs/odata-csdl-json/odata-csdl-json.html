@@ -1980,7 +1980,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A <em>vocabulary</em> is a schema containing a set of terms where each <a href="#Term">term</a> is a named metadata extension. Anyone can define a vocabulary (a set of terms) that is scenario-specific or company-specific; more commonly used terms can be published as shared vocabularies such as the OData Core vocabulary <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>A <a href="#Term">term</a> can be used to:</p>
 <ul>
-<li>Extend model elements and type instances with additional information.</li>
+<li>Extend model elements and type instances with additional information. Type instances are instances of a <a href="#PrimitiveTypes">primitive type</a>, including <a href="#TypeDefinition">type definitions</a> and <a href="#EnumerationType">enumeration types</a>, of an <a href="#EntityType">entity type</a>, or of a <a href="#ComplexType">complex type</a>.</li>
 <li>Map instances of annotated structured types to an interface defined by the term type; i.e. annotations allow viewing instances of a structured type as instances of a differently structured type specified by the applied term.</li>
 </ul>
 <p>A service SHOULD NOT require a client to interpret annotations. Clients SHOULD ignore invalid or unknown terms and silently treat unexpected or invalid values (including invalid type, invalid literal expression, invalid targets, etc.) as an unknown value for the term. Unknown or invalid annotations should never result in an error, as long as the payload remains well-formed.</p>
@@ -2520,8 +2520,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1441-path-expressions"><a name="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a></h3>
 <p>Path expressions allow assigning a value to an applied term or term component. There are two kinds of path expressions:</p>
 <ul>
-<li>A <em>model path</em> is used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions to traverse the model of a service and resolves to the model element identified by the path. It allows assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and their base types <code>Edm.AnyPropertyPath</code> and <code>Edm.ModelElementPath</code>.</li>
-<li>An <em>instance path</em> is used within a <a href="#ValuePath">Value Path</a> expression to traverse a graph of type instances and resolves to the value identified by the path. It allows assigning values to terms or term properties of built-in types other than the <code>Edm.*Path</code> types, or of any model-defined type.</li>
+<li>A <em>model path</em> is evaluated on the entity model of a service and resolves to a model element. Model paths are used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions. They allow assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.ModelElementPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and <code>Edm.AnyPropertyPath</code>.</li>
+<li>An <em>instance path</em> is evaluated on a type instance and its nested or related type instances and resolves to the instance or collection of instances identified by the path. Instance paths are used within <a href="#ValuePath">Value Path</a> expressions. They allow assigning values to terms or term properties of model-defined types or of built-in types other than the <code>Edm.*Path</code> types.</li>
 </ul>
 <h4 id="14411-path-syntax"><a name="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a></h4>
 <p>Model paths and instance paths share a common syntax which is derived from the path expression syntax of URLs, see <a href="#ODataURL">OData-URL</a>.</p>
@@ -2664,10 +2664,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14413-annotation-path"><a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a></h4>
 <p>The annotation path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code> or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
-<li>A non-null path MUST resolve to an annotation.</li>
+<li>A non-null path MUST resolve to an <a href="#Annotation">annotation</a>.</li>
 </ul>
+<p>The value of the annotation path expression is the <em>path</em> to the annotation, not its instance value. This is useful for terms that reuse or refer to other terms.</p>
 <p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
-<p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <div class="varjson rep">
 <p>Annotation path expressions are represented as a string containing a path.</p>
 </div>
@@ -2713,7 +2713,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
-<p>The value of the property path expression is the path itself, not the value of the structural property or the value of the term cast identified by the path.</p>
+<p>The value of the property path expression is the path itself, not the value of the structural property or annotation identified by the path.</p>
 <div class="varjson rep">
 <p>Property path expressions are represented as a string containing a path.</p>
 </div>
