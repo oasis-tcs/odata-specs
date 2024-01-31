@@ -293,9 +293,10 @@ For complete copyright information please see the full Notices section in an App
       - [11.7.7.1 Multipart Batch Request Body](#MultipartBatchRequestBody)
       - [11.7.7.2 Referencing New Entities](#ReferencingNewEntities)
       - [11.7.7.3 Referencing an ETag](#ReferencinganETag)
-      - [11.7.7.4 Processing a Multipart Batch Request](#ProcessingaMultipartBatchRequest)
-      - [11.7.7.5 Multipart Batch Response](#MultipartBatchResponse)
-      - [11.7.7.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+      - [11.7.7.4 Referencing Response Body Values](#ReferencingResponseBodyValues)
+      - [11.7.7.5 Processing a Multipart Batch Request](#ProcessingaMultipartBatchRequest)
+      - [11.7.7.6 Multipart Batch Response](#MultipartBatchResponse)
+      - [11.7.7.7 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [12 Conformance](#Conformance)
   - [12.1 OData 4.0 Service Conformance Levels](#OData40ServiceConformanceLevels)
     - [12.1.1 OData 4.0 Minimal Conformance Level](#OData40MinimalConformanceLevel)
@@ -6046,7 +6047,7 @@ Content-Length: ###
 ::: example
 Example 106: a batch request that contains the following operations in
 the order listed:
-- Get an Employee (with `Content-ID = 1`)
+- Get an employee (with `Content-ID = 1`)
 - Update the salary only if the employee has not changed
 ```json
 POST /service/$batch HTTP/1.1
@@ -6081,7 +6082,43 @@ If-Match: $1
 ```
 :::
 
-#### <a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.4 Processing a Multipart Batch Request</a>
+#### <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
+
+::: example
+Example 107: a batch request that contains the following operations in
+the order listed:
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+```
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Length: ###
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 1
+
+GET /service/Employees/0?$select=Building HTTP/1.1
+Host: host
+Accept: application/json
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 2
+
+GET /service/Employees?$filter=Building eq $1/Building HTTP/1.1
+Host: host
+Accept: application/json
+
+<Filtered list of employees>
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--
+```
+:::
+
+#### <a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a>
 
 The service MUST process the individual requests and change sets within
 a multipart batch request in the order received. Processing stops on the
@@ -6101,7 +6138,7 @@ specifies a request identifier, the service MUST include the
 `Content-ID` header with the request identifier in the corresponding
 response so clients can correlate requests and responses.
 
-#### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a>
+#### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a>
 
 A multipart response to a batch request MUST contain a `Content-Type`
 header with value `multipart/mixed`.
@@ -6143,7 +6180,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 107: referencing the batch request example 101 above, assume all
+Example 108: referencing the batch request example 101 above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6194,7 +6231,7 @@ Content-Length: ###
 ```
 :::
 
-#### <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.6 Asynchronous Batch Requests</a>
+#### <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.7 Asynchronous Batch Requests</a>
 
 Batch requests MAY be executed asynchronously by including the
 [`respond-async`](#Preferencerespondasync) preference in the
@@ -6220,7 +6257,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 108: referencing the example 101 above again, assume that
+Example 109: referencing the example 101 above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
