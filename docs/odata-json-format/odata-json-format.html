@@ -1810,7 +1810,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 <h2 id="194-referencing-response-body-values"><a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a></h2>
 <div class="example">
-<p>Example 51: a batch request that contains the following operations in the order listed: the order listed:</p>
+<p>Example 51: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Get all employees residing in the same building</li>
@@ -1834,17 +1834,14 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;2&quot;</span><span class="fu">,</span></span>
 <span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;dependsOn&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;1&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;patch&quot;</span><span class="fu">,</span></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;get&quot;</span><span class="fu">,</span></span>
 <span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Employees?$filter=Building eq $1/Building&quot;</span><span class="fu">,</span></span>
 <span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;accept&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json&quot;</span></span>
-<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a>        <span class="er">&lt;Filtered</span> <span class="er">list</span> <span class="er">of</span> <span class="er">employees&gt;</span></span>
-<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="195-processing-a-batch-request"><a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a></h2>
 <p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within an atomicity group that may have been applied before another request in that same atomicity group failed.</p>

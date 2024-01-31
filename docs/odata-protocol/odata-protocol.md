@@ -6007,6 +6007,7 @@ the order listed:
 A change set that contains the following requests:
 - Insert a new entity (with `Content-ID = 1`)
 - Insert a second new entity (references request with `Content-ID = 1`)
+
 ```
 POST /service/$batch HTTP/1.1
 Host: host
@@ -6047,6 +6048,7 @@ Content-Length: ###
 ::: example
 Example 106: a batch request that contains the following operations in
 the order listed:
+
 - Get an employee (with `Content-ID = 1`)
 - Update the salary only if the employee has not changed
 ```json
@@ -6087,8 +6089,10 @@ If-Match: $1
 ::: example
 Example 107: a batch request that contains the following operations in
 the order listed:
+
 - Get an employee (with `Content-ID = 1`)
 - Get all employees residing in the same building
+
 ```
 POST /service/$batch HTTP/1.1
 Host: host
@@ -6113,7 +6117,7 @@ GET /service/Employees?$filter=Building eq $1/Building HTTP/1.1
 Host: host
 Accept: application/json
 
-<Filtered list of employees>
+
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
 :::
