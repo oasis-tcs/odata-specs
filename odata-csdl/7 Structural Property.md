@@ -98,6 +98,12 @@ The property's type MUST be a [primitive type](#PrimitiveTypes),
 [complex type](#ComplexType), or [enumeration type](#EnumerationType) in
 scope, or a collection of one of these types.
 
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
+
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in
@@ -352,6 +358,12 @@ Category, which has a navigation link back to one or more products
 The navigation property's type MUST be an [entity type](#EntityType) in
 scope, the [abstract type](#BuiltInAbstractTypes) `Edm.EntityType`, or a
 collection of one of these types.
+
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
 
 If the type is a collection, an arbitrary number of entities can be
 related. Otherwise there is at most one related entity.
