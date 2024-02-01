@@ -2487,6 +2487,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 ::: example
 ⚠ Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
