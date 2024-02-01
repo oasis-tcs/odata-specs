@@ -36,7 +36,9 @@ vocabularies such as the OData Core vocabulary
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
-with additional information.
+with additional information. Type instances are instances of a [primitive type](#PrimitiveTypes),
+including [type definitions](#TypeDefinition) and [enumeration types](#EnumerationType),
+of an [entity type](#EntityType), or of a [complex type](#ComplexType).
 - Map instances of annotated structured
 types to an interface defined by the term type; i.e. annotations allow
 viewing instances of a structured type as instances of a differently
@@ -1305,20 +1307,19 @@ term.
 
 Path expressions allow assigning a value to an applied term or term
 component. There are two kinds of path expressions:
-- A *model path* is used within
+- A *model path* is evaluated on the entity model of a service and resolves to a model element.
+Model paths are used within
 [Annotation Path](#AnnotationPath), [Model Element Path](#ModelElementPath),
-[Navigation Property Path](#NavigationPropertyPath), and [Property
-Path](#PropertyPath) expressions to traverse the model of a service and
-resolves to the model element identified by the path. It allows
-assigning values to terms or term properties of the [built-in
-types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
-`Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and their base types
-`Edm.AnyPropertyPath` and `Edm.ModelElementPath`.
-- An *instance path* is used within a
-[Value Path](#ValuePath) expression to traverse a graph of type
-instances and resolves to the value identified by the path. It allows
-assigning values to terms or term properties of built-in types other
-than the `Edm.*Path` types, or of any model-defined type.
+[Navigation Property Path](#NavigationPropertyPath), and [Property Path](#PropertyPath) expressions.
+They allow assigning values to terms or term properties of the 
+[built-in types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
+`Edm.ModelElementPath`, `Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and
+`Edm.AnyPropertyPath`.
+- An *instance path* is evaluated on a type instance and its nested or related type instances
+and resolves to the instance or collection of instances identified by the path.
+Instance paths are used within [Value Path](#ValuePath) expressions.
+They allow assigning values to terms or term properties of model-defined types or of built-in types other
+than the `Edm.*Path` types.
 
 #### ##subsubsubsec Path Syntax
 
@@ -1696,16 +1697,15 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an annotation.
+- A non-null path MUST resolve to an [annotation](#Annotation).
+
+The value of the annotation path expression is the _path_ to the annotation, not its instance value.
+This is useful for terms that reuse or refer to other terms.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
-
-The value of the annotation path expression is the path itself, not the
-value of the annotation identified by the path. This is useful for terms
-that reuse or refer to other terms.
 
 ::: {.varjson .rep}
 Annotation path expressions are represented as a string containing a
@@ -1857,7 +1857,7 @@ element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
-value of the structural property or the value of the term cast
+value of the structural property or annotation
 identified by the path.
 
 ::: {.varjson .rep}
