@@ -496,7 +496,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Names are case-sensitive, but service authors SHOULD NOT choose names that differ only in case.</p>
 <h2 id="32-structured-types"><a name="StructuredTypes" href="#StructuredTypes">3.2 Structured Types</a></h2>
 <p>Structured types are composed of other model elements. Structured types are common in entity models as the means of representing entities and structured properties in an OData service. <a href="#EntityType">Entity types</a> and <a href="#ComplexType">complex types</a> are both structured types.</p>
-<p>Structured Types are composed of zero or more <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a>.</p>
+<p>Structured types are composed of zero or more <a href="#StructuralProperty">structural properties</a> and <a href="#NavigationProperty">navigation properties</a>. These properties can themselves be of a structured type.</p>
+<p>An instance of a structured type must have a finite representation that includes all its properties. These properties are either integral parts of the instance or references to instances. In the first case the integral parts must be represented as part of the overall representation. These integral parts are modeled as <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a>. If an instance of a structured type contains a chain of these, this chain MUST be finite for the overall representation to be finite, even if the chain of types leads back to the structured type of the instance. Note that in this circular case finiteness is only possible if the chain of instances ends with a null value or an empty collection. In the second case the references are modeled as <a href="#NavigationProperty">non-containment navigation properties</a>. Chains of these can be infinite, for example, if an entity contains a self-reference.</p>
 <p><a href="#OpenEntityType">Open entity types</a> and <a href="#OpenComplexType">open complex types</a> allow properties to be added dynamically to instances of the open type.</p>
 <h2 id="33-primitive-types"><a name="PrimitiveTypes" href="#PrimitiveTypes">3.3 Primitive Types</a></h2>
 <p>Structured types are composed of other structured types and primitive types. OData defines the following primitive types:</p>
@@ -1227,6 +1228,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="71-type"><a name="Type" href="#Type">7.1 Type</a></h2>
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
+<p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
 <p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="type-and-collection" class="varjson rep">
@@ -1301,6 +1303,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="81-navigation-property-type"><a name="NavigationPropertyType" href="#NavigationPropertyType">8.1 Navigation Property Type</a></h2>
 <p>The navigation property’s type MUST be an <a href="#EntityType">entity type</a> in scope, the <a href="#BuiltInAbstractTypes">abstract type</a> <code>Edm.EntityType</code>, or a collection of one of these types.</p>
+<p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
@@ -1982,7 +1985,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A <em>vocabulary</em> is a schema containing a set of terms where each <a href="#Term">term</a> is a named metadata extension. Anyone can define a vocabulary (a set of terms) that is scenario-specific or company-specific; more commonly used terms can be published as shared vocabularies such as the OData Core vocabulary <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>A <a href="#Term">term</a> can be used to:</p>
 <ul>
-<li>Extend model elements and type instances with additional information.</li>
+<li>Extend model elements and type instances with additional information. Type instances are instances of a <a href="#PrimitiveTypes">primitive type</a>, including <a href="#TypeDefinition">type definitions</a> and <a href="#EnumerationType">enumeration types</a>, of an <a href="#EntityType">entity type</a>, or of a <a href="#ComplexType">complex type</a>.</li>
 <li>Map instances of annotated structured types to an interface defined by the term type; i.e. annotations allow viewing instances of a structured type as instances of a differently structured type specified by the applied term.</li>
 </ul>
 <p>A service SHOULD NOT require a client to interpret annotations. Clients SHOULD ignore invalid or unknown terms and silently treat unexpected or invalid values (including invalid type, invalid literal expression, invalid targets, etc.) as an unknown value for the term. Unknown or invalid annotations should never result in an error, as long as the payload remains well-formed.</p>
@@ -2577,8 +2580,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1441-path-expressions"><a name="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a></h3>
 <p>Path expressions allow assigning a value to an applied term or term component. There are two kinds of path expressions:</p>
 <ul>
-<li>A <em>model path</em> is used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions to traverse the model of a service and resolves to the model element identified by the path. It allows assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and their base types <code>Edm.AnyPropertyPath</code> and <code>Edm.ModelElementPath</code>.</li>
-<li>An <em>instance path</em> is used within a <a href="#ValuePath">Value Path</a> expression to traverse a graph of type instances and resolves to the value identified by the path. It allows assigning values to terms or term properties of built-in types other than the <code>Edm.*Path</code> types, or of any model-defined type.</li>
+<li>A <em>model path</em> is evaluated on the entity model of a service and resolves to a model element. Model paths are used within <a href="#AnnotationPath">Annotation Path</a>, <a href="#ModelElementPath">Model Element Path</a>, <a href="#NavigationPropertyPath">Navigation Property Path</a>, and <a href="#PropertyPath">Property Path</a> expressions. They allow assigning values to terms or term properties of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code>, <code>Edm.ModelElementPath</code>, <code>Edm.NavigationPropertyPath</code>, <code>Edm.PropertyPath</code>, and <code>Edm.AnyPropertyPath</code>.</li>
+<li>An <em>instance path</em> is evaluated on a type instance and its nested or related type instances and resolves to the instance or collection of instances identified by the path. Instance paths are used within <a href="#ValuePath">Value Path</a> expressions. They allow assigning values to terms or term properties of model-defined types or of built-in types other than the <code>Edm.*Path</code> types.</li>
 </ul>
 <h4 id="14411-path-syntax"><a name="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a></h4>
 <p>Model paths and instance paths share a common syntax which is derived from the path expression syntax of URLs, see <a href="#ODataURL">OData-URL</a>.</p>
@@ -2721,10 +2724,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14413-annotation-path"><a name="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a></h4>
 <p>The annotation path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code> or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
 <ul>
-<li>A non-null path MUST resolve to an annotation.</li>
+<li>A non-null path MUST resolve to an <a href="#Annotation">annotation</a>.</li>
 </ul>
+<p>The value of the annotation path expression is the <em>path</em> to the annotation, not its instance value. This is useful for terms that reuse or refer to other terms.</p>
 <p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
-<p>The value of the annotation path expression is the path itself, not the value of the annotation identified by the path. This is useful for terms that reuse or refer to other terms.</p>
 <div class="varjson rep">
 <p>Annotation path expressions are represented as a string containing a path.</p>
 </div>
@@ -2770,7 +2773,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ul>
 <li>A non-null path MUST resolve to a model element whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
 </ul>
-<p>The value of the property path expression is the path itself, not the value of the structural property or the value of the term cast identified by the path.</p>
+<p>The value of the property path expression is the path itself, not the value of the structural property or annotation identified by the path.</p>
 <div class="varjson rep">
 <p>Property path expressions are represented as a string containing a path.</p>
 </div>
